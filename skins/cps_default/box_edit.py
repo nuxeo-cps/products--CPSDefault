@@ -72,8 +72,9 @@ if sf:
 
 box.edit(**kw)
 
+psm = 'psm_box_modified'
+
 if REQUEST is not None:
-    psm = 'psm_box_modified'
     if kw.get('change_and_edit'):
         action_path = 'basebox_edit_form'
         psm = psm + '&box_url=' + box_url
@@ -82,5 +83,4 @@ if REQUEST is not None:
     REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' %
                               (context.absolute_url(), action_path,
                                psm))
-# FIXME can't work
 return psm

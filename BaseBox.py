@@ -101,7 +101,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     visible_if_empty = 0
 
     def __init__(self, id, minimized=0, closed=0, style='',
-                 xpos=1, ypos=0, **kw):
+                 xpos=0, ypos=0, **kw):
         DefaultDublinCoreImpl.__init__(self)        
         self.id = id
         self.minimized = minimized
@@ -110,6 +110,15 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         self.xpos = int(xpos)
         self.ypos = int(ypos)
 
+
+    security.declarePublic('getSettings')
+    def getSettings(self):
+        """ return a dictionary """
+        return {'xpos': self.xpos,
+                'ypos': self.ypos,
+                'minimized': self.minimized,
+                'style': self.style,
+                }
 
     def getPhysicalParentPath(self):
         parentpath = self.getPhysicalPath()[:-1]
@@ -222,30 +231,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             (actionid, self.absolute_url(relative=1)))
 
 
-    security.declareProtected(View, 'render')
-    def render(self, **kw):
-        """
-        Renders the box.
-        """
-        ti = self.getTypeInfo()
-        if ti is None:
-            raise Exception('No portal type found for box: %s' % self.getId())
-        
-        template_name = ti.getActionById('render_box')
-        if not template_name:
-            raise Exception('No action to render template for box: %s' % self.getId())
-        try:
-            macro = self.restrictedTraverse(template_name).macros.get(self.style)
-        except AttributeError:
-            raise Exception('Page template \'%s\' not found for box: %s' %
-                            (template_name, self.getId()))
-        if not macro:
-            raise Exception('No render macro for box: %s' % self.getId())
-        return self.render_macro(macro=macro)
-
-
     security.declareProtected(View, 'getMacro')
-    def getMacro(self, **kw):
+    def getMacro(self, style=None):
         """
         GetMacros to render the box.
         """
@@ -256,8 +243,9 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         template_name = ti.getActionById('render_box')
         if not template_name:
             raise Exception('No render template for box: %s' % self.getId())
-
-        return 'here/%s/macros/%s' % (template_name, self.style)
+        if style is None:
+            style = self.style
+        return 'here/%s/macros/%s' % (template_name, style)
 
 
     security.declareProtected(View, 'edit_form')

@@ -34,16 +34,18 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="search_folder_prefix_option"
-  tal:define="id sfpo_id|string:fp;id1 string:${id}1; id2 string:${id}2">
+  tal:define="id sfpo_id|string:fp;id1 string:${id}1; id2 string:${id}2;
+  contextualSearch python:request.has_key('folder_prefix') and request.get('folder_prefix')
+  ">
   <input type="radio" name="folder_prefix" class="noborder"
     tal:attributes="id id1;
-      checked request/folder_prefix|not:nothing;
+      checked contextualSearch;
       value python: utool.getRelativeUrl(here)" />
   <label tal:attributes="for id1"
     i18n:translate="label_search_here">here</label>
   <input type="radio" name="folder_prefix" value="" class="noborder"
     tal:attributes="id id2;
-    checked python: request.has_key('folder_prefix') and not request['folder_prefix']" />
+    checked not:contextualSearch" />
   <label tal:attributes="for id2"
     i18n:translate="label_search_all_site">all</label><br />
 </metal:block>

@@ -1,47 +1,43 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       tal:define="showthirdcol nothing">
+
   <body metal:use-macro="here/main_template/macros/master">
     <div metal:fill-slot="main">
-      
       <tal:block define="SearchableText python:request.get('SearchableText','');
-                         items python:here.search(SearchableText=SearchableText,
-                                                  sort_by='status');
+                         items python:here.search(query=request.form);
                          nav_action string:search_form;
                          format string:compact;
                          columns python:2;
                          items_per_page python:15;
                          no_form python:1;
-                         items_length python:len(items)">
+                         items_length python:len(items);">
+        
         <div>
-          <form method="get" action="search_form"
+          <form method="get" action="/search_form"
                 tal:attributes="action string:${portal_url}/search_form">
             &nbsp;<a href="advanced_search_form"
-              tal:attributes="href string:${portal_url}/advanced_search_form">
+                     tal:attributes="href string:${portal_url}/advanced_search_form">
               Advanced search
             </a>
             <br/>
-            <input id="searchGadget" type="text" name="SearchableText" size="64"
-                   value=""
+            <input id="searchGadget" type="text" name="" value="" size="64"
                    tal:attributes="value SearchableText" />
             <input class="context searchButton" type="submit" value="OK" />
           </form><br/>
         </div>
         <div>
-          Your query
-          '<span class="emphasys" tal:content="SearchableText">
-             Query
-          </span>' 
-          <tal:block condition="not:items_length"> 
-            gave <span class="emphasys">no</span> result.
+          Your query '<span class="emphasis"
+                            tal:content="SearchableText">Query</span>'
+          <tal:block condition="python:items_length == 0">
+            gave <span class="emphasis">no</span> result.
           </tal:block>
-          <tal:block condition="python:items_length == 1"> 
-            gave <span class="emphasys">1</span> result.
+          <tal:block condition="python:items_length == 1">
+            gave <span class="emphasis">1</span> result.
           </tal:block>
-          <tal:block condition="python:items_length > 1"> 
-            gave
-            <span class="emphasys" tal:content="items_length">number</span>
-            results.
+          <tal:block condition="python:items_length > 1">
+            gave <span class="emphasis"
+                       tal:content="items_length">number</span> results.
           </tal:block>
         </div>
         <hr />

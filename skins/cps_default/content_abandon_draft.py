@@ -5,18 +5,18 @@ if REQUEST is not None:
     kw.update(REQUEST.form)
 
 wftool = context.portal_workflow
-folder = context.aq_parent
+folder_url = context.aq_parent.absolute_url()
 
 locked_ob = context.getLockedObjectFromDraft()
 
-if locked_ob is None:
-    # XXX Nothing was actually unlocked...
-    newid = context.getId()
+if locked_ob is not None:
+    url = folder_url+'/'+locked_ob.getId()
 else:
-    newid = locked_ob.getId()
-    wftool.doActionFor(context, 'abandon_draft')
+    # Locked objet must have been deleted already.
+    url = folder_url
+
+wftool.doActionFor(context, 'abandon_draft')
 
 if REQUEST is not None:
-    url = folder.absolute_url()+'/'+newid
     redirect_url = '%s/?%s' % (url, 'portal_status_message=psm_status_changed')
     REQUEST.RESPONSE.redirect(redirect_url)

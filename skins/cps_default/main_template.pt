@@ -72,7 +72,6 @@
     <td class="main" width="70%" valign="top"
       tal:attributes="width python:test(showthirdcol, '70%', '85%');
                       colspan python:test(showthirdcol, nothing, '2');">
-      <metal:block use-macro="here/generic_lib/macros/portal_message" />
 <!-- BEGIN CENTER_TOP Slot ======================== -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
         <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top')">
@@ -80,6 +79,7 @@
         </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_stop')" />
 <!-- END CENTER_TOP Slot ========================== -->
+      <metal:block use-macro="here/generic_lib/macros/portal_message" />
       <div class="document">
         <div id="content">
           <b tal:replace="python:CPSD_bmt_mark('main_start')" />

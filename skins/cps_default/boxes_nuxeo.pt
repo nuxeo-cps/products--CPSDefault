@@ -267,7 +267,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_default"
-  tal:define="items python:box['box'].getTree(here,0);">
+  tal:define="items python:box['box'].getTree(here,filtering=0);">
 <tal:block condition="python: len(items)>0">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
@@ -291,7 +291,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_center"
-  tal:define="items python:box['box'].getTree(here,0);">
+  tal:define="items python:box['box'].getTree(here,filtering=0);">
 <tal:block condition="python: len(items)>0">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
@@ -345,7 +345,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_sitemap"
-             tal:define="items python:box['box'].getTree(here,0);">
+             tal:define="items python:box['box'].getTree(here,filtering=0);">
 <tal:block condition="python: len(items)>0">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
@@ -392,7 +392,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_restricted"
-  tal:define="items python:box['box'].getTree(here,1,0);">
+  tal:define="items python:box['box'].getTree(here,filtering=1,show_root=0);">
 <tal:block condition="python: len(items)>0">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
@@ -411,14 +411,21 @@
         </a>
         <span tal:condition="item/nb_children" tal:replace="string:*" />
         <br>
-        <tal:block tal:define="managers python:here.getManagers(item['rpath'])"
+        <tal:block tal:define="managers python:item['managers']"
                    tal:condition="managers">
           <span tal:replace="structure
                              python:' '*4*(item['depth']+1)"> </span>
           <tal:block tal:repeat="manager managers">
             <a style="text-decoration:underline" href=""
-               tal:attributes="href python:manager[1]" 
-               tal:content="python:manager[0]"></a>
+               tal:content="
+                 python:
+                   here.portal_metadirectories.members.getEntry(manager).get('fullname',manager)"
+               tal:attributes="href
+                 python:
+                   here.portal_url.getPortalPath() +
+                     '/directory_getentry?dirname=' +
+                     here.portal_metadirectories.members.id +
+                     '&entry_id='+manager"></a>
             <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
           </tal:block>
           <br>

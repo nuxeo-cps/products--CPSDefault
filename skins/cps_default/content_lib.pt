@@ -134,7 +134,7 @@ format:</pre>
           batch_info python:batches_all[1];
           zoomed python:batches_all[2];
      ">
-  <tal:block condition="python:batch_info['length'] != 0">
+  <tal:block condition="batch_info">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr class="even">
         <td align="right" width="100%"
@@ -172,7 +172,7 @@ format:</pre>
       </td>
     </tr>
   </table>
-  <tal:block condition="python:batch_info['nb_pages'] > 1">
+  <tal:block condition="python:batch_info and batch_info['nb_pages'] > 1">
     <br>
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr class="even">

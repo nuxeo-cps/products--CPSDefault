@@ -1,13 +1,30 @@
 
 HOWTO to setup CPS with Apache httpd VirtualHost directives
 ===========================================================
+$Id$
+
+Here are some configuration examples using Apache httpd VirtualHost directives
+as it can be setup on a Debian Sarge machine with the "apache-ssl" package.
+
+Note that those configuration instructions are "apache-ssl" specific. It is of
+course possible instead of using the "apache-ssl" package to use the "apache"
+and "libapache-mod-ssl" packages, but the configuration to use might be slightly
+different.
+
+What you need:
+  * apt-get install apache-ssl
+  * Be sure to have the following line in your /etc/apache-ssl/modules.conf:
+    LoadModule proxy_module /usr/lib/apache/1.3/libproxy.so
+  * You should have the SSLDisable option at the server config level because we
+    will be using virtual hosts.
+  * You should generate a private key and certificate files for your web server.
+
+The port 9673 is the Zope default port on Debian, you might have to change it to
+8080 depending on your configuration.
+
 
 Sample HTTP + HTTPS configuration
 ---------------------------------
-
-Here is a sample configuration using Apache httpd VirtualHost directives as it
-can be setup on a Debian Woody machine. The port 9673 is the Zope default port
-on Debian, you might have to change it to 8080 depending on your configuration.
 
 <VirtualHost 192.168.2.20:80>
 ServerName mysite.net
@@ -23,7 +40,10 @@ ErrorLog /var/log/apache-ssl/mysite.net-error.log
 
 <VirtualHost 192.168.2.20:443>
 ServerName mysite.net
+
 SSLEnable
+SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
+SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
 
 RewriteEngine on
 
@@ -63,7 +83,10 @@ ErrorLog /var/log/apache-ssl/mysite.net-error.log
 
 <VirtualHost 192.168.2.20:443>
 ServerName mysite.net
+
 SSLEnable
+SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
+SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
 
 RewriteEngine on
 

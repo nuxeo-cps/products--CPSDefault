@@ -1,4 +1,7 @@
 import os, sys
+from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
+     KEYWORD_VIEW_LANGUAGE
+
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
@@ -65,7 +68,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         new_lang = 'fr'
         self.portal.content_translate(lang=new_lang, proxy=proxy)
         # XXX reindex should have been done!
-        proxy.reindexObject()
+        #proxy.reindexObject()
 
         doc_new = proxy.getContent(lang=new_lang)
         self.assert_(doc_new.Language() == new_lang)
@@ -74,33 +77,37 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(default_lang in languages)
         self.assert_(new_lang in languages)
         self.assert_(not has_path(catalog, "/portal/workspaces/"+proxy_id))
-        self.assert_(
-            has_path(catalog,
-                     "/portal/workspaces/"+proxy_id+"/viewLanguage/"+new_lang))
-        self.assert_(
-            has_path(catalog,
-                     "/portal/workspaces/"+proxy_id+"/viewLanguage/"+default_lang))
+        self.assert_(has_path(catalog, "/portal/workspaces/%s/%s/%s" % (
+            proxy_id, KEYWORD_VIEW_LANGUAGE, new_lang)))
+        self.assert_(has_path(catalog, "/portal/workspaces/%s/%s/%s" % (
+            proxy_id, KEYWORD_VIEW_LANGUAGE, default_lang)))
 
         #print "checking switchLanguage  --------------------"
         # note that this must be checked before viewLanguage
         for lang in languages:
             proxy_tmp = self.portal.unrestrictedTraverse(
-                "/portal/workspaces/"+proxy_id+"/switchLanguage/"+lang)
+                "/portal/workspaces/%s/%s/%s" % (proxy_id,
+                                                 KEYWORD_SWITCH_LANGUAGE,
+                                                 lang))
             doc = proxy.getContent()
             self.assert_(doc.Language() == lang)
 
         #print "checking viewLanguage  --------------------"
         for lang in languages:
             proxy_tmp = self.portal.unrestrictedTraverse(
-                "/portal/workspaces/"+proxy_id+"/viewLanguage/"+lang)
+                "/portal/workspaces/%s/%s/%s" % (proxy_id,
+                                                 KEYWORD_VIEW_LANGUAGE,lang))
             doc = proxy.getContent()
             self.assert_(doc.Language() == lang)
 
         #print "checking priority of viewLanguage --------------------"
         proxy_v = self.portal.unrestrictedTraverse(
-            "/portal/workspaces/"+proxy_id+"/viewLanguage/"+new_lang)
+            "/portal/workspaces/%s/%s/%s" % (proxy_id, KEYWORD_VIEW_LANGUAGE,
+                                             new_lang))
         proxy_s = self.portal.unrestrictedTraverse(
-            "/portal/workspaces/"+proxy_id+"/switchLanguage/"+default_lang)
+            "/portal/workspaces/%s/%s/%s" % (proxy_id,
+                                             KEYWORD_SWITCH_LANGUAGE,
+                                             default_lang))
         doc = proxy.getContent()
         self.assert_(doc.Language() == new_lang)
 
@@ -132,8 +139,10 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
 
         self.assert_(proxy_id not in ws.objectIds())
         self.assert_(not has_path(catalog, "/portal/workspaces/"+proxy_id))
-        self.assert_(not has_path(catalog, "/portal/workspaces/"+proxy_id+"/viewLanguage/fr"))
-        self.assert_(not has_path(catalog, "/portal/workspaces/"+proxy_id+"/viewLanguage/en"))
+        self.assert_(not has_path(catalog, "/portal/workspaces/%s/%s/%s" % (
+                proxy_id, KEYWORD_VIEW_LANGUAGE, 'fr')))
+        self.assert_(not has_path(catalog, "/portal/workspaces/%s/%s/%s" % (
+                proxy_id, KEYWORD_VIEW_LANGUAGE, 'en')))
 
 
 def test_suite():

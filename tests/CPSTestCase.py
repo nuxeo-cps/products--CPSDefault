@@ -69,6 +69,10 @@ class DummyMessageCatalog:
     def __call__(self, message, *args, **kw):
         return message
 
+    def get_selected_language(self):
+        "xxx"
+        return 'fr'
+
     def get_languages(self):
         return ['en', 'fr']
 

@@ -60,6 +60,15 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertNotEquals(self.portal.computeId(id, lang='fr'),
                              "message_from_president")
 
+    def testComputeId_1(self):
+        # should keep meaningless word if their is only one !
+        for id in ('a', 'the'):
+            self.assertEquals(self.portal.computeId(id, lang='en'), id)
+
+    def testComputeId_2(self):
+        # should keep something if the title is meaningless
+        self.assertEquals(self.portal.computeId("the the", lang='en'), "the")
+
     def testTruncURL(self):
         url = 'http://youpilala.com/il/fait/beau/et/chaud/ajourd/hui'
         self.assertEquals(self.portal.truncURL(url, 10), 'you...hui')

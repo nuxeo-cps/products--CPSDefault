@@ -1,8 +1,9 @@
 ##parameters=ids=[], REQUEST=None
 #$Id$
-
 """
-Cut an object. Used within the folder_contents template.
+Cut objects to the clipboard.
+
+Used within the folder_contents template.
 """
 
 if ids:

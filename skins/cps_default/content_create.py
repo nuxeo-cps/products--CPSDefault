@@ -2,7 +2,10 @@
 # $Id$
 """
 Create an object.
+
+FIXME: what are the parameters?
 """
+
 from urllib import urlencode
 
 if REQUEST is not None:

@@ -1,6 +1,9 @@
 ##parameters=query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100, REQUEST=None
 # $Id$
-"""Return a list of brains matching the query."""
+"""
+Return a list of brains matching the query.
+"""
+
 from zLOG import LOG, DEBUG, INFO
 
 catalog = context.portal_catalog
@@ -39,8 +42,8 @@ if query.has_key('search_relative_path'):
 # use filter set to remove objects inside 'portal_*' or named '.foo'
 query['cps_filter_sets'] = 'searchable'
 if hide_folder:
-    query['cps_filter_sets'] = {'query' : ('searchable', 'leaves'),
-                                'operator' : 'and'}
+    query['cps_filter_sets'] = {'query': ('searchable', 'leaves'),
+                                'operator': 'and'}
 
 # title search
 if query.has_key('Title'):

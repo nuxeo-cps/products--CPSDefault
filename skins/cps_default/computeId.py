@@ -1,10 +1,11 @@
 ##parameters=compute_from='', max_chars_for_id=24, location=None, portal_type=None, lang=None
-
 # $Id$
-"""Generate an id from a given string.
+"""
+Generate an id from a given string.
 
 This method avoids collisions.
 """
+
 # TODO: Most of this code should be put into CPSCore.utils that should in turn
 # be made more generic and powerful to address more needs.
 
@@ -16,7 +17,7 @@ from zLOG import LOG, DEBUG
 
 GENERATION_MAX_TRIES = 500
 def generateNewId(id):
-    """Generate annew id.
+    """Generate a new id.
 
     This is to be used to avoid collisions.
     """

@@ -1,6 +1,8 @@
 ##parameters=box_url=None, REQUEST=None
 # $Id$
-"""Creates an ATOM feed from a Content Box content."""
+"""
+Creates an ATOM feed from a Content Box content.
+"""
 
 import re
 from cgi import escape
@@ -130,6 +132,8 @@ text = atom_feed % {'css_url': base_url + 'atom.css',
 
 if REQUEST is not None:
    REQUEST.RESPONSE.setHeader('Content-Type', 'application/xml; charset=ISO-8859-15')
+   # FIXME: Why no-cache here ? We need something more sensible since
+   # syndication generates lots of traffic.
    REQUEST.RESPONSE.setHeader('Cache-Control', 'no-cache')
 
 return text

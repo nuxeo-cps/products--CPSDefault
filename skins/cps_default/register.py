@@ -1,4 +1,8 @@
 ##parameters=password='password', confirm='confirm'
+# $Id$
+"""
+FIXME: docstring?
+"""
 
 from re import match
 from AccessControl import Unauthorized

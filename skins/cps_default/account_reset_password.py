@@ -1,4 +1,8 @@
 ##parameters=username, d, t, REQUEST
+# $Id$
+"""
+FIXME: add docstring
+"""
 
 from Products.CMFCore.utils import getToolByName
 

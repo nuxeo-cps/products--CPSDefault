@@ -1,4 +1,8 @@
 ##parameters=username, REQUEST
+# $Id$
+"""
+FIXME: add docstring.
+"""
 
 try:
     return context.portal_registration.mailPassword(username, REQUEST)

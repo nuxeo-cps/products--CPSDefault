@@ -1,5 +1,8 @@
 ##parameters=change_type, member_ids=[], member_role='', lr_block=None, lr_unblock=None, REQUEST=None
 # $Id$
+"""
+FIXME: add docstring.
+"""
 
 pmtool = context.portal_membership
 ids = member_ids

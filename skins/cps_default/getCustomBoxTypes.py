@@ -1,6 +1,8 @@
 ##parameters=
 # $Id$
-"""Return custom  box types."""
+"""
+Return custom  box types.
+"""
 
 items = [ ]
 

@@ -1,6 +1,8 @@
 ##parameters=ids=[]
 # $Id$
-""" Move the selected objects down within the directory """
+"""
+Move the selected objects down within the directory
+"""
 
 context_url = context.REQUEST.get("context_url", context.getContextUrl())
 

@@ -1,7 +1,11 @@
 ##parameters=
 # $Id$
-""" Sorting for display allowedContentTypes
-    if allowed=0 return Searchable portaltype"""
+"""
+Sorting for display allowedContentTypes
+if allowed=0, return Searchable portaltype
+
+FIXME: I don't understand.
+"""
 
 from Products.CMFCore.utils import getToolByName
 

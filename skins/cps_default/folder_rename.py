@@ -1,9 +1,9 @@
 ##parameters=
 # $Id$
-
 """
-Rename objects which ids are passed in the request. Used within the
-folder_contents template.
+Rename objects which ids are passed in the request.
+
+Used within the folder_contents template.
 """
 
 REQUEST = context.REQUEST

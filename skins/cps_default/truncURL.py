@@ -1,5 +1,8 @@
 ##parameters=url, size=80
 # $Id$
+"""
+FIXME: docstring.
+"""
 
 for pattern in ('http://', 'https://', 'ftp://'):
     if url.startswith(pattern):

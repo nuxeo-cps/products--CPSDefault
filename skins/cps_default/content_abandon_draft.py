@@ -1,5 +1,8 @@
 ##parameters=comments='', REQUEST=None, **kw
 # $Id$
+"""
+FIXME: add docstring.
+"""
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
@@ -10,7 +13,7 @@ folder_url = context.aq_parent.absolute_url()
 locked_ob = context.getLockedObjectFromDraft()
 
 if locked_ob is not None:
-    url = folder_url+'/'+locked_ob.getId()
+    url = folder_url + '/' + locked_ob.getId()
 else:
     # Locked objet must have been deleted already.
     url = folder_url

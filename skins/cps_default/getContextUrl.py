@@ -1,7 +1,11 @@
 ##parameters=obj=None, utool=None, concat=0
 # $Id$
-# return the minimal url to access the object ex: /, /cps/foo
-#  if concat=1 there is no trailing '/' ex: '', /cps/foo and
+"""
+Return the minimal url to access the object ex: /, /cps/foo
+
+If concat=1 there is no trailing '/' ex: '', /cps/foo
+"""
+
 if not utool:
     utool = context.portal_url
 base_url = context.getBaseUrl(utool=utool)

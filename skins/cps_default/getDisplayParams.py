@@ -1,6 +1,7 @@
 ##parameters=format=None, sort_by=None, direction=None, columns=None, items_per_page=None, nav_action=None, nb_items=None, filter=None, detail_tab_columns=None
 # $Id$
-""" return params for display_content macro """
+"""Return params for display_content macro
+"""
 
 cps_pref = context.REQUEST.SESSION.get('cps_display_params', {})
 

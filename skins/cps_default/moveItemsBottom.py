@@ -1,6 +1,10 @@
 ##parameters=ids=[]
 # $Id$
-""" Move the selected objects up within the directory """
+"""
+Move the selected objects up within the directory
+
+FIXME: docstring doesn't match method name.
+"""
 
 context_url = context.REQUEST.get("context_url", context.getContextUrl())
 

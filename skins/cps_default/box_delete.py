@@ -1,6 +1,10 @@
 ##parameters=REQUEST=None, **kw
 # $Id$
-"""Delete a box."""
+"""
+Delete a box.
+
+FIXME: which one ?
+"""
 
 if REQUEST is not None:
     kw.update(REQUEST.form)

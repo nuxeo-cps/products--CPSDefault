@@ -1,6 +1,7 @@
 ##parameters=
 # $Id$
-"""Returns the HTML for the current object's icon, if it is available.
+"""
+Return the HTML for the current object's icon, if it is available.
 """
 
 try:

@@ -1,6 +1,10 @@
 ##parameters=REQUEST=None, **kw
 # $Id$
-"""Edit an existing box."""
+"""
+Edit an existing box.
+
+FIXME: which one ?
+"""
 
 if REQUEST is not None:
     kw.update(REQUEST.form)

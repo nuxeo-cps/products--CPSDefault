@@ -1,6 +1,8 @@
 ##parameters=
 # $Id$
-"""Get all sections info with allowed publishing transitions"""
+"""
+Get all sections info with allowed publishing transitions
+"""
 
 sections = context.portal_trees.sections.getList()
 

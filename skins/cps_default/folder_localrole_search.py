@@ -1,5 +1,8 @@
 ##parameters=search_param=None, search_term=None
 #$Id$
+"""
+FIXME: add docstring.
+"""
 
 from AccessControl import Unauthorized
 

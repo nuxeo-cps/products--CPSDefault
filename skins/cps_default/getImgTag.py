@@ -1,6 +1,11 @@
 ##parameters=img_name, title=None, base_url=None, zoom=1, height=0, width=0, alt='', keep_ratio=0
 # $Id$
-""" return an html img tag"""
+"""
+Return an HTML img tag
+
+FIXME: need more explanation. What are the parameters?
+"""
+
 if not img_name:
     return ''
 if base_url is None:

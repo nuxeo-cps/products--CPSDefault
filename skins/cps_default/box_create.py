@@ -1,6 +1,8 @@
 ##parameters=REQUEST=None, **kw
 # $Id$
-"""Add a box to the context, create a box container if needed."""
+"""
+Add a box to the context, create a box container if needed.
+"""
 
 if REQUEST is not None:
     kw.update(REQUEST.form)

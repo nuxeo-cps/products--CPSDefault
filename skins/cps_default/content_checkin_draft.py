@@ -1,5 +1,8 @@
 ##parameters=comments='', REQUEST=None, **kw
 # $Id$
+"""
+FIXME: add docstring.
+"""
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
@@ -23,6 +26,6 @@ else:
     # XXX Could rename to original id, if we had it.
 
 if REQUEST is not None:
-    url = folder.absolute_url()+'/'+newid
+    url = folder.absolute_url() + '/' + newid
     redirect_url = '%s/?%s' % (url, 'portal_status_message=psm_status_changed')
     REQUEST.RESPONSE.redirect(redirect_url)

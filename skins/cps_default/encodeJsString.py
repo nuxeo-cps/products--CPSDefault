@@ -1,7 +1,9 @@
 ##parameters=pystr=None
 # $Id$
-""" encode a python script into a javascript string
-this is very usefull to set js variable like
+"""
+Encode a python string into a javascript string
+
+This is very usefull to set js variable like
  <script type="text/javascript"
   tal:define="js_value python:here.encodeJsString(value)"
   tal:content='structure string:
@@ -9,6 +11,7 @@ this is very usefull to set js variable like
       var value = "${js_value}";
   //--> />
 """
+
 if not pystr:
     return ''
 

@@ -1,8 +1,9 @@
 ##parameters=ids=[], REQUEST=None
 #$Id$
-
 """
-Copy an object. Used within the folder_contents template.
+Copy objects from the clipboard.
+
+Used within the folder_contents template.
 """
 
 if ids:

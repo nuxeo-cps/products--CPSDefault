@@ -1,7 +1,11 @@
 ##parameters=allowed=1
 # $Id$
-""" Sorting for display allowedContentTypes
-    if allowed=0 return Searchable portaltype"""
+"""
+Sorting for display allowedContentTypes
+If allowed=0, return Searchable portaltype
+
+FIXME: I don't understand.
+"""
 
 if allowed:
     items = context.allowedContentTypes()
@@ -11,9 +15,11 @@ else:
     items = context.getSearchablePortalTypes()
 
 def l10n(s):
+    # FIXME: localizergeddon
     cpsmcat = context.Localizer.default
     ret = cpsmcat(s)
     if same_type(ret, u''):
+        # FIXME: unicodegeddon
         return ret.encode('iso-8859-15', 'ignore')
     else:
         return ret

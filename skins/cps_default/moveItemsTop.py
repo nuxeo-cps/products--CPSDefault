@@ -1,6 +1,8 @@
 ##parameters=ids=[]
 # $Id$
-""" Move the selected objects on the top within the directory """
+"""
+Move the selected objects on the top within the directory
+"""
 
 def cmp_desc(x, y):
     return -cmp(x, y)

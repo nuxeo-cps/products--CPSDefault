@@ -1,6 +1,10 @@
 ##parameters=dt=None, fmt='medium'
 # $Id$
-""" return a string date using the current locale """
+"""
+Return a string date using the current locale.
+"""
+
+# TODO: don't call Localizer directly
 
 from DateTime.DateTime import DateTimeError
 

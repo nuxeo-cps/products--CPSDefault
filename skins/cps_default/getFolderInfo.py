@@ -1,17 +1,21 @@
 ##parameters=doc=None
 # $Id$
-""" Called by portal_tree for additional information on folder  """
+"""
+Called by portal_tree for additional information on folder
+FIXME: write a real docstring.
+"""
 
-# Warning when submiting a folderish document you don't have the
-# View permission on the new proxy because it is in a pending state
-# this is why you should not use proxy.xxx methods
+# Warning: when submiting a folderish document you don't have the
+# View permission on the new proxy because it is in a pending state.
+# This is why you should not use proxy.xxx methods.
 proxy = context
 if doc is None:
-    # portal_trees use the default language not the latest user selection
+    # portal_trees uses the default language, not the latest user selection
     doc = proxy.getContent(lang='default')
 
 title_or_id = doc.Title() or proxy.getId()
 l = len(title_or_id)
+# FIXME: don't hardcode values in the middle of a routine.
 ml = 25
 mml = (ml-3)/2
 if l > ml:

@@ -1,7 +1,8 @@
-## Script (Python) "getCustomAllowedContainerTypes"
 ##parameters=
 # $Id$
-"""Return custom document container types"""
+"""
+Return custom document container types.
+"""
 
 container_types = {}
 

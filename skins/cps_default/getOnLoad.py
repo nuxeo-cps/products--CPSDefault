@@ -1,7 +1,9 @@
 ##parameters=
 #$Id$
-""" return the body onload attribute content
 """
+Return the body onload attribute content
+"""
+
 request = container.REQUEST
 
 if request.has_key('URL'):

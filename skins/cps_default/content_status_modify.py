@@ -1,5 +1,8 @@
 ##parameters=workflow_action, REQUEST=None, **kw
 # $Id$
+"""
+FIXME: add docstring.
+"""
 
 wftool = context.portal_workflow
 

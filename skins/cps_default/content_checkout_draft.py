@@ -1,8 +1,12 @@
 ##parameters=comments='', REQUEST=None, **kw
 # $Id$
+"""
+FIXME: add docstring.
+"""
 
 wftool = context.portal_workflow
 
+# FIXME: kw is not used at all, why put this code in the first place?
 if REQUEST is not None:
     kw.update(REQUEST.form)
 

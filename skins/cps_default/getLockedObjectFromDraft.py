@@ -1,11 +1,11 @@
 ##parameters=reverse=0
+# $Id$
 """
 Find the locked object for a draft.
 If reverse==1, find the draft from the locked object.
 
 Returns an object or None.
 """
-# $Id$
 
 wftool = context.portal_workflow
 folder = context.aq_parent

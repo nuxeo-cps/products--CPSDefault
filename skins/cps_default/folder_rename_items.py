@@ -1,6 +1,7 @@
 ##parameters=
 # $Id$
-"""Get the list of renameable objects from REQUEST's 'ids' list.
+"""
+Get the list of renameable objects from REQUEST's 'ids' list.
 """
 
 # This is bad but we want to keep CMF 1.4's API for now

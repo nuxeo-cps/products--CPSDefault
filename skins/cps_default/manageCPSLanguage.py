@@ -1,7 +1,11 @@
 ##parameters
-# -*- coding: iso-8859-15 -*-
 # $Id$
-"""Make available a new language in a CPS portal with Localizer"""
+"""
+Make available a new language in a CPS portal with Localizer
+"""
+
+# FIXME: localizergeddon
+
 from Products.CPSCore.utils import manageCPSLanguage
 
 request = context.REQUEST

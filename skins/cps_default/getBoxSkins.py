@@ -1,6 +1,10 @@
 ##parameters=default=0
 # $Id$
-"""Return available box skin."""
+"""
+Return available box skins.
+
+FIXME: what is 'default'?
+"""
 
 items = [
     {'macro_path': 'here/box_lib/macros/box',

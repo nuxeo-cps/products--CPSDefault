@@ -1,8 +1,10 @@
 ##parameters=rev, REQUEST=None, **kw
+# $Id$
 """
 Delete an archived revision of a proxy.
+
+FIXME: what are the parameters?
 """
-# $Id$
 
 proxy = context
 proxy.delArchivedRevisions([rev])

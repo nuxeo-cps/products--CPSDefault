@@ -1,5 +1,8 @@
 ##parameters=REQUEST=None
 # $Id$
+"""
+FIXME: add docstring
+"""
 
 # Note: there is another solution that does not rely on HTTP_REFERER:
 # have the add_favorites action generate a url with the object to bookmark

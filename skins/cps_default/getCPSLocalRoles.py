@@ -1,10 +1,9 @@
 ##parameters=mtool=None, base_url=None, context_url=None
-##
 # $Id$
-""" get Merged Local Roles filtering non CPS Roles.
+"""
+Get Merged Local Roles filtering non CPS Roles.
 
 Returns a tuple dict_roles, editable_users, cps_roles, local_roles_blocked
-
 """
 
 if mtool is None:

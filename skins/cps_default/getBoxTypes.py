@@ -1,6 +1,8 @@
 ##parameters=category=None
 # $Id$
-"""Return  available box types."""
+"""
+Return available box types.
+"""
 
 items = [
     {'category': 'basebox',

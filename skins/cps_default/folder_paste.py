@@ -1,7 +1,7 @@
 ##parameters=
 #$Id$
 """
-Cut an object. Used within the folder_contents template.
+Paste objects from the clipboard. Used within the folder_contents template.
 """
 
 REQUEST=context.REQUEST

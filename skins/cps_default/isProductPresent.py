@@ -1,5 +1,8 @@
 ##parameters=product=None
-# verifies wether an optional CPSProduct is present or not
+# $Id$
+"""
+Verify wether an optional CPSProduct is present or not
+"""
 
 from Products.CPSDefault.utils import isProductPresent
 

@@ -1,6 +1,9 @@
 ##parameters=box_url=None, REQUEST=None
 # $Id$
-"""create a rss 1.0 feed from a Content Box content"""
+"""
+Create a rss 1.0 feed from a Content Box content
+"""
+
 from cgi import escape
 
 try:
@@ -102,6 +105,7 @@ text = rss_fmt % {'css_url': base_url + 'rss.css',
 
 if REQUEST is not None:
    REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml; charset=ISO-8859-15')
+   # FIXME: why no-cache ?
    REQUEST.RESPONSE.setHeader('Cache-Control', 'no-cache')
 
 return text

@@ -1,6 +1,8 @@
 ##parameters=context_url,datestring,location,event_types
 # $Id$
-"""Compute the correct list of URL parameters for calendar_cpsday_view"""
+"""
+Compute the correct list of URL parameters for calendar_cpsday_view
+"""
 
 from urllib import urlencode
 

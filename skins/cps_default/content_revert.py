@@ -1,8 +1,10 @@
 ##parameters=rev, REQUEST=None, **kw
+# $Id$
 """
 Revert a proxy to an older revision.
+
+FIXME: what are the parameters?
 """
-# $Id$
 
 proxy = context
 

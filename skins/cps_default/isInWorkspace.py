@@ -1,17 +1,20 @@
 ##parameters=object=None
 ##title=Is in a workspace
 #$Id$
-
 """
-Return a true value if the context is or is in a workspace.
+Return True if the context or the parameter 'object' is a workspace
+or inside a workspace.
+
+FIXME: method name doesn't match this docstring.
 """
 
 if not object:
     object = context
 
 try:
-    return object.portal_type == 'Workspace' or object.aq_parent.portal_type == 'Workspace'
+    return object.portal_type == 'Workspace' \
+        or object.aq_parent.portal_type == 'Workspace'
 except AttributeError:
-    # XXX determine in which case it happens and how to react with the
+    # FIXME: determine in which case it happens and how to react with the
     # portal's root
     return None

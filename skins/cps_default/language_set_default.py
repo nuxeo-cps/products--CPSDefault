@@ -1,6 +1,10 @@
 ##parameters=REQUEST=None, **kw
 # $Id$
-"""Set default language in a CPS portal with Localizer"""
+"""
+Set default language in a CPS portal with Localizer
+"""
+
+# FIXME: localizergeddon
 
 if REQUEST is not None:
     kw.update(REQUEST.form)

@@ -1,9 +1,8 @@
-## Script (Python) "getAllowedContainerTypes"
 ##parameters=portal_type
 #$Id$
 """
-This script returns all portal_types in which
-portal_type is authorized (None if no restriction)
+Return all portal types in which portal_type is authorized (None if no
+restriction).
 """
 
 #'*' as an item in the sequence value associated with a portal_type

@@ -1,5 +1,9 @@
 ##parameters=
 # $Id$
+"""
+FIXME: docstring?
+"""
+
 return {'format': None,
         'sort_by': None,
         'direction': 'asc',

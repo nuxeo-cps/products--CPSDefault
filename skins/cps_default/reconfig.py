@@ -1,6 +1,7 @@
 ##parameters=REQUEST
 #$Id$
-"""This script just save the portal properties from the reconfig_form
+"""
+This script just saves the portal properties from the reconfig_form
 template.
 """
 

@@ -1,5 +1,9 @@
 ##parameters=REQUEST=None, **kw
 # $Id$
+"""
+FIXME: add docstring.
+"""
+
 def tuplify( value ):
     if not same_type( value, () ):
         value = tuple( value )

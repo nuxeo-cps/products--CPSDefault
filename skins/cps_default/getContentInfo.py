@@ -1,6 +1,8 @@
 ##parameters=proxy=None, doc=None, level=0, cpsmcat=None
 # $Id$
-""" Return information about a content item (ie a proxy)
+"""
+Return information about a content item (ie a proxy)
+
 level: 0 (default cost 1)
   id, title, title_or_id, review_state, icon, rev, lang, type
   time_str, creator

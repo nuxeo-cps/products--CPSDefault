@@ -919,7 +919,7 @@ def cpsupdate(self, langs_list=None):
                         },
 
         'footer': {'type': 'Base Box',
-                   'tille': 'Footer',
+                   'title': 'Footer',
                    'format': 'footer',
                    'slot': 'bottom',
                    'order': 10,
@@ -931,6 +931,7 @@ def cpsupdate(self, langs_list=None):
                         'slot': 'left',
                         'order': 10,
                         },
+
         'action_user': {'type': 'Action Box',
                         'title': 'User actions',
                         'format': 'user',
@@ -974,12 +975,20 @@ def cpsupdate(self, langs_list=None):
                         'depth':2,
                         'children_only':1,
                         },
+
         'nav_content' : {'type':'Content Box',
                          'title': 'Contents',
                          'slot':'folder_view',
                          'format':'center',
                          'order':20,
                          },
+
+        'display_settings ': {'type': 'Base Box',
+                              'title': 'Display Settings',
+                              'format': 'display_settings',
+                              'slot': 'center_bottom',
+                              'order': 1,
+                              },        
         }
     box_container = portal[idbc]
     existing_boxes = box_container.objectIds()
@@ -1041,29 +1050,29 @@ def cpsupdate(self, langs_list=None):
     # schemas
     pr("Verifiying schemas")
     schemas = {
-        'dummy2': {
-            'age': {
-                'type': 'CPS Int Field',
-                'data': {
-                    'default': 20,
-                    'is_indexed': 0,
-                    },
-                },
-            'text': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default': '',
-                    'is_indexed': 1,
-                    },
-                },
-            'thing': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default': 'dummy thing',
-                    'is_indexed': 1,
-                    },
-                },
-            },
+        #'dummy2': {
+        #    'age': {
+        #        'type': 'CPS Int Field',
+        #        'data': {
+        #            'default': 20,
+        #            'is_indexed': 0,
+        #            },
+        #        },
+        #    'text': {
+        #        'type': 'CPS String Field',
+        #        'data': {
+        #            'default': '',
+        #            'is_indexed': 1,
+        #            },
+        #        },
+        #    'thing': {
+        #        'type': 'CPS String Field',
+        #        'data': {
+        #            'default': 'dummy thing',
+        #            'is_indexed': 1,
+        #            },
+        #        },
+        #    },
         }
     stool = portal.portal_schemas
     for id, info in schemas.items():

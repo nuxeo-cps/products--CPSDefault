@@ -57,11 +57,11 @@ cps_roles = [x for x in cps_roles if x not in ('Owner',
                                                'Manager',
                                                'Authenticated')]
 # Checking the context (Ws or section)
-if context.portal_type == "Section":
+if context.portal_type == 'Section':
     cps_roles = [x for x in cps_roles if x in ('SectionManager',
                                                'SectionReviewer',
                                                'SectionReader')]
-elif context.portal_type == "Workspace":
+elif context.portal_type == 'Workspace':
     cps_roles = [x for x in cps_roles if x in ('WorkspaceManager',
                                                'WorkspaceMember',
                                                'WorkspaceReader')]

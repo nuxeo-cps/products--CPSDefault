@@ -27,7 +27,7 @@
   tal:define="sections sections|ttool/sections;
               workspaces workspaces|ttool/workspaces;
               stree python:sections.getList(start_depth=0, stop_depth=1);
-              wtree python:workspaces.getList(start_depth=0, stop_depth=0)">
+              wtree python:workspaces.getList(start_depth=0, stop_depth=2)[:1]">
   <a href="" class="plain"
      tal:repeat="item wtree"
      tal:attributes="href string:${base_url}${item/rpath}/;

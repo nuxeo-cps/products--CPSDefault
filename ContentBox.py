@@ -48,12 +48,21 @@ class ContentBox(BaseBox):
     portal_type = 'Content Box'
 
     nb_items=0
+    sort_by=direction=display=''
+
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
-        {'id':'folder', 'type':'string', 'mode':'w', 'label':'folder path'},
-        {'id':'nb_items', 'type':'int', 'mode':'w',
-         'label':'number of items'},
+        {'id': 'folder', 'type': 'string', 'mode': 'w',
+         'label': 'folder path'},
+        {'id': 'nb_items', 'type': 'int', 'mode': 'w',
+         'label': 'number of items'},
+        {'id': 'sort_by', 'type': 'string', 'mode': 'w',
+         'label': 'sorting criteria'},
+        {'id': 'direction', 'type': 'string', 'mode': 'w',
+         'label': 'direction for sorting'},
+        {'id': 'display', 'type': 'string', 'mode': 'w',
+         'label': 'format for display'},
         )
 
     def __init__(self, id, folder=None, **kw):
@@ -94,8 +103,8 @@ class ContentBox(BaseBox):
         """Get a sorted list of contents object"""
         folder = self.getFolderObject(context)
         if folder:
-            items = folder.getFolderContents(sort_by=sort_by,
-                                             direction=direction,
+            items = folder.getFolderContents(sort_by=self.sort_by,
+                                             direction=self.direction,
                                              hide_folder=1)
             if self.nb_items and len(items) > self.nb_items:
                 items = items[:self.nb_items]

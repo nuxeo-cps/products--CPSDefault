@@ -272,3 +272,6 @@ class BaseInstaller:
             for type in types:
                 configs[type['id']] = type['config']
         return configs
+
+    #XXX: backward compability
+    setupBoxes = setupAddBoxes

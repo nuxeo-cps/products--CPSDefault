@@ -7,10 +7,10 @@
   <tr valign="top">
     <th align="right" i18n:translate="label_folder">Folder</th>
     <td colspan="3"><input type="text" name="folder" value="" size="30"
-          tal:attributes="value box/box/folder"></td>
+          tal:attributes="value box/box/folder" /></td>
     <th align="right" i18n:translate="label_nb_items">Nb items</th>
     <td><input type="text" name="nb_items" value="" size="3"
-           tal:attributes="value box/box/nb_items"></td>
+           tal:attributes="value box/box/nb_items" /></td>
   </tr>
   <tr valign="top">
     <th></th>
@@ -25,7 +25,7 @@
     <td>&nbsp;</td>
     <td colspan="5">
       <input type="checkbox" id="cb_zoom" name="zoom" class="noborder"
-             tal:attributes="checked box/box/zoom">
+             tal:attributes="checked box/box/zoom" />
       <label for="cb_zoom" i18n:translate="label_contentbox_zoom">zoom</label>
     </td>
   </tr>
@@ -36,17 +36,17 @@
         <tr>
           <td><span i18n:translate="label_search_title">Description</span></td>
           <td><input name="query_title" size="20"
-                tal:attributes="value box/box/query_title"></td>
+                tal:attributes="value box/box/query_title" /></td>
         </tr>
         <tr>
           <td><span i18n:translate="label_search_description">Description</span></td>
           <td><input name="query_description" size="20"
-                tal:attributes="value box/box/query_description"></td>
+                tal:attributes="value box/box/query_description" /></td>
         </tr>
         <tr valign="top">
           <td> <span i18n:translate="label_search_full_text">Full text</span></td>
           <td><input name="query_fulltext" size="40"
-                tal:attributes="value box/box/query_fulltext"></td>
+                tal:attributes="value box/box/query_fulltext" /></td>
         </tr>
         <tr tal:condition="python: checkPerm('Review portal content', here)">
           <td><span i18n:translate="label_search_status">Status</span></td>
@@ -67,7 +67,7 @@
           <td>
             <tal:block tal:define="selbox python:box['box'].query_portal_type;
                                    notempty python:[t for t in selbox if t != '']">
-            <select size="5" name="query_portal_type" multiple>
+            <select size="5" name="query_portal_type" multiple="multiple">
             <option i18n:translate="label_all"
                     value="" tal:attributes="selected python:notempty==[] or selbox==[]">All</option>
             <tal:block repeat="ret python:here.getSortedContentTypes(allowed=0)">

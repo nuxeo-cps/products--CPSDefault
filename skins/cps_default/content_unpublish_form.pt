@@ -18,22 +18,22 @@
 <metal:main fill-slot="main"
             tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
 
-  <br>
-  <metal:block use-macro="here/content_lib/macros/status" /><br><br>
+  <br />
+  <metal:block use-macro="here/content_lib/macros/status" /><br /><br />
 
   <metal:block use-macro="here/content_lib/macros/transition_form">
 
     <metal:block fill-slot="button">
-      <input type="hidden" name="workflow_action" value="unpublish">
+      <input type="hidden" name="workflow_action" value="unpublish" />
       <input type="submit" class="standalone" value="button_unpublish_document"
-        i18n:attributes="value">
+        i18n:attributes="value" />
       <input type="button" class="context" onClick="history.back()"
-        value="button_cancel" i18n:attributes="value">
+        value="button_cancel" i18n:attributes="value" />
     </metal:block>
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib/macros/states" /><br>
+  <metal:block use-macro="here/content_lib/macros/states" /><br />
 
   <metal:block use-macro="here/content_lib/macros/history" />
 </metal:main>

@@ -1,7 +1,7 @@
 <metal:html use-macro="here/content_lib/macros/master">
 
 <metal:block fill-slot="header" />
-
+	
 <metal:main fill-slot="main">
 <metal:std_main use-macro="here/content_lib/macros/std_main">
 
@@ -17,22 +17,21 @@
 <metal:main fill-slot="main"
             tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
 
-  <br>
-  <metal:block use-macro="here/content_lib/macros/status" /><br><br>
+  <br />
+  <metal:block use-macro="here/content_lib/macros/status" /><br /><br />
 
   <metal:block use-macro="here/content_lib/macros/transition_form">
 
     <metal:block fill-slot="button">
-      <input type="hidden" name="workflow_action" value="accept">
+      <input type="hidden" name="workflow_action" value="accept" />
       <input type="submit" class="standalone" value="button_publish"
-        i18n:attributes="value">
-      <input type="button" class="context" onClick="history.back()" value="button_cancel"
-             i18n:attributes="value">
+        i18n:attributes="value" />
+      <input type="button" class="context" onClick="history.back()" value="button_cancel" i18n:attributes="value" />
     </metal:block>
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib/macros/states" /><br>
+  <metal:block use-macro="here/content_lib/macros/states" /><br />
 
   <metal:block use-macro="here/content_lib/macros/history" />
 </metal:main>

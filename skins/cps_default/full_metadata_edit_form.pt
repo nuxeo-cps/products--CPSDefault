@@ -34,7 +34,7 @@
     <th align="right" i18n:translate="label_title">Title</th>
     <td colspan="3">
       <input type="text" name="title" value="" size="60"
-             tal:attributes="value doc/Title">
+             tal:attributes="value doc/Title" />
     </td>
   </tr>
   <tr valign="top">
@@ -50,8 +50,8 @@
     <td tal:define="subj_lines python: '\n'.join(doc.subjectsList())">
       <textarea name="subject:lines" rows="3" cols="20"
                 tal:content="subj_lines"></textarea>
-      <br>
-      <select name="subject:list" multiple>
+      <br />
+      <select name="subject:list" multiple="multiple">
         <option value=""
                 tal:define="mdtool nocall:here/portal_metadata;
                             items python: mdtool.listAllowedSubjects(doc);
@@ -83,41 +83,41 @@
     <td>
       <input type="text" name="effective_date" value=""
              tal:define="effectiveString python: doc.effective_date and doc.effective_date.ISO() or 'None'"
-             tal:attributes="value effectiveString">
+             tal:attributes="value effectiveString" />
     </td>
     <th align="right" i18n:translate="time_expiration_date">Expiration Date</th>
     <td>
       <input type="text" name="expiration_date" value=""
              tal:define="expirationString python: doc.expiration_date and doc.expiration_date.ISO() or 'None'"
-             tal:attributes="value expirationString">
+             tal:attributes="value expirationString" />
     </td>
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_format">Format</th>
     <td>
       <input type="text" name="format" value=""
-             tal:attributes="value doc/Format">
+             tal:attributes="value doc/Format" />
     </td>
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_language">Language</th>
     <td>
       <input type="text" name="language" value=""
-             tal:attributes="value doc/Language">
+             tal:attributes="value doc/Language" />
     </td>
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_rights">Rights</th>
     <td>
       <input type="text" name="rights" value=""
-             tal:attributes="value doc/Rights">
+             tal:attributes="value doc/Rights" />
     </td>
   </tr>
   <tr valign="top">
-    <td><br></td>
+    <td><br /></td>
     <td>
       <input type="submit" class="standalone" value="button_change"
-             i18n:attributes="value">
+             i18n:attributes="value" />
     </td>
   </tr>
   </table>

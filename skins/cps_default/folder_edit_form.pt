@@ -12,13 +12,13 @@
         tal:attributes="action python:here_url + test(type_name,
                                       '/content_create', '/content_edit')">
     <input type="hidden" name="type_name" tal:condition="type_name"
-           tal:attributes="value type_name">
+           tal:attributes="value type_name" />
     <table cellpadding="1" cellspacing="1">
       <tr valign="top">
         <th align="right" i18n:translate="label_title">Title</th>
         <td colspan="3">
           <input id="field_focus" type="text" name="title" value="" size="50"
-                 tal:attributes="value python:test(type_name, '', doc.Title())">
+                 tal:attributes="value python:test(type_name, '', doc.Title())" />
         </td>
       </tr>
 
@@ -32,12 +32,12 @@
       </tr>
 
       <tr valign="top">
-        <td><br></td>
+        <td><br /></td>
         <td>
           <input type="submit" class="standalone" name="change_and_edit"
-            value="button_change_and_edit" i18n:attributes="value">
+            value="button_change_and_edit" i18n:attributes="value" />
           <input type="submit" class="standalone" name="change_and_view"
-            value="button_change_and_view" i18n:attributes="value">
+            value="button_change_and_view" i18n:attributes="value" />
         </td>
       </tr>
     </table>

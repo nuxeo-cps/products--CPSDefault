@@ -13,7 +13,7 @@
 <metal:help fill-slot="help">
   <span i18n:translate="help_submit_publication">To make an item published and
   viewable by readers, it has to be reviewed by one of the section reviewers.
-  You can submit the item in many section folders.<br> A copy of the item will
+  You can submit the item in many section folders.<br /> A copy of the item will
   be created into each section with a <b>pending</b> status, waiting to be
   reviewed and finally <b>published</b> by a section's reviewer.</span>
 </metal:help>
@@ -23,8 +23,8 @@
                         clone_wf_action string:submit;
                         start_wf_action string:copy_submit;">
 
-  <br>
-  <metal:block use-macro="here/content_lib/macros/status" /><br><br>
+  <br />
+  <metal:block use-macro="here/content_lib/macros/status" /><br /><br />
 
   <metal:block use-macro="here/content_lib/macros/transition_form">
     <metal:block fill-slot="fields"
@@ -39,10 +39,10 @@
         <tal:block repeat="section stree">
           <tr tal:condition="python:clone_wf_action in section['publishing_transitions']"
               tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
-            <td nowrap>
+            <td nowrap="nowrap">
               <input type="checkbox" name="" value="" class="noborder"
                      tal:attributes="value section/rpath;
-                                     name clone_wf_action;">
+                                     name clone_wf_action;" />
               <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
               <span tal:replace="structure section/short_title">Section id</span>
             </td>
@@ -51,7 +51,7 @@
                 <tal:block condition="python:item['rpath'] == section['rpath']"
                            define="info item;
                                    status_short_fmt not:nothing;">
-                  <metal:block use-macro="here/content_lib/macros/status" /><br>
+                  <metal:block use-macro="here/content_lib/macros/status" /><br />
 
                 </tal:block>
               </span>
@@ -63,16 +63,16 @@
 
     <metal:block fill-slot="button">
       <input type="hidden" name="workflow_action" value="submit"
-             tal:attributes="value start_wf_action">
+             tal:attributes="value start_wf_action" />
       <input type="submit" class="standalone" value="button_submit_document"
-        i18n:attributes="value">
+        i18n:attributes="value" />
       <input type="button" class="context" onClick="history.back()"
-        value="button_cancel" i18n:attributes="value">
+        value="button_cancel" i18n:attributes="value" />
     </metal:block>
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib/macros/states" /><br>
+  <metal:block use-macro="here/content_lib/macros/states" /><br />
 
   <metal:block use-macro="here/content_lib/macros/history" />
 </metal:main>

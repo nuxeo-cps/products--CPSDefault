@@ -44,7 +44,7 @@
     <th align="right" i18n:translate="label_title">Title</th>
     <td colspan="3">
       <input id="field_focus" type="text" name="title" value="" size="60"
-             tal:attributes="value doc/Title">
+             tal:attributes="value doc/Title" />
     </td>
   </tr>
   <tr valign="top">
@@ -61,8 +61,8 @@
     <td tal:define="subj_lines python: '\n'.join(doc.subjectsList())">
       <textarea name="subject:lines" rows="3" cols="20"
                 tal:content="subj_lines"></textarea>
-      <br>
-      <select name="subject:list" multiple>
+      <br />
+      <select name="subject:list" multiple="multiple">
         <option value=""
                 tal:define="mdtool nocall:here/portal_metadata;
                             items python: mdtool.listAllowedSubjects(doc);
@@ -76,18 +76,18 @@
     <th align="right" i18n:translate="label_format">Format</th>
     <td>
       <input type="text" name="format" value=""
-             tal:attributes="value doc/Format">
+             tal:attributes="value doc/Format" />
     </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td colspan="3">
       <input type="submit" name="change" value="button_change"
-        class="standalone" i18n:attributes="value">
+        class="standalone" i18n:attributes="value" />
       <input type="submit" name="change_and_edit"  class="standalone"
-        value="button_change_and_edit" i18n:attributes="value">
+        value="button_change_and_edit" i18n:attributes="value" />
       <input type="submit" name="change_and_view" class="standalone"
-        value="button_change_and_view" i18n:attributes="value">
+        value="button_change_and_view" i18n:attributes="value" />
     </td>
   </tr>
 </table>

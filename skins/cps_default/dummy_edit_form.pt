@@ -4,7 +4,7 @@
 <div metal:fill-slot="header">
 
   <span tal:replace="request/message"
-     tal:condition="request/message|nothing"><hr></span>
+     tal:condition="request/message|nothing"><hr /></span>
 
   <h1 i18n:translate="">
     heading_edit
@@ -27,7 +27,7 @@
       </div>
       <div class="field">
         <input type="text" name="title:string" size="60"
-               tal:attributes="value doc/Title">
+               tal:attributes="value doc/Title" />
       </div>
     </div>
 
@@ -47,13 +47,13 @@
       <div class="label" i18n:translate="label_start_date">Start Date (DD/MM/YYYY)</div>
       <div class="field">
         <input type="text" name="start_date:string" size="10"
-               tal:attributes="value python:doc.get_date('start_date')">
+               tal:attributes="value python:doc.get_date('start_date')" />
       </div>
      </td><td>
       <div class="label" i18n:translate="label_end_date">End Date (DD/MM/YYYY)</div>
       <div class="field">
         <input type="text" name="end_date:string" size="10"
-               tal:attributes="value python:doc.get_date('end_date')">
+               tal:attributes="value python:doc.get_date('end_date')" />
       </div>
      </td></tr></table>
     </div>
@@ -62,15 +62,15 @@
       <div class="label" i18n:translate="label_image" />
       <div class="field">
         <input type="radio" name="file_action" value="keep" checked="checked"
-          class="noborder">
+          class="noborder" />
         <label i18n:translate="">label_file_keep</label>
         <span tal:replace="doc/image_name|string:" />
-        <br>
-        <input type="radio" name="file_action" value="change" class="noborder">
+        <br />
+        <input type="radio" name="file_action" value="change" class="noborder" />
         <label i18n:translate="">label_file_change</label>
-        <input type="file" name="file" size="42">
-        <br>
-        <input type="radio" name="file_action" value="delete" class="noborder">
+        <input type="file" name="file" size="42" />
+        <br />
+        <input type="radio" name="file_action" value="delete" class="noborder" />
         <label i18n:translate="">label_file_delete</label>
       </div>
     </div>
@@ -92,9 +92,9 @@
       </div>
       <div class="field">
         <input type="submit" class="standalone" name="change_and_edit"
-          value="button_change_and_edit" i18n:attributes="value">
+          value="button_change_and_edit" i18n:attributes="value" />
         <input type="submit" class="standalone" name="change_and_view"
-          value="button_change_and_view" i18n:attributes="value">
+          value="button_change_and_view" i18n:attributes="value" />
       </div>
     </div>
 

@@ -38,14 +38,14 @@
   <input type="radio" name="folder_prefix" class="noborder"
     tal:attributes="id id1;
       checked request/folder_prefix|not:nothing;
-      value python: utool.getRelativeUrl(here)">
+      value python: utool.getRelativeUrl(here)" />
   <label tal:attributes="for id1"
     i18n:translate="label_search_here">here</label>
   <input type="radio" name="folder_prefix" value="" class="noborder"
     tal:attributes="id id2;
-    checked python: request.has_key('folder_prefix') and not request['folder_prefix']">
+    checked python: request.has_key('folder_prefix') and not request['folder_prefix']" />
   <label tal:attributes="for id2"
-    i18n:translate="label_search_all_site">all</label><br>
+    i18n:translate="label_search_all_site">all</label><br />
 </metal:block>
 
 <metal:block define-macro="search_form">
@@ -54,24 +54,24 @@
     <tr>
       <td align="right" valign="top">
         <div class="label" i18n:translate="label_search_title" /></td>
-      <td><input id="field_focus" name="Title" size="20"></td>
+      <td><input id="field_focus" name="Title" size="20" /></td>
     </tr>
     <tr>
       <td align="right" valign="top">
         <div class="label" i18n:translate="label_search_description" /></td>
-      <td><input name="Description" size="20"></td>
+      <td><input name="Description" size="20" /></td>
     </tr>
     <tr valign="top">
       <td align="right" valign="top">
         <div class="label" i18n:translate="label_search_full_text" /></td>
-      <td><input name="SearchableText" size="40"></td>
+      <td><input name="SearchableText" size="40" /></td>
     </tr>
     <tr tal:condition="python: checkPerm('Review portal content', here)">
       <td align="right" valign="top">
         <div class="label" i18n:translate="label_search_status" /></td>
       <td>
       <select name="review_state">
-        <option i18n:translate="label_all" value="" selected>All</option>
+        <option i18n:translate="label_all" value="" selected="selected">All</option>
         <option i18n:translate="label_work" value="work">Work</option>
         <option i18n:translate="label_pending" value="pending">Pending</option>
         <option i18n:translate="label_published" value="published">Published</option>
@@ -82,8 +82,8 @@
         <td align="right" valign="top">
           <div class="label" i18n:translate="label_search_portal_type" /></td>
         <td>
-          <select size=5 name="portal_type" multiple>
-            <option i18n:translate="label_all" value="" selected>All</option>
+          <select size="5" name="portal_type" multiple="multiple">
+            <option i18n:translate="label_all" value="" selected="selected">All</option>
               <tal:block repeat="ret python:here.getSortedContentTypes(allowed=0)">
             <option tal:define="type ret/id;name ret/title;"
               tal:attributes="value type;" i18n:translate=""
@@ -119,7 +119,7 @@
            <option i18n:translate="time_last_month"
                    tal:attributes="value lastMth">time_last_month</option>
          </select>
-         <input type="hidden" name="modified_usage" value="range:min">
+         <input type="hidden" name="modified_usage" value="range:min" />
          </td>
       </tr>
       <tr>
@@ -132,8 +132,8 @@
       </tr>
       <tr>
         <td></td>
-        <td><br><input type="submit" class="standalone" i18n:attributes="value"
-                   value="button_search"></td>
+        <td><br /><input type="submit" class="standalone" i18n:attributes="value"
+                   value="button_search" /></td>
       </tr>
    </table>
    </div>

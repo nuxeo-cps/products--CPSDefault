@@ -51,13 +51,13 @@
            <span i18n:translate="link_advanced_search">
              Advanced search
            </span>
-        </a><br>
+        </a><br />
         <div class="label" i18n:translate="label_search_full_text">search</div>
         <input type="text" name="SearchableText" value=""
-               size="40" tal:attributes="value SearchableText">
+               size="40" tal:attributes="value SearchableText" />
         <input class="standalone searchButton" type="submit" value="button_ok"
-               i18n:attributes="value">
-        <br>
+               i18n:attributes="value" />
+        <br />
         <tal:block condition="not:swr">
           <metal:block
             use-macro="here/generic_lib/macros/search_folder_prefix_option" />
@@ -70,7 +70,7 @@
             <input type="hidden" tal:condition="value"
               tal:define="value request/?criterion|nothing"
               tal:attributes="name criterion;
-                              value value">
+                              value value" />
           </tal:block>
           <tal:block repeat="criterion criteria_list">
             <tal:block tal:condition="values"
@@ -78,7 +78,7 @@
               <tal:block repeat="value values">
                 <input type="hidden"
                   tal:define="value value"
-                  tal:attributes="name python:criterion+':list'; value value">
+                  tal:attributes="name python:criterion+':list'; value value" />
               </tal:block>
             </tal:block>
           </tal:block>

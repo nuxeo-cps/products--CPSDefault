@@ -1,6 +1,5 @@
 <!-- macro library for rendering specific error messages per error type -->
 <!-- $Id$ -->
-
 <!-- ============================================================ -->
 <metal:block define-macro="not_found">
   <h1 i18n:translate="heading_error_not_found">Not Found</h1>
@@ -23,13 +22,13 @@
 
   <dl>
     <dt>
-      <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',width=16,height=16)">
+      <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',width=16,height=16)" />
       <a href="javascript:history.back()"
          i18n:translate="link_go_back">Go back</a>.
     </dt>
     <dd></dd>
     <dt>
-      <img tal:replace="structure python:here.getImgTag('email.gif',width=16,height=16)">
+      <img tal:replace="structure python:here.getImgTag('email.gif',width=16,height=16)" />
       <a href="mailto:admin@here.com" 
          tal:attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
                          title p_props/email_from_address"

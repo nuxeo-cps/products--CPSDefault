@@ -24,23 +24,33 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     #
     #
     def testIdCollision(self):
+        workspaces = self.portal.workspaces
+        sections = self.portal.sections
+
+        # Test that object with reserved names such as 'content' and 'icon' can
+        # be created nevertheless but their id will not be a reserved id.
+        new_id = workspaces.content_create('Workspace', title='content')
+        self.assertNotEquals(new_id, 'content')
+        self.assert_(new_id.startswith('content'))
+
+        new_id = workspaces.content_create('Workspace', title='icon')
+        self.assertNotEquals(new_id, 'icon')
+        self.assert_(new_id.startswith('icon'))
+
         # Test that we can create a subobject with same id as its
         # container
         # WARNING content_create is not used for a CPSDocument
-        sections = self.portal.sections
-        self.assertEquals(
-            sections.content_create('Section', title='sections'),
-            'sections')
+        new_id = sections.content_create('Section', title='sections')
+        self.assertEquals(new_id, 'sections')
+
         # But if we do it twice, we get another id
         new_id = sections.content_create('Section', title='sections')
         self.assertNotEquals(new_id, 'sections')
         self.assert_(new_id.startswith('sections'))
 
         # Same for workspaces (just for fun)
-        workspaces = self.portal.workspaces
-        self.assertEquals(
-            workspaces.content_create('Workspace', title='workspaces'),
-            'workspaces')
+        new_id = workspaces.content_create('Workspace', title='workspaces')
+        self.assertEquals(new_id, 'workspaces')
         new_id = workspaces.content_create('Workspace', title='workspaces')
         self.assertNotEquals(new_id, 'workspaces')
         self.assert_(new_id.startswith('workspaces'))

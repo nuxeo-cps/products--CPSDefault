@@ -347,20 +347,16 @@
             <tal:block tal:define="managers python:item['managers']"
                        tal:condition="managers">
               - [
-              <tal:block tal:repeat="manager managers">
-                <tal:block tal:condition="python:
-                   here.portal_directories.members.getEntry(manager, default=None)">
+              <tal:block tal:define="mdir here/portal_directories/members;
+                                     mdir_id mdir/getId"
+                         tal:repeat="manager managers">
+                <tal:block tal:define="user python:mdir.getEntry(manager, default=None)"
+                           tal:condition="user">
                   <a style="font-style:italic" href=""
-                     tal:content="
-                       python:
-                         here.portal_directories.members.getEntry(manager).get(
-                                             'fullname',manager)"
+                     tal:content="python:user.get('fullname', manager)"
                      tal:attributes="href
-                       python:
-                         here.portal_url.getPortalPath() +
-                           '/cpsdirectory_entry_view?dirname=' +
-                           here.portal_directories.members.id +
-                           '&id='+manager"></a>
+                       python:'%scpsdirectory_entry_view?dirname=%s&id=%s' %
+                       (base_url, mdir_id, manager)"></a>
                   <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
                 </tal:block>
               </tal:block>]

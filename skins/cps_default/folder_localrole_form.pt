@@ -301,7 +301,7 @@
               <tal:block define="anuser python:user.split(':', 1)[1]">
                 <tal:block tal:condition="python:type=='user'"><label
                     tal:define="user_name
-                          python:mdir.getEntry(anuser).get('fullname', anuser)"
+                    python:mdir.getEntry(anuser, {}).get('fullname', anuser)"
                     tal:content="user_name"
                     tal:attributes="for input_id">
                     User 1

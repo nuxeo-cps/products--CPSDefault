@@ -7,8 +7,10 @@
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
         <span tal:repeat="item python:box['box'].getTree(here)">
-          <span tal:replace="structure python:'.'*4*item['depth']">&nbsp;</span>
-          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="item/id">id</span></a><br/>
+          <span tal:replace="structure python:'&nbsp;'*4*item['depth']">&nbsp;</span>
+
+          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="string:${item/id}">id</span>
+</a><span tal:condition="item/nb_children" tal:replace="string:*" /><br/>
         </span>
       </div>
     </metal:block>

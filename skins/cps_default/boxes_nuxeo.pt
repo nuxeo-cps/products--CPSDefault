@@ -174,7 +174,6 @@
   <tal:block condition="python:len(items)>0">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
-      <div class="content odd">
        <h4 tal:content="box/box/title"
            tal:condition="box/box/title">title</h4><br>
        <tal:block define="
@@ -187,7 +186,6 @@
         <div tal:condition="link_more">
           <a href="" tal:attributes="href string:${base_url}${link_more}">More ...</a>
         </div>
-      </div>
     </metal:block>
   </metal:block>
   </tal:block>

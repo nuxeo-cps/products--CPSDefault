@@ -266,14 +266,14 @@
       <tr>
         <td width="3%"><br /></td>
         <th width="40%" style="text-align:left;">
-          <span tal:condition="python:type=='user'"  i18n:translate="label_user">User</span>
+          <span tal:condition="python:type=='user'" i18n:translate="label_user">User</span>
           <span tal:condition="python:type=='group'" i18n:translate="label_group">Group</span>
         </th>
         <th width="57%" style="text-align:left;">
           <span i18n:translate="label_roles">Role(s)</span>
         </th>
       </tr>
-      <tal:block define="users  python:[x for x in roles.keys() if x.split(':')[0]==type]">   
+      <tal:block define="users python:[x for x in roles.keys() if x.split(':')[0]==type]">   
         <tal:block repeat="user users">
           <tr tal:define="input_id python:user.replace('@', '_at_')"
               tal:attributes="class python:test(repeat['user'].even(), 
@@ -296,8 +296,7 @@
           <tal:block define="anuser python:user.split(':', 1)[1]">
             <label tal:content="python:test(anuser.startswith('role:'),
                                            cpsmcat(anuser), anuser)"
-                   tal:attributes="for python:test(anuser.startswith('role:'), 
-                                                   nothing, input_id)">
+                   tal:attributes="for input_id">
              User 1
             </label>
           </tal:block>

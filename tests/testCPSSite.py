@@ -87,6 +87,15 @@ class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEqual(wf._getWorkflowStateOf(ob, id_only=1), 'work')
         
         #roles = list(get_local_roles_for_userid(_user))
+
+    def testPortalTrees(self):
+        # Test that portal_trees has the right default values
+        ttool = self.portal.portal_trees
+        self.assertEquals(ttool.objectIds(), ['sections', 'workspaces'])
+        for tree_id in ('sections', 'workspaces'):
+            tree = ttool[tree_id]
+            l = tree.getList(filter=0)
+            self.assert_(len(l) > 0)
         
     def tofix_test_30_create_doc(self):
         self.wftool.invokeFactoryFor(self.work.this(), 

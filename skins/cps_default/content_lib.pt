@@ -75,7 +75,8 @@
 <span metal:define-macro="byline"
   tal:define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
               cname dname/fullname|doc/Creator;
-              contentInfo python:here.getContentInfo(doc=doc, level=2);
+              contentInfo python:(here_url != utool.getPortalObject().absolute_url())
+                                 and here.getContentInfo(doc=doc, level=2) or None;
               email dname/email|nothing;"
   i18n:translate="">
   Created by
@@ -85,9 +86,11 @@
   Last modified
   <tal:block content="python:here.getDateStr(doc.modification_date, 'medium')"
     i18n:name="item_modification" />.
-  <span i18n:name="revision">Revision</span> :
-  <span tal:content="contentInfo/rev"/>
-  <tal:block tal:content="contentInfo/review_state" i18n:translate=""/>
+  <tal:block condition="contentInfo">
+    <span i18n:name="revision">Revision</span> :
+    <span tal:content="contentInfo/rev"/>
+    <tal:block tal:content="contentInfo/review_state" i18n:translate=""/>
+  </tal:block>
 </span>
 
 

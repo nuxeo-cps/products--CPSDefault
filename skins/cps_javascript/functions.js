@@ -50,7 +50,7 @@ function showFormTooltip(show, id) {
 
 //************************************************************
 function trim(s) {
-    if(s) {
+    if (s) {
         return s.replace(/^\s*|\s*$/g, "");
     }
     return "";
@@ -74,4 +74,15 @@ function setFocus() {
     if (field) {
         field.focus();
     }
+}
+
+function validateRequiredFields(fieldIds, fieldLabels, informationText) {
+    for (i = 0; i < fieldIds.length; i++) {
+        element = document.getElementById(fieldIds[i]);
+        if (!element.value) {
+            window.alert(fieldLabels[i] + informationText);
+            return false;
+        }
+    }
+    return true;
 }

@@ -1,4 +1,4 @@
-##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None
+##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0
 # $Id$
 """ return a list of proxy matching the query """
 
@@ -6,6 +6,13 @@ from zLOG import LOG, DEBUG
 
 if REQUEST is not None:
     query.update(REQUEST.form)
+
+# check for empty search:
+if not allow_empty_search:
+    qv = filter(None, query.values())
+    if not qv or (len(qv) == 2 and
+                  str(query.get('modified')) == '1970/01/01'):
+        return []
 
 catalog = context.portal_catalog
 ptool = context.portal_proxies

@@ -1371,7 +1371,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     'order': 10,
                     },
             'logo': {'type':'Base Box',
-                    'title': 'Nuxeo logo',
+                    'title': 'CPS logo',
                     'btype': 'logo',
                     'slot': 'top',
                     'order': 20,

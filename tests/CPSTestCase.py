@@ -40,7 +40,7 @@ try: ZopeTestCase.installProduct('CPSMailingLists', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSCollector', quiet=1)
 except: pass
-try: ZopeTestCase.installProduct('NuxMailBoxer', quiet=1)
+try: ZopeTestCase.installProduct('CPSMailBoxer', quiet=1)
 except: pass
 
 from AccessControl.SecurityManagement \

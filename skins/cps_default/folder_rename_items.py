@@ -10,9 +10,9 @@ ids = REQUEST.get('ids', [])
 
 objects = []
 for id in ids:
-    if getattr(context.aq_explicit, id, None) is None:
+    ob = getattr(context.aq_inner.aq_explicit, id, None)
+    if ob is None:
         continue
-    ob = getattr(context, id)
     if not ob.cb_isMoveable():
         continue
     objects.append(ob)

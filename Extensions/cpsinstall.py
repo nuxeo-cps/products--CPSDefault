@@ -144,6 +144,7 @@ class DefaultInstaller(CPSInstaller):
                            expr=self.CPS_FILTER_LEAVES_EXPR),))
                 , ('start', 'DateIndex', None)
                 , ('end', 'DateIndex', None)
+                , ('time', 'DateIndex', None) # time of the last transition
                )
 
     def catalogEnumerateMetadata( self ):
@@ -174,6 +175,7 @@ class DefaultInstaller(CPSInstaller):
                 , 'start'
                 , 'end'
                 , 'getRevision'
+                , 'time'                # time of the last transition
                )
 
     def setupCatalog(self):
@@ -737,6 +739,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'default_expr': 'state_change/getDateTime',
                 'for_status': 1,
                 'update_always': 1,
+                'for_catalog': 1,
             },
             'dest_container': {
                 'description': 'Destination container for the last '
@@ -873,6 +876,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'default_expr': 'state_change/getDateTime',
                 'for_status': 1,
                 'update_always': 1,
+                'for_catalog': 1,
             },
             'dest_container': {
                 'description': 'Destination container for the last '
@@ -1129,6 +1133,7 @@ except:
                 'default_expr': 'state_change/getDateTime',
                 'for_status': 1,
                 'update_always': 1,
+                'for_catalog': 1,
             },
             'dest_container': {
                 'description': 'Destination container for the last '

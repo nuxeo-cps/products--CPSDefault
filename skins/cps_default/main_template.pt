@@ -15,8 +15,8 @@
   isAnon mtool/isAnonymousUser;
   actions python:atool.listFilteredActionsFor(here);
   wf_state python:wtool.getInfoFor(here,'review_state','');
-  uname python: isAnon and 'Guest' or member.getUserName();
-  checkPerm nocall: mtool/checkPermission;
+  uname python:isAnon and 'Guest' or member.getUserName();
+  checkPerm nocall:mtool/checkPermission;
   cpsmcat nocall:here/Localizer/default;
   in_ws here/isInWorkspace;
   CPSD_BMT python:here.Benchmarktimer('main_template');
@@ -34,15 +34,15 @@
 <head>
 <metal:block use-macro="here/header_lib/macros/header">
   <metal:block fill-slot="base"><metal:block define-slot="base"><base
-    href="" tal:attributes="href
-    string:${here_url}/" /></metal:block></metal:block>
+    href="" tal:attributes="href string:${here_url}/" 
+    /></metal:block></metal:block>
   <metal:block fill-slot="head_slot"><metal:block define-slot="head_slot"
     /></metal:block>
   <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"
     /></metal:block>
   <metal:block fill-slot="javascript_head_slot"><metal:block
-    define-slot="javascript_head_slot" />
-  </metal:block>
+    define-slot="javascript_head_slot" 
+    /></metal:block>
 </metal:block>
 </head>
 <body OnLoad="setFocus()" tal:condition="emptybody">

@@ -1364,13 +1364,16 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                             'categories':'folder',
                             },
 
-            'welcome' : {'type':'Base Box',
+            'welcome' : {'type':'Text Box',
                         'title': 'CPS Welcome',
                         'slot':'center',
                         'order':10,
-                        'btype':'welcome',
+                        'btype':'default',
+                        'box_skin': 'here/box_lib/macros/wbox',
                         'display_in_subfolder': 0,
                         'display_only_in_subfolder': 0,
+                        'text': 'welcome_body',
+                        'i18n': 1,
                         },
 
             'nav_header' : {'type':'Base Box',

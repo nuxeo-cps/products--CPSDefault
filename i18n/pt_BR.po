@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pt-BR\n"
-"POT-Creation-Date: 2004-09-15 17:54default\n"
+"POT-Creation-Date: 2004-09-16 15:00default\n"
 "PO-Revision-Date: 2004-09-08 15:46-0300\n"
 "Last-Translator: Mario Olimpio de Menezes <mario@curiango.ipen.br>\n"
 "Language-Team: Portugues do Brasil <pt@li.org>\n"
@@ -109,7 +109,7 @@ msgstr "Papel1"
 
 #.   <option value="slot" content="string:label_${slot}" attributes="value slot;
 #.             selected python:test(slot==selected_slot,'selected', nothing);">Slot</option>
-#.   <span content="string:label_${slot}">Slot</span>
+#.   <span content="string:label_${slot_name}">Slot</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
@@ -257,10 +257,11 @@ msgstr "Próximo"
 msgid "batch_previous"
 msgstr "Anterior"
 
-#.   <p>The body of the welcome text</p>
+#.   <block content="structure box/box/text" condition="i18n">box text body</block>
 #: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "body_welcome"
-msgstr ""
+#, fuzzy
+msgid "box text body"
+msgstr "Texto do título da caixa"
 
 #.   <block content="box/box/title" fill-slot="box_title">
 #.         box text title
@@ -371,6 +372,8 @@ msgid "button_copy"
 msgstr "Copiar"
 
 #.   <a href="box_create_form" attributes="href string:${context_urlc}/box_create_form">Add a box</a>
+#.   <a href="box_create_form" attributes="href string:${context_urlc}/box_create_form?slot_name=${slot_name}">
+#.       Add a box</a>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "button_create_box"
 msgstr "Criar Caixa"
@@ -1179,7 +1182,7 @@ msgstr "Somente pastas autorizados"
 msgid "label_body"
 msgstr "Corpo"
 
-#.   <th align="right">text</th>
+#.   <label for="textbox_content">Content</label>
 #: from ../skins/cps_default/textbox_edit_form.pt
 msgid "label_box_content"
 msgstr "Conteúdo"
@@ -1491,6 +1494,12 @@ msgstr "Nome do Grupo"
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
 msgstr "Anônimo"
+
+#.   <label for="textbox_i18n">Translation</label>
+#: from ../skins/cps_default/textbox_edit_form.pt
+#, fuzzy
+msgid "label_i18n"
+msgstr "Em"
 
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
@@ -1868,10 +1877,11 @@ msgid "label_text_to_search"
 msgstr "Busca"
 
 #.   <th align="right">Title</th>
-#.   <strong>Title:</strong>
+#.   <label for="title">Title</label>
 #.   <div class="label">
 #.           Title
 #.         </div>
+#.   <strong>Title:</strong>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
@@ -2280,6 +2290,12 @@ msgstr "Comentários"
 #: from ../skins/cps_default/content_lib.pt
 msgid "v${status_revision}- ${status_language}"
 msgstr "v${status_revision}- ${status_language}"
+
+#.   <block>The body of the welcome text</block>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "welcome_body"
+msgstr "Corpo"
 
 msgid "accept"
 msgstr "Aceitar"

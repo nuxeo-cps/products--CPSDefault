@@ -59,12 +59,12 @@ def manage_addCPSDefaultSite(dispatcher, id,
                              title='CPSDefault Portal',
                              description='',
                              langs_list=None,
-                             root_id='root',
-                             root_sn='CPS',
-                             root_givenName='Root',
-                             root_email='root@localhost',
-                             root_password1='',
-                             root_password2='',
+                             manager_id='manager',
+                             manager_sn='CPS',
+                             manager_givenName='Manager',
+                             manager_email='',
+                             manager_password='',
+                             manager_password_confirmation='',
                              enable_portal_joining=1,
                              REQUEST=None):
     """Add a CPSDefault Site."""
@@ -77,18 +77,20 @@ def manage_addCPSDefaultSite(dispatcher, id,
         if (bla and zlog):
             LOG('addCPSDefaultSite:', INFO, bla)
 
-    if not root_password1:
-        raise ValueError, 'You have to fill CPS Administrator password!'
-    if root_password1 != root_password2:
-        raise ValueError, 'Password confirmation does not match password'
+    if not manager_email:
+        raise ValueError, "You have to provide an email address for the CPS Administrator!"
+    if not manager_password:
+        raise ValueError, "You have to provide CPS Administrator password!"
+    if manager_password != manager_password_confirmation:
+        raise ValueError, "Password confirmation does not match password!"
 
     id = id.strip()
     title = title.strip()
     description = description.strip()
-    root_givenName = root_givenName.strip()
-    root_sn = root_sn.strip()
-    email_from_name = '%s %s' % (root_givenName, root_sn)
-    root_email = root_email.strip()
+    manager_givenName = manager_givenName.strip()
+    manager_sn = manager_sn.strip()
+    email_from_name = '%s %s' % (manager_givenName, manager_sn)
+    manager_email = manager_email.strip()
 
     pr('Adding a CPSDefault Site')
     gen = CPSPortalGenerator()
@@ -97,12 +99,12 @@ def manage_addCPSDefaultSite(dispatcher, id,
     # Ugly hack to get around incompatibility between CMF 1.5 and 1.4
     try:
         gen.setupDefaultProperties(portal, title, description,
-                                   email_from_address=root_email,
+                                   email_from_address=manager_email,
                                    email_from_name=email_from_name,
                                    validate_email=0, default_charset='')
     except TypeError:
         gen.setupDefaultProperties(portal, title, description,
-                                   email_from_address=root_email,
+                                   email_from_address=manager_email,
                                    email_from_name=email_from_name,
                                    validate_email=0)
 
@@ -142,12 +144,12 @@ def manage_addCPSDefaultSite(dispatcher, id,
     pr('Creating CPS Administrator account for CPSDefault')
     mdir = portal.portal_directories.members
     entry = {
-        'id': root_id,
-        'password': root_password1,
+        'id': manager_id,
+        'password': manager_password,
         'roles': ['Manager', 'Member'],
-        'email': root_email,
-        'givenName': root_givenName,
-        'sn': root_sn,
+        'email': manager_email,
+        'givenName': manager_givenName,
+        'sn': manager_sn,
     }
     mdir.createEntry(entry)
 

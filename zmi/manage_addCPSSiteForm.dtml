@@ -3,120 +3,104 @@
   <dtml-var manage_page_header>
   <dtml-var manage_form_title>
 <dtml-else>
-  <html><head><title>&dtml-form_title;</title></head>
+  <html>
+  <head><title>&dtml-form_title;</title>
+  </head>
   <body>
   <h2>&dtml-form_title;</h2>
 </dtml-if>
 </dtml-let>
 
+  <div class="form-help">
+  Fill in this form to create a CPS Site.
+  </div>
+  
 <form action="manage_addCPSDefaultSite" method="post">
 <table cellspacing="0" cellpadding="2" border="0">
   <tr>
-    <td align="left" valign="top" colspan="2">
-    <div class="form-help">
-      Fill in this form to create a CPS Site.
-    </div>
+    <td align="left" valign="top">
+    <label for="id" class="form-label">Id</label>
+    </td>
+    <td align="left" valign="top">
+    <input type="text" name="id" id="id" size="40" value="cps"/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      Id
-    </div>
+    <label for="title" class="form-label">Title</label>
     </td>
     <td align="left" valign="top">
-    <input type="text" name="id" size="40" value="cps"/>
+    <input type="text" name="title" id="title" size="40" value="CPS Portal"/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      Title
-    </div>
+    <label for="description" class="form-label">Description</label>
     </td>
     <td align="left" valign="top">
-    <input type="text" name="title" size="40" value="CPS Portal"/>
+    <textarea name="description" id="description" cols="40" rows="2"></textarea>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      Description
-    </div>
+    <label for="login" class="form-label">CPS Administrator login</label>
     </td>
     <td align="left" valign="top">
-    <textarea name="description" cols="40" rows="2"></textarea>
+      <input type="text" name="manager_id" id="login" size="40" value="manager"/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      CPS Administrator login
-    </div>
+    <label for="manager_name" class="form-label">CPS Administrator Name</label>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_id" size="40" value="manager"/>
+      <input type="text" name="manager_sn" id="manager_name" size="40" value="CPS manager"/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      CPS Administrator Name
-    </div>
+    <label for="manager_givenName" class="form-label">CPS Administrator Given Name</label>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_sn" size="40" value="CPS manager"/>
+      <input type="text" name="manager_givenName" id="manager_givenName" size="40" value="Manager"/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      CPS Administrator Given Name
-    </div>
+    <label for="manager_email" class="form-label">
+      CPS Administrator E-mail <span class="required" style="color: #ff0000;">*</span>
+    </label>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_givenName" size="40" value="Manager"/>
+      <input type="text" name="manager_email" id="manager_email" size="40" value=""/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      CPS Administrator E-mail
-    </div>
+    <label for="manager_password" class="form-label">
+      CPS Administrator Password <span class="required" style="color: #ff0000;">*</span>
+    </label>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_email" size="40" value="webmaster@localhost"/>
-    </td>
+      <input type="password" name="manager_password" id="manager_password" size="40" value=""/>
     </td>
   </tr>
 
   <tr>
     <td align="left" valign="top">
-    <div class="form-label">
-      CPS Administrator Password
-    </div>
+    <label for="manager_password_confirmation" class="form-label">
+      CPS Administrator Password Confirmation <span class="required" style="color: #ff0000;">*</span>
+    </label>
     </td>
     <td align="left" valign="top">
-      <input type="password" name="root_password1" size="40" value=""/>
-    </td>
-  </tr>
-
-  <tr>
-    <td align="left" valign="top">
-    <div class="form-label">
-      CPS Administrator Password Confirmation
-    </div>
-    </td>
-    <td align="left" valign="top">
-      <input type="password" name="root_password2" size="40" value="">
-    </td>
+      <input type="password" name="manager_password_confirmation" id="manager_password_confirmation" size="40" value="">
     </td>
   </tr>
 
@@ -151,18 +135,11 @@
       </ul>
     </td>
   </tr>
-
-  <tr>
-    <td align="left" valign="top">
-    </td>
-    <td align="left" valign="top">
-    <div class="form-element">
-    <input class="form-element" type="submit" name="submit" 
-     value="Create" />
-    </div>
-    </td>
-  </tr>
 </table>
+
+<p style="text-align: center;">
+    <input type="submit" name="submit" value="Create" />
+</p>
 </form>
 
 <dtml-if manage_page_footer>

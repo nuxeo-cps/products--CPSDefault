@@ -3,7 +3,7 @@
 
 <form action="manage_boxOverrides" method="POST">
   <table border="1">
-    <tr><dtml-in "('', 'Path', 'Slot', 'Order', 'Minimized', 'Closed')">
+    <tr><dtml-in "('', 'Path', 'Slot', 'Order', 'Minimized', 'Closed', 'Style', 'Format')">
       <td class="form-label"><dtml-var sequence-item></td>
       </dtml-in>
     </tr>
@@ -13,7 +13,9 @@
                   slot="override_item['slot']"
                   order="override_item['order']"
                   minimized="override_item['minimized']"
-                  closed="override_item['closed']">
+                  closed="override_item['closed']"
+	          style="override_item['sytle']"
+	          format="override_item['format']">
           <td>
             <input type="checkbox" name="selected:list" value="&dtml-box_path;">
           </td>
@@ -33,6 +35,12 @@
           <td>
             <input type="text" size="4" name="overrides.closed:records" value="&dtml-closed;">
           </td>
+          <td>
+            <input type="text" size="4" name="overrides.style:records" value="&dtml-style;">
+	  </td>
+          <td>
+            <input type="text" size="4" name="overrides.format:records" value="&dtml-format;">
+	  </td>	  
         </dtml-let>
       </tr>
     </dtml-in>

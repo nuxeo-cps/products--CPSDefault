@@ -213,3 +213,16 @@ More Generally
     of you added msgids within the custom.pot file. 
      
  // Update the catalog. To be defined later.  
+
+
+
+this is a dynamic msgid:
+
+    <span tal:omit-tag="" tal:content="items/action" i18n:translate=""></span>
+    -> nothing in the pot
+
+    instead do this:
+    <span tal:omit-tag="" tal:content="items/action" i18n:translate="_dynamic_"></span>
+
+    
+    

@@ -8,7 +8,7 @@ Copy an object. Used within the folder_contents template.
 REQUEST=context.REQUEST
 
 if REQUEST.has_key('ids'):
-    context.manage_copyObjects(REQUEST['ids'], REQUEST, REQUEST.RESPONSE)
+    context.manage_CPScopyObjects(REQUEST['ids'], REQUEST)
     message = 'psm_item(s)_copied'
 else:
     message = 'psm_select_at_least_one_document'

@@ -33,7 +33,8 @@
 
   <div tal:condition="not: isAnon"
        tal:define="first_time python:(member.getProperty('login_time', None) ==
-                              here.ZopeTime('2000/01/01'))">
+                              here.ZopeTime('2000/01/01'));
+                   dum_home mtool/createMemberArea">
 
     <div tal:condition="first_time">
       <div tal:define="now here/ZopeTime;

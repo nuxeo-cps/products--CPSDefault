@@ -1,29 +1,13 @@
 ##parameters=REQUEST=None, **kw
 # $Id$
 
-wftool = context.portal_workflow
-
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
+wftool = context.portal_workflow
 folder = context.aq_parent
 
-# Find locked object
-docid = context.getDocid()
-flr = context.getFromLanguageRevisions()
-locked_ob = None
-for ob in folder.objectValues():
-    try:
-        rs = wftool.getInfoFor(ob, 'review_state', None)
-        if (rs == 'locked' and
-            ob.getDocid() == docid and
-            ob.getLanguageRevisions() == flr):
-            locked_ob = ob
-            break
-    except:
-        from zLOG import LOG, DEBUG
-        LOG('content_checkin_draft', DEBUG, 'exception in folder=%s' % folder)
-        raise
+locked_ob = context.getLockedObjectFromDraft()
 
 if locked_ob is None:
     raise ValueError('Nowhere to checkin')

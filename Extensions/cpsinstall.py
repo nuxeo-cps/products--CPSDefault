@@ -1503,6 +1503,22 @@ except:
     pr (log_i18n)
 
     #
+    #  CPSDirectory installer/updater
+    #
+    try:
+        import Products.CPSDirectory
+        if not portalhas('cpsdirectory_installer'):
+            pr('Adding cpsdirectory installer')
+            cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
+                                                    'CPSDirectroy Updater',
+                                                    'CPSDirectory.install',
+                                                    'install')
+            portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
+        pr(portal.cpsdirectory_installer())
+    except ImportError:
+        pass
+
+    #
     #  CPSDocument installer/updater
     #
     try:
@@ -1532,22 +1548,6 @@ except:
                                                    'install')
             portal._setObject('cpsml_installer', cpsml_installer)
         pr(portal.cpsml_installer())
-    except ImportError:
-        pass
-
-    #
-    #  CPSDirectory installer/updater
-    #
-    try:
-        import Products.CPSDirectory
-        if not portalhas('cpsdirectory_installer'):
-            pr('Adding cpsdirectory installer')
-            cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
-                                                    'CPSDirectroy Updater',
-                                                    'CPSDirectory.install',
-                                                    'install')
-            portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
-        pr(portal.cpsdirectory_installer())
     except ImportError:
         pass
 

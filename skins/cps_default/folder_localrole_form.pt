@@ -196,7 +196,8 @@
        <input type="checkbox" name="member_ids:list" value=""
               tal:attributes="value string:group:${group}" />
      </td>
-     <td tal:content="group">
+     <td tal:content="python:test(group.startswith('role:'),
+                                  cpsmcat(group), group)">
        Group
      </td>
    </tr>
@@ -311,7 +312,8 @@
           </tal:block>
           <td width="40%">
           <tal:block define="anuser python:user.split(':',1)[1];">
-            <span tal:content="anuser" />
+            <span tal:content="python:test(anuser.startswith('role:'),
+                                           cpsmcat(anuser), anuser)" />
           </tal:block>
           </td>
           <td width="57%">

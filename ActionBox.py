@@ -30,7 +30,7 @@ factory_type_information = (
      'title': 'portal_type_ActionBox_title',
      'description': 'portal_type_ActionBox_description',
      'meta_type': 'Action Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addActionBox',
      'immediate_view': 'actionbox_edit_form',

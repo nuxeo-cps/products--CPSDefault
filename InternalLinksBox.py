@@ -34,7 +34,7 @@ factory_type_information = (
      'title': 'portal_type_InternalLinksBox_title',
      'description': 'portal_type_InternalLinksBox_description',
      'meta_type': 'InternalLinks Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addInternalLinksBox',
      'immediate_view': 'internallinksbox_edit_form',

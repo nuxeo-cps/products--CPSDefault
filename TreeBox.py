@@ -34,7 +34,7 @@ factory_type_information = (
      'title': 'portal_type_TreeBox_title',
      'description': 'portal_type_TreeBox_description',
      'meta_type': 'Tree Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addTreeBox',
      'immediate_view': 'treebox_edit_form',

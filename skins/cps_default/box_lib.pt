@@ -32,11 +32,11 @@
     <a href="" class="close" tal:condition="python:not nobutton and minimized"
       tal:attributes="href
       string:${base_url}${box_url}/maximize?goto=${context_url}"><img
-      tal:replace="structure python:here.getImgTag('maximize.gif',
+      tal:replace="structure python:here.getImgTag('maximize.png',
       base_url=base_url)" /></a><a href="" class="close"
       tal:condition="python:not(nobutton or minimized)" tal:attributes="href
       string:${base_url}${box_url}/minimize?goto=${context_url}"><img
-      tal:replace="structure python:here.getImgTag('minimize.gif',
+      tal:replace="structure python:here.getImgTag('minimize.png',
       base_url=base_url)" /></a>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
@@ -61,15 +61,15 @@
     <a href="" class="close" tal:condition="not:nobutton"
       tal:attributes="href
       string:${base_url}${box_url}/close?goto=${context_url}"><img
-      tal:replace="structure python:here.getImgTag('close.gif',
+      tal:replace="structure python:here.getImgTag('close.png',
       base_url=base_url)" /></a><a href="" class="close"
       tal:condition="python:not nobutton and minimized" tal:attributes="href
       string:${base_url}${box_url}/maximize?goto=${context_url}"><img 
-      tal:replace="structure python:here.getImgTag('maximize.gif',
+      tal:replace="structure python:here.getImgTag('maximize.png',
       base_url=base_url)" /></a><a href="" class="close"
       tal:condition="python:not(nobutton or minimized)" tal:attributes="href
       string:${base_url}${box_url}/minimize?goto=${context_url}"><img
-      tal:replace="structure python:here.getImgTag('minimize.gif',
+      tal:replace="structure python:here.getImgTag('minimize.png',
       base_url=base_url)" /></a>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
@@ -142,7 +142,7 @@
 <a href="" tal:define="nobutton isHomeless"
    tal:condition="not:nobutton" tal:attributes="href
      string:${base_url}${box/url}/maximize?goto=${context_url}">
-  <img tal:replace="structure python:here.getImgTag('maximize.gif',
+  <img tal:replace="structure python:here.getImgTag('maximize.png',
                                                     base_url=base_url)" />
   <tal:block tal:condition="python:box['box'].category != 'actionbox' or
                             box['box'].btype != 'user'"

@@ -34,7 +34,7 @@ factory_type_information = (
      'title': 'portal_type_FlashBox_title',
      'description': 'portal_type_FlashBox_description',
      'meta_type': 'Flash Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addFlashBox',
      'immediate_view': 'flashbox_edit_form',

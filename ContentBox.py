@@ -36,7 +36,7 @@ factory_type_information = (
      'title': 'portal_type_ContentBox_title',
      'description': 'portal_type_ContentBox_description',
      'meta_type': 'Content Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addContentBox',
      'immediate_view': 'contentbox_edit_form',

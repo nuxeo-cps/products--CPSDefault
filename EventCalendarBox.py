@@ -31,7 +31,7 @@ factory_type_information = (
      'title': 'portal_type_EventCalendarBox_title',
      'description': 'portal_type_EventCalendarBox_description',
      'meta_type': 'Event Calendar Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addEventCalendarBox',
      'immediate_view': 'eventcalendarbox_edit_form',

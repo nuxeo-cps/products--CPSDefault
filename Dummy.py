@@ -38,7 +38,7 @@ factory_type_information = (
      'meta_type': 'Dummy',
      'title': 'portal_type_Dummy_title',
      'description': 'portal_type_Dummy_description',
-     'icon': 'dummy_icon.gif',
+     'icon': 'dummy_icon.png',
      'product': 'CPSDefault',
      'factory': 'addDummy',
      'immediate_view': 'metadata_edit_form',

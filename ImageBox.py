@@ -32,7 +32,7 @@ factory_type_information = (
      'title': 'portal_type_ImageBox_title',
      'description': 'portal_type_ImageBox_description',
      'meta_type': 'Image Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addImageBox',
      'immediate_view': 'imagebox_edit_form',

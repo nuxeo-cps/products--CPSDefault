@@ -82,7 +82,7 @@ def initialize(context):
         'CPS Boxes Tool',
         tools = tools,
         product_name = 'CPSDefault',
-        icon = 'tool.gif',
+        icon = 'tool.png',
         ).initialize(context)
     ContentInit('CPSDefault Documents',
                 content_types = contentClasses,

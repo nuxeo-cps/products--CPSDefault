@@ -41,7 +41,7 @@ factory_type_information = (
     {'id': 'Folder',
      'title': 'portal_type_Folder_title',
      'description': 'portal_type_Folder_description',
-     'content_icon': 'folder_icon.gif',
+     'content_icon': 'folder_icon.png',
      'product': 'CPSDefault',
      'meta_type': 'Folder',
      'factory': 'addFolder',

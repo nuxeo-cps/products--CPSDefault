@@ -75,7 +75,7 @@ factory_type_information = (
      'title': 'portal_type_BaseBox_title',
      'description': 'portal_type_BaseBox_description',
      'meta_type': 'Base Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addBaseBox',
      'immediate_view': 'basebox_edit_form',

@@ -29,7 +29,7 @@ factory_type_information = (
      'title': 'portal_type_TextBox_title',
      'description': 'portal_type_TextBox_description',
      'meta_type': 'Text Box',
-     'icon': 'box.gif',
+     'icon': 'box.png',
      'product': 'CPSDefault',
      'factory': 'addTextBox',
      'immediate_view': 'textbox_edit_form',

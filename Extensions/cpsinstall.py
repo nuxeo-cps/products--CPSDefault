@@ -583,7 +583,7 @@ def cpsupdate(self, langs_list=None):
             'description': 'portal_type_Dummy2_description',
             'icon': 'dummy2_icon.gif',
             'immediate_view': 'cpsdocument_edit_form',
-            'schemas': ['dublin_core', 'dummy2'],
+            'schemas': ['dummy2'],
             'default_layout': 'dummy2',
             'layout_style_prefix': 'layout_dummy_',
             }

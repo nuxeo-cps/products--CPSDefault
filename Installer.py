@@ -55,7 +55,8 @@ class BaseInstaller:
         self.log(" Already correctly installed")
 
     def logResult(self):
-        return '<html><head><title>CPSDocument Update</title></head>' \
+        return '<html><head><title> ' + self.product_name +\
+            ' Install/Update</title></head>'\
             '<body><pre>'+ '\n'.join(self._log) + '</pre></body></html>'
 
     def portalHas(self, id):

@@ -613,6 +613,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                          'WorkspaceMember; WorkspaceReader',
                           'guard_expr': ''}
             },
+            'language_revs': {
+                'description': 'The lang of the proxy',
+                'default_expr': 'python:{state_change.object.getDefaultLanguage(): state_change.object.getRevision()}',
+                'for_status': 1,
+                'update_always': 1,
+            },
             'time': {
                 'description': 'Time of the last transition',
                 'default_expr': 'state_change/getDateTime',
@@ -742,6 +748,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_roles': 'Manager; WorkspaceManager; '
                                          'WorkspaceMember; WorkspaceReader',
                           'guard_expr': ''}
+            },
+            'language_revs': {
+                'description': 'The lang of the proxy',
+                'default_expr': 'python:{state_change.object.getDefaultLanguage(): state_change.object.getRevision()}',
+                'for_status': 1,
+                'update_always': 1,
             },
             'time': {
                 'description': 'Time of the last transition',
@@ -992,6 +1004,12 @@ except:
                           'guard_roles': 'Manager; WorkspaceManager; '
                                          'WorkspaceMember; WorkspaceReader',
                           'guard_expr': ''}
+            },
+            'language_revs': {
+                'description': 'The lang of the proxy',
+                'default_expr': 'python:{state_change.object.getDefaultLanguage(): state_change.object.getRevision()}',
+                'for_status': 1,
+                'update_always': 1,
             },
             'time': {
                 'description': 'Time of the last transition',

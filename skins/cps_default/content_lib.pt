@@ -681,6 +681,20 @@ format:</pre>
   <span tal:repeat="item info/history">
 
     <span tal:content="item/time_str">May 6, 2003 5:28 pm</span>:
+
+    <tal:block repeat="language_rev item/language_revs/items">
+      <tal:block i18n:translate="">label_revision
+        <span i18n:name="status_revision"
+          tal:content="python:language_rev[1]">1</span>
+      </tal:block>
+      <tal:block i18n:translate="">label_language
+        <span i18n:name="status_language">
+        <tal:block i18n:translate=""
+          content="python:'label_language_%s' % language_rev[0]">en</tal:block>
+        </span>
+      </tal:block>
+    </tal:block>
+
     <span tal:content="item/action" i18n:translate="">publish</span>
 
     <tal:block condition="item/has_dest|nothing" i18n:translate="">

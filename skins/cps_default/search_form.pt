@@ -22,7 +22,11 @@
 <html metal:use-macro="here/main_template/macros/master">
 <div metal:fill-slot="main">
   <tal:block define="SearchableText python:request.get('SearchableText','');
-                     items python:here.search(query=request.form);
+                     sort_by python:request.get('sort_by', '');
+                     direction python:request.get('direction', '');
+                     items python:here.search(query=request.form,
+                                              sort_by=sort_by,
+                                              direction=direction);
                      nav_action string:search_form;
                      no_form python:1;
                      items_length python:len(items);">

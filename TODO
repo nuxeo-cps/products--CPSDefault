@@ -1,6 +1,15 @@
 # $Id$
 # CPSDefault TODO
 
+# milestones
+- [encolpe] 05/12: encolpe coding for CPSDefault
+- [seb + hervé] 05/12: working with Element proposa
+- [ben] 05/14: CPSDefault main skins impl, basic unit test for core
+- [florent] 05/14: firs impl of CPSDocuments
+- [] 05/22: CPSDefault a la CMF ready
+- [] 05/28: CPSDemo with few services tbd ...
+
+# tasks list
 - CPS a la CMF
    o workflow and docs
       o impl skin accept
@@ -29,12 +38,13 @@
    o cmf integration
       o put members folder into workspaces
       o clean or integrate fully cmf stuff ? undo ? preference ? favorite ?
-   o zmi
-      o finalize CPSSite form
-   o tests
-      o real unit test for Dummy and Folder
-      o better functional tests with maximum coverage using ZTC
-         o refactoring of testCPSSite
+   o element integration
+     add a new skin directory mutualize stuff in an other ?
+   o other
+      o finalize zmi CPSSite form creation
+      o unit tests for Dummy and Folder
+      o refactoring functional tests in testCPSSite
+      o cpsintall don't need any more to rename folder actions
 
 - Bug fix
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
@@ -44,6 +54,7 @@
      SectionReader rights
    o folder_contents display links with broken path 
      if there are a missing trailing '/' in the URL
+   o fix folder_edit_form do not save change
 
 - Open questions
    o still need simple scenarii wf/multi version/multi language
@@ -54,8 +65,8 @@
    o how and when shoud we delete a doc in the repository
 
 - Make CPSDemo product
-   o based on CPSCore/CPSDefault
-   o using CPS skin with elements
-   o define basic document type News, File, Flexible using CPSDocuments
+   this product should be a skeleton for any new cps site
+   o based on CPSDefault element skin
+   o define basic document type like News, File ... using CPSDocuments
    o Integration of * NuxCPS2 products
-
+   o example of cpsdemoupdate script

@@ -13,44 +13,39 @@
 
       <form action="content_create" method="post"
         tal:attributes="action string:${here_url}/content_create">
-        <table width="100%" border="0" cellpadding="1" cellspacing="1"
-          summary="listing of documents types">
-          <tbody>
-            <tal:block tal:repeat="item creatableItems">
-              <tr valign="top">
-                <td align="left" width="20">
+
+        <tal:block tal:condition="creatableItems">
+          <dl>
+            <tal:block repeat="item creatableItems">
+              <tal:block define="choice_id string:choice_${repeat/item/number}">
+                <dt>
                   <input type="radio" name="type_name" value="" id=""
                     class="noborder"
                     tal:attributes="value item/getId;
                     checked repeat/item/start;
-                    id string:cb_${repeat/item/number}" />
-                </td>
-                <td align="left" width="20">
+                    id string:choice_${repeat/item/number}" />
                   <label for=""
-                    tal:attributes="for string:cb_${repeat/item/number}">
+                    tal:attributes="for string:choice_${repeat/item/number}">
                     <img tal:replace="structure python:here.getImgTag(item.getIcon(),
                       base_url=base_url)" />
                   </label>
-                </td>
-                <th align="left">
-                  <label for="" tal:attributes="for string:cb_${repeat/item/number}"
+                  <label for="" tal:attributes="for choice_id"
                     tal:content="item/Title"
                     i18n:translate="">
                     Portal type's title
                   </label>
-                </th>
-              </tr>
-              <tr valign="top">
-                <td colspan="2">&nbsp;</td>
-                <td align="left" class="description" tal:content="item/Description"
-                  i18n:translate="">
-                  Portal type's description
-                </td>
-              </tr>
+                </dt>
+                <dd>
+                  <label for="" tal:content="item/Description" i18n:translate=""
+                    tal:attributes="for choice_id">
+                    Portal type's description
+                  </label>
+                </dd>
+              </tal:block>
             </tal:block>
-          </tbody>
-        </table>
-        <br />
+          </dl>
+        </tal:block>
+
         <p tal:condition="creatableItems">
           <label for="objectTitle"><strong i18n:translate="label_title">Title:</strong></label>
           <input id="objectTitle" type="text" name="title" size="40" />
@@ -60,7 +55,9 @@
         <p tal:condition="not:creatableItems">
           <span i18n:translate="help_no_content_type_can_be_created">No content type can be created.</span>
         </p>
+
       </form>
+
     </div>
 
   </body>

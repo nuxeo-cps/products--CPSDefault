@@ -73,17 +73,17 @@
 <!-- ============================================================ -->
 <pre>a header for a document or folder:</pre>
 <div metal:define-macro="byline"
-     tal:define="creator doc/Creator;
-                 email python:member.getProperty('email', None)">
-<p i18n:translate="">
+  tal:define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+              cname dname/fullname|doc/Creator;
+              email dname/email|nothing;"
+  i18n:translate="">
   Created by
   <a href="." title="Here" tal:omit-tag="not:email"
      tal:attributes="href string:mailto:${email}?subject=[${doc/title}]; title email"
-     tal:content="creator" i18n:name="item_creator">Creator</a>.
+     tal:content="cname" i18n:name="item_creator">Creator</a>.
   Last modified
-  <span tal:content="python:doc.ModificationDate()"
-        i18n:name="item_modification">Today</span>.
-</p>
+  <tal:block content="python:here.getDateStr(doc.modification_date, 'medium')"
+    i18n:name="item_modification" />.
 </div>
 
 

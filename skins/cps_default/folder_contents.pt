@@ -129,10 +129,12 @@
 
 <div class="Desktop">
 
+
   <tal:block condition="python: checkPerm('List folder contents', here,
 'aq_parent')">
-     <a href="../"
-        tal:attributes="href python:test(hasattr(here.aq_parent, 'portal_url'), '../', '../folder_contents')">
+     <a href="../xx"
+        tal:attributes="href python:test(hasattr(here.aq_parent.aq_parent,
+           'portal_url'), '../folder_contents', '..')">
      <img src="" alt="[Link]" border="0"
        tal:attributes="src string:${base_url}UpFolder_icon.gif">
        <span i18n:translate="">description_up_to
@@ -140,6 +142,8 @@
          Up ID</b>
        </span></a><br><br>
   </tal:block>
+
+
   <form action="" method="post"
       tal:attributes="action here/absolute_url">
 

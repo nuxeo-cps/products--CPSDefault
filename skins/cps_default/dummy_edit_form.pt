@@ -14,8 +14,8 @@
 
 <h2>Edit <span tal:replace="here/getId">My ID</span></h2>
 
-<form action="dummy_edit" method="post"
-      tal:attributes="action string:${here/absolute_url}/dummy_edit"
+<form action="content_edit" method="post"
+      tal:attributes="action string:${here/absolute_url}/content_edit"
 >
 <table class="FormLayout">
 
@@ -27,10 +27,7 @@
 
  <tr>
   <th class="TextField"> Description </th>
-  <td class="TextField">
-   <textarea name="description:text" rows="5" wrap="soft"  
-             cols="65" tal:content="doc/Description"></textarea>
-  </td>
+  <td> <span tal:replace="doc/Description">My Title</span> </td>
  </tr>
  <tr>
   <th class="TextField"> Body
@@ -44,8 +41,8 @@
  <tr>
   <th><br /></th>
   <td>
-   <input type="submit" name="choice" value=" Change " />
-   <input type="submit" name="choice" value=" Change and View " />
+   <input type="submit" name="change_and_edit" value=" Change " />
+   <input type="submit" name="change_and_view" value=" Change and View " />
   </td>
  </tr>
 

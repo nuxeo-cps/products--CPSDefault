@@ -5,14 +5,9 @@
 
 import os
 import sys
-from random import randrange
-from Acquisition import aq_base
-from DateTime.DateTime import DateTime
 from AccessControl import getSecurityManager
-from App.Extensions import getPath
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.ActionInformation import ActionInformation
-from Products.CMFCore.Expression import Expression
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, \
      ReviewPortalContent, RequestReview
 

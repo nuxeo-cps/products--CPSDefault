@@ -52,7 +52,7 @@ class pyBenchmarkTimer:
         self.markers[name] = time.clock()
         self.markerOrder.append(name)
 
-    def timeElapsed(self, start=None, end=None ):
+    def timeElapsed(self, start=None, end=None):
         """
         time diff between two markers, order is unimportant
             returns the absolute value of the difference
@@ -62,10 +62,10 @@ class pyBenchmarkTimer:
         if len(self.markerOrder) < 2:
             return 0
         if start is None:
-                start = self.markerOrder[0]
+            start = self.markerOrder[0]
         if end is None:
-                end   = self.markerOrder[-1]
-        return abs(self.markers[end]-self.markers[start])
+            end = self.markerOrder[-1]
+        return abs(self.markers[end] - self.markers[start])
 
     def getProfiling(self, return_str=1):
         """
@@ -76,25 +76,25 @@ class pyBenchmarkTimer:
         """
         if not self._in_bench:
             return
-        i       = 0
-        total   = 0
+        i = 0
+        total = 0
         profiling = []
-        str = '<pre>Profiling lvl:%d %s:<small>\n' % (self._level,
-                                                      self.title)
+        str = '<pre>Profiling lvl:%d %s:<small>\n' % (self._level, self.title)
         str += '%-6s  %-10s %-4s\n' % ('t', 'mark', 'delta t')
         for name in self.markerOrder:
             time = self.markers[name]
-            if i==0:
+            if i == 0:
                 diff = 0
             else:
-                diff  = time - temp
+                diff = time - temp
                 total = total + diff
-            profiling.append( { 'name'  : name,
-                                'time'  : time,
-                                'diff'  : diff,
-                                'total' : total } )
+            profiling.append({'name'  : name,
+                              'time'  : time,
+                              'diff'  : diff,
+                              'total' : total})
             if diff > 0.3:
-                str += '%7.4f: %-10s +<font color="red">%7.4f</font>\n' % (total, name, diff)
+                str += '%7.4f: %-10s +<font color="red">%7.4f</font>\n' % (
+                       total, name, diff)
             else:
                 str += '%7.4f: %-10s +%7.4f\n' % (total, name, diff)
             

@@ -138,12 +138,11 @@ def buildTree(portal, cfg, parent='root', path='', parent_type=None):
         if ob:
             for perm in cfg.getPermission(content):
                 permission = cfg.get(perm, 'permission')
-                roles=cfg.getList(perm, 'roles')
-                acquire=int(cfg.get(perm, 'acquire', '0'))
+                roles = cfg.getList(perm, 'roles')
+                acquire = int(cfg.get(perm, 'acquire', '0'))
                 if not len(roles) or not permission:
                     continue
-                ob.manage_permission(permission, roles=roles,
-                                     acquire=acquire)
+                ob.manage_permission(permission, roles=roles, acquire=acquire)
 
     for content in contents:
         buildTree(portal, cfg, content, path, parent_type)

@@ -48,10 +48,13 @@ class TreeBox(BaseBox):
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
-        {'id':'root', 'type':'string', 'mode':'w', 'label':'Root'},
-        {'id':'depth', 'type':'int', 'mode':'w', 'label':'depth of the tree'},
-        {'id':'contextual', 'type':'boolean', 'mode':'w', 'label':'try to expand on current path'},
-        {'id':'children_only', 'type':'boolean', 'mode':'w', 'label':'display children only'},
+        {'id': 'root', 'type': 'string', 'mode': 'w', 'label': 'Root'},
+        {'id': 'depth', 'type': 'int', 'mode': 'w', 
+         'label': 'depth of the tree'},
+        {'id': 'contextual', 'type': 'boolean', 'mode': 'w', 
+         'label': 'try to expand on current path'},
+        {'id': 'children_only', 'type': 'boolean', 'mode': 'w', 
+         'label': 'display children only'},
         )
 
     def __init__(self, id, root='', depth=0, contextual=0,
@@ -64,7 +67,7 @@ class TreeBox(BaseBox):
 
     security.declarePublic('getTree')
     def getTree(self, context):
-        """ return the ptree from root """
+        """Return the ptree from root"""
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
 
@@ -123,7 +126,8 @@ class TreeBox(BaseBox):
 
     security.declarePublic('getTreeObject')
     def getTreeObject(self, context):
-        """ return the ptree object from root """
+        """Return the ptree object from root"""
+        # XXX: same docstring than above. Something must be wrong.
 
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')

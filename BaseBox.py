@@ -5,7 +5,7 @@
 """
 
 from Globals import InitializeClass, DTMLFile
-from AccessControl import getSecurityManager, ClassSecurityInfo
+from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 
 from OFS.PropertyManager import PropertyManager

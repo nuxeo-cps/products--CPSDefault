@@ -12,10 +12,7 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 import unittest
 from Testing import ZopeTestCase
 
-from AccessControl.SecurityManagement \
-    import newSecurityManager, noSecurityManager
-from AccessControl.User import UserFolder, manage_addUserFolder
-from OFS.Folder import Folder, manage_addFolder
+from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.Permissions import access_contents_information, view
 from Products.CMFCore.utils import getToolByName
 

@@ -48,7 +48,8 @@ class TestCPSInstaller(ZopeTestCase.ZopeTestCase):
 
         # checking for root folders
         self.assertEqual(self.cps['sections'].getPortalTypeName(), 'Section')
-        self.assertEqual(self.cps['workspaces'].getPortalTypeName(), 'Workspace')
+        self.assertEqual(self.cps['workspaces'].getPortalTypeName(), 
+                         'Workspace')
         
 
 if __name__ == '__main__':

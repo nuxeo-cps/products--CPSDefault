@@ -47,8 +47,10 @@ class ImageBox(BaseBox, Folder):
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
-        {'id':'image_name', 'type':'text', 'mode':'w', 'label':'Image file name'},
-        {'id':'image_link', 'type':'text', 'mode':'w', 'label':'Image file name'},
+        {'id': 'image_name', 'type': 'text', 'mode': 'w', 
+         'label': 'Image file name'},
+        {'id': 'image_link', 'type': 'text', 'mode': 'w', 
+         'label': 'Image file name'},
         )
 
     def __init__(self, id, image_name='', image_link='', **kw):

@@ -5,12 +5,10 @@
 """
 from zLOG import LOG, DEBUG, INFO
 
-from DateTime import DateTime
 from Globals import InitializeClass, DTMLFile, MessageDialog
 import Products
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
-from OFS.PropertyManager import PropertyManager
 from ZODB.PersistentMapping import PersistentMapping
 
 from Products.CMFCore.PortalFolder import PortalFolder
@@ -71,7 +69,6 @@ class BoxesTool(UniqueObject, PortalFolder):
         obj = portal_url.getPortalObject()
         allboxes = []
         settings = {}
-        path = '/'
         home_boxes_loaded = 0
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         for elem in ('',) + rpath:
@@ -106,9 +103,9 @@ class BoxesTool(UniqueObject, PortalFolder):
                 boxdisplayurl = '/'.join(boxpath[:-2])
             rurl = '/'.join(rpath)
 
-            if not box.display_in_subfolder and \
-                   not box.display_only_in_subfolder and \
-                   rurl != boxdisplayurl:
+            if (not box.display_in_subfolder and
+                   not box.display_only_in_subfolder and
+                   rurl != boxdisplayurl):
                 continue
 
             if box.display_only_in_subfolder and rurl == boxdisplayurl:
@@ -134,8 +131,8 @@ class BoxesTool(UniqueObject, PortalFolder):
         # We'll now filter to only get the open boxes in the asked for slot.
         # This can not be done previously, since 'slot' and 'closed' settings
         # can be overriden by local setting
-        boxes = [x for x in boxes if (
-            slot is None or x['settings']['slot'] == slot)]
+        boxes = [x for x in boxes 
+                   if slot is None or x['settings']['slot'] == slot]
 
         # sorting
         def cmpbox(a, b):
@@ -357,7 +354,7 @@ class BoxContainer(PortalFolder):
                 self._box_overrides[box_path] = settings
             message = 'Settings changed.'
         else:
-            message='Nothing to do.'
+            message = 'Nothing to do.'
         if REQUEST is not None:
             return self.manage_boxOverridesForm(REQUEST,
                 management_view='Overrides',

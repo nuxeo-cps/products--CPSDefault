@@ -145,7 +145,6 @@ class BoxesTool(UniqueObject, SimpleItem):
     security.declarePrivate('_getFolderBoxes')
     def _updateSettings(self, set1, set2):
         """Update settings 1 with settings 2 """
-        # TODO not yet tested !
         if not set2:
             return
         for k in set2.keys():

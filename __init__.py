@@ -3,7 +3,7 @@
 """ CPS Default Init
 """
 
-from Products.CMFCore.utils import ContentInit
+from Products.CMFCore.utils import ContentInit, ToolInit
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.CMFCorePermissions import AddPortalContent
 
@@ -11,17 +11,34 @@ import Portal
 import Folder
 import Dummy
 
-contentClasses = (Folder.Folder, Dummy.Dummy,)
-contentConstructors = (Folder.addFolder, Dummy.addDummy,)
+import BoxesTool
+import BaseBox
+import TextBox
+
+contentClasses = (Folder.Folder, Dummy.Dummy,
+                  BaseBox.BaseBox, TextBox.TextBox)
+contentConstructors = (Folder.addFolder, Dummy.addDummy,
+                       BaseBox.addBaseBox, TextBox.addTextBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
+       BaseBox.factory_type_information +
+       TextBox.factory_type_information +
        ()
        )
+
+tools = (BoxesTool.BoxesTool,  # XXX this should be moved into CPSCore ?
+         )
 
 registerDirectory('skins', globals())
 
 def initialize(context):
+    ToolInit(
+        'CPS Boxes Tool',
+        tools = tools,
+        product_name = 'CPSDefault',
+        icon = 'tool.gif',
+        ).initialize(context)
     ContentInit('CPSDefault Documents',
                 content_types = contentClasses,
                 permission = AddPortalContent,

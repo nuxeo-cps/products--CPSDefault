@@ -78,6 +78,10 @@ items = [
                 'desc': 'description_nuxeo_treebox_sitemap',
                 'config': {'authorized_only': 1,
                            },
+                },
+               {'provider': 'nuxeo',
+                'id': 'sitemap_adv',
+                'desc': 'description_nuxeo_treebox_sitemap_adv',
                 }
                ]
      },

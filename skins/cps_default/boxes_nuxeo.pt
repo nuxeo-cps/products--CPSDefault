@@ -507,6 +507,77 @@
 </tal:block>
 </metal:block>
 
+
+<!-- ============================================================ -->
+<metal:block define-macro="treebox_sitemap_adv"
+  tal:define="items python:box['box'].getTree(here);">
+<metal:block use-macro="python:path(box['settings']['box_skin'])">
+  <metal:block fill-slot="box_title"
+     tal:content="box/box/title" i18n:translate="">
+       box text title
+  </metal:block>
+  <metal:block fill-slot="box_body"
+    tal:define="mtool nocall:here/portal_metadirectories/members;
+                host here/portal_url/aq_parent/absolute_url;">
+    <tal:block repeat="item items">
+      <h2 tal:condition="repeat/item/start"
+        i18n:translate="">label_collaborative_folder</h2>
+        <metal:block define-macro="display_folder">
+        <img tal:condition="python:getattr(box['box'],'display_icons',0)"
+          tal:replace="structure python:
+            here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
+                                                   base_url=base_url)">
+        <a tal:attributes="href string:${base_url}${item/rpath}/"
+          tal:omit-tag="not:item/visible"><b
+        tal:content="string:${item/title_or_id}" /></a>
+        <div style="padding-left:1.5em">
+          <tal:block repeat="manager item/managers">
+            <tal:block define="emanager python:mtool.getEntry(manager);"
+              condition="emanager">
+            <a tal:condition="emanager/email|nothing"
+              tal:attributes="href
+                string:mailto:${emanager/email}?subject=[${item/title_or_id}];
+                title emanager/email;"
+              tal:content="emanager/fullname|manager" /><span
+              tal:condition="not:emanager/email"
+              tal:content="emanager/fullname|manager" /><tal:block
+              condition="not:repeat/manager/end">,</tal:block>
+            <br tal:condition="repeat/manager/end">
+            </tal:block>
+          </tal:block>
+          <tal:block condition="item/description">
+            <tal:block replace="item/description" /><br></tal:block>
+        <div><br>
+        </metal:block>
+    </tal:block>
+    <tal:block>
+      <h2 i18n:translate="">label_folder_search</h2>
+      <form method="get"
+        tal:attributes="action here_url">
+        <span i18n:translate="box_search">Search:</span>
+        <input id="searchGadget" type="text" name="query_folder" size="20"
+         value="" tal:attributes="value request/query_folder|nothing">
+        <input class="context searchButton" type="submit" value="button_ok"
+          i18n:attributes="value">
+      </form>
+      <tal:block tal:define="query_folder request/query_folder|nothing"
+         condition="query_folder">
+        <tal:block define="items python:box['box'].searchTree(here, query_folder)">
+          <tal:block condition="python: not len(items)">
+            <span i18n:translate="legend_folder_no_search_result">nop</span>
+          </tal:block>
+          <tal:block repeat="item items">
+            <metal:block use-macro="here/boxes_nuxeo/macros/display_folder" />
+          </tal:block>
+        </tal:block>
+      </tal:block>
+
+    </tal:block>
+  </metal:block>
+</metal:block>
+</metal:block>
+
+
 <!-- ============================================================ -->
 <!-- actions should be define like in main_template -->
 <!-- actions python:atool.listFilteredActionsFor(here); -->

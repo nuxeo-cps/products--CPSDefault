@@ -63,7 +63,7 @@ factory_type_information = (
                   'permissions': (ModifyPortalContent,)},
                  {'id': 'localroles',
                   'name': 'Gestion des droits',
-                  'action': 'cpsfolder_localroles_form',
+                  'action': 'cpsfolder_localrole_form',
                   'permissions': (ModifyPortalContent,)},
                  {'id': 'folder_contents',
                   'name': 'Contenu',

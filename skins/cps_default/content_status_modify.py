@@ -10,10 +10,18 @@ if REQUEST is not None:
 
 folder = context.aq_parent
 id = context.getId()
+url = None
 
 if workflow_action != 'copy_submit':
     # accept, reject, ...
-    wftool.doActionFor(context, workflow_action, comment=comment)
+    res = wftool.doActionFor(context, workflow_action, comment=comment)
+    if same_type(res, ()):
+        if res[0] == 'ObjectMoved':
+            rpath = res[1]
+            url = context.portal_url()
+            if not url.endswith('/'):
+                url += '/'
+            url += rpath
 else:
     # publishing: copy and initalize proxy into one or more sections
     allowed_transitions = wftool.getAllowedPublishingTransitions(context)
@@ -30,10 +38,11 @@ else:
 
 if REQUEST is not None:
     # If the object has been deleted, we can't redirect to it.
-    if id in folder.objectIds():
-        url = context.absolute_url()
-    else:
-        url = folder.absolute_url()
+    if url is None:
+        if id in folder.objectIds():
+            url = context.absolute_url()
+        else:
+            url = folder.absolute_url()
 
     redirect_url = '%s/?%s' % (url, 'portal_status_message=Status+changed.')
     REQUEST.RESPONSE.redirect(redirect_url)

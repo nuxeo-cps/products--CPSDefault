@@ -18,10 +18,10 @@ box: <tal:block replace="box_url" />
   tal:attributes="action string:${context_urlc}/box_edit"
   tal:define="box_category python:box['box'].category">
 <input type="hidden" name="box_url" value=""
-  tal:attributes="value box_url" />
+  tal:attributes="value box_url">
 <input type="hidden" name="box_category" value=""
-  tal:attributes="value box_category" />
-<table class="FormLayout">
+  tal:attributes="value box_category">
+<table border="0">
   <tr valign="top">
     <th align="right" i18n:translate="label_title">Title</th>
     <td colspan="5">
@@ -45,7 +45,7 @@ box: <tal:block replace="box_url" />
     </td>
     <th align="right" i18n:translate="label_order">Order</th>
     <td><input type="text" name="order" value="" size="3"
-           tal:attributes="value box/settings/order" /></td>
+           tal:attributes="value box/settings/order"></td>
     <th align="right" i18n:translate="label_display">Display</th>
     <td>
       <select name="display_box">
@@ -99,7 +99,7 @@ box: <tal:block replace="box_url" />
       <table border="0" width="100%" cellpadding="1" cellspacing="1">
         <tr><td colspan="2">
           <strong i18n:translate="" tal:content="category/title" /><br>
-          <em><tal:block i18n:translate="" content="category/desc" /></em>
+          <em i18n:translate="" tal:content="category/desc" />
         </td></tr>
         <tal:block repeat="type category/types">
         <tr><td width="30%" tal:define="sf string:${type/provider}@${type/id}">
@@ -112,7 +112,7 @@ box: <tal:block replace="box_url" />
             </i>
           </label>
           </td>
-          <td><em i18n:translate=""  tal:content="type/desc" />
+          <td><em i18n:translate="" tal:content="type/desc" />
         </td></tr>
         </tal:block>
       </table>

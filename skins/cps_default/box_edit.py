@@ -12,18 +12,20 @@ if kw.get('back'):
     return REQUEST.RESPONSE.redirect('%s/box_manage_form' %
                                      (context.absolute_url()))
 
-display_order = kw.get('display_order')
-if display_order == "None" or not display_order:
-    kw['sort_by'] = None
-    kw['direction'] = None
-else:
-    kw['sort_by'], kw['direction'] = display_order.split('_')
-del kw['display_order']
+if kw.has_key('display_order'):
+    display_order = kw['display_order']
+    if display_order == "None" or not display_order:
+        kw['sort_by'] = None
+        kw['direction'] = None
+    else:
+        kw['sort_by'], kw['direction'] = display_order.split('_')
+    del kw['display_order']
 
-kw['display'] = kw.get('display_style')
-if kw['display'] == 'None':
-    kw['display'] = None
-del kw['display_style']
+if kw.has_key('display_style'):
+    kw['display'] = kw['display_style']
+    if kw['display'] == 'None':
+        kw['display'] = None
+    del kw['display_style']
 
 box_url = kw['box_url']
 del kw['box_url']

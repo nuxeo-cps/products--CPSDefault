@@ -30,11 +30,6 @@ factory_type_information = (
                   'name': 'Edit',
                   'action': 'treebox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'render_box',
-                  'name': 'Render box',
-                  'action': 'box_tree',
-                  'visible': 0,
-                  'permissions': ()},                 
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -63,7 +58,7 @@ class TreeBox(BaseBox):
 
     def __init__(self, id, root='', depth=0, contextual=0,
                  children_only=0, **kw):
-        BaseBox.__init__(self, id, kw=kw)
+        BaseBox.__init__(self, id, macro='treebox', kw=kw)
         self.root = root
         self.depth = depth
         self.contextual = contextual
@@ -88,7 +83,8 @@ class TreeBox(BaseBox):
             root_path = filter(None,self.root.split('/'))
         root_tree = root_path[0]
         if not hasattr(portal_trees, root_tree):
-            raise Exception('no tree for %s' % root_tree)
+            return []
+            #raise Exception('no tree for %s' % root_tree)
 
         tree = portal_trees[root_tree].getList()
 

@@ -30,11 +30,6 @@ factory_type_information = (
                   'name': 'Edit',
                   'action': 'contentbox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'render_box',
-                  'name': 'Render box',
-                  'action': 'box_content',
-                  'visible': 0,
-                  'permissions': ()},  
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -59,7 +54,7 @@ class ContentBox(BaseBox):
         )
 
     def __init__(self, id, folder=None, **kw):
-        BaseBox.__init__(self, id, kw=kw)
+        BaseBox.__init__(self, id, macro='contentbox', kw=kw)
         self.folder = folder
 
 

@@ -27,11 +27,6 @@ factory_type_information = (
                   'name': 'Edit',
                   'action': 'textbox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'render_box',
-                  'name': 'Render box',
-                  'action': 'box_text',
-                  'visible': 0,
-                  'permissions': ()},                 
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -56,7 +51,7 @@ class TextBox(BaseBox):
         )
 
     def __init__(self, id, text='', **kw):
-        BaseBox.__init__(self, id, kw=kw)
+        BaseBox.__init__(self, id, macro='textbox', kw=kw)
         self.text = text
 
 

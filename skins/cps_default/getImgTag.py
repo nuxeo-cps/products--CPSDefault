@@ -10,7 +10,7 @@ elif base_url == '':
 img_url = base_url + img_name
 try:
     img = context.restrictedTraverse(img_name)
-except KeyError:
+except (KeyError, 'NotFound'):
     return '<img src="%s" border="0" alt="%s" />' % (img_url, alt)
 
 if not height:

@@ -4,6 +4,23 @@ HOWTO to setup CPS with Apache httpd VirtualHost directives
 ===========================================================
 *$Id$*
 
+
+
+Adapting those examples to your needs
+=====================================
+
+The port 9673 is the Zope default port on Debian, you might have to change it to
+8080 depending on your configuration.
+
+Note that in all the following examples "demo1.localdomain" can be replaced by
+"localhost" if your Zope server runs on the same machine as your Apache httpd
+server is.
+
+
+
+Using Apache (apache-ssl package)
+=================================
+
 Here are some configuration examples using Apache httpd VirtualHost directives
 as it can be setup on a Debian Sarge machine with the "apache-ssl" package.
 
@@ -26,21 +43,8 @@ What you need:
 * You should generate a private key and certificate files for your web server.
 
 
-
-Adapting those examples to your needs
-=====================================
-
-The port 9673 is the Zope default port on Debian, you might have to change it to
-8080 depending on your configuration.
-
-Note that in all the following examples "demo1.localdomain" can be replaced by
-"localhost" if your Zope server runs on the same machine as your Apache httpd
-server is.
-
-
-
 Simple HTTP + HTTPS configuration
-=================================
+---------------------------------
 
 This configuration is what most people would need. This is not a secure
 configuration but it is easy to setup and understand.
@@ -77,7 +81,7 @@ Example::
 
 
 Secure HTTP + HTTPS configuration
-=================================
+---------------------------------
 
 This is a secure configuration because:
 
@@ -152,7 +156,14 @@ Example::
 
 
 
-Related bug reports
+Using Apache2
+=============
+
+XXX: we are waiting for someone to contribute the corresponding apache2 virtual
+hosts configuration.
+
+
+Related information
 ===================
 
 * bug #436

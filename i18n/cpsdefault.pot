@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2005-02-14 15:44default\n"
+"POT-Creation-Date: 2005-04-06 15:36default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -28,12 +28,7 @@ msgstr ""
 #.                             selected python:cat in box['box'].categories" repeat="cat actions/keys">
 #.             Action
 #.           </option>
-#.   <a content="action/name" attributes="href action/url;">Action</a>
-#.   <a content="action/name" attributes="href action/url;
-#.                                class python:test(selected, 'selected', default)">Action</a>
-#.   <a content="action/name" attributes="href action/url">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
-#: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
 msgstr ""
 
@@ -47,14 +42,10 @@ msgstr ""
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
 
-#.   <option content="python:lang_voc.getMsgid(language)" repeat="language python:lang_voc.keysSortedBy('i18n')" attributes="value language;
-#.                               selected python:test(language==default_language,'selected', nothing);" condition="l10n_translated">
-#.         Language</option>
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
 #.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "Language"
 msgstr ""
 
@@ -73,25 +64,17 @@ msgstr ""
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr ""
 
-#.   <dd content="item/Description">
-#.                   Portal type's description
-#.                 </dd>
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
-#: from ../skins/cps_default/box_create_form.pt
-#: ../skins/cps_default/folder_factories.pt
+#: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
 msgstr ""
 
-#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
-#.                     Portal type's title
-#.                   </label>
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
-#: from ../skins/cps_default/box_create_form.pt
-#: ../skins/cps_default/folder_factories.pt
+#: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr ""
 
@@ -105,16 +88,8 @@ msgstr ""
 
 #.   <option value="slot" content="string:label_${slot}" attributes="value slot;
 #.             selected python:test(slot==selected_slot,'selected', nothing);">Slot</option>
-#.   <span content="string:label_${slot_name}">Slot</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
-msgstr ""
-
-#.   <block content="box/box/title" condition="python:box['box'].category != 'actionbox' or
-#.                               box['box'].btype != 'user'">Title</block>
-#: from ../skins/cps_default/box_lib.pt
-msgid "Title"
 msgstr ""
 
 #.   <div class="message" content="portal_status_message" condition="portal_status_message" define="portal_status_message portal_status_message |
@@ -248,35 +223,10 @@ msgstr ""
 msgid "batch_previous"
 msgstr ""
 
-#.   <block content="structure box/box/text" condition="i18n">box text body</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "box text body"
-msgstr ""
-
-#.   <block content="box/box/title" fill-slot="box_title">
-#.         box text title
-#.       </block>
-#.   <block content="box/box/title" fill-slot="box_title">box text title</block>
-#.   <block content="box/box/title" fill-slot="box_title">
-#.          box text title
-#.       </block>
-#.   <block content="box/box/title" fill-slot="box_title">
-#.          box text title
-#.     </block>
-#.   <block content="box/box/title">box text title</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt 3 more references
-msgid "box text title"
-msgstr ""
-
 #.   <span>Closed boxes :&nbsp;</span>
 #: from ../skins/cps_default/main_template.pt
 #: ../skins/cps_devel/main_template_debug.pt
 msgid "box_closed_boxes"
-msgstr ""
-
-#.   <span>Search:</span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "box_search"
 msgstr ""
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
@@ -285,9 +235,8 @@ msgid "button_abandon_draft"
 msgstr ""
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
-#.   <input type="submit" name="manageCPSLanguage:method" value="button_add" />
-#: from ../skins/cps_default/box_create_form.pt
-#: ../skins/cps_default/folder_factories.pt
+#.   <button type="submit" name="manageCPSLanguage:method">Add</button>
+#: from ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr ""
@@ -357,16 +306,14 @@ msgstr ""
 msgid "button_checkout_draft"
 msgstr ""
 
+#.   <button onclick="window.close()">Fermer</button>
+#: from ../skins/cps_default/popup-singleselect.pt
+msgid "button_close"
+msgstr ""
+
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
-msgstr ""
-
-#.   <a href="box_create_form" attributes="href string:${context_urlc}/box_create_form">Add a box</a>
-#.   <a href="box_create_form" attributes="href string:${context_urlc}/box_create_form?slot_name=${slot_name}">
-#.       Add a box</a>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "button_create_box"
 msgstr ""
 
 #.   <input name="folder_cut:method" type="submit" class="context" value="button_cut" condition="can_del" />
@@ -377,7 +324,7 @@ msgstr ""
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
-#.   <input type="submit" name="manageCPSLanguage:method" value="button_delete" />
+#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/language_manage_form.pt
@@ -425,12 +372,9 @@ msgstr ""
 msgid "button_move_up"
 msgstr ""
 
-#.   <input type="submit" value="button_ok" />
-#.   <input type="submit" class="context searchButton" value="button_ok" />
 #.   <input type="button" value="button_ok" onclick="history.back()" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr ""
@@ -477,30 +421,20 @@ msgstr ""
 msgid "button_revert_revision"
 msgstr ""
 
-#.   <button type="button" attributes="
-#.           style string:visibility: visible;
-#.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
-#.           ">Layout</button>
-#: from ../skins/cps_default/textbox_edit_form.pt
-msgid "button_rte"
-msgstr ""
-
-#.   <input type="submit" class="context searchButton" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr ""
 
-#.   <input type="submit" name="manageCPSLanguage:method" value="button_select" />
+#.   <button type="submit" name="manageCPSLanguage:method">Select</button>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "button_select"
 msgstr ""
@@ -527,6 +461,14 @@ msgstr ""
 msgid "button_submit_document"
 msgstr ""
 
+#.   <button type="button" attributes="
+#.           style string:visibility: visible;
+#.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
+#.           ">Layout</button>
+#: from ../skins/cps_default/textbox_edit_form.pt
+msgid "button_text_editor_popup"
+msgstr ""
+
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "button_translate_document"
@@ -535,6 +477,12 @@ msgstr ""
 #.   <input type="submit" class="standalone" value="button_unpublish_document" />
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
+msgstr ""
+
+#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
+#.       </input>
+#: from ../skins/cps_default/popup-singleselect.pt
+msgid "button_update"
 msgstr ""
 
 #.   <span>
@@ -603,20 +551,9 @@ msgid "description_registered"
 msgstr ""
 
 #.   <span>description_up_to
-#.       ${up_id (tal content="python:here.aq_parent.title_or_id()")}
-#.     </span>
-#.   <span>description_up_to
 #.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/folder_contents.pt
+#: from ../skins/cps_default/folder_contents.pt
 msgid "description_up_to ${up_id}"
-msgstr ""
-
-#.   <p>
-#.     description_visible_box_from ${context_url (tal content="context_url")}
-#.   </p>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "description_visible_box_from ${context_url}"
 msgstr ""
 
 #.   <td content="string:label_language_${item/lang}">en</td>
@@ -666,19 +603,9 @@ msgstr ""
 msgid "heading_advanced_search"
 msgstr ""
 
-#.   <h1>Add a Box</h1>
-#: from ../skins/cps_default/box_create_form.pt
-msgid "heading_box_create_form"
-msgstr ""
-
 #.   <h1>Box edition</h1>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "heading_box_edit_form"
-msgstr ""
-
-#.   <h2>Boxes management</h2>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "heading_box_manage_form"
 msgstr ""
 
 #.   <title fill-slot="title">
@@ -1186,7 +1113,7 @@ msgid "label_admin_name"
 msgstr ""
 
 #.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr ""
 
@@ -1283,14 +1210,23 @@ msgstr ""
 msgid "label_choose"
 msgstr ""
 
+#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
+#.                                                                         'Select folder for recherche') " size="30">
+#.                                                                Choose sections</button>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_choose_section"
+msgstr ""
+
+#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
+#.                                                                         'Select workspaces for recherche') " size="30">
+#.                                                                Choose workspaces</button>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_choose_workspace"
+msgstr ""
+
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_closed"
-msgstr ""
-
-#.   <h2 condition="repeat/item/start">label_collaborative_folder</h2>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "label_collaborative_folder"
 msgstr ""
 
 #.   <td>Comments</td>
@@ -1306,17 +1242,17 @@ msgid "label_compact"
 msgstr ""
 
 #.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr ""
 
 #.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr ""
 
 #.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr ""
 
@@ -1564,11 +1500,6 @@ msgstr ""
 msgid "label_folder"
 msgstr ""
 
-#.   <h2>label_folder_search</h2>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "label_folder_search"
-msgstr ""
-
 #.   <th align="right">Format</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -1589,13 +1520,6 @@ msgstr ""
 #.   <option value="groupname">Group name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
-msgstr ""
-
-#.   <span condition="isAnon">
-#.           Guest
-#.         </span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "label_guest"
 msgstr ""
 
 #.   <label for="textbox_i18n">Translation</label>
@@ -1662,12 +1586,10 @@ msgstr ""
 msgid "label_info_tab_version"
 msgstr ""
 
-#.   <label for="languageChooser">Language</label>
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/content_lib_archived.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/language_manage_form.pt
@@ -1949,9 +1871,7 @@ msgid "label_since ${status_time}"
 msgstr ""
 
 #.   <label for="box_slot">Slot</label>
-#.   <span>slot</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/box_manage_form.pt
 msgid "label_slot"
 msgstr ""
 
@@ -2006,24 +1926,20 @@ msgstr ""
 msgid "label_subject"
 msgstr ""
 
-#.   <label for="searchGadget">Text to search</label>
 #.   <label for="resultSearchText">
 #.               Text to search
 #.             </label>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "label_text_to_search"
 msgstr ""
 
 #.   <label for="box_title">Title</label>
-#.   <label for="title">Title</label>
 #.   <div class="label">
 #.           Title
 #.         </div>
 #.   <th align="right">Title</th>
 #.   <strong>Title:</strong>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
@@ -2125,11 +2041,6 @@ msgstr ""
 #.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_set_default"
-msgstr ""
-
-#.   <span>nop</span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "legend_folder_no_search_result"
 msgstr ""
 
 #.   <h1>
@@ -2236,24 +2147,6 @@ msgstr ""
 msgid "link_atom_export"
 msgstr ""
 
-#.   <a href="" attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
-#.         onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )">delete</a>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "link_box_delete"
-msgstr ""
-
-#.   <a href="" attributes="href
-#.         string:${context_urlc}/${action}?box_url=${box/url}">edit</a>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "link_box_edit"
-msgstr ""
-
-#.   <a href="" attributes="href
-#.         string:${context_urlc}/${action}?box_url=${box/url}">view</a>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "link_box_view"
-msgstr ""
-
 #.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
@@ -2297,11 +2190,6 @@ msgstr ""
 msgid "link_logout_zmi"
 msgstr ""
 
-#.   <a href="" attributes="href link_more">More...</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "link_more"
-msgstr ""
-
 #.   <span>
 #.               You can now log into the site:
 #.             </span>
@@ -2326,11 +2214,6 @@ msgstr ""
 msgid "link_rss_export"
 msgstr ""
 
-#.   <th width="15%">action</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_action"
-msgstr ""
-
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
@@ -2339,30 +2222,10 @@ msgstr ""
 msgid "listingheader_existing_revision"
 msgstr ""
 
-#.   <th width="30%">location</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_location"
-msgstr ""
-
-#.   <th width="5%">Order</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_order"
-msgstr ""
-
 #.   <th width="30%">Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
-msgstr ""
-
-#.   <th width="25%">Title</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_title"
-msgstr ""
-
-#.   <th width="25%">Type</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_type"
 msgstr ""
 
 #.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
@@ -2728,9 +2591,6 @@ msgstr ""
 msgid "button_create"
 msgstr ""
 
-msgid "button_update"
-msgstr ""
-
 msgid "button_deselect_all"
 msgstr ""
 
@@ -2776,6 +2636,9 @@ msgid "label_right"
 msgstr ""
 
 msgid "label_top"
+msgstr ""
+
+msgid "label_guest"
 msgstr ""
 
 msgid "label_creator"
@@ -3195,6 +3058,12 @@ msgid "SectionReviewer"
 msgstr ""
 
 msgid "SectionReader"
+msgstr ""
+
+msgid "Contributor"
+msgstr ""
+
+msgid "Reader"
 msgstr ""
 
 msgid "ForumPoster"

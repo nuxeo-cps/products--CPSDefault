@@ -253,19 +253,38 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 addUserFolderWithGroups()
 
         self.verifyRoles((
-            'WorkspaceManager', # manage: sub object, user right, document,
-                                # ask for publication
-            'WorkspaceMember',  # manage: document, ask for publication
-            'WorkspaceReader',  # only view documents
-            'SectionManager',   # manage sub object, accept publication
-            'SectionReviewer',  # accept/reject publication
-            'SectionReader',    # only view published document
+            # A role that can modify documents and can ask for publication.
+            # This role is not specific to workspaces or sections.
+            # This role is what WorkspaceMember should have been in the first
+            # place.
+            # This role is used at least in CPSWiki.
+            'Contributor',
+            # A role that can view documents.
+            # This role is not specific to workspaces or sections.
+            # This role is what WorkspaceReader and SectionReader should have
+            # been in the first place.
+            # This role is used at least in CPSWiki.
+            'Reader',
+            # A role that can manage objects and sub-objects, user rights,
+            # documents and can ask for publication.
+            'WorkspaceManager',
+            # A role that can manage documents and can ask for publication
+            'WorkspaceMember',
+            # A role that can only view documents
+            'WorkspaceReader',
+            # A role that can manage objects and sub-objects, user rights,
+            # documents, and accept/accept publications.
+            'SectionManager',
+            # A role that can accept/reject publications.
+            'SectionReviewer',
+            # A role that can only view published documents.
+            'SectionReader',
         ))
 
         self.log("Verifying permissions")
         ModifyFolderPoperties = 'Modify Folder Properties'
         setDefaultRoles(ModifyFolderPoperties,
-            ( 'Manager', 'WorkspaceManager',))
+            ('Manager', 'WorkspaceManager',))
 
         if external_editor_present:
             portal_perms = {
@@ -274,55 +293,58 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             self.setupPortalPermissions(portal_perms, self.portal)
         sections_perms = {
             'Request review': ['Manager', 'WorkspaceManager',
-                               'WorkspaceMember',  'SectionReviewer',
-                               'SectionManager'],
+                               'WorkspaceMember', 'Contributor',
+                               'SectionReviewer', 'SectionManager'],
             'Review portal content': ['Manager', 'SectionReviewer',
                                       'SectionManager'],
             'Add Box Container': ['Manager', 'SectionManager'],
             'Manage Box Overrides': ['Manager','SectionManager'],
             'Manage Boxes': ['Manager', 'SectionManager'],
-            'Add portal content': ['Manager', 'SectionManager'],
+            'Add portal content': ['Manager', 'SectionManager', 'Contributor'],
             'Add portal folders': ['Manager', 'SectionManager'],
             'Change permissions': ['Manager', 'SectionManager'],
             'Change subobjects order': ['Manager', 'SectionManager'],
             'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
             'List folder contents': ['Manager', 'SectionManager',
-                                     'SectionReviewer', 'SectionReader'],
-            'Modify portal content': ['Manager', 'SectionManager'],
+                                     'SectionReviewer', 'SectionReader',
+                                     'Contributor'],
+            'Modify portal content': ['Manager', 'SectionManager',
+                                      'Contributor'],
             'Modify Folder Properties': ['Manager', 'SectionManager'],
             'View': ['Manager', 'SectionManager', 'SectionReviewer',
-                     'SectionReader'],
+                     'SectionReader', 'Contributor'],
             'View management screens': ['Manager', 'SectionManager'],
-            'View archived revisions': ['Manager', 'SectionManager'],
+            'View archived revisions': ['Manager', 'SectionManager',
+                                        'SectionReviewer', 'Contributor'],
             WebDavLockItem: ['SectionManager', 'SectionReviewer'],
             WebDavUnlockItem: ['SectionManager', 'SectionReviewer'],
             }
         self.setupPortalPermissions(sections_perms, self.portal[SECTIONS_ID])
         workspaces_perms = {
             'Add portal content': ['Manager', 'WorkspaceManager',
-                                   'WorkspaceMember', ],
+                                   'WorkspaceMember', 'Contributor'],
             'Add portal folders': ['Manager', 'WorkspaceManager'],
             'Change permissions': ['Manager', 'WorkspaceManager'],
             'Change subobjects order': ['Manager', 'WorkspaceManager',
-                                        'WorkspaceMember', ],
+                                        'WorkspaceMember', 'Contributor'],
             'Delete objects': ['Manager', 'WorkspaceManager',
-                               'WorkspaceMember', ],
+                               'WorkspaceMember', 'Contributor'],
             'List folder contents': ['Manager', 'WorkspaceManager',
-                                     'WorkspaceMember', 'WorkspaceReader'],
+                                     'WorkspaceMember', 'Contributor', 'WorkspaceReader'],
             'Modify portal content': ['Manager', 'WorkspaceManager',
-                                      'WorkspaceMember', 'Owner'],
+                                      'WorkspaceMember', 'Contributor', 'Owner'],
             'Modify Folder Properties': ['Manager', 'WorkspaceManager'],
-            'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember',
+            'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Contributor',
                      'WorkspaceReader'],
             'View management screens': ['Manager', 'WorkspaceManager',
-                                        'WorkspaceMember',],
+                                        'WorkspaceMember', 'Contributor'],
             'Add Box Container': ['Manager', 'WorkspaceManager',
                                   'SectionManager'],
             'Manage Box Overrides': ['Manager','WorkspaceManager'],
             'Manage Boxes': ['Manager', 'WorkspaceManager'],
             'View archived revisions': ['Manager', 'WorkspaceManager',
-                                        'WorkspaceMember'],
-            WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
+                                        'WorkspaceMember', 'Contributor'],
+            WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Contributor', 'Owner'],
             WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             }
         self.setupPortalPermissions(workspaces_perms, self.portal[WORKSPACES_ID])

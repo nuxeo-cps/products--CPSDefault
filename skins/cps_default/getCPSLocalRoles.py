@@ -77,16 +77,21 @@ cps_roles = [x for x in cps_roles if x not in ('Owner',
                                                'Authenticated')]
 # filter roles by portal type using prefix
 # XXX TODO relevant roles should be store in the portal_types tool
-ptype_role_prefix = {'Section': 'Section',
-                     'Workspace': 'Workspace',
-                     'Calendar': 'Workspace',
-                     'CPSForum': 'Forum',
-                     'CPSChat': 'Chat',
+ptype_role_prefix = {'Section': ('Section',),
+                     'Workspace': ('Workspace'),
+                     'Wiki': ('Contributor', 'Reader'),
+                     'Calendar': ('Workspace',),
+                     'CPSForum': ('Forum',),
+                     'CPSChat': ('Chat',),
                      }
 ptype = context.portal_type
 if ptype in ptype_role_prefix.keys():
-    prefix = ptype_role_prefix[ptype]
-    cps_roles = [x for x in cps_roles if x.startswith(prefix)]
+    contextual_roles = []
+    for role_prefix in ptype_role_prefix[ptype]:
+        for cps_role in cps_roles:
+            if cps_role.startswith(role_prefix):
+                contextual_roles.append(cps_role)
+    cps_roles = contextual_roles
 
 # user_names is a dictionary that holds the fullnames of users in
 # dict_roles.keys()

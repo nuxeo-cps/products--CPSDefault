@@ -118,7 +118,8 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_l10n_select">
-<form name="idioma" action="Localizer/changeLanguage" method="post">
+<form name="idioma" action="Localizer/changeLanguage" method="post"
+      tal:attributes="action string:${base_url}Localizer/changeLanguage">
   <select name="lang" onchange="idioma.submit()"
     tal:define="map here/Localizer/get_languages_map">
     <tal:block repeat="locale map">
@@ -127,6 +128,7 @@
       tal:content="string:label_language_${locale/id}" i18n:translate="" />
     </tal:block>
  </select>
+ <input type="submit" value="button_ok" i18n:attributes="value" />
 </form><br />
 </metal:block>
 

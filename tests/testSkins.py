@@ -49,7 +49,7 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testComputeId(self):
         id = "Voilà l'été"
-        self.assertEquals(self.portal.computeId(id), "voila_l_ete")
+        self.assertEquals(self.portal.computeId(id), "voila_ete")
 
     def testTruncURL(self):
         url = 'http://youpilala.com/il/fait/beau/et/chaud/ajourd/hui'

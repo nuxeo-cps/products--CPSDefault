@@ -63,6 +63,11 @@ class DummyTranslationService(SimpleItem):
     def translate(self, domain, msgid, *args, **kw):
         return msgid
 
+# Dummy MessageCatalog
+class DummyMessageCatalog:
+    def __call__(self, message, *args, **kw):
+        return message
+
 # Un-patch LocalizerStringIO
 
 from StringIO import StringIO
@@ -109,6 +114,7 @@ class CPSInstaller:
         # Change translation_service to DummyTranslationService
         portal = getattr(self.app, id)
         portal.translation_service = DummyTranslationService()
+        portal.Localizer.default = DummyMessageCatalog()
 
     def logout(self):
         noSecurityManager()

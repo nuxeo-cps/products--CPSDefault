@@ -349,7 +349,7 @@
               - [
               <tal:block tal:repeat="manager managers">
                 <tal:block tal:condition="python:
-                   here.portal_directories.members.getEntry(manager, accept_invalid_id=1)">
+                   here.portal_directories.members.getEntry(manager, default=None)">
                   <a style="font-style:italic" href=""
                      tal:content="
                        python:
@@ -476,7 +476,7 @@
                   - [
                   <tal:block tal:repeat="manager managers">
                     <tal:block tal:condition="python:
-                         here.portal_directories.members.getEntry(manager, accept_invalid_id=1)">
+                         here.portal_directories.members.getEntry(manager, default=None)">
                       <a style="font-style:italic" href=""
                          tal:content="
                            python:
@@ -539,7 +539,7 @@
         tal:content="string:${item/title_or_id}" /></a>
         <div style="padding-left:1.5em">
           <tal:block repeat="manager item/managers">
-            <tal:block define="emanager python:mtool.getEntry(manager, accept_invalid_id=1);"
+            <tal:block define="emanager python:mtool.getEntry(manager, default=None);"
               condition="emanager">
             <a tal:condition="emanager/email|nothing"
               tal:attributes="href
@@ -643,7 +643,7 @@
       </span>
       <a href="." accesskey="H"
          tal:define="directory here/portal_directories/members;
-                     entry python:not isAnon and directory.getEntry(uname, accept_invalid_id=1)"
+                     entry python:not isAnon and directory.getEntry(uname, default=None)"
          tal:condition="not:isAnon"
          tal:content="python:entry and entry.get('fullname', uname) or uname"
          tal:attributes="href string:${base_url}workspaces/members/${uname}/view"

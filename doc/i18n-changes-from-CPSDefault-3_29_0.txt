@@ -59,6 +59,10 @@ TreeBox:
 folder_view
     display a list of available locale with switchLanguage link
 
+getContentInfo
+    if entry is a catalog brain then we build rpath using catalog entry
+    so rpath may be like rpath/to/proxy/switchLanguage/xx 
+    
 new CPSSchema/DocumentLanguageSelect Widget that display available
 locale if any with switchLanguage link
 it is used on the common layout
@@ -73,20 +77,13 @@ without running any updater
 there should have no overload
 only benefits from getBestRevision refactoring
 
-Bugs:
-~~~~~
-- search result list is ok but links to document point to
-proxy.getBestRevision instead of displayed locale
-
 Todo:
 ~~~~~
 - action to remove a translation
 - add a line in the status history when creating a translation
 - check for garbage entry in catalog
 - check/optimize security reindexing process
-- search result list should display links with switchLanguage
 - UI language selector should reset all objects locale selection
-
 
 
 * more info on CPSCore/doc/i18n-changes-from-CPSCore-3_18_0.txt

@@ -19,6 +19,7 @@
                  portal utool/getPortalObject;
                  has_local_roles_blocking portal/acl_users/hasLocalRolesBlocking|nothing;
                  local_roles_blocked python:cpslr[3];
+                 fullnames python:cpslr[4];
                 ">
 
 <div tal:condition="not:searching">
@@ -264,8 +265,7 @@
   <p>
     <input type="hidden" name="change_type" value="delete" />
   </p>
-  <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];
-                     mdir here/portal_directories/members;">
+  <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
     <tal:block repeat="type python:['user','group']">
       <table width="100%" summary="Listing of roles">
       <tr>
@@ -300,9 +300,7 @@
             <td width="40%">
               <tal:block define="anuser python:user.split(':', 1)[1]">
                 <tal:block tal:condition="python:type=='user'"><label
-                    tal:define="user_name
-                    python:mdir.getEntry(anuser, {}).get('fullname', anuser)"
-                    tal:content="user_name"
+                    tal:content="python:fullnames.get(anuser, anuser)"
                     tal:attributes="for input_id">
                     User 1
                 </label></tal:block>

@@ -4,19 +4,6 @@ CPS and i18n
   This documents gives rules and hints for translating CPS 3 and third-party
   products.
 
-  History:
-
-    - refactored the part about portal types
-
-    - completed the part about sentences
-
-    - added a note about dates
-
-    - added a note about boxes
-
-    - first draft
- 
-    - [Julien] Rules to generate pot/pos, managing and updating them.
 
 Tools used
 
@@ -24,55 +11,69 @@ Tools used
   and "TranslationService":http://www.zope.org/Members/efge/TranslationService.
   These products are shipped with CPS.
 
-  nuxeo_env package provides you 2 tools : make_pot and update_pos to help you 
+  nuxeo_env package provides you 2 tools : make_pot and update_pos to help you
   managing the pot/po files. (See the related section below)
 
-  Messages are stored in MessageCatalog objects. They and instancied inside the
+  Messages are stored in a MessageCatalog object inside the
   Localizer instance. Hence, the translation_service object hold paths to
   MessageCatalog objects like "Localizer/default".
 
-  We use the "default" domain for CPSDefault with its associated catalog. You
-  must use another catalog and domain if your product is not designed to be
-  shipped with CPSDefault.
+  We use only the "default" domain for CPSDefault and all the required
+  products, this means that we have only one MessageCatalog.
 
   CPSDefault skins do not provide a 'i18n:domain' attribute or at least the
-  "default" if you must specify one (does it work or this name is kind of a
-  magic ?).
+  "default".
 
-  other skins must provide a i18n domain not to mix CPSDefault messages with
-  your own. Typically, you would use::
+  For python script file we have to use this syntax ::
 
-    <html i18n:domain="productname">
+    mcat = context.Localizer.default
 
-  and declare this domain and its associated catalog in the translation_service
-  object.
+  This is our rules until we know how to work with domain :/
 
-  For python script file we have to use this syntax for the moment::
 
-    mcat = context.Localizer.productname
 
-  In near future it will be::
+Guide to Prefixes your msgid (mostly from plone i18n guideline)
 
-    mcat = context.translation_service
+    msgid is a short name like the one you would use for a variable.
 
-  And with translation_service it will be possible to also pass a domain
-  and substitution variables, whereas the current usage of calling
-  directly a message catalog doesn't give us the automatic domain
-  flexibility.
+    We added certain standard prefixes for IDs so you can understand where they
+are used (semantic differences are easier to spot this way), and easily locate
+them. Sorted the IDs will be grouped by type automatically.
 
-What to translate and how
+   * heading_ - for page headings
+   * description_ - for the description directly below the headings
+   * legend_ - for the group/fieldset legends
+   * label_ - for labels, both field labels and input labels
+   * help_ - the pop-up help text
+   * box_ - for content in Plone Boxes (navigation box etc)
+   * listingheader_ - for headers in listings (tables of class
+     "listing", the normal way to list items in Plone)
+   * time_ - for time-related stuff that can be reused - "Yesterday",
+     "Last week" etc
+   * batch_ - for batch-related things - like "Displaying X to Y of Z
+     total documents"
+   * portal_type_ - for portal type name
+   * action_ - for action name
 
-  - For sentences:
+    There are also Product-specific prefixes, eg. the Product ZWiki has a
+heading, then the prefix would be |zwiki_heading_edit_wiki_page|. This prevents
+collision between Message IDs.
 
-    At most, we use a msgid, e.g. a short name like the one you would use for a variable.
-    For instance::
+
+How to translate:
+
+  - zpt static sentences:
+
+    Use msgid !
 
       <p i18n:translate="help_join">Becoming a member gives [...]</p>
 
     Be sure to be specific, it would have been a mess to use "help_message" in
     the former example.
 
-    Msgids are not always convenient. For sentences like::
+  - zpt dynamic sentences:
+
+    Msgids are not always convenient. For sentences like:
 
       <h2>Edit <span tal:replace="doc/getId" /></h2>
 
@@ -81,6 +82,20 @@ What to translate and how
       <h2 i18:translate="">Edit <span tal:replace="doc/getId"
                                       i18n:name="item_id" /></h2>
 
+    here the msgid to translate is 'Edit ${item_id}'
+
+    for dynamic keywork like :
+
+    <span tal:omit-tag="" tal:content="items/action" i18n:translate="_dynamic_">Action</span>
+
+
+  - zpt tags' attributes:
+
+    Form tags use a 'value' attribute to set the msgid
+
+    <input type="submit" i18n:attributes="value" value="button_search" />
+
+
   - For the portal status message:
 
     Typically, this sentence is sent as is by a redirect call. a
@@ -88,19 +103,9 @@ What to translate and how
     is stored (no msgid).
 
     As a consequence, do not use computed sentences like "5 items deleted." or
-    "please correct the following fields: [...]". Keep it simple as in
-    CMFDefault, use "Items deleted." and "Errors found.".
+    "please correct the following fields: [...]". Keep it simple like
+    psm_item_deleted or psm_error_found
 
-  - For tags' attributes:
-
-    Form tags use a 'value' attribute. For now, we keep its content in plain
-    english and provide a i18n:attribute="value". I will inspect the new syntax
-    where i18n:attribute can work with a msgid.
-
-  - A note about proxies:
-
-    Proxies handle translation by themselves so don't place i18n:translate=""
-    around the title.
 
   - For portal types:
 
@@ -114,91 +119,88 @@ What to translate and how
 
   - For portal types' actions:
 
-    Actions are typically named "View" or "Reply". Keep it in plain english (a
-    la CMF) so that any product will have its basic "View", "Edit", ... methods
-    already translated.
-
-  - For boxes:
-
-    Avoid automating the translation by using an i18n:translate in the box
-    macros since it would make no sense for some titles. These specific titles
-    could be the user's name or a section/workgroup's title (remember proxies
-    handle translation by themselves).
+    Actions should use msgid as well: typically named "action_view" or "action_reply".
 
   - For dates:
 
     XXX how do we specify/ where do we write the date format ?
 
+  - cps proxies:
+
+    Proxies handle translation by themselves so don't place i18n:translate=""
+    around the title.
+
+
 --------------------------------------------------
 Rules to generate pot/pos files and updating them
 --------------------------------------------------
 
-  Included in the nuxeo_env package you'll find 2 tools preventing the use 
-  of Localizer for performing the translations. 
+  Included in the nuxeo_env package you'll find 2 tools preventing the use
+  of Localizer for performing the translations.
   We'll still use the import feature of Localizer when the translation will
-  be done. 
+  be done.
 
-  The tools : 
-     1) make_pot   : Initialization (see the scenario below) 
-     2) update_pos : If your ZPT's change or you wanna add some msgids 
+  The tools :
+     1) make_pot   : Initialization (see the scenario below)
+     2) update_pos : If your ZPT's change or you wanna add some msgids
 
-  Check the HOWTO.INSTALL_CPS3 for the package that must be installed in order 
-  to make these tools working.  
+  Check the HOWTO.INSTALL_CPS3 for the package that must be installed in order
+  to make these tools working.
 
-  The idea is to parse directly the ZPTs, extracting the content of the i18n 
-  tags and generating the pot/po files for a product. 
+  The idea is to parse directly the ZPTs, extracting the content of the i18n
+  tags and generating the pot/po files for a product.
 
-  It basically use : GNU Gettext, OpenTAL, pax (XML parser) and OpenPTi18n. 
-  For this last use the one within dev2 cause I did some changes on the 
+  It basically use : GNU Gettext, OpenTAL, pax (XML parser) and OpenPTi18n.
+  For this last use the one within dev2 cause I did some changes on the
   original one for convenience. The package is called OpenPTi18n-nuxeo.
   You'll find this one within dev2 /home/download/_packages directory.
- 
+
   Scenarios
   ----------
 
   -- Initialization --
 
-     1) Create a subdirectory named i18n/ in your product directory. 
-     2) launch the tool make_pot within this one. IT WILL  : 
-        a) Parse the ZPTs and generate a xxxproduct.pot (pot template file) 
-        b) Create an en.po and fr.po from the pot template. 
-           (DO NOT EDIT THIS ONE AFTER) 
-        c) Create a custom.pot file where you will put you self the needed 
-           translation from dynamic content. 
-           Idea : Display your ZPT on the site and check in Localizer the 
+     1) Create a subdirectory named i18n/ in your product directory.
+     2) launch the tool make_pot within this one. IT WILL  :
+        a) Parse the ZPTs and generate a xxxproduct.pot (pot template file)
+        b) Create an en.po and fr.po from the pot template.
+           (DO NOT EDIT THIS ONE AFTER)
+        c) Create a custom.pot file where you will put you self the needed
+           translation from dynamic content.
+           Idea : Display your ZPT on the site and check in Localizer the
                   needed translations but don't export with Localizer anymore !)
-     3) Translate the local files (en/fr.po) with the help of tool such as 
-        kbabel or still emacs mode. 
-     4) Update the Localizer catalog 
+     3) Translate the local files (en/fr.po) with the help of tool such as
+        kbabel or still emacs mode.
+     4) Update the Localizer catalog
 
-  -- Update with some add-ons in the custom.pot -- 
+  -- Update with some add-ons in the custom.pot --
 
     1) Put the msgids in the custom.pot file
-    2) Launch the second tool : update_pos within the i18n directory. 
-    3) Update the Localizer catalog 
+    2) Launch the second tool : update_pos within the i18n directory.
+    3) Update the Localizer catalog
 
   -- Update : Your ZPT's changed --
 
-    1) Change your ZPT's 
-    2 Launch the update_pos within the i18n directory. 
-    3) That's it ! Update with Localizer. 
-   
-  -- DEBUG mode with make_pot -- 
+    1) Change your ZPT's
+    2 Launch the update_pos within the i18n directory.
+    3) That's it ! Update with Localizer.
 
-    You might find useful the debug mode of make_pot if your ZPTs contained errors. 
-    It means if you didn't set the i18n tags properly. 
+  -- DEBUG mode with make_pot --
 
-    It will be use if you get some errors with make_pot. 
+    You might find useful the debug mode of make_pot if your ZPTs contained errors.
+    It means if you didn't set the i18n tags properly.
 
-    make_pot can feed one directory or one single file : make_pot <file|directory> 
-    It will check all the ZPTs within directory and will inform you which one 
+    It will be use if you get some errors with make_pot.
+
+    make_pot can feed one directory or one single file : make_pot <file|directory>
+    It will check all the ZPTs within directory and will inform you which one
     are not well formed (By mean of i18n tags)
 
-   Like that, if errors occurred use the debug mode, correct the ZPT's and relaunch make_pot 
-   or update_pos if you are in update mode. 
-   Notice that in debug mode you won't get any pot/po files. 
+   Like that, if errors occurred use the debug mode, correct the ZPT's and relaunch make_pot
+   or update_pos if you are in update mode.
+   Notice that in debug mode you won't get any pot/po files.
 
-More Generally 
+More Generally
 
  // The tools will be launched within the i18n subdirectory of your
     XxxProduct.
@@ -207,22 +209,9 @@ More Generally
     internationalization of your product. You'll get all the necessarily
     files
 
- // Translate the local files (en/fr) 
- 
+ // Translate the local files (en/fr)
+
  // Use update_pos after some changes occurs within your ZPTs or still
-    of you added msgids within the custom.pot file. 
-     
- // Update the catalog. To be defined later.  
+    of you added msgids within the custom.pot file.
 
-
-
-this is a dynamic msgid:
-
-    <span tal:omit-tag="" tal:content="items/action" i18n:translate=""></span>
-    -> nothing in the pot
-
-    instead do this:
-    <span tal:omit-tag="" tal:content="items/action" i18n:translate="_dynamic_"></span>
-
-    
-    
+ // Update the catalog. To be defined later.

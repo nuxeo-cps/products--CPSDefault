@@ -5,8 +5,42 @@
     <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
+    <div class="group"
+         tal:define="sort_by python:request.get('sort_by', '');
+                     direction python:request.get('direction', '');
+                     folder_prefix python:request.get('folder_prefix', '');
+                     items python:here.search(query=request.form,
+                                              sort_by=sort_by,
+                                              direction=direction,
+                                              folder_prefix=folder_prefix);
+                     nav_action string:advanced_search_form;
+                     no_form python:1;
+                     site_wide python:1;
+                     items_length python:len(items);
+                     format string:detail;
+                     filter python:0;
+                     title_search request/title_search|nothing;
+                     swr request/search_within_results|nothing;
+                    "
+         tal:condition="request/form">
+      <p tal:condition="not:items_length"
+         i18n:translate="legend_no_search_result">
+        Your query gave no result.
+      </p>
+      <p tal:condition="python:items_length == 1"
+         i18n:translate="legend_one_search_result">
+        Your query gave 1 result.
+      </p>
+      <p tal:condition="python:items_length > 1"
+         i18n:translate="">
+        Your query gave <span class="emphasis"
+                              tal:content="items_length"
+                              i18n:name="nb_results">n</span> results.
+      </p>
+      <metal:block use-macro="here/content_lib/macros/display_contents" />
+    </div>
     <metal:block define-macro="search_form">
-      <form method="post" action="search_form">
+      <form method="post" action="advanced_search_form">
         <metal:block use-macro="here/generic_lib/macros/search_form" />
       </form>
     </metal:block>

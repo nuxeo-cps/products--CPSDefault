@@ -147,7 +147,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                 'format': self.format,
                 }
 
-    security.declareProtected(ModifyPortalContent, 'edit')
+    security.declareProtected('Manage Boxes', 'edit')
     def edit(self, **kw):
         """
         Default edit method, changes the properties.

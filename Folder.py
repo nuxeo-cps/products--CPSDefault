@@ -66,7 +66,7 @@ factory_type_information = (
                  {'id': 'boxes',
                   'name': 'action_boxes',
                   'action': 'box_manage_form',
-                  'permissions': (ModifyPortalContent,)},
+                  'permissions': ('Manage Boxes',)},
                  )
      },
     )

@@ -772,6 +772,7 @@ def cpsupdate(self, langs_list=None):
         'Review portal content':['Manager', 'SectionReviewer', 'SectionManager'],
         'Add Box Container': ['Manager', 'SectionManager'],
         'Manage Box Overrides': ['Manager','SectionManager'],
+        'Manage Boxes': ['Manager', 'SectionManager'],
         'Add portal content': ['Manager', 'SectionManager'],
         'Add portal folders': ['Manager', 'SectionManager'],
         'Change permissions': ['Manager', 'SectionManager'],
@@ -790,8 +791,9 @@ def cpsupdate(self, langs_list=None):
         'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
         'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
-        'Add Box Container': ['Manager', 'WorkspaceManager'],
+        'Add Box Container': ['Manager', 'WorkspaceManager', 'SectionManager'],
         'Manage Box Overrides': ['Manager','WorkspaceManager'],
+        'Manage Boxes': ['Manager', 'WorkspaceManager'],
         }
     pr("Section")
     for perm, roles in sections_perm.items():

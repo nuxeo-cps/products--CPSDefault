@@ -1565,9 +1565,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSPortlets')
         try:
             from elementtree.ElementTree import ElementTree
-            self.setupProduct('CPSOOo')
-        except ImportError:
+        except ImportError, e:
+            if str(e) != 'No module named elementtree.ElementTree':
+                raise
             self.log("Cannot install CPSOOo: missing elementtree module")
+        else:
+            self.setupProduct('CPSOOo')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

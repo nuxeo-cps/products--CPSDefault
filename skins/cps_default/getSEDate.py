@@ -6,12 +6,12 @@
 
 dt = None
 if event:
-    if which_date=='start':
+    if which_date == 'start':
         dt = event.getContent().start()
-    elif which_date=='end':
+    elif which_date == 'end':
         dt = event.getContent().end()
         
 if dt:
-    return context.getDateStr(dt,'short')
+    return context.getDateStr(dt, 'short')
 else:
     return ''

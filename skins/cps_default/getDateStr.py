@@ -11,7 +11,7 @@ mcat = Localizer.default
 if fmt not in ['short', 'medium', 'long']:
     fmt = 'date_long'
 else:
-    fmt = 'date_'+fmt
+    fmt = 'date_' + fmt
 
 try:
     dfmt = mcat(fmt)

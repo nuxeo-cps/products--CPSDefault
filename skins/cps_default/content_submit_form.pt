@@ -12,8 +12,8 @@
 
 <metal:help fill-slot="help">
   <span i18n:translate="help_submit_publication">To make an item published and
-  viewable by readers, it has to be reviewed by one of the sections's reviewers.
-  You can submit the item in many sections folder.<br> A copy of the item will
+  viewable by readers, it has to be reviewed by one of the section reviewers.
+  You can submit the item in many section folders.<br> A copy of the item will
   be created into each section with a <b>pending</b> status, waiting to be
   reviewed and finally <b>published</b> by a section's reviewer.</span>
 </metal:help>
@@ -44,7 +44,7 @@
                      tal:attributes="value section/rpath;
                                      name clone_wf_action;">
               <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
-              <span tal:replace="structure section/short_title">Section's id</span>
+              <span tal:replace="structure section/short_title">Section id</span>
             </td>
             <td>
               <span tal:repeat="item info/states">

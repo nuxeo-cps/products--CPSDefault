@@ -44,7 +44,7 @@ rss_fmt = r"""<?xml version="1.0" encoding="ISO-8859-15"?>
 </rdf:RDF>
 """
 
-rss_item_li = """        <rdf:li rdf:resources="%(item_id)s" />\n"""
+rss_item_li = """        <rdf:li rdf:resource="%(item_id)s" />\n"""
 
 rss_item = """  <item rdf:about="%(item_id)s">
     <title>%(item_title)s</title>

@@ -1,6 +1,7 @@
 <tal:block define="
   file_name python:request['file'];
   file_html_name python:request['file_html'];
+  breadcrumb_additional_info python:'> preview';
   ">
 
   <metal:block use-macro="here/content_lib/macros/master">
@@ -9,11 +10,12 @@
       <base href="" tal:attributes="href python:'%s/preview?file=%s&amp;file_html=%s' % (here_url, file_name, file_html_name)" />
     </metal:block>
 
-    <metal:block fill-slot="main">
-      <tal:block tal:content="structure python:getattr(doc, file_html_name)" />
-      <!--
-      <tal:block tal:content="structure python:request['URL']" />
-      -->
+    <metal:block fill-slot="main"
+      tal:define="
+      preview_html python:str(getattr(doc, file_html_name));
+      preview_html_body python:here.getHtmlBody(preview_html);
+      ">
+      <tal:block tal:replace="structure preview_html_body" />
     </metal:block>
 
   </metal:block>

@@ -12,8 +12,12 @@ items = [
      'title': 'description_box_skin_mmbox', },
     {'macro_path': 'here/box_lib/macros/sbox',
      'title': 'description_box_skin_sbox', },
+    {'macro_path': 'here/box_lib/macros/sbox2',
+     'title': 'description_box_skin_sbox2', },
     {'macro_path': 'here/box_lib/macros/wbox',
      'title': 'description_box_skin_wbox', },
+    {'macro_path': 'here/box_lib/macros/wbox2',
+     'title': 'description_box_skin_wbox2', },
     ]
 
 if default:

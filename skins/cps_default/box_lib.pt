@@ -89,11 +89,37 @@
 
 
 <!-- ============================================================ -->
+<!-- a frame box without title  -->
+<metal:block define-macro="sbox2">
+<div class="box">
+  <div class="body">
+    <div class="content odd">
+      <div>
+        <metal:block define-slot="box_body">Box Body</metal:block>
+      </div>
+    </div>
+  </div>
+</div>
+</metal:block>
+
+
+<!-- ============================================================ -->
 <!-- no frame box -->
 <metal:block define-macro="wbox">
 <div class="box">
   <div class="content odd">
     <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
+    <metal:block define-slot="box_body">Box Body</metal:block>
+  </div>
+</div>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<!-- no frame no title box -->
+<metal:block define-macro="wbox2">
+<div class="box">
+  <div class="content odd">
     <metal:block define-slot="box_body">Box Body</metal:block>
   </div>
 </div>

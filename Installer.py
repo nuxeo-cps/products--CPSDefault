@@ -20,6 +20,8 @@
 # (like CPSSchemas, CPSDdocument or CPSDirectory) that should be independent
 # of CPS. So this module might go to its own product someday.
 
+# FIXME: deprecate and remove this module.
+
 import os
 from App.Extensions import getPath
 from re import match

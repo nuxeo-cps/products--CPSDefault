@@ -33,18 +33,12 @@ ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
 
 # Optional products
-try: ZopeTestCase.installProduct('NuxMetaDirectories', quiet=1)
-except: pass
-try: ZopeTestCase.installProduct('CPSRSS', quiet=1)
-except: pass
-try: ZopeTestCase.installProduct('CPSChat', quiet=1)
-except: pass
-try: ZopeTestCase.installProduct('CPSCalendar', quiet=1)
-except: pass
-try: ZopeTestCase.installProduct('CPSCollector', quiet=1)
-except: pass
-try: ZopeTestCase.installProduct('CPSMailBoxer', quiet=1)
-except: pass
+for product in ('CPSRSS', 'CPSChat', 'CPSCalendar', 'CPSCollector', 
+        'CPSMailBoxer', 'CPSNavigation', 'CPSPortlets'):
+    try:
+        ZopeTestCase.installProduct(product, quiet=1)
+    except:
+        pass
 
 test_cpsskins = (os.environ.get('CPSSKINS_TARGET', '') == 'CPS3')
 if test_cpsskins:
@@ -223,6 +217,7 @@ class CPSInstaller:
         for domain in localizer.objectIds():
             setattr(localizer, domain, DummyMessageCatalog())
 
+    # This will go away when CPSSkins will get integrated in CPSDefault
     def setupCPSSkins(self, portal_id):
         portal = getattr(self.app, portal_id)
         factory = portal.manage_addProduct['CPSSkins']

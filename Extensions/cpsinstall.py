@@ -1588,6 +1588,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.runExternalUpdater('cpsooo_installer',
                                 'CPSOOo Installer',
                                 'CPSOOo', 'install', 'install')
+        self.runExternalUpdater('cpsportlets_installer',
+                                'CPSPortlets Installer',
+                                'CPSPortlets', 'install', 'install')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

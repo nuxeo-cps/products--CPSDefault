@@ -25,7 +25,7 @@
   <th i18n:translate="label_local_roles_search_by">Search by</th>
   <td>
     <select name="search_param">
-      <option i18n:translate="label_user_name"  value="username">User Name</option>
+      <option i18n:translate="label_user_name"  value="fullname">User Name</option>
       <option i18n:translate="label_group_name" value="groupname" >Group Name</option>
       <option i18n:translate="label_user_email" value="email">Email Address</option>
     </select>
@@ -52,14 +52,11 @@
 </div>
 
 
-<div tal:condition="python:searching and (search_param == 'username')"
+<div tal:condition="python:searching and (search_param == 'fullname' or
+search_param == 'email')"
   tal:define="search_param python: request.get( 'search_param', '' );
-  search_term  python: request.get( 'search_term', '' );
-  found python: mtool.searchMembers( search_param=search_param
-                                          , search_term=search_term
-                                          );
- "
->
+              search_term  python: request.get( 'search_term', '' );
+              found python:here.folder_localrole_search(search_param, search_term);">
 <!-- Assignment -->
 <h2 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
@@ -92,9 +89,9 @@
     <td width="16">
      <input type="checkbox" name="member_ids:list"
             value=""
-            tal:attributes="value string:user:${member/username}" />
+            tal:attributes="value string:user:${member/fullname}" />
     </td>
-    <td tal:content="string:user:${member/username}"> Username 1 </td>
+    <td tal:content="string:user:${member/fullname}"> Username 1 </td>
     <td tal:content="member/email"> Email 1 </td>
    </tr>
 
@@ -119,8 +116,11 @@
              tal:define="cpslr python:here.getCPSLocalRoles( mtool=mtool );
                          roles python:cpslr[2]">
       <option tal:repeat="role roles"
+              tal:attributes="value role"
               i18n:translate=""
-              tal:content="role"> Role1 </option>
+              tal:content="role">
+         Role1
+      </option>
       <option tal:condition="nothing"> Role2 </option>
       <option tal:condition="nothing"> Role3 </option>
      </select>
@@ -222,6 +222,7 @@
              tal:define="cpslr python:here.getCPSLocalRoles( mtool=mtool );
                          roles python:cpslr[2]">
       <option tal:repeat="role roles"
+              tal:attributes="value role"
               i18n:translate=""
               tal:content="role"> Role1 </option>
       <option tal:condition="nothing"> Role2 </option>
@@ -243,9 +244,7 @@
 
   </table>
  </form>
-
 </div>
-
 
 <div tal:condition="python: not found">
  <p i18n:translate="legend_local_roles_no_results_member">
@@ -255,8 +254,8 @@
 </div>
 
 <!-- End assignment -->
-
 </div>
+
 
 <hr />
 

@@ -19,7 +19,9 @@
 </metal:help>
 
 <metal:main fill-slot="main"
-            tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
+            tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3);
+                        clone_wf_action string:submit;
+                        start_wf_action string:copy_submit;">
 
   <br>
   <metal:block use-macro="here/content_lib/macros/status" /><br><br>
@@ -35,11 +37,12 @@
           </th>
         </tr>
         <tal:block repeat="section stree">
-          <tr tal:condition="python:'submit' in section['publishing_transitions']"
+          <tr tal:condition="python:clone_wf_action in section['publishing_transitions']"
               tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
             <td nowrap>
               <input type="checkbox" name="" value="" class="noborder"
-                     tal:attributes="value section/rpath; name string:submit">
+                     tal:attributes="value section/rpath;
+                                     name clone_wf_action;">
               <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
               <span tal:replace="structure section/short_title">Section's id</span>
             </td>
@@ -59,7 +62,8 @@
     </metal:block>
 
     <metal:block fill-slot="button">
-      <input type="hidden" name="workflow_action" value="copy_submit">
+      <input type="hidden" name="workflow_action" value="submit"
+             tal:attributes="value start_wf_action">
       <input type="submit" class="standalone" value="button_submit_document"
         i18n:attributes="value">
       <input type="button" class="context" onClick="history.back()"

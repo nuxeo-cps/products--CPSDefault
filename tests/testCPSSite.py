@@ -11,7 +11,6 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
 import unittest
 from Testing import ZopeTestCase
-from Testing.ZopeTestCase.ZopeLite import _print
 
 from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
 from AccessControl.User import UserFolder, manage_addUserFolder
@@ -108,7 +107,9 @@ class TestCPSDefault(unittest.TestCase):
         self.assertNotEqual(self.wftool, None)
 
     def test_02_users(self):
-        self.assertEqual(str(self.portal.acl_users.getUserById(_user_name1)), _user_name1)
+        self.assertEqual(
+            str(self.portal.acl_users.getUserById(_user_name1)), 
+            _user_name1)
         
     def test_10_sections_folder(self):
         ob = self.pub

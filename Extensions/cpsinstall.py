@@ -766,7 +766,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     for s in ('pending', 'published'):
         wf.states.addState(s)
-    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish', 'cut_copy_paste'):
+    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish', 
+              'cut_copy_paste', 'publish_content',):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):

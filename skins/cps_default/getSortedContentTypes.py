@@ -4,13 +4,14 @@
 items = context.allowedContentTypes()
 
 def cmp_type(a, b):
-    # we like workspaces and section
     if a.getId() in ('Workspace', 'Section'):
         return -1
     if b.getId() in ('Workspace', 'Section'):
         return 1
-    aa = a.Title()
-    bb = b.Title()
+    # we like workspaces and section
+    cpsmcat = context.Localizer.default
+    aa = cpsmcat(a.Title())
+    bb = cpsmcat(b.Title())
     if len(a.allowed_content_types):
         aa = '0' + aa
     else:
@@ -19,7 +20,7 @@ def cmp_type(a, b):
         bb = '0' + bb
     else:
         bb = '1' + bb
-    return cmp(a.Title(), b.Title())
+    return cmp(aa, bb)
 
 items.sort(cmp_type)
 allowed = context.portal_types[context.getPortalTypeName()].allowed_content_types

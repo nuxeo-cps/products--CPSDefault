@@ -26,7 +26,7 @@ else:
     # publishing: copy and initalize proxy into one or more sections
     allowed_transitions = wftool.getAllowedPublishingTransitions(context)
     for transition in allowed_transitions:
-        rpaths=kw.get(transition)
+        rpaths = kw.get(transition)
         if rpaths:
             if same_type(rpaths, ''):
                 rpaths = (rpaths,)

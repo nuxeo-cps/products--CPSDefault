@@ -53,27 +53,34 @@ def compute_states(no_history=0):
             ob_info[var] = wtool.getInfoFor(proxy, var, None)
         proxies_info = [ob_info]
     states = []
-    for px in proxies_info:
+    for proxy_info in proxies_info:
         # take in account only accessible proxies
-        folder_rpath = '/'.join(px['rpath'].split('/')[:-1])
+        folder_rpath = '/'.join(proxy_info['rpath'].split('/')[:-1])
         if not folders_info.has_key(folder_rpath):
             continue
         if not folders_info[folder_rpath]['visible']:
             continue
 
-        folder_id = px['rpath'].split('/')[-2]
+        folder_id = proxy_info['rpath'].split('/')[-2]
         folder_title = folders_info.get(folder_rpath,
                                         {'title': folder_id}).get('title',
                                                                   folder_id)
+        proxy_info_proxy = None
+        portal_type = None
+        if proxy_info.has_key('object'):
+            proxy_info_proxy = proxy_info['object']
+            if hasattr(proxy_info_proxy, 'portal_type'):
+                portal_type = proxy_info_proxy.portal_type
+
         d = {'rpath': folder_rpath,
              'title': folder_title,
-             'type': px['object'].portal_type,
-             'review_state': px['review_state'],
-             'rev': str(px['language_revs'].values()[0]),
-             'language': px['language_revs'].keys()[0],
-             'time': px['time'],
-             'time_str': context.getDateStr(px['time']),
-             'proxy': px['object'],
+             'type': portal_type,
+             'review_state': proxy_info['review_state'],
+             'rev': str(proxy_info['language_revs'].values()[0]),
+             'language': proxy_info['language_revs'].keys()[0],
+             'time': proxy_info['time'],
+             'time_str': context.getDateStr(proxy_info['time']),
+             'proxy': proxy_info_proxy,
              }
         d['lang'] = d['language']       # for compatibility
         states.append(d)

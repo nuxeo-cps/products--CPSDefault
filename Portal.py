@@ -93,10 +93,18 @@ def manage_addCPSDefaultSite(dispatcher, id,
     pr('Adding a CPSDefault Site')
     gen = CPSPortalGenerator()
     portal = gen.create(dispatcher, id, create_userfolder=0)
-    gen.setupDefaultProperties(portal, title, description,
-                               email_from_address=root_email,
-                               email_from_name=email_from_name,
-                               validate_email=0)
+
+    # Ugly hack to get around incompatibility between CMF 1.5 and 1.4
+    try:
+        gen.setupDefaultProperties(portal, title, description,
+                                   email_from_address=root_email,
+                                   email_from_name=email_from_name,
+                                   validate_email=0, default_charset='')
+    except TypeError:
+        gen.setupDefaultProperties(portal, title, description,
+                                   email_from_address=root_email,
+                                   email_from_name=email_from_name,
+                                   validate_email=0)
 
     pr('Creating cpsupdate External Method in CPS Site')
     cpsupdate = ExternalMethod('cpsupdate',

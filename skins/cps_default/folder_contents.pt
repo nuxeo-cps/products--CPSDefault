@@ -69,47 +69,21 @@
       <td colspan="2" align="left">
        <table>
         <tr valign="top" tal:repeat="item batch1">
-         <td align="left" width="5" nowrap
-             tal:define="folderish item/isPrincipiaFolderish;
-                         portalish item/isPortalContent | nothing;
-                         global methodID python:( folderish
-                                              and 'folder_contents'
-                                               or (portalish and 'view' or '')
-                                                );
-                         global icon item/getIcon | item/icon | nothing;      
-                        ">
+         <td align="left" width="5">
             <input type="checkbox" name="ids:list" value="" id=""
                    tal:attributes="value item/getId;
                                    id python: 'cb_' + item.getId()" />
          </td>
          <td>
-          <span tal:condition="icon">
-           <a href=""
-              tal:attributes="href string:${item/getId}/${methodID};
-                             "
-           ><img src="" alt="" border="0"
-                 tal:attributes="src string:${here/portal_url}/${icon};
-                                 alt item/Type|nothing;"
-                 i18n:attributes="alt" /></a>
-          </span>
-         </td>
-         <td nowrap>
-          <a href=""
-             tal:attributes="href string:${item/getId}/${methodID};
-                            "
-          ><b><span tal:replace="item/title_or_id">ID</span></b>
-           <small><span tal:condition="item/Title"
-                 tal:replace="string:[id: ${item/getId}]">(Title)</span></small></a>
 	   <span tal:condition="not:item/isPrincipiaFolderish"
-	         tal:define="state python:here.portal_workflow.getInfoFor(item, 'review_state', None);
-	                     tmp item/getLanguageRevisions;
-	                     rev python:tmp.values()[0];
-	                     lang python:tmp.keys()[0];
-	                     sincedate python:here.portal_workflow.getInfoFor(item, 'time', None);"
-	   ><br/>
-	   <small><em>Rev: <span tal:replace="rev">3</span>-<span tal:replace="lang">en</span>, <span tal:replace="state">state</span> <span tal:condition="sincedate" tal:replace="python:sincedate.aCommon()">10/12/2003 11:12</span></em></small>
-	 </span>
+	     tal:define="info python:here.getContentInfo(item, level=1);">
+	     <metal:block use-macro="here/content_lib/macros/doc_info_detail" />
+	   </span>
 
+	   <span tal:condition="item/isPrincipiaFolderish">
+	     <a href="." tal:attributes="href string:${item/getId}/folder_contents;">
+	       <strong><span tal:replace="item/title_or_id">ID</span></strong></a>
+	   </span>
          </td>
         </tr>
        </table>

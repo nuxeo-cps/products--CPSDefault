@@ -3,6 +3,15 @@
 ##parameters=REQUEST=None
 ##$Id$
 
+#note: there is another solution that does not rely on HTTP_REFERER:
+#have the add_favorites action generate a url with the object to bookmark
+#as a parameter to the addtoFavorite script:
+#python:portal.portal_url() + '/addtoFavorites?link=' +
+#request.URL+'&object=' + object.absolute_url()
+#link and object are passed to this script and can be used respectively
+#to generate the bookmark URL and to retrieve the object (in order to get
+#its title and description)
+
 portal = context.portal_url.getPortalObject()
 homeFolder = portal.portal_membership.getHomeFolder()
 
@@ -13,20 +22,31 @@ if favorites_id not in homeFolder.objectIds():
 targetFolder = getattr(homeFolder, favorites_id)
 
 new_id='fav_' + str(int(context.ZopeTime()))
-myPath=context.portal_url.getRelativeUrl(context)
 
 targetFolder.invokeFactory('Link', new_id)
 
-doc = getattr(targetFolder, new_id).getEditableContent()
+referer = REQUEST.HTTP_REFERER
+portal_URL_length = len(portal.portal_url())
 
-kw = {'title':context.TitleOrId(),
-      'description':context.getContent().description,
-      'href':context.portal_url.getPortalPath() + '/' + myPath}
+#fallback in case HTTP_REFERER is empty
+#note: if referer is empty (or incorrect), the bookmark
+#might be incorrect - the above-mentioned method fixes this
+#but has not been retained because of its lower performace
+if referer and len(referer) >= portal_URL_length:
+  rurl = portal.portal_url.getPortalPath() + REQUEST.HTTP_REFERER[portal_URL_length:]
+else:
+  rurl = portal.portal_url.getPortalPath() + '/' + context.portal_url.getRelativeUrl(context)
+  
+kw = {'title': context.TitleOrId(),
+      'description': context.getContent().description,
+      'href': rurl}
+
+doc = getattr(targetFolder, new_id).getEditableContent()
 
 doc.edit(**kw)
 
 if REQUEST:
-  url = '%s/?portal_status_message=psm_added_to_favorites' % context.absolute_url()
+  url = REQUEST.HTTP_SERVER + rurl +'/?portal_status_message=psm_added_to_favorites'
   return REQUEST.RESPONSE.redirect(url)
 
 

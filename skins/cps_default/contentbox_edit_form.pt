@@ -81,14 +81,14 @@
           <td><span i18n:translate="label_search_portal_type">Portal type</span></td>
           <td>
             <select name="query_portal_type">
-              <option i18n:translate="lable_all" value="">All</option>
-            </select>
+              <option i18n:translate="label_all" value="">All</option>
             <tal:block repeat="type python:here.getSearchablePortalTypes(only_ids=1)">
             <option i18n:translate=""
               tal:attributes="value type;
                               selected python:type in box['box'].query_portal_type"
               tal:content="string:portal_type_${type}_title">Type</option>
             </tal:block>
+            </select>
           </td>
         </tr>
         <tr>

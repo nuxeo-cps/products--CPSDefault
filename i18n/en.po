@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-30 10:26default\n"
+"POT-Creation-Date: 2003-11-17 15:28default\n"
 "PO-Revision-Date: 2003-10-30 10:26+0100\n"
 "Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
 "Language-Team: francais <fr@li.org>\n"
@@ -289,7 +289,7 @@ msgstr "Copy"
 msgid "button_create_box"
 msgstr "Create box"
 
-#.   <input value="button_cut" class="context" name="folder_cut:method" type="submit">
+#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit">
 #.             <input value="button_copy" class="context" name="folder_copy:method" type="submit">
 #.           </input></input>
 #: from ../skins/cps_default/folder_contents.pt
@@ -352,7 +352,7 @@ msgstr "Move up"
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.          </input>
@@ -497,19 +497,18 @@ msgstr "You are logged in outside the portal.  You may need to"
 msgid "description_reconfig_form"
 msgstr "This form is used to set the portal configuration options."
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
 msgstr "You have been registered as a member."
 
 #.   <span>description_up_to
-#.             ${up_id (tal content="python:here.aq_parent.getId()")}
-#.           </span>
+#.       ${up_id (tal content="python:here.aq_parent.title_or_id()")}
+#.     </span>
 #.   <span>description_up_to
-#.            ${up_id (tal content="python:here.aq_parent.getId()")}
-#.          </span>
+#.            ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "description_up_to ${up_id}"
@@ -765,14 +764,16 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "If you commit this draft, it will replace the document currently locked."
+msgstr ""
+"If you commit this draft, it will replace the document currently locked."
 
 #.   <span>
 #.       If you create a draft, you will be the only one able to work on the document.
 #.     </span>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
-msgstr "If you create a draft, you will be the only one able to work on the document."
+msgstr ""
+"If you create a draft, you will be the only one able to work on the document."
 
 #.   <em>
 #.           Box types in italic are predefined types. You cannot change their
@@ -828,7 +829,8 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1094,6 +1096,12 @@ msgstr "Contextual"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Contributors"
+
+#.   <th align="right">Custom CSS</th>
+#: from ../skins/cps_default/folder_edit_form.pt
+#, fuzzy
+msgid "label_custom_css"
+msgstr "Compact"
 
 #.   <option attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc' " value="date_asc">
@@ -2535,7 +2543,8 @@ msgid "psm_join_password_mismatch"
 msgstr "Your password and your confirmation don't match."
 
 msgid "psm_join_invalid_name"
-msgstr "The named you have chosen is invalid. Please change it or try another one."
+msgstr ""
+"The named you have chosen is invalid. Please change it or try another one."
 
 msgid "psm_join_login_already_used"
 msgstr "The login you have chosen is already in use. Please try another one."
@@ -2822,4 +2831,3 @@ msgstr "Su"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
-

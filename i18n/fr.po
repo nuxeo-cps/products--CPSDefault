@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-30 10:26default\n"
+"POT-Creation-Date: 2003-11-17 15:28default\n"
 "PO-Revision-Date: 2003-11-04 16:43+0100\n"
 "Last-Translator: ben <ben@nuxeo.com>\n"
 "Language-Team: ben\n"
@@ -51,7 +51,8 @@ msgstr "Action"
 #.   </p>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
+msgstr ""
+"Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -288,7 +289,7 @@ msgstr "Copier"
 msgid "button_create_box"
 msgstr "Ajouter une boîte"
 
-#.   <input value="button_cut" class="context" name="folder_cut:method" type="submit">
+#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit">
 #.             <input value="button_copy" class="context" name="folder_copy:method" type="submit">
 #.           </input></input>
 #: from ../skins/cps_default/folder_contents.pt
@@ -351,7 +352,7 @@ msgstr "Déplacer au dessus"
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.          </input>
@@ -497,19 +498,18 @@ msgstr "Vous êtes connecté en dehors du portail. Vous pouvez "
 msgid "description_reconfig_form"
 msgstr "Reconfigurer le portail"
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
 msgstr "Félicitations&nbsp;! Vous êtes maintenant enregistré comme membre."
 
 #.   <span>description_up_to
-#.             ${up_id (tal content="python:here.aq_parent.getId()")}
-#.           </span>
+#.       ${up_id (tal content="python:here.aq_parent.title_or_id()")}
+#.     </span>
 #.   <span>description_up_to
-#.            ${up_id (tal content="python:here.aq_parent.getId()")}
-#.          </span>
+#.            ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "description_up_to ${up_id}"
@@ -752,7 +752,8 @@ msgstr "Dépublier ${item_id}"
 #.     </span>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
-msgstr "Si vous abandonnez le brouillon, le document original sera déverrouillé."
+msgstr ""
+"Si vous abandonnez le brouillon, le document original sera déverrouillé."
 
 #.   <span>Accept publication of this item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
@@ -896,7 +897,8 @@ msgstr "Vous devez sélectionner un ou plusieurs objets à renommer."
 #.                 </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
-msgstr "Cochez cette case pour recevoir un courriel contenant votre mot de passe."
+msgstr ""
+"Cochez cette case pour recevoir un courriel contenant votre mot de passe."
 
 #.   <span>
 #.         You will receive an email shortly containing
@@ -1109,6 +1111,12 @@ msgstr "Contextuel"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Contributeurs"
+
+#.   <th align="right">Custom CSS</th>
+#: from ../skins/cps_default/folder_edit_form.pt
+#, fuzzy
+msgid "label_custom_css"
+msgstr "Personnalisation CSS"
 
 #.   <option attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc' " value="date_asc">
@@ -2398,7 +2406,8 @@ msgid "portal_type_ImageBox_title"
 msgstr "Boîte image"
 
 msgid "portal_type_ImageBox_description"
-msgstr "Boîte générique avec une image: décoration, habillage de répértoire, ..."
+msgstr ""
+"Boîte générique avec une image: décoration, habillage de répértoire, ..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Boîte RSS"
@@ -2478,7 +2487,8 @@ msgid "description_nuxeo_imagebox_default"
 msgstr "Une boîte avec une image."
 
 msgid "description_nuxeo_flashbox_default"
-msgstr "Une boîte affichant un fichier Flash, avec largeur et hauteur paramétrables"
+msgstr ""
+"Une boîte affichant un fichier Flash, avec largeur et hauteur paramétrables"
 
 msgid "psm_added_to_favorites"
 msgstr "Ajouté aux favoris"
@@ -2848,4 +2858,3 @@ msgstr "Di"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
-

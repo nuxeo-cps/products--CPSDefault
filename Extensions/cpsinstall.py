@@ -1131,10 +1131,7 @@ def cpsupdate(self, langs_list=None):
 
     # loading po files
     for lang in languages:
-        if lang == 'en':
-            po_filename = 'locale.pot'
-        else:
-            po_filename = lang + '.po'
+        po_filename = lang + '.po'
         pr("   importing %s file" % po_filename)
         po_path = os.path.join(i18n_path, po_filename)
         try:

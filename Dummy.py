@@ -1,8 +1,26 @@
 # (C) Copyright 2003 Nuxeo SARL <http://nuxeo.com>
-# $Id$
-""" A Dummy document
-"""
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+#
 
+# $Id$
+
+"""A Dummy document
+
+This is intended to provide a simple example of a CPS3 document.
+"""
 
 from re import match
 from DateTime.DateTime import DateTime
@@ -25,44 +43,40 @@ factory_type_information = (
      'factory': 'addDummy',
      'immediate_view': 'metadata_edit_form',
      # CPS attr
-     'actions': (
-    {'id': 'view',
-     'name': 'action_view',
-     'action': 'dummy_view',
-     'permissions': (View,)
-     },
-    {'id': 'edit',
-     'name': 'action_edit',
-     'action': 'dummy_edit_form',
-     'permissions': (ModifyPortalContent,)
-     },
-    {'id': 'metadata',
-     'name': 'action_metadata',
-     'action': 'metadata_edit_form',
-     'permissions': (ModifyPortalContent,)
-     },
-    ),
+     'actions': ({'id': 'view',
+                  'name': 'action_view',
+                  'action': 'dummy_view',
+                  'permissions': (View,)}, 
+                 {'id': 'edit',
+                  'name': 'action_edit',
+                  'action': 'dummy_edit_form',
+                  'permissions': (ModifyPortalContent,)}, 
+                 {'id': 'metadata',
+                  'name': 'action_metadata',
+                  'action': 'metadata_edit_form',
+                  'permissions': (ModifyPortalContent,)},
+                ),
      'cps_proxy_type': 'document',
      'cps_is_searchable': 1,
-     },
-    )
+    },
+)
 
 class Dummy(CPSBaseDocument, Folder):
-    """ The simpliest CPS document with a body """
+    """The simplest CPS document with a body"""
     meta_type = 'Dummy'
     portal_type = meta_type
 
     image_name = ''
     image_id = 'dummy_image'
-    image_max_size = 2*1024*1024
+    image_max_size = 2 * 1024 * 1024
 
     _end_date = _start_date = None
 
     _properties = CPSBaseDocument._properties + (
         {'id': 'body', 'type': 'text', 'mode': 'w', 'label': 'Body'},
-        {'id':'_start_date', 'type':'date', 'mode':'w', 'label':'Start'},
-        {'id':'_end_date', 'type':'date', 'mode':'w', 'label':'End'},
-        )
+        {'id': '_start_date', 'type': 'date', 'mode': 'w', 'label': 'Start'},
+        {'id': '_end_date', 'type': 'date', 'mode': 'w', 'label': 'End'},
+    )
 
     security = ClassSecurityInfo()
 
@@ -73,7 +87,7 @@ class Dummy(CPSBaseDocument, Folder):
 
     security.declareProtected(ModifyPortalContent, 'edit')
     def edit(self, **kw):
-        """ edit """
+        """Edit"""
 
         CPSBaseDocument.edit(self, **kw)
         self.set_date('end_date', kw.get('end_date'))
@@ -126,7 +140,7 @@ class Dummy(CPSBaseDocument, Folder):
     def get_date(self, id):
         vn = '_%s' % id
         if not hasattr(aq_base(self), vn):
-            return 'don\'t know %s ?' % id
+            return "don't know %s ?" % id
         dt = getattr(self, vn)
         if dt:
             return dt.strftime("%d/%m/%Y")
@@ -135,7 +149,7 @@ class Dummy(CPSBaseDocument, Folder):
 
     security.declareProtected(View, 'getAdditionalContentInfo')
     def getAdditionalContentInfo(self):
-        """ Return a dictonary used in getContentInfo """
+        """Return a dictonary used in getContentInfo"""
         infos = {}
         max_len = 512
         if hasattr(aq_base(self), 'body'):
@@ -151,7 +165,7 @@ class Dummy(CPSBaseDocument, Folder):
 
     security.declareProtected(View, 'get_size')
     def get_size(self):
-        """ return the size of the data """
+        """Return the size of the data"""
         if hasattr(aq_base(self), '_size'):
             return self._size
         return self._compute_size()
@@ -169,16 +183,15 @@ class Dummy(CPSBaseDocument, Folder):
     #CMFCalendar interface
     security.declarePublic('start')
     def start(self):
-        "Return our start time as a string"
+        """Return our start time as a string"""
         date = getattr(self, '_start_date', None )
         return date is None and self.created() or date
 
     security.declarePublic('end')
     def end(self):
-        "Return our stop time as a string"
+        """Return our stop time as a string"""
         date = getattr(self, '_end_date', None )
         return date is None and self.created() or date
-
 
     #EOC
 
@@ -186,7 +199,7 @@ InitializeClass(Dummy)
 
 
 def addDummy(container, id, REQUEST=None, **kw):
-    """ Add a Dummy Document """
+    """Add a Dummy Document"""
     ob = Dummy(id, **kw)
     return CPSBase_adder(container, ob, REQUEST=REQUEST)
 

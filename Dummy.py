@@ -62,7 +62,8 @@ class Dummy(CPSBaseDocument):
                                                )
     body = ''
     
-    
+    def __init__(self, id, **kw):
+        CPSBaseDocument.__init__(self, id, **kw)
     #EOC
     
 InitializeClass(Dummy)

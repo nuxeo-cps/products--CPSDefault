@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-28 12:59default\n"
-"PO-Revision-Date: 2005-01-19 15:48+0100\n"
+"POT-Creation-Date: 2005-02-08 17:46default\n"
+"PO-Revision-Date: 2005-02-08 17:53+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -49,8 +49,7 @@ msgstr "Une boîte de test"
 #.                             selected python:cat in box['box'].categories" repeat="cat actions/keys">
 #.             Action
 #.           </option>
-#.   <a content="action/name" attributes="href action/url;
-#.   			    onclick action/onclick|nothing">Action</a>
+#.   <a content="action/name" attributes="href action/url;">Action</a>
 #.   <a content="action/name" attributes="href action/url;
 #.   			     class python:test(selected, 'selected', default)">Action</a>
 #.   <a content="action/name" attributes="href action/url">Action</a>
@@ -67,8 +66,7 @@ msgstr "Action"
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr ""
-"Créé par ${item_creator}. Dernière modification le ${item_modification}."
+msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
@@ -90,7 +88,6 @@ msgstr "Langue"
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objets ${batch_start} - ${batch_limit} sur ${batch_length}"
 
@@ -275,7 +272,6 @@ msgstr "Informations d'accessibilité"
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "batch_next"
 msgstr "Suivants"
 
@@ -283,7 +279,6 @@ msgstr "Suivants"
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                               mq(request.form, b_start=previous))" condition="python:previous is not None" define="previous batch_info/previous">Previous</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "batch_previous"
 msgstr "Précédents"
 
@@ -309,7 +304,8 @@ msgid "box text title"
 msgstr "FAKE"
 
 #.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_devel/main_template.pt
+#: from ../skins/cps_default/main_template.pt
+#: ../skins/cps_devel/main_template_debug.pt
 msgid "box_closed_boxes"
 msgstr "Boîtes fermées&nbsp;:"
 
@@ -497,23 +493,38 @@ msgstr "Rejeter la publication"
 msgid "button_rename"
 msgstr "Changer l'id de l'objet"
 
+#.   <input type="submit" class="standalone" value="button_request_reset_password" />
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "button_request_reset_password"
+msgstr "Demander la réinitialisation du mot de passe"
+
+#.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
+#: from ../skins/cps_default/account_reset_password_form.pt
+msgid "button_reset_password"
+msgstr "Réinitialiser mon mot de passe"
+
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
 msgstr "Revenir à la version archivée"
 
+#.   <button type="button" attributes="
+#.           style string:visibility: visible;
+#.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
+#.           ">Layout</button>
+#: from ../skins/cps_default/textbox_edit_form.pt
+#, fuzzy
+msgid "button_rte"
+msgstr "Créer"
+
 #.   <input type="submit" class="context searchButton" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
-#.   <input name="search_item" onclick="open_dialog()" type="button" value="button_search">
-#.          <input type="text" attributes="value id">
-#.         </input></input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
-#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Rechercher"
 
@@ -527,6 +538,11 @@ msgstr "Tout sélectionner"
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
 msgstr "Envoyer"
+
+#.   <input type="submit" class="standalone" value="button_send_password_reminder" />
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "button_send_password_reminder"
+msgstr "Envoyer moi un rappel de mon mot de passe"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -599,8 +615,8 @@ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
 msgid "description_reconfig_form"
 msgstr "Reconfigurer le portail"
 
-#.   <p> 
-#.           You have been registered as a member. 
+#.   <p>
+#.           You have been registered as a member.
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -729,6 +745,12 @@ msgstr "Supprimer l'archive ${rev} de ${item_id}"
 msgid "heading_edit ${item_id}"
 msgstr "Modifier ${item_id}"
 
+#.   <h1>
+#.           Validate the reseting of your password</h1>
+#: from ../skins/cps_default/account_reset_password_form.pt
+msgid "heading_enter_your_new_password"
+msgstr "Entrer votre nouveau mot de passe"
+
 #.   <h1>Not Found</h1>
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "heading_error_not_found"
@@ -779,6 +801,11 @@ msgstr "M'authentifier"
 #: from ../skins/cps_default/logged_in.pt
 msgid "heading_login_success"
 msgstr "Authentification réussie"
+
+#.   <h1>Lost password</h1>
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "heading_lost_password"
+msgstr "Vous avez perdu votre mot de passe"
 
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
@@ -918,7 +945,8 @@ msgstr ""
 #, fuzzy
 msgid "help_contentbox_no_recurse"
 msgstr ""
-"Si la case est cochée, la recherche se limitera au répertoire choisi, sans prendre en compte les sous-répertoires."
+"Si la case est cochée, la recherche se limitera au répertoire choisi, sans "
+"prendre en compte les sous-répertoires."
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -934,6 +962,14 @@ msgstr ""
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "help_delete_archive"
 msgstr "Supprimer l'archive ${rev}"
+
+#.   <p>
+#.             Your password reset request is invalid.
+#.             May be you would like to try again.
+#.           </p>
+#: from ../skins/cps_default/account_reset_password_form.pt
+msgid "help_invalid_reset_password_request"
+msgstr "Cette demande de réinitialisation de mot de passe n'est pas valide."
 
 #.   <em>
 #.       Box types in italic are predefined types. You cannot change their
@@ -997,6 +1033,16 @@ msgstr ""
 "activé les cookies dans votre navigateur."
 
 #.   <p>
+#.           You have lost your password but hopefuly there is a solution.
+#.         </p>
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "help_lost_pasword"
+msgstr ""
+"Saisissez votre nom d'utilisateur en dessous, cliquez sur <em>Envoyer</em> "
+"et votre mot de passe vous sera envoyé si vous avez saisi une adresse de mél "
+"lorsque vous vous êtes enregistré comme membre."
+
+#.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
 #.       password will be mailed to you if you gave a valid email address
 #.       when you signed on.
@@ -1009,10 +1055,15 @@ msgstr ""
 "lorsque vous vous êtes enregistré comme membre."
 
 #.   <span>
+#.             If this will not work for you (for example, if you forget your member
+#.             name or didn't enter your email address) send email to
+#.           </span>
+#.   <span>
 #.         If this will not work for you (for example, if you forget your member
 #.         name or didn't enter your email address) send email to
 #.       </span>
-#: from ../skins/cps_default/mail_password_form.pt
+#: from ../skins/cps_default/account_lost_password_form.pt
+#: ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
 msgstr ""
 "Si cela ne marche pas dans votre cas (par exemple, si vous avez oublié votre "
@@ -1031,8 +1082,7 @@ msgstr "Votre mot de passe vous a été envoyé."
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr ""
-"Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
+msgstr "Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
 
 #.   <span>
 #.             No content type can be created.
@@ -1052,12 +1102,11 @@ msgstr "Vous devez sélectionner un ou plusieurs objets à renommer."
 
 #.   <p>
 #.       help_password_forgotten
-#.       ${link_password_forgotten (tal replace="string:${base_url}mail_password_form")}
+#.       ${link_password_forgotten (tal replace="string:${base_url}account_lost_password_form")}
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
-msgstr ""
-"<a href='${link_password_forgotten}'>J'ai oublié mon mot de passe&nbsp;!</a>"
+msgstr "<a href='${link_password_forgotten}'>J'ai oublié mon mot de passe&nbsp;!</a>"
 
 #.   <em>
 #.             Check this box to have your password mailed to you.
@@ -1066,12 +1115,12 @@ msgstr ""
 msgid "help_password_message"
 msgstr "Cochez cette case pour recevoir un mél contenant votre mot de passe."
 
-#.   <span>You can publish this item
+#.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
 #.     copy of the item will be created into each of these sections with the
 #.     <strong>published</strong>status. Section readers of those sections could then read
-#.     it.</span>
-#.   <span>To make an item viewable
+#.     it.</block>
+#.   <block>To make an item viewable
 #.     by readers it has to be published. You can publish this item directly
 #.     in the sections where you are entitled to  without requiring any reviewing.<br />
 #.     A copy of the item will be created into each of these sections with the
@@ -1080,7 +1129,7 @@ msgstr "Cochez cette case pour recevoir un mél contenant votre mot de passe."
 #.     You can also submit the item in the section folders where you are not
 #.     entitled to publish directly.<br /> A copy of the item will be created into
 #.     each of these sections with a <strong>pending</strong> status, waiting to be
-#.     reviewed and finally <strong>published</strong> by a section's reviewer.</span>
+#.     reviewed and finally <strong>published</strong> by a section's reviewer.</block>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
@@ -1162,8 +1211,8 @@ msgstr ""
 msgid "help_translate_revision"
 msgstr "Creation d'une traduction du document"
 
-#.   <span>
-#.     Unpublish published item</span>
+#.   <block>
+#.     Unpublish published item</block>
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "help_unpublish_publication"
 msgstr "Dépublier ce document"
@@ -1760,7 +1809,6 @@ msgstr "Ordre"
 
 #.   <span>Pages</span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "label_page"
 msgstr "Pages"
 
@@ -2096,7 +2144,8 @@ msgid "label_user_fullname"
 msgstr "Nom complet d'utilisateur"
 
 #.   <label for="username">User name</label>
-#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/account_lost_password_form.pt
+#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr "Nom d'utilisateur"
@@ -2967,8 +3016,7 @@ msgid "portal_type_ImageBox_title"
 msgstr "Boîte d'image"
 
 msgid "portal_type_ImageBox_description"
-msgstr ""
-"Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
+msgstr "Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Boîte RSS"
@@ -3063,8 +3111,7 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La boîte d'actions sous forme de menu à onglets."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr ""
-"Une liste d'actions simple utilisée pour les actions en en-tête de la page."
+msgstr "Une liste d'actions simple utilisée pour les actions en en-tête de la page."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Une boîte avec une image."
@@ -3313,3 +3360,4 @@ msgstr "Di"
 
 msgid "_blank"
 msgstr " "
+

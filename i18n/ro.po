@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
-"POT-Creation-Date: 2005-01-19 15:43default\n"
+"POT-Creation-Date: 2005-02-08 17:46default\n"
 "PO-Revision-Date: 2005-01-20 16:02+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team: Romanian <en@li.org>\n"
@@ -32,8 +32,7 @@ msgstr "Un box de test"
 #.                             selected python:cat in box['box'].categories" repeat="cat actions/keys">
 #.             Action
 #.           </option>
-#.   <a content="action/name" attributes="href action/url;
-#.   			    onclick action/onclick|nothing">Action</a>
+#.   <a content="action/name" attributes="href action/url;">Action</a>
 #.   <a content="action/name" attributes="href action/url;
 #.   			     class python:test(selected, 'selected', default)">Action</a>
 #.   <a content="action/name" attributes="href action/url">Action</a>
@@ -80,17 +79,8 @@ msgstr "Obiecte: ${batch_start} - ${batch_limit} din ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
-#.   <label for="" content="item/Description" attributes="for checkbox_id">
-#.                     Portal type's description
-#.                   </label>
-#.   <td align="left" class="description" content="item/Description">
-#.                     Portal type's description
-#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Descriere tip document"
 
@@ -100,17 +90,8 @@ msgstr "Descriere tip document"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
-#.   <label for="" content="item/Title" attributes="for checkbox_id">
-#.                       Portal type's title
-#.                     </label>
-#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
-#.                       Portal type's title
-#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Titlu document"
 
@@ -225,9 +206,10 @@ msgstr "Tastele rapide folosite pentru a naviga prin site sunt: "
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_description2"
 msgstr ""
-"<strong>Mozilla</strong>: Apasa ALT + numarul ingrosat pentru a sari la link-ul respectiv "
-"<br /><br /> "
-"<strong>IE</strong>: Apasa ALT + numarul (nu din keypad-ul numeric) apoi apasa Enter pentru a sari la link-ul respectiv.<br /><br />"
+"<strong>Mozilla</strong>: Apasa ALT + numarul ingrosat pentru a sari la link-"
+"ul respectiv <br /><br /> <strong>IE</strong>: Apasa ALT + numarul (nu din "
+"keypad-ul numeric) apoi apasa Enter pentru a sari la link-ul respectiv.<br /"
+"><br />"
 
 #.   <span>Go to the
 #.     homepage</span>
@@ -291,7 +273,8 @@ msgid "box text title"
 msgstr "titlu pentru box"
 
 #.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_devel/main_template.pt
+#: from ../skins/cps_default/main_template.pt
+#: ../skins/cps_devel/main_template_debug.pt
 msgid "box_closed_boxes"
 msgstr "Box-uri inchise: "
 
@@ -308,8 +291,6 @@ msgstr "Abandoneaza revizia"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Adauga"
 
@@ -481,10 +462,31 @@ msgstr "Respinge publicarea"
 msgid "button_rename"
 msgstr "Redenumeste"
 
+#.   <input type="submit" class="standalone" value="button_request_reset_password" />
+#: from ../skins/cps_default/account_lost_password_form.pt
+#, fuzzy
+msgid "button_request_reset_password"
+msgstr "Revino la revizia arhivata"
+
+#.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
+#: from ../skins/cps_default/account_reset_password_form.pt
+#, fuzzy
+msgid "button_reset_password"
+msgstr "Inregistreaza"
+
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
 msgstr "Revino la revizia arhivata"
+
+#.   <button type="button" attributes="
+#.           style string:visibility: visible;
+#.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
+#.           ">Layout</button>
+#: from ../skins/cps_default/textbox_edit_form.pt
+#, fuzzy
+msgid "button_rte"
+msgstr "Lipeste"
 
 #.   <input type="submit" class="context searchButton" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
@@ -507,6 +509,11 @@ msgstr "Selecteaza tot"
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
 msgstr "Trimite"
+
+#.   <input type="submit" class="standalone" value="button_send_password_reminder" />
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "button_send_password_reminder"
+msgstr ""
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -546,9 +553,9 @@ msgstr "pentru a-ti schimba datele de inregistrare"
 #: from ../skins/cps_default/logged_in.pt
 msgid "description_login_failure"
 msgstr ""
-"Nu ai fost autentificat. Numele de utilizator sau/si parola ar putea fi incorecte. "
-"Browser-ul tau s-ar putea sa n fie configurat sa accepte cookie-uri HTTP. "
-"Daca ai nevoie de ajutor, contacteaza"
+"Nu ai fost autentificat. Numele de utilizator sau/si parola ar putea fi "
+"incorecte. Browser-ul tau s-ar putea sa n fie configurat sa accepte cookie-"
+"uri HTTP. Daca ai nevoie de ajutor, contacteaza"
 
 #.   <p>
 #.            Welcome. You are currently logged in.
@@ -578,8 +585,8 @@ msgstr "Esti autentificat din afara portalului. S-ar putea sa fie nevoie sa"
 msgid "description_reconfig_form"
 msgstr "Acest formular este folosit pentru a configura optiunile portalului"
 
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -624,7 +631,9 @@ msgstr "Ne cerem scuze pentru incoveniente."
 #.     below.</p>
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "error_not_found"
-msgstr "Resursa ceruta nu a fost gasita. Daca documentul s-a mutat, poate fi gasit folosind formularul de cautare de mai jos. "
+msgstr ""
+"Resursa ceruta nu a fost gasita. Daca documentul s-a mutat, poate fi gasit "
+"folosind formularul de cautare de mai jos. "
 
 #.   <title fill-slot="title">
 #.           heading_abandon_draft_of
@@ -705,6 +714,13 @@ msgstr "Sterge arhiva ${rev} a ${item_id}"
 msgid "heading_edit ${item_id}"
 msgstr "Editeaza"
 
+#.   <h1>
+#.           Validate the reseting of your password</h1>
+#: from ../skins/cps_default/account_reset_password_form.pt
+#, fuzzy
+msgid "heading_enter_your_new_password"
+msgstr "Resursa nu a fost gasita"
+
 #.   <h1>Not Found</h1>
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "heading_error_not_found"
@@ -719,9 +735,6 @@ msgstr "Eroare CPS "
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Adauga continut"
 
@@ -758,6 +771,12 @@ msgstr "Autentificare"
 #: from ../skins/cps_default/logged_in.pt
 msgid "heading_login_success"
 msgstr "Autentificare reusita"
+
+#.   <h1>Lost password</h1>
+#: from ../skins/cps_default/account_lost_password_form.pt
+#, fuzzy
+msgid "heading_lost_password"
+msgstr "Nu intra in panica!"
 
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
@@ -870,20 +889,29 @@ msgstr "Daca abandonezi aceasta revizie, documentul original va fi descuiat. "
 #.       item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
-msgstr "Acceptand publicarea acestui document, el va fi disponibil cititorilor sectiunii"
+msgstr ""
+"Acceptand publicarea acestui document, el va fi disponibil cititorilor "
+"sectiunii"
 
 #.   <block>
 #.             If you commit this draft, it will replace the document currently locked.
 #.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "Daca trimiti aceasta revizie, ea va inlocui documentul care este incuiat deocamdata."
+msgstr ""
+"Daca trimiti aceasta revizie, ea va inlocui documentul care este incuiat "
+"deocamdata."
 
 #.   <block>
 #.             If you create a draft, you will be the only one able to work on the document.
 #.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
+msgstr ""
+
+#.   <div style="visibility: hidden;" onclick="showElement(false, 'no_recurse_help')" class="tooltipArea" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "help_contentbox_no_recurse"
 msgstr ""
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
@@ -897,6 +925,14 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "help_delete_archive"
+msgstr ""
+
+#.   <p>
+#.             Your password reset request is invalid.
+#.             May be you would like to try again.
+#.           </p>
+#: from ../skins/cps_default/account_reset_password_form.pt
+msgid "help_invalid_reset_password_request"
 msgstr ""
 
 #.   <em>
@@ -947,6 +983,13 @@ msgid "help_login_troubles_cookies"
 msgstr ""
 
 #.   <p>
+#.           You have lost your password but hopefuly there is a solution.
+#.         </p>
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "help_lost_pasword"
+msgstr ""
+
+#.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
 #.       password will be mailed to you if you gave a valid email address
 #.       when you signed on.
@@ -956,10 +999,15 @@ msgid "help_mail_password_1"
 msgstr ""
 
 #.   <span>
+#.             If this will not work for you (for example, if you forget your member
+#.             name or didn't enter your email address) send email to
+#.           </span>
+#.   <span>
 #.         If this will not work for you (for example, if you forget your member
 #.         name or didn't enter your email address) send email to
 #.       </span>
-#: from ../skins/cps_default/mail_password_form.pt
+#: from ../skins/cps_default/account_lost_password_form.pt
+#: ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
 msgstr ""
 
@@ -980,11 +1028,7 @@ msgstr ""
 #.   <span>
 #.             No content type can be created.
 #.           </span>
-#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 
@@ -997,7 +1041,7 @@ msgstr ""
 
 #.   <p>
 #.       help_password_forgotten
-#.       ${link_password_forgotten (tal replace="string:${base_url}mail_password_form")}
+#.       ${link_password_forgotten (tal replace="string:${base_url}account_lost_password_form")}
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
@@ -1010,12 +1054,12 @@ msgstr ""
 msgid "help_password_message"
 msgstr ""
 
-#.   <span>You can publish this item
+#.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
 #.     copy of the item will be created into each of these sections with the
 #.     <strong>published</strong>status. Section readers of those sections could then read
-#.     it.</span>
-#.   <span>To make an item viewable
+#.     it.</block>
+#.   <block>To make an item viewable
 #.     by readers it has to be published. You can publish this item directly
 #.     in the sections where you are entitled to  without requiring any reviewing.<br />
 #.     A copy of the item will be created into each of these sections with the
@@ -1024,7 +1068,7 @@ msgstr ""
 #.     You can also submit the item in the section folders where you are not
 #.     entitled to publish directly.<br /> A copy of the item will be created into
 #.     each of these sections with a <strong>pending</strong> status, waiting to be
-#.     reviewed and finally <strong>published</strong> by a section's reviewer.</span>
+#.     reviewed and finally <strong>published</strong> by a section's reviewer.</block>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
@@ -1083,8 +1127,8 @@ msgstr ""
 msgid "help_translate_revision"
 msgstr ""
 
-#.   <span>
-#.     Unpublish published item</span>
+#.   <block>
+#.     Unpublish published item</block>
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "help_unpublish_publication"
 msgstr ""
@@ -1154,8 +1198,8 @@ msgstr "tot"
 msgid "label_archived_revisions"
 msgstr ""
 
-#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "label_atom_export"
 msgstr ""
 
@@ -1272,6 +1316,11 @@ msgstr ""
 #.   <td>Consultation</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_consultation"
+msgstr ""
+
+#.   <label for="cb_no_recurse">Do not recurse into subfolders </label>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_contentbox_no_recurse"
 msgstr ""
 
 #.   <label for="cb_zoom">zoom</label>
@@ -1524,8 +1573,8 @@ msgstr ""
 msgid "label_from"
 msgstr ""
 
-#.   <span>Group</span>
-#.   <span condition="python:type=='group'">Group</span>
+#.   <block>Group</block>
+#.   <block condition="python:type=='group'">Group</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group"
 msgstr ""
@@ -1778,7 +1827,7 @@ msgstr ""
 msgid "label_rights"
 msgstr ""
 
-#.   <span>Role(s)</span>
+#.   <block>Role(s)</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_roles"
 msgstr ""
@@ -1788,8 +1837,8 @@ msgstr ""
 msgid "label_root"
 msgstr ""
 
-#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "label_rss_export"
 msgstr ""
 
@@ -1955,7 +2004,6 @@ msgstr "Cauta textul"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -1992,7 +2040,7 @@ msgstr ""
 #.   <th style="text-align:left;">
 #.           User
 #.       </th>
-#.   <span condition="python:type=='user'">User</span>
+#.   <block condition="python:type=='user'">User</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user"
 msgstr ""
@@ -2008,7 +2056,8 @@ msgid "label_user_fullname"
 msgstr ""
 
 #.   <label for="username">User name</label>
-#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/account_lost_password_form.pt
+#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr ""
@@ -2074,8 +2123,8 @@ msgstr ""
 msgid "legend_local_roles_no_results_members"
 msgstr ""
 
-#.   <span>
-#.           Role to assign:</span>
+#.   <block>
+#.           Role to assign:</block>
 #.   <th colspan="2">
 #.           Role to assign:
 #.       </th>
@@ -2138,8 +2187,8 @@ msgstr ""
 msgid "link_all_metadata"
 msgstr ""
 
-#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "link_atom_export"
 msgstr ""
 
@@ -2189,10 +2238,10 @@ msgstr ""
 msgid "link_go_back"
 msgstr ""
 
-#.   <span>
+#.   <block>
 #.     <em>Roles in underlined</em> are set in parent folders.
 #.     Follow the links to manage the local roles in these folders.
-#.   </span>
+#.   </block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "link_local_roles_underlined"
 msgstr ""
@@ -2228,8 +2277,8 @@ msgstr ""
 msgid "link_revert_to_this_revision"
 msgstr ""
 
-#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "link_rss_export"
 msgstr ""
 
@@ -2347,7 +2396,7 @@ msgstr ""
 msgid "time_yesterday"
 msgstr ""
 
-#.   <label class="required" for="comment">Comments</label>
+#.   <label class="required" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr ""
@@ -2411,46 +2460,63 @@ msgstr ""
 
 msgid "welcome_body"
 msgstr ""
-"<h1>Bine ai venit la Nuxeo CPS</h1> <p> Aceasta pagina este destinata sa "
-"va prezinte pe scurt <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
-"(Portal Colaborativ Nuxeo) si ceea ce se poate face cu el. (<a "
-"href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Editeaza acest text</a>.) </p> <h2>Despre CPS</h2>   <p> <acronym title=\"Collaborative Portal "
-"Server\">CPS</acronym> este un sistem colaborativ extensiv pentru administrare de continut pe Internet (CMS - Content Management System) implementat deasupra <a "
-"href=\"http://www.zope.org/"
-"\">Zope</a> si <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, "
-"care permite organizatiilor sa implementeze usor, rapid si eficient portal-uri colaborative (intranet, extranet sau internet) si aplicatii de business orientate pe fluxul de documente "
-" </p> <p> CPS permite, printre altele: "
-"</p> <ul> <li> <a href=\"workspaces\">Munca in colaborare</a> si <a href="
-"\"sections\">spatii</a> de publicare (s-ar putea sa fie nevoie sa fii autentificat si sa detii drepturi pentru a putea accesa aceste link-uri) </li> "
-"<li>Versiuni ale documentelor, "
-"care permit unui document sa fie publicat intr-o versiune si in acelasi timp sa se lucreze la el in alta versiune </li> "
-"<li>Administrare utilizatori si roluri <a href="
-"\"cpsdirectory_view\">bazata pe grupuri si directoare</a> </li> "
-"<li> O interfata a portalului <a href="
-"\"box_manage_form\">configurabila</a>, cu un comportament compatibil cu standardele web (s-ar putea sa fie nevoie sa fii autentificat si sa detii drepturi pentru a putea accesa aceste link-uri) </li> <li> "
-"Notificari la multe tipuri de evenimente care au loc in sistem</li> "
-"<li> Un editor WYSIWYG (optional) pentru aspectul si comportamentul portalului (e nevoie doar de instalarea "
-"<em>CPSSkins</em> in instanta CPS folosind <a href=\"manage\">ZMI</a>) "
-"</li> <li> Multe servicii pentru utilizatori, cum ar fi Webmail, Forum-uri, Calendare partajate, Newsletter-e si Liste de Discutii, etc. </li> <li> Multe "
-"servicii puternice pentru dezvoltatori si webmaster-i, incluzand suport pentru crearea propriilor tipuri de documente si a propriilor fluxuri de date, etc. </li> </ul> "
-"<p> CPS a fost deja adoptat de parti importante din Administratie"
-"(Ministerele franceze de Interne, Cultura, Finante, Aparare, Justitie, Comisia Franceza de Energie Atomica, Universitatea Chalmers...), de sectorul privat (Suez, STMicroelectronics...) si de catre firme europene de consultanta IT de renume (Capgemini, Unilog, Steria...). </p> <p> Pentru mai multe informatii despre Zope si CPS, iti sugeram sa vizitezi urmatoarele site-uri: </p> "
-"<ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</a>: "
-"portalul comunitatii utilizatorilor si dezvoltatorilor CPS </li> <li> <a href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 la Zope.org</a> (pentru a descarca ultimele versiuni stabile "
-"sau in dezvoltare) </li> <li> <a href=\"http://"
-"lists.nuxeo.com/\">Listele de discutie CPS</a> </li> <li> <a "
-"href=\"http://zope."
-"org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Prezentari ale CPS la EuroPython 2004</a> si ale <a href=\"http://zope.org/Members/"
-"nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 la intalnirea din Paris (2004)"
-"</a> </li> <li> <a href=\"http://www.zope.org/\">Zope.org</a>: Portalul comunitatii Zope </li> <li> <a "
-"href=\"http://zope.org/Documentation/Books/"
-"ZopeBook/2_6Edition/\">Cartea Zope</a> </li> </ul> <h2>Credite</h2>   <p> "
-"Multumim pentru utilizarea CPS. CPS este dezvoltat de "
-"catre <a href=\"http://www."
-"nuxeo.com/en/\">Nuxeo</a> si o <a href=\"http://www.cps-project.org/"
-"\">comunitate de contribuitori</a>. </p> <p> CPS contine cod licentiat sub licentele open source/free software "
-"GPL, ZPL si alte licente compatibile GPL. Portiuni din CPS sunt proprietate intelectuala a Nuxeo SARL,  Zope Corporation si a contribuitorilor, Chalmers University, Jean-Marc Orliaguet, Capgemini,  Unilog, Ministère de l'Intérieur, de la Sécurité Intérieure et des  Libertés Locales, Préfecture du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun Microsystems, Timothy O'Malley, Morten W.  Petersen, "
-"si a altor contribuitori. </p> "
+"<h1>Bine ai venit la Nuxeo CPS</h1> <p> Aceasta pagina este destinata sa va "
+"prezinte pe scurt <acronym title=\"Collaborative Portal Server\">CPS</"
+"acronym> (Portal Colaborativ Nuxeo) si ceea ce se poate face cu el. (<a href="
+"\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Editeaza acest text</"
+"a>.) </p> <h2>Despre CPS</h2>   <p> <acronym title=\"Collaborative Portal "
+"Server\">CPS</acronym> este un sistem colaborativ extensiv pentru "
+"administrare de continut pe Internet (CMS - Content Management System) "
+"implementat deasupra <a href=\"http://www.zope.org/\">Zope</a> si <a href="
+"\"http://www.zope.org/Products/CMF/\">CMF</a>, care permite organizatiilor "
+"sa implementeze usor, rapid si eficient portal-uri colaborative (intranet, "
+"extranet sau internet) si aplicatii de business orientate pe fluxul de "
+"documente  </p> <p> CPS permite, printre altele: </p> <ul> <li> <a href="
+"\"workspaces\">Munca in colaborare</a> si <a href=\"sections\">spatii</a> de "
+"publicare (s-ar putea sa fie nevoie sa fii autentificat si sa detii drepturi "
+"pentru a putea accesa aceste link-uri) </li> <li>Versiuni ale documentelor, "
+"care permit unui document sa fie publicat intr-o versiune si in acelasi timp "
+"sa se lucreze la el in alta versiune </li> <li>Administrare utilizatori si "
+"roluri <a href=\"cpsdirectory_view\">bazata pe grupuri si directoare</a> </"
+"li> <li> O interfata a portalului <a href=\"box_manage_form\">configurabila</"
+"a>, cu un comportament compatibil cu standardele web (s-ar putea sa fie "
+"nevoie sa fii autentificat si sa detii drepturi pentru a putea accesa aceste "
+"link-uri) </li> <li> Notificari la multe tipuri de evenimente care au loc in "
+"sistem</li> <li> Un editor WYSIWYG (optional) pentru aspectul si "
+"comportamentul portalului (e nevoie doar de instalarea <em>CPSSkins</em> in "
+"instanta CPS folosind <a href=\"manage\">ZMI</a>) </li> <li> Multe servicii "
+"pentru utilizatori, cum ar fi Webmail, Forum-uri, Calendare partajate, "
+"Newsletter-e si Liste de Discutii, etc. </li> <li> Multe servicii puternice "
+"pentru dezvoltatori si webmaster-i, incluzand suport pentru crearea "
+"propriilor tipuri de documente si a propriilor fluxuri de date, etc. </li> </"
+"ul> <p> CPS a fost deja adoptat de parti importante din Administratie"
+"(Ministerele franceze de Interne, Cultura, Finante, Aparare, Justitie, "
+"Comisia Franceza de Energie Atomica, Universitatea Chalmers...), de sectorul "
+"privat (Suez, STMicroelectronics...) si de catre firme europene de "
+"consultanta IT de renume (Capgemini, Unilog, Steria...). </p> <p> Pentru mai "
+"multe informatii despre Zope si CPS, iti sugeram sa vizitezi urmatoarele "
+"site-uri: </p> <ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-"
+"project.org</a>: portalul comunitatii utilizatorilor si dezvoltatorilor CPS "
+"</li> <li> <a href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 la "
+"Zope.org</a> (pentru a descarca ultimele versiuni stabile sau in dezvoltare) "
+"</li> <li> <a href=\"http://lists.nuxeo.com/\">Listele de discutie CPS</a> </"
+"li> <li> <a href=\"http://zope.org/Members/nuxeo/news/ep2004-slides/"
+"newsitem_view\">Prezentari ale CPS la EuroPython 2004</a> si ale <a href="
+"\"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/"
+"ERP5 la intalnirea din Paris (2004)</a> </li> <li> <a href=\"http://www.zope."
+"org/\">Zope.org</a>: Portalul comunitatii Zope </li> <li> <a href=\"http://"
+"zope.org/Documentation/Books/ZopeBook/2_6Edition/\">Cartea Zope</a> </li> </"
+"ul> <h2>Credite</h2>   <p> Multumim pentru utilizarea CPS. CPS este "
+"dezvoltat de catre <a href=\"http://www.nuxeo.com/en/\">Nuxeo</a> si o <a "
+"href=\"http://www.cps-project.org/\">comunitate de contribuitori</a>. </p> "
+"<p> CPS contine cod licentiat sub licentele open source/free software GPL, "
+"ZPL si alte licente compatibile GPL. Portiuni din CPS sunt proprietate "
+"intelectuala a Nuxeo SARL,  Zope Corporation si a contribuitorilor, Chalmers "
+"University, Jean-Marc Orliaguet, Capgemini,  Unilog, Ministère de "
+"l'Intérieur, de la Sécurité Intérieure et des  Libertés Locales, Préfecture "
+"du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun "
+"Microsystems, Timothy O'Malley, Morten W.  Petersen, si a altor "
+"contribuitori. </p> "
 
 # Workflow states and actions
 # ############################
@@ -3154,6 +3220,10 @@ msgstr "Portugheza braziliana"
 msgid "label_language_mg"
 msgstr "Malgasa"
 
+#, fuzzy
+msgid "label_language_ro"
+msgstr "Franceza"
+
 # Dates
 # ######
 msgid "calendar_month_1"
@@ -3215,4 +3285,3 @@ msgstr ""
 
 msgid "_blank"
 msgstr ""
-

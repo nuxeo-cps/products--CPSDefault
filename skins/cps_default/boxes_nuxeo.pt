@@ -620,7 +620,8 @@
         <br tal:condition="not:repeat/category/start">
         <ul>
           <li tal:repeat="action category"><a i18n:translate=""
-            tal:attributes="href action/url"
+            tal:attributes="href action/url;
+                            onclick action/onclick|nothing"
             tal:content="action/name">Action</a></li>
         </ul>
       </tal:block>

@@ -1,16 +1,3 @@
-<tal:block replace="nothing">
-
-XXX: Why the hell do we use "id" for
-     debugging purposes ???
-     This is a nonsense
-
-     Proposal :
-     use        <div cpsid="main_widgets_leftbox" />
-     instead of <div id="main_widgets_leftbox" />
-
-</tal:block>
-
-
 <!-- macro library for all general use -->
 <!-- $Id$ -->
 
@@ -54,13 +41,11 @@ string:${portal_url}/favicon.png" />
 
 <!-- ============================================================ -->
 <metal:block define-macro="logo">
-  <a href="http://nuxeo.com/"
-     tal:attributes="href string:${portal_url}/">
-    <img height="60" border="0" src="logo_nuxeo.jpg" class="logo"
-         tal:attributes="src string:${portal_url}/logo_nuxeo.jpg" />
+  <a href="http://www.nuxeo.com/">
+    <img height="43" width="173" border="0" src="logo_nuxeo.gif" class="logo"
+         alt="Nuxeo Logo" title="Nuxeo Web Site"
+         tal:attributes="src string:${portal_url}/logo_nuxeo.gif" />
   </a>
-  <img height="60" src="baseline_nuxeo.gif" class="logo"
-       tal:attributes="src string:${portal_url}/baseline_nuxeo.gif" />
 </metal:block>
 
 
@@ -83,6 +68,7 @@ string:${portal_url}/favicon.png" />
   </div>
 </metal:block>
 
+
 <!-- ============================================================ -->
 <metal:block define-macro="breadcrumbs">
   <div class="pathBar">
@@ -100,6 +86,7 @@ string:${portal_url}/favicon.png" />
   </div>
 </metal:block>
 
+
 <!-- ============================================================ -->
 <metal:block define-macro="sections">
   <div class="tabs"
@@ -116,6 +103,7 @@ string:${portal_url}/favicon.png" />
   </div>
 </metal:block>
 
+
 <!-- ============================================================ -->
 <metal:block define-macro="box">
   <div class="box">
@@ -128,7 +116,8 @@ string:${portal_url}/favicon.png" />
   </div>
 </metal:block>
 
-<!-- macro footer -->
+
+<!-- ============================================================ -->
 <metal:block define-macro="footer">
   <div class="footer">
     Nuxeo - 14, rue du Soleillet, 75020 Paris France
@@ -137,9 +126,9 @@ string:${portal_url}/favicon.png" />
     - Tél: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15
   </div>
 </metal:block>
-<!-- end macro footer -->
 
-<!-- action box -->
+
+<!-- ============================================================ -->
 <metal:block define-macro="actionbox">
   <metal:block use-macro="here/generic_lib/macros/box">
     <metal:block fill-slot="box_title" tal:content="blocktitle"
@@ -163,24 +152,23 @@ string:${portal_url}/favicon.png" />
     </metal:block>
   </metal:block>
 </metal:block>
-<!-- end action box -->
 
-<!-- folder_list -->
+
+<!-- ============================================================ -->
 <metal:block define-macro="folder_list">
 </metal:block>
-<!-- end sections_list -->
 
-<!-- title_content -->
+	
+<!-- ============================================================ -->
 <metal:block define-macro="title_content">
   <h2>
     <metal:block define-slot="title">Title</metal:block>
   </h2>
   <metal:block define-slot="content">Content</metal:block>
 </metal:block>
-<!-- End title_content -->
 
-
-<!-- form -->
+	
+<!-- ============================================================ -->
 <metal:block define-macro="form">
   <table width="100%" cellpadding="4" cellspacing="4" border="0">
     <metal:block define-slot="content">
@@ -189,7 +177,7 @@ string:${portal_url}/favicon.png" />
 </metal:block>
 
 
-<!-- form_property -->
+<!-- ============================================================ -->
 <metal:block define-macro="form_property">
   <tal:block define="form_pos form_pos|nothing">
     <tr>
@@ -202,4 +190,3 @@ string:${portal_url}/favicon.png" />
     </tr>
   </tal:block>
 </metal:block>
-<!-- End form_property -->

@@ -1,10 +1,29 @@
 ##parameters=mtool=None, base_url=None, context_url=None
 # $Id$
 """
-Get Merged Local Roles filtering non CPS Roles.
+Get Merged Local Roles filtering non CPS roles.
 
-Returns a tuple dict_roles, editable_users, cps_roles, local_roles_blocked,
-user_names
+Returns a complicated structure in the form of a tuple that contains:
+  * A very complicated dictionary of role definitions
+  * A list of editable users (XXX: What is it?)
+  * The CPS roles available in this context
+  * If there the local roles acquisition is blocked in this context
+  * A dictionary of usernames and user real life names
+
+Example
+-------
+proxy = self.restrictedTraverse(rpath)
+local_roles = proxy.getCPSLocalRoles()
+local_roles
+(
+ {'user:a1': [{'url': 'workspaces', 'roles': ['WorkspaceMember']}],
+  'group:role:Anonymous': [{'url': 'workspaces', 'roles': ['WorkspaceReader']}]
+  },
+ ['user:a1', 'group:role:Anonymous'],
+ ['WorkspaceReader', 'WorkspaceMember', 'WorkspaceManager'],
+ 0,
+ {'a1': 'Joe User'}
+)
 """
 
 if mtool is None:

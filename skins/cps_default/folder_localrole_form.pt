@@ -7,7 +7,7 @@
                           dummy python:response.redirect(context_url)" />
   </tal:security>
 </metal:header>
-  
+
 <metal:main fill-slot="main"
      tal:define="search_param python:request.get('search_param', '');
                  search_term python:request.get('search_term', '');
@@ -43,7 +43,7 @@
       <option i18n:translate="label_user_email"
               value="email">Email address</option>
     </select>
-    
+
   </td>
  </tr>
  <tr>
@@ -122,8 +122,8 @@
     <td colspan="3"><br /></td>
    </tr>
    </table>
-   <span i18n:translate="legend_local_roles_role_to_assign">
-        Role to assign:</span>
+   <tal:block i18n:translate="legend_local_roles_role_to_assign">
+        Role to assign:</tal:block>
      <select name="member_role"
              tal:define="roles python:cpslr[2]">
       <option tal:repeat="role roles"
@@ -172,7 +172,7 @@
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;">
-        <span i18n:translate="label_group">Group</span>
+        <tal:block i18n:translate="label_group">Group</tal:block>
     </th>
    </tr>
 
@@ -191,7 +191,7 @@
      </td>
    </tr>
    </tal:block>
-   
+
    <tr>
     <td colspan="2"><br /></td>
    </tr>
@@ -253,7 +253,7 @@
   </div>
 </form>
 </div>
-  
+
 <p i18n:translate="legend_local_roles_assigned_users">
    These users currently have local roles assigned in this folder:
 </p>
@@ -267,19 +267,19 @@
       <tr>
         <td width="3%"><br /></td>
         <th width="40%" style="text-align:left;">
-          <span tal:condition="python:type=='user'" i18n:translate="label_user">User</span>
-          <span tal:condition="python:type=='group'" i18n:translate="label_group">Group</span>
+          <tal:block tal:condition="python:type=='user'" i18n:translate="label_user">User</tal:block>
+          <tal:block tal:condition="python:type=='group'" i18n:translate="label_group">Group</tal:block>
         </th>
         <th width="57%" style="text-align:left;">
-          <span i18n:translate="label_roles">Role(s)</span>
+          <tal:block i18n:translate="label_roles">Role(s)</tal:block>
         </th>
       </tr>
-      <tal:block define="users python:[x for x in roles.keys() if x.split(':')[0]==type]">   
+      <tal:block define="users python:[x for x in roles.keys() if x.split(':')[0]==type]">
         <tal:block repeat="user users">
           <tal:block define="haslrhere python:user in editable_user">
           <tal:block condition="python:haslrhere or not local_roles_blocked">
           <tr tal:define="input_id python:user.replace('@', '_at_')"
-              tal:attributes="class python:test(repeat['user'].even(), 
+              tal:attributes="class python:test(repeat['user'].even(),
                                                 'even', 'odd')">
             <tal:block condition="haslrhere">
               <td width="1%" style="text-align:right;">
@@ -308,7 +308,7 @@
               <tal:block define="ishere python:base_url+item['url']==context_url">
                 <tal:block condition="python:not ishere and not local_roles_blocked">
                   <a href="" tal:attributes="href string:${base_url}${item/url}/folder_localrole_form">
-                    <span i18n:translate="" tal:content="python:roleElt" />
+                    <tal:block i18n:translate="" tal:content="python:roleElt" />
                   </a>
                   <span i18n:translate="label_in">in</span>
                     <em tal:content="item/url" />
@@ -328,7 +328,7 @@
       </tal:block>
       <tr tal:condition="nothing">
         <td width="16">
-          <input type="checkbox" name="member_ids:list" 
+          <input type="checkbox" name="member_ids:list"
            value="id" tal:attributes="id id"
            class="noborder"/>
         </td>
@@ -350,10 +350,10 @@
 </form>
 </div>
 <br />
-<span i18n:translate="link_local_roles_underlined">
+<tal:block i18n:translate="link_local_roles_underlined">
   <em>Roles in underlined</em> are set in parent folders.
   Follow the links to manage the local roles in these folders.
-</span>
+</tal:block>
 
 </metal:main>
 

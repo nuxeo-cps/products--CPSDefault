@@ -12,6 +12,7 @@ form = REQUEST.form
 if form is not None:
     # Order and direction
     display_order = form.get("display_order")
+    # "None" means use folder ordering
     if display_order == "None" or not display_order:
         sort_by = None
         direction = None
@@ -23,9 +24,11 @@ if form is not None:
 
     # Style
     format = form.get("display_style")
-    if format == 'None':
-        format = None
     if format:
+        # XXX:
+        # "None" means default here whereas None means "don't change"
+        if format == 'None':
+            format = None
         display_params['format'] = format
 
     # Update session

@@ -175,6 +175,9 @@
  >
   <input type="hidden" name="change_type" value="add">
 
+
+
+
   <table>
    <tr>
     <td width="16"><br></td>
@@ -237,8 +240,6 @@
 
 <!-- End assignment -->
 </div>
-
-
 <hr>
 
 <h2 i18n:translate="legend_local_roles_currently_assigned">
@@ -251,97 +252,88 @@
 
 <form method="post" action="folder_localrole_edit"
       tal:attributes="action string:${here_url}/folder_localrole_edit">
- <input type="hidden" name="change_type" value="delete">
- <input type="hidden" name="member_role" value="">
-
- <table width="100%">
- <tr>
-   <td width="16"><br></td>
-   <th style="text-align:left;">
-     <span i18n:translate="label_user">User</span>/
-     <span i18n:translate="label_group">Group</span>
-   </th>
-   <th style="text-align:left;">
-       <span i18n:translate="label_roles">Role(s)</span>
-   </th>
- </tr>
-
- <tal:block define="roles python:cpslr[0];
-                    editable_user python:cpslr[1];">
-   <tal:block repeat="user python:roles.keys()">
-     <tr tal:attributes="class python:test(repeat['user'].even(), 'even',
-       'odd')">
-       <tal:block define="haslrhere python:user in editable_user">
-         <tal:block condition="haslrhere">
-           <td width="1%">
-             <input type="checkbox"
-                    name="member_ids:list"
-                    value="id"
-                    tal:attributes="value user">
-            </td>
+ <input type="hidden" name="change_type" value="delete" />
+ 
+<!-- Displays users roles -->
+<tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
+  <!-- Gathers users by categories 'user' then 'group' -->
+  <tal:block repeat="type python:['user','group']"> 
+  <table width="100%">
+    <tr>
+      <td width="3%"><br></td>    
+      <th width="40%" style="text-align:left;">
+        <span tal:condition="python:type=='user'"  i18n:translate="label_user">User</span>
+        <span tal:condition="python:type=='group'" i18n:translate="label_group">Group</span>
+      </th>
+      <th width="57%" style="text-align:left;">
+        <span i18n:translate="label_roles">Role(s)</span>
+      </th>
+    </tr>
+    <tal:block define="users  python:[x for x in roles.keys() if x.split(':')[0]==type]">   
+       <tal:block repeat="user users">
+         <tr tal:attributes="class python:test(repeat['user'].even(), 'even',
+            'odd')">
+         <tal:block define="haslrhere python:user in editable_user">
+           <tal:block condition="haslrhere">
+             <td width="1%" style="text-align:right;">
+               <input type="checkbox"
+                      name="member_ids:list"
+                      value="id"
+                      tal:attributes="value user" />
+             </td>
+           </tal:block>
+           <tal:block condition="not:haslrhere">
+             <td width="3%">&nbsp;</td>
+           </tal:block>
          </tal:block>
-       <tal:block condition="not:haslrhere">
-         <td width="1%">&nbsp;</td>
-       </tal:block>
-     </tal:block>
-     <td>
-       <span tal:content="user" />
-     </td>
-     <td>
-       <tal:block repeat="item python:roles[user]">
-         <tal:block repeat="roleElt python:item['roles']">
-           <tal:block define="ishere python:base_url+item['url']==context_url">
-             <tal:block condition="not:ishere">
-               <a href=""
-                  tal:attributes="href
-                    string:${base_url}${item/url}/folder_localrole_form">
-                  <span i18n:translate="" tal:content="python:roleElt" />
+             <td width="40%">
+               <tal:block define="anuser python:user.split(':',1)[1];">
+	         <span tal:content="anuser" />
+	       </tal:block>
+             </td>
+             <td width="57%">
+         <tal:block repeat="item python:roles[user]">
+           <tal:block repeat="roleElt python:item['roles']">
+             <tal:block define="ishere python:base_url+item['url']==context_url">
+               <tal:block condition="not:ishere">
+               <a href="" tal:attributes="href string:${base_url}${item/url}/folder_localrole_form">
+                 <span i18n:translate="" tal:content="python:roleElt" />
                </a>
                <span i18n:translate="label_in">in</span>
-               <i tal:content="item/url" />
-             </tal:block>
-             <tal:block condition="ishere">
-               <span i18n:translate="" tal:content="roleElt" />
-             </tal:block>
-             <br tal:condition="not:repeat/item/last"><br>
-           </tal:block>
+                 <i tal:content="item/url" />
+               </tal:block>
+               <tal:block condition="ishere">
+                 <span i18n:translate="" tal:content="roleElt"/>
+               </tal:block>
+               <br tal:condition="not:repeat/item/last"><br/>
+                 </tal:block>
+               </tal:block>
+            </tal:block>
+             </td>
+           </tr>  
           </tal:block>
-         </tal:block>
-        </td>
-       </tr>
-     </tal:block>
- </tal:block>
-
- <tr tal:condition="nothing">
-  <td width="16">
-   <input type="checkbox" name="member_ids:list" value="id">
-  </td>
-  <td> Username 2 </td>
-  <td> Role3 </td>
- </tr>
-
- <tr tal:condition="nothing">
-  <td width="16">
-   <br>
-  </td>
-  <td> Auth username </td>
-  <td> Role1, Role2, Role3 </td>
- </tr>
-
- <tr>
-  <td colspan="3"><br></td>
- </tr>
-
- <tr>
-   <td><br></td>
-   <td colspan="2">
-     <input type="submit"
-            value="button_delete"
-            i18n:attributes="value">
-   </td>
- </tr>
-
-</table>
+        </tal:block>
+           <tr tal:condition="nothing">
+             <td width="16">
+               <input type="checkbox" name="member_ids:list" value="id" />
+             </td>
+             <td> Username 2 </td>
+             <td> Role3 </td>
+           </tr>
+           <tr tal:condition="nothing">
+             <td width="16">
+               <br />
+             </td>
+             <td> Auth username </td>
+             <td> Role1, Role2, Role3 </td>
+           </tr>
+           <tr>
+             <td colspan="3"><br /></td>
+           </tr>
+	</table>
+    </tal:block>
+  </tal:block>
+  <input type="submit" value="button_delete" i18n:attributes="value" />
 </form>
 <br>
 <span i18n:translate="link_local_roles_underlined">

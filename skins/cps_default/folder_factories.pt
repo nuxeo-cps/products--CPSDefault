@@ -1,5 +1,4 @@
-<html>
-<body metal:use-macro="here/main_template/macros/master">
+<metal:html metal:use-macro="here/content_lib/macros/master">
 
   <div tal:condition="python: not(here.portal_membership.checkPermission('Access contents information', here))">
     <span tal:define="dummy here/unauthRedirect"></span>
@@ -55,5 +54,4 @@
       </form>
     </div>
   </div>
-</body>
-</html>
+</metal:html>

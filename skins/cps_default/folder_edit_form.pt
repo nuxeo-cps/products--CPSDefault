@@ -1,6 +1,4 @@
-<tal:block define="doc here/getContent">
-<html metal:use-macro="here/main_template/macros/master">
-<body>
+<metal:html use-macro="here/content_lib/macros/master">
 <div metal:fill-slot="main">	  
   <div class="Desktop">
     <h2 i18n:translate="">Edit
@@ -12,7 +10,7 @@
         <tr valign="top">
           <th align="right" i18n:translate="item_title">Title</th>
           <td colspan="3">
-            <input type="text" name="title" value="" size="65"
+            <input type="text" name="title" value="" size="50"
                    tal:attributes="value doc/Title">
           </td>
         </tr>
@@ -39,6 +37,4 @@
     </form>
   </div>
 </div>
-</body>
-</html>
-</tal:block>
+</metal:html>

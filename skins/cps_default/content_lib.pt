@@ -56,7 +56,7 @@ cps:id:${doc/id}
                      b_start request/b_start | python:0;
                      Batch nocall: modules/ZTUtils/Batch;
                      batch1 python:Batch(items, 10, int(b_start), orphan=0);
-                     format_detail not:nothing">
+                     format string:info_detail">
   <table width="100%">
     <tr><td colspan="2">
       <tal:block define="batch_items batch1;">
@@ -85,7 +85,7 @@ cps:id:${doc/id}
                      Batch nocall: modules/ZTUtils/Batch;
                      batch1 python:Batch( items, 5, int(b_start), orphan=0);
                      batch2 batch1/next;
-                     format_compact not:nothing">
+                     format string:info_compact">
   <table width="100%">
     <tr><td>
       <tal:block define="batch_items batch1">
@@ -118,7 +118,7 @@ cps:id:${doc/id}
                      batch1 python:Batch( items, 5, int(b_start), orphan=0);
                      batch2 batch1/next;
                      batch3 batch2/next|batch1/next;
-                     format_icon not:nothing">
+                     format string:info_icon">
   <table width="100%">
     <tr><td>
       <tal:block define="batch_items batch1">
@@ -151,7 +151,8 @@ cps:id:${doc/id}
 <!-- ============================================================ -->
 <pre>list contents in 'batch_items' in a column:</pre>
 <metal:block define-macro="display_contents_column">
-  <tal:block define="no_form no_form|nothing;">
+  <tal:block define="no_form no_form|nothing;
+                     format format|string:info_detail;">
   <table width="100%">
   <tr valign="top" tal:repeat="item batch_items">
     <td align="left" width="5">
@@ -162,15 +163,7 @@ cps:id:${doc/id}
     </td>
     <td>
       <span tal:define="info python:here.getContentInfo(item, level=1);">
-        <tal:block condition="format_detail|nothing">
-  	  <metal:block use-macro="here/content_lib/macros/info_detail" />
-        </tal:block>
-        <tal:block condition="format_compact|nothing">
-          <metal:block use-macro="here/content_lib/macros/info_compact" />
-        </tal:block>
-        <tal:block condition="format_icon|nothing">
-          <metal:block use-macro="here/content_lib/macros/info_icon" />
-        </tal:block>
+        <metal:block use-macro="python:path('here/content_lib/macros/%s' % format)" />
       </span>
     </td>
   </tr>

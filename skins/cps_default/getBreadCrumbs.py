@@ -39,6 +39,13 @@ for i in range(len(path)):
     if not checkPermission('View', obj):
         continue
     title = obj.title_or_id()
+    try:
+        is_archived = obj.isProxyArchived()
+    except AttributeError:
+        is_archived = 0
+    if is_archived:
+        # XXX i18n
+        title = 'v%s (%s)' % (obj.getRevision(), title)
     url = '/' + '/'.join(ipath) + '/'
     # all containers but portal should be accessed by their 'view' action
     if ipath[-1] != portal_id:

@@ -26,5 +26,5 @@ action = 'language_manage_form'
 psm = 'psm_language_added'
 
 if REQUEST is not None:
-    REQUEST.RESPONSE.redirect('%s/%s?&portal_status_message=%s' % (context_url, action, psm))
+    REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' % (context_url, action, psm))
 return psm

@@ -1,4 +1,4 @@
-##parameters=compute_from='', max_chars_for_id=20
+##parameters=compute_from='', max_chars_for_id=20, location=None
 
 # $Id$
 """
@@ -34,7 +34,10 @@ if not newid:
     newid = str(int(DateTime())) + str(randrange(1000, 10000))
     return newid
 
-container = context.this()
+if location:
+    container = location
+else:
+    container = context.this()
 if not hasattr(container.aq_explicit, newid):
     # No collision
     return newid

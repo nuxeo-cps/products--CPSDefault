@@ -135,6 +135,16 @@
     <td width="1" tal:condition="not:showthirdcol">
     </td>
   </tr>
+
+
+  <!-- ICONS FOR CLOSED BOXES ======================= -->
+  <tr tal:define="closed_box python:btool.filterBoxes(boxes, '', closed_only=1)" condition="len(closed_box)"><td colspan="3" class="left">
+    <span i18n:translate="closed_boxes">Closed boxes :&nbsp;</span>
+    <tal:block repeat="box closed_box">
+      <metal:block use-macro="here/box_lib/macros/closed_box" />
+    </tal:block>
+  </td></tr>
+
 </table>
 
 <!-- FOOTER =================================== -->

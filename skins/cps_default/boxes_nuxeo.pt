@@ -359,10 +359,10 @@
     </metal:block>
     <metal:block fill-slot="box_body">
     <tal:block define="root python:items[0];
-                      depth python:root['depth']+1;
-                      items python:items[1:];
-                      nb_item python:len(items);
-                      global treenb_row  python:nb_item/2+2;">
+                       depth python:root['depth']+1;
+                       items python:items[1:];
+                       nb_item python:len(items);
+                       global treenb_row  python:nb_item/2+2;">
     <table width="100%"
            tal:define="disp_icons python:getattr(box['box'],'display_icons',0)">
         <tr><td valign="top" width="50%">

@@ -782,7 +782,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     s = wf.states.get('published')
     s.setProperties(title='Public',
-                    transitions=('unpublish', 'cut_copy_paste'))
+                    transitions=('unpublish', 'cut_copy_paste', 'publish_content',))
     s.setPermission(ModifyPortalContent, 0, ('Manager', ))
     s.setPermission(View, 0, ('SectionReader', 'SectionReviewer', 'SectionManager', 'Manager'))
 
@@ -842,6 +842,16 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     actbox_url='%(content_url)s/content_unpublish_form',
                     props={'guard_permissions':'',
                            'guard_roles':'Manager; SectionManager; SectionReviewer',
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('publish_content')
+    t.setProperties(title='Publish a subcontent', new_state_id='',
+                    transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, ),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='', actbox_category='', actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
                            'guard_expr':''},
                     )
 

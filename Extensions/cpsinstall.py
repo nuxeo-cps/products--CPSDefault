@@ -219,9 +219,10 @@ class DefaultInstaller(CPSInstaller):
         setDefaultRoles(ModifyFolderPoperties,
             ( 'Manager', 'WorkspaceManager',))
 
-        portal_perms = {
-            UseExternalEditor: ['Manager', 'Member'],
-            }
+        #portal_perms = {
+        #    UseExternalEditor: ['Manager', 'Member'],
+        #    }
+
         sections_perms = {
             'Request review':['Manager', 'WorkspaceManager',
                               'WorkspaceMember',  'SectionReviewer',
@@ -274,7 +275,7 @@ class DefaultInstaller(CPSInstaller):
             WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             }
-        self.setupPortalPermissions(portal_perms, self.portal)
+        #self.setupPortalPermissions(portal_perms, self.portal)
         self.setupPortalPermissions(sections_perms, self.portal[SECTIONS_ID])
         self.setupPortalPermissions(workspaces_perms, self.portal[WORKSPACES_ID])
 

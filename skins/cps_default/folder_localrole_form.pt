@@ -11,7 +11,7 @@
 <div tal:condition="python: not searching">
 <!-- Search -->
 
-<h2 i18n:translate="local_roles_search_members">
+<h2 i18n:translate="heading_local_roles_search_members">
  Assign local roles: Search Members
 </h2>
 
@@ -20,26 +20,23 @@
 
  <table class="FormLayout">
  <tr>
-  <th i18n:translate="local_roles_search_by">Search by</th>
+  <th i18n:translate="label_local_roles_search_by">Search by</th>
   <td>
     <select name="search_param">
-      <option i18n:translate="user_name" 
-              value="username" i18n:attributes="value">User Name</option>
-      <option i18n:translate="group_name" 
-              value="groupname" i18n:attributes="value">Group Name</option>
-      <option i18n:translate="user_email" 
-              value="email" i18n:attributes="value">Email Address</option>
+      <option value="label_user_name"  i18n:attributes="value">User Name</option>
+      <option value="label_group_name" i18n:attributes="value">Group Name</option>
+      <option value="label_user_email" i18n:attributes="value">Email Address</option>
     </select>
   </td>
  </tr>
  <tr>
-   <th i18n:translate="local_roles_search_term">Search Term</th>
+   <th i18n:translate="label_local_roles_search_term">Search Term</th>
    <td><input type="text" name="search_term" size="30" /></td>
  </tr>
  <tr>
   <td><br /></td>
    <td>
-     <input type="submit" name="role_submit" value="Search"
+     <input type="submit" name="role_submit" value="button_search"
             i18n:attributes="value" />
    </td>
  </tr>
@@ -61,13 +58,13 @@
  "
 >
 <!-- Assignment -->
-<h2 i18n:translate="local_roles_search_results">
+<h2 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
 </h2>
 
 <div tal:condition="found">
 
- <p i18n:translate="local_roles_select_members_and_roles">
+ <p i18n:translate="legend_local_roles_select_members_and_roles">
     Select Member(s) and a role to assign:
  </p>
 
@@ -80,10 +77,10 @@
 
    <tr>
     <td width="16"><br /></td>
-    <th style="text-align:left;" i18n:translate="User">
+    <th style="text-align:left;" i18n:translate="label_user">
         User
     </th>
-    <th style="text-align:left;" i18n:translate="email_address">
+    <th style="text-align:left;" i18n:translate="label_email">
         Email address
     </th>
    </tr>
@@ -111,7 +108,7 @@
    </tr>
 
    <tr>
-    <th colspan="2" i18n:translate="local_roles_role_to_assign">
+    <th colspan="2" i18n:translate="legend_local_roles_role_to_assign">
         Role to assign:
     </th>
     <td>
@@ -133,7 +130,7 @@
     <td width="16"><br /></td>
     <td colspan="2">
         <input i18n:attributes="value"
-               type="submit" value=" Assign Roles " />
+               type="submit" value="button_assign_roles" />
     </td>
    </tr>
 
@@ -145,7 +142,7 @@
 
 <div tal:condition="python: not found">
 
- <p i18n:translate="local_roles_no_results_members"> 
+ <p i18n:translate="legend_local_roles_no_results_members"> 
     Sorry, no members matched your search. 
  </p>
 
@@ -165,13 +162,13 @@
 
 
 <!-- Assignment -->
-<h2 i18n:translate="local_roles_search_results">
+<h2 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
 </h2>
 
 <div tal:condition="found">
 
- <p i18n:translate="local_roles_select_groups_and_roles">
+ <p i18n:translate="legend_local_roles_select_groups_and_roles">
     Select Group(s) and a role to assign:
  </p>
 
@@ -185,8 +182,8 @@
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;">
-        <span i18n:translate="Group">Group</span> 
-	<span i18n:translate="Name">Name</span> 
+        <span i18n:translate="label_group">Group</span> 
+	<span i18n:translate="label_name">Name</span> 
     </th>
     <th style="text-align:left;"></th>
    </tr>
@@ -206,7 +203,7 @@
    </tr>
 
    <tr>
-    <th colspan="2" i18n:translate="local_roles_role_to_assign">
+    <th colspan="2" i18n:translate="legend_local_roles_role_to_assign">
         Role to assign:
     </th>
     <td>
@@ -228,7 +225,7 @@
     <td width="16"><br /></td>
     <td colspan="2">
       <input i18n:attributes="value" 
-             type="submit" value=" Assign Roles " /></td>
+             type="submit" value="button_assign_roles " /></td>
    </tr>
 
   </table>
@@ -238,7 +235,7 @@
 
 
 <div tal:condition="python: not found"> 
- <p i18n:translate="local_roles_no_results_member"> 
+ <p i18n:translate="legend_local_roles_no_results_member"> 
     Sorry, no groups matched your search. 
  </p>
 
@@ -250,11 +247,11 @@
 
 <hr />
 
-<h2 i18n:translate="local_roles_currently_assigned">
+<h2 i18n:translate="legend_local_roles_currently_assigned">
     Currently assigned local roles
 </h2>
 
-<p i18n:translate="local_roles_assigned_users">
+<p i18n:translate="legend_local_roles_assigned_users">
    These users currently have local roles assigned in this folder:
 </p>
 
@@ -271,11 +268,11 @@
  <tr>
    <td width="16"><br /></td>
    <th style="text-align:left;">
-     <span i18n:translate="User">User</span>/
-     <span i18n:translate="froup">Group</span>
+     <span i18n:translate="label_user">User</span>/
+     <span i18n:translate="label_group">Group</span>
    </th>
    <th style="text-align:left;">
-       <span i18n:translate="Role(s)">Role(s)</span>
+       <span i18n:translate="label_roles">Role(s)</span>
    </th>
  </tr>
 
@@ -307,7 +304,7 @@
              <tal:block condition="not:ishere">  
                <a href tal:attributes="href string:${base_url}${item/url}/folder_localrole_form"
                        tal:content="python:roleElt" /> 
-                       <span i18n:translate="in">in</span>
+                       <span i18n:translate="label_in">in</span>
                        <i tal:content="item/url" />
              </tal:block>
 	     <tal:block condition="ishere">          
@@ -346,7 +343,7 @@
    <td><br /></td>
    <td colspan="2">
      <input type="submit" 
-            value=" Delete "
+            value="button_delete"
             i18n:attributes="value" />
    </td>
  </tr>

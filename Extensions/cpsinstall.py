@@ -258,7 +258,7 @@ def cpsupdate(self, langs_list=None):
                     transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ), 
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
-                    actbox_name='Create sub object in a workspace', actbox_category='workflow',
+                    actbox_name='Create sub object', actbox_category='workflow',
                     actbox_url='%(content_url)s/workspace_factories_form',
                     props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; WorkspaceMember; Manager', 'guard_expr':''},
                     )
@@ -331,13 +331,15 @@ def cpsupdate(self, langs_list=None):
                     props={'guard_permissions':'', 'guard_roles':'SectionManager; Manager', 'guard_expr':''},
                     )
     t = wf.transitions.get('create_subobject')
-    t.setProperties(title='Create a sub object in a section', new_state_id='', 
+    t.setProperties(title='Create a sub object', new_state_id='', 
                     transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, ), 
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
-                    actbox_name='Create object into a section', actbox_category='workflow',
-                    actbox_url='',
-                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    actbox_name='Create a sub object', actbox_category='workflow',
+                    actbox_url='%(content_url)s/section_factories_form',
+                    props={'guard_permissions':'', 
+                           'guard_roles':'SectionManager; SectionReviewer; Manager', 
+                           'guard_expr':''},
                     )
 
     # WF section document
@@ -421,6 +423,11 @@ def cpsupdate(self, langs_list=None):
                    ),
         'SSS3':('Dummy',)
         }
+    allowed_content_type = {
+                            'Section' : ('Section',),
+                            'Workspace' : ('Workspace', 'Dummy'),
+                            }
+    
     ptypes_installed = ttool.objectIds()
     # remove all ptypes
     ttool.manage_delObjects(ptypes_installed)
@@ -471,6 +478,7 @@ def cpsupdate(self, langs_list=None):
             else:
                 action['visible'] = 0
         ttool[ptype]._actions = actions
+        ttool[ptype].allowed_content_types = allowed_content_type[ptype]
     
     
     # check workflow association

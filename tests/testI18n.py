@@ -16,9 +16,8 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
             self.login(self.login_id)
             self.portal.portal_membership.createMemberArea()
 
-        # Some ZPTs need a session.
-        # XXX: this might be moved to a more generic place someday.
-        self.portal.REQUEST.SESSION = {}
+        # switchLanguage need a session.
+        self.portal.REQUEST['SESSION'] = {}
         self.default_lang = 'en'
 
     def beforeTearDown(self):
@@ -29,6 +28,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assert_(folder.content_translate_form())
 
     def testNonI18nFolder(self):
+        # this a normal ws with only one locale
         ws = self.portal.workspaces
         catalog = self.portal.portal_catalog
 
@@ -57,34 +57,61 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         catalog = self.portal.portal_catalog
         ws = self.portal.workspaces
         proxy_id = 'a_workspace'
-        #print "xxxx creation"
+        default_lang = self.default_lang
+
+        #print "creation --------------------"
         ws.invokeFactory('Workspace', proxy_id)
         proxy = getattr(ws, proxy_id)
         doc_def = proxy.getContent()
 
-        #print "xxxx creation fr"
-        self.portal.content_translate(lang='fr', proxy=proxy)
-        # XXX this should have been done by content_transalte
+        #print "creation fr --------------------"
+        new_lang = 'fr'
+        self.portal.content_translate(lang=new_lang, proxy=proxy)
+        # XXX reindex should have been done!
         proxy.reindexObject()
 
-        doc_fr = proxy.getContent(lang='fr')
-        self.assert_(doc_fr.Language() == 'fr')
+        doc_new = proxy.getContent(lang=new_lang)
+        self.assert_(doc_new.Language() == new_lang)
 
         languages = proxy.Languages()
-        self.assert_('en' in languages)
-        self.assert_('fr' in languages)
+        self.assert_(default_lang in languages)
+        self.assert_(new_lang in languages)
         self.assert_(not has_path(catalog, "/portal/workspaces/"+proxy_id))
         self.assert_(
             has_path(catalog,
-                     "/portal/workspaces/"+proxy_id+"/viewLanguage/fr"))
+                     "/portal/workspaces/"+proxy_id+"/viewLanguage/"+new_lang))
         self.assert_(
             has_path(catalog,
-                     "/portal/workspaces/"+proxy_id+"/viewLanguage/en"))
+                     "/portal/workspaces/"+proxy_id+"/viewLanguage/"+default_lang))
 
+        #print "checking switchLanguage  --------------------"
+        # note that this must be checked before viewLanguage
+        for lang in languages:
+            proxy_tmp = self.portal.unrestrictedTraverse(
+                "/portal/workspaces/"+proxy_id+"/switchLanguage/"+lang)
+            doc = proxy.getContent()
+            self.assert_(doc.Language() == lang)
+
+        #print "checking viewLanguage  --------------------"
+        for lang in languages:
+            proxy_tmp = self.portal.unrestrictedTraverse(
+                "/portal/workspaces/"+proxy_id+"/viewLanguage/"+lang)
+            doc = proxy.getContent()
+            self.assert_(doc.Language() == lang)
+
+        #print "checking priority of viewLanguage --------------------"
+        proxy_v = self.portal.unrestrictedTraverse(
+            "/portal/workspaces/"+proxy_id+"/viewLanguage/"+new_lang)
+        proxy_s = self.portal.unrestrictedTraverse(
+            "/portal/workspaces/"+proxy_id+"/switchLanguage/"+default_lang)
+        doc = proxy.getContent()
+        self.assert_(doc.Language() == new_lang)
+
+        ##print "deletion of a locale fr --------------------"
         ## XXX this does not work for the moment
         ## catalog keep viewLanguage/xx path
 
-        ##print "xxxx deletion of fr rev"
+
         #proxy.delLanguageFromProxy(lang='fr')
         #proxy.reindexObject()
 
@@ -100,7 +127,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         #    not has_path(catalog,
         #                 "/portal/workspaces/a_workspace/viewLanguage/en"))
 
-        #print "xxxx deletion of proxy"
+        #print "deletion of the proxy --------------------"
         self.portal.portal_eventservice.notifyEvent('workflow_delete',
                                                     proxy,
                                                     {})

@@ -32,7 +32,10 @@ function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
 }
 
 //************************************************************
-// Tooltips
+/**
+ * Toggles an element's visibility.
+ * Function to show tooltips.
+ */
 function toggleElementVisibility(id) {
     element = document.getElementById(id);
     if (element) {
@@ -76,10 +79,27 @@ function checkEmptySearch(formElem) {
 }
 
 //************************************************************
+/**
+ * Sets focus on <input> elements that have a class attribute
+ * containing the class 'focus'.
+ * Examples:
+ * <input type="text" id="username" name="__ac_name" class="focus"/>
+ * <input type="text" id="searchableText" class="standalone giant focus"/>
+ */
 function setFocus() {
-    field = document.getElementById('field_focus');
-    if (field) {
-	field.focus();
+    elements = document.getElementsByTagName('input');
+    for (i = 0; i < elements.length; i++) {
+	attrClass = elements[i].getAttribute('class');
+	//alert("attrClass = " + attrClass);
+	if (attrClass) {
+	    classes = attrClass.split(' ');
+	    for (j = 0; j < classes.length; j++) {
+		if (classes[j] == 'focus') {
+		    elements[i].focus();
+		    break;
+		}
+	    }
+	}
     }
 }
 
@@ -98,9 +118,9 @@ function validateRequiredFields(fieldIds, fieldLabels, informationText) {
 function getSelectedRadio(buttonGroup) {
    if (buttonGroup[0]) {
       for (var i=0; i<buttonGroup.length; i++) {
-         if (buttonGroup[i].checked) {
-            return i
-         }
+	 if (buttonGroup[i].checked) {
+	    return i
+	 }
       }
    } else {
       if (buttonGroup.checked) { return 0; }
@@ -114,9 +134,9 @@ function getSelectedRadioValue(buttonGroup) {
       return "";
    } else {
       if (buttonGroup[i]) {
-         return buttonGroup[i].value;
+	 return buttonGroup[i].value;
       } else {
-         return buttonGroup.value;
+	 return buttonGroup.value;
       }
    }
 }
@@ -127,9 +147,9 @@ function getSelectedRadioId(buttonGroup) {
       return "";
    } else {
       if (buttonGroup[i]) {
-         return buttonGroup[i].id;
+	 return buttonGroup[i].id;
       } else {
-         return buttonGroup.id;
+	 return buttonGroup.id;
       }
    }
 }

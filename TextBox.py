@@ -51,7 +51,7 @@ factory_type_information = (
      'description': ('A Text Box contains simple text.'),
      'meta_type': 'Text Box',
      'content_icon': 'box_icon.gif',
-     'product': 'CPSBoxes',
+     'product': 'CPSDefault',
      'factory': 'addTextBox',
      'immediate_view': 'textbox_edit_form',
      'filter_content_types': 0,
@@ -73,6 +73,11 @@ factory_type_information = (
                   'action': 'textbox_render_body',
                   'visible': 0,
                   'permissions': ()},
+                 {'id': 'render_box',
+                  'name': 'Render box',
+                  'action': 'box_text',
+                  'visible': 0,
+                  'permissions': ()},                 
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -102,6 +107,7 @@ class TextBox(BaseBox):
         apply(BaseBox.__init__, (self, id), kw)
         self.title = title
         self.text = text
+
 
 
 InitializeClass(TextBox)

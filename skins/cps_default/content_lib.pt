@@ -250,6 +250,11 @@ format:</pre>
 <div width="100%"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
+  <div tal:condition="info/preview|nothing" STYLE="float: right">
+    <tal:block condition="info/preview|nothing"
+      replace="structure python:here.getImgTag(info['preview'],
+      base_url='', width='64', height='64')" />
+  </div>
   <tal:block replace="structure python:here.getImgTag(info['icon'],
    base_url=base_url, title=info['type'])" />
    <a href="" tal:attributes="href string:/${info/rpath}/${action};">
@@ -262,7 +267,9 @@ format:</pre>
                        status_time not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
-    <span tal:replace="info/size|nothing">10 kB</span>
+    <tal:block condition="info/size|nothing">, <span tal:replace="info/size">
+      10 kB</span>
+    </tal:block>
   </small>
   </a>
   <tal:block condition="info/description">
@@ -279,8 +286,13 @@ format:</pre>
                                  'folder_contents', 'view')">
  <a href="" tal:attributes="href string:/${info/rpath}/${action};
    title info/description;">
-   <img src="" border="0" width="30" length="40"
-     tal:attributes="src string:/${info/icon};"/><br>
+  <tal:block condition="not:info/preview|nothing"
+   replace="structure python:here.getImgTag(info['icon'],
+   base_url=base_url, zoom=2)" />
+  <tal:block condition="info/preview|nothing"
+   replace="structure python:here.getImgTag(info['preview'],
+   base_url='', width='32', height='32')" />
+   <br>
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
 </div>
 </metal:block>

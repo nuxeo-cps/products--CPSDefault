@@ -19,7 +19,9 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_BEHAVIOR_DELETE, TRANSITION_BEHAVIOR_MERGE, \
      TRANSITION_ALLOWSUB_CHECKOUT, TRANSITION_INITIAL_CHECKOUT, \
      TRANSITION_BEHAVIOR_CHECKOUT, TRANSITION_ALLOW_CHECKIN, \
-     TRANSITION_BEHAVIOR_CHECKIN
+     TRANSITION_BEHAVIOR_CHECKIN, TRANSITION_ALLOWSUB_DELETE, \
+     TRANSITION_ALLOWSUB_MOVE, TRANSITION_ALLOWSUB_COPY
+
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
 def cpsinstall(self):
@@ -329,19 +331,19 @@ def cpsupdate(self, langs_list=None):
         wf.states.addState(s)
 
     # create_folder is transition which does nothing?
-    for t in ('create', 'create_content', 'create_folder'):
+    for t in ('create', 'create_content', 'create_folder', 'cut_copy_paste'):
         wf.transitions.addTransition(t)
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
-                    transitions=('create_content',))
+                    transitions=('create_content', 'cut_copy_paste'))
     t = wf.transitions.get('create')
     t.setProperties(title='Initial creation', new_state_id='work',
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ),
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('create_content')
@@ -354,7 +356,22 @@ def cpsupdate(self, langs_list=None):
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_expr':''},
+                    )
+    # For the cut/copy/paste feature
+    t = wf.transitions.get('cut_copy_paste')
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
+                                         TRANSITION_ALLOWSUB_MOVE,
+                                         TRANSITION_ALLOWSUB_COPY),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='New',
+                    actbox_category='',
+                    actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
 
@@ -371,7 +388,7 @@ def cpsupdate(self, langs_list=None):
         wf.states.addState(s)
     for t in ('create', 'copy_submit',
               'checkout_draft', 'checkout_draft_in', 'checkin_draft',
-              'abandon_draft', 'unlock'):
+              'abandon_draft', 'unlock', 'cut_copy_paste'):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
@@ -381,8 +398,8 @@ def cpsupdate(self, langs_list=None):
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
-                    transitions=('copy_submit', 'checkout_draft'))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+                    transitions=('copy_submit', 'checkout_draft', 'cut_copy_paste'))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'Owner', ))
     s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
 
     s = wf.states.get('draft')
@@ -403,7 +420,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('copy_submit')
@@ -415,7 +432,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='action_submit', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_submit_form',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('checkout_draft')
@@ -426,7 +443,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='action_checkout_draft', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_checkout_draft_form',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('checkout_draft_in')
@@ -461,6 +478,22 @@ def cpsupdate(self, langs_list=None):
     t.setProperties(title='Unlock content after a draft is done',
                     new_state_id='work',
                     transition_behavior=(TRANSITION_ALLOW_CHECKIN,),
+                    )
+
+    # For the cut/copy/paste feature
+    t = wf.transitions.get('cut_copy_paste')
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
+                                         TRANSITION_ALLOWSUB_MOVE,
+                                         TRANSITION_ALLOWSUB_COPY),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='New',
+                    actbox_category='',
+                    actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_expr':''},
                     )
 
 
@@ -543,7 +576,7 @@ if locked_ob is not None:
 
     for s in ('work', ):
         wf.states.addState(s)
-    for t in ('create', 'copy_submit', 'create_content', ):
+    for t in ('create', 'copy_submit', 'create_content', 'cut_copy_paste'):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
@@ -553,8 +586,8 @@ if locked_ob is not None:
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
-                    transitions=('copy_submit', 'create_content', ))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+                    transitions=('copy_submit', 'create_content', 'cut_copy_paste'))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', ))
     s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
 
     t = wf.transitions.get('create')
@@ -563,7 +596,7 @@ if locked_ob is not None:
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('copy_submit')
@@ -575,7 +608,7 @@ if locked_ob is not None:
                     actbox_name='action_submit', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_submit_form',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('create_content')
@@ -587,7 +620,23 @@ if locked_ob is not None:
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_expr':''},
+                    )
+
+    # For the cut/copy/paste feature
+    t = wf.transitions.get('cut_copy_paste')
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
+                                         TRANSITION_ALLOWSUB_MOVE,
+                                         TRANSITION_ALLOWSUB_COPY),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='New',
+                    actbox_category='',
+                    actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
                            'guard_expr':''},
                     )
 
@@ -613,7 +662,7 @@ if locked_ob is not None:
     vdef.setProperties(description='Provides access to workflow history',
                        default_expr="state_change/getHistory",
                        props={'guard_permissions':'',
-                              'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; WorkspaceReader',
+                              'guard_roles':'Manager; WorkspaceManager; WorkspaceMember;  WorkspaceReader',
                               'guard_expr':''})
 
     vdef = wf.variables['time']
@@ -639,12 +688,12 @@ if locked_ob is not None:
 
     for s in ('work', ):
         wf.states.addState(s)
-    for t in ('create', 'create_content'):
+    for t in ('create', 'create_content', 'cut_copy_paste'):
         wf.transitions.addTransition(t)
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
-                    transitions=('create_content',))
+                    transitions=('create_content', 'cut_copy_paste'))
     t = wf.transitions.get('create')
     t.setProperties(title='Initial creation', new_state_id='work',
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ),
@@ -666,6 +715,22 @@ if locked_ob is not None:
                            'guard_expr':''},
                     )
 
+    # For the cut/copy/paste feature
+    t = wf.transitions.get('cut_copy_paste')
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
+                                         TRANSITION_ALLOWSUB_MOVE,
+                                         TRANSITION_ALLOWSUB_COPY),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='New',
+                    actbox_category='',
+                    actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
+                           'guard_expr':''},
+                    )
+
     # WF section content
     wfid = 'section_content_wf'
     pr(" Setup workflow %s" % wfid)
@@ -675,9 +740,9 @@ if locked_ob is not None:
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
 
-    for s in ('pending', 'published' ):
+    for s in ('pending', 'published'):
         wf.states.addState(s)
-    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish'):
+    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish', 'cut_copy_paste'):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
@@ -693,7 +758,7 @@ if locked_ob is not None:
 
     s = wf.states.get('published')
     s.setProperties(title='Public',
-                    transitions=('unpublish',))
+                    transitions=('unpublish', 'cut_copy_paste'))
     s.setPermission(ModifyPortalContent, 0, ('Manager', ))
     s.setPermission(View, 0, ('SectionReader', 'SectionReviewer', 'SectionManager', 'Manager'))
 
@@ -751,6 +816,22 @@ if locked_ob is not None:
                     trigger_type=TRIGGER_USER_ACTION,
                     actbox_name='action_un_publish', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_unpublish_form',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; SectionManager; SectionReviewer',
+                           'guard_expr':''},
+                    )
+
+    # For the cut/copy/paste feature
+    t = wf.transitions.get('cut_copy_paste')
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
+                                         TRANSITION_ALLOWSUB_MOVE,
+                                         TRANSITION_ALLOWSUB_COPY),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='New',
+                    actbox_category='',
+                    actbox_url='',
                     props={'guard_permissions':'',
                            'guard_roles':'Manager; SectionManager; SectionReviewer',
                            'guard_expr':''},
@@ -910,9 +991,18 @@ if locked_ob is not None:
         pr("  Adding %s Folder" % sections_id)
 
 
+    #
+    # Test for the ModifyWorkspaceContent permission
+    # XXX : Why sould I do this for that ??
+    # Don't really see the usefullness
+    #
+    from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+    ModifyWorkspaceContent = 'Modify Workspace Content'
+    setDefaultRoles( ModifyWorkspaceContent, ( 'Manager', 'WorkspaceManager', 'WorkspaceMember', ))
+
     pr("Verifying permissions")
     sections_perm = {
-        'Request review':['Manager', 'WorkspaceManager', 'WorkspaceMember', 'SectionReviewer', 'SectionManager'],
+        'Request review':['Manager', 'WorkspaceManager', 'WorkspaceMember',  'SectionReviewer', 'SectionManager'],
         'Review portal content':['Manager', 'SectionReviewer', 'SectionManager'],
         'Add Box Container': ['Manager', 'SectionManager'],
         'Manage Box Overrides': ['Manager','SectionManager'],
@@ -927,14 +1017,14 @@ if locked_ob is not None:
         'View management screens': ['Manager', 'SectionManager'],
         }
     workspaces_perm = {
-        'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+        'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
         'Add portal folders': ['Manager', 'WorkspaceManager'],
         'Change permissions': ['Manager', 'WorkspaceManager'],
-        'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+        'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
         'List folder contents': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
-        'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+        'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Owner'],
         'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
-        'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+        'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember',],
         'Add Box Container': ['Manager', 'WorkspaceManager', 'SectionManager'],
         'Manage Box Overrides': ['Manager','WorkspaceManager'],
         'Manage Boxes': ['Manager', 'WorkspaceManager'],

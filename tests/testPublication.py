@@ -17,7 +17,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     # Test object creation and publication workflow
 
     def afterSetUp(self):
-        self.login('root')
+        self.login('manager')
 
         members = self.portal.portal_directories.members
         members.createEntry({'id': 'member', 'roles': ['Member']})
@@ -158,7 +158,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         published_proxy = self.portal.sections.doc
         published_proxy.content_status_modify(workflow_action='unpublish')
         
-        self.login('root')
+        self.login('manager')
 
         self.assert_(not 'doc' in self.portal.sections.objectIds())
 

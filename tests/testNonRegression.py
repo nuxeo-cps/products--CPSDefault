@@ -10,7 +10,7 @@ import CPSDefaultTestCase
 
 class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
-        self.login('root')
+        self.login('manager')
 
         # Some ZPTs need a session. 
         # XXX: this might be moved to a more generic place someday.
@@ -98,16 +98,16 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         #assert xml
 
     def testRootFirstLogin(self):
-        self.login("root")
+        self.login("manager")
         self.portal.logged_in()
 
     def testRoot2FirstLogin(self):
-        self.login("root")
+        self.login("manager")
         members_directory = self.portal.portal_directories.members
         members_directory.createEntry(
-            {'id': 'root2', 'roles': ('Member', 'Manager')})
+            {'id': 'manager2', 'roles': ('Member', 'Manager')})
         self.logout()
-        self.login('root2')
+        self.login('manager2')
         self.portal.logged_in()
 
 

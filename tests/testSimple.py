@@ -48,7 +48,7 @@ class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
 
 
 class TestSimpleAsRoot(TestSimple):
-    login_id = 'root'
+    login_id = 'manager'
 
     def testMembersSkins(self):
         self.assert_(self.portal.workspaces.folder_view())
@@ -95,13 +95,13 @@ class TestSimpleAsRoot(TestSimple):
         sections = self.portal.sections
 
         sections.folder_localrole_edit(change_type='add', 
-            member_ids=['user:root'], member_role='SectionReader')
+            member_ids=['user:manager'], member_role='SectionReader')
         self.assertEquals(
-            sections.__ac_local_roles__['root'], ['SectionReader'])
+            sections.__ac_local_roles__['manager'], ['SectionReader'])
 
         sections.folder_localrole_edit(change_type='delete', 
-            member_ids=['user:root'])
-        self.assertEquals(sections.__ac_local_roles__.get('root'), None)
+            member_ids=['user:manager'])
+        self.assertEquals(sections.__ac_local_roles__.get('manager'), None)
 
     def testCopyPaste(self):
         ws = self.portal.workspaces

@@ -589,6 +589,9 @@
           <tal:block condition="item/description">
             <tal:block replace="item/description" /><br />
           </tal:block>
+          <small class="url"
+           tal:define="url python: here.truncURL(base_url + item['rpath'])"
+           tal:content="url">URL</small>
         </div><br />
         </metal:block>
     </tal:block>

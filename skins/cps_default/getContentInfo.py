@@ -63,7 +63,6 @@ def compute_states(no_history=0):
     history = []
     if not no_history:
         review_history = wtool.getFullHistoryOf(proxy)
-        context.zlog(summary=str(review_history))
         if not review_history:
             review_history = wtool.getInfoFor(proxy, 'review_history', ())
         for d in review_history:

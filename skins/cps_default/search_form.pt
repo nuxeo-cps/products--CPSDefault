@@ -1,0 +1,16 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+>
+<body>
+<div metal:fill-slot="main">
+
+<tal:block define="items python:here.search(query={'SearchableText':request.get('SearchableText','')}, sort_by='status');
+                   format string:compact;
+                   columns python:2;
+                   items_per_page python:15">
+  <metal:block use-macro="here/content_lib/macros/display_contents" />
+</tal:block>
+</div>
+</body>
+</html>

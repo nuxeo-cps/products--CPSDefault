@@ -251,7 +251,9 @@ def cpsupdate(self, langs_list=None):
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ), 
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'', 'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 'guard_expr':''},
+                    props={'guard_permissions':'', 
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 
+                           'guard_expr':''},
                     )
     t = wf.transitions.get('create_subobject')
     t.setProperties(title='Create a sub object', new_state_id='', 
@@ -259,8 +261,10 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create sub object', actbox_category='workflow',
-                    actbox_url='%(content_url)s/workspace_factories_form',
-                    props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; WorkspaceMember; Manager', 'guard_expr':''},
+                    actbox_url='%(content_url)s/folder_factories_form',
+                    props={'guard_permissions':'', 
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 
+                           'guard_expr':''},
                     )
 
     # WF workspace document
@@ -291,7 +295,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager', 
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('publish')
@@ -302,7 +306,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Publish', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_publish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager', 
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 
                            'guard_expr':''},
                     )
 
@@ -328,17 +332,20 @@ def cpsupdate(self, langs_list=None):
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ), 
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'', 'guard_roles':'SectionManager; Manager', 'guard_expr':''},
+                    props={'guard_permissions':'', 
+                           'guard_roles':'Manager; SectionManager', 
+                           'guard_expr':''},
                     )
+    # XXX: TODO warning guard for publishing and creating sub section are the same
     t = wf.transitions.get('create_subobject')
     t.setProperties(title='Create a sub object', new_state_id='', 
                     transition_behavior=(TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, ), 
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create a sub object', actbox_category='workflow',
-                    actbox_url='%(content_url)s/section_factories_form',
+                    actbox_url='%(content_url)s/folder_factories_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionManager; SectionReviewer; Manager', 
+                           'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
                            'guard_expr':''},
                     )
 
@@ -376,7 +383,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager', 
+                           'guard_roles':'Manager; SectionManager; SectionReviewer', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('in_submit')
@@ -386,7 +393,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '', 
-                           'guard_roles': 'Member; Manager', 
+                           'guard_roles': 'Manager; Member', 
                            'guard_expr': ''},
                     )
     t = wf.transitions.get('publish')
@@ -397,7 +404,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_accept_publishing_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager', 
+                           'guard_roles':'Manager; SectionManager; SectionReviewer', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('unpublish')
@@ -408,7 +415,8 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Un Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_unpublish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager', 'guard_expr':''},
+                           'guard_roles':'Manager; SectionManager; SectionReviewer',
+                           'guard_expr':''},
                     )
    
         

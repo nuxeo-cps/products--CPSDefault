@@ -1,8 +1,7 @@
 ##parameters=query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100, REQUEST=None
 # $Id$
-""" return a list of proxy matching the query """
-
-from zLOG import LOG, DEBUG
+"""Return a list of brains matching the query."""
+from zLOG import LOG, DEBUG, INFO
 
 catalog = context.portal_catalog
 
@@ -68,7 +67,11 @@ if sort_by and not query.has_key('sort-on'):
 bmt = context.Benchmarktimer('search chrono')
 LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
 bmt.setMarker('start')
-brains = catalog(**query)
+try:
+    brains = catalog(**query)
+except: # XXX catch only ParseError
+    LOG('CPSDefault.search', INFO, 'got an exception during search %s' % query)
+    return []
 bmt.setMarker('stop')
 LOG('CPSDefault.search', DEBUG, 'found %s items in %7.3fs' % (
     len(brains), bmt.timeElapsed('start', 'stop')))

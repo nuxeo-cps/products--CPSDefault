@@ -1,0 +1,110 @@
+How to write ZPT to render correct XHTML
+========================================
+
+$Id$
+
+
+I/ Do XHTML Transitional 1.0 or die
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1/ Check empty TAG:
+- <meta ...> into <meta ... />
+- <link ...> into <link ... />
+- <br> into <br />
+- <hr> into <hr />
+- <input ...> into <input ... />
+- <img ...> into <img ... />
+
+2/ Check unvalued attributes:
+- <... nowrap> into <... nowrap="nowrap">
+- <... selected> into <... selected="selected">
+- <... checked> into <... checked="checked">
+! <... nowrap="1"> is not valid, this must be <... nowrap="nowrap">
+
+3/ Use lowercase tag name and attributes:
+- <form method="POST" ...> into <form method="post" ...>
+- <form method="GET" ...> into <form method="get" ...>
+- All your tag should be in lowercase (this is good for compression)
+
+4/ Name must be a single token:
+- <... name="foo bar"> into <... name="foo_bar">
+
+5/ Make http://validator.w3.org/ your homepage and use it
+
+6/ LIMITATION:
+Some attributes are not available in xhtml:
+- colspan
+- onclick
+- ?
+We keep them for the moment until we know how to remove them.
+
+
+II / XHMTL and nuxeo CSS
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+1/ Give up the following attributes:
+- color=
+- bgcolor=
+- font=
+even style="" is a problem you should think to add a new css class
+
+2/ Any form should be like this:
+All input should be grouped using class="group"
+Use row/label and field class for the layout
+
+<form method="post">
+<div class="group">
+
+  <div class="row">
+    <div class="label">foo</div>
+    <div class="field"><input type="text" ... /></div>
+  </div>
+...
+  <div class="row">
+    <div class="field">
+       <input type="submit" class="context">
+    </div>
+  </div>
+
+</div>
+</form>
+
+3/ Inputs:
+- Radio, checkbox should always use class="noborder"
+
+4/ Buttons:
+- Submit can be:
+- The main action of the form should be class="standalone"
+- Sub action should be class="context"
+- A delete action should be class="destructive" with a js confirm window
+  Example:
+
+<input type="submit" value="button_delete"
+  class="destructive" i18n:attributes="value"
+  tal:attributes="onclick python:'return window.confirm(\'%s\')' %
+                 (cpsmcat('description_confirm_delete'), )" />
+
+5/ Heading:
+- The title of the page must be in <h1>
+- Do not jump to <h3> without using <H2>
+
+6/ Table:
+- Always add a summary attributes saying if it is a layout
+  or a listing table (shame on you if it is a layout)
+  <table summary="3 col layout">
+
+- If you have headers use <th>
+
+7/ To display a list of properties in 2 columns, like:
+
+  name: ...
+  firstname: ...
+
+think of using <dd> and <dt>, hope to have an example in cps soon
+
+8/ Copy stuff
+- Take example of what was done in CPSDefault/Document/Schema/Directory
+
+9/ XXX
+- For all other questions ask our local experts: Marc-Aurèle and Emmanuel
+

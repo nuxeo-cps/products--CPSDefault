@@ -23,17 +23,17 @@ factory_type_information = (
                              # CPS attr
                              'actions': (
                                          {'id': 'view',
-                                          'name': 'View',
+                                          'name': 'action_view',
                                           'action': 'dummy_view',
                                           'permissions': (View,)
                                           },
                                          {'id': 'edit',
-                                          'name': 'Edit',
+                                          'name': 'action_edit',
                                           'action': 'dummy_edit_form',
                                           'permissions': (ModifyPortalContent,)
                                            },
                                          {'id': 'metadata',
-                                          'name': 'Metadata',
+                                          'name': 'action_metadata',
                                           'action': 'metadata_edit_form',
                                           'permissions': (ModifyPortalContent,)
                                           },
@@ -49,7 +49,7 @@ factory_type_information = (
                                           'action': 'document',
                                           'permissions': (None,),
                                           'visible': 0,
-                                          },                                         
+                                          },
                                          )
                              },
                             )
@@ -64,14 +64,14 @@ class Dummy(CPSBaseDocument):
                                                 'type': 'text',
                                                 'mode': 'w',
                                                 'label': 'Body'
-                                                }, 
+                                                },
                                                )
     body = ''
-    
+
     def __init__(self, id, **kw):
         CPSBaseDocument.__init__(self, id, **kw)
     #EOC
-    
+
 InitializeClass(Dummy)
 
 

@@ -58,14 +58,14 @@ def manage_addCPSDefaultSite(dispatcher, id,
                                 'CPSDefault.cpsinstall',
                                 'cpsinstall')
     portal._setObject('cpsinstall', cpsinstall)
-    
+
     pr('Creating cpsupdate External Method in CMF Site')
     cpsupdate = ExternalMethod('cpsupdate',
                                'CPSDefault Updater',
                                'CPSDefault.cpsinstall',
                                'cpsupdate')
     portal._setObject('cpsupdate', cpsupdate)
-    
+
     pr('Creating benchmark External Method')
     benchmarktimer = ExternalMethod('BenchmarkTimer',
                                     'BenchmarkTimer',
@@ -75,28 +75,28 @@ def manage_addCPSDefaultSite(dispatcher, id,
 
     pr('Executing CPSDefault Installer')
     pr(portal.cpsinstall(), 0)
-    
+
     pr('Executing CPSDefault Updater')
     pr(portal.cpsupdate(langs_list=langs_list), 0)
-    
+
     pr('Configuring CPSDefault Portal')
     # editProperties do not work with ZTC due to usage of REQUEST to send properties :/
     portal.MailHost.smtp_host = 'localhost'
-    portal.manage_changeProperties(REQUEST=None, 
+    portal.manage_changeProperties(REQUEST=None,
                                    kw={
                                        'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),
                                        'email_from_address': root_email,
                                        'smtp_server': 'localhost',
                                        }
                                    )
-    
+
     # TODO: use portal_metadirectories to store emails and other stuff
     pr('Creating CPS Administrator account for CPSDefault')
     portal.acl_users._addUser(name=root_id,
                               password=root_password1,
                               confirm=root_password2,
                               roles=('Manager', 'Member'), domains=None)
-                                         
+
     # XXX TODO: remove this test user
     for i in ('1', '2', '3'):
         user='user%s' % i

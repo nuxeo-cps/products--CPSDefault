@@ -47,7 +47,8 @@ for i in range(len(path)):
     if is_archived:
         # XXX i18n
         title = 'v%s (%s)' % (obj.getRevision(), title)
-    url = '/' + '/'.join(ipath) + '/'
+    rpath = '/'.join(ipath)
+    url = '/%s/' % rpath
     # all containers but portal should be accessed by their 'view' action
     if ipath[-1] != portal_id:
         url = url + 'view'
@@ -55,7 +56,7 @@ for i in range(len(path)):
                   'title': format_title(title),
                   'longtitle': title,
                   'url': url,
-                  'rpath': '/'.join(ipath),
+                  'rpath': rpath,
                  })
 
 return items

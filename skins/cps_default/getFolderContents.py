@@ -1,5 +1,5 @@
 ## Script (Python) "getFolderContents"
-##parameters=sort_by=None, direction=None, hide_folder=0
+##parameters=sort_by=None, direction=None, hide_folder=0, ptypes=None
 # $Id$
 """
 Get a sorted list of contents object
@@ -13,8 +13,8 @@ elif not direction:
 
 if sort_by == None:
     return context.filterContents(items=context.objectValues(),
-                                  hide_folder=hide_folder)
+                                  hide_folder=hide_folder, ptypes=ptypes)
 else:
     return context.filterContents(items=context.objectValues(),
                                   sort_by=sort_by, direction=direction,
-                                  hide_folder=hide_folder)
+                                  hide_folder=hide_folder, ptypes=ptypes)

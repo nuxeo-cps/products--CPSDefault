@@ -1,5 +1,5 @@
 ## Script (Python) "FilterContents"
-##parameters=items=[], sort_by='title', direction=None, hide_folder=0
+##parameters=items=[], sort_by='title', direction=None, hide_folder=0, ptypes=None
 # $Id$
 """
 Filter and sort items (proxy)
@@ -17,6 +17,13 @@ for item in items:
         continue
     if hide_folder and item.isPrincipiaFolderish:
         continue
+    if ptypes:
+        if same_type(ptypes, ""):
+            if item.portal_type != ptypes:
+                continue
+        elif same_type(ptypes, []):
+            if item.portal_type not in ptypes:
+                continue
     review_state = wtool.getInfoFor(item, 'review_state', 'nostate')
     if review_state == 'published':
         if not mtool.checkPermission('Modify portal content', item):

@@ -328,7 +328,7 @@ class BaseInstaller:
         portal_boxes = self.portal.portal_boxes
         container_id = portal_boxes.getBoxContainerId(parent)
         if not hasattr(aq_base(parent), container_id) and create:
-            parent.manage_addProduct['CPSDefault'].addBoxContainer()
+            parent.manage_addProduct['CPSBoxes'].addBoxContainer()
         box_container = getattr(parent, container_id)
         return box_container
 

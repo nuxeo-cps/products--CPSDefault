@@ -1,4 +1,6 @@
-# Copyright (c) 2003 Nuxeo SARL <http://nuxeo.com>
+# -*- coding: iso-8859-15 -*-
+# (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
+# Author: Julien Anguenot <ja@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -15,73 +17,17 @@
 # 02111-1307, USA.
 #
 # $Id$
+
+"""Backward compatibility;  see Products.CPSBoxes.TextBox
 """
-  TextBox
-"""
-from Globals import InitializeClass
-from AccessControl import ClassSecurityInfo
 
-from Products.CMFCore.permissions import View, ModifyPortalContent
-from BaseBox import BaseBox
+from Products.CPSBoxes.TextBox import *
 
-factory_type_information = (
-    {'id': 'Text Box',
-     'title': 'portal_type_TextBox_title',
-     'description': 'portal_type_TextBox_description',
-     'meta_type': 'Text Box',
-     'icon': 'box.png',
-     'product': 'CPSDefault',
-     'factory': 'addTextBox',
-     'immediate_view': 'textbox_edit_form',
-     'filter_content_types': 0,
-     'actions': ({'id': 'view',
-                  'name': 'View',
-                  'action': 'basebox_view',
-                  'permissions': (View,)},
-                 {'id': 'edit',
-                  'name': 'Edit',
-                  'action': 'textbox_edit_form',
-                  'permissions': (ModifyPortalContent,)},
-                 ),
-     # additionnal cps stuff
-     'cps_is_portalbox': 1,
-     },
-    )
+from warnings import warn
 
-
-class TextBox(BaseBox):
-    """
-    A Text Box simply returns a text.
-    """
-    meta_type = 'Text Box'
-    portal_type = 'Text Box'
-    i18n = 0
-
-    security = ClassSecurityInfo()
-
-    _properties = BaseBox._properties + (
-        {'id':'text', 'type':'text', 'mode':'w', 'label':'Text'},
-        {'id':'i18n', 'type':'boolean', 'mode':'w', 'label':'I18n'},
-    )
-
-    def __init__(self, id, category='textbox', text='', i18n=0, **kw):
-        BaseBox.__init__(self, id, category=category, **kw)
-        self.text = text
-        self.i18n = i18n
-
-    def getI18n(self):
-        return self.i18n
-
-
-InitializeClass(TextBox)
-
-
-def addTextBox(dispatcher, id, REQUEST=None, **kw):
-    """Add a Text Box."""
-    ob = TextBox(id, **kw)
-    dispatcher._setObject(id, ob)
-    ob = getattr(dispatcher, id)
-    ob.manage_permission(View, ('Anonymous',), 1)
-    if REQUEST is not None:
-        url = dispatcher.DestinationURL()
-        REQUEST.RESPONSE.redirect('%s/manage_main' % url)
+warn("The module, "
+     "'Products.CPSDefault.TextBox' "
+     "is a deprecated compatiblity alias for "
+     "'Products.CPSBoxes.TextBox'; "
+     "please use the new module instead.",
+     DeprecationWarning)

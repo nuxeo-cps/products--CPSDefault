@@ -29,86 +29,61 @@ except ImportError:
 
 import CMFCalendarToolPatch
 
-# Making sure that the ModuleSecurityInfo info statements of the utils module is
-# taken into account.
+# Making sure that the ModuleSecurityInfo info statements of the utils
+# module is taken into account.
+
 import utils
 import Portal
 import Folder
 import Dummy
+
+# XXX Compatibility
 import BoxesTool
-import BaseBox
-import TextBox
-import TreeBox
-import ContentBox
-import ActionBox
-import ImageBox
-import FlashBox
-import EventCalendarBox
-import InternalLinksBox
-import DocRenderBox
 
-cpsdefault_globals = globals()
+contentClasses = (
+    Folder.Folder,
+    Dummy.Dummy,
+    )
 
-contentClasses = (Folder.Folder, Dummy.Dummy,
-                  BaseBox.BaseBox, TextBox.TextBox, TreeBox.TreeBox,
-                  ContentBox.ContentBox, ActionBox.ActionBox,
-                  ImageBox.ImageBox,FlashBox.FlashBox,
-                  EventCalendarBox.EventCalendarBox,
-                  InternalLinksBox.InternalLinksBox,
-                  DocRenderBox.DocRenderBox)
-
-contentConstructors = (Folder.addFolder, Dummy.addDummy,
-                       BaseBox.addBaseBox, TextBox.addTextBox,
-                       TreeBox.addTreeBox, ContentBox.addContentBox,
-                       ActionBox.addActionBox,
-                       ImageBox.addImageBox,FlashBox.addFlashBox,
-                       EventCalendarBox.addEventCalendarBox,
-                       InternalLinksBox.addInternalLinksBox,
-                       DocRenderBox.addDocRenderBox)
+contentConstructors = (
+    Folder.addFolder,
+    Dummy.addDummy,
+    )
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
-       BaseBox.factory_type_information +
-       TextBox.factory_type_information +
-       TreeBox.factory_type_information +
-       ContentBox.factory_type_information +
-       ActionBox.factory_type_information +
-       ImageBox.factory_type_information +
-       FlashBox.factory_type_information +
-       EventCalendarBox.factory_type_information +
-       InternalLinksBox.factory_type_information +
-       DocRenderBox.factory_type_information +
        ()
        )
 
-tools = (BoxesTool.BoxesTool,  # XXX this should move to CPSCore ?
-         )
-
 registerDirectory('skins', globals())
 
+tools = (
+    BoxesTool.BoxesTool,  
+    )
+
 def initialize(context):
+
+    # XXX Compatibility alias (c.f : CPSBoxes)
     ToolInit(
-        'CPS Boxes Tool',
+        'CPS Default Tool',
         tools = tools,
         product_name = 'CPSDefault',
         icon = 'tool.png',
         ).initialize(context)
+
     ContentInit('CPSDefault Documents',
                 content_types = contentClasses,
                 permission = AddPortalContent,
                 extra_constructors = contentConstructors,
                 fti = fti,
                 ).initialize(context)
+
     context.registerClass(Portal.CPSDefaultSite,
                           constructors=(Portal.manage_addCPSDefaultSiteForm,
                                         Portal.manage_addCPSDefaultSite,))
+
+    # XXX compatibility (c.f : CPSBoxes)
     context.registerClass(BoxesTool.BoxContainer,
                           permission='Add Box Container',
                           constructors=(BoxesTool.addBoxContainer,))
 
-    if has_profile_registry:
-        profile_registry.registerProfile('CPSDefault:default',
-                                         'CPS Default Site',
-                                         'Profile for a default CPS site.',
-                                         'profiles/default',
-                                         'CPSDefault')

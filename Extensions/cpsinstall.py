@@ -489,6 +489,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'cps_images': 'Products/CPSDefault/skins/cps_images',
             'cps_devel': 'Products/CPSDefault/skins/cps_devel',
             'cps_default': 'Products/CPSDefault/skins/cps_default',
+            'cps_boxes'  : 'Products/CPSBoxes/skins/cps_boxes',
             'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
             'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
             'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
@@ -1380,34 +1381,34 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                        'typeinfo_name': 'CPSDefault: Folder',
                        'add_meta_type': 'Factory-based Type Information',},
             'Base Box': {
-                       'typeinfo_name': 'CPSDefault: Base Box',
+                       'typeinfo_name': 'CPSBoxes: Base Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Text Box': {
-                       'typeinfo_name': 'CPSDefault: Text Box',
+                       'typeinfo_name': 'CPSBoxes: Text Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Tree Box': {
-                       'typeinfo_name': 'CPSDefault: Tree Box',
+                       'typeinfo_name': 'CPSBoxes: Tree Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Content Box': {
-                       'typeinfo_name': 'CPSDefault: Content Box',
+                       'typeinfo_name': 'CPSBoxes: Content Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Action Box': {
-                       'typeinfo_name': 'CPSDefault: Action Box',
+                       'typeinfo_name': 'CPSBoxes: Action Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Image Box': {
-                       'typeinfo_name': 'CPSDefault: Image Box',
+                       'typeinfo_name': 'CPSBoxes: Image Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Flash Box': {
-                       'typeinfo_name': 'CPSDefault: Flash Box',
+                       'typeinfo_name': 'CPSBoxes: Flash Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Event Calendar Box': {
-                       'typeinfo_name': 'CPSDefault: Event Calendar Box',
+                       'typeinfo_name': 'CPSBoxes: Event Calendar Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'InternalLinks Box': {
-                       'typeinfo_name': 'CPSDefault: InternalLinks Box',
+                       'typeinfo_name': 'CPSBoxes: InternalLinks Box',
                        'add_meta_type': 'Factory-based Type Information',},
             'Doc Render Box':{
-                       'typeinfo_name': 'CPSDefault: Doc Render Box',
+                       'typeinfo_name': 'CPSBoxes: Doc Render Box',
                        'add_meta_type': 'Factory-based Type Information',},           
         }
 
@@ -1485,7 +1486,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             self.flagRebuildTreeCache(WORKSPACES_ID)
 
     def setupBoxes(self):
-        self.verifyTool('portal_boxes', 'CPSDefault', 'CPS Boxes Tool')
+        self.verifyTool('portal_boxes', 'CPSBoxes', 'CPS Boxes Tool')
         self.log("Adding cps default boxes")
         boxes = {
             'action_header': {'type': 'Action Box',

@@ -1,4 +1,6 @@
-# Copyright (c) 2003 Nuxeo SARL <http://nuxeo.com>
+# -*- coding: iso-8859-15 -*-
+# (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
+# Author: Julien Anguenot <ja@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -15,84 +17,17 @@
 # 02111-1307, USA.
 #
 # $Id$
+
+"""Backward compatibility;  see Products.CPSBoxes.EventCalendarBox
 """
-  EventCalendarBox
-"""
-from Globals import InitializeClass
-from AccessControl import ClassSecurityInfo
 
-from Products.CMFCore.permissions import View, ModifyPortalContent
-from BaseBox import BaseBox
+from Products.CPSBoxes.EventCalendarBox import *
 
-from zLOG import LOG, DEBUG
+from warnings import warn
 
-factory_type_information = (
-    {'id': 'Event Calendar Box',
-     'title': 'portal_type_EventCalendarBox_title',
-     'description': 'portal_type_EventCalendarBox_description',
-     'meta_type': 'Event Calendar Box',
-     'icon': 'box.png',
-     'product': 'CPSDefault',
-     'factory': 'addEventCalendarBox',
-     'immediate_view': 'eventcalendarbox_edit_form',
-     'filter_content_types': 0,
-     'actions': ({'id': 'view',
-                  'name': 'View',
-                  'action': 'basebox_view',
-                  'permissions': (View,)},
-                 {'id': 'edit',
-                  'name': 'Edit',
-                  'action': 'eventcalendarbox_edit_form',
-                  'permissions': (ModifyPortalContent,)},
-                 ),
-     # additionnal cps stuff
-     'cps_is_portalbox': 1,
-     },
-    )
-
-
-class EventCalendarBox(BaseBox):
-    """
-    A box displaying Event Calendar objects (CPS patched version of
-    CMFCalendar).
-    """
-    meta_type = 'Event Calendar Box'
-    portal_type = 'Event Calendar Box'
-
-    security = ClassSecurityInfo()
-
-    _properties = BaseBox._properties + (
-        {'id': 'events_in', 'type': 'text', 'mode': 'w', 
-         'label': 'location of events to be shown'},
-        )
-
-    events_in = None
-    event_types = []
-
-    def __init__(self, id, category='eventcalendarbox', **kw):
-        BaseBox.__init__(self, id, category=category, **kw)
-
-    def edit(self, **kw):
-        self.events_in = self.REQUEST.form.get('events_in')
-        if not self.events_in:
-            self.events_in = None
-        self.event_types = self.REQUEST.form.get('event_types')
-        if not self.event_types:
-            #necessary as the edit form does an inclusion test and
-            #thus needs event_types to be a sequence, even if empty
-            self.event_types = []
-        BaseBox.edit(self, **kw)
-
-
-InitializeClass(EventCalendarBox)
-
-
-def addEventCalendarBox(dispatcher, id, REQUEST=None, **kw):
-    """Add an Event Calendar Box."""
-    ob = EventCalendarBox(id, **kw)
-    dispatcher._setObject(id, ob)
-    ob = getattr(dispatcher, id)
-    ob.manage_permission(View, ('Anonymous',), 1)
-    if REQUEST is not None:
-        url = dispatcher.DestinationURL()
-        REQUEST.RESPONSE.redirect('%s/manage_main' % url)
+warn("The module, "
+     "'Products.CPSDefault.EventCalendarBox' "
+     "is a deprecated compatiblity alias for "
+     "'Products.CPSBoxes.EventCalendarBox'; "
+     "please use the new module instead.",
+     DeprecationWarning)

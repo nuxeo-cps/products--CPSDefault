@@ -226,7 +226,7 @@ format:</pre>
     <tal:block define="info python:here.getContentInfo(item, level=1);
                        start repeat/item/start|nothing;
                        end repeat/item/end|nothing">
-      <metal:block use-macro="here/content_lib/macros/info_detail_tab" /> 
+      <metal:block use-macro="here/content_lib/macros/info_detail_tab" />
     </tal:block>
     </tal:block>
   <br>
@@ -471,7 +471,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>all doc information:</pre>
 <metal:block define-macro="info_detail_tab">
-<tal:block condition="start" tal:replace="structure string:<table width=100%>"> 
+<tal:block condition="start" tal:replace="structure string:<table width=100%>">
 </tal:block>
 <tal:block condition="start">
     <tr>
@@ -506,16 +506,15 @@ format:</pre>
     base_url=base_url, title=info['type'])" /></td>
   <td align=center><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
   <td align=center i18n:translate="">
-    <span tal:content="info/time_str" i18n:name="status_time">May 6,...</span>
+    <span tal:content="info/time_str">May 6,...</span>
   </td>
   <td align=center><span tal:content="info/creator"></span></td>
   <td align=center tal:content="info/review_state" tal:attributes="class
     info/review_state" i18n:translate="">published</td>
   <td align=center i18n:translate="">
-   v<span tal:replace="info/rev" i18n:name="status_revision">1</span>-<span i18n:name="status_language">
+    v-<tal:block replace="info/rev" />
     <tal:block i18n:translate=""
-       content="string:label_language_${info/lang}">en</tal:block>
-    </span>
+      content="string:label_language_${info/lang}">en</tal:block>
   </td>
 </tr>
 <tal:block condition="end" tal:replace="structure string:</table>">

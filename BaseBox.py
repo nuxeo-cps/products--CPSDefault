@@ -285,7 +285,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                 del settings[field]
             elif field in ('mimimized', 'order', 'closed'):
                 settings[field] = int(settings[field])
-        btool.setBoxOverride(box_url, settings, pbc )
+        btool.setBoxOverride(box_url, settings, pbc)
         LOG('BaseBox', DEBUG,
             'SavePersonalSettings', '%s settings %s\n' % (box_url,
                                                         str(settings)))

@@ -107,7 +107,7 @@ class pyBenchmarkTimer:
                               'diff'  : diff,
                               'total' : total})
             if diff > 0.3:
-                str += '%7.4f: %-10s +<font color="red">%7.4f</font>\n' % (
+                str += '%7.4f: %-10s +<span style="color:red">%7.4f</span>\n' % (
                        total, name, diff)
             else:
                 str += '%7.4f: %-10s +%7.4f\n' % (total, name, diff)

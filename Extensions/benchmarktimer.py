@@ -5,6 +5,7 @@
 """
 
 from AccessControl import ClassSecurityInfo
+from AccessControl.SecurityInfo import allow_class
 from Acquisition import Implicit
 import Globals
 import time
@@ -141,6 +142,10 @@ class zBenchmarkTimer(Implicit, pyBenchmarkTimer):
     security.declarePublic('in_bench')
 
 Globals.InitializeClass(zBenchmarkTimer)
+
+# HACK: this wasn't needed with Python 2.3 but it seems to be needed (at least
+# for unit tests to pass) with Python 2.4.
+allow_class(zBenchmarkTimer)
 
 def BenchmarkTimerInstance(title='', level=-1):
     ob = zBenchmarkTimer(title, level)

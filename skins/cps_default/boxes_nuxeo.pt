@@ -428,12 +428,15 @@
                        depth python:root['depth']+1;
                        items python:items[1:];
                        nb_item python:len(items);
-                       global treenb_row  python:nb_item/2+2;">
+                       global treenb_row python:nb_item/2+2;
+                       ttool here/portal_types;">
     <table width="100%" summary="treebox layout"
            tal:define="disp_icons python:getattr(box['box'],'display_icons',0)">
         <tr><td valign="top" width="50%">
         <tal:block repeat="item items">
-          <tal:block condition="python:item['depth']==depth">
+          <tal:block define="cdadil python:ttool[getattr(here,
+               item['id']).portal_type].cps_display_as_document_in_listing"
+                     condition="python:item['depth'] == depth and not cdadil">
           <tal:block condition="not:repeat/item/start"><br /><br /></tal:block>
           <tal:block condition="python:repeat['item'].number() >= treenb_row">
             <tal:block define="global treenb_row python:nb_item + 1"

@@ -6,7 +6,7 @@ import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
-from pprint import pprint
+from Products.CMFCore.tests.base.utils import has_path
 
 
 class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
@@ -74,6 +74,31 @@ class TestSimpleAsRoot(TestSimple):
             # XXX: I should be able to test if the box is closed now
             box.maximize()
             # XXX: I should be able to test if the box is maximized now
+
+    def testCopyPaste(self):
+        ws = self.portal.workspaces
+        ws.invokeFactory('Workspace', 'ws1')
+        ws.invokeFactory('Workspace', 'ws2')
+
+        cookie = ws.manage_copyObjects(('ws1'))
+        ws.ws2.manage_pasteObjects(cookie)
+        self.assert_('ws1' in ws.ws2.objectIds())
+
+        ws.manage_pasteObjects(cookie)
+        self.assert_('copy_of_ws1' in ws.objectIds())
+
+        cookie = ws.manage_cutObjects(('ws1'))
+        ws.ws2.manage_pasteObjects(cookie)
+        self.assert_('copy_of_ws1' in ws.ws2.objectIds())
+        self.assert_('ws1' not in ws.objectIds())
+
+        # Check that catalog has been synchronized
+        catalog = self.portal.portal_catalog
+        self.assert_(has_path(catalog, "/portal/workspaces/ws2"))
+        self.assert_(has_path(catalog, "/portal/workspaces/ws2/ws1"))
+        self.assert_(has_path(catalog, "/portal/workspaces/ws2/copy_of_ws1"))
+        self.assert_(has_path(catalog, "/portal/workspaces/copy_of_ws1"))
+        self.assert_(not has_path(catalog, "/portal/workspaces/ws1"))
 
 
 class TestSimpleAsAnonymous(TestSimple):

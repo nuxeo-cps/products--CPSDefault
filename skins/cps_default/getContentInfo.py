@@ -129,8 +129,12 @@ def compute_archived():
 info={}
 info['rpath'] = utool.getRelativeUrl(proxy)
 info['title_or_id'] = proxy.title_or_id()
-info['title'] = proxy.Title()
 info['id'] = proxy.id
+try:
+    info['title'] = proxy.Title()
+except AttributeError:
+    raise AttributeError, 'invalid object: %s in %s' % (info['title_or_id'],
+                                                        info['rpath'])
 info['icon'] = proxy.getIcon(relative_to_portal=1)
 info['type'] = proxy.getPortalTypeName()
 info['review_state'] = wtool.getInfoFor(proxy, 'review_state', '')

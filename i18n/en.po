@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-22 10:00default\n"
+"POT-Creation-Date: 2003-07-22 15:40default\n"
 "PO-Revision-Date: 2003-07-22 12:56+0200\n"
 "Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -20,9 +20,9 @@ msgstr ""
 "Domain: default\n"
 "X-Generator: KBabel 1.0\n"
 
-#.   <span>
+#.   <span> 
 #.       ${history_time (tal content="item/stime")}:
-#.
+#.   
 #.       ${history_action (tal content="item/action")}
 #.     </span>
 #: from ../skins/cps_default/content_lib.pt
@@ -36,6 +36,16 @@ msgstr "${history_time}: ${history_action}"
 msgid "${status_time}:"
 msgstr "${status_time}:"
 
+#.   <a attributes="href action/url" content="action/name">
+#.   	      Action
+#.                </a>
+#.   <a attributes="href action/url" content="action/name">
+#.                  Action
+#.                </a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "Action"
+msgstr ""
+
 #.   <p>
 #.     Created by
 #.     ${item_creator (tal content="creator" attributes="href string:${home_url}/; title creator" omit-tag="not: home_url")}.
@@ -46,6 +56,13 @@ msgstr "${status_time}:"
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "Created by ${item_creator}. Last modified ${item_modification}."
 
+#.   <strong content="portal_message">
+#.         Translated status message.
+#.       </strong>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "Translated status message."
+msgstr ""
+
 #.   <div>
 #.             Your query '${query (tal content="SearchableText")}'
 #.           </div>
@@ -53,41 +70,20 @@ msgstr "Created by ${item_creator}. Last modified ${item_modification}."
 msgid "Your query '${query}'"
 msgstr "Your query '${query}'"
 
-#. #-#-#-#-#  cpsdefault.pot (default)  #-#-#-#-#
-#.   <a attributes="href action/url" content="action/name">
-#.                  Action
-#.                </a>
-#.   <label attributes="for string:cb_${repeat/item/number}" content="pt/Title" for="">
-#.                           Portal type's title
-#.                         </label>
-#.   <td content="pt/Description" align="left" class="ListDefinition">
-#.                         Portal type's description
-#.                       </td>
-#.   <strong content="portal_message">
-#.         Translated status message.
-#.       </strong>
 #.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
 #.   	    Portal type's title
 #.   	    </label>
 #.   <td content="item/Description" align="left" class="ListDefinition">
 #.   	    Portal type's description
 #.   	  </td>
-#. #-#-#-#-#  default.pot (default)  #-#-#-#-#
 #.   <label attributes="for string:cb_${repeat/item/number}" content="pt/Title" for="">
 #.                           Portal type's title
 #.                         </label>
 #.   <td content="pt/Description" align="left" class="ListDefinition">
 #.                         Portal type's description
 #.                       </td>
-#.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
-#.   	    Portal type's title
-#.   	    </label>
-#.   <td content="item/Description" align="left" class="ListDefinition">
-#.   	    Portal type's description
-#.   	  </td>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/box_create_form.pt
 msgid "_dynamic_"
 msgstr ""
 
@@ -103,17 +99,27 @@ msgstr "Next Items"
 msgid "batch_previous_items"
 msgstr "Previous Items"
 
+#.   <block fill-slot="box_title" content="box/box/title">
+#.         box text title
+#.       </block>
+#.   <block fill-slot="box_title" content="box/box/title">
+#.          box text title
+#.       </block>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "box text title"
+msgstr ""
+
 #.   <span>Closed boxes :&nbsp;</span>
 #: from ../skins/cps_devel/main_template.pt
 msgid "box_closed_boxes"
 msgstr "Closed boxes :&nbsp;"
 
 #.   <input value="button_add" type="submit">
-#.               </input>
-#.   <input value="button_add" type="submit">
 #.       </input>
-#: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/box_create_form.pt
+#.   <input value="button_add" type="submit">
+#.               </input>
+#: from ../skins/cps_default/box_create_form.pt
+#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Add"
 
@@ -194,7 +200,7 @@ msgstr "New"
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.       </input>
@@ -313,8 +319,8 @@ msgstr "You have been logged out."
 msgid "description_logout_zmi_warning"
 msgstr "You are logged in outside the portal.  You may need to"
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -345,11 +351,6 @@ msgstr "gave ${legend_no_search_result}."
 msgid "gave ${legend_one_search_result}"
 msgstr " gave ${legend_one_search_result}"
 
-#. #-#-#-#-#  cpsdefault.pot (default)  #-#-#-#-#
-#.   <span>
-#.                 gave ${nb_results (tal content="items_length")}
-#.             </span>
-#. #-#-#-#-#  default.pot (default)  #-#-#-#-#
 #.   <span>
 #.                 gave ${nb_results (tal content="items_length")}
 #.               </span>
@@ -545,9 +546,10 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.   </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
-#.   <p>
+#.   <p> 
 #.         Just enter your username below, click <em>Send</em>, and your
 #.         password will be mailed to you if you gave a valid email address
 #.         when you signed on.  </p>
@@ -557,9 +559,9 @@ msgstr ""
 "Just enter your username below, click <em>Send</em>, and yourpassword will "
 "be mailed to you if you gave a valid email addresswhen you signed on.  "
 
-#.   <span>
+#.   <span> 
 #.         If this will not work for you (for example, if you forget your member
-#.         name or didn't enter your email address) send email to
+#.         name or didn't enter your email address) send email to 
 #.       </span>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
@@ -664,7 +666,7 @@ msgstr "Unpublish published item"
 msgid "into ${history_dest}"
 msgstr "into ${history_dest}"
 
-#.   <option selected="" value="label_all">All</option>
+#.   <option selected="" value="">All</option>
 #: from ../skins/cps_default/advanced_search_form.pt
 msgid "label_all"
 msgstr "All"
@@ -788,6 +790,13 @@ msgstr "Group"
 msgid "label_group_name"
 msgstr "Group Name"
 
+#.   <span condition="notLogged" content="uname">
+#.                 box text title
+#.              </span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_guest"
+msgstr "Guest"
+
 #.   <span>in</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_in"
@@ -840,9 +849,9 @@ msgstr "Name"
 msgid "label_order"
 msgstr "Order"
 
-#.   <strong>Password</strong>
 #.   <th> Password </th>
-#: from ../skins/cps_default/login_form.pt ../skins/cps_default/join_form.pt
+#.   <strong>Password</strong>
+#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr "Password"
 
@@ -856,7 +865,7 @@ msgstr "Password (confirm) "
 msgid "label_password_mailed"
 msgstr "Mail Password?"
 
-#.   <option value="label_pending">Pending</option>
+#.   <option value="">Pending</option>
 #: from ../skins/cps_default/advanced_search_form.pt
 msgid "label_pending"
 msgstr "Pending"
@@ -880,7 +889,7 @@ msgstr "Proxy Tag"
 msgid "label_publication_states"
 msgstr "Publication states"
 
-#.   <option value="label_published">Published</option>
+#.   <option value="">Published</option>
 #: from ../skins/cps_default/advanced_search_form.pt
 msgid "label_published"
 msgstr "Published"
@@ -1017,14 +1026,14 @@ msgid "label_user_email"
 msgstr "Email Address"
 
 #.   <option value="label_user_name">User Name</option>
-#.   <strong>Name</strong>
 #.   <th> Login Name </th>
+#.   <strong>Name</strong>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#: ../skins/cps_default/login_form.pt ../skins/cps_default/join_form.pt
+#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr "Name"
 
-#.   <option value="label_work">Work</option>
+#.   <option value="">Work</option>
 #: from ../skins/cps_default/advanced_search_form.pt
 msgid "label_work"
 msgstr "Work"
@@ -1185,7 +1194,7 @@ msgid "time_expiration_date"
 msgstr "Expiration Date"
 
 #.   <option condition="python:not(here.portal_membership.isAnonymousUser())" value="time_last_login">
-#.                    Last login
+#.                    time_last_login
 #.                  </option>
 #: from ../skins/cps_default/advanced_search_form.pt
 msgid "time_last_login"
@@ -1195,21 +1204,6 @@ msgstr "Last login"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_last_modified"
 msgstr "Last Modified Date"
-
-#.   <option value="time_last_month">Last month</option>
-#: from ../skins/cps_default/advanced_search_form.pt
-msgid "time_last_month"
-msgstr "Last month"
-
-#.   <option value="time_last_week">Last week</option>
-#: from ../skins/cps_default/advanced_search_form.pt
-msgid "time_last_week"
-msgstr "Last week"
-
-#.   <option value="time_yesterday">Yesterday</option>
-#: from ../skins/cps_default/advanced_search_form.pt
-msgid "time_yesterday"
-msgstr "Yesterday"
 
 #.   <em>Comments</em>
 #: from ../skins/cps_default/content_lib.pt
@@ -1266,38 +1260,11 @@ msgstr "Metada"
 msgid "action_view"
 msgstr "View"
 
-#. #-#-#-#-#  default.pot (default)  #-#-#-#-#
-#.   <span condition="notLogged" content="uname">
-#.                 box text title
-#.              </span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "label_guest"
-msgstr "Guest"
+#~ msgid "time_last_month"
+#~ msgstr "Last month"
 
-#.   <a attributes="href action/url" content="action/name">
-#.   	      Action
-#.                </a>
-#.   <a attributes="href action/url" content="action/name">
-#.                  Action
-#.                </a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "Action"
-msgstr ""
+#~ msgid "time_last_week"
+#~ msgstr "Last week"
 
-#.   <strong content="portal_message">
-#.         Translated status message.
-#.       </strong>
-#: from ../skins/cps_default/generic_lib.pt
-msgid "Translated status message."
-msgstr ""
-
-#.   <block fill-slot="box_title" content="box/box/title">
-#.         box text title
-#.       </block>
-#.   <block fill-slot="box_title" content="box/box/title">
-#.          box text title
-#.       </block>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "box text title"
-msgstr ""
-
+#~ msgid "time_yesterday"
+#~ msgstr "Yesterday"

@@ -390,7 +390,7 @@ def cpsupdate(self, langs_list=None):
     s.setProperties(title='Work',
                     transitions=('create_content', 'cut_copy_paste'))
     t = wf.transitions.get('create')
-    t.setProperties(title='Initial creation', new_state_id='work',
+    t.setProperties(title='Initial creation', new_state_id='',
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ),
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
@@ -413,7 +413,7 @@ def cpsupdate(self, langs_list=None):
                     )
     # For the cut/copy/paste feature
     t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
                     transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
                                          TRANSITION_ALLOWSUB_MOVE,
                                          TRANSITION_ALLOWSUB_COPY),
@@ -534,7 +534,7 @@ def cpsupdate(self, langs_list=None):
 
     # For the cut/copy/paste feature
     t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
                     transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
                                          TRANSITION_ALLOWSUB_MOVE,
                                          TRANSITION_ALLOWSUB_COPY),
@@ -658,7 +658,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     # For the cut/copy/paste feature
     t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
                     transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
                                          TRANSITION_ALLOWSUB_MOVE,
                                          TRANSITION_ALLOWSUB_COPY),
@@ -749,7 +749,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     # For the cut/copy/paste feature
     t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
                     transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
                                          TRANSITION_ALLOWSUB_MOVE,
                                          TRANSITION_ALLOWSUB_COPY),
@@ -775,7 +775,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     for s in ('pending', 'published'):
         wf.states.addState(s)
     for t in ('submit', 'publish', 'accept', 'reject', 'unpublish',
-              'cut_copy_paste', 'publish_content',):
+              'cut_copy_paste',):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
@@ -791,7 +791,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     s = wf.states.get('published')
     s.setProperties(title='Public',
-                    transitions=('unpublish', 'cut_copy_paste', 'publish_content',))
+                    transitions=('unpublish', 'cut_copy_paste',))
     s.setPermission(ModifyPortalContent, 0, ('Manager', ))
     s.setPermission(View, 0, ('SectionReader', 'SectionReviewer', 'SectionManager', 'Manager'))
 
@@ -856,20 +856,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                            'guard_roles':'Manager; SectionManager; SectionReviewer',
                            'guard_expr':''},
                     )
-    t = wf.transitions.get('publish_content')
-    t.setProperties(title='Publish a subcontent', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, ),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='', actbox_category='', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
-                           'guard_expr':''},
-                    )
 
     # For the cut/copy/paste feature
     t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='work',
+    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
                     transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
                                          TRANSITION_ALLOWSUB_MOVE,
                                          TRANSITION_ALLOWSUB_COPY),

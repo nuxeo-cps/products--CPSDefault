@@ -97,25 +97,27 @@ format:</pre>
 <tal:block
   define="tmp_format format|nothing;
           tmp_sort_by sort_by|nothing;
+          tmp_direction direction|nothing;
           tmp_columns columns|nothing;
           tmp_items_per_page items_per_page|nothing;
           tmp_nav_action nav_action|nothing;
-          params python:here.getDisplayParams(format=tmp_format, sort_by=tmp_sort_by,
-                                              columns = tmp_columns,
-                                              items_per_page = tmp_items_per_page,
-                                              nav_action = tmp_nav_action,
-                                              nb_items = len(items));
+          params python:here.getDisplayParams(format=tmp_format,
+                          sort_by = tmp_sort_by,
+                          direction = tmp_direction,
+                          columns = tmp_columns,
+                          items_per_page = tmp_items_per_page,
+                          nav_action = tmp_nav_action,
+                          nb_items = len(items));
           format params/format;
           sort_by params/sort_by;
+          direction params/direction;
           columns params/columns;
           items_per_page params/items_per_page;
           nav_action params/nav_action;
-
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
           batches python:here.getBatchList(items, columns, items_per_page);
-          ">
-          <!-- detail, compact, icon -->
+     ">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top"

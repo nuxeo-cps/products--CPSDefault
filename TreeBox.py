@@ -59,7 +59,7 @@ class TreeBox(BaseBox):
 
     def __init__(self, id, root='', depth=0, contextual=0,
                  children_only=0, **kw):
-        BaseBox.__init__(self, id, macro='treebox', kw=kw)
+        BaseBox.__init__(self, id, category='treebox', kw=kw)
         self.root = root
         self.depth = depth
         self.contextual = contextual

@@ -43,7 +43,7 @@ class TextBox(BaseBox):
     """
     meta_type = 'Text Box'
     portal_type = 'Text Box'
-    
+
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -51,7 +51,7 @@ class TextBox(BaseBox):
         )
 
     def __init__(self, id, text='', **kw):
-        BaseBox.__init__(self, id, macro='textbox', kw=kw)
+        BaseBox.__init__(self, id, category='textbox', kw=kw)
         self.text = text
 
 

@@ -936,6 +936,7 @@ def cpsupdate(self, langs_list=None):
                         'title': 'Sub folder',
                         'slot':'folder_view',
                         'order':10,
+                        'box_skin': 'here/box_lib/macros/wbox2',
                         'btype':'center',
                         'contextual':1,
                         'depth':2,
@@ -946,7 +947,7 @@ def cpsupdate(self, langs_list=None):
                          'title': 'Contents',
                          'slot':'folder_view',
                          'btype':'default',
-                         'box_skin': 'here/box_lib/macros/sbox',
+                         'box_skin': 'here/box_lib/macros/sbox2',
                          'order':20,
                          },
         }

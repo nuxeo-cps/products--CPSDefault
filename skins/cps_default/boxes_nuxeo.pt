@@ -528,7 +528,8 @@
       <h2 tal:condition="repeat/item/start"
         i18n:translate="">label_collaborative_folder</h2>
         <metal:block define-macro="display_folder"
-          tal:condition="python: not context_url.endswith(item['rpath'])">
+          tal:condition="python:
+           item['portal_type'] in ('Workspace', 'Section') and not context_url.endswith(item['rpath'])">
         <img tal:condition="python:getattr(box['box'],'display_icons',0)"
           tal:replace="structure python:
             here.getImgTag(here.portal_types[item['portal_type']].getIcon(),

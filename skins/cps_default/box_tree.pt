@@ -1,4 +1,5 @@
 <metal:block define-macro="box_tree">
+<b tal:replace="python:CPSD_bmt_mark('TREE_start')" />
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title" i18n:translate=""
       tal:content="box/box/title">
@@ -15,4 +16,45 @@
       </div>
     </metal:block>
   </metal:block>
+<b tal:replace="python:CPSD_bmt_mark('TREE_stop')" />
+</metal:block>
+
+
+
+# cost 29 
+<metal:block define-macro="box_tree_center"
+  tal:define="items python:box['box'].getTree(here);">
+
+ <tal:block condition="python: len(items)>1"
+     define="root python:items[0];
+             depth python:root['depth']+1;
+             items python:items[1:];
+             nb_item python:len(items);
+             nb_row  python:nb_item/2+1">
+  <metal:block use-macro="here/box_lib/macros/box">
+    <metal:block fill-slot="box_title" i18n:translate="" tal:condition="items"
+      tal:content="python:root['id']">
+       box text title
+    </metal:block>
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
+      <div class="content odd">
+      <table width="100%">
+	<tr><td valign="top">
+        <span tal:repeat="item items">
+	  <tal:block condition="python:repeat['item'].number() == nb_row" replace="structure string:</td><td valign=top>" />
+          <tal:block condition="python:item['depth']==depth">
+          <br tal:condition="not:repeat/item/start" />
+        <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
+<b><a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="string:${item/id}">id</span></a></b><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
+          </tal:block>
+          <tal:block condition="python:item['depth']>depth">
+<a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="string:${item/id}">id</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
+          </tal:block>
+        </span>
+	</td></tr></table>
+      </div>
+    </metal:block>
+  </metal:block>
+  </tal:block>
+
 </metal:block>

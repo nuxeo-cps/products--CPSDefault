@@ -583,8 +583,8 @@
             <tal:block tal:define="global last_depth python:item['depth']" />
           </tal:block>
         </tal:block>
-        <tal:block tal:repeat="i python:range(0,last_depth+1)">
-          <tal:block tal:replace="structure string:&lt;/dd>&lt;dl>"/>
+        <tal:block tal:repeat="i python:range(0,last_depth)">
+          <tal:block tal:replace="structure string:&lt;/dd>&lt;/dl>"/>
         </tal:block>
       </tal:block>
     </metal:block>

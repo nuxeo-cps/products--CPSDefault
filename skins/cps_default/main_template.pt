@@ -57,11 +57,11 @@
 <metal:block use-macro="here/generic_lib/macros/accessibility" />
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->
-  <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
+  <strong tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
   <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top')">
     <metal:block use-macro="python:path(box['macro'])"/>
   </tal:block>
-  <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
+  <strong tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
 <!-- END TOP Slot ================================= -->
 </div>
 <table width="100%" border="0" cellspacing="0" cellpadding="10"
@@ -70,48 +70,48 @@
     <td class="left" width="15%" valign="top"
         tal:attributes="class python:test(in_ws, 'workspace', default)">
 <!-- BEGIN LEFT Slot ============================== -->
-      <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
+      <strong tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
+      <strong tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
 <!-- END LEFT Slot ================================ -->
     </td>
     <td class="main" width="70%" valign="top"
       tal:attributes="width python:test(showthirdcol, '70%', '85%');
                       colspan python:test(showthirdcol, nothing, '2');">
 <!-- BEGIN CENTER_TOP Slot ======================== -->
-      <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
+      <strong tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
         <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top')">
           <metal:block use-macro="python:path(box['macro'])" />
         </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_stop')" />
+      <strong tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_stop')" />
 <!-- END CENTER_TOP Slot ========================== -->
       <metal:block use-macro="here/generic_lib/macros/portal_message" />
       <div class="document">
         <div id="content">
-          <b tal:replace="python:CPSD_bmt_mark('main_start')" />
+          <strong tal:replace="python:CPSD_bmt_mark('main_start')" />
           <metal:block define-slot="header" />
           <metal:block define-slot="main" />
           <metal:block define-slot="sub" />
-          <b tal:replace="python:CPSD_bmt_mark('main_stop')" />
+          <strong tal:replace="python:CPSD_bmt_mark('main_stop')" />
         </div>
       </div>
 <!-- BEGIN CENTER_BOTTOM Slot====================== -->
-      <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_start')" />
+      <strong tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
+      <strong tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
 <!-- END CENTER_BOTTOM Slot======================== -->
     </td>
     <td class="right" width="15%" valign="top" tal:condition="showthirdcol">
 <!-- BEGIN RIGHT Slot ============================= -->
-      <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
+      <strong tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
+      <strong tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
 <!-- END RIGHT Slot =============================== -->
     </td>
   </tr>
@@ -124,11 +124,11 @@
   </td></tr>
 </table>
 <!-- BEGIN BOTTOM Slot ============================ -->
-<b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_start')" />
+<strong tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_start')" />
 <tal:block repeat="box python:btool.filterBoxes(boxes, slot='bottom')">
   <metal:block use-macro="python:path(box['macro'])" />
 </tal:block>
-<b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
+<strong tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
 <!-- END BOTTOM Slot ============================== -->
 
 <!-- CPSD CPS Debug information =================== -->

@@ -1,19 +1,19 @@
 <metal:block use-macro="here/main_template/macros/master">
 
-<div metal:fill-slot="main">
-<h1>test content_lib on: <span tal:replace="here/getId">Item</span></h1>
+  <div metal:fill-slot="main">
+    <h1>test content_lib on: <span tal:replace="here/getId">Item</span></h1>
 
 
-<pre>list of boxes:</pre>
+    <pre>list of boxes:</pre>
 
-     <b tal:replace="python:CPSD_bmt_mark('ALL_BOXES_start')" />
+    <strong tal:replace="python:CPSD_bmt_mark('ALL_BOXES_start')" />
 
-      <tal:block repeat="box boxes">
-        <b tal:content="python:box['url']" />
-            <metal:block use-macro="python:path(box['macro'])" /><hr />
-      </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('ALL_BOXES_stop')" />
+    <tal:block repeat="box boxes">
+      <strong tal:content="python:box['url']" />
+      <metal:block use-macro="python:path(box['macro'])" /><hr />
+    </tal:block>
+    <strong tal:replace="python:CPSD_bmt_mark('ALL_BOXES_stop')" />
 
-</div>
+  </div>
 
 </metal:block>

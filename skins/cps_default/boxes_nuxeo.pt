@@ -124,7 +124,12 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="contentbox_default">
-  <metal:block use-macro="here/box_lib/macros/sbox">
+  <metal:block use-macro="here/box_lib/macros/box">
+    <metal:block fill-slot="box_title"
+      i18n:translate=""
+      tal:content="box/box/title">
+       box text title
+    </metal:block>
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
        <tal:block define="
@@ -172,6 +177,13 @@
   </metal:block>
   </tal:block>
 </metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="contentbox_last_modified">
+  <metal:block use-macro="here/boxes_nuxeo/macros/contentbox_default" />
+</metal:block>
+
 
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_default">

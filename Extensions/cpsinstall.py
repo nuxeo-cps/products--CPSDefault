@@ -197,6 +197,9 @@ def cpsupdate(self, langs_list=None):
         npath = ', '.join(path)
         portal.portal_skins.addSkinSelection(skin_name, npath)
         pr(" Fixup of skin %s" % skin_name)
+    pr(" Resetting skin cache")
+    portal._v_skindata = None
+    portal.setupCurrentSkin()
 
     pr(" Checking portal_catalog indexes")
     indexes = {

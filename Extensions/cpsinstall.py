@@ -287,25 +287,6 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating portal_boxes")
         portal.manage_addProduct["CPSDefault"].manage_addTool('CPS Boxes Tool')
 
-    if portalhas('portal_schemas'):
-        prok()
-    else:
-        pr(" Creating portal_schemas")
-        portal.manage_addProduct["CPSDocument"].manage_addTool(
-            'CPS Schemas Tool')
-    if portalhas('portal_widgets'):
-        prok()
-    else:
-        pr(" Creating portal_widgets")
-        portal.manage_addProduct["CPSDocument"].manage_addTool(
-            'CPS Widgets Tool')
-    if portalhas('portal_layouts'):
-        prok()
-    else:
-        pr(" Creating portal_layouts")
-        portal.manage_addProduct["CPSDocument"].manage_addTool(
-            'CPS Layouts Tool')
-
     # configure event service to hook the proxies, by adding a subscriber
     pr("Verifying Event service tool")
     objs = portal.portal_eventservice.objectValues()

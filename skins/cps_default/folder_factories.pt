@@ -8,13 +8,14 @@
   <h1 metal:fill-slot="header" i18n:translate="heading_folder_factories">
     Add Content
   </h1>
-  <div metal:fill-slot="main">
+  <div metal:fill-slot="main"
+       tal:define="creatableItems here/getSortedContentTypes">
     <form action="content_create" method="POST"
           tal:attributes="action string:${here_url}/content_create">
       <table width="100%" border="0" cellpadding="1" cellspacing="1"
         summary="listing of documents types">
         <tbody>
-        <tal:block tal:repeat="item here/getSortedContentTypes">
+        <tal:block tal:repeat="item creatableItems">
           <tr valign="top">
             <td align="left" width="20">
               <input type="radio" name="type_name" value="" id=""
@@ -49,18 +50,15 @@
         </tbody>
       </table>
       <br />
-      <table border="0" width="100%" cellpadding="1" cellspacing="1"
-        summary="title form layout">
-        <tr valign="top">
-          <td width="20">&nbsp;</td>
-          <td>
-            <strong i18n:translate="label_title">Title:</strong>
-            <input type="text" name="title" size="40" />
-            <input type="submit" class="standalone searchButton"
-                   value="button_add" i18n:attributes="value" />
-          </td>
-        </tr>
-      </table>
+      <p tal:condition="creatableItems">
+        <strong i18n:translate="label_title">Title:</strong>
+        <input type="text" name="title" size="40" />
+        <input type="submit" class="standalone searchButton"
+               value="button_add" i18n:attributes="value" />
+      </p>
+      <p tal:condition="not:creatableItems">
+        <span i18n:translate="help_no_content_type_can_be_created">No content type can be created.</span>
+      </p>
     </form>
   </div>
 

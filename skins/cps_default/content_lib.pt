@@ -112,23 +112,25 @@ format:</pre>
           tmp_columns columns|nothing;
           tmp_items_per_page items_per_page|nothing;
           tmp_nav_action nav_action|nothing;
+          tmp_filter filter|nothing;
           params python:here.getDisplayParams(format=tmp_format,
-                          sort_by = tmp_sort_by,
-                          direction = tmp_direction,
-                          columns = tmp_columns,
-                          items_per_page = tmp_items_per_page,
-                          nav_action = tmp_nav_action,
-                          nb_items = len(items));
+                          sort_by=tmp_sort_by,
+                          direction=tmp_direction,
+                          columns=tmp_columns,
+                          items_per_page=tmp_items_per_page,
+                          nav_action=tmp_nav_action,
+                          nb_items=len(items),
+                          filter=tmp_filter);
           format params/format;
           sort_by params/sort_by;
           direction params/direction;
           columns params/columns;
           items_per_page params/items_per_page;
           nav_action params/nav_action;
+          filter params/filter;
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
           zoom zoom|nothing;
-          filter filter|python:0;
           batches_all python:here.getBatchList(items,
           columns,items_per_page,zoom);
           batches python:batches_all[0];
@@ -141,7 +143,7 @@ format:</pre>
           tal:condition="filter">
         <tal:block condition="no_form" tal:replace='structure string:
           <form action="${request/URL0}" method="get">' />
-          <span i18n:translate="label_filter">Filter:</span>
+          <span i18n:translate="label_display">Display:</span>
           <select name="displayed:list"
                  tal:define="displayed displayed|python:request.get('displayed',
                                                                     [''])">

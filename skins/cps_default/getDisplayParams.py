@@ -1,5 +1,5 @@
 ## Script (Python) "getDisplayParams"
-##parameters=format=None, sort_by=None, direction=None, columns=None, items_per_page=None, nav_action=None, nb_items=None
+##parameters=format=None, sort_by=None, direction=None, columns=None, items_per_page=None, nav_action=None, nb_items=None, filter=None
 # $Id$
 """ return params for display_content macro """
 
@@ -10,6 +10,7 @@ def_params = {'format': None,
               'direction': 'asc',
               'items_per_page': 10,
               'nav_action': 'folder_view',
+              'filter': 1,
               }
 
 params = def_params
@@ -54,5 +55,9 @@ if items_per_page:
     params['items_per_page'] = items_per_page
 params['items_per_page'] = min(nb_items, params['items_per_page'])
 
+if filter:
+    params['filter'] = filter
+else:
+    params['filter'] = def_params['filter']
 
 return params

@@ -20,13 +20,18 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_ALLOWSUB_MOVE, TRANSITION_ALLOWSUB_COPY
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 from Products.CPSInstaller.CPSInstaller import CPSInstaller
+try:
+    from Products.ExternalEditor.ExternalEditor import ExternalEditorPermission
+    external_editor_present = 1
+except ImportError:
+    external_editor_present = 0
+
 
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
 
 WebDavLockItem = 'WebDAV Lock items'
 WebDavUnlockItem = 'WebDAV Unlock items'
-UseExternalEditor = 'Use external editor'
 
 class DefaultInstaller(CPSInstaller):
 
@@ -219,10 +224,11 @@ class DefaultInstaller(CPSInstaller):
         setDefaultRoles(ModifyFolderPoperties,
             ( 'Manager', 'WorkspaceManager',))
 
-        #portal_perms = {
-        #    UseExternalEditor: ['Manager', 'Member'],
-        #    }
-
+        if external_editor_present:
+            portal_perms = {
+                ExternalEditorPermission: ['Manager', 'Member'],
+                }
+            self.setupPortalPermissions(portal_perms, self.portal)
         sections_perms = {
             'Request review':['Manager', 'WorkspaceManager',
                               'WorkspaceMember',  'SectionReviewer',
@@ -248,6 +254,7 @@ class DefaultInstaller(CPSInstaller):
             WebDavLockItem: ['SectionManager', 'SectionReviewer'],
             WebDavUnlockItem: ['SectionManager', 'SectionReviewer'],
             }
+        self.setupPortalPermissions(sections_perms, self.portal[SECTIONS_ID])
         workspaces_perms = {
             'Add portal content': ['Manager', 'WorkspaceManager',
                                    'WorkspaceMember', ],
@@ -275,8 +282,6 @@ class DefaultInstaller(CPSInstaller):
             WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             }
-        #self.setupPortalPermissions(portal_perms, self.portal)
-        self.setupPortalPermissions(sections_perms, self.portal[SECTIONS_ID])
         self.setupPortalPermissions(workspaces_perms, self.portal[WORKSPACES_ID])
 
         if 'cpsupdate' in self.portal.objectIds():

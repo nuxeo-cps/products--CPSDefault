@@ -25,58 +25,42 @@
                   ">
 <span tal:replace="CPSD_bmt_start" />
 <head metal:use-macro="here/generic_lib/macros/header">
-  <metal:block fill-slot="base">
-    <metal:block define-slot="base">
-      <base href="" tal:attributes="href string:${here/absolute_url}/">
-    </metal:block>
-  </metal:block>
+  <metal:block fill-slot="base"><metal:block define-slot="base"><base href="" tal:attributes="href string:${here/absolute_url}/"></metal:block></metal:block>
 
-  <metal:block fill-slot="head_slot">
-    <metal:block define-slot="head_slot" />
-  </metal:block>
+  <metal:block fill-slot="head_slot"><metal:block define-slot="head_slot" /></metal:block>
 
-  <metal:block fill-slot="css_slot">
-    <metal:block define-slot="css_slot" />
-  </metal:block>
+  <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot" /></metal:block>
 
-  <metal:block fill-slot="javascript_head_slot">
-    <metal:block define-slot="javascript_head_slot" />
-  </metal:block>
-
+  <metal:block fill-slot="javascript_head_slot"><metal:block define-slot="javascript_head_slot" /></metal:block>
 </head>
 
 <body>
-<!-- HEADER =================================== -->
-<div>
-  <!-- display TOP boxes -->
-  <div class="top">
+<div class="top">
+  <!-- TOP Slot ================================= -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
   <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
-  <metal:block use-macro="python:path(box['macro'])" />
+    <metal:block use-macro="python:path(box['macro'])" />
   </tal:block>
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
-  </div>
 </div>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
        align="center" valign="top" class="columns">
   <tr>
-    <!-- BAR LEFT ================================= -->
-    <td class="left" width="150" tal:define="blockclass string:even">
-
-      <!-- display left boxes -->
+    <td class="left" width="150">
+      <!-- LEFT Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left');">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
-
     </td>
 
-    <!-- MAIN = no width to let it float ========== -->
     <td class="main">
+      <!-- portal status message -->
+      <metal:block use-macro="here/generic_lib/macros/portal_message" />
 
-      <!-- display center_top boxes -->
+      <!-- CENTER_TOP Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
         <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top');">
           <metal:block use-macro="python:path(box['macro'])" />
@@ -87,9 +71,6 @@
 
         <div id="content">
           <b tal:replace="python:CPSD_bmt_mark('main_start')" />
-
-          <!-- portal status message -->
-          <metal:block use-macro="here/generic_lib/macros/portal_message" />
 
           <!-- header -->
           <metal:block define-slot="header" />
@@ -105,30 +86,25 @@
 
       </div>
 
-      <!-- display center_bottom boxes -->
+      <!-- CENTER_BOTTOM Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_start')" />
-        <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom');">
-          <metal:block use-macro="python:path(box['macro'])" />
-        </tal:block>
+      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom');">
+        <metal:block use-macro="python:path(box['macro'])" />
+      </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
-
     </td>
 
-    <!-- BAR RIGHT ================================ -->
-    <td class="right" width="150" tal:condition="showthirdcol"
-        tal:define="blockclass string:odd">
-      <!-- display right boxes -->
+    <td class="right" width="150" tal:condition="showthirdcol">
+      <!-- RIGHT Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right');">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
-
     </td>
     <td width="1" tal:condition="not:showthirdcol">
     </td>
   </tr>
-
 
   <!-- ICONS FOR CLOSED BOXES ======================= -->
   <tr tal:define="closed_box python:btool.filterBoxes(boxes, '', closed_only=1)" tal:condition="closed_box"><td colspan="3" class="left">
@@ -140,16 +116,14 @@
 
 </table>
 
-<!-- FOOTER =================================== -->
-<hr size="" class="netscape4" />
-
-<!-- display bottom boxes -->
+<!-- BOTTOM Slot ================================= -->
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_start')" />
 <tal:block repeat="box python:btool.filterBoxes(boxes, slot='bottom');">
-<metal:block use-macro="python:path(box['macro'])" />
+  <metal:block use-macro="python:path(box['macro'])" />
 </tal:block>
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
 
+<!-- CPSD CPS Debug information ================================= -->
  <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 
 </body>

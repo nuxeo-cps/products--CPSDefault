@@ -100,7 +100,7 @@ class DefaultInstaller(CPSInstaller):
     #
     # Catalog
     #
-    def enumerateIndexes( self ):
+    def catalogEnumerateIndexes( self ):
         #   Return a list of ( index_name, type ) pairs for the initial
         #   index set.
         class Struct:
@@ -108,10 +108,11 @@ class DefaultInstaller(CPSInstaller):
                 for k, v in kw.items():
                     setattr(self, k, v)
 
-        return (('Title', 'ZCTextIndex',
-                 Struct(doc_attr='Title',
-                        lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
-                        index_type='Okapi BM25 Rank'))
+        return (('Title', 'FieldIndex', None) # used for sorting
+                , ('ZCTitle', 'ZCTextIndex',  # used for searching
+                   Struct(doc_attr='Title',
+                          lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                          index_type='Okapi BM25 Rank'))
                 , ('Subject', 'KeywordIndex', None)
                 , ('Description', 'ZCTextIndex',
                    Struct(doc_attr='Description',
@@ -141,6 +142,38 @@ class DefaultInstaller(CPSInstaller):
                            expr=self.CPS_FILTER_SEARCHABLE_EXPR),
                     Struct(id=self.CPS_FILTER_LEAVES_SET,
                            expr=self.CPS_FILTER_LEAVES_EXPR),))
+                , ('start', 'DateIndex', None)
+                , ('end', 'DateIndex', None)
+               )
+
+    def catalogEnumerateMetadata( self ):
+        #   Return a sequence of schema names to be cached (catalog metadata).
+        #   id is depricated and may go away, use getId!
+        return ('Subject'               # CMF metadata
+                , 'Title'
+                , 'Description'
+                , 'Type'
+                , 'review_state'
+                , 'Creator'
+                , 'Date'
+                , 'getIcon'
+                , 'created'
+                , 'effective'
+                , 'expires'
+                , 'modified'
+                , 'CreationDate'
+                , 'EffectiveDate'
+                , 'ExpiresDate'
+                , 'ModificationDate'
+                , 'id'
+                , 'getId'
+                , 'portal_type'
+                # CPS metadata
+                , 'Contributors'
+                , 'Language'
+                , 'start'
+                , 'end'
+                , 'getRevision'
                )
 
     def setupCatalog(self):
@@ -149,8 +182,12 @@ class DefaultInstaller(CPSInstaller):
                                    self.DEFAULT_CPS_LEXICON_TITLE)
         ct = self.portal.portal_catalog
         # check indexes
-        for index_name, index_type, index_extra in self.enumerateIndexes():
+        for index_name, index_type, index_extra in \
+                self.catalogEnumerateIndexes():
             self.addPortalCatalogIndex(index_name, index_type, index_extra)
+        # check metadata
+        for name in self.catalogEnumerateMetadata():
+            self.addPortalCatalogMetadata(name)
 
     def setupAccessControl(self):
         # setting roles

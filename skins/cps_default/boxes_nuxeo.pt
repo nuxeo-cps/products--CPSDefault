@@ -303,6 +303,19 @@
 
 
 <!-- ============================================================ -->
+<!--
+This macro is deprecated but kept here for backward compatibility.
+The welcome box is now a text box.
+-->
+<metal:block define-macro="basebox_welcome">
+<div class="footer" i18n:translate="" style="margin-top:3em">
+  welcome_cps <span i18n:name="cps_link"><a target="nuxeo"
+  href="http://www.nuxeo.com/">Nuxeo</a></span>
+</div>
+</metal:block>
+
+
+<!-- ============================================================ -->
 <metal:block define-macro="contentbox_default"
   tal:define="ret python:box['box'].getContents(here);
               items python:ret[0];

@@ -245,7 +245,7 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>all doc information in a table:</pre>
+<pre>all doc information:</pre>
 <metal:block define-macro="info_detail">
 <div width="100%"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
@@ -279,7 +279,7 @@ format:</pre>
 </metal:block>
 
 <!-- ============================================================ -->
-<pre>iconic doc information in a table:</pre>
+<pre>iconic doc information:</pre>
 <metal:block define-macro="info_icon">
 <div width="100%" align="center"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
@@ -288,17 +288,17 @@ format:</pre>
    title info/description;">
   <tal:block condition="not:info/preview|nothing"
    replace="structure python:here.getImgTag(info['icon'],
-   base_url=base_url, zoom=2)" />
+   base_url=base_url, zoom=2, title=info['description'])" />
   <tal:block condition="info/preview|nothing"
    replace="structure python:here.getImgTag(info['preview'],
-   base_url='', width='32', height='32')" />
+   base_url='', width='32', height='32', title=info['description'])" />
    <br>
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
 </div>
 </metal:block>
 
 <!-- ============================================================ -->
-<pre>short doc information in a table:</pre>
+<pre>compact doc information:</pre>
 <metal:block define-macro="info_compact">
 <div width="100%" tal:define="action
   python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
@@ -314,6 +314,46 @@ format:</pre>
  </small>
 </div>
 </metal:block>
+
+
+<!-- ============================================================ -->
+<pre>all doc information + summary</pre>
+<metal:block define-macro="info_summary">
+<div width="100%"
+  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                                 'folder_contents', 'view')">
+  <h2>
+    <tal:block replace="structure python:here.getImgTag(info['icon'],
+       base_url=base_url, title=info['type'])" />
+    <a href="" tal:attributes="href string:/${info/rpath}/${action};">
+    <b tal:content="info/title_or_id">ID</b></a>
+  </h2>
+  <div tal:condition="info/preview|nothing"
+    STYLE="float: left;margin: 1em; width:140; height:140;">
+    <a href="" tal:attributes="href string:/${info/rpath}/${action}"
+      tal:content="structure python:here.getImgTag(info['preview'],
+      base_url='', width='128', height='128')" />
+  </div>
+  <div>
+  <small style="float: right;">
+    <tal:block define="status_short_fmt not:nothing;
+                       status_time not:nothing;">
+      <metal:block use-macro="here/content_lib/macros/status" />
+    </tal:block>
+    <tal:block condition="info/size|nothing">, <span tal:replace="info/size">
+      10 kB</span>
+    </tal:block>
+  </small>
+  <tal:block condition="info/description">
+    <br><p tal:content="info/description">Description</p>
+  </tal:block>
+  <tal:block condition="info/summary|nothing">
+    <p><q tal:content="info/summary">Summary</q></p>
+  </tal:block>
+  </div>
+</div>
+</metal:block>
+
 
 <!-- ============================================================ -->
 <!-- below macros require getContentInfo 2                        -->

@@ -68,6 +68,7 @@ def makeId(title):
     id = id.replace('à', 'a')
     id = id.replace('ç', 'c')
     id = id.replace('è', 'e')
+    id = id.replace('ô', 'o')
     id = id.replace('&', '-')
     id = id.replace('\'', '_')
     id = id.replace('/', '_')

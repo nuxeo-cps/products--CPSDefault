@@ -50,6 +50,8 @@ for c in range(columns - 1):
 nb_pages = len_items / items_per_page
 if not same_type(nb_pages, 1) and nb_pages > 1:
     nb_pages = int(nb_pages) + 1
+else:
+    nb_pages = 1
 
 # no more advanced arithmetics
 items_per_page = int(items_per_page)

@@ -37,7 +37,7 @@ box: <tal:block replace="box_url" />
         <option value="slot"
           tal:attributes="value slot;
                           selected python:test(slot!=box['settings']['slot'], nothing, 'selected');"
-          tal:content="slot">Slot</option>
+           i18n:translate="" tal:content="string:label_${slot}">Slot</option>
       </tal:block>
 
     </td>

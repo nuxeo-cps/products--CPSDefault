@@ -16,7 +16,8 @@ tal:content="context_url" /></p>
 <tal:block repeat="slot here/getBoxSlots">
 <tal:block define="sboxes python:btool.filterBoxes(boxes, slot=slot);"
   condition="python:len(sboxes)">
-<h3><span i18n:translate="label_slot" />: <span tal:content="slot">Slot</span></h3>
+<h3><img src="slot" tal:attributes="src string:${base_url}slot_${slot}.png"/>
+    <span i18n:translate="label_slot" />: <span i18n:translate="" tal:content="string:label_${slot}">Slot</span></h3>
 
 
 <form action="" method="post"
@@ -26,20 +27,22 @@ tal:content="context_url" /></p>
   <tr>
     <th></th>
     <th i18n:translate="listingheader_order">Order</th>
-    <th i18n:translate="listingheader_title">Title</th>
     <th i18n:translate="listingheader_type">Type</th>
+    <th i18n:translate="listingheader_title">Title</th>
     <th i18n:translate="listingheader_location">location</th>
   </tr>
   <tal:block repeat="box sboxes">
-  <tr tal:define="action python:box['box'].getTypeInfo().immediate_view">
+  <tr tal:define="action python:box['box'].getTypeInfo().immediate_view"
+    tal:attributes="bgcolor python:repeat['box'].odd() and '#EEEEEE' or nothing">
     <td><input type="checkbox" name="ids:list" value=""
                tal:attributes="value box/url;"></td>
-    <td><tal:block replace="box/box/order" /></td>
+    <td align="right"><tal:block replace="box/box/order" /></td>
+    <td><a href="" tal:attributes="href
+      string:${context_urlc}/${action}?box_url=${box/url}">
+      <tal:block
+        i18n:translate="" content="python:box['box'].getTypeInfo().Title()" /></a></td>
     <td><tal:block replace="box/box/title" /></td>
-    <td><tal:block replace="box/box/macro" /></td>
     <td><tal:block replace="string:${base_url}${box/display_url}" /></td>
-    <td><a href=""
-          tal:attributes="href string:${context_urlc}/${action}?box_url=${box/url}">edit</a></td>
   </tr>
   </tal:block>
 </table>

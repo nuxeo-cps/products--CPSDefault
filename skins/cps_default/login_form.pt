@@ -33,19 +33,16 @@
     <!-- ****** Enable the automatic redirect ***** -->
     <input i18n:attributes="value" class="standalone"
            type="submit" name="submit" value="button_login" />
-  <p>
+  </p>
 
   </form>
 
-  <p>
-    <a href=""
-       tal:attributes="href string:${base_url}mail_password_form">
-      <span i18n:translate="link_forgot_password">
-        I forgot my password!
-      </span>
-    </a>
+  <p i18n:translate="">
+    help_password_forgotten
+    <span i18n:name="link_password_forgotten"
+          tal:replace="string:${base_url}mail_password_form"/>
   </p>
-
+      
   <p i18n:translate="help_login_troubles_cookies">
     Having trouble logging in? Make sure to enable cookies in
     your web browser.

@@ -1,6 +1,6 @@
 # $Id$
 # Zope 2.6.1
-make_zs 
+make_zs
 
 cd Products
 # CMF 1.3.1
@@ -20,7 +20,7 @@ tar xzvf /home/zopes/_packages/TranslationService-0.3.tgz
 tar xzvf /home/zopes/_packages/VerboseSecurity-0.5.tar.gz
 # For po generation (Parsing the ZPT's)
 # OpenPTi18n a little bit modified by Julien for convenience.
-tar xzvf  /home/zopes/_packages/OpenPTi18n-nuxeo.tgz 	
+tar xzvf  /home/zopes/_packages/OpenPTi18n-nuxeo.tgz
 
 # if you want to browse src from the zmi
 tar xzvf /home/zopes/_packages/DocFinderEverywhere-0.4.1.tar.gz
@@ -33,21 +33,29 @@ cd -
 tar xzvf /home/zopes/_packages/OrderedFolderSupportPatch-1.0.0-1.tgz
 mv OrderedFolderSupportPatch-1.0.0 OrderedFolderSupportPatch
 
-# NuxUserGroup > 0.8.0
-tar xzvf /home/zopes/_packages/NuxUserGroups-0.8.X.tgz
-mv NuxUserGroups-0.8.X NuxUserGroups
+# NuxUserGroup > 0.9.0
+tar xzvf /home/zopes/_packages/NuxUserGroups-0.9.0-1.tgz
+mv NuxUserGroups-0.9.0 NuxUserGroups
 
-# NuxMetaDirectories 
-cvs co NuxMetaDirectories
+# NuxMetaDirectories > 2.1.0
+tar xzvf /home/zopes/_packages/NuxMetaDirectories-2.1.0-1.tgz
+mv NuxUserGroups-0.9.0 NuxUserGroups
 
+# CPSDocument
+#tar xzvf /home/zopes/_packages/CPSDocument-0.1.0-1.tgz
+#mv CPSDocument-2.1.0 CPSDocument
+
+# or
 cvs co CPSDocument
 
 ## CPS 3 packaged replace x.x by the latest version available
 # tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
+# mv CPSCore-3.x.x CPSCore
 # tar xzvf /home/zopes/_packages/CPSDefault-3.x.x.tgz
+# mv CPSDefault-3.x.x CPSDefault
 
 ## or CPS3 dev
-# cvs co CPSCore 
+# cvs co CPSCore
 # cvs co CPSDefault
 
 ## For po utilities (DEV)
@@ -82,7 +90,6 @@ _ut -vv
 # start zs
 _start
 
-## ZMI 
+## ZMI
 # add a Virtual Host Monster
 # add a CPSDefault Site ...
-

@@ -23,7 +23,7 @@ from zLOG import LOG, DEBUG
 
 from Globals import InitializeClass
 
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CPSCore.CPSBase import CPSBase_adder
 from Products.CPSDocument.CPSDocument import CPSDocument as BaseDocument
 

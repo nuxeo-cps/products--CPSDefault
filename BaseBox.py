@@ -27,7 +27,7 @@ from Acquisition import aq_base
 from OFS.PropertyManager import PropertyManager
 
 from Products.CMFCore.utils import _verifyActionPermissions
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent,\
+from Products.CMFCore.permissions import View, ModifyPortalContent,\
                                                 ManagePortal
 from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFCore.utils import getToolByName
@@ -42,7 +42,7 @@ from BoxGuard import BoxGuard
 from AccessControl.PermissionRole import PermissionRole
 from Products.CMFCore.TypesTool import TypeInformation
 from Products.CMFCore.TypesTool import FactoryTypeInformation as FTI
-from Products.CMFCore.CMFCorePermissions import ManageProperties
+from Products.CMFCore.permissions import ManageProperties
 
 TypeInformation.manage_propertiesForm = PropertyManager.manage_propertiesForm
 TypeInformation.manage_addProperty__roles__ = PermissionRole(ManageProperties)

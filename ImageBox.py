@@ -24,7 +24,7 @@ from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 from OFS.Image import Image
 from OFS.Folder import Folder
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 
 factory_type_information = (

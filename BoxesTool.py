@@ -25,7 +25,7 @@ from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
 
 from Products.CMFCore.PortalFolder import PortalFolder
-from Products.CMFCore.CMFCorePermissions import View, ManagePortal
+from Products.CMFCore.permissions import View, ManagePortal
 from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 
 class BoxesTool(UniqueObject, PortalFolder):

@@ -23,7 +23,7 @@ from Globals import InitializeClass
 from Acquisition import aq_base
 from zLOG import LOG, DEBUG
 
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 
 from BaseBox import BaseBox

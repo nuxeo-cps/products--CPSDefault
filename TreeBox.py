@@ -21,7 +21,7 @@
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_parent, aq_inner
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base

@@ -20,8 +20,8 @@
 
 from AccessControl import getSecurityManager
 from zLOG import LOG, INFO, DEBUG
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import setDefaultRoles
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
 from Products.CPSWorkflow.transitions import \

@@ -30,7 +30,7 @@ from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
 from OFS.Image import Image
 from OFS.Folder import Folder
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CPSCore.CPSBase import CPSBaseDocument, CPSBase_adder
 
 factory_type_information = (

@@ -36,6 +36,7 @@ for user in dict_roles.keys():
 
 # List local roles according to the context
 cps_roles = mtool.getCPSCandidateLocalRoles( context )
+cps_roles.reverse()
 
 # Filter them for CPS
 cps_roles = [x for x in cps_roles if x not in ('Owner',

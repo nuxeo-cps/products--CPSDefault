@@ -12,6 +12,10 @@ level: 2 (cost 4.6)
 level: 3 (cost 7)
   level 2 + history
 """
+
+# how many characters for the description
+max_description = 150
+
 if not proxy:
     proxy = context
 
@@ -100,7 +104,10 @@ else:
 if level > 0:
     if not doc:
         doc = proxy.getContent()
-    info['description'] = doc.Description()
+    description = doc.Description()
+    if len(description) > max_description:
+        description = description[:max_description] + '...'
+    info['description'] = description
     if hasattr(doc, 'get_size'):
         try:
             info['size'] = doc.get_size()

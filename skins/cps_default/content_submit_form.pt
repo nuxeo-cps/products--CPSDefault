@@ -37,7 +37,7 @@
         <tal:block repeat="section stree">
           <tr tal:condition="python:'submit' in section['publishing_transitions']">
             <td nowrap>
-              <input type="checkbox" name="" value=""
+              <input type="checkbox" name="" value="" class="noborder"
                      tal:attributes="value section/rpath; name string:submit">
               <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
               <span tal:replace="structure section/short_title">Section's id</span>

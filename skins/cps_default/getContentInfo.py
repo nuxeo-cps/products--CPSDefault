@@ -163,15 +163,21 @@ if level > 0:
             info['size'] = str(int(size)/1024)+' K'
 
 
-    
-    if hasattr(doc.aq_explicit, 'start') and callable(doc.start):
-        start = doc.start()
+
+    if hasattr(doc.aq_explicit, 'start'):
+        if callable(doc.start):
+            start = doc.start()
+        else:
+            start = doc.start
         if start:
             info['start'] = start
             info['start_str'] = context.getDateStr(start)
-            
-    if hasattr(doc.aq_explicit, 'end') and callable(doc.end):
-        end = doc.end()
+
+    if hasattr(doc.aq_explicit, 'end'):
+        if callable(doc.end):
+            end = doc.end()
+        else:
+            end = doc.end
         if end:
             info['end'] = end
             info['end_str'] = context.getDateStr(end)

@@ -17,7 +17,7 @@ ZopeTestCase.installProduct('MailHost', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
 ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSDirectory', quiet=1)
-ZopeTestCase.installProduct('NuxUserGroups', quiet=1)
+ZopeTestCase.installProduct('CPSUserFolder', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 

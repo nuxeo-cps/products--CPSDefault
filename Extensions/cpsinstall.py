@@ -201,7 +201,7 @@ class DefaultInstaller(CPSInstaller):
                     self.portal.manage_delObjects(['acl_users'])
         if not self.portalHas('acl_users'):
             self.log(" Creating User Folder With Groups")
-            self.portal.manage_addProduct['NuxUserGroups'].\
+            self.portal.manage_addProduct['CPSUserFolder'].\
                 addUserFolderWithGroups()
 
         self.verifyRoles((

@@ -36,7 +36,7 @@ tal:content="context_url" /></p>
     tal:attributes="bgcolor python:repeat['box'].odd() and '#EEEEEE' or nothing">
     <td><input type="checkbox" name="ids:list" value=""
           tal:attributes="value box/url;"
-          tal:condition="python:checkP("")"></td>
+          tal:condition="python:checkPerm('Modify portal content', box['box'])"></td>
     <td align="right"><tal:block replace="box/box/order" /></td>
     <td><a href="" tal:attributes="href
       string:${context_urlc}/${action}?box_url=${box/url}">

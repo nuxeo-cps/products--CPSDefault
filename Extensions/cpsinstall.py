@@ -145,6 +145,7 @@ class DefaultInstaller(CPSInstaller):
                 , ('start', 'DateIndex', None)
                 , ('end', 'DateIndex', None)
                 , ('time', 'DateIndex', None) # time of the last transition
+                , ('container_path', 'FieldIndex', None)
                )
 
     def catalogEnumerateMetadata( self ):

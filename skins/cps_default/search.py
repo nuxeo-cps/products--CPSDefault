@@ -27,6 +27,12 @@ query['portal_type'] = pt
 portal_path = context.portal_url.getPortalPath()
 query['path'] = portal_path+'/portal_repository/'
 
+review_state=''
+if query.get('review_state'):
+    review_state=query['review_state']
+    wtool=context.portal_workflow
+    del query['review_state']
+
 items = []
 
 results = catalog(**query)
@@ -41,6 +47,8 @@ for result in results:
             title = proxy.Title()
         except (AttributeError):
             continue
-        items.append(proxy)
+        if not review_state or \
+           wtool.getInfoFor(proxy,'review_state','nostate') == review_state:
+            items.append(proxy)
 
 return items

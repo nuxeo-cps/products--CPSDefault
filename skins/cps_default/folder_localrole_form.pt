@@ -90,10 +90,10 @@
          <input type="checkbox" name="member_ids:list" value=""
                 tal:attributes="value string:user:${entry/id}">
        </td>
-       <td tal:content="python:(entry['givenName'] + ' ' + entry['sn']).strip() or entry['id']">
+       <td tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or entry['id']">
          Username 1
        </td>
-       <td tal:content="entry/email"> Email 1 </td>
+       <td tal:content="entry/email|nothing"> Email 1 </td>
      </tal:block>
    </tr>
 

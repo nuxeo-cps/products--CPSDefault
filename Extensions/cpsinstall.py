@@ -136,10 +136,30 @@ def cpsupdate(self, langs_list=None):
     if not portalhas('portal_membership'):
         pr(" Creating CPS Membership Tool")
         portal.manage_addProduct['CPSCore'].addCPSMembershipTool()
+
+    # portal membership
+    pr("Verifying Portal MetaDirectories")
+    if portalhas('portal_metadirectories'):
+        pm = portal.portal_membership
+        if pm.portal_type == 'CMF MetaDirectories Tool':
+            prok()
+        else:
+            portal.manage_delObjects(['portal_metadirectories'])
+            
+    if not portalhas('portal_metadirectories'):
+        pr(" Creating CMF MetaDirectories Tool")
+        portal.manage_addProduct["NuxMetaDirectories"].manage_addTool('CMF MetaDirectories Tool')
         
+    mtool = portal.portal_metadirectories
+    pr("  Adding Member Directory : member")
+    mtool.manage_addProduct['NuxMetaDirectories'].manage_addMembersDirectory(id='members',title='Members')
+
+    pr("  Adding Group Directory : group")
+    mtool.manage_addProduct['NuxMetaDirectories'].manage_addGroupsDirectory(id='groups', title='Groups')
+    
     # skins
     pr("Verifying skins")
-    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_document', 'cps_default')
+    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_document', 'cps_default','nuxmetadirectories')
     paths = {
         'cps_styles': 'Products/CPSDefault/skins/cps_styles/nuxeo',
         'cps_plone_styles': 'Products/CPSDefault/skins/cps_styles',
@@ -147,6 +167,7 @@ def cpsupdate(self, langs_list=None):
         'cps_devel': 'Products/CPSDefault/skins/cps_devel',
         'cps_default': 'Products/CPSDefault/skins/cps_default',
         'cps_document': 'Products/CPSDocument/skins/cps_document',
+        'nuxmetadirectories' : 'Products/NuxMetaDirectories/skins',
     }
     for skin in skins:
         path = paths[skin]

@@ -883,7 +883,7 @@ def cpsupdate(self, langs_list=None):
             type_names=('Section',),
             meta_types=('CPS Proxy Folder',
                         'CPS Proxy Document',
-                        'CPS Proxy FolderishDocument',),
+                        'CPS Proxy Folderish Document',),
             info_method='getFolderInfo')
     trtool[sections_id].manage_rebuild()
     pr("   Sections cache rebuilded")
@@ -897,7 +897,7 @@ def cpsupdate(self, langs_list=None):
             type_names=('Workspace',),
             meta_types=('CPS Proxy Folder',
                         'CPS Proxy Document',
-                        'CPS Proxy FolderishDocument',),
+                        'CPS Proxy Folderish Document',),
             info_method='getFolderInfo')
     trtool[workspaces_id].manage_rebuild()
     pr("   Workspaces cache rebuilded")

@@ -78,10 +78,13 @@ class TreeBox(BaseBox):
          'label': 'display description'},
         {'id': 'show_root', 'type': 'boolean', 'mode': 'w', 
          'label': 'show tree root'},
+        {'id': 'display_icons', 'type': 'boolean', 'mode': 'w', 
+         'label': 'display icons in front of folders'},
         )
 
     display_managers = 0
     display_description = 0
+    display_icons = 1
     authorized_only = 1
     show_root = 1
 

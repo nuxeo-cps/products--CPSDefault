@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
 <html metal:define-macro="master"
-      i18n:translate=""
       tal:define="
                   showthirdcol showthirdcol|python:1;
                   utool nocall:here/portal_url;
@@ -39,7 +38,7 @@
   <metal:block fill-slot="css_slot">
     <metal:block define-slot="css_slot" />
   </metal:block>
-  
+
   <metal:block fill-slot="javascript_head_slot">
     <metal:block define-slot="javascript_head_slot" />
   </metal:block>
@@ -86,11 +85,11 @@
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left');">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />     
+      <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
 
     </td>
 
-    <!-- MAIN = no width to let it float ========== -->    
+    <!-- MAIN = no width to let it float ========== -->
     <td class="main">
 
       <!-- display top boxes -->
@@ -98,10 +97,10 @@
         <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
           <metal:block use-macro="python:path(box['macro'])" />
         </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />     
+      <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
 
       <div class="document">
-      
+
         <div id="content">
           <b tal:replace="python:CPSD_bmt_mark('main_start')" />
 
@@ -122,7 +121,7 @@
 
       </div>
     </td>
-    
+
     <!-- BAR RIGHT ================================ -->
     <td class="right" width="150" tal:condition="showthirdcol"
         tal:define="blockclass string:odd">
@@ -131,8 +130,8 @@
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right');">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />     
-      
+      <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
+
     </td>
     <td width="1" tal:condition="not:showthirdcol">
     </td>
@@ -141,7 +140,7 @@
 
   <!-- ICONS FOR CLOSED BOXES ======================= -->
   <tr tal:define="closed_box python:btool.filterBoxes(boxes, '', closed_only=1)" tal:condition="closed_box"><td colspan="3" class="left">
-    <span i18n:translate="closed_boxes">Closed boxes :&nbsp;</span>
+    <span i18n:translate="box_closed_boxes">Closed boxes :&nbsp;</span>
     <tal:block repeat="box closed_box">
       <metal:block use-macro="here/box_lib/macros/closed_box" />
     </tal:block>

@@ -26,10 +26,10 @@
                                                                   , path='/')"
    />
 
-   <h1 i18n:translate="login_failure">Login failure</h1>
+   <h1 i18n:translate="heading_login_failure">Login failure</h1>
 
-   <p> 
-   <span i18n:translate="login_failure_message">
+   <p>
+   <span i18n:translate="description_login_failure">
          You are not currently logged in.  Your username
          and or password may be incorrect.  Your browser may also not be
          configured to accept HTTP cookies.  If you need help please contact
@@ -44,7 +44,7 @@
        tal:define="first_time python:(
                     member.getProperty( 'login_time', None ) == never
                                        and p_props.validate_email )">
-  
+
 
    <div tal:condition="first_time">
     <div tal:define="dum_reg python:member.setProperties(
@@ -55,8 +55,8 @@
 
     <p class="Desktop">
        This is the first time that you've logged in to
-       <span replace="p_props/title">Here</span>. 
-       Before you start exploring you need to change your original password. 
+       <span replace="p_props/title">Here</span>.
+       Before you start exploring you need to change your original password.
        This will ensure that the password we sent you via email cannot be
        used in a malicious manner.</p>
 
@@ -103,7 +103,7 @@
    <div tal:condition="not: first_time">
 
     <div tal:define="d_reg python:member.setProperties(
-                                            last_login_time=member.login_time); 
+                                            last_login_time=member.login_time);
                      ereg python:member.setProperties(
                                             login_time=here.ZopeTime());
                     " />
@@ -115,10 +115,10 @@
                       " />
     </div>
 
-    <h1 i18n:translate="login_success">Login success</h1>
+    <h1 i18n:translate="heading_login_success">Login success</h1>
 
-    <p i18n:translate="login_success_message">
-       Welcome. You are currently logged in. 
+    <p i18n:translate="description_login_success">
+       Welcome. You are currently logged in.
     </p>
 
    </div><!-- not first_time -->
@@ -131,5 +131,3 @@
 
 </body>
 </html>
-
-

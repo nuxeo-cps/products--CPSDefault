@@ -3,7 +3,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="header">
-  
+
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
   <title tal:content="here/expanded_title">
@@ -40,7 +40,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
   <!-- Disable IE6 image toolbar -->
   <meta http-equiv="imagetoolbar" content="no">
-  
+
   <metal:block define-slot="head_slot">
     <!-- Additional http headers go here -->
   </metal:block>
@@ -152,8 +152,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
   <div class="message"
        tal:define="portal_message request/portal_status_message|nothing"
        tal:condition="portal_message">
-    <strong tal:content="portal_message" i18n:translate="">
-      <!-- TODO think about a fine icon meaning "your attention please" -->
+    <strong tal:content="portal_message" i18n:translate="_dynamic_">
       Translated status message.
     </strong>
   </div>
@@ -199,7 +198,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <metal:block define-macro="folder_list">
 </metal:block>
 
-	
+
 <!-- ============================================================ -->
 <metal:block define-macro="title_content">
   <h2>
@@ -208,7 +207,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
   <metal:block define-slot="content">Content</metal:block>
 </metal:block>
 
-	
+
 <!-- ============================================================ -->
 <metal:block define-macro="form">
   <table width="100%" cellpadding="4" cellspacing="4" border="0">

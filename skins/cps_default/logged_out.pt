@@ -5,16 +5,16 @@
 <div metal:fill-slot="main">
 
 <p tal:condition="python: here.portal_membership.isAnonymousUser()">
-  <span i18n:translate="logout_success_message"
+  <span i18n:translate="description_logout_success"
         tal:content="string:You have been logged out." />
 </p>
 
 <p tal:condition="python: not(here.portal_membership.isAnonymousUser())">
-<span i18n:translate="logout_zmi_warning">
+<span i18n:translate="description_logout_zmi_warning">
       You are logged in outside the portal.  You may need to
 </span>
 <a href="/manage_zmi_logout">
-   <span i18n:translate="logout_zmi_warning_link"> 
+   <span i18n:translate="link_logout_zmi">
          log out of the Zope management interface
    </span>
 </a>.

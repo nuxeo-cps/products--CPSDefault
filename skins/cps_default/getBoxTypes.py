@@ -99,6 +99,14 @@ items = [
                 'desc': 'description_nuxeo_actionbox_user'},
                ]
      },
+    {'category': 'imagebox',
+     'title': 'portal_type_ImageBox_title',
+     'desc': 'portal_type_ImageBox_description',
+     'types': [{'provider': 'nuxeo',
+                'id': 'default',
+                'desc': 'description_nuxeo_imagebox_default'},
+               ]
+     },
 
     ]
 

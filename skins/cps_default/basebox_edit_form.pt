@@ -13,7 +13,7 @@ box: <tal:block replace="box_url" />
 <tal:block repeat="box boxes">
   <tal:block condition="python:box['url'] == box_url">
    <br><br>
-<form action="box_edit" method="post"
+<form action="box_edit" method="post" enctype="multipart/form-data" 
   tal:attributes="action string:${context_urlc}/box_edit"
   tal:define="box_category python:box['box'].category">
 <input type="hidden" name="box_url" value=""

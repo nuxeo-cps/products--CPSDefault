@@ -616,7 +616,8 @@ def cpsupdate(self, langs_list=None):
                       'Text Box',
                       'Tree Box',
                       'Content Box',
-                      'Action Box'
+                      'Action Box',
+                      'Image Box',
                       )
         }
     allowed_content_type = {

@@ -319,3 +319,20 @@
     </metal:block>
   </metal:block>
 </metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="imagebox_default">
+  <metal:block use-macro="python:path(box['settings']['box_skin'])">
+    <metal:block fill-slot="box_title"
+      tal:content="box/box/title">box image title</metal:block>
+    <metal:block fill-slot="box_body" tal:condition="box/box/image_name">
+      <a href="" tal:condition="box/box/image_link"
+        tal:attributes="href box/box/image_link">
+        <tal:block replace="structure box/box/image_id" />
+      </a>
+      <tal:block condition="not:box/box/image_link" replace="structure
+        box/box/image_id" />
+    </metal:block>
+  </metal:block>
+</metal:block>

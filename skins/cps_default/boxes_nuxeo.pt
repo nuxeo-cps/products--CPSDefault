@@ -1,6 +1,5 @@
 <!-- nuxeo boxes macros -->
 <!-- $Id$ -->
-
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_default">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
@@ -12,12 +11,12 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_hr_separator">
-<hr>
+<hr />
 </metal:block>
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_br_separator">
-<br>
+<br />
 </metal:block>
 
 
@@ -31,28 +30,29 @@
   <tal:block repeat="item stree">
     <tal:block define="selected python:context_url.endswith(item['rpath'])"
       condition="not:item/hidden_folder|not:nothing">
-      <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a href="" class=""
+      <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span>
+       <a href="" class=""
          tal:attributes="href string:${base_url}${item/rpath}/;
                          class python:test(selected, 'selected', default);
                          title item/title"
          tal:content="structure item/short_title">
          section title
-      </a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
+      </a> <span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
     </tal:block>
   </tal:block>
   <tal:block repeat="item wtree">
     <tal:block define="selected python:context_url.endswith(item['rpath'])"
       condition="not:item/hidden_folder|not:nothing">
-      <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)"> </span><a href="" class="workspace"
+      <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)"> </span><a href="" class="workspace"
          tal:attributes="href string:${base_url}${item/rpath}/;
                          class python:test(selected, 'wsSelected', default);
                          title item/title"
          tal:content="structure item/short_title">
          workspace title
-      </a><span class="wsClosetab" tal:attributes="class python:test(selected, 'wsClosetabSelected', default)"> </span>
+      </a> <span class="wsClosetab" tal:attributes="class python:test(selected, 'wsClosetabSelected', default)"> </span>
     </tal:block>
   </tal:block>
-  <br tal:condition="python:stree == [] and wtree == []">
+  <br tal:condition="python:stree == [] and wtree == []" />
 </div>
 </metal:block>
 
@@ -63,9 +63,9 @@
    tal:attributes="href string:${base_url}">
   <img height="43" width="173" border="0" src="logo_nuxeo.gif" class="logo"
     alt="Nuxeo Logo" title="Nuxeo Web Site"
-    tal:attributes="src string:${base_url}logo_nuxeo.gif">
-</a><br class="netscape4">
-<br class="netscape4"><br class="netscape4">
+    tal:attributes="src string:${base_url}logo_nuxeo.gif" />
+</a><br class="netscape4" />
+<br class="netscape4" /><br class="netscape4" />
 </metal:block>
 
 
@@ -74,9 +74,9 @@
 <div class="searchBox">
   <form method="get" action="./search_form" tal:define="sfpo_id string:box">
     <input id="searchGadget" type="text" name="SearchableText" size="20"
-      value="" tal:attributes="value request/SearchableText|nothing">
+      value="" tal:attributes="value request/SearchableText|nothing" />
     <input class="context searchButton" type="submit" value="button_search"
-      i18n:attributes="value"><br>
+      i18n:attributes="value" /><br />
     <metal:block
      use-macro="here/generic_lib/macros/search_folder_prefix_option" />
   </form>
@@ -86,11 +86,11 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_breadcrumbs">
-<hr class="netscape4">
+<hr class="netscape4" />
 <div class="pathBar">
 <metal:block use-macro="here/generic_lib/macros/breadcrumbs" />
 </div>
-<hr class="netscape4">
+<hr class="netscape4" />
 </metal:block>
 
 
@@ -101,7 +101,7 @@
   'aq_parent')">
   <a href="../">
   <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
-    base_url=base_url)">
+    base_url=base_url)" />
   <span i18n:translate="">description_up_to
     <b i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
       Up ID</b>
@@ -110,7 +110,7 @@
 </tal:block>
 <h1 tal:content="here/title_or_id">Page Title</h1>
 
-<div class="description"> <span
+<div class="description"> <span
   tal:content="doc/Description">description</span>
 </div>
 </metal:block>
@@ -118,20 +118,20 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_l10n_select">
-<tal:block replace="structure here/Localizer/changeLanguageForm" /><br>
+<tal:block replace="structure here/Localizer/changeLanguageForm" /><br />
 </metal:block>
 
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_footer">
-<hr class="netscape4">
+<hr class="netscape4" />
 <div class="footer">
   Nuxeo - 14, rue Soleillet, 75020 Paris France
-  <br>
+  <br />
   Email : <a href="mailto:contact@nuxeo.com">contact@nuxeo.com</a>
-  - Tél: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15
+  - Tel: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15
 </div>
-<hr class="netscape4">
+<hr class="netscape4" />
 </metal:block>
 
 
@@ -170,7 +170,7 @@
               <a href="#" class="CalendarArrow"
                  tal:attributes="href python:here.getPreviousMonthLink(
                                              request.URL0, month, year)">
-                «
+               &#171;
               </a>
             </th>
             <th colspan="5" tal:define="date string:$month/1/$year">
@@ -182,7 +182,7 @@
               <a href="#" class="CalendarArrow"
                  tal:attributes="href python:here.getNextMonthLink(
                                              request.URL0, month, year)">
-                »
+               &#187;
               </a>
             </th>
           </tr>
@@ -215,7 +215,6 @@
                     <td tal:content="python: daynumber or default"
                         tal:attributes="class python:here.getDaysClass(
                                         daynumber, month, year)">
-                         
                     </td>
                   </tal:block>
                 </tal:daynumber>
@@ -335,12 +334,12 @@
     <metal:block fill-slot="box_body">
       <tal:block repeat="item items">
         <div style="white-space:nowrap">
-          <span tal:replace="structure python:' '*4*item['depth']"></span>
+          <span tal:replace="structure python:''*4*item['depth']"> </span>
           <img tal:condition="python:getattr(box['box'],'display_icons',0)"
                tal:replace="structure
                               python:
                                 here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
-                                               base_url=base_url)">
+                                               base_url=base_url)" />
           <tal:block>
             <tal:block tal:condition="item/visible">
               <a href="."
@@ -368,8 +367,8 @@
                   <a style="font-style:italic" href=""
                      tal:content="python:user.get('fullname', manager)"
                      tal:attributes="href
-                       python:'%scpsdirectory_entry_view?dirname=%s&id=%s' %
-                       (base_url, mdir_id, manager)"></a>
+                       python:'%scpsdirectory_entry_view?dirname=%s&amp;id=%s' %
+			(base_url, mdir_id, manager)"></a>
                   <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
                 </tal:block>
               </tal:block>]
@@ -381,7 +380,7 @@
           <tal:block tal:define="description python:item['description']"
                      tal:condition="description">
             <span tal:replace="structure
-                               python:' '*4*(item['depth']+1)"> </span>
+                               python:''*4*(item['depth']+1)"> </span>
             <span tal:replace="description" />
           </tal:block>
         </div>
@@ -411,28 +410,33 @@
         <tr><td valign="top" width="50%">
         <tal:block repeat="item items">
           <tal:block condition="python:item['depth']==depth">
-          <br tal:condition="not:repeat/item/start">
+          <br tal:condition="not:repeat/item/start" />
           <tal:block condition="python:repeat['item'].number() >= treenb_row">
             <tal:block define="global treenb_row python:nb_item + 1"
-                 replace='structure string:</td><td width="50%" valign="top">'/>
+                 replace="structure string:&lt;/td>&lt;td width='50%' valign='top'>"/>
           </tal:block>
 <a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><b>
         <img tal:condition="disp_icons"
              tal:replace="structure
                             python:
                               here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
-                                             base_url=base_url)">
-        <span tal:replace="structure
-                   string:${item/title_or_id}">title</span></b></a><span
-                   tal:condition="item/nb_children" tal:define="global
-                   last_child python: repeat['item'].number() +
-                   item['nb_children']" tal:replace="string::" /><br>
-          </tal:block>
+                                             base_url=base_url)" />
+        <span tal:replace="structure string:${item/title_or_id}">
+          title
+        </span></b></a>
+        <span tal:condition="item/nb_children" 
+                tal:define="global last_child python: repeat['item'].number() + 
+                item['nb_children']" tal:replace="string::" /><br />
+        </tal:block>
           <tal:block condition="python:item['depth']>depth">
-            <a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">, </span><span tal:condition="python: repeat['item'].number() == last_child">.<br></span>
+          <a href="." tal:attributes="href string:${base_url}${item/rpath}/">
+          <span tal:replace="structure string:${item/title_or_id}">title</span></a>
+          <span tal:condition="item/nb_children" tal:replace="string:..." />
+          <span tal:condition="python: repeat['item'].number() != last_child">,
+          </span> <span tal:condition="python: repeat['item'].number() == last_child">,<br /></span>
           </tal:block>
         </tal:block>
-        </td></tr></table><br>
+        </td></tr></table><br />
    </tal:block>
    </metal:block>
   </metal:block>
@@ -456,21 +460,21 @@
                                                            'display_managers',
                                                            0)">
             <tal:block tal:condition="python:delta_depth > 0"
-                       tal:replace="structure string:<dl>" />
-            <tal:block tal:condition="python:delta_depth < 0">
-              <tal:block tal:replace="structure string:</dd>"/>
+                       tal:replace="structure string:&lt;dl>" />
+            <tal:block tal:condition="python:delta_depth &lt; 0">
+              <tal:block tal:replace="structure string:&lt;/dd>"/>
               <tal:block tal:repeat="i python:range(0,-delta_depth)">
-                <tal:block tal:replace="structure string:</dl></dd>"/>
+                <tal:block tal:replace="structure string:&lt;/dl>&lt;/dd>"/>
               </tal:block>
             </tal:block>
             <tal:block tal:condition="python:delta_depth == 0"
-                       tal:replace="structure string:</dd>" />
+                       tal:replace="structure string:&lt;/dd\>" />
             <dt>
               <img tal:condition="python:getattr(box['box'],'display_icons',0)"
                    tal:replace="structure
                                   python:
                                     here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
-                                                   base_url=base_url)">
+                                                   base_url=base_url)" />
               <a href="."
                  tal:attributes="href string:${base_url}${item/rpath}/;
                                  class python:test(context_url.endswith(
@@ -496,7 +500,7 @@
                              here.portal_url.getPortalPath() +
                                '/directory_getentry?dirname=' +
                                here.portal_directories.members.id +
-                               '&id='+manager">
+                               '&amp;id='+manager">
                       </a>
                       <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
                     </tal:block>
@@ -504,7 +508,7 @@
                 </tal:block>
               </tal:block>
             </dt>
-            <tal:block tal:replace="structure string:<dd>" />
+            <tal:block tal:replace="structure string:&lt;dd>" />
             <tal:block tal:condition="python:getattr(box['box'],
                                                      'display_description',
                                                      0)">
@@ -514,7 +518,7 @@
           </tal:block>
         </tal:block>
         <tal:block tal:repeat="i python:range(0,last_depth+1)">
-          <tal:block tal:replace="structure string:</dd></dl>"/>
+          <tal:block tal:replace="structure string:&lt;/dd>&lt;dl>"/>
         </tal:block>
       </tal:block>
     </metal:block>
@@ -543,7 +547,7 @@
         <img tal:condition="python:getattr(box['box'],'display_icons',0)"
           tal:replace="structure python:
             here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
-                                                   base_url=base_url)">
+                                                   base_url=base_url)" />
         <a tal:attributes="href string:${base_url}${item/rpath}/"
           tal:omit-tag="not:item/visible"><b
         tal:content="string:${item/title_or_id}" /></a>
@@ -557,19 +561,20 @@
                 title emanager/email;">
               <img
                 tal:replace="structure python:here.getImgTag('mail_icon.jpg',
-                base_url=base_url)">
+                base_url=base_url)" />
               <span tal:replace="emanager/fullname|manager" />
             </a>
              <span
               tal:condition="not:emanager/email"
               tal:content="emanager/fullname|manager" /><tal:block
               condition="not:repeat/manager/end">,</tal:block>
-            <br tal:condition="repeat/manager/end">
+            <br tal:condition="repeat/manager/end" />
             </tal:block>
           </tal:block>
           <tal:block condition="item/description">
-            <tal:block replace="item/description" /><br></tal:block>
-        <div><br>
+            <tal:block replace="item/description" /><br />
+          </tal:block>
+        </div><br />
         </metal:block>
     </tal:block>
     <tal:block>
@@ -589,10 +594,10 @@
         tal:attributes="action here_url">
         <span i18n:translate="box_search">Search:</span>
         <input id="queryfolder" type="text" name="query_folder" size="20"
-         value="" tal:attributes="value request/query_folder|nothing">
+         value="" tal:attributes="value request/query_folder|nothing" />
         <input class="context searchButton" type="submit" value="button_ok"
-          i18n:attributes="value">
-      </form></div><br>
+          i18n:attributes="value" />
+      </form></div><br />
       <tal:block tal:define="query_folder request/query_folder|nothing"
          condition="query_folder">
         <tal:block define="items python:box['box'].searchFolder(here, query_folder)">
@@ -627,7 +632,7 @@
     <metal:block fill-slot="box_body">
       <tal:block repeat="category items">
       <tal:block condition="python:len(category)" i18n:domain="Default">
-        <br tal:condition="not:repeat/category/start">
+        <br tal:condition="not:repeat/category/start" />
         <ul>
           <li tal:repeat="action category"><a i18n:translate=""
             tal:attributes="href action/url;
@@ -681,12 +686,12 @@
                                         and
                                        (request['URL'] == here_url or
                                         request['URL'].endswith('/view')))">
-          <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a i18n:translate=""
+          <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a i18n:translate=""
              tal:attributes="href action/url;
                              class python:test(selected, 'selected', default)"
-             tal:content="action/name">Action</a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
+             tal:content="action/name">Action</a> <span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
             <br tal:condition="python:repeat['action'].number()%row_len==0
-                                      and not (repeat['action'].end and repeat['category'].end)">
+                                      and not (repeat['action'].end and repeat['category'].end)" />
           </tal:block>
         </tal:block>
       </tal:block>
@@ -739,7 +744,7 @@
               tal:attributes="data flashobject_url;
                               width box/box/flash_id/flash_width;
                               height box/box/flash_id/flash_height">
-        <param name="movie" value="" tal:attributes="value flashobject_url">
+        <param name="movie" value="" tal:attributes="value flashobject_url" />
         <span><a href="http://www.macromedia.com/">Macromedia Flash Plugin</a> required</span>
       </object>
     </metal:block>

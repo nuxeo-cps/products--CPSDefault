@@ -1,6 +1,7 @@
 <!-- macro library for contents -->
 <!-- $Id$ -->
 
+<racine>
 <!-- ============================================================ -->
 <pre>a master macro used for content stuff:</pre>
 <metal:block define-macro="master"
@@ -8,7 +9,7 @@
   doc nocall:doc|python:here.getContent()">
 <metal:block use-macro="here/main_template/macros/master">
 <metal:block fill-slot="base">
-<tal:block replace="structure string:<!--
+<tal:block replace="structure string:&lt;!--
   cps test / debug information:
   cps:path:${here_url}
   cps:rpath:${context_url}
@@ -16,7 +17,7 @@
   cps:id:${doc/id}
 -->"></tal:block>
 <metal:block define-slot="base">
-  <base href="" tal:attributes="href python: here_url + '/'">
+  <base href="" tal:attributes="href python: here_url + '/'" />
 </metal:block>
 </metal:block>
 
@@ -59,7 +60,7 @@
 <pre>a std formated main:</pre>
 <metal:block define-macro="std_main">
   <h1><metal:block define-slot="title">title</metal:block></h1>
-  <em><metal:block define-slot="help">help</metal:block></em><br><br>
+  <em><metal:block define-slot="help">help</metal:block></em><br /><br />
   <metal:block define-slot="main">main bla</metal:block>
 </metal:block>
 
@@ -89,14 +90,14 @@
   <div metal:define-slot="fields">
     <!-- more fields -->
   </div>
-  <strong><em i18n:translate="transition_comments">Comments</em></strong><br>
+  <strong><em i18n:translate="transition_comments">Comments</em></strong><br />
   <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"
             tal:content="nothing">
   </textarea>
   <div metal:define-slot="button">
     <!-- these are examples -->
-    <input type="hidden" name="workflow_action" value="transition">
-    <input type="submit" value="button_publish" i18n:attributes="value">
+    <input type="hidden" name="workflow_action" value="transition" />
+    <input type="submit" value="button_publish" i18n:attributes="value" />
   </div>
 </form>
 </metal:block>
@@ -147,7 +148,7 @@ format:</pre>
       <td align="left" width="50%"
           tal:condition="filter">
         <tal:block condition="no_form" tal:replace='structure string:
-        <form action="${request/URL0}" method="get">' />
+        &lt;form action="${request/URL0}" method="get">' />
           <span i18n:translate="label_display">Display:</span>
           <select name="displayed:list"
                  tal:define="displayed displayed|python:request.get('displayed',
@@ -163,9 +164,9 @@ format:</pre>
           </select>
           <input type="submit" value="button_ok" i18n:attributes="value"
                  tal:attributes="name python:test(no_form, None,
-                                                  nav_action + ':method')">
+                                                  nav_action + ':method')" />
         <tal:block condition="no_form" tal:replace='structure string:
-        </form>' />
+        &lt;/form>' />
       </td>
       <td align="right"
         tal:condition="python: batch_info['nb_pages'] > 1">
@@ -174,11 +175,11 @@ format:</pre>
           i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
           i18n:name="batch_limit" /> of <tal:block replace="batch_info/length"
           i18n:name="batch_length" />
-        </span>
+         </span>
       </td>
     </tr>
   </table>
-  <br>
+  <br />
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
     tal:condition="zoomed">
     <tr tal:repeat="item zoomed">
@@ -186,7 +187,7 @@ format:</pre>
        <tal:block define="no_form not:nothing;
          info python:here.getContentInfo(item, level=1);">
          <metal:block use-macro="here/content_lib/macros/info_summary" />
-         <br><br>
+         <br /><br />
        </tal:block>
       </td>
     </tr>
@@ -204,7 +205,7 @@ format:</pre>
     </tr>
   </table>
   <tal:block condition="python:batch_info and batch_info['nb_pages'] > 1">
-    <br>
+    <br />
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr class="even">
         <td align="center" width="100%">
@@ -253,7 +254,7 @@ format:</pre>
                  python:site_wide and item.getContextUrl(utool=utool) or id;
                  id python:'cb_' + id;
                  checked python:id in choosen_ids;
-           ">
+           " />
       </td>
       <td align="left" valign="top"
           tal:define="info python:here.getContentInfo(item, level=1)">
@@ -269,7 +270,7 @@ format:</pre>
       <metal:block use-macro="here/content_lib/macros/info_detail_tab" />
     </tal:block>
     </tal:block>
-  <br>
+  <br />
   </tal:block>
   </tal:block>
 </metal:block>
@@ -372,7 +373,7 @@ format:</pre>
       <span i18n:name="status_language">
       <tal:block i18n:translate=""
         content="string:label_language_${info/lang}">en</tal:block>
-      </span>
+       </span>
     </tal:block>
     <tal:block condition="status_time|nothing" i18n:translate="">label_since
       <span tal:content="info/time_str" i18n:name="status_time">May28 pm</span>
@@ -408,13 +409,13 @@ format:</pre>
   <div tal:condition="info/preview|nothing" style="float: right">
     <img tal:condition="info/preview|nothing"
          tal:replace="structure python:here.getImgTag(info['preview'],
-                               base_url=base_url, width=64, height=64, keep_ratio=1)">
+                               base_url=base_url, width=64, height=64, keep_ratio=1)" />
   </div>
   <img tal:replace="structure python:here.getImgTag(info['icon'],
-                                     base_url=base_url, title='%s, id:%s' % (info['type'], info['id']))">
+                                     base_url=base_url, title='%s, id:%s' % (info['type'], info['id']))" />
    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
-  <br>
+  <br />
   <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}">
   <small>
     <tal:block define="status_short_fmt not:nothing;
@@ -427,7 +428,7 @@ format:</pre>
   </small>
   </a>
   <tal:block tal:condition="info/start_str|info/end_str|nothing">
-    <br><small>
+    <br /><small>
       <span i18n:translate="label_from" tal:omit-tag="">From</span>
       <span tal:content="info/start_str|nothing" tal:omit-tag="" />
       <span i18n:translate="label_to" tal:omit-tag="">To</span>
@@ -435,10 +436,10 @@ format:</pre>
     </small>
   </tal:block>
   <tal:block condition="info/description">
-    <br><small tal:content="info/description">Description</small>
+    <br /><small tal:content="info/description">Description</small>
   </tal:block>
   <tal:block condition="site_wide|nothing">
-   <br><small class="url" tal:content="item/absolute_url">URL</small>
+   <br /><small class="url" tal:content="item/absolute_url">URL</small>
   </tal:block>
 </div>
 </metal:block>
@@ -453,12 +454,12 @@ format:</pre>
    title info/description;">
   <img tal:condition="not:info/preview|nothing"
        tal:replace="structure python:here.getImgTag(info['icon'],
-       base_url=base_url, zoom=2, title=info['description'])">
+       base_url=base_url, zoom=2, title=info['description'])" />
   <img tal:condition="info/preview|nothing"
        tal:replace="structure python:here.getImgTag(info['preview'],
        base_url=base_url, width='32', height='32', keep_ratio=1,
-       title=info['description'])">
-   <br>
+       title=info['description'])" />
+   <br />
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
 </div>
 </metal:block>
@@ -471,7 +472,7 @@ format:</pre>
  <tal:block replace="structure python:path('here/'+ info['icon'])" />
  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
    title info/description">
- <b><span tal:replace="info/title_or_id">ID</span></b></a><br>
+ <b><span tal:replace="info/title_or_id">ID</span></b></a><br />
  <small>
    <tal:block define="status_short_fmt not:nothing;
                       status_time not:nothing;">
@@ -489,7 +490,7 @@ format:</pre>
                                  'folder_contents', 'view')">
   <h2>
     <img tal:replace="structure python:here.getImgTag(info['icon'],
-                                       base_url=base_url, title=info['type'])">
+                                       base_url=base_url, title=info['type'])" />
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
     <b tal:content="info/title_or_id">ID</b></a>
   </h2>
@@ -497,7 +498,7 @@ format:</pre>
     style="float: left;margin: 1em;">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
       ><img tal:replace="structure python:here.getImgTag(info['photo'],
-                         base_url=base_url, width=128, height=128, keep_ratio=1)"></a>
+                         base_url=base_url, width=128, height=128, keep_ratio=1)" /></a>
   </div>
   <div>
   <small style="float: right;">
@@ -510,7 +511,7 @@ format:</pre>
     </tal:block>
   </small>
   <tal:block condition="info/description">
-    <br><p tal:content="info/description">Description</p>
+    <br /><p tal:content="info/description">Description</p>
   </tal:block>
   <tal:block condition="info/summary|nothing">
     <p><q tal:content="info/summary">Summary</q></p>
@@ -533,9 +534,9 @@ format:</pre>
                          context_url context_url|here/getContextUrl;
                         ">
 <tal:block condition="start">
-  <tal:block replace='structure string:<table width="100%">' />
+  <tal:block replace='structure string:&lt;table width="100%">' />
     <tr>
-      <td> </td>
+      <td> </td>
       <th tal:condition="title_in_tabs" align="center">
         <b tal:define="sort_title python:sort_by=='title'"
            tal:omit-tag="not:sort_title"><a href=""
@@ -584,20 +585,20 @@ format:</pre>
            tal:attributes="value python:site_wide and item.getContextUrl(utool=utool) or id;
                            id python:'cb_' + id;
                            checked python:id in choosen_ids;
-                          ">
+                          " />
   </td>
   <td tal:condition="title_in_tabs">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                                  title info/description;">
     <b tal:content="info/title_or_id">ID</b></a></td>
   <td align="center" tal:condition="type_in_tabs">
-    <img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])"></td>
+    <img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])" /></td>
   <td align="right" tal:condition="size_in_tabs">
-    <span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
+    <span tal:condition="info/size|nothing" tal:content="info/size"> </span></td>
   <td align="center" tal:condition="date_in_tabs">
     <span tal:content="info/time_str">May 6,...</span></td>
   <td align="center" tal:condition="author_in_tabs">
-    <span tal:content="info/creator"></span></td>
+    <span tal:content="info/creator"> </span></td>
   <td align="center" tal:condition="status_in_tabs"
       tal:content="info/review_state" tal:attributes="class info/review_state"
       i18n:translate="">published</td>
@@ -607,7 +608,7 @@ format:</pre>
       content="string:label_language_${info/lang}">en</tal:block>
   </td>
 </tr>
-<tal:block condition="end" tal:replace="structure string:</table>">
+<tal:block condition="end" tal:replace="structure string:&lt;/table>">
 </tal:block>
 </metal:block>
 
@@ -618,7 +619,7 @@ format:</pre>
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view');">
   <img tal:replace="structure python:here.getImgTag(info['icon'],
-       base_url=base_url, title=info['type'])">&nbsp;<a
+       base_url=base_url, title=info['type'])" />&nbsp;<a
    href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                            title info/description;">
 <span tal:replace="info/title_or_id">ID</span></a>
@@ -633,7 +634,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized proxies states for a document</pre>
 <metal:block define-macro="states">
-<strong i18n:translate="">label_publication_states</strong><br>
+<strong i18n:translate="">label_publication_states</strong><br />
 <span tal:repeat="item info/states">
   <span tal:condition="python:item['review_state'] != 'work'">
     <tal:block define="info item;
@@ -644,7 +645,7 @@ format:</pre>
     <span i18n:translate="">label_in_section
       <a href="." tal:attributes="href string:${base_url}${item/rpath}/"
          tal:content="item/title" i18n:name="section_id">Section</a>
-    </span><br>
+    </span><br />
   </span>
 </span>
 </metal:block>
@@ -657,7 +658,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized history of a document</pre>
 <metal:block define-macro="history">
-  <strong i18n:translate="label_reviewing_history">Reviewing history:</strong><br>
+  <strong i18n:translate="label_reviewing_history">Reviewing history:</strong><br />
 
   <span tal:repeat="item info/history">
 
@@ -680,7 +681,7 @@ format:</pre>
         Comments
       </em>
     </span>
-    <br>
+    <br />
   </span>
 </metal:block>
 
@@ -723,3 +724,4 @@ format:</pre>
     </tal:block>
   </div>
 </metal:block>
+</racine>

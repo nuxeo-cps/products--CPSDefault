@@ -17,7 +17,7 @@ ttool = context.portal_types
 # get searchable portal type only
 okpt = context.getSearchablePortalTypes(only_ids=1)
 pt = query.get('portal_type', None)
-if pt:
+if pt and pt != ['']:
     pt = [t for t in pt if t in okpt]
 else:
     pt = okpt
@@ -26,11 +26,6 @@ query['portal_type'] = pt
 # query for document object
 portal_path = context.portal_url.getPortalPath()
 query['path'] = portal_path+'/portal_repository/'
-
-if query.setdefault('SearchableText', '').strip():
-    results = catalog(**query)
-else:
-    results = []
 
 items = []
 

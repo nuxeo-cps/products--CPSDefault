@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-15 11:55default\n"
-"PO-Revision-Date: 2003-10-15 12:00+0200\n"
+"POT-Creation-Date: 2003-10-16 12:21default\n"
+"PO-Revision-Date: 2003-10-16 12:22+0200\n"
 "Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
 "Language-Team: francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -104,6 +104,13 @@ msgstr "Emplacement"
 #: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr "FAKE"
+
+#.   <option repeat="type allowed" attributes="value type/getId" content="type/Title">
+#.               Type Name
+#.             </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "Type Name"
+msgstr ""
 
 #.   <span attributes="class
 #.         info/review_state" content="info/review_state">Work</span>
@@ -202,7 +209,7 @@ msgstr "Annuler"
 #.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
 #.         <input value="button_back" class="context" name="back" type="submit">
 #.       </input></input>
-#.   <input value="button_change" class="standalone" type="submit" name="changeDisplayParams:method">
+#.   <input value="button_change" class="standalone" type="submit">
 #.     </input>
 #.   <input value="button_change" class="standalone" type="submit">
 #.       </input>
@@ -268,7 +275,7 @@ msgid "button_checkout_draft"
 msgstr "Créer un brouillon"
 
 #.   <input value="button_copy" class="context" name="folder_copy:method" type="submit">
-#.         </input>
+#.           </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr "Copier"
@@ -279,23 +286,15 @@ msgid "button_create_box"
 msgstr "Ajouter une boîte"
 
 #.   <input value="button_cut" class="context" name="folder_cut:method" type="submit">
-#.           <input value="button_copy" class="context" name="folder_copy:method" type="submit">
-#.         </input></input>
+#.             <input value="button_copy" class="context" name="folder_copy:method" type="submit">
+#.           </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr "Couper"
 
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#.             (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#.           <block define="isWsManager python:mtool.checkPermission('View management screens', here);" condition="python:isWsManager and sort_by is None">
-#.
-#.             <br>
-#.             <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
-#.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
-#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.           </input></input></input></input></br></block>
-#.         </input>
+#.               (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
+#.           </input>
 #.   <input value="button_delete" type="submit">
 #.      </input>
 #: from ../skins/cps_default/folder_contents.pt
@@ -310,7 +309,7 @@ msgid "button_login"
 msgstr "Authentification"
 
 #.   <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.           </input>
+#.         </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Déplacer à la fin"
@@ -318,14 +317,14 @@ msgstr "Déplacer à la fin"
 #.   <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
 #.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
 #.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.           </input></input></input>
+#.         </input></input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Déplacer en dessous"
 
 #.   <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
 #.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.           </input></input>
+#.         </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Déplacer au début"
@@ -334,12 +333,12 @@ msgstr "Déplacer au début"
 #.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
 #.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
 #.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.           </input></input></input></input>
+#.         </input></input></input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr "Déplacer au dessus"
 
-#.   <input value="button_new" class="standalone" name="folder_factories:method" type="submit">
+#.   <input value="button_new" class="standalone" name="content_create:method" type="submit">
 #.         </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_new"
@@ -361,7 +360,7 @@ msgid "button_ok"
 msgstr "OK"
 
 #.   <input value="button_paste" class="context" name="folder_paste:method" type="submit">
-#.         </input>
+#.           </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr "Coller"
@@ -390,17 +389,9 @@ msgid "button_reject_publication"
 msgstr "Rejeter publication"
 
 #.   <input value="button_rename" class="context" name="folder_rename_form:method" type="submit">
-#.           <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#.             (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#.           <block define="isWsManager python:mtool.checkPermission('View management screens', here);" condition="python:isWsManager and sort_by is None">
-#.
-#.             <br>
-#.             <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
-#.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
-#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.           </input></input></input></input></br></block>
-#.         </input></input>
+#.             <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#.               (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
+#.           </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Renommer"
@@ -623,10 +614,12 @@ msgstr "Ressource non trouvée"
 msgid "heading_error_other"
 msgstr "CPS a rencontré une erreur"
 
+#.   <span>Create a new:</span>
 #.   <h1 fill-slot="header">
 #.       Add Content
 #.     </h1>
-#: from ../skins/cps_default/folder_factories.pt
+#: from ../skins/cps_default/folder_contents.pt
+#: ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Ajouter du contenu"
 
@@ -988,6 +981,24 @@ msgstr "Nom de l'administrateur"
 msgid "label_all"
 msgstr "Tous"
 
+#.   <option attributes="selected
+#.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
+#.               Author ascending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_author_asc"
+msgstr "Date"
+
+#.   <option attributes="selected
+#.                                python:sort_by == 'author' and direction =='desc'" value="author_desc">
+#.               Author descending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_author_desc"
+msgstr "Date inv."
+
 #.   <div class="label">
 #.           Body
 #.         </div>
@@ -1181,6 +1192,12 @@ msgstr "Adresse de courriel"
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_end_date"
 msgstr "Date de fin (JJ/MM/AAAA)"
+
+#.   <label for="event_types">label_event_types</label>
+#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
+#, fuzzy
+msgid "label_event_types"
+msgstr "En-tête du document"
 
 #.   <label for="events_in">label_events_location</label>
 #: from ../skins/cps_default/eventcalendarbox_edit_form.pt
@@ -1749,7 +1766,7 @@ msgstr "a retourné un document."
 msgid "link_advanced_search"
 msgstr "Recherche avancée"
 
-#.   <a attributes="href string:${here/absolute_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
+#.   <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
 msgstr "Éditer toutes les méta-donnnées"
@@ -2031,6 +2048,12 @@ msgstr "Accepter"
 
 msgid "action_access_chat_room"
 msgstr "Accéder au chat"
+
+msgid "action_add_favorites"
+msgstr "Ajouter aux favoris"
+
+msgid "action_view_favorites"
+msgstr "Mes Favoris"
 
 msgid "action_boxes"
 msgstr "Gérer les boîtes"

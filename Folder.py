@@ -22,6 +22,7 @@
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, AddPortalContent
 
 from Products.NuxCPS3.CPSBase import CPSBaseFolder, CPSBase_adder
@@ -38,7 +39,11 @@ factory_type_information = (
      'immediate_view': 'cpsfolder_view',
      'filter_content_types': 0,
      'allowed_content_types': (),
-     'actions': ({'id': 'create',
+     'actions': ({'id': 'isproxytype',
+                  'name': '',
+                  'action': 'folder',
+                  'permissions': ('',)},
+                 {'id': 'create',
                   'name': 'Create',
                   'action': 'cpsfolder_create',
                   'permissions': ('',)},
@@ -74,6 +79,7 @@ factory_type_information = (
 
 class CPSFolder(CPSBaseFolder):
     meta_type = 'CPS Folder'
+    portal_type = meta_type # To ease testing.
 
     security = ClassSecurityInfo()
 
@@ -86,7 +92,20 @@ class CPSFolder(CPSBaseFolder):
         Creation is governed by the workflows allowed by the workflow tool.
         """
         wftool = getToolByName(self, 'portal_workflow')
-        return wftool.invokeFactoryFor(self, type_name, id, *args, **kw)
+        newid = wftool.invokeFactoryFor(self, type_name, id, *args, **kw)
+        if RESPONSE is not None:
+            ob = self[newid]
+            ttool = getToolByName(self, 'portal_types')
+            info = ttool.getTypeInfo(type_name)
+            RESPONSE.redirect('%s/%s' % (ob.absolute_url(),
+                                         info.immediate_view))
+        return newid
+
+    security.declarePrivate('invokeFactoryCMF')
+    def invokeFactoryCMF(self, type_name, id, RESPONSE=None, *args, **kw):
+        """Original CMF factory invocation."""
+        return CPSBaseFolder.invokeFactory(self, type_name, id,
+                                           RESPONSE=RESPONSE, *args, **kw)
 
 InitializeClass(CPSFolder)
 

@@ -16,10 +16,10 @@ from Products.CMFCore.Expression import Expression
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
 
-from Products.NuxCPS3.CPSWorkflow import TRANSITION_BEHAVIOR_SUBCREATE, \
-     TRANSITION_BEHAVIOR_CLONE, TRANSITION_BEHAVIOR_FREEZE, TRIGGER_CREATION
+from Products.NuxCPS3.CPSWorkflow import TRANSITION_INITIAL_CREATE, \
+     TRANSITION_ALLOWSUB_CREATE, \
+     TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
-
 
 
 def cpsinstall(self):
@@ -102,6 +102,44 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating User Folder With Groups")
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
+    # skins
+    pr("Verifying skins")
+    skins = ('sss3', 'sss3_images', 'nuxcps3', )
+    paths = {
+        'sss3': 'Products/SSS3/skins',
+        'sss3_images': 'Products/SSS3/skins/images',
+        'nuxcps3': 'Products/NuxCPS3/skins',
+    }
+    for skin in skins:
+        path = paths[skin]
+        path = path.replace('/', os.sep)
+        pr(" FS Directory View '%s'" % skin)
+        if skin in portal.portal_skins.objectIds():
+            dv = portal.portal_skins[skin]
+            oldpath = dv.getDirPath()
+            if oldpath == path:
+                prok()
+            else:
+                pr("  Correctly installed, correcting path")
+                dv.manage_properties(dirpath=path)
+        else:
+            portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
+            pr("  Creating skin")
+    allskins = portal.portal_skins.getSkinPaths()
+    for skin_name, skin_path in allskins:
+        if skin_name != 'Basic':
+            continue
+        path = [x.strip() for x in skin_path.split(',')]
+        path = [x for x in path if x not in skins] # strip all
+        if path and path[0] == 'custom':
+            path = path[:1] + list(skins) + path[1:]
+        else:
+            path = list(skins) + path
+        npath = ', '.join(path)
+        portal.portal_skins.addSkinSelection(skin_name, npath)
+        pr(" Fixup of skin %s" % skin_name)
+
+
     # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
     # CPS Object Repository, Tree tools
     pr("Verifying CPS Tools")
@@ -143,9 +181,8 @@ def cpsupdate(self, langs_list=None):
             subscriber='portal_proxies',
             action='proxy',
             meta_type='*',
-            event_type='synchronous',
-            notification_type='*',
-            compressed=0)
+            event_type='*',
+            notification_type='synchronous')
     if 'portal_trees' in subscribers:
         prok()
     else:
@@ -154,9 +191,8 @@ def cpsupdate(self, langs_list=None):
             subscriber='portal_trees',
             action='tree',
             meta_type='*',
-            event_type='synchronous',
-            notification_type='*',
-            compressed=0)
+            event_type='*',
+            notification_type='synchronous')
 
 
     # replace portal_workflow with a (CPS Tools) CPW Workflow Tool.
@@ -198,18 +234,15 @@ def cpsupdate(self, langs_list=None):
                     transitions=('create_subobject',))
     t = wf.transitions.get('creation')
     t.setProperties(title='Creation', new_state_id='work', 
-                    transition_behavior=None, 
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, ), 
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
-                    trigger_type=TRIGGER_CREATION, 
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
                     )
     t = wf.transitions.get('create_subobject')
     t.setProperties(title='Create a sub object', new_state_id='', 
-                    transition_behavior=(TRANSITION_BEHAVIOR_SUBCREATE, ), 
+                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ), 
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create sub workspace', actbox_category='workflow',
                     actbox_url='%(content_url)s/workspace_create_form',
@@ -241,18 +274,15 @@ def cpsupdate(self, langs_list=None):
 
     t = wf.transitions.get('creation')
     t.setProperties(title='Creation', new_state_id='work', 
-                    transition_behavior=None,
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, ),
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None,
-                    trigger_type=TRIGGER_CREATION,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
                     )
     t = wf.transitions.get('publish')
     t.setProperties(title='Publish', new_state_id='', 
-                    transition_behavior=(TRANSITION_BEHAVIOR_CLONE, ), 
+                    transition_behavior=(TRANSITION_BEHAVIOR_PUBLISHING, ), 
                     clone_allowed_transitions=('in_submit', 'in_publish'),
-                    checkout_original_transition_id=None, 
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Publish', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_publish_form',
@@ -280,18 +310,15 @@ def cpsupdate(self, langs_list=None):
                     transitions=('create_subobject',))
     t = wf.transitions.get('creation')
     t.setProperties(title='Creation', new_state_id='work', 
-                    transition_behavior=None, 
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, ), 
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
-                    trigger_type=TRIGGER_CREATION, 
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
                     )
     t = wf.transitions.get('create_subobject')
     t.setProperties(title='Create a sub object', new_state_id='', 
-                    transition_behavior=(TRANSITION_BEHAVIOR_SUBCREATE,), 
+                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ), 
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create sub section', actbox_category='workflow',
                     actbox_url='%(content_url)s/section_create_form',
@@ -327,10 +354,8 @@ def cpsupdate(self, langs_list=None):
     
     t = wf.transitions.get('in_publish')
     t.setProperties(title='Member publishes directly', new_state_id='published', 
-                    transition_behavior=(TRANSITION_BEHAVIOR_FREEZE,),
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, TRANSITION_BEHAVIOR_FREEZE,),
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None,
-                    trigger_type=TRIGGER_CREATION,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'', 
                            'guard_roles':'SectionReviewer; SectionManager; Manager', 
@@ -338,10 +363,8 @@ def cpsupdate(self, langs_list=None):
                     )
     t = wf.transitions.get('in_submit')
     t.setProperties(title='Member requests publishing', new_state_id='pending', 
-                    transition_behavior=(TRANSITION_BEHAVIOR_FREEZE,), 
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, TRANSITION_BEHAVIOR_FREEZE), 
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
-                    trigger_type=TRIGGER_CREATION, 
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '', 
                            'guard_roles': '', 
@@ -351,7 +374,6 @@ def cpsupdate(self, langs_list=None):
     t.setProperties(title='Member requests publishing', new_state_id='published', 
                     transition_behavior=None,
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_publish_form',
@@ -363,7 +385,6 @@ def cpsupdate(self, langs_list=None):
     t.setProperties(title='remove the doc from publication', new_state_id='pending', 
                     transition_behavior=None,
                     clone_allowed_transitions=None,
-                    checkout_original_transition_id=None, 
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Un Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_unpublish_form',
@@ -379,8 +400,6 @@ def cpsupdate(self, langs_list=None):
     ptypes = {
         'NuxCPS3':('CPS Proxy Document',
                    'CPS Proxy Folder',
-#                   'CPS Proxy Folderish Document',
-                   'CPS Folder',
                    ),
         'SSS3':('Dummy',)
         }
@@ -420,6 +439,7 @@ def cpsupdate(self, langs_list=None):
     ttool['Workspace'].manage_changeProperties(None,
                                                title='Workspace',
                                                content_meta_type='Workspace')
+
     # check workflow association
     pr("Verifying workflow schemas")
     wfs = {
@@ -439,11 +459,19 @@ def cpsupdate(self, langs_list=None):
     if not portalhas(workspaces_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
                                                 workspaces_id)
+        portal.workspaces.getContent().setTitle('Workspaces Root') # XXX L10N        
+        portal.workspaces.reindexObject()
         pr("  Adding %s Folder" % workspaces_id)
     if not portalhas(sections_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',
                                                 sections_id)
+        portal.workspaces.getContent().setTitle('Sections Root') # XXX L10N        
+        portal.workspaces.reindexObject()
         pr("  Adding %s Folder" % sections_id)
+
+
+
+   
     
     pr("Verifying local workflow association")
     if not '.cps_workflow_configuration' in portal[workspaces_id].objectIds():
@@ -486,44 +514,6 @@ def cpsupdate(self, langs_list=None):
                                                       type_names=('Workspace',))
         trtool[workspaces_id].manage_rebuild()
         
-    # skins
-    pr("Verifying skins")
-    skins = ('sss3', 'sss3_images', 'nuxcps3', )
-    paths = {
-        'sss3': 'Products/SSS3/skins',
-        'sss3_images': 'Products/SSS3/skins/images',
-        'nuxcps3': 'Products/NuxCPS3/skins',
-    }
-    for skin in skins:
-        path = paths[skin]
-        path = path.replace('/', os.sep)
-        pr(" FS Directory View '%s'" % skin)
-        if skin in portal.portal_skins.objectIds():
-            dv = portal.portal_skins[skin]
-            oldpath = dv.getDirPath()
-            if oldpath == path:
-                prok()
-            else:
-                pr("  Correctly installed, correcting path")
-                dv.manage_properties(dirpath=path)
-        else:
-            portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
-            pr("  Creating skin")
-    allskins = portal.portal_skins.getSkinPaths()
-    for skin_name, skin_path in allskins:
-        if skin_name != 'Basic':
-            continue
-        path = [x.strip() for x in skin_path.split(',')]
-        path = [x for x in path if x not in skins] # strip all
-        if path and path[0] == 'custom':
-            path = path[:1] + list(skins) + path[1:]
-        else:
-            path = list(skins) + path
-        npath = ', '.join(path)
-        portal.portal_skins.addSkinSelection(skin_name, npath)
-        pr(" Fixup of skin %s" % skin_name)
-
-
     pr("Verifying private area creation flag")
     if not portal.portal_membership.getMemberareaCreationFlag():
         pr(" Activated")

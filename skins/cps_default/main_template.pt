@@ -18,10 +18,17 @@
                   folder_actions actions/folder;
                   global_actions actions/global;
                   wf_state python:wtool.getInfoFor(here,'review_state','');
+                  BMT python:here.Benchmarktimer();
+                  bmt_start nocall:BMT/start;
+                  bmt_stop nocall:BMT/stop;
+                  bmt_mark nocall:BMT/setMarker;
+                  bmt_elapsed nocall:BMT/getProfiling;
                  "
 >
 
 <head>
+ <span tal:replace="bmt_start" />
+
  <title tal:content="here/expanded_title"> Title goes here </title>
 
  <metal:block define-slot="base" />
@@ -303,7 +310,7 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
  <!-- end formatter -->
 
  <div id="Desktop">
-
+ <b tal:replace="python:bmt_mark('main_start')" />
  <div metal:define-slot="main">
 
  <h2> Section Header </h2>
@@ -315,6 +322,7 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
 
  <!-- end main slot -->
  </div>
+ <b tal:replace="python:bmt_mark('main_stop')" />
 
  <!-- end Desktop -->
  </div>
@@ -322,7 +330,8 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
  </td>
  </tr>
  </table>
-
+ <hr/>
+ <span tal:replace="bmt_stop" /><span tal:replace="structure bmt_elapsed" />
 </div>
 
 </body>

@@ -128,7 +128,7 @@ string:${portal_url}/favicon.png" />
   </div>
 </metal:block>
 
-<!-- ============================================================ -->
+<!-- macro footer -->
 <metal:block define-macro="footer">
   <div class="footer">
     Nuxeo - 14, rue du Soleillet, 75020 Paris France
@@ -137,23 +137,33 @@ string:${portal_url}/favicon.png" />
     - Tél: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15
   </div>
 </metal:block>
+<!-- end macro footer -->
 
-
-<!-- actions_list -->
-<metal:block define-macro="actions_list">
-  <div class="content" tal:repeat="block actionsblocks"
-       tal:attributes="class python:'content ' + ('even',
-                             'odd')[path('repeat/block/odd')]">
-    <ul><li tal:condition="block" tal:repeat="action block">
-      <a tal:attributes="href action/url; onclick action/onclick|nothing; target
-action/target|nothing"
-         tal:define="actionname action/name;"
-         tal:content="actionname"
-         i18n:translate="">Action</a>
-    </li></ul>
-  </div>
+<!-- action box -->
+<metal:block define-macro="actionbox">
+  <metal:block use-macro="here/generic_lib/macros/box">
+    <metal:block fill-slot="box_title" tal:content="blocktitle"
+                 i18n:translate="">
+      action box title
+    </metal:block>
+    <metal:block fill-slot="box_body">
+      <div class="content"
+           tal:define="blockclass blockclass|string:"
+           tal:attributes="class python:'content '+blockclass">
+        <ul>
+          <li tal:repeat="action actionblock">
+            <a tal:attributes="href action/url"
+               tal:content="action/name"
+               i18n:translate="">
+               Action
+             </a>
+          </li>
+        </ul>
+      </div>
+    </metal:block>
+  </metal:block>
 </metal:block>
-<!-- End actions_list -->
+<!-- end action box -->
 
 <!-- folder_list -->
 <metal:block define-macro="folder_list">

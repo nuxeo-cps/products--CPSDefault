@@ -14,6 +14,11 @@
                   sections ttool/sections;
                   workspaces ttool/workspaces;
                   actions python:atool.listFilteredActionsFor(here);
+                  user_actions actions/user;
+                  object_actions actions/object;
+                  workflow_actions actions/workflow;
+                  folder_actions actions/folder;
+                  global_actions actions/global;
                   wf_state python:wtool.getInfoFor(here,'review_state','');
                   BMT python:here.Benchmarktimer('main_template');
                   bmt_start nocall:BMT/start;
@@ -40,6 +45,7 @@
 <!-- HEADER =================================== -->
 <div>
 
+  <!-- top bar -->
   <div class="top">
     <div metal:use-macro="here/generic_lib/macros/searchbox" />
     <div metal:use-macro="here/generic_lib/macros/logo" />
@@ -47,12 +53,14 @@
 
   <hr size="" class="netscape4" />
 
+  <!-- section bar -->
   <div metal:use-macro="here/generic_lib/macros/sections">
     sections
   </div>
 
   <hr size="" class="netscape4" />
 
+  <!-- breadcrumbs -->
   <div metal:use-macro="here/generic_lib/macros/breadcrumbs">
     breadcrumbs
   </div>
@@ -64,22 +72,19 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
        align="center" valign="top" class="columns">
   <tr>
-<!-- BAR LEFT ================================= -->
-    <td class="left" width="15%">
+    <!-- BAR LEFT ================================= -->
+    <td class="left" width="15%" tal:define="blockclass string:even">
+      <!-- user actions box -->
+      <tal:block define="actionblock user_actions;
+                         blocktitle member"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
       <!-- global actions box -->
-      <tal:block define="actionsblocks python:here.getGlobalActions(actions=actions)"
-                 condition="actionsblocks">
-        <metal:block use-macro="here/generic_lib/macros/box">
-          <metal:block fill-slot="box_title"
-          tal:content="member/getUserName">
-            user name
-          </metal:block>
-          <metal:block fill-slot="box_body">
-            <metal:block use-macro="here/generic_lib/macros/actions_list">
-              Global actions
-            </metal:block>
-          </metal:block>
-        </metal:block>
+      <tal:block define="actionblock global_actions;
+                         blocktitle string:Portal actions"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
       </tal:block>
 
       <!-- display portal_trees -->
@@ -98,21 +103,24 @@
       </metal:block>
     </td>
 
-<!-- MAIN ===================================== -->    
+    <!-- MAIN ===================================== -->    
     <td class="main" width="75%">
       
       <div class="document">
       
         <div id="content">
         
+          <!-- portal status message -->
           <div class="message" tal:condition="portal_status_message">
             <strong tal:content="portal_status_message">
               Status message.
             </strong>
           </div>
           <b tal:replace="python:bmt_mark('main_start')" />
+          <!-- header -->
           <metal:block define-slot="header" />
 
+          <!-- main -->
           <metal:block define-slot="main" />
           <b tal:replace="python:bmt_mark('main_stop')" />
         </div>
@@ -120,27 +128,31 @@
       </div>
     </td>
     
-<!-- BAR RIGHT ================================ -->
-    <td class="right" width="15%" tal:condition="showthirdcol">
-      <!-- document actions box -->
-      <tal:block define="actionsblocks python:here.getDocumentActions(actions=actions)"
-                 condition="python:actionsblocks and not hideactions">
-        <metal:block use-macro="here/generic_lib/macros/box">
-          <metal:block fill-slot="box_title"
-                       tal:content="python:wf_state and 'Status: ' + wf_state or
-                       default">
-            Actions
-          </metal:block>
-          <metal:block fill-slot="box_body">
-            <metal:block use-macro="here/generic_lib/macros/actions_list">
-              Global actions
-            </metal:block>
-          </metal:block>
-        </metal:block>
+    <!-- BAR RIGHT ================================ -->
+    <td class="right" width="15%" tal:condition="showthirdcol"
+        tal:define="blockclass string:odd">
+      <!-- workflow actions box -->
+      <tal:block define="actionblock workflow_actions;
+                         blocktitle python:'Status: ' + wf_state"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+
+      <!-- object actions box -->
+      <tal:block define="actionblock object_actions;
+                         blocktitle string:This object"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+
+      <!-- folder actions box -->
+      <tal:block define="actionblock folder_actions;
+                         blocktitle string:This folder"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
       </tal:block>
     </td>
-    <td class="right" width="1"
-        tal:condition="not:showthirdcol">
+    <td class="right" width="1" tal:condition="not:showthirdcol">
     </td>
   </tr>
 </table>

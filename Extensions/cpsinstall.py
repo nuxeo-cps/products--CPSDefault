@@ -321,6 +321,8 @@ def cpsupdate(self, langs_list=None):
 
     for s in ('work', ):
         wf.states.addState(s)
+    
+    # create_folder is transition which does nothing?
     for t in ('create', 'create_content', 'create_folder'):
         wf.transitions.addTransition(t)
 
@@ -430,6 +432,101 @@ def cpsupdate(self, langs_list=None):
     vdef.setProperties(description='Destination container for the last paste/publish',
                        default_expr="python:state_change.kwargs.get('dest_container', '')",
                        for_status=1, update_always=1)
+
+    # WF workspace folderish content
+    wfid = 'workspace_folderish_content_wf'
+    pr(" Setup workflow %s" % wfid)
+    if wfid in wfids:
+        wftool.manage_delObjects([wfid])
+    wftool.manage_addWorkflow(id=wfid,
+                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
+    wf = wftool[wfid]
+
+    for s in ('work', ):
+        wf.states.addState(s)
+    for t in ('create', 'copy_submit', 'create_content', ):
+        wf.transitions.addTransition(t)
+    for v in ('action', 'actor', 'comments', 'review_history', 'time',
+              'dest_container'):
+        wf.variables.addVariable(v)
+    for p in (View, ModifyPortalContent, ):
+        wf.addManagedPermission(p)
+
+    s = wf.states.get('work')
+    s.setProperties(title='Work',
+                    transitions=('copy_submit', 'create_content', ))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
+
+    t = wf.transitions.get('create')
+    t.setProperties(title='Initial creation', new_state_id='work',
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, ),
+                    clone_allowed_transitions=None,
+                    actbox_name='', actbox_category='workflow', actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('copy_submit')
+    t.setProperties(title='Copy content into a section for Publishing',
+                    new_state_id='',
+                    transition_behavior=(TRANSITION_BEHAVIOR_PUBLISHING, ),
+                    clone_allowed_transitions=('submit', 'publish'),
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='action_submit', actbox_category='workflow',
+                    actbox_url='%(content_url)s/content_submit_form',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('create_content')
+    t.setProperties(title='Create content', new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ),
+                    clone_allowed_transitions=None,
+                    trigger_type=TRIGGER_USER_ACTION,
+                    actbox_name='New',
+                    actbox_category='',
+                    actbox_url='',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_expr':''},
+                    )
+
+    # wf variables
+    wf.variables.setStateVar('review_state')
+    vdef = wf.variables['action']
+    vdef.setProperties(description='The last transition',
+                       default_expr='transition/getId|nothing',
+                       for_status=1, update_always=1)
+
+    vdef = wf.variables['actor']
+    vdef.setProperties(description='The ID of the user who performed '
+                       'the last transition',
+                       default_expr='user/getId',
+                       for_status=1, update_always=1)
+
+    vdef = wf.variables['comments']
+    vdef.setProperties(description='Comments about the last transition',
+                       default_expr="python:state_change.kwargs.get('comment', '')",
+                       for_status=1, update_always=1)
+
+    vdef = wf.variables['review_history']
+    vdef.setProperties(description='Provides access to workflow history',
+                       default_expr="state_change/getHistory",
+                       props={'guard_permissions':'',
+                              'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; WorkspaceReader',
+                              'guard_expr':''})
+
+    vdef = wf.variables['time']
+    vdef.setProperties(description='Time of the last transition',
+                       default_expr="state_change/getDateTime",
+                       for_status=1, update_always=1)
+
+    vdef = wf.variables['dest_container']
+    vdef.setProperties(description='Destination container for the last paste/publish',
+                       default_expr="python:state_change.kwargs.get('dest_container', '')",
+                       for_status=1, update_always=1)
+
 
 
     # WF section

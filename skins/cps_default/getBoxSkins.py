@@ -17,6 +17,8 @@ items = [
      'title': 'description_box_skin_wbox', },
     {'macro_path': 'here/box_lib/macros/wbox2',
      'title': 'description_box_skin_wbox2', },
+    {'macro_path': 'here/box_lib/macros/wbox3',
+     'title': 'description_box_skin_wbox3', },
     ]
 
 if default:

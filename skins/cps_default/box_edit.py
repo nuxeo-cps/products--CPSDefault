@@ -1,4 +1,3 @@
-## Script (Python) "box_edit"
 ##parameters=REQUEST=None, **kw
 # $Id$
 """Edit an existing box."""

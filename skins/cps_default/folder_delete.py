@@ -1,5 +1,3 @@
-## Script (Python) "folder_delete"
-##title=Delete objects from a folder
 ##parameters=
 # $Id$
 

@@ -1,4 +1,3 @@
-## Script (Python) "box_delete"
 ##parameters=REQUEST=None, **kw
 # $Id$
 """Delete a box."""

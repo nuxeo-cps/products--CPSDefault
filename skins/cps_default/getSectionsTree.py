@@ -1,4 +1,3 @@
-## Script (Python) "getSectionsTree"
 ##parameters=
 # $Id$
 """Get all sections info with allowed publishing transitions"""

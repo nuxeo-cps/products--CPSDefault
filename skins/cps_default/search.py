@@ -1,4 +1,3 @@
-## Script (Python) "search"
 ##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None
 # $Id$
 """ return a list of proxy matching the query """

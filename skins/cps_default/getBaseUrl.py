@@ -1,4 +1,3 @@
-## Script (Python) "getBaseUrl"
 ##parameters=utool=None
 # $Id$
 # return the base url of the cps server, ex: /cps/ or /

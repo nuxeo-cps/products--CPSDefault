@@ -1,6 +1,4 @@
-## Script (Python) "content_status_modify"
 ##parameters=workflow_action, comment='', REQUEST=None, **kw
-##title=Modify the status of a content object
 # $Id$
 
 wftool = context.portal_workflow

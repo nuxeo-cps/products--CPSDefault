@@ -1,4 +1,3 @@
-## Script (Python) "getBoxTypes"
 ##parameters=category=None
 # $Id$
 """Return  available box types."""

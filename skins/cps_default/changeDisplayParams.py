@@ -1,4 +1,3 @@
-## Script (Python) "changeDisplayParams"
 ##parameters=REQUEST
 # $Id$
 """ Change the order/style of the item display within a folder """

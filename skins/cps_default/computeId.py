@@ -1,4 +1,3 @@
-## Script (Python) "computeId"
 ##parameters=compute_from='', max_chars_for_id=20
 
 # $Id$

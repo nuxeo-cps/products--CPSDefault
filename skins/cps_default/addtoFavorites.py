@@ -1,5 +1,3 @@
-## Script (Python) "addtoFavorites"
-##title=Add item to favorites
 ##parameters=REQUEST=None
 # $Id$
 

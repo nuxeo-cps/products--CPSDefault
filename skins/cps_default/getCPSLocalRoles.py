@@ -1,4 +1,3 @@
-## Script (Python) "getCPSLocalRoles.py"
 ##parameters=mtool=None, base_url=None, context_url=None
 ##
 # $Id$

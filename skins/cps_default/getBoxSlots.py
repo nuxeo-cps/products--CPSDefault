@@ -1,4 +1,3 @@
-## Script (Python) "getBoxSlots"
 ##parameters=
 # $Id$
 """Return available slot for a box """

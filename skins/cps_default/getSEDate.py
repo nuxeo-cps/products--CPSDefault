@@ -1,4 +1,3 @@
-## Script (Python) "getSEDate"
 ##parameters=event=None, which_date='start_date'
 # $Id$
 """ returns a formatted start/end date from a document

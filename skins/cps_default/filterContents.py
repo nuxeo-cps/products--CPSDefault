@@ -1,4 +1,3 @@
-## Script (Python) "FilterContents"
 ##parameters=items=[], sort_by='title', direction=None, hide_folder=0, displayed=['']
 # $Id$
 """

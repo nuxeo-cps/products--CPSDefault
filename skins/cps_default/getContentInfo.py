@@ -1,6 +1,4 @@
-## Script (Python) "getContentInfo"
 ##parameters=proxy=None, doc=None, level=0
-##title=Get content info used by macros
 # $Id$
 """ Return information about a content item (ie a proxy)
 level: 0 (default cost 1)

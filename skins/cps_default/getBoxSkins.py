@@ -1,4 +1,3 @@
-## Script (Python) "getBoxSkins"
 ##parameters=default=0
 # $Id$
 """Return available box skin."""

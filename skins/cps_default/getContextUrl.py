@@ -1,4 +1,3 @@
-## Script (Python) "getPortalUrl"
 ##parameters=obj=None, utool=None, concat=0
 # $Id$
 # return the minimal url to access the object ex: /, /cps/foo

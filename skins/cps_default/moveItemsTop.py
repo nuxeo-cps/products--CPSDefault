@@ -1,4 +1,3 @@
-## Script (Python) "moveItemsTop"
 ##parameters=ids=[]
 # $Id$
 """ Move the selected objects on the top within the directory """

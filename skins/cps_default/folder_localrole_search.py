@@ -1,6 +1,4 @@
-## Script (Python) "folder_localrole_search"
 ##parameters=
-##title=Search engine for the folder_locarole_form template
 ##parameters=search_param=None, search_term=None
 #$Id$
 

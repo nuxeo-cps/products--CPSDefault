@@ -1,4 +1,3 @@
-## Script (Python) "getFolderInfo"
 ##parameters=
 # $Id$
 """ Called by portal_tree for additional information on folder  """

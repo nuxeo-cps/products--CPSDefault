@@ -1,4 +1,3 @@
-## Script (Python) "getBatchList"
 ##parameters=items=[], columns=1, items_per_page=10, zoom=0
 # $Id$
 """

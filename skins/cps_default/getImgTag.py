@@ -1,4 +1,3 @@
-## Script (Python) "getImgTag"
 ##parameters=img_name, title=None, base_url=None, zoom=1, height=0, width=0, alt='', keep_ratio=0
 # $Id$
 """ return an html img tag"""

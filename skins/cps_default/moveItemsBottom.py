@@ -1,4 +1,3 @@
-## Script (Python) "moveItemsBottom.py"
 ##parameters=ids=[]
 # $Id$
 """ Move the selected objects up within the directory """

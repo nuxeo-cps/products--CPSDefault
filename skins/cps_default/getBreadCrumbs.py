@@ -1,4 +1,3 @@
-## Script (Python) "getBreadCrumbs.py"
 ##parameters=url=None, parent=0, breadcrumb_set=None
 # $Id$
 

@@ -1,5 +1,3 @@
-## Script (Python) "register"
-##title=Register a user
 ##parameters=password='password', confirm='confirm'
 
 from re import match

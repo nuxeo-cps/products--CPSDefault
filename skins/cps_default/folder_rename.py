@@ -1,5 +1,3 @@
-## Script (Python) "folder_rename"
-##title=Rename Object
 ##parameters=
 # $Id$
 

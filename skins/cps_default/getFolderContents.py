@@ -1,4 +1,3 @@
-## Script (Python) "getFolderContents"
 ##parameters=sort_by=None, direction=None, hide_folder=0, displayed=['']
 # $Id$
 """

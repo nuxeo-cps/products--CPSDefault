@@ -1,4 +1,3 @@
-## Script (Python) "getBoxFTI"
 ##parameters=
 # $Id$
 """Return the boxes Factory type information."""

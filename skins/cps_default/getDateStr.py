@@ -1,4 +1,3 @@
-## Script (Python) "getDateStr"
 ##parameters=dt=None, fmt='medium'
 # $Id$
 """ return a string date using the current locale """

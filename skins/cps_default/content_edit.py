@@ -1,5 +1,3 @@
-## Script (Python) "content_edit"
-##title=Update Content and Metadata
 ##parameters=REQUEST=None, **kw
 # $Id$
 def tuplify( value ):

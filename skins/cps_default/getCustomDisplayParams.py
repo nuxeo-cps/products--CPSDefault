@@ -1,4 +1,3 @@
-## Script (Python) "getCustomDisplayParams"
 ##parameters=
 # $Id$
 return {'format': None,

@@ -74,10 +74,9 @@ cps:id:${doc/id}
 format:</pre>
 <metal:block define-macro="display_contents">
 <tal:block define="nav_action nav_action|string:folder_contents;
-                   columns columns|python:3;
+                   columns columns|python:2;
                    items_per_page items_per_page|python:10;
-                   b_start request/b_start|python:0;
-                   batches python:here.getBatchList(items,columns, items_per_page);
+                   batches python:here.getBatchList(items, columns, items_per_page);
                    format format|string:icon"><!-- detail, compact, icon -->
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
@@ -175,17 +174,17 @@ format:</pre>
 <pre>all doc information in a table:</pre>
 <metal:block define-macro="info_detail">
 <table cellspacing="0" cellpadding="0" width="100%"
-  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
+  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EFEFEF' or nothing">
   <tr><td width="20">
    <img src="" border="0"
-     tal:attributes="src string:${here/portal_url}/${info/icon};
+     tal:attributes="src string:/${info/icon};
                      title info/type;"/>
   </td><td>
-   <a href="" tal:attributes="href string:${info/id}/view;">
+   <a href="" tal:attributes="href string:/${info/rpath}/view">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   </td></tr>
   <tr><td colspan="2" nowrap>
-  <a href="" tal:attributes="href string:${info/id}/view;">
+  <a href="" tal:attributes="href string:/${info/rpath}/view">
   <small>
     <span tal:replace="string:id:${info/id}">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
@@ -211,7 +210,7 @@ format:</pre>
    <a href="" tal:attributes="href string:${info/id}/view;
                               title info/description;">
     <img src="" border="0" width="30" length="40"
-     tal:attributes="src string:${here/portal_url}/${info/icon};"/></a>
+     tal:attributes="src string:/${info/icon};"/></a>
   </td></tr>
   <tr><td align="center">
    <a href="" tal:attributes="href string:${info/id}/view;"
@@ -228,7 +227,7 @@ format:</pre>
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td width="20">
    <img src="" border="0"
-     tal:attributes="src string:${here/portal_url}/${info/icon};
+     tal:attributes="src string:/${info/icon};
                      title info/type;"/>
   </td><td>
    <a href="" tal:attributes="href string:${info/id}/view;
@@ -263,7 +262,7 @@ format:</pre>
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
     <span i18n:translate="">in section: </span>
-    <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/">
+    <a href="." tal:attributes="href string:/${item/rpath}/">
       <span tal:replace="item/title">Section</span></a>
     <br/>
   </span>

@@ -71,14 +71,16 @@ def get_selected_language(self):
 from Products.Localizer.Localizer import Localizer
 Localizer.get_selected_language = get_selected_language
 
-# Dummy portal_catalog.
-
 from OFS.SimpleItem import SimpleItem
 class DummyTranslationService(SimpleItem):
     meta_type = 'Translation Service'
     id = 'translation_service'
+
     def translate(self, domain, msgid, *args, **kw):
         return msgid
+
+    def __call__(self, *args, **kw):
+        return self.translate('default', *args, **kw)
 
     def getDomainInfo(self):
         return [(None, 'Localizer/default')]
@@ -86,7 +88,6 @@ class DummyTranslationService(SimpleItem):
     def manage_addDomainInfo(self, domain, path, REQUEST=None, **kw):
         pass
 
-# Dummy MessageCatalog
 class DummyMessageCatalog(SimpleItem):
     security = ClassSecurityInfo()
     def __call__(self, message, *args, **kw):

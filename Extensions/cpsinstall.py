@@ -118,11 +118,10 @@ def cpsupdate(self, langs_list=None):
 
     # skins
     pr("Verifying skins")
-    skins = ('cpsdefault', 'cpsdefault_images', 'nuxcps3', )
+    skins = ('cpsdefault', 'cpsdefault_images', )
     paths = {
         'cpsdefault': 'Products/CPSDefault/skins',
         'cpsdefault_images': 'Products/CPSDefault/skins/images',
-        'nuxcps3': 'Products/CPSCore/skins',
     }
     for skin in skins:
         path = paths[skin]
@@ -419,16 +418,17 @@ def cpsupdate(self, langs_list=None):
                     )
    
         
-    # setup portal_type: CPS Proxy Document, CPS Proxy Folder, 
-    # CPS Dummy Document, CPS Folder
+    # setup portal_type: CPS Proxy Document, CPS Proxy Folder
+    # CPS Folder
     pr("Verifying portal types")
     ttool = portal.portal_types
     ptypes = {
         'CPSCore':('CPS Proxy Document',
                    'CPS Proxy Folder',
-                   'CPS Folder'
                    ),
-        'CPSDefault':('Dummy',)
+        'CPSDefault':('Folder',
+                      'Dummy',
+                      )
         }
     allowed_content_type = {
                             'Section' : ('Section',),
@@ -459,7 +459,7 @@ def cpsupdate(self, langs_list=None):
     ttool.manage_addTypeInformation(
         id='Section',
         add_meta_type='Factory-based Type Information',
-        typeinfo_name='CPSCore: CPS Folder',
+        typeinfo_name='CPSDefault: Folder',
         )
     ttool['Section'].manage_changeProperties(None,
                                              title='Section',
@@ -467,12 +467,12 @@ def cpsupdate(self, langs_list=None):
     ttool.manage_addTypeInformation(
         id='Workspace',
         add_meta_type='Factory-based Type Information',
-        typeinfo_name='CPSCore: CPS Folder',
+        typeinfo_name='CPSDefault: Folder',
         )
     ttool['Workspace'].manage_changeProperties(None,
                                                title='Workspace',
                                                content_meta_type='Workspace')
-    # change actions for cps proxy folder
+    # change actions for folder
     for ptype in ('Section', 'Workspace'):
         actions = list(ttool[ptype]._actions)
         for action in actions:

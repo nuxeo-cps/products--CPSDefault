@@ -1,13 +1,11 @@
 <metal:html tal:define="showthirdcol nothing">
 
-<metal:body use-macro="here/content_lib/macros/master">
-
-<metal:block fill-slot="header" />
+<metal:body use-macro="here/main_template/macros/master">
 
 <metal:main fill-slot="main">
 
   <form action="" method="post"
-        tal:attributes="action string:${here/portal_url}/logged_in">
+        tal:attributes="action string:${base_url}/logged_in">
 
   <!-- ****** Enable the automatic redirect ***** -->
   <input type="hidden" name="came_from" value=""
@@ -62,7 +60,7 @@
 
   <p>
     <a href=""
-       tal:attributes="href string:${here/portal_url}/mail_password_form">
+       tal:attributes="href string:${base_url}/mail_password_form">
       <span i18n:translate="link_forgot_password">
         I forgot my password!
       </span>

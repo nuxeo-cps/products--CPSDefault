@@ -1,22 +1,16 @@
 <metal:html tal:define="showthirdcol nothing">
 
-<metal:body use-macro="here/content_lib/macros/master">
+<metal:body use-macro="here/main_template/macros/master">
 
-<metal:header fill-slot="header">
+<metal:main fill-slot="main" 
+            tal:define="p_props here/portal_properties;
+                       ">
+
   <metal:skin tal:condition="exists: here/portal_skins | nothing">
     <div tal:condition="here/portal_skins/updateSkinCookie | nothing"
           tal:define="dummy here/setupCurrentSkin">
     </div>
   </metal:skin>
-</metal:header>
-
-<metal:main fill-slot="main" 
-            tal:define="p_props here/portal_properties;
-                        p_url here/portal_url;
-                        mtool here/portal_membership;
-                        isAnon mtool/isAnonymousUser|nothing;
-                        member mtool/getAuthenticatedMember;
-                       ">
 
   <div tal:condition="isAnon">
 
@@ -56,12 +50,12 @@
       <p>Please use the form below to change your password.</p>
 
       <form action="change_password" method="post"
-            tal:attributes="action string:${p_url}/change_password">
+            tal:attributes="action string:${base_url}change_password">
         <input type="hidden" name="user" value=""
                tal:attributes="value member">
         <input type="hidden" name="domains:tokens" value="">
         <input type="hidden" name="redirect" value=""
-               tal:attributes="value string:${p_url}/">
+               tal:attributes="value base_url">
 
       <table border="1" width="100%" cellspacing="1" cellpading="1">
 

@@ -131,7 +131,8 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_l10n_select"
    tal:define="map here/Localizer/get_languages_map;
-               default_language here/Localizer/get_default_language;
+               languages python: [lang['id'] for lang in map];
+               selected_language here/Localizer/get_selected_language;
                l10n_translated nothing;"
    tal:condition="python:len(map) > 1">
 <form id="idioma" method="post"
@@ -142,19 +143,23 @@
          i18n:translate="label_language">Language</label><br />
   <select name="lang" id="languageChooser"
     onchange="var elt = document.getElementById('idioma'); if (elt) {elt.submit()}">
-    <option tal:repeat="language python:lang_voc.keysSortedBy('label')"
-            tal:condition="not:l10n_translated"
+    <tal:block condition="not:l10n_translated"
+               repeat="language python:lang_voc.keysSortedBy('label')">
+    <option tal:condition="python:language in languages"
             tal:attributes="value language;
-                            selected python:test(language==default_language,'selected', nothing);"
+                            selected python:test(language==selected_language,'selected', nothing);"
             tal:content="python:lang_voc.get(language)">
       Language</option>
-    <option tal:repeat="language python:lang_voc.keysSortedBy('i18n')"
-            tal:condition="l10n_translated"
+    </tal:block>
+    <tal:block condition="l10n_translated"
+               repeat="language python:lang_voc.keysSortedBy('label')">
+    <option tal:condition="python:language in languages"
             tal:attributes="value language;
-                            selected python:test(language==default_language,'selected', nothing);"
+                            selected python:test(language==selected_language,'selected', nothing);"
             tal:content="python:lang_voc.getMsgid(language)"
             i18n:translate="">
       Language</option>
+    </tal:block>
   </select>
   <input type="submit" value="button_ok" i18n:attributes="value" />
   </p>

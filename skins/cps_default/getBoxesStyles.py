@@ -1,7 +1,7 @@
 ## Script (Python) "getBoxesStyles"
 ##parameters=type=None
 # $Id$
-"""Return the available boxes style and format."""
+"""Return  available boxes style and format."""
 
 types = [
     {'type': 'basebox',
@@ -49,7 +49,12 @@ types = [
               'desc': 'description_nuxeo_treebox_default'},
              {'style': 'nuxeo',
               'format': 'center',
-              'desc': 'description_nuxeo_treebox_center'},
+              'desc': 'description_nuxeo_treebox_center',
+              'config': {'contextuel': 1,
+                         'children_only': 1,
+                         'depth': 2,
+                         'root': ''}
+              },
              ]
      },
     {'type': 'contentbox',
@@ -61,6 +66,9 @@ types = [
              {'style': 'nuxeo',
               'format': 'center',
               'desc': 'description_nuxeo_contentbox_center'},
+             {'style': 'nuxeo',
+              'format': 'last_modified',
+              'desc': 'description_nuxeo_contentbox_last_modified'},
              ]
      },
     {'type': 'actionbox',
@@ -77,11 +85,9 @@ types = [
 
     ]
 
-if not type:
-    return types
+if type:
+    for t in types:
+        if t['type'] == type:
+            return t
 
-for t in types:
-    if t['type'] == type:
-        return t
-
-return
+return types

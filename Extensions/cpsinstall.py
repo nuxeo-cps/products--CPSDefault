@@ -45,10 +45,6 @@ def cpsinstall(self):
     pr("Cleaning actions")
     actiondelmap = {
         'portal_actions': ('folderContents', 'folder_contents'),
-        'portal_membership': ('preferences',
-                              'addFavorite',
-                              'favorites',
-                              ),
         'portal_syndication': ('syndication',),
         }
     for tool, actionids in actiondelmap.items():
@@ -1021,7 +1017,7 @@ def cpsupdate(self, langs_list=None):
     #
     log_i18n = cps_i18n_update(self, langs_list)
     pr (log_i18n)
-    
+
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)
 

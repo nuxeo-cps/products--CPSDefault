@@ -294,8 +294,15 @@
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title" i18n:translate=""
       tal:content="box/box/title">box text title</metal:block>
+
     <metal:block fill-slot="box_body"
-      tal:content="structure box/box/text">box text body</metal:block>
+                 tal:define="i18n python:box['box'].getI18n()">
+      <tal:block condition="i18n" i18n:translate=""
+                 content="structure box/box/text">box text body</tal:block>
+      <tal:block condition="not:i18n"
+                 content="structure box/box/text">box text body</tal:block>
+    </metal:block>
+
   </metal:block>
 </metal:block>
 

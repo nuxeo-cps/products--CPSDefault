@@ -60,11 +60,20 @@ class TextBox(BaseBox):
 
     _properties = BaseBox._properties + (
         {'id':'text', 'type':'text', 'mode':'w', 'label':'Text'},
+        {'id':'i18n', 'type':'boolean', 'mode':'w', 'label':'I18n'},
     )
 
-    def __init__(self, id, category='textbox', text='', **kw):
+    def __init__(self, id, category='textbox', text='', i18n='0', **kw):
         BaseBox.__init__(self, id, category=category, **kw)
         self.text = text
+        self.i18n = i18n
+
+    def getI18n(self):
+        # This code is here for older text boxes that didn't have any i18n
+        # attribute before.
+        value = getattr(self, 'i18n', 0)
+        self.i18n = value
+        return self.i18n
 
 
 InitializeClass(TextBox)

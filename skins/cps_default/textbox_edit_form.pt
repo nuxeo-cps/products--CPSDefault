@@ -5,8 +5,19 @@
 <metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
 <metal:fields fill-slot="additional_fields">
   <tr valign="top">
-    <th align="right" i18n:translate="label_box_content">text</th>
-    <td colspan="5"><textarea name="text" rows="20" cols="72" value="" 
+    <th align="right">
+      <label for="textbox_i18n" i18n:translate="label_i18n">I18n</label>
+    </th>
+    <td colspan="5">
+      <input id="textbox_i18n" name="i18n:boolean" type="checkbox"
+             tal:attributes="checked box/box/i18n|nothing"/>
+    </td>
+  </tr>
+  <tr valign="top">
+    <th align="right">
+      <label for="textbox_content" i18n:translate="label_box_content">Content</label>
+    </th>
+    <td colspan="5"><textarea id="textbox_content" name="text" rows="20" cols="72" value="" 
           tal:content="box/box/text"></textarea></td>
   </tr>
 </metal:fields>

@@ -7,7 +7,7 @@ i18n:name="objectid">Item</span></h1>
 
 <pre>list of boxes:</pre>
 <tal:block define="btool here/portal_boxes;">
-  <tal:block repeat="box python:btool.searchBoxes(here);">
+  <tal:block repeat="box python:btool.getBoxes(here);">
     <tal:block replace="structure box/render" />
   </tal:block>
 </tal:block>

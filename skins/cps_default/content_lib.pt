@@ -159,11 +159,18 @@ format:</pre>
 <pre>final display of items in a column using the given format:</pre>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
-                     format format|string:icon">
+                     format format|string:icon;
+                     choosen_ids python:request.SESSION.get('choosen_ids', [])">
   <table width="100%" border="0" cellspacing="0" cellpadding="5">
     <tr valign="top" tal:repeat="item batch_items">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
+
         <input type="checkbox" name="ids:list" value="" id=""
+	       tal:condition="python:item.getId() not in choosen_ids"
+               tal:attributes="value item/getId;
+                               id python:'cb_'+item.getId()">
+        <input type="checkbox" name="ids:list" value="" id="" checked
+	       tal:condition="python:item.getId() in choosen_ids"
                tal:attributes="value item/getId;
                                id python:'cb_'+item.getId()">
       </td>

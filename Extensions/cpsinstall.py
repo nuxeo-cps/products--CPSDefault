@@ -391,6 +391,7 @@ def cpsupdate(self, langs_list=None):
     wftool.manage_addWorkflow(id=wfid,
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
+    wf.addManagedPermission(View)
 
     for s in ('work', ):
         wf.states.addState(s)
@@ -401,6 +402,8 @@ def cpsupdate(self, langs_list=None):
     s = wf.states.get('work')
     s.setProperties(title='Work',
                     transitions=('create_content', 'cut_copy_paste'))
+    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
+
     t = wf.transitions.get('create')
     t.setProperties(title='Initial creation', new_state_id='work',
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ),
@@ -447,6 +450,8 @@ def cpsupdate(self, langs_list=None):
     wftool.manage_addWorkflow(id=wfid,
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
+    for p in (View, ModifyPortalContent):
+        wf.addManagedPermission(p)
 
     for s in ('work', 'draft', 'locked'):
         wf.states.addState(s)
@@ -457,8 +462,6 @@ def cpsupdate(self, langs_list=None):
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
         wf.variables.addVariable(v)
-    for p in (View, ModifyPortalContent, ):
-        wf.addManagedPermission(p)
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
@@ -617,6 +620,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     wftool.manage_addWorkflow(id=wfid,
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
+    for p in (View, ModifyPortalContent):
+        wf.addManagedPermission(p)
 
     for s in ('work', ):
         wf.states.addState(s)
@@ -625,8 +630,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
         wf.variables.addVariable(v)
-    for p in (View, ModifyPortalContent, ):
-        wf.addManagedPermission(p)
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
@@ -729,6 +732,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     wftool.manage_addWorkflow(id=wfid,
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
+    wf.addManagedPermission(View)
 
     for s in ('work', ):
         wf.states.addState(s)
@@ -738,6 +742,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     s = wf.states.get('work')
     s.setProperties(title='Work',
                     transitions=('create_content', 'cut_copy_paste'))
+    s.setPermission(View, 0, ('Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'))
+
     t = wf.transitions.get('create')
     t.setProperties(title='Initial creation', new_state_id='work',
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ),
@@ -783,6 +789,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     wftool.manage_addWorkflow(id=wfid,
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
+    for p in (View, ModifyPortalContent):
+        wf.addManagedPermission(p)
 
     for s in ('pending', 'published'):
         wf.states.addState(s)
@@ -794,8 +802,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
         wf.variables.addVariable(v)
-    for p in (View, ModifyPortalContent, ):
-        wf.addManagedPermission(p)
 
     s = wf.states.get('pending')
     s.setProperties(title='Waiting for reviewer',

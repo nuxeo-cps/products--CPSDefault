@@ -7,7 +7,7 @@
 <div class="Desktop"
      tal:define="wtool here/portal_workflow;
                  review_state python: wtool.getInfoFor(here, 'review_state');
-                 review_history python: wtool.getInfoFor(here, 'review_history');">
+                 history here/getContentHistory;">
 
 <div metal:define-slot="main" i18n:domain="cmf_default">
 <h1 i18n:translate="">Transition of <span tal:replace="here/getId"
@@ -55,24 +55,37 @@
  
 </form>
 
-<div tal:condition="review_history|nothing" i18n:domain="cmf_default">
- <p><strong i18n:translate="">Reviewing history</strong>
+<div tal:condition="history|nothing" i18n="cmf_default">
+ <p><strong i18n:translate="">Publication state</strong>
  <br />
- <span tal:repeat="items python: here.reverseList(review_history)">
-  <span tal:replace="python: items['time'].aCommon()"></span>
-  <span tal:omit-tag="" tal:content="items/action" i18n:translate=""></span>
-  <span tal:condition="items/effective_date|nothing" i18n:translate="">
-   (effective: <span tal:replace="python: items['effective_date'].aCommon()"
-                     i18n:name="eff_date"></span>)</span>
-  <span tal:omit-tag="" i18n:translate="">by
-   <span tal:replace="items/actor" i18n:name="actor">Actor</span></span>:
-   <small><span tal:define="rhComments items/comments"
-         tal:replace="rhComments">Comments</span></small>
-   <br />
+ <span tal:repeat="item history/states">
+   <span tal:condition="python:item['review_state'] != 'work'">
+     <span tal:replace="python: item['time'].aCommon()">10/12/2000 11:12</span>:
+     <span tal:replace="item/review_state">State</span> in
+     <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/">
+       <span tal:replace="item/title">Section</span>
+     </a>
+     Rev: <span tal:replace="item/rev">3</span>-<span tal:replace="item/lang">en</span><br/>
+   </span>
  </span>
  </p>
-</div>
 
+
+ <p><strong i18n:translate="">Reviewing history</strong>
+ <br />
+ <span tal:repeat="item history/history">
+  <span tal:replace="python: item['time'].aCommon()"></span>:
+  <span tal:omit-tag="" tal:content="item/action" i18n:translate=""></span>
+  <span tal:condition="item/effective_date|nothing" i18n:translate="">
+   (effective: <span tal:replace="python: item['effective_date'].aCommon()"
+                     i18n:name="eff_date"></span>)</span>
+  <span tal:omit-tag="" i18n:translate="">by
+  <span tal:replace="item/actor" i18n:name="actor">Actor</span></span>:
+  <span tal:replace="item/comments">Comments</span>
+  <br/>
+ </span></p>
+
+</div>
 
 </div>
 </div>

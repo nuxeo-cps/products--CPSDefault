@@ -48,6 +48,12 @@
 <body>
 <!-- HEADER =================================== -->
 <div>
+  <!-- display left boxes -->
+  <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
+  <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
+  <metal:block use-macro="python:path(box['macro'])" />
+  </tal:block>
+  <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
 
   <!-- top bar -->
   <div class="top">
@@ -92,12 +98,12 @@
     <!-- MAIN = no width to let it float ========== -->
     <td class="main">
 
-      <!-- display top boxes -->
-      <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
-        <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
+      <!-- display center_top boxes -->
+      <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
+        <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top');">
           <metal:block use-macro="python:path(box['macro'])" />
         </tal:block>
-      <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
+      <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_stop')" />
 
       <div class="document">
 
@@ -120,6 +126,14 @@
         </div>
 
       </div>
+
+      <!-- display center_bottom boxes -->
+      <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_start')" />
+        <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom');">
+          <metal:block use-macro="python:path(box['macro'])" />
+        </tal:block>
+      <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
+      
     </td>
 
     <!-- BAR RIGHT ================================ -->
@@ -150,6 +164,13 @@
 
 <!-- FOOTER =================================== -->
 <hr size="" class="netscape4" />
+
+<!-- display bottom boxes -->
+<b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_start')" />
+<tal:block repeat="box python:btool.filterBoxes(boxes, slot='bottom');">
+<metal:block use-macro="python:path(box['macro'])" />
+</tal:block>
+<b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
 
 <div metal:use-macro="here/generic_lib/macros/footer">
   the footer

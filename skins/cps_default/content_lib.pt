@@ -128,27 +128,48 @@ format:</pre>
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
           zoom zoom|nothing;
+          filter filter|python:0;
           batches_all python:here.getBatchList(items,
           columns,items_per_page,zoom);
           batches python:batches_all[0];
           batch_info python:batches_all[1];
           zoomed python:batches_all[2];
      ">
-  <tal:block condition="batch_info">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr class="even">
-        <td align="right" width="100%"
-          tal:condition="python:batch_info['length']>1">
-          <span i18n:translate="">
-            Objects: <tal:block replace="batch_info/start"
-            i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
-            i18n:name="batch_limit" /> of <tal:block replace="batch_info/length"
-            i18n:name="batch_length" />
-          </span>
-        </td>
-      </tr>
-    </table>
-  </tal:block>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="even">
+      <td align="left" width="50%"
+          tal:condition="filter">
+        <tal:block condition="no_form" tal:replace='structure string:
+          <form action="${request/URL0}" method="get">' />
+          <span i18n:translate="label_filter">Filter:</span>
+          <select name="displayed:list"
+                 tal:define="displayed displayed|python:request.get('displayed',
+                                                                    [''])">
+            <option value=""
+                    tal:attributes="selected python:displayed != ['']"
+                    i18n:translate="label_all">All</option>
+            <option tal:repeat="type allowed|here/allowedContentTypes"
+                    tal:attributes="selected python:type.getId() in displayed;
+                                    value type/getId"
+                    tal:content="type/Title"
+                    i18n:translate="">Portal Type</option>
+          </select>
+          <input type="submit" value="button_ok" i18n:attributes="value"
+                 tal:attributes="name python:test(no_form, None,
+                                                  nav_action + ':method')">
+        <tal:block condition="no_form" tal:replace='structure string:
+          </form>' />
+      </td>
+      <td align="right" tal:condition="batch_info">
+        <span i18n:translate="">
+          Objects: <tal:block replace="batch_info/start"
+          i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
+          i18n:name="batch_limit" /> of <tal:block replace="batch_info/length"
+          i18n:name="batch_length" />
+        </span>
+      </td>
+    </tr>
+  </table>
   <br>
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
     tal:condition="zoomed">

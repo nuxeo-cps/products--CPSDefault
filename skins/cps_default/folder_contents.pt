@@ -3,7 +3,8 @@
                         sort_by params/sort_by;
                         direction params/direction;
                         format params/format;
-                        ptypes python:request.get('ptypes', None);
+                        displayed python:request.get('displayed', ['']);
+                        allowed here/allowedContentTypes;
                        ">
 
 <metal:body use-macro="here/content_lib/macros/master">
@@ -48,7 +49,8 @@
 
    <tal:block define="no_form python:not checkPerm('Delete objects', here);
                       nav_action string:folder_contents;
-                      items python:here.getFolderContents(ptypes=ptypes);">
+                      items python:here.getFolderContents(displayed=displayed);
+                     ">
      <metal:block use-macro="here/content_lib/macros/display_contents" />
    </tal:block>
 
@@ -95,7 +97,7 @@
       </td>
      </tr>
      <tr>
-      <td tal:define="allowed python: here.allowedContentTypes()"
+      <td
           tal:condition="python:can_add and allowed">
         <span i18n:translate="heading_folder_factories">Create a new:</span>
         <select name="type_name">

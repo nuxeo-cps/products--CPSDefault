@@ -135,11 +135,11 @@ class ContentBox(BaseBox):
 
             else:
                 # this is a folder content box
-                ptypes = context.REQUEST.get('ptypes', None)
+                displayed = context.REQUEST.get('displayed', [''])
                 items = folder.getFolderContents(sort_by=self.sort_by,
                                                  direction=self.direction,
                                                  hide_folder=1,
-                                                 ptypes=ptypes)
+                                                 displayed=displayed)
 
 
             if self.nb_items and len(items) > self.nb_items:

@@ -28,11 +28,6 @@ factory_type_information = (
                   'name': 'Edit',
                   'action': 'actionbox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'render_box',
-                  'name': 'Render box',
-                  'action': 'box_action',
-                  'visible': 0,
-                  'permissions': ()},                 
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -57,7 +52,7 @@ class ActionBox(BaseBox):
         )
 
     def __init__(self, id, categories=[], **kw):
-        BaseBox.__init__(self, id, kw=kw)
+        BaseBox.__init__(self, id, macro='actionbox', kw=kw)
         self.categories = categories
 
     security.declarePublic('getActions')

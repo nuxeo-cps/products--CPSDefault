@@ -93,6 +93,19 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         xml = self.portal.manage_exportObject(id='', download=1, toxml=1)
         assert xml
 
+    def testRootFirstLogin(self):
+        self.login("root")
+        self.portal.logged_in()
+
+    def testRoot2FirstLogin(self):
+        self.login("root")
+        members_directory = self.portal.portal_directories.members
+        members_directory.createEntry(
+            {'id': 'root2', 'roles': ('Member', 'Manager')})
+        self.logout()
+        self.login('root2')
+        self.portal.logged_in()
+
 
 def test_suite():
     suite = unittest.TestSuite()

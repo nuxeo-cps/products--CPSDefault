@@ -63,12 +63,6 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
     <a href="."
        tal:attributes="href string:${portal_url}/workspaces/"
        i18n:translate="">workspaces</a>&nbsp;
-    <a href="roster"
-       tal:attributes="href string:${portal_url}/Members/"
-       i18n:translate="">members</a>&nbsp;
-    <a href="recent_news"
-       tal:attributes="href string:${portal_url}/recent_news"
-       i18n:translate="">news</a>&nbsp;
     <a href="search_form"
        tal:attributes="href string:${portal_url}/search_form"
        i18n:translate="">search</a>
@@ -264,7 +258,7 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
   <p id="Breadcrumbs" style="padding-top: 5px">
    <span tal:repeat="bc here/breadcrumbs"
     ><a href="."
-        tal:attributes="href bc/url" tal:content="bc/id"
+        tal:attributes="href string:${bc/url}/" tal:content="bc/id"
      >ID</a><span tal:condition="not: repeat/bc/end">&nbsp;/&nbsp;</span>
    </span>
   </p>

@@ -1150,35 +1150,38 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
 
     pr("Verifiying bookmark actions (favorites)")
-    action_addfav_found = 0
-    action_viewfav_found = 0
-    for action in  portal['portal_actions'].listActions():
-        if action.id == 'add_favorites':
-            action_addfav_found = 1
-        elif action.id == 'view_favorites':
-            action_viewfav_found = 1
-    if not action_addfav_found:
-        portal['portal_actions'].addAction(
-            id='add_favorites',
-            name='action_add_favorites',
-            action='string:${object/absolute_url}/addtoFavorites',
-            condition='python: member and portal.portal_membership.getHomeFolder()',
-            permission='View',
-            category='user')
-        pr(" Action add_favorites added")
+    if 'Link' in portal['portal_types'].objectIds():
+        action_addfav_found = 0
+        action_viewfav_found = 0
+        for action in  portal['portal_actions'].listActions():
+            if action.id == 'add_favorites':
+                action_addfav_found = 1
+            elif action.id == 'view_favorites':
+                action_viewfav_found = 1
+        if not action_addfav_found:
+            portal['portal_actions'].addAction(
+                id='add_favorites',
+                name='action_add_favorites',
+                action='string:${object/absolute_url}/addtoFavorites',
+                condition='python: member and portal.portal_membership.getHomeFolder()',
+                permission='View',
+                category='user')
+            pr(" Action add_favorites added")
+        else:
+            pr(" Action add_favorites present")
+        if not action_viewfav_found:
+            portal['portal_actions'].addAction(
+                id='view_favorites',
+                name='action_view_favorites',
+                action='string:${portal/portal_membership/getHomeUrl}/Favorites',
+                condition='python: hasattr(portal.portal_membership.getHomeFolder(),"Favorites")',
+                permission='View',
+                category='user')
+            pr(" Action view_favorites added")
+        else:
+            pr(" Action view_favorites present")
     else:
-        pr(" Action add_favorites present")
-    if not action_viewfav_found:
-        portal['portal_actions'].addAction(
-            id='view_favorites',
-            name='action_view_favorites',
-            action='string:${portal/portal_membership/getHomeUrl}/Favorites',
-            condition='python: hasattr(portal.portal_membership.getHomeFolder(),"Favorites")',
-            permission='View',
-            category='user')
-        pr(" Action view_favorites added")
-    else:
-        pr(" Action view_favorites present")
+        pr(" CPSDocument type Link does not seem to exist ; Favorites will not be available")
 
     pr("Adding cps default boxes")
     idbc = portal.portal_boxes.getBoxContainerId(portal)

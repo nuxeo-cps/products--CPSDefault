@@ -697,10 +697,24 @@ def cpsupdate(self, langs_list=None):
     pr("Verifying roots: %s and %s" % (sections_id, workspaces_id))
     if not portalhas(workspaces_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
+
                                                 workspaces_id)
         portal[workspaces_id].getContent().setTitle('Root of Workspaces') # XXX L10N
         portal[workspaces_id].reindexObject()
         pr("  Adding %s Folder" % workspaces_id)
+
+        # Members directory
+        members_id = 'members' 
+        workspaces = portal[workspaces_id]
+        
+        portal.portal_workflow.invokeFactoryFor(workspaces,'Workspace',
+                                                members_id)
+        ms = getattr(workspaces, members_id)
+        
+        ms.getContent().setTitle('Member Directories') # XXX Localization
+        ms.reindexObject()
+        pr("  Adding %s Folder" % members_id) # XXX Localization 
+                                                
     if not portalhas(sections_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',
                                                 sections_id)

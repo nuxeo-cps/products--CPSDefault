@@ -40,6 +40,7 @@ class DefaultInstaller(CPSInstaller):
         self.log("")
         installername = getSecurityManager().getUser().getUserName()
         self.log("Current user: %s" % installername)
+        self.setupRegistration()
         self.setupMembership()
         self.setupSkins()
         self.setupTools()
@@ -178,6 +179,11 @@ class DefaultInstaller(CPSInstaller):
                 'View', roles=['Manager'], acquire=0)
             self.portal.cpsupdate.manage_permission(
                 'Access contents information', roles=['Manager'], acquire=0)
+
+    def setupRegistration(self):
+        self.log("Setting up portal registration tool")
+        self.verifyTool('portal_registration', 'CPSCore',
+                        'CPS Registration Tool')
 
     def setupMembership(self):
         self.log('Setting up portal membership support,')

@@ -49,6 +49,14 @@ try:
         l10n_descriptions = proxy.getL10nDescriptions()
 except AttributeError:
     pass
+except Exception, e:
+    # when publishing folderish document
+    # portal_tree try to index submited doc and we don't have
+    # yet the permission
+    if repr(e).find('Unauthorized') > 1:
+        pass
+    else:
+        raise
 
 return {'id': proxy.getId(),
         'title': doc.Title(),

@@ -265,6 +265,19 @@ class FakeErrorLog:
     def raising(self, *args):
         pass
 
+#
+# Patch because of the Indexation subscribers commit() after each
+# reindex otherwiese we'll need to manage with transaction within the
+# unit tests
+#
+
+from Products.CPSCore.ProxyBase import ProxyBase
+ProxyBase.reindexObject = ProxyBase._reindexObject
+ProxyBase.reindexObjectSecurity = ProxyBase._reindexObjectSecurity
+
+##############################################################
+##############################################################
+
 def setupPortal(PortalInstaller=CPSInstaller):
     # Create a CPS site in the test (demo-) storage
     app = ZopeTestCase.app()

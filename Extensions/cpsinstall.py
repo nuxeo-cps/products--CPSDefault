@@ -347,7 +347,7 @@ class DefaultInstaller(CPSInstaller):
         self.verifyEventSubscribers(subscriptions)
 
     def setupWorkflow(self):
-        # replace portal_workflow with a (CPS Tools) CPW Workflow Tool.
+        # replace portal_workflow with a (CPS Tools) CPS Workflow Tool.
         self.verifyTool('portal_workflow', 'CPSCore', 'CPS Workflow Tool')
         self.setupWorkflow1()
         self.setupWorkflow2()
@@ -490,10 +490,10 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_name': '',
                 'actbox_category': 'workflow',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
             'copy_submit': {
                 'title': 'Copy content into a section for Publishing',
@@ -505,8 +505,8 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_submit_form',
                 'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
                           'guard_expr':''},
             },
             'checkout_draft': {
@@ -517,10 +517,10 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_name': 'action_checkout_draft',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_checkout_draft_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
             'checkout_draft_in': {
                 'title': 'Draft is created',
@@ -536,9 +536,9 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_name': 'action_checkin_draft',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_checkin_draft_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; Owner',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; Owner',
+                          'guard_expr': ''},
             },
             'abandon_draft': {
                 'title': 'Abandon draft',
@@ -548,9 +548,9 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_name': 'action_abandon_draft',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_abandon_draft_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; Owner',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; Owner',
+                          'guard_expr': ''},
             },
             'unlock': {
                 'title': 'Unlock content after a draft is done',
@@ -568,10 +568,10 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
         }
 
@@ -608,10 +608,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'review_history': {
                 'description': 'Provides access to workflow history',
                 'default_expr': 'state_change/getHistory',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember; WorkspaceReader',
-                          'guard_expr':''}
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember; WorkspaceReader',
+                          'guard_expr': ''}
             },
             'time': {
                 'description': 'Time of the last transition',
@@ -666,9 +666,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_category': 'workflow',
                 'actbox_url': '',
                 'props': {'guard_permissions':'',
-                        'guard_roles':'Manager; WorkspaceManager; '
+                        'guard_roles': 'Manager; WorkspaceManager; '
                                       'WorkspaceMember',
-                        'guard_expr':''},
+                        'guard_expr': ''},
             },
             'copy_submit': {
                 'title': 'Copy content into a section for Publishing',
@@ -679,10 +679,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': 'action_submit',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_submit_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
             'create_content': {
                 'title': 'Create content',
@@ -693,10 +693,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
             'cut_copy_paste': {
                 'title': 'Cut/Copy/Paste',
@@ -709,10 +709,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
         }
 
@@ -738,10 +738,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'review_history': {
                 'description': 'Provides access to workflow history',
                 'default_expr': 'state_change/getHistory',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember; WorkspaceReader',
-                          'guard_expr':''}
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember; WorkspaceReader',
+                          'guard_expr': ''}
             },
             'time': {
                 'description': 'Time of the last transition',
@@ -769,7 +769,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         wfstates = {
             'work': {
                 'title': 'Work',
-                'transitions':('create_content', 'cut_copy_paste'),
+                'transitions': ('create_content', 'cut_copy_paste'),
                 'permissions': {View: ('Manager', 'SectionManager',
                                        'SectionReviewer', 'SectionReader')},
             },
@@ -787,10 +787,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
-                                        'SectionReviewer; SectionReader',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer; SectionReader',
+                          'guard_expr': ''},
             },
             'create': {
                 'title': 'Initial creation',
@@ -798,9 +798,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'transition_behavior': (TRANSITION_INITIAL_CREATE,),
                 'clone_allowed_transitions': None,
                 'actbox_category': 'workflow',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager;',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager;',
+                          'guard_expr': ''},
             },
             # XXX: TODO warning guard for publishing and creating
             # sub section are the same
@@ -811,10 +811,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                         TRANSITION_ALLOWSUB_PUBLISHING),
                 'clone_allowed_transitions': None,
                 'trigger_type': TRIGGER_USER_ACTION,
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
-                                        'SectionReviewer; SectionReader',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer; SectionReader',
+                          'guard_expr': ''},
             },
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions, {}, {})
@@ -868,10 +868,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                         TRANSITION_BEHAVIOR_FREEZE, ),
                 'clone_allowed_transitions': None,
                 'after_script_name': 'mail_notification',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
-                                        'SectionReviewer',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer',
+                          'guard_expr': ''},
             },
             'cut_copy_paste': {
                 'title': 'Cut/Copy/Paste',
@@ -884,10 +884,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
                                         'SectionReviewer',
-                          'guard_expr':''},
+                          'guard_expr': ''},
             },
             'submit': {
                 'title': 'Member requests publishing',
@@ -913,10 +913,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': 'action_accept',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_accept_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
-                                        'SectionReviewer',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer',
+                          'guard_expr': ''},
             },
             'reject': {
                 'title': 'Reviewer rejects publishing',
@@ -927,10 +927,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': 'action_reject',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_reject_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
-                                        'SectionReviewer',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer',
+                          'guard_expr': ''},
             },
             'unpublish': {
                 'title': 'Reviewer removes content from publication',
@@ -941,10 +941,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': 'action_un_publish',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_unpublish_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; SectionManager; '
-                                        'SectionReviewer',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer',
+                          'guard_expr': ''},
             },
         }
 
@@ -988,10 +988,10 @@ except:
             'review_history': {
                 'description': 'Provides access to workflow history',
                 'default_expr': 'state_change/getHistory',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember; WorkspaceReader',
-                          'guard_expr':''}
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember; WorkspaceReader',
+                          'guard_expr': ''}
             },
             'time': {
                 'description': 'Time of the last transition',

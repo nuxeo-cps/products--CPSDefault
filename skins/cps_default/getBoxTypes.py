@@ -164,6 +164,14 @@ items = [
                 'desc': 'description_nuxeo_internallinks_default'},
                ]
      },
+    {'category': 'docrenderbox',
+     'title': 'portal_type_DocRenderBox_title',
+     'desc': 'portal_type_DocRenderBox_description',
+     'types': [{'provider': 'nuxeo',
+                'id': 'default',
+                'desc': 'description_nuxeo_render_default'},
+              ]
+     },
     ]
 
 citems = context.getCustomBoxTypes()

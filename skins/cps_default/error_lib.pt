@@ -21,8 +21,11 @@
   <p i18n:translate="error_key_or_name">This error means that the resource you
   wanted to view tried to access an unknown parameter.</p>
 
-  <p>The best is probably to return to were you come from.</p>
+  <p>Please go back and try later or contact the administrator.</p>
   <a href="javascript:history.back()">Go back</a>.<br>
+  <a href="mailto:admin@here.com" title="Email Admin"
+     tal:attributes="href string:mailto:${p_props/email_from_address}"
+     tal:content="p_props/email_from_address">Contact the administrator</a>.<br>
 </metal:block>
 
   
@@ -32,6 +35,9 @@
 
   <p>Untreated error.</p>
 
-  <p>The best is probably to return to were you come from.</p>
-  <a href="javascript:history.back()">Go back</a>
+  <p>Please go back and try later or contact the administrator.</p>
+  <a href="javascript:history.back()">Go back</a>.<br>
+  <a href="mailto:admin@here.com" title="Email Admin"
+     tal:attributes="href string:mailto:${p_props/email_from_address}"
+     tal:content="p_props/email_from_address">Contact the administrator</a>.<br>
 </metal:block>

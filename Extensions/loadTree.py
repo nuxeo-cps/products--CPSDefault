@@ -17,6 +17,8 @@ def pr(bla):
         LOG('loadTree:', INFO, bla)
 
 
+metadata_fields = ['Title', 'Description']
+
 class DataConfig:
     parser = None
     filename = ''
@@ -134,6 +136,15 @@ def buildTree(portal, cfg, parent='root', path='', parent_type=None):
         kw = cfg.getKw(content,
                        remove=('id', 'type', 'force',
                                'contents', 'permission'))
+        #XXX: make first letter uppercase for some fields (metadata)
+        #     as this info is somehow lost between what's output by dump_tree
+        #     and this point (probably by the parser)
+        for field in metadata_fields:
+            lowered_field = field.lower()
+            if kw.has_key(lowered_field):
+                kw[field] = kw.get(lowered_field)
+                del kw[lowered_field]
+        #End of XXX
         ob = createContent(portal, type, path, id, force, **kw)
         if ob:
             for perm in cfg.getPermission(content):

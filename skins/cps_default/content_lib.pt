@@ -165,11 +165,8 @@ format:</pre>
           zoomed python:batches_all[2];
      ">
  <tal:block tal:condition="python: batch_info and batch_info['nb_pages'] > 1">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0"
-         summary="batching layout">
-    <tr class="even">
-      <td align="left" width="50%"
-          tal:condition="filter">
+    <div class="batchLayout">
+      <tal:block tal:condition="filter">
         <tal:block condition="no_form" tal:replace='structure string:
         &lt;form action="${request/URL0}" method="get">' />
           <span i18n:translate="label_display">Display:</span>
@@ -190,17 +187,14 @@ format:</pre>
                                                   nav_action + ':method')" />
         <tal:block condition="no_form" tal:replace='structure string:
         &lt;/form>' />
-      </td>
-      <td align="right">
+      </tal:block>
         <span i18n:translate="">
           Objects: <tal:block replace="batch_info/start"
           i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
           i18n:name="batch_limit" /> of <tal:block replace="batch_info/length"
           i18n:name="batch_length" />
          </span>
-      </td>
-    </tr>
-  </table>
+    </div>
   <br />
  </tal:block>
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -232,10 +226,7 @@ format:</pre>
   </table>
   <tal:block condition="python:batch_info and batch_info['nb_pages'] > 1">
     <br />
-    <table width="100%" border="0" cellspacing="0" cellpadding="0"
-      summary="navigation layout">
-      <tr class="even">
-        <td align="center" width="100%">
+      <div class="pageNavigationLayout">
           <span i18n:translate="label_page">Pages</span>:
           <a tal:define="previous batch_info/previous"
              tal:condition="python:previous is not None"
@@ -255,12 +246,7 @@ format:</pre>
              tal:attributes="href python:'%s?%s'%(request['URL'],
                                                 mq(request.form, b_start=next))"
              i18n:translate="batch_next">Next</a>
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-      </tr>
-    </table>
+      </div>
   </tal:block>
 </tal:block>
 </metal:block>

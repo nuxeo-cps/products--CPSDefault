@@ -76,6 +76,19 @@
                 tal:attributes="selected python:box['box'].query_status == 'published'">Published</option>
             </select>
           </td>
+         <tr>
+          <td><span i18n:translate="label_search_portal_type">Portal type</span></td>
+          <td>
+            <select name="query_portal_type">
+              <option i18n:translate="lable_all" value="">All</option>
+            </select>
+            <tal:block repeat="type python:here.getSearchablePortalTypes(only_ids=1)">
+            <option i18n:translate=""
+              tal:attributes="value type"
+              tal:content="string:portal_type_${type}_title">Type</option>
+            </tal:block>
+          </td>
+        </tr>
         </tr>
         <tr>
           <td><span i18n:translate="label_search_modified_since">Modified since</span></td>

@@ -74,6 +74,8 @@ class ContentBox(BaseBox):
          'label': 'Search criteria' },
         {'id': 'query_status', 'type': 'string', 'mode': 'w',
          'label': 'Search criteria' },
+        {'id': 'query_portal_type', 'type': 'string', 'mode': 'w',
+         'label': 'Search criteria' },
         {'id': 'query_modified', 'type': 'string', 'mode': 'w',
          'label': 'Search criteria' },
         )
@@ -81,7 +83,7 @@ class ContentBox(BaseBox):
     def __init__(self, id, folder='', nb_items=0, sort_by='',
                  direction='', display='',
                  query_title='', query_description='', query_fulltext='',
-                 query_status='', query_modified='', **kw):
+                 query_status='', query_portal_type='', query_modified='', **kw):
         BaseBox.__init__(self, id, category='contentbox', kw=kw)
         self.folder = folder
         self.nb_items = nb_items
@@ -91,6 +93,7 @@ class ContentBox(BaseBox):
         self.query_status = query_status
         self.query_fulltext = query_fulltext
         self.query_description = query_description
+        self.query_portal_type = query_portal_type
         self.query_title = query_title
         self.query_modified = query_modified
 
@@ -178,6 +181,8 @@ class ContentBox(BaseBox):
             query['SearchableText'] = self.query_fulltext
         if self.query_title:
             query['Title'] = self.query_title
+        if self.query_portal_type:
+            query['portal_type'] = self.query_portal_type
         if self.query_description:
             query['Description'] = self.query_description
         if self.query_status:

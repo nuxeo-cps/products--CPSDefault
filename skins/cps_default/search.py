@@ -1,4 +1,4 @@
-##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=1, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sortt_limit=100
+##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=1, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100
 # $Id$
 """ return a list of proxy matching the query """
 

@@ -26,7 +26,7 @@ WORKSPACES_ID = 'workspaces'
 
 WebDavLockItem = 'WebDAV Lock items'
 WebDavUnlockItem = 'WebDAV Unlock items'
-
+UseExternalEditor = 'Use external editor'
 
 class DefaultInstaller(CPSInstaller):
 
@@ -241,6 +241,9 @@ class DefaultInstaller(CPSInstaller):
                      'SectionReader'],
             'View management screens': ['Manager', 'SectionManager'],
             'View archived revisions': ['Manager', 'SectionManager'],
+            WebDavLockItem: ['SectionManager', 'SectionReviewer'],
+            WebDavUnlockItem: ['SectionManager', 'SectionReviewer'],
+            UseExternalEditor: ['SectionManager', 'SectionReviewer'],
             }
         workspaces_perm = {
             'Add portal content': ['Manager', 'WorkspaceManager',
@@ -268,6 +271,7 @@ class DefaultInstaller(CPSInstaller):
                                         'WorkspaceMember'],
             WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
+            UseExternalEditor: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             }
         self.setupPortalPermissions(sections_perm, self.portal[SECTIONS_ID])
         self.setupPortalPermissions(workspaces_perm, self.portal[WORKSPACES_ID])

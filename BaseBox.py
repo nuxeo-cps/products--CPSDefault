@@ -121,7 +121,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     def __init__(self, id, title='', category='basebox',
                  box_skin='here/box_lib/macros/mmcbox',
                  minimized=0, closed=0,
-                 provider='nuxeo', btype='default', slot='left', order=0,
+                 provider='nuxeo', btype='default', slot='creation_slot',
+                 order=0,
                  display_in_subfolder=1,
                  display_only_in_subfolder=0, locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)

@@ -7,10 +7,17 @@ i18n:name="objectid">Item</span></h1>
 
 <pre>list of boxes:</pre>
 <tal:block define="btool here/portal_boxes;">
-  <tal:block repeat="box python:btool.getBoxes(here);">
-    <tal:block replace="structure box/render" />
+  <tal:block repeat="b python:btool.getBoxes(here);">
+    <tal:block define="box_id python:b[0];
+                       settings python:b[1];
+                       macro_path python:b[2];
+                       box python:b[3]">
+    <tal:block replace="python:box_id + ', settings:' + str(settings)" />
+    <metal:block use-macro="python:path(macro_path)" />
+  </tal:block>
   </tal:block>
 </tal:block>
+
 
 </div>
 

@@ -38,7 +38,7 @@ tal:content="context_url" /></p>
   <tal:block repeat="box sboxes">
   <tr tal:define="action python:box['box'].getTypeInfo().immediate_view;
                   editable python:checkPerm('Manage Boxes', box['box'])"
-    tal:attributes="bgcolor python:repeat['box'].even() and '#EEEEEE' or nothing">
+    tal:attributes="class python:test(repeat['box'].even(), 'even', 'odd')">
     <td align="right"><tal:block replace="box/box/order" /></td>
     <td nowrap>
       <tal:block

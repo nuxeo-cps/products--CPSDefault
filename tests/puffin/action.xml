@@ -1,0 +1,166 @@
+<!-- $Id$ -->
+<!-- puffin action file -->
+
+<actionConfig>
+  <!-- ============================================================ -->
+  <!-- DEFAULT CONFIG -->
+  <defaultActionType type="Http" />
+
+  <actionTypeDefaults>
+    <default type="Http">
+      <param name="server">cps3.devnull</param>
+      <param name="port">80</param>
+      <param name="contextAlias"></param>
+    </default>
+  </actionTypeDefaults>
+
+  <autoInputs>
+    <input name="host" type="HEADER" processor="VALUE" actionTypeList="Http" systemFlagList="">
+      <param name="value" eval="0">cps3.devnull</param>
+    </input>
+    <input name="Cookie" type="HEADER" processor="DICT" 
+      antiActionList="login" actionTypeList="Http">
+      <param name="key" eval="0">LOGIN_COOKIE</param>
+    </input>
+  </autoInputs>
+
+  <defaultValidatorList>
+    <validator src="paf" type="Timer" antiActionList="" systemFlagList="" actionTypeList="Http,Pop">
+      <param name="timeLimitSeconds">10</param>
+    </validator>
+    <validator src="paf" type="StatusCode" actionTypeList="Http">
+      <param name="validStatus">200</param>
+      <param name="validStatus">302</param>
+    </validator>
+  </defaultValidatorList>
+
+
+  <!-- ============================================================ -->
+  <!-- ACTION LIST -->
+  <actionList>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <action name="setLoginMemberInfo" type="Local">
+      <output name="USER_NAME" processor="VALUE">
+        <param name="value">pufmember</param>
+      </output>
+      <output name="PASSWORD" processor="VALUE">
+        <param name="value">pufmember</param>
+      </output>
+    </action>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <action name="setLoginManagerInfo" type="Local">
+      <output name="USER_NAME" processor="VALUE">
+        <param name="value">pufmanager</param>
+      </output>
+      <output name="PASSWORD" processor="VALUE">
+        <param name="value">pufmanager</param>
+      </output>
+    </action>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <action name="login">
+      <actionParams>
+        <param name="path">/logged_in</param>
+      </actionParams>
+      <!-- INPUTS -->
+      <input name="__ac_name" type="POST" processor="DICT">
+        <param name="key">USER_NAME</param>
+      </input>
+      <input name="__ac_password" type="POST" processor="DICT">
+        <param name="key">PASSWORD</param>
+      </input>
+      <!-- OUTPUTS -->
+      <output name="LOGIN_COOKIE" processor="ExtractHeader" preValidation="1" defaultValue="">
+        <param name="headerName" eval="0">Set-Cookie</param>
+        <param name="headerPrefix" eval="0"></param>
+      </output>
+      <!-- VALIDATION -->
+      <validatorList>
+        <validator type="Expression">
+	  <param name="evalExpression"><![CDATA["""$$$LOGIN_COOKIE$$$""".find('Path=/') > 0 and """$$$PASSWORD$$$""" and """$$$USER_NAME$$$"""]]></param>
+	</validator>  
+      </validatorList>
+    </action>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <action name="access_wp">
+      <actionParams>
+        <param name="path">/workspaces/folder_contents</param>
+      </actionParams>
+      <!-- OUTPUTS -->
+      <output name="BASE" processor="ExtractRegex" preValidation="1">
+        <param name="expr" eval="0"><![CDATA[<base href="http://[^/]+([^"]+)"]]></param>
+      </output>
+      <!-- VALIDATION -->
+      <validatorList>
+        <validator name="val1" type="Expression">
+          <param name="evalExpression"><![CDATA["""$$$BASE$$$""".find("workspaces") > 0]]></param>
+        </validator>
+      </validatorList>
+    </action>
+  
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <action name="init_dummy" type="Local">
+      <output name="CONTENT_TYPE" processor="VALUE">
+        <param name="value">Dummy</param>
+      </output>
+      <output name="CONTENT_ID" processor="VALUE">
+        <param name="value">puffin_dummy_id</param>
+      </output>
+      <output name="META_TITLE" processor="VALUE">
+        <param name="value">Puffin Dummy Title</param>
+      </output>
+      <output name="META_DESC" processor="VALUE">
+        <param name="value">Puffin dummy description</param>
+      </output>
+      <output name="META_SUBJECT" processor="VALUE">
+        <param name="value">Puffin Subject</param>
+      </output>
+      
+      <output name="DUMMY_BODY" processor="VALUE">
+        <param name="value">Puffin Dummy BODY</param>
+      </output>
+    </action>
+  
+  
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <action name="create_content">
+      <actionParams>
+        <param name="path">/workspaces/content_create</param>
+      </actionParams>
+      <!-- INPUT -->
+      <input name="id" type="POST" processor="DICT">
+          <param name="key">CONTENT_ID</param>
+      </input>
+      <input name="type_name" type="POST" processor="DICT">
+          <param name="key">CONTENT_TYPE</param>
+      </input>
+        
+      <!-- OUTPUTS -->
+      <output name="Location" processor="ExtractHeader" preValidation="1">
+        <param name="headerName" eval="0">Location</param>
+      </output>
+      <output name="DOC_ID" processor="ExecuteExpression" preValidation="1">
+        <param name="calculationFormula"><![CDATA[re.match("http://[^/]+/Members/member/([^/]+)","$$$Location$$$") and re.match("http://[^/]+/Members/member/([^/]+)","$$$Location$$$").group(1)]]></param>
+      </output>
+      
+      <!-- VALIDATION -->
+      <validatorList>
+        <validator src="paf" type="StatusCode">
+          <param name="validStatus">302</param>
+        </validator>
+        <validator name="checkLocation" type="Expression">
+          <param name="evalExpression"><![CDATA["""$$$Location$$$""".find("CPSFlexibleDocument_editForm") > 0]]></param>
+        </validator>
+        <validator name="checkDocId" type="Expression">
+          <param name="evalExpression"><![CDATA["""$$$DOC_ID$$$""".find("puffin") > -1]]></param>
+        </validator>
+      </validatorList>
+    </action>
+  
+  </actionList>
+
+</actionConfig>

@@ -28,6 +28,9 @@ types = [
              {'style': 'nuxeo',
               'format': 'footer',
               'desc': 'description_nuxeo_basebox_footer'},
+             {'style': 'nuxeo',
+              'format': 'display_settings',
+              'desc': 'description_nuxeo_basebox_display_settings'},
              ]
      },
     {'type': 'textbox',

@@ -5,8 +5,10 @@
      metal:fill-slot="main"
      tal:define="searching python: request.get('role_submit', None );
                  mtool here/portal_membership;
-                "
->
+                 dtool here/portal_metadirectories;
+                 groups python:dtool['groups'];
+                 display_prop python:groups['display_prop'];
+                ">
 
 <div tal:condition="python: not searching">
 <!-- Search -->
@@ -193,12 +195,18 @@
 
    <tr tal:repeat="group found">
     <td width="16">
-     <input type="checkbox" name="member_ids:list"
-            value=""
-            tal:attributes="value string:group:${group}" />
+        <input type="checkbox" name="member_ids:list"
+               value=""
+               tal:attributes="value string:group:${group}" />
     </td>
-    <td tal:content="python:group"> Groupame </td>
-    <td>  </td>
+    <tal:block define="igroup python:groups.searchEntry(**{'id_':group})">
+      <td tal:condition="python:igroup != ()"
+          tal:content="python:igroup[0][display_prop]"> Groupame
+      </td>
+      <td tal:condition="python:igroup == ()"
+          i18n:translate=""
+          tal:content="python:modules['string'].split(group, ':')[1]" />
+    </tal:block>
    </tr>
 
    <tr>

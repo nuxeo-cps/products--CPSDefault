@@ -21,7 +21,7 @@ all_portal_types = ttool.objectIds()
 items = LazyFilter(items, skip='View')
 
 for item in items:
-    if getattr(item, 'view', None) is None:
+    if getattr(item.aq_explicit, 'view', None) is None:
         continue
     if item.getId().startswith('.'):
         continue

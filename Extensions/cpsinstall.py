@@ -574,7 +574,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         wfstates = {
             'work': {
                 'title': 'Work',
-                'transitions': ('create_content', 'cut_copy_paste'),
+                'transitions': ('create_content', 'cut_copy_paste', 'modify'),
                 'permissions': {View: ('Manager', 'WorkspaceManager',
                                        'WorkspaceMember', 'WorkspaceReader')},
             },
@@ -621,6 +621,20 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                                          'WorkspaceMember',
                           'guard_expr': ''},
             },
+            'modify': { 
+                'title': 'Modification of content,'
+                         'provides a specific entry in status history',
+                'new_state_id': '',
+                'transition_behavior': (),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_category': 'workflow',
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; Owner;'
+                                         'WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''}, 
+            },
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
                             self.WFS_ADD_LANGUAGE_TO_PROXY, {})
@@ -638,15 +652,15 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'work': {
                 'title': 'Work',
                 'transitions': ('copy_submit', 'checkout_draft',
-                                'cut_copy_paste'),
-                 'permissions': {View: ('Manager', 'WorkspaceManager',
-                                         'WorkspaceMember', 'WorkspaceReader'),
-                                 ModifyPortalContent: ('Manager', 'Owner',
-                                    'WorkspaceManager', 'WorkspaceMember'),
-                                 WebDavLockItem: ('Manager', 'Owner',
-                                    'WorkspaceManager', 'WorkspaceMember'),
-                                 WebDavUnlockItem: ('Manager', 'Owner',
-                                    'WorkspaceManager', 'WorkspaceMember')},
+                                'cut_copy_paste', 'modify'),
+                'permissions': {View: ('Manager', 'WorkspaceManager',
+                                        'WorkspaceMember', 'WorkspaceReader'),
+                                ModifyPortalContent: ('Manager', 'Owner',
+                                   'WorkspaceManager', 'WorkspaceMember'),
+                                WebDavLockItem: ('Manager', 'Owner',
+                                   'WorkspaceManager', 'WorkspaceMember'),
+                                WebDavUnlockItem: ('Manager', 'Owner',
+                                   'WorkspaceManager', 'WorkspaceMember')},
            },
             'draft': {
                 'title': 'Draft',
@@ -765,6 +779,20 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                                          'WorkspaceMember',
                           'guard_expr': ''},
             },
+            'modify': { 
+                'title': 'Modification of content,'
+                         'provides a specific entry in status history',
+                'new_state_id': '',
+                'transition_behavior': (),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_category': 'workflow',
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; Owner;'
+                                         'WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''}, 
+            },
         }
 
 
@@ -843,15 +871,15 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'work': {
                 'title': 'Work',
                 'transitions': ('copy_submit', 'create_content',
-                               'cut_copy_paste'),
-                 'permissions': {View: ('Manager', 'WorkspaceManager',
-                                        'WorkspaceMember', 'WorkspaceReader'),
-                                 ModifyPortalContent: ('Manager',
-                                        'WorkspaceManager', 'WorkspaceMember'),
-                                 WebDavLockItem: ('Manager',
-                                        'WorkspaceManager', 'WorkspaceMember'),
-                                 WebDavUnlockItem: ('Manager',
-                                        'WorkspaceManager', 'WorkspaceMember')},
+                                'cut_copy_paste', 'modify'),
+                'permissions': {View: ('Manager', 'WorkspaceManager',
+                                       'WorkspaceMember', 'WorkspaceReader'),
+                                ModifyPortalContent: ('Manager',
+                                       'WorkspaceManager', 'WorkspaceMember'),
+                                WebDavLockItem: ('Manager',
+                                       'WorkspaceManager', 'WorkspaceMember'),
+                                WebDavUnlockItem: ('Manager',
+                                       'WorkspaceManager', 'WorkspaceMember')},
            },
         }
 
@@ -914,6 +942,20 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_roles': 'Manager; WorkspaceManager; '
                                          'WorkspaceMember',
                           'guard_expr': ''},
+            },
+            'modify': { 
+                'title': 'Modification of content,'
+                         'provides a specific entry in status history',
+                'new_state_id': '',
+                'transition_behavior': (),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_category': 'workflow',
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; Owner;'
+                                         'WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''}, 
             },
         }
 
@@ -1042,14 +1084,14 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'pending': {
                 'title': 'Waiting for reviewer',
                 'transitions': ('accept', 'reject'),
-                 'permissions': {View: ('SectionReviewer', 'SectionManager',
-                                        'Manager'),
-                                 ModifyPortalContent: ('SectionReviewer',
-                                        'SectionManager', 'Manager'),
-                                 WebDavLockItem: ('SectionReviewer',
-                                        'SectionManager', 'Manager'),
-                                 WebDavUnlockItem: ('SectionReviewer',
-                                        'SectionManager', 'Manager')},
+                'permissions': {View: ('SectionReviewer', 'SectionManager',
+                                       'Manager'),
+                                ModifyPortalContent: ('SectionReviewer',
+                                       'SectionManager', 'Manager'),
+                                WebDavLockItem: ('SectionReviewer',
+                                       'SectionManager', 'Manager'),
+                                WebDavUnlockItem: ('SectionReviewer',
+                                       'SectionManager', 'Manager')},
             },
             'published': {
                 'title': 'Public',
@@ -1221,8 +1263,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     def addModifyTransition(self):
         wftool = self.getTool('portal_workflow')
-        wfs_to_upgrade = ('workspace_content_wf',
-                         'workspace_folderish_content_wf')
+        wfs_to_upgrade = ('workspace_content_wf', 'workspace_folder_wf',
+                          'workspace_folderish_content_wf')
         modify_transition_def = { 
             'modify': { 'title': 'Modification of content,'
                                  'provides a specific entry in status history',

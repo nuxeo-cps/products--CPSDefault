@@ -97,6 +97,17 @@ items = [
 
     ]
 
+citems = context.getCustomBoxTypes()
+for citem in citems:
+    found = 0
+    for item in items:
+        if item['category'] == citem['category']:
+            item['types'].extend(citem['types'])
+            found = 1
+            break
+    if not found:
+        items.extend(citem)
+
 if category:
     for item in items:
         if item['category'] == category:

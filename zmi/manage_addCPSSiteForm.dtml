@@ -26,7 +26,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-    <input type="text" name="id" size="40" value="cps">
+    <input type="text" name="id" size="40" value="cps"/>
     </td>
   </tr>
 
@@ -37,7 +37,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-    <input type="text" name="title" size="40" value="CPS Portal">
+    <input type="text" name="title" size="40" value="CPS Portal"/>
     </td>
   </tr>
 
@@ -60,7 +60,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_id" size="40" value="root">
+      <input type="text" name="root_id" size="40" value="root"/>
     </td>
   </tr>
 
@@ -71,7 +71,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_sn" size="40" value="CPS">
+      <input type="text" name="root_sn" size="40" value="CPS"/>
     </td>
   </tr>
 
@@ -82,7 +82,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_givenName" size="40" value="Root">
+      <input type="text" name="root_givenName" size="40" value="Root"/>
     </td>
   </tr>
 
@@ -93,7 +93,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-      <input type="text" name="root_email" size="40" value="root@cps">
+      <input type="text" name="root_email" size="40" value="root@cps"/>
     </td>
     </td>
   </tr>
@@ -105,7 +105,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-      <input type="password" name="root_password1" size="40" value="">
+      <input type="password" name="root_password1" size="40" value=""/>
     </td>
   </tr>
 
@@ -131,8 +131,10 @@
       <dtml-in "[('en', 'English'), ('fr', 'French'), ('de', 'German'),
                  ('nl', 'Dutch'), ('it', 'Italian'), ('es', 'Spanish'),
                  ('pt_BR', 'Portugese(Brazilian)')]">
-        <input type="checkbox" name="langs_list:list" 
-               value="<dtml-var sequence-key>"> <dtml-var sequence-item>
+        <input type="checkbox" name="langs_list:list"
+               id="<dtml-var sequence-key>"
+               value="<dtml-var sequence-key>"/>
+        <label for="<dtml-var sequence-key>"><dtml-var sequence-item></label>
       </dtml-in>
     </td>
   </tr>

@@ -68,14 +68,14 @@ function checkEmptySearch(formElem) {
 	return true;
     }
     formElem.SearchableText.value = query
-    formElem.SearchableText.focus();
+        formElem.SearchableText.focus();
     return false;
 }
 
 //**********************************************************************
 function setFocus() {
     field = document.getElementById('field_focus');
-	if (field) {
-	    field.focus();
-	}
+    if (field) {
+        field.focus();
+    }
 }

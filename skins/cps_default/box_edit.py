@@ -31,7 +31,7 @@ if disp:
 
 # handle checkbox
 for k in ('display_in_subfolder', 'display_only_in_subfolder',
-          'children_only', 'contextual'):
+          'children_only', 'contextual', 'zoom'):
     v = kw.get(k)
     kw[k] = not not v
 

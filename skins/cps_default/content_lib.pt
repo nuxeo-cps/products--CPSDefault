@@ -95,14 +95,26 @@
 format:</pre>
 <metal:block define-macro="display_contents">
 <tal:block
-  define="nav_action nav_action|string:folder_contents;
-          columns columns|python:2;
-          items_per_page items_per_page|python:10;
+  define="tmp_format format|nothing;
+          tmp_sort_by sort_by|nothing;
+          tmp_columns columns|nothing;
+          tmp_items_per_page items_per_page|nothing;
+          tmp_nav_action nav_action|nothing;
+          params python:here.getDisplayParams(format=tmp_format, sort_by=tmp_sort_by,
+                                              columns = tmp_columns,
+                                              items_per_page = tmp_items_per_page,
+                                              nav_action = tmp_nav_action,
+                                              nb_items = len(items));
+          format params/format;
+          sort_by params/sort_by;
+          columns params/columns;
+          items_per_page params/items_per_page;
+          nav_action params/nav_action;
+
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
           batches python:here.getBatchList(items, columns, items_per_page);
-		  format python:test(format, format,
-                             request.SESSION.get('cps_preferences', {}).get('cps_display_style', 'detail'))">
+          ">
           <!-- detail, compact, icon -->
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>

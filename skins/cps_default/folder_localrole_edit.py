@@ -10,12 +10,11 @@ member_ids = [user[len('user:'):]
               for user in ids if user.startswith('user:') ]
 
 if change_type == 'add':
-    pmtool.setLocalRoles(obj=context, member_ids=member_ids, 
-        member_role=member_role)
+    pmtool.setLocalRoles(context, member_ids, member_role)
     pmtool.setLocalGroupRoles(context, group_ids, member_role)
 
 else:
-    pmtool.deleteLocalRoles( obj=context, member_ids=member_ids)
+    pmtool.deleteLocalRoles(context, member_ids)
     pmtool.deleteLocalGroupRoles(context, group_ids, member_role)
 
 psm = 'psm_local_roles_changed'

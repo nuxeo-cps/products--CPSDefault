@@ -87,6 +87,9 @@ This is a secure configuration because:
   cookies containing vulnerable login/password information is sent with each
   request)
 
+* it forces the use of HTTPS for users who wish to join the portal (because
+  login information is provided in the join form)
+
 Example::
 
   # Main HTTP access to http://mysite.net/ for anonymous users
@@ -98,6 +101,7 @@ Example::
   # Using OR instead of the implicit AND between conditions
   RewriteCond %{REQUEST_URI} ^(.*)/manage$ [OR]
   RewriteCond %{REQUEST_URI} ^(.*)/login_form$
+  RewriteCond %{REQUEST_URI} ^(.*)/join_form$
   RewriteRule ^/(.*) https://mysite.net/$1 [R=permanent,L]
   
   RewriteCond %{HTTP:Authorization}  ^(.*)

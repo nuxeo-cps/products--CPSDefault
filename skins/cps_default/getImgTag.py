@@ -2,6 +2,8 @@
 ##parameters=img_name, title=None, base_url=None
 # $Id$
 """ return an html img tag """
+if not img_name:
+    return ''
 if not base_url:
     base_url = context.getBaseUrl()
 img_url = base_url + img_name

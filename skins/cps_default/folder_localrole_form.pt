@@ -260,7 +260,7 @@
      <td>       
        <tal:block repeat="item python:roles[user]">         
          <tal:block repeat="roleElt python:item['roles']">
-           <tal:block define="ishere python:user in editable_user">
+           <tal:block define="ishere python:base_url+item['url'] == context_url">
              <tal:block condition="not:ishere">  
                <a href tal:attributes="href string:${base_url}${item/url}/folder_localrole_form"
                        tal:content="python:roleElt" /> in <i tal:content="item/url" />

@@ -81,10 +81,15 @@ class TreeBox(BaseBox):
         self.children_only = children_only
 
     security.declarePublic('getTree')
-    def getTree(self, context):
-        """Return the ptree from root"""
+    def getTree(self, context, filtering=1, show_root=1):
+        """Return the ptree from root
+
+        filtering is used to specify whether items
+        that cannot be accessed should be returned or not
+        """
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
+        portal_membership = getToolByName(self, 'portal_membership')
 
         # find the current container
         obj = context
@@ -97,16 +102,30 @@ class TreeBox(BaseBox):
             root_path = current_path
         else:
             root_path = filter(None,self.root.split('/'))
+
         root_tree = root_path[0]
+
         if not hasattr(aq_base(portal_trees), root_tree):
             return []
             #raise Exception('no tree for %s' % root_tree)
 
-        tree = portal_trees[root_tree].getList()
+        tree = portal_trees[root_tree].getList(filter=filtering)
 
         if self.children_only:
+            #if option 'display subfolders only is checked'
+            #remove objects that are not on the current path
             tree = [x for x in tree if (x['rpath'].startswith(current_url))]
 
+        if not show_root:
+            delta = len(root_path)
+            tmp_tree = []
+            for x in tree:
+                if x['depth'] >= delta:
+                    tmp_entry = x.copy()
+                    tmp_entry['depth'] = x['depth'] - delta
+                    tmp_tree.append(tmp_entry)
+            tree = tmp_tree
+            
         if self.depth and self.contextual:
             depth = self.depth - 1
             max_depth = len(current_path) + depth
@@ -134,8 +153,9 @@ class TreeBox(BaseBox):
         if self.depth:
             d = self.depth + len(root_path) - 1
             root_url = '/'.join(root_path)
-            return [x for x in tree if (x['depth']<=d and
-                                        x['rpath'].startswith(root_url))]
+            res = [x for x in tree if (x['depth']<=d and
+                                      x['rpath'].startswith(root_url))]
+            return res
 
         return tree
 

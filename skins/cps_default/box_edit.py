@@ -32,8 +32,10 @@ if disp:
         elif disp == 'maximized':
             kw['minimized'] = 0
 
-disf = kw.get('display_in_subfolder')
-kw['display_in_subfolder'] = not not disf
+# handle checkbox
+for k in ('display_in_subfolder', 'children_only', 'contextual'):
+    v = kw.get(k)
+    kw[k] = not not v
 
 order = kw.get('order')
 if order:

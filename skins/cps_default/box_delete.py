@@ -9,7 +9,7 @@ box_url = kw.get('box_url', [])
 
 box = context.restrictedTraverse(box_url)
 bc = box.aq_parent
-bc.manage_delObjects(box.id)
+bc.manage_delObjects(box.getId())
 
 if REQUEST is not None:
     psm = 'psm_box_deleted'

@@ -36,7 +36,7 @@ if hasattr(proxy.aq_explicit, 'getRID'):
     rpath = rpath.replace(KEYWORD_VIEW_LANGUAGE, KEYWORD_SWITCH_LANGUAGE)
     proxy = proxy.getObject()
 
-bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id, level=-3)
+bmt = context.Benchmarktimer('getContentInfo for ' + proxy.getId(), level=-3)
 bmt.setMarker('start')
 
 wtool = context.portal_workflow
@@ -156,7 +156,7 @@ else:
     info['rpath'] = rpath
 
 info['title_or_id'] = proxy.title_or_id()
-info['id'] = proxy.id
+info['id'] = proxy.getId()
 try:
     info['title'] = proxy.Title()
 except AttributeError:

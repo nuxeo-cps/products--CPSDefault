@@ -50,7 +50,7 @@ def compute_states(no_history=0):
             'language_revs': {'en': 0},
             }
         for var in wf_vars:
-            ob_info[var] = wtool.getInfoFor(proxy, var)
+            ob_info[var] = wtool.getInfoFor(proxy, var, None)
         proxies_info = [ob_info]
     states = []
     for px in proxies_info:

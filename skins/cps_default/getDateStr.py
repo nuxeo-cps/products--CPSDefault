@@ -8,7 +8,7 @@ if not dt:
 Localizer = context.Localizer
 mcat = Localizer.default
 
-if fmt not in ['short', 'medium', 'long']:
+if fmt not in ('short', 'medium', 'long'):
     fmt = 'date_long'
 else:
     fmt = 'date_' + fmt
@@ -28,5 +28,3 @@ except 'TimeError':
     ret = 'Invalid'
 
 return ret
-
-

@@ -107,7 +107,28 @@ LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
 
 class CPSTestCase(ZopeTestCase.PortalTestCase):
-    pass
+
+    # XXX: unfortunately, the W3C checker sometime fails for no apparent
+    # reason.
+    def isValidCSS(self, css):
+        """Check if <css> is valid CSS2 using W3C css-checker"""
+
+        import urllib2, urllib, os, re
+        CHECKER_URL = 'http://jigsaw.w3.org/css-validator/validator'
+        data = urllib.urlencode({
+            'text': css,
+            'warning': '1',
+            'profile': 'css2',
+            'usermedium': 'all',
+        })
+        url = urllib2.urlopen(CHECKER_URL + '?' + data)
+        result = url.read()
+
+        is_valid = not re.search('<div id="errors">', result)
+        # debug
+        if not is_valid:
+            print result
+        return is_valid
 
 
 class CPSInstaller:

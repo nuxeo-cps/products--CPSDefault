@@ -1,0 +1,52 @@
+<html metal:use-macro="here/content_lib/macros/master">
+<body>
+
+<metal:block fill-slot="header">
+  <metal:block use-macro="here/content_lib/macros/std_main">
+    <metal:block fill-slot="title" i18n:translate="">
+      heading_translation_of
+      <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
+    </metal:block>
+    <metal:block fill-slot="help">
+      <span i18n:translate="help_translate_revision">
+        Create a new translation for this document.
+      </span>
+    </metal:block>
+    <metal:block fill-slot="main" />
+  </metal:block>
+</metal:block>
+
+<metal:block fill-slot="main"
+  tal:define="Localizer nocall:here/Localizer;
+              default_lang Localizer/get_selected_language;
+              language_voc here/portal_vocabularies/language_voc;
+              languages python: [l for l in language_voc.keys() if l not in here.Languages()];
+             ">
+  <form action="content_translate" method="post"
+    tal:attributes="action string:${context_url}/content_translate"
+    class="group">
+    <p>
+      <label i18n:translate="label_translation_select_language">
+        Choose the language you want to translate to:
+      </label>
+      <select name="lang">
+        <option tal:repeat="lang languages"
+                tal:attributes="value lang;
+                                selected python:lang == default_lang"
+                tal:content="python: language_voc.getMsgid(lang)"
+                i18n:translate="">
+          Language...
+        </option>
+      </select>
+    </p>
+    <p>
+      <input type="submit" class="standalone" value="button_translate_document"
+             i18n:attributes="value" />
+      <input type="button" class="context" onClick="history.back()"
+             value="button_cancel" i18n:attributes="value" />
+    </p>
+  </form>
+</metal:block>
+
+</body>
+</html>

@@ -85,11 +85,15 @@ def compute_states(no_history=0):
                     and d.has_key('time')
                     and d.has_key('action')):
                 continue
+            action = d['action']
+            # Internal transitions hidden from the user.
+            if action in ('unlock', 'checkout_draft_in'):
+                continue
             # Skip redundant history (two transition when publishing).
-            if d['action'] == 'copy_submit' and remove_redundant:
+            if action == 'copy_submit' and remove_redundant:
                 continue
             # Transitions involving a destination container.
-            if d['action'] in ('submit', 'copy_submit'):
+            if action in ('submit', 'copy_submit'):
                 d['has_dest'] = 1
                 dest_container = d.get('dest_container', '')
                 d['dest_container'] = dest_container

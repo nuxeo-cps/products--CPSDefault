@@ -55,8 +55,7 @@ if order:
 # handle provider type
 sf = kw.get('providertype')
 if sf:
-    kw['provider'] = sf.split('@')[0]
-    kw['btype'] = sf.split('@')[1]
+    kw['provider'], kw['btype'] = sf.split('@')
     # override with hard coded configuration
     category = context.getBoxTypes(category=box_category)
     if category:

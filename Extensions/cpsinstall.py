@@ -447,7 +447,7 @@ def cpsupdate(self, langs_list=None):
     s = wf.states.get('locked')
     s.setProperties(title='Locked',
                     transitions=('unlock',))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager'))
+    s.setPermission(ModifyPortalContent, 0, ())
     s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
 
     t = wf.transitions.get('create')

@@ -66,7 +66,7 @@ class DocRenderBox(BaseBox):
     )
     def __init__(self, id, category='docrenderbox', doc_url='',  **kw):
         BaseBox.__init__(self, id, category=category, **kw)
-	self.doc_url = doc_url
+        self.doc_url = doc_url
 
     security.declarePublic('getContents')
     def getContents(self):

@@ -988,7 +988,6 @@ if locked_ob is not None:
     pr("Verifying roots: %s and %s" % (sections_id, workspaces_id))
     if not portalhas(workspaces_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
-
                                                 workspaces_id)
         portal[workspaces_id].getContent().setTitle('Root of Workspaces') # XXX L10N
         portal[workspaces_id].reindexObject()

@@ -1,0 +1,69 @@
+<tal:block replace="nothing">
+
+XXX: Why the hell do we use "id" for
+     debugging purposes ???
+     This is a nonsense
+
+     Proposal :
+     use        <div cpsid="main_widgets_leftbox" />
+     instead of <div id="main_widgets_leftbox" />
+
+</tal:block>
+
+
+<!-- boxleft -->
+<metal:block define-macro="boxleft">
+  <div id="main_widgets_leftbox" style="border:1px solid gray; width:128px">
+    <div style="width:130px; height:19px; color:rgb(255, 255, 255); background-color:rgb(43, 42, 126); font-size:10px; text-align:center; vertical-align:middle; font-family:Verdana,sans-serif; font-weight: 700">
+      <span><metal:block define-slot="box_title">Box Title</metal:block></span>
+    </div>
+    <div style="background-color:rgb(239,239,239); ">
+      <span><metal:block define-slot="box_body">Box Body</metal:block></span>
+    </div>
+  </div>
+</metal:block>
+<!-- End boxleft -->
+
+
+<!-- actions_list -->
+<metal:block define-macro="actions_list">
+  <div id="main_widgets_actions_list" style="padding-left:5px; padding-top:5px; padding-bottom:5px; width:121px; background-color:rgb(239,239,239)">
+    <tal:block repeat="block actionsblocks">
+      <tal:block repeat="action block">
+        <li class="inbox"><a tal:attributes="href action/url; onclick action/onclick|nothing; target action/target|nothing"
+          tal:define="actionname action/name;"
+          tal:content="actionname"
+          i18n:translate="">Action</a>
+      </tal:block>
+      <hr tal:condition="not: repeat/block/end" noshade size="1px" width="50%" />
+    </tal:block>
+  </div>
+</metal:block>
+<!-- End actions_list -->
+
+
+<!-- title_content -->
+<metal:block define-macro="title_content">
+  <h2>
+    <metal:block define-slot="title">Title</metal:block>
+  </h2>
+  <metal:block define-slot="content">Content</metal:block>
+</metal:block>
+<!-- End title_content -->
+
+
+<!-- form -->
+<metal:block define-macro="form">
+ <metal:block define-slot="content">No properties in this form</metal:block>
+</metal:block>
+<!-- End title_content -->
+
+
+<!-- form -->
+<metal:block define-macro="form_property">
+ <metal:block define-slot="content">No properties in this form</metal:block>
+</metal:block>
+<!-- End title_content -->
+
+
+

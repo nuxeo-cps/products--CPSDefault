@@ -11,6 +11,9 @@ level: 2
 level: 3
   level 2 + descr, states, history
 """
+bmt = context.Benchmarktimer('getContentInfo')
+bmt.setMarker('start')
+
 wtool=context.portal_workflow
 
 def compute_states(no_history=0):
@@ -102,4 +105,7 @@ if level > 2:
     info['states'], info['history'] = compute_states()
 
 info['level']=level
+
+bmt.setMarker('stop')
+bmt.saveProfile(context.REQUEST)
 return info

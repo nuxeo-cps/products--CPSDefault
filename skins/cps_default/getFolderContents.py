@@ -5,12 +5,12 @@
 """
 Get a datastructure describing what's in a folder.
 """
+bmt = context.Benchmarktimer('getFolderContent')
+bmt.start()
 
 mtool=context.portal_membership
 wtool=context.portal_workflow
 fc = []
-bmt = context.Benchmarktimer()
-bmt.setMarker('folder')
 for item in context.objectValues():
     if item.getId().startswith('.'):
         continue
@@ -32,7 +32,9 @@ def status_cmp(a, b):
             0
             )
 
-bmt.setMarker('folder_')
-fc.sort(status_cmp)
+fc.sort(title_cmp)
+
+bmt.stop()
+bmt.saveProfile(context.REQUEST)
 
 return fc

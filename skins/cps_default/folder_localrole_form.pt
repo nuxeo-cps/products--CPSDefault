@@ -92,15 +92,21 @@
 
    <tal:block repeat="member found">
    <tr tal:attributes="class python:test(repeat['member'].even(),'even','odd')">
-     <tal:block define="entry python:member[1]">
+     <tal:block define="entry python:member[1];
+                        input_id python:member[1].get('id').replace('@', '_at_')">
        <td width="16">
          <input type="checkbox" name="member_ids:list" value=""
-           class="noborder" tal:attributes="value string:user:${entry/id}" />
+           class="noborder" tal:attributes="value string:user:${entry/id};
+           id input_id" />
        </td>
-       <td tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or entry['id']">
-         Username 1
+       <td>
+         <label tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or entry['id']"
+                tal:attributes="for input_id">Username 1</label>
        </td>
-       <td tal:content="entry/email|nothing"> Email 1 </td>
+       <td tal:condition="entry/email">
+         <label tal:content="entry/email"
+                tal:attributes="for input_id">Email 1</label>
+       </td>
      </tal:block>
    </tr>
    </tal:block>
@@ -172,14 +178,17 @@
    </tr>
 
    <tal:block repeat="group found">
-   <tr tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
+   <tr tal:define="input_id python:group.replace('@', '_at_')"
+       tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
      <td width="16">
        <input type="checkbox" name="member_ids:list" value="" class="noborder"
-              tal:attributes="value string:group:${group}" />
+              tal:attributes="value string:group:${group};
+                              id input_id" />
      </td>
-     <td tal:content="python:test(group.startswith('role:'),
-                                  cpsmcat(group), group)">
-       Group
+     <td>
+       <label tal:content="python:test(group.startswith('role:'),
+                                  cpsmcat(group), group)"
+              tal:attributes="for input_id">Group</label>
      </td>
    </tr>
    </tal:block>
@@ -220,8 +229,8 @@
 <!-- End assignment -->
 </div>
 
-<h1 i18n:translate="legend_local_roles_currently_assigned">
-    Currently assigned local roles
+<h1 i18n:translate="legend_local_roles_assigned">
+    Assigned local roles
 </h1>
 <div class="group" tal:condition="has_local_roles_blocking">
 <form method="post" action="folder_localrole_edit"
@@ -267,15 +276,17 @@
       </tr>
       <tal:block define="users  python:[x for x in roles.keys() if x.split(':')[0]==type]">   
         <tal:block repeat="user users">
-          <tr tal:attributes="class python:test(repeat['user'].even(), 'even',
-            'odd')">
+          <tr tal:define="input_id python:user.replace('@', '_at_')"
+              tal:attributes="class python:test(repeat['user'].even(), 
+                                                'even', 'odd')">
           <tal:block define="haslrhere python:user in editable_user">
             <tal:block condition="haslrhere">
               <td width="1%" style="text-align:right;">
                 <input type="checkbox" class="noborder"
                       name="member_ids:list"
                       value="id"
-                      tal:attributes="value user" />
+                      tal:attributes="value user;
+                      id input_id" />
               </td>
               </tal:block>
             <tal:block condition="not:haslrhere">
@@ -283,9 +294,13 @@
             </tal:block>
           </tal:block>
           <td width="40%">
-          <tal:block define="anuser python:user.split(':',1)[1];">
-            <span tal:content="python:test(anuser.startswith('role:'),
-                                           cpsmcat(anuser), anuser)" />
+          <tal:block define="anuser python:user.split(':', 1)[1]">
+            <label tal:content="python:test(anuser.startswith('role:'),
+                                           cpsmcat(anuser), anuser)"
+                   tal:attributes="for python:test(anuser.startswith('role:'), 
+                                                   nothing, input_id)">
+             User 1
+            </label>
           </tal:block>
           </td>
           <td width="57%">
@@ -312,7 +327,9 @@
       </tal:block>
       <tr tal:condition="nothing">
         <td width="16">
-          <input type="checkbox" name="member_ids:list" value="id" class="noborder"/>
+          <input type="checkbox" name="member_ids:list" 
+           value="id" tal:attributes="id id"
+           class="noborder"/>
         </td>
           <td> Username 2 </td>
           <td> Role3 </td>

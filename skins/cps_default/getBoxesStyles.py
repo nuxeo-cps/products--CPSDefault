@@ -31,6 +31,9 @@ types = [
              {'style': 'nuxeo',
               'format': 'display_settings',
               'desc': 'description_nuxeo_basebox_display_settings'},
+             {'style': 'nuxeo',
+              'format': 'folder_header',
+              'desc': 'description_nuxeo_basebox_folder_header'},
              ]
      },
     {'type': 'textbox',

@@ -87,7 +87,14 @@
   </div>
 </metal:block>
 
-
+<!-- ============================================================ -->
+<metal:block define-macro="basebox_folder_header"
+  tal:define="doc doc|here/getContent|nocall:here">
+  <h1 tal:content="here/title_or_id">Page Title</h1>
+  <div class="description" tal:content="doc/Description">
+   Document Description goes here.
+  </div>
+</metal:block>
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_l10n_select">

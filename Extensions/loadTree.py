@@ -70,13 +70,13 @@ def createContent(portal, type, path, id, force=None, **kw):
     parent = portal.unrestrictedTraverse(path)
 
     ti = None
-    proxy_type = None
+    is_proxy = None
     for t in portal_types.listTypeInfo():
         if t.getId() == type:
             ti = t
             break
     if ti:
-        proxy_type = ti.getActionById('isproxytype', 0)
+        is_proxy = hasattr(ti, 'cps_proxytype') and ti.cps_proxytype != ''
 
     #dbg display ti info find builder
     if id in parent.objectIds():
@@ -87,12 +87,12 @@ def createContent(portal, type, path, id, force=None, **kw):
     else:
         pr('\tcreate %s id:%s kw:%s' % (
             type, id, str(kw)))
-        if proxy_type:
+        if is_proxy:
             parent.invokeFactory(type, id)
-        elif proxy_type == 0:
+        elif is_proxy == 0:
             apply(portal_types.constructContent,
                   (type, parent, id, None), {})
-        elif proxy_type is None:
+        elif is_proxy is None:
             all_types = parent.filtered_meta_types()
             ti = None
             for t in all_types:
@@ -109,7 +109,7 @@ def createContent(portal, type, path, id, force=None, **kw):
             eval(cmd)
 
     ob = getattr(parent, id)
-    if proxy_type:
+    if is_proxy:
         doc = ob.getEditableContent()
         doc.edit(**kw)
         portal_eventservice.notifyEvent('modify_object', parent, {})

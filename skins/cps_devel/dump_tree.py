@@ -25,11 +25,8 @@ def dump_it(obj, level=-1):
         s += 'title = %s\n' % obj.Title()
 
 
-    is_proxy = 0
-    try:
-        is_proxy = obj.getTypeInfo().getActionById('isproxytype')
-    except (TypeError, AttributeError):
-        pass
+    ti = obj.getTypeInfo()
+    is_proxy = hasattr(ti, 'cps_proxytype') and ti.cps_proxytype != ''
 
     if is_proxy:
         doc = obj.getContent()

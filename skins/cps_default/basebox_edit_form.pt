@@ -1,9 +1,3 @@
-<!-- 
-<tal:block define="list_here python:checkPerm('Modify portal content', here)"
-           condition="not:list_here">
-  <tal:block define="error python:raise 'Unauthorized'"/>
-</tal:block>
- -->
 <metal:html use-macro="here/main_template/macros/master">
 
 <metal:main fill-slot="main">
@@ -11,6 +5,8 @@
 <metal:macro define-macro="boxform"
   tal:define="box_url request/box_url|python:0;
               context_urlc python:here.getContextUrl(utool=utool, concat=1);">
+
+<tal:block define="require python:context.requirePermission('Manage Boxes')"/>
 
 <h2 i18n:translate="heading_box_edit_form">Box edition</h2>
 

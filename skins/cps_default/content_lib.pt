@@ -76,6 +76,8 @@ format:</pre>
 <tal:block define="nav_action nav_action|string:folder_contents;
                    columns columns|python:2;
                    items_per_page items_per_page|python:10;
+                   mq nocall:modules/ZTUtils/make_query;
+                   form request/form;
                    batches python:here.getBatchList(items, columns, items_per_page);
                    format format|string:icon"><!-- detail, compact, icon -->
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -95,7 +97,8 @@ format:</pre>
         <span tal:define="p python:batches[0]" tal:condition="p/previous">
           <a href=""
              tal:define="previous p/previous/first"
-             tal:attributes="href string:${nav_action}?b_start:int=${previous}"
+             tal:attributes="href python:nav_action + '?'
+                                         + mq(form, b_start=previous)"
              i18n:translate="">Previous Items</a>
          </span>
       </td>
@@ -103,7 +106,8 @@ format:</pre>
         <span tal:define="n python:batches[-1]" tal:condition="n/next">
           <a href=""
              tal:define="next n/next/first"
-             tal:attributes="href string:${nav_action}?b_start:int=${next}"
+             tal:attributes="href python:nav_action + '?'
+                                         + mq(form, b_start=next)"
              i18n:translate="">Next Items</a>
         </span>
       </td>

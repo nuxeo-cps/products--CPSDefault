@@ -1,10 +1,15 @@
 ##parameters=password='password', confirm='confirm'
 
 from re import match
+from AccessControl import Unauthorized
 
 request = context.REQUEST
 portal_properties = context.portal_properties
 portal_registration = context.portal_registration
+
+if not portal_properties.enable_portal_joining:
+    raise Unauthorized("Joining has been disabled at the portal level")
+
 
 # converts CMFDefault/RegistrationTool.py sentences into msgids
 conversion = {

@@ -41,6 +41,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
                              root_email='root@localhost',
                              root_password1='',
                              root_password2='',
+                             enable_portal_joining=1,
                              REQUEST=None):
     """Add a CPSDefault Site."""
 
@@ -104,9 +105,23 @@ def manage_addCPSDefaultSite(dispatcher, id,
     pr(portal.cpsupdate(langs_list=langs_list), 0)
 
     pr('Configuring CPSDefault Portal')
-    # editProperties do not work with ZTC due to usage of REQUEST 
+    # editProperties do not work with ZTC due to usage of REQUEST
     # to send properties :/
     portal.MailHost.smtp_host = 'localhost'
+    portal.manage_changeProperties(REQUEST=None,
+                                   kw={
+                                       'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),
+                                       'email_from_address': root_email,
+                                       'smtp_server': 'localhost',
+                                       })
+
+    propId = 'enable_portal_joining'
+    propValue = enable_portal_joining
+    if portal.hasProperty(propId):
+        portal.manage_changeProperties({propId: propValue})
+    else:
+        portal.manage_addProperty(propId, propValue, 'boolean')
+
     portal.manage_changeProperties(REQUEST=None,
                                    kw={
                                        'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),

@@ -124,6 +124,11 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating User Folder With Groups")
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
+    # portal registration
+    for action in portal['portal_actions'].listActions():
+        if action.id == 'join':
+            ac.condition = Expression('python: portal.portal_properties.enable_portal_joining and not member')
+
     # portal membership
     pr("Verifying Portal Membership tool")
     if portalhas('portal_membership'):

@@ -44,6 +44,9 @@ items = [
                {'provider': 'nuxeo',
                 'id': 'welcome',
                 'desc': 'description_nuxeo_basebox_welcome'},
+               {'provider': 'nuxeo',
+                'id': 'calendar',
+                'desc': 'description_nuxeo_basebox_calendar'},
                ]
      },
     {'category': 'textbox',
@@ -107,7 +110,6 @@ items = [
                 'desc': 'description_nuxeo_imagebox_default'},
                ]
      },
-
     ]
 
 citems = context.getCustomBoxTypes()

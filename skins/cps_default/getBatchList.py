@@ -49,8 +49,9 @@ batch_string = ""
 
 # Calculate the number of pages
 nb_pages = len(items) / items_per_page
-if not same_type(nb_pages, 1):
+if not same_type(nb_pages, 1) and nb_pages > 1:
     nb_pages = int(nb_pages) + 1
+
 
 # Then loop over the number of pages
 # and construct the page link

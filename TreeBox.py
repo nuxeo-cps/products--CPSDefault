@@ -153,7 +153,7 @@ class TreeBox(BaseBox):
         tree = items
 
         if self.depth and not self.contextual:
-            tree = [x for x in tree if (x['depth'] < self.depth)]
+            tree = [x for x in tree if (x['depth'] <= self.depth)]
         elif self.depth and self.contextual:
             # contextual means displaying current path as well as
             # its childrens and brothers
@@ -170,7 +170,7 @@ class TreeBox(BaseBox):
             items = []
             for item in tree:
                 rpath = item['rpath'] + '/'
-                if item['depth'] < self.depth or rpath in parents_url:
+                if item['depth'] <= self.depth or rpath in parents_url:
                     items.append(item)
                     continue
 

@@ -110,7 +110,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         box are loaded from root to current path
         and overriden by personal boxes folder
         return a list of dictionaries with keys:
-            'path', 'settings', 'macro', 'box'
+            'url', 'display_url', 'settings', 'macro', 'box'
         """
 
         # Find bottom-most folder:
@@ -134,25 +134,21 @@ class BoxesTool(UniqueObject, PortalFolder):
         allboxes = []
         settings = {}
         path = '/'
-
+        home_boxes_loaded=0
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         for elem in ('',) + rpath:
             if elem:
-                path += elem + '/'
                 obj = getattr(obj, elem)
-            if obj == home and include_personal:
-                continue
+            if obj == home:
+                home_boxes_loaded=1
             f_boxes, f_settings = self._getFolderBoxesAndSettings(obj)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
 
-        if home and include_personal:
+        if not home_boxes_loaded and include_personal and home:
             f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
-            homepath = portal_url.getRelativeContentPath(home)
-        else:
-            homepath = None
 
         boxes = []
         for box in allboxes:
@@ -162,27 +158,28 @@ class BoxesTool(UniqueObject, PortalFolder):
             if not box.getGuard().check(getSecurityManager(), None, context):
                 continue
             # Only add boxes if they are to be displayed
-            # in the subfolders, or if this is the root or if
-            # this is the last part of the path, or if it's a
-            # personal box.
+            # in the subfolders, or if
+            # this is the last part of the path
             boxpath = portal_url.getRelativeContentPath(box)
-            if box.display_in_subfolder or \
-               not rpath or \
-               elem == rpath[-1] or \
-               (include_personal and homepath and \
-               boxpath[:len(homepath)] == homepath):
-                newbox = {'path': portal_url.getRelativeUrl(box),
+            if len(boxpath) < 3:
+                boxdisplayurl = ''
+            else:
+                boxdisplayurl = '/'.join(boxpath[:-2])
+            rurl = '/'.join(rpath)
+            LOG( 'xx', DEBUG, '['+str(boxdisplayurl) +']'+ str(rurl))
+            if box.display_in_subfolder or (rurl == boxdisplayurl):
+                newbox = {'url': portal_url.getRelativeUrl(box),
+                          'display_url': boxdisplayurl,
                           'settings': box.getSettings(),
                           'macro': box.getMacro(),
                           'box': box}
                 # Override any box settings with the local settings
                 # If the box isn't locked and there are overrides
-                if not newbox['box'].locked and settings.get(newbox['path']):
-                    newbox['settings'].update(settings[newbox['path']])
+                if not newbox['box'].locked and settings.get(newbox['url']):
+                    newbox['settings'].update(settings[newbox['url']])
                     newbox['macro'] = newbox['box'].getMacro(
                         style=newbox['settings']['style'],
                         format=newbox['settings']['format'])
-
                 boxes.append(newbox)
 
         # We now have a list of all boxes that can be displayed in this context.

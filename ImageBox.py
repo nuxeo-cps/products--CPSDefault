@@ -73,6 +73,24 @@ class ImageBox(BaseBox, Folder):
         self.image_name = image_name
         self.image_link = image_link
 
+    def load(self, path):
+        """
+        Load image after having created the box.
+        Path must be absolute from the /var/ directory.
+        (absolute path for an image in your /skins/images/
+        directory would be ../Products/your_product_dir/skins/images)
+        """
+        image_id = 'image_id'
+        max_len = 2*1024*1024
+
+        f = open(path,'r')
+        if len(f.read(max_len)) < max_len:
+            f.seek(0)
+            img = Image(image_id, self.image_name, f)
+            if hasattr(aq_base(self), image_id):
+                self._delObject(image_id)
+            self._setObject(image_id, img)
+
     def edit(self, **kw):
         image_id = 'image_id'
         max_len = 2*1024*1024

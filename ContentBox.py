@@ -95,7 +95,7 @@ class ContentBox(BaseBox):
 
 
     security.declarePublic('getContents')
-    def getContents(self, context, sort_by='status', direction='asc'):
+    def getContents(self, context):
         """Get a sorted list of contents object"""
         utool = getToolByName(self, 'portal_url')
         folder = self._getFolderObject(context)

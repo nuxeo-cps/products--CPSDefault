@@ -1,0 +1,53 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master">
+<body>
+<div metal:fill-slot="main"
+     tal:define="purl here/portal_url;"
+>
+
+<div class="Desktop"
+     tal:define="pprops here/portal_properties; ve pprops/validate_email">
+
+<h1 i18n:translate="registred_title"> Success! </h1>
+
+<p i18n:translate="registred_message"> 
+   You have been registered as a member. 
+</p>
+
+<p tal:condition="ve"> 
+    <span i18n:translate="registred_mail_message">
+      You will receive an email shortly containing
+      your password and instructions on how to activate your membership.
+    </span>
+</p>
+
+<p tal:condition="python:not(ve)" > 
+    <span i18n:translate="registred_login_link">
+      You can log on immediately by clicking
+    </span>
+    <a href=""
+	   tal:define="pss modules/Products.PythonScripts.standard;
+                   uname request/username;
+                   u python:pss.url_quote(uname);
+                   pword request/password;
+                   p python:pss.url_quote(pword);
+                  "
+	   tal:attributes="
+        href string:${purl}/logged_in?__ac_name=${u}&__ac_password=${p}"
+     ><span i18n:translate="here">here</span></a>.  
+</p>
+
+<p> 
+<a href=""
+   tal:attributes="href string:${purl}/">
+   <span i18n:translate="registred_return_home_page">
+     Return to homepage
+   </span>
+</a> 
+</p>
+</div>
+</div>
+</body>
+</html>
+

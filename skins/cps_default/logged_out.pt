@@ -1,0 +1,24 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master">
+<body>
+<div metal:fill-slot="main">
+
+<p tal:condition="python: here.portal_membership.isAnonymousUser()">
+  <span i18n:translate="logout_success_message"
+        tal:content="string:You have been logged out." />
+</p>
+
+<p tal:condition="python: not(here.portal_membership.isAnonymousUser())">
+<span i18n:translate="logout_zmi_warning">
+      You are logged in outside the portal.  You may need to
+</span>
+<a href="/manage_zmi_logout">
+   <span i18n:translate="logout_zmi_warning_link"> 
+         log out of the Zope management interface
+   </span>
+</a>.
+</p>
+</div>
+</body>
+</html>

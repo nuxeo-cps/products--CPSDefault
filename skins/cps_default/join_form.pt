@@ -1,0 +1,139 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master">
+<body>
+<div metal:fill-slot="main" i18n:translate="">
+<div class="Desktop"
+     tal:define="mtool here/portal_membership;
+                 member mtool/getAuthenticatedMember;
+                 ptool here/portal_properties;
+                ">
+
+<h1 i18n:translate="join_form_title">Become a member</h1>
+
+<div tal:define="registered python:member.has_role('Member')">
+
+ <div tal:condition="registered">
+
+  <p> 
+    <span i18n:translate="join_form_already_member_1">
+      You are already a member. You may use the
+    </span>
+      <a href="personalize_form">
+        <span i18n:translate="join_form_already_member_link">
+         personalization form
+        </span>
+      </a>
+    <span i18n:translate="join_form_already_member_2"> 
+       to change your membership information. 
+    </span>
+  </p>
+
+ </div><!-- registered -->
+
+ <div tal:condition="not: registered">
+
+  <p i18n:translate="join_form_message_1"> 
+      Becoming a member gives you the ability to personalize the site
+      and participate in the community.
+  </p>
+
+  <p i18n:translate="join_form_message_2"> 
+      It does not cost any money to become a member and your email and
+      other personal information will remain private.</p>
+
+  <p tal:condition="python: ptool.validate_email">
+    <span i18n:translate="join_form_message_3">
+      You must submit a valid email address. This address will be used
+      to send you a randomly-generated password.  Once you have logged
+      in with this password, you may change it to anything you like.
+    </span>
+  </p>
+
+  <div class="DesktopStatusBar" 
+       tal:condition="request/error|nothing" >
+       <span i18n:translate="password_requierment">
+         Your password must contain at least 5 characters.
+       </span>
+     <hr />
+  </div>
+
+  <form action="register" method="POST"
+        tal:attributes="action string:${here/portal_url}/register"
+  >
+
+   <input type="hidden" name="last_visit:date" value=""
+          tal:attributes="value here/ZopeTime" />
+   <input type="hidden" name="prev_visit:date" value=""
+          tal:attributes="value here/ZopeTime" />
+
+   <table class="FormLayout">
+
+    <tr>
+     <th i18n:translate="user_name"> Login Name </th>
+     <td>
+      <input type="text" name="username" size="30" value=""
+             tal:attributes="value request/username|nothing" />
+     </td>
+    </tr>
+
+    <tr>
+     <th i18n:translate="email_address"> Email Address </th>
+     <td align="left" valign="top">
+      <input type="text" name="email" size="30" value=""
+          tal:attributes="value request/email|nothing" />
+     </td>
+    </tr>
+
+   <tbody tal:condition="python: not(ptool.validate_email)">
+
+    <tr>
+     <th i18n:translate="login_password"> Password </th>
+     <td align="left" valign="top">
+      <input type="password" name="password" size="30" />
+     </td>
+    </tr>
+
+    <tr>
+     <th i18n:translate="password_confirm"> Password (confirm) </th>
+     <td align="left" valign="top">
+      <input type="password" name="confirm" size="30" />
+     </td>
+    </tr>
+
+    <tr>
+     <th i18n:translate="password_mailed"> Mail Password?  </th>
+     <td>
+      <input type="checkbox" name="mail_me" size="30" id="cb_mailme" />
+      <em><label for="cb_mailme">
+          <span i18n:translate="password_message">
+             Check this box to have your password 
+             mailed to you.
+          </span>
+          </label>
+      </em>
+     </td>
+    </tr>
+   </tbody>
+
+    <tr>
+     <td><br /></td>
+     <td> <input i18n:attributes="value"
+                 type="submit" name="submit" value="Register" /> 
+     </td>
+    </tr>
+
+   </table>
+
+  </form>
+
+ </div><!-- not registered -->
+
+</div><!-- tal:define="registered" -->
+
+</div><!-- class="Desktop" -->
+
+</div><!-- metal:fill-slot="main" -->
+
+</body>
+</html>

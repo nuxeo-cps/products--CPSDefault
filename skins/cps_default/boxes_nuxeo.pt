@@ -117,11 +117,12 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="basebox_l10n_select">
+<metal:block define-macro="basebox_l10n_select"
+   tal:define="map here/Localizer/get_languages_map"
+   tal:condition="python:len(map) > 1">
 <form name="idioma" action="Localizer/changeLanguage" method="post"
       tal:attributes="action string:${base_url}Localizer/changeLanguage">
-  <select name="lang" onchange="idioma.submit()"
-          tal:define="map here/Localizer/get_languages_map">
+  <select name="lang" onchange="idioma.submit()">
     <option tal:repeat="locale map"
             tal:attributes="value locale/id;
                             selected locale/selected|nothing"

@@ -1,0 +1,79 @@
+$Id$
+
+Writing skin in CPSDefault
+==========================
+skin directories:
+
+skins:
+  |-- cps_default    all needed skin for CPSDefault
+  |-- cps_devel      skin for benchmarking or debuging
+  |-- cps_images     images only no icons
+  `-- cps_styles     a plone_styles folder
+      `-- nuxeo      a customization of the plone.css
+
+skin order:
+(cps_devel), cps_styles/nuxeo, cps_styles, cps_images, cps_default
+
+
+File naming
+===========
+we try to use same file naming as CMF, 
+for any new file follow this rules:
+
+For a page template or a python script that return an html page:
+  object_action.p[ty]
+if the page is an form 
+  object_action_form.p[ty]
+ex:
+  content_submit_form.pt
+  content_create.py       # use request and redirect to html page
+  dummy_view.pt
+
+Python script:
+  getSomething.py  
+  doSomething.py
+ex:
+  getContentInfo.py
+  getFolderContents.py
+
+it is very usefull to make python script working with default value
+so that you can call them with a browser and you can bench it easily
+(cf doc HOWTO.BENCHMARK)
+
+macro library:
+  object_lib.pt
+
+
+Naming
+======
+Folder:  a folderish object
+Content: what is inside a folder
+items:   a list of objects
+proxy:   the cps proxy object
+doc:     a cps document in the portal_repository 
+info:    a dictionary of information about an object
+
+
+Macros
+======
+we try to use macros for any thing that appear twice,
+or that need to be easily customized.
+Macros are define in *_lib.pt file like content_lib or generic_lib
+you should provide a test suite for each library
+they are located in cps_devel like test_content_lib or test_generic_lib
+each time you add a macro you should add a test
+
+
+About CSS
+=========
+- we are using the plone css definition
+- we provide a customization nuxeo/ploneCustom.css and a new ploneNS4.css
+- we can use any plone customization
+- plone can use our nuxeo css customization
+
+
+Customization
+=============
+We should be able to make light customization by adding custom css
+We should be able to make eavy customization by rewriting *_lib files
+

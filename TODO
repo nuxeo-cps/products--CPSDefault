@@ -9,6 +9,17 @@
 - [] 05/22: CPSDefault a la CMF ready
 - [] 05/28: CPSDemo with few services tbd ...
 
+# on work
+x [] display sections and workspaces tree
+x [] display history of a document = * proxies history
+  o add wf_vars rpath + filter on review history copy_submit
+  o add a comment on submit from copy_submit
+- add link from existing document to the document
+- remove my stuff ? undo ? preference ? favorite ?
+   o idealy port CMFDefault ptype and make it work ....
+- display list of pending document for a reviewer
+   o imply search ???
+
 # tasks list
 - CPS a la CMF
    o workflow and docs
@@ -17,7 +28,9 @@
       o impl skin unpublish
       x [] impl skin proxy history i.e wf history
          x [] add wf variables: transition, date, user
-            o add rpath variable (section)
+         o add rpath variable (section)
+         o do not dislay copy_submit and submit action ?
+            what about the comment only in copy_submit ?
          o modify src wf history ??? for reject ??? accept ???
    o folder
       x [] folder_contents with more info
@@ -27,13 +40,13 @@
       o add constraint on type of document for workspace/creation
         and sections/publication
    o document
-      o full info skin: list all proxy about a document
+      x [] full info skin: list all proxy about a document
       o impl copy/cut/paste ...
    o directory integration
       o update localrole management using group and anonymous
    o portlet integration
      is this possible without elements ????
-      o displaying sections and workspaces folder
+      x [] displaying sections and workspaces folder
    o search
       o impl skin for full text search
    o cmf integration
@@ -62,6 +75,7 @@
    x [] folder_contents display links with broken path 
      if there are a missing trailing '/' in the URL
    x [] fix folder_edit_form do not save change
+   o find a way not using tal before xml declaration in zpt
 
 - Open questions
    x [] still need simple scenarii wf/multi version/multi language
@@ -73,6 +87,7 @@
       allow unpublish only for reviewer 
    o how and when shoud we delete a doc in the repository
    o how to restrict access in sub folder ??
+   o check that we can have many root sections and many workspace sections
 
 - Make CPSDemo product
    this product should be a skeleton for any new cps site

@@ -9,6 +9,7 @@
   btool here/portal_boxes;
   context_url python:here.getContextUrl(utool=utool);
   base_url python:here.getBaseUrl(utool=utool);
+  here_url python:here.absolute_url();
   boxes python:btool.getBoxes(here);
   member mtool/getAuthenticatedMember;
   isAnon mtool/isAnonymousUser;
@@ -30,7 +31,7 @@
 <metal:block use-macro="here/header_lib/macros/header">
   <metal:block fill-slot="base"><metal:block define-slot="base"><base
     href="" tal:attributes="href
-    string:${here/absolute_url}/"></metal:block></metal:block>
+    string:${here_url}/"></metal:block></metal:block>
   <metal:block fill-slot="head_slot"><metal:block define-slot="head_slot"
     /></metal:block>
   <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"

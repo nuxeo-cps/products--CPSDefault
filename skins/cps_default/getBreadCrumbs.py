@@ -1,35 +1,34 @@
 ## Script (Python) "getBreadCrumbs.py"
-##parameters=include_root=1
+##parameters=url=None
 # $Id$
-from string import join
 
-result = []
-portal_url = context.portal_url
-rurl = portal_url(relative=1)
-rurl = rurl and '/%s/' % rurl or ''
+def format_title(title):
+    l = len(title)
+    ml = 20
+    if l > ml:
+        short_title = title[:ml-6]+ '...' + title[l-3:]
+    else:
+        short_title = title
+    return short_title
 
-if include_root:
-    title = context.portal_properties.title().strip()
-    result.append( { 'id': 'root'
-                   , 'title': (len(title) > 15) and title[:15] + '...' or title
-                   , 'longtitle': title
-                   , 'url': rurl
-                   }
-                 )
+if not url:
+    url = context.getPortalUrl()
+path = url.split('/')
+path = filter(None, path)
 
-relative = portal_url.getRelativeContentPath(context)
-portal = portal_url.getPortalObject()
+portal = context.portal_url.getPortalObject()
+mtool = context.portal_membership
+items = []
+for i in range(len(path)):
+    ipath = path[:i+1]
+    obj = portal.restrictedTraverse(ipath)
+    if not mtool.checkPermission('View', obj):
+        continue
+    title = obj.Title() or obj.getId()
+    items.append({'id': ipath[-1],
+                   'title': format_title(title),
+                   'longtitle': title,
+                   'url': '/' + '/'.join(ipath),
+                   })
 
-for i in range(len(relative)):
-    now = relative[:i+1]
-    obj = portal.restrictedTraverse(now)
-    if not now[-1] == 'talkback':
-        title = obj.Title() or obj.getId().strip()
-        result.append( { 'id': now[-1]
-                       , 'title': (len(title) > 12) and title[:12] + '...' or title
-                       , 'longtitle': title
-                       , 'url': rurl + join(now, '/') + '/'
-                       }
-                    )
-
-return result
+return items

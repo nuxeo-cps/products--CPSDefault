@@ -121,6 +121,14 @@ items = [
                 'desc': 'description_nuxeo_flashbox_default'},
                ]
      },
+    {'category': 'eventcalendarbox',
+     'title': 'portal_type_EventCalendarBox_title',
+     'desc': 'portal_type_EventCalendarBox_description',
+     'types': [{'provider': 'nuxeo',
+                'id': 'default',
+                'desc': 'description_nuxeo_basebox_calendar'},
+               ]
+     },
     ]
 
 citems = context.getCustomBoxTypes()

@@ -36,4 +36,5 @@ if REQUEST is not None:
     REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' % 
                               (ob.absolute_url(), action_path,
                                psm))
-return psm
+
+return id

@@ -53,15 +53,12 @@
                         i18n:name="query">Query</span>'
     </div>
     <tal:block condition="python:items_length == 0">
-      <span i18n:translate="">
-        gave <span class="emphasis" i18n:name="legend_no_search_result">no result.</span>.
-      </span>
+      <span i18n:translate="legend_no_search_result">
+        gave no result.</span>
     </tal:block>
     <tal:block condition="python:items_length == 1">
-      <span i18n:translate="">
-        gave <span class="emphasis"
-                   i18n:name="legend_one_search_result">1 result.</span>
-      </span>
+      <span i18n:translate="legend_one_search_result">
+        gave 1 result</span>
     </tal:block>
     <tal:block condition="python:items_length > 1">
       <span i18n:translate="">

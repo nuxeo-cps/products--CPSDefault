@@ -70,6 +70,17 @@ def compute_states(no_history=0):
                     and d.has_key('time')
                     and d.has_key('action')):
                 continue
+            # Skip redundant history (two transition when publishing).
+            if d['action'] == 'copy_submit':
+                continue
+            # Transitions involving a destination container.
+            if d['action'] == 'submit':
+                d['has_dest'] = 1
+                dest_container = d.get('dest_container', '')
+                d['dest_container'] = dest_container
+                dest_title = folders_info.get(dest_container, {}).get(
+                    'title', '?')
+                d['dest_title'] = dest_title
             d['stime']=context.getDateStr(d['time'])
             d['section_title'] = folder_title
             history.append(d)

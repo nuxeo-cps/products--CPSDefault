@@ -104,14 +104,15 @@ class BoxesTool(UniqueObject, PortalFolder):
                 boxdisplayurl = '/'.join(boxpath[:-2])
             rurl = '/'.join(rpath)
 
-            if not include_only_in_subfolder:
-                if (not box.display_in_subfolder and
-                       not box.display_only_in_subfolder and
-                       rurl != boxdisplayurl):
-                    continue
 
-                if box.display_only_in_subfolder and rurl == boxdisplayurl:
-                    continue
+            if (not box.display_in_subfolder and
+                not box.display_only_in_subfolder and
+                rurl != boxdisplayurl):
+                continue
+
+            if (not include_only_in_subfolder and
+                box.display_only_in_subfolder and rurl == boxdisplayurl):
+                continue
 
             newbox = {'url': portal_url.getRelativeUrl(box),
                       'display_url': boxdisplayurl,

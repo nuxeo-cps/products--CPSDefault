@@ -3,8 +3,6 @@
                   mtool here/portal_membership;
                   atool here/portal_actions;
                   wtool here/portal_workflow;
-                  ptool here/portal_proxies;
-                  ttool here/portal_trees;
                   portal_object utool/getPortalObject;
                   portal_title portal_object/Title;
                   object_title here/Title;
@@ -297,7 +295,7 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
   <div metal:define-slot="header">
 
     <h1 id="DesktopTitle"
-        tal:content="here/Title"> Page Title </h1>
+        tal:content="here/Title|here/id"> Page Title </h1>
 
     <div id="DesktopDescription"
         tal:content="here/Description">

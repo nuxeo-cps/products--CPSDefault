@@ -121,14 +121,15 @@
 <form name="idioma" action="Localizer/changeLanguage" method="post"
       tal:attributes="action string:${base_url}Localizer/changeLanguage">
   <select name="lang" onchange="idioma.submit()"
-    tal:define="map here/Localizer/get_languages_map">
-    <tal:block repeat="locale map">
-    <option tal:attributes="value locale/id;
-      selected locale/selected|nothing"
-      tal:content="string:label_language_${locale/id}" i18n:translate="" />
-    </tal:block>
- </select>
- <input type="submit" value="button_ok" i18n:attributes="value" />
+          tal:define="map here/Localizer/get_languages_map">
+    <option tal:repeat="locale map"
+            tal:attributes="value locale/id;
+                            selected locale/selected|nothing"
+            tal:content="string:label_language_${locale/id}"
+            i18n:translate="">
+      Language</option>
+  </select>
+  <input type="submit" value="button_ok" i18n:attributes="value" />
 </form><br />
 </metal:block>
 

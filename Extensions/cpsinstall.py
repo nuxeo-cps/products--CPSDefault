@@ -1520,17 +1520,21 @@ def cps_i18n_update(self, langs_list=None):
 
     pr("i18n Update Done")
 
-#    pr("### Starting CPSDocument Install ###")
-#    pr("Check the logs for more information")
-#    # call cpsdocument install
-#    # Cause now with the favorites it's needed.
-#    # XXX : gotta do something for that ?
-#    from Products.CPSDocument.Extensions.install import install as \
-#         cpsdocument_install
-#    res = cpsdocument_install(self)
-#    # Format really bad if we're doing that.
-#    # Check the log for more information.
-#    #pr(res)
-#    pr("### END OF CPSDocument Install ###")
+    try:
+        import Products.CPSDocument
+        from Products.CPSDocument.Extensions.install import install as \
+             cpsdocument_install
+        pr("### Starting CPSDocument Install ###")
+        pr("Check the logs for more information")
+        # call cpsdocument install
+        # Cause now with the favorites it's needed.
+        # XXX : gotta do something for that ?
+        res = cpsdocument_install(self)
+        # Format really bad if we're doing that.
+        # Check the log for more information.
+        #pr(res)
+        pr("### END OF CPSDocument Install ###")
+    except:
+        pr("### DEPENDENCY ERROR : CPSDocument ###")
 
     return pr('flush')

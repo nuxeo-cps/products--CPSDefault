@@ -76,7 +76,7 @@ def createContent(portal, type, path, id, force=None, **kw):
             ti = t
             break
     if ti:
-        is_proxy = hasattr(ti, 'cps_proxytype') and ti.cps_proxytype != ''
+        is_proxy = hasattr(ti, 'cps_proxy_type') and ti.cps_proxy_type != ''
 
     #dbg display ti info find builder
     if id in parent.objectIds():

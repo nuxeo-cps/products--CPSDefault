@@ -61,7 +61,7 @@ factory_type_information = (
                   'action': 'box_manage_form',
                   'permissions': ('Manage Boxes',)},
                  ),
-      'cps_proxytype': 'folder',
+      'cps_proxy_type': 'folder',
      },
     )
 

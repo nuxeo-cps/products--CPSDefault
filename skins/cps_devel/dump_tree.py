@@ -26,7 +26,7 @@ def dump_it(obj, level=-1):
 
 
     ti = obj.getTypeInfo()
-    is_proxy = hasattr(ti, 'cps_proxytype') and ti.cps_proxytype != ''
+    is_proxy = hasattr(ti, 'cps_proxy_type') and ti.cps_proxy_type != ''
 
     if is_proxy:
         doc = obj.getContent()

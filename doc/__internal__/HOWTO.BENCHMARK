@@ -1,0 +1,71 @@
+Setup benchmarking
+==================
+cpsinstall setup an external method named Benchmarktimer into your cps folder:
+	id:BenchmarkTimer
+	Title:BenchmarkTimer
+	module name:CPSDefault.benchmarktimer
+	function name:BenchmarkTimerInstance
+
+you have to add the following line in your zope server start script:
+BENCHMARKTIMER_LEVEL=-2
+export BENCHMARKTIMER_LEVEL
+
+
+To profile a zpt:
+=================
+<tal:block define="BMT python:here.Benchmarktimer('my_zpt');">
+
+<span tal:replace="BMT/start" />
+...
+<span tal:replace="python:BMT.setMarker('mark1')" />
+...
+<span tal:replace="python:BMT.setMarker('mark2')" />
+...
+<span tal:replace="BMT/stop" />
+
+#display the above BMT profiling result
+<span tal:replace="structure BMT/getProfiling" />
+
+#if you want to display other profiler result comming from python script:
+<span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+
+</tal:block>
+
+note that during the dev of cps the default main_template.pt define
+a default benchmark environment 
+
+
+To profile a python script:
+==========================
+add this 
+
+bmt = context.Benchmarktimer('foo', level=-3)
+bmt.start()
+
+# do something
+
+bmt.stop()
+bmt.saveProfile(context.REQUEST) # the result will be displayed in
+	                         # the main template
+
+or
+return bmt.getProfiling() # return the result
+
+
+Benching:
+========
+benching here is just running many time the result of an url
+
+to bench:
+http://server/foo/bar
+
+use
+http://server/bench?foo/bar
+
+note that 'bar' can be a zpt a py script or an object
+
+
+Recommandation:
+===============
+always use bmt or BMT when using benchmartimer
+it will be easier to remove this tool when swithing to production

@@ -59,7 +59,7 @@ factory_type_information = (
      'description': ('A Base Box is the most basic box.'),
      'meta_type': 'Base Box',
      'content_icon': 'box_icon.gif',
-     'product': 'NuxPortal2',
+     'product': 'CPSBoxes',
      'factory': 'addBaseBox',
      'immediate_view': 'basebox_edit_form',
      'filter_content_types': 0,

@@ -51,7 +51,7 @@ factory_type_information = (
      'description': ('A Text Box contains simple text.'),
      'meta_type': 'Text Box',
      'content_icon': 'box_icon.gif',
-     'product': 'NuxPortal2',
+     'product': 'CPSBoxes',
      'factory': 'addTextBox',
      'immediate_view': 'textbox_edit_form',
      'filter_content_types': 0,

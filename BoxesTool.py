@@ -147,7 +147,7 @@ class BoxesTool(UniqueObject, SimpleItem):
         if hasattr(aq_base(folder), '.cps_boxes'):
             folder_boxes = getattr(folder, '.cps_boxes')
             for box in folder_boxes.objectValues():
-                if not box.isPortalBox:
+                if not hasattr(aq_base(box), 'isPortalBox'):
                     continue
                 boxes.append(box)
 

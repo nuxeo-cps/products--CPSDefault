@@ -7,17 +7,16 @@ mtool = context.portal_membership
 wtool = context.portal_workflow
 ttool = context.portal_types
 
+from ZTUtils import LazyFilter
 from zLOG import LOG, DEBUG
-
 # filtering
 filtered_items = []
 now = context.ZopeTime()
 display_cache = {}
 all_portal_types = ttool.objectIds()
+items = LazyFilter(items, skip='View')
 
 for item in items:
-    if not mtool.checkPermission('View', item):
-        continue
     if getattr(item, 'view', None) is None:
         continue
     if item.getId().startswith('.'):
@@ -50,6 +49,7 @@ for item in items:
                 continue
 
     filtered_items.append(item)
+    
 
 # sorting
 # XXX hardcoded status !

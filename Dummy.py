@@ -92,7 +92,7 @@ class Dummy(CPSBaseDocument, Folder):
         """ Return a dictonary used in getContentInfo """
         infos = {}
         max_len = 512
-        if hasattr(self, 'body'):
+        if hasattr(aq_base(self), 'body'):
             if len(self.body) > max_len:
                 infos['summary'] = self.body[:max_len] + '...'
             else:
@@ -105,7 +105,7 @@ class Dummy(CPSBaseDocument, Folder):
     security.declareProtected(View, 'get_size')
     def get_size(self):
         """ return the size of the data """
-        if hasattr(self, '_size'):
+        if hasattr(aq_base(self), '_size'):
             return self._size
         return self._compute_size()
 

@@ -21,7 +21,6 @@
 from zLOG import LOG, DEBUG, INFO
 
 from Globals import InitializeClass, DTMLFile, MessageDialog
-import Products
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
 from ZODB.PersistentMapping import PersistentMapping

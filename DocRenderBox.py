@@ -68,8 +68,8 @@ class DocRenderBox(BaseBox):
         BaseBox.__init__(self, id, category=category, **kw)
         self.doc_url = doc_url
 
-    security.declarePublic('getContents')
-    def getContents(self):
+    security.declarePublic('getContent')
+    def getContent(self, context=None):
         """Get the content of an object
         """
         utool = getToolByName(self, 'portal_url')
@@ -78,13 +78,23 @@ class DocRenderBox(BaseBox):
         if self.doc_url == '':
             return ''
      
-        try:
-            obj = utool.restrictedTraverse(self.doc_url)
-            if not mtool.checkPermission('View', obj):
-                return ''   
-        except KeyError:
-            return ''
+        if self.doc_url.startswith('/'):
+            try:
+                obj = utool.restrictedTraverse(self.doc_url)
+            except KeyError:
+                return ''
+        else:
+            # FIXME: we assume it's just an id for now
+            # We don't want to use acquisition
+            if not self.doc_url in context.objectIds():
+                return ''
+            try:
+                obj = getattr(context, self.doc_url)
+            except KeyError:
+                return ''
         
+        if not mtool.checkPermission('View', obj):
+            return ''   
         return obj.getContent().render(proxy=obj)
 
 InitializeClass(DocRenderBox)

@@ -1,12 +1,21 @@
 Requires:
 ~~~~~~~~~
--
+- WARNING: Some properties have been added to stylesheet_properties.props.
+  If you overload stylesheet_properties.props you need to add the following
+  properties:
+  contextButtonBackgroundHover
+  standaloneButtonBackgroundHover
+  destructiveButtonBackgroundHover
+  destructiveButtonBorderHover
+  cf CPSDefault/skins/cps_styles/nuxeo/stylesheet_properties.props
 New features:
 ~~~~~~~~~~~~~
 - Added support for user password resetting.
-- Add an interface to manage languages in a portal
+- Added an interface to manage languages in a portal
 - DocRenderBox can now render objects with give id (code need to be cleaned up,
   but the current implementation is currently not good enough anyway)
+- Added user feedback hints on buttons which now change colors when they are
+  hovered. This provides a more usable and accessible user interface.
 Bug fixes:
 ~~~~~~~~~~
 - Added in cpsinstall a migration routine for badly stored portal properties

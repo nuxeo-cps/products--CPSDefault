@@ -6,7 +6,15 @@
 <metal:fields fill-slot="additional_fields">
   <tr valign="top">
     <th align="right" i18n:translate="label_categories">Categories</th>
-    <td colspan="5">XXX TODO IMPLEMENTATION</td>
+    <td colspan="5">
+      <select name="categories" multiple rows="6">
+        <tal:block repeat="cat python:actions.keys()">
+        <option i18n:translate=""
+          tal:attributes="value cat"
+          tal:content="string:label_action_${cat}">Action</option>
+        </tal:block>
+      </select>
+    </td>
   </tr>
 </metal:fields>
 </metal:boxform>

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
-"POT-Creation-Date: 2004-03-04 16:38default\n"
+"POT-Creation-Date: 2004-04-08 15:43default\n"
 "PO-Revision-Date: 2004-03-27 20:27+0100\n"
 "Last-Translator: Álvaro Tejero Cantero <alvaro@antalia.com>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -12,12 +12,13 @@ msgstr ""
 "Language-code: es\n"
 "Language-name: Español\n"
 "Preferred-encodings: utf-8 latin1\n"
-"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-sv es-gt es-"
+"hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 "X-Generator: KBabel 1.0.2\n"
 
 #    <block fill-slot="box_title" content="bs/title">A test box</block>
-#: from
-#: ../skins/cps_devel/test_box_lib.pt
+#.   <block fill-slot="box_title" content="bs/title">A test box</block>
+#: from ../skins/cps_devel/test_box_lib.pt
 msgid "A test box"
 msgstr "Una caja de prueba"
 
@@ -30,37 +31,34 @@ msgstr "Una caja de prueba"
 #.   <a attributes="href action/url;
 #.                                class python:test(selected, 'selected', default)" content="action/name">Action</a>
 #.   <a attributes="href action/url" content="action/name">Action</a>
-#: from
-#: ../skins/cps_default/actionbox_edit_form.pt
+#: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
 msgstr "Acción"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
+#.   <span define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
 #.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
 #.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
-#.   </div>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   </span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Creado por ${item_creator}. Última modificación el ${item_modification}."
+msgstr ""
+"Creado por ${item_creator}. Última modificación el ${item_modification}."
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
-#.           </span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.            </span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objetos ${batch_start} - ${batch_limit} de ${batch_length}"
 
 #.   <option repeat="type allowed|here/allowedContentTypes" attributes="selected python:type.getId() in displayed;
 #.                                       value type/getId" content="type/Title">Portal Type</option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "Portal Type"
 msgstr "Tipo de documento"
 
@@ -70,8 +68,7 @@ msgstr "Tipo de documento"
 #.   <td content="item/Description" align="left" class="description">
 #.                 Portal type's description
 #.               </td>
-#: from
-#: ../skins/cps_default/box_create_form.pt
+#: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
 msgstr "Descripción del tipo de documento"
@@ -82,8 +79,7 @@ msgstr "Descripción del tipo de documento"
 #.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
 #.                   Portal type's title
 #.                 </label>
-#: from
-#: ../skins/cps_default/box_create_form.pt
+#: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr "Título del tipo de documento"
@@ -92,24 +88,21 @@ msgstr "Título del tipo de documento"
 #.            Role1
 #.         </option>
 #.   <option repeat="role roles" attributes="value role" content="role"> Role1 </option>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "Role1"
 msgstr "Rol1"
 
 #.   <option attributes="value slot;
 #.             selected python:test(slot==selected_slot,'selected', nothing);" content="string:label_${slot}" value="slot">Slot</option>
 #.   <span content="string:label_${slot}">Slot</span>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
 msgstr "Ubicación"
 
 #.   <block condition="python:box['box'].category != 'actionbox' or
 #.                               box['box'].btype != 'user'" content="box/box/title">Title</block>
-#: from
-#: ../skins/cps_default/box_lib.pt
+#: from ../skins/cps_default/box_lib.pt
 msgid "Title"
 msgstr "Título"
 
@@ -118,147 +111,153 @@ msgstr "Título"
 #.                                          nothing" condition="portal_status_message" content="portal_status_message" class="message">
 #.     Translated status message.
 #.   </div>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr "Mensaje de estado traducido"
 
 #    <span attributes="class
 #          info/review_state" content="info/review_state">Work</span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <span attributes="class
+#.         info/review_state" content="info/review_state">Work</span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "Work"
 msgstr "Trabajo"
 
 #    <span>
 #            Your query '${query (tal content="SearchableText")}'
 #          </span>
-#: from
-#: ../skins/cps_default/search_form.pt
+#.   <span>
+#.           Your query '${query (tal content="SearchableText")}'
+#.         </span>
+#: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "Su búsqueda <em>${query}</em>"
 
 #.   <a define="contact_email here/portal_properties/email_from_address" attributes="href string:mailto:${contact_email}?subject=Info" accesskey="9">Contact</a>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib.pt
 msgid "accessibility_contact_link"
 msgstr "Información sobre accesibilidad"
 
 #    <a href="#content" accesskey="2">Go to the content</a>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#.   <a href="#content" accesskey="2">Go to the content</a>
+#: from ../skins/cps_default/generic_lib.pt
 msgid "accessibility_content_link"
 msgstr "Ir al contenido"
 
 #    <p>
 #    this site try to use access-pour-tous
 #    </p>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#.   <p>
+#.   this site tries to use access-pour-tous
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
-msgstr "Este sitio ha sido concebido para ser accesible, trabajando a partir de las reglas de navegación definidas en <a href=\"http://www.acces-pour-tous.net/\">accès pour tous</a>."
+msgstr ""
+"Este sitio ha sido concebido para ser accesible, trabajando a partir de las "
+"reglas de navegación definidas en <a href=\"http://www.acces-pour-tous.net/"
+"\">accès pour tous</a>."
 
 #.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib.pt
 msgid "accessibility_home_link"
 msgstr "Ir a la página de bienvenida"
 
 #    <a href="#menu" accesskey="3">Go to the menu</a>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#.   <a href="#menu" accesskey="3">Go to the menu</a>
+#: from ../skins/cps_default/generic_lib.pt
 msgid "accessibility_menu_link"
 msgstr "Ir al menú"
 
 #.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib.pt
 msgid "accessibility_page_link"
 msgstr "Información de accesibilidad"
 
 #    <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
+#: from ../skins/cps_default/generic_lib.pt
 msgid "accessibility_search_link"
 msgstr "Ir al motor de búsqueda interno"
 
 #.   <span>Accessibility information</span>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_accessibility"
 msgstr "Información de accesibilidad"
 
 #.   <span>Contact</span>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_contact"
 msgstr "Enviar un correo-e"
 
 #    <span>Go to the
 #      content</span>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#.   <span>Go to the
+#.     content</span>
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_content"
 msgstr "Ir al contenido"
 
 #    <p>bla</p>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_description"
-msgstr "Los atajos de teclado disponibles para navegar este sitio son los siguientes: "
+msgstr ""
+"Los atajos de teclado disponibles para navegar este sitio son los "
+"siguientes: "
 
 #    <p>bla</p>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_description2"
-msgstr "<strong>Mozilla</strong>: Presione simultáneamente la tecla Alt, la tecla Mays y una de las teclas del teclado (pero no el teclado numérico). Irá directamente al lugar deseado.Si utiliza letras, puede prescindir de presionar la tecla May.<br/><br>Con <strong>IE6</strong>: Presione simultáneamente la tecla Alt, la tecla Mays y una de las teclas del teclado (pero no el teclado numérico) y seguidamente presione la tecla \"Entrar\" para ir al lugar deseado.<br><br><strong>Opera</strong>: ¡no soporta las teclas de acceso!<br><br>"
+msgstr ""
+"<strong>Mozilla</strong>: Presione simultáneamente la tecla Alt, la tecla "
+"Mays y una de las teclas del teclado (pero no el teclado numérico). Irá "
+"directamente al lugar deseado.Si utiliza letras, puede prescindir de "
+"presionar la tecla May.<br/><br>Con <strong>IE6</strong>: Presione "
+"simultáneamente la tecla Alt, la tecla Mays y una de las teclas del teclado "
+"(pero no el teclado numérico) y seguidamente presione la tecla \"Entrar\" "
+"para ir al lugar deseado.<br><br><strong>Opera</strong>: ¡no soporta las "
+"teclas de acceso!<br><br>"
 
 #.   <span>Go to the
 #.     homepage</span>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_homepage"
 msgstr "Ir a la página de bienvenida"
 
 #.   <span>Go to the
 #.     menu</span>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_menu"
 msgstr "Ir al menú"
 
 #.   <span>Go to the
 #.     internal search engine</span>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_search"
 msgstr "Ir al motor de búsqueda interno"
 
 #.   <h2>Keyboard shortcuts or
 #.   accesskeys</h2>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_title"
 msgstr "Los atajos de teclado o teclas de acceso"
 
 #.   <h1>Accessibility</h1>
-#: from
-#: ../skins/cps_default/accessibility.pt
+#: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_title"
 msgstr "Informaciones de accesibilidad"
 
 #.   <a define="next batch_info/next" condition="python:next is not None" attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))">Next</a>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "batch_next"
 msgstr "Siguientes"
 
 # # Batch ========================================================
 #.   <a define="previous batch_info/previous" condition="python:previous is not None" attributes="href python:'%s?%s'%(request['URL'],
 #.                                               mq(request.form, b_start=previous))">Previous</a>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "batch_previous"
 msgstr "Anteriores"
 
@@ -273,79 +272,68 @@ msgstr "Anteriores"
 #           box text title
 #      </block>
 #    <block content="box/box/title">box text title</block>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.   <block fill-slot="box_title" content="box/box/title">
+#.         box text title
+#.       </block>
+#.   <block fill-slot="box_title" content="box/box/title">box text title</block>
+#.   <block fill-slot="box_title" content="box/box/title">
+#.          box text title
+#.       </block>
+#.   <block fill-slot="box_title" content="box/box/title">
+#.          box text title
+#.     </block>
+#.   <block content="box/box/title">box text title</block>
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "box text title"
 msgstr "Texto de título de la caja"
 
 #    <span>Closed boxes :&nbsp;</span>
-#: from
-#: ../skins/cps_devel/main_template.pt
+#.   <span>Closed boxes :&nbsp;</span>
+#: from ../skins/cps_devel/main_template.pt
 msgid "box_closed_boxes"
 msgstr "Cajas cerradas:"
 
 #    <span>Search:</span>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.   <span>Search:</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "box_search"
 msgstr "Buscar"
 
-#.   <input value="button_abandon_draft" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
-#: from
-#: ../skins/cps_default/content_abandon_draft_form.pt
+#.   <input value="button_abandon_draft" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "button_abandon_draft"
 msgstr "Abandonar la versión"
 
-#.   <input value="button_add" class="standalone searchButton" type="submit">
-#.       </input>
-#.   <input value="button_add" class="standalone searchButton" type="submit">
-#.             </input>
-#: from
-#: ../skins/cps_default/box_create_form.pt
+#.   <input value="button_add" class="standalone searchButton" type="submit" />
+#: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Añadir"
 
-#.   <input value="button_apply" class="standalone" type="submit">
-#.     </input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_apply" class="standalone" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_apply"
 msgstr "Aplicar"
 
-#.   <input value="button_assign_roles" type="submit">
-#.       </input>
 #.   <input value="button_assign_roles" type="submit" />
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
 msgstr "Delegar rol"
 
-#.   <input value="button_back" class="context" name="back" type="submit">
-#.       </input>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <input value="button_back" class="context" name="back" type="submit" />
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "button_back"
 msgstr "Atrás"
 
-#.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input>
-#.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input>
-#: from
-#: ../skins/cps_default/content_abandon_draft_form.pt
+#.   <input onclick="history.back()" class="context" type="button" value="button_cancel" />
+#: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_reject_form.pt
 #: ../skins/cps_default/content_revert_form.pt
-#: ../skins/cps_default/content_submit_form.pt
-#: 2
-#: more
-#: references
+#: ../skins/cps_default/content_submit_form.pt 2 more references
 msgid "button_cancel"
 msgstr "Cancelar"
 
@@ -363,8 +351,11 @@ msgstr "Cancelar"
 #    <input value="button_change" type="submit">
 #        <input onclick="history.back()" type="button" value="button_cancel">
 #      </input></input>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit" />
+#.   <input value="button_change" class="standalone" type="submit" />
+#.   <input value="button_change" class="standalone" name="change" type="submit" />
+#.   <input value="button_change" type="submit" />
+#: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -385,8 +376,9 @@ msgstr "Guardar cambios"
 #    <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #          <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #        </input></input>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit" />
+#.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit" />
+#: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -399,47 +391,36 @@ msgstr "Guardar cambios"
 #            </input>
 #    <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #        </input>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit" />
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_view"
 msgstr "Guardar y ver"
 
-#.   <input value="button_checkin_draft" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
-#: from
-#: ../skins/cps_default/content_checkin_draft_form.pt
+#.   <input value="button_checkin_draft" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "button_checkin_draft"
 msgstr "Validar la versión"
 
-#.   <input value="button_checkout_draft" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
-#: from
-#: ../skins/cps_default/content_checkout_draft_form.pt
+#.   <input value="button_checkout_draft" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "button_checkout_draft"
 msgstr "Crear una versión"
 
-#.   <input value="button_copy" class="context" name="folder_copy:method" type="submit">
-#.           </input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_copy" class="context" name="folder_copy:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr "Copiar"
 
 #    <a attributes="href string:${context_urlc}/box_create_form" href="box_create_form">Add a box</a>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <a attributes="href string:${context_urlc}/box_create_form" href="box_create_form">Add a box</a>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "button_create_box"
 msgstr "Crear una caja"
 
-#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit">
-#.             <input value="button_copy" class="context" name="folder_copy:method" type="submit">
-#.           </input></input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr "Cortar"
 
@@ -448,23 +429,23 @@ msgstr "Cortar"
 #            </input>
 #    <input value="button_delete" type="submit">
 #       </input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#.                 (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit" />
+#.   <input value="button_delete" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
 msgstr "Borrar"
 
-#.   <input value="button_login" class="standalone" name="submit" type="submit">
-#.         </input>
-#: from
-#: ../skins/cps_default/login_form.pt
+#.   <input value="button_login" class="standalone" name="submit" type="submit" />
+#: from ../skins/cps_default/login_form.pt
 msgid "button_login"
 msgstr "Autentificación"
 
 #    <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
 #          </input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Mover abajo del todo"
 
@@ -472,16 +453,16 @@ msgstr "Mover abajo del todo"
 #              <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
 #              <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
 #          </input></input></input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Mover abajo"
 
 #    <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
 #              <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
 #          </input></input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Mover arriba del todo"
 
@@ -490,80 +471,42 @@ msgstr "Mover arriba del todo"
 #              <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
 #              <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
 #          </input></input></input></input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr "Mover arriba"
 
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.         </input>
+#.   <input value="button_ok" class="context searchButton" type="submit" />
 #.   <input attributes="name python:test(no_form, None,
-#.                                                     nav_action + ':method')" value="button_ok" type="submit">
-#.           <block replace="structure string:
-#.           </form>" condition="no_form" />
-#.         </input>
-#.   <input onclick="history.back()" type="button" value="button_ok">
-#.
-#.   </input>
-#.   <input value="button_ok" class="standalone searchButton" type="submit">
-#.           <br>
-#.           <block condition="not:swr">
-#.             <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.           </block>
-#.           <block define="criteria python:['search_within_results', 'title_search',
-#.                                      'folder_prefix', 'review_state'];
-#.                     criteria_list python:['portal_type'];" condition="swr">
-#.             <block repeat="criterion criteria">
-#.               <input type="hidden" define="value request/?criterion|nothing" condition="value" attributes="name criterion;
-#.                                 value value">
-#.             </input></block>
-#.             <block repeat="criterion criteria_list">
-#.               <block define="values request/?criterion|nothing" condition="values">
-#.                 <block repeat="value values">
-#.                   <input type="hidden" define="value value" attributes="name python:criterion+':list'; value value">
-#.                 </input></block>
-#.               </block>
-#.             </block>
-#.           </block>
-#.        </br></input>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.                                                     nav_action + ':method')" value="button_ok" type="submit" />
+#.   <input onclick="history.back()" type="button" value="button_ok" />
+#.   <input value="button_ok" class="standalone searchButton" type="submit" />
+#: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "Vale"
 
-#.   <input value="button_paste" class="context" name="folder_paste:method" type="submit">
-#.           </input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_paste" class="context" name="folder_paste:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr "Pegar"
 
-#.   <input value="button_publish" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
-#.   <input value="button_publish" type="submit">
-#.     </input>
-#: from
-#: ../skins/cps_default/content_accept_form.pt
+#.   <input value="button_publish" class="standalone" type="submit" />
+#.   <input value="button_publish" type="submit" />
+#: from ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_lib.pt
 msgid "button_publish"
 msgstr "Publicar"
 
-#.   <input value="button_register" class="standalone" name="submit" type="submit">
-#.           </input>
-#: from
-#: ../skins/cps_default/join_form.pt
+#.   <input value="button_register" class="standalone" name="submit" type="submit" />
+#: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr "Registrarme"
 
-#.   <input value="button_reject_publication" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
-#: from
-#: ../skins/cps_default/content_reject_form.pt
+#.   <input value="button_reject_publication" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_reject_form.pt
 msgid "button_reject_publication"
 msgstr "Rechazar la publicación"
 
@@ -571,61 +514,44 @@ msgstr "Rechazar la publicación"
 #              <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #                (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
 #            </input></input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.   <input value="button_rename" class="context" name="folder_rename_form:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Cambiar el id del objeto"
 
-#.   <input value="button_revert_revision" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
-#: from
-#: ../skins/cps_default/content_revert_form.pt
+#.   <input value="button_revert_revision" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
 msgstr "Volver a la versión archivada"
 
-#.   <input value="button_search" class="context searchButton" type="submit"><br>
-#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.     </br></input>
-#.   <input value="button_search" name="role_submit" type="submit">
-#.      </input>
+#.   <input value="button_search" class="context searchButton" type="submit" />
+#.   <input value="button_search" name="role_submit" type="submit" />
 #.   <input value="button_search" class="standalone" type="submit" />
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
 msgstr "Buscar"
 
 #.   <input attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
-#.                                    % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" onclick="someJavaScriptFunctionThatWillBeReplaced" class="context" type="button" value="button_select_all">
-#.           </input>
-#: from
-#: ../skins/cps_default/folder_contents.pt
+#.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" onclick="someJavaScriptFunctionThatWillBeReplaced" class="context" type="button" value="button_select_all" />
+#: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
 msgstr "Seleccionar todo"
 
-#.   <input value="button_send" class="context searchButton" type="submit">
-#.     </input>
-#: from
-#: ../skins/cps_default/mail_password_form.pt
+#.   <input value="button_send" class="context searchButton" type="submit" />
+#: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
 msgstr "Enviar"
 
-#.   <input value="button_submit_document" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
-#: from
-#: ../skins/cps_default/content_publish_form.pt
+#.   <input value="button_submit_document" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "button_submit_document"
 msgstr "Remitir para publicación"
 
-#.   <input value="button_unpublish_document" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
-#: from
-#: ../skins/cps_default/content_unpublish_form.pt
+#.   <input value="button_unpublish_document" class="standalone" type="submit" />
+#: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
 msgstr "Retirar el documento"
 
@@ -633,24 +559,28 @@ msgstr "Retirar el documento"
 #          by ${history_actor (tal replace="item/actor")}:
 #          ${history_comments (tal content="item/comments|nothing")}
 #        </span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <span>
+#.         by ${history_actor (tal replace="item/actor")}:
+#.         ${history_comments (tal content="item/comments|nothing")}
+#.       </span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "by ${history_actor}: ${history_comments}"
 msgstr "por ${history_actor}: ${history_comments}"
 
 #    <span>
 #            You are already a member. You may use the
 #          </span>
-#: from
-#: ../skins/cps_default/join_form.pt
+#.   <span>
+#.           You are already a member. You may use the
+#.         </span>
+#: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_1"
 msgstr "Usted ya es miembro. Puede utilizar el "
 
 #.   <span>
 #.           to change your membership information.
 #.         </span>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "para modificar sus datos personales."
 
@@ -659,48 +589,60 @@ msgstr "para modificar sus datos personales."
 #            incorrect. Your browser may also not be configured to accept HTTP
 #            cookies. If you need help please contact
 #          </span>
-#: from
-#: ../skins/cps_default/logged_in.pt
+#.   <span>
+#.           You are not currently logged in. Your username and or password may be
+#.           incorrect. Your browser may also not be configured to accept HTTP
+#.           cookies. If you need help please contact
+#.         </span>
+#: from ../skins/cps_default/logged_in.pt
 msgid "description_login_failure"
-msgstr "Usted no está actualmente conectado al portal. Es posible que su nombre de usuario y/o contraseña sea incorrecto. También es posible que su navegador no esté configurado para aceptar las cookies. Si necesita ayuda contacte con "
+msgstr ""
+"Usted no está actualmente conectado al portal. Es posible que su nombre de "
+"usuario y/o contraseña sea incorrecto. También es posible que su navegador "
+"no esté configurado para aceptar las cookies. Si necesita ayuda contacte con "
 
 #.   <p>
 #.            Welcome. You are currently logged in.
 #.         </p>
-#: from
-#: ../skins/cps_default/logged_in.pt
+#: from ../skins/cps_default/logged_in.pt
 msgid "description_login_success"
 msgstr "Bienvenido. Ahora está conectado al portal."
 
 #    <p condition="isAnon">
 #        You have been logged out.
 #      </p>
-#: from
-#: ../skins/cps_default/logged_out.pt
+#.   <p condition="isAnon">
+#.       You have been logged out.
+#.     </p>
+#: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_success"
 msgstr "Usted está ahora desconectado"
 
 #    <span>
 #          You are logged in outside the portal.  You may need to
 #        </span>
-#: from
-#: ../skins/cps_default/logged_out.pt
+#.   <span>
+#.         You are logged in outside the portal.  You may need to
+#.       </span>
+#: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_zmi_warning"
 msgstr "Usted se ha desconectado del portal. Puede "
 
 #    <div class="description">
 #        This form is used to set the portal configuration options.
 #      </div>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#.   <div class="description">
+#.       This form is used to set the portal configuration options.
+#.     </div>
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "description_reconfig_form"
-msgstr "Este formulario sirve para fijar las opciones de configuración del portal."
+msgstr ""
+"Este formulario sirve para fijar las opciones de configuración del portal."
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
-#: from
-#: ../skins/cps_default/registered.pt
+#: from ../skins/cps_default/registered.pt
 msgid "description_registred"
 msgstr "Acaba de quedar registrado como miembro"
 
@@ -709,8 +651,12 @@ msgstr "Acaba de quedar registrado como miembro"
 #      </span>
 #    <span>description_up_to
 #             ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.   <span>description_up_to
+#.       ${up_id (tal content="python:here.aq_parent.title_or_id()")}
+#.     </span>
+#.   <span>description_up_to
+#.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "description_up_to ${up_id}"
 msgstr "Hacia ${up_id}"
@@ -718,38 +664,39 @@ msgstr "Hacia ${up_id}"
 #    <p>
 #      description_visible_box_from ${context_url (tal content="context_url")}
 #    </p>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <p>
+#.     description_visible_box_from ${context_url (tal content="context_url")}
+#.   </p>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr "Caja visible desde: ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
 #.   <block content="string:label_language_${item/lang}">en</block>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "en"
 msgstr "en"
 
 #.   <p>We apologize for the
 #.     incovenience.</p>
-#: from
-#: ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib.pt
 msgid "error_default_message"
 msgstr "Discúlpenos por las molestias ocasionadas."
 
 #.   <p>The resource you asked was not
 #.     found. If the document has moved you may find it using the search form
 #.     below.</p>
-#: from
-#: ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib.pt
 msgid "error_not_found"
-msgstr "No se ha podido encontrar el recurso que ha solicitado. Si el documento ha cambiado de sitio podrá encontrarlo mediante el siguiente formulario de búsqueda."
+msgstr ""
+"No se ha podido encontrar el recurso que ha solicitado. Si el documento ha "
+"cambiado de sitio podrá encontrarlo mediante el siguiente formulario de "
+"búsqueda."
 
 #.   <span>
 #.             gave ${nb_results (tal content="items_length")}
 #.           </span>
-#: from
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "gave ${nb_results}"
 msgstr "ha devuelto ${nb_results} resultados."
 
@@ -757,8 +704,7 @@ msgstr "ha devuelto ${nb_results} resultados."
 #.     heading_abandon_draft_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "heading_abandon_draft_of ${item_id}"
 msgstr "Abandonar la versión ${item_id}"
 
@@ -766,34 +712,32 @@ msgstr "Abandonar la versión ${item_id}"
 #.     heading_accept_publication_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_accept_form.pt
+#: from ../skins/cps_default/content_accept_form.pt
 msgid "heading_accept_publication_of ${item_id}"
 msgstr "Aceptar la publicación de ${item_id}"
 
 #.   <h1>
 #.         Advanced search
 #.       </h1>
-#: from
-#: ../skins/cps_default/advanced_search_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
 msgid "heading_advanced_search"
 msgstr "Búsqueda avanzada"
 
 #    <h1>Add a Box</h1>
-#: from
-#: ../skins/cps_default/box_create_form.pt
+#.   <h1>Add a Box</h1>
+#: from ../skins/cps_default/box_create_form.pt
 msgid "heading_box_create_form"
 msgstr "Añadir una caja"
 
 #    <h2>Box edition</h2>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <h2>Box edition</h2>
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "heading_box_edit_form"
 msgstr "Modificar la caja"
 
 #    <h2>Boxes management</h2>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <h2>Boxes management</h2>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "heading_box_manage_form"
 msgstr "Gestión de cajas"
 
@@ -801,8 +745,7 @@ msgstr "Gestión de cajas"
 #.     heading_checkin_draft_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_checkin_draft_form.pt
+#: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "heading_checkin_draft_of ${item_id}"
 msgstr "Validar la versión ${item_id}"
 
@@ -810,14 +753,12 @@ msgstr "Validar la versión ${item_id}"
 #.     heading_checkout_draft_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_checkout_draft_form.pt
+#: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "heading_checkout_draft_of ${item_id}"
 msgstr "Crear una versión ${item_id}"
 
 #.   <h2 condition="type_name">heading_create</h2>
-#: from
-#: ../skins/cps_default/folder_edit_form.pt
+#: from ../skins/cps_default/folder_edit_form.pt
 msgid "heading_create"
 msgstr "Crear"
 
@@ -827,81 +768,78 @@ msgstr "Crear"
 #.     </h1>
 #.   <h2 condition="not:type_name">heading_edit
 #.       ${item_id (tal replace="here/getId")}</h2>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 msgid "heading_edit ${item_id}"
 msgstr "Modificar ${item_id}"
 
 #.   <h1>Not Found</h1>
-#: from
-#: ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib.pt
 msgid "heading_error_not_found"
 msgstr "Recurso no encontrado"
 
 #.   <h1>CPS encountered an error</h1>
-#: from
-#: ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib.pt
 msgid "heading_error_other"
 msgstr "CPS ha encontrado un error"
 
 #.   <h1 fill-slot="header">
 #.       Add Content
 #.     </h1>
-#: from
-#: ../skins/cps_default/folder_factories.pt
+#: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Añadir contenido"
 
 #.   <h1>Become a member</h1>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
 msgstr "Hacerse miembro"
 
 #    <h2>
 #     Assign local roles: Search Members
 #    </h2>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <h2>
+#.    Assign local roles: Search Members
+#.   </h2>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_members"
 msgstr "Delegar roles locales: búsqueda de miembros"
 
 #    <h2>
 #        Assign local roles: Search Results
 #    </h2>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <h2>
+#.       Assign local roles: Search Results
+#.   </h2>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
 msgstr "Delegar roles locales: resultados de la búsqueda"
 
 #.   <h1>Login failure</h1>
-#: from
-#: ../skins/cps_default/logged_in.pt
+#: from ../skins/cps_default/logged_in.pt
 msgid "heading_login_failure"
 msgstr "La autentificación ha fracasado"
 
 #.   <h1>Log in</h1>
-#: from
-#: ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/login_form.pt
 msgid "heading_login_form"
 msgstr "Autentificarme"
 
 #    <h1>Login success</h1>
-#: from
-#: ../skins/cps_default/logged_in.pt
+#.   <h1>Login success</h1>
+#: from ../skins/cps_default/logged_in.pt
 msgid "heading_login_success"
 msgstr "Autentificado con éxito"
 
 #    <h1>Don't panic!</h1>
-#: from
-#: ../skins/cps_default/mail_password_form.pt
+#.   <h1>Don't panic!</h1>
+#: from ../skins/cps_default/mail_password_form.pt
 msgid "heading_mail_password_form"
 msgstr "¡No tema!"
 
 #    <h1>Password sent</h1>
-#: from
-#: ../skins/cps_default/mail_password_response.pt
+#.   <h1>Password sent</h1>
+#: from ../skins/cps_default/mail_password_response.pt
 msgid "heading_mail_password_response"
 msgstr "Contraseña enviada&nbsp;"
 
@@ -909,22 +847,20 @@ msgstr "Contraseña enviada&nbsp;"
 #.     heading_publish_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_publish_form.pt
+#: from ../skins/cps_default/content_publish_form.pt
 msgid "heading_publish_of ${item_id}"
 msgstr "Publicar ${item_id}"
 
 #.   <h1>
 #.       Configure Portal
 #.     </h1>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurar el portal"
 
 #    <h1> Success! </h1>
-#: from
-#: ../skins/cps_default/registered.pt
+#.   <h1> Success! </h1>
+#: from ../skins/cps_default/registered.pt
 msgid "heading_registred_title"
 msgstr "¡Culminado con éxito!"
 
@@ -932,20 +868,18 @@ msgstr "¡Culminado con éxito!"
 #.     heading_reject_publication_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_reject_form.pt
+#: from ../skins/cps_default/content_reject_form.pt
 msgid "heading_reject_publication_of ${item_id}"
 msgstr "Rechazar la publicación de ${item_id}"
 
 #    <h1>Rename Items</h1>
-#: from
-#: ../skins/cps_default/folder_rename_form.pt
+#.   <h1>Rename Items</h1>
+#: from ../skins/cps_default/folder_rename_form.pt
 msgid "heading_rename_items"
 msgstr "Renombrar los ids de los objetos"
 
 #.   <h1>Resource Metadata</h1>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "heading_resource_metadata"
 msgstr "Metadatos del recurso"
 
@@ -953,22 +887,19 @@ msgstr "Metadatos del recurso"
 #.     heading_revert_to_old_revision_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_revert_form.pt
+#: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "Volver a una versión archivada de ${item_id}"
 
 #.   <h1 condition="not:title_search">Search Results</h1>
-#: from
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "heading_search_results"
 msgstr "Resultados de la búsqueda"
 
 #.   <h1>
 #.     Standard Resource Metadata
 #.     </h1>
-#: from
-#: ../skins/cps_default/metadata_edit_form.pt
+#: from ../skins/cps_default/metadata_edit_form.pt
 msgid "heading_standard_resource_metadata"
 msgstr "Metadatos estándar del recurso"
 
@@ -976,8 +907,7 @@ msgstr "Metadatos estándar del recurso"
 #.     heading_status_history_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_status_history.pt
+#: from ../skins/cps_default/content_status_history.pt
 msgid "heading_status_history_of ${item_id}"
 msgstr "Histórico del estado de ${item_id}"
 
@@ -985,8 +915,7 @@ msgstr "Histórico del estado de ${item_id}"
 #.     heading_submit_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_submit_form.pt
+#: from ../skins/cps_default/content_submit_form.pt
 msgid "heading_submit_of ${item_id}"
 msgstr "Remitir ${item_id}"
 
@@ -994,84 +923,108 @@ msgstr "Remitir ${item_id}"
 #.     heading_unpublish_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
-#: from
-#: ../skins/cps_default/content_unpublish_form.pt
+#: from ../skins/cps_default/content_unpublish_form.pt
 msgid "heading_unpublish_of ${item_id}"
 msgstr "Retirar ${item_id}"
 
 #.   <span>
 #.       If you abandon this draft, the original document will be unlocked.
 #.     </span>
-#: from
-#: ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
 msgstr "Si abandona la versión, el documento original será desbloqueado."
 
 #    <span>Accept publication of this item, this will make it available to section's readers</span>
-#: from
-#: ../skins/cps_default/content_accept_form.pt
+#.   <span>Accept publication of this
+#.       item, this will make it available to section's readers</span>
+#: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
-msgstr "La aceptación de la publicación de este documento hará que esté disponible para los lectores de la sección."
+msgstr ""
+"La aceptación de la publicación de este documento hará que esté disponible "
+"para los lectores de la sección."
 
 #    <span>
 #        If you commit this draft, it will replace the document currently locked.
 #      </span>
 # Mi traducciÃ³n anterior (comparar)
 # Esta versiÃ³n se convertirÃ¡ en el documento original.
-#: from
-#: ../skins/cps_default/content_checkin_draft_form.pt
+#.   <span>
+#.       If you commit this draft, it will replace the document currently locked.
+#.     </span>
+#: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "Si incorpora esta versión, sustituirá el documento que ahora está bloqueado."
+msgstr ""
+"Si incorpora esta versión, sustituirá el documento que ahora está bloqueado."
 
 #    <span>
 #        If you create a draft, you will be the only one able to work on the document.
 #      </span>
-#: from
-#: ../skins/cps_default/content_checkout_draft_form.pt
+#.   <span>
+#.       If you create a draft, you will be the only one able to work on the document.
+#.     </span>
+#: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
-msgstr "Si crea una versión, será el único que podrá trabajar sobre el documento."
+msgstr ""
+"Si crea una versión, será el único que podrá trabajar sobre el documento."
 
 #    <em>
 #            Box types in italic are predefined types. You cannot change their
 #            properties from this interface. Use the default box to do so.
 #          </em>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <em>
+#.           Box types in italic are predefined types. You cannot change their
+#.           properties from this interface. Use the default box to do so.
+#.         </em>
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "help_italic_vendor_boxes_types"
-msgstr "Los tipos de caja en cursiva son tipos predefinidos, algunas de sus propiedades no se pueden cambiar desde aquí. Utilice la caja por defecto para hacerlo."
+msgstr ""
+"Los tipos de caja en cursiva son tipos predefinidos, algunas de sus "
+"propiedades no se pueden cambiar desde aquí. Utilice la caja por defecto "
+"para hacerlo."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
 #.         and participate in the community.
 #.       </p>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
-msgstr "Hacerse miembro le dará la posibilidad de personalizar el sitio y de participar en la comunidad."
+msgstr ""
+"Hacerse miembro le dará la posibilidad de personalizar el sitio y de "
+"participar en la comunidad."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
 #.         other personal information will remain private.</p>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_2"
-msgstr "Hacerse miembro es totalmente gratuito; su correo-e y los otros datos personales seguirán siendo privados."
+msgstr ""
+"Hacerse miembro es totalmente gratuito; su correo-e y los otros datos "
+"personales seguirán siendo privados."
 
 #    <span>
 #            You must submit a valid email address. This address will be used
 #            to send you a randomly-generated password.  Once you have logged
 #            in with this password, you may change it to anything you like.
 #          </span>
-#: from
-#: ../skins/cps_default/join_form.pt
+#.   <span>
+#.           You must submit a valid email address. This address will be used
+#.           to send you a randomly-generated password.  Once you have logged
+#.           in with this password, you may change it to anything you like.
+#.         </span>
+#: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
-msgstr "Debe usted indicar una dirección de correo-e válida. Será utilizada para hacerle llegar su contraseña generada aleatoriamente. Una vez que usted se haya autentificado con esta contraseña, podrá cambiarla a su gusto."
+msgstr ""
+"Debe usted indicar una dirección de correo-e válida. Será utilizada para "
+"hacerle llegar su contraseña generada aleatoriamente. Una vez que usted se "
+"haya autentificado con esta contraseña, podrá cambiarla a su gusto."
 
 #    <p>
 #        Don't forget to logout or exit your browser when you're done.
 #      </p>
-#: from
-#: ../skins/cps_default/login_form.pt
+#.   <p>
+#.       Don't forget to logout or exit your browser when you're done.
+#.     </p>
+#: from ../skins/cps_default/login_form.pt
 msgid "help_login_aware_logout"
 msgstr "No olvide desconectarse o salir de su navegador cuando haya terminado."
 
@@ -1079,51 +1032,74 @@ msgstr "No olvide desconectarse o salir de su navegador cuando haya terminado."
 #.       Having trouble logging in? Make sure to enable cookies in
 #.       your web browser.
 #.     </p>
-#: from
-#: ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "¿Tiene problemas para conectarse?. Asegúrese de haber activado las cookies en su navegador."
+msgstr ""
+"¿Tiene problemas para conectarse?. Asegúrese de haber activado las cookies "
+"en su navegador."
 
 #    <p>
 #        Just enter your username below, click <em>Send</em>, and your
 #        password will be mailed to you if you gave a valid email address
 #        when you signed on.
 #      </p>
-#: from
-#: ../skins/cps_default/mail_password_form.pt
+#.   <p>
+#.       Just enter your username below, click <em>Send</em>, and your
+#.       password will be mailed to you if you gave a valid email address
+#.       when you signed on.
+#.     </p>
+#: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
-msgstr "Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su contraseña le será enviada si facilitó una dirección de correo-e correcta al registrarse como miembro."
+msgstr ""
+"Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su "
+"contraseña le será enviada si facilitó una dirección de correo-e correcta al "
+"registrarse como miembro."
 
 #    <span>
 #          If this will not work for you (for example, if you forget your member
 #          name or didn't enter your email address) send email to
 #        </span>
-#: from
-#: ../skins/cps_default/mail_password_form.pt
+#.   <span>
+#.         If this will not work for you (for example, if you forget your member
+#.         name or didn't enter your email address) send email to
+#.       </span>
+#: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
-msgstr "Si esto no funciona en su caso (por ejemplo, si ha olvidado su nombre de usuario o no introdujo una dirección de correo-e válida al inscribirse) envíe un correo a "
+msgstr ""
+"Si esto no funciona en su caso (por ejemplo, si ha olvidado su nombre de "
+"usuario o no introdujo una dirección de correo-e válida al inscribirse) "
+"envíe un correo a "
 
 #    <p>
 #        Your password has been mailed.
 #      </p>
-#: from
-#: ../skins/cps_default/mail_password_response.pt
+#.   <p>
+#.       Your password has been mailed.
+#.     </p>
+#: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_1"
 msgstr "Su contraseña le ha sido enviada"
 
 #    <p>
 #        It should arrive in your mailbox momentarily.
 #      </p>
-#: from
-#: ../skins/cps_default/mail_password_response.pt
+#.   <p>
+#.       It should arrive in your mailbox momentarily.
+#.     </p>
+#: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
 msgstr "Debería llegar a su buzón electrónico en unos instantes."
+
+#.   <span>No content type can be created.</span>
+#: from ../skins/cps_default/folder_factories.pt
+#, fuzzy
+msgid "help_no_content_type_can_be_created"
+msgstr "Objeto creado."
 
 #.   <p>
 #.       You must select one or more items to rename.
 #.     </p>
-#: from
-#: ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_no_items_to_rename"
 msgstr "Debe seleccionar uno o varios objetos para renombrar."
 
@@ -1131,35 +1107,41 @@ msgstr "Debe seleccionar uno o varios objetos para renombrar."
 #.                   Check this box to have your password
 #.                   mailed to you.
 #.                 </em>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr "Marque esta casilla para recibir un correo con su contraseña."
 
 #.   <span>You can publish this item
-#.     directly, without requiring any reviewing, in the sections you select.<br>A
+#.     directly, without requiring any reviewing, in the sections you select.<br />A
 #.     copy of the item will be created into each of these sections with the
 #.     <b>published</b>status. Section readers of those sections could then read
-#.     it.</br></span>
-#: from
-#: ../skins/cps_default/content_publish_form.pt
+#.     it.</span>
+#: from ../skins/cps_default/content_publish_form.pt
 msgid "help_publish_publication"
-msgstr "Puede publicar directamente este documento, sin pasar por una etapa de moderación, en las secciones que seleccione.<br/>Se creará una copia del documento en cada una de estas secciones con estado <strong>publicado</strong>. Entonces los lectores de estas secciones opdrán leerlo."
+msgstr ""
+"Puede publicar directamente este documento, sin pasar por una etapa de "
+"moderación, en las secciones que seleccione.<br/>Se creará una copia del "
+"documento en cada una de estas secciones con estado <strong>publicado</"
+"strong>. Entonces los lectores de estas secciones opdrán leerlo."
 
 #    <span>
 #          You will receive an email shortly containing
 #          your password and instructions on how to activate your membership.
 #        </span>
-#: from
-#: ../skins/cps_default/registered.pt
+#.   <span>
+#.         You will receive an email shortly containing
+#.         your password and instructions on how to activate your membership.
+#.       </span>
+#: from ../skins/cps_default/registered.pt
 msgid "help_registred_mail"
-msgstr "En breve recibirá un correo con su contraseña y las instrucciones para activar su cuenta de miembro."
+msgstr ""
+"En breve recibirá un correo con su contraseña y las instrucciones para "
+"activar su cuenta de miembro."
 
 #.   <span>
 #.       Reject publication of this item
 #.     </span>
-#: from
-#: ../skins/cps_default/content_reject_form.pt
+#: from ../skins/cps_default/content_reject_form.pt
 msgid "help_reject_publication"
 msgstr "Rechazar la publicación de este documento."
 
@@ -1168,25 +1150,37 @@ msgstr "Rechazar la publicación de este documento."
 #        username, so that when you next log in, your user name will already
 #        be filled in for you.
 #      </p>
-#: from
-#: ../skins/cps_default/login_form.pt
+#.   <p>
+#.       Setting the 'Remember my name' option will set a cookie with your
+#.       username, so that when you next log in, your user name will already
+#.       be filled in for you.
+#.     </p>
+#: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
-msgstr "Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie con su nombre de usuario y así cuando se conecte la próxima vez, el campo que contiene el nombre de usuario aparecerá rellenado automáticamente con el suyo."
+msgstr ""
+"Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie con "
+"su nombre de usuario y así cuando se conecte la próxima vez, el campo que "
+"contiene el nombre de usuario aparecerá rellenado automáticamente con el "
+"suyo."
 
 #    <div class="description">Changing the id of an object does not
 #    affect its title but changes the URL to access it. Links that point to the
 #    current id won't find it anymore.</div>
-#: from
-#: ../skins/cps_default/folder_rename_form.pt
+#.   <div class="description">Changing the id of an object does not
+#.   affect its title but changes the URL to access it. Links that point to the
+#.   current id won't find it anymore.</div>
+#: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
-msgstr "Cambiar la id de un objeto no afecta a su título, pero sí a la URL (dirección) necesaria acceder a él. Atención a los enlaces hacia este objeto: si no son actualizados, ya no lo encontrarán."
+msgstr ""
+"Cambiar la id de un objeto no afecta a su título, pero sí a la URL "
+"(dirección) necesaria acceder a él. Atención a los enlaces hacia este "
+"objeto: si no son actualizados, ya no lo encontrarán."
 
 #.   <span>
 #.       Revert to revision
 #.       ${rev (tal replace="request/rev")}.
 #.     </span>
-#: from
-#: ../skins/cps_default/content_revert_form.pt
+#: from ../skins/cps_default/content_revert_form.pt
 msgid "help_revert_revision"
 msgstr "Volver a una versión anterior de este documento."
 
@@ -1198,66 +1192,90 @@ msgstr "Volver a una versión anterior de este documento."
 #      the section's Reviewers.  You can request that an item be reviewed by setting
 #      its status to <b>pending</b>, this is done by submitting your item to a
 #      section.</span>
-#: from
-#: ../skins/cps_default/content_status_history.pt
+#.   <span>An item's status (also called its
+#.     review state) determines who can see it.  An item with a <b>work</b> status
+#.     can be viewed by workspace's readers and edit by workspace's members and
+#.     managers.  Only <b>published</b> items in sections are available to the
+#.     section readers.  To make an item published, it has to be reviewed by one of
+#.     the section's Reviewers.  You can request that an item be reviewed by setting
+#.     its status to <b>pending</b>, this is done by submitting your item to a
+#.     section.</span>
+#: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
-msgstr "El estado de un documento (también llamado su estado de validación) determina quién está autorizado a verlo. Un documento en estado <strong>trabajo</strong> puede ser consultado por los lectores del espacio de trabajo y editado por sus miembros y por los responsables. Sólo los objetos en estado <strong>publicado</strong> serán accesibles a los lectores de las secciones. Para publicar un objeto, debe estar validado por un revisor de la sección. Puede solicitar que un objeto sea validado simplemente cambiado su estado a <strong>en espera</strong>. Ello se consigue remitiendo el documento para su validación en el interior de una sección."
+msgstr ""
+"El estado de un documento (también llamado su estado de validación) "
+"determina quién está autorizado a verlo. Un documento en estado "
+"<strong>trabajo</strong> puede ser consultado por los lectores del espacio "
+"de trabajo y editado por sus miembros y por los responsables. Sólo los "
+"objetos en estado <strong>publicado</strong> serán accesibles a los lectores "
+"de las secciones. Para publicar un objeto, debe estar validado por un "
+"revisor de la sección. Puede solicitar que un objeto sea validado "
+"simplemente cambiado su estado a <strong>en espera</strong>. Ello se "
+"consigue remitiendo el documento para su validación en el interior de una "
+"sección."
 
 #    <span>To make an item published and
 #      viewable by readers, it has to be reviewed by one of the section reviewers.
 #      You can submit the item in many section folders.<br> A copy of the item will
 #      be created into each section with a <b>pending</b> status, waiting to be
 #      reviewed and finally <b>published</b> by a section's reviewer.</br></span>
-#: from
-#: ../skins/cps_default/content_submit_form.pt
+#.   <span>To make an item published and
+#.     viewable by readers, it has to be reviewed by one of the section reviewers.
+#.     You can submit the item in many section folders.<br /> A copy of the item will
+#.     be created into each section with a <b>pending</b> status, waiting to be
+#.     reviewed and finally <b>published</b> by a section's reviewer.</span>
+#: from ../skins/cps_default/content_submit_form.pt
 msgid "help_submit_publication"
-msgstr "Para publicar un documento y así hacer que esté disponible para los lectores, debe estar validado por uno de los revisores de la sección. Puede remitir su documento a diferentes secciones.<br/> Se creará una copia del documento en cada sección, en estado <strong>en espera</strong>, a la espera de ser validado por un revisor de la sección, lo que hará que su estado pase a <strong>publicado</strong>."
+msgstr ""
+"Para publicar un documento y así hacer que esté disponible para los "
+"lectores, debe estar validado por uno de los revisores de la sección. Puede "
+"remitir su documento a diferentes secciones.<br/> Se creará una copia del "
+"documento en cada sección, en estado <strong>en espera</strong>, a la espera "
+"de ser validado por un revisor de la sección, lo que hará que su estado pase "
+"a <strong>publicado</strong>."
 
 #.   <span>
 #.     Unpublish published item</span>
-#: from
-#: ../skins/cps_default/content_unpublish_form.pt
+#: from ../skins/cps_default/content_unpublish_form.pt
 msgid "help_unpublish_publication"
 msgstr "Retirar este objeto publicado."
 
 #.   <block condition="item/has_dest|nothing">
-#.       into ${history_dest}
+#.         into ${history_dest}
 #.       </block>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "into ${history_dest}"
 msgstr "en ${history_dest}"
 
 #    <span>
 #                Administrator E-mail
 #              </span>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#.   <span>
+#.               Administrator E-mail
+#.             </span>
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_admin_email"
 msgstr "Dirección de correo-e del administrador"
 
 #.   <span>
 #.               Administrator Name
 #.             </span>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_admin_name"
 msgstr "Nombre del administrador"
 
 #.   <option attributes="selected python:displayed != ['']" value="">All</option>
 #.   <option value="">All</option>
 #.   <option attributes="selected python:notempty==[] or selbox==[]" value="">All</option>
-#.   <option selected="" value="">All</option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <option selected="selected" value="">All</option>
+#: from ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_all"
 msgstr "Todos"
 
 #.   <strong>Old revisions:</strong>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_archived_revisions"
 msgstr "Versiones archivadas"
 
@@ -1265,8 +1283,7 @@ msgstr "Versiones archivadas"
 #.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
 #.               Author ascending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_author_asc"
 msgstr "Autor"
 
@@ -1274,106 +1291,97 @@ msgstr "Autor"
 #.                                python:sort_by == 'author' and direction =='desc'" value="author_desc">
 #.               Author descending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_author_desc"
 msgstr "Autor inv."
 
 #.   <th align="right" colspan="5">Authorized folders only</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_authorized_only"
 msgstr "Mostrar solamente las carpetas accesibles"
 
 #.   <div class="label">
 #.           Body
 #.         </div>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_body"
 msgstr "Cuerpo del documento"
 
 #    <th align="right">text</th>
-#: from
-#: ../skins/cps_default/textbox_edit_form.pt
+#.   <th align="right">text</th>
+#: from ../skins/cps_default/textbox_edit_form.pt
 msgid "label_box_content"
 msgstr "Contenido"
 
 #    <th align="right">Box skin</th>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <th align="right">Box skin</th>
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_box_skin"
 msgstr "Vestidura de la caja"
 
 #.   <th align="right">Type</th>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_btype"
 msgstr "Tipo"
 
 #.   <span omit-tag="">
 #.               Events for</span>
-#: from
-#: ../skins/cps_default/calendar_cpsday_view.pt
+#: from ../skins/cps_default/calendar_cpsday_view.pt
 msgid "label_calendar_event_list"
 msgstr "Eventos para el"
 
 #.   <th align="right">Categories</th>
-#: from
-#: ../skins/cps_default/actionbox_edit_form.pt
+#: from ../skins/cps_default/actionbox_edit_form.pt
 msgid "label_categories"
 msgstr "Categorías"
 
 #.   <th align="right" colspan="5">Subfolders only</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_children_only"
 msgstr "Mostrar solamente las subcarpetas"
 
 #.   <option attributes="selected not:box/box/query_modified" value="">Choose</option>
 #.   <option value="1970/01/01 00:00:00 GMT">Choisir
 #.              </option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_choose"
 msgstr "Escoger"
 
 #.   <option attributes="selected python:test(box['settings']['closed'], 'selected', nothing)" value="closed">Closed</option>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_closed"
 msgstr "Cerrar"
 
 #    <h2 condition="repeat/item/start">label_collaborative_folder</h2>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.   <h2 condition="repeat/item/start">label_collaborative_folder</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_collaborative_folder"
 msgstr "Mis espacios de trabajo"
 
 #    <option attributes="selected python:format == 'compact'" value="compact">
 #                Compact
 #        </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <option attributes="selected python:format == 'compact'" value="compact">
+#.               Compact
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_compact"
 msgstr "Compacta"
 
 #    <label for="cb_zoom">zoom</label>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#.   <label for="cb_zoom">zoom</label>
+#: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_contentbox_zoom"
 msgstr "Ampliar el primer documento"
 
 #.   <th align="right">Contextual</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_contextual"
 msgstr "Contextual"
 
 #.   <th align="right">Contributors</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Contribuyentes"
 
@@ -1381,8 +1389,7 @@ msgstr "Contribuyentes"
 #.                                 python:sort_by == 'date' and direction == 'asc' " value="date_asc">
 #.               Date ascending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_date_asc"
 msgstr "Fecha"
 
@@ -1390,22 +1397,22 @@ msgstr "Fecha"
 #.                                python:sort_by == 'date' and direction == 'desc' " value="date_desc">
 #.               Date descending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_date_desc"
 msgstr "Fecha inv."
 
 #    <option attributes="selected not:format" value="None">
 #                Default
 #        </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <option attributes="selected not:format" value="None">
+#.               Default
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_default"
 msgstr "Predefinido"
 
 #.   <th align="right">Depth</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_depth"
 msgstr "Profundidad"
 
@@ -1416,8 +1423,7 @@ msgstr "Profundidad"
 #.   <th align="right">
 #.         Description
 #.       </th>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -1427,8 +1433,7 @@ msgstr "Descripción"
 #.   <option attributes="selected python:format == 'detail'" value="detail">
 #.               Detail
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_detailed"
 msgstr "Detallado"
 
@@ -1436,15 +1441,16 @@ msgstr "Detallado"
 #                Detail Tab
 #        </option>
 # traducido por table en el inglÃ©s
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <option attributes="selected python:format == 'detail_tab'" value="detail_tab">
+#.               Detail Tab
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 #, fuzzy
 msgid "label_detailed_tab"
 msgstr "Pestaña detalle"
 
 #.   <th>Enable Discussion?</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion"
 msgstr "¿Activar la discusión?"
@@ -1452,8 +1458,10 @@ msgstr "¿Activar la discusión?"
 #    <option attributes="selected python: val == None" value="None">
 #              Default
 #            </option>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#.   <option attributes="selected python: val == None" value="None">
+#.             Default
+#.           </option>
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion_default"
 msgstr "Predefinido"
@@ -1461,8 +1469,7 @@ msgstr "Predefinido"
 #.   <option attributes="selected python: val == 0" value="0">
 #.             Off
 #.           </option>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion_off"
 msgstr "inactivo"
@@ -1470,8 +1477,7 @@ msgstr "inactivo"
 #.   <option attributes="selected python: val == 1" value="1">
 #.             On
 #.           </option>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion_on"
 msgstr "activo"
@@ -1479,33 +1485,29 @@ msgstr "activo"
 #.   <th align="right">Display</th>
 #.   <span>Display:</span>
 #.   <span>Display with</span>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/content_lib.pt
 msgid "label_display"
 msgstr "Mostrar"
 
 #.   <th align="right" colspan="5">Display description</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_description"
 msgstr "Mostrar la descripción de las carpetas"
 
 #.   <th align="right" colspan="5">Display icons</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_icons"
 msgstr "Icono"
 
 #.   <th align="right" colspan="5">Display managers</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_managers"
 msgstr "Mostrar los responsables de las carpetas"
 
 #    <th align="right" colspan="5">Show root</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#.   <th align="right" colspan="5">Show root</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_root"
 msgstr "Mostrar la raíz de la jerarquía"
 
@@ -1513,40 +1515,49 @@ msgstr "Mostrar la raíz de la jerarquía"
 #            Email address
 #        </th>
 #    <th> Email Address </th>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <th style="text-align:left;">
+#.           Email address
+#.       </th>
+#.   <th> Email Address </th>
+#: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
 msgstr "Correo-e"
 
 #    <div class="label">End Date (DD/MM/YYYY)</div>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#.   <div class="label">End Date (DD/MM/YYYY)</div>
+#: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_end_date"
 msgstr "Fecha final (DD/MM/AAAA)"
 
 #.   <label for="event_types">label_event_types</label>
-#: from
-#: ../skins/cps_default/eventcalendarbox_edit_form.pt
+#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
 msgid "label_event_types"
 msgstr "Tipos de documento a tener en cuenta"
 
 #.   <em>label_event_types_help</em>
-#: from
-#: ../skins/cps_default/eventcalendarbox_edit_form.pt
+#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
 msgid "label_event_types_help"
-msgstr "Nota: solamente pueden mostrarse en el calendario los documentos que tengan fecha de comienzo y de fin."
+msgstr ""
+"Nota: solamente pueden mostrarse en el calendario los documentos que tengan "
+"fecha de comienzo y de fin."
 
 #.   <label for="events_in">label_events_location</label>
-#: from
-#: ../skins/cps_default/eventcalendarbox_edit_form.pt
+#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
 msgid "label_events_location"
 msgstr "Buscar eventos en"
 
+#    <span>sort by</span>
+#.   <a attributes="href
+#.             string:exportRSSContentBox?box_url=${box/url}" title="label_export_rss">RSS</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "label_export_rss"
+msgstr "Ordenado por"
+
 #.   <label>label_file_change</label>
 #.   <label for="radio_change">label_file_change</label>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/flashbox_edit_form.pt
 #: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_file_change"
@@ -1554,8 +1565,7 @@ msgstr "Cargar"
 
 #.   <label>label_file_delete</label>
 #.   <label for="radio_delete">label_file_delete</label>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/flashbox_edit_form.pt
 #: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_file_delete"
@@ -1563,157 +1573,135 @@ msgstr "Borrar"
 
 #.   <label>label_file_keep</label>
 #.   <label for="radio_keep">label_file_keep</label>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/flashbox_edit_form.pt
 #: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_file_keep"
 msgstr "Guardar"
 
 #.   <th align="right">label_flash_file</th>
-#: from
-#: ../skins/cps_default/flashbox_edit_form.pt
+#: from ../skins/cps_default/flashbox_edit_form.pt
 msgid "label_flash_file"
 msgstr "Fichero Flash&#153;"
 
 #.   <label for="flash_height">label_flash_height</label>
-#: from
-#: ../skins/cps_default/flashbox_edit_form.pt
+#: from ../skins/cps_default/flashbox_edit_form.pt
 msgid "label_flash_height"
 msgstr "Altura de la caja Flash&#153;"
 
 #.   <label for="flash_width">label_flash_width</label>
-#: from
-#: ../skins/cps_default/flashbox_edit_form.pt
+#: from ../skins/cps_default/flashbox_edit_form.pt
 msgid "label_flash_width"
 msgstr "Anchura de la caja Flash&#153;"
 
 #.   <th align="right">Folder</th>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_folder"
 msgstr "carpeta"
 
 #.   <h2>label_folder_search</h2>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_folder_search"
 msgstr "Buscar una carpeta"
 
 #.   <th align="right">Format</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_format"
 msgstr "Formato"
 
 #    <span omit-tag="">From</span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <span omit-tag="">From</span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_from"
 msgstr "Del"
 
 #.   <span>Group</span>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <span condition="python:type=='group'">Group</span>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group"
 msgstr "Grupo"
 
 #.   <option value="groupname">Group Name</option>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
 msgstr "Nombre del grupo"
 
 #.   <span condition="isAnon">
 #.           Guest
 #.         </span>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
 msgstr "Anónimo"
 
 #.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_icons"
 msgstr "Iconos"
 
 #.   <div class="label" />
 #.   <th align="right">label_image</th>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_image"
 msgstr "Imagen"
 
 #.   <th align="right">label_image_link</th>
-#: from
-#: ../skins/cps_default/imagebox_edit_form.pt
+#: from ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_image_link"
 msgstr "Enlace de la imagen"
 
 #.   <span>in</span>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_in"
 msgstr "en"
 
 #.   <span>label_in_section
 #.         ${section_id (tal attributes="href string:${base_url}${item/rpath}/" content="item/title")}
 #.       </span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_in_section ${section_id}"
 msgstr "En la secciín ${section_id}"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_author"
 msgstr "Autor"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_date"
 msgstr "Fecha"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_size"
 msgstr "Tamaño"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_status"
 msgstr "Estado"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_title"
 msgstr "Título"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_type"
 msgstr "Tipo"
 
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" href="" />
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_version"
 msgstr "Versión"
 
 #.   <th align="right">Language</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
 msgstr "Idioma"
 
@@ -1723,79 +1711,76 @@ msgstr "Idioma"
 #.   <block>label_language
 #.           ${status_language}
 #.         </block>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
 msgstr "Idioma ${status_language}"
 
 #.   <th>Search by</th>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_by"
 msgstr "Buscar por"
 
 #.   <th>Search Term</th>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_term"
 msgstr "Palabras clave de la búsqueda"
 
 #.   <option attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');" value="maximized">Maximized</option>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_maximized"
 msgstr "Maximizar"
 
 #.   <option attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)" value="minimized">Minimized</option>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_minimized"
 msgstr "Minimizar"
 
 #.   <th align="right">Nb items</th>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_nb_items"
 msgstr "Nº de objetos"
 
 #    <option attributes="selected not:sort_by" value="None">
 #                No sort
 #        </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <option attributes="selected not:sort_by" value="None">
+#.               No sort
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_none"
 msgstr "Sin orden"
 
 #    <th align="right">Order</th>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#.   <th align="right">Order</th>
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_order"
 msgstr "Orden"
 
+#.   <span>Pages</span>
+#: from ../skins/cps_default/content_lib.pt
+msgid "label_page"
+msgstr "Páginas"
+
 #.   <th> Password </th>
 #.   <strong>Password</strong>
-#: from
-#: ../skins/cps_default/join_form.pt
-#: ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr "Contraseña"
 
 #.   <th> Password (confirm) </th>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
 msgstr "Contraseña (confirmar)"
 
 #    <th> Mail Password?  </th>
-#: from
-#: ../skins/cps_default/join_form.pt
+#.   <th> Mail Password?  </th>
+#: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr "¿Enviar la contraseña?"
 
 #.   <option attributes="selected python:box['box'].query_status == 'pending'" value="pending">Pending</option>
 #.   <option value="pending">Pending</option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_pending"
 msgstr "En espera"
@@ -1803,37 +1788,32 @@ msgstr "En espera"
 #.   <span>
 #.               Portal description
 #.             </span>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_description"
 msgstr "Descripción del portal"
 
 #.   <span>
 #.               Enable portal joining
 #.             </span>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_enable_join"
 msgstr "Autorizar la inscripción"
 
 #.   <span>
 #.               Portal title
 #.             </span>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_title"
 msgstr "Título del portal"
 
 #.   <strong>label_publication_states</strong>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
 msgstr "Estado de publicación"
 
 #.   <option attributes="selected python:box['box'].query_status == 'published'" value="published">Published</option>
 #.   <option value="published">Published</option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_published"
 msgstr "Publicado"
@@ -1843,20 +1823,18 @@ msgstr "Publicado"
 #.               Remember my name.
 #.             </em>
 #.           </label>
-#: from
-#: ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr "Recordar mi nombre de usuario"
 
 #    <strong>to</strong>
-#: from
-#: ../skins/cps_default/folder_rename_form.pt
+#.   <strong>to</strong>
+#: from ../skins/cps_default/folder_rename_form.pt
 msgid "label_rename_to"
 msgstr " a "
 
 #.   <strong>Reviewing history:</strong>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_reviewing_history"
 msgstr "Histórico de validación"
 
@@ -1866,45 +1844,39 @@ msgstr "Histórico de validación"
 #.   <block>label_revision
 #.           ${status_revision (tal content="rev")}
 #.         </block>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
 msgstr "Versión ${status_revision}"
 
 #.   <th align="right">Rights</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_rights"
 msgstr "Derechos"
 
 #.   <span>Role(s)</span>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_roles"
 msgstr "Rol(es)"
 
 #    <th align="right">Root</th>
-#: from
-#: ../skins/cps_default/treebox_edit_form.pt
+#.   <th align="right">Root</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_root"
 msgstr "Raíz"
 
 #.   <th align="right">search</th>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search"
 msgstr "Opciones de búsqueda"
 
 #.   <label attributes="for id2">all</label>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib.pt
 msgid "label_search_all_site"
 msgstr "todo el sitio"
 
 #.   <span>Description</span>
 #.   <div class="label" />
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_description"
 msgstr "Descripción"
@@ -1912,53 +1884,48 @@ msgstr "Descripción"
 #.   <span>Full text</span>
 #.   <div class="label" />
 #.   <div class="label">search</div>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
 msgid "label_search_full_text"
 msgstr "Texto completo"
 
 #    <label attributes="for id1">here</label>
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#.   <label attributes="for id1">here</label>
+#: from ../skins/cps_default/generic_lib.pt
 msgid "label_search_here"
 msgstr "aquí"
 
 #.   <div class="label" />
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib.pt
 msgid "label_search_location"
 msgstr "Buscar"
 
 #    <span>Modified since</span>
 #    <div class="label" />
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#.   <span>Modified since</span>
+#.   <div class="label" />
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_modified_since"
 msgstr "Modificado desde"
 
 #.   <span>Portal type</span>
 #.   <div class="label" />
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_portal_type"
 msgstr "Tipo de documento"
 
 #.   <span>Status</span>
 #.   <div class="label" />
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_status"
 msgstr "Estado"
 
 #.   <span>Description</span>
 #.   <div class="label" />
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_title"
 msgstr "Título"
@@ -1966,15 +1933,13 @@ msgstr "Título"
 #.   <block condition="status_time|nothing">label_since
 #.         ${status_time (tal content="info/time_str")}
 #.       </block>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_since ${status_time}"
 msgstr "desde ${status_time}"
 
 #.   <th align="right">Slot</th>
 #.   <span />
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/box_manage_form.pt
 msgid "label_slot"
 msgstr "Ubicación"
@@ -1982,26 +1947,23 @@ msgstr "Ubicación"
 #.   <span>
 #.               SMTP Server
 #.             </span>
-#: from
-#: ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_smtp_server"
 msgstr "Servidor SMTP"
 
 #    <span>sort by</span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <span>sort by</span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_sort_by"
 msgstr "Ordenado por"
 
 #.   <div class="label">Start Date (DD/MM/YYYY)</div>
-#: from
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_start_date"
 msgstr "Fecha de comienzo (DD/MM/AAAA)"
 
 #.   <span>Label Status</span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_status"
 msgstr "Estado"
 
@@ -2009,8 +1971,7 @@ msgstr "Estado"
 #.                                python:sort_by == 'status' and direction == 'asc'" value="status_asc">
 #.               Status ascending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_status_asc"
 msgstr "Estado"
 
@@ -2018,14 +1979,12 @@ msgstr "Estado"
 #.                                python:sort_by == 'status' and direction =='desc'" value="status_desc">
 #.               Status descending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_status_desc"
 msgstr "Estado inv."
 
 #.   <th align="right">Subject</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_subject"
 msgstr "Tema"
@@ -2035,8 +1994,7 @@ msgstr "Tema"
 #.   <div class="label">
 #.           Title
 #.         </div>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -2050,8 +2008,7 @@ msgstr "Título"
 #.                                 python:sort_by == 'title' and direction == 'asc'" value="title_asc">
 #.               Title ascending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_title_asc"
 msgstr "Título"
 
@@ -2059,58 +2016,53 @@ msgstr "Título"
 #.                                python:sort_by == 'title' and direction == 'desc'" value="title_desc">
 #.               Title descending
 #.       </option>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_title_desc"
 msgstr "Título inv."
 
 #    <span omit-tag="">To</span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <span omit-tag="">To</span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_to"
 msgstr "A"
 
 #.   <th style="text-align:left;">
 #.           User
 #.       </th>
-#.   <span>User</span>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <span condition="python:type=='user'">User</span>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user"
 msgstr "Usuario"
 
 #    <option value="email">Email Address</option>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <option value="email">Email Address</option>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
 msgstr "Correo-e"
 
 #.   <option value="fullname">User Name</option>
 #.   <th> Login Name </th>
 #.   <strong>Name</strong>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
-#: ../skins/cps_default/join_form.pt
-#: ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr "Nombre de usuario"
 
 #.   <label>visible in subfolder</label>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_visible_in_subfolder"
 msgstr "visible en las subcarpetas"
 
 #.   <label>visible only in subfolder</label>
-#: from
-#: ../skins/cps_default/basebox_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_visible_only_in_subfolder"
 msgstr "visible SOLAMENTE en las subcarpetas"
 
 #    <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
 #    <option value="work">Work</option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#.   <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
+#.   <option value="work">Work</option>
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_work"
 msgstr "Trabajo"
@@ -2118,160 +2070,168 @@ msgstr "Trabajo"
 #    <block>You are
 #      here:&nbsp;</block>
 # Estoy en... (para continuar con el estilo "desconectarme")
-#: from
-#: ../skins/cps_default/generic_lib.pt
+#.   <block>You are
+#.     here:&nbsp;</block>
+#: from ../skins/cps_default/generic_lib.pt
 msgid "label_you_are_here"
 msgstr "Estoy en:"
 
 #    <span>nop</span>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.   <span>nop</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "legend_folder_no_search_result"
 msgstr "Su búsqueda no ha devuelto ningún resultado"
 
 #    <p>
 #       These users currently have local roles assigned in this folder:
 #    </p>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <p>
+#.      These users currently have local roles assigned in this folder:
+#.   </p>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_assigned_users"
-msgstr "Los siguientes usuarios poseen actualmente roles locales en esta carpeta:"
+msgstr ""
+"Los siguientes usuarios poseen actualmente roles locales en esta carpeta:"
 
 #.   <h2>
 #.       Currently assigned local roles
 #.   </h2>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_currently_assigned"
 msgstr "Roles locales delegados actualmente"
 
 #    <p>
 #        Sorry, no groups matched your search.
 #     </p>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <p>
+#.       Sorry, no groups matched your search.
+#.    </p>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_no_results_member"
 msgstr "Lo sentimos, ningún grupo se corresponde con su consulta"
 
 #    <p>
 #        Sorry, no members matched your search.
 #     </p>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <p>
+#.       Sorry, no members matched your search.
+#.    </p>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_no_results_members"
 msgstr "Lo sentimos, ningún miembro se corresponde con su consulta"
 
 #.   <th colspan="2">
 #.           Role to assign:
 #.       </th>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_role_to_assign"
 msgstr "Rol a delegar:"
 
 #.   <p>
 #.       Select Group(s) and a role to assign:
 #.    </p>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_select_groups_and_roles"
 msgstr "Escoja el/los grupo(s) y un rol para delegar:"
 
 #.   <p>
 #.       Select Member(s) and a role to assign:
 #.    </p>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_select_members_and_roles"
 msgstr "Escoja el/los miembro(s) y un rol para delegar:"
 
 #    <span>
 #              gave no result.</span>
-#: from
-#: ../skins/cps_default/search_form.pt
+#.   <span>
+#.             gave no result.</span>
+#: from ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "no ha devuelto ningún documento"
 
 #.   <span>
 #.             gave 1 result</span>
-#: from
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "ha devuelto un documento"
 
 #.   <span>
 #.                Advanced search
 #.              </span>
-#: from
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
 msgstr "Búsqueda avanzada"
 
 #    <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
-#: from
-#: ../skins/cps_default/metadata_edit_form.pt
+#.   <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
+#: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
 msgstr "Modificar metadatos"
 
 #    <a attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
 #          onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )" href="">delete</a>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <a attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
+#.         onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )" href="">delete</a>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "link_box_delete"
 msgstr "Borrar"
 
 #    <a attributes="href
 #          string:${context_urlc}/${action}?box_url=${box/url}" href="">edit</a>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <a attributes="href
+#.         string:${context_urlc}/${action}?box_url=${box/url}" href="">edit</a>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "link_box_edit"
 msgstr "Modificar"
 
 #    <a attributes="href
 #          string:${context_urlc}/${action}?box_url=${box/url}" href="">view</a>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <a attributes="href
+#.         string:${context_urlc}/${action}?box_url=${box/url}" href="">view</a>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "link_box_view"
 msgstr "Ver"
 
 #.   <a attributes="href string:${here_url}/archivedRevision/${rev}/view" href=".">Consult</a>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "link_consult_this_revision"
 msgstr "Consultar esta versión"
 
 #.   <a attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
 #.                            title p_props/email_from_address" href="mailto:admin@here.com">Contact the administrator</a>
-#: from
-#: ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib.pt
 msgid "link_contact_admin"
 msgstr "Contactar con el adminsitrador"
+
+#.   <a attributes="href
+#.             string:exportRSSContentBox?box_url=${box/url}" title="label_export_rss">RSS</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "link_export_rss"
+msgstr "Exportar datos recogidos (CSV)"
 
 #.   <span>
 #.           I forgot my password!
 #.         </span>
-#: from
-#: ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/login_form.pt
 msgid "link_forgot_password"
 msgstr "¡He olvidado mi contraseña!"
 
 #.   <span>
 #.             personalization form
 #.           </span>
-#: from
-#: ../skins/cps_default/join_form.pt
+#: from ../skins/cps_default/join_form.pt
 msgid "link_form_already_member"
 msgstr "Formulario de personalización"
 
 #.   <a href="javascript:history.back()">Go back</a>
-#: from
-#: ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib.pt
 msgid "link_go_back"
 msgstr "Vuelta"
 
 #    <span>here</span>
-#: from
-#: ../skins/cps_default/registered.pt
+#.   <span>here</span>
+#: from ../skins/cps_default/registered.pt
 msgid "link_here"
 msgstr "aquí"
 
@@ -2279,122 +2239,119 @@ msgstr "aquí"
 #      <i>Roles in underlined </i> are set in parent folders.
 #      Follow the links to manage the local roles in these folders.
 #    </span>
-#: from
-#: ../skins/cps_default/folder_localrole_form.pt
+#.   <span>
+#.     <em>Roles in underlined</em> are set in parent folders.
+#.     Follow the links to manage the local roles in these folders.
+#.   </span>
+#: from ../skins/cps_default/folder_localrole_form.pt
 msgid "link_local_roles_underlined"
-msgstr "<em>Los roles subrayados</em> están definidos en una de las carpetas padre. Siga los enlaces para gestionarlos en una de estas carpetas."
+msgstr ""
+"<em>Los roles subrayados</em> están definidos en una de las carpetas padre. "
+"Siga los enlaces para gestionarlos en una de estas carpetas."
 
 #    <a href="/manage_zmi_logout">
 #          log out of the Zope management interface
 #        </a>
-#: from
-#: ../skins/cps_default/logged_out.pt
+#.   <a href="/manage_zmi_logout">
+#.         log out of the Zope management interface
+#.       </a>
+#: from ../skins/cps_default/logged_out.pt
 msgid "link_logout_zmi"
-msgstr "necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
+msgstr ""
+"necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
 
 #    <a attributes="href link_more" href="">More ...</a>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href link_more" href="">More ...</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "link_more"
 msgstr "Más..."
 
 #.   <span>
 #.         You can log on immediately by clicking
 #.       </span>
-#: from
-#: ../skins/cps_default/registered.pt
+#: from ../skins/cps_default/registered.pt
 msgid "link_registred_login"
 msgstr "Puede conectarse inmediatamente pinchando en"
 
 #.   <span>
 #.        Return to homepage
 #.      </span>
-#: from
-#: ../skins/cps_default/registered.pt
+#: from ../skins/cps_default/registered.pt
 msgid "link_registred_return_home_page"
 msgstr "Volver a la página principal"
 
 #.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${rev}" href=".">Revert</a>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "link_revert_to_this_revision"
 msgstr "Volver a esta versión"
 
 #.   <th width="15%">action</th>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_action"
 msgstr "Acción"
 
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
-#: from
-#: ../skins/cps_default/content_publish_form.pt
+#: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_existing_revision"
 msgstr "Versión existente de este mismo documento"
 
 #    <th width="30%">location</th>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="30%">location</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_location"
 msgstr "Lugar"
 
 #    <th width="5%">Order</th>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="5%">Order</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_order"
 msgstr "Orden"
 
 #    <th width="30%">Section</th>
-#: from
-#: ../skins/cps_default/content_publish_form.pt
+#.   <th width="30%">Section</th>
+#: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
 msgstr "Sección"
 
 #.   <th width="25%">Title</th>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_title"
 msgstr "Título"
 
 #.   <th width="25%">Type</th>
-#: from
-#: ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_type"
 msgstr "Tipo"
 
 #    <span content="item/action">publish</span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#.   <span content="item/action">publish</span>
+#: from ../skins/cps_default/content_lib.pt
 msgid "publish"
 msgstr "Publicar"
 
 #.   <span attributes="class
 #.         info/review_state" content="info/review_state">published</span>
 #.   <td condition="status_in_tabs" attributes="class info/review_state" content="info/review_state" align="center">published</td>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "published"
 msgstr "publicado"
 
 #.   <th align="right">Creation Date</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
 msgstr "Fecha de creación"
 
 #.   <th align="right">Effective Date</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_effective_date"
 msgstr "Fecha efectiva"
 
 #.   <th align="right">Expiration Date</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_expiration_date"
 msgstr "Fecha de caducidad"
 
@@ -2402,46 +2359,40 @@ msgstr "Fecha de caducidad"
 #.   <option condition="python:not(here.portal_membership.isAnonymousUser())" attributes="value lastLogin">
 #.                time_last_login
 #.              </option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "time_last_login"
 msgstr "La última conexión"
 
 #.   <th align="right">Last Modified Date</th>
-#: from
-#: ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_last_modified"
 msgstr "Fecha de última modificación"
 
 #.   <option attributes="selected python:box['box'].query_modified == 'time_last_month'" value="time_last_month">time_last_month</option>
 #.   <option attributes="value lastMth">time_last_month</option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "time_last_month"
 msgstr "El último mes"
 
 #.   <option attributes="selected python:box['box'].query_modified == 'time_last_week'" value="time_last_week">time_last_week</option>
 #.   <option attributes="value lastWeek">time_last_week</option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "time_last_week"
 msgstr "La última semana"
 
 #.   <option attributes="selected python:box['box'].query_modified == 'time_yesterday'" value="time_yesterday">time_yesterday</option>
 #.   <option attributes="value yesterday">time_yesterday</option>
-#: from
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "time_yesterday"
 msgstr "Ayer"
 
 #.   <em>Commentaires</em>
 #.   <em>Comments</em>
-#: from
-#: ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_lib.pt
@@ -2451,16 +2402,14 @@ msgstr "Comentario"
 #.   <span>
 #.         v${status_revision (tal replace="info/rev")}-       ${status_language}
 #.       </span>
-#: from
-#: ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "v${status_revision}- ${status_language}"
 msgstr "Versión ${status_revision} Idioma ${status_language} Estado"
 
 #.   <div style="margin-top:3em" class="footer">
 #.     welcome_cps ${cps_link}
 #.   </div>
-#: from
-#: ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "welcome_cps ${cps_link}"
 msgstr "Bienvenido a ${cps_link} CPS."
 
@@ -2676,6 +2625,14 @@ msgstr "Accesibilidad"
 msgid "action_contact"
 msgstr "Contactar"
 
+#, fuzzy
+msgid "action_mail_center"
+msgstr "Volver a la agenda"
+
+#, fuzzy
+msgid "action_archives_mail_center"
+msgstr "Volver a la agenda"
+
 msgid "button_select"
 msgstr "Seleccionar"
 
@@ -2724,9 +2681,6 @@ msgstr "Vestidura predefinida para carpetas"
 msgid "label_left"
 msgstr "Izquierda"
 
-msgid "label_page"
-msgstr "Páginas"
-
 msgid "label_right"
 msgstr "Derecha"
 
@@ -2759,6 +2713,10 @@ msgstr "caja sin cuadro"
 
 msgid "description_box_skin_wbox2"
 msgstr "caja sin cuadro y sin título"
+
+#, fuzzy
+msgid "description_required"
+msgstr "Acaba de quedar registrado como miembro"
 
 msgid "portal_type_Dummy2_description"
 msgstr "&nbsp;"
@@ -2892,7 +2850,9 @@ msgid "description_nuxeo_basebox_search"
 msgstr "El formulario de búsqueda alineado a la derecha."
 
 msgid "description_nuxeo_basebox_menu"
-msgstr "El menú de Nuxeo. Muestra la raíz de los espacios de trabajo, la de las secciones y las secciones de primer nivel."
+msgstr ""
+"El menú de Nuxeo. Muestra la raíz de los espacios de trabajo, la de las "
+"secciones y las secciones de primer nivel."
 
 msgid "description_nuxeo_basebox_breadcrumbs"
 msgstr "Línea de localización: camino hasta su posición actual."
@@ -2921,6 +2881,10 @@ msgstr "La caja que muestra los últimos documentos publicados."
 msgid "description_nuxeo_contentbox_simple"
 msgstr "Caja de contenido que muestra una lista sencilla."
 
+#, fuzzy
+msgid "description_nuxeo_contentbox_pending"
+msgstr "Caja de contenido que muestra una lista sencilla."
+
 msgid "description_nuxeo_textbox_default"
 msgstr "La caja de texto predefinida"
 
@@ -2943,13 +2907,17 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La caja de acciones en forma de menú con pestañas."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr "Una lista de acciones sencilla utilizada para las acciones en el encabezado de la página."
+msgstr ""
+"Una lista de acciones sencilla utilizada para las acciones en el encabezado "
+"de la página."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Una caja con una imagen."
 
 msgid "description_nuxeo_flashbox_default"
-msgstr "Una caja que muestra una animación Flash&#153;, con anchura y altura configurables."
+msgstr ""
+"Una caja que muestra una animación Flash&#153;, con anchura y altura "
+"configurables."
 
 # en la traducciÃ³n fr menciona "Ã¡rbol de espacios de trabajo".
 #, fuzzy
@@ -3078,6 +3046,16 @@ msgstr "Remitente al foro"
 msgid "ForumModerator"
 msgstr "Moderador de foro"
 
+#, fuzzy
+msgid "ChatModerator"
+msgstr "Moderador de foro"
+
+msgid "ChatPoster"
+msgstr ""
+
+msgid "ChatGuest"
+msgstr ""
+
 # # Languages  ========================================================
 msgid "label_language_en"
 msgstr "Inglés"
@@ -3158,4 +3136,3 @@ msgstr "Creación de una versión"
 
 msgid "abandon_draft"
 msgstr "Abandono de la versión"
-

@@ -18,7 +18,7 @@
                   folder_actions actions/folder;
                   global_actions actions/global;
                   wf_state python:wtool.getInfoFor(here,'review_state','');
-                  BMT python:here.Benchmarktimer();
+                  BMT python:here.Benchmarktimer('main_template');
                   bmt_start nocall:BMT/start;
                   bmt_stop nocall:BMT/stop;
                   bmt_mark nocall:BMT/setMarker;
@@ -332,6 +332,7 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
  </table>
  <hr/>
  <span tal:replace="bmt_stop" /><span tal:replace="structure bmt_elapsed" />
+ <span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </div>
 
 </body>

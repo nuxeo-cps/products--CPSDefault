@@ -29,6 +29,18 @@ input_l = input.split('\n')
                                                   acces=3,
                                                   )
 
+errordata_l = errordata.split('\n')
+if body_content:
+    description = """Warning only the body part of the page was
+ checked !!!, lines number displayed will not match with the original html
+ sources."""
+    # we remove the first warning about missing title ...
+    warnings -= 1
+    errordata_l = errordata_l[1:]
+else:
+    description = 'All the page was checked'
+
+
 # display result
 html_header = """
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -75,15 +87,12 @@ def display_line(input_l, n, c=2):
 
 context.REQUEST.RESPONSE.setHeader('content-type', 'text/html')
 
-if body_content:  description = """Warning only the body part of the page was
-    checked !!!, lines number displayed will not match with the original html
-    sources."""
-else:
-    description = 'All the page was checked'
-
 print html_header % {'description': description}
 
 print '<h2>results</h2>'
+
+
+
 if not errors and not warnings:
     print html_ok
     return printed
@@ -95,7 +104,7 @@ print '<li>warning : %s</li>' % warnings
 print '</ul>'
 print '<h2>detail</h2>'
 print '<ul>'
-for err in errordata.split('\n'):
+for err in errordata_l:
     if err:
         print '<li>%s</li>' % escape(err)
         line_idx = err.find('line ')

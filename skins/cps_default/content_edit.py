@@ -43,13 +43,15 @@ try:
         
     # setting properties, edit will notify the doc itself with a 'modify_object'
     doc.edit(**kw)
+#    context.portal_eventservice.notifyEvent('modify_object', doc, {})
     
-    # notifying the container
+    # notifying the proxy
     context.portal_eventservice.notifyEvent('modify_object', context, {})
     
     psm = 'Content+changed.'
 except Exception, msg:
     psm = msg
+
 # redirect
 if REQUEST:
     if REQUEST.get( 'change_and_edit', 0 ):

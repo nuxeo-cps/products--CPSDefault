@@ -17,8 +17,13 @@ for item in items:
         continue
     if hide_folder and item.isPrincipiaFolderish:
         continue
+    review_state = wtool.getInfoFor(item, 'review_state', 'nostate')
+    if review_state == 'published':
+        if not mtool.checkPermission('Modify Portal Content', item):
+            doc = item.getContent()
+            if now < doc.effective() or now > doc.expires():
+                continue
 
-# XXX TODO expire should be handel by wf
     filtered_items.append(item)
 
 # sorting

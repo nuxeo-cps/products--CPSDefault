@@ -162,6 +162,17 @@ if level > 0:
         add_info = doc.getAdditionalContentInfo()
         info.update(add_info)
 
+    if info['review_state'] == 'published':
+        now = context.ZopeTime()
+        eff = doc.effective()
+        exp = doc.expires()
+        if now < eff:
+            info['review_state'] = 'differed'
+            info['review_state_date'] = context.getDateStr(eff)
+        elif now > exp:
+            info['review_state'] = 'expired'
+            info['review_state_date'] = context.getDateStr(exp)
+
 # level 2
 if level == 2:
     info['states'], None = compute_states(1)

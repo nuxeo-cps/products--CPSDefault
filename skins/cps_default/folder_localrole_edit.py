@@ -2,7 +2,7 @@
 ##parameters=change_type
 ##title=Set local roles
 ##
-pm = context.portal_membership
+pmtool = context.portal_membership
 ids = context.REQUEST.get('member_ids', ())
 
 
@@ -11,19 +11,18 @@ member_ids = [user[len('user:'):] for user in ids if user.startswith('user:') ]
 
 member_role = context.REQUEST.get('member_role', '')
 
-
 if change_type == 'add':
-    pm.setLocalRoles( obj=context
+    pmtool.setLocalRoles( obj=context
                     , member_ids=member_ids
                     , member_role=member_role
                     )
-    pm.setLocalGroupRoles( context, group_ids, member_role)
+    pmtool.setLocalGroupRoles( context, group_ids, member_role)
 
 else:
-    pm.deleteLocalRoles( obj=context
+    pmtool.deleteLocalRoles( obj=context
                        , member_ids=member_ids
                        )
-    pm.deleteLocalGroupRoles(context, group_ids)
+    pmtool.deleteLocalGroupRoles(context, group_ids)
 
 psm='psm_local_roles_changed'
 

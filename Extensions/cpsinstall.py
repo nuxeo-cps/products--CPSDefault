@@ -1562,8 +1562,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSNavigation')
         self.setupProduct('CPSSubscriptions')
         self.setupProduct('CPSNewsLetters')
-        self.setupProduct('CPSOOo')
         self.setupProduct('CPSPortlets')
+        # Not installing CPSOOo by default because it was preventing some CPS
+        # servers to start when elementtree was not installed.
+        #self.setupProduct('CPSOOo')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

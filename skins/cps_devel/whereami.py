@@ -28,4 +28,11 @@ print 'base_url = context.getBaseUrl: ', context.getBaseUrl()
 print 'context_url = context.getContextUrl: ', context.getContextUrl()
 print 'in_ws = context.isInWorkspace: ', context.isInWorkspace()
 
-return printed 
+print
+print 'Searchable text CPSDocument ---------------'
+try:
+    doc = context.getContent()
+except:
+    doc = context
+print 'text=%s.' % doc.SearchableText()
+return printed

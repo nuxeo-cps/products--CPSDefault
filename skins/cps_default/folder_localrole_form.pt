@@ -50,7 +50,6 @@
   found python: mtool.searchMembers( search_param=search_param
                                           , search_term=search_term
                                           );
-  groups python:[group for group in here.get_valid_groupids() if group.upper().find(search_term.upper())];
  "
 >
 <!-- Assignment -->
@@ -136,7 +135,7 @@
 <div tal:condition="python:searching and (search_param == 'groupname')"
   tal:define="search_param python: request.get( 'search_param', '' );
   search_term  python: request.get( 'search_term', '' );
-  found python: [group for group in here.get_valid_groupids() if group.upper().find(search_term.upper())];
+  found python: [group for group in here.get_valid_groupids() if group.upper().find(search_term.upper()) > 0];
  "
 >
 <!-- Assignment -->
@@ -203,7 +202,7 @@
 
 <div tal:condition="python: not found">
 
- <p> Sorry, no members matched your search. </p>
+ <p> Sorry, no groups matched your search. </p>
 
 </div>
 
@@ -226,7 +225,7 @@
  <table class="FormLayout" tal:define="lroles python:here.get_local_roles() + here.get_local_group_roles()">
  <tr>
    <td width="16"><br></td>
-   <th style="text-align:left;">User</th>
+   <th style="text-align:left;">User/Group</th>
    <th style="text-align:left;">Role(s)</th>
  </tr>
 

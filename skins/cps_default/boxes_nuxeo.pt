@@ -458,7 +458,7 @@
 <!-- actions python:atool.listFilteredActionsFor(here); -->
 <metal:block define-macro="actionbox_menu"
   tal:define="items python:box['box'].getActions(here, actions);
-              firstrowlen python:6">
+              firstrowlen python:5">
   <div class="contentTabs" tal:condition="items">
     <tal:block repeat="category items">
       <tal:block condition="python:len(category)">
@@ -474,7 +474,7 @@
              tal:attributes="href action/url;
                              class python:test(selected, 'selected', default)"
              tal:content="action/name">Action</a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
-            <tal:block tal:condition="python:repeat['action'].number()==firstrowlen
+            <tal:block tal:condition="python:repeat['action'].number()%firstrowlen==0
                                              and not repeat['action'].end"><br></tal:block>
           </tal:block>
         </tal:block>

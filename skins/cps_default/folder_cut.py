@@ -1,4 +1,4 @@
-##parameters=ids={}, REQUEST=None
+##parameters=ids=[], REQUEST=None
 #$Id$
 
 """

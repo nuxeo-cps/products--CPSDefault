@@ -1,4 +1,4 @@
-##parameters=ids={}, REQUEST=None
+##parameters=ids=[], REQUEST=None
 # $Id$
 
 ret_url = context.absolute_url() + '/folder_contents'

@@ -4,38 +4,38 @@
 <!-- ============================================================ -->
 <pre>a master macro used for content stuff:</pre>
 <metal:block define-macro="master"
-             tal:define="proxy here/this;
-                         doc doc|here/getContent|nocall:here">
+	     tal:define="proxy here/this;
+			 doc doc|here/getContent|nocall:here">
   <metal:block use-macro="here/main_template/macros/master">
 
     <metal:block fill-slot="base">
       <tal:block define="rpath python:utool.getRelativeContentURL(here)"
-                 replace="structure string:<!--
-                            cps test / debug information:
-                            cps:path:${here/absolute_url}
-                            cps:rpath:${rpath}
-                            cps:proxy_id:${proxy/id}
-                            cps:id:${doc/id}
-                            -->">
-        <!-- XXX debug stuff -->
+		 replace="structure string:<!--
+			    cps test / debug information:
+			    cps:path:${here/absolute_url}
+			    cps:rpath:${rpath}
+			    cps:proxy_id:${proxy/id}
+			    cps:id:${doc/id}
+			    -->">
+	<!-- XXX debug stuff -->
       </tal:block>
 
       <metal:block define-slot="base">
-        <base href="" tal:attributes="href python: here.absolute_url() + '/'">
+	<base href="" tal:attributes="href python: here.absolute_url() + '/'">
       </metal:block>
     </metal:block>
 
     <metal:block fill-slot="header">
       <metal:block define-slot="header">
-        <h1 tal:content="here/title_or_id">
-          Page Title
-        </h1>
+	<h1 tal:content="here/title_or_id">
+	  Page Title
+	</h1>
 
-        <div metal:use-macro="here/content_byline/macros/byline">By Me</div>
+	<div metal:use-macro="here/content_byline/macros/byline">By Me</div>
 
-        <div class="description" tal:content="doc/Description">
-          Document Description goes here.
-        </div>
+	<div class="description" tal:content="doc/Description">
+	  Document Description goes here.
+	</div>
       </metal:block>
     </metal:block>
 
@@ -45,10 +45,10 @@
 
     <metal:block fill-slot="sub">
       <metal:block define-slot="sub">
-        <div class="box" tal:condition="doc/viewThreadsAtBottom|nothing"
-             tal:content="structure doc/viewThreadsAtBottom">
-          Discussion goes here
-        </div>
+	<div class="box" tal:condition="doc/viewThreadsAtBottom|nothing"
+	     tal:content="structure doc/viewThreadsAtBottom">
+	  Discussion goes here
+	</div>
       </metal:block>
     </metal:block>
 
@@ -79,7 +79,7 @@
   </div>
   <strong><em i18n:translate="transition_comments">Comments</em></strong><br>
   <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"
-            tal:content="nothing">
+	    tal:content="nothing">
   </textarea>
   <div metal:define-slot="button">
     <!-- these are examples -->
@@ -96,33 +96,33 @@ format:</pre>
 <metal:block define-macro="display_contents">
 <tal:block
   define="tmp_format format|nothing;
-          tmp_sort_by sort_by|nothing;
-          tmp_columns columns|nothing;
-          tmp_items_per_page items_per_page|nothing;
-          tmp_nav_action nav_action|nothing;
-          params python:here.getDisplayParams(format=tmp_format, sort_by=tmp_sort_by,
-                                              columns = tmp_columns,
-                                              items_per_page = tmp_items_per_page,
-                                              nav_action = tmp_nav_action,
-                                              nb_items = len(items));
-          format params/format;
-          sort_by params/sort_by;
-          columns params/columns;
-          items_per_page params/items_per_page;
-          nav_action params/nav_action;
+	  tmp_sort_by sort_by|nothing;
+	  tmp_columns columns|nothing;
+	  tmp_items_per_page items_per_page|nothing;
+	  tmp_nav_action nav_action|nothing;
+	  params python:here.getDisplayParams(format=tmp_format, sort_by=tmp_sort_by,
+					      columns = tmp_columns,
+					      items_per_page = tmp_items_per_page,
+					      nav_action = tmp_nav_action,
+					      nb_items = len(items));
+	  format params/format;
+	  sort_by params/sort_by;
+	  columns params/columns;
+	  items_per_page params/items_per_page;
+	  nav_action params/nav_action;
 
-          mq nocall:modules/ZTUtils/make_query;
-          form request/form;
-          batches python:here.getBatchList(items, columns, items_per_page);
-          ">
-          <!-- detail, compact, icon -->
+	  mq nocall:modules/ZTUtils/make_query;
+	  form request/form;
+	  batches python:here.getBatchList(items, columns, items_per_page);
+	  ">
+	  <!-- detail, compact, icon -->
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top"
-          tal:attributes="width python:str(100 / columns)+'%'"
-          tal:repeat="batch_items batches">
-          <metal:block
-                use-macro="here/content_lib/macros/display_contents_column" />
+	  tal:attributes="width python:str(100 / columns)+'%'"
+	  tal:repeat="batch_items batches">
+	  <metal:block
+		use-macro="here/content_lib/macros/display_contents_column" />
       </td>
     </tr>
   </table>
@@ -130,22 +130,22 @@ format:</pre>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="50%" align="left" nowrap>
-        <span tal:define="p python:batches[0]" tal:condition="p/previous">
-          <a href=""
-             tal:define="previous p/previous/first"
-             tal:attributes="href python:nav_action + '?'
-                                         + mq(form, b_start=previous)"
-             i18n:translate="batch_previous_items">Previous Items</a>
-         </span>
+	<span tal:define="p python:batches[0]" tal:condition="p/previous">
+	  <a href=""
+	     tal:define="previous python:p.previous.first - items_per_page + (items_per_page / columns)"
+	     tal:attributes="href python:nav_action + '?'
+					 + mq(form, b_start=previous)"
+	     i18n:translate="batch_previous_items">Previous Items</a>
+	 </span>
       </td>
       <td width="50%" align="right" nowrap>
-        <span tal:define="n python:batches[-1]" tal:condition="n/next">
-          <a href=""
-             tal:define="next n/next/first"
-             tal:attributes="href python:nav_action + '?'
-                                         + mq(form, b_start=next)"
-             i18n:translate="batch_next_items">Next Items</a>
-        </span>
+	<span tal:define="n python:batches[-1]" tal:condition="n/next">
+	  <a href=""
+	     tal:define="next n/next/first"
+	     tal:attributes="href python:nav_action + '?'
+					 + mq(form, b_start=next)"
+	     i18n:translate="batch_next_items">Next Items</a>
+	</span>
       </td>
     </tr>
   </table>
@@ -157,18 +157,18 @@ format:</pre>
 <pre>final display of items in a column using the given format:</pre>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
-                     format format|string:icon">
+		     format format|string:icon">
   <table width="100%" border="0" cellspacing="0" cellpadding="5">
     <tr valign="top" tal:repeat="item batch_items">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
-        <input type="checkbox" name="ids:list" value="" id=""
-               tal:attributes="value item/getId;
-                               id python:'cb_'+item.getId()">
+	<input type="checkbox" name="ids:list" value="" id=""
+	       tal:attributes="value item/getId;
+			       id python:'cb_'+item.getId()">
       </td>
       <td align="left" valign="top"
-          tal:define="info python:here.getContentInfo(item, level=1)">
-        <metal:block
-          use-macro="python:path('here/content_lib/macros/info_%s' % format)" />
+	  tal:define="info python:here.getContentInfo(item, level=1)">
+	<metal:block
+	  use-macro="python:path('here/content_lib/macros/info_%s' % format)" />
       </td>
     </tr>
   </table>
@@ -190,19 +190,19 @@ format:</pre>
     <tal:block i18n:translate="">
       label_revision
       <span tal:content="info/rev"
-            i18n:name="status_revision">1</span>
+	    i18n:name="status_revision">1</span>
     </tal:block>
 
     <tal:block i18n:translate="">
       label_language
       <span tal:content="info/lang"
-            i18n:name="status_language">en</span>
+	    i18n:name="status_language">en</span>
     </tal:block>
 
     <tal:block condition="status_time|nothing" i18n:translate="">
       label_since
       <span tal:content="info/stime"
-            i18n:name="status_time">May 6, 2003 5:28 pm</span>
+	    i18n:name="status_time">May 6, 2003 5:28 pm</span>
     </tal:block>
 
   </tal:block>
@@ -210,7 +210,7 @@ format:</pre>
 
     <tal:block condition="status_time|nothing" i18n:translate="">
       <span tal:content="info/stime"
-            i18n:name="status_time">May 6, 2003 5:28 pm</span>:
+	    i18n:name="status_time">May 6, 2003 5:28 pm</span>:
     </tal:block>
 
     <span i18n:translate="">
@@ -235,7 +235,7 @@ format:</pre>
   <tr><td width="20">
    <img src="" border="0"
      tal:attributes="src string:/${info/icon};
-                     title info/type;"/>
+		     title info/type;"/>
   </td><td>
    <a href="" tal:attributes="href string:/${info/rpath}/view">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
@@ -245,7 +245,7 @@ format:</pre>
   <small>
     <span tal:replace="string:id:${info/id}">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
-                       status_time not:nothing;">
+		       status_time not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
     <span tal:replace="info/size|nothing">10 kB</span>
@@ -265,7 +265,7 @@ format:</pre>
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td align="center">
    <a href="" tal:attributes="href string:${info/id}/view;
-                              title info/description;">
+			      title info/description;">
     <img src="" border="0" width="30" length="40"
      tal:attributes="src string:/${info/icon};"/></a>
   </td></tr>
@@ -285,15 +285,15 @@ format:</pre>
   <tr><td width="20">
    <img src="" border="0"
      tal:attributes="src string:/${info/icon};
-                     title info/type;"/>
+		     title info/type;"/>
   </td><td>
    <a href="" tal:attributes="href string:/${info/rpath}/view;
-                              title info/description">
+			      title info/description">
      <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
    <small>
     id:<span tal:replace="info/id">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
-                       status_time not:nothing;">
+		       status_time not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
    </small>
@@ -312,13 +312,13 @@ format:</pre>
 <span tal:repeat="item info/states">
   <span tal:condition="python:item['review_state'] != 'work'">
     <tal:block define="info item;
-                       status_time not:nothing;
-                       status_short_fmt not:nothing;">
+		       status_time not:nothing;
+		       status_short_fmt not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
     <span i18n:translate="">label_in_section
       <a href="." tal:attributes="href string:${base_url}${item/rpath}/"
-         tal:content="item/title" i18n:name="section_id">Section</a>
+	 tal:content="item/title" i18n:name="section_id">Section</a>
     </span><br>
   </span>
 </span>
@@ -338,25 +338,25 @@ format:</pre>
 
   <span i18n:translate="">
     <span tal:content="item/stime"
-          i18n:name="history_time">May 6, 2003 5:28 pm</span>:
+	  i18n:name="history_time">May 6, 2003 5:28 pm</span>:
 
     </span>
     <span tal:content="item/action" i18n:translate="">publish</span>
 
    <tal:block condition="item/has_dest|nothing" i18n:translate="">
     into <span i18n:name="history_dest">
-         <a href="."
-            tal:content="item/dest_title"
-            tal:attributes="href string:${base_url}${item/dest_container}/">
-            Foo Section
-         </a>
-         </span>
+	 <a href="."
+	    tal:content="item/dest_title"
+	    tal:attributes="href string:${base_url}${item/dest_container}/">
+	    Foo Section
+	 </a>
+	 </span>
     </tal:block>
 
     <span i18n:translate="">
       by <span tal:replace="item/actor" i18n:name="history_actor">bob</span>:
       <em tal:content="item/comments|nothing" i18n:name="history_comments">
-        Comments
+	Comments
       </em>
     </span>
     <br />

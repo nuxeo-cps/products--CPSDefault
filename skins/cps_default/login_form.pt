@@ -1,83 +1,89 @@
-<html metal:use-macro="here/main_template/macros/master">
-<div metal:fill-slot="main">
+<metal:html tal:define="showthirdcol nothing">
 
-<!-- ****** Enable the automatic redirect ***** -->
-<span tal:condition="exists: request/came_from">
+<metal:body use-macro="here/content_lib/macros/master">
+
+<metal:block fill-slot="header" />
+
+<metal:main fill-slot="main">
+
+  <form action="" method="post"
+        tal:attributes="action string:${here/portal_url}/logged_in">
+
+  <!-- ****** Enable the automatic redirect ***** -->
   <input type="hidden" name="came_from" value=""
-         tal:attributes="value request/came_from" />
-</span>
-<!-- ****** Enable the automatic redirect ***** -->
+         tal:condition="exists: request/came_from"
+         tal:attributes="value request/came_from">
+  <!-- ****** Enable the automatic redirect ***** -->
 
-<h2 i18n:translate="heading_login_form">Log in</h2>
+  <h1 i18n:translate="heading_login_form">Log in</h1>
 
-<form action="" method="post"
-      tal:attributes="action string:${here/portal_url}/logged_in">
-
-<table border="0" width="100%" cellspacing="1" cellpadding="1">
-  <tr>
+  <table border="0" width="100%" cellspacing="1" cellpadding="1">
+    <tr>
+      <td align="left" valign="top">
+        <strong i18n:translate="label_user_name">Name</strong>
+      </td>
+      <td align="left" valign="top">
+        <input type="text" id="field_focus" name="__ac_name" size="20" value=""
+               tal:attributes="value python:request.get('__ac_name', '')">
+      </td>
+    </tr>
+    <tr>
     <td align="left" valign="top">
-      <strong i18n:translate="label_user_name">Name</strong>
-    </td>
-    <td align="left" valign="top">
-      <input type="text" id="field_focus" name="__ac_name" size="20" value=""
-             tal:attributes="value python:request.get('__ac_name', '')">
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top">
-      <strong i18n:translate="label_password">Password</strong>
+    <strong i18n:translate="label_password">Password</strong>
     </td>
     <td align="left" valign="top">
-      <input type="password" name="__ac_password" size="20" value="">
+    <input type="password" name="__ac_password" size="20" value="">
     </td>
-  </tr>
+    </tr>
 
-  <tr valign="top" align="left">
-    <td></td>
-    <td>
-      <input type="checkbox" name="__ac_persistent" checked
-             id="cb_remember" class="noborder">
-      <label for="cb_remember" i18n:translate="label_remember_user_name">
-        <em>
-          Remember my name.
-        </em>
-      </label>
-    </td>
-  </tr>
+    <tr valign="top" align="left">
+      <td></td>
+      <td>
+        <input type="checkbox" name="__ac_persistent" checked
+               id="cb_remember" class="noborder">
+        <label for="cb_remember" i18n:translate="label_remember_user_name">
+          <em>
+            Remember my name.
+          </em>
+        </label>
+      </td>
+    </tr>
 
-  <tr>
-    <td></td>
-    <td align="left" valign="top">
-      <input i18n:attributes="value" class="standalone"
-             type="submit" name="submit" value="button_login">
-    </td>
-  </tr>
-</table>
+    <tr>
+      <td></td>
+      <td align="left" valign="top">
+        <input i18n:attributes="value" class="standalone"
+               type="submit" name="submit" value="button_login">
+      </td>
+    </tr>
+  </table>
 
-</form>
+  </form>
 
-<p>
-  <a href="" tal:attributes="href string:${here/portal_url}/mail_password_form">
-    <span i18n:translate="link_forgot_password">
-      I forgot my password!
-    </span>
-  </a>
-</p>
+  <p>
+    <a href=""
+       tal:attributes="href string:${here/portal_url}/mail_password_form">
+      <span i18n:translate="link_forgot_password">
+        I forgot my password!
+      </span>
+    </a>
+  </p>
 
-<p i18n:translate="help_login_troubles_cookies">
+  <p i18n:translate="help_login_troubles_cookies">
     Having trouble logging in? Make sure to enable cookies in
     your web browser.
-</p>
+  </p>
 
-<p i18n:translate="help_login_aware_logout">
-   Don't forget to logout or exit your browser when you're done.
-</p>
+  <p i18n:translate="help_login_aware_logout">
+    Don't forget to logout or exit your browser when you're done.
+  </p>
 
-<p i18n:translate="help_remember_user_name">
+  <p i18n:translate="help_remember_user_name">
     Setting the 'Remember my name' option will set a cookie with your
     username, so that when you next log in, your user name will already
     be filled in for you.
-</p>
+  </p>
 
-</div>
-</html>
+</metal:main>
+</metal:body>
+</metal:html>

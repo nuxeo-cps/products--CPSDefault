@@ -17,7 +17,8 @@
             <td i18n:translate="label_comments">Comments</td></tr>
         </thead>
         <tbody>
-          <tr tal:repeat="item info/history">
+      <tr tal:repeat="item info/history"
+        tal:attributes="class python:test(repeat['item'].odd(), 'odd', 'even')">
 
             <td tal:content="item/time_str">May 6, 2003 5:28 pm</td>
 

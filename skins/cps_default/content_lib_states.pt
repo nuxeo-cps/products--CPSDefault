@@ -24,7 +24,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="item items">
+        <tr tal:repeat="item items"
+          tal:attributes="class python:test(repeat['item'].odd(), 'odd', 'even')">
               <td tal:content="item/time_str" i18n:translate=""/>
               <td tal:content="item/rev" i18n:translate=""/>
               <td tal:content="string:label_language_${item/lang}" i18n:translate=""/>

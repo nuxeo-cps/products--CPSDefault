@@ -32,7 +32,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="item info/archived">
+        <tr tal:repeat="item info/archived"
+          tal:attributes="class python:test(repeat['item'].odd(), 'odd', 'even')">
 
               <td tal:content="item/time_str">25/12/2003 11:45</td>
 

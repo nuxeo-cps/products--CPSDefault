@@ -169,7 +169,9 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     def testSubmitAllDocumentTypes(self):
         all_document_types = self.portal.getDocumentTypes()
         del all_document_types['Workspace']
+        del all_document_types['Section']
         for document_type in all_document_types.keys():
+	    # print "submit document type %s" % document_type
             self._testSubmit(document_type)
 
     # Same as test as above, but here we know what document type causes

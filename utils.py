@@ -29,7 +29,7 @@ import re
 ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getHtmlBody')
 ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getNonArchivedVersionContextUrl')
 ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('truncateText')
-
+ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('isProductPresent')
 
 # Regexp of the form xxx<body>xxx</body>xxx.
 # DOTALL: Make the "." special character match any character at all, including a
@@ -78,3 +78,27 @@ def truncateText(text, size=25):
     mid_size = (size-3)/2
     return text[:mid_size] + '...' + text[-mid_size:]
 
+def isProductPresent(product_name):
+    """
+    Shows wether an optional CPS product is present or not
+    """
+    import_error_message = 'No module named '
+    # the argument product_name is not necessary the same as 
+    # the actual name of the product, though it would be a 
+    # good practice to keep it this way.
+    # if so, override error into the proper if branch
+    error = import_error_message + product_name
+    try:
+        if product_name == 'CPSNavigation':
+            from Products.CPSNavigation import CPSNavigation
+            return 1
+        elif product_name == 'CPSIO':
+            from Products.CPSIO import IOBase
+            return 1
+        else:
+            return 0
+    except ImportError, e:
+        if str(e) == error:
+            return 0
+        else:
+            raise

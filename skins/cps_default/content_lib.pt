@@ -412,7 +412,7 @@ format:</pre>
   <div tal:condition="info/preview|nothing" style="float: right">
     <img tal:condition="info/preview|nothing"
          tal:replace="structure python:here.getImgTag(info['preview'],
-                               base_url='', width=64, height=64, keep_ratio=1)">
+                               base_url=base_url, width=64, height=64, keep_ratio=1)">
   </div>
   <img tal:replace="structure python:here.getImgTag(info['icon'],
                                      base_url=base_url, title=info['type'])">
@@ -461,7 +461,7 @@ format:</pre>
        base_url=base_url, zoom=2, title=info['description'])">
   <img tal:condition="info/preview|nothing"
        tal:replace="structure python:here.getImgTag(info['preview'],
-       base_url='', width='32', height='32', keep_ratio=1,
+       base_url=base_url, width='32', height='32', keep_ratio=1,
        title=info['description'])">
    <br>
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
@@ -498,11 +498,11 @@ format:</pre>
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
     <b tal:content="info/title_or_id">ID</b></a>
   </h2>
-  <div tal:condition="info/preview|nothing"
-    style="float: left;margin: 1em; width:140px; height:140px;">
+  <div tal:condition="info/photo|nothing"
+    style="float: left;margin: 1em;">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
-      ><img tal:replace="structure python:here.getImgTag(info['preview'],
-                         base_url='', width=128, height=128, keep_ratio=1)"></a>
+      ><img tal:replace="structure python:here.getImgTag(info['photo'],
+                         base_url=base_url, width=128, height=128, keep_ratio=1)"></a>
   </div>
   <div>
   <small style="float: right;">

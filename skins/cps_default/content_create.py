@@ -5,7 +5,7 @@ Create an object.
 """
 from urllib import urlencode
 
-if REQUEST:
+if REQUEST is not None:
     kw.update(REQUEST.form)
 
     # Use creation without empty object.

@@ -6,8 +6,8 @@
 <metal:block define-macro="box">
   <div class="box">
     <div class="title">
-      <tal:block condition="box/settings/minimized">_</tal:block>
-      <tal:block condition="not:box/settings/minimized">[]</tal:block>
+      <tal:block condition="box/settings/minimized">[]</tal:block>
+      <tal:block condition="not:box/settings/minimized">_</tal:block>
       <div metal:define-slot="box_title">Box Title</div>
     </div>
     <div class="body">
@@ -16,4 +16,14 @@
   </div>
 </metal:block>
 
+
+<metal:block define-macro="wbox">
+  <div class="box">
+    <div class="title"></div>
+    <div class="body">
+      <div metal:define-slot="box_title">Box Title</div>
+      <div metal:define-slot="box_body">Box Body</div>
+    </div>
+  </div>
+</metal:block>
 

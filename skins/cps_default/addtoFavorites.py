@@ -46,12 +46,11 @@ doc = getattr(targetFolder, new_id).getEditableContent()
 doc.edit(**kw)
 
 if REQUEST:
-  param_index = rurl.find("?")
-  if param_index == -1:
-    url = REQUEST.HTTP_SERVER + rurl + '?' +\
+  if '?' in rurl:
+    url = REQUEST.HTTP_SERVER + rurl + '&' +\
           make_query(portal_status_message='psm_added_to_favorites')
   else:    
-    url = REQUEST.HTTP_SERVER + rurl + '&' +\
+    url = REQUEST.HTTP_SERVER + rurl + '?' +\
           make_query(portal_status_message='psm_added_to_favorites')
   return REQUEST.RESPONSE.redirect(url)
 

@@ -3,18 +3,21 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="header">
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
   <title tal:content="here/expanded_title">
     Nuxeo | Collaborative Portal Server
   </title>
 
-  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-
-  <base href="" tal:attributes="href string:${here/absolute_url}/" />
+  <metal:block define-slot="base">
+    <!-- Additional meta elements go here -->
+  </metal:block>
 
   <!-- Basic crude style for Netscape4.x - This can be removed if you don't
 want the special NS4 look - it will still work, just be plain text instead. -->
   <link rel="Stylesheet" type="text/css" href=""
-        tal:attributes="href string:${base_url}ploneNS4.css" />
+        tal:attributes="href string:${base_url}ploneNS4.css">
 
   <!-- Main style sheets for CSS2 capable browsers -->
   <style type="text/css" media="all"
@@ -29,14 +32,27 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
   <!-- Style sheet used for printing -->
   <link rel="stylesheet" type="text/css" media="print" href=""
-        tal:attributes="href string:${base_url}plonePrint.css" />
+        tal:attributes="href string:${base_url}plonePrint.css">
 
   <!-- not supported by IE -->
   <link rel="icon" href="" type="image/png" tal:attributes="href
-        string:${base_url}favicon.png" />
+        string:${base_url}favicon.png">
 
   <!-- Disable IE6 image toolbar -->
-  <meta http-equiv="imagetoolbar" content="no" />
+  <meta http-equiv="imagetoolbar" content="no">
+  
+  <metal:block define-slot="head_slot">
+    <!-- Additional http headers go here -->
+  </metal:block>
+
+  <metal:block define-slot="css_slot">
+    <!-- additional styles go here -->
+  </metal:block>
+
+  <metal:block define-slot="javascript_head_slot">
+    <!-- additional scripts go here -->
+  </metal:block>
+
 </metal:block>
 
 
@@ -71,25 +87,6 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="breadcrumbs">
-  <div class="pathBar">
-    <span i18n:translate="you_are_here">You are here:&nbsp;</span>
-    <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url)">
-      <a href="/cps/id"
-         tal:omit-tag="not:bc/url"
-         tal:attributes="href bc/url;
-                         title bc/longtitle"
-         tal:content="bc/title">
-         Title
-      </a>
-      <strong tal:condition="not:repeat/bc/end"
-              i18n:translate="breadcrumbs_separator">&nbsp;&gt;&nbsp;</strong>
-    </span>
-  </div>
-</metal:block>
-
-
-<!-- ============================================================ -->
 <metal:block define-macro="sections">
   <div class="tabs"
        tal:define="sections sections|ttool/sections;
@@ -119,6 +116,25 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
 
 <!-- ============================================================ -->
+<metal:block define-macro="breadcrumbs">
+  <div class="pathBar">
+    <span i18n:translate="you_are_here">You are here:&nbsp;</span>
+    <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url)">
+      <a href="/cps/id"
+         tal:omit-tag="not:bc/url"
+         tal:attributes="href bc/url;
+                         title bc/longtitle"
+         tal:content="bc/title">
+         Title
+      </a>
+      <strong tal:condition="not:repeat/bc/end"
+              i18n:translate="breadcrumbs_separator">&nbsp;&gt;&nbsp;</strong>
+    </span>
+  </div>
+</metal:block>
+
+
+<!-- ============================================================ -->
 <metal:block define-macro="box">
   <div class="box">
     <div class="title">
@@ -130,6 +146,18 @@ want the special NS4 look - it will still work, just be plain text instead. -->
   </div>
 </metal:block>
 
+
+<!-- ============================================================ -->
+<metal:block define-macro="portal_message">
+  <div class="message"
+       tal:define="portal_message request/portal_status_message|nothing"
+       tal:condition="portal_message">
+    <strong tal:content="portal_message" i18n:translate="">
+      <!-- TODO think about a fine icon meaning "your attention please" -->
+      Translated status message.
+    </strong>
+  </div>
+</metal:block>
 
 <!-- ============================================================ -->
 <metal:block define-macro="footer">

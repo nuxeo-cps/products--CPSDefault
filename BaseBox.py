@@ -76,6 +76,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                        )
 
     security = ClassSecurityInfo()
+    security.declareObjectPublic()
+
     guard = None
 
     _properties = (

@@ -4,7 +4,7 @@
 
 from zLOG import LOG, DEBUG
 
-
+catalog = context.portal_catalog
 if REQUEST is not None:
     query.update(REQUEST.form)
 
@@ -20,17 +20,25 @@ if str(query.get('modified')) == '1970/01/01':
 if not allow_empty_search and not query:
     return []
 
-bmt = context.Benchmarktimer('search query %s' % query)
+# scope of search
+if folder_prefix:
+    if not query.has_key('path'):
+        portal_path = '/' + catalog.getPhysicalPath()[1] + '/'
+        query['path'] =  portal_path + folder_prefix
+    del query['folder_prefix']
 
-if folder_prefix and not query.has_key('path'):
-    query['path'] =  context.getBaseUrl() + folder_prefix
-
-# use the cps searchable set to remove objects in 'portal_*' or named '.foo'
+# use filter set to remove objects inside 'portal_*' or named '.foo'
 query['cps_filter_sets'] = 'searchable'
-
 if hide_folder:
     query['cps_filter_sets'] = {'query' : ('searchable', 'leaves'),
                                 'operator' : 'and'}
+
+# title search
+if query.has_key('Title'):
+    # we search on the ZCTextIndex,
+    # Title index is a FieldIndex only used for sorting
+    query['ZCTitle'] = query['Title']
+    del query['Title']
 
 # start/end search
 if start_date and not query.has_key('start'):
@@ -43,7 +51,7 @@ if end_date and not query.has_key('end'):
 # sorting
 if sort_by and not query.has_key('sort-on'):
     if sort_by in ('title', 'date'):
-        sort_by = sort_by.capitalize()
+        sort_by = sort_by.capitalize()  # for compatibility
     query['sort-on'] = sort_by
     if direction and not query.has_key('sort-order'):
         if direction.startswith('desc'):
@@ -51,13 +59,11 @@ if sort_by and not query.has_key('sort-on'):
     if sort_limit and not query.has_key('sort-limit'):
         query['sort-limit'] = sort_limit
 
-bmt.setMarker('start catalog search for %s')
-catalog = context.portal_catalog
-brains = catalog(**query)
-bmt.setMarker('stop catalog search')
 
-bmt.setMarker('stop')
-bmt.saveProfile(context.REQUEST)
+LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
+brains = catalog(**query)
+LOG('CPSDefault.search', DEBUG, 'found %s items' % (len(brains)))
+
 # no more need to use filterContents
 
 return brains

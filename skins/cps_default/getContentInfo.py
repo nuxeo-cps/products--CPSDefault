@@ -162,16 +162,13 @@ except AttributeError:
     langrev = {'en': 0}
 info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
 info['lang'] = langrev.keys()[0]
-info['time'] = wtool.getInfoFor(proxy, 'time', '')
-if info['time']:
-    info['time_str'] = context.getDateStr(info['time'])
-else:
-    info['time_str'] = ''
+info['time'] = proxy.modified()
 
 # level 1
 if level > 0:
     if doc is None:
         doc = proxy.getContent()
+    info['time'] = doc.modified()
     info['doc'] = doc
     description = doc.Description() or ''
     if len(description) > DESCRIPTION_MAX_LENGTH:
@@ -258,6 +255,11 @@ if level >= 4:
     info['archived'] = compute_archived()
 
 info['level'] = level
+if info['time']:
+    info['time_str'] = context.getDateStr(info['time'])
+else:
+    info['time_str'] = ''
+
 
 bmt.setMarker('stop')
 bmt.saveProfile(context.REQUEST)

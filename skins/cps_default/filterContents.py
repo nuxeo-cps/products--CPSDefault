@@ -67,7 +67,7 @@ def title_sortkey(a):
     return a.title_or_id().lower()
 
 def date_sortkey(a):
-    return str(wtool.getInfoFor(a,'time','x')) + \
+    return str(a.modified()) + \
            a.getId()
 
 def author_sortkey(a):

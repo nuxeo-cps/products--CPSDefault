@@ -70,10 +70,6 @@ class TextBox(BaseBox):
         self.i18n = i18n
 
     def getI18n(self):
-        # This code is here for older text boxes that didn't have any i18n
-        # attribute before.
-        value = getattr(self, 'i18n', 0)
-        self.i18n = value
         return self.i18n
 
 

@@ -4,14 +4,73 @@
 
 <metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
 <metal:fields fill-slot="additional_fields" >
+<script type="text/javascript">
+<!-- 
+     function popup_nav_sc(destId, title){
+      var args
+      args='?input_id='+destId+'&root_uid=sections&title='+escape(title);
+      popup = window.open('popup-singleselect'+args, 'Finder', 'toolbar=0, scrollbar=1, location=0, statusbar=0, menubar=0, resizable=1, dependent=1, width=712, height=480')
+      if (!popup.opener)
+        popup.opener = window;
+      return false;
+  }
+ 
+     function popup_nav_ws(destId, title){
+      var args
+      args='?input_id='+destId+'&root_uid=workspaces&title='+escape(title);
+      popup = window.open('popup-singleselect'+args, 'Finder', 'toolbar=0, scrollbar=1, location=0, statusbar=0, menubar=0, resizable=1, dependent=1, width=712, height=480')
+      if (!popup.opener)
+        popup.opener = window;
+      return false;
+  }
+-->
+</script>
   <tr valign="top">
     <th align="right" i18n:translate="label_folder">Folder</th>
-    <td colspan="3"><input type="text" name="folder" value="" size="30"
-          tal:attributes="value box/box/folder" /></td>
+    <td colspan="3" tal:define="cps_navigation_installed python:here.isProductPresent('CPSNavigation')">
+    <tal:block condition="cps_navigation_installed">
+    <tal:block define="selection_sc python:here.manageSelection(REQUEST=request,
+                                                                type='folder',
+                                                                root_uid='sections');
+                       selection_ws python:here.manageSelection(REQUEST =request,
+                                                                type='folder',
+                                                                root_uid='workspaces')">
+       <div id="divsubmitselection_sc">
+        <tal:block condition="selection_sc">
+          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value selection_sc"> 
+        </tal:block> 
+           
+        <tal:block condition="selection_ws">
+          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value selection_ws">  
+        </tal:block>
+        
+        <tal:block condition="python: not selection_ws and not selection_sc">
+          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value box/box/folder">  
+        </tal:block>
+        
+        
+       </div>
+      
+     <button type="button" size="30"
+          i18n:translate="label_choose_workspace" onclick="popup_nav_ws('divsubmitselection_sc',
+                                                                      'Select workspaces for recherche') " >
+                                                             Choose workspaces</button>
+     <button type="button" size="30"
+          i18n:translate="label_choose_section" onclick="popup_nav_sc('divsubmitselection_sc',
+                                                                      'Select folder for recherche') " >
+                                                             Choose sections</button>
+   </tal:block>
+   </tal:block>
+    <input tal:condition="not:cps_navigation_installed"
+           type="text" name="folder" value="" size="30"
+           tal:attributes="value box/box/folder" />
+   
+   </td>
     <th align="right" i18n:translate="label_nb_items">Nb items</th>
     <td><input type="text" name="nb_items" value="" size="3"
            tal:attributes="value box/box/nb_items" /></td>
   </tr>
+  
   <tr valign="top">
     <th></th>
     <td colspan="5" align="left"

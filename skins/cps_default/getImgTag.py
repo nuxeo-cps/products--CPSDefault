@@ -23,7 +23,7 @@ if not width:
 tag = '<img src="%s" width="%s" height="%s" border="0" ' % (
     img_url, width, height )
 if not title:
-    title = img.title
+    title = getattr(img, 'title', None)
 if title:
     tag += 'title="' + title + '" '
 return tag + '>'

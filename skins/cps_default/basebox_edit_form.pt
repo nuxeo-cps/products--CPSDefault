@@ -6,7 +6,7 @@
   tal:define="box_url request/box_url|python:0;
               context_urlc python:here.getContextUrl(utool=utool, concat=1);">
 
-<h2 i18n:translate="box_edit_title">Box edition</h2>
+<h2 i18n:translate="heading_box_edit_form">Box edition</h2>
 
 box: <tal:block replace="box_url" />
 
@@ -23,20 +23,20 @@ box: <tal:block replace="box_url" />
   tal:attributes="value box_type" />
 <table class="FormLayout">
   <tr valign="top">
-    <th align="right" i18n:translate="item_title">Title</th>
+    <th align="right" i18n:translate="label_title">Title</th>
     <td colspan="5">
       <input type="text" name="title" value="" size="60"
              tal:attributes="value box/box/title">
     </td>
   </tr>
   <tr valign="top">
-    <th align="right" i18n:translate="item_slot">Slot</th>
+    <th align="right" i18n:translate="label_slot">Slot</th>
     <td><input type="text" name="slot" value="" size="10"
           tal:attributes="value box/settings/slot" /></td>
-    <th aligh="right" i18n:translate="item_order">Order</th>
+    <th aligh="right" i18n:translate="label_order">Order</th>
     <td><input type="text" name="order" value="" size="3"
            tal:attributes="value box/settings/order" /></td>
-    <th aligh="right" i18n:translate="item_display">Display</th>
+    <th aligh="right" i18n:translate="label_display">Display</th>
     <td>
       <select name="display">
 	<option value="maximized"
@@ -49,7 +49,7 @@ box: <tal:block replace="box_url" />
     </td>
   </tr>
   <tr valign="top">
-    <th align="right" i18n:translate="item_type">Type</th>    
+    <th align="right" i18n:translate="label_type">Type</th>
     <td colspan="5">
       <tal:block
       define="styles python:here.getBoxesStyles(type=box_type);
@@ -61,7 +61,7 @@ box: <tal:block replace="box_url" />
           <input type="radio" name="styleformat" value=""
             tal:define="sf string:${format/style}@${format/format}"
             tal:attributes="value sf; checked python:test(sf==styleformat,'checked',nothing)" />
-      
+
             <tal:block replace="format/style" />-<tal:block replace="format/format" />: <tal:block replace="format/desc" /> <br>
        </tal:block>
       </tal:block>
@@ -72,7 +72,7 @@ box: <tal:block replace="box_url" />
   <tr>
     <td></td>
     <td colspan="5">
-      <input type="submit" name="change" value=" Change "
+      <input type="submit" name="change" value="button_change"
         i18n:attributes="value">
     </td>
   </tr>

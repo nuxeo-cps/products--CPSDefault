@@ -20,17 +20,17 @@
     <a href="../folder_contents"><img src="" alt="[Link]" border="0"
        tal:attributes="src string:${base_url}UpFolder_icon.gif"></a>
   </span>&nbsp;&nbsp;
-  <span tal:condition="upNav" i18n:translate="">Up to
+  <span tal:condition="upNav" i18n:translate="">description_up_to
     <a href="../folder_view" tal:content="upID" i18n:name="up_id">Up ID</a>
   </span>
 </tal:block>
 <br><br>
- 
+
 <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
 <tal:block repeat="box python:btool.filterBoxes(boxes, slot='folder_view');">
   <metal:block use-macro="python:path(box['macro'])" /><br/>
 </tal:block>
-<b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />     
+<b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
 
 </div>
 

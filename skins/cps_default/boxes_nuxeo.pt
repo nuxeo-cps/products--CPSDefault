@@ -5,7 +5,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_default">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" 
+    <metal:block fill-slot="box_title"
       tal:content="box/box/title">
       box text title
     </metal:block>
@@ -21,7 +21,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="textbox_default">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" 
+    <metal:block fill-slot="box_title"
       tal:content="box/box/title">
        box text title
     </metal:block>
@@ -82,7 +82,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_default">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" 
+    <metal:block fill-slot="box_title"
       tal:content="box/box/title">
        box text title
     </metal:block>
@@ -150,7 +150,7 @@
       <div tal:attributes="class python:'content '+ test(repeat['category'].odd(), 'even', 'odd')">
         <ul>
           <li tal:repeat="action category">
-            <a i18n:translate="" tal:attributes="href action/url"
+            <a i18n:translate="_dynamic_" tal:attributes="href action/url"
                tal:content="action/name">
                Action
              </a>
@@ -174,7 +174,7 @@
       <tal:block define="
                          mtool here/portal_membership;
                          url nocall:here/portal_url;
-                         dtool here/portal_metadirectories; 
+                         dtool here/portal_metadirectories;
 			 dirname string:members;
 			 directory dtool/?dirname;
                          entry python:directory.getEntry(uname);
@@ -182,17 +182,17 @@
 
          <tal:block define="notLogged python:mtool.isAnonymousUser()">
            <span tal:condition="notLogged"
-                 tal:content="uname">	
+                 tal:content="uname">
               box text title
-           </span>        
-           <a href="." 
-              tal:condition="python:notLogged == 0 and entry is not  None" 
+           </span>
+           <a href="."
+              tal:condition="python:notLogged == 0 and entry is not  None"
               tal:attributes="href string:${here/portal_url}/workspaces/members/${uname}"
               tal:content="python:entry.get('fullname', uname)" >
               box text title
            </a>
-	   <a href="." 
-              tal:condition="python:notLogged == 0 and entry is None" 
+	   <a href="."
+              tal:condition="python:notLogged == 0 and entry is None"
               tal:attributes="href string:${here/portal_url}/workspaces/members/${uname}"
               tal:content="uname" >
               box text title
@@ -217,5 +217,3 @@
   </metal:block>
   </tal:block>
 </metal:block>
-
-	

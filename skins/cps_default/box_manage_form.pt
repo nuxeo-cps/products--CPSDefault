@@ -3,17 +3,17 @@
 <metal:main fill-slot="main"
   tal:define="context_urlc python:here.getContextUrl(utool=utool, concat=1);">
 
-<h2 i18n:translate="box_manage_title">Box management</h2>
+<h2 i18n:translate="heading_box_manage_form">Box management</h2>
 
 Current location: <tal:block replace="context_url" />
 
 
 <form action="box_manage" method="post"
   tal:attributes="action string:${context_urlc}/box_manage">
-  
+
 
 <table>
-  
+
   <tal:block repeat="box boxes">
   <tr tal:define="action python:box['box'].getTypeInfo().immediate_view">
     <td><tal:block replace="box/box/slot" /></td>

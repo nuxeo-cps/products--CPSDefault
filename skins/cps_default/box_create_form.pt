@@ -6,7 +6,7 @@
 <div metal:fill-slot="main">
 
 <div class="Desktop">
-<h1 i18n:translate="add_box">Add a Box</h1>
+<h1 i18n:translate="heading_box_create_form">Add a Box</h1>
 <form action="box_create" method="POST"
 tal:attributes="action string:${here/absolute_url}/box_create">
 <table class="FormLayout">
@@ -25,15 +25,15 @@ tal:attributes="action string:${here/absolute_url}/box_create">
 	  <td align="left" colspan="2" class="ListName">
 	    <label for="" tal:attributes="for string:cb_${repeat/item/number}"
 	    tal:content="item/Title"
-	    i18n:translate="">
+	    i18n:translate="_dynamic_">
 	    Portal type's title
-	    </label> 
+	    </label>
 	  </td>
 	</tr>
 	<tr valign="top">
 	  <td colspan="2"><br></td>
 	  <td align="left" class="ListDefinition" tal:content="item/Description"
-	    i18n:translate="">
+	    i18n:translate="_dynamic_">
 	    Portal type's description
 	  </td>
 	</tr>
@@ -48,7 +48,7 @@ tal:attributes="action string:${here/absolute_url}/box_create">
     <td colspan="2" class="TextField">
       <strong>ID:</strong>
       <input type="text" name="id" size="20">
-      <input type="submit" value="Add" i18n:attributes="value">
+      <input type="submit" value="button_add" i18n:attributes="value">
     </td>
   </tr>
 </table>

@@ -33,70 +33,58 @@ for c in range(columns - 1):
     else:
         batches.append(empty_batch)
 
-
-# Fetching Localizer message catalog
-portal = context.portal_url.getPortalObject()
-mcat = portal.Localizer.default
-
 #
-# Now the page results link
+# Now the page results parameters
 #
 
 if len(items) == 0:
-    return batches, None, None, []
-
-batch_string = ""
+    return batches, {}, []
 
 # Calculate the number of pages
 nb_pages = len(items) / items_per_page
 if not same_type(nb_pages, 1) and nb_pages > 1:
     nb_pages = int(nb_pages) + 1
 
-
-# Then loop over the number of pages
-# and construct the page link
-
-j = 0           # for the nb of items
-current = [0,1] # for the current position in the search
-
-for i in range(nb_pages):
-    if b_start != j:
-        batch_string += """<a href="%s" >%s</a> """ % (
-            context.REQUEST.URL + "?b_start:int=" + str(int(j)),
-            str(i+1))
-    else:
-        current = [i+1, j]
-        batch_string += str(i+1) + " "
-    j += items_per_page
-
-# Adding the previous link if we are not at the beginning of the file
-if current[0] > 1:
-    batch_string = """<a href="%s" >%s</a> """ % (
-        context.REQUEST.URL + "?b_start:int="
-            + str(int(current[1] - items_per_page)),
-        mcat("batch_previous")) + batch_string
-
-# Adding the next link if we are not at the end of the list
-if current[0] != nb_pages:
-    batch_string += """<a href="%s" >%s</a> """ % (
-        context.REQUEST.URL + "?b_start:int=" +
-            str(int(current[1] + items_per_page)),
-        mcat("batch_next"))
+# no more advanced arithmetics
+items_per_page = int(items_per_page)
 
 # Test if we are on the last page
-limit = int(b_start + items_per_page)
+limit = b_start + items_per_page
 if  limit > len(items):
     limit = len(items)
 
-info_string = {'start': b_start + 1,
-               'limit': limit,
-               'length': len(items),
-                  }
+batch_info = {'nb_pages': nb_pages,
+              'start': b_start + 1,
+              'limit': limit,
+              'length': len(items),
+              'previous': None,
+              'next': None,
+                 }
 
-if nb_pages == 1:
-    batch_string = ''
-else:
-    batch_string = mcat('label_page') + ": " + batch_string
+# for the nb of items 
+j = 0           
+# for the current position in the search
+current = [0, 1] 
+# list of b_start values
+pages = []
+
+# Loop over the number of pages and construct the page link
+for i in range(nb_pages):
+    pages.append(j)
+    if b_start == j:
+        current = [i + 1, j]
+    j += items_per_page
+
+# list of b_start to other pages
+batch_info['pages'] = pages
+
+# if we are not at the beginning of the file
+if current[0] > 1:
+    batch_info['previous'] = current[1] - items_per_page
+
+# Adding the next link if we are not at the end of the list
+if current[0] != nb_pages:
+    batch_info['next'] = current[1] + items_per_page
 
 zoomed = None
 if b_start == 0 and zoom:
@@ -107,4 +95,4 @@ if b_start == 0 and zoom:
     if n > zoom:
         batches[0] = Batch(items[zoom:n], n, 0)
 
-return batches, batch_string, info_string, zoomed
+return batches, batch_info, zoomed

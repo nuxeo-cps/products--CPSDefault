@@ -17,7 +17,7 @@ for item in items:
         continue
     if hide_folder and item.isPrincipiaFolderish:
         continue
-    
+
 # XXX TODO expire should be handel by wf
     filtered_items.append(item)
 
@@ -57,12 +57,16 @@ elif sort_by == 'date':
     make_sortkey = date_sortkey
 elif sort_by == 'title':
     make_sortkey = title_sortkey
-    
+
 objects = [ ( make_sortkey(x), x ) for x in filtered_items ]
-if direction != 'asc':
+
+if direction == 'desc':
     objects.sort(cmp_desc)
+elif direction == "default":
+    pass
 else:
     objects.sort() # tuples compare "lexicographically"
+
 filtered_items = [ x[1] for x in objects ]
 
 return filtered_items

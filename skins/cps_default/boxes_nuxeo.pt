@@ -30,24 +30,24 @@
               wtree python:workspaces.getList(start_depth=0, stop_depth=2)[:1]">
   <tal:block repeat="item stree">
     <tal:block define="selected python:context_url.endswith(item['rpath'])">
-      <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)">&nbsp;</span><a href="" class=""
+      <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a href="" class=""
          tal:attributes="href string:${base_url}${item/rpath}/;
                          class python:test(selected, 'selected', default);
                          title item/title"
          tal:content="structure item/short_title">
          section title
-      </a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)">&nbsp;</span>
+      </a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
   </tal:block>
   </tal:block>
   <tal:block repeat="item wtree">
     <tal:block define="selected python:context_url.endswith(item['rpath'])">
-      <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)">&nbsp;</span><a href="" class="workspace"
+      <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)"> </span><a href="" class="workspace"
          tal:attributes="href string:${base_url}${item/rpath}/;
                          class python:test(selected, 'wsSelected', default);
                          title item/title"
          tal:content="structure item/short_title">
          workspace title
-      </a><span class="wsClosetab" tal:attributes="class python:test(selected, 'wsClosetabSelected', default)">&nbsp;</span>
+      </a><span class="wsClosetab" tal:attributes="class python:test(selected, 'wsClosetabSelected', default)"> </span>
     </tal:block>
   </tal:block>
 </div>
@@ -99,7 +99,7 @@
 <metal:block define-macro="basebox_folder_header"
   tal:define="doc nocall:doc|python:here.getContent()">
 <h1 tal:content="here/title_or_id">Page Title</h1>
-<div class="description">&nbsp;<span
+<div class="description"> <span
   tal:content="doc/Description">description</span>
 </div>
 </metal:block>
@@ -157,7 +157,7 @@
               <a href="#" class="CalendarArrow" 
 		 tal:attributes="href python:here.getPreviousMonthLink(
                                              request.URL0, month, year)">
-                &laquo;
+                «
               </a>
             </th>
             <th colspan="5" tal:define="date string:$month/1/$year">
@@ -169,7 +169,7 @@
               <a href="#" class="CalendarArrow" 
                  tal:attributes="href python:here.getNextMonthLink(
                                              request.URL0, month, year)">
-                &raquo;
+                »
               </a>
             </th>
           </tr>
@@ -191,7 +191,7 @@
                       <a href tal:attributes="href python:here.portal_url()+
                                       '/calendar_day_view?date=%s'%(datestring)"
                               tal:content="python: daynumber or default">
-                        &nbsp;
+                         
                       </a>
                     </td>
                   </tal:event>
@@ -199,7 +199,7 @@
                     <td tal:content="python: daynumber or default"
                         tal:attributes="class python:here.getDaysClass(
                                         daynumber, month, year)">
-                        &nbsp;
+                         
                     </td>
                   </tal:event>
                 </tal:daynumber>
@@ -271,7 +271,7 @@
     </metal:block>
     <metal:block fill-slot="box_body">
       <tal:block repeat="item items"><span tal:replace="structure
-          python:'&nbsp;'*4*item['depth']">&nbsp;</span><a href="."
+          python:' '*4*item['depth']"> </span><a href="."
           tal:attributes="class python:test(context_url.endswith(
                                 item['rpath']),'selected', default);
                           href string:${base_url}${item/rpath}/;"><span
@@ -326,10 +326,10 @@
         <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
 <a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><b>
         <tal:block replace="structure
-        python:here.getImgTag('folder_icon.gif', base_url=base_url)" />&nbsp;<span tal:replace="structure string:${item/title_or_id}">title</span></b></a><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
+        python:here.getImgTag('folder_icon.gif', base_url=base_url)" /> <span tal:replace="structure string:${item/title_or_id}">title</span></b></a><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
           </tal:block>
           <tal:block condition="python:item['depth']>depth">
-<a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
+<a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">, </span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
           </tal:block>
         </tal:block>
         </td></tr></table><br>
@@ -365,7 +365,7 @@
             <dt>
               <tal:block replace="structure python:here.getImgTag(
                                   'folder_icon.gif', base_url=base_url)" />
-              &nbsp;
+               
               <a href="."
                  tal:attributes="href string:${base_url}${item/rpath}/;">
                 <tal:block tal:replace="structure python:item['title_or_id']">
@@ -452,6 +452,28 @@
       </tal:block>
     </metal:block>
   </metal:block>
+</metal:block>
+
+<!-- ============================================================ -->
+<!-- actions should be define like in main_template -->
+<!-- actions python:atool.listFilteredActionsFor(here); -->
+<metal:block define-macro="actionbox_menu"
+  tal:define="items python:box['box'].getActions(here, actions)">
+  <div class="contentTabs" tal:condition="items">
+    <tal:block repeat="category items">
+      <tal:block condition="python:len(category)">
+        <!-- br tal:condition="not:repeat/category/start" -->
+        <tal:block repeat="action category">
+          <tal:block define="selected python:request['URL'].startswith(action['url'])">
+          <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a i18n:translate=""
+             tal:attributes="href action/url;
+                             class python:test(selected, 'selected', default)"
+             tal:content="action/name">Action</a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
+          </tal:block>
+        </tal:block>
+      </tal:block>
+    </tal:block>
+  </div>
 </metal:block>
 
 

@@ -100,6 +100,9 @@ items = [
                {'provider': 'nuxeo',
                 'id': 'user',
                 'desc': 'description_nuxeo_actionbox_user'},
+               {'provider': 'nuxeo',
+                'id': 'menu',
+                'desc': 'description_nuxeo_actionbox_menu'},
                ]
      },
     {'category': 'imagebox',

@@ -213,7 +213,7 @@ if level > 0:
 
 # level 2
 if level == 2:
-    info['states'], None = compute_states(1)
+    info['states'], ignore = compute_states(1)
 
 # level 3
 if level >= 3:

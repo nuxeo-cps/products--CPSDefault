@@ -266,9 +266,8 @@ class FakeErrorLog:
         pass
 
 #
-# Patch because of the Indexation subscribers commit() after each
-# reindex otherwiese we'll need to manage with transaction within the
-# unit tests
+# Because of the indexation which is done at the end of the transaction
+# We don't want to deal with transactions within the tests ;)
 #
 
 from Products.CPSCore.ProxyBase import ProxyBase

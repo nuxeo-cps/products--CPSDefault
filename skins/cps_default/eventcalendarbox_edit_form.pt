@@ -21,11 +21,13 @@
     </td>
     <td colspan="4">
       <select  name="event_types:list" multiple="multiple" size="7">
-        <option tal:repeat="type python:here.getSearchablePortalTypes(1)"
-                tal:attributes="value type;
-                  selected python:
-                         test(type in box['box'].event_types,'selected',None)" 
-                tal:content="type"></option>
+        <tal:block repeat="ret python:here.getSortedContentTypes(allowed=0)">
+          <option i18n:translate=""
+             tal:define="type ret/id;name ret/title;"
+              tal:attributes="value type;
+                              selected python:type in box['box'].event_types"
+              tal:content="name" />
+        </tal:block>
       </select>
     </td>
   </tr>

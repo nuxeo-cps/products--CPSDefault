@@ -67,10 +67,10 @@
           <td>
             <tal:block tal:define="selbox python:box['box'].query_portal_type;
                                    notempty python:[t for t in selbox if t != '']">
-            <select name="query_portal_type" multiple>
+            <select size="5" name="query_portal_type" multiple>
             <option i18n:translate="label_all"
                     value="" tal:attributes="selected python:notempty==[] or selbox==[]">All</option>
-            <tal:block repeat="ret python:here.getSearchablePortalTypes()">
+            <tal:block repeat="ret python:here.getSortedContentTypes(allowed=0)">
             <option i18n:translate=""
               tal:define="type ret/id;name ret/title;"
               tal:attributes="value type;

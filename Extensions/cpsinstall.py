@@ -1153,7 +1153,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             id='status_history',
             name='action_status_history',
             action='string: ${object/absolute_url}/content_status_history',
-            condition='python: folder is not object',
+            condition='python:test(getattr(object,"portal_type"),test(object.portal_type in ["Section","Workspace","Portal"],0,1),0)',
             permission='View',
             category='workflow')
         pr(" Added")

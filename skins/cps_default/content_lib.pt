@@ -302,31 +302,35 @@ format:</pre>
     <span tal:content="info/review_state" tal:attributes="class
       info/review_state" i18n:translate="">Work</span>
     <tal:block i18n:translate="">label_revision
-      <em tal:content="info/rev" i18n:name="status_revision">1</em>
+      <span tal:content="info/rev" i18n:name="status_revision">1</span>
     </tal:block>
     <tal:block i18n:translate="">label_language
-      <em tal:content="string:label_language_${info/lang}"
-          i18n:name="status_language"
-          i18n:translate="">label_lang_fr</em>
+      <span i18n:name="status_language">
+      <tal:block i18n:translate=""
+        content="string:label_language_${info/lang}">en</tal:block>
+      </span>
     </tal:block>
     <tal:block condition="status_time|nothing" i18n:translate="">label_since
-      <em tal:content="info/stime" i18n:name="status_time">May28 pm</em>
+      <span tal:content="info/stime" i18n:name="status_time">May28 pm</span>
     </tal:block>
   </tal:block>
   <tal:block condition="status_short_fmt|nothing" >
     <tal:block condition="status_time|nothing" i18n:translate="">
-      <em tal:content="info/stime" i18n:name="status_time">May 6,...</em>:
+      <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>:
     </tal:block>
     <span i18n:translate="">
-      v<em tal:content="info/rev" i18n:name="status_revision">1</em>- <em
-      tal:content="string:label_language_${info/lang}"
-      i18n:name="status_language" i18n:translate="">label_lang_fr</em>
+      v<span tal:replace="info/rev" i18n:name="status_revision">1</span>-       <span i18n:name="status_language">
+      <tal:block i18n:translate=""
+        content="string:label_language_${info/lang}">en</tal:block>
+      </span>
     </span>
-    <em tal:content="info/review_state" tal:attributes="class
-      info/review_state" i18n:translate="">published</em>
+    <span tal:content="info/review_state" tal:attributes="class
+      info/review_state" i18n:translate="">published</span>
+    <em tal:attributes="class info/review_state"
+       tal:condition="info/review_state_date|nothing"
+       tal:content="info/review_state_date" />
   </tal:block>
 </metal:block>
-
 
 <!-- ============================================================ -->
 <!-- below macros require getContentInfo level 1                  -->

@@ -51,14 +51,14 @@ if order:
 sf = kw.get('providertype')
 if sf:
     kw['provider']=sf.split('@')[0]
-    kw['type']=sf.split('@')[1]
+    kw['btype']=sf.split('@')[1]
     # override with hard coded configuration
     category = context.getBoxTypes(category=box_category)
     if category:
         config = {}
         types = category['types']
         for t in types:
-            if t['provider'] == kw['provider'] and t['id'] == kw['type']:
+            if t['provider'] == kw['provider'] and t['id'] == kw['btype']:
                 config = t.get('config', {})
                 break
         kw.update(config)

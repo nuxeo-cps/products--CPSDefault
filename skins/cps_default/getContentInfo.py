@@ -31,8 +31,9 @@ if hasattr(proxy.aq_explicit, 'getRID'):
     # rpath is build with catalog path that include languageView selection
     rpath = proxy.getPath()[len(context.getBaseUrl()):]
     # change view to switch to have a sticky behaviour
-    # XXX should use import for view/switch keywords
-    rpath = rpath.replace('/viewLanguage/', '/switchLanguage/')
+    from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
+         KEYWORD_VIEW_LANGUAGE
+    rpath = rpath.replace(KEYWORD_VIEW_LANGUAGE, KEYWORD_SWITCH_LANGUAGE)
     proxy = proxy.getObject()
 
 bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id, level=-3)

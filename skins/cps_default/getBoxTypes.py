@@ -68,6 +68,9 @@ items = [
                            'depth': 2,
                            'root': ''}
                 },
+               {'provider': 'nuxeo',
+                'id': 'sitemap',
+                'desc': 'description_nuxeo_treebox_sitemap'},
                ]
      },
     {'category': 'contentbox',

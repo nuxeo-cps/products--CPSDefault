@@ -40,7 +40,7 @@ for i in range(len(path)):
     items.append({'id': ipath[-1],
                    'title': format_title(title),
                    'longtitle': title,
-                   'url': '/' + '/'.join(ipath) + '/',
+                   'url': '/' + '/'.join(ipath) + '/view',
                    })
 
 return items

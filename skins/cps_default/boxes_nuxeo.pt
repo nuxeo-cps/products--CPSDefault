@@ -119,7 +119,7 @@
    tal:define="map here/Localizer/get_languages_map;
                l10n_translated nothing"
    tal:condition="python:len(map) > 1">
-<form name="idioma" action="Localizer/changeLanguage" method="post"
+<form id="idioma" name="idioma" action="Localizer/changeLanguage" method="post"
       tal:attributes="action string:${base_url}Localizer/changeLanguage"
       tal:define="lang_voc here/portal_vocabularies/language_voc">
   <p>

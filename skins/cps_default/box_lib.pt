@@ -1,8 +1,10 @@
 <!-- macro library for boxes -->
 <!-- $Id$ -->
 
-<!-- context contain: object box, box_id and settings -->
+<!-- context contain: object box from portal_boxes.getBoxes -->
+
 <!-- ============================================================ -->
+<!-- a min max close box -->
 <metal:block define-macro="box">
   <div class="box">
     <div class="title">
@@ -17,6 +19,7 @@
   </div>
 </metal:block>
 
+<!-- a simple box without title -->
 <metal:block define-macro="sbox">
   <div class="box">
     <div class="body">
@@ -25,11 +28,13 @@
   </div>
 </metal:block>
 
-<metal:block define-macro="wbox">
+<!-- a fixed box title and body -->
+<metal:block define-macro="fbox">
   <div class="box">
-    <div class="title"></div>
-    <div class="body">
+    <div class="title">
       <div metal:define-slot="box_title">Box Title</div>
+    </div>
+    <div class="body">
       <div metal:define-slot="box_body">Box Body</div>
     </div>
   </div>

@@ -1527,7 +1527,7 @@ except:
         if not portalhas('cpsdirectory_installer'):
             pr('Adding cpsdirectory installer')
             cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
-                                                    'CPSDirectroy Updater',
+                                                    'CPSDirectory Updater',
                                                     'CPSDirectory.install',
                                                     'install')
             portal._setObject('cpsdirectory_installer', cpsdirectory_installer)

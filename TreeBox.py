@@ -256,6 +256,9 @@ class TreeBox(BaseBox):
         items = []
 
         for item in tree:
+            if not item['visible'] and \
+                   not item.get('public_title_and_description'):
+                continue
             if query[0] == '^':
                 if item['title_or_id'].lower().startswith(query[1:]):
                     items.append(item)

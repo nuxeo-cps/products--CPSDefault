@@ -13,10 +13,10 @@
 
 <div align="right">
   <form action="" method="post" name="formf"
-        tal:attributes="action here/absolute_url">
+        tal:attributes="action string:${here_url}/changeDisplayParams">
     <metal:params use-macro="here/content_lib/macros/display_params_form" />
     <input type="submit" value="button_change" class="standalone"
-           i18n:attributes="value" name="changeDisplayParams:method">
+           i18n:attributes="value">
   </form>
 </div>
 </metal:header>
@@ -26,7 +26,7 @@
                  list_parent python:checkPerm('List folder contents', here, 'aq_parent')">
 
 <div tal:condition="not: list_here"
-  tal:define="response request/RESPONSE;url here/absolute_url;">
+  tal:define="response request/RESPONSE;url here_url;">
   <span tal:define="redirect python: response.redirect(url)"></span>
 </div>
 
@@ -43,7 +43,7 @@
   </tal:block>
 
   <form action="" method="post"
-        tal:attributes="action here/absolute_url">
+        tal:attributes="action here_url">
 
    <tal:block define="no_form python:not checkPerm('Delete objects', here);
                       nav_action string:folder_contents;
@@ -51,37 +51,37 @@
      <metal:block use-macro="here/content_lib/macros/display_contents" />
    </tal:block>
 
-   <table border="0" width="100%" cellspacing="0" cellpadding="2">
+   <table border="0" width="100%" cellspacing="0" cellpadding="2"
+          tal:define="can_add python:checkPerm('Add portal content', here);
+                      can_del python:checkPerm('Delete objects', here);
+                     ">
      <tr>
-      <td align="left" valign="top" width="16"></td>
-      <td align="left" valign="top"
-          tal:define="can_add python:test(checkPerm('Add portal content',
-                              here), 1, 0)">
-      <span tal:condition="python:can_add and here.allowedContentTypes()">
-        <input type="submit" name="folder_factories:method" value="button_new"
-               class="standalone" i18n:attributes="value">
-      </span>
-      <span tal:condition="can_add">
-        <input type="submit" name="folder_cut:method" value="button_cut"
-          class="context" i18n:attributes="value">
-        <input type="submit" name="folder_copy:method" value="button_copy"
-          class="context" i18n:attributes="value">
-      </span>
-      <span tal:condition="python:can_add and here.cb_dataValid()">
-        <input type="submit" name="folder_paste:method" value="button_paste"
-          class="context" i18n:attributes="value">
-      </span>
-      <span tal:condition="python: checkPerm('Delete objects', here)">
-        <input type="submit" name="folder_rename_form:method"
-          class="context" value="button_rename" i18n:attributes="value">
-        <input type="submit" name="folder_delete:method" value="button_delete"
-          class="destructive" i18n:attributes="value"
-          tal:attributes="onclick python:'return window.confirm(\'%s\')' %
-          (cpsmcat('description_confirm_delete'), )">
-        <tal:block tal:define="isWsManager python:mtool.checkPermission('View management screens', here);"
-                   condition="python:isWsManager and sort_by is None">
-
-          <br>
+      <td align="left" valign="top" width="16" rowspan="3"></td>
+      <td align="left" valign="top">
+        <span tal:condition="can_add">
+          <input type="submit" name="folder_cut:method" value="button_cut"
+            class="context" i18n:attributes="value">
+          <input type="submit" name="folder_copy:method" value="button_copy"
+            class="context" i18n:attributes="value">
+        </span>
+        <span tal:condition="python:can_add and here.cb_dataValid()">
+          <input type="submit" name="folder_paste:method" value="button_paste"
+            class="context" i18n:attributes="value">
+        </span>
+        <span tal:condition="can_del">
+          <input type="submit" name="folder_rename_form:method"
+            class="context" value="button_rename" i18n:attributes="value">
+          <input type="submit" name="folder_delete:method" value="button_delete"
+            class="destructive" i18n:attributes="value"
+            tal:attributes="onclick python:'return window.confirm(\'%s\')' %
+            (cpsmcat('description_confirm_delete'), )">
+        </span>
+      </td>
+     </tr>
+     <tr>
+      <td tal:define="isWsManager python:checkPerm('View management screens',
+                                                   here);"
+          tal:condition="python:isWsManager and sort_by is None">
           <input type="submit" value="button_move_up" class="context moveUp"
                  i18n:attributes="value" name="moveItemsUp:method">
           <input type="submit" value="button_move_down" class="context moveDown"
@@ -91,8 +91,22 @@
           <input type="submit" value="button_move_bottom"
                  class="context moveBottom"
                  i18n:attributes="value" name="moveItemsBottom:method">
-        </tal:block>
-      </span>
+      </td>
+     </tr>
+     <tr>
+      <td tal:define="allowed python: here.allowedContentTypes()"
+          tal:condition="python:can_add and allowed">
+        <span i18n:translate="label_create_new_item">Create a new:</span>
+        <select name="type_name">
+          <option tal:repeat="type allowed"
+                  tal:attributes="value type/getId"
+                  tal:content="type/Title"
+                  i18n:translate="">
+            Type Name
+          </option>
+        </select>
+        <input type="submit" name="content_create:method" value="button_new"
+               class="standalone" i18n:attributes="value">
       </td>
      </tr>
    </table>

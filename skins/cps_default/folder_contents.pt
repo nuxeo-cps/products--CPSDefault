@@ -1,7 +1,7 @@
 <tal:x define="dummy here/filterCookie;"/>
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/main_template/macros/master"
+      metal:use-macro="here/content_lib/macros/master"
 >
 <body>
 <div metal:fill-slot="main"
@@ -56,9 +56,9 @@
     </table>
 
     <tal:block define="no_form python:not checkPerm('View management screens', here);
-                       items here/getFolderContents;
+                       items python:here.getFolderContents(sort_by='status');
                        nav_action string:folder_contents">
-      <metal:block use-macro="here/content_lib/macros/display_contents" />
+      <metal:block use-macro="here/content_lib/macros/display_contents_compact" />
     </tal:block>
     
     <table border="0" cellspacing="0" cellpadding="2">

@@ -1307,7 +1307,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                        'box_skin': 'here/box_lib/macros/wbox2',
                        'slot': 'bottom',
                        'order': 10,
-                       'text': '<address class="contact">Nuxeo - 18-20, rue Soleillet, 75020 Paris France<br />Email : <a href="mailto:contact@nuxeo.com">contact@nuxeo.com</a> - Tel: +33 (0)1 40 33 71 58 - Fax: +33 (0)1 43 58 14 15</address>',
+                       'text': '<address class="contact">Nuxeo - 18-20, rue Soleillet, 75020 Paris France<br />Email : <a href="mailto:contact@nuxeo.com">contact@nuxeo.com</a> - Tel: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15</address>',
                     },
 
             'conformance_statement': {'type': 'Base Box',

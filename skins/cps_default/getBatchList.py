@@ -1,5 +1,5 @@
 ## Script (Python) "getBatchList"
-##parameters=items=[], columns=1, items_per_page=10
+##parameters=items=[], columns=1, items_per_page=10, zoom=0
 # $Id$
 """
 Given the desired number of colums, constructs a list of batches to render
@@ -96,4 +96,13 @@ if nb_pages == 1:
 else:
     batch_string = mcat('label_page') + "&nbsp;" + batch_string
 
-return batches, batch_string, info_string
+zoomed = None
+if b_start == 0 and zoom:
+    zoom = int(zoom)
+    zoomed = Batch(items[:zoom], zoom, 0)
+    n = len(batches[0])
+    batches[0] = []
+    if n > zoom:
+        batches[0] = Batch(items[zoom:n], n, 0)
+
+return batches, batch_string, info_string, zoomed

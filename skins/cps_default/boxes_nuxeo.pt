@@ -113,11 +113,16 @@
   tal:condition="python:len(languages)>1">
 <div class="documentActions" tal:define="current_lang doc/Language">
   <tal:block repeat="lang languages"><tal:block
-    define="selected_lang python:current_lang==lang">
-    <span tal:replace="string:[" tal:condition="selected_lang" /><a
-     tal:attributes="href string:${context_url}/switchLanguage/${lang}"
-     tal:content="lang" tal:omit-tag="selected_lang" /><span
-     tal:replace="string:]" tal:condition="selected_lang" />
+    define="selected_lang python:current_lang == lang">
+    <tal:block condition="selected_lang">
+      <span class="selectedLang" tal:content="lang">en</span>
+    </tal:block>
+    <tal:block condition="not:selected_lang">
+      <a tal:content="lang" class="availableLang"
+         tal:attributes="href string:${context_url}/switchLanguage/${lang};
+                         title string:To the '${lang}' translation">
+              fr</a>
+    </tal:block>
   </tal:block></tal:block>
 </div>
 </tal:block>

@@ -1,41 +1,28 @@
-<tal:block define="dirtool here/portal_metadirectories;
-      form request/form;
-      dummy python:form.update(options);
-      malformed form/malformed|nothing;
-      create form/create|nothing;
-      dirname form/dirname;
-      entry_id form/entry_id|nothing;
-      directory dirtool/?dirname;
-      dirtitle directory/title_or_id;
-      schema directory/getSchemaDict;
-      schemakeys directory/getSchemaKeys;
-      entry python:(malformed and request.SESSION['malformed_'+dirname]['entry']) or ((not create) and directory.getEntry(entry_id)) or directory.getNewEntry('');
-      writableprops python:directory.writablePropertiesForEntry(entry, entry_id);
-      readableprops entry/keys;
-      allkeys python:[propid for propid in schemakeys
-                if propid in writableprops or propid in readableprops];
-      malformed_properties python:malformed and request.SESSION['malformed_'+dirname]['malformed_properties'] or nothing;
-      dummy python:request.set('breadcrumb_set',
-        [{
-        'url': here.portal_url()+'/directories',
-        'title': '_str_Directories_',
-          },{
-          'url': here.portal_url()+'/'+directory.search_template+'?dirname='+dirname,
-          'title': dirtitle,
-        }]);
-      hideactions python:1;
-      mcat nocall:here/portal_messages;
-    ">
-
-<html metal:use-macro="here/main_template/macros/master">
-<body>
+<html tal:define="dirtool here/portal_metadirectories;
+                  form request/form;
+                  dummy python:form.update(options);
+                  malformed form/malformed|nothing;
+                  create form/create|nothing;
+                  dirname form/dirname;
+                  entry_id form/entry_id|nothing;
+                  directory dirtool/?dirname;
+                  dirtitle directory/title_or_id;
+                  schema directory/getSchemaDict;
+                  schemakeys directory/getSchemaKeys;
+                  entry python:(malformed and request.SESSION['malformed_'+dirname]['entry']) or ((not create) and directory.getEntry(entry_id)) or directory.getNewEntry('');
+                  writableprops python:directory.writablePropertiesForEntry(entry, entry_id);
+                  readableprops entry/keys;
+                  allkeys python:[propid for propid in schemakeys
+                         if propid in writableprops or propid in readableprops];
+                  malformed_properties python:malformed and request.SESSION['malformed_'+dirname]['malformed_properties'] or nothing;
+                  hideactions python:1">
+<body metal:use-macro="here/main_template/macros/master">
   <metal:block fill-slot="header">
-    <tal:block condition="create"
-      replace="python:mcat('_(Create_an_entry)_in_this_directory_')">
+    <tal:block condition="create" i18n:translate="directory_create_entry">
       Create an entry
     </tal:block>
     <tal:block condition="not:create">
-      <tal:block replace="python:mcat('_Modify_(entry)_')">
+      <tal:block>
         Modify
       </tal:block>
       <tal:block replace="python:entry[directory.display_prop]">
@@ -47,8 +34,7 @@
   <metal:block fill-slot="header_plus"></metal:block>
 
   <metal:block fill-slot="main">
-    <p tal:condition="malformed"
-      tal:replace="python:mcat('_Fields with * are mal-formed_')">
+    <p tal:condition="malformed">
       Fields with * are mal-formed
     </p>
     <form action="." tal:attributes="action python:create and portal_url+'/directory_createentry' or portal_url+'/directory_editentry'" method="POST">
@@ -58,7 +44,7 @@
         <metal:block fill-slot="content">
         <tal:block repeat="propname allkeys">
           <tal:block define="property schema/?propname;
-            proptitle python:mcat(property.title_or_id());
+            proptitle property/title_or_id;
             propid property/id;
             propmalformed python:malformed and malformed_properties.has_key(propid);
             proptype property/type;
@@ -86,7 +72,7 @@
                       <select name="propid" tal:define="propnomenkeys propnomen/keys"
                                                 tal:attributes="name propid">
                         <option tal:repeat="key propnomenkeys"
-                          tal:attributes="value key; selected python:value == key or nothing" tal:content="python:mcat(propnomen[key])">Choice</option>
+                          tal:attributes="value key; selected python:value == key or nothing" tal:content="python:propnomen[key]">Choice</option>
                       </select>
                     </tal:block>
                     <tal:block condition="not:propnomen">
@@ -100,7 +86,7 @@
                       <input type="hidden" tal:attributes="name string:proptype__${propid}; value proptype" />
                       <select name="propid:list" tal:attributes="name string:${propid}:list" multiple="multiple" tal:define="propnomenkeys propnomen/keys">
                         <option tal:repeat="key propnomenkeys"
-                          tal:attributes="value key; selected python:key in value" tal:content="python:mcat(propnomen[key])">Choice</option>
+                          tal:attributes="value key; selected python:key in value" tal:content="python:propnomen[key]">Choice</option>
                       </select>
                     </tal:block>
                     <tal:block condition="not:propnomen">
@@ -112,16 +98,17 @@
                   <input type="PASSWORD" tal:attributes="name propid" />
                 </tal:block>
               </tal:block>
-              <span tal:condition="errmsg" tal:content="python:mcat(errmsg)">error message</span>
+              <span tal:condition="errmsg">error message</span>
             </metal:block>
           </metal:block>
           </tal:block>
         </tal:block>
         </metal:block>
       </metal:block>
-      <input class="mainbutton" type="submit" tal:attributes="value python:create and mcat('_button_create_') or mcat('_button_modify_')">
+      <input type="submit"
+             tal:attributes="value python:create and 'Create' or 'Edit'"
+             i18n:attributes="value">
       </form>
     </metal:block>
   </body>
 </html>
-</tal:block>

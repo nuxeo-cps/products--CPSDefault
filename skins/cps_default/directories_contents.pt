@@ -1,59 +1,46 @@
-<tal:block define="
-                  dirtool nocall:here/portal_metadirectories;
-                  mcat nocall:here/portal_messages;
-                  dummy python:request.set('breadcrumb_set',
-                    [{
-                      'url': here.portal_url()+'/directories',
-                      'title': '_str_Directories_',
-                    }]);
-                  hideactions python:1">
-<html metal:use-macro="here/main_template/macros/master">
-  <body>
-    <metal:block fill-slot="header"
-      tal:content="python:mcat('_str_Directories_')">
+<html tal:define="dirtool nocall:here/portal_metadirectories;
+                  showthirdcol nothing;
+                  directories dirtool/objectValues">
+  <body metal:use-macro="here/main_template/macros/master">
+    <metal:block fill-slot="title" i18n:translate="directories_index_title">
       Directories
     </metal:block>
-    <metal:block fill-slot="header_plus"></metal:block>
-
-    <metal:block tal:define="directories dirtool/objectValues;"
-        fill-slot="main">
+    <metal:block fill-slot="main">
       <tal:block condition="directories">
         <metal:block use-macro="here/main_widgets/macros/title_content">
-          <metal:block fill-slot="title"
-            tal:content="python:mcat('_Choose a directory_')">
+          <metal:block fill-slot="title" i18n:translate="choose_directory">
             Choose a directory
           </metal:block>
           <metal:block fill-slot="content">
-            <table>
+            <table border="0" width="100%" cellpadding="0" cellspacing="0">
               <tr tal:repeat="directory directories">
-                <tal:block define="href string:directory_editentry_form?dirname=${directory/id}&create=1">
-                    <td class="compact">
-                        <a href="." tal:attributes="href string:directory_editentry_form?dirname=${directory/id}&create=1" 
-                          tal:content="python:mcat(directory.title_or_id())">Directory</a><tal:block condition="directory/description"> 
-                            (<tal:block replace="directory/description">Description</tal:block>)</tal:block>
-                    </td>
-                    <td>
-                      <a tal:attributes="href string:${directory/search_template}?dirname=${directory/id}">
-                       Chercher
-                      </a>
-                    </td>
-                    <td>
-                      <a tal:attributes="href href">
-                       Ajouter
-                      </a>
-                    </td>
-                </tal:block>
+                <td class="compact">
+                    <a href="" tal:attributes="href string:directory_editentry_form?dirname=${directory/id}&create=1" 
+                      tal:content="directory/title_or_id">Directory</a>
+                    (<span tal:content="directory/description|nothing"> 
+                      Description
+                    </span>)
+                </td>
+                <td>
+                  <a href="" tal:attributes="href string:${directory/search_template}?dirname=${directory/id}" i18n:translate="search_directory">
+                   Search
+                  </a>
+                </td>
+                <td>
+                  <a href="" tal:attributes="href string:directory_editentry_form?dirname=${directory/id}&create=1" i18n:translate="add_directory">
+                   Add
+                  </a>
+                </td>
               </tr>
             </table>
           </metal:block>
         </metal:block>
       </tal:block>
       <tal:block condition="not:directories">
-        <p tal:content="python:mcat('_No directory available_')">
+        <p i18n:translate="no_directory_available">
           No directory available
         </p>
       </tal:block>
     </metal:block>
   </body>
 </html>
-</tal:block>

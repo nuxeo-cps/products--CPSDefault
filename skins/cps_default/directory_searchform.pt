@@ -1,48 +1,27 @@
-<tal:block define="dirtool here/portal_metadirectories;
-        dirname request/dirname|nothing;
-        directory dirtool/?dirname;
-        dirtitle directory/title_or_id;
-        mcat nocall:here/portal_messages;
-        dummy python:request.set('breadcrumb_set',
-          [{
-            'url': here.portal_url()+'/directories',
-            'title': '_str_Directories_'
-            }, {
-            'url': here.portal_url()+'/'+directory.search_template+'?dirname='+dirname,
-            'title': dirtitle,
-            }]);
-        hideactions python:1
-                ">
-
-<html metal:use-macro="here/main_template/macros/master">
-  <body>
-    <metal:block fill-slot="header">
-      <tal:block replace="python:mcat('_Search_in_(directory_name)_')">
-        Search in
-      </tal:block>
-      «&nbsp;<span tal:replace="python:mcat(dirtitle)">Directory Name</span>&nbsp;»
+<html tal:define="dtranslateirtool here/portal_metadirectories;
+                  dirname request/dirname|nothing;
+                  directory dirtool/?dirname;
+                  showthirdcol nothing">
+  <body metal:use-macro="here/main_template/macros/master">
+    <metal:block fill-slot="title" i18n:translate="">
+      Search in
+      <span tal:replace="directory/title_or_id"
+            i18n:name="directory_id">Directory title or id</span>
     </metal:block>
-
-    <metal:block fill-slot="header_plus"></metal:block>
-
     <metal:block fill-slot="main">
-      <p tal:condition="directory/can_create">
-        <tal:block replace="python:mcat('_(Create_an_entry)_in_this_directory_')">
-          in this directory.</tal:block>
-        <a href="."
-          tal:attributes="href string:${directory/edit_template}?dirname=${dirname}&create=1"
-          tal:content="python:mcat('_Create_an_entry_(in_this_directory)_')">
-          Create an entry
-        </a>
-      </p>
-      <form action="." tal:attributes="action here/directory_searchresults/absolute_url" method="POST">
-        <input type="hidden" name="dirname" tal:attributes="value dirname" />
+      <a href="" tal:condition="directory/can_create"
+         tal:attributes="href string:${directory/edit_template}?dirname=${dirname}&create=1"
+         i18n:translate="create_directory_entry">
+        Create an entry in this directory.
+      </a>
+      <form action="directory_searchresults" method="post">
+        <input type="hidden" name="dirname" tal:attributes="value dirname">
         <metal:block use-macro="here/directory_searchwidget/macros/dirsearch">
           Search form
         </metal:block>
-      <input class="mainbutton" type="submit" tal:attributes="value python:mcat('_button_search_')">
+        <input class="mainbutton" type="submit" value="Search"
+               i18n:attributes="value">
       </form>
     </metal:block>
   </body>
 </html>
-</tal:block>

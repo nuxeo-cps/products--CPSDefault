@@ -28,8 +28,11 @@
         <span tal:replace="section/id">Section</span>
       </td>
       <td>
-	<!-- XXX TODO not yet implemented-->
-	<span><small>not yet implemented</small></span>
+	<span tal:repeat="item history/states">
+	  <small tal:condition="python:item['rpath'] == section['rpath']">
+             Rev: <span tal:replace="item/rev">3</span>-<span tal:replace="item/lang">en</span>: <span tal:replace="item/review_state">State</span><br/>
+          </small>
+	</span>
       </td>
     </tr>
     </span>

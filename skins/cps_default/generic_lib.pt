@@ -3,16 +3,11 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="header">
-
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-  <title tal:content="here/expanded_title">
-    Nuxeo | Collaborative Portal Server
-  </title>
+  <title tal:content="here/expanded_title">Nuxeo | Collaborative Portal Server</title>
 
-  <metal:block define-slot="base">
-    <!-- Additional meta elements go here -->
-  </metal:block>
+  <metal:block define-slot="base"><!-- Additional meta elements go here --></metal:block>
 
   <!-- Basic crude style for Netscape4.x - This can be removed if you don't
 want the special NS4 look - it will still work, just be plain text instead. -->
@@ -41,29 +36,24 @@ want the special NS4 look - it will still work, just be plain text instead. -->
   <!-- Disable IE6 image toolbar -->
   <meta http-equiv="imagetoolbar" content="no">
 
-  <metal:block define-slot="head_slot">
-    <!-- Additional http headers go here -->
-  </metal:block>
+  <metal:block define-slot="head_slot"><!-- Additional http headers go here --></metal:block>
 
-  <metal:block define-slot="css_slot">
-    <!-- additional styles go here -->
-  </metal:block>
+  <metal:block define-slot="css_slot"><!-- additional styles go here --></metal:block>
 
-  <metal:block define-slot="javascript_head_slot">
-    <!-- additional scripts go here -->
-  </metal:block>
+  <metal:block define-slot="javascript_head_slot"><!-- additional scripts go here --></metal:block>
 
 </metal:block>
 
 
 <!-- ============================================================ -->
 <metal:block define-macro="portal_message">
-  <div class="message"
+  <div class="document">
+    <div class="message"
        tal:define="portal_message request/portal_status_message|nothing"
-       tal:condition="portal_message">
-    <strong tal:content="portal_message" i18n:translate="">
-      Translated status message.
-    </strong>
+       tal:condition="portal_message" tal:content="portal_message"
+       i18n:translate="">
+       Translated status message.
+     </div>
   </div>
 </metal:block>
 

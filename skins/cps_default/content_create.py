@@ -1,16 +1,25 @@
-## Script (Python) "content_create"
-##title=Create a new Content
-##parameters=REQUEST=None, **kw
+##parameters=type_name, REQUEST=None, **kw
+"""
+Create an object.
+"""
 # $Id$
-"""
-Create an object
-"""
 from urllib import urlencode
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
-type_name = kw['type_name']
+# For cpsdocument, use creation without empty object.
+# XXX should find better
+ti = getattr(context.portal_types, type_name)
+if ti.meta_type == 'CPS Flexible Type Information':
+    args = {'type_name': type_name}
+    if kw.get('title'):
+        # XXX pass prefilled title, a bit of a hack...
+        args['widget__title'] = kw['title']
+    REQUEST.RESPONSE.redirect('%s/cpsdocument_create_form?%s' %
+                              (context.absolute_url(), urlencode(args)))
+    return
+
 id = kw.get('title')
 if not id:
     id = 'my ' + type_name

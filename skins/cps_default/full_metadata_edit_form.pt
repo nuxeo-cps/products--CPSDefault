@@ -1,5 +1,4 @@
-<html tal:define="doc here/getContent">
-<body metal:use-macro="here/main_template/macros/master">
+<metal:html use-macro="here/content_lib/macros/master">
 <div metal:fill-slot="main">	  
 <div class="Desktop">
 
@@ -36,7 +35,7 @@
   <tr valign="top">
     <th align="right" i18n:translate="item_title">Title</th>
     <td colspan="3">
-      <input type="text" name="title" value="" size="65"
+      <input type="text" name="title" value="" size="60"
              tal:attributes="value doc/Title">
     </td>
   </tr>
@@ -125,5 +124,4 @@
 </div>
 </div>
 </div>
-</body>
-</html>
+</metal:html>

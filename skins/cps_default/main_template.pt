@@ -48,14 +48,12 @@
   </metal:block>
 </metal:block>
 </head>
-<body tal:attributes="OnLoad python:'setFocus()'"
-  tal:condition="emptybody">
+<body OnLoad="setFocus()" tal:condition="emptybody">
   <metal:block define-slot="body" />
   <!-- CPSD CPS Debug information =================== -->
   <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>
-<body tal:attributes="OnLoad python:'setFocus()'"
-  tal:condition="not:emptybody">
+<body OnLoad="setFocus()" tal:condition="not:emptybody">
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
@@ -66,7 +64,7 @@
 <!-- END TOP Slot ================================= -->
 </div>
 <table width="100%" border="0" cellspacing="0" cellpadding="10"
-       align="center" valign="top" class="columns">
+       align="center" class="columns">
   <tr>
     <td class="left" width="15%" valign="top"
         tal:attributes="class python:test(in_ws, 'workspace', default)">

@@ -1157,7 +1157,7 @@ if locked_ob is not None:
             id='add_favorites',
             name='action_add_favorites',
             action='string:${object/absolute_url}/addtoFavorites',
-            condition='python:not portal.portal_membership.isAnonymousUser()',
+            condition='python: member and portal.portal_membership.getHomeFolder()',
             permission='View',
             category='user')
         pr(" Action add_favorites added")
@@ -1168,7 +1168,7 @@ if locked_ob is not None:
             id='view_favorites',
             name='action_view_favorites',
             action='string:${portal/portal_membership/getHomeUrl}/Favorites',
-            condition='python:not portal.portal_membership.isAnonymousUser()',
+            condition='python: hasattr(portal.portal_membership.getHomeFolder(),"Favorites")',
             permission='View',
             category='user')
         pr(" Action view_favorites added")

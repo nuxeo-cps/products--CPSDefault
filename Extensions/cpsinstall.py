@@ -104,10 +104,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupLocalWorkflow()
         self.upgradeWorkflowStatus()
         self.setupTreesTool()
-        self.setupPortlets()
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
+        self.setupPortlets()
         self.setupForms()
         self.restoreEventSubscriber('portal_subscriptions')
 
@@ -1506,7 +1506,25 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                         'CPSPortlets', 'CPS Portlets Tool')
         self.log("Adding cps default portlets")
         portlets = {
-                   }
+            'user_actions': {'type': 'Actions Portlet',
+            'slot': 'left',
+            'order': 0,
+            'categories': ['user'],
+            'Title': 'User actions',
+            },
+            'global_actions': {'type': 'Actions Portlet',
+            'slot': 'left',
+            'order': 10,
+            'categories': ['global'],
+            'Title': 'Global actions',
+            },
+            'folder_actions': {'type': 'Actions Portlet',
+            'slot': 'right',
+            'order': 0,
+            'categories': ['folder'],
+            'Title': 'Folder actions',
+            },
+        }
         self.verifyPortlets(portlets)
 
     def setupBoxes(self):

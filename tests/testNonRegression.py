@@ -73,6 +73,16 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         # Broke between Zope 2.6.1 and 2.6.3
         assert self.portal.portal_types.News.manage_propertiesForm(URL1="")
 
+    def testZopeExport(self):
+        # These tests should catch an error that occur during XML export of
+        # a CPS instance. Unfortunately, the problem lies in Localizer, which
+        # isn't really instanciated during unit tests. They could catch other
+        # problems in the future, though.
+        zexp = self.portal.manage_exportObject(id='', download=1, toxml=0)
+        assert zexp
+        xml = self.portal.manage_exportObject(id='', download=1, toxml=1)
+        assert xml
+
 
 def test_suite():
     suite = unittest.TestSuite()

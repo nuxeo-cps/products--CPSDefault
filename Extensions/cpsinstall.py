@@ -1131,13 +1131,13 @@ except:
     for perm, roles in sections_perm.items():
         portal[sections_id].manage_permission(perm, roles, 0)
         pr("  Permission %s" % perm)
-    portal[sections_id].reindexObjectSecurity()
+    #portal[sections_id].reindexObjectSecurity()
 
     pr("Workspace")
     for perm, roles in workspaces_perm.items():
         portal[workspaces_id].manage_permission(perm, roles, 0)
         pr("  Permission %s" % perm)
-    portal[workspaces_id].reindexObjectSecurity()
+    #portal[workspaces_id].reindexObjectSecurity()
 
 
 
@@ -1593,6 +1593,9 @@ except:
     # this has to be done last as we want CPSDefault override *
     log_i18n = i18n_load_default_mcat(self)
     pr (log_i18n)
+
+    pr(" Reindexing object security")
+    portal.reindexObjectSecurity()
 
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)

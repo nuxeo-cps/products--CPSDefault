@@ -608,6 +608,7 @@ def cpsupdate(self, langs_list=None):
     ptypes = {
         'CPSCore':('CPS Proxy Document',
                    'CPS Proxy Folder',
+                   'CPS Proxy Folderish Document',
                    ),
         'CPSDefault':('Folder',
                       'Dummy',

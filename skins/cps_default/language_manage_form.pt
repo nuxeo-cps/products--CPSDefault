@@ -1,5 +1,5 @@
+<tal:cvs-id tal:replace="nothing">$Id$</tal:cvs-id>
 <metal:html>
-<!-- $Id$ -->
 <metal:body use-macro="here/main_template/macros/master">
 
 <metal:header fill-slot="header"
@@ -19,7 +19,7 @@
 
 <metal:main fill-slot="main"
             tal:define="language_voc here/portal_vocabularies/language_voc;
-                        language_keys python:here.vocabulary_sort('language_voc', msgid=1);
+                        language_keys python: language_voc.keysSortedBy('i18n');
                         languages python: [lang['id'] for lang in here.Localizer.get_languages_map()];
                         default_language here/Localizer/get_default_language;">
 

@@ -61,7 +61,8 @@ items = []
 for b_doc in b_docs:
     doc_id = b_doc.getPath().split('/')[-1]
     # get all visible proxies information with the same doc_id
-    i_proxies = ptool.getProxiesFromObjectId(doc_id)
+    i_proxies = ptool.getProxiesFromObjectId(doc_id,
+                                             proxy_rpath_prefix=folder_prefix)
     for i_proxy in i_proxies:
         proxy = i_proxy['object']
 
@@ -69,10 +70,6 @@ for b_doc in b_docs:
         try:
             title = proxy.Title()
         except (AttributeError):
-            continue
-
-        # folder_prefix filtering
-        if folder_prefix and not i_proxy['rpath'].startswith(folder_prefix):
             continue
 
         # status filtering

@@ -23,7 +23,7 @@
                         languages python: [lang['id'] for lang in here.Localizer.get_languages_map()];
                         default_language here/Localizer/get_default_language;">
 
-<tal:block tal:condition="python:len(languages) != 0">
+<tal:block tal:condition="python:len(languages) > 0">
   <h2 i18n:translate="language_set_default">Set default portal language</h2>
   <form tal:attributes="action here/portal_url" method="post">
     <p>
@@ -46,7 +46,7 @@
   </form>
 </tal:block>
 
-<tal:block tal:condition="python:len(language_keys) != len(languages)">
+<tal:block tal:condition="python:len(language_keys) > len(languages)">
   <h2 i18n:translate="language_add">Add languages</h2>
   <form tal:attributes="action here/portal_url" method="post">
     <p>
@@ -68,7 +68,7 @@
   </form>
 </tal:block>
 
-<tal:block tal:condition="python:len(languages) != 0">
+<tal:block tal:condition="python:len(languages) > 0">
   <h2 i18n:translate="language_delete">Delete languages</h2>
   <form tal:attributes="action here/portal_url" method="post">
     <p>

@@ -416,17 +416,21 @@
           <span tal:replace="structure
                              python:' '*4*(item['depth']+1)"> </span>
           <tal:block tal:repeat="manager managers">
-            <a style="text-decoration:underline" href=""
-               tal:content="
-                 python:
-                   here.portal_metadirectories.members.getEntry(manager).get('fullname',manager)"
-               tal:attributes="href
-                 python:
-                   here.portal_url.getPortalPath() +
-                     '/directory_getentry?dirname=' +
-                     here.portal_metadirectories.members.id +
-                     '&entry_id='+manager"></a>
-            <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
+            <tal:block tal:condition="python:
+               here.portal_metadirectories.members.getEntry(manager)">
+              <a style="text-decoration:underline" href=""
+                 tal:content="
+                   python:
+                     here.portal_metadirectories.members.getEntry(manager).get(
+                                         'fullname',manager)"
+                 tal:attributes="href
+                   python:
+                     here.portal_url.getPortalPath() +
+                       '/directory_getentry?dirname=' +
+                       here.portal_metadirectories.members.id +
+                       '&entry_id='+manager"></a>
+              <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
+            </tal:block>
           </tal:block>
           <br>
         </tal:block>

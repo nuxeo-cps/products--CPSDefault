@@ -3,6 +3,7 @@ Requires:
 - CPSCore > 3.21.2
 - CPSCompat >= 0.1.0
 - CPSBoxes >= 0.0.1
+- CPSSchemas >= 0.40.0
 New features:
 ~~~~~~~~~~~~~
 -
@@ -19,3 +20,11 @@ New internal features:
 - Factorized code from CPSDefault/skins/cps_default/computeId to the method
   CPSUtil.id.generateId.
 - Boxes related are moved to CPSBoxes
+- new index fieldIndex Language, so you can query:
+    query['Language'] = ['fr', 'it']
+- new filter set: default_languages that matches all proxies in their default 
+  languages:
+    query['cps_filter_sets'] = {'query': ('searchable', 'default_languages'),
+                                'operator': 'and'}
+			      
+  

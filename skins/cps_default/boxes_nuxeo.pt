@@ -143,15 +143,16 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="contentbox_default">
+<metal:block define-macro="contentbox_default"
+  tal:define="ret python:box['box'].getContents(here);
+              items python:ret[0];
+              link_more python:ret[1];">
+  <tal:block condition="python:len(items)">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title" i18n:translate=""
       tal:content="box/box/title">box text title</metal:block>
     <metal:block fill-slot="box_body">
        <tal:block define="
-          ret python:box['box'].getContents(here);
-          items python:ret[0];
-          link_more python:ret[1];
           no_form not:nothing;
           format box/box/display;
           items_per_page box/box/nb_items|python:10;
@@ -161,31 +162,6 @@
             <a href="" tal:attributes="href string:${base_url}${link_more}">More ...</a>
           </div>
        </tal:block>
-    </metal:block>
-  </metal:block>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="contentbox_center"
-  tal:define="ret python:box['box'].getContents(here);
-              items python:ret[0];
-              link_more python:ret[1];">
-  <tal:block condition="python:len(items)>0">
-  <metal:block use-macro="python:path(box['settings']['box_skin'])">
-    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
-       <h4 tal:content="box/box/title"
-           tal:condition="box/box/title">title</h4><br>
-       <tal:block define="
-          no_form not:nothing;
-          format box/box/display;
-          items_per_page box/box/nb_items|python:10;
-          nav_action string:folder_view">
-          <metal:block use-macro="here/content_lib/macros/display_contents" />
-        </tal:block>
-        <div tal:condition="link_more">
-          <a href="" tal:attributes="href string:${base_url}${link_more}">More ...</a>
-        </div>
     </metal:block>
   </metal:block>
   </tal:block>
@@ -204,7 +180,7 @@
 <tal:block condition="python: len(items)>0">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
-      tal:content="box/box/title">
+      tal:content="box/box/title" i18n:translate="">
        box text title
     </metal:block>
     <metal:block fill-slot="box_body">
@@ -264,7 +240,7 @@
 <a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
           </tal:block>
         </tal:block>
-	</td></tr></table>
+	</td></tr></table><br>
    </tal:block>
  </tal:block>
 </metal:block>

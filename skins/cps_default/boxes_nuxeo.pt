@@ -497,3 +497,22 @@
     </metal:block>
   </metal:block>
 </metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="flashbox_default">
+  <metal:block use-macro="python:path(box['settings']['box_skin'])">
+    <metal:block fill-slot="box_title"
+      tal:content="box/box/title">Flash Box Title</metal:block>
+    <metal:block fill-slot="box_body" tal:condition="box/box/flash_filename">
+      <object type="application/x-shockwave-flash"
+              tal:define="flashobject_url box/box/flash_id/absolute_url"
+	      tal:attributes="data flashobject_url;
+                              width box/box/flash_id/flash_width;
+                              height box/box/flash_id/flash_height">
+        <param name="movie" value="" tal:attributes="value flashobject_url">
+        <span><a href="http://www.macromedia.com/">Macromedia Flash Plugin</a> required</span>
+      </object>
+    </metal:block>
+  </metal:block>
+</metal:block>

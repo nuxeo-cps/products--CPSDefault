@@ -27,7 +27,7 @@ from OFS.PropertyManager import PropertyManager
 
 from Products.CMFCore.utils import _verifyActionPermissions
 from Products.CMFCore.CMFCorePermissions \
-    import View, ModifyPortalContent
+    import View, ModifyPortalContent, ManagePortal
 from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFCore.utils import getToolByName
 
@@ -101,11 +101,12 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     meta_type = 'Base Box'
     portal_type = 'Base Box'
 
-    manage_options = ( PropertyManager.manage_options +
-                       ({'label': 'Guard', 'action': 'manage_guardForm'},) +
-                       PortalContent.manage_options[:1] +
-                       PortalContent.manage_options[3:]
-                       )
+    manage_options = (PropertyManager.manage_options +
+                      ({'label': 'Guard', 'action': 'manage_guardForm'},) +
+                      PortalContent.manage_options[:1] +
+                      PortalContent.manage_options[3:] +
+                      ({'label': 'Export', 'action': 'manage_export'},)
+                     )
 
     security = ClassSecurityInfo()
     security.declareObjectPublic()
@@ -159,6 +160,9 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     #
     # ZMI
     #
+    security.declareProtected(ManagePortal, 'manage_export')
+    manage_export = DTMLFile('zmi/box_export', globals())
+
     security.declarePublic('manage_guardForm') # XXX protect
     manage_guardForm = DTMLFile('zmi/manage_guardForm', globals())
 

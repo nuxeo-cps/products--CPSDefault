@@ -1,4 +1,38 @@
 *******************************************
+** CPSDefault V3.27.0 [R1 build 2004/10/13-08:13 by ben]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- Links are not underlined when hovered, this provides more feedback for the user.
+- The "footer" base box is now replaced by a "contact" text box that makes it
+  now possible to change its content through the box management user interface.
+- Upon client requests, a checkout version of a document can only be checked-in
+  or abandoned by its owner, that is not the owner of the original document but
+  the owner of the checked-out version ie the user who did the checkout. This is
+  now more intuitive.
+Bug fixes:
+~~~~~~~~~~
+- getHtmlBody is working again.
+- Load method in ImageBox was using CLIENT_HOME instead of INSTANCE_HOME
+- Replaced "&#153;" by "&trade;" because it was doing validation errors
+  (justified or not).
+- fix: 'Favorites' folder is not i18n
+  fixed by setting a title with the current user locale at creation time
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- getCPSLocalRoles use portal type prefix to filter relevant local roles
+- Removed useless tags in box_lib.pt.
+- boxes creation/edition no more box type id displayed (nuxeo-default, nuxeo-xxx)
+- Replaced <table> garbage by <dl><dt></dt><dd></dd></dl> markup in
+  box_create_form.pt.
+- More semantical HTML markup for content_status_history.pt, the information is
+  now structured into <table> markup. <table> markup is good to structure matrix
+  like information.
+
+*******************************************
 ** CPSDefault V3.26.3 [R1 build 2004/09/28-09:27 by madarche]
 
 Requires:

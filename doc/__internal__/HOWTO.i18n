@@ -39,7 +39,7 @@ Guide to Prefixes your msgid (mostly from plone i18n guideline)
 are used (semantic differences are easier to spot this way), and easily locate
 them. Sorted the IDs will be grouped by type automatically.
 
-   * button_  - for action buttons 
+   * button_  - for action buttons
    * heading_ - for page headings
    * description_ - for the description directly below the headings
    * legend_ - for the group/fieldset legends
@@ -89,7 +89,7 @@ How to translate:
     <span tal:omit-tag="" tal:content="items/action" i18n:translate="">
           Action
     </span>
-    
+
     Notice : it won't be neccesarly to translate this msgid in the po
     files since the content will be replace by the dynamic calculated value.
 
@@ -136,11 +136,11 @@ entire sentence
     Proxies handle translation by themselves so don't place i18n:translate=""
     around the title.
 
-  - For the accents (like the יאטגמ etc...) 
-    
+  - For the accents (like the יאטגמ etc...)
+
     Use HTML entities to translate the characters with accents within your po
-    files.  
-  
+    files.
+
 --------------------------------------------------
 Rules to generate pot/pos files and updating them
 --------------------------------------------------
@@ -168,7 +168,7 @@ Rules to generate pot/pos files and updating them
   Appart the products mentionned in the HOWTO.INSTALL_CPS3 guide you'll need
   GNU Gettext version >= 0.11.4-7 installed on the computer where you will launch
   the scripts included in the nuxeo_env. (make_pot & update_pos)
-  
+
   Scenarios
   ----------
 
@@ -180,30 +180,30 @@ Process outline
 
   Main Branch (init)
   -------------------
-    a1) $cd ./i18n 
-        
+    a1) $cd ./i18n
+
     b1) Use make_pot the first time when you wanna start the
         internationalization of your product. You'll get all the necessarily
-        files. Simply : $ make_pot 
+        files. Simply : $ make_pot
 
     c1) Translate the local files using a tool such as Kabel or emacs
- 
+
     d1) Localizer feeds the po files
-  
+
   Branch 1 :
   ----------
     b2) You change your ZPTs
 
-    c2) $update_pos 
+    c2) $update_pos
 
     d2) Translate the local files using a tool such as Kabel or emacs
-   
+
     e2) Localizer feeds the po files
 
   Branch 2 :
   ----------
-    b3) You add some msgids in the custom.pot file. 
-        (Typically for the dynamic content.) 
+    b3) You add some msgids in the custom.pot file.
+        (Typically for the dynamic content.)
         You can check the localizer catalog after asking CPS to interpret
         them. Just if you'd like to be sure to have all of them.
         BUT DON'T USE Localizer FOR EXPORT ANYMORE !!
@@ -211,8 +211,16 @@ Process outline
     c3) $update_pos 
 
     d3) Translate the local files using a tool such as Kabel or emacs
-   
+        do not change
+
     e3) Localizer feeds the po files
+
+   Note :
+    - make_pot and update_pos will parse all your zpts in the skins folder
+      make sure that your zpts are working and that there are no extra zpt
+      before running those commands
+    - when using emacs or other po editor do not change msgid orders or
+      comments to make cvs diff usefull
 
   DEBUG mode with make_pot
   -------------------------
@@ -227,16 +235,16 @@ Process outline
     are not well formed (By mean of i18n tags)
 
 ------------
-Within CPS3 
+Within CPS3
 ------------
 
   - ONE domain and ONE MessageCatalog (default) for the CPSDefault and the compulsory
     products following the guide for the internationalization of CPS3.
-  
+
   - ONE domain and ONE MessageCatalog for the others products added to CPS3
 
-  - More generally : don't put anything in the default catalog until you checked 
-    the msgids are according to the above nomenclature. 
+  - More generally : don't put anything in the default catalog until you checked
+    the msgids are according to the above nomenclature.
 
   - Waiting for some feedbacks about domains in our case ??? Don't see really the
     usefulness.

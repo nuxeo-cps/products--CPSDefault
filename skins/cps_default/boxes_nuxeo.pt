@@ -68,14 +68,20 @@
              depth python:root['depth']+1;
              items python:items[1:];
              nb_item python:len(items);
-             nb_row  python:nb_item/2+2;
+             global treenb_row  python:nb_item/2+2;
              ">
       <table width="100%">
 	<tr><td valign="top" width="50%">
         <tal:block repeat="item items">
-	  <tal:block condition="python:repeat['item'].number() == nb_row" replace="structure string:</td><td width=50% valign=top>" />
           <tal:block condition="python:item['depth']==depth">
           <br tal:condition="not:repeat/item/start" />
+	  <tal:block condition="python:repeat['item'].number() >= treenb_row">
+            <tal:block replace='structure string:</td><td width="50%" valign="top">'
+	      define="global treenb_row python:nb_item + 1"/>
+	  </tal:block>
+
+		       	             
+
         <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
 <b><a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><img src="" alt="[Link]" border="0"
       tal:attributes="src string:${base_url}folder_icon.gif" />&nbsp;<span tal:replace="structure string:${item/title_or_id}">title</span></a></b><span tal:condition="item/nb_children" tal:replace="string::" /><br/>

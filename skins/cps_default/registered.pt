@@ -1,51 +1,48 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/main_template/macros/master">
-<body>
-<div metal:fill-slot="main"
-     tal:define="purl here/portal_url">
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  metal:use-macro="here/main_template/macros/master">
+  <body>
+    <metal:main fill-slot="main"
+      tal:define="purl here/portal_url;
+      pprops here/portal_properties;
+      ve pprops/validate_email">
 
-<div tal:define="pprops here/portal_properties;
-                 ve pprops/validate_email">
+      <h1 i18n:translate="heading_registered_title">Success!</h1>
 
-<h1 i18n:translate="heading_registred_title"> Success! </h1>
+      <p i18n:translate="description_registered"> 
+        You have been registered as a member. 
+      </p>
 
-<p i18n:translate="description_registred"> 
- You have been registered as a member. 
-</p>
+      <p tal:condition="ve"> 
+        <span i18n:translate="help_registered_mail">
+          You will receive an email shortly containing
+          your password and instructions on how to activate your membership.
+        </span>
+      </p>
 
-<p tal:condition="ve"> 
-  <span i18n:translate="help_registred_mail">
-    You will receive an email shortly containing
-    your password and instructions on how to activate your membership.
-  </span>
-</p>
+      <form action="logged_in" method="post"
+        tal:condition="not:ve"
+        tal:attributes="action string:${base_url}logged_in">
+        <p> 
+          <span i18n:translate="link_registered_login">
+            You can now log into the site:
+          </span>
+          <input type="hidden" name="__ac_name" value=""
+            tal:attributes="value request/username" />
+          <input type="hidden" name="__ac_password" value=""
+            tal:attributes="value request/password" />
+          <input type="submit" value="button_login" i18n:attributes="value" />
+        </p>
+      </form>
 
-<form action="logged_in" method="post"
-      tal:condition="not:ve"
-      tal:attributes="action string:${base_url}logged_in">
-<p> 
-  <span i18n:translate="link_registred_login">
-    You can log on immediately by clicking
-  </span>
-  <input type="hidden" name="__ac_name" value=""
-         tal:attributes="value request/username" />
-  <input type="hidden" name="__ac_password" value=""
-         tal:attributes="value request/password" />
-  <input type="submit" value="link_here" i18n:attributes="value" />
-</p>
-</form>
+      <p> 
+        <a href="" tal:attributes="href string:${purl}/">
+          <span i18n:translate="link_registered_return_home_page">
+            Return to homepage
+          </span>
+        </a> 
+      </p>
 
-<p> 
-<a href=""
-  tal:attributes="href string:${purl}/">
-  <span i18n:translate="link_registred_return_home_page">
-    Return to homepage
-  </span>
-</a> 
-</p>
-</div>
-</div>
-</body>
+    </metal:main>
+  </body>
 </html>
-

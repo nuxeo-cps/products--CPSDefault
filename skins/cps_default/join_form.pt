@@ -14,7 +14,7 @@
                         registered python:member.has_role('Member');
                         ptool here/portal_properties">
 
-  <div tal:condition="registered">
+  <tal:block condition="registered">
     <p>
       <span i18n:translate="description_join_form_already_member_1">
         You are already a member. You may use the
@@ -28,9 +28,9 @@
         to change your membership information.
       </span>
     </p>
-  </div><!-- registered -->
+   </tal:block><!-- registered -->
 
-  <div tal:condition="not:registered">
+  <tal:block condition="not:registered">
     <p i18n:translate="help_join_form_1">
       Becoming a member gives you the ability to personalize the site
       and participate in the community.
@@ -95,8 +95,8 @@
     </p>
 
     </form>
-
-  </div><!-- not registered -->
+      
+  </tal:block><!-- not registered -->
 
 </metal:main>
 </body>

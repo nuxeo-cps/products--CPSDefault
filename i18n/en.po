@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-23 15:23default\n"
-"PO-Revision-Date: 2003-07-23 15:24+0200\n"
-"Last-Translator: ben <ben@nuxeo.com>\n"
-"Language-Team: ben\n"
+"POT-Creation-Date: 2003-07-23 16:59default\n"
+"PO-Revision-Date: 2003-07-23 17:00+0200\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,16 +20,15 @@ msgstr ""
 "Language-name: Language\n"
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
 #.
-#.       ${history_action (tal content="item/action")}
-#.     </span>
+#.       </span>
 #: from ../skins/cps_default/content_lib.pt
-msgid "${history_time}: ${history_action}"
-msgstr "${history_time}: ${history_action}"
+msgid "${history_time}:"
+msgstr "${history_time}:"
 
 #.   <block condition="status_time|nothing">
 #.         ${status_time (tal content="info/stime")}:
@@ -86,6 +85,11 @@ msgstr "Portal type's title"
 #: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr "Translated status message."
+
+#.   <span content="info/review_state">Work</span>
+#: from ../skins/cps_default/content_lib.pt
+msgid "Work"
+msgstr "FAKE"
 
 #.   <div>
 #.             Your query '${query (tal content="SearchableText")}'
@@ -186,9 +190,9 @@ msgid "button_change_and_view"
 msgstr "Change & View "
 
 #.   <input value="button_create_box" name="box_create_form:method" type="submit">
+#.     <input value="button_delete_box" name="box_delete:method" type="submit">
 #.
-#.
-#.   </input>
+#.   </input></input>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "button_create_box"
 msgstr "Create box"
@@ -202,11 +206,8 @@ msgid "button_delete"
 msgstr "Delete"
 
 #.   <input value="button_delete_box" name="box_delete:method" type="submit">
-#.   <br><br>
-#.     <input value="button_create_box" name="box_create_form:method" type="submit">
 #.
-#.
-#.   </input></br></br></input>
+#.   </input>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "button_delete_box"
 msgstr "Delete box"
@@ -1020,13 +1021,10 @@ msgstr "Since ${status_time}"
 msgid "label_slot"
 msgstr "Slot"
 
-#.   <block>
-#.         label_status
-#.         ${review_state (tal content="info/review_state")}
-#.       </block>
+#.   <span>Label Status</span>
 #: from ../skins/cps_default/content_lib.pt
-msgid "label_status ${review_state}"
-msgstr "Status ${review_state}"
+msgid "label_status"
+msgstr "Status"
 
 #.   <th align="right">Subject</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1247,6 +1245,16 @@ msgstr "Title"
 msgid "listingheader_type"
 msgstr "Type"
 
+#.   <span content="item/action">publish</span>
+#: from ../skins/cps_default/content_lib.pt
+msgid "publish"
+msgstr "Publish"
+
+#.   <span content="info/review_state">published</span>
+#: from ../skins/cps_default/content_lib.pt
+msgid "published"
+msgstr "published"
+
 #.   <th align="right">Creation Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
@@ -1295,15 +1303,20 @@ msgid "transition_comments"
 msgstr "Comments"
 
 #.   <span>
-#.       v${status_revision (tal replace="info/rev")}-${status_language (tal replace="info/lang")}
-#.       ${review_state (tal replace="info/review_state")}
+#.         v${status_revision (tal replace="info/rev")}- ${status_language (tal replace="info/lang")}
 #.       </span>
 #: from ../skins/cps_default/content_lib.pt
-msgid "v${status_revision}-${status_language} ${review_state}"
-msgstr "v${status_revision}-${status_language} ${review_state}"
+msgid "v${status_revision}- ${status_language}"
+msgstr "v${status_revision}- ${status_language}"
+
+msgid "accept"
+msgstr "accept"
 
 msgid "Add to favorites"
 msgstr "Add to favorites"
+
+msgid "create"
+msgstr "create"
 
 msgid "Directories"
 msgstr "Directories"
@@ -1323,6 +1336,9 @@ msgstr "My stuff"
 msgid "Object actions"
 msgstr "Object actions"
 
+msgid "pending"
+msgstr "pending"
+
 msgid "Portal actions"
 msgstr "Portal actions"
 
@@ -1332,8 +1348,17 @@ msgstr "Preferences"
 msgid "Reconfigure Portal"
 msgstr "Reconfigure Portal"
 
+msgid "submit"
+msgstr "submit"
+
 msgid "Undo"
 msgstr "Undo"
+
+msgid "unpublish"
+msgstr "unpublish"
+
+msgid "work"
+msgstr "work"
 
 msgid "action_accept"
 msgstr "Accept"
@@ -1436,4 +1461,13 @@ msgstr "Workflow status changed."
 
 msgid "psm_local_roles_changed"
 msgstr "Local roles changed."
+
+#~ msgid "label_status ${review_state}"
+#~ msgstr "Status ${review_state}"
+
+#~ msgid "history_action"
+#~ msgstr "FAKE"
+
+#~ msgid "${history_time}: ${history_action}"
+#~ msgstr "${history_time}: ${history_action}"
 

@@ -13,7 +13,6 @@ box: <tal:block replace="box_url" />
 <tal:block repeat="box boxes">
   <tal:block condition="python:box['url'] == box_url">
    <br><br>
-
 <form action="box_edit" method="post"
   tal:attributes="action string:${context_urlc}/box_edit"
   tal:define="box_type python:box['box'].macro">
@@ -85,6 +84,9 @@ box: <tal:block replace="box_url" />
       </tal:block>
     </td>
   </tr>
+  <tr>
+    <td></td><td colspan="5"><hr></td>
+  </tr>
   <metal:block define-slot="additional_fields">
   </metal:block>
   <tr >
@@ -99,11 +101,6 @@ box: <tal:block replace="box_url" />
 </table>
 
 </form>
-<!-- XXX debug info -->
-  <hr>
-Render: <metal:block use-macro="python:path(box['macro'])" /><br>
-Settings: <tal:block replace="box/settings" />
-  <hr>
   </tal:block>
 </tal:block>
 </metal:macro>

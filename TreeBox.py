@@ -70,7 +70,20 @@ class TreeBox(BaseBox):
          'label': 'try to expand on current path'},
         {'id': 'children_only', 'type': 'boolean', 'mode': 'w', 
          'label': 'display children only'},
+        {'id': 'authorized_only', 'type': 'boolean', 'mode': 'w', 
+         'label': 'display authorized content only'},
+        {'id': 'display_managers', 'type': 'boolean', 'mode': 'w', 
+         'label': 'display managers'},
+        {'id': 'display_description', 'type': 'boolean', 'mode': 'w', 
+         'label': 'display description'},
+        {'id': 'show_root', 'type': 'boolean', 'mode': 'w', 
+         'label': 'show tree root'},
         )
+
+    display_managers = 0
+    display_description = 0
+    authorized_only = 0
+    show_root = 1
 
     def __init__(self, id, root='', depth=0, contextual=0,
                  children_only=0, **kw):
@@ -81,11 +94,9 @@ class TreeBox(BaseBox):
         self.children_only = children_only
 
     security.declarePublic('getTree')
-    def getTree(self, context, filtering=1, show_root=1):
+    def getTree(self, context):
         """Return the ptree from root
 
-        filtering is used to specify whether items
-        that cannot be accessed should be returned or not
         """
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
@@ -109,14 +120,14 @@ class TreeBox(BaseBox):
             return []
             #raise Exception('no tree for %s' % root_tree)
 
-        tree = portal_trees[root_tree].getList(filter=filtering)
+        tree = portal_trees[root_tree].getList(filter=self.authorized_only)
 
         if self.children_only:
             #if option 'display subfolders only is checked'
             #remove objects that are not on the current path
             tree = [x for x in tree if (x['rpath'].startswith(current_url))]
 
-        if not show_root:
+        if not self.show_root:
             delta = len(root_path)
             tmp_tree = []
             for x in tree:

@@ -504,20 +504,6 @@ class DefaultInstaller(CPSInstaller):
                                         'WorkspaceMember',
                           'guard_expr':''},
             },
-            'copy_submit': {
-                'title': 'Copy content into a section for Publishing',
-                'new_state_id': '',
-                'transition_behavior': (TRANSITION_BEHAVIOR_PUBLISHING, ),
-                'clone_allowed_transitions': ('submit', 'publish'),
-                'trigger_type': TRIGGER_USER_ACTION,
-                'actbox_name': 'action_submit',
-                'actbox_category': 'workflow',
-                'actbox_url': '%(content_url)s/content_submit_form',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
-            },
             'checkout_draft': {
                 'title': 'Checkout content into a draft',
                 'new_state_id': 'locked',

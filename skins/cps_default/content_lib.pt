@@ -486,7 +486,7 @@ format:</pre>
     </tr>
 </tal:block>
 
-<tr tal:attributes="class python:test(repeat['item'].index%2==0, 'even', 'odd')"
+<tr tal:attributes="class python:test(repeat['item'].even(), 'even', 'odd')"
  tal:define="action python:test(info['type'] in ('Section','Workspace'),
                 'folder_contents', 'view')">
   <td tal:condition="not:no_form" align="left" valign="center" width="5">

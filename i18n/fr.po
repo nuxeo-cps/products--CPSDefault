@@ -22,14 +22,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-05 08:27default\n"
-"PO-Revision-Date: 2004-05-12 14:06+0200\n"
-"Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
-"Language-Team: francais <fr@li.org>\n"
+"POT-Creation-Date: 2004-05-18 16:03default\n"
+"PO-Revision-Date: 2004-05-18 16:12+0200\n"
+"Last-Translator: ben <ben@nuxeo.com>\n"
+"Language-Team: ben\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2X-Generator: "
+"Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2X-Generator: \n"
+"X-Generator: KBabel 1.0.1\n"
 
 #.   <block fill-slot="box_title" content="bs/title">A test box</block>
 #: from ../skins/cps_devel/test_box_lib.pt
@@ -52,16 +53,33 @@ msgstr "Action"
 
 #.   <span define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
+#.                 contentInfo python:(here_url != utool.getPortalObject().absolute_url())
+#.                                    and here.getContentInfo(doc=doc, level=2) or None;
 #.                 email dname/email|nothing;">
 #.     Created by
 #.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
 #.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.     <block condition="contentInfo">
+#.       ${revision} :
+#.       <span content="contentInfo/rev" />
+#.       <block content="contentInfo/review_state" />
+#.     </block>
 #.   </span>
 #: from ../skins/cps_default/content_lib.pt
-msgid "Created by ${item_creator}. Last modified ${item_modification}."
+msgid ""
+"Created by ${item_creator}. Last modified ${item_modification}. <block "
+"condition=\"contentInfo\"> ${revision} : <span content=\"contentInfo/rev\" /"
+"> <block content=\"contentInfo/review_state\" /> </block>"
 msgstr ""
-"Créé par ${item_creator}. Dernière modification le ${item_modification}."
+
+#.   <option repeat="locale map" attributes="value locale/id;
+#.                               selected locale/selected|nothing" content="string:label_language_${locale/id}">
+#.         Language</option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "Language"
+msgstr "Langue"
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -80,8 +98,8 @@ msgstr "Type de document"
 #.               Portal type's description
 #.             </td>
 #.   <td content="item/Description" align="left" class="description">
-#.                 Portal type's description
-#.               </td>
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
@@ -91,8 +109,8 @@ msgstr "Description du type de document"
 #.               Portal type's title
 #.               </label>
 #.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
-#.                   Portal type's title
-#.                 </label>
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
@@ -113,6 +131,12 @@ msgstr "Role1"
 #: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
 msgstr "Emplacement"
+
+#.   <option attributes="value stateName" content="python: 'label_' + stateName">State name</option>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "State name"
+msgstr "Changer l'id de l'objet"
 
 #.   <block condition="python:box['box'].category != 'actionbox' or
 #.                               box['box'].btype != 'user'" content="box/box/title">Title</block>
@@ -421,6 +445,7 @@ msgstr "Déplacer au début"
 msgid "button_move_up"
 msgstr "Déplacer au dessus"
 
+#.   <input value="button_ok" type="submit" />
 #.   <input value="button_ok" class="context searchButton" type="submit" />
 #.   <input attributes="name python:test(no_form, None,
 #.                                                     nav_action + ':method')" value="button_ok" type="submit" />
@@ -559,8 +584,8 @@ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
 msgid "description_reconfig_form"
 msgstr "Reconfigurer le portail"
 
-#.   <p> 
-#.      You have been registered as a member. 
+#.   <p>
+#.    You have been registered as a member.
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -694,8 +719,8 @@ msgid "heading_error_other"
 msgstr "CPS a rencontré une erreur"
 
 #.   <h1 fill-slot="header">
-#.       Add Content
-#.     </h1>
+#.         Add Content
+#.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Ajouter du contenu"
@@ -857,6 +882,15 @@ msgstr ""
 "Si vous créez une version, vous serez le(la) seul(e) à pouvoir travailler "
 "dessus."
 
+#.   <div onclick="showElement(false, 'sort_help')" id="sort_help" style="background: #ffffe1; border: 1px solid #000000;
+#.           padding:0.8em;font-size: 80%; position: absolute;
+#.           visibility: hidden; zIndex: 1000; text-align:left;">help help</div>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "help_contentbox_sort"
+msgstr ""
+"Pour des raisons de performance, le tri sur le résultat d'une recherche "
+"limite le nombre de document retourné à une centaine."
+
 #.   <em>
 #.           Box types in italic are predefined types. You cannot change their
 #.           properties from this interface. Use the default box to do so.
@@ -953,8 +987,7 @@ msgstr "Votre mot de passe vous a été envoyé."
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr ""
-"Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
+msgstr "Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
 
 #.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
@@ -980,9 +1013,20 @@ msgstr "Cochez cette case pour recevoir un mél contenant votre mot de passe."
 #.   <span>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
 #.     copy of the item will be created into each of these sections with the
-#.     <b>published</b>status. Section readers of those sections could then read
+#.     <strong>published</strong>status. Section readers of those sections could then read
 #.     it.</span>
+#.   <span>To make an item viewable
+#.     by readers it has to be published. You can publish this item directly
+#.     in the sections where you are entitled to  without requiring any reviewing.<br />
+#.     A copy of the item will be created into each of these sections with the
+#.     <strong>published</strong>status. Section readers of those sections will then be
+#.     able to read it.<br />
+#.     You can also submit the item in the section folders where you are not
+#.     entitled to publish directly.<br /> A copy of the item will be created into
+#.     each of these sections with a <strong>pending</strong> status, waiting to be
+#.     reviewed and finally <strong>published</strong> by a section's reviewer.</span>
 #: from ../skins/cps_default/content_publish_form.pt
+#: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
 msgstr ""
 "Vous pouvez directement publier ce document, sans passer par une étape de "
@@ -991,9 +1035,9 @@ msgstr ""
 "<b>publié</b>. Les lecteurs de ces sections pourront alors le consulter."
 
 #.   <span>
-#.         You will receive an email shortly containing
-#.         your password and instructions on how to activate your membership.
-#.       </span>
+#.       You will receive an email shortly containing
+#.       your password and instructions on how to activate your membership.
+#.     </span>
 #: from ../skins/cps_default/registered.pt
 msgid "help_registred_mail"
 msgstr ""
@@ -1039,12 +1083,12 @@ msgid "help_revert_revision"
 msgstr "Revenir à une version antérieure de ce document."
 
 #.   <span>An item's status (also called its
-#.     review state) determines who can see it.  An item with a <b>work</b> status
+#.     review state) determines who can see it.  An item with a <strong>work</strong> status
 #.     can be viewed by workspace's readers and edit by workspace's members and
-#.     managers.  Only <b>published</b> items in sections are available to the
+#.     managers.  Only <strong>published</strong> items in sections are available to the
 #.     section readers.  To make an item published, it has to be reviewed by one of
 #.     the section's Reviewers.  You can request that an item be reviewed by setting
-#.     its status to <b>pending</b>, this is done by submitting your item to a
+#.     its status to <strong>pending</strong>, this is done by submitting your item to a
 #.     section.</span>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
@@ -1058,21 +1102,6 @@ msgstr ""
 "pouvez demander à ce qu'un objet soit validé en changeant sont statut en "
 "<b>en attente</b>. Vous réaliserez ceci en soumettant à validation votre "
 "document à l'intérieur d'une section."
-
-#.   <span>To make an item published and
-#.     viewable by readers, it has to be reviewed by one of the section reviewers.
-#.     You can submit the item in many section folders.<br /> A copy of the item will
-#.     be created into each section with a <b>pending</b> status, waiting to be
-#.     reviewed and finally <b>published</b> by a section's reviewer.</span>
-#: from ../skins/cps_default/content_submit_form.pt
-msgid "help_submit_publication"
-msgstr ""
-"Pour publier un document et ainsi le rendre disponible aux lecteurs, il doit "
-"être validé par l'un des valideurs de la section. Vous pouvez soumettre le "
-"document dans différentes sections.<br />Une copie de cet objet sera créée "
-"dans chaque section avec un statut <b>en attente</b>, en attendant qu'il "
-"soit validé par un valideur de la section, ce qui fera passer son statut à "
-"<b>publié</b>."
 
 #.   <span>
 #.     Unpublish published item</span>
@@ -1585,9 +1614,7 @@ msgid "label_password_mailed"
 msgstr "Envoyer le mot de passe&nbsp;?"
 
 #.   <option attributes="selected python:box['box'].query_status == 'pending'" value="pending">Pending</option>
-#.   <option value="pending">Pending</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
 msgid "label_pending"
 msgstr "En attente"
 
@@ -1618,9 +1645,7 @@ msgid "label_publication_states"
 msgstr "État de publication"
 
 #.   <option attributes="selected python:box['box'].query_status == 'published'" value="published">Published</option>
-#.   <option value="published">Published</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
 msgid "label_published"
 msgstr "Publié"
 
@@ -1634,6 +1659,12 @@ msgstr "Se rappeler de mon nom d'utilisateur"
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "label_rename_to"
 msgstr "en"
+
+#.   <em condition="not:can_publish">(requires approval)</em>
+#: from ../skins/cps_default/content_submit_form.pt
+#, fuzzy
+msgid "label_requires_approval"
+msgstr "Pages"
 
 #.   <strong>Reviewing history:</strong>
 #: from ../skins/cps_default/content_lib.pt
@@ -1862,9 +1893,7 @@ msgid "label_visible_only_in_subfolder"
 msgstr "visible UNIQUEMENT dans les sous-répertoires"
 
 #.   <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
-#.   <option value="work">Work</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
 msgid "label_work"
 msgstr "Travail"
 
@@ -1892,8 +1921,7 @@ msgstr ""
 #.         Local roles are acquired. To block acquisition, click here:</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_block"
-msgstr ""
-"Les rôles locaux sont hérités. Pour bloquer cet héritage, cliquez ici :"
+msgstr "Les rôles locaux sont hérités. Pour bloquer cet héritage, cliquez ici :"
 
 #.   <h2>
 #.       Currently assigned local roles
@@ -1942,8 +1970,7 @@ msgstr "Choisissez le(s) membre(s) et un rôle pour délégation&nbsp;:"
 #.         To unblock acquisition, click here:</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_unblock"
-msgstr ""
-"L'héritage des rôles locaux est bloqué. Pour le débloquer, cliquez ici :"
+msgstr "L'héritage des rôles locaux est bloqué. Pour le débloquer, cliquez ici :"
 
 #.   <span>
 #.             gave no result.</span>
@@ -2023,7 +2050,7 @@ msgstr "formulaire de personnalisation"
 msgid "link_go_back"
 msgstr "Retour"
 
-#.   <span>here</span>
+#.   <input value="link_here" type="submit" />
 #: from ../skins/cps_default/registered.pt
 msgid "link_here"
 msgstr "ici"
@@ -2051,15 +2078,15 @@ msgid "link_more"
 msgstr "La suite..."
 
 #.   <span>
-#.         You can log on immediately by clicking
-#.       </span>
+#.       You can log on immediately by clicking
+#.     </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registred_login"
 msgstr "Vous pouvez vous connecter directement en cliquant"
 
 #.   <span>
-#.        Return to homepage
-#.      </span>
+#.       Return to homepage
+#.     </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registred_return_home_page"
 msgstr "Retourner sur la page principale"
@@ -2618,8 +2645,7 @@ msgid "portal_type_ImageBox_title"
 msgstr "Boîte d'image"
 
 msgid "portal_type_ImageBox_description"
-msgstr ""
-"Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
+msgstr "Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Boîte RSS"
@@ -2705,8 +2731,7 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La boîte d'actions sous forme de menu à onglets."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr ""
-"Une liste d'actions simple utilisée pour les actions en en-tête de la page."
+msgstr "Une liste d'actions simple utilisée pour les actions en en-tête de la page."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Une boîte avec une image."
@@ -2866,6 +2891,14 @@ msgstr "Néerlandais"
 msgid "label_language_it"
 msgstr "Italien"
 
+# # Languages  ========================================================
+msgid "label_language_de"
+msgstr "Allemand"
+
+# # Languages  ========================================================
+msgid "label_language_es"
+msgstr "Espagnol"
+
 # # Dates
 msgid "calendar_month_1"
 msgstr "Janvier"
@@ -2933,13 +2966,18 @@ msgstr "Création d'une version"
 msgid "abandon_draft"
 msgstr "Abandon de la version"
 
-# # Languages  ========================================================
-msgid "label_language_de"
-msgstr "Allemand"
+#~ msgid "Created by ${item_creator}. Last modified ${item_modification}."
+#~ msgstr ""
+#~ "Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
-# # Languages  ========================================================
-msgid "label_language_es"
-msgstr "Espagnol"
+#~ msgid "help_submit_publication"
+#~ msgstr ""
+#~ "Pour publier un document et ainsi le rendre disponible aux lecteurs, il "
+#~ "doit être validé par l'un des valideurs de la section. Vous pouvez "
+#~ "soumettre le document dans différentes sections.<br />Une copie de cet "
+#~ "objet sera créée dans chaque section avec un statut <b>en attente</b>, en "
+#~ "attendant qu'il soit validé par un valideur de la section, ce qui fera "
+#~ "passer son statut à <b>publié</b>."
 
 #, fuzzy
 #~ msgid "button_edit"
@@ -3092,9 +3130,6 @@ msgstr "Espagnol"
 #~ msgid "help_password_requirement"
 #~ msgstr "Votre mot de passe doit contenir au minimum 5 caractÃƒÅ¡res."
 
-#~ msgid "label_result_page"
-#~ msgstr "Pages"
-
 #~ msgid "button_go"
 #~ msgstr "Aller"
 
@@ -3120,9 +3155,9 @@ msgstr "Espagnol"
 #~ msgid "description_basebox_default"
 #~ msgstr ""
 #~ "Vous n'ÃƒÂªtes pas connectÃƒÂ© au portail pour le moment. Votre nom "
-#~ "d'utilisateur et/ou mot de passe sont peut-ÃƒÂªtre incorrect(s). Il se peut "
-#~ "ÃƒÂ©galement que votre navigateur ne soit pas configurÃƒÂ© pour accepter les "
-#~ "cookies HTTP. Si vous avez besoin d'aide contacter "
+#~ "d'utilisateur et/ou mot de passe sont peut-ÃƒÂªtre incorrect(s). Il se "
+#~ "peut ÃƒÂ©galement que votre navigateur ne soit pas configurÃƒÂ© pour "
+#~ "accepter les cookies HTTP. Si vous avez besoin d'aide contacter "
 
 #~ msgid "button_delete_box"
 #~ msgstr "Supprimer"
@@ -3150,3 +3185,4 @@ msgstr "Espagnol"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
+

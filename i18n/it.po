@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
-"POT-Creation-Date: 2004-05-05 08:27default\n"
+"POT-Creation-Date: 2004-05-18 16:03default\n"
 "PO-Revision-Date: 2004-05-10 12:17+0100\n"
 "Last-Translator: Paolo Dina <paolo@php3.it>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -49,15 +49,33 @@ msgstr "Azione"
 
 #.   <span define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
+#.                 contentInfo python:(here_url != utool.getPortalObject().absolute_url())
+#.                                    and here.getContentInfo(doc=doc, level=2) or None;
 #.                 email dname/email|nothing;">
 #.     Created by
 #.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
 #.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.     <block condition="contentInfo">
+#.       ${revision} :
+#.       <span content="contentInfo/rev" />
+#.       <block content="contentInfo/review_state" />
+#.     </block>
 #.   </span>
 #: from ../skins/cps_default/content_lib.pt
-msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Creato da ${item_creator}. Ultima modifica ${item_modification}."
+msgid ""
+"Created by ${item_creator}. Last modified ${item_modification}. <block "
+"condition=\"contentInfo\"> ${revision} : <span content=\"contentInfo/rev\" /"
+"> <block content=\"contentInfo/review_state\" /> </block>"
+msgstr ""
+
+#.   <option repeat="locale map" attributes="value locale/id;
+#.                               selected locale/selected|nothing" content="string:label_language_${locale/id}">
+#.         Language</option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "Language"
+msgstr "Lingua"
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -76,8 +94,8 @@ msgstr "Tipo di documento"
 #.               Portal type's description
 #.             </td>
 #.   <td content="item/Description" align="left" class="description">
-#.                 Portal type's description
-#.               </td>
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
@@ -87,8 +105,8 @@ msgstr "Descrizione del tipo di documento"
 #.               Portal type's title
 #.               </label>
 #.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
-#.                   Portal type's title
-#.                 </label>
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
@@ -109,6 +127,12 @@ msgstr "Role1"
 #: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
 msgstr "Alloggiamento"
+
+#.   <option attributes="value stateName" content="python: 'label_' + stateName">State name</option>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "State name"
+msgstr "Rinomina"
 
 #    <block condition="python:box['box'].category != 'actionbox' or
 #                                box['box'].btype != 'user'" content="box/box/title">Title</block>
@@ -443,6 +467,7 @@ msgstr "Sposta all'inizio"
 msgid "button_move_up"
 msgstr "Sposta in alto"
 
+#.   <input value="button_ok" type="submit" />
 #.   <input value="button_ok" class="context searchButton" type="submit" />
 #.   <input attributes="name python:test(no_form, None,
 #.                                                     nav_action + ':method')" value="button_ok" type="submit" />
@@ -586,7 +611,7 @@ msgstr ""
 "portale."
 
 #.   <p> 
-#.      You have been registered as a member. 
+#.    You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -722,8 +747,8 @@ msgid "heading_error_other"
 msgstr "CPS è incappato in un errore"
 
 #.   <h1 fill-slot="header">
-#.       Add Content
-#.     </h1>
+#.         Add Content
+#.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Aggiungi un elemento"
@@ -890,6 +915,14 @@ msgstr ""
 "Se crei una versione, sarai l'unica persona in grado di lavorare sul "
 "documento."
 
+#.   <div onclick="showElement(false, 'sort_help')" id="sort_help" style="background: #ffffe1; border: 1px solid #000000;
+#.           padding:0.8em;font-size: 80%; position: absolute;
+#.           visibility: hidden; zIndex: 1000; text-align:left;">help help</div>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#, fuzzy
+msgid "help_contentbox_sort"
+msgstr "Ingrandisci il primo documento"
+
 #.   <em>
 #.           Box types in italic are predefined types. You cannot change their
 #.           properties from this interface. Use the default box to do so.
@@ -1028,9 +1061,20 @@ msgstr "Seleziona questa opzione per ricevere la password via mail."
 #.   <span>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
 #.     copy of the item will be created into each of these sections with the
-#.     <b>published</b>status. Section readers of those sections could then read
+#.     <strong>published</strong>status. Section readers of those sections could then read
 #.     it.</span>
+#.   <span>To make an item viewable 
+#.     by readers it has to be published. You can publish this item directly
+#.     in the sections where you are entitled to  without requiring any reviewing.<br />
+#.     A copy of the item will be created into each of these sections with the
+#.     <strong>published</strong>status. Section readers of those sections will then be 
+#.     able to read it.<br />
+#.     You can also submit the item in the section folders where you are not
+#.     entitled to publish directly.<br /> A copy of the item will be created into
+#.     each of these sections with a <strong>pending</strong> status, waiting to be
+#.     reviewed and finally <strong>published</strong> by a section's reviewer.</span>
 #: from ../skins/cps_default/content_publish_form.pt
+#: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
 msgstr ""
 "Puoi pubblicare direttamente questo oggetto nelle sezioni , senza che venga "
@@ -1043,9 +1087,9 @@ msgstr ""
 #          your password and instructions on how to activate your membership.
 #        </span>
 #.   <span>
-#.         You will receive an email shortly containing
-#.         your password and instructions on how to activate your membership.
-#.       </span>
+#.       You will receive an email shortly containing
+#.       your password and instructions on how to activate your membership.
+#.     </span>
 #: from ../skins/cps_default/registered.pt
 msgid "help_registred_mail"
 msgstr ""
@@ -1102,12 +1146,12 @@ msgstr "Ritorna ad una versione precedente di questo documento."
 #      its status to <b>pending</b>, this is done by submitting your item to a
 #      section.</span>
 #.   <span>An item's status (also called its
-#.     review state) determines who can see it.  An item with a <b>work</b> status
+#.     review state) determines who can see it.  An item with a <strong>work</strong> status
 #.     can be viewed by workspace's readers and edit by workspace's members and
-#.     managers.  Only <b>published</b> items in sections are available to the
+#.     managers.  Only <strong>published</strong> items in sections are available to the
 #.     section readers.  To make an item published, it has to be reviewed by one of
 #.     the section's Reviewers.  You can request that an item be reviewed by setting
-#.     its status to <b>pending</b>, this is done by submitting your item to a
+#.     its status to <strong>pending</strong>, this is done by submitting your item to a
 #.     section.</span>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
@@ -1123,21 +1167,6 @@ msgstr ""
 "al valore <b>da approvare</b>. Questo avviene quando si intende trasportare "
 "un documento dalla propria area di lavoro ad una sezione tramite la voce di "
 "menù 'Richiedi pubblicazione'."
-
-#.   <span>To make an item published and
-#.     viewable by readers, it has to be reviewed by one of the section reviewers.
-#.     You can submit the item in many section folders.<br /> A copy of the item will
-#.     be created into each section with a <b>pending</b> status, waiting to be
-#.     reviewed and finally <b>published</b> by a section's reviewer.</span>
-#: from ../skins/cps_default/content_submit_form.pt
-msgid "help_submit_publication"
-msgstr ""
-"Perchè un documento venga pubblicato e quindi diventi visualizzabile dai "
-"lettori, esso deve essere analizzato e approvato da uno dei revisori di "
-"sezione. Puoi inserire il documento in più sezioni se lo desideri. "
-"<br>Verrà  creata una copia del documento per ogni sezione e sarà  posta in "
-"stato '<b>da approvare<b>', in attesa che qualche revisore lo analizzi e lo "
-"pubblichi."
 
 #.   <span>
 #.     Unpublish published item</span>
@@ -1666,9 +1695,7 @@ msgid "label_password_mailed"
 msgstr "Spedisci parola chiave?"
 
 #.   <option attributes="selected python:box['box'].query_status == 'pending'" value="pending">Pending</option>
-#.   <option value="pending">Pending</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
 msgid "label_pending"
 msgstr "In attesa"
 
@@ -1702,9 +1729,7 @@ msgid "label_publication_states"
 msgstr "Stato di pubblicazione"
 
 #.   <option attributes="selected python:box['box'].query_status == 'published'" value="published">Published</option>
-#.   <option value="published">Published</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
 msgid "label_published"
 msgstr "Pubblicato"
 
@@ -1718,6 +1743,11 @@ msgstr "Ricorda nome utente."
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "label_rename_to"
 msgstr "a"
+
+#.   <em condition="not:can_publish">(requires approval)</em>
+#: from ../skins/cps_default/content_submit_form.pt
+msgid "label_requires_approval"
+msgstr ""
 
 #.   <strong>Reviewing history:</strong>
 #: from ../skins/cps_default/content_lib.pt
@@ -1958,9 +1988,7 @@ msgstr "Visibile SOLO in sotto-cartella"
 #    <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
 #    <option value="work">Work</option>
 #.   <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
-#.   <option value="work">Work</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
 msgid "label_work"
 msgstr "In lavorazione"
 
@@ -2134,7 +2162,7 @@ msgstr "modulo di personalizzazione"
 msgid "link_go_back"
 msgstr "Torna indietro"
 
-#.   <span>here</span>
+#.   <input value="link_here" type="submit" />
 #: from ../skins/cps_default/registered.pt
 msgid "link_here"
 msgstr "qui"
@@ -2166,15 +2194,15 @@ msgid "link_more"
 msgstr "Ancora..."
 
 #.   <span>
-#.         You can log on immediately by clicking
-#.       </span>
+#.       You can log on immediately by clicking
+#.     </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registred_login"
 msgstr "Puoi connetterti immediatamente cliccando"
 
 #.   <span>
-#.        Return to homepage
-#.      </span>
+#.       Return to homepage
+#.     </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registred_return_home_page"
 msgstr "Torna alla pagina principale"
@@ -2996,6 +3024,16 @@ msgstr "Tedesco"
 msgid "label_language_it"
 msgstr "Italiano"
 
+# # Languages  ========================================================
+#, fuzzy
+msgid "label_language_de"
+msgstr "Inglese"
+
+# # Languages  ========================================================
+#, fuzzy
+msgid "label_language_es"
+msgstr "Inglese"
+
 # # Dates
 msgid "calendar_month_1"
 msgstr "Gennaio"
@@ -3063,12 +3101,14 @@ msgstr "Crea una bozza"
 msgid "abandon_draft"
 msgstr "Abbandona la bozza"
 
-# # Languages  ========================================================
-#, fuzzy
-msgid "label_language_de"
-msgstr "Inglese"
+#~ msgid "Created by ${item_creator}. Last modified ${item_modification}."
+#~ msgstr "Creato da ${item_creator}. Ultima modifica ${item_modification}."
 
-# # Languages  ========================================================
-#, fuzzy
-msgid "label_language_es"
-msgstr "Inglese"
+#~ msgid "help_submit_publication"
+#~ msgstr ""
+#~ "Perchè un documento venga pubblicato e quindi diventi visualizzabile dai "
+#~ "lettori, esso deve essere analizzato e approvato da uno dei revisori di "
+#~ "sezione. Puoi inserire il documento in più sezioni se lo desideri. "
+#~ "<br>Verrà  creata una copia del documento per ogni sezione e sarà  posta "
+#~ "in stato '<b>da approvare<b>', in attesa che qualche revisore lo analizzi "
+#~ "e lo pubblichi."

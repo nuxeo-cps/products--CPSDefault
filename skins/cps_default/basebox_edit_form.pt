@@ -15,11 +15,11 @@ box: <tal:block replace="box_url" />
    <br><br>
 <form action="box_edit" method="post"
   tal:attributes="action string:${context_urlc}/box_edit"
-  tal:define="box_type python:box['box'].macro">
+  tal:define="box_category python:box['box'].category">
 <input type="hidden" name="box_url" value=""
   tal:attributes="value box_url" />
-<input type="hidden" name="box_type" value=""
-  tal:attributes="value box_type" />
+<input type="hidden" name="box_category" value=""
+  tal:attributes="value box_category" />
 <table class="FormLayout">
   <tr valign="top">
     <th align="right" i18n:translate="label_title">Title</th>
@@ -56,6 +56,20 @@ box: <tal:block replace="box_url" />
     </td>
   </tr>
   <tr>
+    <th align="right" i18n:translate="label_box_skin">Box skin</th>
+    <td colspan="5">
+      <select name="box_skin">
+        <tal:block repeat="skin here/getBoxSkins">
+        <option value="skin/macro_path"
+          tal:attributes="value skin/macro_path;
+            selected python:test(box['settings']['box_skin']==skin['macro_path'],
+          'selected', nothing)" i18n:translate="" tal:content="skin/title">
+          </option>
+        </tal:block>
+      </select>
+    </td>
+  </tr>
+  <tr>
     <td></td>
     <td colspan="5">
         <input type="checkbox" name="display_in_subfolder"
@@ -71,24 +85,24 @@ box: <tal:block replace="box_url" />
     </td>
   </tr>
   <tr valign="top">
-    <th align="right" i18n:translate="label_type">Type</th>
+    <th align="right" i18n:translate="label_btype">Type</th>
     <td colspan="5">
       <tal:block
-      define="styles python:here.getBoxesStyles(type=box_type);
-              styleformat string:${box/settings/style}@${box/settings/format}"
-      condition="styles">
+      define="category python:here.getBoxTypes(category=box_category);
+              providertype string:${box/settings/provider}@${box/settings/btype}"
+      condition="category">
       <table>
         <tr><td colspan="2">
-          <strong i18n:translate="" tal:content="styles/title" /><br>
-          <em><tal:block i18n:translate="" content="styles/desc" /></em>
+          <strong i18n:translate="" tal:content="category/title" /><br>
+          <em><tal:block i18n:translate="" content="category/desc" /></em>
         </td></tr>
-        <tal:block repeat="format styles/fmt">
+        <tal:block repeat="type category/types">
         <tr><td nowrap>
-          <input type="radio" name="styleformat" value=""
-            tal:define="sf string:${format/style}@${format/format}"
-            tal:attributes="value sf; checked python:test(sf==styleformat,'checked',nothing)" />
-          <tal:block replace="format/style" />-<tal:block replace="format/format" /></td>
-          <td><em i18n:translate=""  tal:content="format/desc" />
+          <input type="radio" name="providertype" value=""
+            tal:define="sf string:${type/provider}@${type/id}"
+            tal:attributes="value sf; checked python:test(sf==providertype,'checked',nothing)" />
+          <tal:block replace="type/provider" />-<tal:block replace="type/id" /></td>
+          <td><em i18n:translate=""  tal:content="type/desc" />
         </td></tr>
         </tal:block>
       </table>

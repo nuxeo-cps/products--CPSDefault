@@ -33,7 +33,6 @@ zoomed = []
 if not b_start and zoom:
     zoom = int(zoom)
     zoomed = Batch(items[:zoom], zoom, 0)
-    n = len_batch - zoom
     # deal with items left
     items = items[zoom:]
 

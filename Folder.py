@@ -22,8 +22,7 @@
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 
-from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, AddPortalContent
+from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
 from Products.NuxCPS3.CPSBase import CPSBaseFolder, CPSBase_adder
 

@@ -1245,6 +1245,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'CPS Proxy Folderish Document': {
                        'typeinfo_name': 'CPSCore: CPS Proxy Folderish Document',
                        'add_meta_type': 'Factory-based Type Information',},
+            'CPS Proxy BTree Folder': {
+                       'typeinfo_name': 'CPSCore: CPS Proxy BTree Folder',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'CPS Proxy BTree Folderish Document': {
+                       'typeinfo_name': 'CPSCore: CPS Proxy BTree Folderish Document',
+                       'add_meta_type': 'Factory-based Type Information',},
 
             'Section': {
                        'typeinfo_name': 'CPSDefault: Folder',

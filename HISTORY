@@ -1,4 +1,31 @@
 *******************************************
+** CPSDefault V3.22.1 [R1 build 2004/06/28-13:16 by anahide]
+
+Requires:
+~~~~~~~~~
+- main_template.pt has a new "isHomeless" computation, change your customized
+  main_template if needed
+- requires CPSCore > 3.14.1 to get correct archive display in history
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Renamed the preview template -> preview_html so that it doesn't collide with
+  the preview attribute of the image widget.
+- When in preview mode, modified the breadcrumb so that it says that we are in
+  preview mode
+- Correctly compute isHomeless for use in box_lib.pt
+- view permission on a box is set to anonymous users when creating the box:
+  users having permissions in subfolders do not have the right to view boxes
+  set in the .cps_boxes file higher in the hierarchy, whereas they have the right
+  to view boxes set in the .cps_boxes_root file (discussed with Florent).
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- add bresilian language
+- compile regexps inside a utils module
+
+*******************************************
 ** CPSDefault V3.22.0 [R1 build 2004/06/16-11:48 by madarche]
 
 Requires:

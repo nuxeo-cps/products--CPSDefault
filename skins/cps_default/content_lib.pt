@@ -279,8 +279,8 @@ format</h1>
 <!-- ============================================================ -->
 <h1>Display of a form to change display params</h1>
 <metal:block define-macro="display_params_form">
-  <span i18n:translate="label_sort_by">sort by</span>
-  <select name="display_order">
+  <label for="display_order" i18n:translate="label_sort_by">Sort by</label>
+  <select name="display_order" id="display_order">
     <option i18n:translate="label_none" value="None"
             tal:attributes="selected not:sort_by">
             No sort
@@ -297,15 +297,26 @@ format</h1>
             Title descending
     </option>
 
-    <option i18n:translate="label_date_asc" value="date_asc"
+    <option i18n:translate="label_date_modification_asc" value="date_asc"
             tal:attributes="selected
-                              python:sort_by == 'date' and direction == 'asc' ">
-            Date ascending
+                              python:sort_by == 'date' and direction == 'asc'">
+            Modification date ascending
     </option>
-    <option i18n:translate="label_date_desc" value="date_desc"
+    <option i18n:translate="label_date_modification_desc" value="date_desc"
             tal:attributes="selected
-                             python:sort_by == 'date' and direction == 'desc' ">
-            Date descending
+                             python:sort_by == 'date' and direction == 'desc'">
+            Modification date descending
+    </option>
+
+    <option i18n:translate="label_date_effective_asc" value="dateeffective_asc"
+            tal:attributes="selected
+                              python:sort_by == 'dateeffective' and direction == 'asc'">
+            Effective date ascending
+    </option>
+    <option i18n:translate="label_date_effective_desc" value="dateeffective_desc"
+            tal:attributes="selected
+                             python:sort_by == 'dateeffective' and direction == 'desc'">
+            Effective date descending
     </option>
 
     <option i18n:translate="label_status_asc" value="status_asc"
@@ -331,8 +342,8 @@ format</h1>
     </option>
   </select>
 
-  <span i18n:translate="label_display">Display with</span>
-  <select name="display_style">
+  <label for="display_style" i18n:translate="label_display">Display with</label>
+  <select name="display_style" id="display_style">
     <option i18n:translate="label_default" value="None"
             tal:attributes="selected not:format">
             Default

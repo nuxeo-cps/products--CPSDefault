@@ -71,8 +71,10 @@ def title_sortkey(a):
     return a.title_or_id().lower()
 
 def date_sortkey(a):
-    return str(a.modified()) + \
-           a.getId()
+    return str(a.modified()) + a.getId()
+
+def dateeffective_sortkey(a):
+    return str(a.getContent().effective()) + a.getId()
 
 def author_sortkey(a):
     author = a.Creator()
@@ -88,6 +90,8 @@ if sort_by == 'status':
     make_sortkey = status_sortkey
 elif sort_by == 'date':
     make_sortkey = date_sortkey
+elif sort_by == 'dateeffective':
+    make_sortkey = dateeffective_sortkey
 elif sort_by == 'title':
     make_sortkey = title_sortkey
 elif sort_by == 'author':

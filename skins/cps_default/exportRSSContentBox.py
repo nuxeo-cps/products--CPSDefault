@@ -101,7 +101,7 @@ text = rss_fmt % {'css_url': base_url + 'nuxeo_rss_css.css',
                   }
 
 if REQUEST:
-   REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml')
+   REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml; charset=ISO-8859-1')
    REQUEST.RESPONSE.setHeader('Cache-Control', 'no-cache')
 
 return text

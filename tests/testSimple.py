@@ -4,11 +4,10 @@ if __name__ == '__main__':
 
 import unittest
 from Testing import ZopeTestCase
-import CPSTestCase
-CPSTestCase.setupPortal()
+import CPSDefaultTestCase
 
 
-class TestSimple(CPSTestCase.CPSTestCase):
+class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
     def test1(self):
         assert self.portal.getId() == 'portal'
         assert self.portal.title == 'CPSDefault Portal'

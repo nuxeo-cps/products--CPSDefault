@@ -9,19 +9,11 @@ os.environ['STUPID_LOG_SEVERITY'] = '-200'
 os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
 from Testing import ZopeTestCase
-import CPSTestCase
-CPSTestCase.setupPortal()
+import CPSDefaultTestCase
 
-class TestCPSInstaller(CPSTestCase.CPSTestCase):
-
-    def afterSetUp(self):
-        pass
-    
-    def afterClear(self):
-        pass
+class TestCPSInstaller(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testInstallCPSDefault(self):
-        'Test CPSDefault Install'
         roles = ['Manager', ZopeTestCase._user_role]
         uf = self.folder.acl_users
         uf._changeUser(ZopeTestCase._user_name,

@@ -12,8 +12,7 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
 import unittest
 from Testing import ZopeTestCase
-import CPSTestCase
-CPSTestCase.setupPortal()
+import CPSDefaultTestCase
 
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.Permissions import access_contents_information, view
@@ -69,25 +68,18 @@ def init_suite():
     _portal[_workspaces].manage_setLocalRoles(_user_name2, ('WorkspaceMember',))
 
 
-class TestCPSDefault(unittest.TestCase):
-    
-    def setUp(self):
-        if init_suite_flag:
-            self.portal = _portal
-            self.wftool = getToolByName(_portal, 'portal_workflow')
-            self.work = self.portal[_workspaces]
-            self.pub = self.portal[_sections]
-            get_transaction().begin()
-            
-    def tearDown(self):
-        if init_suite_flag:
-            get_transaction().abort()
 
-    def test_00_init_suite(self):
-        # create a CPS used for other unit tests
-        init_suite()
-        self.assertNotEqual(_portal, None)        
-       
+class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
+    
+    def afterSetUp(self):
+        self.wftool = getToolByName(self.portal, 'portal_workflow')
+        self.work = self.portal[_workspaces]
+        self.pub = self.portal[_sections]
+        self.login("root")
+
+    def beforeTearDown(self):
+        self.logout()
+            
     def test_01_workflow(self):
         self.assertNotEqual(self.wftool, None)
 

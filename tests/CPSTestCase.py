@@ -24,9 +24,9 @@ def get_selected_language(self):
     """ """
     return self._default_language
 
-
 from Products.Localizer.Localizer import Localizer
 Localizer.get_selected_language = get_selected_language
+
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager
@@ -93,11 +93,12 @@ def optimize():
 
 optimize()
 
-def setupPortal():
+def setupPortal(PortalInstaller):
     # Create a CPS site in the test (demo-) storage
     app = ZopeTestCase.app()
     # PortalTestCase expects object to be called "portal", not "cps"
     if not hasattr(app, 'portal'):
         PortalInstaller(app).install('portal')
     ZopeTestCase.close(app)
+
 

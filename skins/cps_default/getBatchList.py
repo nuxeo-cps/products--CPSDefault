@@ -69,10 +69,10 @@ batch_info = {'nb_pages': nb_pages,
               'next': None,
                  }
 
-# for the nb of items 
-j = 0           
+# for the nb of items
+j = 0
 # for the current position in the search
-current = [0, 1] 
+current = [0, 1]
 # list of b_start values
 pages = []
 

@@ -54,6 +54,8 @@ if test_cpsskins:
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager
+from AccessControl import ClassSecurityInfo
+from Globals import InitializeClass
 
 import time
 
@@ -84,8 +86,19 @@ class DummyTranslationService(SimpleItem):
         pass
 
 # Dummy MessageCatalog
-class DummyMessageCatalog:
+class DummyMessageCatalog(SimpleItem):
+    security = ClassSecurityInfo()
+    security.declareObjectPublic()
     def __call__(self, message, *args, **kw):
+        #return self.gettext(self, message, lang, args, kw)
+        return message
+
+    security.declarePublic('gettext')
+    def gettext(self, message, lang=None, *args, **kw):
+        if message == 'words_meaningless' and lang == 'en':
+            message = "a the this these those of am is are has have or and i maybe perhaps"
+        elif message == 'words_meaningless' and lang == 'fr':
+            message = "un une le la les l de des ces est sont a ont ou et je voici"
         return message
 
     def get_selected_language(self):
@@ -100,6 +113,7 @@ class DummyMessageCatalog:
 
     def wl_isLocked(self):
         return None # = False
+InitializeClass(DummyMessageCatalog)
 
 
 from StringIO import StringIO

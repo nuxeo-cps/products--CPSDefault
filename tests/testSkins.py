@@ -9,6 +9,7 @@ from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
+ZopeTestCase.installProduct('VerboseSecurity', quiet=1)
 
 
 # Testing some skins methods and templates anonymously.
@@ -48,8 +49,16 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(getattr(self.portal, 'msie.css'))
 
     def testComputeId(self):
+        # URLs are computed differently and intelligently depending on the
+        # specified locale, because meaningless words are removed.
         id = "Voilà l'été"
-        self.assertEquals(self.portal.computeId(id), "voila_ete")
+        self.assertEquals(self.portal.computeId(id, lang='fr'), "voila_ete")
+        self.assertNotEquals(self.portal.computeId(id, lang='en'), "voila_ete")
+        id = "This is a message from the president"
+        self.assertEquals(self.portal.computeId(id, lang='en'),
+                          "message_from_president")
+        self.assertNotEquals(self.portal.computeId(id, lang='fr'),
+                             "message_from_president")
 
     def testTruncURL(self):
         url = 'http://youpilala.com/il/fait/beau/et/chaud/ajourd/hui'

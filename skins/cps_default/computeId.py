@@ -1,4 +1,4 @@
-##parameters=compute_from='', max_chars_for_id=20, location=None, portal_type=None
+##parameters=compute_from='', max_chars_for_id=24, location=None, portal_type=None, lang=None
 
 # $Id$
 """Generate an id from a given string.
@@ -70,15 +70,20 @@ while id.endswith('-') or id.endswith('_') or id.endswith('.'):
 if not id:
     id = str(int(DateTime())) + str(randrange(1000, 10000))
 
+LOG('computeId', DEBUG, "id = %s" % id)
+
 # Word splitting
 # The following regexp split the given id into words separated by the following
 # separators: '-' '_' '.'
 words = re.split('-*_*\.*\s*', id)
+LOG('computeId', DEBUG, "words = %s" % words)
 
 # Removing meaningless words according to the current locale.
-cpsmcat = context.Localizer.default
-words_meaningless = cpsmcat('words_meaningless')
+message_catalog = context.Localizer.default
+words_meaningless = message_catalog.gettext('words_meaningless', lang).split()
+print "words_meaningless = %s" % words_meaningless
 words = [w for w in words if w not in words_meaningless]
+LOG('computeId', DEBUG, "words = %s" % words)
 
 # Preventing word cuts
 id = words[0] # The id needs to contain at least one word

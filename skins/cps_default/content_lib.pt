@@ -191,7 +191,7 @@ format:</pre>
     <tr tal:repeat="item zoomed">
       <td align="left" valign="top">
        <tal:block define="no_form not:nothing;
-         info python:here.getContentInfo(item, level=1);">
+         info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);">
          <metal:block use-macro="here/content_lib/macros/info_summary" />
          <br /><br />
        </tal:block>
@@ -265,14 +265,14 @@ format:</pre>
            " />
       </td>
       <td align="left" valign="top"
-          tal:define="info python:here.getContentInfo(item, level=1)">
+          tal:define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat)">
         <metal:block use-macro="python:path('here/content_lib/macros/info_%s'%format)" />
       </td>
     </tr>
   </table>
   <tal:block condition="no_table">
     <tal:block repeat="item batch_items">
-    <tal:block define="info python:here.getContentInfo(item, level=1);
+    <tal:block define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);
                        start repeat/item/start|nothing;
                        end repeat/item/end|nothing">
       <metal:block use-macro="here/content_lib/macros/info_detail_tab" />
@@ -423,7 +423,7 @@ format:</pre>
   </div>
   <a tal:attributes="href info/relation" tal:omit-tag="not:info/relation">
   <img tal:replace="structure python:here.getImgTag(info['icon'],
-    base_url=base_url, title='%s, id:%s' % (info['type'], info['id']))" />
+    base_url=base_url, title='%s, id:%s' % (info['type_l10n'], info['id']))" />
   </a>
    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a>

@@ -16,7 +16,7 @@
 # 02111-1307, USA.
 #
 # $Id$
-"""CPS Folder, which is both used for work and publication.
+""" Folder, which is both used for work and publication.
 """
 
 from Globals import InitializeClass
@@ -28,13 +28,13 @@ from Products.CPSCore.CPSBase import CPSBaseFolder, CPSBase_adder
 
 
 factory_type_information = (
-    {'id': 'CPS Folder',
+    {'id': 'Folder',
      'description': 'A container for documents.',
      'title': '',
      'content_icon': 'folder_icon.gif',
-     'product': 'CPSCore',
-     'meta_type': 'CPS Folder',
-     'factory': 'addCPSFolder',
+     'product': 'CPSDefault',
+     'meta_type': 'Folder',
+     'factory': 'addFolder',
      'immediate_view': 'folder_contents',
      'filter_content_types': 0,
      'allowed_content_types': (),
@@ -45,7 +45,7 @@ factory_type_information = (
                   'visible': 0},
                  {'id': 'create',
                   'name': 'Create',
-                  'action': 'cpsfolder_create',
+                  'action': 'folder_factories',
                   'permissions': ('',),
                   'visible': 0},
                  {'id': 'view',
@@ -54,38 +54,30 @@ factory_type_information = (
                   'permissions': (View,)},
                  {'id': 'edit',
                   'name': 'Edit',
-                  'action': 'cpsfolder_edit_form',
+                  'action': 'folder_edit_form',
                   'permissions': (ModifyPortalContent,)},
                  {'id': 'metadata_edit',
                   'name': 'Edit metadata',
-                  'action': 'cpsfolder_edit_form',
+                  'action': 'folder_edit_form',
                   'permissions': (ModifyPortalContent,)},
                  {'id': 'localroles',
                   'name': 'Local roles management',
-                  'action': 'cpsfolder_localrole_form',
+                  'action': 'folder_localrole_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'folder_contents',
-                  'name': 'Contents',
-                  'action': 'cpsfolder_contents',
-                  'category': 'folder',
-                  'permissions': (ModifyPortalContent,)},
-                 {'id': 'workflows',
-                  'name': 'Workflows',
-                  'action': 'cpsfolder_workflows',
-                  'permissions': (ModifyPortalContent,)},
-                 ),
+                 )
      },
     )
 
 
-class CPSFolder(CPSBaseFolder):
-    meta_type = 'CPS Folder'
+
+class Folder(CPSBaseFolder):
+    meta_type = 'Folder'
     portal_type = meta_type # To ease testing.
 
-InitializeClass(CPSFolder)
+InitializeClass(Folder)
 
 
-def addCPSFolder(container, id, REQUEST=None, **kw):
-    """Add a CPS Folder."""
-    ob = CPSFolder(id, **kw)
+def addFolder(container, id, REQUEST=None, **kw):
+    """Add a Folder."""
+    ob = Folder(id, **kw)
     return CPSBase_adder(container, ob, REQUEST=REQUEST)

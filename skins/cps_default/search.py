@@ -51,7 +51,7 @@ for b_doc in b_docs:
     i_proxies = ptool.getProxiesFromObjectId(doc_id)
     for i_proxy in i_proxies:
         proxy = i_proxy['object']
-        
+
         # prevent zcatalog desynchronization ??
         try:
             title = proxy.Title()
@@ -67,15 +67,23 @@ for b_doc in b_docs:
             wtool.getInfoFor(proxy, 'review_state','nostate') != status):
             continue
 
+        # event start/end filtering
         if start_date and end_date:
             doc = proxy.getContent()
-            sd = doc.start()
-            ed = doc.end()
-            # start/end date filtering
-            if sd-end_date > 0 or start_date-ed > 0:
-                #if doc's start date is after range's end date,
-                #or doc's end date is before range's start date
-                #discard this document
+            sd = ed = 0
+            if hasattr(doc.aq_explicit, 'start'):
+                if callable(doc.start):
+                    sd = doc.start()
+                else:
+                    sd = doc.start
+            if hasattr(doc.aq_explicit, 'end'):
+                if callable(doc.end):
+                    ed = doc.end()
+                else:
+                    ed = doc.end
+            if not sd or not ed:
+                continue
+            if (sd - end_date > 0) or (start_date - ed > 0):
                 continue
 
         items.append(proxy)

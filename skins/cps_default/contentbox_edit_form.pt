@@ -6,11 +6,40 @@
 <metal:fields fill-slot="additional_fields">
   <tr valign="top">
     <th align="right" i18n:translate="label_folder">Folder</th>
-    <td><input type="text" name="folder" value="" size="20"
+    <td colspan="3"><input type="text" name="folder" value="" size="30"
           tal:attributes="value box/box/folder" /></td>
     <th aligh="right" i18n:translate="label_nb_items">Nb items</th>
     <td><input type="text" name="nb_items" value="" size="3"
            tal:attributes="value box/box/nb_items" /></td>
+  </tr>
+  <tr valign="top">
+    <th align="right" i18n:translate="label_sort_by">sort by</th>
+    <td colspan="3">
+      <select name="sort_by">
+        <option value="title" i18n:translate="label_sort_by_title"
+          tal:attributes="selected python:box['box'].sort_by == 'title'">title</option>
+        <option value="date" i18n:translate="label_sort_by_date"
+          tal:attributes="selected python:box['box'].sort_by == 'date'">date</option>
+        <option value="status" i18n:translate="label_sort_by_status"
+          tal:attributes="selected python:box['box'].sort_by == 'status'">status</option>
+      </select>
+      <select name="direction">
+        <option value="asc" i18n:translate="label_sort_asc"
+          tal:attributes="selected python:box['box'].direction != 'desc'">asc</option>
+        <option value="desc" i18n:translate="label_sort_desc"
+          tal:attributes="selected python:box['box'].direction == 'desc'">desc</option>
+      </select>
+    </td>
+    <th aligh="right" i18n:translate="label_display_format">format</th>
+    <td>
+      <select name="display">
+        <option value="icon" i18n:translate="label_display_icon">icon</option>
+        <option value="compact"
+          i18n:translate="label_display_compact">compact</option>
+        <option value="detail"
+          i18n:translate="label_display_detailed">detailed</option>
+      </select>
+    </td>
   </tr>
 </metal:fields>
 </metal:boxform>

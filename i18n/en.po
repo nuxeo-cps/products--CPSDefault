@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-31 12:12default\n"
-"PO-Revision-Date: 2003-07-31 12:17+0200\n"
+"POT-Creation-Date: 2003-08-06 15:53default\n"
+"PO-Revision-Date: 2003-08-06 15:54+0200\n"
 "Last-Translator: ben <ben@nuxeo.com>\n"
 "Language-Team: ben\n"
 "MIME-Version: 1.0\n"
@@ -38,12 +38,7 @@ msgid "${status_time}:"
 msgstr "${status_time}:"
 
 #.   <option attributes="value cat" content="string:label_action_${cat}">Action</option>
-#.   <a attributes="href action/url" content="action/name">
-#.   	      Action
-#.                </a>
-#.   <a attributes="href action/url" content="action/name">
-#.                  Action
-#.                </a>
+#.   <a attributes="href action/url" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
@@ -89,9 +84,9 @@ msgstr "Portal type's title"
 msgid "Slot"
 msgstr "slot"
 
-#.   <div define="portal_message request/portal_status_message|nothing" condition="portal_message" content="portal_message" class="message">
-#.          Translated status message.
-#.        </div>
+#.   <div content="portal_message" class="message">
+#.     Translated status message.
+#.     </div>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr "Translated status message."
@@ -120,15 +115,15 @@ msgstr "Next Items"
 msgid "batch_previous_items"
 msgstr "Previous Items"
 
-#.   <block fill-slot="box_title" content="box/box/title">
-#.          box text title
-#.       </block>
+#.   <block fill-slot="box_title" content="box/box/title">box text title</block>
+#.   <block content="box/box/title">box text title</block>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "box text title"
 msgstr "box text title"
 
 #.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_devel/main_template.pt
+#: from ../skins/cps_default/main_template.pt
+#: ../skins/cps_devel/main_template.pt
 msgid "box_closed_boxes"
 msgstr "Closed boxes :&nbsp;"
 
@@ -164,6 +159,7 @@ msgstr "Cancel"
 #.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" name="change" type="submit">
 #.         <input onclick="history.back()" type="button" value="button_back">
 #.       </input></input>
+#.   <input attributes="name string:changeDisplayParams:method" value="button_change" type="submit" />
 #.   <input value="button_change" type="submit">
 #.       </input>
 #.   <input value="button_change" name="change" type="submit">
@@ -171,6 +167,7 @@ msgstr "Cancel"
 #.         <br><input value="button_change_and_view" name="change_and_view" type="submit">
 #.       </input></br></input></br></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change"
@@ -214,7 +211,7 @@ msgstr "Create box"
 #.                                  direction params/direction;
 #.                                  format params/format;
 #.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:isWsManager and sort_by is None">
-#.
+#.             <br />
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
@@ -226,11 +223,6 @@ msgstr "Create box"
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
 msgstr "Delete"
-
-#.   <input attributes="name string:changeDisplayParams:method" value="button_go" type="submit" />
-#: from ../skins/cps_default/folder_contents.pt
-msgid "button_go"
-msgstr "Go"
 
 #.   <input value="button_login" name="submit" type="submit" />
 #: from ../skins/cps_default/login_form.pt
@@ -264,7 +256,7 @@ msgid "button_new"
 msgstr "New"
 
 #.   <input value="button_ok" class="context searchButton" type="submit">
-#.       </input>
+#.     </input>
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
@@ -307,7 +299,7 @@ msgstr "Reject publication"
 #.                                  direction params/direction;
 #.                                  format params/format;
 #.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:isWsManager and sort_by is None">
-#.
+#.             <br />
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
@@ -407,9 +399,9 @@ msgstr "You have been registered as a member."
 #.   <span>description_up_to
 #.             ${up_id (tal content="python:here.aq_parent.getId()")}
 #.           </span>
-#.   <span condition="upNav">description_up_to
-#.         ${up_id (tal content="upID")}
-#.       </span>
+#.   <span>description_up_to
+#.            ${up_id (tal content="python:here.aq_parent.getId()")}
+#.          </span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "description_up_to ${up_id}"
@@ -767,6 +759,16 @@ msgstr "Body"
 #: from ../skins/cps_default/textbox_edit_form.pt
 msgid "label_box_content"
 msgstr "content"
+
+#.   <th align="right">Box skin</th>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_box_skin"
+msgstr "Box skin"
+
+#.   <th align="right">Type</th>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_btype"
+msgstr "Type"
 
 #.   <th align="right">Categories</th>
 #: from ../skins/cps_default/actionbox_edit_form.pt
@@ -1297,11 +1299,6 @@ msgstr "Title"
 msgid "label_title_desc"
 msgstr "Title desc"
 
-#.   <th align="right">Type</th>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_type"
-msgstr "Type"
-
 #.   <th style="text-align:left;">
 #.           User
 #.       </th>
@@ -1340,7 +1337,8 @@ msgstr "visible ONLY in sub folder"
 msgid "label_work"
 msgstr "Work"
 
-#.   <span>You are here:&nbsp;</span>
+#.   <block>You are
+#.     here:&nbsp;</block>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_you_are_here"
 msgstr "You are here:&nbsp;"
@@ -1395,7 +1393,7 @@ msgid "legend_local_roles_select_members_and_roles"
 msgstr "Select Member(s) and a role to assign:"
 
 #.   <a attributes="href string:${base_url}advanced_search_form" href="search_form">
-#.           Advanced search</a>
+#.         Advanced search</a>
 #.   <span>
 #.                    Advanced search
 #.                  </span>
@@ -1589,8 +1587,8 @@ msgid "v${status_revision}- ${status_language}"
 msgstr "v${status_revision}- ${status_language}"
 
 #.   <div class="footer">
-#.       welcome_cps ${cps_link}
-#.     </div>
+#.     welcome_cps ${cps_link}
+#.   </div>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "welcome_cps ${cps_link}"
 msgstr "Welcome to ${cps_link} CPS !"
@@ -1718,6 +1716,21 @@ msgstr "Top"
 msgid "description_confirm_delete"
 msgstr "Are you sure ?"
 
+msgid "description_box_skin_box"
+msgstr "sample box"
+
+msgid "description_box_skin_mmcbox"
+msgstr "min/max/close box"
+
+msgid "description_box_skin_mmbox"
+msgstr "min/max box"
+
+msgid "description_box_skin_sbox"
+msgstr "frame box"
+
+msgid "description_box_skin_wbox"
+msgstr "no frame"
+
 msgid "portal_type_Dummy2_description"
 msgstr "&nbsp;"
 
@@ -1774,6 +1787,9 @@ msgstr "Display folder contents or search results."
 
 msgid "description_nuxeo_basebox_default"
 msgstr "An empty box."
+
+msgid "description_nuxeo_basebox_separator"
+msgstr "A separator."
 
 msgid "description_nuxeo_basebox_logo"
 msgstr "A left nuxeo logo."
@@ -1858,6 +1874,9 @@ msgstr "%m/%d/%Y %H:%M:%S"
 
 msgid "link_search"
 msgstr "Search"
+
+#~ msgid "button_go"
+#~ msgstr "Go"
 
 #~ msgid "label_default"
 #~ msgstr "Default"

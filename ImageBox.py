@@ -67,7 +67,7 @@ class ImageBox(BaseBox, Folder):
         {'id': 'image_name', 'type': 'text', 'mode': 'w', 
          'label': 'Image file name'},
         {'id': 'image_link', 'type': 'text', 'mode': 'w', 
-         'label': 'Image file name'},
+         'label': 'Link when clicking on the image'},
         )
 
     def __init__(self, id, category='imagebox', image_name='', image_link='', **kw):

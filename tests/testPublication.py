@@ -53,37 +53,69 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
+    def _checkGetContentInfo(self, info, level):
+        self.assertEquals(info['icon'], 'news_icon.gif')
+        self.assertEquals(info['id'], 'news')
+        self.assertEquals(info['lang'], 'en')
+        self.assertEquals(info['level'], level)
+        self.assertEquals(info['rev'], '1')
+        self.assertEquals(info['review_state'], 'work')
+        self.assertEquals(info['rpath'], 'workspaces/members/member/news')
+        self.assert_(isinstance(info['time'], DateTime))
+        self.assertEquals(info['time_str'], 'date_medium')
+        self.assertEquals(info['title'], '')
+        self.assertEquals(info['title_or_id'], 'news')
+        self.assertEquals(info['type'], 'News')
+        self.assertEquals(info['type_l10n'], 'portal_type_News_title')
+
+        if level >= 1:
+            self.assertEquals(info['contributor'], 'member')
+            self.assertEquals(info['coverage'], '')
+            self.assertEquals(info['creator'], 'member')
+            self.assertEquals(info['description'], '')
+            self.assertEquals(info['hidden'], 0)
+            self.assertEquals(info['icon'], 'news_icon.gif')
+            self.assertEquals(info['rights'], '')
+            self.assertEquals(info['size'], '1 K')
+            self.assertEquals(info['source'], '')
+        if level >= 2:
+            self.assertEquals(len(info['states']), 1)
+            state = info['states'][0]
+            self.assertEquals(state['lang'], 'en')
+            self.assertEquals(state['language'], 'en')
+            self.assertEquals(state['rev'], '1')
+            self.assertEquals(state['review_state'], 'work')
+            self.assertEquals(state['rpath'], 'workspaces/members/member')
+            self.assert_(isinstance(state['time'], DateTime))
+            self.assertEquals(state['time_str'], 'date_medium')
+            self.assertEquals(state['title'], '')
+        if level >= 3:
+            self.assertEquals(len(info['history']), 1)
+            history = info['history'][0]
+            self.assertEquals(history['action'], 'create')
+            self.assertEquals(history['actor'], 'member')
+            self.assertEquals(history['dest_container'], '')
+            self.assertEquals(history['review_state'], 'work')
+            self.assertEquals(history['rpath'], 
+                              'workspaces/members/member/news')
+            self.assert_(isinstance(history['time'], DateTime))
+            self.assertEquals(history['time_str'], 'date_medium')
+            self.assertEquals(history['workflow_id'], 'workspace_content_wf')
+        if level >= 4:
+            self.assertEquals(info['archived'], [])
+
     def testGetContentInfo(self):
         # Test the getContentInfo script
 
         self.login('member')
         self.member_ws.invokeFactory('News', 'news')
         proxy = self.member_ws.news
-        doc = proxy.getContent()
-        doc.edit(title='Title')
+        #doc = proxy.getContent()
+        #doc.edit(title='A title')
 
         for level in range(0, 5):
-            info = proxy.getContentInfo(level=0)
-            self.assertEquals(info['icon'], 'news_icon.gif')
-            self.assertEquals(info['id'], 'news')
-            self.assertEquals(info['lang'], 'en')
-            self.assertEquals(info['level'], 0)
-            self.assertEquals(info['rev'], '1')
-            self.assertEquals(info['review_state'], 'work')
-            self.assertEquals(info['rpath'], 'workspaces/members/member/news')
-            self.assert_(isinstance(info['time'], DateTime))
-            self.assertEquals(info['time_str'], 'date_medium')
-            self.assertEquals(info['title'], '')
-            self.assertEquals(info['title_or_id'], 'news')
-            self.assertEquals(info['type'], 'News')
-            self.assertEquals(info['type_l10n'], 'portal_type_News_title')
-
-        #print
-        #for level in range(0, 5):
-        #    info = proxy.getContentInfo(level=level)
-        #    print "level = %d" % level
-        #    pprint(info)
-        #print
+            info = proxy.getContentInfo(level=level)
+            self._checkGetContentInfo(info, level)
 
     def testSubmit(self):
         self.login('member')

@@ -21,6 +21,27 @@ from zLOG import LOG, DEBUG
 
 from Products.DCWorkflow.Guard import Guard
 
+## monkey patch to add properties in portal_types
+
+from AccessControl.PermissionRole import PermissionRole
+from Products.CMFCore.TypesTool import TypeInformation
+from Products.CMFCore.TypesTool import FactoryTypeInformation as FTI
+from Products.CMFCore.CMFCorePermissions import ManageProperties
+
+TypeInformation.manage_propertiesForm = PropertyManager.manage_propertiesForm
+TypeInformation.manage_addProperty__roles__ = PermissionRole(ManageProperties)
+TypeInformation.manage_delProperties__roles__ = PermissionRole(ManageProperties)
+
+ftiprops_ids = [p['id'] for p in FTI._properties]
+
+if 'cps_is_portalbox' not in ftiprops_ids:
+    FTI._properties = FTI._properties + (
+        {'id':'cps_is_portalbox', 'type': 'boolean', 'mode':'w',
+         'label':'CPS Portal Box'},
+        )
+    FTI.cps_is_portalbox = 0
+## end of monkey patch
+
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
     ob = BaseBox(id)

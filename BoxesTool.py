@@ -187,8 +187,8 @@ class BoxesTool(UniqueObject, PortalFolder):
             if not newbox['box'].locked and settings.get(newbox['url']):
                 newbox['settings'].update(settings[newbox['url']])
                 newbox['macro'] = newbox['box'].getMacro(
-                    style=newbox['settings']['style'],
-                    format=newbox['settings']['format'])
+                    provider=newbox['settings']['provider'],
+                    btype=newbox['settings']['btype'])
 
             boxes.append(newbox)
 
@@ -453,7 +453,7 @@ class BoxContainer(PortalFolder):
         overrides = getattr(aq_base(self), '_box_overrides', {})
         for key, item in overrides.items():
             override = {'box_path': key, 'slot': '', 'order': '', 'closed':'',
-                        'minimized': '', 'style':'', 'format':''}
+                        'minimized': '', 'provider':'', 'btype':'', 'box_skin':''}
             override.update(item)
             result.append(override)
         #LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )

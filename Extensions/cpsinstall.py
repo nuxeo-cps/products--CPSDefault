@@ -1394,6 +1394,23 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         pass
 
     #
+    #  CPSCollector installer/updater
+    #
+    try:
+        import Products.CPSCollector
+        if not portalhas('cpscollector_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding CPSCollector installer')
+            cpscollector_installer = ExternalMethod('cpscollector_installer',
+                                                    'CPSCollector Installer',
+                                                    'CPSCollector.install',
+                                                    'install')
+            portal._setObject('cpscollector_installer', cpscollector_installer)
+        pr(portal.cpscollector_installer())
+    except:
+        pass
+
+    #
     #  CPSChat installer/updater
     #
     try:

@@ -270,9 +270,11 @@
       <tal:block repeat="category items">
       <tal:block condition="python:len(category)">
         <br tal:condition="not:repeat/category/start">
+        <ul>
           <li tal:repeat="action category"><a i18n:translate=""
             tal:attributes="href action/url"
             tal:content="action/name">Action</a></li>
+        </ul>
       </tal:block>
       </tal:block>
     </metal:block>

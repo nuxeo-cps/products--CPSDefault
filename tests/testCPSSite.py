@@ -19,6 +19,7 @@ from OFS.Folder import Folder, manage_addFolder
 from AccessControl.Permissions import access_contents_information, view
 from Products.CMFCore.utils import getToolByName
 
+
 ZopeTestCase.installProduct('CMFCore')
 ZopeTestCase.installProduct('CMFDefault')
 ZopeTestCase.installProduct('DCWorkflow')
@@ -34,67 +35,74 @@ ZopeTestCase.installProduct('CPSCore')
 ZopeTestCase.installProduct('CPSDefault')
 
 
+
+init_suite_flag = 0
+
 _folder_name          = 'testFolder_1_'
 _user_name            = 'testUser_1_'
 _user_role            = 'Member'
 _standard_permissions = [access_contents_information, view]
- 
+
 _user_name1           = 'testCPSUser1'
 _user_name2           = 'testCPSUser2'
 _sections             = 'sections'
 _workspaces           = 'workspaces'
 _doc_name             = 'testCPSDoc'
 
-# create a CPS Site fixture
-# XXX TODO this fixture should be run when running tests
-# not while loading the test suite 
-_print('Initialize Zope Server ... ')
-_start = time.time()
-_app = ZopeTestCase.app()
-_app.manage_addFolder(_folder_name)
-_folder = _app._getOb(_folder_name)
-_folder._addRole(_user_role)
-_folder.manage_addUserFolder()
-_uf = _folder.acl_users
-_uf._addUser(_user_name, 'secret', 'secret', (_user_role,), ())
-_user = _uf.getUserById(_user_name).__of__(_uf)
-_folder.manage_role(_user_role, _standard_permissions)
-newSecurityManager(None, _user)
-_uf._changeUser(ZopeTestCase._user_name,
+
+def init_suite():
+    global init_suite_flag, _portal, _app
+    if init_suite_flag:
+        return
+    init_suite_flag = 1
+
+    # create a CPS Site fixture
+    _app = ZopeTestCase.app()
+    _app.manage_addFolder(_folder_name)
+    _folder = _app._getOb(_folder_name)
+    _folder._addRole(_user_role)
+    _folder.manage_addUserFolder()
+    _uf = _folder.acl_users
+    _uf._addUser(_user_name, 'secret', 'secret', (_user_role,), ())
+    _user = _uf.getUserById(_user_name).__of__(_uf)
+    _folder.manage_role(_user_role, _standard_permissions)
+    newSecurityManager(None, _user)
+    _uf._changeUser(ZopeTestCase._user_name,
                'secret', 'secret',
                ('Manager', _user_role), ())
-_print('done (%.3fs)\n' % (time.time() - _start))
 
-_print('Creating a CPS Site ... ')
-_start = time.time()
-_dispatcher = _folder.manage_addProduct['CPSDefault']
-_dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
-_portal = _folder['cps']
-_print('done (%.3fs)\n' % (time.time() - _start))
+    _dispatcher = _folder.manage_addProduct['CPSDefault']
+    _dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
+    _portal = _folder['cps']
 
+    # create cps test users
+    for u in (_user_name1, _user_name2):
+        _portal.acl_users._addUser(name=u, password=u, confirm=u,
+                                   roles=('Member', ), domains=None)
+    _portal[_sections].manage_setLocalRoles(_user_name1, ('SectionReader',))
+    _portal[_sections].manage_setLocalRoles(_user_name2, ('SectionReviewer',))
+    _portal[_workspaces].manage_setLocalRoles(_user_name1, ('WorkspaceMember',))
+    _portal[_workspaces].manage_setLocalRoles(_user_name2, ('WorkspaceMember',))
 
-# create cps test users
-for u in (_user_name1, _user_name2):
-    _portal.acl_users._addUser(name=u, password=u, confirm=u,
-                               roles=('Member', ), domains=None)
-_portal[_sections].manage_setLocalRoles(_user_name1, ('SectionReader',))
-_portal[_sections].manage_setLocalRoles(_user_name2, ('SectionReviewer',))
-_portal[_workspaces].manage_setLocalRoles(_user_name1, ('WorkspaceMember',))
-_portal[_workspaces].manage_setLocalRoles(_user_name2, ('WorkspaceMember',))
 
 class TestCPSDefault(unittest.TestCase):
     
     def setUp(self):
-        self.portal = _portal
-        self.wftool =  getToolByName(_portal, 'portal_workflow')
-        self.work = self.portal[_workspaces]
-        self.pub = self.portal[_sections]
-        get_transaction().begin()
+        if init_suite_flag:
+            self.portal = _portal
+            self.wftool =  getToolByName(_portal, 'portal_workflow')
+            self.work = self.portal[_workspaces]
+            self.pub = self.portal[_sections]
+            get_transaction().begin()
             
     def tearDown(self):
-        get_transaction().abort()
+        if init_suite_flag:
+            get_transaction().abort()
 
-        
+    def test_00_init_suite(self):
+        # create a CPS used for other unit tests
+        init_suite()
+        self.assertNotEqual(_portal, None)        
        
     def test_01_workflow(self):
         self.assertNotEqual(self.wftool, None)
@@ -137,6 +145,7 @@ class TestCPSDefault(unittest.TestCase):
                                      'Dummy', _doc_name)
         ob = self.work[_doc_name]
         self.assertEqual(ob.getPortalTypeName(), 'Dummy')
+
 
 if __name__ == '__main__':
     framework(descriptions=1, verbosity=2)

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-12-02 12:48default\n"
+"POT-Creation-Date: 2003-12-09 17:53default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -36,12 +36,14 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#.   <p>
+#.   <div metal:define-macro="byline" define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+#.                 cname dname/fullname|doc/Creator;
+#.                 email dname/email|nothing;">
 #.     Created by
-#.     ${item_creator (tal content="creator" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
+#.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
-#.     ${item_modification (tal content="python:doc.ModificationDate()")}.
-#.   </p>
+#.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.   </div>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
@@ -337,6 +339,8 @@ msgstr ""
 
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.     </input>
+#.   <input value="button_ok" class="context searchButton" type="submit">
+#.         </input>
 #.   <input attributes="name python:test(no_form, None,
 #.                                                     nav_action + ':method')" value="button_ok" type="submit">
 #.           <block replace="structure string:
@@ -1241,6 +1245,11 @@ msgstr ""
 msgid "label_folder"
 msgstr ""
 
+#.   <h2>label_folder_search</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_folder_search"
+msgstr ""
+
 #.   <th align="right">Format</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -1390,11 +1399,6 @@ msgstr ""
 #.   <th align="right">Order</th>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_order"
-msgstr ""
-
-#.   <h2 condition="repeat/item/start">label_other_folder</h2>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "label_other_folder"
 msgstr ""
 
 #.   <th> Password </th>
@@ -1667,6 +1671,11 @@ msgstr ""
 #.     here:&nbsp;</block>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "label_you_are_here"
+msgstr ""
+
+#.   <span>nop</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "legend_folder_no_search_result"
 msgstr ""
 
 #.   <p>
@@ -2386,6 +2395,9 @@ msgid "description_nuxeo_imagebox_default"
 msgstr ""
 
 msgid "description_nuxeo_flashbox_default"
+msgstr ""
+
+msgid "description_nuxeo_treebox_sitemap_adv"
 msgstr ""
 
 # ## psm ===================================================

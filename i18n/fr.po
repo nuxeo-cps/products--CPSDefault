@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-02 12:48default\n"
-"PO-Revision-Date: 2003-12-03 16:33+0100\n"
+"POT-Creation-Date: 2003-12-09 17:53default\n"
+"PO-Revision-Date: 2003-12-09 17:59+0100\n"
 "Last-Translator: ben <ben@nuxeo.com>\n"
 "Language-Team: ben\n"
 "MIME-Version: 1.0\n"
@@ -44,12 +44,14 @@ msgstr "Une boîte de test"
 msgid "Action"
 msgstr "Action"
 
-#.   <p>
+#.   <div metal:define-macro="byline" define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+#.                 cname dname/fullname|doc/Creator;
+#.                 email dname/email|nothing;">
 #.     Created by
-#.     ${item_creator (tal content="creator" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
+#.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
-#.     ${item_modification (tal content="python:doc.ModificationDate()")}.
-#.   </p>
+#.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.   </div>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
@@ -347,6 +349,8 @@ msgstr "Déplacer au dessus"
 
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.     </input>
+#.   <input value="button_ok" class="context searchButton" type="submit">
+#.         </input>
 #.   <input attributes="name python:test(no_form, None,
 #.                                                     nav_action + ':method')" value="button_ok" type="submit">
 #.           <block replace="structure string:
@@ -1098,9 +1102,8 @@ msgstr "Fermer"
 
 #.   <h2 condition="repeat/item/start">label_collaborative_folder</h2>
 #: from ../skins/cps_default/boxes_nuxeo.pt
-#, fuzzy
 msgid "label_collaborative_folder"
-msgstr "Répertoire"
+msgstr "Mes espaces de travail"
 
 #.   <option attributes="selected python:format == 'compact'" value="compact">
 #.               Compact
@@ -1318,6 +1321,11 @@ msgstr "Largeur de la boîte Flash"
 msgid "label_folder"
 msgstr "Répertoire"
 
+#.   <h2>label_folder_search</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_folder_search"
+msgstr "Rechercher un espace de travail"
+
 #.   <th align="right">Format</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -1468,12 +1476,6 @@ msgstr "Aucun tri"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_order"
 msgstr "Ordre"
-
-#.   <h2 condition="repeat/item/start">label_other_folder</h2>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#, fuzzy
-msgid "label_other_folder"
-msgstr "Répertoire"
 
 #.   <th> Password </th>
 #.   <strong>Password</strong>
@@ -1746,6 +1748,11 @@ msgstr "Travail"
 #: from ../skins/cps_default/generic_lib.pt
 msgid "label_you_are_here"
 msgstr "Vous êtes ici&nbsp;:"
+
+#.   <span>nop</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "legend_folder_no_search_result"
+msgstr "Votre requête n'a retourné aucun espace de travail."
 
 #.   <p>
 #.      These users currently have local roles assigned in this folder:
@@ -2469,6 +2476,9 @@ msgstr "Une boîte avec une image."
 msgid "description_nuxeo_flashbox_default"
 msgstr "Une boîte affichant un fichier Flash, avec largeur et hauteur paramétrables"
 
+msgid "description_nuxeo_treebox_sitemap_adv"
+msgstr "Plan des espaces de travail"
+
 msgid "psm_added_to_favorites"
 msgstr "Ajouté aux favoris"
 
@@ -2651,6 +2661,14 @@ msgstr "Sa"
 
 msgid "calendar_day_6"
 msgstr "Di"
+
+#, fuzzy
+#~ msgid "legend_no_search_folder_result"
+#~ msgstr "n'a retourné aucun document."
+
+#, fuzzy
+#~ msgid "label_other_folder"
+#~ msgstr "Répertoire"
 
 #~ msgid "label_doc_id"
 #~ msgstr "Identifiant du document"

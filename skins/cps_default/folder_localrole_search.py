@@ -25,6 +25,10 @@ if search_param in ('fullname', 'email'):
 elif search_param == 'groupname':
     gdir  = context.portal_directories.groups
     # XXX hardcoded but not GroupsDirectory's job
-    groups = ['role:Anonymous', 'role:Authenticated']
-    groups.extend(gdir.searchEntries(id=search_term, title=search_term))
+    pseudo_groups = ['role:Anonymous', 'role:Authenticated']
+    groups = []
+    for pseudo_group in pseudo_groups:
+        if pseudo_group.lower().find(search_term) != -1:
+            groups.append(pseudo_group)
+    groups.extend(gdir.searchEntries(group=search_term))
     return groups

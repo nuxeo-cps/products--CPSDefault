@@ -719,9 +719,16 @@ format:</pre>
           content="string:label_language_${item/lang}">en</tal:block>
         </span>
       </tal:block>
-      <a href="." tal:attributes="href string:${here_url}/cpsdocument_view?${query}" i18n:translate="link_consult_this_revision">Consult</a>
-      <tal:block condition="python:checkPerm('Modify portal content', here)"> -
-        <a href="." tal:attributes="href string:${here_url}/content_revert_form?rev:int=${rev}" i18n:translate="link_revert_to_this_revision">Revert</a>
+      <tal:block condition="python:checkPerm('View archived revisions', here)">
+        <a href="."
+           tal:attributes="href string:${here_url}/cpsdocument_view?${query}"
+           i18n:translate="link_consult_this_revision">Consult</a>
+        <tal:block condition="python:checkPerm('Modify portal content', here)">
+          -
+          <a href="."
+             tal:attributes="href string:${here_url}/content_revert_form?rev:int=${rev}"
+             i18n:translate="link_revert_to_this_revision">Revert</a>
+        </tal:block>
       </tal:block>
     </tal:block>
   </div>

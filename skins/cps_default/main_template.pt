@@ -244,6 +244,24 @@ tal:attributes="href here/zpt_stylesheet/absolute_url" />
     </td>
    </tr>
 
+   <!-- display portal_trees -->
+   <span tal:repeat="tree python:here.portal_trees.objectValues();">
+    <tr class="ContextActionsRow">
+      <td class="ActionTitle">
+	<span tal:replace="tree/id">tree</span>
+      </td>
+    </tr>
+    <tr class="ContextActionsRow">
+      <td class="ActionLink">
+        <span tal:repeat="item tree/getList">
+          <span tal:replace="structure python:'.'*4*item['depth']">&nbsp;</span>
+          <a href="." tal:attributes="href item/rpath"><span tal:replace="item/id">id</span></a>
+          <br/>
+        </span>
+      </td>
+    </tr>
+  </span>
+
   </table>
   <!-- end actions_box -->
 

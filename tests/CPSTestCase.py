@@ -93,7 +93,7 @@ def optimize():
 
 optimize()
 
-def setupPortal(PortalInstaller):
+def setupPortal(PortalInstaller=CPSInstaller):
     # Create a CPS site in the test (demo-) storage
     app = ZopeTestCase.app()
     # PortalTestCase expects object to be called "portal", not "cps"

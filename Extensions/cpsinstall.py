@@ -1265,6 +1265,7 @@ except:
                  'title': 'Header actions',
                  'btype': 'header',
                  'slot': 'top',
+                 'categories':'global_header',
                  'order': 5,
                  },
         'search': {'type':'Base Box',

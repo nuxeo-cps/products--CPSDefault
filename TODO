@@ -16,23 +16,10 @@
    o box management
       o [ben] make cps ui to manage boxes
          o manage cps_boxes container finish box_manage_form, add action
-      o manage personal settings
-         o remove all personal override
-   x [] override with personal boxes objects and settings in ~.cps_boxes
-      o global settings for which settings that can be overridden to
-        enable the site manager to prevent for example moving of boxes
-        between slots
 
 - [] i18n usage
-   x [] audit i18n tools opental:i18n_xgettext/kbabel/msgmerge ...
-   x [] eval domain usage
-     one domain 'cps' one message catalogue
-   x [julien] write doc/HOWTO.i18n + tools
-     Check the pot/po files utilities providing an easy way
-     to create, manage and update them within a product.
-   x have a full cpsdefault in fr/en
-   o All the compulsory products for CPSDefault **must** now follow
-     the documentation related to i18n (Cf. doc/HOWTO.i18n)
+   o handle date time i18n with mcat rewrite getDateStr ?
+   o translate workflow status in history
 
 - workflow
    o implement copy/paste workflow
@@ -79,6 +66,10 @@
       x [] update user box title with the full name + link to directory
 
    o portal_boxes
+      x [] override with personal boxes objects and settings in ~.cps_boxes
+        o global settings for which settings that can be overridden to
+         enable the site manager to prevent for example moving of boxes
+         between slots
       x [lennart+ben] designing
       x [] make .cps_boxes a portal_type with a 'settings' attributes
          settings is a dictionary: path, box_id, xpos, ypos, visible, style?
@@ -172,6 +163,14 @@
       x [] restrict access to test_*_lib ?
            use a separate skin devel
 
+   x [] i18n
+      x [] audit i18n tools opental:i18n_xgettext/kbabel/msgmerge ...
+      x [] eval domain usage
+      x [julien] write doc/HOWTO.i18n + tools
+         Check the pot/po files utilities providing an easy way
+         to create, manage and update them within a product.
+      x [] have a full cpsdefault in fr/en
+
    o tests
       o unit tests for Dummy and Folder
       o add puffin test to create big amount of docs ?
@@ -180,7 +179,7 @@
    o misc
       o finalize zmi CPSSite form creation
       o rewrite cpsinstaller
-       o benching framework
+      o benching framework
             need script to create big amount of docs
       x [] split skin repository into: cps_devel, cps_css, ...
       x [] use macro library

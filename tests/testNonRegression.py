@@ -81,7 +81,8 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testPortalTypesZMI(self):
         # Broke between Zope 2.6.1 and 2.6.3
-        assert self.portal.portal_types.News.manage_propertiesForm(URL1="")
+        self.assert_(
+            self.portal.portal_types.News.manage_propertiesForm(URL1=""))
 
     def testZopeExport(self):
         # These tests should catch an error that occur during XML export of
@@ -89,7 +90,7 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         # isn't really instanciated during unit tests. They could catch other
         # problems in the future, though.
         zexp = self.portal.manage_exportObject(id='', download=1, toxml=0)
-        assert zexp
+        self.assert_(zexp)
         
         # XXX This is currently broken in Zope ! 
         # (http://collector.zope.org/Zope/1219)

@@ -41,15 +41,15 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testAccessForMember(self):
         self.login('member')
-        assert self.member_ws.folder_contents()
-        assert self.member_ws.folder_view()
+        self.assert_(self.member_ws.folder_contents())
+        self.assert_(self.member_ws.folder_view())
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
     def testAccessForReviewer(self):
         self.login('reviewer')
-        assert self.portal.sections.folder_contents()
-        assert self.portal.sections.folder_view()
+        self.assert_(self.portal.sections.folder_contents())
+        self.assert_(self.portal.sections.folder_view())
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
@@ -160,7 +160,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         
         self.login('root')
 
-        assert not 'doc' in self.portal.sections.objectIds()
+        self.assert_(not 'doc' in self.portal.sections.objectIds())
 
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])

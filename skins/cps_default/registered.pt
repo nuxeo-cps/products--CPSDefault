@@ -27,14 +27,14 @@
       You can log on immediately by clicking
     </span>
     <a href=""
-	   tal:define="pss modules/Products.PythonScripts.standard;
+       tal:define="pss modules/Products.PythonScripts.standard;
                    uname request/username;
                    u python:pss.url_quote(uname);
                    pword request/password;
                    p python:pss.url_quote(pword);
                   "
-	   tal:attributes="
-        href string:${purl}/logged_in?__ac_name=${u}&__ac_password=${p}"
+        tal:attributes="
+          href string:${purl}/logged_in?__ac_name=${u}&__ac_password=${p}"
      ><span i18n:translate="link_here">here</span></a>.  
 </p>
 

@@ -2,17 +2,16 @@
                   utool nocall:here/portal_url;
                   portal_object utool/getPortalObject;
                   portal_title portal_object/title;
-		  Localizer python:here.Localizer;
-		  mcat python:Localizer.default;
+                  Localizer python:here.Localizer;
+                  mcat python:Localizer.default;
                   dummy python:request.set('breadcrumb_set',
                    [
                    {
-		    'id': 'portal_root',
-		    'url': here.portal_url(),
+                    'id': 'portal_root',
+                    'url': here.portal_url(),
                     'longtitle': portal_title,
                     'title': portal_title,
-                    },
-                   {
+                    }, {
                    'id' : 'search_form',
                    'url': here.portal_url()+'/search_form',
                    'title': mcat('link_search'),
@@ -34,46 +33,47 @@
                      items_length python:len(items);">
     <div>
       <form action="search_form" method="get"
-         tal:attributes="action string:${base_url}search_form">
-            &nbsp;
-            <a href="advanced_search_form"
-               tal:attributes="href string:${base_url}advanced_search_form">
-               <span i18n:translate="link_advanced_search">
-                 Advanced search
-               </span>
-            </a>
-            <br/>
-            <input id="searchGadget" type="text" name="SearchableText" value=""
-                   size="64" tal:attributes="value SearchableText">
-            <input class="context searchButton" type="submit" value="button_ok"
-                   i18n:attributes="value">
-          </form><br>
-        </div>
-        <div i18n:translate="">
-          Your query '<span class="emphasis"
-                            tal:content="SearchableText"
-                            i18n:name="query">Query</span>'
-        </div>
-        <tal:block condition="python:items_length == 0">
-            <span i18n:translate="">
-                  gave <span class="emphasis" i18n:name="legend_no_search_result">no result.</span>.
-            </span>
-        </tal:block>
-        <tal:block condition="python:items_length == 1">
-            <span i18n:translate="">
-             gave <span class="emphasis" i18n:name="legend_one_search_result">1 result.</span>
-            </span>
-        </tal:block>
-        <tal:block condition="python:items_length > 1">
-            <span i18n:translate="">
-              gave <span class="emphasis"
-	      tal:content="items_length"
-              i18n:name="nb_results">n results.</span>
-            </span>
-          </tal:block>
-        <hr>
-        <metal:block use-macro="here/content_lib/macros/display_contents" />
-      </tal:block>
+        tal:attributes="action string:${base_url}search_form">
+        &nbsp;
+        <a href="advanced_search_form"
+           tal:attributes="href string:${base_url}advanced_search_form">
+           <span i18n:translate="link_advanced_search">
+             Advanced search
+           </span>
+        </a>
+        <br/>
+        <input id="searchGadget" type="text" name="SearchableText" value=""
+               size="64" tal:attributes="value SearchableText">
+        <input class="context searchButton" type="submit" value="button_ok"
+               i18n:attributes="value">
+       </form><br>
+    </div>
+    <div i18n:translate="">
+      Your query '<span class="emphasis"
+                        tal:content="SearchableText"
+                        i18n:name="query">Query</span>'
+    </div>
+    <tal:block condition="python:items_length == 0">
+      <span i18n:translate="">
+        gave <span class="emphasis" i18n:name="legend_no_search_result">no result.</span>.
+      </span>
+    </tal:block>
+    <tal:block condition="python:items_length == 1">
+      <span i18n:translate="">
+        gave <span class="emphasis" 
+                   i18n:name="legend_one_search_result">1 result.</span>
+      </span>
+    </tal:block>
+    <tal:block condition="python:items_length > 1">
+      <span i18n:translate="">
+        gave <span class="emphasis"
+                   tal:content="items_length"
+                   i18n:name="nb_results">n results.</span>
+      </span>
+    </tal:block>
+    <hr>
+    <metal:block use-macro="here/content_lib/macros/display_contents" />
+  </tal:block>
 </div>
 </html>
 </tal:block>

@@ -1,29 +1,29 @@
 <html tal:define="showthirdcol nothing;
-                 utool nocall:here/portal_url;
-                 portal_object utool/getPortalObject;
-                 portal_title portal_object/title;
-		 Localizer python:here.Localizer;
-		 mcat python:Localizer.default;
-                 dummy python:request.set('breadcrumb_set',
-                   [{
-                   'id' : 'portal_root',
-                   'url': here.portal_url(),
-                   'title': portal_title,
-                   'longtitle':portal_title,
-                   },
-                   {
-                   'id' : 'search_form',
-                   'url': here.portal_url()+'/advanced_search_form',
-                   'title': mcat('link_advanced_search'),
-                   'longtitle':mcat('link_advanced_search'),
-                   }, ]);
-                 ">
+                  utool nocall:here/portal_url;
+                  portal_object utool/getPortalObject;
+                  portal_title portal_object/title;
+                  Localizer python:here.Localizer;
+                  mcat python:Localizer.default;
+                  dummy python:request.set('breadcrumb_set',
+                    [{
+                    'id' : 'portal_root',
+                    'url': here.portal_url(),
+                    'title': portal_title,
+                    'longtitle':portal_title,
+                    }, {
+                    'id' : 'search_form',
+                    'url': here.portal_url()+'/advanced_search_form',
+                    'title': mcat('link_advanced_search'),
+                    'longtitle':mcat('link_advanced_search'),
+                    }, ]);
+                  ">
 <body metal:use-macro="here/main_template/macros/master">
   <div metal:fill-slot="main">
     <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
-    <form action="search" tal:attributes="action string:${base_url}search_form">
+    <form action="search" 
+          tal:attributes="action string:${base_url}search_form">
       <table class="FormLayout">
         <tr>
           <td><span i18n:translate="label_search_title">Title</span></td>
@@ -51,12 +51,12 @@
           <tr>
             <td><span i18n:translate="label_search_modified_since">Modified since</span></td>
             <td tal:define="today python: here.ZopeTime().earliestTime();
-                                          mtool here/portal_membership;
-                                          member python:mtool.getAuthenticatedMember();
-                                          lastLogin member/last_login_time|nothing;
-                                          yesterday python:(today-1).Date();
-                                          lastWeek python:(today-7).Date();
-                                          lastMth python:(today-31).Date();">
+                            mtool here/portal_membership;
+                            member python:mtool.getAuthenticatedMember();
+                            lastLogin member/last_login_time|nothing;
+                            yesterday python:(today-1).Date();
+                            lastWeek python:(today-7).Date();
+                            lastMth python:(today-31).Date();">
              <select name="modified:date">
                <option value="1970/01/01 00:00:00 GMT"
                        i18n:translate="label_choose">Choisir
@@ -66,15 +66,20 @@
                        tal:condition="python:not(here.portal_membership.isAnonymousUser())">
                  time_last_login
                </option>
-               <option i18n:translate="time_yesterday"  tal:attributes="value yesterday">time_yesterday</option>
-               <option i18n:translate="time_last_week"  tal:attributes="value lastWeek">time_last_week</option>
-               <option i18n:translate="time_last_month" tal:attributes="value lastMth">time_last_month</option>
+               <option i18n:translate="time_yesterday"  
+                       tal:attributes="value yesterday">time_yesterday</option>
+               <option i18n:translate="time_last_week"  
+                       tal:attributes="value lastWeek">time_last_week</option>
+               <option i18n:translate="time_last_month" 
+                       tal:attributes="value lastMth">time_last_month</option>
              </select>
              <input type="hidden" name="modified_usage" value="range:min" />
              </td>
           </tr>
-	  <tr>
-            <td><br><input type="submit" i18n:attributes="value" value="button_search"/></td>
+          <tr>
+            <td><br><input type="submit" 
+                           i18n:attributes="value" 
+                           value="button_search"/></td>
           </tr>
        </table>
      </form>

@@ -4,8 +4,8 @@
 """
 Filter and sort items (proxy)
 """
-mtool=context.portal_membership
-wtool=context.portal_workflow
+mtool = context.portal_membership
+wtool = context.portal_workflow
 
 # filtering
 filtered_items = []

@@ -170,11 +170,11 @@ format:</pre>
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
 
         <input type="checkbox" name="ids:list" value="" id=""
-	       tal:condition="python:item.getId() not in choosen_ids"
+               tal:condition="python:item.getId() not in choosen_ids"
                tal:attributes="value item/getId;
                                id python:'cb_'+item.getId()">
         <input type="checkbox" name="ids:list" value="" id="" checked
-	       tal:condition="python:item.getId() in choosen_ids"
+               tal:condition="python:item.getId() in choosen_ids"
                tal:attributes="value item/getId;
                                id python:'cb_'+item.getId()">
       </td>

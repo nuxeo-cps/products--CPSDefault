@@ -7,7 +7,7 @@ if REQUEST is not None:
     kw.update(REQUEST.form)
 
 context.manage_addProduct['CPSDefault'].addBoxContainer(quiet=1)
-idbc=context.portal_boxes.getBoxContainerId(context)
+idbc = context.portal_boxes.getBoxContainerId(context)
 bc = getattr(context,idbc)
 
 

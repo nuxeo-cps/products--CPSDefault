@@ -6,8 +6,8 @@ Get a sorted list of contents object
 """
 if not sort_by:
     disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
-    sort_by    = disp_params.get('sort_by', None);
-    direction  = disp_params.get('direction', 'asc');
+    sort_by = disp_params.get('sort_by', None);
+    direction = disp_params.get('direction', 'asc');
 elif not direction:
     direction = 'asc'
 

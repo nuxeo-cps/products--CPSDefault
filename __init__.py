@@ -44,18 +44,19 @@ import utils
 cpsdefault_globals = globals()
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
-                  BaseBox.BaseBox,
-                  TextBox.TextBox, TreeBox.TreeBox,
+                  BaseBox.BaseBox, TextBox.TextBox, TreeBox.TreeBox,
                   ContentBox.ContentBox, ActionBox.ActionBox,
                   ImageBox.ImageBox,FlashBox.FlashBox,
-                  EventCalendarBox.EventCalendarBox, InternalLinksBox.InternalLinksBox)
+                  EventCalendarBox.EventCalendarBox,
+                  InternalLinksBox.InternalLinksBox)
 
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
-                       BaseBox.addBaseBox,
-                       TextBox.addTextBox, TreeBox.addTreeBox,
-                       ContentBox.addContentBox, ActionBox.addActionBox,
+                       BaseBox.addBaseBox, TextBox.addTextBox,
+                       TreeBox.addTreeBox, ContentBox.addContentBox,
+                       ActionBox.addActionBox,
                        ImageBox.addImageBox,FlashBox.addFlashBox,
-                       EventCalendarBox.addEventCalendarBox,InternalLinksBox.addInternalLinksBox)
+                       EventCalendarBox.addEventCalendarBox,
+                       InternalLinksBox.addInternalLinksBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
@@ -95,4 +96,3 @@ def initialize(context):
     context.registerClass(BoxesTool.BoxContainer,
                           permission='Add Box Container',
                           constructors=(BoxesTool.addBoxContainer,))
-    return

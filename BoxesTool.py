@@ -21,58 +21,6 @@ from Products.CMFCore.PortalFolder import PortalFolder
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
      View, AccessContentsInformation, ManagePortal
 from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
-
-class BoxSlot(PropertyManager, SimpleItem):
-    meta_type = 'CPS Box Slot'
-    security = ClassSecurityInfo()
-    _properties = (
-                    {'id': 'id', 'type': 'string', 'mode': 'w'},
-                    {'id': 'title', 'type': 'string', 'mode': 'w'},
-                    {'id': 'up', 'type': 'selection', 'mode': 'w',
-                     'select_variable': 'getDirections'},
-                    {'id': 'down', 'type': 'selection', 'mode': 'w',
-                     'select_variable': 'getDirections'},
-                    {'id': 'left', 'type': 'selection', 'mode': 'w',
-                     'select_variable': 'getDirections'},
-                    {'id': 'right', 'type': 'selection', 'mode': 'w',
-                     'select_variable': 'getDirections'},
-                  )
-    manage_options = PropertyManager.manage_options + SimpleItem.manage_options
-
-    def __init__(self, id, title=''):
-        self.id = id
-        self.title = title
-        self.up = ''
-        self.down = ''
-        self.left = ''
-        self.right = ''
-
-    security.declarePrivate('getDirections')
-    def getDirections(self):
-        """Returns all slot ids, except self
-
-        This is to list all the slots a direction can have as target,
-        which is used for defining a slots relative position.
-        """
-        bt = getToolByName(self, 'portal_boxes')
-        slots = [slot.id for slot in bt.getSlots() if not slot.id == self.id]
-        slots = ['',] + slots
-        return slots
-
-addBoxSlotForm = DTMLFile('zmi/addBoxSlotForm', globals())
-
-def addBoxSlot(self, id, title='', REQUEST=None):
-    """Add a BoxSlot.
-    """
-    ob = BoxSlot(id, title)
-    self=self.this()
-    self._setObject(ob.id, ob)
-    if REQUEST is not None:
-        REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
-
-InitializeClass(BoxSlot)
-
-
 class BoxesTool(UniqueObject, PortalFolder):
     """
     Boxes Tool.
@@ -94,12 +42,6 @@ class BoxesTool(UniqueObject, PortalFolder):
     #
     security.declareProtected(ManagePortal, 'manage_overview')
     manage_overview = DTMLFile('zmi/explainBoxesTool', globals())
-
-    def all_meta_types(self):
-        for entry in Products.meta_types:
-            if entry['name'] == BoxSlot.meta_type:
-                return (entry,)
-        return ()
 
     #
     # Public API
@@ -293,14 +235,6 @@ class BoxesTool(UniqueObject, PortalFolder):
             LOG('portal_boxes', INFO, 'delPersonalBoxOverrides',
                 'Delete all personal boxes settings: %s/%s\n' % (
                 home.absolute_url(), idbc))
-
-
-    #
-    # managing Slot
-    #
-    security.declarePublic('getSlots')
-    def getSlots(self):
-        return self.objectValues(BoxSlot.meta_type)
 
     security.declarePublic('getSlotIds')
     def getSlotIds(self):

@@ -1,7 +1,12 @@
-##parameters=
+##parameters=allowed=1
 # $Id$
-""" Sorting for display PortalFolder.py: allowedContentTypes """
-items = context.allowedContentTypes()
+""" Sorting for display allowedContentTypes
+    if allowed=0 return Searchable portaltype"""
+
+if allowed:
+    items = context.allowedContentTypes()
+else:
+    items = context.getSearchablePortalTypes()
 
 def l10n(s):
     cpsmcat = context.Localizer.default
@@ -21,9 +26,10 @@ def cmp_type(a, b):
     bb = l10n(b.Title()).lower()
     return cmp(aa, bb)
 
-items.sort(cmp_type)
-allowed = context.portal_types[context.getPortalTypeName()].allowed_content_types
-items = [i for i in items if i.getId() in allowed]
+if allowed:
+    allowed = context.portal_types[context.getPortalTypeName()].allowed_content_types
+    items = [i for i in items if i.getId() in allowed]
+
 items.sort(cmp_type)
 
 return items

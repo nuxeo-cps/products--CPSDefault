@@ -11,16 +11,22 @@
 </metal:title>
 
 <metal:help fill-slot="help">
-  <span i18n:translate="help_submit_publication">To make an item published and
-  viewable by readers, it has to be reviewed by one of the section reviewers.
-  You can submit the item in many section folders.<br /> A copy of the item will
-  be created into each section with a <strong>pending</strong> status, waiting to be
+  <span i18n:translate="help_publish_publication">To make an item viewable 
+  by readers it has to be published. You can publish this item directly
+  in the sections where you are entitled to  without requiring any reviewing.<br />
+  A copy of the item will be created into each of these sections with the
+  <strong>published</strong>status. Section readers of those sections will then be 
+  able to read it.<br />
+  You can also submit the item in the section folders where you are not
+  entitled to publish directly.<br /> A copy of the item will be created into
+  each of these sections with a <strong>pending</strong> status, waiting to be
   reviewed and finally <strong>published</strong> by a section's reviewer.</span>
 </metal:help>
 
 <metal:main fill-slot="main"
             tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3);
-                        clone_wf_action string:submit;
+                        publish_wf_action string:publish;
+                        submit_wf_action string:submit;
                         start_wf_action string:copy_submit;">
 
   <br />
@@ -37,7 +43,11 @@
           </th>
         </tr>
         <tal:block repeat="section stree">
-          <tr tal:condition="python:clone_wf_action in section['publishing_transitions']"
+          <tr tal:define="publishing_transitions section/publishing_transitions; 
+                          can_publish python:publish_wf_action in publishing_transitions;
+                          can_submit  python:submit_wf_action in publishing_transitions;
+                          clone_wf_action python:test(can_publish, publish_wf_action, submit_wf_action)"
+              tal:condition="python:can_publish or can_submit"
               tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
             <td nowrap="nowrap">
               <input type="checkbox" name="" value="" class="noborder"
@@ -45,6 +55,8 @@
                                      name clone_wf_action;" />
               <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
               <span tal:replace="structure section/short_title">Section id</span>
+              <em i18n:translate="label_requires_approval"
+                  tal:condition="not:can_publish">(requires approval)</em>
             </td>
             <td>
               <span tal:repeat="item info/states">

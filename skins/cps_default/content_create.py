@@ -5,25 +5,28 @@ Create an object.
 """
 from urllib import urlencode
 
-if REQUEST is not None:
+if REQUEST:
     kw.update(REQUEST.form)
 
-# For cpsdocument, use creation without empty object.
-# XXX should find better
-ti = getattr(context.portal_types, type_name)
-if ti.meta_type == 'CPS Flexible Type Information':
-    args = {'type_name': type_name}
-    if kw.get('title'):
+    # Use creation without empty object.
+    # XXX should find better
+    ti = getattr(context.portal_types, type_name)
+    # For cpsdocument
+    if ti.meta_type == 'CPS Flexible Type Information':
+        args = {'type_name': type_name}
         # XXX pass prefilled title, a bit of a hack...
-        args['widget__title'] = kw['title']
-    REQUEST.RESPONSE.redirect('%s/cpsdocument_create_form?%s' %
-                              (context.absolute_url(), urlencode(args)))
-    return
+        args['widget__title'] = kw.get('title', '')
+        return REQUEST.RESPONSE.redirect('%s/cpsdocument_create_form?%s' %
+                                (context.absolute_url(), urlencode(args)))
 
-id = kw.get('title')
-if not id:
-    id = 'my ' + type_name
+if REQUEST and not kw.has_key('title'):
+    # Need a title before creating folders
+    if type_name in ('Section', 'Workspace'):
+        args = {'type_name': type_name}
+        return REQUEST.RESPONSE.redirect('%s/folder_edit_form?%s' %
+                                (context.absolute_url(), urlencode(args)))
 
+id = kw.get('title', 'my_' + type_name)
 id = context.computeId(compute_from=id)
 
 context.invokeFactory(type_name, id)

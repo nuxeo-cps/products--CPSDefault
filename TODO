@@ -21,20 +21,21 @@
          o display search result (separate search box?)
          o attributes: sort, format, number of doc ...
          o need format like user and document ..?
-      o [] ActionBox  
+      o [] ActionBox
          x [] with categories to be displayed
          o make a specific render for user box with login box
       o [] RSSBox, HelpBox, ImageBox, FlashBox, BookmarkBox ...
    o box management
       o [ben] make cps ui to manage boxes
          o manage cps_boxes container
-	    o add a new box page 
-	    o box settings page
-	    x [] box override should be handle using zmi ui
-         o manage personal settings
-            x [ben] minimize maximize
-	    x [] close
-            
+         o add a new box page
+         o box settings page
+      x [] box override should be handle using zmi ui
+      o manage personal settings
+         o remove all personal override
+         x [ben] minimize maximize
+         x [] close
+
    x [] override with personal boxes objects and settings in ~.cps_boxes
       o global settings for which settings that can be overridden to
         enable the site manager to prevent for example moving of boxes
@@ -60,13 +61,13 @@
       boxes should take care about guard and permission
    x [] handle group in local roles management
       x [] empty search should return list of groups
-   x [alex] local roles page should display aquisition roles 
+   x [alex] local roles page should display aquisition roles
       x [julien] display the folder where they are define will be cool
         with a link to the folder local roles setting
    x [julien] put member's folder into workspaces
    x [julien] NuxMetaDirectories integration
       x [] cpsupdate integration
-      x [] skins integration. Check the TODO file in 
+      x [] skins integration. Check the TODO file in
         NuxMetaDirectories/skins/cps_nuxmetadirectories/
    x update user box title with the full name + link to directory
 
@@ -86,13 +87,13 @@
       o test import / export diff ...
    o have a full cpsdefault in fr/en
    o toolz for .pot generation
- 
+
 - workflow
   x [flo] make a workflow history tool
      using doc_id as pkey
      x [] how to check permission, trying proxy access ?
          for the moment display * history for doc_id
-  x [flo] have a consistant history merging translation between wf 
+  x [flo] have a consistant history merging translation between wf
       with src and destination
   x [flo] make accept transition working as un update
       x [] if the document is already published in the section,
@@ -113,9 +114,9 @@
 - misc
    x [julien] find a way to override breadcrumb
       CPS2 like : setting a variable "breadcrumb_set" in the REQUEST
-      to override the breadcrumb. (Cf. Directories or the search forms)  
-      x use it in search form
-      x use it in directories
+      to override the breadcrumb. (Cf. Directories or the search forms)
+      x [] use it in search form
+      x [] use it in directories
    o broken object action on '/': metadata or folder content
      displaying portal tools
    o clean cmf actions stuff ? undo ? preference ? favorite ?
@@ -168,7 +169,7 @@
       o impl copy/cut/paste ...
 
    o folder
-      o impl folder_factories_form 
+      o impl folder_factories_form
         check perms for creating/display sub section/workspace action
       o add constraint on type of document for workspace/creation
         and sections/publication
@@ -195,7 +196,7 @@
       o finish display_content macro add a cookie to remind option
         icon/detail + sort order + filter ?
       x [] clean header of use-macro with tag <html xmlns ...
-      x [] handle batch sorting 
+      x [] handle batch sorting
         sort is done in getFolderContent
       x [] evaluate plone css1 with netscape 4.77
         workable but with a different look, acceptable for now ?
@@ -203,7 +204,7 @@
       x [] try to use plone css for main_template
       x [] manage contextual css
       x [] manage printable css
-      x [] restrict access to test_*_lib ? 
+      x [] restrict access to test_*_lib ?
            use a separate skin devel
 
    o tests
@@ -226,7 +227,8 @@
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
    o puffin is buggy cps return __ac_name after __ac and we can not
       store the login cookie :/
-   x []  advanced search, search link broken on result page url like //search_form
+   x [] advanced search, search link broken on result page 
+      url like //search_form
    x [fg] error after install in generic_lib no standard:'item/title'
       happened because new skins were not immediately available
    x [] url in breadcrumbs broken
@@ -238,14 +240,14 @@
      with pending (in_submit) document
    x [] content_publish_form should display only section with
      SectionReader rights
-   x [] folder_contents display links with broken path 
+   x [] folder_contents display links with broken path
      if there are a missing trailing '/' in the URL
    x [] fix folder_edit_form do not save change
 
 - Open questions
    o check that we can have many root sections and many workspace sections
    x [] how to handle proxy history for reject or accept transition ?
-   x [] unpublish what's happen to the history of a doc 
+   x [] unpublish what's happen to the history of a doc
       how to remember that it was published and by who and when
       need workflow_history tool
       -> use the workflow history tool + user notification TBD
@@ -255,7 +257,7 @@
    x [] how to accept multiple submit for a doc ?
       handle simple accept by section like CMF
    x [] how to allow unpublish for author
-      allow unpublish only for reviewer 
+      allow unpublish only for reviewer
 
 - Make CPSDemo product
    this product should be a skeleton for any new cps site

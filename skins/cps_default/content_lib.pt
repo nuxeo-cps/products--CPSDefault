@@ -658,21 +658,19 @@ format:</pre>
 <metal:block define-macro="history">
   <strong i18n:translate="label_reviewing_history">Reviewing history:</strong><br>
 
-  <span tal:repeat="item info/history" >
+  <span tal:repeat="item info/history">
 
-  <span>
     <span tal:content="item/time_str">May 6, 2003 5:28 pm</span>:
-  </span>
     <span tal:content="item/action" i18n:translate="">publish</span>
 
-   <tal:block condition="item/has_dest|nothing" i18n:translate="">
-    into <span i18n:name="history_dest">
-         <a href="."
-            tal:content="item/dest_title"
-            tal:attributes="href string:${base_url}${item/dest_container}/">
-            Foo Section
-         </a>
-         </span>
+    <tal:block condition="item/has_dest|nothing" i18n:translate="">
+      into <span i18n:name="history_dest">
+        <a href="."
+           tal:content="item/dest_title"
+           tal:attributes="href string:${base_url}${item/dest_container}/">
+           Foo Section
+        </a>
+      </span>
     </tal:block>
 
     <span i18n:translate="">

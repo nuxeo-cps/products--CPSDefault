@@ -121,8 +121,6 @@
   <span tal:define="redirect python: response.redirect(url)"></span>
 </div>
 
-<div class="Desktop">
-
   <tal:block condition="python: checkPerm('List folder contents', here,
 'aq_parent')">
      <a href="../xx"
@@ -179,21 +177,21 @@
                                isWsManager
       python:mtool.checkPermission('View management screens', here);"
                    condition="python:isWsManager and sort_by is None">
-          <br />
-        <input type="submit" value="button_move_up" class="context"
-          i18n:attributes="value" name="moveItemsUp:method"/>
-        <input type="submit" value="button_move_down" class="context"
-          i18n:attributes="value" name="moveItemsDown:method"/>
-        <input type="submit" value="button_move_top" class="context"
-          i18n:attributes="value" name="moveItemsTop:method" />
-        <input type="submit" value="button_move_bottom" class="context"
-          i18n:attributes="value" name="moveItemsBottom:method" />
+          <br>
+          <input type="submit" value="button_move_up" class="context moveUp"
+                 i18n:attributes="value" name="moveItemsUp:method">
+          <input type="submit" value="button_move_down" class="context moveDown"
+                 i18n:attributes="value" name="moveItemsDown:method">
+          <input type="submit" value="button_move_top" class="context moveTop"
+                 i18n:attributes="value" name="moveItemsTop:method">
+          <input type="submit" value="button_move_bottom"
+                 class="context moveBottom"
+                 i18n:attributes="value" name="moveItemsBottom:method">
         </tal:block>
       </span>
       </td>
      </tr>
    </table>
   </form>
-</div>
 </div>
 </metal:block>

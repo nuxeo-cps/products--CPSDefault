@@ -63,7 +63,7 @@ items = [
                {'provider': 'nuxeo',
                 'id': 'center',
                 'desc': 'description_nuxeo_treebox_center',
-                'config': {'contextuel': 1,
+                'config': {'contextual': 1,
                            'children_only': 1,
                            'depth': 2,
                            'root': ''}

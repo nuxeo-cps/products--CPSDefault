@@ -372,6 +372,7 @@ class BoxContainer(PortalFolder):
     id_root = '.cps_boxes_root'    # different name to make _checkId
                                    # working for non manager
     meta_type = 'CPS Boxes Container'
+    portal_type = 'CPS Boxes Container'
     security = ClassSecurityInfo()
 
     manage_options = (

@@ -302,25 +302,27 @@ format:</pre>
     <span tal:content="info/review_state" tal:attributes="class
       info/review_state" i18n:translate="">Work</span>
     <tal:block i18n:translate="">label_revision
-      <span tal:content="info/rev" i18n:name="status_revision">1</span>
+      <em tal:content="info/rev" i18n:name="status_revision">1</em>
     </tal:block>
     <tal:block i18n:translate="">label_language
-      <span tal:content="info/lang" i18n:name="status_language">en</span>
+      <em tal:content="info/lang" i18n:name="status_language"
+          i18n:translate="">label_lang_fr</em>
     </tal:block>
     <tal:block condition="status_time|nothing" i18n:translate="">label_since
-      <span tal:content="info/stime" i18n:name="status_time">May28 pm</span>
+      <em tal:content="info/stime" i18n:name="status_time">May28 pm</em>
     </tal:block>
   </tal:block>
   <tal:block condition="status_short_fmt|nothing" >
     <tal:block condition="status_time|nothing" i18n:translate="">
-      <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>:
+      <em tal:content="info/stime" i18n:name="status_time">May 6,...</em>:
     </tal:block>
     <span i18n:translate="">
-      v<span tal:replace="info/rev" i18n:name="status_revision">1</span>- <span
-      tal:replace="info/lang" i18n:name="status_language">en</span>
+      v<em tal:content="info/rev" i18n:name="status_revision">1</em>- <em
+      tal:content="info/lang" i18n:name="status_language"
+      i18n:translate="">label_lang_fr</em>
     </span>
-    <span tal:content="info/review_state" tal:attributes="class
-      info/review_state" i18n:translate="">published</span>
+    <em tal:content="info/review_state" tal:attributes="class
+      info/review_state" i18n:translate="">published</em>
   </tal:block>
 </metal:block>
 

@@ -2,7 +2,7 @@
 <!-- $Id$ -->
 
 <!-- ============================================================ -->
-<pre>macro master:<hr/></pre>
+<pre>macro master:</pre>
 <metal:block define-macro="master">
 <metal:block use-macro="here/main_template/macros/master">
 
@@ -13,8 +13,18 @@
                  langrev here/getLanguageRevisions;
                  lang python:langrev.keys()[0];
                  rev python:langrev.values()[0];
-                 history here/getContentHistory;">
-
+                 history here/getContentHistory;
+                 doc here/getContent;
+                 proxy here/this;">
+<tal:block replace="structure string:<!--
+cps debug and test information
+cps:path:${here/absolute_url}
+cps:proxy_id:${here/id}
+cps:doc_id:${doc/id}
+cps:rev:${rev}
+cps:lang:${lang}
+cps:review_state:${review_state}
+-->" />
     <h1><metal:block define-slot="title">title</metal:block></h1>
     <em><metal:block define-slot="help">help</metal:block></em>
     <div metal:define-slot="main" i18n:domain="cmf_default">
@@ -28,7 +38,7 @@
 
 
 <!-- ============================================================ -->
-<pre>macro status:<hr/></pre>
+<pre>macro status:</pre>
 <metal:block define-macro="status">
 <tal:block condition="not:status_short_fmt|nothing">
   <strong i18n:translate="">Status: </strong>
@@ -53,7 +63,7 @@
 
 
 <!-- ============================================================ -->
-<pre>macro states:<hr/></pre>
+<pre>macro states:</pre>
 <metal:block define-macro="states">
 <strong i18n:translate="">Publication states: </strong><br/>
 <span tal:repeat="item history/states">
@@ -75,7 +85,7 @@
 
 
 <!-- ============================================================ -->
-<pre>macro history:<hr/></pre>
+<pre>macro history:</pre>
 <metal:block define-macro="history">
 <strong i18n:translate="">Reviewing history:</strong><br/>
 <span tal:repeat="item history/history">
@@ -93,9 +103,10 @@
 
 
 <!-- ============================================================ -->
+<pre>macro transition_form:</pre>
 <metal:block define-macro="transition_form">
 <form method="post" action="content_status_modify"
-  tal:attributes="action string:${here/absolute_url}/content_status_modify">
+  tal:attributes="action string:${proxy/absolute_url}/content_status_modify">
   <div metal:define-slot="fields">
    <!-- more fields -->
   </div>
@@ -106,4 +117,35 @@
     <input type="submit" value="Transition" i18n:attributes="value" />
   </div>
 </form>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<pre>macro doc_info:</pre>
+<metal:block define-macro="doc_info">
+<table cellspacing="0" cellpadding="0"
+  tal:attributes="bgcolor python:review_state == 'pending' and 'red' or nothing">
+  <tr><td width="20">
+   <img src="" border="0"
+     tal:attributes="src string:${here/portal_url}/${proxy/getIcon};
+                     title proxy/getPortalTypeName|nothing;"/>
+  </td><td>
+   <a href="" tal:attributes="href string:${proxy/getId}/view;">
+   <strong><span tal:replace="proxy/title_or_id">ID</span></strong></a>
+  </td></tr>
+  <tr><td colspan="2">
+  <a href="" tal:attributes="href string:${proxy/getId}/view;">
+  <small>
+    <span tal:replace="string:id:${proxy/getId}">[id]</span>,
+    <tal:block define="status_short_fmt not:nothing;
+                       status_time python:wtool.getInfoFor(proxy, 'time')">
+      <metal:block use-macro="here/content_lib/macros/status" />
+    </tal:block>
+  </small>
+  </a>
+  </td></tr>
+  <tr><td colspan="2">
+    <small><em><span tal:replace="doc/Description">Description</span></em></small>
+  </td></tr>
+</table>
 </metal:block>

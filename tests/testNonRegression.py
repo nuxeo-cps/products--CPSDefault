@@ -25,21 +25,29 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     #
     #
     def testIdCollision(self):
+        # Test that we can create a subobject with same id as its
+        # container
         sections = self.portal.sections
         self.assertEquals(
             sections.content_create('Section', title='sections'),
             'sections')
-        self.assertNotEquals(
-            sections.content_create('Section', title='sections'),
-            'sections')
+        # But if we do it twice, we get another id
+        new_id = sections.content_create('Section', title='sections')
+        self.assertNotEquals(new_id, 'sections')
+        self.assert_(new_id.startswith('sections'))
 
+        # Same for workspaces (just for fun)
         workspaces = self.portal.workspaces
         self.assertEquals(
             workspaces.content_create('Workspace', title='workspaces'),
             'workspaces')
-        self.assertNotEquals(
-            workspaces.content_create('Workspace', title='workspaces'),
-            'workspaces')
+        new_id = workspaces.content_create('Workspace', title='workspaces')
+        self.assertNotEquals(new_id, 'workspaces')
+        self.assert_(new_id.startswith('workspaces'))
+
+    def testUpdater(self):
+        # Test that installer can be also called as updater
+        self.assert_(self.portal.cpsupdate())
 
 
 def test_suite():

@@ -14,6 +14,7 @@ from Acquisition import aq_base, aq_parent, aq_inner
 from Persistence import Persistent
 from OFS.SimpleItem import SimpleItem
 from OFS.ObjectManager import ObjectManager
+from OFS.PropertyManager import PropertyManager
 from ZODB.PersistentMapping import PersistentMapping
 
 from Products.CMFCore.PortalFolder import PortalFolder
@@ -23,9 +24,22 @@ from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 
 ManageOverridesPermission = 'Manage Overrides'
 
-class BoxSlot(SimpleItem):
+class BoxSlot(PropertyManager, SimpleItem):
     meta_type = 'CPS Box Slot'
     security = ClassSecurityInfo()
+    _properties = (
+                    {'id': 'id', 'type': 'string', 'mode': 'w'},
+                    {'id': 'title', 'type': 'string', 'mode': 'w'},
+                    {'id': 'up', 'type': 'selection', 'mode': 'w',
+                     'select_variable': 'getDirections'},
+                    {'id': 'down', 'type': 'selection', 'mode': 'w',
+                     'select_variable': 'getDirections'},
+                    {'id': 'left', 'type': 'selection', 'mode': 'w',
+                     'select_variable': 'getDirections'},
+                    {'id': 'right', 'type': 'selection', 'mode': 'w',
+                     'select_variable': 'getDirections'},
+                  )
+    manage_options = PropertyManager.manage_options + SimpleItem.manage_options
 
     def __init__(self, id, title=''):
         self.id = id
@@ -34,6 +48,12 @@ class BoxSlot(SimpleItem):
         self.down = ''
         self.left = ''
         self.right = ''
+
+    def getDirections(self):
+        bt = getToolByName(self, 'portal_boxes')
+        slots = [slot.id for slot in bt.getSlots() if not slot.id == self.id]
+        slots = ['',] + slots
+        return slots
 
 addBoxSlotForm = DTMLFile('zmi/addBoxSlotForm', globals())
 
@@ -56,8 +76,6 @@ class BoxesTool(UniqueObject, PortalFolder):
     id = 'portal_boxes'
     meta_type = 'CPS Boxes Tool'
     security = ClassSecurityInfo()
-    #meta_types = (,)
-
 
     manage_options = (
         ({'label': "Overview", 'action': 'manage_overview',},) +
@@ -257,6 +275,8 @@ class BoxesTool(UniqueObject, PortalFolder):
         """Gets all the local overrides"""
         return getattr(aq_base(context), '_box_overrides', {})
 
+    def getSlots(self):
+        return self.objectValues(BoxSlot.meta_type)
 
 InitializeClass(BoxesTool)
 

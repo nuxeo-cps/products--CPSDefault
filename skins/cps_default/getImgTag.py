@@ -11,7 +11,7 @@ img_url = base_url + img_name
 try:
     img = context.restrictedTraverse(img_name)
 except KeyError:
-    return '<img src="%s" border="0" alt="%s">' % (img_url, alt)
+    return '<img src="%s" border="0" alt="%s" />' % (img_url, alt)
 
 if not height:
     height = int(zoom * getattr(img, 'height', 0))
@@ -40,4 +40,4 @@ if not title:
     title = getattr(img, 'title', None)
 if title:
     tag += ' title="' + title + '"'
-return tag + '>'
+return tag + ' />'

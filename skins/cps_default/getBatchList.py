@@ -91,6 +91,9 @@ if  limit > len(items):
 info_string = mcat("%s - %s of %s" \
                    %(b_start+1, limit, len(items)))
 
-batch_string = mcat('label_page')+"&nbsp;" + batch_string
+if nb_pages == 1:
+    batch_string = ''
+else:
+    batch_string = mcat('label_page') + "&nbsp;" + batch_string
 
 return batches, batch_string, info_string

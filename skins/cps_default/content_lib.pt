@@ -137,17 +137,13 @@ format:</pre>
           <span tal:replace="structure batch_info" />
         </td>
       </tr>
-      <tr>
-        <td>&nbsp;</td>
-      </tr>
+      <tal:block condition="batch_string">
       <tr>
         <td align="left" width="100%">
           <span tal:replace="structure batch_string" />
         </td>
       </tr>
-      <tr>
-        <td>&nbsp;</td>
-      </tr>
+      </tal:block>
     </table>
   </tal:block>
   <br />
@@ -160,14 +156,10 @@ format:</pre>
                 use-macro="here/content_lib/macros/display_contents_column" />
       </td>
     </tr>
-    <tr>
-      <td>&nbsp;</td>
-    </tr>
   </table>
 
+  <tal:block condition="batch_string">
   <br />
-
-  <tal:block condition="python:batch_string is not None">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td align="left" width="100%">

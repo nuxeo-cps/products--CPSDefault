@@ -574,14 +574,11 @@ class DefaultInstaller(CPSInstaller):
                 'permissions': {View: ('Manager', 'WorkspaceManager',
                                        'WorkspaceMember', 'Owner'),
                                 ModifyPortalContent:
-                                    ('Manager', 'WorkspaceManager',
-                                     'WorkspaceMember', 'Owner'),
+                                    ('Manager', 'WorkspaceManager', 'Owner'),
                                 WebDavLockItem:
-                                    ('Manager', 'WorkspaceManager',
-                                     'WorkspaceMember', 'Owner'),
+                                    ('Manager', 'WorkspaceManager', 'Owner'),
                                 WebDavUnlockItem:
-                                    ('Manager', 'WorkspaceManager',
-                                     'WorkspaceMember', 'Owner')},
+                                    ('Manager', 'WorkspaceManager', 'Owner')},
             },
             'locked': {
                 'title': 'Locked',
@@ -651,7 +648,7 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_url': '%(content_url)s/content_checkin_draft_form',
                 'props': {'guard_permissions': '',
                           'guard_roles': 'Manager; WorkspaceManager; '
-                                         'WorkspaceMember',
+                                         'Owner',
                           'guard_expr': ''},
             },
             'abandon_draft': {
@@ -664,7 +661,7 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_url': '%(content_url)s/content_abandon_draft_form',
                 'props': {'guard_permissions': '',
                           'guard_roles': 'Manager; WorkspaceManager; '
-                                         'WorkspaceMember',
+                                         'Owner',
                           'guard_expr': ''},
             },
             'unlock': {

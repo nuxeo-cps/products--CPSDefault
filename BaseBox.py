@@ -88,35 +88,45 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security = ClassSecurityInfo()
 
     _can_minimized = None
+    locked = 0
     
     _properties = (
         {'id': 'minimized', 'type': 'boolean', 'mode': 'w', 'label': 'Minimized'},
         {'id': 'closed', 'type': 'boolean', 'mode': 'w', 'label': 'Closed'},
-        {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
         {'id': 'style', 'type': 'string', 'mode': 'w', 'label': 'Style'},
         {'id': 'xpos', 'type': 'int', 'mode': 'w', 'label': 'XPos'},
-        {'id': 'ypos', 'type': 'int', 'mode': 'w', 'label': 'YPos'}
+        {'id': 'ypos', 'type': 'int', 'mode': 'w', 'label': 'YPos'},
+        {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
+        {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
+        {'id': 'guard_roles', 'type': 'string', 'mode': 'w', 'label': 'List of roles required separted with semi-column ;'},
+        {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
+
         )
 
-    visible_if_empty = 0
-
-    def __init__(self, id, minimized=0, closed=0, style='',
-                 xpos=0, ypos=0, **kw):
+    def __init__(self, id, minimized=0, closed=0,
+                 style='', xpos=0, ypos=0, 
+                 visible_if_empty= 0, display_in_subfolder=1, guard_roles='',
+                 locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)        
         self.id = id
-        self.minimized = minimized
-        self.closed = closed
         self.style = style
         self.xpos = int(xpos)
         self.ypos = int(ypos)
+        self.minimized = minimized
+        self.closed = closed
 
+        self.visible_if_empty = visible_if_empty
+        self.display_in_subfolder = display_in_subfolder
+        self.guard_roles = self.guard_roles
+        self.locked = locked
 
     security.declarePublic('getSettings')
     def getSettings(self):
-        """ return a dictionary """
+        """Return a dictionary of properties that can be overriden"""
         return {'xpos': self.xpos,
                 'ypos': self.ypos,
                 'minimized': self.minimized,
+                'closed': self.minimized,
                 'style': self.style,
                 }
 

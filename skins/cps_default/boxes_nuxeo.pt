@@ -1,19 +1,12 @@
 <!-- nuxeo boxes macros -->
 <!-- $Id$ -->
 
-
+<!-- basebox are just standard macro do not use box objects       -->
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_default">
-  <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title"
-      i18n:translate=""
-      tal:content="box/box/title">
-      box text title
-    </metal:block>
-    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
-      <div class="content odd">
-        ...
-      </div>
+  <metal:block use-macro="here/box_lib/macros/sbox">
+    <metal:block fill-slot="box_body">
+     A stupid box
     </metal:block>
   </metal:block>
 </metal:block>
@@ -114,120 +107,46 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_display_settings"
              tal:condition="python:request.get('change_display', '0') == '1'">
-
-<form tal:attributes="
-        action string:${here/absolute_url};
-        method string:post;
-        name   string:form">
-  <table border="0" cellspacing="2" cellpadding="2" width="100%">
-    <tr>
-      <td align="center" bgcolor="#EEEEE">
-        <strong>
-          <span i18n:translate="legend_choose_display_order">
-              Choose the display order
-          </span>
-        </strong>
-      </td>
-      <td align="left">
-        <tal:block define="cps_cookie python:request.SESSION.get('cps_display_params', {});
-                           sort_by python:cps_cookie.get('sort_by', None)">
-          <select name="display_order">
-	    <option i18n:translate="label_default" value="title" selected
-                    tal:condition="python:sort_by is None">
-                    Default
-            </option>
-	    <option i18n:translate="label_default" value="title"
-                    tal:condition="python:sort_by is not None">
-                    Default
-            </option>
-            <option i18n:translate="label_title" value="title" selected
-                    tal:condition="python:sort_by == 'title'">
-                    Title
-            </option>
-	    <option i18n:translate="label_title" value="title"
-                    tal:condition="python:sort_by != 'title'">
-                    Title
-            </option>
-	    <option i18n:translate="label_date" value="date" selected
-                    tal:condition="python:sort_by == 'date'">
-                    Date
-            </option>
-	    <option i18n:translate="label_date" value="date"
-                    tal:condition="python:sort_by != 'date'">
-                    Date
-            </option>
-
-	    <option i18n:translate="label_status" value="status" selected
-                    tal:condition="python:sort_by == 'status'">
-                    Status
-            </option>
-	    <option i18n:translate="label_status" value="status"
-                    tal:condition="python:sort_by != 'status'">
-                    Status
-            </option>
-          </select>
-        </tal:block>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <strong>
-          <span i18n:translate="legend_choose_display_style">
-              Choose the display style
-          </span>
-        </strong>
-      </td>
-      <td align="left">
-        <tal:block define="cps_cookie python:request.SESSION.get('cps_display_params', {});
-                           format python:cps_cookie.get('format', None)">
-           <select name="display_style">
-	     <option i18n:translate="label_default" value="compact" selected
-	             tal:condition="python:format == None">
-                     Default
-	     </option>
-	     <option i18n:translate="label_default" value="compact"
-	             tal:condition="python:format != None">
-                     Default
-	     </option>
-             <option i18n:translate="label_icons" value="icon" selected
-	             tal:condition="python:format == 'icon'">
-                     Icon
-             </option>
-	     <option i18n:translate="label_icons" value="icon"
-	             tal:condition="python:format != 'icon'">
-                     Icon
-             </option>
-	     <option i18n:translate="label_detailed" value="detail" selected
-                     tal:condition="python:format == 'detail'">
-                     Detail
-             </option>
-	     <option i18n:translate="label_detailed" value="detail"
-                     tal:condition="python:format != 'detail'">
-                     Detail
-             </option>
-	     <option i18n:translate="label_compact" value="compact" selected
-                     tal:condition="python:format == 'compact'">
-                     Compact
-             </option>
-	     <option i18n:translate="label_compact" value="compact"
-                     tal:condition="python:format != 'compact'">
-                     Compact
-             </option>
-           </select>
-        </tal:block>
-      </td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td align="right" colspan="1">
-        <input type="hidden" name="change_display"
-               tal:attributes="value python:request.get('change_display', 0)" />
-        <input type="submit" value="button_change" i18n:attributes="value" tal:attributes="name string:changeListingDisplay:method" />
-        <input type="submit" value="button_invert" i18n:attributes="value" tal:attributes="name string:changeListingDirection:method" />
-      </td>
-    </tr>
-  </table>
+<metal:block use-macro="here/box_lib/macros/sbox">
+  <metal:block fill-slot="box_body">
+    <form action="" method="post"
+      tal:attributes="action string:${here/absolute_url};"
+      tal:define="params here/getDisplayParams;
+                  sort_by params/sort_by;
+                  direction params/direction;
+                  format params/format;">
+    <strong i18n:translate="label_sort_by">sort by</strong>
+      <select name="sort_by">
+        <option value="title" i18n:translate="label_sort_by_title"
+          tal:attributes="selected python:sort_by == 'title'">title</option>
+        <option value="date" i18n:translate="label_sort_by_date"
+          tal:attributes="selected python:sort_by == 'date'">date</option>
+        <option value="status" i18n:translate="label_sort_by_status"
+          tal:attributes="selected python:sort_by == 'status'">status</option>
+      </select>
+      <select name="direction">
+        <option value="asc" i18n:translate="label_sort_asc"
+          tal:attributes="selected python:direction != 'desc'">asc</option>
+        <option value="desc" i18n:translate="label_sort_desc"
+          tal:attributes="selected python:direction == 'desc'">desc</option>
+      </select>
+    <strong i18n:translate="label_display_format">format</strong>
+      <select name="format">
+        <option value="icon" i18n:translate="label_display_icon"
+          tal:attributes="selected python:format == 'icon'">icon</option>
+        <option value="compact"
+          i18n:translate="label_display_compact"
+          tal:attributes="selected python:format == 'compact'">compact</option>
+        <option value="detail"
+          i18n:translate="label_display_detailed"
+          tal:attributes="selected python:format == 'detail'">detailed</option>
+      </select>
+      <input type="hidden" name="change_display"
+        tal:attributes="value python:request.get('change_display', 0)" />
+      <input type="submit" value="button_change" i18n:attributes="value" tal:attributes="name string:changeListingDisplay:method" />
 </form>
+    </metal:block>
+  </metal:block>
 </metal:block>
 
 <!-- ============================================================ -->
@@ -254,8 +173,10 @@
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
        <tal:block define="
-          no_form not:nothing;
           items python:box['box'].getFolderContents(here);
+          no_form not:nothing;
+          format box/box/display;
+          items_per_page box/box/nb_items;
           nav_action string:folder_view">
           <metal:block use-macro="here/content_lib/macros/display_contents" />
         </tal:block>

@@ -2,7 +2,6 @@
 # $Id$
 """ Change the order/style of the item display within a folder """
 
-portal_url  = context.portal_url()
 context_url = REQUEST.get("context_url", context.getContextUrl())
 
 # cps cookie checking

@@ -49,7 +49,7 @@ id = id.replace('½', 'oe')
 id = id.replace('ß', 'ss')
 tr = maketrans(
     r"'\;/ &:ְֱֲֳִֵַָֹÊֻּֽ־ֿׁׂ׃װױײ״ÙÚÛÜÝאבגדהוחטיךכלםמןסעףפץצרשתûü‎ÿ",
-    r'_______AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy')
+    r'-------AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy')
 id = id.translate(tr)
 ok_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_.'
 id = ''.join([c for c in id if c in ok_chars])

@@ -1,5 +1,5 @@
 ## Script (Python) "FilterContents"
-##parameters=items=[], sort_by='title', direction='asc', hide_folder=0
+##parameters=items=[], sort_by='title', direction=None, hide_folder=0
 # $Id$
 """
 Filter and sort items (proxy)
@@ -62,10 +62,10 @@ objects = [ ( make_sortkey(x), x ) for x in filtered_items ]
 
 if direction == 'desc':
     objects.sort(cmp_desc)
-elif direction == "default":
-    pass
-else:
+elif direction == 'asc':
     objects.sort() # tuples compare "lexicographically"
+else:
+    pass
 
 filtered_items = [ x[1] for x in objects ]
 

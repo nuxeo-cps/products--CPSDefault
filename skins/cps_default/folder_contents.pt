@@ -1,18 +1,110 @@
-<metal:html use-macro="here/content_lib/macros/master">
-
-<div tal:define="display_change python:request.get('change_display', '0')"
-     metal:fill-slot="header">
+<metal:block use-macro="here/content_lib/macros/master">
+<div metal:fill-slot="header"
+     tal:define="display_change python:request.get('change_display', '0');
+                 params here/getDisplayParams;
+	         sort_by params/sort_by;
+                 direction params/direction;
+                 format params/format;
+                 ">
 <div class="documentActions">
-  <a
-     href="./folder_contents?change_display=1" i18n:translate="link_change_display"
-     tal:condition="python:display_change == '0'">
-     Change display settings
-  </a>
-  <a
-     href="./folder_contents" i18n:translate="link_hide_display_settings"
-     tal:condition="python:display_change == '1'">
-     Hide display settings
-  </a>
+<form action="" method="post" name="form"
+      tal:attributes="action string:${here/absolute_url};">
+      <span i18n:translate="label_sort_by">sort by</span>
+       <select name="display_order">
+            <option i18n:translate="label_title_asc" value="title_asc" selected
+                    tal:condition="python:sort_by == 'title' and direction == 'asc'">
+                    Title
+            </option>
+	    <option i18n:translate="label_title_asc" value="title_asc"
+                    tal:condition="python:sort_by != 'title' or direction !='asc'">
+                    Title
+            </option>
+
+	    <option i18n:translate="label_title_desc" value="title_desc" selected
+                    tal:condition="python:sort_by == 'title' and direction == 'desc'">
+                    Title
+            </option>
+	    <option i18n:translate="label_title_desc" value="title_desc"
+                    tal:condition="python:sort_by != 'title' or direction !='desc'">
+                    Title
+            </option>
+
+	    <option i18n:translate="label_date_asc" value="date_asc" selected
+                    tal:condition="python:sort_by == 'date' and direction == 'asc' ">
+                    Date
+            </option>
+	    <option i18n:translate="label_date_asc" value="date_asc"
+                    tal:condition="python:sort_by != 'date' or direction != 'asc'">
+                    Date
+            </option>
+
+	    <option i18n:translate="label_date_desc" value="date_desc" selected
+                    tal:condition="python:sort_by == 'date' and direction == 'desc' ">
+                    Date
+            </option>
+	    <option i18n:translate="label_date_desc" value="date_desc"
+                    tal:condition="python:not sort_by != 'date' or direction != 'desc'">
+                    Date
+            </option>
+
+	    <option i18n:translate="label_status_asc" value="status_asc" selected
+                    tal:condition="python:sort_by == 'status' and direction =='asc'">
+                    Status
+            </option>
+	    <option i18n:translate="label_status_asc" value="status_asc"
+                    tal:condition="python:sort_by != 'status' or direction !='asc' ">
+                    Status
+            </option>
+
+	    <option i18n:translate="label_status_desc" value="status_desc" selected
+                    tal:condition="python:sort_by == 'status' and direction =='desc'">
+                    Status
+            </option>
+	    <option i18n:translate="label_status_desc" value="status_desc"
+                    tal:condition="python:sort_by != 'status' or direction !='desc' ">
+                    Status
+            </option>
+
+	    <option i18n:translate="label_none" value="None" selected
+                    tal:condition="python:sort_by is None">
+                    Default
+            </option>
+	    <option i18n:translate="label_none" value="None"
+                    tal:condition="python:sort_by is not None">
+                    Default
+            </option>
+          </select>
+
+	  <span i18n:translate="label_display" valign="top">Display with</span>
+	  <select name="display_style">
+             <option i18n:translate="label_icons" value="icon" selected
+	             tal:condition="python:format == 'icon'">
+                     Icon
+             </option>
+	     <option i18n:translate="label_icons" value="icon"
+	             tal:condition="python:format != 'icon'">
+                     Icon
+             </option>
+	     <option i18n:translate="label_detailed" value="detail" selected
+                     tal:condition="python:format == 'detail' or format == 'None'">
+                     Detail
+             </option>
+	     <option i18n:translate="label_detailed" value="detail"
+                     tal:condition="python:format != 'detail'">
+                     Detail
+             </option>
+	     <option i18n:translate="label_compact" value="compact" selected
+                     tal:condition="python:format == 'compact'">
+                     Compact
+             </option>
+	     <option i18n:translate="label_compact" value="compact"
+                     tal:condition="python:format != 'compact'">
+                     Compact
+             </option>
+           </select>
+      <input type="submit" value="button_go" i18n:attributes="value"
+        tal:attributes="name string:changeDisplayParams:method" />
+     </form>
 </div>
   <h1 tal:content="here/title_or_id">
       Page Title
@@ -32,129 +124,6 @@
   <span tal:define="redirect python: response.redirect(url)"></span>
 </div>
 
-<!-- ============================================================ -->
-<div tal:condition="python:request.get('change_display', '0') == '1'" class="Desktop">
-<metal:block use-macro="here/box_lib/macros/sbox">
-  <metal:block fill-slot="box_body">
-  <form action="" method="post" name="form"
-      tal:attributes="action string:${here/absolute_url};"
-      tal:define="params here/getDisplayParams;
-                  sort_by params/sort_by;
-                  direction params/direction;
-                  format params/format;">
-
-    <strong i18n:translate="label_sort_by">sort by</strong>
-       <select name="display_order">
-            <option i18n:translate="label_title" value="title" selected
-                    tal:condition="python:sort_by == 'title'">
-                    Title
-            </option>
-	    <option i18n:translate="label_title" value="title"
-                    tal:condition="python:sort_by != 'title'">
-                    Title
-            </option>
-	    <option i18n:translate="label_date" value="date" selected
-                    tal:condition="python:sort_by == 'date'">
-                    Date
-            </option>
-	    <option i18n:translate="label_date" value="date"
-                    tal:condition="python:sort_by != 'date'">
-                    Date
-            </option>
-
-	    <option i18n:translate="label_status" value="status" selected
-                    tal:condition="python:sort_by == 'status'">
-                    Status
-            </option>
-	    <option i18n:translate="label_status" value="status"
-                    tal:condition="python:sort_by != 'status'">
-                    Status
-            </option>
-	    <option i18n:translate="label_default" value="title" selected
-                    tal:condition="python:sort_by is None">
-                    Default
-            </option>
-	    <option i18n:translate="label_default" value="title"
-                    tal:condition="python:sort_by is not None">
-                    Default
-            </option>
-          </select>
-
-          <select name="display_direction">
-	    <option i18n:translate="label_default"  value="default" selected
-                    tal:condition="python:direction == 'default'">
-                    Asc
-            </option>
-	    <option i18n:translate="label_default"  value="default"
-                    tal:condition="python:direction != 'default'">
-                    Asc
-            </option>
-	    <option i18n:translate="label_sort_asc"  value="asc" selected
-                    tal:condition="python:direction == 'asc'">
-                    Asc
-            </option>
-	    <option i18n:translate="label_sort_asc"  value="asc"
-                    tal:condition="python:direction != 'asc'">
-                    Asc
-            </option>
-	    <option i18n:translate="label_sort_desc" value="desc" selected
-	            tal:condition="python:direction == 'desc'">
-                    Desc
-            </option>
-	    <option i18n:translate="label_sort_desc" value="desc"
-	            tal:condition="python:direction != 'desc'">
-                    Desc
-            </option>
-	  </select>
-
-	  <strong i18n:translate="label_display">Display with</strong>
-	  <select name="display_style">
-             <option i18n:translate="label_icons" value="icon" selected
-	             tal:condition="python:format == 'icon'">
-                     Icon
-             </option>
-	     <option i18n:translate="label_icons" value="icon"
-	             tal:condition="python:format != 'icon'">
-                     Icon
-             </option>
-	     <option i18n:translate="label_detailed" value="detail" selected
-                     tal:condition="python:format == 'detail'">
-                     Detail
-             </option>
-	     <option i18n:translate="label_detailed" value="detail"
-                     tal:condition="python:format != 'detail'">
-                     Detail
-             </option>
-	     <option i18n:translate="label_compact" value="compact" selected
-                     tal:condition="python:format == 'compact'">
-                     Compact
-             </option>
-	     <option i18n:translate="label_compact" value="compact"
-                     tal:condition="python:format != 'compact'">
-                     Compact
-             </option>
-	     <option i18n:translate="label_default" value="compact" selected
-	             tal:condition="python:format == None">
-                     Default
-	     </option>
-	     <option i18n:translate="label_default" value="compact"
-	             tal:condition="python:format != None">
-                     Default
-	     </option>
-           </select>
-      <input type="hidden" name="default" value="0" />
-      <input type="hidden" name="change_display"
-        tal:attributes="value python:request.get('change_display', 0)" />
-      <input type="submit" value="button_change" i18n:attributes="value"
-        tal:attributes="name string:changeDisplayParams:method" />
-      <input type="submit" value="button_default" i18n:attributes="value"
-          tal:attributes="name string:removeDisplayParams:method" />
-     </form>
-    </metal:block>
-  </metal:block>
-</div>
-
-<!-- ================================================================================= -->
 <div class="Desktop">
 
   <tal:block condition="list_parent"
@@ -197,9 +166,9 @@
                                sort_by params/sort_by;
                                direction params/direction;
                                format params/format;
-			       change_display python:request.get('change_display', None);
 			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);"
-                   condition="python:change_display is None and isWsManager">
+                   condition="python:isWsManager and sort_by is None">
+
 	  <input type="submit" value="button_move_up"     i18n:attributes="value"
                  name="moveItemsUp:method" />
 	  <input type="submit" value="button_move_down"   i18n:attributes="value"
@@ -215,6 +184,5 @@
    </table>
   </form>
 </div>
-
 </div>
-</metal:html>
+</metal:block>

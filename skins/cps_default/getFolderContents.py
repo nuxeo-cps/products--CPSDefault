@@ -6,11 +6,15 @@ Get a sorted list of contents object
 """
 if not sort_by:
     disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
-    sort_by    = disp_params.get('sort_by', 'title');
-    direction  = disp_params.get('direction', 'default');
+    sort_by    = disp_params.get('sort_by', None);
+    direction  = disp_params.get('direction', 'asc');
 elif not direction:
     direction = 'asc'
 
-return context.filterContents(items=context.objectValues(),
-                              sort_by=sort_by, direction=direction,
-                              hide_folder=hide_folder)
+if sort_by == None:
+    return context.filterContents(items=context.objectValues(),
+                                  hide_folder=hide_folder)
+else:
+    return context.filterContents(items=context.objectValues(),
+                                  sort_by=sort_by, direction=direction,
+                                  hide_folder=hide_folder)

@@ -132,9 +132,8 @@ class CPSInstaller:
         # Change translation_service to DummyTranslationService
         portal = getattr(self.app, id)
         portal.translation_service = DummyTranslationService()
-        portal.Localizer.default = DummyMessageCatalog()
-        if hasattr(portal.Localizer, 'cpscalendar'):
-            portal.Localizer.cpscalendar = DummyMessageCatalog()
+        for domain in portal.Localizer.objectIds():
+            setattr(portal.Localizer, domain, DummyMessageCatalog())
 
     def logout(self):
         noSecurityManager()

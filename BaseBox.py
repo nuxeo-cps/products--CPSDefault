@@ -129,7 +129,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w',
          'label': 'Display in sub folder'},
         {'id': 'display_only_in_subfolder', 'type': 'boolean', 'mode': 'w',
-         'label': 'Display in sub folder'},
+         'label': 'Display only in sub folder'},
         {'id': 'locked', 'type': 'boolean', 'mode': 'w',
          'label': 'Locked box'},
         )

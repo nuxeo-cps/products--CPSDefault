@@ -78,11 +78,11 @@ class ContentBox(BaseBox):
          'label': 'Search criteria' },
         )
 
-    def __init__(self, id, folder=None, nb_items=0, sort_by=None,
-                 direction=None, display=None,
-                 query_title=None, query_description=None, query_fulltext=None,
-                 query_status=None, query_modified=None, **kw):
-        BaseBox.__init__(self, id, macro='contentbox', kw=kw)
+    def __init__(self, id, folder='', nb_items=0, sort_by='',
+                 direction='', display='',
+                 query_title='', query_description='', query_fulltext='',
+                 query_status='', query_modified='', **kw):
+        BaseBox.__init__(self, id, category='contentbox', kw=kw)
         self.folder = folder
         self.nb_items = nb_items
         self.sort_by = sort_by

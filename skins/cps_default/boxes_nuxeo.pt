@@ -112,7 +112,7 @@
 </metal:block>
 
 <!-- ============================================================ -->
-<metal:block define-macro="basebox_display_settings" 
+<metal:block define-macro="basebox_display_settings"
              tal:condition="python:request.get('change_display', '0') == '1'">
 
 <form tal:attributes="
@@ -130,38 +130,38 @@
       </td>
       <td align="left">
         <tal:block define="cps_cookie python:request.SESSION.get('cps_preferences', {});
-                           cps_display_order python:cps_cookie.get('cps_display_order', None)">	  
+                           cps_display_order python:cps_cookie.get('cps_display_order', None)">
           <select name="display_order">
-	    <option i18n:translate="label_default" value="title" selected 
+	    <option i18n:translate="label_default" value="title" selected
                     tal:condition="python:cps_display_order is None">
                     Default
             </option>
-	    <option i18n:translate="label_default" value="title" 
+	    <option i18n:translate="label_default" value="title"
                     tal:condition="python:cps_display_order is not None">
                     Default
             </option>
-            <option i18n:translate="label_title" value="title" selected 
+            <option i18n:translate="label_title" value="title" selected
                     tal:condition="python:cps_display_order == 'title'">
                     Title
             </option>
-	    <option i18n:translate="label_title" value="title" 
+	    <option i18n:translate="label_title" value="title"
                     tal:condition="python:cps_display_order != 'title'">
                     Title
             </option>
-	    <option i18n:translate="label_date" value="date" selected 
+	    <option i18n:translate="label_date" value="date" selected
                     tal:condition="python:cps_display_order == 'date'">
                     Date
             </option>
-	    <option i18n:translate="label_date" value="date" 
+	    <option i18n:translate="label_date" value="date"
                     tal:condition="python:cps_display_order != 'date'">
                     Date
             </option>
 
-	    <option i18n:translate="label_status" value="status" selected 
+	    <option i18n:translate="label_status" value="status" selected
                     tal:condition="python:cps_display_order == 'status'">
                     Status
             </option>
-	    <option i18n:translate="label_status" value="status" 
+	    <option i18n:translate="label_status" value="status"
                     tal:condition="python:cps_display_order != 'status'">
                     Status
             </option>
@@ -179,21 +179,21 @@
       </td>
       <td align="left">
         <tal:block define="cps_cookie python:request.SESSION.get('cps_preferences', {});
-                           cps_display_style python:cps_cookie.get('cps_display_style', None)">	  
-           <select name="display_style"> 
+                           cps_display_style python:cps_cookie.get('cps_display_style', None)">
+           <select name="display_style">
 	     <option i18n:translate="label_default" value="compact" selected
-	             tal:condition="python:cps_display_style == None">    
+	             tal:condition="python:cps_display_style == None">
                      Default
 	     </option>
-	     <option i18n:translate="label_default" value="compact" 
-	             tal:condition="python:cps_display_style != None"> 
+	     <option i18n:translate="label_default" value="compact"
+	             tal:condition="python:cps_display_style != None">
                      Default
 	     </option>
              <option i18n:translate="label_icons" value="icon" selected
 	             tal:condition="python:cps_display_style == 'icon'">
                      Icon
              </option>
-	     <option i18n:translate="label_icons" value="icon" 
+	     <option i18n:translate="label_icons" value="icon"
 	             tal:condition="python:cps_display_style != 'icon'">
                      Icon
              </option>
@@ -201,7 +201,7 @@
                      tal:condition="python:cps_display_style == 'detail'">
                      Detail
              </option>
-	     <option i18n:translate="label_detailed" value="detail" 
+	     <option i18n:translate="label_detailed" value="detail"
                      tal:condition="python:cps_display_style != 'detail'">
                      Detail
              </option>
@@ -209,7 +209,7 @@
                      tal:condition="python:cps_display_style == 'compact'">
                      Compact
              </option>
-	     <option i18n:translate="label_compact" value="compact" 
+	     <option i18n:translate="label_compact" value="compact"
                      tal:condition="python:cps_display_style != 'compact'">
                      Compact
              </option>
@@ -220,7 +220,7 @@
     <tr>
       <td>&nbsp;</td>
       <td align="right" colspan="1">
-        <input type="hidden" name="change_display" 
+        <input type="hidden" name="change_display"
                tal:attributes="value python:request.get('change_display', 0)" />
         <input type="submit" value="Change" tal:attributes="name string:changeListingDisplay:method" />
         <input type="submit" value="Invert" tal:attributes="name string:changeListingDirection:method" />
@@ -256,7 +256,6 @@
        <tal:block define="
           no_form not:nothing;
           items python:box['box'].getFolderContents(here);
-          format string:compact;
           columns python:1;
           items_per_page python:10;
           nav_action string:folder_view">
@@ -275,11 +274,13 @@
   <metal:block use-macro="here/box_lib/macros/sbox">
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
+       <h4 tal:content="box/box/title"
+           tal:condition="box/box/title">title</h4><br>
        <tal:block define="
           no_form not:nothing;
-          format string:detail;
+          format box/box/display;
           columns python:1;
-          items_per_page python:10;
+          items_per_page box/box/nb_items|python:10;
           nav_action string:folder_view">
           <metal:block use-macro="here/content_lib/macros/display_contents" />
         </tal:block>

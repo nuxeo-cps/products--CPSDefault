@@ -1453,18 +1453,18 @@ except:
     ###########################################################
 
     #
-    #  NuxMailBoxer installer/updater
+    #  CPSMailBoxer installer/updater
     #
     try:
-        import Products.NuxMailBoxer
-        if not portalhas('nuxmailboxer_installer'):
-            pr('Adding NuxMailBoxer installer')
-            nuxmailboxer_installer = ExternalMethod('nuxmailboxer_installer',
-                                                    'NuxMailBoxer Installer',
-                                                    'NuxMailBoxer.install',
+        import Products.CPSMailBoxer
+        if not portalhas('cpsmailboxer_installer'):
+            pr('Adding CPSMailBoxer installer')
+            cpsmailboxer_installer = ExternalMethod('cpsmailboxer_installer',
+                                                    'CPSMailBoxer Installer',
+                                                    'CPSMailBoxer.install',
                                                     'install')
-            portal._setObject('nuxmailboxer_installer', nuxmailboxer_installer)
-        pr(portal.nuxmailboxer_installer())
+            portal._setObject('cpsmailboxer_installer', cpsmailboxer_installer)
+        pr(portal.cpsmailboxer_installer())
     except ImportError:
         pass
 

@@ -214,11 +214,10 @@ def cpsupdate(self, langs_list=None):
     ptypes = {
         'NuxCPS3':('CPS Proxy Document',
                    'CPS Proxy Folder',
-                   'CPS Dummy Document',
-                   'CPS Proxy Folderish Document',
+#                   'CPS Proxy Folderish Document',
                    'CPS Folder',
                    ),
-#        'SSS3':()
+        'SSS3':('Dummy',)
         }
     ptypes_installed = ttool.objectIds()
     # remove all ptypes
@@ -328,7 +327,7 @@ def cpsupdate(self, langs_list=None):
     pr("Verifying skins")
     skins = ('sss3', 'sss3_images', 'nuxcps3', )
     paths = {
-        'sss3': 'Products/SSS3/skins/templates',
+        'sss3': 'Products/SSS3/skins',
         'sss3_images': 'Products/SSS3/skins/images',
         'nuxcps3': 'Products/NuxCPS3/skins',
     }

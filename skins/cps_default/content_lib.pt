@@ -113,6 +113,7 @@ format:</pre>
           tmp_items_per_page items_per_page|nothing;
           tmp_nav_action nav_action|nothing;
           tmp_filter filter|nothing;
+          tmp_detail_tab_columns detail_tab_columns|nothing;
           params python:here.getDisplayParams(format=tmp_format,
                           sort_by=tmp_sort_by,
                           direction=tmp_direction,
@@ -120,7 +121,8 @@ format:</pre>
                           items_per_page=tmp_items_per_page,
                           nav_action=tmp_nav_action,
                           nb_items=len(items),
-                          filter=tmp_filter);
+                          filter=tmp_filter,
+                          detail_tab_columns=tmp_detail_tab_columns);
           format params/format;
           sort_by params/sort_by;
           direction params/direction;
@@ -128,6 +130,7 @@ format:</pre>
           items_per_page params/items_per_page;
           nav_action params/nav_action;
           filter params/filter;
+          detail_tab_columns params/detail_tab_columns;
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
           zoom zoom|nothing;
@@ -520,41 +523,51 @@ format:</pre>
 <tal:block condition="start">
     <tr>
       <td> </td>
-      <th i18n:translate="label_info_tab_title" align=center></th>
-      <th i18n:translate="label_info_tab_type" align=center></th>
-      <th i18n:translate="label_info_tab_size" align=center></th>
-      <th i18n:translate="label_info_tab_date" align=center></th>
-      <th i18n:translate="label_info_tab_author" align=center></th>
-      <th i18n:translate="label_info_tab_status" align=center></th>
-      <th i18n:translate="label_info_tab_version" align=center></th>
+      <th tal:condition="python:'title' in detail_tab_columns"
+          i18n:translate="label_info_tab_title" align=center></th>
+      <th tal:condition="python:'type' in detail_tab_columns"
+          i18n:translate="label_info_tab_type" align=center></th>
+      <th tal:condition="python:'size' in detail_tab_columns"
+          i18n:translate="label_info_tab_size" align=center></th>
+      <th tal:condition="python:'date' in detail_tab_columns"
+          i18n:translate="label_info_tab_date" align=center></th>
+      <th tal:condition="python:'author' in detail_tab_columns"
+          i18n:translate="label_info_tab_author" align=center></th>
+      <th tal:condition="python:'status' in detail_tab_columns"
+          i18n:translate="label_info_tab_status" align=center></th>
+      <th tal:condition="python:'version' in detail_tab_columns"
+          i18n:translate="label_info_tab_version" align=center></th>
     </tr>
 </tal:block>
 
 <tr tal:attributes="class python:test(repeat['item'].even(), 'even', 'odd')"
  tal:define="action python:test(info['type'] in ('Section','Workspace'),
                 'folder_contents', 'view')">
-  <td tal:condition="not:no_form" align="left" valign="center" width="5">
+  <td align="left" valign="center" width="5">
     <input type="checkbox" name="ids:list" value="" id="" class="noborder"
+           tal:condition="not:no_form"
            tal:define="id item/getId"
            tal:attributes="value python:test(site_wide, item.getContextUrl(utool=utool), id);
                            id python:'cb_' + id;
                            checked python:id in choosen_ids;
                           ">
   </td>
-  <td tal:condition="no_form" align="left" valign="center" width="5">
-  </td>
-  <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
+  <td tal:condition="python:'title' in detail_tab_columns">
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                                  title info/description;">
-   <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
-  <td align="center"><img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])"></td>
-  <td align="right"><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
-  <td align="center">
-    <span tal:content="info/time_str">May 6,...</span>
-  </td>
-  <td align="center"><span tal:content="info/creator"></span></td>
-  <td align="center" tal:content="info/review_state" tal:attributes="class
-    info/review_state" i18n:translate="">published</td>
-  <td align="center">
+    <b tal:content="info/title_or_id">ID</b></a></td>
+  <td align="center" tal:condition="python:'type' in detail_tab_columns">
+    <img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])"></td>
+  <td align="right" tal:condition="python:'size' in detail_tab_columns">
+    <span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
+  <td align="center" tal:condition="python:'date' in detail_tab_columns">
+    <span tal:content="info/time_str">May 6,...</span></td>
+  <td align="center" tal:condition="python:'author' in detail_tab_columns">
+    <span tal:content="info/creator"></span></td>
+  <td align="center" tal:condition="python:'status' in detail_tab_columns"
+      tal:content="info/review_state" tal:attributes="class info/review_state"
+      i18n:translate="">published</td>
+  <td align="center" tal:condition="python:'version' in detail_tab_columns">
     v-<tal:block replace="info/rev" />
     <tal:block i18n:translate=""
       content="string:label_language_${info/lang}">en</tal:block>

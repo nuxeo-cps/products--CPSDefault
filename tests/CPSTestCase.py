@@ -93,7 +93,7 @@ class DummyMessageCatalog:
         return 'fr'
 
     def get_languages(self):
-        return ['en', 'fr']
+        return ['en', 'fr', 'de']
 
     def manage_import(self, *args, **kw):
         pass
@@ -185,7 +185,7 @@ class CPSInstaller:
     def addPortal(self, portal_id):
         factory = self.app.manage_addProduct['CPSDefault']
         factory.manage_addCPSDefaultSite(portal_id,
-                                         langs_list=['en'],
+                                         langs_list=['en', 'fr', 'de'],
                                          manager_email='webmaster@localhost',
                                          manager_password='passwd',
                                          manager_password_confirmation='passwd',

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2004-08-23 12:25default\n"
+"POT-Creation-Date: 2004-09-06 18:34default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -62,31 +62,43 @@ msgstr ""
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr ""
 
-#.   <option content="type/Title" attributes="selected python:type.getId() in displayed;
-#.                                       value type/getId" repeat="type allowed|here/allowedContentTypes">Portal Type</option>
-#: from ../skins/cps_default/content_lib.pt
-msgid "Portal Type"
-msgstr ""
-
 #.   <td align="left" class="ListDefinition" content="item/Description">
 #.               Portal type's description
 #.             </td>
+#.   <label for="" content="item/Description" attributes="for choice_id">
+#.                   Portal type's description
+#.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
 #.   <td align="left" class="description" content="item/Description">
 #.                     Portal type's description
 #.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr ""
 
 #.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
 #.               Portal type's title
 #.               </label>
+#.   <label for="" content="item/Title" attributes="for choice_id">
+#.                   Portal type's title
+#.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
 #.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
 #.                       Portal type's title
 #.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr ""
 
@@ -253,7 +265,7 @@ msgstr ""
 #.          box text title
 #.     </block>
 #.   <block content="box/box/title">box text title</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt 1 more references
+#: from ../skins/cps_default/boxes_nuxeo.pt 2 more references
 msgid "box text title"
 msgstr ""
 
@@ -275,6 +287,8 @@ msgstr ""
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr ""
 
@@ -283,7 +297,7 @@ msgstr ""
 msgid "button_apply"
 msgstr ""
 
-#.   <input type="submit" value="button_assign_roles" />
+#.   <input type="submit" class="standalone" value="button_assign_roles" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
 msgstr ""
@@ -360,7 +374,7 @@ msgstr ""
 
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
-#.   <input type="submit" value="button_delete" />
+#.   <input type="submit" class="destructive" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
@@ -371,12 +385,12 @@ msgstr ""
 msgid "button_delete_archive"
 msgstr ""
 
-#.   <input type="submit" name="lr_block" value="button_local_roles_block" />
+#.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_block"
 msgstr ""
 
-#.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" />
+#.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_unblock"
 msgstr ""
@@ -408,12 +422,9 @@ msgstr ""
 
 #.   <input type="submit" value="button_ok" />
 #.   <input type="submit" class="context searchButton" value="button_ok" />
-#.   <input type="submit" value="button_ok" attributes="name python:test(no_form, None,
-#.                                                     nav_action + ':method')" />
 #.   <input type="button" value="button_ok" onclick="history.back()" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
@@ -452,7 +463,7 @@ msgid "button_revert_revision"
 msgstr ""
 
 #.   <input type="submit" class="context searchButton" value="button_search" />
-#.   <input type="submit" name="role_submit" value="button_search" />
+#.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
@@ -678,6 +689,9 @@ msgstr ""
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr ""
 
@@ -686,16 +700,16 @@ msgstr ""
 msgid "heading_join_form"
 msgstr ""
 
-#.   <h2>
+#.   <h1>
 #.    Assign local roles: Search Members
-#.   </h2>
+#.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_members"
 msgstr ""
 
-#.   <h2>
+#.   <h1>
 #.       Assign local roles: Search Results
-#.   </h2>
+#.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
 msgstr ""
@@ -927,8 +941,14 @@ msgstr ""
 msgid "help_mail_password_response_2"
 msgstr ""
 
+#.   <span>
+#.             No content type can be created.
+#.           </span>
 #.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 
@@ -1052,19 +1072,17 @@ msgstr ""
 msgid "label_admin_name"
 msgstr ""
 
-#.   <img src="cps-minibanner.png" alt="" title="label_advertisement_use_cps" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img src="cps-minibanner.png" alt="label_advertisement_use_cps" title="label_advertisement_use_cps" attributes="src string:${base_url}cps-minibanner.png" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_advertisement_use_cps"
 msgstr ""
 
-#.   <option value="" attributes="selected python:displayed != ['']">All</option>
 #.   <option value="">All</option>
 #.   <option value="" attributes="selected python:notempty==[] or selbox==[]">All</option>
 #.   <option attributes="selected not:review_state" value="">All</option>
 #.   <option attributes="selected not:portal_type" value="">All</option>
 #.   <option value="" attributes="selected not:Subject">All</option>
-#: from ../skins/cps_default/content_lib.pt
-#: ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_all"
 msgstr ""
@@ -1276,7 +1294,6 @@ msgid "label_discussion_on"
 msgstr ""
 
 #.   <th align="right">Display</th>
-#.   <span>Display:</span>
 #.   <span>Display with</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/content_lib.pt
@@ -1790,6 +1807,7 @@ msgstr ""
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -1866,6 +1884,13 @@ msgstr ""
 msgid "legend_folder_no_search_result"
 msgstr ""
 
+#.   <h1>
+#.       Assigned local roles
+#.   </h1>
+#: from ../skins/cps_default/folder_localrole_form.pt
+msgid "legend_local_roles_assigned"
+msgstr ""
+
 #.   <p>
 #.      These users currently have local roles assigned in this folder:
 #.   </p>
@@ -1877,13 +1902,6 @@ msgstr ""
 #.         Local roles are acquired. To block acquisition, click here:</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_block"
-msgstr ""
-
-#.   <h2>
-#.       Currently assigned local roles
-#.   </h2>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_currently_assigned"
 msgstr ""
 
 #.   <p>
@@ -1900,6 +1918,8 @@ msgstr ""
 msgid "legend_local_roles_no_results_members"
 msgstr ""
 
+#.   <span>
+#.           Role to assign:</span>
 #.   <th colspan="2">
 #.           Role to assign:
 #.       </th>

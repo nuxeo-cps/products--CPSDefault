@@ -1,44 +1,35 @@
 <metal:html use-macro="here/content_lib_master/macros/master">
 
-<metal:block fill-slot="header" />
+  <metal:block fill-slot="header" />
 
-<metal:main fill-slot="main">
-<metal:std_main use-macro="here/content_lib_std_main/macros/std_main">
+  <metal:main fill-slot="main">
+    <metal:std_main use-macro="here/content_lib_std_main/macros/std_main">
 
-<metal:title fill-slot="title" i18n:translate="">
-  heading_checkin_draft_of
-  <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
-</metal:title>
+      <metal:title fill-slot="title" i18n:translate="">
+        heading_checkin_draft_of
+        <tal:block tal:replace="here/title_or_id" i18n:name="item_id">Item</tal:block>
+      </metal:title>
 
-<metal:help fill-slot="help">
-  <span i18n:translate="help_checkin_draft">
-    If you commit this draft, it will replace the document currently locked.
-  </span>
-</metal:help>
+      <metal:help fill-slot="help">
+        <tal:block i18n:translate="help_checkin_draft">
+          If you commit this draft, it will replace the document currently locked.
+        </tal:block>
+      </metal:help>
 
-<metal:main fill-slot="main">
-  <form class="workflow" action="." method="post"
-    tal:attributes="action string:${here_url}/content_checkin_draft;
-    onsubmit python:'return validateRequiredFields([\'comment\'], [\'%s\'], \'%s\')'
-                     % (cpsmcat('transition_comments'), cpsmcat('description_field_required'))
-    ">
-    <dl>
-      <dt><label class="required" for="comment" i18n:translate="transition_comments">Comments</label></dt>
-      <dd>
-        <textarea name="comment" id="comment" cols="60" rows="5"
-                  tal:content="nothing">
-        </textarea>
-      </dd>
-    </dl>
-    <p>
-      <input type="submit" class="standalone" value="button_checkin_draft"
-        i18n:attributes="value" />
-      <input type="button" class="context" onClick="history.back()"
-        value="button_cancel" i18n:attributes="value" />
-    </p>
-  </form>
-</metal:main>
+      <metal:main fill-slot="main"
+        tal:define="workflow_action_script string:content_checkin_draft">
 
-</metal:std_main>
-</metal:main>
+        <metal:block use-macro="here/content_lib_transition_form/macros/transition_form">
+          <metal:block fill-slot="button">
+            <input type="submit" class="standalone" value="button_checkin_draft"
+              i18n:attributes="value" />
+            <input type="button" class="context" onClick="history.back()"
+              value="button_cancel" i18n:attributes="value" />
+          </metal:block>
+        </metal:block>
+
+      </metal:main>
+
+    </metal:std_main>
+  </metal:main>
 </metal:html>

@@ -25,6 +25,7 @@
 
 <metal:main fill-slot="main"
             tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3);
+                        workflow_action_script string:content_status_modify;
                         publish_wf_action string:publish;
                         submit_wf_action string:submit;
                         start_wf_action string:copy_submit;">
@@ -34,7 +35,7 @@
 
   <metal:block use-macro="here/content_lib_transition_form/macros/transition_form">
     <metal:block fill-slot="fields"
-                 tal:define="stree python: here.getSectionsTree();">
+                 tal:define="stree python: here.getSectionsTree()">
       <table border="0" width="100%" cellspacing="0" cellpadding="2"
         summary="sections listing">
         <tr>
@@ -44,7 +45,7 @@
           </th>
         </tr>
         <tal:block repeat="section stree">
-          <tr tal:define="publishing_transitions section/publishing_transitions; 
+          <tr tal:define="publishing_transitions section/publishing_transitions;
                           can_publish python:publish_wf_action in publishing_transitions;
                           can_submit  python:submit_wf_action in publishing_transitions;
                           clone_wf_action python:test(can_publish, publish_wf_action, submit_wf_action)"

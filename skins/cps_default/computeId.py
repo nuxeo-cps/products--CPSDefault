@@ -1,12 +1,15 @@
 ## Script (Python) "computeId"
 ##parameters=compute_from='', max_chars_for_id=20
+
 # $Id$
 """
 Return a new id computed from compute_from
 """
+
 from string import maketrans
 from random import randrange
 import re
+
 # Create, no id, get from title
 newid = compute_from.strip()[:max_chars_for_id]
 
@@ -29,7 +32,7 @@ newid = newid.lower()
 
 if not newid:
     # Fallback if empty or incorrect
-    newid = str(int(DateTime()))+str(randrange(1000,10000))
+    newid = str(int(DateTime())) + str(randrange(1000, 10000))
     return newid
 
 container = context.this()
@@ -51,8 +54,8 @@ while 1:
         # grow prefix
         prefix = newid
         tries = 0
-    suffix = str(randrange(1000,10000))
-    newid = prefix+suffix
+    suffix = str(randrange(1000, 10000))
+    newid = prefix + suffix
     if not hasattr(container, newid):
         return newid
 

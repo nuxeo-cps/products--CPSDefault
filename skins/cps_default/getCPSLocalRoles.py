@@ -13,7 +13,7 @@ if context_url is None:
     context_url = context.getContextUrl()
 
 # Get the list of Roles from the tool
-dict_roles = mtool.getMergedLocalRoles(context, withpath=1)
+dict_roles = mtool.getMergedLocalRolesWithPath(context)
 
 # Filter remove non CPS roles
 for user in dict_roles.keys():

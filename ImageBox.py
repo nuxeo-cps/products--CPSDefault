@@ -53,6 +53,8 @@ factory_type_information = (
 
 
 class ImageBox(BaseBox, Folder):
+    # XXX need explanation for using Folder as a parent.
+    # Why not a mixin with OFS.Image?
     """
     A Image Box.
     """

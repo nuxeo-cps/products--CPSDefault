@@ -6,8 +6,8 @@
 <metal:block define-macro="box">
   <div class="box">
     <div class="title">
-      <tal:block condition="box/settings/minimized"><a href="" class="close" tal:attributes="href string:${box/path}/maximize?goto=${context_url}"><img src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif" />&nbsp;</a></tal:block>
-      <tal:block condition="not:box/settings/minimized"><a href="" class="close" tal:attributes="href string:${box/path}/minimize?goto=${context_url}"><img src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif" />&nbsp;</a></tal:block>
+      <tal:block condition="box/settings/minimized"><a href="" class="close" tal:attributes="href string:${base_url}${box/path}/maximize?goto=${context_url}"><img src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif" />&nbsp;</a></tal:block>
+      <tal:block condition="not:box/settings/minimized"><a href="" class="close" tal:attributes="href string:${base_url}${box/path}/minimize?goto=${context_url}"><img src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif" />&nbsp;</a></tal:block>
       <div metal:define-slot="box_title">Box Title</div>
     </div>
     <div class="body">
@@ -29,6 +29,14 @@
     <div class="title"></div>
     <div class="body">
       <div metal:define-slot="box_title">Box Title</div>
+      <div metal:define-slot="box_body">Box Body</div>
+    </div>
+  </div>
+</metal:block>
+
+<metal:block define-macro="basebox_edit">
+  <div class="box">
+    <div class="body">
       <div metal:define-slot="box_body">Box Body</div>
     </div>
   </div>

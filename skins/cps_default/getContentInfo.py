@@ -67,6 +67,7 @@ def compute_states(no_history=0):
                                                                   folder_id)
         d = {'rpath': folder_rpath,
              'title': folder_title,
+             'type': px['object'].portal_type,
              'review_state': px['review_state'],
              'rev': str(px['language_revs'].values()[0]),
              'language': px['language_revs'].keys()[0],

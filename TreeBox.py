@@ -58,15 +58,17 @@ class TreeBox(BaseBox):
         {'id':'root', 'type':'string', 'mode':'w', 'label':'Root'},
         {'id':'depth', 'type':'int', 'mode':'w', 'label':'depth of the tree'},
         {'id':'contextual', 'type':'boolean', 'mode':'w', 'label':'try to expand on current path'},
+        {'id':'children_only', 'type':'boolean', 'mode':'w', 'label':'display children only'},
         )
 
     def __init__(self, id, title='', root='', depth=0, contextual=0,
-                 style='box_tree', **kw):
+                 children_only=0, style='box_tree', **kw):
         BaseBox.__init__(self, id, style=style, kw=kw)
         self.title = title
         self.root = root
         self.depth = depth
         self.contextual = contextual
+        self.children_only = children_only
 
     security.declarePublic('getTree')
     def getTree(self, context):
@@ -90,6 +92,9 @@ class TreeBox(BaseBox):
             raise Exception('no tree for %s' % root_tree)
 
         tree = portal_trees[root_tree].getList()
+
+        if self.children_only:
+            tree = [x for x in tree if (x['rpath'].startswith(current_url))]
 
         if self.depth and self.contextual:
             depth = self.depth - 1

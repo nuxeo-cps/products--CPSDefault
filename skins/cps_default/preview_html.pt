@@ -12,8 +12,9 @@
 
     <metal:block fill-slot="main"
       tal:define="
+      getHtmlBody nocall:modules/Products.CPSDefault.utils/getHtmlBody;
       preview_html python:str(getattr(doc, file_html_name));
-      preview_html_body python:here.getHtmlBody(preview_html);
+      preview_html_body python:getHtmlBody(preview_html);
       ">
       <tal:block tal:replace="structure preview_html_body" />
     </metal:block>

@@ -748,7 +748,8 @@ format:</pre>
 <pre>display archived revisions of a document</pre>
 <metal:block define-macro="archived"
       tal:define="mq nocall:modules/ZTUtils/make_query;
-      context_url python:here.getNonArchivedVersionContextUrl(context_url)
+      getNonArchivedVersionContextUrl nocall:modules/Products.CPSDefault.utils/getNonArchivedVersionContextUrl;
+      context_url python:getNonArchivedVersionContextUrl(context_url)
       ">
   <div>
     <strong i18n:translate="label_archived_revisions">Old revisions:</strong>

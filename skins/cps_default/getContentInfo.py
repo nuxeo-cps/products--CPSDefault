@@ -126,13 +126,13 @@ def compute_archived():
 
 # basic information level 0
 info={}
-info['rpath']=utool.getRelativeUrl(proxy)
-info['title_or_id']=proxy.title_or_id()
-info['title']=proxy.Title()
-info['id']=proxy.id
-info['icon']=proxy.getIcon()
-info['type']=proxy.getPortalTypeName()
-info['review_state']=wtool.getInfoFor(proxy, 'review_state', '')
+info['rpath'] = utool.getRelativeUrl(proxy)
+info['title_or_id'] = proxy.title_or_id()
+info['title'] = proxy.Title()
+info['id'] = proxy.id
+info['icon'] = proxy.getIcon(relative_to_portal=1)
+info['type'] = proxy.getPortalTypeName()
+info['review_state'] = wtool.getInfoFor(proxy, 'review_state', '')
 try:
     langrev = proxy.getLanguageRevisions()
 except AttributeError:

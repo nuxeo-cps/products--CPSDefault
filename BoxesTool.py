@@ -71,6 +71,9 @@ class BoxesTool(UniqueObject, SimpleItem):
             f_boxes, f_settings = self._getFolderBoxesAndSettings(obj)
             if len(f_boxes):
                 LOG('portal_boxes', DEBUG, '.cps_boxes found in %s' % path)
+            if len(f_settings):
+                LOG('portal_boxes', DEBUG, 'got settings in %s: %s' % (
+                    path, str(f_settings)))
 
             for box in f_boxes:
                 boxes.append(['%s%s'%(path, box.getId()),
@@ -137,7 +140,6 @@ class BoxesTool(UniqueObject, SimpleItem):
                 if type(folder_settings) is DictType:
                     # XXX TODO check integrity of a folder_setting
                     settings = folder_settings
-                    LOG('portal_boxes', DEBUG, 'got settings: %s' % repr(folder_settings))
 
         return boxes, settings
 

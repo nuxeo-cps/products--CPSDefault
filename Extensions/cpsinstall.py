@@ -1215,28 +1215,35 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
         self.log("Verifying roots: %s and %s" % (SECTIONS_ID, WORKSPACES_ID))
         if not self.portalHas(WORKSPACES_ID):
+            self.log("  Adding %s Folder" % WORKSPACES_ID)
             self.portal.portal_workflow.invokeFactoryFor(
                 self.portal.this(), 'Workspace', WORKSPACES_ID)
-            self.portal[WORKSPACES_ID].getContent().setTitle(
-                'Root of Workspaces') # XXX L10N
-            self.log("  Adding %s Folder" % WORKSPACES_ID)
+            workspaces = self.portal[WORKSPACES_ID]
+            workspaces.getEditableContent().setTitle("Root of Workspaces")
+            # XXX Make L10N more generic
+            #workspaces.addLanguageToProxy('fr')
+            #workspaces.getEditableContent('fr').setTitle("Espaces de travail")
 
-        # Member areas
         if getattr(self.portal[WORKSPACES_ID], members_id, None) is None:
+            self.log("  Adding %s Folder" % members_id)
             workspaces = self.portal[WORKSPACES_ID]
             self.portal.portal_workflow.invokeFactoryFor(
                 workspaces,'Workspace', members_id)
-            ms = getattr(workspaces, members_id, None)
-
-            ms.getContent().setTitle('Member Areas') # XXX Localization
-            self.log("  Adding %s Folder" % members_id)
+            member_areas = getattr(workspaces, members_id, None)
+            member_areas.getEditableContent().setTitle("Member Areas")
+            # XXX Make L10N more generic
+            #member_areas.addLanguageToProxy('fr')
+            #member_areas.getEditableContent('fr').setTitle("Espaces des membres")
 
         if not self.portalHas(SECTIONS_ID):
+            self.log("  Adding %s Folder" % SECTIONS_ID)
             self.portal.portal_workflow.invokeFactoryFor(
                 self.portal.this(), 'Section', SECTIONS_ID)
-            # XXX L10N
-            self.portal[SECTIONS_ID].getContent().setTitle('Root of Sections')
-            self.log("  Adding %s Folder" % SECTIONS_ID)
+            sections = self.portal[SECTIONS_ID]
+            sections.getEditableContent().setTitle("Root of Sections")
+            # XXX Make L10N more generic
+            #sections.addLanguageToProxy('fr')
+            #sections.getEditableContent('fr').setTitle("Espaces de publication")
 
     def setupTreesTool(self):
         self.verifyTool('portal_trees', 'CPSCore', 'CPS Trees Tool')

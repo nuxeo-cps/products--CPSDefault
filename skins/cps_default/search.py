@@ -9,7 +9,7 @@ if REQUEST is not None:
     query.update(REQUEST.form)
 
 for k, v in query.items():
-    if not v:
+    if not v or same_type(v, []) and not filter(None, v):
         del query[k]
 
 if str(query.get('modified')) == '1970/01/01':

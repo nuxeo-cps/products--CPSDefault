@@ -75,8 +75,9 @@ format:</pre>
 <metal:block define-macro="display_contents">
 <tal:block define="nav_action nav_action|string:folder_contents;
                    columns columns|python:3;
+                   items_per_page items_per_page|python:10;
                    b_start request/b_start|python:0;
-                   batches python:here.getBatchList(items,columns, 5);
+                   batches python:here.getBatchList(items,columns, items_per_page);
                    format format|string:icon"><!-- detail, compact, icon -->
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>

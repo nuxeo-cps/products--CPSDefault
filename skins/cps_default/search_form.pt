@@ -1,22 +1,3 @@
-<tal:block define="utool nocall:here/portal_url;
-                  portal_object utool/getPortalObject;
-                  portal_title portal_object/title;
-                  Localizer python:here.Localizer;
-                  mcat python:Localizer.default;
-                  dummy python:request.set('breadcrumb_set',
-                   [
-                   {
-                    'id': 'portal_root',
-                    'url': here.portal_url(),
-                    'longtitle': portal_title,
-                    'title': portal_title,
-                    }, {
-                   'id' : 'search_form',
-                   'url': here.portal_url()+'/search_form',
-                   'title': mcat('link_search'),
-                   'longtitle':mcat('link_search'),
-                   }, ]);
-                 ">
 <html metal:use-macro="here/main_template/macros/master">
 <div metal:fill-slot="main">
   <tal:block define="SearchableText python:request.get('SearchableText','');
@@ -34,25 +15,7 @@
                      format string:detail;
                      filter python:0;
                     ">
-    <div>
-      <form action="search_form" method="get"
-        tal:attributes="action string:${base_url}search_form">
-        &nbsp;
-        <a href="advanced_search_form"
-           tal:attributes="href string:${base_url}advanced_search_form">
-           <span i18n:translate="link_advanced_search">
-             Advanced search
-           </span>
-        </a>
-        <br>
-        <input id="field_focus" type="text" name="SearchableText" value=""
-               size="64" tal:attributes="value SearchableText">
-        <input class="context searchButton" type="submit" value="button_ok"
-               i18n:attributes="value">
-       </form><br>
-    </div>
-
-    <h2 i18n:translate="heading_search_results">Search Results</h2>
+    <h1 i18n:translate="heading_search_results">Search Results</h1>
 
     <p>
       <span i18n:translate="">
@@ -76,9 +39,23 @@
         </span>
       </tal:block>
     </p>
-    <hr tal:condition="python:items_length > 0">
     <metal:block use-macro="here/content_lib/macros/display_contents" />
+    <div style="text-align:right;" class="group">
+      <form method="get" action="./search_form">
+        <a href="./advanced_search_form">
+           <span i18n:translate="link_advanced_search">
+             Advanced search
+           </span>
+        </a><br>
+        <div class="label" i18n:translate="label_search_full_text">search</div>
+        <input type="text" name="SearchableText" value=""
+               size="40" tal:attributes="value SearchableText">
+        <input class="standalone searchButton" type="submit" value="button_ok"
+               i18n:attributes="value">
+        <br>
+        <metal:block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+       </form>
+    </div>
   </tal:block>
 </div>
 </html>
-</tal:block>

@@ -1,29 +1,11 @@
-<html tal:define="utool nocall:here/portal_url;
-                  portal_object utool/getPortalObject;
-                  portal_title portal_object/title;
-                  Localizer python:here.Localizer;
-                  mcat python:Localizer.default;
-                  dummy python:request.set('breadcrumb_set',
-                    [{
-                    'id' : 'portal_root',
-                    'url': here.portal_url(),
-                    'title': portal_title,
-                    'longtitle':portal_title,
-                    }, {
-                    'id' : 'search_form',
-                    'url': here.portal_url()+'/advanced_search_form',
-                    'title': mcat('link_advanced_search'),
-                    'longtitle':mcat('link_advanced_search'),
-                    }, ]);
-                  ">
+<html>
 <body metal:use-macro="here/main_template/macros/master">
   <div metal:fill-slot="main">
     <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
     <metal:block define-macro="search_form">
-      <form action="search" method="post"
-            tal:attributes="action string:${base_url}search_form">
+      <form method="post" action="./search_form">
         <metal:block use-macro="here/generic_lib/macros/search_form" />
       </form>
     </metal:block>

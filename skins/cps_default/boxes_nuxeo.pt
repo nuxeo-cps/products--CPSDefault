@@ -71,18 +71,19 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_search">
 <div class="searchBox">
-  <form method="get" action="search"
-    tal:attributes="action string:${base_url}search_form">
+  <a href="search_form"
+     tal:attributes="href string:./advanced_search_form"
+     i18n:translate="link_advanced_search">
+  Advanced search</a>
+  <form method="get" action="./search_form" tal:define="sfpo_id string:box">
     <span i18n:translate="box_search">Search:</span>
     <input id="searchGadget" type="text" name="SearchableText" size="20"
       value="" tal:attributes="value request/SearchableText|nothing">
     <input class="context searchButton" type="submit" value="button_ok"
-      i18n:attributes="value">
+      i18n:attributes="value"><br>
+    <metal:block
+     use-macro="here/generic_lib/macros/search_folder_prefix_option" />
   </form>
-  <a href="search_form"
-     tal:attributes="href string:${base_url}advanced_search_form"
-     i18n:translate="link_advanced_search">
-  Advanced search</a>
 </div>
 </metal:block>
 

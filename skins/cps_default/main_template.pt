@@ -1,8 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
 <html metal:define-macro="master"
-      tal:define="form request/form;
-                  portal_status_message form/portal_status_message|nothing;
+      tal:define="
                   showthirdcol showthirdcol|python:1;
                   utool nocall:here/portal_url;
                   atool here/portal_actions;
@@ -26,16 +25,23 @@
 <span tal:replace="CPSD_bmt_start" />
 <head metal:use-macro="here/generic_lib/macros/header">
   <metal:block fill-slot="base">
-    <metal:block define-slot="base" tal:replace="nothing">
-      <!-- Additional head elements -->
+    <metal:block define-slot="base">
+      <base href="" tal:attributes="href string:${here/absolute_url}/">
     </metal:block>
   </metal:block>
-  <metal:block define-slot="style_plus" tal:replace="nothing">
-    <!-- additional styles -->
+
+  <metal:block fill-slot="head_slot">
+    <metal:block define-slot="head_slot" />
   </metal:block>
-  <metal:block define-slot="script_plus" tal:replace="nothing">
-    <!-- additional scripts -->
+
+  <metal:block fill-slot="css_slot">
+    <metal:block define-slot="css_slot" />
   </metal:block>
+  
+  <metal:block fill-slot="javascript_head_slot">
+    <metal:block define-slot="javascript_head_slot" />
+  </metal:block>
+
 </head>
 
 <body>
@@ -72,6 +78,7 @@
     <!-- BAR LEFT ================================= -->
     <td class="left" width="150" tal:define="blockclass string:even">
 
+      <tal:block replace="structure here/Localizer/changeLanguageForm" />
       <!-- display left boxes -->
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left');">
@@ -83,6 +90,7 @@
 
     <!-- MAIN = no width to let it float ========== -->    
     <td class="main">
+
       <!-- display top boxes -->
       <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
         <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
@@ -93,19 +101,20 @@
       <div class="document">
       
         <div id="content">
-        
-          <!-- portal status message -->
-          <div class="message" tal:condition="portal_status_message">
-            <strong tal:content="portal_status_message">
-              Status message.
-            </strong>
-          </div>
           <b tal:replace="python:CPSD_bmt_mark('main_start')" />
+
+          <!-- portal status message -->
+          <metal:block use-macro="here/generic_lib/macros/portal_message" />
+
           <!-- header -->
           <metal:block define-slot="header" />
 
           <!-- main -->
           <metal:block define-slot="main" />
+
+          <!-- bottom -->
+          <metal:block define-slot="sub" />
+
           <b tal:replace="python:CPSD_bmt_mark('main_stop')" />
         </div>
 

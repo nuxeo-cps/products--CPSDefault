@@ -181,14 +181,13 @@ def cpsupdate(self, langs_list=None):
 
     # skins
     pr("Verifying skins")
-    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_document', 'cps_default','cps_nuxmetadirectories')
+    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_default','cps_nuxmetadirectories',)
     paths = {
         'cps_styles': 'Products/CPSDefault/skins/cps_styles/nuxeo',
         'cps_plone_styles': 'Products/CPSDefault/skins/cps_styles',
         'cps_images': 'Products/CPSDefault/skins/cps_images',
         'cps_devel': 'Products/CPSDefault/skins/cps_devel',
         'cps_default': 'Products/CPSDefault/skins/cps_default',
-        'cps_document': 'Products/CPSDocument/skins/cps_document',
         'cps_nuxmetadirectories' : 'Products/NuxMetaDirectories/skins/cps_nuxmetadirectories',
     }
     for skin in skins:
@@ -635,7 +634,7 @@ def cpsupdate(self, langs_list=None):
         workspaceACT = list(ttool['Workspace'].allowed_content_types)
     else:
         workspaceACT = []
-    for ptype in ('Workspace', 'Dummy', 'Dummy2'):
+    for ptype in ('Workspace', 'Dummy',):
         if ptype not in  workspaceACT:
             workspaceACT.append(ptype)
 
@@ -651,17 +650,6 @@ def cpsupdate(self, langs_list=None):
                       'Content Box',
                       'Action Box'
                       )
-        }
-    flextypes = {
-        'Dummy2': {
-            'title': 'portal_type_Dummy2_title',
-            'description': 'portal_type_Dummy2_description',
-            'icon': 'dummy2_icon.gif',
-            'immediate_view': 'cpsdocument_edit_form',
-            'schemas': ['dummy2'],
-            'default_layout': 'dummy2',
-            'layout_style_prefix': 'layout_dummy_',
-            }
         }
     allowed_content_type = {
                             'Section' : ('Section',),
@@ -683,15 +671,6 @@ def cpsupdate(self, langs_list=None):
                 typeinfo_name=prod+': '+ptype,
                 )
             pr("   Installation")
-
-    for ptype, data in flextypes.items():
-        pr("  Type '%s'" % ptype)
-        if ptype in ptypes_installed:
-            ttool.manage_delObjects([ptype])
-            pr("   Deleted")
-        ti = ttool.addFlexibleTypeInformation(id=ptype)
-        ti.manage_changeProperties(**data)
-        pr("   Installation")
 
     # add Section and Workspace portal types based on CPS Proxy Folder
     if 'Section' in ptypes_installed:
@@ -820,8 +799,6 @@ def cpsupdate(self, langs_list=None):
                             chain='')
         wfc.manage_addChain(portal_type='Dummy',
                             chain='workspace_content_wf')
-        wfc.manage_addChain(portal_type='Dummy2',
-                            chain='workspace_content_wf')
 
     if not '.cps_workflow_configuration' in portal[sections_id].objectIds():
         pr("  Adding workflow configuration to %s" % sections_id)
@@ -832,8 +809,6 @@ def cpsupdate(self, langs_list=None):
         wfc.manage_addChain(portal_type='Section',
                             chain='section_folder_wf')
         wfc.manage_addChain(portal_type='Dummy',
-                            chain='section_content_wf')
-        wfc.manage_addChain(portal_type='Dummy2',
                             chain='section_content_wf')
     # init Tree Tool
     trtool = portal.portal_trees
@@ -1001,149 +976,6 @@ def cpsupdate(self, langs_list=None):
                box, None), {})
         ob = getattr(box_container, box)
         ob.manage_changeProperties(**boxes[box])
-
-    # widgets
-    pr("Verifiying widgets")
-    widgets = {
-        'Int Widget': {
-            'type': 'CPS Int Widget Type',
-            'data': {},
-            },
-        'String Widget': {
-            'type': 'CPS String Widget Type',
-            'data': {},
-            },
-        'TextArea Widget': {
-            'type': 'CPS TextArea Widget Type',
-            'data': {},
-            },
-        'Date Widget': {
-            'type': 'CPS Date Widget Type',
-            'data': {},
-            },
-        'File Widget': {
-            'type': 'CPS File Widget Type',
-            'data': {},
-            },
-        'Image Widget': {
-            'type': 'CPS Image Widget Type',
-            'data': {},
-            },
-        'Dummy Widget': {
-            'type': 'CPS Customizable Widget Type',
-            'data': {
-                'prepare_validate_method': 'widget_dummy_prepare_validate',
-                'render_method': 'widget_dummy_render',
-                },
-            },
-        }
-    wtool = portal.portal_widgets
-    for id, info in widgets.items():
-        pr(" Widget %s" % id)
-        if id in wtool.objectIds():
-            pr("  Deleting.")
-            wtool.manage_delObjects([id])
-        pr("  Installing.")
-        widget = wtool.manage_addCPSWidgetType(id, info['type'])
-        widget.manage_changeProperties(**info['data'])
-
-    # schemas
-    pr("Verifiying schemas")
-    schemas = {
-        #'dummy2': {
-        #    'age': {
-        #        'type': 'CPS Int Field',
-        #        'data': {
-        #            'default': 20,
-        #            'is_indexed': 0,
-        #            },
-        #        },
-        #    'text': {
-        #        'type': 'CPS String Field',
-        #        'data': {
-        #            'default': '',
-        #            'is_indexed': 1,
-        #            },
-        #        },
-        #    'thing': {
-        #        'type': 'CPS String Field',
-        #        'data': {
-        #            'default': 'dummy thing',
-        #            'is_indexed': 1,
-        #            },
-        #        },
-        #    },
-        }
-    stool = portal.portal_schemas
-    for id, info in schemas.items():
-        pr(" Schema %s" % id)
-        if id in stool.objectIds():
-            pr("  Deleting.")
-            stool.manage_delObjects([id])
-        pr("  Installing.")
-        schema = stool.manage_addCPSSchema(id)
-        for field_id, fieldinfo in info.items():
-            pr("   Field %s." % field_id)
-            schema.manage_addField(field_id, fieldinfo['type'],
-                                   **fieldinfo['data'])
-
-    # layouts
-    pr("Verifiying layouts")
-    layouts = {
-        'dummy2': {
-            'widgets': {
-                'theage': {
-                    'type': 'Int Widget',
-                    'data': {
-                        'fields': ['age'],
-                        'title': 'Age',
-                        },
-                    },
-                'thetext': {
-                    'type': 'TextArea Widget',
-                    'data': {
-                        'fields': ['text'],
-                        'title': 'Text',
-                        'width': 40,
-                        'height': 5,
-                        'render_mode': 'pre',
-                        },
-                    },
-                'thething': {
-                    'type': 'Dummy Widget',
-                    'data': {
-                        'fields': ['thing'],
-                        'title': 'Thing',
-                        },
-                    },
-                },
-            'layout': {
-                'ncols': 1,
-                'rows': [
-                   [{'ncols': 1, 'widget_id': 'theage'},
-                    ],
-                   [{'ncols': 1, 'widget_id': 'thetext'},
-                    ],
-                   [{'ncols': 1, 'widget_id': 'thething'},
-                    ],
-                   ],
-                },
-            },
-        }
-    ltool = portal.portal_layouts
-    for id, info in layouts.items():
-        pr(" Layout %s" % id)
-        if id in ltool.objectIds():
-            pr("  Deleting.")
-            ltool.manage_delObjects([id])
-        pr("  Installing.")
-        layout = ltool.manage_addCPSLayout(id)
-        for widget_id, widgetinfo in info['widgets'].items():
-            pr("   Widget %s" % widget_id)
-            widget = layout.manage_addCPSWidget(widget_id, widgetinfo['type'])
-            widget.manage_changeProperties(**widgetinfo['data'])
-        layout.setLayoutDefinition(info['layout'])
-
 
     #
     # i18n

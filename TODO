@@ -55,19 +55,19 @@
       with checkbox/action ?
    o try to use content_lib macros as much as possible
 
-- [alex] users
+- [julien] users
    x [] add anonymous access
       boxes should take care about guard and permission
    x [] handle group in local roles management
       x [] empty search should return list of groups
+   x [alex] local roles page should display aquisition roles 
+      o [julien] display the folder where they are define will be cool
+        with a link to the folder local roles setting
+   o [julien] put member's folder into workspaces
    x [] NuxMetaDirectories integration
       o cpsupdate integration
       o check skin integration and update into
         CPSDefault/skin/cps_nuxmetadirectories
-   x [] local roles page should display aquisition roles 
-      o display the folder where they are define will be cool
-        with a link to the folder local roles setting
-   o put member's folder into workspaces
    o how to remove roles for a user in a folder ?
       These are all closely related to the work lennart is doing
       (plugin user folder for SSL+LDAP+ZODB Users+Groups support)
@@ -204,7 +204,7 @@
 
 # bugs or blocking tasks -----------------------------------
 - Bug fix
-   o advanced search, search link broken on result page url like //search_form
+   x []  advanced search, search link broken on result page url like //search_form
    x [fg] error after install in generic_lib no standard:'item/title'
       happened because new skins were not immediately available
    o puffin is buggy cps return __ac_name after __ac and we can not
@@ -212,11 +212,6 @@
    x [] url in breadcrumbs broken
    x set local roles page should display acquisition roles
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
-   o [seb] in zpt why the hell do we use "id" for debugging purposes ???
-     This is a nonsense
-     Proposal :
-     use        <div cpsid="main_widgets_leftbox" />
-     instead of <div id="main_widgets_leftbox" />
    x [] find a way not using tal before xml declaration in zpt
       ok htmlns will be removed
    x [] getInfoFor review_state failed if not owner or manager ????

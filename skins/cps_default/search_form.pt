@@ -15,7 +15,7 @@
                      format string:detail;
                      filter python:0;
                      title_search request/title_search|nothing;
-                     swr request/searchwithinresults|nothing;
+                     swr request/search_within_results|nothing;
                     ">
     <h1 tal:condition="not:title_search"
       i18n:translate="heading_search_results">Search Results</h1>
@@ -63,7 +63,7 @@
             use-macro="here/generic_lib/macros/search_folder_prefix_option" />
         </tal:block>
         <tal:block condition="swr"
-          define="criteria python:['searchwithinresults', 'title_search',
+          define="criteria python:['search_within_results', 'title_search',
                                    'folder_prefix', 'review_state'];
                   criteria_list python:['portal_type'];">
           <tal:block repeat="criterion criteria">

@@ -66,7 +66,9 @@ class TreeBox(BaseBox):
     _properties = BaseBox._properties + (
         {'id': 'root', 'type': 'string', 'mode': 'w', 'label': 'Root'},
         {'id': 'depth', 'type': 'int', 'mode': 'w',
-         'label': 'depth of the tree'},
+         'label': 'depth of the accessible tree'},
+        {'id': 'portal_tree_stop_depth', 'type': 'int', 'mode': 'w',
+         'label': 'maximum portal_tree depth (absolute depth)'},
         {'id': 'contextual', 'type': 'boolean', 'mode': 'w',
          'label': 'try to expand on current path'},
         {'id': 'children_only', 'type': 'boolean', 'mode': 'w',
@@ -91,6 +93,7 @@ class TreeBox(BaseBox):
     display_hidden_folder = 0
     authorized_only = 1
     show_root = 1
+    portal_tree_stop_depth = 0
 
     def __init__(self, id, category='treebox', root='', depth=0, contextual=0,
                  children_only=0, **kw):
@@ -142,7 +145,10 @@ class TreeBox(BaseBox):
             workspaces = portal.restrictedTraverse(rpath_workspaces)
             return self.getTree(sections) + self.getTree(workspaces)
 
-        tree = portal_trees[root_tree].getList(filter=self.authorized_only)
+        kw = {'filter': self.authorized_only}
+        if self.portal_tree_stop_depth:
+            kw = {'stop_depth': self.portal_tree_stop_depth}
+        tree = portal_trees[root_tree].getList(**kw)
 
         if self.root and len(root_path) > 1:
             tree = [x for x in tree if (

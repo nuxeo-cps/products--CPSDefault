@@ -1,14 +1,14 @@
 <metal:html use-macro="here/content_lib/macros/master">
-<div metal:fill-slot="main">	  
+<div metal:fill-slot="main">
   <div class="Desktop">
-    <h2 i18n:translate="">Edit
+    <h2 i18n:translate="">heading_edit
       <span tal:replace="here/getId" i18n:name="item_id">My ID</span></h2>
-     
+
     <form action="content_edit" method="post"
           tal:attributes="action string:${here/absolute_url}/content_edit">
       <table class="FormLayout">
         <tr valign="top">
-          <th align="right" i18n:translate="item_title">Title</th>
+          <th align="right" i18n:translate="label_title">Title</th>
           <td colspan="3">
             <input type="text" name="title" value="" size="50"
                    tal:attributes="value doc/Title">
@@ -27,9 +27,9 @@
         <tr valign="top">
           <td><br></td>
           <td>
-            <input type="submit" name="change_and_edit" value=" Change "
+            <input type="submit" name="change_and_edit" value="button_change_and_edit"
                    i18n:attributes="value">
-            <input type="submit" name="change_and_view" value=" Change and View "
+            <input type="submit" name="change_and_view" value="button_change_and_view"
                    i18n:attributes="value">
           </td>
         </tr>

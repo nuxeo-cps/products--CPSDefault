@@ -7,21 +7,21 @@
      tal:condition="request/message|nothing"><hr></span>
 
   <h1 i18n:translate="">
-    Edit
-    <span tal:replace="here/getId" i18n:name="item_id">My ID</span>
+    heading_edit
+    <span tal:replace="here/getId" i18n:name="item_id">ID</span>
   </h1>
-    
+
 </div>
 
-<div metal:fill-slot="main">	  
+<div metal:fill-slot="main">
 
   <form class="group" action="content_edit" method="post"
         tal:attributes="action string:${here/absolute_url}/content_edit">
 
-    <span class="legend">contenu d'une hypothétique aide</span>
+    <span class="legend">help contenu d'une hypothétique aide</span>
 
     <div class="row">
-      <div class="label required" i18n:translate="item_title">
+      <div class="label required" i18n:translate="label_title">
         Title
       </div>
       <div class="field">
@@ -31,7 +31,7 @@
     </div>
 
     <div class="row">
-      <div class="label" i18n:translate="item_description">
+      <div class="label" i18n:translate="label_description">
         Description
       </div>
       <div class="field">
@@ -42,7 +42,7 @@
     </div>
 
     <div class="row">
-      <div class="label" i18n:translate="item_body">
+      <div class="label" i18n:translate="label_body">
         Body
       </div>
       <div class="field">
@@ -57,9 +57,9 @@
         &nbsp;
       </div>
       <div class="field">
-        <input type="submit" name="change_and_edit" value=" Change " 
+        <input type="submit" name="change_and_edit" value="button_change_and_edit"
                i18n:attributes="value">
-        <input type="submit" name="change_and_view" value=" Change and View " 
+        <input type="submit" name="change_and_view" value="button_change_and_view"
                i18n:attributes="value">
       </div>
     </div>

@@ -67,11 +67,15 @@ i18n:name="objectid">Item</span></h1>
 <hr/>
 
 <pre>macro display_content_icon:</pre>
-<metal:block use-macro="here/content_lib/macros/display_contents_icon" />
+<tal:block define="format string:icon">
+<metal:block use-macro="here/content_lib/macros/display_contents" />
+</tal:block>
 <hr/>
 
 <pre>macro display_content_compact:</pre>
-<metal:block use-macro="here/content_lib/macros/display_contents_compact" />
+<tal:block define="format string:compact">
+<metal:block use-macro="here/content_lib/macros/display_contents" />
+</tal:block>
 <hr/>
 
 

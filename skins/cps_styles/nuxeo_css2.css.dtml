@@ -317,6 +317,60 @@ div.tabs .wsClosetabSelected {
 }
 
 
+div.contentTabs {
+  background: &dtml-contentTabBackdrop;;
+  border-collapse: collapse;
+  border-bottom-color: &dtml-mainTabBorderColorSelected;;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding: 0.5em 0em 0em 2em;
+  white-space: nowrap;
+}
+
+div.contentTabs a {
+  background: &dtml-contentTabBackgroundNotSelected;;
+  border-color: &dtml-mainTabBorderColor;;
+  border-width: 1px;
+  border-style: solid none none none;
+  color: &dtml-contentTabFontColor;;
+  font-weight: &dtml-contentTabFontWeight;;
+  height: 1.2em;
+  margin-right: 0em;
+  padding: 0em 0.5em;
+  text-transform: &dtml-textTransform;;
+}
+
+div.contentTabs a.selected {
+  background: &dtml-contentTabBackground;;
+  border-top: 1px solid &dtml-mainTabBorderColorSelected;;
+  border-bottom: &dtml-contentTabBackground; 1px solid;
+  color: &dtml-contentTabFontColorSelected;;
+  font-weight: &dtml-contentTabFontWeight;;
+}
+
+div.contentTabs a:hover {
+  background: &dtml-contentTabBackground;;
+  border-color: &dtml-mainTabBorderColorSelected;;
+  border-bottom-color: &dtml-contentTabBackground;;
+  color: &dtml-contentTabFontColorSelected;;
+}
+
+div.contentTabs .opentab {
+  background: &dtml-contentTabBackgroundNotSelected; url('opentab.gif') no-repeat top left;
+}
+
+div.contentTabs .closetab {
+  background: &dtml-contentTabBackgroundNotSelected; url('closetab.gif') no-repeat top right;
+}
+
+div.contentTabs .opentabSelected {
+  background: &dtml-contentTabBackground; url('opentab.gif') no-repeat top left;
+}
+
+div.contentTabs .closetabSelected {
+  background: &dtml-contentTabBackground; url('closetab.gif') no-repeat top right;
+}
+
 /* BOX ---------------------------------------- */
 table.box tr.odd ul, table.box tr.even ul {
   margin-left: 2em;

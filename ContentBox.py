@@ -46,7 +46,7 @@ class ContentBox(BaseBox):
     """
     meta_type = 'Content Box'
     portal_type = 'Content Box'
-    
+
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -61,69 +61,34 @@ class ContentBox(BaseBox):
     security.declarePublic('getFolderObject')
     def getFolderObject(self, context):
         """Return the self.folder object or the context object if any"""
-        if self.folder:
+        from zLOG import LOG, DEBUG
+        obj = None
+        if not self.folder:
+            obj = context
+        else:
+            container = context
+            folder = self.folder
             if self.folder[0]=='/':
-                return self.restrictedTraverse(self.folder)
-            else: #rpath
-                if hasattr(aq_base(context), self.folder):
-                    folder = context.absolute_url(relative=1) + '/' + \
-                             self.folder
-                    return self.restrictedTraverse(folder)
-                return None
-        return context
+                container = self.portal_url.getPortalObject()
+                folder = self.folder[1:]
+
+            try:
+                obj = container.restrictedTraverse(folder)
+            except KeyError:
+                pass
+
+        return obj
 
     security.declarePublic('getFolderContents')
     def getFolderContents(self, context, sort_by='status',
                           direction='asc'):
         """Get a sorted list of contents object"""
-        mtool = getToolByName(self, 'portal_membership')
-        wtool = getToolByName(self, 'portal_workflow')
-
-        # filtering
-        items = []
-        now = context.ZopeTime()
         folder = self.getFolderObject(context)
-        if not folder:
-            return []
-        for item in folder.objectValues():
-            if item.getId().startswith('.'):
-                continue
-            if item.isPrincipiaFolderish:
-                continue
-            if not mtool.checkPermission('View', item):
-                continue
-# XXX expire should be handle by wf
-
-            items.append(item)
-
-        # sorting
-        # XXX hardcoded status !
-        status_sort_order={'nostate':'0',
-                           'pending':'1',
-                           'published':'2',
-                           'work':'3',
-                           }
-        
-        def cmp_desc(x, y):
-            return -cmp(x, y)
-
-        if sort_by == 'status':
-            objects = [(status_sort_order[wtool.getInfoFor(x, 'review_state',
-                                                           'nostate')] + \
-                        x.title_or_id().lower(), x) for x in items]
-        elif sort_by == 'date':
-            objects = [(wtool.getInfoFor(x, 'time', 'x'), x) for x in items]
-        else:
-            objects = [(x.getId(), x) for x in items]
-        
-        if direction != 'asc':
-            objects.sort(cmp_desc)
-        else:
-            objects.sort()
-        items = [x[1] for x in objects]
-
-        return items
-
+        if folder:
+            return folder.getFolderContents(sort_by=sort_by,
+                                            direction=direction,
+                                            hide_folder=1)
+        return []
 
 InitializeClass(ContentBox)
 

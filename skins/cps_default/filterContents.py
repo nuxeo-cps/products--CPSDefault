@@ -1,5 +1,5 @@
 ## Script (Python) "FilterContents"
-##parameters=items=[], sort_by='title', direction='asc'
+##parameters=items=[], sort_by='title', direction='asc', hide_folder=0
 # $Id$
 """
 Filter and sort items (proxy)
@@ -15,6 +15,9 @@ for item in items:
         continue
     if not mtool.checkPermission('View', item):
         continue
+    if hide_folder and item.isPrincipiaFolderish:
+        continue
+    
 # XXX TODO expire should be handel by wf
     filtered_items.append(item)
 

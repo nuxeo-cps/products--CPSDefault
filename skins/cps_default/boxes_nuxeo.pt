@@ -136,7 +136,6 @@
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
        <tal:block define="
-          folder python:box['box'].getFolderObject(here);
           no_form not:nothing;
           items python:box['box'].getFolderContents(here);
           format string:compact;
@@ -159,7 +158,6 @@
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
        <tal:block define="
-          folder python:box['box'].getFolderObject(here);
           no_form not:nothing;
           format string:detail;
           columns python:1;

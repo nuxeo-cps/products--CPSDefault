@@ -11,7 +11,7 @@
 <metal:main fill-slot="main"
      tal:define="search_param python:request.get('search_param', '');
                  search_term python:request.get('search_term', '');
-                 searching python:search_param and search_term;
+                 searching search_param;
                  cpslr python:here.getCPSLocalRoles(mtool=mtool,
                                                     base_url=base_url,
                                                     context_url=context_url);

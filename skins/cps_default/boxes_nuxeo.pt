@@ -98,8 +98,8 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_folder_header"
   tal:define="doc nocall:doc|python:here.getContent()">
-<tal:block condition="python: checkPerm('List folder contents', here,
-  'aq_parent')">
+<div class="doNotPrint"
+  tal:condition="python: checkPerm('List folder contents', here, 'aq_parent')">
   <a href="../">
   <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
     base_url=base_url)" />
@@ -108,7 +108,7 @@
       Up ID</strong>
   </span>
   </a>
-</tal:block>
+</div>
 <h1 tal:content="here/title_or_id">Page Title</h1>
 
 <div class="description" tal:condition="doc/Description|nothing"
@@ -160,7 +160,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_conformance_statement">
 <hr class="netscape4" />
-<div class="conformanceStatement">
+<div class="conformanceStatement doNotPrint">
     <a href="http://www.cps-project.org/">
       <img src="cps-minibanner.png" 
         alt=""
@@ -683,6 +683,34 @@
   </metal:block>
 </metal:block>
 </metal:block>
+
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="treebox_nav"
+  tal:define="items python:box['box'].getNavTree(here, request.form);">
+<tal:block condition="items">
+  <metal:block use-macro="python:path(box['settings']['box_skin'])">
+    <metal:block fill-slot="box_title">
+      <metal:block define-slot="box_title">
+        <tal:block i18n:translate=""
+          content="box/box/title">box text title</tal:block>
+      </metal:block>
+    </metal:block>
+    <metal:block fill-slot="box_body">
+  <div tal:repeat="node items">
+    <metal:block use-macro="here/navigation_lib/macros/render_lines_text" />
+    <a tal:define="title_or_id python:node['object']['Title'] or node['object']['getId']"
+      tal:attributes="
+      class python:test(node['is_current'], 'selected', nothing);
+      href string:${base_url}${node/uid};"
+      tal:content="title_or_id" />
+  </div>
+    </metal:block>
+  </metal:block>
+</tal:block>
+</metal:block>
+
 
 
 <!-- ============================================================ -->

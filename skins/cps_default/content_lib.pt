@@ -230,11 +230,11 @@ format:</pre>
      tal:attributes="src string:/${info/icon};
                      title info/type;"/>
   </td><td>
-   <a href="" tal:attributes="href string:${info/id}/view;
+   <a href="" tal:attributes="href string:/${info/rpath}/view;
                               title info/description">
      <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
    <small>
-    <span tal:replace="string:id:${info/id}">[id]</span>,
+    id:<span tal:replace="info/id">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
                        status_time not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />

@@ -539,6 +539,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupWorkflow3()
         self.setupWorkflow4()
         self.setupWorkflow5()
+        self.addModifyTransition()
         self.setupWorkflowTranslation()
         self.log("Verifying workflow schemas")
 
@@ -1216,6 +1217,37 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
                      wfscripts, wfvariables)
+
+
+    def addModifyTransition(self):
+        wftool = self.getTool('portal_workflow')
+        wfs_to_upgrade = ('workspace_content_wf',
+                         'workspace_folderish_content_wf')
+        modify_transition_def = { 
+            'modify': { 'title': 'Modification of content,'
+                                 'provides a specific entry in status history',
+                        'new_state_id': '',
+                        'transition_behavior': (),
+                        'clone_allowed_transitions': None,
+                        'trigger_type': TRIGGER_USER_ACTION,
+                        'actbox_category': 'workflow',
+                        'props': {'guard_permissions': '',
+                                  'guard_roles': 'Manager; Owner;'
+                                                 'WorkspaceManager; '
+                                                 'WorkspaceMember',
+                                  'guard_expr': ''}, 
+                      }
+                                }
+
+        for wf_id in wfs_to_upgrade:
+            wf = wftool[wf_id]
+            self.verifyWfTransitions(wf, modify_transition_def)
+            
+            work_state = wf.states.get('work')
+            transitions = work_state.transitions
+            if 'modify' not in transitions:
+                new_transitions = transitions + ('modify',)
+                work_state.setProperties(transitions=new_transitions)
 
 
     def upgradeWorkflowStatus(self):

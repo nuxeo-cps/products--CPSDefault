@@ -957,13 +957,6 @@ def cpsupdate(self, langs_list=None):
                          'format':'center',
                          'order':20,
                          },
-
-        'display_settings ': {'type': 'Base Box',
-                              'title': 'Display Settings',
-                              'format': 'display_settings',
-                              'slot': 'center_bottom',
-                              'order': 1,
-                              },        
         }
     box_container = portal[idbc]
     existing_boxes = box_container.objectIds()

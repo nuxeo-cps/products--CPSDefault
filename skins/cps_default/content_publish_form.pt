@@ -1,0 +1,82 @@
+<metal:html use-macro="here/content_lib/macros/master">
+
+<metal:block fill-slot="header" />
+
+<metal:main fill-slot="main">
+<metal:std_main use-macro="here/content_lib/macros/std_main">
+
+<metal:title fill-slot="title" i18n:translate="">
+  heading_publish_of
+  <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
+</metal:title>
+
+<metal:help fill-slot="help">
+  <span i18n:translate="help_publish_publication">You can publish this item
+  directly, without requiring any reviewing, in the sections you select.<br>A
+  copy of the item will be created into each of these sections with the
+  <b>published</b>status. Section readers of those sections could then read
+  it.</span>
+</metal:help>
+
+<metal:main fill-slot="main"
+            tal:define="info python:proxy.getContentInfo(proxy, doc=doc,
+                                                         level=3);
+                        clone_wf_action string:publish;
+                        start_wf_action string:copy_submit;
+                       ">
+  <br>
+  <metal:block use-macro="here/content_lib/macros/status" /><br><br>
+
+  <metal:block use-macro="here/content_lib/macros/transition_form">
+    <metal:block fill-slot="fields"
+                 tal:define="stree python: here.getSectionsTree();">
+      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tr>
+          <th width="30%" i18n:translate="listingheader_sections">Section</th>
+          <th i18n:translate="listingheader_existing_revision">
+            Existing revision of the same document
+          </th>
+        </tr>
+        <tal:block repeat="section stree">
+          <tr tal:condition="python:clone_wf_action in section['publishing_transitions']"
+              tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
+            <td nowrap>
+              <input type="checkbox" name="" value="" class="noborder"
+                     tal:attributes="value section/rpath;
+                                     name clone_wf_action;">
+              <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
+              <span tal:replace="structure section/short_title">Section id</span>
+            </td>
+            <td>
+              <span tal:repeat="item info/states">
+                <tal:block condition="python:item['rpath'] == section['rpath']"
+                           define="info item;
+                                   status_short_fmt not:nothing;">
+                  <metal:block use-macro="here/content_lib/macros/status" /><br>
+
+                </tal:block>
+              </span>
+            </td>
+          </tr>
+        </tal:block>
+      </table>
+    </metal:block>
+
+    <metal:block fill-slot="button">
+      <input type="hidden" name="workflow_action" value="submit"
+             tal:attributes="value start_wf_action">
+      <input type="submit" class="standalone" value="button_submit_document"
+        i18n:attributes="value">
+      <input type="button" class="context" onClick="history.back()"
+        value="button_cancel" i18n:attributes="value">
+    </metal:block>
+
+  </metal:block>
+
+  <metal:block use-macro="here/content_lib/macros/states" /><br>
+
+  <metal:block use-macro="here/content_lib/macros/history" />
+</metal:main>
+</metal:std_main>
+</metal:main>
+</metal:html>

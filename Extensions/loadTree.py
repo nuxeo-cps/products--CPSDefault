@@ -1,9 +1,10 @@
-## Script (Python) "importData"
-##title=import data from a configuration file
+## Script (Python) "loadTree"
+##title=import tree from a configuration file
 ##parameters=
 ## $Id$
 """
-importData see test_importData.ini for example
+build a tree using a data file created with skin/cps_devel/dump_tree
+the file should be located in CLIENT_HOME (ie $ZS/var folder)
 """
 import os
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
@@ -11,19 +12,9 @@ from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base
 
-
-product_name='MCI'
-filename='data.ini'
-
-
-_log=[]
-def pr(bla, _log=_log):
-    if bla == 'flush':
-        return '<html><head><title>IMORT DATA</title></head><body><pre>' + \
-               '\n'.join(_log) + '</body></html>'
-    _log.append(bla)
+def pr(bla):
     if (bla):
-        LOG('importData:', INFO, bla)
+        LOG('loadTree:', INFO, bla)
 
 
 class DataConfig:
@@ -63,10 +54,10 @@ class DataConfig:
         return kw
 
     def getContents(self, folder='root'):
-        return cfg.getList(folder, 'contents', '')
+        return self.getList(folder, 'contents')
 
     def getPermission(self, folder='root'):
-        return cfg.getList(folder, 'permission', '')
+        return self.getList(folder, 'permission')
 
 
 def makeId(title):
@@ -84,16 +75,19 @@ def makeId(title):
     return id.lower()
 
 
-def createContent(type, path, id, force=None, **kw):
+def createContent(portal, type, path, id, force=None, **kw):
     if path:
         path = path[1:]
         pr('check %s/%s' % (path, id))
+
+    portal_eventservice = getToolByName(portal, 'portal_eventservice')
+    portal_types = getToolByName(portal, 'portal_types')
+
     parent = portal.unrestrictedTraverse(path)
 
-    ttool = getToolByName(parent, 'portal_types')
     ti = None
     proxy_type = None
-    for t in ttool.listTypeInfo():
+    for t in portal_types.listTypeInfo():
         if t.getId() == type:
             ti = t
             break
@@ -112,7 +106,7 @@ def createContent(type, path, id, force=None, **kw):
         if proxy_type:
             parent.invokeFactory(type, id)
         elif proxy_type == 0:
-            apply(ttool.constructContent,
+            apply(portal_types.constructContent,
                   (type, parent, id, None), {})
         elif proxy_type is None:
             all_types = parent.filtered_meta_types()
@@ -144,7 +138,7 @@ def createContent(type, path, id, force=None, **kw):
 
 
 
-def buildTree(cfg, parent='root', path='', parent_type=None):
+def buildTree(portal, cfg, parent='root', path='', parent_type=None):
     if parent != 'root':
         path += '/'+cfg.get(parent, 'id', makeId(parent))
     parent_type = cfg.get(parent, 'type', parent_type)
@@ -156,7 +150,7 @@ def buildTree(cfg, parent='root', path='', parent_type=None):
         kw = cfg.getKw(content,
                        remove=('id', 'type', 'force',
                                'contents', 'permission'))
-        ob = createContent(type, path, id, force, **kw)
+        ob = createContent(portal, type, path, id, force, **kw)
         if ob:
             for perm in cfg.getPermission(content):
                 permission = cfg.get(perm, 'permission')
@@ -168,22 +162,16 @@ def buildTree(cfg, parent='root', path='', parent_type=None):
                                      acquire=acquire)
 
     for content in contents:
-        buildTree(cfg, content, path, parent_type)
+        buildTree(portal, cfg, content, path, parent_type)
 
 
-def main(self):
-    global _log, cfg, portal, portal_url, portal_workflow, portal_eventservice
-    global product_name, filename
+def loadTree(self, filename='tree.ini'):
     portal_url = getToolByName(self, 'portal_url')
-    portal_workflow = getToolByName(self, 'portal_workflow')
-    portal_eventservice = getToolByName(self, 'portal_eventservice')
     portal = portal_url.getPortalObject()
-    filename = 'data.ini'
-    app=self.getPhysicalRoot()
-    p=getattr(app.Control_Panel.Products, product_name)
-    filename = os.path.join(p.home + '/Extensions/', filename)
+    filename = os.path.join(CLIENT_HOME, filename)
+    pr('INITIALIZING TREE with %s' % (filename))
     cfg=DataConfig(filename)
+    buildTree(portal, cfg)
+    pr('END')
 
-    pr('INITIALIZING %s TREE with %s:' % (product_name, filename))
-    buildTree(cfg)
-    return pr('flush')
+    return 'loadTree %s Done.' % filename

@@ -168,6 +168,24 @@ def cpsupdate(self, langs_list=None):
             visible=1)
         pr(" Added Action Directories")
 
+
+    # Verification of the action and addinf if neccesarly
+    action_found = 0
+    for action in portal['portal_actions'].listActions():
+        if action.id == 'preferences':
+            action_found = 1
+
+    if not action_found:
+        portal['portal_actions'].addAction(
+            id='action_my_preferences',
+            name='action_my_preferences',
+            action="python:portal_url+'/directory_getentry?dirname=members&entry_id='+portal.portal_membership.getAuthenticatedMember().getMemberId()",
+            condition='python:not portal.portal_membership.isAnonymousUser()',
+            permission=('View',),
+            category='user',
+            visible=1)
+        pr(" Added Action My Preferences")
+
     # skins
     pr("Verifying skins")
     skins = ('cps_nuxeo_style', 'cps_styles', 'cps_images', 'cps_devel',

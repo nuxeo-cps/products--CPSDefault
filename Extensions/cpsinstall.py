@@ -1481,7 +1481,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSDocument
         if not portalhas('cpsdocument_installer'):
-            pr('Adding CPSDocument installer')
+            pr("Adding CPSDocument installer")
             cpsdocument_installer = ExternalMethod('cpsdocument_installer',
                                               'CPSDocument Installer',
                                               'CPSDocument.install',
@@ -1489,7 +1489,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             portal._setObject('cpsdocument_installer', cpsdocument_installer)
         pr(portal.cpsdocument_installer())
     except ImportError:
-        pass
+        pr("!! Could not import CPSDocument installer")
 
     #
     #  CPSMailingLists installer/updater

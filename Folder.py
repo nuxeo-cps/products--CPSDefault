@@ -81,7 +81,8 @@ class CPSFolder(CPSFolderBase):
     def invokeFactory(self, type_name, id, RESPONSE=None, *args, **kw):
         """Create a CMF object in this folder.
 
-        A creation_transitions argument can be passed.
+        A creation_transitions argument should be passed for CPS
+        object creation.
         Creation is governed by the workflows allowed by the workflow tool.
         """
         wftool = getToolByName(self, 'portal_workflow')

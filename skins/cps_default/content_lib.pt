@@ -499,7 +499,7 @@ format:</pre>
    <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
   <td align=center><tal:block replace="structure python:here.getImgTag(info['icon'],
     base_url=base_url, title=info['type'])" /></td>
-  <td align=center><span tal:content="info/size"></span></td>
+  <td align=center><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
   <td align=center i18n:translate="">
     <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>
   </td>

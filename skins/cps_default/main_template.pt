@@ -51,7 +51,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
        align="center" valign="top" class="columns">
   <tr>
-    <td class="left" width="150">
+    <td class="left" width="15%" valign="top">
 <!-- BEGIN LEFT Slot ============================== -->
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left')">
@@ -60,7 +60,9 @@
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
 <!-- END LEFT Slot ================================ -->
     </td>
-    <td class="main">
+    <td class="main" width="70%" valign="top"
+      tal:attributes="width python:test(showthirdcol, '70%', '85%');
+                      colspan python:test(showthirdcol, nothing, '2');">
       <metal:block use-macro="here/generic_lib/macros/portal_message" />
 <!-- BEGIN CENTER_TOP Slot ======================== -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
@@ -86,7 +88,7 @@
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
 <!-- END CENTER_BOTTOM Slot======================== -->
     </td>
-    <td class="right" width="150" tal:condition="showthirdcol">
+    <td class="right" width="15%" valign="top" tal:condition="showthirdcol">
 <!-- BEGIN RIGHT Slot ============================= -->
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right')">
@@ -94,8 +96,6 @@
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
 <!-- END RIGHT Slot =============================== -->
-    </td>
-    <td width="1" tal:condition="not:showthirdcol">
     </td>
   </tr>
   <tr tal:define="closed_box python:btool.filterBoxes(boxes, '',

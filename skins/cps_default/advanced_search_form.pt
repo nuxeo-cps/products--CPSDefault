@@ -1,7 +1,8 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="here/main_template/macros/master">
-  <div metal:fill-slot="main">
+  <body>
+  <metal:block metal:fill-slot="main">
     <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
@@ -43,6 +44,7 @@
       <form method="post" action="advanced_search_form">
         <metal:block use-macro="here/generic_lib/macros/search_form" />
       </form>
-    </metal:block>
-  </div>
+    </metal:block> 
+  </metal:block>
+  </body>
 </html>

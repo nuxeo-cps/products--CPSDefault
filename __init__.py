@@ -20,7 +20,6 @@ fti = (Folder.factory_type_information +
        )
 
 registerDirectory('skins', globals())
-registerDirectory('skins/images', globals())
 
 def initialize(context):
     ContentInit('CPSDefault Documents',

@@ -981,6 +981,7 @@ def cpsupdate(self, langs_list=None):
                          'title': 'Contents',
                          'slot':'folder_view',
                          'btype':'default',
+                         'box_skin': 'here/box_lib/macros/sbox',
                          'order':20,
                          },
         }

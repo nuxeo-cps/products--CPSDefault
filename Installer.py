@@ -37,6 +37,7 @@ class BaseInstaller:
         self.portal = context.portal_url.getPortalObject()
         self.workspaces = self.portal[self.WORKSPACES_ID]
         self.sections = self.portal[self.SECTIONS_ID]
+        self.boxtool = self.portal.portal_boxes
 
     def log(self, bla, zlog=1):
         self._log.append(bla)
@@ -172,3 +173,18 @@ class BaseInstaller:
                     else:
                         self.log('    Skipping not installed locale for file %s' % file)
 
+    def setupBoxes(self, boxes_def, box_container):
+        """Sets up .cps_boxes or .cps_boxes_root depending on the given box_container.
+        <boxesDef> parameter is a dictionary with items of the following form :
+        'boxId': {'type':'xxx', 'title': 'xxx',}
+        """
+        ttool = self.portal.portal_types
+        existing_boxes = box_container.objectIds()
+        for box_id in boxes_def.keys():
+            if box_id not in existing_boxes:
+                self.log("   Creation of box: %s" % box_id)
+                apply(ttool.constructContent,
+                      (boxes_def[box_id]['type'], box_container,
+                       box_id, None), {})
+            box = getattr(box_container, box_id)
+            box.manage_changeProperties(**boxes_def[box_id])

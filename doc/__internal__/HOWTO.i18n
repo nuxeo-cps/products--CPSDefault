@@ -27,8 +27,7 @@ Tools used
 
   For python script file we have to use this syntax ::
 
-    there is a tal define in the main_template named cpsmcat:
-    cpsmcat nocall:here/Localizer/default;
+     cpsmcat = context.Localizer.default
 
 ---------------------------------------------------------------
 Guide to Prefixes your msgid (mostly from plone i18n guideline)
@@ -100,6 +99,15 @@ How to translate:
 
     <input type="submit" i18n:attributes="value" value="button_search" />
 
+
+  - javascript i18n:
+
+    there is a tal define in the main_template named cpsmcat:
+    cpsmcat nocall:here/Localizer/default;
+
+    ex:
+    <a href="http://www.nuxeo.com/"
+      tal:attributes="onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )">go to nuxeo</a>
 
   - For the portal status message:
 

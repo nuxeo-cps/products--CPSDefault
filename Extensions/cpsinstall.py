@@ -10,12 +10,16 @@ from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.ActionInformation import ActionInformation
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, \
      ReviewPortalContent, RequestReview
+from Products.PythonScripts.PythonScript import PythonScript
 
 from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \
-     TRANSITION_BEHAVIOR_DELETE, TRANSITION_BEHAVIOR_MERGE
+     TRANSITION_BEHAVIOR_DELETE, TRANSITION_BEHAVIOR_MERGE, \
+     TRANSITION_ALLOWSUB_CHECKOUT, TRANSITION_INITIAL_CHECKOUT, \
+     TRANSITION_BEHAVIOR_CHECKOUT, TRANSITION_ALLOW_CHECKIN, \
+     TRANSITION_BEHAVIOR_CHECKIN
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
 def cpsinstall(self):
@@ -335,7 +339,8 @@ def cpsupdate(self, langs_list=None):
                     )
     t = wf.transitions.get('create_content')
     t.setProperties(title='Create content', new_state_id='work',
-                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ),
+                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE,
+                                         TRANSITION_ALLOWSUB_CHECKOUT),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION,
                     actbox_name='New',
@@ -355,9 +360,11 @@ def cpsupdate(self, langs_list=None):
                               workflow_type='cps_workflow (Web-configurable workflow for CPS)')
     wf = wftool[wfid]
 
-    for s in ('work', ):
+    for s in ('work', 'draft', 'locked'):
         wf.states.addState(s)
-    for t in ('create', 'copy_submit', ):
+    for t in ('create', 'copy_submit',
+              'checkout_draft', 'checkout_draft_in', 'checkin_draft',
+              'abandon_draft', 'unlock'):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
               'dest_container'):
@@ -367,8 +374,20 @@ def cpsupdate(self, langs_list=None):
 
     s = wf.states.get('work')
     s.setProperties(title='Work',
-                    transitions=('copy_submit',))
+                    transitions=('copy_submit', 'checkout_draft'))
     s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
+
+    s = wf.states.get('draft')
+    s.setProperties(title='Draft',
+                    transitions=('checkin_draft', 'abandon_draft'))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'Owner'))
+    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'Owner'))
+
+    s = wf.states.get('locked')
+    s.setProperties(title='Locked',
+                    transitions=('unlock',))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager'))
     s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
 
     t = wf.transitions.get('create')
@@ -392,6 +411,84 @@ def cpsupdate(self, langs_list=None):
                            'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
+    t = wf.transitions.get('checkout_draft')
+    t.setProperties(title='Checkout content into a draft',
+                    new_state_id='locked',
+                    transition_behavior=(TRANSITION_BEHAVIOR_CHECKOUT,),
+                    checkout_allowed_initial_transitions=('checkout_draft_in',),
+                    actbox_name='action_checkout_draft', actbox_category='workflow',
+                    actbox_url='%(content_url)s/content_checkout_draft_form',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('checkout_draft_in')
+    t.setProperties(title='Draft is created',
+                    new_state_id='draft',
+                    transition_behavior=(TRANSITION_INITIAL_CHECKOUT,
+                                         TRANSITION_BEHAVIOR_FREEZE),
+                    )
+    t = wf.transitions.get('checkin_draft')
+    t.setProperties(title='Checkin draft',
+                    new_state_id='locked',
+                    transition_behavior=(TRANSITION_BEHAVIOR_CHECKIN,),
+                    checkin_allowed_transitions=('unlock',),
+                    actbox_name='action_checkin_draft', actbox_category='workflow',
+                    actbox_url='%(content_url)s/content_checkin_draft_form',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; Owner',
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('abandon_draft')
+    t.setProperties(title='Abandon draft',
+                    new_state_id='',
+                    transition_behavior=(TRANSITION_BEHAVIOR_DELETE,),
+                    script_name='unlock_locked_before_abandon',
+                    actbox_name='action_abandon_draft', actbox_category='workflow',
+                    actbox_url='%(content_url)s/content_abandon_draft_form',
+                    props={'guard_permissions':'',
+                           'guard_roles':'Manager; WorkspaceManager; Owner',
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('unlock')
+    t.setProperties(title='Unlock content after a draft is done',
+                    new_state_id='work',
+                    transition_behavior=(TRANSITION_ALLOW_CHECKIN,),
+                    )
+
+
+    # wf scripts
+    scripts = wf.scripts
+
+    script_name = 'unlock_locked_before_abandon'
+    scripts._setObject(script_name, PythonScript(script_name))
+    script = scripts[script_name]
+    script.write("""\
+##parameters=state_change
+# Unlock the locked object before a draft is abandonned.
+wftool = context.portal_workflow
+object = state_change.object
+folder = object.aq_parent
+docid = object.getDocid()
+flr = object.getFromLanguageRevisions()
+locked_ob = None
+for ob in folder.objectValues():
+    try:
+        rs = wftool.getInfoFor(ob, 'review_state', None)
+        if (rs == 'locked' and
+            ob.getDocid() == docid and
+            ob.getLanguageRevisions() == flr):
+            locked_ob = ob
+            break
+    except:
+        from zLOG import LOG, DEBUG
+        LOG('unlock_locked_before_checkin', DEBUG, 'exception in folder=%s' % folder)
+        raise
+if locked_ob is not None:
+    wftool.doActionFor(locked_ob, 'unlock')
+""")
+    #script._proxy_roles = ('Manager',)
+    script._owner = None
 
     # wf variables
     wf.variables.setStateVar('review_state')

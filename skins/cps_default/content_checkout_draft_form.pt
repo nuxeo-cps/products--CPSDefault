@@ -1,0 +1,32 @@
+<metal:html use-macro="here/content_lib/macros/master">
+
+<metal:block fill-slot="header" />
+
+<metal:main fill-slot="main">
+<metal:std_main use-macro="here/content_lib/macros/std_main">
+
+<metal:title fill-slot="title" i18n:translate="">
+  heading_checkout_draft_of
+  <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
+</metal:title>
+
+<metal:help fill-slot="help">
+  <span i18n:translate="help_checkout_draft">
+    If you create a draft, you will be the only one able to work on the document.
+  </span>
+</metal:help>
+
+<metal:main fill-slot="main">
+  <form action="." method="POST"
+    tal:attributes="action string:${here/absolute_url}/content_checkout_draft">
+
+    <input type="submit" class="standalone" value="button_checkout_draft"
+      i18n:attributes="value">
+    <input type="button" class="context" onClick="history.back()"
+      value="button_cancel" i18n:attributes="value">
+  </form>
+</metal:main>
+
+</metal:std_main>
+</metal:main>
+</metal:html>

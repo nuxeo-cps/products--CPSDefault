@@ -146,13 +146,13 @@ class ContentBox(BaseBox):
             if self.nb_items and len(items) > self.nb_items:
                 items = items[:self.nb_items]
                 if len(query):
-                    q = make_query(sort_by=self.sort_by,
+                    q = make_query(query=query,
+                                   sort_by=self.sort_by,
                                    direction=self.direction,
                                    hide_folder=1,
                                    folder_prefix=folder_prefix,
                                    title_search=self.title,
-                                   search_within_results=1,
-                                   **self._buildQuery())
+                                   search_within_results=1)
                     link_more = './search_form?%s' % q
                 else:
                     link_more = utool.getRelativeUrl(folder)

@@ -12,9 +12,11 @@ ptool = context.portal_proxies
 # get searchable portal type only
 okpt = context.getSearchablePortalTypes(only_ids=1)
 pt = query.get('portal_type', None)
+del_portal_type = 0
 if pt and pt != ['']:
     pt = [t for t in pt if t in okpt]
 else:
+    del_portal_type = 1
     pt = okpt
 query['portal_type'] = pt
 
@@ -25,13 +27,20 @@ query['path'] = portal_path+'/portal_repository/'
 # init status
 status=''
 if query.get('review_state'):
-    status=query['review_state']
-    wtool=context.portal_workflow
+    status = query['review_state']
+    wtool = context.portal_workflow
     del query['review_state']
 
-
-# get documents brains
+# search and get documents brains
 b_docs = catalog(**query)
+
+# restore query as it is pass trought request.form
+del query['path']
+if del_portal_type:
+    del query['portal_type']
+if status:
+    query['review_state'] = status
+
 
 items = []
 for b_doc in b_docs:
@@ -51,8 +60,8 @@ for b_doc in b_docs:
             continue
 
         # status filtering
-        if status and wtool.getInfoFor(proxy,
-                                       'review_state','nostate') != status:
+        if status and \
+               wtool.getInfoFor(proxy, 'review_state','nostate') != status:
             continue
 
         items.append(proxy)

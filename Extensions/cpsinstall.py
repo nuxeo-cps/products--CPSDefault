@@ -131,15 +131,6 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating CPS Membership Tool")
         portal.manage_addProduct['CPSCore'].addCPSMembershipTool()
 
-    # portal membership
-    pr("Verifying Portal MetaDirectories")
-    if portalhas('portal_metadirectories'):
-        pm = portal.portal_membership
-        if pm.portal_type == 'CMF MetaDirectories Tool':
-            prok()
-        else:
-            portal.manage_delObjects(['portal_metadirectories'])
-
     #
     # NuxMetaDirectories
     #
@@ -147,13 +138,14 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating CMF MetaDirectories Tool")
         portal.manage_addProduct["NuxMetaDirectories"].manage_addTool('CMF MetaDirectories Tool')
 
-    mtool = portal.portal_metadirectories
-    pr("  Adding Member Areas : member")
-    mtool.manage_addProduct['NuxMetaDirectories'].manage_addMembersDirectory(id='members',title='Members')
-    pr("  Adding Group Directory : group")
-    mtool.manage_addProduct['NuxMetaDirectories'].manage_addGroupsDirectory(id='groups', title='Groups')
+        mtool = portal.portal_metadirectories
+        pr("  Adding Member Areas : member")
+        mtool.manage_addProduct['NuxMetaDirectories'].manage_addMembersDirectory(id='members',title='Members')
+        pr("  Adding Group Directory : group")
+        mtool.manage_addProduct['NuxMetaDirectories'].manage_addGroupsDirectory(id='groups', title='Groups')
 
     # Synchronization with MemberData
+    mtool = portal.portal_metadirectories
     mtool.members.syncSchemaAndMemberData()
 
     # Verification of the action and addinf if neccesarly

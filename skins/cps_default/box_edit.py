@@ -12,28 +12,6 @@ if kw.get('back'):
     return REQUEST.RESPONSE.redirect('%s/box_manage_form' %
                                      (context.absolute_url()))
 
-if kw.has_key('display_order'):
-    display_order = kw['display_order']
-    if display_order == "None" or not display_order:
-        kw['sort_by'] = None
-        kw['direction'] = None
-    else:
-        kw['sort_by'], kw['direction'] = display_order.split('_')
-    del kw['display_order']
-
-if kw.has_key('display_style'):
-    kw['display'] = kw['display_style']
-    if kw['display'] == 'None':
-        kw['display'] = None
-    del kw['display_style']
-
-box_url = kw['box_url']
-del kw['box_url']
-box_category = kw['box_category']
-del kw['box_category']
-
-box = context.restrictedTraverse(box_url)
-
 # handle box display
 disp = kw.get('display_box')
 if disp:
@@ -89,6 +67,28 @@ if sf:
 
     del kw['providertype']
 
+# handle contentbox
+if kw.has_key('display_order'):
+    display_order = kw['display_order']
+    if display_order == "None" or not display_order:
+        kw['sort_by'] = None
+        kw['direction'] = None
+    else:
+        kw['sort_by'], kw['direction'] = display_order.split('_')
+    del kw['display_order']
+
+if kw.has_key('display_style'):
+    kw['display'] = kw['display_style']
+    if kw['display'] == 'None':
+        kw['display'] = None
+    del kw['display_style']
+
+box_url = kw['box_url']
+del kw['box_url']
+box_category = kw['box_category']
+del kw['box_category']
+
+box = context.restrictedTraverse(box_url)
 box.edit(**kw)
 
 psm = 'psm_box_modified'

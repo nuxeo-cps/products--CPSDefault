@@ -50,6 +50,20 @@ class TestSimpleAsRoot(TestSimple):
         #self.assertEquals(self.portal.workspaces.view(), '')
         #self.assertEquals(self.portal.sections.view(), '')
 
+    def testAdminSkinsAtRoot(self):
+        self.assertEquals(self.portal.directories(), '')
+        #self.assertEquals(self.portal.box_manage_form(), '')
+        #self.assertEquals(self.portal.create_box_form(), '')
+        self.assertEquals(self.portal.reconfig_form(), '')
+
+    def testAdminSkinsAtWorkspaces(self):
+        ws = self.portal.workspaces
+        self.assertEquals(ws.folder_view(), '')
+        self.assertEquals(ws.folder_factories(), '')
+        #self.assertEquals(ws.folder_contents(), '')
+        self.assertEquals(ws.folder_localrole_form(), '')
+        #self.assertEquals(ws.box_manage_form(), '')
+
 
 class TestSimpleAsAnonymous(TestSimple):
     login_id = ''

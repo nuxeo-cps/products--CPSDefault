@@ -46,8 +46,8 @@ from OFS.SimpleItem import SimpleItem
 class DummyTranslationService(SimpleItem):
     meta_type = 'Translation Service'
     id = 'translation_service'
-    def translate(self, domain, *args, **kw):
-        return ""
+    def translate(self, domain, msgid, *args, **kw):
+        return msgid
 
 # Un-patch LocalizerStringIO
 

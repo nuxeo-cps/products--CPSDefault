@@ -1,5 +1,5 @@
 ## Script (Python) "getBreadCrumbs.py"
-##parameters=url=None, parent=0, REQUEST=None
+##parameters=url=None, parent=0, breadcrumb_set=None
 # $Id$
 
 def format_title(title):
@@ -16,9 +16,12 @@ def format_title(title):
 # a variable "breadcrumb_set" in the REQUEST
 # and then returning it without computing
 # Cf. Directories Templates
-if REQUEST is not None:
-    if REQUEST.has_key('breadcrumb_set'):
-        return getattr(REQUEST, 'breadcrumb_set', None)
+#if REQUEST is not None:
+#    if REQUEST.has_key('breadcrumb_set'):
+#        return getattr(REQUEST, 'breadcrumb_set', None)
+
+if breadcrumb_set != None:
+    return breadcrumb_set
 
 if not url:
     url = context.getPortalUrl()

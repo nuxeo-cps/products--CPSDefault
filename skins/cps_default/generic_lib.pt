@@ -119,7 +119,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <metal:block define-macro="breadcrumbs">
   <div class="pathBar">
     <span i18n:translate="you_are_here">You are here:&nbsp;</span>
-    <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url, REQUEST=request)">
+    <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url, breadcrumb_set=getattr(request, 'breadcrumb_set', None))">
       <a href="/cps/id"
          tal:omit-tag="not:bc/url"
          tal:attributes="href bc/url;

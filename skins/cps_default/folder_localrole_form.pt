@@ -9,6 +9,9 @@
                                                     base_url=base_url,
                                                     context_url=context_url);
                  found python:searching and here.folder_localrole_search(search_param, search_term);
+                 portal utool/getPortalObject;
+                 has_local_roles_blocking portal/acl_users/hasLocalRolesBlocking|nothing;
+                 local_roles_blocked python:cpslr[3];
                 ">
 
 <div tal:condition="not:searching">
@@ -239,6 +242,24 @@
 <h2 i18n:translate="legend_local_roles_currently_assigned">
     Currently assigned local roles
 </h2>
+
+<form method="post" action="folder_localrole_edit"
+      tal:attributes="action string:${here_url}/folder_localrole_edit"
+      tal:condition="has_local_roles_blocking">
+
+  <input type="hidden" name="change_type" value="block" />
+  <p tal:condition="local_roles_blocked">
+    Local roles acquisition is <strong>blocked</strong>.
+    To unblock acquisition, click here:
+    <input type="submit" name="lr_unblock" value="Unblock" />
+  </p>
+
+  <p tal:condition="not:local_roles_blocked">
+    Local roles are acquired.
+    To block acquisition, click here:
+    <input type="submit" name="lr_block" value="Block" />
+  </p>
+</form>
 
 <p i18n:translate="legend_local_roles_assigned_users">
    These users currently have local roles assigned in this folder:

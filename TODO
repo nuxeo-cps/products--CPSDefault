@@ -3,7 +3,7 @@
 
 # milestones
 - [encolpe] 05/12: encolpe coding for CPSDefault
-   postpone to 05/15 :(
+   postpone to 05/15 :( postpone 05/21 :(((
 x [seb + hervé] 05/12: working with Element proposal
   cpsdefault will not use element. 
 - [ben] 05/14: CPSDefault main skins impl, basic unit test for core
@@ -15,13 +15,6 @@ x [seb + hervé] 05/12: working with Element proposal
 
 # on work
 - zpt usage
-  o css
-      x [] evaluate plone css1 with netscape 4.77
-        workable but with a different look, acceptable for now ?
-      o define compatible html usage with both css
-      o try to use plone css for main_template
-      o manage contextual css
-      o manage printable css
   o finish display_content macro add a cookie to remind option
     icon/detail + sort order + filter ?
   o restrict access to test_*_lib ? 
@@ -99,6 +92,12 @@ x [seb + hervé] 05/12: working with Element proposal
    o zpt usage
       x [] handle batch sorting 
         sort is done in getFolderContent
+      x [] evaluate plone css1 with netscape 4.77
+        workable but with a different look, acceptable for now ?
+      x [] define compatible html usage with both css
+      x [] try to use plone css for main_template
+      x [] manage contextual css
+      x [] manage printable css
    o misc
       o split skin repository into: cps_devel, cps_css, cps_nocss, cps_script
       o finalize zmi CPSSite form creation
@@ -114,6 +113,11 @@ x [seb + hervé] 05/12: working with Element proposal
    o url in breadcrumbs broken
    o set local roles page should display aquisition roles
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
+   o [seb] in zpt why the hell do we use "id" for debugging purposes ???
+     This is a nonsense
+     Proposal :
+     use        <div cpsid="main_widgets_leftbox" />
+     instead of <div id="main_widgets_leftbox" />
    x [] find a way not using tal before xml declaration in zpt
       ok htmlns will be removed
    x [] getInfoFor review_state failed if not owner or manager ????

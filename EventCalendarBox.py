@@ -21,9 +21,6 @@
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 
-from Acquisition import aq_base
-from OFS.Image import File
-from OFS.Folder import Folder
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 
@@ -56,7 +53,8 @@ factory_type_information = (
 
 class EventCalendarBox(BaseBox):
     """
-    A box displaying Event Calendar objects (CPS patched version of CMFCalendar).
+    A box displaying Event Calendar objects (CPS patched version of
+    CMFCalendar).
     """
     meta_type = 'Event Calendar Box'
     portal_type = 'Event Calendar Box'

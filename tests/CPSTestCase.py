@@ -15,7 +15,6 @@ ZopeTestCase.installProduct('MailHost', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
 ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSDirectory', quiet=1)
-ZopeTestCase.installProduct('NuxMetaDirectories', quiet=1)
 ZopeTestCase.installProduct('NuxUserGroups', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
 
@@ -28,6 +27,8 @@ ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
 
 # Optional products
+try: ZopeTestCase.installProduct('NuxMetaDirectories', quiet=1)
+except: pass
 try: ZopeTestCase.installProduct('CPSRSS', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSChat', quiet=1)

@@ -12,12 +12,12 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 import unittest
 from Testing import ZopeTestCase
 
-from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
+from AccessControl.SecurityManagement \
+    import newSecurityManager, noSecurityManager
 from AccessControl.User import UserFolder, manage_addUserFolder
 from OFS.Folder import Folder, manage_addFolder
 from AccessControl.Permissions import access_contents_information, view
 from Products.CMFCore.utils import getToolByName
-
 
 ZopeTestCase.installProduct('CMFCore')
 ZopeTestCase.installProduct('CMFDefault')
@@ -32,7 +32,6 @@ ZopeTestCase.installProduct('VerboseSecurity')
 ZopeTestCase.installProduct('CPSCore')
 
 ZopeTestCase.installProduct('CPSDefault')
-
 
 
 init_suite_flag = 0
@@ -67,8 +66,8 @@ def init_suite():
     _folder.manage_role(_user_role, _standard_permissions)
     newSecurityManager(None, _user)
     _uf._changeUser(ZopeTestCase._user_name,
-               'secret', 'secret',
-               ('Manager', _user_role), ())
+                    'secret', 'secret',
+                    ('Manager', _user_role), ())
 
     _dispatcher = _folder.manage_addProduct['CPSDefault']
     _dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
@@ -78,6 +77,7 @@ def init_suite():
     for u in (_user_name1, _user_name2):
         _portal.acl_users._addUser(name=u, password=u, confirm=u,
                                    roles=('Member', ), domains=None)
+
     _portal[_sections].manage_setLocalRoles(_user_name1, ('SectionReader',))
     _portal[_sections].manage_setLocalRoles(_user_name2, ('SectionReviewer',))
     _portal[_workspaces].manage_setLocalRoles(_user_name1, ('WorkspaceMember',))
@@ -89,7 +89,7 @@ class TestCPSDefault(unittest.TestCase):
     def setUp(self):
         if init_suite_flag:
             self.portal = _portal
-            self.wftool =  getToolByName(_portal, 'portal_workflow')
+            self.wftool = getToolByName(_portal, 'portal_workflow')
             self.work = self.portal[_workspaces]
             self.pub = self.portal[_sections]
             get_transaction().begin()

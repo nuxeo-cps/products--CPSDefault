@@ -963,6 +963,26 @@ def cpsupdate(self, langs_list=None):
         ob.manage_changeProperties(**boxes[box])
 
 
+    #
+    # Box management action at the root of the portal
+    #
+
+    # Verification of the action and add it if neccesarly
+    action_found = 0
+    for action in portal['portal_actions'].listActions():
+        if action.id == 'boxes':
+            action_found = 1
+
+    if not action_found:
+        portal['portal_actions'].addAction(
+            id='boxes',
+            name='action_boxes',
+            action='string: ${portal_url}/box_manage_form',
+            condition='',
+            permission=('Manage Boxes',),
+            category='global',
+            visible=1)
+        pr(" Added Action Boxes at global scope ")
 
 
     #

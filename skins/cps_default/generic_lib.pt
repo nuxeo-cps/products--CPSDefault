@@ -56,7 +56,7 @@
 <metal:block define-macro="search_form">
   <dl class="form">
     <dt>
-      <label i18n:translate="label_search_title">
+      <label i18n:translate="label_search_title" for="field_focus">
         Title
       </label>
     </dt>
@@ -65,30 +65,32 @@
              tal:attributes="value request/ZCTitle|string:" />
     </dd>
     <dt>
-      <label i18n:translate="label_search_description">
+      <label i18n:translate="label_search_description" for="description">
         Description
       </label>
     </dt>
     <dd>
-      <input name="Description" value="" size="20"
+      <input id="description" name="Description" value="" size="20"
              tal:attributes="value request/Description|string:" />
     </dd>
     <dt>
-      <label i18n:translate="label_search_full_text">
+      <label i18n:translate="label_search_full_text"
+             for="advancedSearchFullText">
         Full text
       </label>
     </dt>
     <dd>
-      <input name="SearchableText" value="" size="40"
+      <input id="advancedSearchFullText" name="SearchableText" value=""
+             size="40"
              tal:attributes="value request/SearchableText|string:" />
     </dd>
     <dt tal:condition="not:isAnon">
-      <label i18n:translate="label_search_status">
+      <label i18n:translate="label_search_status" for="state">
         Status
       </label>
     </dt>
     <dd tal:condition="not:isAnon">
-      <select name="review_state"
+      <select id="state" name="review_state"
               tal:define="review_state python:request.get('review_state')">
         <option tal:attributes="selected not:review_state"
                 value="" i18n:translate="label_all">All</option>
@@ -101,12 +103,13 @@
       </select>
     </dd>
     <dt>
-      <label i18n:translate="label_search_portal_type">
+      <label i18n:translate="label_search_portal_type" for="portalType">
         Document type
       </label>
     </dt>
     <dd>
-      <select size="5" name="portal_type:list" multiple="multiple"
+      <select name="portal_type:list" multiple="multiple" id="portalType"
+              size="5" 
               tal:define="portal_type python:request.get('portal_type', ())">
         <option tal:attributes="selected not:portal_type"
                 value="" i18n:translate="label_all">All</option>
@@ -119,12 +122,13 @@
       </select>
     </dd>
     <dt>
-      <label i18n:translate="label_subject">
+      <label i18n:translate="label_subject" for="subject">
         Subject
       </label>
     </dt>
     <dd>
-      <select size="5" name="Subject:list" multiple="multiple"
+      <select name="Subject:list" multiple="multiple" id="subject"
+              size="5"
               tal:define="Subject python:request.get('Subject', ())">
         <option value="" tal:attributes="selected not:Subject"
                 i18n:translate="label_all">All</option>
@@ -137,7 +141,7 @@
       </select>
     </dd>
     <dt>
-      <label i18n:translate="label_search_modified_since">
+      <label i18n:translate="label_search_modified_since" for="modified">
         Modified since
       </label>
     </dt>
@@ -148,7 +152,7 @@
                     lastWeek python:today - 7;
                     lastMonth python:today - 31;
                     modified request/modified|nothing">
-      <select name="modified:date">
+      <select name="modified:date" id="modified">
         <option tal:attributes="value default;
                                 selected python:request.get('modified',
                                   default) == default or nothing"
@@ -170,9 +174,9 @@
       <input type="hidden" name="modified_usage" value="range:min" />
     </dd>
     <dt>
-      <label i18n:translate="label_search_location">
+      <tal:block i18n:translate="label_search_location">
         Search location
-      </label>
+      </tal:block>
     </dt>
     <dd>
       <metal:block use-macro="here/generic_lib/macros/search_folder_prefix_option" />

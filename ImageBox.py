@@ -86,6 +86,7 @@ class ImageBox(BaseBox, Folder):
         image_id = 'image_id'
         max_len = 2*1024*1024
 
+        path = os.path.join(CLIENT_HOME, path)
         f = open(path,'r')
         if len(f.read(max_len)) < max_len:
             f.seek(0)

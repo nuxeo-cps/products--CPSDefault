@@ -434,27 +434,28 @@
            tal:define="disp_icons python:getattr(box['box'],'display_icons',0)">
         <tr><td valign="top" width="50%">
         <tal:block repeat="item items">
-          <tal:block define="cdadil python:ttool[getattr(here,
-               item['id']).portal_type].cps_display_as_document_in_listing"
-                     condition="python:item['depth'] == depth and not cdadil">
+          <tal:block condition="python:item['depth'] == depth">
+          <tal:block condition="not:python:ttool[getattr(here,
+               item['id']).portal_type].cps_display_as_document_in_listing">
           <tal:block condition="not:repeat/item/start"><br /><br /></tal:block>
           <tal:block condition="python:repeat['item'].number() >= treenb_row">
             <tal:block define="global treenb_row python:nb_item + 1"
                  replace="structure string:&lt;/td>&lt;td width='50%' valign='top'>"/>
           </tal:block>
 <a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><strong>
-        <img tal:condition="disp_icons"
-             tal:replace="structure
-                            python:
-                              here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
-                                             base_url=base_url)" />
-        <span tal:replace="structure string:${item/title_or_id}">
-          title
-        </span></strong></a>
-        <tal:block condition="item/nb_children"
-           tal:define="global last_child python: repeat['item'].number() +
-            item['nb_children']">:<br /></tal:block>
-        </tal:block>
+          <img tal:condition="disp_icons"
+               tal:replace="structure
+                              python:
+                                here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
+                                               base_url=base_url)" />
+          <span tal:replace="structure string:${item/title_or_id}">
+            title
+          </span></strong></a>
+          <tal:block condition="item/nb_children"
+             tal:define="global last_child python: repeat['item'].number() +
+               item['nb_children']">:<br /></tal:block>
+          </tal:block>
+          </tal:block>
           <tal:block condition="python:item['depth']>depth">
           <a href="." tal:attributes="href string:${base_url}${item/rpath}/">
           <span tal:replace="structure string:${item/title_or_id}">

@@ -517,26 +517,54 @@ format:</pre>
 
 <!-- ============================================================ -->
 <pre>all doc information:</pre>
-<metal:block define-macro="info_detail_tab">
-<tal:block condition="start" tal:replace="structure string:<table width=100%>">
-</tal:block>
+<metal:block define-macro="info_detail_tab"
+             tal:define="title_in_tabs python:'title' in detail_tab_columns;
+                         type_in_tabs python:'type' in detail_tab_columns;
+                         size_in_tabs python:'size' in detail_tab_columns;
+                         date_in_tabs python:'date' in detail_tab_columns;
+                         author_in_tabs python:'author' in detail_tab_columns;
+                         status_in_tabs python:'status' in detail_tab_columns;
+                         version_in_tabs python:'version' in detail_tab_columns;
+                        ">
 <tal:block condition="start">
+  <tal:block replace="structure string:<table width=100%>" />
     <tr>
       <td> </td>
-      <th tal:condition="python:'title' in detail_tab_columns"
-          i18n:translate="label_info_tab_title" align=center></th>
-      <th tal:condition="python:'type' in detail_tab_columns"
-          i18n:translate="label_info_tab_type" align=center></th>
-      <th tal:condition="python:'size' in detail_tab_columns"
-          i18n:translate="label_info_tab_size" align=center></th>
-      <th tal:condition="python:'date' in detail_tab_columns"
-          i18n:translate="label_info_tab_date" align=center></th>
-      <th tal:condition="python:'author' in detail_tab_columns"
-          i18n:translate="label_info_tab_author" align=center></th>
-      <th tal:condition="python:'status' in detail_tab_columns"
-          i18n:translate="label_info_tab_status" align=center></th>
-      <th tal:condition="python:'version' in detail_tab_columns"
-          i18n:translate="label_info_tab_version" align=center></th>
+      <th tal:condition="title_in_tabs" align="center">
+        <b tal:define="sort_title python:sort_by=='title'"
+           tal:omit-tag="not:sort_title"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))"
+           i18n:translate="label_info_tab_title"></a></b></th>
+      <th tal:condition="type_in_tabs" align="center">
+        <b tal:define="sort_type python:sort_by=='type'"
+           tal:omit-tag="not:sort_type"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))"
+           i18n:translate="label_info_tab_type"></a></b></th>
+      <th tal:condition="size_in_tabs" align="center">
+        <b tal:define="sort_size python:sort_by=='size'"
+           tal:omit-tag="not:sort_size"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))"
+           i18n:translate="label_info_tab_size"></a></b></th>
+      <th tal:condition="date_in_tabs" align="center">
+        <b tal:define="sort_date python:sort_by=='date'"
+           tal:omit-tag="not:sort_date"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))"
+           i18n:translate="label_info_tab_date"></a></b></th>
+      <th tal:condition="author_in_tabs" align="center">
+        <b tal:define="sort_author python:sort_by=='author'"
+           tal:omit-tag="not:sort_author"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))"
+           i18n:translate="label_info_tab_author"></a></b></th>
+      <th tal:condition="status_in_tabs" align="center">
+        <b tal:define="sort_status python:sort_by=='status'"
+           tal:omit-tag="not:sort_status"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))"
+           i18n:translate="label_info_tab_status"></a></b></th>
+      <th tal:condition="version_in_tabs" align="center">
+        <b tal:define="sort_version python:sort_by=='version'"
+           tal:omit-tag="not:sort_version"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))"
+           i18n:translate="label_info_tab_version"></a></b></th>
     </tr>
 </tal:block>
 
@@ -552,22 +580,22 @@ format:</pre>
                            checked python:id in choosen_ids;
                           ">
   </td>
-  <td tal:condition="python:'title' in detail_tab_columns">
+  <td tal:condition="title_in_tabs">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                                  title info/description;">
     <b tal:content="info/title_or_id">ID</b></a></td>
-  <td align="center" tal:condition="python:'type' in detail_tab_columns">
+  <td align="center" tal:condition="type_in_tabs">
     <img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])"></td>
-  <td align="right" tal:condition="python:'size' in detail_tab_columns">
+  <td align="right" tal:condition="size_in_tabs">
     <span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
-  <td align="center" tal:condition="python:'date' in detail_tab_columns">
+  <td align="center" tal:condition="date_in_tabs">
     <span tal:content="info/time_str">May 6,...</span></td>
-  <td align="center" tal:condition="python:'author' in detail_tab_columns">
+  <td align="center" tal:condition="author_in_tabs">
     <span tal:content="info/creator"></span></td>
-  <td align="center" tal:condition="python:'status' in detail_tab_columns"
+  <td align="center" tal:condition="status_in_tabs"
       tal:content="info/review_state" tal:attributes="class info/review_state"
       i18n:translate="">published</td>
-  <td align="center" tal:condition="python:'version' in detail_tab_columns">
+  <td align="center" tal:condition="version_in_tabs">
     v-<tal:block replace="info/rev" />
     <tal:block i18n:translate=""
       content="string:label_language_${info/lang}">en</tal:block>

@@ -209,12 +209,27 @@
   tal:define="items python:box['box'].getTree(here);">
 
  <tal:block condition="python: len(items)>0">
-   <tal:block define="root python:items[0];
+
+    <tal:block define="root python:items[0];
                       depth python:root['depth']+1;
                       items python:items[1:];
                       nb_item python:len(items);
                       global treenb_row  python:nb_item/2+2;">
       <table width="100%">
+    <tr>
+      <td colspan="2">
+        <tal:block condition="python: checkPerm('List folder contents', here,
+'aq_parent')">
+        <a href="../">
+        <img src="" alt="[Link]" border="0"
+          tal:attributes="src string:${base_url}UpFolder_icon.gif">
+        <span i18n:translate="">description_up_to
+          <b i18n:name="up_id" tal:content="python:here.aq_parent.getId()">
+          Up ID</b>
+        </span><br><br>
+        </tal:block>
+      </td>
+    </tr>
 	<tr><td valign="top" width="50%">
         <tal:block repeat="item items">
           <tal:block condition="python:item['depth']==depth">
@@ -223,8 +238,6 @@
             <tal:block replace='structure string:</td><td width="50%" valign="top">'
 	      define="global treenb_row python:nb_item + 1"/>
 	  </tal:block>
-
-
 
         <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
 <b><a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><img src="" alt="[Link]" border="0"

@@ -11,7 +11,15 @@ if l > ml:
 else:
     short_title = title_or_id
 
+try:
+    doc = context.getContent()
+except AttributeError:
+    # not a proxy
+    doc = context
+description = doc.Description() or ''
+
 return {'title': context.Title(),
         'title_or_id': title_or_id,
         'short_title': short_title.replace(' ', '&nbsp;'),
+        'description': description,
         }

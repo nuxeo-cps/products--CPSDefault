@@ -111,6 +111,124 @@
   </div>
 </metal:block>
 
+<!-- ============================================================ -->
+<metal:block define-macro="basebox_display_settings" 
+             tal:condition="python:request.get('change_display', '0') == '1'">
+
+<form tal:attributes="
+        action string:${here/absolute_url};
+        method string:post;
+        name   string:form">
+  <table border="0" cellspacing="2" cellpadding="2" width="100%">
+    <tr>
+      <td align="center" bgcolor="#EEEEE">
+        <strong>
+          <span i18n:translate="legend_choose_display_order">
+              Choose the display order
+          </span>
+        </strong>
+      </td>
+      <td align="left">
+        <tal:block define="cps_cookie python:request.SESSION.get('cps_preferences', {});
+                           cps_display_order python:cps_cookie.get('cps_display_order', None)">	  
+          <select name="display_order">
+	    <option i18n:translate="label_default" value="title" selected 
+                    tal:condition="python:cps_display_order is None">
+                    Default
+            </option>
+	    <option i18n:translate="label_default" value="title" 
+                    tal:condition="python:cps_display_order is not None">
+                    Default
+            </option>
+            <option i18n:translate="label_title" value="title" selected 
+                    tal:condition="python:cps_display_order == 'title'">
+                    Title
+            </option>
+	    <option i18n:translate="label_title" value="title" 
+                    tal:condition="python:cps_display_order != 'title'">
+                    Title
+            </option>
+	    <option i18n:translate="label_date" value="date" selected 
+                    tal:condition="python:cps_display_order == 'date'">
+                    Date
+            </option>
+	    <option i18n:translate="label_date" value="date" 
+                    tal:condition="python:cps_display_order != 'date'">
+                    Date
+            </option>
+
+	    <option i18n:translate="label_status" value="status" selected 
+                    tal:condition="python:cps_display_order == 'status'">
+                    Status
+            </option>
+	    <option i18n:translate="label_status" value="status" 
+                    tal:condition="python:cps_display_order != 'status'">
+                    Status
+            </option>
+          </select>
+        </tal:block>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <strong>
+          <span i18n:translate="legend_choose_display_style">
+              Choose the display style
+          </span>
+        </strong>
+      </td>
+      <td align="left">
+        <tal:block define="cps_cookie python:request.SESSION.get('cps_preferences', {});
+                           cps_display_style python:cps_cookie.get('cps_display_style', None)">	  
+           <select name="display_style"> 
+	     <option i18n:translate="label_default" value="compact" selected
+	             tal:condition="python:cps_display_style == None">    
+                     Default
+	     </option>
+	     <option i18n:translate="label_default" value="compact" 
+	             tal:condition="python:cps_display_style != None"> 
+                     Default
+	     </option>
+             <option i18n:translate="label_icons" value="icon" selected
+	             tal:condition="python:cps_display_style == 'icon'">
+                     Icon
+             </option>
+	     <option i18n:translate="label_icons" value="icon" 
+	             tal:condition="python:cps_display_style != 'icon'">
+                     Icon
+             </option>
+	     <option i18n:translate="label_detailed" value="detail" selected
+                     tal:condition="python:cps_display_style == 'detail'">
+                     Detail
+             </option>
+	     <option i18n:translate="label_detailed" value="detail" 
+                     tal:condition="python:cps_display_style != 'detail'">
+                     Detail
+             </option>
+	     <option i18n:translate="label_compact" value="compact" selected
+                     tal:condition="python:cps_display_style == 'compact'">
+                     Compact
+             </option>
+	     <option i18n:translate="label_compact" value="compact" 
+                     tal:condition="python:cps_display_style != 'compact'">
+                     Compact
+             </option>
+           </select>
+        </tal:block>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="right" colspan="1">
+        <input type="hidden" name="change_display" 
+               tal:attributes="value python:request.get('change_display', 0)" />
+        <input type="submit" value="Change" tal:attributes="name string:changeListingDisplay:method" />
+        <input type="submit" value="Invert" tal:attributes="name string:changeListingDirection:method" />
+      </td>
+    </tr>
+  </table>
+</form>
+</metal:block>
 
 <!-- ============================================================ -->
 <metal:block define-macro="textbox_default">
@@ -170,7 +288,6 @@
   </metal:block>
   </tal:block>
 </metal:block>
-
 
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_default">

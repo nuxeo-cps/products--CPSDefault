@@ -2,12 +2,11 @@
 get all sections info with allowed publishing transitions
 """
 
-sections = context.portal_trees.sections.getList(filter=0)
+sections = context.portal_trees.sections.getList()
 
 wftool = context.portal_workflow
 allowed_transitions = wftool.getAllowedPublishingTransitions(context)
 type_name = context.portal_type
-
 
 for section in sections:
     transitions =  wftool.getInitialTransitions(section['rpath'], type_name,

@@ -6,7 +6,7 @@ wftool = context.portal_workflow
 if REQUEST is not None:
     kw.update(REQUEST.form)
  
-if workflow_action != 'copy_publish':
+if workflow_action != 'copy_submit':
     # accept, reject, ...
     wftool.doActionFor(context, workflow_action, comment=comment)
 else:
@@ -28,4 +28,4 @@ redirect_url = '%s/view?%s' % (context.absolute_url()
                                , 'portal_status_message=Status+changed.'
                                )
 if REQUEST is not None:
-    REQUEST.RESPONSE.redirect(context.absolute_url()+'/')
+    REQUEST.RESPONSE.redirect(redirect_url)

@@ -146,8 +146,8 @@
                      yearmonth python:here.getMonthAndYear();
                      year python:yearmonth[0];
                      month python:yearmonth[1];
-                     weeks python:here.portal_calendar.getEventsForCalendar(
-                                                     month=month, year=year);">
+                     weeks python:here.portal_calendar.getCPSEventsForCalendar(
+                           month=month, year=year);">
 
       <table cellpadding="0" cellspacing="0" border="0">
       <tr><td>
@@ -182,14 +182,14 @@
             <tal:week tal:define="days week">
               <tal:day tal:repeat="day days">
                 <tal:daynumber tal:define="daynumber day/day;
-                                           datestring python: '%d/%0.2d/%0.2d' %
+                                           datestring python:'%d/%0.2d/%0.2d' %
 			                   (year, month, daynumber);">
                   <tal:event tal:condition="day/event">
                     <td class="event"
                         tal:attributes="class python:here.getDaysClass(
                                         daynumber, month, year, day['event'])">
                       <a href tal:attributes="href python:here.portal_url()+
-                                      '/calendar_day_view?date=%s'%(datestring)"
+                                 '/calendar_cpsday_view?date=%s'%(datestring)"
                               tal:content="python: daynumber or default">
                          
                       </a>

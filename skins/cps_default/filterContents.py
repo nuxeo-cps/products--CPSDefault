@@ -13,6 +13,8 @@ from zLOG import LOG, DEBUG
 filtered_items = []
 now = context.ZopeTime()
 display_cache = {}
+all_portal_types = ttool.objectIds()
+
 for item in items:
     if item.getId().startswith('.'):
         continue
@@ -22,7 +24,7 @@ for item in items:
     # Using a cache to optimize the retrieval of the
     # 'cps_display_as_document_in_listing' attribute.
     portal_type = getattr(item, 'portal_type', None)
-    if portal_type in ttool.objectIds():
+    if portal_type in all_portal_types:
         if display_cache.has_key(portal_type):
             display_as_document_in_listing = display_cache[portal_type]
         else:

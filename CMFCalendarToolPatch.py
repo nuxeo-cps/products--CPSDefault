@@ -34,7 +34,7 @@ from zLOG import LOG, DEBUG
 security = ClassSecurityInfo()
 
 security.declarePublic('catalog_getcpsevents')
-def catalog_getcpsevents(self, year, month):
+def catalog_getcpsevents(self, year, month, location=None):
     """ given a year and month return a list of days that have events """
     last_day=calendar.monthrange(year, month)[1]
     nb_days=calendar.monthrange(year, month)[1]
@@ -44,6 +44,7 @@ def catalog_getcpsevents(self, year, month):
     query = self.search(query={'portal_type':self.calendar_types,
                                'review_state':'published',
                                },
+                        folder_prefix=location,
                         start_date=first_date,end_date=last_date)
 
     # compile a list of the days that have events
@@ -93,7 +94,7 @@ def catalog_getcpsevents(self, year, month):
     return eventDays
 
 security.declarePublic('getCPSEventsForCalendar')
-def getCPSEventsForCalendar(self, month='1', year='2002'):
+def getCPSEventsForCalendar(self, month='1', year='2002', location=None):
     """ recreates a sequence of weeks, by days each day is a mapping.
     {'day': #, 'url': None}
     """
@@ -117,7 +118,7 @@ def getCPSEventsForCalendar(self, month='1', year='2002'):
     daysByWeek=calendar.monthcalendar(year, month)
     weeks=[]
 
-    events=self.catalog_getcpsevents(year, month)
+    events=self.catalog_getcpsevents(year, month, location)
 
     for week in daysByWeek:
         days=[]
@@ -133,7 +134,7 @@ def getCPSEventsForCalendar(self, month='1', year='2002'):
 
 
 security.declarePublic('getCPSEventsForThisDay')
-def getCPSEventsForThisDay(self, thisDay):
+def getCPSEventsForThisDay(self, thisDay, location=None):
     """ given an exact day return ALL events that:
     A) Start on this day  OR
     B) End on this day  OR
@@ -144,8 +145,8 @@ def getCPSEventsForThisDay(self, thisDay):
     query = self.search(query={'portal_type':self.calendar_types,
                                'review_state':'published',
                                },
-                        start_date = first_date,
-                        end_date = last_date)
+                        folder_prefix=location,
+                        start_date = first_date,end_date = last_date)
 
     results = []
 

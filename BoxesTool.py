@@ -166,7 +166,6 @@ class BoxesTool(UniqueObject, PortalFolder):
             else:
                 boxdisplayurl = '/'.join(boxpath[:-2])
             rurl = '/'.join(rpath)
-            LOG( 'CPSDefault BoxesTool ', DEBUG, '['+str(boxdisplayurl) +']'+ str(rurl))
             if box.display_in_subfolder or (rurl == boxdisplayurl):
                 newbox = {'url': portal_url.getRelativeUrl(box),
                           'display_url': boxdisplayurl,
@@ -196,7 +195,6 @@ class BoxesTool(UniqueObject, PortalFolder):
             return a['settings']['order'] - b['settings']['order']
         boxes.sort(cmpbox)
 
-        LOG('portal_boxes', DEBUG, 'Returned boxes:', str(boxes) + '\n')
         return boxes
 
 
@@ -339,8 +337,9 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         if folder_boxes:
             LOG('portal_boxes', DEBUG,
-                'Found boxes and settings at %s:' % folder_boxes.absolute_url(),
-                "Boxes: %s\nSettings: %s\n" % (str(boxes), str(settings)))
+                'Found boxes and settings at %s:' %folder_boxes.absolute_url(),
+                "Boxes: %s\nSettings: %s\n" % (str([b.id for b in boxes]),
+                                               str(settings)))
         return boxes, settings
 
 

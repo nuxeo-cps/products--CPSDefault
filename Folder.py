@@ -58,7 +58,7 @@ factory_type_information = (
                   'action': 'cpsfolder_edit_form',
                   'permissions': (ModifyPortalContent,)},
                  {'id': 'metadata_edit',
-                  'name': 'Edit',
+                  'name': 'Edit metadata',
                   'action': 'cpsfolder_edit_form',
                   'permissions': (ModifyPortalContent,)},
                  {'id': 'localroles',

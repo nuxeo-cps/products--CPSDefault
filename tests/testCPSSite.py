@@ -1,5 +1,7 @@
 # CPS Unit Test
 #
+# this suite is much more a functional suite than unit test suite
+# 
 import os, sys, time
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))

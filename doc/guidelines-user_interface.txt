@@ -286,6 +286,44 @@ Checkpoints
     }
 
 
+CSS dirty hacks
+---------------
+
+All the main and default CSS files should only contain valid and clean CSS
+properties and directives. The main and default CSS files shouldn't contain any
+CSS dirty hacks. That is for example hacks to counter the buggy Microsoft
+Internet Explorer (MSIE) box model, the MSIE hover bugs, the MSIE 6 peekaboo
+bug, etc.
+
+All tricks to circumvent MSIE specific bugs should go into *dedicated files*. To
+achieve this one uses the *MSIE Conditional Comments*. MSIE Conditional Comments
+are proprietary instructions that do not interfere with W3C standards and that
+make it possible to avoid the many bugs of MSIE.
+
+Examples::
+
+  <!--[if IE 5.5]>
+  <link rel="stylesheet" type="text/css" href="msie-5.5.css" media="screen" />
+  <![endif]-->
+
+  <!--[if IE 6.0]>
+  <link rel="stylesheet" type="text/css" href="msie-6.0.css" media="screen" />
+  <![endif]-->
+
+So our CSS are kept clean and when MSIE bugs are fixed, or more probably when
+nobody will use MSIE anymore, those msie.x.y.css files can simply be removed
+from our products.
+
+Note that MSIE 5.0 and MSIE for Mac are not to be supported. Rationale: nobody
+uses MSIE 5.0 anymore or they should update it to a newer version for the sake
+of security updates anyway. As for Mac users they would be stupid to use MSIE
+while they have Safari, Mozilla and Firefox available for their platform.
+
+Every hack should be well commented, and an URL referencing the source of the
+hack should be provided.
+
+
+
 JavaScript
 ==========
 

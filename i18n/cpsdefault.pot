@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2005-02-09 10:16default\n"
+"POT-Creation-Date: 2005-02-09 23:16default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -51,7 +51,8 @@ msgstr ""
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
-#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
+#.                                   label language;
+#.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "Language"
@@ -284,7 +285,7 @@ msgid "button_abandon_draft"
 msgstr ""
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
-#.   <input type="submit" name="language_add:method" value="button_add" />
+#.   <input type="submit" name="manageCPSLanguage:method" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/language_manage_form.pt
@@ -376,7 +377,7 @@ msgstr ""
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
-#.   <input type="submit" name="language_delete:method" value="button_delete" />
+#.   <input type="submit" name="manageCPSLanguage:method" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/language_manage_form.pt
@@ -499,7 +500,7 @@ msgstr ""
 msgid "button_search"
 msgstr ""
 
-#.   <input type="submit" name="language_set_default:method" value="button_select" />
+#.   <input type="submit" name="manageCPSLanguage:method" value="button_select" />
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "button_select"
 msgstr ""
@@ -2060,6 +2061,7 @@ msgid "label_user_fullname"
 msgstr ""
 
 #.   <label for="username">User name</label>
+#.   <label for="username2">User name</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
@@ -2087,7 +2089,7 @@ msgstr ""
 msgid "label_you_are_here"
 msgstr ""
 
-#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language"
 msgstr ""
@@ -3120,6 +3122,9 @@ msgid "psm_language_added"
 msgstr ""
 
 msgid "psm_language_deleted"
+msgstr ""
+
+msgid "psm_language_error_select_at_least_one_item"
 msgstr ""
 
 msgid "collector_psm_erase_data_cancel"

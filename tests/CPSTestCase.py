@@ -23,6 +23,13 @@ ZopeTestCase.installProduct('CPSSchemas', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
+# Optional products
+try: ZopeTestCase.installProduct('CPSRSS', quiet=1)
+except: pass
+try: ZopeTestCase.installProduct('CPSChat', quiet=1)
+except: pass
+try: ZopeTestCase.installProduct('CPSCalendar', quiet=1)
+except: pass
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager

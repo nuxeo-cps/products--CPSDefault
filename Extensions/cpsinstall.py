@@ -1299,6 +1299,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'InternalLinks Box': {
                        'typeinfo_name': 'CPSDefault: InternalLinks Box',
                        'add_meta_type': 'Factory-based Type Information',},
+            'Doc Render Box':{
+                       'typeinfo_name': 'CPSDefault: Doc Render Box',
+                       'add_meta_type': 'Factory-based Type Information',},           
         }
 
         self.verifyContentTypes(type_dict)

@@ -73,6 +73,14 @@ def manage_addCPSDefaultSite(dispatcher, id,
                                     'BenchmarkTimerInstance')
     portal._setObject('Benchmarktimer', benchmarktimer)
 
+
+    pr('Creating i18n Updater Support')
+    i18n_updater = ExternalMethod('i18n Updater',
+                                  'i18n Updater',
+                                  'CPSDefault.cpsinstall',
+                                  'cps_i18n_update')
+    portal._setObject('i18n Updater', i18n_updater)
+
     pr('Executing CPSDefault Installer')
     pr(portal.cpsinstall(), 0)
 

@@ -67,16 +67,16 @@
 <div class="searchBox">
   <form method="get" action="search"
     tal:attributes="action string:${base_url}search_form">
-    <a href="search_form"
-      tal:attributes="href string:${base_url}advanced_search_form"
-      i18n:translate="link_advanced_search">
-      Advanced search</a>
-    <br>
+    <span i18n:translate="box_search">Search:</span>
     <input id="searchGadget" type="text" name="SearchableText" size="20"
       value="" tal:attributes="value request/SearchableText|nothing">
     <input class="context searchButton" type="submit" value="button_ok"
       i18n:attributes="value">
   </form>
+  <a href="search_form"
+     tal:attributes="href string:${base_url}advanced_search_form"
+     i18n:translate="link_advanced_search">
+  Advanced search</a>
 </div>
 </metal:block>
 

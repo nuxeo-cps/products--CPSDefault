@@ -19,6 +19,7 @@ ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSDirectory', quiet=1)
 ZopeTestCase.installProduct('NuxUserGroups', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
+ZopeTestCase.installProduct('SiteAccess', quiet=1)
 
 # XXX: these products should (and used to be) be optional, but they aren't
 # right now.

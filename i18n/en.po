@@ -18,10 +18,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-28 10:51default\n"
-"PO-Revision-Date: 2004-01-30 14:30+0100\n"
-"Last-Translator: Encolpe DEGOUTE <ed@nuxeo.com>\n"
-"Language-Team: French <cantact@nuxeo.com>\n"
+"POT-Creation-Date: 2004-02-03 16:37default\n"
+"PO-Revision-Date: 2004-02-03 16:38+0100\n"
+"Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
+"Language-Team: francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,7 +46,7 @@ msgstr "A test box"
 msgid "Action"
 msgstr "Action"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator());
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
@@ -125,8 +125,8 @@ msgid "Work"
 msgstr "FAKE"
 
 #.   <span>
-#.         Your query '${query (tal content="SearchableText")}'
-#.       </span>
+#.           Your query '${query (tal content="SearchableText")}'
+#.         </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "Your query '${query}'"
@@ -558,8 +558,8 @@ msgstr ""
 "it using the search form below."
 
 #.   <span>
-#.           gave ${nb_results (tal content="items_length")}
-#.         </span>
+#.             gave ${nb_results (tal content="items_length")}
+#.           </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "gave ${nb_results}"
 msgstr "gave ${nb_results} results"
@@ -740,6 +740,11 @@ msgstr "Resource metadata"
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "Revert to an archived version of ${item_id}"
+
+#.   <h2>Search Results</h2>
+#: from ../skins/cps_default/search_form.pt
+msgid "heading_search_results"
+msgstr "Search Results"
 
 #.   <h1>
 #.     Standard Resource Metadata
@@ -1357,9 +1362,9 @@ msgstr "Group"
 msgid "label_group_name"
 msgstr "Group Name"
 
-#.   <span condition="notLogged" content="uname">
-#.                 box text title
-#.              </span>
+#.   <span condition="isAnon">
+#.           Guest
+#.         </span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
 msgstr "Guest"
@@ -1464,11 +1469,6 @@ msgstr "Maximized"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_minimized"
 msgstr "Minimized"
-
-#.   <span>Name</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_name"
-msgstr "Name"
 
 #.   <th align="right">Nb items</th>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1815,13 +1815,13 @@ msgid "legend_local_roles_select_members_and_roles"
 msgstr "Select Member(s) and a role to assign:"
 
 #.   <span>
-#.           gave no result.</span>
+#.             gave no result.</span>
 #: from ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "gave no result."
 
 #.   <span>
-#.           gave 1 result</span>
+#.             gave 1 result</span>
 #: from ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "gave one result."
@@ -1896,8 +1896,8 @@ msgstr "here"
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "link_local_roles_underlined"
 msgstr ""
-"<i>Underlined roles</i> are set in parent folders.Follow the links to "
-"manage the local roles in these folders."
+"<i>Underlined roles</i> are set in parent folders.Follow the links to manage "
+"the local roles in these folders."
 
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
@@ -2699,6 +2699,9 @@ msgstr "Select"
 
 msgid "button_update"
 msgstr "Update"
+
+#~ msgid "label_name"
+#~ msgstr "Name"
 
 #~ msgid "label_custom_css"
 #~ msgstr "Custom CSS"

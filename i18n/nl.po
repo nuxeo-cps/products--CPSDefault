@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-28 10:51default\n"
+"POT-Creation-Date: 2004-02-03 16:37default\n"
 "PO-Revision-Date: 2004-01-06 14:45+0100\n"
 "Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
 "Language-Team: francais <fr@li.org>\n"
@@ -39,7 +39,7 @@ msgstr "Een testbox"
 msgid "Action"
 msgstr "Actie"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator());
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
@@ -120,8 +120,8 @@ msgid "Work"
 msgstr "FAKE"
 
 #.   <span>
-#.         Your query '${query (tal content="SearchableText")}'
-#.       </span>
+#.           Your query '${query (tal content="SearchableText")}'
+#.         </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "Uw query '${query}'"
@@ -558,8 +558,8 @@ msgstr ""
 "zoekfunctie."
 
 #.   <span>
-#.           gave ${nb_results (tal content="items_length")}
-#.         </span>
+#.             gave ${nb_results (tal content="items_length")}
+#.           </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "gave ${nb_results}"
 msgstr "resulteerde in ${nb_results}"
@@ -743,6 +743,12 @@ msgstr "Metadata"
 #, fuzzy
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "De publicatie van ${item_id} weigeren"
+
+#.   <h2>Search Results</h2>
+#: from ../skins/cps_default/search_form.pt
+#, fuzzy
+msgid "heading_search_results"
+msgstr "Lokale rollen toekennen&nbsp;:&nbsp;zoekresultaten"
 
 #.   <h1>
 #.     Standard Resource Metadata
@@ -1374,9 +1380,9 @@ msgstr "Groep"
 msgid "label_group_name"
 msgstr "Groepsnaam"
 
-#.   <span condition="notLogged" content="uname">
-#.                 box text title
-#.              </span>
+#.   <span condition="isAnon">
+#.           Guest
+#.         </span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
 msgstr "Anoniem"
@@ -1481,11 +1487,6 @@ msgstr "gemaximaliseerd"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_minimized"
 msgstr "geminimaliseerd"
-
-#.   <span>Name</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_name"
-msgstr "Naam"
 
 #.   <th align="right">Nb items</th>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1835,13 +1836,13 @@ msgid "legend_local_roles_select_members_and_roles"
 msgstr "Selecteer Lid/Leden en de toe te wijzen rol&nbsp;:"
 
 #.   <span>
-#.           gave no result.</span>
+#.             gave no result.</span>
 #: from ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "geeft geen resultaat."
 
 #.   <span>
-#.           gave 1 result</span>
+#.             gave 1 result</span>
 #: from ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "geeft 1 resultaat."
@@ -2754,6 +2755,9 @@ msgstr "schrappen"
 #, fuzzy
 msgid "button_update"
 msgstr "plakken"
+
+#~ msgid "label_name"
+#~ msgstr "Naam"
 
 #~ msgid "Type Name"
 #~ msgstr "Type naam"

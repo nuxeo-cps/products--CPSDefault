@@ -17,10 +17,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-28 10:51default\n"
-"PO-Revision-Date: 2004-01-30 14:31+0100\n"
-"Last-Translator: Encolpe DEGOUTE <ed@nuxeo.com>\n"
-"Language-Team: French <cantact@nuxeo.com>\n"
+"POT-Creation-Date: 2004-02-03 16:37default\n"
+"PO-Revision-Date: 2004-02-03 16:37+0100\n"
+"Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
+"Language-Team: francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Une boîte de test"
 msgid "Action"
 msgstr "Action"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator());
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
@@ -124,8 +124,8 @@ msgid "Work"
 msgstr "FAKE"
 
 #.   <span>
-#.         Your query '${query (tal content="SearchableText")}'
-#.       </span>
+#.           Your query '${query (tal content="SearchableText")}'
+#.         </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "Votre recherche '${query}'"
@@ -559,8 +559,8 @@ msgstr ""
 "recherche ci-dessous."
 
 #.   <span>
-#.           gave ${nb_results (tal content="items_length")}
-#.         </span>
+#.             gave ${nb_results (tal content="items_length")}
+#.           </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "gave ${nb_results}"
 msgstr "a retourné ${nb_results} résultats."
@@ -741,6 +741,11 @@ msgstr "Méta-données de la ressource"
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "Revenir à une version archivée de ${item_id}"
+
+#.   <h2>Search Results</h2>
+#: from ../skins/cps_default/search_form.pt
+msgid "heading_search_results"
+msgstr "Résultats de la recherche"
 
 #.   <h1>
 #.     Standard Resource Metadata
@@ -1369,9 +1374,9 @@ msgstr "Groupe"
 msgid "label_group_name"
 msgstr "Nom du groupe"
 
-#.   <span condition="notLogged" content="uname">
-#.                 box text title
-#.              </span>
+#.   <span condition="isAnon">
+#.           Guest
+#.         </span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
 msgstr "Anonyme"
@@ -1476,11 +1481,6 @@ msgstr "Maximiser"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_minimized"
 msgstr "Minimiser"
-
-#.   <span>Name</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_name"
-msgstr "Nom"
 
 #.   <th align="right">Nb items</th>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1829,13 +1829,13 @@ msgid "legend_local_roles_select_members_and_roles"
 msgstr "Choisissez le(s) membre(s) et un rôle pour délégation&nbsp;:"
 
 #.   <span>
-#.           gave no result.</span>
+#.             gave no result.</span>
 #: from ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "n'a retourné aucun document."
 
 #.   <span>
-#.           gave 1 result</span>
+#.             gave 1 result</span>
 #: from ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "a retourné un document."
@@ -2717,6 +2717,9 @@ msgstr "Sélectionner"
 
 msgid "button_update"
 msgstr "Mettre à jour"
+
+#~ msgid "label_name"
+#~ msgstr "Nom"
 
 #~ msgid "label_custom_css"
 #~ msgstr "Personnalisation CSS"

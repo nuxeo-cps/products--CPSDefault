@@ -2,6 +2,8 @@
                  utool nocall:here/portal_url;
                  portal_object utool/getPortalObject;
                  portal_title portal_object/title;
+		 Localizer python:here.Localizer;
+		 mcat python:Localizer.default;
                  dummy python:request.set('breadcrumb_set',
                    [{
                    'id' : 'portal_root',
@@ -12,8 +14,8 @@
                    {
                    'id' : 'search_form',
                    'url': here.portal_url()+'/advanced_search_form',
-                   'title': 'Advanced search',
-                   'longtitle':'Advanced search',
+                   'title': mcat('link_advanced_search'),
+                   'longtitle':mcat('link_advanced_search'),
                    }, ]);
                  ">
 <body metal:use-macro="here/main_template/macros/master">

@@ -241,7 +241,8 @@
       tal:content="box/box/title">box text title</metal:block>
     <metal:block fill-slot="box_body">
        <tal:block define="
-          no_form not:nothing;
+          no_form python:1;
+          filter python:0;
           format box/box/display;
           items_per_page box/box/nb_items|python:10;
           nav_action string:folder_view;

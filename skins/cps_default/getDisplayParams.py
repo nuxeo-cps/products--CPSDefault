@@ -49,7 +49,7 @@ if items_per_page:
     params['items_per_page'] = items_per_page
 params['items_per_page'] = min(nb_items, params['items_per_page'])
 
-if filter:
+if filter is not None:
     params['filter'] = filter
 else:
     params['filter'] = def_params['filter']

@@ -35,10 +35,19 @@
   <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"
     /></metal:block>
   <metal:block fill-slot="javascript_head_slot"><metal:block
-    define-slot="javascript_head_slot" /></metal:block>
+    define-slot="javascript_head_slot" />
+    <script LANGUAGE="JavaScript">
+    function setFocus() {
+       field = document.getElementById('field_focus')
+       if (field) {
+          field.focus();
+       }
+    }
+    </script>
+  </metal:block>
 </metal:block>
 </head>
-<body>
+<body tal:attributes="OnLoad python:'setFocus()'">
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />

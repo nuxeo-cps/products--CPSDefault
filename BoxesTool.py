@@ -131,7 +131,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         # We'll now filter to only get the open boxes in the asked for slot.
         # This can not be done previously, since 'slot' and 'closed' settings
         # can be overriden by local setting
-        boxes = [x for x in boxes 
+        boxes = [x for x in boxes
                    if slot is None or x['settings']['slot'] == slot]
 
         # sorting
@@ -143,10 +143,16 @@ class BoxesTool(UniqueObject, PortalFolder):
 
 
     security.declarePublic('filterBoxes')
-    def filterBoxes(self, boxes, slot, closed_only=None):
-        """Filter a list boxes for required slot removing closed boxes."""
+    def filterBoxes(self, boxes, slot='', closed_only=0, keep_closed=0):
+        """Filter a list of boxes for required slot removing closed boxes
+        or filter for all closed box
+        or filter for required slot keeping closed box"""
         if closed_only:
+            # don't take care of the slot criteria
             return [x for x in boxes if x['settings']['closed']]
+
+        if keep_closed:
+            return [x for x in boxes if (x['settings']['slot'] == slot)]
 
         return [x for x in boxes if (x['settings']['slot'] == slot and
                                      not x['settings']['closed'])]
@@ -374,7 +380,7 @@ class BoxContainer(PortalFolder):
         overrides = getattr(aq_base(self), '_box_overrides', {})
         for key, item in overrides.items():
             override = {'box_path': key, 'slot': '', 'order': '', 'closed': '',
-                        'minimized': '', 'provider': '', 'btype': '', 
+                        'minimized': '', 'provider': '', 'btype': '',
                         'box_skin': ''}
             override.update(item)
             result.append(override)

@@ -72,7 +72,8 @@ def compute_states(no_history=0):
              'rev': str(px['language_revs'].values()[0]),
              'language': px['language_revs'].keys()[0],
              'time': px['time'],
-             'time_str': context.getDateStr(px['time'])
+             'time_str': context.getDateStr(px['time']),
+             'proxy': px['object'],
              }
         d['lang'] = d['language']       # for compatibility
         states.append(d)

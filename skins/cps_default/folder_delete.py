@@ -1,13 +1,13 @@
-##parameters=
+##parameters=ids={}, REQUEST=None
 # $Id$
 
-REQUEST = context.REQUEST
 ret_url = context.absolute_url() + '/folder_contents'
 
-if REQUEST.has_key('ids'):
-    context.manage_delObjects(REQUEST['ids'])
-    qs = '?portal_status_message=psm_item(s)_deleted'
+if ids:
+    context.manage_delObjects(ids)
+    message = 'portal_status_message=psm_item(s)_deleted'
 else:
-    qs = '?portal_status_message=psm_select_at_least_one_document'  
+    message = 'portal_status_message=psm_select_at_least_one_document'  
 
-return REQUEST.RESPONSE.redirect(ret_url + qs)
+if REQUEST is not None:
+    return REQUEST.RESPONSE.redirect(ret_url + '?' + message)

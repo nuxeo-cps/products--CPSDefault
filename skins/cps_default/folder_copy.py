@@ -1,18 +1,16 @@
-##parameters=
+##parameters=ids={}, REQUEST=None
 #$Id$
 
 """
 Copy an object. Used within the folder_contents template.
 """
 
-REQUEST=context.REQUEST
-
-if REQUEST.has_key('ids'):
-    context.manage_CPScopyObjects(REQUEST['ids'], REQUEST)
+if ids:
+    context.manage_CPScopyObjects(ids, REQUEST)
     message = 'psm_item(s)_copied'
 else:
     message = 'psm_select_at_least_one_document'
 
-return REQUEST.RESPONSE.redirect(context.absolute_url() + \
-                                 ('/folder_contents?portal_status_message=%s' \
-                                  % (message, )))
+ret_url = context.absolute_url() + '/folder_contents'
+return REQUEST.RESPONSE.redirect(
+    ret_url + '?portal_status_message=%s' % message)

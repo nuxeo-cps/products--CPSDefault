@@ -3,6 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
+"POT-Creation-Date: 2004-07-23 10:45default\n"
 "PO-Revision-Date: 2004-07-12 18:00default\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: German <rheinland@dzug.org>\n"
@@ -41,8 +42,8 @@ msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
 "Erstellt durch ${item_creator}. Zuletzt geändert am ${item_modification}."
 
-#.   <option content="string:label_language_${locale/id}" attributes="value locale/id;
-#.                               selected locale/selected|nothing" repeat="locale map">
+#.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
+#.                               selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "Language"
@@ -254,7 +255,7 @@ msgstr "Zurück"
 #.          box text title
 #.     </block>
 #.   <block content="box/box/title">box text title</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt 1 more references
 msgid "box text title"
 msgstr "Box Text Titel"
 
@@ -299,10 +300,10 @@ msgstr "Zurück"
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
+#: ../skins/cps_default/content_delete_archive_form.pt
 #: ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_reject_form.pt
-#: ../skins/cps_default/content_revert_form.pt
-#: ../skins/cps_default/content_submit_form.pt 2 more references
+#: ../skins/cps_default/content_revert_form.pt 3 more references
 msgid "button_cancel"
 msgstr "Abbrechen"
 
@@ -365,6 +366,12 @@ msgstr "Ausschneiden"
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
+msgstr "Löschen"
+
+#.   <input type="submit" class="standalone" value="button_delete_archive" />
+#: from ../skins/cps_default/content_delete_archive_form.pt
+#, fuzzy
+msgid "button_delete_archive"
 msgstr "Löschen"
 
 #.   <input type="submit" name="lr_block" value="button_local_roles_block" />
@@ -534,8 +541,8 @@ msgstr "Sie haben sich ausgeloggt."
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_zmi_warning"
 msgstr ""
-"Sie sind noch ausserhalb des Portals eingeloggt. Eventuell müssen Sie "
-"sich noch vom Zope Management Interface "
+"Sie sind noch ausserhalb des Portals eingeloggt. Eventuell müssen Sie sich "
+"noch vom Zope Management Interface "
 
 #.   <div class="description">
 #.       This form is used to set the portal configuration options.
@@ -588,8 +595,8 @@ msgstr "Bitte entschuldigen Sie den Fehler. Wir arbeiten an einer Lösung."
 #: from ../skins/cps_default/error_lib.pt
 msgid "error_not_found"
 msgstr ""
-"Das Dokument das Sie suchen wurde nicht gefunden. Falls das Dokument "
-"nur verschoben wurde finden Sie es vielleicht mit Hilfe des Such Formulars:"
+"Das Dokument das Sie suchen wurde nicht gefunden. Falls das Dokument nur "
+"verschoben wurde finden Sie es vielleicht mit Hilfe des Such Formulars:"
 
 #.   <title fill-slot="title">
 #.     heading_abandon_draft_of
@@ -649,6 +656,16 @@ msgstr "Auschecken Version ${item_id}"
 #: from ../skins/cps_default/folder_edit_form.pt
 msgid "heading_create"
 msgstr "Erstellen"
+
+#.   <title fill-slot="title">
+#.     heading_delete_archive_n_of
+#.     ${rev (tal replace="request/rev")}
+#.     ${item_id (tal replace="here/title_or_id")}
+#.   </title>
+#: from ../skins/cps_default/content_delete_archive_form.pt
+#, fuzzy
+msgid "heading_delete_archive_n_of ${rev} ${item_id}"
+msgstr "Ablehnen Publikation von "
 
 #.   <h1>
 #.       heading_edit
@@ -810,8 +827,7 @@ msgstr "Zurückziehen von ${item_id}"
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
 msgstr ""
-"Wenn sie diesen Entwurf verwerfen, wird die Original Version wieder "
-"frei."
+"Wenn sie diesen Entwurf verwerfen, wird die Original Version wieder frei."
 
 #.   <span>Accept publication of this
 #.       item, this will make it available to section's readers</span>
@@ -827,8 +843,8 @@ msgstr ""
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
 msgstr ""
-"Wenn sie diese Version einchecken, wird sie die momentane gesperrte "
-"Version ersetzen."
+"Wenn sie diese Version einchecken, wird sie die momentane gesperrte Version "
+"ersetzen."
 
 #.   <span>
 #.       If you create a draft, you will be the only one able to work on the document.
@@ -845,7 +861,17 @@ msgstr ""
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "help_contentbox_sort"
-msgstr "Für ein effizientes Sortieren werden bei einem Suchergebnis maximal die ersten 100 Dokumente angezeigt"
+msgstr ""
+"Für ein effizientes Sortieren werden bei einem Suchergebnis maximal die "
+"ersten 100 Dokumente angezeigt"
+
+#.   <span>
+#.       Delete archive
+#.       ${rev (tal replace="request/rev")}.
+#.     </span>
+#: from ../skins/cps_default/content_delete_archive_form.pt
+msgid "help_delete_archive"
+msgstr ""
 
 #.   <em>
 #.           Box types in italic are predefined types. You cannot change their
@@ -854,8 +880,8 @@ msgstr "Für ein effizientes Sortieren werden bei einem Suchergebnis maximal die 
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "help_italic_vendor_boxes_types"
 msgstr ""
-"Boxen in Kursivschrift sind vordefinierte Typen. Einige Eigenschaften "
-"können nicht geändert werden. Verwenden Sie ggfs. die Standard Boxen."
+"Boxen in Kursivschrift sind vordefinierte Typen. Einige Eigenschaften können "
+"nicht geändert werden. Verwenden Sie ggfs. die Standard Boxen."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -901,8 +927,8 @@ msgstr "Vergessen sie nicht sich auszuloggen sobald sie das Portal verlassen."
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
 msgstr ""
-"Haben Sie Schwierigkeiten beim Login am Portal?<br> Stellen sie sicher "
-"das ihr Browser 'Cookies' akzeptiert."
+"Haben Sie Schwierigkeiten beim Login am Portal?<br> Stellen sie sicher das "
+"ihr Browser 'Cookies' akzeptiert."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -912,9 +938,9 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
 msgstr ""
-"Tippen Sie einfach Ihren Login Namen in das Feld unten und klicken anschliessend "
-"auf <em>Senden</em>, dann wird das Passwort an Ihre EMail Adresse "
-"gesandt."
+"Tippen Sie einfach Ihren Login Namen in das Feld unten und klicken "
+"anschliessend auf <em>Senden</em>, dann wird das Passwort an Ihre EMail "
+"Adresse gesandt."
 
 #.   <span>
 #.         If this will not work for you (for example, if you forget your member
@@ -959,16 +985,14 @@ msgstr "Sie müssen ein oder mehrere Objekte zum Umbenennen auswählen."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
-msgstr ""
-"<a href='${link_password_forgotten}'>Passwort vergessen?</a>"
+msgstr "<a href='${link_password_forgotten}'>Passwort vergessen?</a>"
 
 #.   <em>
 #.             Check this box to have your password mailed to you.
 #.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
-msgstr ""
-"Klicken sie hier um das Passwort an Ihre EMail Adresse zu senden. "
+msgstr "Klicken sie hier um das Passwort an Ihre EMail Adresse zu senden. "
 
 #.   <span>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -989,13 +1013,15 @@ msgstr ""
 #: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
 msgstr ""
-"Sie können dieses Objekt direkt in den Websektionen publizieren wo Sie eine Erlaubnis haben, dh "
-"ohne Überprüfung durch einen Moderator.<br>Eine Kopie des Objekts wird "
-"in jeder Websektion angelegt mit dem Status <strong>publiziert</strong>. Leser dieser "
-"Websektionen können dann darauf zugreifen. "
-"In den Websektionen wo Sie keine direkte Erlaubnis zu Publizieren haben wird zunächst eine Kopie des Objekts angelegt "
-"mit dem Status <strong>schwebend</strong>, die von einem Moderator geprüft und dann erst "
+"Sie können dieses Objekt direkt in den Websektionen publizieren wo Sie eine "
+"Erlaubnis haben, dh ohne Überprüfung durch einen Moderator.<br>Eine Kopie "
+"des Objekts wird in jeder Websektion angelegt mit dem Status "
+"<strong>publiziert</strong>. Leser dieser Websektionen können dann darauf "
+"zugreifen. In den Websektionen wo Sie keine direkte Erlaubnis zu Publizieren "
+"haben wird zunächst eine Kopie des Objekts angelegt mit dem Status "
+"<strong>schwebend</strong>, die von einem Moderator geprüft und dann erst "
 "<strong>publiziert</strong> wird."
+
 #.   <span>
 #.       You will receive an email shortly containing
 #.       your password and instructions on how to activate your membership.
@@ -1003,8 +1029,8 @@ msgstr ""
 #: from ../skins/cps_default/registered.pt
 msgid "help_registred_mail"
 msgstr ""
-"Sie werden gleich eine Email mit ihrem Passwort erhalten und Angaben "
-"zur Aktivierung ihres Portal Zugangs "
+"Sie werden gleich eine Email mit ihrem Passwort erhalten und Angaben zur "
+"Aktivierung ihres Portal Zugangs "
 
 #.   <span>
 #.       Reject publication of this item
@@ -1030,9 +1056,9 @@ msgstr ""
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
 msgstr ""
-"Die Änderung der Objekt-Id hat keine Effekt auf den Titel aber ändert "
-"die URL Adresse unter der es auffindbar ist. Beachten Sie das Verweise die "
-"auf das Objekt zeigen dann auch angepasst werden müssen."
+"Die Änderung der Objekt-Id hat keine Effekt auf den Titel aber ändert die "
+"URL Adresse unter der es auffindbar ist. Beachten Sie das Verweise die auf "
+"das Objekt zeigen dann auch angepasst werden müssen."
 
 #.   <span>
 #.       Revert to revision
@@ -1053,15 +1079,15 @@ msgstr "Wechseln zu einer älteren Version des Objekts."
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
 msgstr ""
-"Der Objekt Status (oder auch Review Status) bestimmt wer ein Objekt sehen kann. "
-"Ein Objekt mit dem Status <b>in Bearbeitung</b> kann von Gästen des "
+"Der Objekt Status (oder auch Review Status) bestimmt wer ein Objekt sehen "
+"kann. Ein Objekt mit dem Status <b>in Bearbeitung</b> kann von Gästen des "
 "Arbeitsbereichs gelesen werden. Teilnehmer und Manager eines "
-"Arbeitsbereiches können das Objekt editieren und ändern. Nur die in Websektionen "
-"<strong>publizierten</strong> Objekte sind für die Leser der Websektionen zugänglich. Um ein "
-"Objekt zu publizieren, muss es zunächst von einem Moderator geprüft "
-"werden. Sie können ein Objekt zur Prüfung an einen Moderator übergeben, "
-"indem sie den Status auf <b>schwebend</b> setzen. Dies erfolgt durch "
-"Vorlage in einer oder mehreren Websektionen. "
+"Arbeitsbereiches können das Objekt editieren und ändern. Nur die in "
+"Websektionen <strong>publizierten</strong> Objekte sind für die Leser der "
+"Websektionen zugänglich. Um ein Objekt zu publizieren, muss es zunächst von "
+"einem Moderator geprüft werden. Sie können ein Objekt zur Prüfung an einen "
+"Moderator übergeben, indem sie den Status auf <b>schwebend</b> setzen. Dies "
+"erfolgt durch Vorlage in einer oder mehreren Websektionen. "
 
 #.   <span>
 #.     Unpublish published item</span>
@@ -1232,7 +1258,8 @@ msgstr "Standard"
 
 #.   <th align="right">Depth</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_dept"
+#, fuzzy
+msgid "label_depth"
 msgstr "Tiefe"
 
 #.   <div class="label">
@@ -1613,8 +1640,8 @@ msgstr "Publikations Stand"
 msgid "label_published"
 msgstr "Publiziert"
 
-#.   <label for="cb_persistent">Remember my
-#.         name</label>
+#.   <label for="cb_remember">Remember my
+#.                  name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr "Merke Login"
@@ -2015,6 +2042,12 @@ msgstr "Aufrufen dieser Version"
 #: from ../skins/cps_default/error_lib.pt
 msgid "link_contact_admin"
 msgstr "Kontakt zum Administrator"
+
+#.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${rev}">Purge</a>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "link_delete_this_revision"
+msgstr "Zurück zu dieser Version"
 
 #.   <a attributes="href
 #.             string:exportRSSContentBox?box_url=${box/url}" title="label_export_rss">RSS</a>
@@ -2455,6 +2488,10 @@ msgstr "zurück zum Kalender"
 msgid "action_archives_mail_center"
 msgstr "zurück zum Kalender"
 
+#, fuzzy
+msgid "action_manage_vocabularies"
+msgstr "Teilnehmer"
+
 msgid "button_select"
 msgstr "Auswählen"
 
@@ -2564,11 +2601,17 @@ msgstr "Ein Folder für beliebigen Inhalt"
 msgid "portal_type_Workspace_title"
 msgstr "Arbeitsbereich"
 
-msgid "portal_type_Calendar"
-msgstr "Kalender"
+msgid "portal_type_Calendar_title"
+msgstr "Geteilte Agenda"
 
-msgid "portal_type_Calendars"
-msgstr "Gruppe von Kalendern"
+msgid "portal_type_Calendar_description"
+msgstr "Agenda, die mit d'autres geteilt werden kann, Benutzer-"
+
+msgid "portal_type_Calendar_Event_title"
+msgstr "Ereignis geteilter Agenda"
+
+msgid "portal_type_Calendar_Event_description"
+msgstr "Das kann ein Ereignis, eine Sitzung oder eine Verabredung sein"
 
 msgid "portal_type_CPSForum_title"
 msgstr "Forum"
@@ -2654,6 +2697,14 @@ msgstr "Flash Box"
 msgid "portal_type_FlashBox_description"
 msgstr "Eine Box die Macromedia&#153; Flash&#153; Movies anzeigt"
 
+#, fuzzy
+msgid "portal_type_InternalLinksBox_title"
+msgstr "Inhalts Box"
+
+#, fuzzy
+msgid "portal_type_InternalLinksBox_description"
+msgstr "Box mit Folder Inhalten oder Such Ergebnissen."
+
 msgid "description_nuxeo_basebox_default"
 msgstr "Eine leere Box."
 
@@ -2712,7 +2763,8 @@ msgid "description_nuxeo_treebox_default"
 msgstr "Eine Standard Navigationsbaum."
 
 msgid "description_nuxeo_treebox_center"
-msgstr "Ein kontextabhängiger Navigationsbaum der 2 Level Sub-Websektione anzeigt."
+msgstr ""
+"Ein kontextabhängiger Navigationsbaum der 2 Level Sub-Websektione anzeigt."
 
 msgid "description_nuxeo_treebox_sitemap"
 msgstr "Eine Navigationsbaum des gesamten Portal"
@@ -2737,6 +2789,10 @@ msgstr "Box mit Flash&#153; Datei, mit verstellbarer Weite und Höhe"
 
 msgid "description_nuxeo_treebox_sitemap_adv"
 msgstr "Arbeitsbereich Navigationsbaum"
+
+#, fuzzy
+msgid "description_nuxeo_internallinks_default"
+msgstr "Eine Standard Inhalts Box."
 
 msgid "psm_added_to_favorites"
 msgstr "zu Favoriten genommen."
@@ -2788,6 +2844,10 @@ msgstr "Operation nicht erlaubt."
 
 msgid "psm_revision_reverted"
 msgstr "zurückgegriffen auf alte Version."
+
+#, fuzzy
+msgid "psm_archive_deleted"
+msgstr "Objekt(e) gelöscht."
 
 msgid "psm_select_at_least_one_document"
 msgstr "Wählen sie mindestens ein Dokument aus."
@@ -2957,3 +3017,15 @@ msgstr "Auschecken Version"
 
 msgid "abandon_draft"
 msgstr "Aufgeben Version"
+
+msgid "role:Anonymous"
+msgstr ""
+
+msgid "role:Authenticated"
+msgstr ""
+
+msgid "_blank"
+msgstr ""
+
+#~ msgid "portal_type_Calendars"
+#~ msgstr "Gruppe von Kalendern"

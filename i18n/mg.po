@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mg\n"
-"POT-Creation-Date: 2005-02-08 18:14default\n"
+"POT-Creation-Date: 2005-02-09 04:17default\n"
 "PO-Revision-Date: 2004-11-25 14:28+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -45,7 +45,10 @@ msgstr ""
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
+#.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
+#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "Language"
 msgstr "Fiteny"
 
@@ -295,8 +298,10 @@ msgid "button_abandon_draft"
 msgstr "Ovaina ny laharana (version)"
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
+#.   <input type="submit" name="language_add:method" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr "Ampiana"
 
@@ -365,12 +370,6 @@ msgstr "Manaiky ny laharana (version)"
 msgid "button_checkout_draft"
 msgstr "Manamboatra laharana(version)"
 
-#.   <button onclick="window.close()">Fermer</button>
-#: from ../skins/cps_default/popup_folder_search.pt
-#, fuzzy
-msgid "button_close"
-msgstr "Adika"
-
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
@@ -391,8 +390,10 @@ msgstr "Tapahina"
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="language_delete:method" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Vonoina"
 
@@ -511,8 +512,14 @@ msgstr "Foronina"
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
+#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Karohina"
+
+#.   <input type="submit" name="language_set_default:method" value="button_select" />
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "button_select"
+msgstr "Manavaka"
 
 #.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
@@ -548,12 +555,6 @@ msgstr "Apetraka mba haely"
 msgid "button_unpublish_document"
 msgstr "Esorina tsy haely intsony"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
-#.       </input>
-#: from ../skins/cps_default/popup_folder_search.pt
-msgid "button_update"
-msgstr "Alefaso"
-
 #.   <span>
 #.           You are already a member. You may use the
 #.         </span>
@@ -567,6 +568,12 @@ msgstr "Efa mpikambana ianao. Afaka ampiasainao ny "
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "Raha tianao ovaina ny mombamomba anao."
+
+#.   <p>description_languages_form</p>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "description_languages_form"
+msgstr "Mandamina ny tranonkala"
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -762,6 +769,12 @@ msgstr "Manampy matoandahatsoratra"
 #: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
 msgstr "Miditra ho mpikambana"
+
+#.   <h2>Languages management</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "heading_language_manage_form"
+msgstr "Fitantanana ireo boaty"
 
 #.   <h1>
 #.    Assign local roles: Search Members
@@ -1373,17 +1386,6 @@ msgstr "Ireo zanaka repertoara ihany no aseho"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
-msgstr "Fidina"
-
-#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
-#.                                                                         'Select workspaces for recherche') " size="30">
-#.                                                                Choose workspaces</button>
-#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
-#.                                                                         'Select folder for recherche') " size="30">
-#.                                                                        Choose sections</button>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
-msgid "label_choose_section"
 msgstr "Fidina"
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
@@ -2215,6 +2217,30 @@ msgstr "Asa"
 msgid "label_you_are_here"
 msgstr "Eto ianao&nbsp;:"
 
+#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language"
+msgstr "Fiteny"
+
+#.   <h2>language_add</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_add"
+msgstr "Fiteny"
+
+#.   <h2>language_delete</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_delete"
+msgstr "Alemanina"
+
+#.   <h2>language_set_default</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_set_default"
+msgstr "Endrika voalohany (défaut)"
+
 #.   <span>nop</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "legend_folder_no_search_result"
@@ -2817,14 +2843,18 @@ msgstr "Lisitr'ireo mailaka hatramin'izay"
 msgid "action_manage_vocabularies"
 msgstr "Fandrindrana ny voambolana"
 
+#, fuzzy
+msgid "action_manage_languages"
+msgstr "Fandrindrana ny voambolana"
+
 msgid "action_translate"
 msgstr "Avadika fiteny"
 
-msgid "button_select"
-msgstr "Manavaka"
-
 msgid "button_create"
 msgstr "Foronina"
+
+msgid "button_update"
+msgstr "Alefaso"
 
 msgid "button_deselect_all"
 msgstr "tsy avahina izy rehetra"
@@ -3041,7 +3071,6 @@ msgstr "Boaty misy ny fandehandehanana eo anivon'ny tranonkala."
 msgid "portal_type_DocRenderBox_description"
 msgstr "Maneho ny lisitry ny antotandahatsoratra nofidina."
 
-
 msgid "description_nuxeo_basebox_default"
 msgstr "Boaty fanandramana."
 
@@ -3239,6 +3268,18 @@ msgstr "Misoratra anarana"
 msgid "psm_translation_added"
 msgstr "Fandikana teny"
 
+#, fuzzy
+msgid "psm_default_language_set"
+msgstr "Anglisy"
+
+#, fuzzy
+msgid "psm_language_added"
+msgstr "Fiteny"
+
+#, fuzzy
+msgid "psm_language_deleted"
+msgstr "Alemanina"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Ny zavatra voaangona dia tsy voafafa"
 
@@ -3383,6 +3424,18 @@ msgstr "A"
 
 msgid "_blank"
 msgstr " "
+
+#, fuzzy
+#~ msgid "button_remove"
+#~ msgstr "Ovaina ny id n'ny zavatra"
+
+#, fuzzy
+#~ msgid "button_close"
+#~ msgstr "Adika"
+
+#, fuzzy
+#~ msgid "label_choose_section"
+#~ msgstr "Fidina"
 
 #, fuzzy
 #~ msgid "heading_enter_your_new_password"

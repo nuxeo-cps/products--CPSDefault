@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2005-02-08 18:14default\n"
+"POT-Creation-Date: 2005-02-09 04:17default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -50,7 +50,10 @@ msgstr ""
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
+#.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
+#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "Language"
 msgstr ""
 
@@ -281,8 +284,10 @@ msgid "button_abandon_draft"
 msgstr ""
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
+#.   <input type="submit" name="language_add:method" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr ""
 
@@ -351,11 +356,6 @@ msgstr ""
 msgid "button_checkout_draft"
 msgstr ""
 
-#.   <button onclick="window.close()">Fermer</button>
-#: from ../skins/cps_default/popup_folder_search.pt
-msgid "button_close"
-msgstr ""
-
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
@@ -376,8 +376,10 @@ msgstr ""
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="language_delete:method" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr ""
 
@@ -493,7 +495,13 @@ msgstr ""
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
+#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
+msgstr ""
+
+#.   <input type="submit" name="language_set_default:method" value="button_select" />
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "button_select"
 msgstr ""
 
 #.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
@@ -528,12 +536,6 @@ msgstr ""
 msgid "button_unpublish_document"
 msgstr ""
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
-#.       </input>
-#: from ../skins/cps_default/popup_folder_search.pt
-msgid "button_update"
-msgstr ""
-
 #.   <span>
 #.           You are already a member. You may use the
 #.         </span>
@@ -546,6 +548,11 @@ msgstr ""
 #.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
+msgstr ""
+
+#.   <p>description_languages_form</p>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "description_languages_form"
 msgstr ""
 
 #.   <span>
@@ -732,6 +739,11 @@ msgstr ""
 #.   <h1>Become a member</h1>
 #: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
+msgstr ""
+
+#.   <h2>Languages management</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "heading_language_manage_form"
 msgstr ""
 
 #.   <h1>
@@ -1267,21 +1279,6 @@ msgstr ""
 #: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
 msgstr ""
-
-#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
-#.                                                                         'Select workspaces for recherche') " size="30">
-#.                                                                Choose workspaces</button>
-#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
-#.                                                                         'Select folder for recherche') " size="30">
-#.                                                                        Choose sections</button>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_choose_section"
-msgstr ""
-
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_choose_workspace"
-msgstr ""
-
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -2090,6 +2087,26 @@ msgstr ""
 msgid "label_you_are_here"
 msgstr ""
 
+#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language"
+msgstr ""
+
+#.   <h2>language_add</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_add"
+msgstr ""
+
+#.   <h2>language_delete</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_delete"
+msgstr ""
+
+#.   <h2>language_set_default</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_set_default"
+msgstr ""
+
 #.   <span>nop</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "legend_folder_no_search_result"
@@ -2679,15 +2696,16 @@ msgstr ""
 msgid "action_manage_vocabularies"
 msgstr ""
 
+msgid "action_manage_languages"
+msgstr ""
+
 msgid "action_translate"
 msgstr ""
 
-# Buttons
-# ########
-msgid "button_select"
+msgid "button_create"
 msgstr ""
 
-msgid "button_create"
+msgid "button_update"
 msgstr ""
 
 msgid "button_deselect_all"
@@ -3093,6 +3111,15 @@ msgid "psm_reset_password_problem"
 msgstr ""
 
 msgid "psm_translation_added"
+msgstr ""
+
+msgid "psm_default_language_set"
+msgstr ""
+
+msgid "psm_language_added"
+msgstr ""
+
+msgid "psm_language_deleted"
 msgstr ""
 
 msgid "collector_psm_erase_data_cancel"

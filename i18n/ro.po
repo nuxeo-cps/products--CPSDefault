@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
-"POT-Creation-Date: 2005-02-08 18:14default\n"
+"POT-Creation-Date: 2005-02-09 04:17default\n"
 "PO-Revision-Date: 2005-01-20 16:02+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team: Romanian <en@li.org>\n"
@@ -54,7 +54,10 @@ msgstr "Creat de ${item_creator}. Modificat ultima oara ${item_modification}."
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
+#.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
+#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "Language"
 msgstr "Limba"
 
@@ -268,7 +271,7 @@ msgstr "text pentru box"
 #.          box text title
 #.     </block>
 #.   <block content="box/box/title">box text title</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt 2 more references
+#: from ../skins/cps_default/boxes_nuxeo.pt 3 more references
 msgid "box text title"
 msgstr "titlu pentru box"
 
@@ -289,8 +292,10 @@ msgid "button_abandon_draft"
 msgstr "Abandoneaza revizia"
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
+#.   <input type="submit" name="language_add:method" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr "Adauga"
 
@@ -379,8 +384,10 @@ msgstr "Taie"
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="language_delete:method" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Sterge"
 
@@ -492,12 +499,23 @@ msgstr "Lipeste"
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
+#.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
+#.     
+#.         </input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
+#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Cauta"
+
+# Buttons
+# ########
+#.   <input type="submit" name="language_set_default:method" value="button_select" />
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "button_select"
+msgstr ""
 
 #.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
@@ -544,6 +562,12 @@ msgstr "Esti deja membru inregistrat. Poti folosi"
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "pentru a-ti schimba datele de inregistrare"
+
+#.   <p>description_languages_form</p>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "description_languages_form"
+msgstr "Acest formular este folosit pentru a configura optiunile portalului"
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -735,6 +759,12 @@ msgstr "Adauga continut"
 #: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
 msgstr "Inregistreaza-te ca membru"
+
+#.   <h2>Languages management</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "heading_language_manage_form"
+msgstr "Administrare box-uri"
 
 #.   <h1>
 #.    Assign local roles: Search Members
@@ -2083,6 +2113,29 @@ msgstr ""
 msgid "label_you_are_here"
 msgstr "Te afli aici: "
 
+#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language"
+msgstr "Limba"
+
+#.   <h2>language_add</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_add"
+msgstr "Limba"
+
+#.   <h2>language_delete</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_delete"
+msgstr "Germana"
+
+#.   <h2>language_set_default</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_set_default"
+msgstr ""
+
 #.   <span>nop</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "legend_folder_no_search_result"
@@ -2729,12 +2782,11 @@ msgstr ""
 msgid "action_manage_vocabularies"
 msgstr ""
 
-msgid "action_translate"
-msgstr ""
+#, fuzzy
+msgid "action_manage_languages"
+msgstr "Acest formular este folosit pentru a configura optiunile portalului"
 
-# Buttons
-# ########
-msgid "button_select"
+msgid "action_translate"
 msgstr ""
 
 msgid "button_create"
@@ -2955,6 +3007,13 @@ msgstr ""
 msgid "portal_type_InternalLinksBox_description"
 msgstr ""
 
+msgid "portal_type_DocRenderBox_title"
+msgstr ""
+
+#, fuzzy
+msgid "portal_type_DocRenderBox_description"
+msgstr "Descriere tip document"
+
 # Box format descriptions
 # ########################
 msgid "description_nuxeo_basebox_default"
@@ -3043,6 +3102,13 @@ msgstr ""
 
 msgid "description_nuxeo_internallinks_default"
 msgstr ""
+
+#, fuzzy
+msgid "description_nuxeo_render_default"
+msgstr ""
+"Nu ai fost autentificat. Numele de utilizator sau/si parola ar putea fi "
+"incorecte. Browser-ul tau s-ar putea sa n fie configurat sa accepte cookie-"
+"uri HTTP. Daca ai nevoie de ajutor, contacteaza"
 
 # Status messages (psm)
 # ######################
@@ -3140,6 +3206,20 @@ msgstr "Inregistreaza"
 
 msgid "psm_translation_added"
 msgstr ""
+
+# Languages
+# ##########
+#, fuzzy
+msgid "psm_default_language_set"
+msgstr "Engleza"
+
+#, fuzzy
+msgid "psm_language_added"
+msgstr "Limba"
+
+#, fuzzy
+msgid "psm_language_deleted"
+msgstr "Germana"
 
 msgid "collector_psm_erase_data_cancel"
 msgstr ""
@@ -3296,6 +3376,10 @@ msgstr ""
 
 msgid "_blank"
 msgstr ""
+
+#, fuzzy
+#~ msgid "button_remove"
+#~ msgstr "Redenumeste"
 
 #, fuzzy
 #~ msgid "heading_enter_your_new_password"

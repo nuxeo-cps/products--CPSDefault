@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 18:14default\n"
+"POT-Creation-Date: 2005-02-09 04:17default\n"
 "PO-Revision-Date: 2005-02-08 18:15+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -66,12 +66,16 @@ msgstr "Action"
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
+msgstr ""
+"Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
+#.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
+#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "Language"
 msgstr "Langue"
 
@@ -80,7 +84,6 @@ msgstr "Langue"
 #.             Language...
 #.           </option>
 #: from ../skins/cps_default/content_translate_form.pt
-#, fuzzy
 msgid "Language..."
 msgstr "Langue"
 
@@ -284,7 +287,6 @@ msgstr "Précédents"
 
 #.   <block content="structure box/box/text" condition="i18n">box text body</block>
 #: from ../skins/cps_default/boxes_nuxeo.pt
-#, fuzzy
 msgid "box text body"
 msgstr "FAKE"
 
@@ -320,8 +322,10 @@ msgid "button_abandon_draft"
 msgstr "Abandonner la version"
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
+#.   <input type="submit" name="language_add:method" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr "Ajouter"
 
@@ -390,12 +394,6 @@ msgstr "Valider la version"
 msgid "button_checkout_draft"
 msgstr "Créer une version"
 
-#.   <button onclick="window.close()">Fermer</button>
-#: from ../skins/cps_default/popup_folder_search.pt
-#, fuzzy
-msgid "button_close"
-msgstr "Copier"
-
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
@@ -416,8 +414,10 @@ msgstr "Couper"
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="language_delete:method" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Supprimer"
 
@@ -519,9 +519,8 @@ msgstr "Revenir à la version archivée"
 #.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
 #.           ">Layout</button>
 #: from ../skins/cps_default/textbox_edit_form.pt
-#, fuzzy
 msgid "button_rte"
-msgstr "Créer"
+msgstr "Editeur de texte enrichi"
 
 #.   <input type="submit" class="context searchButton" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
@@ -534,8 +533,14 @@ msgstr "Créer"
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
+#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Rechercher"
+
+#.   <input type="submit" name="language_set_default:method" value="button_select" />
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "button_select"
+msgstr "Sélectionner"
 
 #.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
@@ -569,12 +574,6 @@ msgstr "Créer une version pour la traduction"
 msgid "button_unpublish_document"
 msgstr "Dépublier le document"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
-#.       </input>
-#: from ../skins/cps_default/popup_folder_search.pt
-msgid "button_update"
-msgstr "Mettre à jour"
-
 #.   <span>
 #.           You are already a member. You may use the
 #.         </span>
@@ -588,6 +587,13 @@ msgstr "Vous êtes déjà membre. Vous pouvez utiliser le "
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "pour modifier vos informations personnelles. "
+
+#.   <p>description_languages_form</p>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "description_languages_form"
+msgstr ""
+"Cette page à pour but de vous permettre de gérer les langue disponible sur "
+"votre site en quelques clics."
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -630,8 +636,8 @@ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
 msgid "description_reconfig_form"
 msgstr "Reconfigurer le portail"
 
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -781,6 +787,11 @@ msgstr "Ajouter du contenu"
 #: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
 msgstr "Devenez membre"
+
+#.   <h2>Languages management</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "heading_language_manage_form"
+msgstr "Gestion des langues"
 
 #.   <h1>
 #.    Assign local roles: Search Members
@@ -957,7 +968,6 @@ msgstr ""
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'no_recurse_help')" class="tooltipArea" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
 msgid "help_contentbox_no_recurse"
 msgstr ""
 "Si la case est cochée, la recherche se limitera au répertoire choisi, sans "
@@ -1097,7 +1107,8 @@ msgstr "Votre mot de passe vous a été envoyé."
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr "Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
+msgstr ""
+"Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
 
 #.   <span>
 #.             No content type can be created.
@@ -1121,7 +1132,8 @@ msgstr "Vous devez sélectionner un ou plusieurs objets à renommer."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
-msgstr "<a href='${link_password_forgotten}'>J'ai oublié mon mot de passe&nbsp;!</a>"
+msgstr ""
+"<a href='${link_password_forgotten}'>J'ai oublié mon mot de passe&nbsp;!</a>"
 
 #.   <em>
 #.             Check this box to have your password mailed to you.
@@ -1375,17 +1387,6 @@ msgstr "Afficher uniquement les sous-répertoires"
 msgid "label_choose"
 msgstr "Choisir"
 
-#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
-#.                                                                         'Select workspaces for recherche') " size="30">
-#.                                                                Choose workspaces</button>
-#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
-#.                                                                         'Select folder for recherche') " size="30">
-#.                                                                        Choose sections</button>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
-msgid "label_choose_section"
-msgstr "Choisir"
-
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_closed"
@@ -1430,7 +1431,6 @@ msgstr "Consultation"
 
 #.   <label for="cb_no_recurse">Do not recurse into subfolders </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
 msgid "label_contentbox_no_recurse"
 msgstr "Ne pas rechercher dans tous les sous-répertoires"
 
@@ -1451,7 +1451,6 @@ msgstr "Contributeurs"
 
 #.   <h2>Current status of the document</h2>
 #: from ../skins/cps_default/content_status_history.pt
-#, fuzzy
 msgid "label_current_status"
 msgstr "Statut actuel du document"
 
@@ -2197,6 +2196,26 @@ msgstr "Travail"
 msgid "label_you_are_here"
 msgstr "Vous êtes ici&nbsp;:"
 
+#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language"
+msgstr "Langue"
+
+#.   <h2>language_add</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_add"
+msgstr "Rendre disponible de nouvelles langues"
+
+#.   <h2>language_delete</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_delete"
+msgstr "Rendre indisponible certaines langues du portail"
+
+#.   <h2>language_set_default</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_set_default"
+msgstr "Choisir la langue par défaut du portail"
+
 #.   <span>nop</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "legend_folder_no_search_result"
@@ -2846,14 +2865,17 @@ msgstr "Archives courriers"
 msgid "action_manage_vocabularies"
 msgstr "Gérer les vocabulaires"
 
+msgid "action_manage_languages"
+msgstr "Gérer les langues"
+
 msgid "action_translate"
 msgstr "Traduire"
 
-msgid "button_select"
-msgstr "Sélectionner"
-
 msgid "button_create"
 msgstr "Créer"
+
+msgid "button_update"
+msgstr "Mettre à jour"
 
 msgid "button_deselect_all"
 msgstr "Tout désélectionner"
@@ -3039,7 +3061,8 @@ msgid "portal_type_ImageBox_title"
 msgstr "Boîte d'image"
 
 msgid "portal_type_ImageBox_description"
-msgstr "Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
+msgstr ""
+"Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Boîte RSS"
@@ -3058,6 +3081,12 @@ msgstr "Boîte de liens internes "
 
 msgid "portal_type_InternalLinksBox_description"
 msgstr "Affiche une liste de documents manuellement choisis"
+
+msgid "portal_type_DocRenderBox_title"
+msgstr "Boîte rendu d'un document "
+
+msgid "portal_type_DocRenderBox_description"
+msgstr "Affiche un document manuellement choisis"
 
 msgid "description_nuxeo_basebox_default"
 msgstr "Une boîte de test."
@@ -3134,7 +3163,8 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La boîte d'actions sous forme de menu à onglets."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr "Une liste d'actions simple utilisée pour les actions en en-tête de la page."
+msgstr ""
+"Une liste d'actions simple utilisée pour les actions en en-tête de la page."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Une boîte avec une image."
@@ -3251,6 +3281,16 @@ msgstr "La réinitialisation de votre mot de passe a échoué."
 
 msgid "psm_translation_added"
 msgstr "Version de traduction créée"
+
+# # Languages  ========================================================
+msgid "psm_default_language_set"
+msgstr "Langue par défaut du site modifiée"
+
+msgid "psm_language_added"
+msgstr "Nouvelle(s) langue(s) disponible(s)"
+
+msgid "psm_language_deleted"
+msgstr "Langue(s) rendue(s) indisponible(s)"
 
 msgid "collector_psm_erase_data_cancel"
 msgstr "Les données collectées n'ont pas été détruites"
@@ -3399,13 +3439,3 @@ msgstr "Di"
 
 msgid "_blank"
 msgstr " "
-
-msgid "portal_type_DocRenderBox_title"
-msgstr "Boîte rendu d'un document "
-
-msgid "portal_type_DocRenderBox_description"
-msgstr "Affiche un document manuellement choisis"
-
-#~ msgid "heading_enter_your_new_password"
-#~ msgstr "Entrer votre nouveau mot de passe"
-

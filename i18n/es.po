@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 18:14default\n"
+"POT-Creation-Date: 2005-02-09 04:17default\n"
 "PO-Revision-Date: 2004-05-21 18:32+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -47,7 +47,10 @@ msgstr ""
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
 #.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
+#.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
+#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "Language"
 msgstr "Idioma"
@@ -331,8 +334,10 @@ msgid "button_abandon_draft"
 msgstr "Abandonar la versión"
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
+#.   <input type="submit" name="language_add:method" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr "Añadir"
 
@@ -434,12 +439,6 @@ msgstr "Validar la versión"
 msgid "button_checkout_draft"
 msgstr "Crear una versión"
 
-#.   <button onclick="window.close()">Fermer</button>
-#: from ../skins/cps_default/popup_folder_search.pt
-#, fuzzy
-msgid "button_close"
-msgstr "Copiar"
-
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
@@ -466,8 +465,10 @@ msgstr "Cortar"
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="language_delete:method" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Borrar"
 
@@ -612,8 +613,14 @@ msgstr "Crear"
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
+#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Buscar"
+
+#.   <input type="submit" name="language_set_default:method" value="button_select" />
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "button_select"
+msgstr "Seleccionar"
 
 #.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
@@ -650,12 +657,6 @@ msgstr "Remitir para publicación"
 msgid "button_unpublish_document"
 msgstr "Retirar el documento"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
-#.       </input>
-#: from ../skins/cps_default/popup_folder_search.pt
-msgid "button_update"
-msgstr "Actualizar"
-
 #    <span>
 #            You are already a member. You may use the
 #          </span>
@@ -672,6 +673,16 @@ msgstr "Usted ya es miembro. Puede utilizar el "
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "para modificar sus datos personales."
+
+#    <div class="description">
+#        This form is used to set the portal configuration options.
+#      </div>
+#.   <p>description_languages_form</p>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "description_languages_form"
+msgstr ""
+"Este formulario sirve para fijar las opciones de configuración del portal."
 
 #    <span>
 #            You are not currently logged in. Your username and or password may be
@@ -892,6 +903,13 @@ msgstr "Añadir contenido"
 #: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
 msgstr "Hacerse miembro"
+
+#    <h2>Boxes management</h2>
+#.   <h2>Languages management</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "heading_language_manage_form"
+msgstr "Gestión de cajas"
 
 #    <h2>
 #     Assign local roles: Search Members
@@ -1580,17 +1598,6 @@ msgstr "Mostrar solamente las subcarpetas"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
-msgstr "Escoger"
-
-#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
-#.                                                                         'Select workspaces for recherche') " size="30">
-#.                                                                Choose workspaces</button>
-#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
-#.                                                                         'Select folder for recherche') " size="30">
-#.                                                                        Choose sections</button>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
-msgid "label_choose_section"
 msgstr "Escoger"
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
@@ -2467,6 +2474,33 @@ msgstr "Trabajo"
 msgid "label_you_are_here"
 msgstr "Estoy en:"
 
+#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language"
+msgstr "Idioma"
+
+#.   <h2>language_add</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_add"
+msgstr "Idioma"
+
+#.   <h2>language_delete</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_delete"
+msgstr "Alemán"
+
+#    <option attributes="selected not:format" value="None">
+#                Default
+#        </option>
+#.   <h2>language_set_default</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+#, fuzzy
+msgid "language_set_default"
+msgstr "Predefinido"
+
 #    <span>nop</span>
 #.   <span>nop</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -3162,14 +3196,18 @@ msgid "action_manage_vocabularies"
 msgstr "Gestionar miembros"
 
 #, fuzzy
+msgid "action_manage_languages"
+msgstr "Gestionar miembros"
+
+#, fuzzy
 msgid "action_translate"
 msgstr "Eliminar los datos recogidos"
 
-msgid "button_select"
-msgstr "Seleccionar"
-
 msgid "button_create"
 msgstr "Crear"
+
+msgid "button_update"
+msgstr "Actualizar"
 
 msgid "button_deselect_all"
 msgstr "Deseleccionar todo"
@@ -3594,6 +3632,19 @@ msgstr "Registrarme"
 msgid "psm_translation_added"
 msgstr "Operación no permitida."
 
+# # Languages  ========================================================
+#, fuzzy
+msgid "psm_default_language_set"
+msgstr "Inglés"
+
+#, fuzzy
+msgid "psm_language_added"
+msgstr "Idioma"
+
+#, fuzzy
+msgid "psm_language_deleted"
+msgstr "Alemán"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Los datos recogidos no han sido eliminados."
 
@@ -3744,6 +3795,22 @@ msgstr "Do"
 
 msgid "_blank"
 msgstr ""
+
+#    <input value="button_rename" class="context" name="folder_rename_form:method" type="submit">
+#              <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#                (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
+#            </input></input>
+#, fuzzy
+#~ msgid "button_remove"
+#~ msgstr "Cambiar el id del objeto"
+
+#, fuzzy
+#~ msgid "button_close"
+#~ msgstr "Copiar"
+
+#, fuzzy
+#~ msgid "label_choose_section"
+#~ msgstr "Escoger"
 
 #, fuzzy
 #~ msgid "heading_enter_your_new_password"

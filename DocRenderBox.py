@@ -61,8 +61,8 @@ class DocRenderBox(BaseBox):
 
     security = ClassSecurityInfo()
     _properties = BaseBox._properties + (
-      {'id' : 'doc_url', 'type' : 'string' , 'mode' : 'w' ,
-        'label' : 'Render'},
+      {'id': 'doc_url', 'type': 'string', 'mode': 'w',
+        'label': 'Render'},
     )
     def __init__(self, id, category='docrenderbox', doc_url='',  **kw):
         BaseBox.__init__(self, id, category=category, **kw)
@@ -75,13 +75,13 @@ class DocRenderBox(BaseBox):
         utool = getToolByName(self, 'portal_url')
         mtool = getToolByName(self, 'portal_membership')
 
-        if self.doc_url=='':
+        if self.doc_url == '':
             return ''
      
         try:
             obj = utool.restrictedTraverse(self.doc_url)
-            if not mtool.checkPermission('View',obj):
-               return ''   
+            if not mtool.checkPermission('View', obj):
+                return ''   
         except KeyError:
             return ''
         

@@ -27,6 +27,6 @@ url = proxy.absolute_url()
 
 if REQUEST is not None:
     from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE
-    action = proxy.getTypeInfo().getActionById('view')
+    action = proxy.getTypeInfo().getActionById('edit')
     REQUEST.RESPONSE.redirect('%s/%s/%s/%s?portal_status_message=%s' % (
         url, KEYWORD_SWITCH_LANGUAGE, lang, action, psm))

@@ -81,10 +81,10 @@
         </span>
       </td>
      </tr>
-     <tr>
-      <td tal:define="isWsManager python:checkPerm('Modify Portal Content',
-                                                   here);"
-          tal:condition="python:isWsManager and sort_by is None">
+     <tr tal:define="isWsManager python:checkPerm('Modify Portal Content',
+                                                  here);"
+         tal:condition="python:isWsManager and sort_by is None">
+      <td>
           <input type="submit" value="button_move_up" class="context moveUp"
                  i18n:attributes="value" name="moveItemsUp:method">
           <input type="submit" value="button_move_down" class="context moveDown"
@@ -96,9 +96,8 @@
                  i18n:attributes="value" name="moveItemsBottom:method">
       </td>
      </tr>
-     <tr>
-      <td
-          tal:condition="python:can_add and allowed">
+     <tr tal:condition="python:can_add and allowed">
+      <td>
         <span i18n:translate="heading_folder_factories">Create a new:</span>
         <select name="type_name">
           <option tal:repeat="type allowed"

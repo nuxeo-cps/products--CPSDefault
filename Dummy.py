@@ -16,7 +16,7 @@ factory_type_information = (
                              'meta_type': 'Dummy',
                              'description': 'A dummy documents',
                              'icon': 'dummy_icon.gif',
-                             'product': 'SSS3',
+                             'product': 'CPSDefault',
                              'factory': 'addDummy',
                              'immediate_view': 'metadata_edit_form',
                              # CPS attr

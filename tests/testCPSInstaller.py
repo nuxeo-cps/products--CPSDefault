@@ -22,7 +22,7 @@ ZopeTestCase.installProduct('MailHost')
 ZopeTestCase.installProduct('VerboseSecurity')
 ZopeTestCase.installProduct('CPSCore')
 
-ZopeTestCase.installProduct('SSS3')
+ZopeTestCase.installProduct('CPSDefault')
 
 
 class TestCPSInstaller(ZopeTestCase.ZopeTestCase):
@@ -33,15 +33,15 @@ class TestCPSInstaller(ZopeTestCase.ZopeTestCase):
     def afterClear(self):
         pass
 
-    def testInstallSSS3(self):
-        'Test SSS3 Install'
+    def testInstallCPSDefault(self):
+        'Test CPSDefault Install'
         roles = ['Manager', ZopeTestCase._user_role]
         uf = self.folder.acl_users
         uf._changeUser(ZopeTestCase._user_name,
                        'password', 'pconfirm',
                        roles, ())
 
-        dispatcher = self.folder.manage_addProduct['SSS3']
+        dispatcher = self.folder.manage_addProduct['CPSDefault']
         dispatcher.manage_addSss3Site('cps', title='The test case Site')
         self.cps = self.folder['cps']
 

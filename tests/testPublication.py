@@ -18,6 +18,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         members.createEntry({'id': 'member', 'roles': ['Member']})
         members.createEntry({'id': 'reviewer', 'roles': ['Member']})
 
+        self.portal.portal_membership.createMemberArea('member')
         self.member_ws = self.portal.workspaces.members.member
 
         pmtool = self.portal.portal_membership

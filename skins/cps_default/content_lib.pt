@@ -200,7 +200,7 @@ format:</pre>
 <pre>final display of items in a column using the given format:</pre>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
-                     format format|string:icon;
+                     format python:format or 'detail';
                      choosen_ids python:request.SESSION.get('choosen_ids', [])">
   <table width="100%" border="0" cellspacing="0" cellpadding="5">
     <tr valign="top" tal:repeat="item batch_items">
@@ -225,6 +225,70 @@ format:</pre>
 </tal:block>
 </metal:block>
 
+<!-- ============================================================ -->
+<pre>Display of a form to change display params</pre>
+<metal:block define-macro="display_params_form">
+  <span i18n:translate="label_sort_by">sort by</span>
+  <select name="display_order">
+    <option i18n:translate="label_none" value="None"
+            tal:attributes="selected not:sort_by">
+            No sort
+    </option>
+
+    <option i18n:translate="label_title_asc" value="title_asc"
+            tal:attributes="selected
+                              python:sort_by == 'title' and direction == 'asc'">
+            Title ascending
+    </option>
+    <option i18n:translate="label_title_desc" value="title_desc"
+            tal:attributes="selected
+                             python:sort_by == 'title' and direction == 'desc'">
+            Title descending
+    </option>
+
+    <option i18n:translate="label_date_asc" value="date_asc"
+            tal:attributes="selected
+                              python:sort_by == 'date' and direction == 'asc' ">
+            Date ascending
+    </option>
+    <option i18n:translate="label_date_desc" value="date_desc"
+            tal:attributes="selected
+                             python:sort_by == 'date' and direction == 'desc' ">
+            Date descending
+    </option>
+
+    <option i18n:translate="label_status_asc" value="status_asc"
+            tal:attributes="selected
+                             python:sort_by == 'status' and direction == 'asc'">
+            Status ascending
+    </option>
+    <option i18n:translate="label_status_desc" value="status_desc"
+            tal:attributes="selected
+                             python:sort_by == 'status' and direction =='desc'">
+            Status descending
+    </option>
+  </select>
+
+  <span i18n:translate="label_display" valign="top">Display with</span>
+  <select name="display_style">
+    <option i18n:translate="label_default" value="None"
+            tal:attributes="selected not:format">
+            Default
+    </option>
+    <option i18n:translate="label_icons" value="icon"
+            tal:attributes="selected python:format == 'icon'">
+            Icon
+    </option>
+    <option i18n:translate="label_compact" value="compact"
+            tal:attributes="selected python:format == 'compact'">
+            Compact
+    </option>
+    <option i18n:translate="label_detailed" value="detail"
+            tal:attributes="selected python:format == 'detail'">
+            Detail
+    </option>
+  </select>
+</metal:block>
 
 <!-- ============================================================ -->
 <!-- below macros require tal:define="info getContentInfo(item)   -->

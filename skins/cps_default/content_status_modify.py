@@ -6,7 +6,7 @@ wftool = context.portal_workflow
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
-comment = kw.get('comment', '')
+comments = kw.get('comments', '')
 
 folder = context.aq_parent
 id = context.getId()
@@ -34,7 +34,7 @@ else:
                 wftool.doActionFor(context, workflow_action,
                                    dest_container=rpath,
                                    initial_transition=transition,
-                                   comment=comment)
+                                   comment=comments)
 
 if REQUEST is not None:
     # If the object has been deleted, we can't redirect to it.

@@ -12,6 +12,8 @@
 #to generate the bookmark URL and to retrieve the object (in order to get
 #its title and description)
 
+from ZTUtils import make_query
+
 portal = context.portal_url.getPortalObject()
 homeFolder = portal.portal_membership.getHomeFolder()
 
@@ -46,7 +48,13 @@ doc = getattr(targetFolder, new_id).getEditableContent()
 doc.edit(**kw)
 
 if REQUEST:
-  url = REQUEST.HTTP_SERVER + rurl +'/?portal_status_message=psm_added_to_favorites'
+  param_index = rurl.find("?")
+  if param_index == -1:
+    url = REQUEST.HTTP_SERVER + rurl + '?' +\
+          make_query(portal_status_message='psm_added_to_favorites')
+  else:    
+    url = REQUEST.HTTP_SERVER + rurl + '&' +\
+          make_query(portal_status_message='psm_added_to_favorites')
   return REQUEST.RESPONSE.redirect(url)
 
 

@@ -9,7 +9,7 @@ from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
-ZopeTestCase.installProduct('VerboseSecurity', quiet=1)
+#ZopeTestCase.installProduct('VerboseSecurity', quiet=1)
 
 
 # Testing some skins methods and templates anonymously.

@@ -1,4 +1,33 @@
 *******************************************
+** CPSDefault V3.10.0 [R1 build 2004/02/08-07:54 by fermigier]
+
+New features:
+~~~~~~~~~~~~~
+- Workspace and Section nice metadata page using CPSDocument
+  they are searchable, and displayed with different icons (green/blue)
+- A folder (workspace or section) can be hidden in navigation
+  using Edit page
+- Seach can be done from the current location + improve search nav
+
+Bug fixes:
+~~~~~~~~~~
+- remove duplicate slash in the daily view URL of a calendar box.
+- fix, clean and improve readability of some portal actions.
+- fixing treebox and treebox_center to display sub sub folder list
+  (should fix the default navigation view)
+- Creating a portal now uses the new standard acl_users API userFolderAddUser()
+  instead of the old _adduser().
+- Fix unit tests under Zope 2.7
+
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- Folders (ie Workspace and Section) are CPSDocument
+- i18n updater only reload cpsdefault po into Localize.default without recreat
+  the mcat
+- hidden_folder are filtered from TreeBox and basebox_menu
+
+
+*******************************************
 ** CPSDefault V3.9.0 [R1 build 2004/02/05-15:19 by ben]
 
 ZODB Requires:

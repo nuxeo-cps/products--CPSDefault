@@ -62,8 +62,8 @@ current = [0,1] # for the current position in the search
 for i in range(nb_pages):
     if b_start != j:
         batch_string += """<a href="%s" >%s</a>&nbsp;""" \
-                        %( context.REQUEST.URL+"?b_start:int="+str(int(j)),
-                           str(i+1) )
+                        %(context.REQUEST.URL+"?b_start:int="+str(int(j)),
+                          str(i+1) )
     else:
         current = [i+1,j]
         batch_string += str(i+1)+"&nbsp;"
@@ -72,16 +72,16 @@ for i in range(nb_pages):
 # Adding the previous link if we are not at the beginning of the file
 if current[0] > 1:
     batch_string = """<a href="%s" >%s</a>&nbsp;""" \
-                   %( context.REQUEST.URL+"?b_start:int=" + \
-                      str(int(current[1] - items_per_page)) , \
-                      mcat("batch_previous")) + batch_string
+                   %(context.REQUEST.URL+"?b_start:int=" + \
+                     str(int(current[1] - items_per_page)) , \
+                     mcat("batch_previous")) + batch_string
 
 # Adding the next link if we are not at the end of the list
 if current[0] != nb_pages:
     batch_string += """<a href="%s" >%s</a>&nbsp;""" \
-                    %( context.REQUEST.URL+"?b_start:int=" + \
-                       str(int(current[1] + items_per_page)) , \
-                       mcat("batch_next"))
+                    %(context.REQUEST.URL+"?b_start:int=" + \
+                      str(int(current[1] + items_per_page)) , \
+                      mcat("batch_next"))
 
 # Test if we are on the last page
 limit = int(b_start + items_per_page)

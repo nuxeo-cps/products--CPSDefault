@@ -461,7 +461,8 @@ format:</pre>
        base_url=base_url, zoom=2, title=info['description'])">
   <img tal:condition="info/preview|nothing"
        tal:replace="structure python:here.getImgTag(info['preview'],
-       base_url='', width='32', height='32', title=info['description'])">
+       base_url='', width='32', height='32', keep_ratio=1,
+       title=info['description'])">
    <br>
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
 </div>

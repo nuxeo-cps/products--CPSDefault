@@ -1,19 +1,16 @@
-<metal:html use-macro="here/content_lib/macros/master">
-<div metal:fill-slot="header" />
-<div metal:fill-slot="main">
-<div class="Desktop">
+<metal:html>
+<metal:body use-macro="here/content_lib/macros/master">
 
-<span tal:replace="request/message"
-   tal:condition="request/message|nothing"><hr></span>
+<metal:header fill-slot="header">
+  <h1 i18n:translate="heading_resource_metadata">Resource Metadata</h1>
+</metal:header>
 
-<div class="Metadata">
+<metal:main fill-slot="main">
 
-<h2 i18n:translate="heading_resource_metadata">Resource Metadata</h2>
+  <form action="content_edit" method="post"
+        tal:attributes="action string:${base_url}content_edit">
 
-<form action="content_edit" method="post"
-      tal:attributes="action string:${here/absolute_url}/content_edit">
-
-<table class="FormLayout">
+  <table border="0" cellpadding="2" cellspacing="2">
   <tr>
     <th i18n:translate="label_discussion">Enable Discussion?</th>
     <td colspan="3">
@@ -51,8 +48,8 @@
   <tr valign="top">
     <th align="right" i18n:translate="label_subject">Subject</th>
     <td tal:define="subj_lines python: '\n'.join(doc.subjectsList())">
-      <textarea name="subject:lines" rows="3" cols="20" tal:content="subj_lines">
-      </textarea>
+      <textarea name="subject:lines" rows="3" cols="20"
+                tal:content="subj_lines"></textarea>
       <br>
       <select name="subject:list" multiple>
         <option value=""
@@ -68,8 +65,7 @@
     <th align="right" i18n:translate="label_contributors">Contributors</th>
     <td tal:define="contrib_lines python: '\n'.join(doc.Contributors())">
       <textarea name="contributors:lines" rows="5" cols="30"
-                tal:content="contrib_lines">
-      </textarea>
+                tal:content="contrib_lines"></textarea>
     </td>
   </tr>
   <tr valign="top">
@@ -99,36 +95,36 @@
   <tr valign="top">
     <th align="right" i18n:translate="label_format">Format</th>
     <td>
-      <input type="text" name="format" value="" tal:attributes="value doc/Format">
+      <input type="text" name="format" value=""
+             tal:attributes="value doc/Format">
     </td>
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_language">Language</th>
     <td>
-      <input type="text" name="language" value="" tal:attributes="value doc/Language">
+      <input type="text" name="language" value=""
+             tal:attributes="value doc/Language">
     </td>
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_rights">Rights</th>
     <td>
-      <input type="text" name="rights" value="" tal:attributes="value doc/Rights">
+      <input type="text" name="rights" value=""
+             tal:attributes="value doc/Rights">
     </td>
   </tr>
   <tr valign="top">
     <td><br></td>
     <td>
       <input type="submit" class="standalone" value="button_change"
-      i18n:attributes="value">
+             i18n:attributes="value">
     </td>
   </tr>
-</table>
-</form>
-</div>
-</div>
+  </table>
+  </form>
 
-<div>
   <hr>
-  <table class="FormLayout" bgcolor="#EEEEEE">
+  <table class="even">
     <tr valign="top">
       <th align="right" i18n:translate="label_proxy_identifier">
         Proxy identifier
@@ -175,7 +171,6 @@
     </tr>
   </table>
 
-</div>
-
-</div>
+</metal:main>
+</metal:body>
 </metal:html>

@@ -547,6 +547,7 @@ def cpsupdate(self, langs_list=None):
         'CPSDefault':('Folder',
                       'Dummy',
                       'Text Box',
+                      'Tree Box',                      
                       )
         }
     allowed_content_type = {

@@ -13,15 +13,17 @@ import Dummy
 
 import BoxesTool
 import TextBox
+import TreeBox
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
-                  TextBox.TextBox)
+                  TextBox.TextBox, TreeBox.TreeBox)
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
-                       TextBox.addTextBox)
+                       TextBox.addTextBox, TreeBox.addTreeBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
        TextBox.factory_type_information +
+       TreeBox.factory_type_information +
        ()
        )
 

@@ -8,11 +8,16 @@
   <span tal:define="redirect python: response.redirect(url)"></span>
 </div>
 
+<tal:block define="tmp python:btool.filterBoxes(boxes, slot='center');
+                   boxes_view python:test(len(tmp), tmp, btool.filterBoxes(boxes, slot='folder_view'));">
+
 <b tal:replace="python:CPSD_bmt_mark('FOLDER_VIEW_boxes_start')" />
-<tal:block repeat="box python:btool.filterBoxes(boxes, slot='folder_view')">
+<tal:block repeat="box boxes_view">
   <metal:block use-macro="python:path(box['macro'])" /><br/>
 </tal:block>
 <b tal:replace="python:CPSD_bmt_mark('FOLDER_VIEW_boxes_stop')" />
+
+</tal:block>
 
 </div>
 </metal:block>

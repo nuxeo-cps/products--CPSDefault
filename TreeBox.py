@@ -153,7 +153,7 @@ class TreeBox(BaseBox):
         tree = items
 
         if self.depth and not self.contextual:
-            tree = [x for x in tree if (x['depth'] <= self.depth)]
+            tree = [x for x in tree if (x['depth'] < self.depth)]
         elif self.depth and self.contextual:
             # contextual means displaying current path as well as
             # its childrens and brothers
@@ -184,7 +184,7 @@ class TreeBox(BaseBox):
 
             tree = items
 
-        return items
+        return tree
 
     security.declarePublic('getTreeObject')
     def getTreeObject(self, context):

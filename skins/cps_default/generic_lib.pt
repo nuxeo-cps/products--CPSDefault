@@ -60,7 +60,7 @@
     </dt>
     <dd>
       <input id="field_focus" name="Title" value="" size="20"
-             tal:attributes="value request/Title|nothing" />
+             tal:attributes="value request/Title|string:" />
     </dd>
     <dt>
       <label i18n:translate="label_search_description">
@@ -69,7 +69,7 @@
     </dt>
     <dd>
       <input name="Description" value="" size="20"
-             tal:attributes="value request/Description|nothing" />
+             tal:attributes="value request/Description|string:" />
     </dd>
     <dt>
       <label i18n:translate="label_search_full_text">
@@ -78,7 +78,7 @@
     </dt>
     <dd>
       <input name="SearchableText" value="" size="40"
-             tal:attributes="value request/SearchableText|nothing" />
+             tal:attributes="value request/SearchableText|string:" />
     </dd>
     <dt tal:condition="not:isAnon">
       <label i18n:translate="label_search_status">
@@ -86,15 +86,16 @@
       </label>
     </dt>
     <dd tal:condition="not:isAnon">
-      <select name="review_state">
-        <option tal:attributes="selected not:request/review_state|nothing"
+      <select name="review_state"
+              tal:define="review_state python:request.get('review_state')">
+        <option tal:attributes="selected not:review_state"
                 value="" i18n:translate="label_all">All</option>
         <option tal:repeat="stateName here/getWorkflowStateNames"
                 tal:attributes="value stateName;
-                                selected python:request.get('review_state') ==
-                                  stateName or None"
+                                selected python:review_state == stateName
+                                  or None"
                 tal:content="string:label_${stateName}"
-                i18n:translate="">State name</option>
+                i18n:translate=""></option>
       </select>
     </dd>
     <dt>
@@ -103,13 +104,14 @@
       </label>
     </dt>
     <dd>
-      <select size="5" name="portal_type" multiple="multiple">
-        <option tal:attributes="selected not:request/portal_type|nothing"
+      <select size="5" name="portal_type" multiple="multiple"
+              tal:define="portal_type python:request.get('portal_type', ())">
+        <option tal:attributes="selected not:portal_type"
                 value="" i18n:translate="label_all">All</option>
         <option tal:repeat="ret python:here.getSortedContentTypes(allowed=0)"
-                tal:attributes="value ret/id;
-                                selected python:request.get('portal_type') ==
-                                  ret.getId() or None"
+                tal:attributes="value ret/getId;
+                                selected python:ret.getId() in portal_type
+                                  or None"
                 tal:content="ret/Title"
                 i18n:translate=""></option>
       </select>
@@ -120,16 +122,16 @@
       </label>
     </dt>
     <dd>
-      <select size="5" name="Subject" multiple="multiple">
-        <option value="" tal:attributes="selected not:request/Subject|nothing"
+      <select size="5" name="Subject" multiple="multiple"
+              tal:define="Subject python:request.get('Subject', ())">
+        <option value="" tal:attributes="selected not:Subject"
                 i18n:translate="label_all">All</option>
-        <option  tal:define="subjects here/getSortedSubjects"
-                 tal:repeat="item subjects/items"
-                 tal:attributes="value python:item[0];
-                                 selected python:request.get('Subject') ==
-                                   item[0] or None"
-                 tal:content="python:item[1]"
-                 i18n:translate=""></option>
+        <option tal:define="subjects here/getSortedSubjects"
+                tal:repeat="item subjects/items"
+                tal:attributes="value python:item[0];
+                                selected python:item[0] in Subject or None"
+                tal:content="python:item[1]"
+                i18n:translate=""></option>
       </select>
     </dd>
     <dt>

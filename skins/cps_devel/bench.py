@@ -1,18 +1,26 @@
 ## Script (Python) "bench"
 ##parameters=obj=None, iteration=50, **kw
 ##title=Bench
-##
+##$Id$
 """
 require External method Benchmarktimer installed by cpsintall
 set BENCHMARKTIMER_LEVEL in your start script
-to benchmark a page http://server/foo/bar run:
+to benchmark an object http://server/foo/bar run:
 http://server/foo/bar/bench
-it does work on python script but only at the first execution
-the compiled version failed ?,
-workaround: touch bench.py and reload ...
+to bench a zpt or a python script
+http://server/bench?foo/bar
 """
 if obj is None:
-    obj=context
+    ob_rurl=context.REQUEST.environ.get('QUERY_STRING')
+    if ob_rurl:
+        obj = context
+        ob_rpath = tuple(ob_rurl.split('/'))
+        for elem in ob_rpath:
+            if elem and elem not in ['view']:
+#                print 'traversing to ', elem, '<br>'
+                obj=getattr(obj, elem)
+    else:
+        obj=context
 
 def bench():
     bmt = context.Benchmarktimer(obj.getId())

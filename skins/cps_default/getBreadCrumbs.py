@@ -2,9 +2,10 @@
 ##parameters=url=None, parent=0, breadcrumb_set=None
 # $Id$
 
+ml = 20
+
 def format_title(title):
     l = len(title)
-    ml = 20
     if l > ml:
         short_title = title[:ml-6]+ '...' + title[l-3:]
     else:
@@ -40,7 +41,7 @@ for i in range(len(path)):
     items.append({'id': ipath[-1],
                    'title': format_title(title),
                    'longtitle': title,
-                   'url': '/' + '/'.join(ipath),
+                   'url': '/' + '/'.join(ipath) + '/',
                    })
 
 return items

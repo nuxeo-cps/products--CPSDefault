@@ -1,20 +1,23 @@
-<metal:html use-macro="here/content_lib/macros/master">
-<div metal:fill-slot="header" />
-<div metal:fill-slot="main">
+<metal:html>
+<metal:body use-macro="here/content_lib/macros/master">
 
-<span tal:replace="request/message"
-   tal:condition="request/message|nothing"><hr></span>
-<div class="documentActions">
-<a href="full_metadata_edit_form"
-  tal:attributes="href string:${here/absolute_url}/full_metadata_edit_form"
-  i18n:translate="link_all_metadata">Edit all metadata</a>
-</div>
-<h1 i18n:translate="heading_standard_resource_metadata">Standard Resource Metadata</h1>
+<metal:header fill-slot="header">
+  <h1 i18n:translate="heading_standard_resource_metadata">
+  Standard Resource Metadata
+  </h1>
+  <div class="documentActions">
+  <a href="full_metadata_edit_form"
+    tal:attributes="href string:${here/absolute_url}/full_metadata_edit_form"
+    i18n:translate="link_all_metadata">Edit all metadata</a>
+  </div>
+</metal:header>
+
+<metal:main fill-slot="main">
 
 <form action="content_edit" method="post"
       tal:attributes="action string:${here/absolute_url}/content_edit">
 
-<table class="FormLayout">
+<table border="0" cellspacing="2" cellpadding="2">
   <tr valign="top">
     <th i18n:translate="label_discussion">Enable Discussion?</th>
     <td>
@@ -50,16 +53,14 @@
     </th>
     <td colspan="3">
       <textarea name="description:text" rows="5" cols="65" wrap="soft"
-                tal:content="doc/Description">
-      </textarea>
+                tal:content="doc/Description"></textarea>
     </td>
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_subject">Subject</th>
     <td tal:define="subj_lines python: '\n'.join(doc.subjectsList())">
       <textarea name="subject:lines" rows="3" cols="20"
-                tal:content="subj_lines">
-      </textarea>
+                tal:content="subj_lines"></textarea>
       <br>
       <select name="subject:list" multiple>
         <option value=""
@@ -93,6 +94,6 @@
 
 </form>
 
-
-</div>
+</metal:main>
+</metal:body>
 </metal:html>

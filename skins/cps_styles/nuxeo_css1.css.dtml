@@ -16,16 +16,16 @@ $Id$
 /* BASIC ELEMENTS ------------------------------ */
 
 body {
-  font: &dtml-mainFont;;
-  background: &dtml-mainBackground;;
-  color: &dtml-mainFontColor;;
+  font: <dtml-var mainFont>;
+  background: <dtml-var mainBackground>;
+  color: <dtml-var mainFontColor>;
   margin: 0;
   padding: 0;
 }
 
 a {
   text-decoration: none;
-  color: &dtml-mainLinkColor;;
+  color: <dtml-var mainLinkColor>;
   background-color: transparent;
 }
 
@@ -45,49 +45,49 @@ p a {
   text-decoration: underline;
 }
 p a:visited {
-  color: &dtml-contentLinkVisitedColor;;
+  color: <dtml-var contentLinkVisitedColor>;
   background-color: transparent;
 }
 p a:active {
-  color: &dtml-contentLinkActiveColor;;
+  color: <dtml-var contentLinkActiveColor>;
   background-color: transparent;
 }
 a:hover {
   text-decoration: none;
 }
 p img {
-  border: &dtml-contentImageBorder;;
+  border: <dtml-var contentImageBorder>;
   margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: &dtml-headingFontColor;;
+  color: <dtml-var headingFontColor>;
   background-color: transparent;
-  font: &dtml-headingFont;;
+  font: <dtml-var headingFont>;
   font-weight: bold;
   margin: 0;
   padding-top: 0.5em;
 }
 h1 {
-  font-size: &dtml-headingSize1;;
+  font-size: <dtml-var headingSize1>;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
 h2 {
-  font-size: &dtml-headingSize2;;
+  font-size: <dtml-var headingSize2>;
   margin-bottom: 1em;
 }
 h3 {
-  font-size: &dtml-headingSize3;;
+  font-size: <dtml-var headingSize3>;
 }
 h4 {
-  font-size: &dtml-headingSize4;;
+  font-size: <dtml-var headingSize4>;
 }
 h5 {
-  font-size: &dtml-headingSize5;;
+  font-size: <dtml-var headingSize5>;
 }
 h6 {
-  font-size: &dtml-headingSize6;;
+  font-size: <dtml-var headingSize6>;
 }
 
 ol, ul {
@@ -112,7 +112,7 @@ dd {
 }
 
 legend {
-  background: &dtml-mainBackground;;
+  background: <dtml-var mainBackground>;
   padding: 0.5em;
 }
 
@@ -162,22 +162,22 @@ form .buttonArea {
 }
 
 textarea {
-  color: &dtml-mainFontColor;;
+  color: <dtml-var mainFontColor>;
   background-color: white;
-  font: &dtml-inputFont;;
+  font: <dtml-var inputFont>;
 }
 input {
-  font: &dtml-inputFont;;
-  color: &dtml-mainFontColor;;
+  font: <dtml-var inputFont>;
+  color: <dtml-var mainFontColor>;
   background-color: white;
   vertical-align: middle;
 }
 select {
-  font: &dtml-inputFont;;
+  font: <dtml-var inputFont>;
   vertical-align: top;
 }
 abbr, acronym, .explain {
-  color: &dtml-mainFontColor;;
+  color: <dtml-var mainFontColor>;
   background-color: transparent;
 }
 q, blockquote {
@@ -186,15 +186,15 @@ q, blockquote {
 }
 code {
   font-size: 120%;
-  color: &dtml-mainFontColor;;
-  background-color: &dtml-preBackground;;
+  color: <dtml-var mainFontColor>;
+  background-color: <dtml-var preBackground>;
 }
 pre {
   font-size: 100%;
   padding: 1em;
-  border: &dtml-preBorder;;
-  color: &dtml-mainFontColor;;
-  background-color: &dtml-preBackground;;
+  border: <dtml-var preBorder>;
+  color: <dtml-var mainFontColor>;
+  background-color: <dtml-var preBackground>;
 }
 
 
@@ -206,7 +206,7 @@ table.columns {
 table.columns td.left {
   vertical-align: top;
   padding-top: 1em;
-  background: &dtml-columnsLeftBackgroundNS4;;
+  background: <dtml-var columnsLeftBackgroundNS4>;
 }
 table.columns td.main {
   vertical-align: top;
@@ -215,7 +215,7 @@ table.columns td.main {
 table.columns td.right {
   vertical-align: top;
   padding-top: 1em;
-  background: &dtml-columnsRightBackgroundNS4;;
+  background: <dtml-var columnsRightBackgroundNS4>;
 }
 
 
@@ -225,8 +225,8 @@ table.columns td.right {
 }
 
 .logo {
-  margin: &dtml-logoMargin;;
-  padding: &dtml-logoPadding;;
+  margin: <dtml-var logoMargin>;
+  padding: <dtml-var logoPadding>;
 }
 
 .note {
@@ -234,11 +234,11 @@ table.columns td.right {
 }
 
 .even {
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
 }
 
 .odd {
-  background-color: &dtml-boxOddBackground;;
+  background-color: <dtml-var boxOddBackground>;
 }
 
 .pending {
@@ -265,31 +265,31 @@ table.columns td.right {
 }
 
 .url {
-  color: &dtml-urlFontColor;
+  color: <dtml-var urlFontColor>
 }
 
 input.standalone {
-  background: &dtml-standaloneButtonBackground;;
+  background: <dtml-var standaloneButtonBackground>;
   background-image: none;
-  color: &dtml-standaloneButtonFontColor;;
+  color: <dtml-var standaloneButtonFontColor>;
 }
 
 input.context {
-  background: &dtml-contextButtonBackground;;
+  background: <dtml-var contextButtonBackground>;
   background-image: none;
-  color: &dtml-contextButtonFontColor;;
+  color: <dtml-var contextButtonFontColor>;
 }
 
 input.destructive {
-  background: &dtml-destructiveButtonBackground;;
+  background: <dtml-var destructiveButtonBackground>;
   background-image: none;
-  color: &dtml-destructiveButtonFontColor;;
+  color: <dtml-var destructiveButtonFontColor>;
 }
 
 button {
-  font: &dtml-inputFont;;
-  background: &dtml-standaloneButtonBackground;;
-  color: &dtml-standaloneButtonFontColor;;
+  font: <dtml-var inputFont>;
+  background: <dtml-var standaloneButtonBackground>;
+  color: <dtml-var standaloneButtonFontColor>;
   background-image: none;
   vertical-align: middle;
 }
@@ -297,12 +297,12 @@ button {
 /* DIVs ------------------------------ */
 div.batchLayout {
   text-align: right;
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
 }
 
 div.pageNavigationLayout {
   text-align: center;
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
 }
 
 .contact {
@@ -312,22 +312,22 @@ div.pageNavigationLayout {
 }
 
 div.message {
-  background: &dtml-messageBackground;;
-  color: &dtml-mainFontColor;;
-  font: &dtml-messageFont;;
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
+  font: <dtml-var messageFont>;
   margin: 1em 0;
   padding: 0.5em 1em;
   vertical-align: middle;
 }
 
 div.message a {
-  background: &dtml-messageBackground;;
-  color: &dtml-mainFontColor;;
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
   text-decoration: underline;
 }
 
 div.description {
-  font: &dtml-descriptionFont;;
+  font: <dtml-var descriptionFont>;
   display: block;
   margin-bottom: 0.5em;
   line-height: 1.2em;
@@ -341,8 +341,8 @@ div.documentActions {
 div.searchBox {
   float: right;
   text-align: right;
-  padding: &dtml-searchPadding;;
-  margin: &dtml-searchMargin;;
+  padding: <dtml-var searchPadding>;
+  margin: <dtml-var searchMargin>;
   clear: right;
 }
 
@@ -359,7 +359,7 @@ div.headerActions li {
 
 div.pathBar {
   padding: 1px 1em 1px 1em;
-  text-transform: &dtml-textTransform;;
+  text-transform: <dtml-var textTransform>;
 }
 
 div.row {
@@ -389,7 +389,7 @@ div.popupImg {
 }
 
 .hiddenItem {
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
 }
 
 div.contentTabs {
@@ -397,27 +397,27 @@ div.contentTabs {
   margin: 0;
 }
 div.contentTabs a {
-  background-color: &dtml-contentTabBackgroundNotSelected;;
-  color: &dtml-contentTabFontColor;;
-  font-weight: &dtml-contentTabFontWeight;;
+  background-color: <dtml-var contentTabBackgroundNotSelected>;
+  color: <dtml-var contentTabFontColor>;
+  font-weight: <dtml-var contentTabFontWeight>;
 }
 div.contentTabs a.selected {
-  background-color: &dtml-mainTabBackground;;
-  color: &dtml-contentTabFontColorSelected;;
-  font-weight: &dtml-contentTabFontWeight;;
+  background-color: <dtml-var mainTabBackground>;
+  color: <dtml-var contentTabFontColorSelected>;
+  font-weight: <dtml-var contentTabFontWeight>;
 }
 
 
 /* BOX ---------------------------------------- */
 table.box tr.title {
-  color: &dtml-boxHeaderFontColor;; /* ! font color is hardcoded in box_lib */
-  background-color: &dtml-boxHeaderBackground;;
+  color: <dtml-var boxHeaderFontColor>; /* ! font color is hardcoded in box_lib */
+  background-color: <dtml-var boxHeaderBackground>;
 }
 table.box tr.odd {
-  background: &dtml-boxOddBackground;;
+  background: <dtml-var boxOddBackground>;
 }
 table.box tr.even {
-  background: &dtml-boxEvenBackground;;
+  background: <dtml-var boxEvenBackground>;
 }
 
 
@@ -426,7 +426,7 @@ div.box {
 }
 div.box .title {
   font-weight: bold;
-  text-transform: &dtml-textTransform;;
+  text-transform: <dtml-var textTransform>;
 }
 div.box .title2 {
   font-size: 120%;
@@ -443,11 +443,11 @@ div.box ul {
   padding: 0;
 }
 div.box a.selected {
-  background: &dtml-messageBackground;;
+  background: <dtml-var messageBackground>;
 }
 
 .workspace {
-  background: &dtml-workspaceBackground;;
+  background: <dtml-var workspaceBackground>;
 }
 
 div.rssExport {
@@ -457,7 +457,7 @@ div.rssExport {
 }
 
 div.rssExport a {
-  color: &dtml-urlFontColor;;
+  color: <dtml-var urlFontColor>;
 }
 
 .conformanceStatement {
@@ -503,20 +503,20 @@ table.calendar a {
 }
 
 table.calendar td.event {
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
   text-decoration: none;
 }
 
 table.calendar td.todayevent {
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
 }
 
 table.calendar td.weekdays {
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
 }
 
 table.calendar th {
-  background-color: &dtml-boxEvenBackground;;
+  background-color: <dtml-var boxEvenBackground>;
   white-space: nowrap;
 }
 

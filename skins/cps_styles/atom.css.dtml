@@ -1,5 +1,5 @@
 <dtml-comment>
-Nuxeo RSS CSS
+Nuxeo ATOM CSS
 $Id$
 </dtml-comment>
 
@@ -10,134 +10,103 @@ $Id$
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
 
-rss, RDF, channel, item, title{
-    display: block;
+entry, id, title, issued, modified, created, author, contributor, summary, content, tagline, generator {
+  display: block;
+  margin-left: 1em;
 }
 
-link, description, date, subject, creator, contributor, rights, language, source, coverage, relation {
-    display: block;
-	margin-left: 1em;
-}
-
-RDF {
-	padding : 1em 0.5em;
-	margin : 1em 5em;
-    font: 80% Verdana, Helvetica, Arial, sans-serif;
-}
-
-channel, item {
-	padding:0.5em;
-	margin : 0 0 0.5em 0;
+feed {
+  padding : 1em 0.5em;
+  margin : 1em 5em;
+  font: 80% Verdana, Helvetica, Arial, sans-serif;
 }
 
 title {
-    font-weight: bold;
-    border-bottom: 1px solid #838183;
-    margin-bottom: 0.5em;
+  font-weight: bold;
+  border-bottom: 1px solid #838183;
+  margin-bottom: 0.5em;
 }
 
-channel title {
-    font-size: 150%;
+feed title:before {
+  content: "ATOM feed: ";
 }
 
-item title {
-    font-size: 120%;
+feed title {
+  font-size: 150%;
 }
 
-channel description {
-	font-size: 120%;
+feed id:before {
+  content: "Id: ";
+  font-weight: bold;
 }
 
-item {
-    margin-left: 2em;
-	border:1px solid #ccc;
+feed modified:before {
+  content: "Modified: ";
+  font-weight: bold;
 }
 
-link {
-    text-align: right;
-  	font-weight: bold;
-    font-size: 100%;
-	color : #060;
-    padding-top: 2em;
+tagline:before {
+  content: "Tagline: ";
+  font-weight: bold;
 }
 
-channel link, item link {
-	color : #006;
-    text-align: left;
-  	font-weight: normal;
-    font-size: 100%;
-    padding: 0;
+generator:before {
+  content: "Generator: ";
+  font-weight: bold;
 }
 
-relation {
-	color : #060;
+entry {
+  padding:0.5em;
+  margin : 0 0 0.5em 0;
+  margin-left: 2em;
+  border:1px solid #ccc;
 }
 
-
-<dtml-comment>
-:before
-</dtml-comment>
-
-channel title:before {
-    content: "RSS Channel: ";
+entry title {
+  font-size: 120%;
 }
 
-item title:before {
-    content: "Title: ";
+entry title:before {
+  content: "Title: ";
 }
 
-description:before {
-    content: "Description: ";
-  	font-weight: bold;
+entry issued:before {
+  content: "Issued: ";
+  font-weight: bold;
 }
 
-channel link:before, item link:before {
-    content: "Link: ";
-  	font-weight: bold;
+entry modified:before {
+  content: "Modified: ";
+  font-weight: bold;
 }
 
-date:before {
-    content: "Date: ";
-  	font-weight: bold;
+entry created:before {
+  content: "Created: ";
+  font-weight: bold;
 }
 
-subject:before {
-    content: "Subject: ";
-  	font-weight: bold;
+entry author:before {
+  content: "Author: ";
+  font-weight: bold;
 }
 
-
-creator:before {
-    content: "Creator: ";
-  	font-weight: bold;
+entry contributor:before {
+  content: "Contributor: ";
+  font-weight: bold;
 }
 
-contributor:before {
-    content: "Contributor: ";
-  	font-weight: bold;
+entry summary:before {
+  content: "Summary: ";
+  font-weight: bold;
 }
 
-rights:before {
-    content: "Rights: ";
-  	font-weight: bold;
+entry content:before {
+  content: "Content: ";
+  font-weight: bold;
 }
 
-language:before {
-    content: "Language: ";
-  	font-weight: bold;
+entry id:before {
+  content: "Id: ";
+  font-weight: bold;
 }
 
-source:before {
-    content: "Source: ";
-  	font-weight: bold;
-}
-
-coverage:before {
-    content: "Coverage: ";
-  	font-weight: bold;
-}
-
-relation:before {
-    content: "Relation: ";
-  	font-weight: bold;
-}

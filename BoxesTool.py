@@ -82,6 +82,10 @@ class BoxesTool(UniqueObject, PortalFolder):
     id = 'portal_boxes'
     meta_type = 'CPS Boxes Tool'
     security = ClassSecurityInfo()
+
+    def __init__(self):
+        pass
+
     manage_options = list(PortalFolder.manage_options)
     # Replace the pointless 'View' with 'Overview'
     manage_options[1] = {'label': "Overview", 'action': 'manage_overview',}

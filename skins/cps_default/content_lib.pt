@@ -305,7 +305,8 @@ format:</pre>
       <em tal:content="info/rev" i18n:name="status_revision">1</em>
     </tal:block>
     <tal:block i18n:translate="">label_language
-      <em tal:content="info/lang" i18n:name="status_language"
+      <em tal:content="string:label_language_${info/lang}"
+          i18n:name="status_language"
           i18n:translate="">label_lang_fr</em>
     </tal:block>
     <tal:block condition="status_time|nothing" i18n:translate="">label_since
@@ -318,8 +319,8 @@ format:</pre>
     </tal:block>
     <span i18n:translate="">
       v<em tal:content="info/rev" i18n:name="status_revision">1</em>- <em
-      tal:content="info/lang" i18n:name="status_language"
-      i18n:translate="">label_lang_fr</em>
+      tal:content="string:label_language_${info/lang}"
+      i18n:name="status_language" i18n:translate="">label_lang_fr</em>
     </span>
     <em tal:content="info/review_state" tal:attributes="class
       info/review_state" i18n:translate="">published</em>

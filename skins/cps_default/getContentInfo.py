@@ -66,7 +66,7 @@ def compute_states(no_history=0):
              'title': folder_title,
              'review_state': px['review_state'],
              'rev': str(px['language_revs'].values()[0]), # XXX str problem fixed in Zope 2.6.1
-             'lang': 'label_language_' + px['language_revs'].keys()[0],
+             'lang': px['language_revs'].keys()[0],
              'time': px['time'],
              'stime': context.getDateStr(px['time'])
              }
@@ -126,7 +126,7 @@ except AttributeError:
     # not a proxy
     langrev = {'en': 0}
 info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
-info['lang'] = 'label_language_' + langrev.keys()[0]
+info['lang'] = langrev.keys()[0]
 info['time'] = wtool.getInfoFor(proxy, 'time', '')
 if info['time']:
     info['stime'] = context.getDateStr(info['time'])

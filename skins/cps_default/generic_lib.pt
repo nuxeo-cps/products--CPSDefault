@@ -55,9 +55,9 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <metal:block define-macro="searchbox">
   <div class="searchBox">
     <form method="get" action="/search"
-        tal:attributes="action string:${portal_url}/search_form">
+        tal:attributes="action string:${context_url}/search_form">
       <a href="/search_form"
-         tal:attributes="href string:${portal_url}/advanced_search_form">
+         tal:attributes="href string:${context_url}/advanced_search_form">
         Advanced search</a>
       <br/>
       <input id="searchGadget" type="text" name="SearchableText" size="20"
@@ -72,7 +72,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <metal:block define-macro="breadcrumbs">
   <div class="pathBar">
     <span>You are here:&nbsp;</span>
-    <span tal:repeat="bc python:here.getBreadCrumbs(url=portal_url)">
+    <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url)">
       <a href="/cps/id"
          tal:omit-tag="not:bc/url"
          tal:attributes="href bc/url;
@@ -93,7 +93,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
     <a href="" class="plain"
        tal:repeat="item tree"
        tal:attributes="href string:${base_url}${item/rpath}/;
-                       class python:portal_url.endswith(item['rpath']) and 'selected' or default;
+                       class python:context_url.endswith(item['rpath']) and 'selected' or default;
                        title item/title"
        tal:content="structure item/short_title">
        section title

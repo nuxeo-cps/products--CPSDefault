@@ -429,25 +429,22 @@ div.CalendarBox {
     }
 
 table.calendar {
-    border: 1px solid Black;
+    border: &dtml-boxBorder;;
     text-align: right;
 }
 
 table.calendar th {
-    background-color: white;
+    border: none;
     font-weight: bold;
     text-align: center;
 }
 
 table.calendar td {
-    white-space: nowrap;
-    background-color: white;
     width: 1.5em;
 }
 
 table.calendar td.weekdays {
-    background-color: white;
-    border: Black;
+    border: &dtml-boxBorder;;
     border-style: solid none;
     text-align: center;
 }
@@ -457,56 +454,13 @@ table.calendar td.event {
 }
 
 table.calendar td.todayevent {
-    border: 2px solid Orange;
+    border: &dtml-boxHighlight;;
     font-weight: bold;
 }
 
 table.calendar td.todaynoevent {
     border-collapse: collapse;
-    border: 2px solid Orange;
-}
-
-
-div.day {
-    background-color: #FFFFBB;
-    border: 1px solid Black;
-    visibility: hidden;
-    width: 12em;
-    z-index: 2;
-}
-
-div.dayViewBox {
-    background-color: white;
-    border: None;
-    }
-
-table.dayView {
-    border: 1px solid Black;
-    text-align: right;
-}
-
-table.dayView th {
-    font-weight: bold;
-    font-size: 75%;
-    text-align: center;
-}
-
-table.dayView td {
-    white-space: nowrap;
-    background-color: white;
-}
-
-table.dayView td.startDate {
-    text-align: right;
-}
-
-table.dayView td.endDate {
-    text-align: left;
-}
-
-table.dayView td.heading {
-    border: 1px solid Black;
-    text-align: center;
+    border: &dtml-boxHighlight;;
 }
 
 

@@ -63,10 +63,6 @@ factory_type_information = (
                   'name': 'action_local_roles',
                   'action': 'folder_localrole_form',
                   'permissions': ('Change permissions',)},
-                 {'id': 'boxes',
-                  'name': 'action_boxes',
-                  'action': 'box_manage_form',
-                  'permissions': ('Manage Boxes',)},
                  )
      },
     )

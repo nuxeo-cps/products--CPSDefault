@@ -18,16 +18,18 @@
 """
   ContentBox
 """
-from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
+from Globals import InitializeClass
 from Acquisition import aq_base
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
-from BaseBox import BaseBox
-from Products.CMFCore.utils import getToolByName
-from DateTime import DateTime
 from ZTUtils import make_query
-
+from DateTime import DateTime
 from zLOG import LOG, DEBUG
+
+from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.utils import getToolByName
+
+from BaseBox import BaseBox
+
 
 factory_type_information = (
     {'id': 'Content Box',
@@ -93,12 +95,10 @@ class ContentBox(BaseBox):
          'label': 'Modified criteria' },
         )
 
-    def __init__(self, id, category='contentbox', folder='', nb_items=0, sort_by='',
-                 direction='', display='',
-                 query_title='', query_description='', query_fulltext='',
-                 query_status='', query_portal_type=[], query_modified='',
-                 zoom = 0,
-                 **kw):
+    def __init__(self, id, category='contentbox', folder='', nb_items=0,
+                 sort_by='', direction='', display='', query_title='',
+                 query_description='', query_fulltext='', query_status='',
+                 query_portal_type=[], query_modified='', zoom=0, **kw):
         BaseBox.__init__(self, id, category=category, **kw)
         self.folder = folder
         self.nb_items = nb_items
@@ -189,7 +189,6 @@ class ContentBox(BaseBox):
         return obj
 
 
-
     security.declarePrivate('_buildQuery')
     def _buildQuery(self):
         """Build a query for search.py """
@@ -198,7 +197,8 @@ class ContentBox(BaseBox):
             query['SearchableText'] = self.query_fulltext
         if self.query_title:
             query['Title'] = self.query_title
-        if self.query_portal_type and self.query_portal_type not in ([''], ('',)):
+        if self.query_portal_type and (
+                self.query_portal_type not in ([''], ('',))):
             query['portal_type'] = list(self.query_portal_type)
         if self.query_description:
             query['Description'] = self.query_description

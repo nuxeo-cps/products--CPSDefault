@@ -12,6 +12,7 @@ portal_type is authorized (None if no restriction)
 allowed_content_types = {
     'FAQitem': ['FAQ',],
     'GlossaryItem': ['Glossary',],
+    'Page': ['Book',],
     }
 
 cactypes = context.getCustomAllowedContainerTypes()

@@ -91,7 +91,7 @@
     <div tal:condition="not: first_time">
 
       <div tal:define="d_reg python:member.setProperties(
-                             last_login_time=member.login_time);
+                             last_login_time=member.getProperty('login_time', None));
                        ereg python:member.setProperties(
                             login_time=here.ZopeTime());
                       " />

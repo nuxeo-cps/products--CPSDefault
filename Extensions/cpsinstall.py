@@ -175,7 +175,7 @@ def cpsupdate(self, langs_list=None):
     # Verification of the action and addinf if neccesarly
     action_found = 0
     for action in portal['portal_actions'].listActions():
-        if action.id == 'preferences':
+        if action.id == 'action_my_preferences':
             action_found = 1
 
     if not action_found:

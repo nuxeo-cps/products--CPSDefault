@@ -25,6 +25,7 @@ from zLOG import LOG, DEBUG
 
 from Products.DCWorkflow.Guard import Guard
 
+
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
     ob = BaseBox(id)
@@ -51,21 +52,6 @@ factory_type_information = (
                   'name': 'Edit',
                   'action': 'basebox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'render_title',
-                  'name': 'Render title',
-                  'action': 'basebox_render_title',
-                  'visible': 0,
-                  'permissions': (View,)},
-                 {'id': 'render_body',
-                  'name': 'Render body',
-                  'action': '',
-                  'visible': 0,
-                  'permissions': (View,)},
-                 {'id': 'render_box',
-                  'name': 'Render box',
-                  'action': '',
-                  'visible': 0,
-                  'permissions': (View,)},
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -91,17 +77,13 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     security = ClassSecurityInfo()
     guard = None
-    _can_minimized = None
-    locked = 0
-    display_in_subfolder = 1
-    slot = 'right'
-    order = 0
 
     _properties = (
         {'id': 'title', 'type': 'string', 'mode': 'w', 'label': 'Title'},
         {'id': 'minimized', 'type': 'boolean', 'mode': 'w', 'label': 'Minimized'},
         {'id': 'closed', 'type': 'boolean', 'mode': 'w', 'label': 'Closed'},
         {'id': 'style', 'type': 'string', 'mode': 'w', 'label': 'Style'},
+        {'id': 'format', 'type': 'string', 'mode': 'w', 'label': 'Display format'},
         {'id': 'slot', 'type': 'string', 'mode': 'w', 'label': 'Slot'},
         {'id': 'order', 'type': 'int', 'mode': 'w', 'label': 'Order'},
         {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
@@ -109,15 +91,17 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
         )
 
-    def __init__(self, id, title='', minimized=0, closed=0,
-                 style='nuxeo', slot=0, order=0,
-                 visible_if_empty= 0, display_in_subfolder=1,
+    def __init__(self, id, title='', macro='basebox', minimized=0, closed=0,
+                 style='nuxeo', format='default', slot='left', order=0,
+                 visible_if_empty=0, display_in_subfolder=1,
                  locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)
         self.id = id
         self.title = title
+        self.macro = macro
         self.style = style
-        self.slot = int(slot)
+        self.format = format
+        self.slot = slot
         self.order = int(order)
         self.minimized = minimized
         self.closed = closed
@@ -156,77 +140,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                 'minimized': self.minimized,
                 'closed': self.minimized,
                 'style': self.style,
+                'format': self.format,
                 }
-
-    security.declarePublic('is_closed')
-    def is_closed(self):
-        """Returns 0 is it is closed, 1 otherwise
-
-        This method is necessary to make sure that a 1 or a 0 is indexed
-        in the catalog, even if the value of self.closed is Null or '' or
-        any otehr value than 1 or 0.
-        """
-        return not not self.closed
-
-    security.declarePublic('can_edit')
-    def can_edit(self):
-        """
-
-        """
-        return _checkPermission(ModifyPortalContent, self)
-
-
-    security.declarePublic('can_minimized')
-    def can_minimized(self):
-        """
-        determine if the box can be minimized
-        """
-        return self._can_minimized
-
-    security.declarePublic('can_closed')
-    def can_closed(self):
-        """
-        """
-        return _checkPermission(ModifyPortalContent, self)
-
-    security.declarePublic('can_style')
-    def can_style(self):
-        """
-        """
-        return _checkPermission(ModifyPortalContent, self)
-
-    security.declarePublic('can_slot')
-    def can_slot(self):
-        """
-        """
-        return _checkPermission(ModifyPortalContent, self)
-
-    security.declarePublic('can_order')
-    def can_order(self):
-        """
-        """
-        return _checkPermission(ModifyPortalContent, self)
-
-    security.declarePublic('can_delete')
-    def can_delete(self):
-        """
-        determine if the box can be deleted
-        """
-        return _checkPermission('Delete objects', aq_parent(aq_inner(self)))
-
-    security.declarePublic('is_minimized')
-    def is_minimized(self):
-        request = self.REQUEST
-        cookie_name = '%s_minimized' % (self.cps_prefId(), )
-        return request.cookies.get(cookie_name)
-
-    security.declarePublic('getIconRelative')
-    def getIconRelative(self):
-        """
-        Gets the Icon path, relative to the portal.
-        This is needed to catalog correctly in the presence of VHM.
-        """
-        return self.getIcon(1)
 
     security.declareProtected(ModifyPortalContent, 'edit')
     def edit(self, **kw):
@@ -238,18 +153,11 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     #
     # Internal API's mainly called from itself or other Zope tools
     #
-
-    def cps_prefId(self):
-        return 'bx_' + self.getId()
-
     def getGuard(self):
         if self.guard is not None:
             return self.guard
         else:
             return Guard().__of__(self)  # Create a temporary guard.
-
-    def sort_order(self):
-        return ('/'.join(self.getPhysicalParentPath()), self.slot)
 
     security.declarePrivate('callAction')
     def callAction(self, actionid, **kw):
@@ -272,20 +180,15 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             (actionid, self.absolute_url(relative=1)))
 
     security.declarePublic('getMacro')
-    def getMacro(self, style=None):
+    def getMacro(self, style=None, format=None):
         """
         GetMacros to render the box.
         """
-        ti = self.getTypeInfo()
-        if ti is None:
-            raise Exception('No portal type found for box: %s' % self.getId())
-
-        macro_name = ti.getActionById('render_box')
-        if not macro_name:
-            raise Exception('No render macro for box: %s' % self.getId())
-        if style is None:
+        if not style:
             style = self.style
-        return 'here/boxes_%s/macros/%s' % (style, macro_name)
+        if not format:
+            format = self.format
+        return 'here/boxes_%s/macros/%s_%s' % (style, self.macro, format)
 
     security.declarePublic('render')
     def render(self, **kw):
@@ -306,15 +209,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     def manage_afterAdd(self, item, container):
         if aq_base(self) is aq_base(item):
-            # sets _can_minimized attribute
-            meth = getattr(self, 'boxes_styles_get', None)
-            if meth is not None:
-                my_style = self.style
-                styles = meth()
-                for style in styles:
-                    if style['id'] == my_style:
-                        self._can_minimized = style.get('can_minimized')
-
             # sets order attribute correctly
             order_max_set = 0
             order_max = -1

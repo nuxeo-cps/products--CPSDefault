@@ -70,7 +70,8 @@ class ImageBox(BaseBox, Folder):
          'label': 'Link when clicking on the image'},
         )
 
-    def __init__(self, id, category='imagebox', image_name='', image_link='', **kw):
+    def __init__(self, id, category='imagebox', image_name='', image_link='',
+                 **kw):
         BaseBox.__init__(self, id, category=category, **kw)
         self.image_name = image_name
         self.image_link = image_link
@@ -114,7 +115,9 @@ class ImageBox(BaseBox, Folder):
                     if hasattr(aq_base(self), image_id):
                         self._delObject(image_id)
                     self._setObject(image_id, img)
+                # XXX no error or warning if image too big
         else:
+            # XXX why doing this?
             if hasattr(aq_base(self), image_id):
                 img = getattr(aq_base(self), image_id)
                 img.manage_edit(self.title, img.getContentType())

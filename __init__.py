@@ -35,18 +35,19 @@ import TreeBox
 import ContentBox
 import ActionBox
 import ImageBox
+import FlashBox
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
                   BaseBox.BaseBox,
                   TextBox.TextBox, TreeBox.TreeBox,
                   ContentBox.ContentBox, ActionBox.ActionBox,
-                  ImageBox.ImageBox,)
+                  ImageBox.ImageBox,FlashBox.FlashBox,)
 
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        BaseBox.addBaseBox,
                        TextBox.addTextBox, TreeBox.addTreeBox,
                        ContentBox.addContentBox, ActionBox.addActionBox,
-                       ImageBox.addImageBox)
+                       ImageBox.addImageBox,FlashBox.addFlashBox,)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
@@ -56,6 +57,7 @@ fti = (Folder.factory_type_information +
        ContentBox.factory_type_information +
        ActionBox.factory_type_information +
        ImageBox.factory_type_information +
+       FlashBox.factory_type_information +
        ()
        )
 

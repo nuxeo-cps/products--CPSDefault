@@ -70,14 +70,14 @@ items = [
                            'children_only': 1,
                            'depth': 2,
                            'root': '',
-                           'authorized_only': 0,
+                           'authorized_only': 1,
                            'display_managers': 0,
                            'show_root': 1}
                 },
                {'provider': 'nuxeo',
                 'id': 'sitemap',
                 'desc': 'description_nuxeo_treebox_sitemap',
-                'config': {'authorized_only': 0,
+                'config': {'authorized_only': 1,
                            },
                 }
                ]

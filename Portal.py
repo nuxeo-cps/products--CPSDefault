@@ -49,8 +49,9 @@ def manage_addCPSDefaultSite(dispatcher, id,
                     description=description,
                     create_userfolder=0)
     portal = getattr(container, id)
+    portal.portal_type = 'Portal'
 
-    
+
     pr('Creating cpsinstall External Method in CMF Site')
     cpsinstall = ExternalMethod('cpsinstall',
                                 'CPSDefault Installer',

@@ -4,23 +4,19 @@
   BoxesTool
 """
 from zLOG import LOG, DEBUG
-from types import DictType, StringType
 
 from DateTime import DateTime
 from Globals import InitializeClass, DTMLFile, MessageDialog
 import Products
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
-from Persistence import Persistent
-from OFS.SimpleItem import SimpleItem
-from OFS.ObjectManager import ObjectManager
 from OFS.PropertyManager import PropertyManager
 from ZODB.PersistentMapping import PersistentMapping
 
 from Products.CMFCore.PortalFolder import PortalFolder
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
-     View, AccessContentsInformation, ManagePortal
+from Products.CMFCore.CMFCorePermissions import View, ManagePortal
 from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
+
 class BoxesTool(UniqueObject, PortalFolder):
     """
     Boxes Tool.
@@ -76,13 +72,13 @@ class BoxesTool(UniqueObject, PortalFolder):
         allboxes = []
         settings = {}
         path = '/'
-        home_boxes_loaded=0
+        home_boxes_loaded = 0
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         for elem in ('',) + rpath:
             if elem:
                 obj = getattr(obj, elem)
             if obj == home:
-                home_boxes_loaded=1
+                home_boxes_loaded = 1
             f_boxes, f_settings = self._getFolderBoxesAndSettings(obj)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
@@ -139,7 +135,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         # This can not be done previously, since 'slot' and 'closed' settings
         # can be overriden by local setting
         boxes = [x for x in boxes if (
-            slot is None or x['settings']['slot']==slot)]
+            slot is None or x['settings']['slot'] == slot)]
 
         # sorting
         def cmpbox(a, b):
@@ -153,14 +149,14 @@ class BoxesTool(UniqueObject, PortalFolder):
     def filterBoxes(self, boxes, slot, closed_only=None):
         """Filter a list boxes for required slot removing closed boxes."""
         if closed_only:
-            return [x for x in boxes if(x['settings']['closed'])]
+            return [x for x in boxes if x['settings']['closed']]
 
-        return [x for x in boxes if (x['settings']['slot']==slot and
+        return [x for x in boxes if (x['settings']['slot'] == slot and
                                      not x['settings']['closed'])]
 
 
     def setBoxOverride(self, boxurl, settings, context):
-        """Allows you to override the box default settings
+        """Allow overriding the box default settings
 
         boxurl is the relative url of the box (gotten from
         portal_url.getRelativeUrl(box) )
@@ -181,14 +177,14 @@ class BoxesTool(UniqueObject, PortalFolder):
 
     security.declarePublic('getBoxOverride')
     def getBoxOverride(self, boxurl, context):
-        """Gets the overridden settings for a box"""
+        """Get the overridden settings for a box"""
         if not hasattr(aq_base(context), '_box_overrides'):
             return {}
         return context._box_overrides.get(boxurl, {})
 
     security.declarePublic('getAllBoxOverrides')
     def getAllBoxOverrides(self, context):
-        """Gets all the local overrides"""
+        """Get all the local overrides"""
         return getattr(aq_base(context), '_box_overrides', {})
 
     #
@@ -386,8 +382,9 @@ class BoxContainer(PortalFolder):
         result = []
         overrides = getattr(aq_base(self), '_box_overrides', {})
         for key, item in overrides.items():
-            override = {'box_path': key, 'slot': '', 'order': '', 'closed':'',
-                        'minimized': '', 'provider':'', 'btype':'', 'box_skin':''}
+            override = {'box_path': key, 'slot': '', 'order': '', 'closed': '',
+                        'minimized': '', 'provider': '', 'btype': '', 
+                        'box_skin': ''}
             override.update(item)
             result.append(override)
         #LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )
@@ -405,9 +402,9 @@ def addBoxContainer(self, id=None, REQUEST=None, quiet=0):
             return
         else:
             return MessageDialog(
-                title  ='Item Exists',
+                title='Item Exists',
                 message='This object already contains an %s' % ob.id,
-                action ='%s/manage_main' % REQUEST['URL1'])
+                action='%s/manage_main' % REQUEST['URL1'])
 
     ob = BoxContainer(id)
     self._setObject(id, ob)

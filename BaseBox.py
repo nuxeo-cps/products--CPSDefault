@@ -3,23 +3,20 @@
 """
   BaseBox
 """
-import string
-from ComputedAttribute import ComputedAttribute
 
 from Globals import InitializeClass, DTMLFile
 from AccessControl import getSecurityManager, ClassSecurityInfo
-from Acquisition import aq_base, aq_parent, aq_inner
+from Acquisition import aq_base
 
 from OFS.PropertyManager import PropertyManager
 
-from Products.CMFCore.utils import _checkPermission, _verifyActionPermissions
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
-     View, ManagePortal, ModifyPortalContent
+from Products.CMFCore.utils import _verifyActionPermissions
+from Products.CMFCore.CMFCorePermissions \
+    import View, ModifyPortalContent
 from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFCore.utils import getToolByName
 
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
-from Products.CMFCore.Expression import Expression
 from zLOG import LOG, DEBUG
 
 from Products.DCWorkflow.Guard import Guard

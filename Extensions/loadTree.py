@@ -10,7 +10,7 @@ import os
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.utils import getToolByName
-from Acquisition import aq_base
+from Products.CPSCore.utils import makeId
 
 def pr(bla):
     if (bla):
@@ -23,7 +23,7 @@ class DataConfig:
     sep = '|'
 
     def __init__(self, filename):
-        self.filename=filename
+        self.filename = filename
         fh = open(filename, 'r')
         parser = ConfigParser()
         parser.readfp(fh)
@@ -58,23 +58,6 @@ class DataConfig:
 
     def getPermission(self, folder='root'):
         return self.getList(folder, 'permission')
-
-
-def makeId(title):
-    id = title.lower()
-    id = id.replace(' ', '_')
-    id = id.replace(',', '')
-    id = id.replace('é', 'e')
-    id = id.replace('à', 'a')
-    id = id.replace('ç', 'c')
-    id = id.replace('è', 'e')
-    id = id.replace('ô', 'o')
-    id = id.replace('&', '-')
-    id = id.replace('\'', '_')
-    id = id.replace('/', '_')
-    id = id.replace('\\', '_')
-    return id.lower()
-
 
 def createContent(portal, type, path, id, force=None, **kw):
     if path:
@@ -141,11 +124,11 @@ def createContent(portal, type, path, id, force=None, **kw):
 
 def buildTree(portal, cfg, parent='root', path='', parent_type=None):
     if parent != 'root':
-        path += '/'+cfg.get(parent, 'id', makeId(parent))
+        path += '/'+cfg.get(parent, 'id', makeId(parent, lower=1))
     parent_type = cfg.get(parent, 'type', parent_type)
     contents = cfg.getContents(parent)
     for content in contents:
-        id = cfg.get(content, 'id', makeId(content))
+        id = cfg.get(content, 'id', makeId(content, lower=1))
         type = cfg.get(content, 'type', parent_type)
         force = cfg.get(content, 'force')
         kw = cfg.getKw(content,
@@ -171,7 +154,7 @@ def loadTree(self, filename='tree.ini'):
     portal = portal_url.getPortalObject()
     filename = os.path.join(CLIENT_HOME, filename)
     pr('INITIALIZING TREE with %s' % (filename))
-    cfg=DataConfig(filename)
+    cfg = DataConfig(filename)
     buildTree(portal, cfg)
     pr('END')
 

@@ -48,7 +48,7 @@ class ContentBox(BaseBox):
     meta_type = 'Content Box'
     portal_type = 'Content Box'
 
-    query_portal_type=[]
+    query_portal_type = []
 
     security = ClassSecurityInfo()
 
@@ -80,7 +80,8 @@ class ContentBox(BaseBox):
     def __init__(self, id, folder='', nb_items=0, sort_by='',
                  direction='', display='',
                  query_title='', query_description='', query_fulltext='',
-                 query_status='', query_portal_type=[], query_modified='', **kw):
+                 query_status='', query_portal_type=[], query_modified='', 
+                 **kw):
         BaseBox.__init__(self, id, category='contentbox', kw=kw)
         self.folder = folder
         self.nb_items = nb_items
@@ -97,8 +98,7 @@ class ContentBox(BaseBox):
 
 
     security.declarePublic('getContents')
-    def getContents(self, context, sort_by='status',
-                          direction='asc'):
+    def getContents(self, context, sort_by='status', direction='asc'):
         """Get a sorted list of contents object"""
         utool = getToolByName(self, 'portal_url')
         folder = self._getFolderObject(context)

@@ -40,7 +40,7 @@ factory_type_information = (
 
 class ActionBox(BaseBox):
     """
-    A Action Box simply returns a action.
+    An Action Box simply returns an action.
     """
     meta_type = 'Action Box'
     portal_type = 'Action Box'
@@ -48,8 +48,9 @@ class ActionBox(BaseBox):
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
-        {'id':'categories', 'type':'lines', 'mode':'w', 'label':'Categories of actions'},
-        )
+        {'id': 'categories', 'type': 'lines', 'mode': 'w', 
+            'label':'Categories of actions'},
+    )
 
     def __init__(self, id, categories=[], **kw):
         BaseBox.__init__(self, id, category='actionbox', kw=kw)
@@ -57,7 +58,7 @@ class ActionBox(BaseBox):
 
     security.declarePublic('getActions')
     def getActions(self, context, actions=None):
-        """ return actions that belong to self.categories """
+        """Return actions that belong to self.categories"""
         if not actions:
             atool = getToolByName(self, 'portal_actions')
             actions = atool.listFilteredActionsFor(context)

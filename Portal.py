@@ -1,4 +1,4 @@
-# (c) 2003 Nuxeo SARL <http://nuxeo.com>
+# Copyright (c) 2003 Nuxeo SARL <http://nuxeo.com>
 # $Id$
 """ Default portal for CPS
 """
@@ -13,19 +13,20 @@ class CPSDefaultSite(CMFSite):
 
 Globals.InitializeClass(CPSDefaultSite)
 
-manage_addCPSDefaultSiteForm = Globals.HTMLFile('zmi/manage_addCPSSiteForm', globals())
+manage_addCPSDefaultSiteForm = Globals.HTMLFile('zmi/manage_addCPSSiteForm',
+    globals())
 
 def manage_addCPSDefaultSite(dispatcher, id,
-                      title='CPSDefault Portal',
-                      description='',
-                      langs_list=None,
-                      root_id='root',
-                      root_sn='CPS',
-                      root_givenName='Root',
-                      root_email='root@localhost',
-                      root_password1='',
-                      root_password2='',
-                      REQUEST=None):
+                             title='CPSDefault Portal',
+                             description='',
+                             langs_list=None,
+                             root_id='root',
+                             root_sn='CPS',
+                             root_givenName='Root',
+                             root_email='root@localhost',
+                             root_password1='',
+                             root_password2='',
+                             REQUEST=None):
     """Add a CPSDefault Site."""
 
     _log = []

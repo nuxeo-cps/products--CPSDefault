@@ -106,7 +106,7 @@ class ImageBox(BaseBox, Folder):
                 if len(f.read(max_len)) < max_len:
                     f.seek(0)
                     self.image_name = f.filename
-                    img = Image(image_id, self.image_name, f)
+                    img = Image(image_id, self.title, f)
                     if hasattr(aq_base(self), image_id):
                         self._delObject(image_id)
                     self._setObject(image_id, img)

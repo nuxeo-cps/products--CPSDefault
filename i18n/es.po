@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-16 15:00default\n"
+"POT-Creation-Date: 2004-10-08 15:39default\n"
 "PO-Revision-Date: 2004-05-21 18:32+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -60,9 +60,9 @@ msgstr "Idioma"
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objetos ${batch_start} - ${batch_limit} de ${batch_length}"
 
-#.   <td align="left" class="ListDefinition" content="item/Description">
-#.               Portal type's description
-#.             </td>
+#.   <dd content="item/Description">
+#.                   Portal type's description
+#.                 </dd>
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
@@ -81,8 +81,8 @@ msgid "Portal type's description"
 msgstr "Descripción del tipo de documento"
 
 #.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
-#.               Portal type's title
-#.               </label>
+#.                     Portal type's title
+#.                   </label>
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
@@ -1044,13 +1044,19 @@ msgstr ""
 msgid "help_contentbox_sort"
 msgstr "Ampliar el primer documento"
 
+#    <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#                (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
+#            </input>
+#    <input value="button_delete" type="submit">
+#       </input>
 #.   <span>
 #.       Delete archive
 #.       ${rev (tal replace="request/rev")}.
 #.     </span>
 #: from ../skins/cps_default/content_delete_archive_form.pt
+#, fuzzy
 msgid "help_delete_archive"
-msgstr ""
+msgstr "Borrar"
 
 #    <em>
 #            Box types in italic are predefined types. You cannot change their
@@ -1302,11 +1308,11 @@ msgstr "Volver a una versión anterior de este documento."
 #      its status to <b>pending</b>, this is done by submitting your item to a
 #      section.</span>
 #.   <span>An item's status (also called its
-#.     review state) determines who can see it.  An item with a <strong>work</strong> status
+#.     review state) determines who can see it. An item with a <strong>work</strong> status
 #.     can be viewed by workspace's readers and edit by workspace's members and
-#.     managers.  Only <strong>published</strong> items in sections are available to the
-#.     section readers.  To make an item published, it has to be reviewed by one of
-#.     the section's Reviewers.  You can request that an item be reviewed by setting
+#.     managers. Only <strong>published</strong> items in sections are available to the
+#.     section readers. To make an item published, it has to be reviewed by one of
+#.     the section's Reviewers. You can request that an item be reviewed by setting
 #.     its status to <strong>pending</strong>, this is done by submitting your item to a
 #.     section.</span>
 #: from ../skins/cps_default/content_status_history.pt
@@ -1335,6 +1341,12 @@ msgstr "Retirar este objeto publicado."
 #: from ../skins/cps_default/content_lib.pt
 msgid "into ${history_dest}"
 msgstr "en ${history_dest}"
+
+#.   <h2>Actions history</h2>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_actions_history"
+msgstr "usuario"
 
 #    <span>
 #                Administrator E-mail
@@ -1369,7 +1381,7 @@ msgstr "usuario"
 msgid "label_all"
 msgstr "Todos"
 
-#.   <strong>Old revisions:</strong>
+#.   <h2>Old revisions</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_archived_revisions"
 msgstr "Versiones archivadas"
@@ -1467,13 +1479,15 @@ msgstr "Compacta"
 
 #.   <img src="valid-css.png" alt="Valid CSS" title="label_conformance_valid_css" attributes="src string:${base_url}valid-css.png" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
 msgid "label_conformance_valid_css"
-msgstr ""
+msgstr "Formato"
 
 #.   <img src="valid-xhtml10.png" alt="Valid XHTML 1.0" title="label_conformance_valid_xhtml" attributes="src string:${base_url}valid-xhtml10.png" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
 msgid "label_conformance_valid_xhtml"
-msgstr ""
+msgstr "Formato"
 
 #.   <img src="wcag1A.png" alt="W3C Web Content Accessibility Level A conformance" title="label_conformance_wai_1a" attributes="src string:${base_url}wcag1A.png" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -1924,7 +1938,7 @@ msgstr "Autorizar la inscripción"
 msgid "label_portal_title"
 msgstr "Título del portal"
 
-#.   <strong>label_publication_states</strong>
+#.   <h2>label_publication_states</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
 msgstr "Estado de publicación"
@@ -1950,11 +1964,6 @@ msgstr " a "
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "label_requires_approval"
 msgstr ""
-
-#.   <strong>Reviewing history:</strong>
-#: from ../skins/cps_default/content_lib.pt
-msgid "label_reviewing_history"
-msgstr "Histórico de validación"
 
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
@@ -2601,117 +2610,6 @@ msgstr "Comentario"
 msgid "v${status_revision}- ${status_language}"
 msgstr "Versión ${status_revision} Idioma ${status_language} Estado"
 
-#.   <block>The body of the welcome text</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "welcome_body"
-msgstr ""
-"<h1>Welcome to Nuxeo CPS</h1> "
-"<p> "
-"This page intends to give you an introduction to "
-"<acronym title="Collaborative Portal Server">CPS</acronym> "
-"(Nuxeo Collaborative Portal Server) and to what you can now do with it. "
-"(<a href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Edit this text</a>.) "
-"</p> "
-"<h2>About CPS</h2>   "
-"<p> "
-"<acronym title="Collaborative Portal Server">CPS</acronym> "
-"is an extensive collaborative Web content management system     "
-"(CMS) implemented on top of <a href=\"http://www.zope.org/\">Zope</a> and  "
-"the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, that  "
-"enables organizations to easily, quickly and efficiently implement     "
-"collaborative portals (intranet, extranet or internet) and    workflow- "
-"oriented business applications. "
-"</p> "
-"<p> "
-"CPS Provides, among other features: "
-"</p> "
-"<ul> "
-"<li> "
-"<a href=\"workspaces\">Collaborative work</a> and  "
-"<a href=\"sections\">publication</a> spaces (you may need to be authenticated "
-"with the right access level to access these URLs) "
-"</li> "
-"<li>Document versionning, that allows a document to be published in one version "
-"and still worked on in another one "
-"</li> "
-"<li>Group-based, directory-backed <a href=\"cpsdirectory_view\">user and roles "
-"management</a> "
-"</li> "
-"<li> "
-"A <a href=\"box_manage_form\">configurable</a> Portal interface, with  "
-"a web- and accessibility-standards compliant default look and feel  "
-"(you will need to be authenticated with the right access level to  "
-"access this URL) "
-"</li> "
-"<li> "
-"Notifications on many kinds of events happening on the system "
-"</li> "
-"<li> "
-"An (optional) WYSIWYG editor for portal look and feel "
-"(just install <em>CPSSkins</em> in your CPS instance using the "
-"<a href=\"manage\">ZMI</a>) "
-"</li> "
-"<li> "
-"Many user-level services, like a Webmail, Forums, shared Calendars, "
-"Newsletters and Mailing Lists, etc. "
-"</li> "
-"<li> "
-"Many powerful developers- and webmaster-level services, including support "
-"for creating your own document types, your own workflows, etc. "
-"</li> "
-"</ul> "
-"<p> "
-"CPS has already been adopted by major accounts in the Administration "
-"(French Ministries of Interior, of Culture, of Finances, of Defense, of Justice; "
-"French Atomic Energy Commission; Chalmers University...), in the private sector "
-"(Suez, STMicroelectronics...) and by the leading european IT consultancies  "
-"(Capgemini, Unilog, Steria...). "
-"</p> "
-"<p> "
-"For more information about Zope and CPS, we suggest you go to the following "
-"web sites: "
-"</p> "
-"<ul>     "
-"<li> "
-"<a href=\"http://www.cps-project.org/\">CPS-project.org</a>: the  "
-"community portal for CPS users and developers "
-"</li> "
-"<li> "
-"<a href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 at Zope.org</a> "
-"(to download latest stable or development releases) "
-"</li> "
-"<li> "
-"<a href=\"http://lists.nuxeo.com/\">CPS mailing lists</a> "
-"</li> "
-"<li> "
-"<a href=\"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Slides "
-"for the CPS talks at EuroPython 2004</a> and for the  "
-"<a href=\"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 "
-"sprint in Paris (2004)</a> "
-"</li> "
-"<li> "
-"<a href=\"http://www.zope.org/\">Zope.org</a>: the community portal for Zope "
-"</li> "
-"<li> "
-"<a href=\"http://zope.org/Documentation/Books/ZopeBook/2_6Edition/\">The Zope Book</a> "
-"</li> "
-"</ul> "
-"<h2>Credits</h2>   "
-"<p> "
-"Thank you for trying or using CPS. CPS is developped by  "
-"<a href=\"http://www.nuxeo.com/en/\">Nuxeo</a> and a "
-"<a href=\"http://www.cps-project.org/\">community of contributors</a>. "
-"</p> "
-"<p> "
-"CPS contains code licensed under the GPL, the ZPL and other, GPL-compatible,  "
-"open source/free software licenses. Parts of CPS are copyright Nuxeo SARL,  "
-"Zope Corporation and Contributors, Chalmers University, Capgemini,  "
-"Unilog, Ministère de l'Intérieur, de la Sécurité Intérieure et des  "
-"Libertés Locales, Préfecture du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  "
-"Norman Walsh, Gareth Rees, Sun Microsystems, Timothy O'Malley, Morten W.  "
-"Petersen, and other contributors. "
-"</p> "
-
 msgid "accept"
 msgstr "Aceptado"
 
@@ -2911,6 +2809,10 @@ msgstr "Borrar"
 msgid "action_calendar"
 msgstr "Volver a la agenda"
 
+#, fuzzy
+msgid "action_calendar_overview"
+msgstr "Volver a la agenda"
+
 msgid "action_view_stat"
 msgstr "Ver estadísticas"
 
@@ -3033,9 +2935,6 @@ msgstr "caja sin cuadro"
 
 msgid "description_box_skin_wbox2"
 msgstr "caja sin cuadro y sin título"
-
-msgid "description_box_skin_wbox3"
-msgstr "no frame no title no style"
 
 #, fuzzy
 msgid "description_required"
@@ -3502,6 +3401,70 @@ msgstr ""
 
 msgid "_blank"
 msgstr ""
+
+#~ msgid "label_reviewing_history"
+#~ msgstr "Histórico de validación"
+
+#~ msgid "welcome_body"
+#~ msgstr ""
+#~ "<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
+#~ "introduction to <acronym title=\"Collaborative Portal Server\">CPS</"
+#~ "acronym> (Nuxeo Collaborative Portal Server) and to what you can now do "
+#~ "with it. (<a href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome"
+#~ "\">Edit this text</a>.) </p> <h2>About CPS</h2>   <p> <acronym title="
+#~ "\"Collaborative Portal Server\">CPS</acronym> is an extensive "
+#~ "collaborative Web content management system     (CMS) implemented on top "
+#~ "of <a href=\"http://www.zope.org/\">Zope</a> and  the <a href=\"http://"
+#~ "www.zope.org/Products/CMF/\">CMF</a>, that  enables organizations to "
+#~ "easily, quickly and efficiently implement     collaborative portals "
+#~ "(intranet, extranet or internet) and    workflow- oriented business "
+#~ "applications. </p> <p> CPS Provides, among other features: </p> <ul> <li> "
+#~ "<a href=\"workspaces\">Collaborative work</a> and  <a href=\"sections"
+#~ "\">publication</a> spaces (you may need to be authenticated with the "
+#~ "right access level to access these URLs) </li> <li>Document versionning, "
+#~ "that allows a document to be published in one version and still worked on "
+#~ "in another one </li> <li>Group-based, directory-backed <a href="
+#~ "\"cpsdirectory_view\">user and roles management</a> </li> <li> A <a href="
+#~ "\"box_manage_form\">configurable</a> Portal interface, with  a web- and "
+#~ "accessibility-standards compliant default look and feel  (you will need "
+#~ "to be authenticated with the right access level to  access this URL) </"
+#~ "li> <li> Notifications on many kinds of events happening on the system </"
+#~ "li> <li> An (optional) WYSIWYG editor for portal look and feel (just "
+#~ "install <em>CPSSkins</em> in your CPS instance using the <a href=\"manage"
+#~ "\">ZMI</a>) </li> <li> Many user-level services, like a Webmail, Forums, "
+#~ "shared Calendars, Newsletters and Mailing Lists, etc. </li> <li> Many "
+#~ "powerful developers- and webmaster-level services, including support for "
+#~ "creating your own document types, your own workflows, etc. </li> </ul> "
+#~ "<p> CPS has already been adopted by major accounts in the Administration "
+#~ "(French Ministries of Interior, of Culture, of Finances, of Defense, of "
+#~ "Justice; French Atomic Energy Commission; Chalmers University...), in the "
+#~ "private sector (Suez, STMicroelectronics...) and by the leading european "
+#~ "IT consultancies  (Capgemini, Unilog, Steria...). </p> <p> For more "
+#~ "information about Zope and CPS, we suggest you go to the following web "
+#~ "sites: </p> <ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-"
+#~ "project.org</a>: the  community portal for CPS users and developers </li> "
+#~ "<li> <a href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 at Zope."
+#~ "org</a> (to download latest stable or development releases) </li> <li> <a "
+#~ "href=\"http://lists.nuxeo.com/\">CPS mailing lists</a> </li> <li> <a href="
+#~ "\"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Slides "
+#~ "for the CPS talks at EuroPython 2004</a> and for the  <a href=\"http://"
+#~ "zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 "
+#~ "sprint in Paris (2004)</a> </li> <li> <a href=\"http://www.zope.org/"
+#~ "\">Zope.org</a>: the community portal for Zope </li> <li> <a href="
+#~ "\"http://zope.org/Documentation/Books/ZopeBook/2_6Edition/\">The Zope "
+#~ "Book</a> </li> </ul> <h2>Credits</h2>   <p> Thank you for trying or using "
+#~ "CPS. CPS is developped by  <a href=\"http://www.nuxeo.com/en/\">Nuxeo</a> "
+#~ "and a <a href=\"http://www.cps-project.org/\">community of contributors</"
+#~ "a>. </p> <p> CPS contains code licensed under the GPL, the ZPL and other, "
+#~ "GPL-compatible,  open source/free software licenses. Parts of CPS are "
+#~ "copyright Nuxeo SARL,  Zope Corporation and Contributors, Chalmers "
+#~ "University, Capgemini,  Unilog, Ministère de l'Intérieur, de la Sécurité "
+#~ "Intérieure et des  Libertés Locales, Préfecture du Bas-Rhin, CEA, Logilab "
+#~ "SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun Microsystems, Timothy "
+#~ "O'Malley, Morten W.  Petersen, and other contributors. </p> "
+
+#~ msgid "description_box_skin_wbox3"
+#~ msgstr "no frame no title no style"
 
 #~ msgid "welcome_cps ${cps_link}"
 #~ msgstr "Bienvenido a ${cps_link} CPS."

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2004-09-24 19:31default\n"
+"POT-Creation-Date: 2004-10-08 15:39default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -48,8 +48,8 @@ msgstr ""
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
 
-#.   <option content="python:lang_voc.getMsgid(locale['id'])" attributes="value locale/id;
-#.                               selected locale/selected|nothing" repeat="locale map" condition="l10n_translated">
+#.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
+#.                               selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "Language"
@@ -62,25 +62,43 @@ msgstr ""
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr ""
 
-#.   <td align="left" class="ListDefinition" content="item/Description">
-#.               Portal type's description
-#.             </td>
+#.   <dd content="item/Description">
+#.                   Portal type's description
+#.                 </dd>
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
+#.   <td align="left" class="description" content="item/Description">
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr ""
 
 #.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
-#.               Portal type's title
-#.               </label>
+#.                     Portal type's title
+#.                   </label>
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
+#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr ""
 
@@ -274,6 +292,8 @@ msgstr ""
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr ""
 
@@ -287,12 +307,12 @@ msgstr ""
 msgid "button_assign_roles"
 msgstr ""
 
-#.   <input type="submit" name="back" value="button_back" class="context" />
+#.   <input name="back" type="submit" class="context" value="button_back" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "button_back"
 msgstr ""
 
-#.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
+#.   <input onclick="history.back()" type="button" class="context" value="button_cancel" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
@@ -304,9 +324,9 @@ msgstr ""
 msgid "button_cancel"
 msgstr ""
 
-#.   <input type="submit" name="change" value="button_change" class="standalone" condition="python:checkPerm('Manage Boxes', box['box'])" />
+#.   <input name="change" type="submit" class="standalone" value="button_change" condition="python:checkPerm('Manage Boxes', box['box'])" />
 #.   <input type="submit" class="standalone" value="button_change" />
-#.   <input type="submit" name="change" value="button_change" class="standalone" />
+#.   <input name="change" type="submit" class="standalone" value="button_change" />
 #.   <input type="submit" value="button_change" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -316,9 +336,8 @@ msgstr ""
 msgid "button_change"
 msgstr ""
 
-#.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" condition="python:checkPerm('Manage Boxes', box['box'])" />
-#.   <input type="submit" class="standalone" value="button_change_and_edit" name="change_and_edit" />
-#.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" />
+#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" condition="python:checkPerm('Manage Boxes', box['box'])" />
+#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -326,8 +345,7 @@ msgstr ""
 msgid "button_change_and_edit"
 msgstr ""
 
-#.   <input type="submit" class="standalone" value="button_change_and_view" name="change_and_view" />
-#.   <input type="submit" name="change_and_view" value="button_change_and_view" class="standalone" />
+#.   <input name="change_and_view" type="submit" class="standalone" value="button_change_and_view" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -344,7 +362,7 @@ msgstr ""
 msgid "button_checkout_draft"
 msgstr ""
 
-#.   <input type="submit" name="folder_copy:method" value="button_copy" class="context" />
+#.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr ""
@@ -356,12 +374,12 @@ msgstr ""
 msgid "button_create_box"
 msgstr ""
 
-#.   <input type="submit" name="folder_cut:method" value="button_cut" class="context" condition="can_del" />
+#.   <input name="folder_cut:method" type="submit" class="context" value="button_cut" condition="can_del" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr ""
 
-#.   <input type="submit" name="folder_delete:method" value="button_delete" class="destructive" attributes="onclick python:'return window.confirm(\'%s\')' %
+#.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -374,37 +392,37 @@ msgstr ""
 msgid "button_delete_archive"
 msgstr ""
 
-#.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
+#.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_block"
 msgstr ""
 
-#.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
+#.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_unblock"
 msgstr ""
 
-#.   <input type="submit" class="standalone" value="button_login" name="submit" />
+#.   <input name="submit" type="submit" class="standalone" value="button_login" />
 #: from ../skins/cps_default/login_form.pt
 msgid "button_login"
 msgstr ""
 
-#.   <input type="submit" class="context moveBottom" value="button_move_bottom" name="moveItemsBottom:method" />
+#.   <input name="moveItemsBottom:method" type="submit" class="context moveBottom" value="button_move_bottom" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr ""
 
-#.   <input type="submit" class="context moveDown" value="button_move_down" name="moveItemsDown:method" />
+#.   <input name="moveItemsDown:method" type="submit" class="context moveDown" value="button_move_down" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr ""
 
-#.   <input type="submit" class="context moveTop" value="button_move_top" name="moveItemsTop:method" />
+#.   <input name="moveItemsTop:method" type="submit" class="context moveTop" value="button_move_top" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr ""
 
-#.   <input type="submit" class="context moveUp" value="button_move_up" name="moveItemsUp:method" />
+#.   <input name="moveItemsUp:method" type="submit" class="context moveUp" value="button_move_up" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr ""
@@ -419,7 +437,7 @@ msgstr ""
 msgid "button_ok"
 msgstr ""
 
-#.   <input type="submit" name="folder_paste:method" value="button_paste" class="context" />
+#.   <input name="folder_paste:method" type="submit" class="context" value="button_paste" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr ""
@@ -431,7 +449,7 @@ msgstr ""
 msgid "button_publish"
 msgstr ""
 
-#.   <input type="submit" class="standalone" value="button_register" name="submit" />
+#.   <input name="submit" type="submit" class="standalone" value="button_register" />
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr ""
@@ -441,7 +459,7 @@ msgstr ""
 msgid "button_reject_publication"
 msgstr ""
 
-#.   <input type="submit" name="folder_rename_form:method" value="button_rename" class="context" />
+#.   <input name="folder_rename_form:method" type="submit" class="context" value="button_rename" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr ""
@@ -452,9 +470,9 @@ msgid "button_revert_revision"
 msgstr ""
 
 #.   <input type="submit" class="context searchButton" value="button_search" />
-#.   <input type="submit" name="role_submit" value="button_search" class="standalone" />
+#.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
-#.   <input type="button" name="search_item" value="button_search" onclick="open_search_dialog()" />
+#.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
@@ -462,7 +480,7 @@ msgstr ""
 msgid "button_search"
 msgstr ""
 
-#.   <input type="button" class="context" value="button_select_all" onclick="someJavaScriptFunctionThatWillBeReplaced" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
+#.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
@@ -680,6 +698,9 @@ msgstr ""
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr ""
 
@@ -932,7 +953,11 @@ msgstr ""
 #.   <span>
 #.             No content type can be created.
 #.           </span>
+#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 
@@ -1018,11 +1043,11 @@ msgid "help_revert_revision"
 msgstr ""
 
 #.   <span>An item's status (also called its
-#.     review state) determines who can see it.  An item with a <strong>work</strong> status
+#.     review state) determines who can see it. An item with a <strong>work</strong> status
 #.     can be viewed by workspace's readers and edit by workspace's members and
-#.     managers.  Only <strong>published</strong> items in sections are available to the
-#.     section readers.  To make an item published, it has to be reviewed by one of
-#.     the section's Reviewers.  You can request that an item be reviewed by setting
+#.     managers. Only <strong>published</strong> items in sections are available to the
+#.     section readers. To make an item published, it has to be reviewed by one of
+#.     the section's Reviewers. You can request that an item be reviewed by setting
 #.     its status to <strong>pending</strong>, this is done by submitting your item to a
 #.     section.</span>
 #: from ../skins/cps_default/content_status_history.pt
@@ -1040,6 +1065,11 @@ msgstr ""
 #.       </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "into ${history_dest}"
+msgstr ""
+
+#.   <h2>Actions history</h2>
+#: from ../skins/cps_default/content_lib.pt
+msgid "label_actions_history"
 msgstr ""
 
 #.   <span>
@@ -1071,7 +1101,7 @@ msgstr ""
 msgid "label_all"
 msgstr ""
 
-#.   <strong>Old revisions:</strong>
+#.   <h2>Old revisions</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_archived_revisions"
 msgstr ""
@@ -1590,7 +1620,7 @@ msgstr ""
 msgid "label_portal_title"
 msgstr ""
 
-#.   <strong>label_publication_states</strong>
+#.   <h2>label_publication_states</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
 msgstr ""
@@ -1614,11 +1644,6 @@ msgstr ""
 #.   <em condition="not:can_publish">(requires approval)</em>
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "label_requires_approval"
-msgstr ""
-
-#.   <strong>Reviewing history:</strong>
-#: from ../skins/cps_default/content_lib.pt
-msgid "label_reviewing_history"
 msgstr ""
 
 #.   <block>label_revision
@@ -1807,6 +1832,7 @@ msgstr ""
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2203,13 +2229,6 @@ msgstr ""
 #.       </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "v${status_revision}- ${status_language}"
-msgstr ""
-
-#.   <div style="margin-top:3em" class="footer">
-#.     welcome_cps ${cps_link}
-#.   </div>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "welcome_cps ${cps_link}"
 msgstr ""
 
 msgid "accept"

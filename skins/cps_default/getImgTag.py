@@ -31,8 +31,11 @@ if keep_ratio:
         width = int(zoom * w)
         height = int(zoom * h)
 
-tag = '<img src="%s" width="%s" height="%s" border="0" alt="%s"' % (
-    img_url, str(width), str(height), alt )
+if width or height:
+    tag = '<img src="%s" width="%s" height="%s" border="0" alt="%s"' % (
+        img_url, str(width), str(height), alt )
+else:
+    tag = '<img src="%s" border="0" alt="%s"' % ( img_url, alt )
 if not title:
     title = getattr(img, 'title', None)
 if title:

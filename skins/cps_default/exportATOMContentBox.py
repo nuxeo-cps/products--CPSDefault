@@ -91,13 +91,7 @@ for item in items:
     if len(doc.Description()) > 0:
         summary = strip_html(doc.Description())
     else:
-        summary = strip_html(doc.content)
-        if len(summary) > SUMMARY_MAX_LENGTH:
-            summary = summary[:SUMMARY_MAX_LENGTH]
-            i = summary.rfind(' ')
-            if i > 0:
-                summary = summary[:i]
-            summary += '...'
+        summary = ''
 
     body_text += atom_entry % {'entry_id' : entry_id,
                                'entry_title' : entry_title,

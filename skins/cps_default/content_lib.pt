@@ -421,13 +421,12 @@ format:</pre>
                                base_url=base_url, width=64, height=64, keep_ratio=1)">
   </div>
   <img tal:replace="structure python:here.getImgTag(info['icon'],
-                                     base_url=base_url, title=info['type'])">
+                                     base_url=base_url, title='%s, id:%s' % (info['type'], info['id']))">
    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
   <br>
   <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}">
   <small>
-    <span tal:replace="string:id:${info/id}">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
                        status_time not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />

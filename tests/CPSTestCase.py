@@ -4,6 +4,7 @@
 
 from Testing import ZopeTestCase
 
+ZopeTestCase.installProduct('BTreeFolder2')
 ZopeTestCase.installProduct('CMFCalendar')
 ZopeTestCase.installProduct('CMFCore')
 ZopeTestCase.installProduct('CMFDefault')
@@ -39,10 +40,13 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
     pass
 
 
-class PortalInstaller:
-    def __init__(self, app, id, quiet=0):
+class CPSInstaller:
+    def __init__(self, app, quiet=0):
+        if not quiet: 
+            ZopeTestCase._print('Adding Portal Site ... ')
         self.app = app
         self._start = time.time()
+        self._quiet = quiet
 
     def install(self, id):
         self.addUser()
@@ -68,8 +72,9 @@ class PortalInstaller:
     def logout(self):
         noSecurityManager()
         get_transaction().commit()
-        if not quiet: 
-            ZopeTestCase._print('done (%.3fs)\n' % (time.time()-_start,))
+        if not self._quiet: 
+            ZopeTestCase._print('done (%.3fs)\n' 
+                % (time.time() - self._start,))
 
 
 def optimize():

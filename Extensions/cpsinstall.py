@@ -1537,4 +1537,94 @@ def cps_i18n_update(self, langs_list=None):
     except:
         pr("### DEPENDENCY ERROR : CPSDocument ###")
 
+    ###########################################################
+    # INSTALLATION OF THE DIFFERENT SERVICES
+    ###########################################################
+
+    # XXX : ImportError
+
+    #
+    #  CPSRSS installer/updater
+    #
+    try:
+        import Products.CPSRSS
+        if not portalhas('cpsrss_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding CPSRSS installer')
+            cpsrss_installer = ExternalMethod('cpsrss_installer',
+                                              'CPSRSS Installer',
+                                              'CPSRSS.install',
+                                              'install')
+            portal._setObject('cpsrss_installer', cpsrss_installer)
+        pr(portal.cpsrss_installer())
+    except:
+        pass
+
+    #
+    #  CPSForum installer/updater
+    #
+    try:
+        import Products.CPSForum
+        if not portalhas('cpsforum_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding CPSForum installer')
+            cpsforum_installer = ExternalMethod('cpsforum_installer',
+                                                'CPSForum Installer',
+                                                'CPSForum.install',
+                                                'install')
+            portal._setObject('cpsforum_installer', cpsforum_installer)
+        pr(portal.cpsforum_installer())
+    except:
+        pass
+
+    #
+    #  CPSChat installer/updater
+    #
+    try:
+        import Products.CPSChat
+        if not portalhas('cpschat_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding CPSChat installer')
+            cpschat_installer = ExternalMethod('cpschat_installer',
+                                               'CPSChat Installer',
+                                               'CPSChat.install',
+                                               'install')
+            portal._setObject('cpschat_installer', cpschat_installer)
+        pr(portal.cpschat_installer())
+    except:
+        pass
+
+    #
+    #  CPSCalendar installer/updater
+    #
+    try:
+        import Products.CPSCalendar
+        if not portalhas('cpscalendar_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding cpsdocument installer')
+            cpsdocument_installer = ExternalMethod('cpscalendar_installer',
+                                                   'CPSCalendar Updater',
+                                                   'CPSCalendar.install',
+                                                   'update')
+            portal._setObject('cpscalendar_installer', cpsdocument_installer)
+        pr(portal.cpscalendar_installer())
+    except:
+        pass
+
+    #
+    #  CPSMailingLists installer/updater
+    #
+    try:
+        import Products.CPSMailingLists
+        if not portalhas('cpsml_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding cpsmailinglists installer')
+            cpsdocument_installer = ExternalMethod('cpsml_installer',
+                                                   'CPSMailingLists Updater',
+                                                   'CPSMailingLists.install',
+                                                   'install')
+            portal._setObject('cpsml_installer', cpsdocument_installer)
+            pr(portal.cpsml_installer())
+    except:
+        pass
     return pr('flush')

@@ -71,7 +71,10 @@ def date_sortkey(a):
            a.getId()
 
 def author_sortkey(a):
-    return a.Creator() + a.getId()
+    author = a.Creator()
+    if same_type(author, ''):
+        return author + a.getId()
+    return a.getId()
 
 def cmp_desc(x, y):
     return -cmp(x, y)

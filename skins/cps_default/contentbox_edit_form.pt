@@ -18,7 +18,15 @@
         tal:define="sort_by box/box/sort_by;
                     direction box/box/direction;
                     format box/box/display">
-      <metal:params use-macro="here/content_lib/macros/display_params_form" />
+      <metal:params use-macro="here/content_lib/macros/display_params_form"
+      />
+      <div style="background: #ffffe1; border: 1px solid #000000;
+        padding:0.8em;font-size: 80%; position: absolute;
+        visibility: hidden; zIndex: 1000; text-align:left;"
+        id="sort_help" onclick="showElement(false, 'sort_help')"
+        i18n:translate="help_contentbox_sort">help help</div>
+      <button type="button" class="tooltipControl"
+        onclick="toggleElementVisibility('sort_help')"> ? </button>
     </td>
   </tr>
   <tr valign="top">

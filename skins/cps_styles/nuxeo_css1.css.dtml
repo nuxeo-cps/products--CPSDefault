@@ -1,6 +1,7 @@
 /* Nuxeo CSS 1
 ** $Id$
-** CSS 1 for NS4.77|IE|mozilla
+** CSS 1 for NS4.77|IE|mozilla ...
+** this is heavily based on the Plone css by Alexander Limi
 */
 
 /* DTML instructions to set caching headers.
@@ -10,9 +11,7 @@
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
-*/
 
-/*
 <dtml-with stylesheet_properties>
 */
 
@@ -73,7 +72,6 @@ h2 {
 }
 h3 {
   font-size: &dtml-headingSize3;;
-  font-weight: bold;
 }
 h4 {
   font-size: &dtml-headingSize4;;
@@ -195,6 +193,19 @@ table.columns td.right {
 
 .odd {
   background-color: &dtml-oddRowBackground;;
+}
+
+.pending {
+  font-weight: bold;
+  color: #FFA500;
+}
+
+.work {
+
+}
+
+.published {
+  color: #22A522;
 }
 
 input.standalone {

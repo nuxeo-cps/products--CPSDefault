@@ -1,5 +1,6 @@
 /* Nuxeo CSS 2
 ** $Id$
+** this is heavily based on the Plone css by Alexander Limi
 */
 
 /* DTML instructions to set caching headers.
@@ -9,9 +10,8 @@
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
-*/
 
-/*
+
 <dtml-with stylesheet_properties>
 */
 
@@ -120,6 +120,13 @@ input.noborder {
     border: &dtml-noBorder;;
     margin: 0;
 }
+
+input.searchButton {
+  font-size: 100% ! important;
+  margin-bottom: 1px ! important;
+}
+
+
 
 /* DIVs ------------------------------ */
 div.top {
@@ -244,7 +251,7 @@ div.box .odd {
   background-color: &dtml-boxOddBackground;;
 }
 div.box .highlight {
-  background-color: &dtml-boxHighlight;;
+  background: &dtml-boxHighlight;;
 }
 
 /*

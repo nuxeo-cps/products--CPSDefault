@@ -5,13 +5,33 @@ Return a list of brains matching the query.
 
 Examples:
 
+# Get all the News Item documents in the portal
 brains = portal.search(query={'portal_type': ('News Item',)})
 proxy = brain.getObject()
 document = proxy.getContent()
 
+# Get all the News Item and the Press Release documents in the portal
 brains = portal.search(query={'portal_type': ('News Item', 'Press Release')})
 proxy = brain.getObject()
 document = proxy.getEditableContent()
+
+# Get all the published News Item documents in the portal which contains the
+# text "mycomparny.com".
+brains = portal.search(query={'SearchableText': 'mycompany.com',
+                              'portal_type': ('News Item',),
+                              'review_state': 'published',
+                       }
+                      )
+
+# Get all the documents in the portal which are located below the folder
+# "folder1" which is located in the "workspaces" folder.
+# If you provide an empty query dict no results will be returned so this is
+# important to specify 'cps_filter_sets': 'searchable' when we want to retrieve
+# all kind of portal_types.
+brains = portal.search(query={'cps_filter_sets': 'searchable',
+                       }
+                       folder_prefix='workspaces/folder1',
+                      )
 """
 
 from zLOG import LOG, DEBUG, INFO
@@ -31,6 +51,7 @@ if str(query.get('modified')) == '1970/01/01':
         del query['modified_usage']
 
 if not allow_empty_search and not query:
+    LOG('CPSDefault.search', DEBUG, 'No query provided => no answers')
     return []
 
 # scope of search
@@ -38,14 +59,14 @@ if folder_prefix:
     if not query.has_key('path'):
         portal_path = '/' + catalog.getPhysicalPath()[1] + '/'
         query['path'] =  portal_path + folder_prefix
-    
+
     if query.has_key('search_relative_path'):
-        current_depth = len(folder_prefix.split('/')) + 1 
+        current_depth = len(folder_prefix.split('/')) + 1
         query['relative_path_depth'] = current_depth
 
 if query.has_key('folder_prefix'):
     del query['folder_prefix']
-    
+
 if query.has_key('search_relative_path'):
     del query['search_relative_path']
 

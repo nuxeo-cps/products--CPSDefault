@@ -39,30 +39,38 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
     pass
 
 
-def setupCPSSite(app, id='portal', quiet=0):
-    '''Creates a CPS site.'''
-    if not hasattr(aq_base(app), id):
-        _start = time.time()
-        if not quiet: 
-            ZopeTestCase._print('Adding CPS Site ... ')
+class PortalInstaller:
+    def __init__(self, app, id, quiet=0):
+        self.app = app
+        self._start = time.time()
 
-        # Add user and log in
-        uf = app.acl_users
+    def install(self, id):
+        self.addUser()
+        self.login()
+        self.addPortal(id)
+        self.logout()
+
+    def addUser(self):
+        uf = self.app.acl_users
         uf._doAddUser('CPSTestCase', '', ['Manager'], [])
+
+    def login(self):
+        uf = self.app.acl_users
         user = uf.getUserById('CPSTestCase').__of__(uf)
         newSecurityManager(None, user)
 
-        # Add CPS Site
-        factory = app.manage_addProduct['CPSDefault']
+    def addPortal(self, id):
+        factory = self.app.manage_addProduct['CPSDefault']
         factory.manage_addCPSDefaultSite(id, 
             root_password1="passwd", root_password2="passwd",
             langs_list=['en'])
 
-        # Log out
+    def logout(self):
         noSecurityManager()
         get_transaction().commit()
         if not quiet: 
             ZopeTestCase._print('done (%.3fs)\n' % (time.time()-_start,))
+
 
 def optimize():
     '''Significantly reduces portal creation time.'''
@@ -84,6 +92,6 @@ def setupPortal():
     # Create a CPS site in the test (demo-) storage
     app = ZopeTestCase.app()
     # PortalTestCase expects object to be called "portal", not "cps"
-    setupCPSSite(app, id='portal') 
+    PortalInstaller(app).install('portal')
     ZopeTestCase.close(app)
 

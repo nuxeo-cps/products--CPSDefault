@@ -11,10 +11,14 @@
       tal:define="DateTime python:modules['DateTime'].DateTime;
                   thisDay  python:DateTime(request.get('date', 
                                            DateTime().aCommon()[:12]));
-                  location python:request.get('location',None)">
+                  location python:request.get('location',None);
+                  event_types python:request.get('event_types',None)">
 
-  <tal:block tal:define="items python:here.portal_calendar.getCPSEventsForThisDay(
-                                      thisDay,location=location);
+  <tal:block tal:define="items python:
+                                 here.portal_calendar.getCPSEventsForThisDay(
+                                      thisDay,
+                                      location=location,
+                                      event_types=event_types);
 	                 format string:detail;
                          no_form python:1;
                          mq nocall:modules/ZTUtils/make_query;

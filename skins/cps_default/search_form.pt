@@ -1,11 +1,15 @@
 <html tal:define="showthirdcol nothing;
+                  utool nocall:here/portal_url;	
+                  portal_object utool/getPortalObject;
+                  portal_title portal_object/title;
                   dummy python:request.set('breadcrumb_set',
-                   [{
-                   'id' : 'portal_root', 
-                   'url': here.portal_url(),
-                   'title': 'Portal', 
-                   'longtitle':'Portal',
-                   },
+                   [
+                   {
+		    'id': 'portal_root',
+		    'url': here.portal_url(),
+                    'longtitle': portal_title,
+                    'title': portal_title,
+                    },
                    {
                    'id' : 'search_form', 
                    'url': here.portal_url()+'/search_form',

@@ -1,4 +1,4 @@
-##parameters=REQUEST=None, **kw
+##parameters=comment='', REQUEST=None, **kw
 # $Id$
 
 if REQUEST is not None:
@@ -14,11 +14,12 @@ if locked_ob is not None:
     wftool.doActionFor(context, 'checkin_draft',
                        dest_container=folder,
                        dest_objects=[locked_ob],
-                       checkin_transition="unlock")
+                       checkin_transition="unlock",
+                       comment=comment)
 else:
     # Locked has been deleted, directly unlock the draft.
     newid = context.getId()
-    wftool.doActionFor(context, 'unlock')
+    wftool.doActionFor(context, 'unlock', comment=comment)
     # XXX Could rename to original id, if we had it.
 
 if REQUEST is not None:

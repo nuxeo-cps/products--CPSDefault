@@ -1,4 +1,4 @@
-##parameters=REQUEST=None, **kw
+##parameters=comment='', REQUEST=None, **kw
 # $Id$
 
 if REQUEST is not None:
@@ -15,7 +15,7 @@ else:
     # Locked objet must have been deleted already.
     url = folder_url
 
-wftool.doActionFor(context, 'abandon_draft')
+wftool.doActionFor(context, 'abandon_draft', comment=comment)
 
 if REQUEST is not None:
     redirect_url = '%s/?%s' % (url, 'portal_status_message=psm_status_changed')

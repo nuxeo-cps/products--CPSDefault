@@ -973,7 +973,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
            },
             'published': {
                 'title': 'Public',
-                'transitions': ('unpublish', 'cut_copy_paste'),
+                'transitions': ('unpublish', 'cut_copy_paste',
+                                'sub_publishing'),
                 'permissions': {View: ('SectionReader', 'SectionReviewer',
                                        'SectionManager', 'Manager'),
                                 ModifyPortalContent: ('Manager',),
@@ -1076,6 +1077,17 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'props': {'guard_permissions': '',
                           'guard_roles': 'Manager; SectionManager; '
                                          'SectionReviewer',
+                          'guard_expr': ''},
+            },
+            'sub_publishing': {
+                'title': 'Allow publishing of subdocuments',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_ALLOWSUB_PUBLISHING,),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer; SectionReader',
                           'guard_expr': ''},
             },
         }

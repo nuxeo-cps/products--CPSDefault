@@ -10,7 +10,7 @@
         <span tal:repeat="item python:box['box'].getTree(here)">
           <span tal:replace="structure python:'&nbsp;'*4*item['depth']">&nbsp;</span>
 
-          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="string:${item/short_title}">id</span>
+          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="structure string:${item/short_title}">id</span>
 </a><span tal:condition="item/nb_children" tal:replace="string:*" /><br/>
         </span>
       </div>
@@ -44,10 +44,10 @@
           <tal:block condition="python:item['depth']==depth">
           <br tal:condition="not:repeat/item/start" />
         <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
-<b><a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="string:${item/short_title}">short_title</span></a></b><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
+<b><a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="structure string:${item/short_title}">short_title</span></a></b><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
           </tal:block>
           <tal:block condition="python:item['depth']>depth">
-<a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="string:${item/short_title}">short_title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
+<a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="structure string:${item/short_title}">short_title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
           </tal:block>
         </span>
 	</td></tr></table>

@@ -40,80 +40,58 @@
       It does not cost any money to become a member and your email and
       other personal information will remain private.</p>
 
-    <p tal:condition="python: ptool.validate_email">
-      <span i18n:translate="help_join_form_3">
-        You must submit a valid email address. This address will be used
-        to send you a randomly-generated password.  Once you have logged
-        in with this password, you may change it to anything you like.
-      </span>
+    <p tal:condition="python: ptool.validate_email"
+       i18n:translate="help_join_form_3">
+      You must submit a valid email address. This address will be used
+      to send you a randomly-generated password.  Once you have logged
+      in with this password, you may change it to anything you like.
     </p>
 
     <form action="register" method="post"
           tal:attributes="action string:${here/portal_url}/register">
 
-    <input type="hidden" name="last_visit:date" value=""
-           tal:attributes="value here/ZopeTime" />
-    <input type="hidden" name="prev_visit:date" value=""
-           tal:attributes="value here/ZopeTime" />
-
-    <table border="0" width="100%" cellpadding="1" cellspacing="0"
-           summary="login info layout">
-      <tr>
-        <th i18n:translate="label_user_name"> Login Name </th>
-        <td>
-          <input type="text" name="username" size="30" value="" id="field_focus"
-                 tal:attributes="value request/username|nothing" />
-        </td>
-      </tr>
-
-      <tr>
-        <th i18n:translate="label_email"> Email Address </th>
-        <td align="left" valign="top">
-          <input type="text" name="email" size="30" value=""
-                 tal:attributes="value request/email|nothing" />
-        </td>
-      </tr>
-
+    <dl>
+      <dt><label for="field_focus"
+                 i18n:translate="label_user_name">Login Name</label></dt>
+      <dd>&#160;<input type="text" name="username" size="30" value="" id="field_focus"
+                 tal:attributes="value request/username|nothing" /></dd>
+      <dt><label for="email"
+                 i18n:translate="label_email">Email Address</label></dt>
+      <dd>&#160;<input type="text" id="email" name="email" size="30" value=""
+                 tal:attributes="value request/email|nothing" /></dd>
       <tal:block condition="not:ptool/validate_email">
-        <tr>
-          <th i18n:translate="label_password"> Password </th>
-          <td align="left" valign="top">
-            <input type="password" name="password" size="30" value=""
-                   tal:attributes="value request/password|nothing" />
-          </td>
-        </tr>
-
-        <tr>
-          <th i18n:translate="label_password_confirm"> Password (confirm) </th>
-          <td align="left" valign="top">
-            <input type="password" name="confirm" size="30" value=""
-                   tal:attributes="value request/confirm|nothing" />
-          </td>
-        </tr>
-
-        <tr>
-          <th i18n:translate="label_password_mailed"> Mail Password?  </th>
-          <td>
-            <input type="checkbox" name="mail_me" size="30" id="cb_mailme"
-                   tal:attributes="checked request/mail_me|nothing" />
-            <label for="cb_mailme">
-              <em i18n:translate="help_password_message">
-                Check this box to have your password
-                mailed to you.
-              </em>
-            </label>
-          </td>
-        </tr>
+      <dt><label for="password"
+                 i18n:translate="label_password">Password</label></dt>
+      <dd>&#160;<input type="password" id="password" name="password" size="30"
+                 value=""
+                 tal:attributes="value request/password|nothing" /></dd>
+      <dt><label for="confirm"
+                 i18n:translate="label_password_confirm">Password
+                   (confirm)</label></dt>
+      <dd>&#160;<input type="password" id="confirm" name="confirm" size="30" value=""
+                 tal:attributes="value request/confirm|nothing" /></dd>
+      <dt><label for="cb_mailme"
+                 i18n:translate="label_password_mailed">Mail
+                   Password?</label></dt>
+      <dd>&#160;
+        <input type="checkbox" name="mail_me" size="30" id="cb_mailme"
+               tal:attributes="checked request/mail_me|nothing" />
+        <label for="cb_mailme"><em i18n:translate="help_password_message">
+          Check this box to have your password mailed to you.
+        </em></label>
+      </dd>
       </tal:block>
+    </dl>
 
-      <tr>
-        <td></td>
-        <td>
-          <input i18n:attributes="value" class="standalone"
-                 type="submit" name="submit" value="button_register" />
-        </td>
-      </tr>
-    </table>
+
+    <p class="buttonArea">
+      <input type="hidden" name="last_visit:date" value=""
+             tal:attributes="value here/ZopeTime" />
+      <input type="hidden" name="prev_visit:date" value=""
+             tal:attributes="value here/ZopeTime" />
+      <input i18n:attributes="value" class="standalone"
+             type="submit" name="submit" value="button_register" />
+    </p>
 
     </form>
 

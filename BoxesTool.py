@@ -103,10 +103,11 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         boxes = []
         for box in allboxes:
-            # Skip it if there is no view permission
-            #if not _checkPermission('View', box):
-            #    continue
-            if not box.getGuard().check(getSecurityManager(), None, context):
+            ## Skip it if there is no view permission
+            ##if not _checkPermission('View', box):
+            ##    continue
+            # Do ACL or TAL expression allow this box here
+            if not box.getGuard().check(getSecurityManager(), box, context):
                 continue
             # Only add boxes if they are to be displayed
             # in the subfolders, or if

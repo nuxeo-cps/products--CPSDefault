@@ -26,15 +26,15 @@ from Acquisition import aq_base
 from OFS.PropertyManager import PropertyManager
 
 from Products.CMFCore.utils import _verifyActionPermissions
-from Products.CMFCore.CMFCorePermissions \
-    import View, ModifyPortalContent, ManagePortal
+from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent,\
+                                                ManagePortal
 from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFCore.utils import getToolByName
 
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from zLOG import LOG, DEBUG
 
-from Products.DCWorkflow.Guard import Guard
+from BoxGuard import BoxGuard
 
 ## monkey patch to add properties in portal_types
 
@@ -132,7 +132,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
          'label': 'Display only in sub folder'},
         {'id': 'locked', 'type': 'boolean', 'mode': 'w',
          'label': 'Locked box'},
-        )
+    )
 
     def __init__(self, id, title='', category='basebox',
                  box_skin='here/box_lib/macros/mmcbox',
@@ -163,13 +163,13 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declareProtected(ManagePortal, 'manage_export')
     manage_export = DTMLFile('zmi/box_export', globals())
 
-    security.declarePublic('manage_guardForm') # XXX protect
+    security.declareProtected(ManagePortal, 'manage_guardForm')
     manage_guardForm = DTMLFile('zmi/manage_guardForm', globals())
 
-    security.declareProtected('setGuardProperties', ModifyPortalContent)
+    security.declareProtected(ModifyPortalContent, 'setGuardProperties')
     def setGuardProperties(self, REQUEST=None):
-        """ """
-        g = Guard()
+        """Postprocess guard values."""
+        g = BoxGuard()
         if g.changeFromProperties(REQUEST):
             self.guard = g
         else:
@@ -177,7 +177,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         if REQUEST is not None:
             return self.manage_guardForm(REQUEST,
                 management_view='Guard',
-                manage_tabs_message='Guard setting changed')
+                manage_tabs_message='Guard setting changed.')
 
     #
     # Public API
@@ -204,12 +204,14 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     #
     # Internal API's mainly called from itself or other Zope tools
     #
+
+    # XXX which security declaration?
     def getGuard(self):
         if self.guard is not None:
             return self.guard
         else:
-            return Guard().__of__(self)  # Create a temporary guard.
-
+            return BoxGuard().__of__(self)  # Create a temporary guard.
+    
     security.declarePrivate('callAction')
     def callAction(self, actionid, **kw):
         """

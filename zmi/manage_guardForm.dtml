@@ -1,11 +1,27 @@
 <dtml-var manage_page_header>
 <dtml-var manage_tabs>
 
-<form action="setGuardProperties" method="POST">
+<form action="setGuardProperties" method="post">
   <dtml-with getGuard>
     <dtml-var guardForm>
   </dtml-with>
-  <input type="submit" name="submit" value="Save changes" />
+  <input type="submit" name="submit" value="Save changes">
 </form>
+
+<p class="form-help">
+You <strong>must</strong> have the given <em>permissions</em> and
+<em>roles</em>, and the <em>expression</em> must return a <strong>true</strong>
+value inin order to see the box. Any blank value is ignored.
+</p>
+
+<p class="form-help">
+  The following names are defined for the TALES expression:<br>
+  <strong>box</strong>: The box object.<br>
+  <strong>here</strong>: The context.<br>
+  <strong>portal</strong>: The CPS portal object.<br>
+  <strong>request</strong>: The REQUEST object.<br>
+  <strong>user</strong>: The user object.<br>
+  <strong>nothing</strong>: None<br>
+</p>
 
 <dtml-var manage_page_footer>

@@ -33,14 +33,75 @@
     <th aligh="right" i18n:translate="label_display_format">format</th>
     <td>
       <select name="display">
-        <option value="icon" i18n:translate="label_display_icon">icon</option>
+        <option value="icon" i18n:translate="label_display_icon"
+          tal:attributes="selected python:box['box'].display == 'icon'">icon</option>
         <option value="compact"
-          i18n:translate="label_display_compact">compact</option>
+          i18n:translate="label_display_compact"
+          tal:attributes="selected python:box['box'].display == 'compact'">compact</option>
         <option value="detail"
-          i18n:translate="label_display_detailed">detailed</option>
+          i18n:translate="label_display_detailed"
+          tal:attributes="selected python:box['box'].display == 'detail'">detailed</option>
       </select>
     </td>
   </tr>
+  <tr>
+    <th><span i18n:translate="label_search">search</span></th>
+    <td colspan="5">
+      <table>
+        <tr>
+          <td><span i18n:translate="label_search_title">Description</span></td>
+          <td><input name="query_title" size="20"
+                tal:attributes="value box/box/query_title"></td>
+        </tr>
+        <tr>
+          <td><span i18n:translate="label_search_description">Description</span></td>
+          <td><input name="query_description" size="20"
+                tal:attributes="value box/box/query_description"></td>
+        </tr>
+        <tr valign="top">
+          <td> <span i18n:translate="label_search_plain_text">Plain text</span></td>
+          <td><input name="query_fulltext" size="40"
+                tal:attributes="value box/box/query_fulltext"></td>
+        </tr>
+        <tr tal:condition="python: checkPerm('Review portal content', here)">
+          <td><span i18n:translate="label_search_status">Status</span></td>
+          <td>
+            <select name="query_status">
+              <option i18n:translate="label_all" value="">All</option>
+              <option i18n:translate="label_work" value="work"
+                tal:attributes="selected python:box['box'].query_status == 'work'">Work</option>
+              <option i18n:translate="label_pending" value="pending"
+                tal:attributes="selected python:box['box'].query_status == 'pending'">Pending</option>
+              <option i18n:translate="label_published" value="published"
+                tal:attributes="selected python:box['box'].query_status == 'published'">Published</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><span i18n:translate="label_search_modified_since">Modified since</span></td>
+          <td>
+            <select name="query_modified">
+              <option value="none"
+                i18n:translate="label_choose">Choose</option>
+              <option i18n:translate="time_last_login"
+                value="time_last_login"
+                tal:attributes="selected python:box['box'].query_modified == 'time_last_login'">time_last_login</option>
+              <option i18n:translate="time_yesterday"
+                value="time_yesterday"
+                tal:attributes="selected python:box['box'].query_modified == 'time_yesterday'">time_yesterday</option>
+              <option i18n:translate="time_last_week"
+                value="time_last_week"
+                tal:attributes="selected python:box['box'].query_modified == 'time_last_week'">time_last_week</option>
+              <option i18n:translate="time_last_month"
+                value="time_last_month"
+                tal:attributes="selected python:box['box'].query_modified == 'time_last_month'">time_last_month</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </td>
+   </tr>
+
 </metal:fields>
 </metal:boxform>
 </metal:main>

@@ -18,10 +18,9 @@
 
 <metal:main fill-slot="main">
   <form class="workflow" action="." method="post"
-    tal:define="field_name python:cpsmcat('transition_comments')"
     tal:attributes="action string:${here_url}/content_checkout_draft;
-    onsubmit python:'return validateRequiredFields([\'comment\'],
-                                                   [\'%s\'], \'%s\')' % (field_name, cpsmcat('is not defined while it is required.'))
+    onsubmit python:'return validateRequiredFields([\'comment\'], [\'%s\'], \'%s\')'
+                     % (cpsmcat('transition_comments'), cpsmcat('description_field_required'))
     ">
     <dl>
       <dt><label class="required" for="comment" i18n:translate="transition_comments">Comments</label></dt>

@@ -4,12 +4,15 @@
 
 <metal:block define-macro="transition_form">
 <form class="workflow" method="post" action="content_status_modify"
-  tal:attributes="action string:${proxy/absolute_url}/content_status_modify">
+  tal:attributes="action string:${proxy/absolute_url}/content_status_modify;
+    onsubmit python:'return validateRequiredFields([\'comment\'], [\'%s\'], \'%s\')'
+                     % (cpsmcat('transition_comments'), cpsmcat('description_field_required'))
+    ">
   <p metal:define-slot="fields">
     <!-- more fields -->
   </p>
     <dl>
-      <dt><label for="comment" i18n:translate="transition_comments">Comments</label></dt>
+      <dt><label class="required" for="comment" i18n:translate="transition_comments">Comments</label></dt>
       <dd>
         <textarea name="comment" id="comment" cols="60" rows="5"
                   tal:content="nothing">

@@ -940,7 +940,7 @@ except:
         workspaceACT = list(ttool['Workspace'].allowed_content_types)
     else:
         workspaceACT = []
-    for ptype in ('Workspace', 'Dummy',):
+    for ptype in ('Workspace',): # forget about 'Dummy' for now
         if ptype not in  workspaceACT:
             workspaceACT.append(ptype)
 
@@ -950,7 +950,7 @@ except:
                    'CPS Proxy Folderish Document',
                    ),
         'CPSDefault':('Folder',
-                      'Dummy',
+                      #'Dummy',
                       'Base Box',
                       'Text Box',
                       'Tree Box',
@@ -1117,8 +1117,8 @@ except:
                             chain='workspace_folder_wf')
         wfc.manage_addChain(portal_type='Section',
                             chain='')
-        wfc.manage_addChain(portal_type='Dummy',
-                            chain='workspace_content_wf')
+        #wfc.manage_addChain(portal_type='Dummy',
+        #                    chain='workspace_content_wf')
 
     if not '.cps_workflow_configuration' in portal[sections_id].objectIds():
         pr("  Adding workflow configuration to %s" % sections_id)
@@ -1128,8 +1128,8 @@ except:
                             chain='')
         wfc.manage_addChain(portal_type='Section',
                             chain='section_folder_wf')
-        wfc.manage_addChain(portal_type='Dummy',
-                            chain='section_content_wf')
+        #wfc.manage_addChain(portal_type='Dummy',
+        #                    chain='section_content_wf')
     # init Tree Tool
     trtool = portal.portal_trees
     pr("Verifying cache trees")

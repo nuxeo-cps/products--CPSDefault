@@ -229,6 +229,18 @@ class BaseInstaller:
                                                property['type'])
 
 
+    def getActionIndex(self, action_id, action_provider):
+        """Return the action index owned by an action provider or -1 is the
+        action doesn't exist.
+        """
+        action_index = 0
+        for action in action_provider.listActions():
+            if action.id == action_id:
+                return action_index
+            action_index += 1
+        return -1
+
+
     def setupSiteStructure(self, filename):
         """Load a site structure dump file and rebuild the site structure using
         it.

@@ -201,7 +201,10 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="treebox_default">
+<metal:block define-macro="treebox_default"
+  tal:define="items python:box['box'].getTree(here);">
+
+ <tal:block condition="python: len(items)>0">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title"
       tal:content="box/box/title">
@@ -209,13 +212,14 @@
     </metal:block>
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
-        <span tal:repeat="item python:box['box'].getTree(here)">
+        <span tal:repeat="item items">
           <span tal:replace="structure python:'&nbsp;'*4*item['depth']">&nbsp;</span><a href="." tal:attributes="class python:context_url.endswith(item['rpath']) and 'selected' or default;
                                  href string:${base_url}${item/rpath}/;"><span tal:replace="structure string:${item/short_title}">id</span></a><span tal:condition="item/nb_children" tal:replace="string:*" /><br/>
         </span>
       </div>
     </metal:block>
   </metal:block>
+ </tal:block>
 </metal:block>
 
 
@@ -241,7 +245,8 @@
         <span i18n:translate="">description_up_to
           <b i18n:name="up_id" tal:content="python:here.aq_parent.getId()">
           Up ID</b>
-        </span><br><br>
+        </span>
+        </a><br><br>
         </tal:block>
       </td>
     </tr>

@@ -96,21 +96,6 @@
                  i18n:attributes="value" name="moveItemsBottom:method">
       </td>
      </tr>
-     <tr tal:condition="python:can_add and allowed">
-      <td>
-        <span i18n:translate="heading_folder_factories">Create a new:</span>
-        <select name="type_name">
-          <option tal:repeat="type allowed"
-                  tal:attributes="value type/getId"
-                  tal:content="type/Title"
-                  i18n:translate="">
-            Type Name
-          </option>
-        </select>
-        <input type="submit" name="content_create:method" value="button_new"
-               class="standalone" i18n:attributes="value">
-      </td>
-     </tr>
    </table>
   </form>
 </metal:main>

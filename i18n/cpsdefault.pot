@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-07-24 15:14default\n"
+"POT-Creation-Date: 2003-07-24 17:16default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -76,6 +76,14 @@ msgstr ""
 msgid "Portal type's title"
 msgstr ""
 
+#.   <option attributes="value slot;
+#.                             selected python:test(slot!=box['settings']['slot'], nothing, 'selected');" content="string:label_${slot}" value="slot">Slot</option>
+#.   <span content="string:label_${slot}">Slot</span>
+#: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/box_manage_form.pt
+msgid "Slot"
+msgstr ""
+
 #.   <div define="portal_message request/portal_status_message|nothing" condition="portal_message" content="portal_message" class="message">
 #.          Translated status message.
 #.        </div>
@@ -136,6 +144,12 @@ msgstr ""
 msgid "button_assign_roles"
 msgstr ""
 
+#.   <input onclick="history.back()" type="button" value="button_back">
+#.       </input>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "button_back"
+msgstr ""
+
 #.   <input onclick="history.back()" type="button" value="button_cancel">
 #.       </input>
 #: from ../skins/cps_default/content_accept_form.pt
@@ -145,8 +159,9 @@ msgstr ""
 msgid "button_cancel"
 msgstr ""
 
-#.   <input value="button_change" name="change" type="submit">
-#.       </input>
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" name="change" type="submit">
+#.         <input onclick="history.back()" type="button" value="button_back">
+#.       </input></input>
 #.   <input value="button_change" type="submit">
 #.       </input>
 #.   <input value="button_change" name="change" type="submit">
@@ -198,15 +213,6 @@ msgstr ""
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
-msgstr ""
-
-#.   <input value="button_delete_box" name="box_delete:method" type="submit">
-#.   <br>
-#.   <br>
-#.   </br></br></input>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
-msgid "button_delete_box"
 msgstr ""
 
 #.   <input value="button_login" name="submit" type="submit" />
@@ -692,6 +698,11 @@ msgstr ""
 msgid "label_choose"
 msgstr ""
 
+#.   <option attributes="selected python:test(box['settings']['closed'], 'selected', nothing)" value="closed">Closed</option>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_closed"
+msgstr ""
+
 #.   <th aligh="right">Contextual</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_contextual"
@@ -848,6 +859,16 @@ msgstr ""
 msgid "label_local_roles_search_term"
 msgstr ""
 
+#.   <option attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');" value="maximized">Maximized</option>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_maximized"
+msgstr ""
+
+#.   <option attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)" value="minimized">Minimized</option>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_minimized"
+msgstr ""
+
 #.   <span>Name</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_name"
@@ -986,7 +1007,7 @@ msgstr ""
 #.   <th align="right">Slot</th>
 #.   <span />
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/box_lib.pt ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "label_slot"
 msgstr ""
 
@@ -1120,6 +1141,24 @@ msgstr ""
 msgid "link_all_metadata"
 msgstr ""
 
+#.   <a attributes="href
+#.         string:${context_urlc}/box_delete?box_url=${box/url}" href="">delete</a>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "link_box_delete"
+msgstr ""
+
+#.   <a attributes="href
+#.         string:${context_urlc}/${action}?box_url=${box/url}" href="">edit</a>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "link_box_edit"
+msgstr ""
+
+#.   <a attributes="href
+#.         string:${context_urlc}/${action}?box_url=${box/url}" href="">view</a>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "link_box_view"
+msgstr ""
+
 #.   <span>
 #.         I forgot my password!
 #.       </span>
@@ -1168,6 +1207,11 @@ msgstr ""
 msgid "link_registred_return_home_page"
 msgstr ""
 
+#.   <th width="15%">action</th>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "listingheader_action"
+msgstr ""
+
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
@@ -1175,16 +1219,13 @@ msgstr ""
 msgid "listingheader_existing_revision"
 msgstr ""
 
-#.   <span>in</span>
-#.   <th>location</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th widht="30%">location</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_location"
 msgstr ""
 
-#.   <th>Order</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="5%">Order</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_order"
 msgstr ""
 
@@ -1193,17 +1234,13 @@ msgstr ""
 msgid "listingheader_sections"
 msgstr ""
 
-#.   <span />
-#.   <th>Title</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="25%">Title</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_title"
 msgstr ""
 
-#.   <span />
-#.   <th>Type</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="25%">Type</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_type"
 msgstr ""
 
@@ -1386,6 +1423,12 @@ msgid "portal_type_Dummy_description"
 msgstr ""
 
 msgid "portal_type_Dummy_title"
+msgstr ""
+
+msgid "portal_type_Section_description"
+msgstr ""
+
+msgid "portal_type_Section_title"
 msgstr ""
 
 msgid "portal_type_Workspace_description"

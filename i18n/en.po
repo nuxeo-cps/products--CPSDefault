@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-24 15:14default\n"
-"PO-Revision-Date: 2003-07-24 15:15+0200\n"
+"POT-Creation-Date: 2003-07-24 17:16default\n"
+"PO-Revision-Date: 2003-07-24 17:23+0200\n"
 "Last-Translator: ben <ben@nuxeo.com>\n"
 "Language-Team: ben\n"
 "MIME-Version: 1.0\n"
@@ -79,6 +79,14 @@ msgstr "Portal type's description"
 msgid "Portal type's title"
 msgstr "Portal type's title"
 
+#.   <option attributes="value slot;
+#.                             selected python:test(slot!=box['settings']['slot'], nothing, 'selected');" content="string:label_${slot}" value="slot">Slot</option>
+#.   <span content="string:label_${slot}">Slot</span>
+#: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/box_manage_form.pt
+msgid "Slot"
+msgstr "slot"
+
 #.   <div define="portal_message request/portal_status_message|nothing" condition="portal_message" content="portal_message" class="message">
 #.          Translated status message.
 #.        </div>
@@ -139,6 +147,12 @@ msgstr "Add"
 msgid "button_assign_roles"
 msgstr "Assign roles"
 
+#.   <input onclick="history.back()" type="button" value="button_back">
+#.       </input>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "button_back"
+msgstr "Back"
+
 #.   <input onclick="history.back()" type="button" value="button_cancel">
 #.       </input>
 #: from ../skins/cps_default/content_accept_form.pt
@@ -148,8 +162,9 @@ msgstr "Assign roles"
 msgid "button_cancel"
 msgstr "Cancel"
 
-#.   <input value="button_change" name="change" type="submit">
-#.       </input>
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" name="change" type="submit">
+#.         <input onclick="history.back()" type="button" value="button_back">
+#.       </input></input>
 #.   <input value="button_change" type="submit">
 #.       </input>
 #.   <input value="button_change" name="change" type="submit">
@@ -202,15 +217,6 @@ msgstr "Create box"
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
 msgstr "Delete"
-
-#.   <input value="button_delete_box" name="box_delete:method" type="submit">
-#.   <br>
-#.   <br>
-#.   </br></br></input>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
-msgid "button_delete_box"
-msgstr "Delete box"
 
 #.   <input value="button_login" name="submit" type="submit" />
 #: from ../skins/cps_default/login_form.pt
@@ -728,6 +734,11 @@ msgstr "Categories"
 msgid "label_choose"
 msgstr "Choose"
 
+#.   <option attributes="selected python:test(box['settings']['closed'], 'selected', nothing)" value="closed">Closed</option>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_closed"
+msgstr "Close"
+
 #.   <th aligh="right">Contextual</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_contextual"
@@ -884,6 +895,16 @@ msgstr "Search by"
 msgid "label_local_roles_search_term"
 msgstr "Search Term"
 
+#.   <option attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');" value="maximized">Maximized</option>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_maximized"
+msgstr "Maximized"
+
+#.   <option attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)" value="minimized">Minimized</option>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_minimized"
+msgstr "Minimized"
+
 #.   <span>Name</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_name"
@@ -1022,7 +1043,7 @@ msgstr "Since ${status_time}"
 #.   <th align="right">Slot</th>
 #.   <span />
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/box_lib.pt ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "label_slot"
 msgstr "Slot"
 
@@ -1156,6 +1177,24 @@ msgstr "Advanced search"
 msgid "link_all_metadata"
 msgstr " Edit all metadata"
 
+#.   <a attributes="href
+#.         string:${context_urlc}/box_delete?box_url=${box/url}" href="">delete</a>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "link_box_delete"
+msgstr "delete"
+
+#.   <a attributes="href
+#.         string:${context_urlc}/${action}?box_url=${box/url}" href="">edit</a>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "link_box_edit"
+msgstr "edit"
+
+#.   <a attributes="href
+#.         string:${context_urlc}/${action}?box_url=${box/url}" href="">view</a>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "link_box_view"
+msgstr "view settings"
+
 #.   <span>
 #.         I forgot my password!
 #.       </span>
@@ -1206,6 +1245,11 @@ msgstr "You can log on immediately by clicking"
 msgid "link_registred_return_home_page"
 msgstr "Return to homepage"
 
+#.   <th width="15%">action</th>
+#: from ../skins/cps_default/box_manage_form.pt
+msgid "listingheader_action"
+msgstr "Action"
+
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
@@ -1213,16 +1257,13 @@ msgstr "Return to homepage"
 msgid "listingheader_existing_revision"
 msgstr "Existing revision of the same document"
 
-#.   <span>in</span>
-#.   <th>location</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th widht="30%">location</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_location"
 msgstr "Location"
 
-#.   <th>Order</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="5%">Order</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_order"
 msgstr "Order"
 
@@ -1231,17 +1272,13 @@ msgstr "Order"
 msgid "listingheader_sections"
 msgstr "Section"
 
-#.   <span />
-#.   <th>Title</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="25%">Title</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_title"
 msgstr "Title"
 
-#.   <span />
-#.   <th>Type</th>
-#: from ../skins/cps_default/box_lib.pt
-#: ../skins/cps_default/box_manage_form.pt
+#.   <th width="25%">Type</th>
+#: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_type"
 msgstr "Type"
 
@@ -1423,6 +1460,12 @@ msgstr "&nbsp;"
 msgid "portal_type_Dummy_title"
 msgstr "Dummy document"
 
+msgid "portal_type_Section_description"
+msgstr "&nbsp;"
+
+msgid "portal_type_Section_title"
+msgstr "Section"
+
 msgid "portal_type_Workspace_description"
 msgstr "&nbsp;"
 
@@ -1489,6 +1532,9 @@ msgstr "%m/%d/%Y %H:%M"
 
 msgid "date_long"
 msgstr "%m/%d/%Y %H:%M:%S"
+
+#~ msgid "button_delete_box"
+#~ msgstr "Delete box"
 
 #~ msgid "link_translated_action"
 #~ msgstr "Translated action"

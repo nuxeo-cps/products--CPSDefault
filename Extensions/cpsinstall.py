@@ -1214,6 +1214,9 @@ except:
             'Event Calendar Box': {
                        'typeinfo_name': 'CPSDefault: Event Calendar Box',
                        'add_meta_type': 'Factory-based Type Information',},
+            'InternalLinks Box': {
+                       'typeinfo_name': 'CPSDefault: InternalLinks Box',
+                       'add_meta_type': 'Factory-based Type Information',},
         }
 
         self.verifyContentTypes(type_dict)

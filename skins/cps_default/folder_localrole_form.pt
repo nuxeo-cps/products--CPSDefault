@@ -269,10 +269,10 @@
       tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="delete" />
   <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
-    <tal:block repeat="type python:['user','group']"> 
+    <tal:block repeat="type python:['user','group']">
       <table width="100%" summary="listing of roles">
       <tr>
-        <td width="3%"><br /></td>    
+        <td width="3%"><br /></td>
         <th width="40%" style="text-align:left;">
           <span tal:condition="python:type=='user'"  i18n:translate="label_user">User</span>
           <span tal:condition="python:type=='group'" i18n:translate="label_group">Group</span>
@@ -322,7 +322,7 @@
               </tal:block>
             </tal:block>
             </td>
-          </tr>  
+          </tr>
         </tal:block>
       </tal:block>
       <tr tal:condition="nothing">
@@ -347,7 +347,7 @@
 </form>
 <br />
 <span i18n:translate="link_local_roles_underlined">
-  <i>Roles in underlined </i> are set in parent folders.
+  <em>Roles in underlined</em> are set in parent folders.
   Follow the links to manage the local roles in these folders.
 </span>
 

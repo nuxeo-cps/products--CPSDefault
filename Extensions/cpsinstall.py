@@ -1451,12 +1451,12 @@ except:
         self.runExternalUpdater('cpscollector_installer',
                                 'CPSCollector Installer',
                                 'CPSCollector', 'install', 'install')
-        self.runExternalUpdater('cpsmailboxer_installer',
-                                'CPSMailBoxer Installer',
-                                'CPSMailBoxer', 'install', 'install')
         self.runExternalUpdater('cpsdocument_installer',
                                 'CPSDocument Installer',
                                 'CPSDocument', 'install', 'install')
+        self.runExternalUpdater('cpsmailboxer_installer',
+			        'CPSMailBoxer Installer',
+				'CPSMailBoxer', 'install', 'install')
         self.runExternalUpdater('cpsrss_installer',
                                 'CPSRSS Installer',
                                 'CPSRSS', 'install', 'install')

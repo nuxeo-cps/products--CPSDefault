@@ -21,7 +21,7 @@ box: <tal:block replace="box_url" />
   tal:attributes="value box_url" />
 <input type="hidden" name="box_category" value=""
   tal:attributes="value box_category" />
-<table border="0">
+<table border="0" summary="box properties layout">
   <tr valign="top">
     <th align="right" i18n:translate="label_title">Title</th>
     <td colspan="5">
@@ -96,7 +96,8 @@ box: <tal:block replace="box_url" />
         define="category python:here.getBoxTypes(category=box_category);
                 providertype string:${box/settings/provider}@${box/settings/btype}"
         condition="category">
-      <table border="0" width="100%" cellpadding="1" cellspacing="1">
+      <table border="0" width="100%" cellpadding="1" cellspacing="1"
+        summary="box types listing">
         <tr><td colspan="2">
           <strong i18n:translate="" tal:content="category/title" /><br />
           <em i18n:translate="" tal:content="category/desc" />

@@ -21,7 +21,7 @@
 <form method="post" action="folder_localrole_form"
       tal:attributes="action string:${here_url}/folder_localrole_form">
 
- <table>
+ <table summary="search layout">
  <tr>
   <th i18n:translate="label_local_roles_search_by">Search by</th>
   <td>
@@ -73,7 +73,7 @@
        tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="add" />
 
-  <table>
+  <table summary="result list">
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;" i18n:translate="label_user">
@@ -172,7 +172,7 @@
  <form method="post" action="folder_localrole_edit"
        tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="add" />
-  <table>
+  <table summary="group listing">
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;">
@@ -249,7 +249,7 @@
   <input type="hidden" name="change_type" value="delete" />
   <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
     <tal:block repeat="type python:['user','group']"> 
-      <table width="100%">
+      <table width="100%" summary="listing of roles">
       <tr>
         <td width="3%"><br /></td>    
         <th width="40%" style="text-align:left;">

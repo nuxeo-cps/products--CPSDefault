@@ -111,9 +111,8 @@
 </tal:block>
 <h1 tal:content="here/title_or_id">Page Title</h1>
 
-<div class="description"> <span
-  tal:content="doc/Description">description</span>
-</div>
+<div class="description" tal:condition="doc/Description"
+  tal:content="doc/Description">description</div>
 </metal:block>
 
 
@@ -172,9 +171,11 @@
                            month=month, year=year, location=location,
                            event_types=event_types);">
 
-      <table cellpadding="0" cellspacing="0" border="0">
+      <table cellpadding="0" cellspacing="0" border="0"
+        summary="calendar layout">
       <tr><td>
-        <table cellpadding="2" cellspacing="0" border="0" class="calendar">
+        <table cellpadding="2" cellspacing="0" border="0" class="calendar"
+          summary="calendar layout">
           <tr>
             <th>
               <a href="#" class="CalendarArrow"
@@ -415,7 +416,7 @@
                        items python:items[1:];
                        nb_item python:len(items);
                        global treenb_row  python:nb_item/2+2;">
-    <table width="100%"
+    <table width="100%" summary="treebox layout"
            tal:define="disp_icons python:getattr(box['box'],'display_icons',0)">
         <tr><td valign="top" width="50%">
         <tal:block repeat="item items">

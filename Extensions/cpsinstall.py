@@ -123,6 +123,19 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating User Folder With Groups")
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
+    # portal membership
+    pr("Verifying Portal Membership tool")
+    if portalhas('portal_membership'):
+        pm = portal.portal_membership
+        if pm.portal_type == 'CPS Membership Tool':
+            prok()
+        else:
+            portal.manage_delObjects(['portal_membership'])
+            
+    if not portalhas('portal_membership'):
+        pr(" Creating CPS Membership Tool")
+        portal.manage_addProduct['CPSCore'].addCPSMembershipTool()
+        
     # skins
     pr("Verifying skins")
     skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_default')

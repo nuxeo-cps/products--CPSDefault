@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-25 15:29default\n"
-"PO-Revision-Date: 2003-07-25 15:34+0200\n"
-"Last-Translator: ben <ben@nuxeo.com>\n"
-"Language-Team: ben\n"
+"POT-Creation-Date: 2003-07-25 19:08default\n"
+"PO-Revision-Date: 2003-07-25 19:15+0200\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language-name: Language\n"
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
@@ -206,7 +206,6 @@ msgstr "Modifier et voir"
 
 #.   <a attributes="href string:${context_urlc}/box_create_form" href="box_create_form">Add a box</a>
 #: from ../skins/cps_default/box_manage_form.pt
-#: ../skins/cps_default/box_manage_form2.pt
 msgid "button_create_box"
 msgstr "Ajouter une boîte"
 
@@ -374,7 +373,6 @@ msgstr "vers ${up_id}"
 #.   <p>
 #.   description_visible_box_from ${context_url (tal content="context_url")}</p>
 #: from ../skins/cps_default/box_manage_form.pt
-#: ../skins/cps_default/box_manage_form2.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr "Boîte visible depuis : ${context_url}"
 
@@ -426,7 +424,6 @@ msgstr "Édition de la boîte"
 
 #.   <h2>Boxes management</h2>
 #: from ../skins/cps_default/box_manage_form.pt
-#: ../skins/cps_default/box_manage_form2.pt
 msgid "heading_box_manage_form"
 msgstr "Gestion des boites"
 
@@ -750,6 +747,16 @@ msgstr "Choisir"
 msgid "label_closed"
 msgstr "Fermer"
 
+#.   <option condition="python:cps_display_style == 'compact'" selected="" value="compact">
+#.                        Compact
+#.                </option>
+#.   <option condition="python:cps_display_style != 'compact'" value="compact">
+#.                        Compact
+#.                </option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_compact"
+msgstr "Compact"
+
 #.   <th aligh="right">Contextual</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_contextual"
@@ -759,6 +766,32 @@ msgstr "Contextuel"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Contributeurs"
+
+#.   <option condition="python:cps_display_order == 'date'" selected="" value="date">
+#.                       Date
+#.               </option>
+#.   <option condition="python:cps_display_order != 'date'" value="date">
+#.                       Date
+#.               </option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_date"
+msgstr "Date"
+
+#.   <option condition="python:cps_display_order is None" selected="" value="title">
+#.                       Default
+#.               </option>
+#.   <option condition="python:cps_display_order is not None" value="title">
+#.                       Default
+#.               </option>
+#.   <option condition="python:cps_display_style == None" selected="" value="compact">
+#.                        Default
+#.   	     </option>
+#.   <option condition="python:cps_display_style != None" value="compact">
+#.                        Default
+#.   	     </option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_default"
+msgstr "Defaut"
 
 #.   <th aligh="right">Depth</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
@@ -777,6 +810,16 @@ msgstr "Profondeur"
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_description"
 msgstr "Description"
+
+#.   <option condition="python:cps_display_style == 'detail'" selected="" value="detail">
+#.                        Detail
+#.                </option>
+#.   <option condition="python:cps_display_style != 'detail'" value="detail">
+#.                        Detail
+#.                </option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_detailed"
+msgstr "Détaillé"
 
 #.   <th>Enable Discussion?</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -864,6 +907,16 @@ msgstr "Nom du groupe"
 msgid "label_guest"
 msgstr "Anonyme"
 
+#.   <option condition="python:cps_display_style == 'icon'" selected="" value="icon">
+#.                        Icon
+#.                </option>
+#.   <option condition="python:cps_display_style != 'icon'" value="icon">
+#.                        Icon
+#.                </option>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_icons"
+msgstr "Icônes"
+
 #.   <span>in</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_in"
@@ -920,6 +973,11 @@ msgstr "Minimiser"
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_name"
 msgstr "Nom"
+
+#.   <th aligh="right">Nb items</th>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_nb_items"
+msgstr "Nb Objets"
 
 #.   <th aligh="right">Order</th>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1058,8 +1116,15 @@ msgstr "depuis ${status_time}"
 msgid "label_slot"
 msgstr "Emplacement"
 
+#.   <option condition="python:cps_display_order == 'status'" selected="" value="status">
+#.                       Status
+#.               </option>
+#.   <option condition="python:cps_display_order != 'status'" value="status">
+#.                       Status
+#.               </option>
 #.   <span>Label Status</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/content_lib.pt
 msgid "label_status"
 msgstr "Statut"
 
@@ -1070,11 +1135,17 @@ msgid "label_subject"
 msgstr "Sujet"
 
 #.   <th align="right">Title</th>
+#.   <option condition="python:cps_display_order == 'title'" selected="" value="title">
+#.                       Title
+#.               </option>
+#.   <option condition="python:cps_display_order != 'title'" value="title">
+#.                       Title
+#.               </option>
 #.   <div class="label required">
 #.           Title
 #.         </div>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/dummy_edit_form.pt
+#: ../skins/cps_default/boxes_nuxeo.pt ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -1121,6 +1192,20 @@ msgstr "Travail"
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_you_are_here"
 msgstr "Vous êtes ici:&nbsp;"
+
+#.   <span>
+#.                 Choose the display order
+#.             </span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "legend_choose_display_order"
+msgstr "Choisissez le critère d'affichage"
+
+#.   <span>
+#.                 Choose the display style
+#.             </span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "legend_choose_display_style"
+msgstr "Choisisser le style d'affichage"
 
 #.   <p>
 #.      These users currently have local roles assigned in this folder:
@@ -1188,8 +1273,8 @@ msgstr "Recherche avancée"
 msgid "link_all_metadata"
 msgstr "Éditer toutes les méta-donnnées"
 
-#.   <a attributes="href
-#.         string:${context_urlc}/box_delete?box_url=${box/url}" href="">delete</a>
+#.   <a attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
+#.         onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )" href="">delete</a>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "link_box_delete"
 msgstr "supprimer"
@@ -1205,6 +1290,13 @@ msgstr "édition"
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "link_box_view"
 msgstr "voir"
+
+#.   <a condition="python:display_change == '0'" href="./folder_contents?change_display=1">
+#.                 Change display settings
+#.              </a>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "link_change_display"
+msgstr "Changer l'ordre d'affichage des objets"
 
 #.   <span>
 #.         I forgot my password!
@@ -1224,6 +1316,13 @@ msgstr "Formulaire de personnalisation"
 #: from ../skins/cps_default/registered.pt
 msgid "link_here"
 msgstr "ici"
+
+#.   <a condition="python:display_change == '1'" href="./folder_contents">
+#.                 Hide display settings
+#.              </a>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "link_hide_display_settings"
+msgstr "Cacher la configuration de l'affichage"
 
 #.   <span>
 #.     <i>Roles in underlined </i> are set in parent folders.

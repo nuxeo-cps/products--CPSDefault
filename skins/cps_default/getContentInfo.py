@@ -23,6 +23,10 @@ if cpsmcat is None:
 if proxy is None:
     proxy = context
 
+if hasattr(proxy.aq_explicit, 'getObject'):
+    # this is a brain
+    proxy = proxy.getObject()
+
 bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id, level=-3)
 bmt.setMarker('start')
 

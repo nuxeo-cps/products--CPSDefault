@@ -68,6 +68,12 @@ class DummyMessageCatalog:
     def __call__(self, message, *args, **kw):
         return message
 
+    def get_languages(self):
+        return ['en', 'fr']
+
+    def manage_import(self, *args, **kw):
+        pass
+
 # Un-patch LocalizerStringIO
 
 from StringIO import StringIO

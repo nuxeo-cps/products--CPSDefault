@@ -116,6 +116,8 @@ class TreeBox(BaseBox):
             root_path = current_path
         else:
             root_path = filter(None, self.root.split('/'))
+            root_obj = portal_url.getPortalObject().restrictedTraverse(root_path)
+            root_url = portal_url.getRelativeUrl(root_obj)
 
         root_tree = root_path[0]
 
@@ -124,6 +126,10 @@ class TreeBox(BaseBox):
             return []
 
         tree = portal_trees[root_tree].getList(filter=self.authorized_only)
+
+        if self.root and len(root_path) > 1:
+            tree = [x for x in tree if (
+                (x['rpath'] + '/').startswith(root_url+'/'))]
 
         if self.children_only:
             # if option 'display subfolders only is checked'

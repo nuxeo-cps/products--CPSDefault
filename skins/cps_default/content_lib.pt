@@ -5,7 +5,7 @@
 <pre>a master macro used for content stuff:</pre>
 <metal:block define-macro="master">
 <tal:block define="proxy here/this;
-                   doc nocall:here/getContent|nocall:here;
+                   doc here/getContent|nocall:here;
                    ">
 <metal:block use-macro="here/main_template/macros/master">
 

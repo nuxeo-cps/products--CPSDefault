@@ -1,6 +1,7 @@
-//************************************************************
-// Nuxeo javascript functions
-// $Id$
+<dtml-comment>
+CPS JavaScript functions
+$Id$
+</dtml-comment>
 
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/javascript' )">
@@ -8,7 +9,6 @@
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
-
 
 var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
 
@@ -100,7 +100,7 @@ function setFocus() {
 	var nodeClass = elements[i].getAttributeNode('class');
 	//alert("nodeClass = " + nodeClass);
 	if (nodeClass) {
- 	    var classes = nodeClass.value.split(' ');
+	    var classes = nodeClass.value.split(' ');
 	    for (var j = 0; j < classes.length; j++) {
 		if (classes[j] == 'focus') {
 		    elements[i].focus();

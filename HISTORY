@@ -1,4 +1,31 @@
 *******************************************
+** CPSDefault V3.21.0 [R1 build 2004/06/10-15:46 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- In ContentBox, the link to more results now points to the advanced search form
+  prefilled with the box parameters.
+Bug fixes:
+~~~~~~~~~~
+- Clean 'status_history' from portal_actions. See changes in getCPSDocuments and
+  the closing commentary of bug #295 for what changed.
+- In ContentBox, fix named arguments usage when constructing the query to more
+  results.
+- Removed "width: 100%" in DIVs. Some browsers don't digest them and they are
+  useless.
+- Smoothly avoid box buttons for users without home folder (closes #290).
+- Catching the 'NotFound' exception when the image is not found in getImgTag.py
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- Replaced TABLEs and DIVs by DL/DT/DD in advanced search form; code much
+  cleaner and base tests for prefilling chosen values when redisplaying this
+  form (TODO).
+- In ContentBox, use argument marshalling for allowing comparing dates.
+
+*******************************************
 ** CPSDefault V3.20.7 [R1 build 2004/06/04-14:18 by hcauwelier]
 
 Requires:

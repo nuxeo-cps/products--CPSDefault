@@ -98,6 +98,13 @@ items = [
                            'direction': 'desc',
                            'query_status': 'published'}
                 },
+               {'provider': 'nuxeo',
+                'id': 'pending',
+                'desc': 'description_nuxeo_contentbox_pending',
+                'config': {'sort_by': 'date',
+                           'direction': 'asc',
+                           'query_status': 'pending'}
+                },
                ]
      },
     {'category': 'actionbox',

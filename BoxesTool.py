@@ -145,7 +145,7 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         if home and include_personal:
-            f_boxes, f_settings = self._getFolderBoxesAndSettings(home, personal=1)
+            f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
             homepath = portal_url.getRelativeContentPath(home)
@@ -252,21 +252,11 @@ class BoxesTool(UniqueObject, PortalFolder):
         # find the personal boxes container pbc, create if empty
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         utool = getToolByName(self, 'portal_url')
-        idbc = BoxContainer.id_perso
+        idbc = self.getBoxContainerId(home)
         
-        pbc = None
-        if hasattr(aq_base(home), idbc):
-            pbc = home[idbc]
-        else:
-            home.manage_addProduct['CPSDefault'].addBoxContainer()
-            pbc = home[idbc]
-            pbc.manage_permission('Manage Box Overrides',
-                                  roles=('Owner','Manager','WorkspaceManager'),
-                                  acquire=0)
-            LOG('portal_boxes', INFO, 'updatePersonalBoxOverride',
-                'Creating personal boxes container %s/%s\n' % (
-                home.absolute_url(), idbc))
-            
+        home.manage_addProduct['CPSDefault'].addBoxContainer(quiet=1)
+        pbc = getattr(home, idbc, None)
+
         # get current override and update
         settings = self.getBoxOverride(boxurl, pbc)
         settings.update(new_settings)
@@ -288,7 +278,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         # find the personal boxes container pbc
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         utool = getToolByName(self, 'portal_url')
-        idbc = BoxContainer.id_perso
+        idbc = self.getBoxContainerId(home)
         
         if hasattr(aq_base(home), idbc):
             pbc = home[idbc]
@@ -308,19 +298,33 @@ class BoxesTool(UniqueObject, PortalFolder):
     security.declarePublic('getSlotIds')
     def getSlotIds(self):
         return [slot.id in self.getSlots()]
+
+    #
+    # misc
+    #
+    security.declarePublic('getBoxContainerId')
+    def getBoxContainerId(self, folder):
+        """Return the id of the box container for the folder
+        because root folder should have a different id to pass
+        _checkId for non manager"""
+        portal_url = getToolByName(self, 'portal_url')
+        url = portal_url.getRelativeUrl(folder)
+
+        if url:
+            return BoxContainer.id
+
+        return BoxContainer.id_root
+
    
     #
     # Private
     #
     security.declarePrivate('_getFolderBoxes')
-    def _getFolderBoxesAndSettings(self, folder, personal=0):
+    def _getFolderBoxesAndSettings(self, folder):
         """Load all boxes in a .cps_boxes folder
         load folder settings
         """
-        if personal:
-            idbc = BoxContainer.id_perso
-        else:
-            idbc = BoxContainer.id
+        idbc = self.getBoxContainerId(folder)
         boxes = []
         settings = {}
         folder_boxes = None
@@ -357,8 +361,8 @@ InitializeClass(BoxesTool)
 
 class BoxContainer(PortalFolder):
     id = '.cps_boxes'
-    id_perso = '.cps_personal_boxes'    # different name to make _checkId
-                                        # working for non admin
+    id_root = '.cps_boxes_root'    # different name to make _checkId
+                                   # working for non manager
     meta_type = 'CPS Boxes Container'
     security = ClassSecurityInfo()
 
@@ -379,9 +383,9 @@ class BoxContainer(PortalFolder):
     manage_boxOverridesForm = DTMLFile('zmi/manage_boxOverridesForm', globals())
 
     security.declareProtected('Manage Box Overrides', 'manage_boxOverrides')
-    def manage_boxOverrides(self, submit, new_path, overrides=[], selected=[], \
+    def manage_boxOverrides(self, submit, new_path, overrides=[], selected=[],
                             REQUEST=None):
-        """Sets overrides"""
+        """Sets overrides."""
         LOG('Box Container', DEBUG, 'manage_boxOverrides',
             'submit: %s\nselected: %s\noverrides: %s\nnew_path: %s\n' % \
             (submit, selected, str(overrides), new_path))
@@ -435,7 +439,7 @@ class BoxContainer(PortalFolder):
     # the portal_boxes tool.
     security.declarePublic('getOverrides')
     def getOverrides(self):
-        """Gets all the local overrides"""
+        """Gets all the local overrides."""
         result = []
         overrides = getattr(aq_base(self), '_box_overrides', {})
         for key, item in overrides.items():
@@ -447,24 +451,27 @@ class BoxContainer(PortalFolder):
         return result
 
 
-def addBoxContainer(self, id=None, REQUEST=None):
-    """Add a Box Container.
-    """
-    self=self.this()
-    home=getToolByName(self, 'portal_membership').getHomeFolder()
-    if home == self:
-        id = BoxContainer.id_perso
-    else:
-        id = BoxContainer.id
-        
-    ob = BoxContainer(id)
+def addBoxContainer(self, id=None, REQUEST=None, quiet=0):
+    """Add a Box Container."""
+    self = self.this()
+    btool = getToolByName(self, 'portal_boxes')
+    id = btool.getBoxContainerId(self)
     
-    if hasattr(aq_base(self), ob.id):
-        return MessageDialog(
-            title  ='Item Exists',
-            message='This object already contains an %s' % ob.id,
-            action ='%s/manage_main' % REQUEST['URL1'])
-    self._setObject(ob.id, ob)
+    if hasattr(aq_base(self), id):
+        if quiet:
+            return
+        else:
+            return MessageDialog(
+                title  ='Item Exists',
+                message='This object already contains an %s' % ob.id,
+                action ='%s/manage_main' % REQUEST['URL1'])
+
+    ob = BoxContainer(id)
+    self._setObject(id, ob)
+    
+    LOG('addBoxContainer', DEBUG,
+        'adding box container %s/%s' % (self.absolute_url(), id))
+    
     if REQUEST is not None:
         REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
 

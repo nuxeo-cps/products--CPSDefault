@@ -1,14 +1,14 @@
 ##parameters=REQUEST=None
 # $Id$
 
-#note: there is another solution that does not rely on HTTP_REFERER:
-#have the add_favorites action generate a url with the object to bookmark
-#as a parameter to the addtoFavorite script:
-#python:portal.portal_url() + '/addtoFavorites?link=' +
-#request.URL+'&object=' + object.absolute_url()
-#link and object are passed to this script and can be used respectively
-#to generate the bookmark URL and to retrieve the object (in order to get
-#its title and description)
+# Note: there is another solution that does not rely on HTTP_REFERER:
+# have the add_favorites action generate a url with the object to bookmark
+# as a parameter to the addtoFavorite script:
+# python:portal.portal_url() + '/addtoFavorites?link=' +
+# request.URL+'&object=' + object.absolute_url()
+# link and object are passed to this script and can be used respectively
+# to generate the bookmark URL and to retrieve the object (in order to get
+# its title and description).
 
 from ZTUtils import make_query
 
@@ -28,14 +28,16 @@ targetFolder.invokeFactory('Link', new_id)
 referer = REQUEST.HTTP_REFERER
 portal_URL_length = len(portal.portal_url())
 
-#fallback in case HTTP_REFERER is empty
-#note: if referer is empty (or incorrect), the bookmark
-#might be incorrect - the above-mentioned method fixes this
-#but has not been retained because of its lower performace
+# Fallback in case HTTP_REFERER is empty.
+# Note: if referer is empty (or incorrect), the bookmark
+# might be incorrect - the above-mentioned method fixes this
+# but has not been retained because of its lower performace.
 if referer and len(referer) >= portal_URL_length:
-  rurl = portal.portal_url.getPortalPath() + REQUEST.HTTP_REFERER[portal_URL_length:]
+    rurl = portal.portal_url.getPortalPath() + \
+        REQUEST.HTTP_REFERER[portal_URL_length:]
 else:
-  rurl = portal.portal_url.getPortalPath() + '/' + context.portal_url.getRelativeUrl(context)
+    rurl = portal.portal_url.getPortalPath() + '/' + \
+        context.portal_url.getRelativeUrl(context)
 
 kw = {'Title': context.TitleOrId(),
       'Description': context.getContent().description,
@@ -45,11 +47,11 @@ doc = getattr(targetFolder, new_id).getEditableContent()
 
 doc.edit(**kw)
 
-if REQUEST:
-  if '?' in rurl:
-    url = REQUEST.HTTP_SERVER + rurl + '&' +\
-          make_query(portal_status_message='psm_added_to_favorites')
-  else:
-    url = REQUEST.HTTP_SERVER + rurl + '?' +\
-          make_query(portal_status_message='psm_added_to_favorites')
-  return REQUEST.RESPONSE.redirect(url)
+if REQUEST is not None:
+    if '?' in rurl:
+        url = REQUEST.HTTP_SERVER + rurl + '&' + \
+            make_query(portal_status_message='psm_added_to_favorites')
+    else:
+        url = REQUEST.HTTP_SERVER + rurl + '?' + \
+            make_query(portal_status_message='psm_added_to_favorites')
+    return REQUEST.RESPONSE.redirect(url)

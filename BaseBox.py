@@ -256,6 +256,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
         getslot = SlotRender(box=self, actions=actions,
                              kw=kw.copy(), verif=_verifyActionPermissions)
+
         if getattr(aq_base(render_method), 'isDocTemp', 0):
             rendering = render_method(self, self.REQUEST, getslot=getslot)
         else:

@@ -70,6 +70,8 @@
   <form method="get" action="search_form" name="searchBoxForm"
     onsubmit="return checkEmptySearch(this)"
     tal:define="sfpo_id string:box">
+    <label for="searchGadget"
+           i18n:translate="label_text_to_search">Text to search</label>
     <input id="searchGadget" type="text" name="SearchableText" size="20"
       value="" tal:attributes="value request/SearchableText|nothing" />
     <input class="context searchButton" type="submit" value="button_search"
@@ -120,7 +122,10 @@
 <form name="idioma" action="Localizer/changeLanguage" method="post"
       tal:attributes="action string:${base_url}Localizer/changeLanguage"
       tal:define="lang_voc here/portal_vocabularies/language_voc">
-  <select name="lang" onchange="idioma.submit()">
+  <p>
+  <label for="languageChooser"
+         i18n:translate="label_language">Language</label><br />
+  <select name="lang" id="languageChooser" onchange="idioma.submit()">
     <option tal:repeat="locale map"
             tal:condition="not:l10n_translated"
             tal:attributes="value locale/id;
@@ -136,7 +141,8 @@
       Language</option>
   </select>
   <input type="submit" value="button_ok" i18n:attributes="value" />
-</form><br />
+</p>
+</form>
 </metal:block>
 
 

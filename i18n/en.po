@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-06 18:34default\n"
-"PO-Revision-Date: 2004-09-07 11:36+0200\n"
+"POT-Creation-Date: 2004-09-10 11:19default\n"
+"PO-Revision-Date: 2004-09-10 11:10+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -471,9 +471,11 @@ msgstr "Revert to the archived version"
 #.   <input type="submit" class="context searchButton" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
+#.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/internallinksbox_edit_form.pt
 msgid "button_search"
 msgstr "Search"
 
@@ -483,7 +485,7 @@ msgstr "Search"
 msgid "button_select_all"
 msgstr "Select all"
 
-#.   <input type="submit" class="context searchButton" value="button_send" />
+#.   <input type="submit" class="standalone" value="button_send" />
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
 msgstr "Send"
@@ -561,8 +563,8 @@ msgstr "You are logged in outside the portal.  You may need to"
 msgid "description_reconfig_form"
 msgstr "This form is used to set the portal configuration options."
 
-#.   <p>
-#.    You have been registered as a member.
+#.   <p> 
+#.    You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -852,7 +854,8 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "If you commit this version, it will replace the document currently locked."
+msgstr ""
+"If you commit this version, it will replace the document currently locked."
 
 #.   <span>
 #.       If you create a draft, you will be the only one able to work on the document.
@@ -934,7 +937,8 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1011,11 +1015,11 @@ msgstr "Check this box to have your password mailed to you."
 #.     copy of the item will be created into each of these sections with the
 #.     <strong>published</strong>status. Section readers of those sections could then read
 #.     it.</span>
-#.   <span>To make an item viewable
+#.   <span>To make an item viewable 
 #.     by readers it has to be published. You can publish this item directly
 #.     in the sections where you are entitled to  without requiring any reviewing.<br />
 #.     A copy of the item will be created into each of these sections with the
-#.     <strong>published</strong>status. Section readers of those sections will then be
+#.     <strong>published</strong>status. Section readers of those sections will then be 
 #.     able to read it.<br />
 #.     You can also submit the item in the section folders where you are not
 #.     entitled to publish directly.<br /> A copy of the item will be created into
@@ -1552,8 +1556,10 @@ msgstr "Type"
 msgid "label_info_tab_version"
 msgstr "Version"
 
+#.   <label for="languageChooser">Language</label>
 #.   <th align="right">Language</th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
 msgstr "Language"
 
@@ -1620,7 +1626,7 @@ msgstr "Password"
 msgid "label_password_confirm"
 msgstr "Password (confirm) "
 
-#.   <label for="cb_mailme">Mail
+#.   <label for="mailme">Mail
 #.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
@@ -1662,7 +1668,7 @@ msgstr "Publication states"
 msgid "label_published"
 msgstr "Published"
 
-#.   <label for="cb_remember">Remember my
+#.   <label for="remember">Remember my
 #.                  name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
@@ -1722,7 +1728,7 @@ msgid "label_search_all_site"
 msgstr "entire site"
 
 #.   <span>Description</span>
-#.   <label>
+#.   <label for="description">
 #.           Description
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1731,12 +1737,11 @@ msgid "label_search_description"
 msgstr "Description"
 
 #.   <span>Full text</span>
-#.   <label>
+#.   <label for="advancedSearchFullText">
 #.           Full text
 #.         </label>
-#.   <div class="label">search</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
+#: ../skins/cps_default/generic_lib.pt
 msgid "label_search_full_text"
 msgstr "Full text"
 
@@ -1745,15 +1750,15 @@ msgstr "Full text"
 msgid "label_search_here"
 msgstr "here"
 
-#.   <label>
+#.   <block>
 #.           Search location
-#.         </label>
+#.         </block>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "label_search_location"
 msgstr "Search"
 
 #.   <span>Modified since</span>
-#.   <label>
+#.   <label for="modified">
 #.           Modified since
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1762,7 +1767,7 @@ msgid "label_search_modified_since"
 msgstr "Modified since"
 
 #.   <span>Portal type</span>
-#.   <label>
+#.   <label for="portalType">
 #.           Document type
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1771,7 +1776,7 @@ msgid "label_search_portal_type"
 msgstr "Document type"
 
 #.   <span>Status</span>
-#.   <label>
+#.   <label for="state">
 #.           Status
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1780,7 +1785,7 @@ msgid "label_search_status"
 msgstr "Status"
 
 #.   <span>Description</span>
-#.   <label>
+#.   <label for="field_focus">
 #.           Title
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1841,7 +1846,7 @@ msgid "label_status_desc"
 msgstr "Status desc"
 
 #.   <th align="right">Subject</th>
-#.   <label>
+#.   <label for="subject">
 #.           Subject
 #.         </label>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1849,6 +1854,15 @@ msgstr "Status desc"
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_subject"
 msgstr "Subject"
+
+#.   <label for="searchGadget">Text to search</label>
+#.   <label for="resultSearchText">
+#.               Text to search
+#.             </label>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/search_form.pt
+msgid "label_text_to_search"
+msgstr "Text to search"
 
 #.   <th align="right">Title</th>
 #.   <strong>Title:</strong>
@@ -1905,9 +1919,9 @@ msgstr "User email address"
 msgid "label_user_fullname"
 msgstr "User full name"
 
-#.   <label for="field_focus">Login Name</label>
-#.   <label for="field_focus">Name</label>
+#.   <label for="username">User name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr "User name"
 
@@ -1999,7 +2013,8 @@ msgstr "Select Member(s) and a role to assign:"
 #.         To unblock acquisition, click here:</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_unblock"
-msgstr "Local roles acquisition is blocked. To unblock acquisition, click here:"
+msgstr ""
+"Local roles acquisition is blocked. To unblock acquisition, click here:"
 
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
@@ -2743,7 +2758,8 @@ msgid "description_nuxeo_basebox_footer"
 msgstr "The Nuxeo footer."
 
 msgid "description_nuxeo_basebox_conformance_statement"
-msgstr "The language selection box. Box stating the conformance to W3C standards"
+msgstr ""
+"The language selection box. Box stating the conformance to W3C standards"
 
 msgid "description_nuxeo_basebox_folder_header"
 msgstr "Title header of a folder."
@@ -2875,7 +2891,8 @@ msgid "psm_join_password_mismatch"
 msgstr "Your password and your confirmation don't match."
 
 msgid "psm_join_invalid_name"
-msgstr "The name you have chosen is invalid. Please change it or try another one."
+msgstr ""
+"The name you have chosen is invalid. Please change it or try another one."
 
 msgid "psm_join_login_already_used"
 msgstr "The login you have chosen is already in use. Please try another one."
@@ -3042,4 +3059,3 @@ msgstr " "
 
 #~ msgid "portal_type_Calendars"
 #~ msgstr "Group of Calendars"
-

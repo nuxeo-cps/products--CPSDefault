@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-06 18:34default\n"
-"PO-Revision-Date: 2004-09-06 17:33+0200\n"
+"POT-Creation-Date: 2004-09-10 11:19default\n"
+"PO-Revision-Date: 2004-09-10 11:10+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -480,9 +480,11 @@ msgstr "Revenir à la version archivée"
 #.   <input type="submit" class="context searchButton" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
+#.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/internallinksbox_edit_form.pt
 msgid "button_search"
 msgstr "Rechercher"
 
@@ -492,7 +494,7 @@ msgstr "Rechercher"
 msgid "button_select_all"
 msgstr "Tout sélectionner"
 
-#.   <input type="submit" class="context searchButton" value="button_send" />
+#.   <input type="submit" class="standalone" value="button_send" />
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
 msgstr "Envoyer"
@@ -1577,8 +1579,10 @@ msgstr "Type"
 msgid "label_info_tab_version"
 msgstr "Version"
 
+#.   <label for="languageChooser">Language</label>
 #.   <th align="right">Language</th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
 msgstr "Langue"
 
@@ -1645,7 +1649,7 @@ msgstr "Mot de passe"
 msgid "label_password_confirm"
 msgstr "Mot de passe (confirmer)"
 
-#.   <label for="cb_mailme">Mail
+#.   <label for="mailme">Mail
 #.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
@@ -1687,7 +1691,7 @@ msgstr "État de publication"
 msgid "label_published"
 msgstr "Publié"
 
-#.   <label for="cb_remember">Remember my
+#.   <label for="remember">Remember my
 #.                  name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
@@ -1747,7 +1751,7 @@ msgid "label_search_all_site"
 msgstr "sur le site"
 
 #.   <span>Description</span>
-#.   <label>
+#.   <label for="description">
 #.           Description
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1756,12 +1760,11 @@ msgid "label_search_description"
 msgstr "Description"
 
 #.   <span>Full text</span>
-#.   <label>
+#.   <label for="advancedSearchFullText">
 #.           Full text
 #.         </label>
-#.   <div class="label">search</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
+#: ../skins/cps_default/generic_lib.pt
 msgid "label_search_full_text"
 msgstr "Plein texte"
 
@@ -1770,15 +1773,15 @@ msgstr "Plein texte"
 msgid "label_search_here"
 msgstr "Ici"
 
-#.   <label>
+#.   <block>
 #.           Search location
-#.         </label>
+#.         </block>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "label_search_location"
 msgstr "Rechercher"
 
 #.   <span>Modified since</span>
-#.   <label>
+#.   <label for="modified">
 #.           Modified since
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1787,7 +1790,7 @@ msgid "label_search_modified_since"
 msgstr "Modifié depuis"
 
 #.   <span>Portal type</span>
-#.   <label>
+#.   <label for="portalType">
 #.           Document type
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1796,7 +1799,7 @@ msgid "label_search_portal_type"
 msgstr "Type de document"
 
 #.   <span>Status</span>
-#.   <label>
+#.   <label for="state">
 #.           Status
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1805,7 +1808,7 @@ msgid "label_search_status"
 msgstr "Statut"
 
 #.   <span>Description</span>
-#.   <label>
+#.   <label for="field_focus">
 #.           Title
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1866,7 +1869,7 @@ msgid "label_status_desc"
 msgstr "Statut inv."
 
 #.   <th align="right">Subject</th>
-#.   <label>
+#.   <label for="subject">
 #.           Subject
 #.         </label>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1874,6 +1877,15 @@ msgstr "Statut inv."
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_subject"
 msgstr "Sujet"
+
+#.   <label for="searchGadget">Text to search</label>
+#.   <label for="resultSearchText">
+#.               Text to search
+#.             </label>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/search_form.pt
+msgid "label_text_to_search"
+msgstr "Texte à rechercher"
 
 #.   <th align="right">Title</th>
 #.   <strong>Title:</strong>
@@ -1930,9 +1942,9 @@ msgstr "Adresse de mél d'utilisateur"
 msgid "label_user_fullname"
 msgstr "Nom complet d'utilisateur"
 
-#.   <label for="field_focus">Login Name</label>
-#.   <label for="field_focus">Name</label>
+#.   <label for="username">User name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr "Nom d'utilisateur"
 

@@ -4,8 +4,6 @@
 """
 Return True if the context or the parameter 'object' is a workspace
 or inside a workspace.
-
-FIXME: method name doesn't match this docstring.
 """
 
 if not object:

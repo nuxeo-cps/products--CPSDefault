@@ -18,6 +18,11 @@ Bug fixes:
   raise an IndexError
 - Modified the code of the JavaScript method from functions.js, showElement, to
   be more generic (this fixes problems notably in CPSSchemas).
+- Added the script isInWorkspacesTree and use it in the main_template so that
+  it returns a positive when an object is in a container that is not a Workspace
+  itself but which is located below the root of the workspaces. This is for
+  example useful for the case of CPSWiki where the isInWorkspace script was
+  returning False.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - Reverted DocRenderBox.getContent() naming to DocRenderBox.getContents() to

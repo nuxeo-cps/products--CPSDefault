@@ -21,7 +21,7 @@
   checkPerm nocall:mtool/checkPermission;
   cpsmcat nocall:here/Localizer/default;
   locale here/Localizer/get_selected_language;
-  in_ws here/isInWorkspace;
+  in_ws here/isInWorkspacesTree;
   CPSD_BMT python:here.Benchmarktimer('main_template');
   CPSD_bmt_start nocall:CPSD_BMT/start;
   CPSD_bmt_stop nocall:CPSD_BMT/stop;
@@ -45,7 +45,7 @@
     /></metal:block>
 </metal:block>
 </head>
-<body tal:condition="emptybody" 
+<body tal:condition="emptybody"
       tal:attributes="onload python:here.getOnLoad()">
   <metal:block define-slot="body" />
   <metal:block define-slot="main" />

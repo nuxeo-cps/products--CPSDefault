@@ -165,6 +165,7 @@ class TreeBox(BaseBox):
                     if d > f['depth']:
                         continue
                     if url.startswith(f['url']):
+                        item = item.copy()
                         item['depth'] = d - current_path_length + 1
                         items.append(item)
                         break

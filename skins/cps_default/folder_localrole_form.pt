@@ -255,17 +255,20 @@
       tal:condition="has_local_roles_blocking">
 
   <input type="hidden" name="change_type" value="block" />
-  <p tal:condition="local_roles_blocked">
-    Local roles acquisition is <strong>blocked</strong>.
-    To unblock acquisition, click here:
-    <input type="submit" name="lr_unblock" value="Unblock" />
-  </p>
+  <div tal:condition="local_roles_blocked">
+    <span i18n:translate="legend_local_roles_unblock">
+      Local roles acquisition is <strong>blocked</strong>.
+      To unblock acquisition, click here:</span>
+    <input type="submit" name="lr_unblock" value="button_local_roles_unblock"
+           i18n:attributes="value" />
+  </div>
 
-  <p tal:condition="not:local_roles_blocked">
-    Local roles are acquired.
-    To block acquisition, click here:
-    <input type="submit" name="lr_block" value="Block" />
-  </p>
+  <div tal:condition="not:local_roles_blocked">
+    <span i18n:translate="legend_local_roles_block">
+      Local roles are acquired. To block acquisition, click here:</span>
+    <input type="submit" name="lr_block" value="button_local_roles_block"
+           i18n:attributes="value" />
+  </div>
 </form>
 
 <p i18n:translate="legend_local_roles_assigned_users">

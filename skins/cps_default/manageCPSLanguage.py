@@ -10,9 +10,10 @@ template = 'language_manage_form'
 psm = ''
 
 if request is not None:
-    kw = {}
-    kw.update(request.form)
-    psm = manageCPSLanguage(context, **kw)
+    action = request.form.get('action')
+    languages = request.form.get('languages')
+    language = request.form.get('default_language')
+    psm = manageCPSLanguage(context, action, language, languages)
 
 if request is not None:
     request.RESPONSE.redirect('%s/%s?portal_status_message=%s' % (context_url, template, psm))

@@ -1,28 +1,22 @@
 # $Id$
 # CPSDefault TODO
 
-# milestones
+# milestones -----------------------------------------------
 - [encolpe] 05/12: encolpe coding for CPSDefault
    postpone to 05/15 :( postpone 05/21 :(((
-x [seb + hervé] 05/12: working with Element proposal
-  cpsdefault will not use element. 
-- [ben] 05/14: CPSDefault main skins impl, basic unit test for core
+- [ben] 05/14: CPSDefault workable mainframe
 - [florent] 05/14: first impl of CPSDocuments
   postpone ....
 - [] 05/22: CPSDefault a la CMF ready
 - [] 05/28: CPSDemo with few services tbd ...
 
 
-# on work
-- zpt usage
-  o finish display_content macro add a cookie to remind option
-    icon/detail + sort order + filter ?
-  o restrict access to test_*_lib ? 
-      use a separate skin devel
-  o clean header of use-macro with tag <html xmlns ...
+# on work --------------------------------------------------
+- misc
+   o actionify *
+      make everything an action copy paste new print ...
 
-
-- [] search
+- [encolpe] search
    o make catalog search work with proxies
    o make advanced search with status metadata ...
    o reusable search with result list page for a popup version
@@ -38,12 +32,6 @@ x [seb + hervé] 05/12: working with Element proposal
       store proxy source ref in a wf then invoke a transition to
       update proxy source when proxy destination change state ?
 
-- tests
-  o add puffin test to create big amount of docs ?
-    or write test creating 
-  o make _ut pass on CPSCore
-  o unit tests for Dummy and Folder
-
 - [seb] users
    o handle group in local roles management
    o add anonymous access
@@ -56,7 +44,7 @@ x [seb + hervé] 05/12: working with Element proposal
    o audit
 
 
-# others tasks list
+# others tasks list ----------------------------------------
 - CPS a la CMF
    o workflow and docs
       o impl skin reject
@@ -90,6 +78,9 @@ x [seb + hervé] 05/12: working with Element proposal
       o add multi po loader like gilupdate
       o long term: big refactoring to enable registration of products
    o zpt usage
+      o finish display_content macro add a cookie to remind option
+        icon/detail + sort order + filter ?
+      o clean header of use-macro with tag <html xmlns ...
       x [] handle batch sorting 
         sort is done in getFolderContent
       x [] evaluate plone css1 with netscape 4.77
@@ -98,6 +89,12 @@ x [seb + hervé] 05/12: working with Element proposal
       x [] try to use plone css for main_template
       x [] manage contextual css
       x [] manage printable css
+      x [] restrict access to test_*_lib ? 
+           use a separate skin devel
+   o tests
+      o unit tests for Dummy and Folder
+      o add puffin test to create big amount of docs ?
+
    o misc
       o split skin repository into: cps_devel, cps_css, cps_nocss, cps_script
       o finalize zmi CPSSite form creation
@@ -108,8 +105,10 @@ x [seb + hervé] 05/12: working with Element proposal
       x [] add rpath in the dbg info of master
 
 
-
+# bug and blocking task ------------------------------------
 - Bug fix
+   o puffin is buggy cps return __ac_name after __ac and we can not
+      store the login cookie :/
    o url in breadcrumbs broken
    o set local roles page should display aquisition roles
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
@@ -141,6 +140,7 @@ x [seb + hervé] 05/12: working with Element proposal
       handle simple accept by section like CMF
    x [] how to allow unpublish for author
       allow unpublish only for reviewer 
+
 
 - Make CPSDemo product
    this product should be a skeleton for any new cps site

@@ -74,6 +74,7 @@ elif sort_by == 'author':
 objects = [ ( make_sortkey(x), x ) for x in filtered_items ]
 
 if direction == 'desc':
+    # XXX Using a sort method is slow, better reverse at the end.
     objects.sort(cmp_desc)
 elif direction == 'asc':
     objects.sort() # tuples compare "lexicographically"

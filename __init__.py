@@ -39,19 +39,65 @@ import Dummy
 
 # XXX Compatibility
 import BoxesTool
+import BaseBox
+import TextBox
+import TreeBox
+import ContentBox
+import ActionBox
+import ImageBox
+import FlashBox
+import EventCalendarBox
+import InternalLinksBox
+import DocRenderBox
 
 contentClasses = (
     Folder.Folder,
     Dummy.Dummy,
+
+    # XXX compatibility
+    BaseBox.BaseBox,
+    TextBox.TextBox,
+    TreeBox.TreeBox,
+    ContentBox.ContentBox,
+    ActionBox.ActionBox,
+    ImageBox.ImageBox,
+    FlashBox.FlashBox,
+    EventCalendarBox.EventCalendarBox,
+    InternalLinksBox.InternalLinksBox,
+    DocRenderBox.DocRenderBox,
     )
 
 contentConstructors = (
     Folder.addFolder,
     Dummy.addDummy,
+
+    # XXX compatibility
+    BaseBox.addBaseBox,
+    TextBox.addTextBox,
+    TreeBox.addTreeBox,
+    ContentBox.addContentBox,
+    ActionBox.addActionBox,
+    ImageBox.addImageBox,
+    FlashBox.addFlashBox,
+    EventCalendarBox.addEventCalendarBox,
+    InternalLinksBox.addInternalLinksBox,
+    DocRenderBox.addDocRenderBox,
     )
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
+
+       # XXX compatibility
+       BaseBox.factory_type_information +
+       TextBox.factory_type_information +
+       TreeBox.factory_type_information +
+       ContentBox.factory_type_information +
+       ActionBox.factory_type_information +
+       ImageBox.factory_type_information +
+       FlashBox.factory_type_information +
+       EventCalendarBox.factory_type_information +
+       InternalLinksBox.factory_type_information +
+       DocRenderBox.factory_type_information +
        ()
        )
 

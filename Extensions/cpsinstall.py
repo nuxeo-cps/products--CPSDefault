@@ -1416,9 +1416,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         }
 
         self.verifyContentTypes(type_dict)
-
-        # XXX CPSBoxes Upgrade
-        self.verifyContentTypes(boxes_dict, destructive=1)
+        self.verifyContentTypes(boxes_dict)
 
         self.allowContentTypes('Workspace', 'Workspace')
         self.allowContentTypes('Section', 'Section')

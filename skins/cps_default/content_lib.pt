@@ -10,9 +10,10 @@
 <metal:block use-macro="here/main_template/macros/master">
 
 <metal:block fill-slot="base">
-  <tal:block replace="structure string:<!--
+  <tal:block define="rpath python:utool.getRelativeContentURL(here)" replace="structure string:<!--
 cps test / debug information:
 cps:path:${here/absolute_url}
+cps:rpath:${rpath}
 cps:proxy_id:${proxy/id}
 cps:id:${doc/id}
 -->" />

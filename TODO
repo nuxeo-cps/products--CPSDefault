@@ -9,8 +9,6 @@
 - [ben] portal_boxes (known as portlets or portal tool)
    o boxes
       o image box
-   o skin folder
-      make folder_view override folder_view stot ...
 
 - workflow
    o implement copy/paste workflow
@@ -55,7 +53,20 @@
       x [] update user box title with the full name + link to directory
 
    o portal_boxes
-   o box management
+      o [] boxes types
+         o images, flash
+         o calendar
+         o favorites
+         o RSS
+         x [] ContentBox
+            x [] display search result (separate search box?)
+            x [] attributes: sort, format, number of doc ...
+         x [] ActionBox to be finished
+         x [] TextBox display static text
+         x [] TreeBox
+         x [] ActionBox
+      x [] skinnable folder
+         use a the center slot to skin a folder
       x [ben] make cps ui to manage boxes
       x [] override with personal boxes objects and settings in ~.cps_boxes
         o global settings for which settings that can be overridden to
@@ -75,18 +86,6 @@
          x [] display only in subfoldrer
          x [] locked
          x [] available in sub folder
-      x [] boxes types
-         o images, flash
-         o calendar
-         o favorites
-         o RSS
-         x [] ContentBox
-            x [] display search result (separate search box?)
-            x [] attributes: sort, format, number of doc ...
-         x [] ActionBox to be finished
-         x [] TextBox display static text
-         x [] TreeBox
-         x [] ActionBox
       x [] make a ZMI interface for setting overrides
       x [] slots should be defined and managed in portal_boxes
       x [] box management
@@ -114,7 +113,6 @@
       x [flo] make unpublish transition working
 
    o folder
-      o find a way to skin a folder ttw
       o add constraint on type of document for workspace/creation
         and sections/publication
       o quota folder
@@ -144,7 +142,7 @@
       o long term: big refactoring to enable registration of products
 
    o zpt usage
-      o finish display_content macro add a cookie to remind option
+      x [] finish display_content macro add a cookie to remind option
         icon/detail + sort order + filter ?
       x [] clean header of use-macro with tag <html xmlns ...
       x [] handle batch sorting

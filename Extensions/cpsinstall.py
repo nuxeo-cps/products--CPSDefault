@@ -20,7 +20,7 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \
-     TRANSITION_BEHAVIOR_DELETE
+     TRANSITION_BEHAVIOR_DELETE, TRANSITION_BEHAVIOR_MERGE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
 
@@ -506,7 +506,7 @@ def cpsupdate(self, langs_list=None):
     t = wf.transitions.get('accept')
     t.setProperties(title='Reviewer accepts publishing',
                     new_state_id='published', 
-                    transition_behavior=None,
+                    transition_behavior=(TRANSITION_BEHAVIOR_MERGE,),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Accept', actbox_category='workflow', 

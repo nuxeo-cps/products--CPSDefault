@@ -1,5 +1,5 @@
 ## Script (Python) "getSearchablePortalTypes"
-## parameters=only_ids=0
+##parameters=only_ids=0
 # $Id$
 """ Only_ids is set when you just want a list of portal types
 (e.g. for search.py) """

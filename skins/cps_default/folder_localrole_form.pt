@@ -1,19 +1,17 @@
 <html metal:use-macro="here/main_template/macros/master">
 <body>
 
-<div class="Desktop"
-     metal:fill-slot="main"
-     tal:define="searching python: request.get('role_submit', None );
-                 mtool here/portal_membership;
-                 dtool here/portal_metadirectories;
-                 groups python:dtool['groups'];
-                 display_prop python:groups['display_prop'];
+<metal:main fill-slot="main"
+     tal:define="searching python:request.get('role_submit', None );
+                 search_param python:request.get('search_param', '');
+                 search_term python:request.get('search_term', '');
                  cpslr python:here.getCPSLocalRoles(mtool=mtool,
                                                     base_url=base_url,
                                                     context_url=context_url);
+                 found python:searching and here.folder_localrole_search(search_param, search_term);
                 ">
 
-<div tal:condition="python: not searching">
+<div tal:condition="not:searching">
 <!-- Search -->
 
 <h2 i18n:translate="heading_local_roles_search_members">
@@ -23,14 +21,17 @@
 <form method="post" action="folder_localrole_form"
       tal:attributes="action string:${here_url}/folder_localrole_form">
 
- <table class="FormLayout">
+ <table>
  <tr>
   <th i18n:translate="label_local_roles_search_by">Search by</th>
   <td>
     <select name="search_param">
-      <option i18n:translate="label_user_name"  value="fullname">User Name</option>
-      <option i18n:translate="label_group_name" value="groupname" >Group Name</option>
-      <option i18n:translate="label_user_email" value="email">Email Address</option>
+      <option i18n:translate="label_user_name"
+              value="fullname">User Name</option>
+      <option i18n:translate="label_group_name"
+              value="groupname" >Group Name</option>
+      <option i18n:translate="label_user_email"
+              value="email">Email Address</option>
     </select>
   </td>
  </tr>
@@ -55,15 +56,13 @@
 </div>
 
 
-<div tal:condition="python:searching and (search_param == 'fullname' or
-search_param == 'email')"
-  tal:define="search_param python: request.get( 'search_param', '' );
-              search_term  python: request.get( 'search_term', '' );
-              found python:here.folder_localrole_search(search_param, search_term);">
+<div tal:condition="python:searching and search_param in ('fullname', 'email')">
+
 <!-- Assignment -->
 <h2 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
 </h2>
+
 <div tal:condition="found">
 
  <p i18n:translate="legend_local_roles_select_members_and_roles">
@@ -71,12 +70,10 @@ search_param == 'email')"
  </p>
 
  <form method="post" action="folder_localrole_edit"
-       tal:attributes="action string:${here_url}/folder_localrole_edit"
- >
+       tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="add">
 
-  <table class="FormLayout">
-
+  <table>
    <tr>
     <td width="16"><br></td>
     <th style="text-align:left;" i18n:translate="label_user">
@@ -88,12 +85,16 @@ search_param == 'email')"
    </tr>
 
    <tr tal:repeat="member found">
-    <td width="16">
-     <input type="checkbox" name="member_ids:list" value=""
-            tal:attributes="value string:user:${member/id_}">
-    </td>
-    <td tal:content="string:user:${member/fullname}"> Username 1 </td>
-    <td tal:content="member/email"> Email 1 </td>
+     <tal:block define="entry python:member[1]">
+       <td width="16" tal:define="entry python:member[1]">
+         <input type="checkbox" name="member_ids:list" value=""
+                tal:attributes="value string:user:${entry/id}">
+       </td>
+       <td tal:content="string:user:${entry/givenName} ${entry/sn}">
+         Username 1
+       </td>
+       <td tal:content="entry/email"> Email 1 </td>
+     </tal:block>
    </tr>
 
    <tr tal:condition="nothing">
@@ -145,12 +146,10 @@ search_param == 'email')"
 </div>
 
 
-<div tal:condition="python: not found">
-
+<div tal:condition="not:found">
  <p i18n:translate="legend_local_roles_no_results_members">
     Sorry, no members matched your search.
  </p>
-
 </div>
 
 <!-- End assignment -->
@@ -158,15 +157,7 @@ search_param == 'email')"
 </div>
 
 
-<div tal:condition="python:searching and (search_param == 'groupname')"
-  tal:define="search_param python: request.get('search_param', '');
-  search_term  python: request.get('search_term', '');
-  found python: (search_term and [group for group in here.get_valid_groupids()
-                                     if group.upper().find(search_term.upper()) >= 0])
-                             or here.get_valid_groupids() ;
- "
->
-
+<div tal:condition="python:searching and search_param == 'groupname'">
 
 <!-- Assignment -->
 <h2 i18n:translate="heading_local_roles_search_results">
@@ -184,30 +175,22 @@ search_param == 'email')"
  >
   <input type="hidden" name="change_type" value="add">
 
-  <table class="FormLayout">
-
+  <table>
    <tr>
     <td width="16"><br></td>
     <th style="text-align:left;">
         <span i18n:translate="label_group">Group</span>
-        <span i18n:translate="label_name">Name</span>
     </th>
-    <th style="text-align:left;"></th>
    </tr>
 
    <tr tal:repeat="group found">
-    <td width="16">
-        <input type="checkbox" name="member_ids:list" value=""
-               tal:attributes="value string:group:${group}">
-    </td>
-    <tal:block define="igroup python:groups.searchEntry(**{'id_':group})">
-      <td tal:condition="python:igroup != ()"
-          tal:content="python:igroup[0][display_prop]"> Groupame
-      </td>
-      <td tal:condition="python:igroup == ()" i18n:translate=""
-          tal:content="python:group.split(':')[1]" >
-      </td>
-    </tal:block>
+     <td width="16">
+       <input type="checkbox" name="member_ids:list" value=""
+              tal:attributes="value string:group:${group}">
+     </td>
+     <td tal:content="group">
+       Group
+     </td>
    </tr>
 
    <tr>
@@ -250,7 +233,6 @@ search_param == 'email')"
  <p i18n:translate="legend_local_roles_no_results_member">
     Sorry, no groups matched your search.
  </p>
-
 </div>
 
 <!-- End assignment -->
@@ -367,7 +349,7 @@ search_param == 'email')"
   Follow the links to manage the local roles in these folders.
 </span>
 
-</div>
+</metal:main>
 
 </body>
 </html>

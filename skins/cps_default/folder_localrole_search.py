@@ -2,39 +2,30 @@
 ##parameters=search_param=None, search_term=None
 #$Id$
 
-#
-# Test to stay up :)
-#
-portal = context.portal_url.getPortalObject()
-portal_objects = portal.objectIds()
-
-if 'portal_metadirectories' not in portal_objects:
-    return []
-else:
-    dtool   = context.portal_metadirectories
-
-dtool_dirs = dtool.objectIds()
-
-if search_param in ['email', 'fullname'] \
-   and 'members' not in dtool_dirs:
-    return []
-else:
-    members = dtool.members
-
-if search_param == 'groupname' \
-   and 'groups' not in dtool_dirs:
-    return []
-else:
-    groups  = dtool.groups
-
-#
-# Here we go for the research !
-#
-if search_param == 'fullname':
-    return members.searchEntry(**{'id_':search_term, 'fullname':search_term})
-elif search_param == 'email':
-    return members.searchEntry(**{'email':search_term})
+if search_param in ('fullname', 'email'):
+    mdir = context.portal_directories.members
+    # first get portal member ids without externall call (e.g. LDAP)
+    return_fields = ('id', 'givenName', 'sn', 'email')
+    if search_param == 'fullname':
+        # XXX cannot search both parameters at the same time because we want a
+        # OR search, not AND.
+        from_ids = mdir.searchEntries(id=search_term,
+                                      return_fields=return_fields)
+        from_fullnames = mdir.searchEntries(fullname=search_term,
+                                            return_fields=return_fields)
+        results = {}
+        for id, values in (from_ids + from_fullnames):
+            results[id] = values
+        results = results.items()
+        results.sort()
+        return results
+    elif search_param == 'email':
+        return mdir.searchEntries(email=search_term,
+                                     return_fields=return_fields)
+# XXX group search is not even used by folder_localrole_form.pt
 elif search_param == 'groupname':
-    return groups.searchEntry(**{'id_':search_term, 'title_':search_term})
-else:
-    return []
+    gdir  = context.portal_directories.groups
+    # XXX hardcoded but not GroupsDirectory's job
+    groups = ['role:Anonymous', 'role:Authenticated']
+    groups.extend(gdir.searchEntries(id=search_term, title=search_term))
+    return groups

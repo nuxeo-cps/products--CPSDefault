@@ -350,17 +350,17 @@
               - [
               <tal:block tal:repeat="manager managers">
                 <tal:block tal:condition="python:
-                   here.portal_metadirectories.members.getEntry(manager)">
+                   here.portal_directories.members.getEntry(manager)">
                   <a style="font-style:italic" href=""
                      tal:content="
                        python:
-                         here.portal_metadirectories.members.getEntry(manager).get(
+                         here.portal_directories.members.getEntry(manager).get(
                                              'fullname',manager)"
                      tal:attributes="href
                        python:
                          here.portal_url.getPortalPath() +
                            '/directory_getentry?dirname=' +
-                           here.portal_metadirectories.members.id +
+                           here.portal_directories.members.id +
                            '&entry_id='+manager"></a>
                   <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
                 </tal:block>
@@ -477,17 +477,17 @@
                   - [
                   <tal:block tal:repeat="manager managers">
                     <tal:block tal:condition="python:
-                         here.portal_metadirectories.members.getEntry(manager)">
+                         here.portal_directories.members.getEntry(manager)">
                       <a style="font-style:italic" href=""
                          tal:content="
                            python:
-                             here.portal_metadirectories.members.getEntry(manager).get(
+                             here.portal_directories.members.getEntry(manager).get(
                                                  'fullname',manager)"
                          tal:attributes="href
                            python:
                              here.portal_url.getPortalPath() +
                                '/directory_getentry?dirname=' +
-                               here.portal_metadirectories.members.id +
+                               here.portal_directories.members.id +
                                '&entry_id='+manager">
                       </a>
                       <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
@@ -524,7 +524,7 @@
        box text title
   </metal:block>
   <metal:block fill-slot="box_body"
-    tal:define="mtool nocall:here/portal_metadirectories/members;
+    tal:define="mtool nocall:here/portal_directories/members;
                 host here/portal_url/aq_parent/absolute_url;">
     <tal:block repeat="item items">
       <h2 tal:condition="repeat/item/start"
@@ -637,34 +637,19 @@
 <metal:block define-macro="actionbox_user">
   <metal:block use-macro="here/boxes_nuxeo/macros/actionbox_default">
     <metal:block fill-slot="box_title">
-      <tal:block define="mtool here/portal_membership;
-                         url nocall:here/portal_url;
-                         dtool here/portal_metadirectories;
-                         dirname string:members;
-                         directory dtool/?dirname;
-                         entry python:directory.getEntry(uname);
-                        ">
-
-         <tal:block define="notLogged python:mtool.isAnonymousUser()">
-           <span tal:condition="notLogged"
-                 i18n:translate="label_guest"
-                 tal:content="uname">
-              box text title
-           </span>
-           <a href="." accesskey="H"
-              tal:condition="python:notLogged == 0 and entry is not  None"
-              tal:attributes="href string:${here/portal_url}/workspaces/members/${uname}"
-              tal:content="python:entry.get('fullname', uname)" >
-              box text title
-           </a>
-           <a href="."
-              tal:condition="python:notLogged == 0 and entry is None"
-              tal:attributes="href string:${here/portal_url}/workspaces/members/${uname}"
-              tal:content="uname" >
-              box text title
-           </a>
-         </tal:block>
-      </tal:block>
+      <span tal:condition="isAnon"
+            i18n:translate="label_guest">
+        Guest
+      </span>
+      <a href="." accesskey="H"
+         tal:define="directory here/portal_directories/members;
+                     entry python:not isAnon and directory.getEntry(uname)"
+         tal:condition="not:isAnon"
+         tal:content="python:entry and entry.get('fullname', uname) or uname"
+         tal:attributes="href string:${base_url}workspaces/members/${uname}/"
+         tal:omit-tag="not:entry">
+        box text title
+      </a>
     </metal:block>
   </metal:block>
 </metal:block>

@@ -73,7 +73,7 @@
 <!-- ============================================================ -->
 <pre>a header for a document or folder:</pre>
 <div metal:define-macro="byline"
-  tal:define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+  tal:define="dname python:here.portal_directories.members.getEntry(doc.Creator());
               cname dname/fullname|doc/Creator;
               email dname/email|nothing;"
   i18n:translate="">

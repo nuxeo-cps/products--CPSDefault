@@ -131,7 +131,7 @@ class BoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
 
         catalog = getToolByName(self, 'portal_catalog')
         res = catalog.searchResults(query)
-        return [brain.getObject() for brain in res]
+        return res
 
     security.declarePublic('getBoxesDict')
     def getBoxesDict(self, context, xpos=None, alsoclosed=0, permission = 'View'):

@@ -10,10 +10,11 @@
       class="dayViewBox"
       tal:define="DateTime python:modules['DateTime'].DateTime;
                   thisDay  python:DateTime(request.get('date', 
-                                           DateTime().aCommon()[:12]))">
+                                           DateTime().aCommon()[:12]));
+                  location python:request.get('location',None)">
 
   <tal:block tal:define="items python:here.portal_calendar.getCPSEventsForThisDay(
-                                      thisDay);
+                                      thisDay,location=location);
 	                 format string:detail;
                          no_form python:1;
                          mq nocall:modules/ZTUtils/make_query;

@@ -3,6 +3,7 @@
 
 <!-- context contain: object box from portal_boxes.getBoxes -->
 
+<metal:block>
 
 <!-- a sample box title and body -->
 <metal:block define-macro="box">
@@ -148,4 +149,6 @@
              tal:content="python:entry and entry.get('fullname', uname) or uname"
              tal:omit-tag="not:entry">Title</tal:block>&nbsp;
 </a>
+</metal:block>
+
 </metal:block>

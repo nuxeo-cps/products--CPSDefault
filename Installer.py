@@ -38,6 +38,8 @@ class BaseInstaller:
         self.workspaces = self.portal[self.WORKSPACES_ID]
         self.sections = self.portal[self.SECTIONS_ID]
         self.boxtool = self.portal.portal_boxes
+        self.treetool = self.portal.portal_trees
+
 
     def log(self, bla, zlog=1):
         self._log.append(bla)

@@ -19,14 +19,25 @@ cd ../lib/python/Testing
 tar xzvf /home/zopes/_packages/ZopeTestCase-0.6.4.tar.gz
 cd -
 
-# CPS 3
-cvs co OrderedFolderSupportPatch NuxUserGroups
-cvs co CPSCore 
-cvs co CPSDefault
+tar xzvf /home/zopes/_packages/OrderedFolderSupportPatch-1.0.0-1.tgz
+tar xzvf /home/zopes/_packages/NuxUserGroups-0.8.0-1.tgz
+
+## CPS 3 packaged replace x.x by the latest version available
+# tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
+# tar xzvf /home/zopes/_packages/CPSDefault-3.x.x.tgz
+
+## or CPS3 dev
+# cvs co CPSCore 
+# cvs co CPSDefault
 
 # for VerboseSecurity add in the start script
 ZOPE_SECURITY_POLICY=PYTHON
 export ZOPE_SECURITY_POLICY
+
+# running unit test to check the installation
+# note that test log are located in $ZS/lib/python/Testing/var/stupid.log
+cd Products/CPSDefault/
+_ut -vv
 
 # start zs
 _start
@@ -34,3 +45,5 @@ _start
 ## ZMI 
 # add a Virtual Host Monster
 # add a CPSDefault Site ...
+
+

@@ -61,8 +61,7 @@ if context.portal_type == 'Section':
     cps_roles = [x for x in cps_roles if x in ('SectionManager',
                                                'SectionReviewer',
                                                'SectionReader')]
-elif context.portal_type == 'Workspace' or \
-     context.portal_type == 'Calendar':
+elif context.portal_type in ('Workspace', 'Calendar'):
     cps_roles = [x for x in cps_roles if x in ('WorkspaceManager',
                                                'WorkspaceMember',
                                                'WorkspaceReader')]

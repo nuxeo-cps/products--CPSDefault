@@ -1,4 +1,6 @@
-<metal:html use-macro="here/main_template/macros/master">
+<metal:html tal:define="showthirdcol nothing">
+
+<metal:body use-macro="here/main_template/macros/master">
 
 <metal:main fill-slot="main"
   tal:define="context_urlc python:here.getContextUrl(utool=utool, concat=1);">
@@ -69,5 +71,5 @@ tal:content="context_url" /></p>
 </tal:block>
 
 </metal:main>
-
+</metal:body>
 </metal:html>

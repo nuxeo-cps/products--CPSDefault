@@ -1,7 +1,23 @@
 <metal:html use-macro="here/main_template/macros/master">
+<metal:block fill-slot="javascript_head_slot">
+  <script type="text/javascript">
+  <!--
+
+    function popup_rte(input_id, label_edit) {
+      var args, value
+      value = document.getElementById(input_id).value;
+      args='?input_id='+input_id+'&label_edit='+escape(label_edit);
+      popup = window.open('popup_rte_form'+args, input_id, 'toolbar=0, scrollbars=0, location=0, statusbar=0, menubar=0, resizable=0, dependent=1, width=640, height=480')
+      if(!popup.opener)
+        popup.opener = window;
+      return false;
+  }
+  //-->
+  </script>
+
+</metal:block>
 
 <metal:main fill-slot="main">
-
 <metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
 <metal:fields fill-slot="additional_fields">
   <tr valign="top">
@@ -18,7 +34,14 @@
       <label for="textbox_content" i18n:translate="label_box_content">Content</label>
     </th>
     <td colspan="5"><textarea id="textbox_content" name="text" rows="20" cols="72" value="" 
-          tal:content="box/box/text"></textarea></td>
+          tal:content="box/box/text"></textarea>
+      <button type="button"
+        i18n:translate="button_rte"
+        tal:attributes="
+        style string:visibility: visible;
+        onclick string:javascript:popup_rte('textbox_content', 'Texte')
+        "
+        >Layout</button></td>
   </tr>
 </metal:fields>
 </metal:boxform>

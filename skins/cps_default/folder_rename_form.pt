@@ -2,35 +2,29 @@
 
 <metal:header fill-slot="header">
 
-<h2 i18n:translate="heading_rename_items">Rename Items</h2>
-<em i18n:translate="help_rename_items">Changing the id of an object does not
+<h1 i18n:translate="heading_rename_items">Rename Items</h1>
+<div class="description" i18n:translate="help_rename_items">Changing the id of an object does not
 affect its title but changes the URL to access it. Links that point to the
-current id won't find it anymore.</em>
+current id won't find it anymore.</div>
 
 </metal:header>
 
 <metal:main fill-slot="main">
 
-<div tal:condition="here/folder_rename_items" >
-
+<div class="group" tal:condition="here/folder_rename_items" >
 <form action="folder_rename" method="post"
       tal:attributes="action string:${here_url}/folder_rename">
 
-  <table class="FormLayout">
-
+  <table width="90%">
     <tr tal:repeat="item here/folder_rename_items">
-
-      <td align="left" valign="top" width="8%">
-        <span tal:replace="structure item/iconHTML">Type Image</span>
-      </td>
-     
       <td align="left" valign="top" width="20%" nowrap>
+        <span tal:replace="structure item/iconHTML">Type Image</span>
         <span tal:replace="item/getId">ID</span>
         <input type="hidden" name="ids:list" value=""
                tal:attributes="value item/getId">
       </td>
 
-      <td align="left" valign="top" width="5%">
+      <td align="left" valign="top">
         <strong i18n:translate="label_rename_to">to</strong>
       </td>
 
@@ -41,15 +35,14 @@ current id won't find it anymore.</em>
     </tr>
 
     <tr>
-      <td colspan="4">
-        <input type="submit" value="button_ok" i18n:attributes="value">
+      <td colspan="3"><br />
+        <input class="standalone" type="submit" value="button_change"
+          i18n:attributes="value">
       </td>
     </tr>
-
   </table>
 
 </form>
-
 </div><!-- tal:condition="here/folder_rename_items" -->
 
 <div tal:condition="not: here/folder_rename_items">

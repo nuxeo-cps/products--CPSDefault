@@ -74,6 +74,8 @@ def addTextBox(dispatcher, id, REQUEST=None, **kw):
     """Add a Text Box."""
     ob = TextBox(id, **kw)
     dispatcher._setObject(id, ob)
+    ob = getattr(dispatcher, id)
+    ob.manage_permission(View, ('Anonymous',), 1)
     if REQUEST is not None:
         url = dispatcher.DestinationURL()
         REQUEST.RESPONSE.redirect('%s/manage_main' % url)

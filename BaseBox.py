@@ -63,6 +63,8 @@ def addBaseBox(dispatcher, id, REQUEST=None):
     ob = BaseBox(id)
     container = dispatcher.Destination()
     container._setObject(id, ob)
+    ob = getattr(container, id)
+    ob.manage_permission(View, ('Anonymous',), 1)
     if REQUEST is not None:
         url = dispatcher.DestinationURL()
         REQUEST.RESPONSE.redirect('%s/manage_main' % url)

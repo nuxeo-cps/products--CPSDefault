@@ -234,6 +234,8 @@ def addContentBox(dispatcher, id, REQUEST=None, **kw):
     """Add a Content Box."""
     ob = ContentBox(id, **kw)
     dispatcher._setObject(id, ob)
+    ob = getattr(dispatcher, id)
+    ob.manage_permission(View, ('Anonymous',), 1)
     if REQUEST is not None:
         url = dispatcher.DestinationURL()
         REQUEST.RESPONSE.redirect('%s/manage_main' % url)

@@ -139,11 +139,12 @@ format:</pre>
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr bgcolor="#EEEEEE">
         <td align="right" width="100%">
-          <span i18n:translate="label_result_objects">
-            Objects
+          <span i18n:translate="">
+            Objects: <tal:block replace="batch_info/start"
+            i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
+            i18n:name="batch_limit" /> of <tal:block replace="batch_info/length"
+            i18n:name="batch_length" />
           </span>
-          &nbsp;:&nbsp;
-          <span tal:replace="structure batch_info" />
         </td>
       </tr>
       <tal:block condition="batch_string">

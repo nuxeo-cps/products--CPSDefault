@@ -88,8 +88,10 @@ limit = int(b_start + items_per_page)
 if  limit > len(items):
     limit = len(items)
 
-info_string = mcat("%s - %s of %s" 
-                   % (b_start+1, limit, len(items)))
+info_string = {'start': b_start + 1,
+               'limit': limit,
+               'length': len(items),
+                  }
 
 if nb_pages == 1:
     batch_string = ''

@@ -3,6 +3,8 @@
 # $Id$
 """Edit an existing box."""
 
+from zLOG import LOG, DEBUG 
+
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
@@ -33,6 +35,9 @@ for k in ('display_in_subfolder', 'display_only_in_subfolder',
     v = kw.get(k)
     kw[k] = not not v
 
+# handle empty selection in contentbox_edit_form
+if not kw.get('query_portal_type'):
+    kw['query_portal_type'] = ['']
 
 # handle center box slot
 # center box are use in folder_view to skin only one folder

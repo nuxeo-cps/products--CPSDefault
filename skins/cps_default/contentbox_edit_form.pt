@@ -80,8 +80,11 @@
          <tr>
           <td><span i18n:translate="label_search_portal_type">Portal type</span></td>
           <td>
+            <tal:block tal:define="selbox python:box['box'].query_portal_type;
+                                   notempty python:[t for t in selbox if t != '']">
             <select name="query_portal_type" multiple>
-              <option i18n:translate="label_all" value="">All</option>
+            <option i18n:translate="label_all"
+                    value="" tal:attributes="selected python:notempty==[] or selbox==[]">All</option>
             <tal:block repeat="type python:here.getSearchablePortalTypes(only_ids=1)">
             <option i18n:translate=""
               tal:attributes="value type;
@@ -89,6 +92,7 @@
               tal:content="string:portal_type_${type}_title"></option>
             </tal:block>
             </select>
+            </tal:block>
           </td>
         </tr>
         <tr>

@@ -18,7 +18,7 @@ tal:attributes="action string:${here/absolute_url}/box_create">
         <tr valign="top">
           <td align="left" width="2%" nowrap>
             <input type="radio" name="type_name" value="" id=""
-            tal:attributes="value item/getId;
+            class="noborder" tal:attributes="value item/getId;
             checked python:test(repeat['item'].start, '1', default);
             id string:cb_${repeat/item/number}">
           </td>
@@ -48,7 +48,8 @@ tal:attributes="action string:${here/absolute_url}/box_create">
     <td colspan="2" class="TextField">
       <strong>ID:</strong>
       <input type="text" name="id" size="20">
-      <input type="submit" value="button_add" i18n:attributes="value">
+      <input type="submit" class="standalone searchButton" value="button_add"
+        i18n:attributes="value">
     </td>
   </tr>
 </table>

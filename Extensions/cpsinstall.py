@@ -1274,7 +1274,7 @@ except:
                             'CPS Proxy Document',
                             'CPS Proxy Folderish Document',),
                 info_method='getFolderInfo')
-            self.flagRebuildTreeCache(SECTIONS_ID)
+            self.flagRebuildTreeCache(WORKSPACES_ID)
 
     def setupBoxes(self):
         self.verifyTool('portal_boxes', 'CPSDefault', 'CPS Boxes Tool')

@@ -23,48 +23,44 @@ class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testBasicFeatures(self):
         # Check default id, title...
-        assert self.portal.getId() == 'portal'
-        assert self.portal.title == 'CPSDefault Portal'
+        self.assertEquals(self.portal.getId(), 'portal')
+        self.assertEquals(self.portal.title, 'CPSDefault Portal')
 
         # Check that we have sections and workspaces
-        assert self.portal.sections
-        assert self.portal.workspaces
+        self.assert_(self.portal.sections)
+        self.assert_(self.portal.workspaces)
 
     def testAnonymousSkins(self):
-        # XXX: result = '' for now because we have heavily patched Localizer
-        # -> Need to find a better fix.
         self.assert_(self.portal.index_html())
         self.assert_(self.portal.login_form())
         self.assert_(self.portal.join_form())
-
-        # XXX: this doesn't work (another Localizer problem)
-        #self.assertEquals(self.portal.search_form(), '')
-        #self.assertEquals(self.portal.advanced_search_form(), '')
+        self.assert_(self.portal.search_form())
+        self.assert_(self.portal.advanced_search_form())
 
 
 class TestSimpleAsRoot(TestSimple):
     login_id = 'root'
 
     def testMembersSkins(self):
-        # XXX: why 'folder_view' works and nor 'view' ?
         self.assert_(self.portal.workspaces.folder_view())
         self.assert_(self.portal.sections.folder_view())
-        #self.assert_(self.portal.workspaces.view())
-        #self.assert_(self.portal.sections.view())
 
     def testAdminSkinsAtRoot(self):
         self.assert_(self.portal.directories())
-        #self.assert_(self.portal.box_manage_form())
-        #self.assert_(self.portal.create_box_form())
+        self.assert_(self.portal.box_manage_form())
+        self.assert_(self.portal.box_create_form())
         self.assert_(self.portal.reconfig_form())
 
-    def testAdminSkinsAtWorkspaces(self):
-        ws = self.portal.workspaces
-        self.assert_(ws.folder_view())
-        self.assert_(ws.folder_factories())
-        #self.assert_(ws.folder_contents())
-        self.assert_(ws.folder_localrole_form())
-        #self.assert_(ws.box_manage_form())
+    def testAdminSkinsAtSectionsAndWorkspaces(self):
+        for folder in (self.portal.workspaces, self.portal.sections):
+            self.assert_(folder.folder_view())
+            self.assert_(folder.folder_factories())
+            self.assert_(folder.folder_contents())
+            self.assert_(folder.folder_edit_form())
+            self.assert_(folder.metadata_edit_form())
+            self.assert_(folder.full_metadata_edit_form())
+            self.assert_(folder.folder_localrole_form())
+            self.assert_(folder.box_manage_form())
 
     def testPlayWithBoxes(self):
         btool = self.portal.portal_boxes
@@ -78,9 +74,6 @@ class TestSimpleAsRoot(TestSimple):
             # XXX: I should be able to test if the box is closed now
             box.maximize()
             # XXX: I should be able to test if the box is maximized now
-
-            # XXX: raises an error, something is fishy here
-            #box.render()
 
 
 class TestSimpleAsAnonymous(TestSimple):

@@ -128,13 +128,18 @@
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
        <tal:block define="
-          items python:box['box'].getContents(here);
+          ret python:box['box'].getContents(here);
+          items python:ret[0];
+          link_more python:ret[1];
           no_form not:nothing;
           format box/box/display;
-          items_per_page box/box/nb_items;
+          items_per_page box/box/nb_items|python:10;
           nav_action string:folder_view">
           <metal:block use-macro="here/content_lib/macros/display_contents" />
-        </tal:block>
+        <div tal:condition="link_more">
+          <a href="" tal:attributes="href string:${base_url}${link_more}">More ...</a>
+        </div>
+       </tal:block>
       </div>
     </metal:block>
   </metal:block>
@@ -143,7 +148,9 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="contentbox_center"
-  tal:define="items python:box['box'].getContents(here)">
+  tal:define="ret python:box['box'].getContents(here);
+              items python:ret[0];
+              link_more python:ret[1];">
   <tal:block condition="python:len(items)>0">
   <metal:block use-macro="here/box_lib/macros/sbox">
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
@@ -157,6 +164,9 @@
           nav_action string:folder_view">
           <metal:block use-macro="here/content_lib/macros/display_contents" />
         </tal:block>
+        <div tal:condition="link_more">
+          <a href="" tal:attributes="href string:${base_url}${link_more}">More ...</a>
+        </div>
       </div>
     </metal:block>
   </metal:block>

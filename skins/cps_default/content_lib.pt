@@ -150,7 +150,7 @@ format:</pre>
       </tr>
     </table>
   </tal:block>
-  <br />
+  <br>
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
     tal:condition="zoomed">
     <tr tal:repeat="item zoomed">
@@ -174,7 +174,7 @@ format:</pre>
     </tr>
   </table>
   <tal:block condition="batch_string">
-  <br />
+  <br>
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr class="even">
         <td align="center" width="100%">
@@ -349,12 +349,12 @@ format:</pre>
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
   <div tal:condition="info/preview|nothing" style="float: right">
-    <tal:block condition="info/preview|nothing"
-      replace="structure python:here.getImgTag(info['preview'],
-      base_url='', width=64, height=64, keep_ratio=1)" />
+    <img tal:condition="info/preview|nothing"
+         tal:replace="structure python:here.getImgTag(info['preview'],
+                               base_url='', width=64, height=64, keep_ratio=1)">
   </div>
-  <tal:block replace="structure python:here.getImgTag(info['icon'],
-   base_url=base_url, title=info['type'])" />
+  <img tal:replace="structure python:here.getImgTag(info['icon'],
+                                     base_url=base_url, title=info['type'])">
    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
   <br>
@@ -395,12 +395,12 @@ format:</pre>
                                  'folder_contents', 'view')">
  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
    title info/description;">
-  <tal:block condition="not:info/preview|nothing"
-   replace="structure python:here.getImgTag(info['icon'],
-   base_url=base_url, zoom=2, title=info['description'])" />
-  <tal:block condition="info/preview|nothing"
-   replace="structure python:here.getImgTag(info['preview'],
-   base_url='', width='32', height='32', title=info['description'])" />
+  <img tal:condition="not:info/preview|nothing"
+       tal:replace="structure python:here.getImgTag(info['icon'],
+       base_url=base_url, zoom=2, title=info['description'])">
+  <img tal:condition="info/preview|nothing"
+       tal:replace="structure python:here.getImgTag(info['preview'],
+       base_url='', width='32', height='32', title=info['description'])">
    <br>
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
 </div>
@@ -432,16 +432,16 @@ format:</pre>
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
   <h2>
-    <tal:block replace="structure python:here.getImgTag(info['icon'],
-       base_url=base_url, title=info['type'])" />
+    <img tal:replace="structure python:here.getImgTag(info['icon'],
+                                       base_url=base_url, title=info['type'])">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
     <b tal:content="info/title_or_id">ID</b></a>
   </h2>
   <div tal:condition="info/preview|nothing"
     style="float: left;margin: 1em; width:140; height:140;">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
-      tal:content="structure python:here.getImgTag(info['preview'],
-      base_url='', width=128, height=128, keep_ratio=1)" />
+      ><img tal:replace="structure python:here.getImgTag(info['preview'],
+                         base_url='', width=128, height=128, keep_ratio=1)"></a>
   </div>
   <div>
   <small style="float: right;">
@@ -498,8 +498,7 @@ format:</pre>
   <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                                  title info/description;">
    <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
-  <td align="center"><tal:block replace="structure python:here.getImgTag(info['icon'],
-    base_url=base_url, title=info['type'])" /></td>
+  <td align="center"><img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])"></td>
   <td align="right"><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
   <td align="center">
     <span tal:content="info/time_str">May 6,...</span>
@@ -574,6 +573,6 @@ format:</pre>
         Comments
       </em>
     </span>
-    <br />
+    <br>
   </span>
 </metal:block>

@@ -111,6 +111,8 @@ class ContentBox(BaseBox):
             objects = [(status_sort_order[wtool.getInfoFor(x, 'review_state',
                                                            'nostate')] + \
                         x.title_or_id().lower(), x) for x in items]
+        elif sort_by == 'date':
+            objects = [(wtool.getInfoFor(x, 'time', 'x'), x) for x in items]
         else:
             objects = [(x.getId(), x) for x in items]
         

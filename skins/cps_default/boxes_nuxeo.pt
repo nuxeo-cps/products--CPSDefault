@@ -672,13 +672,14 @@
         Guest
       </span>
       <a href="." accesskey="H"
-         tal:define="directory here/portal_directories/members;
-           entry python:not isAnon and directory.getEntry(uname, default=None);
-           home_folder mtool/getHomeFolder;"
+         tal:define="mdir here/portal_directories/members;
+                     entry python:not isAnon and mdir.getEntry(uname, {});
+                     home_folder mtool/getHomeFolder"
          tal:condition="not:isAnon"
-         tal:content="python:entry and entry.get('fullname', uname) or uname"
-         tal:attributes="href python: home_folder and home_folder.absolute_url()"
-         tal:omit-tag="not:entry">
+         tal:content="python:entry.get('fullname', uname)"
+         tal:attributes="href python:home_folder is not None
+                                 and '%s/' % home_folder.absolute_url()"
+         tal:omit-tag="python:home_folder is None">
         box text title
       </a>
     </metal:block>

@@ -24,22 +24,24 @@
 <!-- ============================================================ -->
 <!-- a min max box -->
 <metal:block define-macro="mmbox">
-<div class="box">
+<div class="box"
+     tal:define="minimized box/settings/minimized">
   <div class="title"
-       tal:define="minimized box/settings/minimized; box_url box/url">
-    <a href="" class="close" tal:condition="python:not isAnon and minimized"
+       tal:define="box_url box/url;
+                   nobutton python:isAnon or member.homeless">
+    <a href="" class="close" tal:condition="python:not nobutton and minimized"
       tal:attributes="href
       string:${base_url}${box_url}/maximize?goto=${context_url}"><img
       tal:replace="structure python:here.getImgTag('maximize.gif',
       base_url=base_url)" /></a><a href="" class="close"
-      tal:condition="python:not(isAnon or minimized)" tal:attributes="href
+      tal:condition="python:not(nobutton or minimized)" tal:attributes="href
       string:${base_url}${box_url}/minimize?goto=${context_url}"><img
       tal:replace="structure python:here.getImgTag('minimize.gif',
       base_url=base_url)" /></a>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
-    <div class="content odd" tal:condition="not:box/settings/minimized">
+    <div class="content odd" tal:condition="not:minimized">
       <hr class="netscape4" />
       <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
@@ -51,26 +53,28 @@
 <!-- ============================================================ -->
 <!-- a min max close box -->
 <metal:block define-macro="mmcbox">
-<div class="box">
+<div class="box"
+     tal:define="minimized box/settings/minimized">
   <div class="title"
-       tal:define="minimized box/settings/minimized; box_url box/url">
-    <a href="" class="close" tal:condition="not:isAnon"
+       tal:define="box_url box/url;
+                   nobutton python:isAnon or member.homeless">
+    <a href="" class="close" tal:condition="not:nobutton"
       tal:attributes="href
       string:${base_url}${box_url}/close?goto=${context_url}"><img
       tal:replace="structure python:here.getImgTag('close.gif',
       base_url=base_url)" /></a><a href="" class="close"
-      tal:condition="python:not isAnon and minimized" tal:attributes="href
+      tal:condition="python:not nobutton and minimized" tal:attributes="href
       string:${base_url}${box_url}/maximize?goto=${context_url}"><img 
       tal:replace="structure python:here.getImgTag('maximize.gif',
       base_url=base_url)" /></a><a href="" class="close"
-      tal:condition="python:not(isAnon or minimized)" tal:attributes="href
+      tal:condition="python:not(nobutton or minimized)" tal:attributes="href
       string:${base_url}${box_url}/minimize?goto=${context_url}"><img
       tal:replace="structure python:here.getImgTag('minimize.gif',
       base_url=base_url)" /></a>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
-    <div class="content odd" tal:condition="not:box/settings/minimized">
+    <div class="content odd" tal:condition="not:minimized">
       <hr class="netscape4" />
       <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
@@ -135,19 +139,19 @@
 <!-- ============================================================ -->
 <!-- a closed box -->
 <metal:block define-macro="closed_box">
-<a href="" tal:attributes="href
-  string:${base_url}${box/url}/maximize?goto=${context_url}">
+<a href="" tal:define="nobutton python:isAnon or member.homeless"
+   tal:condition="not:nobutton" tal:attributes="href
+     string:${base_url}${box/url}/maximize?goto=${context_url}">
   <img tal:replace="structure python:here.getImgTag('maximize.gif',
                                                     base_url=base_url)" />
   <tal:block tal:condition="python:box['box'].category != 'actionbox' or
-                            box['box'].btype != 'user'" i18n:translate=""
-             tal:content="box/box/title">Title</tal:block>
-  <tal:block tal:condition="python:box['box'].category == 'actionbox' and
-                            box['box'].btype == 'user'"
-             tal:define="directory here/portal_directories/members;
-                         entry python:not isAnon and directory.getEntry(uname, default=None)"
-             tal:content="python:entry and entry.get('fullname', uname) or uname"
-             tal:omit-tag="not:entry">Title</tal:block>&nbsp;
+                            box['box'].btype != 'user'"
+             tal:content="box/box/title" i18n:translate="">Title</tal:block>
+  <tal:block tal:define="mdir here/portal_directories/members;
+                         entry python:mdir.getEntry(uname,  {})"
+             tal:condition="python:box['box'].category == 'actionbox'
+                               and box['box'].btype == 'user'"
+             tal:content="python:entry.get('fullname', uname)">Title</tal:block>
 </a>
 </metal:block>
 

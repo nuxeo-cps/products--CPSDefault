@@ -17,6 +17,4 @@ for id in ids:
         continue
     objects.append(ob)
 
-from zLOG import LOG, INFO
-LOG('folder_rename_items', INFO, str(objects))
 return objects

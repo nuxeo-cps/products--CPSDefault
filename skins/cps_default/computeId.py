@@ -5,6 +5,8 @@
 
 This method avoids collisions.
 """
+# TODO: Most of this code should be put into CPSCore.utils that should in turn
+# be made more generic and powerful to address more needs.
 
 from string import maketrans
 from random import randrange
@@ -74,7 +76,6 @@ if not id:
 words = re.split('-*_*\.*\s*', id)
 
 # Removing meaningless words according to the current locale.
-#locale = self.Localizer.get_selected_language()
 cpsmcat = context.Localizer.default
 words_meaningless = cpsmcat('words_meaningless')
 words = [w for w in words if w not in words_meaningless]

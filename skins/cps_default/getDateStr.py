@@ -3,7 +3,6 @@
 # $Id$
 """ return a string date using the current locale """
 
-context.zlog(str(dt))
 locale = context.Localizer.get_selected_language()
 if not dt:
     return ''

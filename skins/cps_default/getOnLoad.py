@@ -1,6 +1,5 @@
-## Script (Python) "getOnLoad.py"
-#parameters=
-##$Id$
+##parameters=
+#$Id$
 """ return the body onload attribute content
 """
 request = container.REQUEST

@@ -818,7 +818,7 @@ def cpsupdate(self, langs_list=None):
                            'title': 'Object actions',
                            'slot':'right',
                            'order':1,
-                           'categories':'object',
+                           'categories':('object', 'workflow'),
                            },
         'action_folder' : {'type':'Action Box',
                            'title': 'Folder actions',

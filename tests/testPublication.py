@@ -37,15 +37,15 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.login('member')
         assert self.member_ws.folder_contents()
         assert self.member_ws.folder_view()
-        #self.assertRaises(
-        #    Unauthorized, self.portal.portal_repository.folder_view, ())
+        self.assertRaises(
+            Unauthorized, self.portal.portal_repository.folder_view, ())
 
     def testAccessForReviewer(self):
         self.login('reviewer')
         assert self.portal.sections.folder_contents()
         assert self.portal.sections.folder_view()
-        #self.assertRaises(
-        #    Unauthorized, self.portal.portal_repository.folder_view, ())
+        self.assertRaises(
+            Unauthorized, self.portal.portal_repository.folder_view, ())
 
     def testSubmit(self):
         self.login('member')
@@ -62,10 +62,10 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         # Then submit it (using skin script)
         proxy.content_status_modify(
             submit='sections', workflow_action='copy_submit')
+
         info = proxy.getContentInfo(level=3)
         self.assertEquals(info['review_state'], 'work')
 
-        self.logout()
         self.login('reviewer')
 
         published_proxy = self.portal.sections.news
@@ -77,7 +77,6 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         info = published_proxy.getContentInfo(level=3)
         self.assertEquals(info['review_state'], 'published')
 
-        self.logout()
         self.login('member')
 
         # Non-reviewer can't unpublish his own stuff
@@ -85,14 +84,15 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertRaises(WorkflowException,
             published_proxy.content_status_modify, workflow_action='unpublish')
 
-        self.logout()
         self.login('reviewer')
 
+        info = published_proxy.getContentInfo(level=3)
         published_proxy = self.portal.sections.news
         published_proxy.content_status_modify(workflow_action='unpublish')
+        
+        self.login('root')
 
-        info = published_proxy.getContentInfo(level=3)
-        #self.assertEquals(info['review_state'], 'pending')
+        assert not 'news' in self.portal.sections.objectIds()
 
 
 def test_suite():

@@ -12,6 +12,7 @@ from Products.CMFCore.ActionInformation import ActionInformation
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, \
      ReviewPortalContent, RequestReview
 from Products.PythonScripts.PythonScript import PythonScript
+from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
 from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
@@ -272,7 +273,6 @@ def cpsupdate(self, langs_list=None):
     if not portalhas('cmfcalendar_installer'):
         if portalhas('portal_calendar'):
             portal.manage_delObjects(['portal_calendar'])
-        from Products.ExternalMethod.ExternalMethod import ExternalMethod
         pr('Adding cmfcalendar installer')
         cmfcalendar_installer = ExternalMethod('cmfcalendar_installer',
                                                'CMFCalendar Updater',
@@ -1361,7 +1361,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSRSS
         if not portalhas('cpsrss_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding CPSRSS installer')
             cpsrss_installer = ExternalMethod('cpsrss_installer',
                                               'CPSRSS Installer',
@@ -1369,7 +1368,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                               'install')
             portal._setObject('cpsrss_installer', cpsrss_installer)
         pr(portal.cpsrss_installer())
-    except:
+    except ImportError:
         pass
 
     #
@@ -1378,7 +1377,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSForum
         if not portalhas('cpsforum_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding CPSForum installer')
             cpsforum_installer = ExternalMethod('cpsforum_installer',
                                                 'CPSForum Installer',
@@ -1386,7 +1384,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                                 'install')
             portal._setObject('cpsforum_installer', cpsforum_installer)
         pr(portal.cpsforum_installer())
-    except:
+    except ImportError:
         pass
 
     #
@@ -1395,7 +1393,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSCollector
         if not portalhas('cpscollector_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding CPSCollector installer')
             cpscollector_installer = ExternalMethod('cpscollector_installer',
                                                     'CPSCollector Installer',
@@ -1403,7 +1400,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                                     'install')
             portal._setObject('cpscollector_installer', cpscollector_installer)
         pr(portal.cpscollector_installer())
-    except:
+    except ImportError:
         pass
 
     #
@@ -1412,7 +1409,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSChat
         if not portalhas('cpschat_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding CPSChat installer')
             cpschat_installer = ExternalMethod('cpschat_installer',
                                                'CPSChat Installer',
@@ -1420,7 +1416,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                                'install')
             portal._setObject('cpschat_installer', cpschat_installer)
         pr(portal.cpschat_installer())
-    except:
+    except ImportError:
         pass
 
     #
@@ -1429,7 +1425,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSCalendar
         if not portalhas('cpscalendar_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding cpsdocument installer')
             cpsdocument_installer = ExternalMethod('cpscalendar_installer',
                                                    'CPSCalendar Updater',
@@ -1437,7 +1432,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                                    'update')
             portal._setObject('cpscalendar_installer', cpsdocument_installer)
         pr(portal.cpscalendar_installer())
-    except:
+    except ImportError:
         pass
 
     #
@@ -1445,7 +1440,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     #
 
     if not portalhas('i18n Updater'):
-        from Products.ExternalMethod.ExternalMethod import ExternalMethod
         pr('Creating i18n Updater Support')
         i18n_updater = ExternalMethod('i18n Updater',
                                       'i18n Updater',
@@ -1465,7 +1459,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSDocument
         if not portalhas('cpsdocument_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding CPSDocument installer')
             cpsdocument_installer = ExternalMethod('cpsdocument_installer',
                                               'CPSDocument Installer',
@@ -1473,7 +1466,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                               'install')
             portal._setObject('cpsdocument_installer', cpsdocument_installer)
         pr(portal.cpsdocument_installer())
-    except:
+    except ImportError:
         pass
 
     #
@@ -1483,15 +1476,14 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     try:
         import Products.CPSMailingLists
         if not portalhas('cpsml_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding cpsmailinglists installer')
-            cpsdocument_installer = ExternalMethod('cpsml_installer',
+            cpsml_installer = ExternalMethod('cpsml_installer',
                                                    'CPSMailingLists Updater',
                                                    'CPSMailingLists.install',
                                                    'install')
             portal._setObject('cpsml_installer', cpsml_installer)
         pr(portal.cpsml_installer())
-    except:
+    except ImportError:
         pass
 
     pr(" Reindexing catalog")

@@ -93,7 +93,7 @@ class DefaultInstaller(CPSInstaller):
         self.setupTranslations()
         self.finalize()
         self.log("CPS update Finished")
-        self.verifyVHM()
+        self.verifyVhm()
 
 
     #

@@ -17,11 +17,54 @@
                               nothing)"></td>
   </tr>
   <tr>
-    <th colspan="5" align="right" i18n:translate="label_children_only">Only sub
-      folder</th>
-      <td><input type="checkbox" name="children_only" checked=""
-      tal:attributes="checked python:test(box['box'].children_only, 'checked',
-                              nothing)"></td>
+    <th colspan="5" align="right"
+        i18n:translate="label_authorized_only">Authorized folders only</th>
+    <td>
+      <input type="checkbox" name="authorized_only" checked=""
+             tal:attributes="checked python:test(box['box'].authorized_only,
+	                                         'checked',
+                                                 None)">
+    </td>
+  </tr>
+  <tr>
+    <th colspan="5" align="right" 
+        i18n:translate="label_children_only">Subfolders only</th>
+    <td>
+      <input type="checkbox" name="children_only" checked=""
+             tal:attributes="checked python:test(box['box'].children_only,
+                                                 'checked',
+                                                 nothing)">
+    </td>
+  </tr>
+  <tr>
+    <th colspan="5" align="right"
+        i18n:translate="label_display_managers">Display managers</th>
+    <td>
+      <input type="checkbox" name="display_managers" checked=""
+             tal:attributes="checked python:test(box['box'].display_managers,
+	                                         'checked',
+                                                 None)">
+    </td>
+  </tr>
+  <tr>
+    <th colspan="5" align="right"
+        i18n:translate="label_display_description">Display description</th>
+    <td>
+      <input type="checkbox" name="display_description" checked=""
+             tal:attributes="checked python:test(box['box'].display_description,
+	                                         'checked',
+                                                 None)">
+    </td>
+  </tr>
+  <tr>
+    <th colspan="5" align="right"
+        i18n:translate="label_display_root">Show root</th>
+    <td>
+      <input type="checkbox" name="show_root" checked=""
+             tal:attributes="checked python:test(box['box'].show_root,
+	                                         'checked',
+                                                 None)">
+    </td>
   </tr>
 </metal:fields>
 </metal:boxform>

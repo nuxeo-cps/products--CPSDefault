@@ -43,7 +43,7 @@ mcat = portal.Localizer.default
 #
 
 if len(items) == 0:
-    return batches, None, None
+    return batches, None, None, []
 
 batch_string = ""
 

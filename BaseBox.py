@@ -28,6 +28,7 @@ __version__='$Revision$'[11:-2]
 
 from zLOG import LOG, DEBUG
 import string
+from ComputedAttribute import ComputedAttribute
 
 from Globals import InitializeClass
 from AccessControl import getSecurityManager, ClassSecurityInfo
@@ -116,6 +117,23 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         )
 
     visible_if_empty = 0
+
+    def getPhysicalParentPath(self):
+        parentpath = self.getPhysicalPath()[:-1]
+        if parentpath and parentpath[-1] == '.cps_boxes':
+            parentpath = parentpath[:-1]
+        return parentpath
+
+    parent_path = ComputedAttribute(getPhysicalParentPath, 1)
+
+    def is_closed(self):
+        """Returns 0 is it is closed, 1 otherwise
+
+        This method is necessary to make sure that a 1 or a 0 is indexed
+        in the catalog, even if the value of self.closed is Null or '' or
+        any otehr value than 1 or 0.
+        """
+        return not not self.closed
 
     security.declarePublic('can_edit')
     def can_edit(self):

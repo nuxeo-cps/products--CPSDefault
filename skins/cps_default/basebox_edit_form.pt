@@ -101,12 +101,14 @@ box: <tal:block replace="box_url" />
           <em><tal:block i18n:translate="" content="category/desc" /></em>
         </td></tr>
         <tal:block repeat="type category/types">
-        <tr><td nowrap>
+        <tr><td nowrap tal:define="sf string:${type/provider}@${type/id}">
           <input type="radio" name="providertype" value="" class="noborder"
-            tal:define="sf string:${type/provider}@${type/id}"
-            tal:attributes="value sf;
+            tal:attributes="value sf; id sf;
                             checked python:test(sf==providertype,'checked',nothing)" />
-          <tal:block replace="type/provider" />-<tal:block replace="type/id" /></td>
+          <label for="" tal:attributes="for sf">
+            <span tal:replace="type/provider" />-<span tal:replace="type/id" />
+          </label>
+          </td>
           <td><em i18n:translate=""  tal:content="type/desc" />
         </td></tr>
         </tal:block>

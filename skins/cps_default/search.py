@@ -32,8 +32,13 @@ if hide_folder:
     query['cps_filter_sets'] = {'query' : ('searchable', 'leaves'),
                                 'operator' : 'and'}
 
-# XXX TODO make start/end search
-
+# start/end search
+if start_date and not query.has_key('start'):
+    query['start'] = {'query': start_date,
+                      'range': 'min'}
+if end_date and not query.has_key('end'):
+    query['end'] = {'query': end_date,
+                    'range': 'max'}
 
 # sorting
 if sort_by and not query.has_key('sort-on'):

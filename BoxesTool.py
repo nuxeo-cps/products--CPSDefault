@@ -303,8 +303,10 @@ class BoxContainer(PortalFolder):
         LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )
         return result
 
-def addBoxContainer(self, REQUEST=None):
-    """Add a Base Box."""
+def addBoxContainer(self, id=None, REQUEST=None):
+    """Add a Base Box.
+    id is not take into account, it is define to have
+    homogeneous portal creator """
     ob = BoxContainer(BoxContainer.id)
     self=self.this()
     if hasattr(aq_base(self), ob.id):

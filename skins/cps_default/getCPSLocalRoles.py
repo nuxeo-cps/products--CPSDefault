@@ -3,7 +3,8 @@
 """
 Get Merged Local Roles filtering non CPS Roles.
 
-Returns a tuple dict_roles, editable_users, cps_roles, local_roles_blocked
+Returns a tuple dict_roles, editable_users, cps_roles, local_roles_blocked,
+user_names
 """
 
 if mtool is None:
@@ -68,4 +69,13 @@ if ptype in ptype_role_prefix.keys():
     prefix = ptype_role_prefix[ptype]
     cps_roles = [x for x in cps_roles if x.startswith(prefix)]
 
-return dict_roles, editable_users, cps_roles, local_roles_blocked
+# user_names is a dictionary that holds the fullnames of users in
+# dict_roles.keys()
+mdir = context.portal_directories.members
+user_names = {}
+for user in dict_roles.keys():
+    type, uid = user.split(':', 1)
+    if type=='user':
+        user_names[uid] = mdir.getEntry(uid, {}).get('fullname', uid)
+
+return dict_roles, editable_users, cps_roles, local_roles_blocked, user_names

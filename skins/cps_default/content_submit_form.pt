@@ -6,7 +6,7 @@
 <metal:std_main use-macro="here/content_lib/macros/std_main">
 
 <metal:title fill-slot="title" i18n:translate="">
-  Submit
+  heading_submit_of
   <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
 </metal:title>
 
@@ -20,17 +20,17 @@
 
 <metal:main fill-slot="main"
             tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
-  
+
   <br>
   <metal:block use-macro="here/content_lib/macros/status" /><br><br>
- 
+
   <metal:block use-macro="here/content_lib/macros/transition_form">
     <metal:block fill-slot="fields"
                  tal:define="stree python: here.getSectionsTree();">
       <table border="0" width="100%" cellspacing="0" cellpadding="2">
         <tr>
-          <th width="30%" i18n:translate="portal_type_Section">Section</th>
-          <th i18n:translate="existing_revision">
+          <th width="30%" i18n:translate="listingheader_sections">Section</th>
+          <th i18n:translate="listingheader_existing_revision">
             Existing revision of the same document
           </th>
         </tr>
@@ -59,8 +59,8 @@
 
     <metal:block fill-slot="button">
       <input type="hidden" name="workflow_action" value="copy_submit">
-      <input type="submit" value="Submit item" i18n:attributes="value">
-      <input type="button" onClick="history.back()" value="Cancel"
+      <input type="submit" value="button_submit_document" i18n:attributes="value">
+      <input type="button" onClick="history.back()" value="button_cancel"
              i18n:attributes="value">
     </metal:block>
 

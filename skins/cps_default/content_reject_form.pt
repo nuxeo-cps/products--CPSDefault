@@ -6,7 +6,7 @@
 <metal:std_main use-macro="here/content_lib/macros/std_main">
 
 <metal:title fill-slot="title" i18n:translate="">
-  Reject publication of
+  heading_reject_publication_of
   <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
 </metal:title>
 
@@ -18,17 +18,17 @@
 
 <metal:main fill-slot="main"
             tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
-  
+
   <br>
   <metal:block use-macro="here/content_lib/macros/status" /><br><br>
- 
+
   <metal:block use-macro="here/content_lib/macros/transition_form">
 
     <metal:block fill-slot="button">
       <input type="hidden" name="workflow_action" value="reject">
-      <input type="submit" value="Reject publication item"
+      <input type="submit" value="button_reject_publication"
              i18n:attributes="value">
-      <input type="button" onClick="history.back()" value="Cancel"
+      <input type="button" onClick="history.back()" value="button_cancel"
              i18n:attributes="value">
     </metal:block>
 

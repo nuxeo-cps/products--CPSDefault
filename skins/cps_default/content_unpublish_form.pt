@@ -6,7 +6,7 @@
 <metal:std_main use-macro="here/content_lib/macros/std_main">
 
 <metal:title fill-slot="title" i18n:translate="">
-  Un publish
+  heading_unpublish_of
   <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
 </metal:title>
 
@@ -17,17 +17,17 @@
 
 <metal:main fill-slot="main"
             tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
-  
+
   <br>
   <metal:block use-macro="here/content_lib/macros/status" /><br><br>
- 
+
   <metal:block use-macro="here/content_lib/macros/transition_form">
 
     <metal:block fill-slot="button">
       <input type="hidden" name="workflow_action" value="unpublish">
-      <input type="submit" value="Remove published item"
+      <input type="submit" value="button_unpublish_document"
              i18n:attributes="value">
-      <input type="button" onClick="history.back()" value="Cancel"
+      <input type="button" onClick="history.back()" value="button_cancel"
              i18n:attributes="value">
     </metal:block>
 

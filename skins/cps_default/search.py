@@ -1,4 +1,4 @@
-##parameters=query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100, REQUEST=None
+##parameters=query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, default_languages=0, allow_empty_search=0, sort_limit=100, REQUEST=None
 # $Id$
 """
 Return a list of brains matching the query.
@@ -7,13 +7,15 @@ Examples:
 
 # Get all the News Item documents in the portal
 brains = portal.search(query={'portal_type': ('News Item',)})
-proxy = brain.getObject()
-document = proxy.getContent()
+for brain in brains:
+    proxy = brain.getObject()
+    document = proxy.getContent()
+    ...
 
-# Get all the News Item and the Press Release documents in the portal
-brains = portal.search(query={'portal_type': ('News Item', 'Press Release')})
-proxy = brain.getObject()
-document = proxy.getEditableContent()
+# Get all the Italian News Item and Italian Press Release documents
+# in the portal
+brains = portal.search(query={'portal_type': ('News Item', 'Press Release'),
+                              'Languages': 'it'})
 
 # Get all the published News Item documents in the portal which contains the
 # text "mycomparny.com".
@@ -25,13 +27,21 @@ brains = portal.search(query={'SearchableText': 'mycompany.com',
 
 # Get all the documents in the portal which are located below the folder
 # "folder1" which is located in the "workspaces" folder.
-# If you provide an empty query dict no results will be returned so this is
-# important to specify 'cps_filter_sets': 'searchable' when we want to retrieve
-# all kind of portal_types.
-brains = portal.search(query={'cps_filter_sets': 'searchable',
-                       }
-                       folder_prefix='workspaces/folder1',
+brains = portal.search(query={'path': '/cps/workspaces/folder1'})
+# if you know only the relative path:
+brains = portal.search(folder_prefix='workspaces/folder1',
+                       allow_empty_search=1,
                       )
+
+# the 2 previous searches will return all the documents that are pointed by
+# proxies that are located below the folder1,
+# this means that if you have a proxy that contains 3 translations you
+# will have 3 brains for this proxy.
+# If you want only a list of proxies in their default languages without
+# the available translation:
+brains = portal.search(query={'path': '/cps/workspaces/folder1'},
+                       default_languages=1)
+
 """
 
 from zLOG import LOG, DEBUG, INFO
@@ -71,10 +81,12 @@ if query.has_key('search_relative_path'):
     del query['search_relative_path']
 
 # use filter set to remove objects inside 'portal_*' or named '.foo'
-query['cps_filter_sets'] = 'searchable'
+query['cps_filter_sets'] = {'query': ['searchable'],
+                            'operator': 'and'}
+if default_languages:
+    query['cps_filter_sets']['query'].append('default_languages')
 if hide_folder:
-    query['cps_filter_sets'] = {'query': ('searchable', 'leaves'),
-                                'operator': 'and'}
+    query['cps_filter_sets']['query'].append('leaves')
 
 # title search
 if query.has_key('Title'):

@@ -3,20 +3,40 @@
 
 # milestones -----------------------------------------------
 - [encolpe] 05/12: encolpe coding for CPSDefault
-   postpone to 05/15 :( postpone 05/21 :(((
-- [ben] 05/14: CPSDefault workable mainframe
+   postpone to 05/15 :( postpone 05/22 :(((
+x [ben] 05/14: CPSDefault workable mainframe
 - [florent] 05/14: first impl of CPSDocuments
-  postpone ....
+  postpone to 05/23
 - [] 05/22: CPSDefault a la CMF ready
+  postpone until boxes tool/workflow/i18n/users tasks done
+  may be end of june 25/06
 - [] 05/28: CPSDemo with few services tbd ...
 
 
-# on work --------------------------------------------------
+# on work priority tasks -----------------------------------
+- [ben] boxes tool (known as portlets or portal tool)
+   o full refactoring
+      o make .cps_boxes a portal_type with a 'settings' attributes
+         settings is a dictionary: path, box_id, xpos, ypos, visible, style?
+      o make getBoxes work
+         search for box object from root to current path
+         loading box object and update settings dictionnary
+         override with personal boxes objects and settings in ~.cps_boxes
+      o make a .cps_boxes view screen to manage boxes positions
+         save setting for local boxes into boxes object
+         save setting for aquire boxes into folder settings dictionnary
+      o use boxes attributes
+         available in subfolder
+         Condition
+         Permission
+      o how to manage ~/.cps_boxes/view ?
+
 - misc
    o actionify *
-      make everything an action header_menu copy paste new print ...
+      make everything an action header_menu new print (copy/paste)?  ...
    o i18n framework 
-      audit plone tools write an HOWTO
+      o audit plone tools write an HOWTO
+      o add multi po loader like gilupdate
 
 - [encolpe] search
    o make catalog search work with proxies
@@ -28,11 +48,16 @@
 - workflow
   o display list of pending document for a reviewer
     require catalog search ??
-  o add wf_vars rpath + filter on review history copy_submit
+  o add wf_vars rpath src/dest + filter on review history copy_submit
   o add a comment on submit from copy_submit
-  o how to handle proxy history for reject or accept transition ?
-      store proxy source ref in a wf then invoke a transition to
-      update proxy source when proxy destination change state ?
+      o need to propagte args between transitions
+  o make a workflow history tool
+     using doc_id as pkey
+     o how to check permission, trying proxy access ?
+         for the moment display * history for doc_id
+  o how to notify reject or accept transition ?
+      add a submitter variable to the wf updated only on new/creation
+      then notify submitter ?
 
 - [seb] users
    o handle group in local roles management
@@ -42,12 +67,9 @@
    o how to remove roles for a user in a folder ?
    o do we need NuxMetaDirectories ?
 
-- [herve] portlet integration
-   o audit
 
-
-# others tasks list ----------------------------------------
-- CPS a la CMF
+# other tasks ----------------------------------------------
+- CPSDefault
    o workflow and docs
       o impl skin reject
       o impl skin unpublish
@@ -77,7 +99,6 @@
    x [] element integration: infinite postpone
    o cpsinstaller
       o don't need any more to rename folder actions
-      o add multi po loader like gilupdate
       o long term: big refactoring to enable registration of products
    o zpt usage
       o finish display_content macro add a cookie to remind option
@@ -96,18 +117,18 @@
    o tests
       o unit tests for Dummy and Folder
       o add puffin test to create big amount of docs ?
-
+         puffin is buggy !#@#
    o misc
-      o split skin repository into: cps_devel, cps_css, cps_nocss, cps_script
       o finalize zmi CPSSite form creation
       o rewrite cpsinstaller
+      x [] split skin repository into: cps_devel, cps_css, ...
       x [] use macro library
       x [] add benching tools
       x [] refactoring cpssite suite
       x [] add rpath in the dbg info of master
 
 
-# bug and blocking task ------------------------------------
+# bugs or blocking tasks -----------------------------------
 - Bug fix
    o puffin is buggy cps return __ac_name after __ac and we can not
       store the login cookie :/
@@ -131,18 +152,21 @@
    x [] fix folder_edit_form do not save change
 
 - Open questions
-   o how to handle proxy history for reject or accept transition ?
-   o unpublish what's happen to the history of a doc 
-     how to remember that it was published and by who and when
-   o how and when shoud we delete a doc in the repository
    o check that we can have many root sections and many workspace sections
    o how to remove roles for a user in a folder ?
+      TBD using local roles black list
+   x [] how to handle proxy history for reject or accept transition ?
+   x [] unpublish what's happen to the history of a doc 
+      how to remember that it was published and by who and when
+      need workflow_history tool
+      -> use the workflow history tool + user notification TBD
+   x [] how and when shoud we delete a doc in the repository
+     using a garbage collector checking doc without proxies ?
    x [] still need simple scenarii wf/multi version/multi language
    x [] how to accept multiple submit for a doc ?
       handle simple accept by section like CMF
    x [] how to allow unpublish for author
       allow unpublish only for reviewer 
-
 
 - Make CPSDemo product
    this product should be a skeleton for any new cps site

@@ -62,7 +62,7 @@ dc_keys = ('subject', 'date', 'creator',
 
 # computed value
 base_url = context.portal_url()+'/'
-channel_url = context.absolute_url() + '/exportRSS?' + \
+channel_url = context.absolute_url() + '/exportRSSContentBox?' + \
               context.REQUEST.environ.get('QUERY_STRING')
 channel_description = "RSS 1.0 export of the CPS Box named '%s' from the folder '%s'." % (
     box.title_or_id(), context.title_or_id())

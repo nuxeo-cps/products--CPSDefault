@@ -54,7 +54,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
     def _checkGetContentInfo(self, info, level):
-        self.assertEquals(info['icon'], 'news_icon.gif')
+        self.assertEquals(info['icon'], 'news_icon.png')
         self.assertEquals(info['id'], 'news')
         self.assertEquals(info['lang'], 'en')
         self.assertEquals(info['level'], level)
@@ -74,7 +74,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(info['creator'], 'member')
             self.assertEquals(info['description'], '')
             self.assertEquals(info['hidden'], 0)
-            self.assertEquals(info['icon'], 'news_icon.gif')
+            self.assertEquals(info['icon'], 'news_icon.png')
             self.assertEquals(info['rights'], '')
             self.assertEquals(info['size'], '1 K')
             self.assertEquals(info['source'], '')

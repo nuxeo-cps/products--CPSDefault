@@ -27,12 +27,12 @@
       tal:attributes="href
       string:${base_url}${box/url}/maximize?goto=${context_url}"><img
       src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif"
-      /></a></tal:block><tal:block
+      border="0"/></a></tal:block><tal:block
       condition="not:box/settings/minimized"><a href="" class="close"
       tal:attributes="href
       string:${base_url}${box/url}/minimize?goto=${context_url}"><img
       src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
-      /></a></tal:block>
+      border="0"/></a></tal:block>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
@@ -50,17 +50,18 @@
 <div class="box">
   <div class="title">
     <a href="" class="close" tal:attributes="href
-      string:${base_url}${box/url}/close?goto=${context_url}"><img
+      string:${base_url}${box/url}/close?goto=${context_url}"><img border="0"
       src="close.gif" tal:attributes="src string:${base_url}close.gif" /></a>
     <tal:block condition="box/settings/minimized"><a href="" class="close"
       tal:attributes="href
       string:${base_url}${box/url}/maximize?goto=${context_url}"><img
-      src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif"
-      /></a></tal:block><tal:block condition="not:box/settings/minimized"><a
+      border="0" src="maximize.gif" tal:attributes="src
+      string:${base_url}maximize.gif"/></a></tal:block><tal:block
+      condition="not:box/settings/minimized"><a
       href="" class="close" tal:attributes="href
       string:${base_url}${box/url}/minimize?goto=${context_url}"><img
-      src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
-      /></a></tal:block>
+      border="0" src="minimize.gif" tal:attributes="src
+      string:${base_url}minimize.gif" /></a></tal:block>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
@@ -127,7 +128,7 @@
 <metal:block define-macro="closed_box">
 <a href="" tal:attributes="href
   string:${base_url}${box/url}/maximize?goto=${context_url}">
-  <img src="maximize.gif" tal:attributes="src
+  <img src="maximize.gif" border="0" tal:attributes="src
     string:${base_url}maximize.gif" />
   <tal:block replace="box/box/title" />&nbsp;
 </a>

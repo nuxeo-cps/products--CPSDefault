@@ -97,10 +97,10 @@ want the special NS4 look - it will still work, just be plain text instead. -->
     <a href="" class="plain"
        tal:repeat="item tree"
        tal:attributes="href string:${item/path}/;
-                       class python:item['path'] == here_url and 'selected' or
-                       default"
-       tal:content="item/id">
-       section id (no title ?)
+                       class python:item['path'] == here_url and 'selected' or default;
+                       title item/title"
+       tal:content="structure item/short_title">
+       section title
     </a>
   </div>
 </metal:block>

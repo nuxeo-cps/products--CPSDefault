@@ -1,13 +1,12 @@
+## Script (Python) "computeId"
 ##parameters=compute_from='', max_chars_for_id=20
-
-#
-# Return a new id computed from compute_from
-#
-
+# $Id$
+"""
+Return a new id computed from compute_from
+"""
 from string import maketrans
 from random import randrange
 import re
-
 # Create, no id, get from title
 newid = compute_from.strip()[:max_chars_for_id]
 

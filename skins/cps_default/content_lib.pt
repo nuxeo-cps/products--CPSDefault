@@ -328,7 +328,7 @@ format:</pre>
     </tal:block>
   </tal:block>
   <tal:block condition="status_short_fmt|nothing" >
-    <tal:block condition="status_time|nothing" i18n:translate="">
+    <tal:block condition="status_time|nothing">
       <span tal:content="info/time_str" i18n:name="status_time">May 6,...</span>:
     </tal:block>
     <span i18n:translate="">
@@ -502,16 +502,16 @@ format:</pre>
   <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                                  title info/description;">
    <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
-  <td align=center><tal:block replace="structure python:here.getImgTag(info['icon'],
+  <td align="center"><tal:block replace="structure python:here.getImgTag(info['icon'],
     base_url=base_url, title=info['type'])" /></td>
-  <td align=right><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
-  <td align=center i18n:translate="">
+  <td align="right"><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
+  <td align="center">
     <span tal:content="info/time_str">May 6,...</span>
   </td>
-  <td align=center><span tal:content="info/creator"></span></td>
-  <td align=center tal:content="info/review_state" tal:attributes="class
+  <td align="center"><span tal:content="info/creator"></span></td>
+  <td align="center" tal:content="info/review_state" tal:attributes="class
     info/review_state" i18n:translate="">published</td>
-  <td align=center i18n:translate="">
+  <td align="center">
     v-<tal:block replace="info/rev" />
     <tal:block i18n:translate=""
       content="string:label_language_${info/lang}">en</tal:block>
@@ -557,11 +557,10 @@ format:</pre>
 
   <span tal:repeat="item info/history" >
 
-  <span i18n:translate="">
+  <span>
     <span tal:content="item/time_str"
-          i18n:name="history_time">May 6, 2003 5:28 pm</span>:
-
-    </span>
+      i18n:name="history_time">May 6, 2003 5:28 pm</span>:
+  </span>
     <span tal:content="item/action" i18n:translate="">publish</span>
 
    <tal:block condition="item/has_dest|nothing" i18n:translate="">

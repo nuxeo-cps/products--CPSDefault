@@ -56,16 +56,17 @@ cps_roles = [x for x in cps_roles if x not in ('Owner',
                                                'Reviewer',
                                                'Manager',
                                                'Authenticated')]
-# Checking the context (Ws or section)
-if context.portal_type == 'Section':
-    cps_roles = [x for x in cps_roles if x in ('SectionManager',
-                                               'SectionReviewer',
-                                               'SectionReader')]
-elif context.portal_type in ('Workspace', 'Calendar'):
-    cps_roles = [x for x in cps_roles if x in ('WorkspaceManager',
-                                               'WorkspaceMember',
-                                               'WorkspaceReader')]
-else:
-    cps_roles = cps_roles
+# filter roles by portal type using prefix
+# XXX TODO relevant roles should be store in the portal_types tool
+ptype_role_prefix = {'Section': 'Section',
+                     'Workspace': 'Workspace',
+                     'Calendar': 'Workspace',
+                     'CPSForum': 'Forum',
+                     'CPSChat': 'Chat',
+                     }
+ptype = context.portal_type
+if ptype in ptype_role_prefix.keys():
+    prefix = ptype_role_prefix[ptype]
+    cps_roles = [x for x in cps_roles if x.startswith(prefix)]
 
 return dict_roles, editable_users, cps_roles, local_roles_blocked

@@ -2,29 +2,46 @@
 # CPSDefault TODO
 
 - CPS3 a la CMF
-   o checking all wf and local role action
-   o implement content_accept_publish_form (in_submit -> published | reject)
-   o implement folder_factories_form
-   o add wf_variable, transition - date - user
-   o display more infos 'status' in folder_contents view
-   o display history in publish_form
-   o or make a document status page displaying all proxy rev lang status ...
-   o add ptree infos
-   o make sections and workspace box on left and actions box on right
-   o put members folder in workspace root
-   o clean cmf stuff ? undo ? pref ? fav ?
-   o copy/cut/paste ...
-   o make schema or sample doc for the 4 wf + navigation
-   o finish zmi create CPSSite form
-   o find utests with maximum coverage
+   o workflow and docs
+      o impl skin accept
+      o impl skin reject
+      o impl skin unpublish
+      o impl skin proxy history i.e wf history
+         o add wf variables: transition, date, user
+      o improve publish page
+   o folder
+      o folder_contents with more info
+        display proxy rev, lang, status
+      o impl folder_factories_form 
+        check perms for creating/display sub section/workspace action
+      o add constraint on type of document for workspace/creation
+         and sections/publication
+   o document
+      o full info skin: list all proxy about a document
+      o impl copy/cut/paste ...
+   o directory integration
+      o update localrole management using group and anonymous
+   o portlet integration
+     is this possible without elements ????
+      o displaying sections and workspaces folder
+   o search
+      o impl skin for full text search
+   o cmf integration
+      o put members folder into workspaces
+      o clean or integrate fully cmf stuff ? undo ? preference ? favorite ?
+   o zmi
+      o finalize CPSSite form
+   o tests
+      o real unit test for Dummy and Folder
+      o better functional tests with maximum coverage using ZTC
+         o refactoring of testCPSSite
 
 - Bug fix
-   o fix duplicate 'CPSDefault' and 'CPS Default' ptype name
-   o filter sections in folder_contents sectionReader 
-      can not access section with in_submit document
-   o filter sections in content_publish_form display only section 
-      with where we are SectionReader, using traveresall ?
-   o how to displayed that a doc is freeze, no isFreezed method ?
+   o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
+   o folder_contents permission denied for SectionReader on folder
+     with pending (in_submit) document
+   o content_publish_form should display only section with
+     SectionReader rights
    o folder_contents display links with broken path 
       if there are a missing trailing '/' in the URL
 
@@ -34,6 +51,7 @@
       how to remember that it was published and by who and when
    o how to accept multiple submit for a doc ?
    o how to allow unpublish for author
+   o how and when shoud we delete a doc in the repository
 
 - CPS Pro
    o Use elements

@@ -25,9 +25,11 @@ Requires:
 New features:
 ~~~~~~~~~~~~~
 - Applied useful patch from J.-M. Orliaguet that does submit & publish in a
-  single action if the submitter has enough rights - i18n for the form still has
-  to be updated
+  single action if the submitter has enough rights
+- i18n for the form still has to be updated
 - Enhancing accessibility of the 'folder_factories' form
+- date displayed in folder view/content are last modified date
+  instead of useless last workflow trasaction
 Bug fixes:
 ~~~~~~~~~~
 - Hardening on content_lib: we don't want to getContentInfo on the Portal
@@ -45,6 +47,8 @@ New internal features:
 Requires:
 ~~~~~~~~~
 - latest CPSInstaller and CPSCore
+- if you use search.py in custom script you have to
+  handle brains instead of proxy now see below.
 New features:
 ~~~~~~~~~~~~~
 - refactoring search
@@ -166,7 +170,7 @@ New internal features:
   toggleFormTooltip -> toggleElementVisibility
   showFormTooltip   -> showElement
 - using the new CPS Registration Tool.
-- javascript files are now dtml file and handle cache and content type 
+- javascript files are now dtml file and handle cache and content type
   properly
 
 *******************************************
@@ -269,7 +273,7 @@ New internal features:
 
 Requires:
 ~~~~~~~~~
-- 
+-
 New features:
 ~~~~~~~~~~~~~
 - new doctype XHMTL 1.0 Transitional !
@@ -289,7 +293,7 @@ Bug fixes:
 - tooltip helpers are truncated on resolution lower than 1024x768
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- you can check any pages ttw using tidy 
+- you can check any pages ttw using tidy
   if you use the benchmarktimer and you have installed mx.tidy
   from the egenix-mx-experimental-0.8.0 package
 - javascript file: functions.js is always loaded
@@ -523,7 +527,7 @@ New internal features:
 
 ZODB Requires:
 ~~~~~~~~~~~~~~
-- if you use Custom CSS configuration by folder, move the previous 
+- if you use Custom CSS configuration by folder, move the previous
   folder_edit_form page into your project
 New features:
 ~~~~~~~~~~~~~
@@ -571,7 +575,7 @@ New features:
   folder form to search on title and description of folder (even if not visible)
 Bug fixes:
 ~~~~~~~~~~
-- 
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - css class row/label/field used to display form is now more compact
@@ -590,11 +594,11 @@ New features:
 - Draft (or Brouillon) actions are renamed into Version
 Bug fixes:
 ~~~~~~~~~~
-- 
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - Folder (section/workspace) creation without title will return a creation page
-  instead of creating a folder with an autocomputed id like my_section92123 
+  instead of creating a folder with an autocomputed id like my_section92123
 
 *******************************************
 ** CPSDefault V3.6.1 [R1 build 2003/11/27-22:39 by fermigier]
@@ -709,7 +713,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- Launching the CPSDocument installer cause the favorites facility uses the 
+- Launching the CPSDocument installer cause the favorites facility uses the
   URL type from CPSDocument.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -755,7 +759,7 @@ New internal features:
 
 ZODB Requires:
 ~~~~~~~~~~~~~~
-- 
+-
 New features:
 ~~~~~~~~~~~~~
 -
@@ -773,7 +777,7 @@ New internal features:
 
 ZODB Requires:
 ~~~~~~~~~~~~~~
-- 
+-
 New features:
 ~~~~~~~~~~~~~
 - In workspaces, you can create a draft from a document you
@@ -786,7 +790,7 @@ New features:
            Treebox Sitemap you may have to rebuild your portal_tree if some
            item/description keyerror occurs
 - An event calendar is now available. Document types which should be considered
-  events to be displayed have to be selected in the Configure tab of the 
+  events to be displayed have to be selected in the Configure tab of the
   portal_calendar tool. They must also implement the event interface, consisting
   of the start() and end() methods returning DateTime objects for the beginning
   and end dates of the event. Instantiating a calendar box is achieved by creating
@@ -801,7 +805,7 @@ Bug fixes:
 - P3 #164: consistency in the URL : trailing slash or not ?
 - P3 #88: bad display of revision for compact/detail mode
 - P3 #91: copy/paste doesn't work inside sections
-- P1 #115: copy/paste, copy only proxies instead of proxies and documents 
+- P1 #115: copy/paste, copy only proxies instead of proxies and documents
 - no more error about a title when using the icon view.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -869,7 +873,7 @@ Bug fixes:
 - P3 #120: Search result legend "gave 0 or 1 result" not i18n
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- cosmit on css adding error fixing group class 
+- cosmit on css adding error fixing group class
 *******************************************
 ** CPSDefault V3.2.1 [R1 build 2003-09/02-09:02 by anguenot]
 
@@ -888,9 +892,9 @@ New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - CSS cosmetic
 - Dummy document implement get_size and additional content info method
-- folder view/contents able to display document image if 
+- folder view/contents able to display document image if
 	getAdditionalContentInfo return a preview img path
-- Adding the method getTreeObject returning the tree object itself given a root 
+- Adding the method getTreeObject returning the tree object itself given a root
 in the TreeBox type.
 - pyChecker correction
 - IE6 able to change font size
@@ -908,7 +912,7 @@ Bug fixes:
 ~~~~~~~~~~
 - P2 #97: html img tag without size make IE navigation ugly
 - P3 #92: delete action should be confirm
-- P3 #87: CPS return html page without any DOCTYPE 
+- P3 #87: CPS return html page without any DOCTYPE
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
@@ -920,7 +924,7 @@ ZODB Requires:
 -
 New features:
 ~~~~~~~~~~~~~
-- 
+-
 Bug fixes:
 ~~~~~~~~~~
 - P2 #90: copy/paste right problems on button display
@@ -944,7 +948,7 @@ Bug fixes:
 - P2 #82: Permission check for the up/down facilities buggy
 - P2 #65: improve batch mode
 - P2 #83: action manage boxes is not displayed in the root of cps
-- P2 #64: implement copy/paste workflow 
+- P2 #64: implement copy/paste workflow
 - P3 #77: folder_localrole_form display group id instead of group name
 - P3 #79: folder_localrole_form empty email search fails
 - P3 #81: login page should set focus on login input

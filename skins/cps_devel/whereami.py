@@ -36,14 +36,6 @@ try:
 except:
     doc = context
 
-try:
-    print 'Searchable text CPSDocument ---------------'
-    print 'text=%s.' % doc.SearchableText()
-    print
-except:
-    pass
-
-
 print 'CPSDocument ------------'
 path = '/'.join(doc.getPhysicalPath())
 print 'doc path: %s' % path
@@ -53,10 +45,16 @@ print 'ZCatalog ---------------'
 rid = doc.portal_catalog.getrid(path)
 print 'zcat.getrid(%s) = %s' % (path, rid)
 print '<a href="portal_catalog/manage_objectInformation?rid=%s>view catalog info</a>' % rid
-#zinfo = context.portal_catalog.manage_objectInformation(rid=rid)
-#print zinfo
-#utool.getRelativeUrl(doc)
-#print 'path = %s' % doc.portal_catalog.getpath(-1656972463)
+print
+
+try:
+    print 'Searchable text CPSDocument ---------------'
+    print 'doc.SearchableText=%s.' % doc.SearchableText()
+    print
+except:
+    pass
+
+
 
 print '</pre>'
 return printed

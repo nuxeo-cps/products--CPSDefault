@@ -1602,7 +1602,7 @@ except:
 
     pr(" Reindexing catalog")
     # this rebuild all index
-#    portal.portal_catalog.refreshCatalog(clear=1)
+    portal.portal_catalog.refreshCatalog(clear=1)
 
     # remove cpsinstall external method
     # and fix cpsupdate permission

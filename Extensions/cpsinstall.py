@@ -110,7 +110,8 @@ def cpsupdate(self, langs_list=None):
     pr("Verifying User Folder")
     if portalhas('acl_users'):
         aclu = portal.acl_users
-        if aclu.meta_type == 'User Folder With Groups':
+        if aclu.meta_type in ['User Folder With Groups',
+                              'LDAPUserGroupsFolder']:
             prok()
         else:
             usernames = aclu.getUserNames()

@@ -2,8 +2,9 @@
 <!-- $Id$ -->
 
 <!-- ============================================================ -->
-<metal:block define-macro="header">
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
+<metal:block define-macro="header" tal:define="charset string:ISO-8859-15">
+  <tal:block define="dummy python:request.RESPONSE.setHeader('Content-Type',
+    'text/html;; charset=%s' % charset)" />
   <meta name="generator" content="Nuxeo CPS" />
   <title tal:content="expanded_title|here/expanded_title">CPS Default</title>
   <metal:block define-slot="base"></metal:block>
@@ -29,4 +30,3 @@
   <script type="text/javascript"
     tal:attributes="src string:${base_url}functions.js"></script>
 </metal:block>
-

@@ -38,7 +38,8 @@ if columns:
 else:
     fmt = params['format']
     if fmt == 'icon':
-        col = 5
+        col = 4
+	params['items_per_page'] = 12
     elif fmt == 'compact':
         col = 2
     elif fmt == 'detail':

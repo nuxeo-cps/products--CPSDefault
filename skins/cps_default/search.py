@@ -2,6 +2,16 @@
 # $Id$
 """
 Return a list of brains matching the query.
+
+Examples:
+
+brains = portal.search(query={'portal_type': ('News Item',)})
+proxy = brain.getObject()
+document = proxy.getContent()
+
+brains = portal.search(query={'portal_type': ('News Item', 'Press Release')})
+proxy = brain.getObject()
+document = proxy.getEditableContent()
 """
 
 from zLOG import LOG, DEBUG, INFO

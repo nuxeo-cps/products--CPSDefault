@@ -47,11 +47,11 @@ box: <tal:block replace="box_url" />
     <th aligh="right" i18n:translate="label_display">Display</th>
     <td>
       <select name="display">
-	<option value="maximized"
-	  tal:attributes="selected python:test(box['settings']['minimized'], nothing, 'selected')">Maximized</option>
-	<option value="minimized"
+	<option value="maximized" i18n:translate="label_maximized"
+	  tal:attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');">Maximized</option>
+	<option value="minimized" i18n:translate="label_minimized"
 	  tal:attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)">Minimized</option>
-	<option value="closed"
+	<option value="closed" i18n:translate="label_closed"
 	  tal:attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
       </select><br>
       <input type="checkbox" name="display_in_subfolder"
@@ -81,17 +81,19 @@ box: <tal:block replace="box_url" />
   </tr>
   <metal:block define-slot="additional_fields">
   </metal:block>
-  <tr>
+  <tr >
     <td></td>
     <td colspan="5">
       <input type="submit" name="change" value="button_change"
-        i18n:attributes="value">
+      i18n:attributes="value"
+      tal:condition="python:checkPerm('Manage Boxes', box['box'])">
+      <input type="button" i18n:attributes="value" value="button_back" onClick="history.back()">
     </td>
   </tr>
 </table>
 
 </form>
-
+<!-- XXX debug info -->
   <hr>
 Render: <metal:block use-macro="python:path(box['macro'])" /><br>
 Settings: <tal:block replace="box/settings" />

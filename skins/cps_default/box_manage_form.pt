@@ -20,38 +20,42 @@ tal:content="context_url" /></p>
     <span i18n:translate="label_slot" />: <span i18n:translate="" tal:content="string:label_${slot}">Slot</span></h3>
 
 
-<form action="" method="post"
-  tal:attributes="action string:${context_urlc}">
-
-<table>
+<table width="100%">
   <tr>
-    <th></th>
-    <th i18n:translate="listingheader_order">Order</th>
-    <th i18n:translate="listingheader_type">Type</th>
-    <th i18n:translate="listingheader_title">Title</th>
-    <th i18n:translate="listingheader_location">location</th>
+    <th i18n:translate="listingheader_order" width="5%">Order</th>
+    <th i18n:translate="listingheader_type" width="25%">Type</th>
+    <th i18n:translate="listingheader_title" width="25%">Title</th>
+    <th i18n:translate="listingheader_location" widht="30%">location</th>
+    <th i18n:translate="listingheader_action" width="15%">action</th>
   </tr>
   <tal:block repeat="box sboxes">
-  <tr tal:define="action python:box['box'].getTypeInfo().immediate_view"
-    tal:attributes="bgcolor python:repeat['box'].odd() and '#EEEEEE' or nothing">
-    <td><input type="checkbox" name="ids:list" value=""
-          tal:attributes="value box/url;"
-          tal:condition="python:checkPerm('Manage Boxes', box['box'])"></td>
+  <tr tal:define="action python:box['box'].getTypeInfo().immediate_view;
+                  editable python:checkPerm('Manage Boxes', box['box'])"
+    tal:attributes="bgcolor python:repeat['box'].even() and '#EEEEEE' or nothing">
     <td align="right"><tal:block replace="box/box/order" /></td>
-    <td><a href="" tal:attributes="href
-      string:${context_urlc}/${action}?box_url=${box/url}">
+    <td nowrap>
       <tal:block
-        i18n:translate="" content="python:box['box'].getTypeInfo().Title()" /></a></td>
-    <td><tal:block replace="box/box/title" /></td>
-    <td><tal:block replace="string:${base_url}${box/display_url}" /></td>
+        i18n:translate="" content="python:box['box'].getTypeInfo().Title()" />
+    </td>
+    <td nowrap><tal:block replace="box/box/title" /></td>
+    <td nowrap><tal:block replace="string:${base_url}${box/display_url}" /></td>
+    <td nowrap>
+      <tal:block condition="editable">
+        <a href="" tal:attributes="href
+      string:${context_urlc}/${action}?box_url=${box/url}" i18n:translate="link_box_edit">edit</a>,
+      <a href="" tal:attributes="href
+      string:${context_urlc}/box_delete?box_url=${box/url}" i18n:translate="link_box_delete">delete</a>
+      </tal:block>
+      <tal:block condition="not:editable">
+        <a href="" tal:attributes="href
+      string:${context_urlc}/${action}?box_url=${box/url}" i18n:translate="link_box_view">view</a>
+      </tal:block>
+    </td>
   </tr>
   </tal:block>
 </table>
-  <input type="submit" name="box_delete:method"
-    value="button_delete_box" i18n:attributes="value">
 <br>
 <br>
-</form>
 
 </tal:block>
 </tal:block>

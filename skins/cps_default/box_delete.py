@@ -1,18 +1,16 @@
 ## Script (Python) "box_delete"
 ##parameters=REQUEST=None, **kw
 # $Id$
-"""Delete boxes."""
+"""Delete a box."""
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
-ids = kw.get('ids', [])
+box_url = kw.get('box_url', [])
 
-for boxurl in ids:
-    box = context.restrictedTraverse(boxurl)
-    bc = box.aq_parent
-    bc.manage_delObjects(box.id)
-
+box = context.restrictedTraverse(box_url)
+bc = box.aq_parent
+bc.manage_delObjects(box.id)
 
 if REQUEST is not None:
     psm = 'psm_box_deleted'

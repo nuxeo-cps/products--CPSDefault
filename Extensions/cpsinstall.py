@@ -243,7 +243,6 @@ def cpsupdate(self, langs_list=None):
     for t in ('creation', 'create_subobject'):
         wf.transitions.addTransition(t)
 
-    # wf.states.setInitialState('work')
     s = wf.states.get('work')
     s.setProperties(title='Work', 
                     transitions=('create_subobject',))
@@ -252,16 +251,16 @@ def cpsupdate(self, langs_list=None):
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ), 
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    props={'guard_permissions':'', 'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 'guard_expr':''},
                     )
     t = wf.transitions.get('create_subobject')
     t.setProperties(title='Create a sub object', new_state_id='', 
                     transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ), 
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
-                    actbox_name='Create sub workspace', actbox_category='workflow',
-                    actbox_url='%(content_url)s/workspace_create_form',
-                    props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; Manager; Owner', 'guard_expr':''},
+                    actbox_name='Create sub object in a workspace', actbox_category='workflow',
+                    actbox_url='%(content_url)s/workspace_factories_form',
+                    props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; WorkspaceMember; Manager', 'guard_expr':''},
                     )
 
     # WF workspace document
@@ -280,7 +279,6 @@ def cpsupdate(self, langs_list=None):
     for p in (View, ModifyPortalContent, ):
         wf.addManagedPermission(p)
         
-    # wf.states.setInitialState('work')
     s = wf.states.get('work')
     s.setProperties(title='Work', 
                     transitions=('publish',))
@@ -292,7 +290,9 @@ def cpsupdate(self, langs_list=None):
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ),
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    props={'guard_permissions':'',
+                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager', 
+                           'guard_expr':''},
                     )
     t = wf.transitions.get('publish')
     t.setProperties(title='Publish', new_state_id='', 
@@ -302,7 +302,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Publish', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_publish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager; Owner', 
+                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager', 
                            'guard_expr':''},
                     )
 
@@ -328,16 +328,16 @@ def cpsupdate(self, langs_list=None):
                     transition_behavior=(TRANSITION_INITIAL_CREATE, ), 
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    props={'guard_permissions':'', 'guard_roles':'SectionManager; Manager', 'guard_expr':''},
                     )
     t = wf.transitions.get('create_subobject')
-    t.setProperties(title='Create a sub object', new_state_id='', 
-                    transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, TRANSITION_ALLOWSUB_CREATE, ), 
+    t.setProperties(title='Create a sub object in a section', new_state_id='', 
+                    transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, ), 
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
-                    actbox_name='Create sub section', actbox_category='workflow',
-                    actbox_url='%(content_url)s/section_create_form',
-                    props={'guard_permissions':'', 'guard_roles':'WorkspaceMember; WorkspaceManager; SectionReviewer; SectionManager; Manager; Owner', 'guard_expr':''},
+                    actbox_name='Create object into a section', actbox_category='workflow',
+                    actbox_url='',
+                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
                     )
 
     # WF section document
@@ -369,35 +369,33 @@ def cpsupdate(self, langs_list=None):
     
     t = wf.transitions.get('in_publish')
     t.setProperties(title='Member publishes directly', new_state_id='published', 
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, 
-                                         TRANSITION_INITIAL_PUBLISHING,
+                    transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE,),
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager; Owner', 
+                           'guard_roles':'SectionReviewer; SectionManager; Manager', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('in_submit')
     t.setProperties(title='Member requests publishing', new_state_id='pending', 
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, 
-                                         TRANSITION_INITIAL_PUBLISHING,
+                    transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE), 
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '', 
-                           'guard_roles': '', 
+                           'guard_roles': 'Member; Manager', 
                            'guard_expr': ''},
                     )
     t = wf.transitions.get('publish')
-    t.setProperties(title='Member requests publishing', new_state_id='published', 
+    t.setProperties(title='Reviewer accept publishing', new_state_id='published', 
                     transition_behavior=None,
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_publish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager; Owner', 
+                           'guard_roles':'SectionReviewer; SectionManager; Manager', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('unpublish')
@@ -408,7 +406,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Un Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_unpublish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager; Owner', 'guard_expr':''},
+                           'guard_roles':'SectionReviewer; SectionManager; Manager', 'guard_expr':''},
                     )
    
         
@@ -507,24 +505,24 @@ def cpsupdate(self, langs_list=None):
 
     pr("Verifying permissions")
     sections_perm = {
-                     'Add portal content': ['Manager', 'Owner', 'SectionManager'],
-                     'Add portal folders': ['Manager', 'Owner', 'SectionManager'],
-                     'Change permissions': ['Manager', 'Owner', 'SectionManager'],
-                     'Delete objects': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer'],
-                     'List folder contents': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer', 'SectionReader'],
-                     'Modify portal content': ['Manager', 'Owner', 'SectionManager'],
-                     'View': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer', 'SectionReader'],
-                     'View management screens': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer'],
+                     'Add portal content': ['Manager', 'SectionManager'],
+                     'Add portal folders': ['Manager', 'SectionManager'],
+                     'Change permissions': ['Manager', 'SectionManager'],
+                     'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
+                     'List folder contents': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
+                     'Modify portal content': ['Manager', 'SectionManager'],
+                     'View': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
+                     'View management screens': ['Manager', 'SectionManager', 'SectionReviewer'],
         }
     workspaces_perm = {
-                       'Add portal content': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
-                       'Add portal folders': ['Manager', 'Owner', 'WorkspaceManager'],
-                       'Change permissions': ['Manager', 'Owner', 'WorkspaceManager'],
-                       'Delete objects': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
-                       'List folder contents': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
-                       'Modify portal content': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
-                       'View': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
-                       'View management screens': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
+                       'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+                       'Add portal folders': ['Manager', 'WorkspaceManager'],
+                       'Change permissions': ['Manager', 'WorkspaceManager'],
+                       'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+                       'List folder contents': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
+                       'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+                       'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
+                       'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
         }
     pr("Section")
     for perm, roles in sections_perm.items():

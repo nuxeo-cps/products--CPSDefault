@@ -13,7 +13,12 @@
   <style type="text/css" media="all"
     tal:condition="exists: here/custom.css"
     tal:content="string:@import url(${base_url}custom.css);"></style>
-  <!-- link rel="stylesheet" type="text/css" media="print" href=""
+  <!-- Checking if we have a custom CSS defined in this folder or before -->
+  <style type="text/css" media="all"
+    tal:define="custom_css here/getCPSCustomCSS|nothing"
+    tal:condition="custom_css"
+    tal:content="string:@import url(${base_url}${custom_css});"></style>
+  <!-- link rel="stylesheet" type="text/css" émedia="print" href=""
     tal:attributes="href string:${base_url}plonePrint.css" -->
   <link rel="icon" href="" type="image/png" tal:attributes="href
     string:${base_url}favicon.png">

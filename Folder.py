@@ -19,6 +19,8 @@
 """ Folder, which is both used for work and publication.
 """
 
+from zLOG import LOG, DEBUG
+
 from Globals import InitializeClass
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
@@ -70,10 +72,16 @@ factory_type_information = (
     )
 
 
-
 class Folder(CPSBaseFolder):
     meta_type = 'Folder'
     portal_type = meta_type # To ease testing.
+
+    _properties = CPSBaseFolder._properties + (
+        {'id': 'cps_custom_css', 'type': 'string', 'mode': 'w',
+         'label': 'CPS Custom CSS'},
+        )
+
+    cps_custom_css = ""
 
 InitializeClass(Folder)
 

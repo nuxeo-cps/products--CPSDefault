@@ -5,7 +5,7 @@
 
 cps_pref = context.REQUEST.SESSION.get('cps_display_params', {})
 
-def_params = {'format': 'detail',
+def_params = {'format': None,
               'sort_by': None,
               'direction': 'asc',
               'items_per_page': 10,
@@ -17,17 +17,17 @@ params = def_params
 if format:
     params['format'] = format
 else:
-    params['format'] = cps_pref.get('format', def_params['format'])
+    params['format'] = cps_pref.get('format') or def_params['format']
 
 if sort_by:
     params['sort_by'] = sort_by
 else:
-    params['sort_by'] = cps_pref.get('sort_by', def_params['sort_by'])
+    params['sort_by'] = cps_pref.get('sort_by') or def_params['sort_by']
 
 if direction:
     params['direction'] = direction
 else:
-    params['direction'] = cps_pref.get('direction', def_params['direction'])
+    params['direction'] = cps_pref.get('direction') or def_params['direction']
 
 
 if nav_action:
@@ -39,7 +39,7 @@ else:
     fmt = params['format']
     if fmt == 'icon':
         col = 4
-	params['items_per_page'] = 12
+        params['items_per_page'] = 12
     elif fmt == 'compact':
         col = 2
     elif fmt == 'detail':

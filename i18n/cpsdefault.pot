@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-10-06 16:53default\n"
+"POT-Creation-Date: 2003-10-10 00:06default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -111,6 +111,18 @@ msgstr ""
 msgid "Your query '${query}'"
 msgstr ""
 
+#.   <a define="next batch_info/next" condition="python:next is not None" attributes="href python:'%s?%s'%(request['URL'],
+#.                                                   mq(request.form, b_start=next))">Next</a>
+#: from ../skins/cps_default/content_lib.pt
+msgid "batch_next"
+msgstr ""
+
+#.   <a define="previous batch_info/previous" condition="python:previous is not None" attributes="href python:'%s?%s'%(request['URL'],
+#.                                               mq(request.form, b_start=previous))">Previous</a>
+#: from ../skins/cps_default/content_lib.pt
+msgid "batch_previous"
+msgstr ""
+
 #.   <block fill-slot="box_title" content="box/box/title">
 #.         box text title
 #.       </block>
@@ -149,6 +161,8 @@ msgstr ""
 msgid "button_add"
 msgstr ""
 
+#.   <input value="button_assign_roles" type="submit">
+#.       </input>
 #.   <input value="button_assign_roles" type="submit" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
@@ -164,7 +178,8 @@ msgstr ""
 #.     </input>
 #.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
 #.       </input>
-#.   <input onclick="history.back()" type="button" value="button_cancel" />
+#.   <input onclick="history.back()" type="button" value="button_cancel">
+#.     </input>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
@@ -187,7 +202,9 @@ msgstr ""
 #.         <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input></input></input>
-#.   <input value="button_change" type="submit" />
+#.   <input value="button_change" type="submit">
+#.      <input onclick="history.back()" type="button" value="button_cancel">
+#.     </input></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
@@ -204,8 +221,8 @@ msgstr ""
 #.           <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.         </input></input>
 #.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#.               <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.             </input></input>
+#.             <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
+#.           </input></input>
 #.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input></input>
@@ -219,7 +236,7 @@ msgstr ""
 #.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.         </input>
 #.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.             </input>
+#.           </input>
 #.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input>
 #: from ../skins/cps_default/dummy_edit_form.pt
@@ -271,7 +288,8 @@ msgstr ""
 #.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
 #.           </input></input></input></input></br></block>
 #.         </input>
-#.   <input value="button_delete" type="submit" />
+#.   <input value="button_delete" type="submit">
+#.      </input>
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
@@ -379,7 +397,8 @@ msgstr ""
 msgid "button_rename"
 msgstr ""
 
-#.   <input value="button_search" name="role_submit" type="submit" />
+#.   <input value="button_search" name="role_submit" type="submit">
+#.      </input>
 #.   <input value="button_search" class="context" type="submit" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
@@ -573,7 +592,7 @@ msgstr ""
 #.       ${item_id (tal replace="here/getId")}
 #.     </h1>
 #.   <h2>heading_edit
-#.         ${item_id (tal replace="here/getId")}</h2>
+#.       ${item_id (tal replace="here/getId")}</h2>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 msgid "heading_edit ${item_id}"
@@ -633,6 +652,11 @@ msgstr ""
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "heading_mail_password_form"
+msgstr ""
+
+#.   <h1>Password sent</h1>
+#: from ../skins/cps_default/mail_password_response.pt
+msgid "heading_mail_password_response"
 msgstr ""
 
 #.   <h1>
@@ -785,6 +809,20 @@ msgid "help_mail_password_2"
 msgstr ""
 
 #.   <p>
+#.       Your password has been mailed.
+#.     </p>
+#: from ../skins/cps_default/mail_password_response.pt
+msgid "help_mail_password_response_1"
+msgstr ""
+
+#.   <p>
+#.       It should arrive in your mailbox momentarily.
+#.     </p>
+#: from ../skins/cps_default/mail_password_response.pt
+msgid "help_mail_password_response_2"
+msgstr ""
+
+#.   <p>
 #.       You must select one or more items to rename.
 #.     </p>
 #: from ../skins/cps_default/folder_rename_form.pt
@@ -837,9 +875,9 @@ msgstr ""
 
 #.   <span>To make an item published and
 #.     viewable by readers, it has to be reviewed by one of the sections's reviewers.
-#.     You can submit the item in many sections folder.<br /> A copy of the item will
+#.     You can submit the item in many sections folder.<br> A copy of the item will
 #.     be created into each section with a <b>pending</b> status, waiting to be
-#.     reviewed and finally <b>published</b> by a section's reviewer.</span>
+#.     reviewed and finally <b>published</b> by a section's reviewer.</br></span>
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "help_submit_publication"
 msgstr ""
@@ -972,11 +1010,7 @@ msgstr ""
 #.   <option attributes="selected not:format" value="None">
 #.               Default
 #.       </option>
-#.   <option attributes="selected python:box['box'].display is None" value="None">
-#.             Default
-#.           </option>
 #: from ../skins/cps_default/content_lib.pt
-#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_default"
 msgstr ""
 
@@ -1047,26 +1081,6 @@ msgstr ""
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/content_lib.pt
 msgid "label_display"
-msgstr ""
-
-#.   <option attributes="selected python:box['box'].display == 'compact'" value="compact">compact</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_display_compact"
-msgstr ""
-
-#.   <option attributes="selected python:box['box'].display == 'detail'" value="detail">detailed</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_display_detailed"
-msgstr ""
-
-#.   <th align="right">format</th>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_display_format"
-msgstr ""
-
-#.   <option attributes="selected python:box['box'].display == 'icon'" value="icon">icon</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_display_icon"
 msgstr ""
 
 #.   <th nowrap="" align="right">
@@ -1738,7 +1752,7 @@ msgstr ""
 msgid "listingheader_existing_revision"
 msgstr ""
 
-#.   <th widht="30%">location</th>
+#.   <th width="30%">location</th>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_location"
 msgstr ""
@@ -1979,6 +1993,36 @@ msgid "action_add_post"
 msgstr ""
 
 msgid "action_subscribe_forum"
+msgstr ""
+
+msgid "cpscalendar_action_month_view"
+msgstr ""
+
+msgid "cpscalendar_action_week_view"
+msgstr ""
+
+msgid "cpscalendar_action_day_view"
+msgstr ""
+
+msgid "cpscalendar_action_addevent"
+msgstr ""
+
+msgid "cpscalendar_action_addmeeting"
+msgstr ""
+
+msgid "cpscalendar_action_display"
+msgstr ""
+
+msgid "cpscalendar_action_export"
+msgstr ""
+
+msgid "cpscalendar_action_attendees"
+msgstr ""
+
+msgid "cpscalendar_action_delevent"
+msgstr ""
+
+msgid "cpscalendar_action_calendar"
 msgstr ""
 
 # ## label =================================================
@@ -2292,13 +2336,6 @@ msgid "SectionReviewer"
 msgstr ""
 
 msgid "SectionReader"
-msgstr ""
-
-# # Batch ========================================================
-msgid "batch_previous"
-msgstr ""
-
-msgid "batch_next"
 msgstr ""
 
 # # Languages  ========================================================

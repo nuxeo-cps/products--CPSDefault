@@ -8,8 +8,8 @@ if REQUEST is not None:
 
 box_url = kw['box_url']
 del kw['box_url']
-box_type = kw['box_type']
-del kw['box_type']
+box_category = kw['box_category']
+del kw['box_category']
 
 box = context.restrictedTraverse(box_url)
 
@@ -47,23 +47,23 @@ order = kw.get('order')
 if order:
     kw['order'] = int(order)
 
-# handle style format
-sf = kw.get('styleformat')
+# handle provider type
+sf = kw.get('providertype')
 if sf:
-    kw['style']=sf.split('@')[0]
-    kw['format']=sf.split('@')[1]
+    kw['provider']=sf.split('@')[0]
+    kw['type']=sf.split('@')[1]
     # override with hard coded configuration
-    bs = context.getBoxesStyles(type=box_type)
-    if bs:
+    category = context.getBoxTypes(category=box_category)
+    if category:
         config = {}
-        fmt = bs['fmt']
-        for f in fmt:
-            if f['style'] == kw['style'] and f['format'] == kw['format']:
-                config = f.get('config', {})
+        types = category['types']
+        for t in types:
+            if t['provider'] == kw['provider'] and t['id'] == kw['type']:
+                config = t.get('config', {})
                 break
         kw.update(config)
 
-    del kw['styleformat']
+    del kw['providertype']
 
 box.edit(**kw)
 

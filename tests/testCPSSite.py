@@ -1,14 +1,15 @@
+# CPS Unit Test
 #
-# CPS ZopeTestCase
-#
-import os, sys
+import os, sys, time
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 os.environ['STUPID_LOG_SEVERITY'] = '-200'
 os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
+import unittest
 from Testing import ZopeTestCase
+from Testing.ZopeTestCase.ZopeLite import _print
 
 from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
 from AccessControl.User import UserFolder, manage_addUserFolder
@@ -34,9 +35,11 @@ _folder_name          = 'testFolder_1_'
 _user_name            = 'testUser_1_'
 _user_role            = 'testRole_1_'
 _standard_permissions = [access_contents_information, view]
+ 
 
-
-# create a CPS from scratch
+# create a CPS Site fixture
+_print('Initialize Zope Server ... ')
+_start = time.time()
 app = ZopeTestCase.app()
 app.manage_addFolder(_folder_name)
 folder = app._getOb(_folder_name)
@@ -50,13 +53,17 @@ newSecurityManager(None, _user)
 uf._changeUser(ZopeTestCase._user_name,
                'secret', 'secret',
                ('Manager', _user_role), ())
+_print('done (%.3fs)\n' % (time.time() - _start))
+
+_print('Creating a CPS Site ... ')
+_start = time.time()
 dispatcher = folder.manage_addProduct['SSS3']
 dispatcher.manage_addSss3Site('cps', title='The test case Site')
 cps = folder['cps']
+_print('done (%.3fs)\n' % (time.time() - _start))
 
 
-
-class TestSSS3(ZopeTestCase.ZopeTestCase):
+class TestSSS3(unittest.TestCase):
     
     def setUp(self):
         self.cps = cps

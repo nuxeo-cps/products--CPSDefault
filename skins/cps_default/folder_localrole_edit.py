@@ -6,8 +6,9 @@ pm = context.portal_membership
 ids = context.REQUEST.get('member_ids', ())
 
 
-group_ids = [group.split('group:')[1] for group in ids if group.startswith('group:') ]
-member_ids = [user.split('user:')[1] for user in ids if user.startswith('user:') ]
+group_ids = [group[len('group:'):] for group in ids if group.startswith('group:') ]
+member_ids = [user[len('user:'):] for user in ids if user.startswith('user:') ]
+
 member_role = context.REQUEST.get('member_role', '')
 
 

@@ -15,36 +15,12 @@
            tal:attributes="value box/box/nb_items" /></td>
   </tr>
   <tr valign="top">
-    <th align="right" i18n:translate="label_sort_by">sort by</th>
-    <td colspan="3">
-      <select name="sort_by">
-        <option value="None" i18n:translate="label_default"
-                tal:attributes="selected python:box['box'].sort_by is None">
-          Default
-        </option>
-        <option value="title" i18n:translate="label_sort_by_title"
-                tal:attributes="selected python:box['box'].sort_by == 'title'">
-          title
-        </option>
-        <option value="date" i18n:translate="label_sort_by_date"
-                tal:attributes="selected python:box['box'].sort_by == 'date'">
-          date
-        </option>
-        <option value="status" i18n:translate="label_sort_by_status"
-                tal:attributes="selected python:box['box'].sort_by == 'status'">
-          status
-        </option>
-      </select>
-      <select name="direction">
-        <option value="None" i18n:translate="label_default"
-                tal:attributes="selected python:box['box'].direction is None">
-          Default
-        </option>
-        <option value="asc" i18n:translate="label_sort_asc"
-          tal:attributes="selected python:box['box'].direction == 'asc'">asc</option>
-        <option value="desc" i18n:translate="label_sort_desc"
-          tal:attributes="selected python:box['box'].direction == 'desc'">desc</option>
-      </select>
+    <th></th>
+    <td colspan="5" align="left"
+        tal:define="sort_by box/box/sort_by;
+                    direction box/box/direction;
+                    format box/box/display">
+      <metal:params use-macro="here/content_lib/macros/display_params_form" />
     </td>
     <th align="right" i18n:translate="label_display_format">format</th>
     <td>

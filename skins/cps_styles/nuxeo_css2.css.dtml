@@ -1,0 +1,151 @@
+/*
+** MCI CSS 2
+*/
+
+/* DTML instructions to set caching headers.
+<dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
+</dtml-let>
+*/
+
+/*
+<dtml-with stylesheet_properties>
+*/
+
+
+.netscape4 {
+  display: none;
+}
+
+
+body {
+/* These work in IE only, changes the look of the scrollbar + textareas */
+  scrollbar-base-color: &dtml-mainTabBackground;;
+  scrollbar-highlight-color: &dtml-mainTabBackground;;
+  scrollbar-track-color: &dtml-evenRowBackground;;
+  scrollbar-darkshadow-color: &dtml-evenRowBackground;;
+  scrollbar-3dlight-color: &dtml-mainTabBorderColorSelected;;
+  scrollbar-shadow-color: &dtml-mainTabBorderColorSelected;;
+  scrollbar-arrow-color: &dtml-mainTabFontColorSelected;;
+}
+
+table {
+  font-size: 100%;
+}
+
+hr {
+  height: 1px;
+  color: &dtml-mainTabBorderColorSelected;;
+  background-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: 1px solid &dtml-mainTabBorderColor;;
+}
+
+form {
+  border: none;
+}
+
+textarea {
+  border: &dtml-inputBorder;;
+  width: 100%;
+  padding: 0.1em;
+}
+input {
+  visibility: visible;
+  border: &dtml-inputBorder;;
+  margin-bottom: 1px; /* IE bug fix */
+  padding: 0.1em;
+}
+select {
+  font: <dtml-var inputFont>;
+  border: &dtml-inputBorder;;
+  vertical-align: top;
+}
+
+abbr, acronym, .explain {
+  border-bottom: 1px dotted &dtml-mainFontColor;;
+  cursor: help;
+}
+
+ul {
+  list-style-type: square;
+}
+
+ol, ul {
+  padding: 0.5em 0em 0.5em 2em;
+  margin: 0em;
+}
+
+div.box ul {
+    list-style-image: url("bullet.gif");
+    margin: 0em 0em 0em 1em;
+    padding: 0em;
+}
+
+/* DIVs ------------------------------ */
+div.top {
+  background: &dtml-topBackground;;
+  margin: &dtml-topMargin;;
+  padding: &dtml-topPadding;;
+  width: 100%;
+}
+
+div.footer {
+  background: &dtml-footerBackground;;
+  border-top: &dtml-footerBorder;;
+  border-bottom: &dtml-footerBorder;;
+  width: 100%;
+}
+
+
+div.document {
+  border: 1px solid black;
+  background: &dtml-contentBackground;;
+  width: 100%;
+}
+
+div.message {
+  border: &dtml-messageBorder;;
+}
+
+
+div.searchBox {
+  background-color: transparent;
+  color: &dtml-searchFontColor;;
+  margin: &dtml-searchMargin;;
+  padding: &dtml-searchPadding;;
+  text-transform: &dtml-textTransform;;
+  width: 30%;
+}
+
+div.pathBar {
+  border-bottom-color: &dtml-mainTabBorderColorSelected;;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+div.box {
+  border: none;
+}
+
+div.box .title {
+  border: &dtml-boxBorder;;
+}
+
+div.box .body {
+  border: &dtml-boxBorder;;
+}
+
+div.box .content {
+  width: 100%;
+}
+
+
+/*
+</dtml-with>
+*/

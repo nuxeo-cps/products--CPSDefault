@@ -1,0 +1,283 @@
+/*
+** MCI CSS 1
+*/
+
+/* DTML instructions to set caching headers.
+<dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
+</dtml-let>
+*/
+
+/*
+<dtml-with stylesheet_properties>
+*/
+
+
+/* BASIC ELEMENTS ------------------------------ */
+
+body {
+  font: &dtml-mainFont;;
+  background: &dtml-mainBackground;;
+  color: &dtml-mainFontColor;;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: &dtml-mainLinkColor;;
+  background-color: transparent;
+}
+
+img {
+  border: 0;
+  vertical-align: middle;
+}
+
+p {
+  margin: 0.5em 0em 1em 0em;
+  text-align: left;
+  line-height: 1.5em;
+}
+p a {
+  text-decoration: underline;
+}
+p a:visited {
+  color: &dtml-contentLinkVisitedColor;;
+  background-color: transparent;
+}
+p a:active {
+  color: &dtml-contentLinkActiveColor;;
+  background-color: transparent;
+}
+p img {
+  border: &dtml-contentImageBorder;;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: &dtml-headingFontColor;;
+  background-color: transparent;
+  font: <dtml-var headingFont>;
+  margin: 0;
+  padding-top: 0.5em;
+}
+h1 {
+  font-size: &dtml-headingSize1;;
+}
+h2 {
+  font-size: &dtml-headingSize2;;
+}
+h3 {
+  font-size: &dtml-headingSize3;;
+  font-weight: bold;
+}
+h4 {
+  font-size: &dtml-headingSize4;;
+  font-weight: bold;
+}
+h5 {
+  font-size: &dtml-headingSize5;;
+  font-weight: bold;
+}
+h6 {
+  font-size: &dtml-headingSize6;;
+  font-weight: bold;
+}
+
+ol, ul {
+  padding: 0em;
+  margin: 0em;
+}
+ul a, ol a {
+  text-decoration: underline;
+}
+
+dt {
+  font-weight: bold;
+}
+dt a {
+  text-decoration: underline;
+}
+
+dd {
+  line-height: 1.5em;
+  margin-bottom: 1em;
+}
+dd a {
+  text-decoration: underline;
+}
+
+legend {
+  background: &dtml-mainBackground;;
+  padding: 0.5em;
+}
+
+form {
+  margin: 0;
+}
+
+textarea {
+  color: &dtml-mainFontColor;;
+  background-color: white;
+}
+input {
+  font: <dtml-var inputFont>;
+  color: &dtml-mainFontColor;;
+  background-color: white;
+  vertical-align: middle;
+}
+select {
+  font: <dtml-var inputFont>;
+  vertical-align: top;
+}
+abbr, acronym, .explain {
+  color: &dtml-mainFontColor;;
+  background-color: transparent;
+}
+q {
+  font-family: Times, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 120%;
+}
+blockquote {
+  font-family: Times, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 120%;
+}
+code {
+  font-size: 120%;
+  color: &dtml-mainFontColor;;
+  background-color: &dtml-preBackground;;
+}
+pre {
+  font-size: 120%;
+  padding: 1em;
+  border: &dtml-preBorder;;
+  color: &dtml-mainFontColor;;
+  background-color: &dtml-preBackground;;
+}
+
+
+/* COLUMNS ------------------------------ */
+
+table.columns {
+  width: 100%;
+}
+table.columns td.left {
+  vertical-align: top;
+  padding-top: 2em;
+  background: &dtml-columnsLeftBackground;;
+}
+table.columns td.main {
+  vertical-align: top;
+  padding-top: 2em;
+}
+table.columns td.right {
+  vertical-align: top;
+  padding-top: 2em;
+  background: &dtml-columnsRightBackground;;
+}
+
+
+/* . ------------------------------ */
+.logo {
+  margin: &dtml-logoMargin;;
+  padding: &dtml-logoPadding;;
+}
+
+.even {
+  background-color: &dtml-evenRowBackground;;
+}
+
+.odd {
+  background-color: &dtml-oddRowBackground;;
+}
+
+/* DIVs ------------------------------ */
+div.top {
+}
+
+div.footer {
+  text-align: center;
+  margin: &dtml-topMargin;;
+  padding: &dtml-topPadding;;
+}
+
+div.document {
+}
+
+div.message {
+  background: &dtml-messageBackground;;
+  color: &dtml-mainFontColor;;
+  font: &dtml-messageFont;;
+  margin: 1em 0em;
+  padding: 0.5em 1em;
+  vertical-align: middle;
+}
+
+div.message a {
+  background: &dtml-messageBackground;;
+  color: &dtml-mainFontColor;;
+  text-decoration: underline;
+}
+
+div.description {
+  font: &dtml-descriptionFont;;
+  display: block;
+  margin: 1em 0em;
+  line-height: 1.5em;
+}
+
+div.documentActions {
+  float: right;
+  margin-top: 1.5em;
+}
+
+div.searchBox {
+  float: right;
+  text-align: right;
+}
+
+
+div.pathBar {
+  padding-left: 2em;
+  padding-right: 2em;
+  text-transform: &dtml-textTransform;;
+}
+
+/* BOX ---------------------------------------- */
+div.box {
+    margin: 0em 0em 1em 0em;
+}
+
+
+div.box .title {
+  background-color: &dtml-boxHeaderBackground;;
+  color: &dtml-boxHeaderFontColor;;
+  font-weight: bold;
+}
+
+div.box .title a {
+  background-color: &dtml-boxHeaderBackground;;
+  color: &dtml-boxHeaderFontColor;;
+}
+
+div.box .body {
+}
+
+div.box .content {
+  padding: 1em;
+}
+
+div.box ul {
+  margin: -1em;
+  padding: 0;
+}
+
+/*
+</dtml-with>
+*/

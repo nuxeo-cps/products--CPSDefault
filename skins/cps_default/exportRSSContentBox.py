@@ -1,6 +1,8 @@
 ##parameters=box_url=None, REQUEST=None
 # $Id$
 """create a rss 1.0 feed from a Content Box content"""
+from cgi import escape
+
 try:
     box = context.restrictedTraverse(box_url)
 except KeyError:
@@ -55,7 +57,8 @@ rss_item_dc = """    <dc:%(dc_key)s>%(dc_value)s</dc:%(dc_key)s>\n"""
 
 # dublin core available from getContentInfo
 dc_keys = ('subject', 'date', 'creator',
-           'contributors', 'rights', 'language')
+           'contributor', 'rights', 'language',
+           'coverage', 'relation', 'source')
 
 # computed value
 base_url = context.portal_url()+'/'
@@ -78,7 +81,7 @@ for item in items:
             value = info.get(key)
         if value:
             dc_text += rss_item_dc % {'dc_key': key,
-                                      'dc_value': value}
+                                      'dc_value': escape(value)}
     body_text += rss_item % {'item_id': url,
                              'item_title': info.get('title', ''),
                              'item_description': info.get('description', ''),

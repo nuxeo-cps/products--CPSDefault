@@ -13,7 +13,7 @@ from Products.CMFCore.utils import getToolByName
 factory_type_information = (
     {'id': 'Action Box',
      'title': 'portal_type_ActionBox_title',
-     'description': 'portal_type_ActionBox_description'
+     'description': 'portal_type_ActionBox_description',
      'meta_type': 'Action Box',
      'icon': 'box.gif',
      'product': 'CPSDefault',

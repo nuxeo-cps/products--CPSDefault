@@ -46,6 +46,7 @@ class ContentBox(BaseBox):
     portal_type = 'Content Box'
 
     query_portal_type = []
+    zoom = 0
 
     security = ClassSecurityInfo()
 
@@ -60,6 +61,8 @@ class ContentBox(BaseBox):
          'label': 'direction for sorting'},
         {'id': 'display', 'type': 'string', 'mode': 'w',
          'label': 'format for display'},
+        {'id': 'zoom', 'type': 'int', 'mode': 'w',
+         'label': 'number of document using info_summary'},
         {'id': 'query_title', 'type': 'string', 'mode': 'w',
          'label': 'Search criteria' },
         {'id': 'query_description', 'type': 'string', 'mode': 'w',
@@ -77,7 +80,8 @@ class ContentBox(BaseBox):
     def __init__(self, id, folder='', nb_items=0, sort_by='',
                  direction='', display='',
                  query_title='', query_description='', query_fulltext='',
-                 query_status='', query_portal_type=[], query_modified='', 
+                 query_status='', query_portal_type=[], query_modified='',
+                 zoom = 0,
                  **kw):
         BaseBox.__init__(self, id, category='contentbox', kw=kw)
         self.folder = folder
@@ -91,7 +95,7 @@ class ContentBox(BaseBox):
         self.query_portal_type = query_portal_type
         self.query_title = query_title
         self.query_modified = query_modified
-
+        self.zoom = zoom
 
 
     security.declarePublic('getContents')

@@ -13,8 +13,8 @@ form = context.REQUEST.form
 
 if form is not None:
     # Order and direction
-    display_order = form.get("display_order", None)
-    if display_order == "None":
+    display_order = form.get("display_order")
+    if display_order == "None" or not display_order:
         sort_by = None
         direction = None
     else:
@@ -24,9 +24,10 @@ if form is not None:
     cps_cookie['direction'] = direction
 
     # Style
-    format = form.get("display_style", None)
+    format = form.get("display_style")
     if format == 'None':
         format = None
+
     cps_cookie['format'] = format
 
     # Update cookie

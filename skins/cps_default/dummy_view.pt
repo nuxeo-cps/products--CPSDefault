@@ -1,9 +1,12 @@
 <html metal:use-macro="here/content_lib/macros/master">
-<body>
 
-<pre class="stx" metal:fill-slot="main" tal:content="doc/body">
-  Body
-</pre>
+<metal:block fill-slot="main">
+<div style="float: left;padding-right: 1em;padding-bottom: 1em"
+  tal:condition="doc/image_name|nothing">
+  <tal:block replace="structure python:here.getImgTag(doc.image_id,
+    base_url=context_url+'/')" />
+</div>
+<p tal:content="doc/body">Body</p>
+</metal:block>
 
-</body>
 </html>

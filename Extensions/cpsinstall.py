@@ -22,7 +22,6 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \
      TRANSITION_BEHAVIOR_DELETE, TRANSITION_BEHAVIOR_MERGE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
-from Products.CPSDefault.BoxesTool import BoxContainer
 
 def cpsinstall(self):
     """
@@ -729,6 +728,7 @@ def cpsupdate(self, langs_list=None):
         'Request review':['Manager', 'WorkspaceManager', 'WorkspaceMember', 'SectionReviewer', 'SectionManager'],
         'Review portal content':['Manager', 'SectionReviewer', 'SectionManager'],
         'Add Box Container': ['Manager', 'SectionManager'],
+        'Manage Box Overrides': ['Manager','SectionManager'],        
         'Add portal content': ['Manager', 'SectionManager'],
         'Add portal folders': ['Manager', 'SectionManager'],
         'Change permissions': ['Manager', 'SectionManager'],
@@ -747,7 +747,8 @@ def cpsupdate(self, langs_list=None):
         'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
         'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
-        'Add Box Container': ['Manager', 'WorkspaceManager'],        
+        'Add Box Container': ['Manager', 'WorkspaceManager'],
+        'Manage Box Overrides': ['Manager','WorkspaceManager'],
         }
     pr("Section")
     for perm, roles in sections_perm.items():
@@ -844,7 +845,7 @@ def cpsupdate(self, langs_list=None):
 
     
     pr(" Adding cps default boxes")
-    idbc = BoxContainer.id
+    idbc = portal.portal_boxes.getBoxContainerId(portal)
     pr("  Checking /%s" % idbc )
     if not portalhas(idbc):
         pr("   Creating")
@@ -852,6 +853,7 @@ def cpsupdate(self, langs_list=None):
     boxes = {
         'action_user': {'type':'Action Box',
                         'title': 'User actions',
+                        'format': 'user',
                         'slot':'left',
                         'order':1,
                         'categories':'user',

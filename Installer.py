@@ -23,11 +23,13 @@
 import os
 from App.Extensions import getPath
 from re import match
+from types import TupleType, ListType
 from zLOG import LOG, INFO, DEBUG
 
 class BaseInstaller:
     """Base class for product-specific installers"""
 
+    product_name = 'CPSDefault'
     SECTIONS_ID = 'sections'
     WORKSPACES_ID = 'workspaces'
 
@@ -44,7 +46,7 @@ class BaseInstaller:
     def log(self, bla, zlog=1):
         self._log.append(bla)
         if (bla and zlog):
-            LOG('CPSDocument install:', INFO, bla)
+            LOG(self.product_name + ' install:', INFO, bla)
 
     def logOK(self):
         self.log(" Already correctly installed")
@@ -179,18 +181,94 @@ class BaseInstaller:
         if default_lang:
             mcat.manage_changeDefaultLang(default_lang)
 
-    def setupBoxes(self, boxes_def, box_container):
-        """Sets up .cps_boxes or .cps_boxes_root depending on the given box_container.
-        <boxesDef> parameter is a dictionary with items of the following form :
-        'boxId': {'type':'xxx', 'title': 'xxx',}
-        """
-        ttool = self.portal.portal_types
+
+    def setupPortalProperties(self, props):
+        """Change portal properties with the ones found in the props
+        dictionary."""
+        self.portal.manage_changeProperties(**props)
+
+
+    def setupSiteStructure(self, filename):
+        """Load a site structure dump file and rebuild the site structure using
+        it."""
+        portal = self.portal
+
+        if 'loadTree' not in portal.objectIds():
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            loadTree = ExternalMethod('loadTree',
+                                      'loadTree',
+                                      'CPSDefault.loadTree',
+                                      'loadTree')
+            portal._setObject('loadTree', loadTree)
+            portal.loadTree.manage_permission('View',
+                roles=['Manager'], acquire=0)
+            portal.loadTree.manage_permission('Access contents information',
+                roles=['Manager'], acquire=0)
+
+        self.log(portal.loadTree(filename=filename))
+    def setupDelBoxes(self, boxes_id, box_container):
+        """Delete boxes with the id listed in boxes_id that are located in
+        box_container."""
         existing_boxes = box_container.objectIds()
-        for box_id in boxes_def.keys():
-            if box_id not in existing_boxes:
-                self.log("   Creation of box: %s" % box_id)
-                apply(ttool.constructContent,
-                      (boxes_def[box_id]['type'], box_container,
-                       box_id, None), {})
-            box = getattr(box_container, box_id)
-            box.manage_changeProperties(**boxes_def[box_id])
+
+        if type(boxes_id) not in (TupleType, ListType):
+            boxes_id = (boxes_id,)
+
+        for box in boxes_id:
+            if box in existing_boxes:
+                box_container._delObject(box)
+
+
+    def setupEditBoxes(self, boxes_props, box_container):
+        """Change one or more properties of an existing box, located in the
+        specified box container.
+        The format describing these boxes is the same as the one you see in the
+        'Export' tab, in the management screen of a box."""
+        existing_boxes = box_container.objectIds()
+
+        for box, props in boxes_props.items():
+            if box in existing_boxes:
+                ob = box_container[box]
+                ob.manage_changeProperties(**props)
+
+
+    def setupAddBoxes(self, boxes_prop, box_container):
+        """Add the boxes described in the boxes_prop dictionnary into the
+        specified box container.
+        The format is the one from the 'Export' tab, in the management screen of
+        a box."""
+        portal_types = self.portal.portal_types
+        existing_boxes = box_container.objectIds()
+
+        for box, props in boxes_prop.items():
+            if box in existing_boxes:
+                box_container._delObject(box)
+            portal_types.constructContent(props['type'], box_container, box)
+            ob = box_container[box]
+            ob.manage_changeProperties(**props)
+
+
+    def getBoxContainer(self, parent, create=0):
+        """Get a box container and create it if not found and asked for."""
+        portal_boxes = self.portal.portal_boxes
+        container_id = portal_boxes.getBoxContainerId(parent)
+        box_container = getattr(parent, container_id, None)
+        if box_container is None and create:
+            parent.manage_addProduct['CPSDefault'].addBoxContainer()
+            box_container = getattr(parent, container_id)
+        return box_container
+
+
+    def getBoxTypeConfig(self, box_types):
+        """Extract box type configuration under the key 'config' in the given
+        box_types dictionary.
+        Because of context issues, you have to call get(Custom)BoxTypes() by
+        yourself, e.g.:
+            config = self.getBoxTypeConfig(self.portal.getBoxTypes())
+        Or just getCustomBoxTypes() if it's enough."""
+        configs = {}
+        for box_type in box_types:
+            types = [type for type in box_type['types'] if type.has_key('config')]
+            for type in types:
+                configs[type['id']] = type['config']
+        return configs

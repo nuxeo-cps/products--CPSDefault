@@ -147,7 +147,8 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         if not home_boxes_loaded and include_personal and home:
             f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
-            allboxes.extend(f_boxes)
+            # we don't to make users boxes global boxes
+            # we just take care to override the settings
             self._updateSettings(settings, f_settings)
 
         boxes = []

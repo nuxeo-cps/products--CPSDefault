@@ -22,7 +22,7 @@ else:
     pmtool.deleteLocalRoles( obj=context
                        , member_ids=member_ids
                        )
-    pmtool.deleteLocalGroupRoles(context, group_ids)
+    pmtool.deleteLocalGroupRoles(context, group_ids, member_role)
 
 psm='psm_local_roles_changed'
 

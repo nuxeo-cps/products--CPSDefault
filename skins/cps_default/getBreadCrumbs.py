@@ -1,5 +1,5 @@
 ## Script (Python) "getBreadCrumbs.py"
-##parameters=url=None
+##parameters=url=None, parent=0
 # $Id$
 
 def format_title(title):
@@ -15,6 +15,8 @@ if not url:
     url = context.getPortalUrl()
 path = url.split('/')
 path = filter(None, path)
+if parent:
+    path = path[:-1]
 
 portal = context.portal_url.getPortalObject()
 mtool = context.portal_membership

@@ -351,7 +351,7 @@ format:</pre>
   <div tal:condition="info/preview|nothing" style="float: right">
     <tal:block condition="info/preview|nothing"
       replace="structure python:here.getImgTag(info['preview'],
-      base_url='', width='64', height='64')" />
+      base_url='', width=64, height=64, keep_ratio=1)" />
   </div>
   <tal:block replace="structure python:here.getImgTag(info['icon'],
    base_url=base_url, title=info['type'])" />
@@ -438,7 +438,7 @@ format:</pre>
     style="float: left;margin: 1em; width:140; height:140;">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
       tal:content="structure python:here.getImgTag(info['preview'],
-      base_url='', width='128', height='128')" />
+      base_url='', width=128, height=128, keep_ratio=1)" />
   </div>
   <div>
   <small style="float: right;">

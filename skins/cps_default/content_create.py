@@ -22,7 +22,7 @@ context.portal_eventservice.notifyEvent('modify_object', ob, {})
 
 if REQUEST is not None:
     psm = 'Content+create'
-    action_path = doc.getTypeInfo().getActionById('metadata')
+    action_path = doc.getTypeInfo().immediate_view # getActionById('metadata')
     REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' % 
                               (ob.absolute_url(), action_path,
                                psm))

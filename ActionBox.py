@@ -64,8 +64,8 @@ class ActionBox(BaseBox):
             'label':'Categories of actions'},
     )
 
-    def __init__(self, id, categories=[], **kw):
-        BaseBox.__init__(self, id, category='actionbox', **kw)
+    def __init__(self, id, category='actionbox', categories=[], **kw):
+        BaseBox.__init__(self, id, category=category, **kw)
         self.categories = categories
 
     security.declarePublic('getActions')

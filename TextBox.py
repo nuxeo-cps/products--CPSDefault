@@ -62,8 +62,8 @@ class TextBox(BaseBox):
         {'id':'text', 'type':'text', 'mode':'w', 'label':'Text'},
     )
 
-    def __init__(self, id, text='', **kw):
-        BaseBox.__init__(self, id, category='textbox', **kw)
+    def __init__(self, id, category='textbox', text='', **kw):
+        BaseBox.__init__(self, id, category=category, **kw)
         self.text = text
 
 

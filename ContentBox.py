@@ -92,13 +92,13 @@ class ContentBox(BaseBox):
          'label': 'Modified criteria' },
         )
 
-    def __init__(self, id, folder='', nb_items=0, sort_by='',
+    def __init__(self, id, category='contentbox', folder='', nb_items=0, sort_by='',
                  direction='', display='',
                  query_title='', query_description='', query_fulltext='',
                  query_status='', query_portal_type=[], query_modified='',
                  zoom = 0,
                  **kw):
-        BaseBox.__init__(self, id, category='contentbox', **kw)
+        BaseBox.__init__(self, id, category=category, **kw)
         self.folder = folder
         self.nb_items = nb_items
         self.sort_by = sort_by

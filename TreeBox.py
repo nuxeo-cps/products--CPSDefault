@@ -92,9 +92,9 @@ class TreeBox(BaseBox):
     authorized_only = 1
     show_root = 1
 
-    def __init__(self, id, root='', depth=0, contextual=0,
+    def __init__(self, id, category='treebox', root='', depth=0, contextual=0,
                  children_only=0, **kw):
-        BaseBox.__init__(self, id, category='treebox', **kw)
+        BaseBox.__init__(self, id, category=category, **kw)
         self.root = root
         self.depth = depth
         self.contextual = contextual

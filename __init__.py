@@ -18,14 +18,13 @@ registerDirectory('skins/templates', globals())
 registerDirectory('skins/images', globals())
 
 def initialize(registrar):
-      registrar.registerClass(CPSSite.Sss3Site,
-      constructors=(CPSSite.manage_addSss3SiteForm,
-                    CPSSite.manage_addSss3Site,))
+    registrar.registerClass(CPSSite.Sss3Site,
+                            constructors=(CPSSite.manage_addSss3SiteForm,
+                                          CPSSite.manage_addSss3Site,))
+    #utils.ContentInit('Sss3 Documents',
+                      #content_types = contentClasses,
+                      #permission = AddPortalContent,
+                      #extra_constructors = contentConstructors,
+                      #fti = fti,
+                      #).initialize(registrar)
     return
-    utils.ContentInit(
-        'Sss3 Documents',
-        content_types = contentClasses,
-        permission = AddPortalContent,
-        extra_constructors = contentConstructors,
-        fti = fti,
-        ).initialize(registrar)

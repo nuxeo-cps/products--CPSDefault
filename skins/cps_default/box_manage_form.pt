@@ -1,19 +1,21 @@
-<metal:html use-macro="here/main_template/macros/master">
+<metal:html>
+<metal:body use-macro="here/main_template/macros/master">
 
-<metal:main fill-slot="main"
-  tal:define="context_urlc python:here.getContextUrl(utool=utool, concat=1);">
-
-
-
-<div class="documentActions">
-  <a href="box_create_form" i18n:translate="button_create_box"
-    tal:attributes="href string:${context_urlc}/box_create_form">Add a box</a>
-</div>
-<h2 i18n:translate="heading_box_manage_form">Boxes management</h2>
-
+<metal:header fill-slot="header"
+  tal:define="global context_urlc python:here.getContextUrl(utool=utool,
+                                                            concat=1)">
+  <div class="documentActions">
+    <a href="box_create_form" i18n:translate="button_create_box"
+      tal:attributes="href string:${context_urlc}/box_create_form">Add a box</a>
+  </div>
+  <h2 i18n:translate="heading_box_manage_form">Boxes management</h2>
 <p i18n:translate="">
-description_visible_box_from <span i18n:name="context_url"
-tal:content="context_url" /></p>
+  description_visible_box_from <span i18n:name="context_url"
+                                     tal:content="context_url" />
+</p>
+</metal:header>
+
+<metal:main fill-slot="main">
 
 <tal:block repeat="slot here/getBoxSlots">
 <tal:block define="sboxes python:btool.getBoxes(here,
@@ -70,4 +72,5 @@ tal:content="context_url" /></p>
 </tal:block>
 
 </metal:main>
+</metal:body>
 </metal:html>

@@ -1,4 +1,4 @@
-# translation of fr.po to 
+# translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
@@ -22,15 +22,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-17 17:22default\n"
-"PO-Revision-Date: 2004-03-17 17:23+0100\n"
-"Last-Translator: Julien Anguenot <anguenot@nuxeo.com>\n"
-"Language-Team:  <janguenot@nuxeo.com>\n"
+"POT-Creation-Date: 2004-03-22 10:09default\n"
+"PO-Revision-Date: 2004-03-22 10:11+0100\n"
+"Last-Translator: ben <ben@nuxeo.com>\n"
+"Language-Team: ben\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2X-Generator: \n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #.   <block fill-slot="box_title" content="bs/title">A test box</block>
 #: from ../skins/cps_devel/test_box_lib.pt
@@ -51,21 +51,21 @@ msgstr "Une boîte de test"
 msgid "Action"
 msgstr "Action"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
+#.   <span define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
 #.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
 #.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
-#.   </div>
+#.   </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
-#.           </span>
+#.            </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objets ${batch_start} - ${batch_limit} sur ${batch_length}"
@@ -286,45 +286,33 @@ msgstr "Boîtes fermées&nbsp;:"
 msgid "box_search"
 msgstr "Rechercher"
 
-#.   <input value="button_abandon_draft" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
+#.   <input value="button_abandon_draft" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "button_abandon_draft"
 msgstr "Abandonner la version"
 
-#.   <input value="button_add" class="standalone searchButton" type="submit">
-#.       </input>
-#.   <input value="button_add" class="standalone searchButton" type="submit">
-#.             </input>
+#.   <input value="button_add" class="standalone searchButton" type="submit" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Ajouter"
 
-#.   <input value="button_apply" class="standalone" type="submit">
-#.     </input>
+#.   <input value="button_apply" class="standalone" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_apply"
 msgstr "Appliquer"
 
-#.   <input value="button_assign_roles" type="submit">
-#.       </input>
 #.   <input value="button_assign_roles" type="submit" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
 msgstr "Déléguer rôle"
 
-#.   <input value="button_back" class="context" name="back" type="submit">
-#.       </input>
+#.   <input value="button_back" class="context" name="back" type="submit" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "button_back"
 msgstr "Retour"
 
-#.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input>
-#.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input>
+#.   <input onclick="history.back()" class="context" type="button" value="button_cancel" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
@@ -336,20 +324,10 @@ msgstr "Retour"
 msgid "button_cancel"
 msgstr "Annuler"
 
-#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
-#.         <input value="button_back" class="context" name="back" type="submit">
-#.       </input></input>
-#.   <input value="button_change" class="standalone" type="submit">
-#.         </input>
-#.   <input value="button_change" class="standalone" type="submit">
-#.       </input>
-#.   <input value="button_change" class="standalone" name="change" type="submit">
-#.         <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.       </input></input></input>
-#.   <input value="button_change" type="submit">
-#.       <input onclick="history.back()" type="button" value="button_cancel">
-#.     </input></input>
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit" />
+#.   <input value="button_change" class="standalone" type="submit" />
+#.   <input value="button_change" class="standalone" name="change" type="submit" />
+#.   <input value="button_change" type="submit" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
@@ -358,19 +336,8 @@ msgstr "Annuler"
 msgid "button_change"
 msgstr "Enregistrer"
 
-#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#.         <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
-#.         <input value="button_back" class="context" name="back" type="submit">
-#.       </input></input></input>
-#.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#.           <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.         </input></input>
-#.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#.             <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.           </input></input>
-#.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.       </input></input>
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit" />
+#.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -378,34 +345,24 @@ msgstr "Enregistrer"
 msgid "button_change_and_edit"
 msgstr "Enregistrer et modifier"
 
-#.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.         </input>
-#.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.           </input>
-#.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#.       </input>
+#.   <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_view"
 msgstr "Enregistrer et voir"
 
-#.   <input value="button_checkin_draft" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
+#.   <input value="button_checkin_draft" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "button_checkin_draft"
 msgstr "Valider la version"
 
-#.   <input value="button_checkout_draft" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
+#.   <input value="button_checkout_draft" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "button_checkout_draft"
 msgstr "Créer une version"
 
-#.   <input value="button_copy" class="context" name="folder_copy:method" type="submit">
-#.           </input>
+#.   <input value="button_copy" class="context" name="folder_copy:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr "Copier"
@@ -415,90 +372,49 @@ msgstr "Copier"
 msgid "button_create_box"
 msgstr "Ajouter une boîte"
 
-#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit">
-#.             <input value="button_copy" class="context" name="folder_copy:method" type="submit">
-#.           </input></input>
+#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr "Couper"
 
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#.               (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#.           </input>
-#.   <input value="button_delete" type="submit">
-#.      </input>
+#.               (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit" />
+#.   <input value="button_delete" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
 msgstr "Supprimer"
 
-#.   <input value="button_login" class="standalone" name="submit" type="submit">
-#.         </input>
+#.   <input value="button_login" class="standalone" name="submit" type="submit" />
 #: from ../skins/cps_default/login_form.pt
 msgid "button_login"
 msgstr "Authentification"
 
-#.   <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.         </input>
+#.   <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Déplacer à la fin"
 
-#.   <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
-#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.         </input></input></input>
+#.   <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Déplacer en dessous"
 
-#.   <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.         </input></input>
+#.   <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Déplacer au début"
 
-#.   <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
-#.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
-#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#.         </input></input></input></input>
+#.   <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr "Déplacer au dessus"
 
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.         </input>
+#.   <input value="button_ok" class="context searchButton" type="submit" />
 #.   <input attributes="name python:test(no_form, None,
-#.                                                     nav_action + ':method')" value="button_ok" type="submit">
-#.           <block replace="structure string:
-#.           </form>" condition="no_form" />
-#.         </input>
-#.   <input onclick="history.back()" type="button" value="button_ok">
-#.
-#.   </input>
-#.   <input value="button_ok" class="standalone searchButton" type="submit">
-#.           <br>
-#.           <block condition="not:swr">
-#.             <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.           </block>
-#.           <block define="criteria python:['search_within_results', 'title_search',
-#.                                      'folder_prefix', 'review_state'];
-#.                     criteria_list python:['portal_type'];" condition="swr">
-#.             <block repeat="criterion criteria">
-#.               <input type="hidden" define="value request/?criterion|nothing" condition="value" attributes="name criterion;
-#.                                 value value">
-#.             </input></block>
-#.             <block repeat="criterion criteria_list">
-#.               <block define="values request/?criterion|nothing" condition="values">
-#.                 <block repeat="value values">
-#.                   <input type="hidden" define="value value" attributes="name python:criterion+':list'; value value">
-#.                 </input></block>
-#.               </block>
-#.             </block>
-#.           </block>
-#.        </br></input>
+#.                                                     nav_action + ':method')" value="button_ok" type="submit" />
+#.   <input onclick="history.back()" type="button" value="button_ok" />
+#.   <input value="button_ok" class="standalone searchButton" type="submit" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -506,55 +422,40 @@ msgstr "Déplacer au dessus"
 msgid "button_ok"
 msgstr "Ok"
 
-#.   <input value="button_paste" class="context" name="folder_paste:method" type="submit">
-#.           </input>
+#.   <input value="button_paste" class="context" name="folder_paste:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr "Coller"
 
-#.   <input value="button_publish" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
-#.   <input value="button_publish" type="submit">
-#.     </input>
+#.   <input value="button_publish" class="standalone" type="submit" />
+#.   <input value="button_publish" type="submit" />
 #: from ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_lib.pt
 msgid "button_publish"
 msgstr "Publier"
 
-#.   <input value="button_register" class="standalone" name="submit" type="submit">
-#.           </input>
+#.   <input value="button_register" class="standalone" name="submit" type="submit" />
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr "M'enregistrer"
 
-#.   <input value="button_reject_publication" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
+#.   <input value="button_reject_publication" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_reject_form.pt
 msgid "button_reject_publication"
 msgstr "Rejeter la publication"
 
-#.   <input value="button_rename" class="context" name="folder_rename_form:method" type="submit">
-#.             <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#.               (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#.           </input></input>
+#.   <input value="button_rename" class="context" name="folder_rename_form:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Changer l'id de l'objet"
 
-#.   <input value="button_revert_revision" class="standalone" type="submit">
-#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.     </input></input>
+#.   <input value="button_revert_revision" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
 msgstr "Revenir à la version archivée"
 
-#.   <input value="button_search" class="context searchButton" type="submit"><br>
-#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.     </br></input>
-#.   <input value="button_search" name="role_submit" type="submit">
-#.      </input>
+#.   <input value="button_search" class="context searchButton" type="submit" />
+#.   <input value="button_search" name="role_submit" type="submit" />
 #.   <input value="button_search" class="standalone" type="submit" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
@@ -563,29 +464,23 @@ msgid "button_search"
 msgstr "Rechercher"
 
 #.   <input attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
-#.                                    % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" onclick="someJavaScriptFunctionThatWillBeReplaced" class="context" type="button" value="button_select_all">
-#.           </input>
+#.                                    % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" onclick="someJavaScriptFunctionThatWillBeReplaced" class="context" type="button" value="button_select_all" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
 msgstr "Tout sélectionner"
 
-#.   <input value="button_send" class="context searchButton" type="submit">
-#.     </input>
+#.   <input value="button_send" class="context searchButton" type="submit" />
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
 msgstr "Envoyer"
 
-#.   <input value="button_submit_document" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
+#.   <input value="button_submit_document" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "button_submit_document"
 msgstr "Soumettre à publication"
 
-#.   <input value="button_unpublish_document" class="standalone" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
-#.       </input></input>
+#.   <input value="button_unpublish_document" class="standalone" type="submit" />
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
 msgstr "Dépublier le document"
@@ -1063,10 +958,10 @@ msgid "help_password_message"
 msgstr "Cochez cette case pour recevoir un mél contenant votre mot de passe."
 
 #.   <span>You can publish this item
-#.     directly, without requiring any reviewing, in the sections you select.<br>A
+#.     directly, without requiring any reviewing, in the sections you select.<br />A
 #.     copy of the item will be created into each of these sections with the
 #.     <b>published</b>status. Section readers of those sections could then read
-#.     it.</br></span>
+#.     it.</span>
 #: from ../skins/cps_default/content_publish_form.pt
 msgid "help_publish_publication"
 msgstr ""
@@ -1146,9 +1041,9 @@ msgstr ""
 
 #.   <span>To make an item published and
 #.     viewable by readers, it has to be reviewed by one of the section reviewers.
-#.     You can submit the item in many section folders.<br> A copy of the item will
+#.     You can submit the item in many section folders.<br /> A copy of the item will
 #.     be created into each section with a <b>pending</b> status, waiting to be
-#.     reviewed and finally <b>published</b> by a section's reviewer.</br></span>
+#.     reviewed and finally <b>published</b> by a section's reviewer.</span>
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "help_submit_publication"
 msgstr ""
@@ -1189,7 +1084,7 @@ msgstr "Nom de l'administrateur"
 #.   <option attributes="selected python:displayed != ['']" value="">All</option>
 #.   <option value="">All</option>
 #.   <option attributes="selected python:notempty==[] or selbox==[]" value="">All</option>
-#.   <option selected="" value="">All</option>
+#.   <option selected="selected" value="">All</option>
 #: from ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
@@ -1512,6 +1407,7 @@ msgid "label_from"
 msgstr "Du"
 
 #.   <span>Group</span>
+#.   <span condition="python:type=='group'">Group</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group"
 msgstr "Groupe"
@@ -1906,7 +1802,7 @@ msgstr "au"
 #.   <th style="text-align:left;">
 #.           User
 #.       </th>
-#.   <span>User</span>
+#.   <span condition="python:type=='user'">User</span>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user"
 msgstr "Utilisateur"
@@ -2712,6 +2608,9 @@ msgstr "La boîte affichant les derniers documents publiés."
 
 msgid "description_nuxeo_contentbox_simple"
 msgstr "Boîte de contenu affichant une liste simple."
+
+msgid "description_nuxeo_contentbox_pending"
+msgstr "Boîte de contenu affichant les documents en attende de publication."
 
 msgid "description_nuxeo_textbox_default"
 msgstr "La boîte de texte par défaut."

@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-19 15:43default\n"
+"POT-Creation-Date: 2005-01-28 12:59default\n"
 "PO-Revision-Date: 2005-01-19 15:48+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -85,6 +85,7 @@ msgstr "Language"
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
+#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 
@@ -94,17 +95,8 @@ msgstr "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
-#.   <label for="" content="item/Description" attributes="for checkbox_id">
-#.                     Portal type's description
-#.                   </label>
-#.   <td align="left" class="description" content="item/Description">
-#.                     Portal type's description
-#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Portal type's description"
 
@@ -114,17 +106,8 @@ msgstr "Portal type's description"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
-#.   <label for="" content="item/Title" attributes="for checkbox_id">
-#.                       Portal type's title
-#.                     </label>
-#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
-#.                       Portal type's title
-#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Portal type's title"
 
@@ -280,6 +263,7 @@ msgstr "Accessibility information"
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
+#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "batch_next"
 msgstr "Next"
 
@@ -287,6 +271,7 @@ msgstr "Next"
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                               mq(request.form, b_start=previous))" condition="python:previous is not None" define="previous batch_info/previous">Previous</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
+#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "batch_previous"
 msgstr "Previous"
 
@@ -329,8 +314,6 @@ msgstr "Give up the revision"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Add"
 
@@ -511,10 +494,14 @@ msgstr "Revert to the archived revision"
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
+#.   <input name="search_item" onclick="open_dialog()" type="button" value="button_search">
+#.          <input type="text" attributes="value id">
+#.         </input></input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
+#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Search"
 
@@ -599,8 +586,8 @@ msgstr "You are logged in outside the portal.  You may need to"
 msgid "description_reconfig_form"
 msgstr "This form is used to set the portal configuration options."
 
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -742,9 +729,6 @@ msgstr "CPS encountered an error"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Add content"
 
@@ -902,7 +886,8 @@ msgstr ""
 #.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "If you commit this revision, it will replace the document currently locked."
+msgstr ""
+"If you commit this revision, it will replace the document currently locked."
 
 #.   <block>
 #.             If you create a draft, you will be the only one able to work on the document.
@@ -912,6 +897,14 @@ msgid "help_checkout_draft"
 msgstr ""
 "If you create a revision, you will be the only one able to work on the "
 "document."
+
+#.   <div style="visibility: hidden;" onclick="showElement(false, 'no_recurse_help')" class="tooltipArea" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#, fuzzy
+msgid "help_contentbox_no_recurse"
+msgstr ""
+" Check this if you want the search to be restrained to the chosen folder,"
+" whithout recursing into subfolders."
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -982,7 +975,8 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1022,11 +1016,7 @@ msgstr "It should arrive in your mailbox momentarily."
 #.   <span>
 #.             No content type can be created.
 #.           </span>
-#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 "No content type can be created. It surely comes from workflows which don't "
@@ -1217,8 +1207,8 @@ msgstr "All"
 msgid "label_archived_revisions"
 msgstr "Revision"
 
-#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "label_atom_export"
 msgstr "ATOM"
 
@@ -1336,6 +1326,12 @@ msgstr "W3C Web Content Accessibility Level A conformance"
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_consultation"
 msgstr "Consultation"
+
+#.   <label for="cb_no_recurse">Do not recurse into subfolders </label>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#, fuzzy
+msgid "label_contentbox_no_recurse"
+msgstr "Do not recurse into subfolders"
 
 #.   <label for="cb_zoom">zoom</label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1589,8 +1585,8 @@ msgstr "Format"
 msgid "label_from"
 msgstr "From"
 
-#.   <span>Group</span>
-#.   <span condition="python:type=='group'">Group</span>
+#.   <block>Group</block>
+#.   <block condition="python:type=='group'">Group</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group"
 msgstr "Group"
@@ -1737,6 +1733,7 @@ msgstr "Order"
 
 #.   <span>Pages</span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
+#: ../skins/cps_default/content_lib_display_contents_radio.pt
 msgid "label_page"
 msgstr "Pages"
 
@@ -1843,7 +1840,7 @@ msgstr "Revision ${status_revision}"
 msgid "label_rights"
 msgstr "Rights"
 
-#.   <span>Role(s)</span>
+#.   <block>Role(s)</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_roles"
 msgstr "Role(s)"
@@ -1853,8 +1850,8 @@ msgstr "Role(s)"
 msgid "label_root"
 msgstr "Root"
 
-#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "label_rss_export"
 msgstr "RSS"
 
@@ -2020,7 +2017,6 @@ msgstr "Text to search"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2057,7 +2053,7 @@ msgstr "Choose the language you want to translate to:"
 #.   <th style="text-align:left;">
 #.           User
 #.       </th>
-#.   <span condition="python:type=='user'">User</span>
+#.   <block condition="python:type=='user'">User</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user"
 msgstr "User"
@@ -2139,8 +2135,8 @@ msgstr "Sorry, no groups matched your search."
 msgid "legend_local_roles_no_results_members"
 msgstr "Sorry, no members matched your search."
 
-#.   <span>
-#.           Role to assign:</span>
+#.   <block>
+#.           Role to assign:</block>
 #.   <th colspan="2">
 #.           Role to assign:
 #.       </th>
@@ -2205,8 +2201,8 @@ msgstr "Advanced search"
 msgid "link_all_metadata"
 msgstr "Edit all metadata"
 
-#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "link_atom_export"
 msgstr "To the associated ATOM export"
 
@@ -2256,10 +2252,10 @@ msgstr "customization form"
 msgid "link_go_back"
 msgstr "Go back"
 
-#.   <span>
+#.   <block>
 #.     <em>Roles in underlined</em> are set in parent folders.
 #.     Follow the links to manage the local roles in these folders.
-#.   </span>
+#.   </block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "link_local_roles_underlined"
 msgstr ""
@@ -2297,8 +2293,8 @@ msgstr "Return to homepage"
 msgid "link_revert_to_this_revision"
 msgstr "Revert to this revision"
 
-#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
-#: from ../skins/cps_default/boxes_nuxeo.pt
+#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
+#: from ../skins/cps_default/xml_exports.pt
 msgid "link_rss_export"
 msgstr "To the associated RSS newsfeed"
 
@@ -2416,7 +2412,7 @@ msgstr "Last week"
 msgid "time_yesterday"
 msgstr "Yesterday"
 
-#.   <label class="required" for="comment">Comments</label>
+#.   <label class="required" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comments"
@@ -3115,7 +3111,8 @@ msgid "psm_join_password_mismatch"
 msgstr "Your password and your confirmation don't match."
 
 msgid "psm_join_invalid_name"
-msgstr "The name you have chosen is invalid. Please change it or try another one."
+msgstr ""
+"The name you have chosen is invalid. Please change it or try another one."
 
 msgid "psm_join_login_already_used"
 msgstr "The login you have chosen is already in use. Please try another one."
@@ -3210,6 +3207,10 @@ msgstr "Portuguese(Brazilian)"
 msgid "label_language_mg"
 msgstr "Malagasy"
 
+#, fuzzy
+msgid "label_language_ro"
+msgstr "French"
+
 # # Dates
 msgid "calendar_month_1"
 msgstr "January"
@@ -3270,4 +3271,3 @@ msgstr "Su"
 
 msgid "_blank"
 msgstr " "
-

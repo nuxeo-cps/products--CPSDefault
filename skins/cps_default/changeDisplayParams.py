@@ -25,8 +25,8 @@ if form is not None:
     format = form.get("display_style")
     if format == 'None':
         format = None
-
-    display_params['format'] = format
+    if format:
+        display_params['format'] = format
 
     # Update session
     REQUEST.SESSION['cps_display_params'] = display_params

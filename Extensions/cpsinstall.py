@@ -151,7 +151,7 @@ def cpsupdate(self, langs_list=None):
         portal.manage_addProduct["NuxMetaDirectories"].manage_addTool('CMF MetaDirectories Tool')
         
     mtool = portal.portal_metadirectories
-    pr("  Adding Member Directory : member")
+    pr("  Adding Member Areas : member")
     mtool.manage_addProduct['NuxMetaDirectories'].manage_addMembersDirectory(id='members',title='Members')
 
     pr("  Adding Group Directory : group")
@@ -705,16 +705,16 @@ def cpsupdate(self, langs_list=None):
         portal[workspaces_id].reindexObject()
         pr("  Adding %s Folder" % workspaces_id)
 
-    # Members directory        
+    # Member areas
     if getattr(portal[workspaces_id], members_id, None) == None:
         workspaces = portal[workspaces_id]        
         portal.portal_workflow.invokeFactoryFor(workspaces,'Workspace',
                                                 members_id)
         ms = getattr(workspaces, members_id, None)
         
-        ms.getContent().setTitle('Member Directories') # XXX Localization
+        ms.getContent().setTitle('Member Areas') # XXX Localization
         ms.reindexObject()
-        pr("  Adding %s Folder" % members_id) # XXX Localization
+        pr("  Adding %s Folder" % members_id)
         
     if not portalhas(sections_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',

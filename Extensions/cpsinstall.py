@@ -19,7 +19,8 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, \
 from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
-     TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE
+     TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \
+     TRANSITION_BEHAVIOR_DELETE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
 
@@ -510,7 +511,7 @@ def cpsupdate(self, langs_list=None):
     t = wf.transitions.get('reject')
     t.setProperties(title='Reviewer rejects publishing',
                     new_state_id='', 
-                    transition_behavior=None,
+                    transition_behavior=(TRANSITION_BEHAVIOR_DELETE,),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Reject', actbox_category='workflow', 
@@ -520,9 +521,9 @@ def cpsupdate(self, langs_list=None):
                            'guard_expr':''},
                     )    
     t = wf.transitions.get('unpublish')
-    t.setProperties(title='remove content from publication',
+    t.setProperties(title='Reviewer removes content from publication',
                     new_state_id='', 
-                    transition_behavior=None,
+                    transition_behavior=(TRANSITION_BEHAVIOR_DELETE,),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Un Publish', actbox_category='workflow', 

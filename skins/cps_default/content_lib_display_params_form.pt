@@ -1,0 +1,96 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;Display of a form to change display params&lt;/h1&gt;
+-->
+
+<metal:block define-macro="display_params_form">
+  <label for="display_order" i18n:translate="label_sort_by">Sort by</label>
+  <select name="display_order" id="display_order">
+    <option i18n:translate="label_none" value="None"
+            tal:attributes="selected not:sort_by">
+            No sort
+    </option>
+
+    <option i18n:translate="label_title_asc" value="title_asc"
+            tal:attributes="selected
+                              python:sort_by == 'title' and direction == 'asc'">
+            Title ascending
+    </option>
+    <option i18n:translate="label_title_desc" value="title_desc"
+            tal:attributes="selected
+                             python:sort_by == 'title' and direction == 'desc'">
+            Title descending
+    </option>
+
+    <option i18n:translate="label_date_modification_asc" value="date_asc"
+            tal:attributes="selected
+                              python:sort_by == 'date' and direction == 'asc'">
+            Modification date ascending
+    </option>
+    <option i18n:translate="label_date_modification_desc" value="date_desc"
+            tal:attributes="selected
+                             python:sort_by == 'date' and direction == 'desc'">
+            Modification date descending
+    </option>
+
+    <option i18n:translate="label_date_effective_asc" value="effective_asc"
+            tal:attributes="selected
+                              python:sort_by == 'effective' and direction == 'asc'">
+            Effective date ascending
+    </option>
+    <option i18n:translate="label_date_effective_desc" value="effective_desc"
+            tal:attributes="selected
+                             python:sort_by == 'effective' and direction == 'desc'">
+            Effective date descending
+    </option>
+
+    <option i18n:translate="label_status_asc" value="status_asc"
+            tal:attributes="selected
+                             python:sort_by == 'status' and direction == 'asc'">
+            Status ascending
+    </option>
+    <option i18n:translate="label_status_desc" value="status_desc"
+            tal:attributes="selected
+                             python:sort_by == 'status' and direction =='desc'">
+            Status descending
+    </option>
+
+    <option i18n:translate="label_author_asc" value="author_asc"
+            tal:attributes="selected
+                             python:sort_by == 'author' and direction == 'asc'">
+            Author ascending
+    </option>
+    <option i18n:translate="label_author_desc" value="author_desc"
+            tal:attributes="selected
+                             python:sort_by == 'author' and direction =='desc'">
+            Author descending
+    </option>
+  </select>
+
+  <label for="display_style" i18n:translate="label_display">Display with</label>
+  <select name="display_style" id="display_style">
+    <option i18n:translate="label_default" value="None"
+            tal:attributes="selected not:format">
+            Default
+    </option>
+    <option i18n:translate="label_icons" value="icon"
+            tal:attributes="selected python:format == 'icon'">
+            Icon
+    </option>
+    <option i18n:translate="label_compact" value="compact"
+            tal:attributes="selected python:format == 'compact'">
+            Compact
+    </option>
+    <option i18n:translate="label_detailed" value="detail"
+            tal:attributes="selected python:format == 'detail'">
+            Detail
+    </option>
+    <option i18n:translate="label_detailed_tab" value="detail_tab"
+            tal:attributes="selected python:format == 'detail_tab'">
+            Detail Tab
+    </option>
+  </select>
+</metal:block>

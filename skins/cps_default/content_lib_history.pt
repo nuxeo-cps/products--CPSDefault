@@ -1,0 +1,68 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;!-- below macros require getContentInfo 3                        --&gt;
+
+
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;Display authorized history of a document&lt;/h1&gt;
+-->
+
+<metal:block define-macro="history">
+      <h2 i18n:translate="label_actions_history">Actions history</h2>
+      <table class="history">
+        <thead>
+          <tr>
+            <td i18n:translate="label_date">Date</td>
+            <td i18n:translate="label_action">Action</td>
+            <td i18n:translate="label_revision">Version</td>
+            <td i18n:translate="label_author">Author</td>
+            <td i18n:translate="label_comments">Comments</td></tr>
+        </thead>
+        <tbody>
+          <tr tal:repeat="item info/history">
+
+            <td tal:content="item/time_str">May 6, 2003 5:28 pm</td>
+
+            <td>
+              <span tal:content="item/action" i18n:translate=""
+                class="action">published</span>
+
+              <tal:block condition="item/has_dest|nothing" i18n:translate="">
+                into <span i18n:name="history_dest">
+                  <a href="."
+                    tal:content="item/dest_title"
+                    tal:attributes="href string:${base_url}${item/dest_container}/">
+                    Foo Section
+                  </a>
+                </span>
+              </tal:block>
+            </td>
+
+            <td>
+              <tal:block condition="python:item.get('language_revs')">
+                <tal:block repeat="language_rev item/language_revs/items">
+                  <tal:block i18n:translate="">label_revision
+                    <span i18n:name="status_revision"
+                      tal:content="python:language_rev[1]">1</span>
+                  </tal:block>
+                  <tal:block i18n:translate="">label_language
+                    <span i18n:name="status_language">
+                      <tal:block i18n:translate=""
+                        content="python:'label_language_%s' % language_rev[0]">en</tal:block>
+                    </span>
+                  </tal:block>
+                </tal:block>
+              </tal:block>
+            </td>
+
+            <td tal:content="item/actor">Bob</td>
+
+            <td tal:content="item/comments|nothing">Comments</td>
+
+          </tr>
+        </tbody>
+      </table>
+</metal:block>

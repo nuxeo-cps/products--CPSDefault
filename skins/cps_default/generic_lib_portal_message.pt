@@ -1,0 +1,21 @@
+<!-- a generic_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- macro library for all general use --&gt;
+&lt;!-- $Id$ --&gt;
+
+&lt;!-- ============================================================ --&gt;
+-->
+
+<metal:block define-macro="portal_message">
+<div class="message"
+     tal:define="portal_status_message portal_status_message |
+                                       request/portal_status_message |
+                                       nothing"
+     tal:condition="portal_status_message"
+     tal:content="portal_status_message"
+     i18n:translate="">
+  Translated status message.
+</div>
+</metal:block>

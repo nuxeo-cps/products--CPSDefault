@@ -1,0 +1,96 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;All doc information&lt;/h1&gt;
+-->
+
+<metal:block define-macro="info_detail_tab"
+             tal:define="title_in_tabs python:'title' in detail_tab_columns;
+                         type_in_tabs python:'type' in detail_tab_columns;
+                         size_in_tabs python:'size' in detail_tab_columns;
+                         date_in_tabs python:'date' in detail_tab_columns;
+                         author_in_tabs python:'author' in detail_tab_columns;
+                         status_in_tabs python:'status' in detail_tab_columns;
+                         version_in_tabs python:'version' in detail_tab_columns;
+                         context_url context_url|here/getContextUrl;
+                        ">
+<tal:block condition="start">
+  <tal:block replace='structure string:&lt;table class="contentListing" width="100%" summary="content layout">' />
+    <tr>
+      <td> </td>
+      <th tal:condition="title_in_tabs" align="center">
+        <strong tal:define="sort_title python:sort_by=='title'"
+           tal:omit-tag="not:sort_title"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))"
+           i18n:translate="label_info_tab_title"></a></strong></th>
+      <th tal:condition="type_in_tabs" align="center">
+        <strong tal:define="sort_type python:sort_by=='type'"
+           tal:omit-tag="not:sort_type"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))"
+           i18n:translate="label_info_tab_type"></a></strong></th>
+      <th tal:condition="size_in_tabs" align="center">
+        <strong tal:define="sort_size python:sort_by=='size'"
+           tal:omit-tag="not:sort_size"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))"
+           i18n:translate="label_info_tab_size"></a></strong></th>
+      <th tal:condition="date_in_tabs" align="center">
+        <strong tal:define="sort_date python:sort_by=='date'"
+           tal:omit-tag="not:sort_date"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))"
+           i18n:translate="label_info_tab_date"></a></strong></th>
+      <th tal:condition="author_in_tabs" align="center">
+        <strong tal:define="sort_author python:sort_by=='author'"
+           tal:omit-tag="not:sort_author"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))"
+           i18n:translate="label_info_tab_author"></a></strong></th>
+      <th tal:condition="status_in_tabs" align="center">
+        <strong tal:define="sort_status python:sort_by=='status'"
+           tal:omit-tag="not:sort_status"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))"
+           i18n:translate="label_info_tab_status"></a></strong></th>
+      <th tal:condition="version_in_tabs" align="center">
+        <strong tal:define="sort_version python:sort_by=='version'"
+           tal:omit-tag="not:sort_version"><a href=""
+           tal:attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))"
+           i18n:translate="label_info_tab_version"></a></strong></th>
+    </tr>
+</tal:block>
+
+<tr tal:attributes="class python:test(repeat['item'].even(), 'even', 'odd')"
+ tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                'folder_contents', 'view')">
+  <td align="left" valign="center" width="5">
+    <input type="checkbox" name="ids:list" value="" id="" class="noborder"
+           tal:condition="not:no_form"
+           tal:define="id item/getId"
+           tal:attributes="value python:site_wide and item.getContextUrl(utool=utool) or id;
+                           id python:'cb_' + id;
+                           checked python:id in choosen_ids;
+                          " />
+  </td>
+  <td tal:condition="title_in_tabs">
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
+                                 title info/description;">
+    <strong tal:content="info/title_or_id">ID</strong></a></td>
+  <td align="center" tal:condition="type_in_tabs">
+    <img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])" /></td>
+  <td align="right" tal:condition="size_in_tabs">
+    <span tal:condition="info/size|nothing" tal:content="info/size"> </span></td>
+  <td align="center" tal:condition="date_in_tabs">
+    <span tal:content="info/time_str">May 6,...</span></td>
+  <td align="center" tal:condition="author_in_tabs">
+    <span tal:content="info/creator"> </span></td>
+  <td align="center" tal:condition="status_in_tabs"
+      tal:content="info/review_state" tal:attributes="class info/review_state"
+      i18n:translate="">published</td>
+  <td align="center" tal:condition="version_in_tabs">
+    v-<tal:block replace="info/rev" />
+    <tal:block i18n:translate=""
+      content="string:label_language_${info/lang}">en</tal:block>
+  </td>
+</tr>
+<tal:block condition="end" tal:replace="structure string:&lt;/table>">
+</tal:block>
+</metal:block>

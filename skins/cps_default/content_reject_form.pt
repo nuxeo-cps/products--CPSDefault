@@ -1,9 +1,9 @@
-<metal:html use-macro="here/content_lib/macros/master">
+<metal:html use-macro="here/content_lib_master/macros/master">
 
 <metal:block fill-slot="header" />
 
 <metal:main fill-slot="main">
-<metal:std_main use-macro="here/content_lib/macros/std_main">
+<metal:std_main use-macro="here/content_lib_std_main/macros/std_main">
 
 <metal:title fill-slot="title" i18n:translate="">
   heading_reject_publication_of
@@ -20,9 +20,9 @@
             tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
 
   <br />
-  <metal:block use-macro="here/content_lib/macros/status" /><br /><br />
+  <metal:block use-macro="here/content_lib_status/macros/status" /><br /><br />
 
-  <metal:block use-macro="here/content_lib/macros/transition_form">
+  <metal:block use-macro="here/content_lib_transition_form/macros/transition_form">
 
     <metal:block fill-slot="button">
       <input type="hidden" name="workflow_action" value="reject" />
@@ -34,9 +34,9 @@
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib/macros/states" /><br />
+  <metal:block use-macro="here/content_lib_states/macros/states" /><br />
 
-  <metal:block use-macro="here/content_lib/macros/history" />
+  <metal:block use-macro="here/content_lib_history/macros/history" />
 </metal:main>
 </metal:std_main>
 </metal:main>

@@ -1,0 +1,47 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;!-- below macros require tal:define="info getContentInfo(item)   --&gt;
+
+
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;Status of a content&lt;/h1&gt;
+-->
+
+<metal:block define-macro="status">
+  <tal:block condition="not:status_short_fmt|nothing">
+    <span i18n:translate="label_status">Label Status</span>
+    <span tal:content="info/review_state" tal:attributes="class
+      info/review_state" i18n:translate="">Work</span>
+    <tal:block i18n:translate="">label_revision
+      <span tal:content="info/rev" i18n:name="status_revision">1</span>
+    </tal:block>
+    <tal:block i18n:translate="">label_language
+      <span i18n:name="status_language">
+      <tal:block i18n:translate=""
+        content="string:label_language_${info/lang}">en</tal:block>
+       </span>
+    </tal:block>
+    <tal:block condition="status_time|nothing" i18n:translate="">label_since
+      <span tal:content="info/time_str" i18n:name="status_time">May28 pm</span>
+    </tal:block>
+  </tal:block>
+  <tal:block condition="status_short_fmt|nothing" >
+    <tal:block condition="status_time|nothing">
+      <span tal:content="info/time_str">May 6,...</span>:
+    </tal:block>
+    <span i18n:translate="">
+      v<span tal:replace="info/rev" i18n:name="status_revision">1</span>- <span i18n:name="status_language">
+      <tal:block i18n:translate=""
+        content="string:label_language_${info/lang}">en</tal:block>
+      </span>
+    </span>
+    <span tal:content="info/review_state" tal:attributes="class
+      info/review_state" i18n:translate="">publish</span>
+    <em tal:attributes="class info/review_state"
+       tal:condition="info/review_state_date|nothing"
+       tal:content="info/review_state_date" />
+  </tal:block>
+</metal:block>

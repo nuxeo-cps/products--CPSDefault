@@ -1,0 +1,25 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;Compact doc information&lt;/h1&gt;
+-->
+
+<metal:block define-macro="info_compact">
+<div
+  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)"
+  tal:define="action
+  python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
+ <tal:block replace="structure python:path('here/'+ info['icon'])" />
+ <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
+   title info/description">
+ <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br />
+ <small>
+   <tal:block define="status_short_fmt not:nothing;
+                      status_time not:nothing;">
+     <metal:block use-macro="here/content_lib_status/macros/status" />
+   </tal:block>
+ </small>
+</div>
+</metal:block>

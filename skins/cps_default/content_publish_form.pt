@@ -1,9 +1,9 @@
-<metal:html use-macro="here/content_lib/macros/master">
+<metal:html use-macro="here/content_lib_master/macros/master">
 
 <metal:block fill-slot="header" />
 
 <metal:main fill-slot="main">
-<metal:std_main use-macro="here/content_lib/macros/std_main">
+<metal:std_main use-macro="here/content_lib_std_main/macros/std_main">
 
 <metal:title fill-slot="title" i18n:translate="">
   heading_publish_of
@@ -25,10 +25,10 @@
                         start_wf_action string:copy_submit;
                        ">
   <p>
-  <metal:block use-macro="here/content_lib/macros/status" />
+  <metal:block use-macro="here/content_lib_status/macros/status" />
   </p>
 
-  <metal:block use-macro="here/content_lib/macros/transition_form">
+  <metal:block use-macro="here/content_lib_transition_form/macros/transition_form">
     <metal:block fill-slot="fields"
                  tal:define="stree python: here.getSectionsTree();">
       <table border="0" width="100%" cellspacing="0" cellpadding="2"
@@ -54,7 +54,7 @@
                 <tal:block condition="python:item['rpath'] == section['rpath']"
                            define="info item;
                                    status_short_fmt not:nothing;">
-                  <metal:block use-macro="here/content_lib/macros/status" /><br />
+                  <metal:block use-macro="here/content_lib_status/macros/status" /><br />
 
                 </tal:block>
               </span>
@@ -75,9 +75,9 @@
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib/macros/states" /><br />
+  <metal:block use-macro="here/content_lib_states/macros/states" /><br />
 
-  <metal:block use-macro="here/content_lib/macros/history" />
+  <metal:block use-macro="here/content_lib_history/macros/history" />
 </metal:main>
 </metal:std_main>
 </metal:main>

@@ -1,0 +1,48 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;!-- below macros require getContentInfo 2                        --&gt;
+
+
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;Display authorized proxies states for a document&lt;/h1&gt;
+-->
+
+<metal:block define-macro="states"
+      tal:define="items python:[x for x in info['states'] if x['review_state'] != 'work']">
+      <h2 i18n:translate="">label_publication_states</h2>
+      <p tal:condition="not:items"
+        i18n:translate="info_no_published_revisions_of_this_document">
+        There aren't any published revisions of this document.
+      </p>
+      <tal:block condition="items">
+        <table class="history">
+          <thead>
+            <tr>
+              <td i18n:translate="label_date">Date</td>
+              <td i18n:translate="label_revision">Version</td>
+              <td i18n:translate="label_language">Langue</td>
+              <td i18n:translate="label_status">Status</td>
+              <td i18n:translate="label_publication_location">Publication location</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="item items">
+              <td tal:content="item/time_str" i18n:translate=""/>
+              <td tal:content="item/rev" i18n:translate=""/>
+              <td tal:content="string:label_language_${item/lang}" i18n:translate=""/>
+              <td>
+                <span tal:attributes="class item/review_state"
+                  tal:content="item/review_state" i18n:translate=""/>
+              </td>
+              <td>
+                <a href="." tal:attributes="href string:${base_url}${item/rpath}/"
+                  tal:content="item/title">Section 1</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </tal:block>
+</metal:block>

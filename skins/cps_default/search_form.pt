@@ -39,7 +39,7 @@
                             tal:content="items_length"
                             i18n:name="nb_results">n</span> results.
     </p>
-    <metal:block use-macro="here/content_lib/macros/display_contents" />
+    <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
     <div style="text-align:right;" class="group">
       <form name="searchFormBottom" method="get" action="search_form"
         onsubmit="return checkEmptySearch(this)">
@@ -61,7 +61,7 @@
         <br />
         <tal:block condition="not:swr">
           <metal:block
-            use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+            use-macro="here/generic_lib_search_folder_prefix_option/macros/search_folder_prefix_option" />
         </tal:block>
         <tal:block condition="swr"
           define="criteria python:['search_within_results', 'title_search',

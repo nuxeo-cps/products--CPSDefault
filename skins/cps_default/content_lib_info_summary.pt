@@ -1,0 +1,42 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;All doc information + summary&lt;/h1&gt;
+-->
+
+<metal:block define-macro="info_summary">
+<div tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                                 'folder_contents', 'view')">
+  <h2>
+    <img tal:replace="structure python:here.getImgTag(info['icon'],
+                                       base_url=base_url, title=info['type'])" />
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
+    <strong tal:content="info/title_or_id">ID</strong></a>
+  </h2>
+  <div tal:condition="info/photo|nothing"
+    style="float: left;margin: 1em;">
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
+      ><img tal:replace="structure python:here.getImgTag(info['photo'],
+                         base_url=base_url, width=128, height=128, keep_ratio=1)" /></a>
+  </div>
+  <div>
+  <small style="float: right;">
+    <tal:block define="status_short_fmt not:nothing;
+                       status_time not:nothing;">
+      <metal:block use-macro="here/content_lib_status/macros/status" />
+    </tal:block>
+    <tal:block condition="info/size|nothing">, <span tal:replace="info/size">
+      10 kB</span>
+    </tal:block>
+  </small>
+  <tal:block condition="info/description">
+    <br /><p tal:content="info/description">Description</p>
+  </tal:block>
+  <tal:block condition="info/summary|nothing">
+    <p><q tal:content="info/summary">Summary</q></p>
+  </tal:block>
+  </div>
+</div>
+</metal:block>

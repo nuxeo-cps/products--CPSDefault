@@ -1,0 +1,141 @@
+<!-- a generic_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+-->
+
+<metal:block define-macro="search_form">
+  <dl class="form">
+    <dt>
+      <label i18n:translate="label_search_title" for="field_focus">
+        Title
+      </label>
+    </dt>
+    <dd>
+      <input id="field_focus" name="Title" value="" size="20"
+             tal:attributes="value request/ZCTitle|string:" />
+    </dd>
+    <dt>
+      <label i18n:translate="label_search_description" for="description">
+        Description
+      </label>
+    </dt>
+    <dd>
+      <input id="description" name="Description" value="" size="20"
+             tal:attributes="value request/Description|string:" />
+    </dd>
+    <dt>
+      <label i18n:translate="label_search_full_text"
+             for="advancedSearchFullText">
+        Full text
+      </label>
+    </dt>
+    <dd>
+      <input id="advancedSearchFullText" name="SearchableText" value=""
+             size="40"
+             tal:attributes="value request/SearchableText|string:" />
+    </dd>
+    <dt tal:condition="not:isAnon">
+      <label i18n:translate="label_search_status" for="state">
+        Status
+      </label>
+    </dt>
+    <dd tal:condition="not:isAnon">
+      <select id="state" name="review_state"
+              tal:define="review_state python:request.get('review_state')">
+        <option tal:attributes="selected not:review_state"
+                value="" i18n:translate="label_all">All</option>
+        <option tal:repeat="stateName here/getWorkflowStateNames"
+                tal:attributes="value stateName;
+                                selected python:review_state == stateName
+                                  or None"
+                tal:content="string:label_${stateName}"
+                i18n:translate=""></option>
+      </select>
+    </dd>
+    <dt>
+      <label i18n:translate="label_search_portal_type" for="portalType">
+        Document type
+      </label>
+    </dt>
+    <dd>
+      <select name="portal_type:list" multiple="multiple" id="portalType"
+              size="5" 
+              tal:define="portal_type python:request.get('portal_type', ())">
+        <option tal:attributes="selected not:portal_type"
+                value="" i18n:translate="label_all">All</option>
+        <option tal:repeat="ret python:here.getSortedContentTypes(allowed=0)"
+                tal:attributes="value ret/getId;
+                                selected python:ret.getId() in portal_type
+                                  or None"
+                tal:content="ret/Title"
+                i18n:translate=""></option>
+      </select>
+    </dd>
+    <dt>
+      <label i18n:translate="label_subject" for="subject">
+        Subject
+      </label>
+    </dt>
+    <dd>
+      <select name="Subject:list" multiple="multiple" id="subject"
+              size="5"
+              tal:define="Subject python:request.get('Subject', ())">
+        <option value="" tal:attributes="selected not:Subject"
+                i18n:translate="label_all">All</option>
+        <option tal:define="subjects here/getSortedSubjects"
+                tal:repeat="item subjects/items"
+                tal:attributes="value python:item[0];
+                                selected python:item[0] in Subject or None"
+                tal:content="python:item[1]"
+                i18n:translate=""></option>
+      </select>
+    </dd>
+    <dt>
+      <label i18n:translate="label_search_modified_since" for="modified">
+        Modified since
+      </label>
+    </dt>
+    <dd tal:define="today python:here.ZopeTime().earliestTime();
+                    default python:modules['DateTime'].DateTime(0, 'GMT');
+                    lastLogin member/last_login_time|nothing;
+                    yesterday python:today - 1;
+                    lastWeek python:today - 7;
+                    lastMonth python:today - 31;
+                    modified request/modified|nothing">
+      <select name="modified:date" id="modified">
+        <option tal:attributes="value default;
+                                selected python:request.get('modified',
+                                  default) == default or nothing"
+                i18n:translate="label_choose">Choose</option>
+        <option tal:condition="not:isAnon"
+                tal:attributes="value lastLogin;
+                                selected python:modified == lastLogin or None"
+                i18n:translate="time_last_login">Last login</option>
+        <option tal:attributes="value yesterday;
+                                selected python:modified == yesterday or None"
+                i18n:translate="time_yesterday">Yesterday</option>
+        <option tal:attributes="value lastWeek;
+                                selected python:modified == lastWeek or None"
+                i18n:translate="time_last_week">Last week</option>
+        <option tal:attributes="value lastMonth;
+                                selected python:modified == lastMonth or None"
+                i18n:translate="time_last_month">Last month</option>
+      </select>
+      <input type="hidden" name="modified_usage" value="range:min" />
+    </dd>
+    <dt>
+      <tal:block i18n:translate="label_search_location">
+        Search location
+      </tal:block>
+    </dt>
+    <dd>
+      <metal:block use-macro="here/generic_lib_search_folder_prefix_option/macros/search_folder_prefix_option" />
+    </dd>
+  </dl>
+  <p class="buttonArea">
+    <input type="submit" value="button_search" class="standalone"
+           i18n:attributes="value" />
+  </p>
+</metal:block>

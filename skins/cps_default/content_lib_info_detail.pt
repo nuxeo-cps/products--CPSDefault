@@ -1,0 +1,59 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;!-- ============================================================ --&gt;
+&lt;!-- below macros require getContentInfo level 1                  --&gt;
+
+
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;All information of a document&lt;/h1&gt;
+-->
+
+<metal:block define-macro="info_detail">
+<div
+  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)"
+  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                                 'folder_contents', 'view')">
+  <div tal:condition="info/preview|nothing" style="float: right">
+    <img tal:condition="info/preview|nothing"
+      tal:replace="structure python:here.getImgTag(info['preview'],
+        base_url=base_url, width=64, height=64, keep_ratio=1)" />
+  </div>
+  <a tal:attributes="href info/relation" tal:omit-tag="not:info/relation">
+  <img tal:replace="structure python:here.getImgTag(info['icon'],
+    base_url=base_url, title='%s, id:%s' % (info['type_l10n'], info['id']))" />
+  </a>
+   <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
+   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
+  <br />
+  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}">
+  <small>
+    <tal:block define="status_short_fmt not:nothing;
+                       status_time not:nothing;">
+      <metal:block use-macro="here/content_lib_status/macros/status" />
+    </tal:block>
+    <tal:block condition="info/size|nothing">, <span tal:replace="info/size">
+      10 kB</span>
+    </tal:block>
+  </small>
+  </a>
+  <tal:block tal:condition="info/start_str|info/end_str|nothing">
+    <br /><small>
+      <span i18n:translate="label_from" tal:omit-tag="">From</span>
+      <span tal:content="info/start_str|nothing" tal:omit-tag="" />
+      <span i18n:translate="label_to" tal:omit-tag="">To</span>
+      <span tal:content="info/end_str|nothing" tal:omit-tag="" />
+    </small>
+  </tal:block>
+  <tal:block condition="info/description">
+    <br /><small tal:content="info/description">Description</small>
+  </tal:block>
+  <tal:block condition="site_wide|nothing">
+   <br /><small class="url"
+           tal:define="url python: here.truncURL(base_url + info['rpath'])"
+           tal:content="url">URL</small>
+  </tal:block>
+
+</div>
+</metal:block>

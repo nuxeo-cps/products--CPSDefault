@@ -1,0 +1,66 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!--
+&lt;html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;body&gt;
+
+&lt;!-- macro library for contents --&gt;
+&lt;!-- $Id$ --&gt;
+
+&lt;!-- ============================================================ --&gt;
+&lt;h1&gt;Master macro used for content stuff&lt;/h1&gt;
+-->
+
+<metal:block define-macro="master"
+  tal:define="proxy here/this;
+  doc nocall:doc|python:here.getContent()">
+<metal:block use-macro="here/main_template/macros/master">
+<metal:block fill-slot="base">
+<tal:block replace="structure string:&lt;!--
+  cps test / debug information:
+  cps:path:${here_url}
+  cps:rpath:${context_url}
+  cps:proxy_id:${proxy/id}
+  cps:id:${doc/id}
+-->"></tal:block>
+<metal:block define-slot="base">
+  <base href="" tal:attributes="href python: here_url + '/'" />
+</metal:block>
+</metal:block>
+
+<metal:block fill-slot="head_slot"><metal:block
+  define-slot="head_slot" /></metal:block>
+<metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"
+  /></metal:block>
+<metal:block fill-slot="javascript_head_slot"><metal:block
+  define-slot="javascript_head_slot" /></metal:block>
+
+<metal:block fill-slot="header">
+<metal:block define-slot="header">
+  <h1 tal:content="here/title_or_id">Page Title</h1>
+  <div class="description" tal:content="doc/Description"
+    tal:condition="doc/Description">
+    Document Description goes here.
+   </div>
+</metal:block>
+</metal:block>
+
+<metal:block fill-slot="main">
+<metal:block define-slot="main" />
+</metal:block>
+
+<metal:block fill-slot="sub">
+<metal:block define-slot="sub">
+  <div tal:condition="not:creation|nothing" id="byline">
+    <small>
+      <span metal:use-macro="here/content_lib_byline/macros/byline">By Me</span>
+    </small>
+  </div>
+</metal:block>
+</metal:block>
+
+</metal:block>
+</metal:block>

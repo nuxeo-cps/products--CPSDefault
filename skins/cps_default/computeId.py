@@ -79,7 +79,11 @@ words = re.split('-*_*\.*\s*', id)
 # Removing meaningless words according to the current locale.
 message_catalog = context.Localizer.default
 words_meaningless = message_catalog.gettext('words_meaningless', lang).split()
-words = [w for w in words if w not in words_meaningless]
+words_tmp = [w for w in words if w not in words_meaningless]
+
+# meaningless ?
+if len(words_tmp):
+    words = words_tmp
 
 # Preventing word cuts
 id = words[0] # The id needs to contain at least one word

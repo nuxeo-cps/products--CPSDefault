@@ -416,7 +416,7 @@ def addBoxContainer(self, id=None, REQUEST=None, quiet=0):
         else:
             return MessageDialog(
                 title='Item Exists',
-                message='This object already contains an %s' % ob.id,
+                message='This object already contains an %s' % id,
                 action='%s/manage_main' % REQUEST['URL1'])
 
     ob = BoxContainer(id)

@@ -8,8 +8,9 @@
     <h1 metal:fill-slot="header" i18n:translate="heading_folder_factories">
       Add Content
     </h1>
-    <div metal:fill-slot="main"
+    <div metal:fill-slot="main" class="group"
       tal:define="creatableItems here/getSortedContentTypes">
+
       <form action="content_create" method="post"
         tal:attributes="action string:${here_url}/content_create">
         <table width="100%" border="0" cellpadding="1" cellspacing="1"

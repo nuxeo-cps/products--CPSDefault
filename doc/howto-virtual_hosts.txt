@@ -39,7 +39,7 @@ Secure HTTP + HTTPS configuration
 ---------------------------------
 
 This is the configuration to use if you want to:
-  * force the use of HTTPS for workin in the ZMI
+  * force the use of HTTPS for working in the ZMI
   * force the use of HTTPS for authenticated users (because for logged users
     cookies containing vulnerable login/password information is sent with each
     request)
@@ -49,8 +49,10 @@ ServerName mysite.net
 
 RewriteEngine on
 
-#RewriteRule	^(.*)manage$		http://demo1.localdomain/$1 [R=permanent,L]
-#RewriteRule	^(.*)login_form$	http://demo1.localdomain/$1 [R=permanent,L]
+# Using OR instead of the implicit AND between conditions
+RewriteCond %{REQUEST_URI} ^(.*)/manage$ [OR]
+RewriteCond %{REQUEST_URI} ^(.*)/login_form$
+RewriteRule ^/(.*) https://mysite.net/$1 [R=permanent,L]
 
 RewriteCond %{HTTP:Authorization}  ^(.*)
 RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
@@ -61,7 +63,6 @@ ErrorLog /var/log/apache-ssl/mysite.net-error.log
 
 <VirtualHost 192.168.2.20:443>
 ServerName mysite.net
-ServerAlias manage.mysite.net
 SSLEnable
 
 RewriteEngine on

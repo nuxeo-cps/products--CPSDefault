@@ -23,8 +23,8 @@ def manage_addCPSDefaultSite(dispatcher, id,
                       root_sn='CPS',
                       root_givenName='Root',
                       root_email='root@localhost',
-                      root_password1='root',  # XXX TODO: remove this
-                      root_password2='root',  # XXX TODO: remove this
+                      root_password1='',
+                      root_password2='',
                       REQUEST=None):
     """Add a CPSDefault Site."""
 
@@ -104,15 +104,6 @@ def manage_addCPSDefaultSite(dispatcher, id,
                               password=root_password1,
                               confirm=root_password2,
                               roles=('Manager', 'Member'), domains=None)
-
-    # XXX TODO: remove this test user
-    for i in ('1', '2', '3'):
-        user='user%s' % i
-        pr('Creating test user: %s' % user)
-        portal.acl_users._addUser(name=user,
-                                  password=user,
-                                  confirm=user,
-                                  roles=('Member', ), domains=None)
 
     pr('Done')
     if REQUEST is not None:

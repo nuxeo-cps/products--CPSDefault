@@ -1,4 +1,50 @@
 *******************************************
+** CPSDefault V3.32.0 [R1 build 2005/03/07-16:04 by madarche]
+
+Requires:
+~~~~~~~~~
+- WARNING: Some properties have been added to stylesheet_properties.props.
+  If you overload stylesheet_properties.props you need to add the following
+  properties:
+  buttonBackground
+  buttonBackgroundHover
+  buttonBorder
+  contextButtonBackgroundHover
+  standaloneButtonBackgroundHover
+  destructiveButtonBackgroundHover
+  destructiveButtonBorderHover
+  cf CPSDefault/skins/cps_styles/nuxeo/stylesheet_properties.props
+- Now using CPSUtil.integration.isProductPresent method.
+New features:
+~~~~~~~~~~~~~
+- Added support for user password resetting.
+- Added an interface to manage languages in a portal
+- DocRenderBox can now render objects with give id (code need to be cleaned up,
+  but the current implementation is currently not good enough anyway)
+- Added user feedback hints on buttons which now change colors when they are
+  hovered. This provides a more usable and accessible user interface.
+- Added a form to manage portal languages
+- Changed number of objects shown in folder_contents from 10 to 30
+Bug fixes:
+~~~~~~~~~~
+- Added in cpsinstall a migration routine for badly stored portal properties
+  such as "enable_portal_joining".
+- Moved some pictures which were in the "cps_default" skin into the
+  "cps_images" skin where they should be.
+- Fixed object id change in folder, some skins were missing with CMF 1.5.0.
+- Usability improvement: made the "content_translate" action automatically
+  redirect the user to the Edit page of the newly translated document.
+- For all locales translated the "label_language_pt_BR" msgid into the shorter
+  translated accordingly "Brazilian" word. The previous longer names were
+  making the locale selector box way to large.
+- Fix : workflow_foldersish_wf didn't allow the versionning of sub-objects
+- Don't show non-CMF objects in folder_contents
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- sinisterly better check of elementtree optional import
+- Changed method name: getContents() -> getContent()
+
+*******************************************
 ** CPSDefault V3.31.5 [R1 build 2005/02/01-11:38 by madarche]
 
 Requires:

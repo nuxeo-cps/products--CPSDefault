@@ -21,24 +21,21 @@ except AttributeError:
 description = doc.Description() or ''
 
 #get all managers of this folder
-#XXX: do something cleaner than that for dececting whether
-#we are in a section or a workspace
-if context.absolute_url().find('sections') != -1:
+if context.portal_type == 'Section':
     manager_role = 'SectionManager'
-else:
+elif context.portal_type == 'Workspace':
     manager_role = 'WorkspaceManager'
+else:
+    manager_role = None
 
-roles = context.portal_membership.getMergedLocalRoles(context)
-
-dtool = context.portal_metadirectories.members
+merged_roles = context.portal_membership.getMergedLocalRoles(context)
 
 managers = []
 
-for pair in roles.items():
-    if pair[0].startswith('user:') and manager_role in pair[1]:
-        manager = pair[0][5:]
-        if dtool.getEntry(manager):
-            managers.append(manager)
+if manager_role:
+    for user,roles in merged_roles.items():
+        if user.startswith('user:') and manager_role in roles:
+            managers.append(user[5:])
 
 return {'title': context.Title(),
         'title_or_id': title_or_id,

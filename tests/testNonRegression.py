@@ -48,6 +48,7 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         # Test that installer can be also called as updater
         self.assert_(self.portal.cpsupdate())
 
+    # FIXME: this test must pass someday !!!
     def _testExportImport(self):
         # Log in as Zope root manager
         root = self.portal.aq_parent
@@ -66,6 +67,10 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         # Delete and try to reimport portal
         root.manage_delObjects(['portal'])
         root._importObjectFromFile(temp_file_name)
+
+    def testPortalTypesZMI(self):
+        # Broke between Zope 2.6.1 and 2.6.3
+        assert self.portal.portal_types.News.manage_propertiesForm(URL1="")
 
 
 def test_suite():

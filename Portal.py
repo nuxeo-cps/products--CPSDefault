@@ -22,17 +22,29 @@ import Globals
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFDefault.Portal import CMFSite, PortalGenerator
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
+from AccessControl import ClassSecurityInfo
 
 class CPSDefaultSite(CMFSite):
     """CPS variant of a CMF Portal."""
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
     enable_portal_joining = 1
+    cps_version = ('CPS', 3, 2, 0)
+
+    security = ClassSecurityInfo()
 
     _properties = CMFSite._properties + (
         {'id': 'enable_portal_joining', 'type': 'boolean',
          'title': 'Enable portal joining'},
     )
+
+    security.declarePublic('getCPSVersion')
+    def getCPSVersion(self):
+        """ returns cps version
+        """
+        return self.cps_version
+
+
 
 Globals.InitializeClass(CPSDefaultSite)
 

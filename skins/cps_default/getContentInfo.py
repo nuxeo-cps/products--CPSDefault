@@ -23,7 +23,8 @@ if cpsmcat is None:
 if proxy is None:
     proxy = context
 
-if hasattr(proxy.aq_explicit, 'getObject'):
+if (hasattr(proxy.aq_explicit, 'getObject')
+    and hasattr(proxy.aq_explicit, 'getRID')):
     # this is a brain
     proxy = proxy.getObject()
 

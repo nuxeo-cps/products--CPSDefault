@@ -3,8 +3,6 @@
 ##parameters=
 ##$Id$
 
-from zLOG import LOG,DEBUG
-
 portal = context.portal_url.getPortalObject()
 homeFolder = portal.portal_membership.getHomeFolder()
 

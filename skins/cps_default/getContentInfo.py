@@ -20,7 +20,7 @@ DESCRIPTION_MAX_LENGTH = 150
 if cpsmcat is None:
     cpsmcat = context.Localizer.default
 
-if not proxy:
+if proxy is None:
     proxy = context
 
 bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id, level=-3)

@@ -35,7 +35,7 @@ def bench():
 
 context.REQUEST.RESPONSE.setHeader('content-type', 'text/html')
 print '<h3>bench python script</h3>'
-print '<b>making %s iterations of %s</b><br>' % (iteration, obj.getId())
+print '<strong>making %s iterations of %s</strong><br />' % (iteration, obj.getId())
 print 'Started:', DateTime(), '<hr />'
 print bench()
 

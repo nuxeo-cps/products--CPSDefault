@@ -426,7 +426,7 @@ format:</pre>
     base_url=base_url, title='%s, id:%s' % (info['type_l10n'], info['id']))" />
   </a>
    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
-   <b><span tal:replace="info/title_or_id">ID</span></b></a>
+   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   <br />
   <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}">
   <small>
@@ -475,7 +475,7 @@ format:</pre>
        base_url=base_url, width='32', height='32', keep_ratio=1,
        title=info['description'])" />
    <br />
-   <b><span tal:replace="info/title_or_id">ID</span></b></a>
+   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
 </div>
 </metal:block>
 
@@ -489,7 +489,7 @@ format:</pre>
  <tal:block replace="structure python:path('here/'+ info['icon'])" />
  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
    title info/description">
- <b><span tal:replace="info/title_or_id">ID</span></b></a><br />
+ <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br />
  <small>
    <tal:block define="status_short_fmt not:nothing;
                       status_time not:nothing;">

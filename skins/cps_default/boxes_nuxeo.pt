@@ -104,8 +104,8 @@
   <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
     base_url=base_url)" />
   <span i18n:translate="">description_up_to
-    <b i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
-      Up ID</b>
+    <strong i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
+      Up ID</strong>
   </span>
   </a>
 </tal:block>
@@ -426,7 +426,7 @@
             <tal:block define="global treenb_row python:nb_item + 1"
                  replace="structure string:&lt;/td>&lt;td width='50%' valign='top'>"/>
           </tal:block>
-<a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><b>
+<a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><strong>
         <img tal:condition="disp_icons"
              tal:replace="structure
                             python:
@@ -434,7 +434,7 @@
                                              base_url=base_url)" />
         <span tal:replace="structure string:${item/title_or_id}">
           title
-        </span></b></a>
+        </span></strong></a>
         <tal:block condition="item/nb_children"
            tal:define="global last_child python: repeat['item'].number() +
             item['nb_children']">:<br /></tal:block>
@@ -594,7 +594,7 @@
       <div style="float: right;">
         <tal:block
           repeat="char string:ABCDEFGHIJKLMNOPQRSTUVWXYZ">
-          <b style="cursor: pointer;" class="even"
+          <strong style="cursor: pointer;" class="even"
            tal:attributes="onclick
            string:document.getElementById('queryfolder').value = '\^${char}';;
            searchfolderform.submit()"

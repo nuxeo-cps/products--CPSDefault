@@ -6,9 +6,6 @@ Requires:
 - CPSInstaller > 0.14.0
 - if you want to have an i18n menu you need to replace the basebox_menu
   with an treebox_menu
-- When upgrading from a version <= 3.2.1, run once the workflow updater by
-  instanciating an external method for upgradeWorkflows in
-  CPSDefault.upgrade (see Extensions/upgrade.py).
 New features:
 ~~~~~~~~~~~~~
 - enable i18n of folder/document using the translate action
@@ -26,6 +23,8 @@ Bug fixes:
 - Fix getBaseUrl with VirtualHostBase and non root installed CPS
 - Added external method to upgrade workflows (bug #426).
 - Improved "basebox_edit_form.pt" accessibility.
+- Workflow status for existing old (version <= 3.2.1) workpaces and sections
+  are automatically upgraded by the installer.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - merging ben-i18n-branch

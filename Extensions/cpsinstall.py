@@ -82,6 +82,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupRoots()
         self.setupAccessControl()
         self.setupLocalWorkflow()
+        self.upgradeWorkflowStatus()
         self.setupTreesTool()
         self.setupBoxes()
         self.setupi18n()
@@ -1168,6 +1169,15 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
                      wfscripts, wfvariables)
 
+
+    def upgradeWorkflowStatus(self):
+        from Products.CPSDefault.Extensions import upgrade
+        doit = upgrade.checkUpgradeWorkflows(self.portal)
+        if doit:
+            self.log("Upgrading old workflow status")
+            upgrade.upgradeWorkflows(self.portal)
+        else:
+            self.log("Workflows status don't need upgrade")
 
 
     def setupWorkflowTranslation(self):

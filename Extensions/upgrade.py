@@ -19,9 +19,31 @@
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
-from zLOG import LOG, DEBUG
+from zLOG import LOG, DEBUG, INFO
 
 TYPES = ('Workspace', 'Section')
+CHECK_ROOTS = ('workspaces', 'sections')
+
+def checkUpgradeWorkflows(context):
+    """Check if workflows need to be upgraded."""
+    upgrade = 0
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    for rpath in CHECK_ROOTS:
+        ob = portal.restrictedTraverse(rpath)
+        workflow_history = getattr(aq_base(ob), 'workflow_history', None)
+        if workflow_history is None:
+            continue
+        for wf_id, wfh in workflow_history.items():
+            if not wfh:
+                continue
+            status = wfh[-1]
+            if status.has_key('review_state'):
+                continue
+            LOG('checkUpgradeWorkflows', INFO,
+                "Workflow status for '%s' needs to be upgraded." % rpath)
+            upgrade = 1
+            break
+    return upgrade
 
 def upgradeWorkflows(self):
     """Upgrade the folders after workflow change.
@@ -73,4 +95,5 @@ def upgradeWorkflows(self):
             LOG(log_key, DEBUG, "upgrading %s" % path)
             ob.reindexObject(idxs=['review_state'])
             nchanged += 1
+    LOG(log_key, DEBUG, "%s objects upgraded" % nchanged)
     return '%s objects upgraded' % nchanged

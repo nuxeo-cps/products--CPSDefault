@@ -82,7 +82,7 @@ class BoxesTool(UniqueObject, SimpleItem):
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
 
-        home = context.portal_membership.getHomeFolder()
+        home = getToolByName(self, 'portal_membership').getHomeFolder()
         if home:
             f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
             allboxes.extend(f_boxes)
@@ -213,8 +213,12 @@ InitializeClass(BoxesTool)
 class BoxContainer(PortalFolder):
     id = '.cps_boxes'
     meta_type = 'CPS Boxes Container'
-
     security = ClassSecurityInfo()
+
+    #
+    # ZMI
+    #
+    manage_boxOverridesForm = DTMLFile('zmi/manage_boxOverridesForm', globals())
 
 def addBoxContainer(self, REQUEST=None):
     """Add a Base Box."""

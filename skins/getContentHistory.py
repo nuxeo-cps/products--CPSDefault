@@ -38,7 +38,6 @@ for px in proxies_info:
          'review_state': px['review_state'],
          'rev': px['language_revs'].values()[0],
          'lang': px['language_revs'].keys()[0],
-         'visible': px['visible'],
          'time': px['time'],
          }
     states.append(d)

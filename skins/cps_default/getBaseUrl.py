@@ -13,7 +13,14 @@ else:
 
 if path_info.startswith('/VirtualHostBase/') :
     # apache detection
-    return '/'
+    # Inside-out hosting (VHM _vh_)
+    if path_info.find('_vh_') > 0:
+        base = path_info.split('_vh_')[1]
+        if base.find('/') > 0:
+            base = base.split('/')[0]
+        return '/' + base + '/'
+    else:
+        return '/'
 else:
     # XXX squid detection
     # classic case

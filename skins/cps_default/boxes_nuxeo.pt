@@ -105,51 +105,6 @@
 </metal:block>
 
 <!-- ============================================================ -->
-<metal:block define-macro="basebox_display_settings"
-             tal:condition="python:request.get('change_display', '0') == '1'">
-<metal:block use-macro="here/box_lib/macros/sbox">
-  <metal:block fill-slot="box_body">
-    <form action="" method="post"
-      tal:attributes="action string:${here/absolute_url};"
-      tal:define="params here/getDisplayParams;
-                  sort_by params/sort_by;
-                  direction params/direction;
-                  format params/format;">
-    <strong i18n:translate="label_sort_by">sort by</strong>
-      <select name="sort_by">
-        <option value="title" i18n:translate="label_sort_by_title"
-          tal:attributes="selected python:sort_by == 'title'">title</option>
-        <option value="date" i18n:translate="label_sort_by_date"
-          tal:attributes="selected python:sort_by == 'date'">date</option>
-        <option value="status" i18n:translate="label_sort_by_status"
-          tal:attributes="selected python:sort_by == 'status'">status</option>
-      </select>
-      <select name="direction">
-        <option value="asc" i18n:translate="label_sort_asc"
-          tal:attributes="selected python:direction != 'desc'">asc</option>
-        <option value="desc" i18n:translate="label_sort_desc"
-          tal:attributes="selected python:direction == 'desc'">desc</option>
-      </select>
-    <strong i18n:translate="label_display_format">format</strong>
-      <select name="format">
-        <option value="icon" i18n:translate="label_display_icon"
-          tal:attributes="selected python:format == 'icon'">icon</option>
-        <option value="compact"
-          i18n:translate="label_display_compact"
-          tal:attributes="selected python:format == 'compact'">compact</option>
-        <option value="detail"
-          i18n:translate="label_display_detailed"
-          tal:attributes="selected python:format == 'detail'">detailed</option>
-      </select>
-      <input type="hidden" name="change_display"
-        tal:attributes="value python:request.get('change_display', 0)" />
-      <input type="submit" value="button_change" i18n:attributes="value" tal:attributes="name string:changeListingDisplay:method" />
-</form>
-    </metal:block>
-  </metal:block>
-</metal:block>
-
-<!-- ============================================================ -->
 <metal:block define-macro="textbox_default">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title"

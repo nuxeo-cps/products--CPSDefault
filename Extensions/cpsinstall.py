@@ -622,7 +622,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                                          'WorkspaceMember',
                           'guard_expr': ''},
             },
-            'modify': { 
+            'modify': {
                 'title': 'Modification of content,'
                          'provides a specific entry in status history',
                 'new_state_id': '',
@@ -634,7 +634,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                           'guard_roles': 'Manager; Owner;'
                                          'WorkspaceManager; '
                                          'WorkspaceMember',
-                          'guard_expr': ''}, 
+                          'guard_expr': ''},
             },
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
@@ -780,7 +780,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                                          'WorkspaceMember',
                           'guard_expr': ''},
             },
-            'modify': { 
+            'modify': {
                 'title': 'Modification of content,'
                          'provides a specific entry in status history',
                 'new_state_id': '',
@@ -792,7 +792,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                           'guard_roles': 'Manager; Owner;'
                                          'WorkspaceManager; '
                                          'WorkspaceMember',
-                          'guard_expr': ''}, 
+                          'guard_expr': ''},
             },
         }
 
@@ -944,7 +944,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                          'WorkspaceMember',
                           'guard_expr': ''},
             },
-            'modify': { 
+            'modify': {
                 'title': 'Modification of content,'
                          'provides a specific entry in status history',
                 'new_state_id': '',
@@ -956,7 +956,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_roles': 'Manager; Owner;'
                                          'WorkspaceManager; '
                                          'WorkspaceMember',
-                          'guard_expr': ''}, 
+                          'guard_expr': ''},
             },
         }
 
@@ -1266,7 +1266,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         wftool = self.getTool('portal_workflow')
         wfs_to_upgrade = ('workspace_content_wf', 'workspace_folder_wf',
                           'workspace_folderish_content_wf')
-        modify_transition_def = { 
+        modify_transition_def = {
             'modify': { 'title': 'Modification of content,'
                                  'provides a specific entry in status history',
                         'new_state_id': '',
@@ -1278,14 +1278,14 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                   'guard_roles': 'Manager; Owner;'
                                                  'WorkspaceManager; '
                                                  'WorkspaceMember',
-                                  'guard_expr': ''}, 
+                                  'guard_expr': ''},
                       }
                                 }
 
         for wf_id in wfs_to_upgrade:
             wf = wftool[wf_id]
             self.verifyWfTransitions(wf, modify_transition_def)
-            
+
             work_state = wf.states.get('work')
             transitions = work_state.transitions
             if 'modify' not in transitions:
@@ -1376,10 +1376,13 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                             'description': 'portal_type_Workspace_description',
                             'content_meta_type': 'Workspace',
                             'filter_content_types': 1},},
-
             'Folder': {
                        'typeinfo_name': 'CPSDefault: Folder',
                        'add_meta_type': 'Factory-based Type Information',},
+            }
+
+        boxes_dict =  {
+
             'Base Box': {
                        'typeinfo_name': 'CPSBoxes: Base Box',
                        'add_meta_type': 'Factory-based Type Information',},
@@ -1409,10 +1412,14 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                        'add_meta_type': 'Factory-based Type Information',},
             'Doc Render Box':{
                        'typeinfo_name': 'CPSBoxes: Doc Render Box',
-                       'add_meta_type': 'Factory-based Type Information',},           
+                       'add_meta_type': 'Factory-based Type Information',},
         }
 
         self.verifyContentTypes(type_dict)
+
+        # XXX CPSBoxes Upgrade
+        self.verifyContentTypes(boxes_dict, destructive=1)
+
         self.allowContentTypes('Workspace', 'Workspace')
         self.allowContentTypes('Section', 'Section')
 

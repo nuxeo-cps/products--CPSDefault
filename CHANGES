@@ -2,6 +2,14 @@ ZODB Requires:
 ~~~~~~~~~~~~~~
 - ep: if you have a custom stylesheet_properties.props you must include:
  legendFontSize:string=80%
+- Permissions on the repository have been tightened. To upgrade an
+  existing site:
+  - update CPSCore
+  - update your workflows for sections and workspaces
+  - in portal_workflows click on 'update security settings'
+  - in portal_repository's security, check that for all permissions
+    corresponding to special roles like 'permission:foo', the permission
+    is not acquired and only given to Manager and foo.
 New features:
 ~~~~~~~~~~~~~
 - Id renaming form now displays a help message.

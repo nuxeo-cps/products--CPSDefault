@@ -98,6 +98,17 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_folder_header"
   tal:define="doc nocall:doc|python:here.getContent()">
+<tal:block condition="python: checkPerm('List folder contents', here,
+  'aq_parent')">
+  <a href="../">
+  <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
+    base_url=base_url)">
+  <span i18n:translate="">description_up_to
+    <b i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
+      Up ID</b>
+  </span>
+  </a>
+</tal:block>
 <h1 tal:content="here/title_or_id">Page Title</h1>
 <div class="description"> <span
   tal:content="doc/Description">description</span>
@@ -350,22 +361,6 @@
                       global treenb_row  python:nb_item/2+2;">
     <table width="100%"
            tal:define="disp_icons python:getattr(box['box'],'display_icons',0)">
-    <tr>
-      <td colspan="2">
-        <tal:block condition="python: checkPerm('List folder contents', here,
-'aq_parent')">
-        <a href="../">
-        <img  tal:condition="disp_icons"
-              tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
-                                                          base_url=base_url)">
-        <span i18n:translate="">description_up_to
-          <b i18n:name="up_id" tal:content="python:here.aq_parent.getId()">
-          Up ID</b>
-        </span>
-        </a><br><br>
-        </tal:block>
-      </td>
-    </tr>
         <tr><td valign="top" width="50%">
         <tal:block repeat="item items">
           <tal:block condition="python:item['depth']==depth">

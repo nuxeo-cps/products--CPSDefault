@@ -1,5 +1,5 @@
 // $Id$
-// this script make rss link clickable and add a validator link
+// this script make rss link and dc:relation clickable and add a validator link
 
 var xlink = "http://www.w3.org/1999/xlink";
 var allItems = document.getElementsByTagName("item");
@@ -12,6 +12,14 @@ for (var i=0;i<allItems.length;i++)
     linkElm.setAttributeNS(xlink,"type","simple");
     linkElm.setAttributeNS(xlink,"show","replace");
     linkElm.setAttributeNS(xlink,"href", linkURL);
+
+    var relationElm = itemElm.getElementsByTagName("relation").item(0);
+    if (relationElm) {
+        var relationURL = relationElm.firstChild.nodeValue;
+        relationElm.setAttributeNS(xlink,"type","simple");
+        relationElm.setAttributeNS(xlink,"show","replace");
+        relationElm.setAttributeNS(xlink,"href", relationURL);
+    }
 }
 
 var channelElm = document.getElementsByTagName("channel").item(0);

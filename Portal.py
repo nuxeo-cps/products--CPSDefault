@@ -20,19 +20,28 @@
 
 import Globals
 from zLOG import LOG, INFO, DEBUG
-from Products.CMFDefault.Portal import CMFSite
+from Products.CMFDefault.Portal import CMFSite, PortalGenerator
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
 class CPSDefaultSite(CMFSite):
-    """This class is never instantiated and only serves for class registration"""
-    # XXX Note that whatever you will write here will never be used since
-    # manage_addCPSDefaultSite instantiates a CMFSite.
+    """CPS variant of a CMF Portal."""
     meta_type = 'CPSDefault Site'
+    portal_type = 'Portal'
+    enable_portal_joining = 1
+
+    _properties = CMFSite._properties + (
+        {'id': 'enable_portal_joining', 'type': 'boolean',
+         'title': 'Enable portal joining'},
+    )
 
 Globals.InitializeClass(CPSDefaultSite)
 
+class CPSPortalGenerator(PortalGenerator):
+    """Set up a CPS Portal."""
+    klass = CPSDefaultSite
+
 manage_addCPSDefaultSiteForm = Globals.HTMLFile('zmi/manage_addCPSSiteForm',
-    globals())
+                                                globals())
 
 def manage_addCPSDefaultSite(dispatcher, id,
                              title='CPSDefault Portal',
@@ -61,26 +70,30 @@ def manage_addCPSDefaultSite(dispatcher, id,
     if root_password1 != root_password2:
         raise ValueError, 'Password confirmation does not match password'
 
-    pr('Adding a CPSDefault Site')
-    container = dispatcher.Destination()
-    pr('Creating CMF Site')
-    container.manage_addProduct['CMFDefault'].manage_addCMFSite(id,
-                    title=title,
-                    description=description,
-                    create_userfolder=0)
-    portal = getattr(container, id)
-    portal.portal_type = 'Portal'
-    portal.manage_addProperty('enable_portal_joining', enable_portal_joining,
-                              'boolean')
+    id = id.strip()
+    title = title.strip()
+    description = description.strip()
+    root_givenName = root_givenName.strip()
+    root_sn = root_sn.strip()
+    email_from_name = '%s %s' % (root_givenName, root_sn)
+    root_email = root_email.strip()
 
-    pr('Creating cpsinstall External Method in CMF Site')
+    pr('Adding a CPSDefault Site')
+    gen = CPSPortalGenerator()
+    portal = gen.create(dispatcher, id, create_userfolder=0)
+    gen.setupDefaultProperties(portal, title, description,
+                               email_from_address=root_email,
+                               email_from_name=email_from_name,
+                               validate_email=0)
+
+    pr('Creating cpsinstall External Method in CPS Site')
     cpsinstall = ExternalMethod('cpsinstall',
                                 'CPSDefault Installer',
                                 'CPSDefault.cpsinstall',
                                 'cpsinstall')
     portal._setObject('cpsinstall', cpsinstall)
 
-    pr('Creating cpsupdate External Method in CMF Site')
+    pr('Creating cpsupdate External Method in CPS Site')
     cpsupdate = ExternalMethod('cpsupdate',
                                'CPSDefault Updater',
                                'CPSDefault.cpsinstall',
@@ -93,7 +106,6 @@ def manage_addCPSDefaultSite(dispatcher, id,
                                     'CPSDefault.benchmarktimer',
                                     'BenchmarkTimerInstance')
     portal._setObject('Benchmarktimer', benchmarktimer)
-
 
     pr('Creating i18n Updater Support')
     i18n_updater = ExternalMethod('i18n Updater',
@@ -111,18 +123,12 @@ def manage_addCPSDefaultSite(dispatcher, id,
     pr('Configuring CPSDefault Portal')
     # editProperties do not work with ZTC due to usage of REQUEST
     # to send properties :/
+    # herve: REQUEST is a mapping. Have you checked using
+    #            REQUEST={'smtp_host': 'localhost'}
+    #        as an argument?
     portal.MailHost.smtp_host = 'localhost'
-    root_givenName = root_givenName.strip()
-    root_sn = root_sn.strip()
-    root_email = root_email.strip()
-    portal.manage_changeProperties(REQUEST=None,
-                                   email_from_name='%s %s' %
-                                       (root_givenName, root_sn),
-                                   email_from_address=root_email,
-                                   smtp_server='localhost',
-    )
+    portal.manage_changeProperties(smtp_server='localhost', REQUEST=None)
 
-    # TODO: use portal_metadirectories to store emails and other stuff
     pr('Creating CPS Administrator account for CPSDefault')
     mdir = portal.portal_directories.members
     entry = {
@@ -141,5 +147,3 @@ def manage_addCPSDefaultSite(dispatcher, id,
         REQUEST.RESPONSE.setHeader('Content-Type', 'text/plain')
 
     return pr('flush')
-
-#EOF

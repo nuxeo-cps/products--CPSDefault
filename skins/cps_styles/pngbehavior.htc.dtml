@@ -10,7 +10,6 @@ $Id$
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
-<dtml-with stylesheet_properties>
 
 <public:component>
 <public:attach event="onpropertychange" onevent="propertyChanged()" />
@@ -44,7 +43,7 @@ $Id$
  */
  
 //var IS_PNG = /\-trans\.png$/i; /* <-- NOTE: remove the "\-trans" to process *all* PNGs */
-var IS_PNG = /.png$/i; /* <-- NOTE: remove the "\-trans" to process *all* PNGs */
+var IS_PNG = /.png$/i;
 var supported = /MSIE (5\.5)|[6789]/.test(navigator.userAgent) && navigator.platform == 'Win32';
 var realSrc;
 //var blankSrc = '/ie7/blank.gif';
@@ -93,5 +92,3 @@ function afterPrint() {
 }
 </script>
 </public:component>
-
-</dtml-with>

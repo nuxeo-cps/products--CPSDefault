@@ -193,7 +193,7 @@ format:</pre>
     <tr valign="top" tal:repeat="item batch_items">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
 
-        <input type="checkbox" name="ids:list" value="" id=""
+        <input type="checkbox" name="ids:list" value="" id="" class="noborder"
                tal:condition="python:item.getId() not in choosen_ids"
                tal:attributes="value item/getId;
                                id python:'cb_'+item.getId()">
@@ -222,40 +222,28 @@ format:</pre>
 <metal:block define-macro="status">
   <tal:block condition="not:status_short_fmt|nothing">
     <span i18n:translate="label_status">Label Status</span>
-    <span tal:content="info/review_state" i18n:translate="">Work</span>
-
-    <tal:block i18n:translate="">
-      label_revision
-      <span tal:content="info/rev"
-            i18n:name="status_revision">1</span>
+    <span tal:content="info/review_state" tal:attributes="class
+      info/review_state" i18n:translate="">Work</span>
+    <tal:block i18n:translate="">label_revision
+      <span tal:content="info/rev" i18n:name="status_revision">1</span>
     </tal:block>
-
-    <tal:block i18n:translate="">
-      label_language
-      <span tal:content="info/lang"
-            i18n:name="status_language">en</span>
+    <tal:block i18n:translate="">label_language
+      <span tal:content="info/lang" i18n:name="status_language">en</span>
     </tal:block>
-
-    <tal:block condition="status_time|nothing" i18n:translate="">
-      label_since
-      <span tal:content="info/stime"
-            i18n:name="status_time">May 6, 2003 5:28 pm</span>
+    <tal:block condition="status_time|nothing" i18n:translate="">label_since
+      <span tal:content="info/stime" i18n:name="status_time">May28 pm</span>
     </tal:block>
-
   </tal:block>
   <tal:block condition="status_short_fmt|nothing" >
-
     <tal:block condition="status_time|nothing" i18n:translate="">
-      <span tal:content="info/stime"
-            i18n:name="status_time">May 6, 2003 5:28 pm</span>:
+      <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>:
     </tal:block>
-
     <span i18n:translate="">
       v<span tal:replace="info/rev" i18n:name="status_revision">1</span>- <span
       tal:replace="info/lang" i18n:name="status_language">en</span>
     </span>
-    <span tal:content="info/review_state" i18n:translate="">published</span>
-
+    <span tal:content="info/review_state" tal:attributes="class
+      info/review_state" i18n:translate="">published</span>
   </tal:block>
 </metal:block>
 
@@ -267,19 +255,15 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>all doc information in a table:</pre>
 <metal:block define-macro="info_detail">
-<table cellspacing="0" cellpadding="0" width="100%"
+<div width="100%"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 'folder_contents', 'view')"
-  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EFEFEF' or nothing">
-  <tr><td width="20">
-   <img src="" border="0"
+                                 'folder_contents', 'view')">
+  <img src="" border="0"
      tal:attributes="src string:/${info/icon};
                      title info/type;"/>
-  </td><td>
-   <a href="" tal:attributes="href string:/${info/rpath}/${action}">
+   <a href="" tal:attributes="href string:/${info/rpath}/${action};">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
-  </td></tr>
-  <tr><td colspan="2" nowrap>
+  <br>
   <a href="" tal:attributes="href string:/${info/rpath}/${action}">
   <small>
     <span tal:replace="string:id:${info/id}">[id]</span>,
@@ -290,58 +274,43 @@ format:</pre>
     <span tal:replace="info/size|nothing">10 kB</span>
   </small>
   </a>
-  </td></tr>
-  <tr tal:condition="info/description"><td colspan="2">
-    <small><em><span tal:replace="info/description">Description</span></em></small>
-  </td></tr>
-</table>
+  <tal:block condition="info/description">
+    <br><small><em tal:content="info/description">Description</em></small>
+  </tal:block>
+</div>
 </metal:block>
 
 <!-- ============================================================ -->
 <pre>iconic doc information in a table:</pre>
 <metal:block define-macro="info_icon">
-<table border="0" cellspacing="0" cellpadding="0" width="100%"
+<div width="100%" align="center"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 'folder_contents', 'view')"
-  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
-  <tr><td align="center">
-   <a href="" tal:attributes="href string:/${info/rpath}/${action};
-                              title info/description;">
-    <img src="" border="0" width="30" length="40"
-     tal:attributes="src string:/${info/icon};"/></a>
-  </td></tr>
-  <tr><td align="center">
-   <a href="" tal:attributes="href string:${info/rpath}/${action};"
-      title="info/description">
+                                 'folder_contents', 'view')">
+ <a href="" tal:attributes="href string:/${info/rpath}/${action};
+   title info/description;">
+   <img src="" border="0" width="30" length="40"
+     tal:attributes="src string:/${info/icon};"/><br>
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
-  </td></tr>
-</table>
+</div>
 </metal:block>
 
 <!-- ============================================================ -->
 <pre>short doc information in a table:</pre>
 <metal:block define-macro="info_compact">
-<table cellspacing="0" cellpadding="0" width="100%"
-  tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 'folder_contents', 'view')"
-  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
-  <tr><td width="20">
-   <img src="" border="0"
-     tal:attributes="src string:/${info/icon};
-                     title info/type;"/>
-  </td><td>
-   <a href="" tal:attributes="href string:/${info/rpath}/${action};
-                              title info/description">
-     <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
-   <small>
-    id:<span tal:replace="info/id">[id]</span>,
-    <tal:block define="status_short_fmt not:nothing;
-                       status_time not:nothing;">
-      <metal:block use-macro="here/content_lib/macros/status" />
-    </tal:block>
-   </small>
-  </td></tr>
-</table>
+<div width="100%" tal:define="action
+  python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
+ <img src="" border="0"
+   tal:attributes="src string:/${info/icon}; title info/type;"/>
+ <a href="" tal:attributes="href string:/${info/rpath}/${action};
+   title info/description">
+ <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br>
+ <small>
+   <tal:block define="status_short_fmt not:nothing;
+                      status_time not:nothing;">
+     <metal:block use-macro="here/content_lib/macros/status" />
+   </tal:block>
+ </small>
+</div>
 </metal:block>
 
 <!-- ============================================================ -->

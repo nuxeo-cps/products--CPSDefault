@@ -35,12 +35,9 @@ def compute_states(no_history=0):
             folders_info[f['rpath']] = f
 
     wf_vars = ['review_state', 'time']
-    if not no_history:
-        wf_vars.append('review_history')
     proxies_info = ptool.getProxyInfosFromDocid(context.getDocid(),
                                              workflow_vars=wf_vars)
     states = []
-    history = []
     for px in proxies_info:
         # take in account only accessible proxies
         folder_rpath = '/'.join(px['rpath'].split('/')[:-1])
@@ -56,13 +53,19 @@ def compute_states(no_history=0):
         d = {'rpath': folder_rpath,
              'title': folder_title,
              'review_state': px['review_state'],
-             'rev': px['language_revs'].values()[0],
+             'rev': str(px['language_revs'].values()[0]), # XXX str problem fixed in Zope 2.6.1
              'lang': px['language_revs'].keys()[0],
              'time': px['time'],
              'stime': px['time'].aCommon(), # XXX TODO: i18n
              }
         states.append(d)
-        for d in px.get('review_history') or ():
+
+    history = []
+    if not no_history:
+        review_history = wtool.getFullHistoryOf(proxy)
+        if not review_history:
+            review_history = wtool.getInfoFor(proxy, 'review_history', ())
+        for d in review_history:
             if not (d.has_key('actor')
                     and d.has_key('time')
                     and d.has_key('action')):
@@ -96,7 +99,7 @@ try:
 except AttributeError:
     # not a proxy
     langrev = {'en': 0}
-info['rev']=langrev.values()[0]
+info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
 info['lang']=langrev.keys()[0]
 info['time']=wtool.getInfoFor(proxy, 'time', '')
 if info['time']:

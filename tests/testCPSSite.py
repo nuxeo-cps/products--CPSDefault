@@ -34,9 +34,14 @@ ZopeTestCase.installProduct('SSS3')
 
 _folder_name          = 'testFolder_1_'
 _user_name            = 'testUser_1_'
-_user_role            = 'testRole_1_'
+_user_role            = 'Member'
 _standard_permissions = [access_contents_information, view]
  
+_user_name1           = 'testCPSUser1'
+_user_name2           = 'testCPSUser2'
+_sections             = 'sections'
+_workspaces           = 'workspaces'
+_doc_name             = 'testCPSDoc'
 
 # create a CPS Site fixture
 # XXX TODO this fixture should be run when running tests
@@ -66,47 +71,70 @@ _portal = _folder['cps']
 _print('done (%.3fs)\n' % (time.time() - _start))
 
 
+# create cps test users
+for u in (_user_name1, _user_name2):
+    _portal.acl_users._addUser(name=u, password=u, confirm=u,
+                               roles=('Member', ), domains=None)
+_portal[_sections].manage_setLocalRoles(_user_name1, ('SectionReader',))
+_portal[_sections].manage_setLocalRoles(_user_name2, ('SectionReviewer',))
+_portal[_workspaces].manage_setLocalRoles(_user_name1, ('WorkspaceMember',))
+_portal[_workspaces].manage_setLocalRoles(_user_name2, ('WorkspaceMember',))
+
 class TestSSS3(unittest.TestCase):
     
     def setUp(self):
         self.portal = _portal
         self.wftool =  getToolByName(_portal, 'portal_workflow')
+        self.work = self.portal[_workspaces]
+        self.pub = self.portal[_sections]
         get_transaction().begin()
             
     def tearDown(self):
         get_transaction().abort()
 
+        
+       
     def test_01_workflow(self):
         self.assertNotEqual(self.wftool, None)
+
+    def test_02_users(self):
+        self.assertEqual(str(self.portal.acl_users.getUserById(_user_name1)), _user_name1)
         
     def test_10_sections_folder(self):
-        ob = self.portal['sections']
+        ob = self.pub
         self.assertEqual(ob.getPortalTypeName(), 'Section')
 
     def test_11_sections_folder(self):
-        ob = self.portal['sections']
+        ob = self.pub
         wfid = self.wftool.getChainFor(ob)
         self.assertEqual(wfid[0], 'wf_section')
 
     def test_12_sections_folder(self):
-        ob = self.portal['sections']
+        ob = self.pub
         wf = self.wftool.getWorkflowById(self.wftool.getChainFor(ob)[0])
         self.assertEqual(wf._getWorkflowStateOf(ob, id_only=1), 'work')
 
     def test_20_workspaces_folder(self):
-        ob = self.portal['workspaces']
+        ob = self.work
         self.assertEqual(ob.getPortalTypeName(), 'Workspace')
 
     def test_21_workspaces_folder(self):
-        ob = self.portal['workspaces']
+        ob = self.work
         wfid = self.wftool.getChainFor(ob)
         self.assertEqual(wfid[0], 'wf_workspace')
 
     def test_22_workspaces_folder(self):
-        ob = self.portal['workspaces']
+        ob = self.work
         wf = self.wftool.getWorkflowById(self.wftool.getChainFor(ob)[0])
         self.assertEqual(wf._getWorkflowStateOf(ob, id_only=1), 'work')
         
+        #roles = list(get_local_roles_for_userid(_user))
+        
+    def test_30_create_doc(self):
+        self.wftool.invokeFactoryFor(self.work.this(), 
+                                     'Dummy', _doc_name)
+        ob = self.work[_doc_name]
+        self.assertEqual(ob.getPortalTypeName(), 'Dummy')
 
 if __name__ == '__main__':
     framework(descriptions=1, verbosity=2)

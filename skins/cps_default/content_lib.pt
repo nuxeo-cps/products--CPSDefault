@@ -271,7 +271,7 @@ format:</pre>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
                      site_wide site_wide|nothing;
-                     format python:format or 'detail';d
+                     format python:format or 'detail';
                      choosen_ids python:request.SESSION.get('choosen_ids', []);
                      dummy python:request.SESSION.update({'choosen_ids': []});
                      no_table python:format == 'detail_tab';">

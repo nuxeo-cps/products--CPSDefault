@@ -186,8 +186,8 @@ class BoxesTool(UniqueObject, PortalFolder):
         # We'll now filter to only get the open boxes in the asked for slot.
         # This can not be done previously, since 'slot' and 'closed' settings
         # can be overriden by local setting
-        boxes = [x for x in boxes if (not x['settings']['closed'] and
-                                      (slot is None or x['settings']['slot']==slot))]
+        boxes = [x for x in boxes if (
+            slot is None or x['settings']['slot']==slot)]
 
         # TODO: filter on permission ?
 
@@ -201,9 +201,13 @@ class BoxesTool(UniqueObject, PortalFolder):
 
 
     security.declarePublic('filterBoxes')
-    def filterBoxes(self, boxes, slot):
-        """ filter a list boxes for required slot """       
-        return [x for x in boxes if (x['settings']['slot']==slot)]
+    def filterBoxes(self, boxes, slot, closed_only=None):
+        """Filter a list boxes for required slot removing closed boxes."""
+        if closed_only:
+            return [x for x in boxes if(x['settings']['closed'])]
+        
+        return [x for x in boxes if (x['settings']['slot']==slot and
+                                     not x['settings']['closed'])]
 
     #
     # Private

@@ -16,10 +16,12 @@ if context_url is None:
 # Get the list of Roles from the tool
 dict_roles = mtool.getMergedLocalRoles(context, withpath=1)
 
-# filter remove non CPS roles
+# Filter remove non CPS roles
 for user in dict_roles.keys():
     for item in dict_roles[user]:
-        item['roles'] = [x for x in item['roles'] if x not in ('Owner', 'Member')]
+        item['roles'] = [x for x in item['roles'] if x not in ('Owner',
+                                                               'Member'
+                                                               )]
     dict_roles[user] = [x for x in dict_roles[user] if len(x['roles'])]
 
     if not len(dict_roles[user]):
@@ -33,13 +35,16 @@ for user in dict_roles.keys():
             editable_users.append(user)
             continue
 
-# List local roles
-cps_roles = mtool.getCandidateLocalRoles( context )
+# List local roles according to the context
+cps_roles = mtool.getCPSCandidateLocalRoles( context )
+
+# Filter them for CPS
 cps_roles = [x for x in cps_roles if x not in ('Owner',
                                                'Member',
                                                'Reviewer',
-                                               'Manager')]
-
+                                               'Manager',
+                                               'Authenticated')]
+# Checking the context (Ws or section)
 if context.portal_type == "Section":
     cps_roles = [x for x in cps_roles if x not in ('WorkspaceManager',
                                                    'WorkspaceMember',

@@ -88,7 +88,6 @@ class BoxesTool(UniqueObject, SimpleItem):
             if len(f_settings):
                 LOG('portal_boxes', DEBUG, 'got settings in %s: %s' % (
                     path, str(f_settings)))
-            LOG('portal_boxes', DEBUG, 'isPrincipiaFolderish: ' + str(obj.isPrincipiaFolderish))
 
             for box in f_boxes:
                 # Skip it if there is no view permission

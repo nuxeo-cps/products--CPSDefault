@@ -91,7 +91,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     _can_minimized = None
     locked = 0
     display_in_subfolder = 1
-    guard_roles = ''
     slot = 'right'
     order = 0
 
@@ -105,8 +104,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
         {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
         {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
-        {'id': 'guard_roles', 'type': 'string', 'mode': 'w', 'label': 'List of roles required separted with semi-column ;'},
-
         )
 
     def __init__(self, id, minimized=0, closed=0,

@@ -21,7 +21,7 @@ from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
 from zLOG import LOG, DEBUG, INFO
 
-TYPES = ('Workspace', 'Section')
+TYPES = ('Workspace', 'Section', 'CPSForum')
 CHECK_ROOTS = ('workspaces', 'sections')
 
 def checkUpgradeWorkflows(context):

@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
-<html metal:define-macro="master" tal:define="
+<metal:block define-macro="master" tal:define="
   showthirdcol showthirdcol|python:1;
   emptybody emptybody|nothing;
   utool nocall:here/portal_url;
@@ -24,7 +22,8 @@
   CPSD_bmt_stop nocall:CPSD_BMT/stop;
   CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
   CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
-  ">
+  "><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <span tal:replace="CPSD_bmt_start" />
 <head>
 <metal:block use-macro="here/header_lib/macros/header">
@@ -134,3 +133,4 @@
  <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>
 </html>
+</metal:block>

@@ -39,11 +39,11 @@ def generateNewId(newid):
 newid = compute_from.strip()[:max_chars_for_id]
 
 # Normalization
-newid = newid.replace(' ', '_')
 newid = newid.replace('Æ', 'AE')
 newid = newid.replace('æ', 'ae')
-tr = maketrans('ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜİàáâãäåçèéêëìíîïñòóôõöøùúûüıÿ',
-               'AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy')
+newid = newid.replace('ß', 'ss')
+tr = maketrans(' ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜİàáâãäåçèéêëìíîïñòóôõöøùúûüıÿ',
+               '_AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy')
 newid = newid.translate(tr)
 ok = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_.'
 newid = ''.join([c for c in newid if c in ok])

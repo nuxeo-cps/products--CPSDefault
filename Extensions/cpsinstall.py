@@ -962,27 +962,27 @@ def cpsupdate(self, langs_list=None):
         ob = getattr(box_container, box)
         ob.manage_changeProperties(**boxes[box])
 
-
-    #
     # Box management action at the root of the portal
-    #
+    pactions = list(portal['portal_actions']._actions)
+    i = 0
+    for ac in pactions:
+        id = ac.id
+        if id == "boxes":
+            del pactions[i]
+        i+=1
+        pr(" Deleting %s: %s" % ('portal_actions', id))
+    portal['portal_actions']._actions = pactions
 
-    # Verification of the action and add it if neccesarly
-    action_found = 0
-    for action in portal['portal_actions'].listActions():
-        if action.id == 'boxes':
-            action_found = 1
-
-    if not action_found:
-        portal['portal_actions'].addAction(
-            id='boxes',
-            name='action_boxes',
-            action='string: ${portal_url}/box_manage_form',
-            condition='',
-            permission=('Manage Boxes',),
-            category='global',
-            visible=1)
-        pr(" Added Action Boxes at global scope ")
+    # Adding it now
+    portal['portal_actions'].addAction(
+        id='boxes',
+        name='action_boxes',
+        action='string: ${object/absolute_url}/box_manage_form',
+        condition='python:folder is object',
+        permission=('Manage Boxes',),
+        category='global',
+        visible=1)
+    pr(" Added Action Boxes at global scope ")
 
 
     #

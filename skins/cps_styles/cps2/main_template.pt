@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
+<html metal:define-macro="master"
+      tal:define="global portal_url here/getPortalUrl;
+                  form request/form;
+                  portal_status_message form/portal_status_message|nothing;
+                  hideactions hideactions|nothing;
+                  showthirdcol showthirdcol|python:1;
+                  atool here/portal_actions;
+                  mtool here/portal_membership;
+                  ttool here/portal_trees;
+                  wtool here/portal_workflow;
+                  member mtool/getAuthenticatedMember;
+                  isAnon mtool/isAnonymousUser;
+                  sections ttool/sections;
+                  workspaces ttool/workspaces;
+                  actions python:atool.listFilteredActionsFor(here);
+                  user_actions actions/user;
+                  object_actions actions/object;
+                  workflow_actions actions/workflow;
+                  folder_actions actions/folder;
+                  global_actions actions/global;
+                  wf_state python:wtool.getInfoFor(here,'review_state','');
+                  CPSD_BMT python:here.Benchmarktimer('main_template');
+                  CPSD_bmt_start nocall:CPSD_BMT/start;
+                  CPSD_bmt_stop nocall:CPSD_BMT/stop;
+                  CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
+                  CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
+                  ">
+<span tal:replace="CPSD_bmt_start" />
+<head metal:use-macro="here/generic_lib/macros/header">
+  <metal:block fill-slot="base">
+    <metal:block define-slot="base" tal:replace="nothing">
+      <!-- Additional head elements -->
+    </metal:block>
+  </metal:block>
+  <metal:block define-slot="style_plus" tal:replace="nothing">
+    <!-- additional styles -->
+  </metal:block>
+  <metal:block define-slot="script_plus" tal:replace="nothing">
+    <!-- additional scripts -->
+  </metal:block>
+</head>
+
+<body>
+
+<table width="775" border="0" cellspacing="0" cellpadding="0"
+       align="center" valign="top" class="columns">
+  <tr>
+    <!-- top bar -->
+    <td colspan="3">
+      <div class="top">
+        <div metal:use-macro="here/generic_lib/macros/searchbox" />
+        <div metal:use-macro="here/generic_lib/macros/logo" />
+        <img src="baseline_nuxeo.gif" width="126" height="60"
+             alt="Solutions web pour mieux collaborer"
+             tal:attributes="src string:${portal_url}/baseline_nuxeo.gif" />
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <!-- mini logo -->
+    <td rowspan="2" align="center" valign="middle">
+      <a href="http://www.cps-project.org">
+        <img src="logoCPS_full.png" width="140" height="50"
+             style="border: 1px solid black"
+             tal:attributes="src string:${portal_url}/logoCPS_full.png" />
+      </a>
+    </td>
+    <!-- section bar -->
+    <td colspan="2">
+      <div metal:use-macro="here/generic_lib/macros/sections">
+        sections
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <!-- breadcrumbs -->
+    <td colspan="3">
+      <div metal:use-macro="here/generic_lib/macros/breadcrumbs">
+        breadcrumbs
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <!-- BAR LEFT ================================= -->
+    <td class="left" width="140" tal:define="blockclass string:even">
+      <!-- user actions box -->
+      <tal:block define="actionblock user_actions;
+                         blocktitle member"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+      <!-- global actions box -->
+      <tal:block define="actionblock global_actions;
+                         blocktitle string:Portal actions"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+
+      <!-- display portal_trees -->
+      <metal:block use-macro="here/generic_lib/macros/box">
+      <metal:block fill-slot="box_title">Navigation</metal:block>
+      <metal:block fill-slot="box_body">
+      <div class="content" tal:repeat="tree python:here.portal_trees.objectValues();"
+      tal:attributes="class python:'content ' + ('even','odd')[path('repeat/tree/odd')]">
+
+        <span tal:repeat="item tree/getList">
+          <span tal:replace="structure python:'.'*4*item['depth']">&nbsp;</span>
+          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="item/id">id</span></a><br/>
+        </span>
+      </div>
+      </metal:block>
+      </metal:block>
+    </td>
+
+    <!-- MAIN = no width to let it float ========== -->    
+    <td class="main">
+      
+      <div class="document">
+      
+        <div id="content">
+        
+          <!-- portal status message -->
+          <div class="message" tal:condition="portal_status_message">
+            <strong tal:content="portal_status_message">
+              Status message.
+            </strong>
+          </div>
+          <b tal:replace="python:CPSD_bmt_mark('main_start')" />
+          <!-- header -->
+          <metal:block define-slot="header" />
+
+          <!-- main -->
+          <metal:block define-slot="main" />
+          <b tal:replace="python:CPSD_bmt_mark('main_stop')" />
+        </div>
+
+      </div>
+    </td>
+    
+    <!-- BAR RIGHT ================================ -->
+    <td class="right" width="150" tal:condition="showthirdcol"
+        tal:define="blockclass string:odd">
+      <!-- workflow actions box -->
+      <tal:block define="actionblock workflow_actions;
+                         blocktitle python:'Status: ' + wf_state"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+
+      <!-- object actions box -->
+      <tal:block define="actionblock object_actions;
+                         blocktitle string:This object"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+
+      <!-- folder actions box -->
+      <tal:block define="actionblock folder_actions;
+                         blocktitle string:This folder"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
+      </tal:block>
+    </td>
+    <td width="1" tal:condition="not:showthirdcol">
+      <!-- no to break colspan-based layout -->
+    </td>
+  </tr>
+  <tr>
+    <!-- footer -->
+    <td colspan="3">
+      <div metal:use-macro="here/generic_lib/macros/footer">
+        the footer
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+ <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+
+</body>
+</html>

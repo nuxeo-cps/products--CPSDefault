@@ -73,8 +73,6 @@ class EventCalendarBox(BaseBox):
 
     def __init__(self, id, flash_filename='', **kw):
         BaseBox.__init__(self, id, category='eventcalendarbox', kw=kw)
-        self.events_in = None
-        self.event_types = []
 
     def edit(self, **kw):
         self.events_in = self.REQUEST.form.get('events_in')

@@ -12,14 +12,6 @@ def cmp_type(a, b):
     cpsmcat = context.Localizer.default
     aa = cpsmcat(a.Title())
     bb = cpsmcat(b.Title())
-    if len(a.allowed_content_types):
-        aa = '0' + aa
-    else:
-        aa = '1' + aa
-    if len(b.allowed_content_types):
-        bb = '0' + bb
-    else:
-        bb = '1' + bb
     return cmp(aa, bb)
 
 items.sort(cmp_type)

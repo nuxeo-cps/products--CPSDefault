@@ -110,21 +110,20 @@
   </a>
 </div>
 <tal:block tal:define="languages here/getProxyLanguages"
-  tal:condition="python:len(languages)>1">
-<div class="documentActions" tal:define="current_lang doc/Language">
-  <tal:block repeat="lang languages"><tal:block
+  tal:condition="python:len(languages) > 1">
+  <div class="documentActions" tal:define="current_lang doc/Language">
+  <ul><tal:block repeat="lang languages"><tal:block
     define="selected_lang python:current_lang == lang">
     <tal:block condition="selected_lang">
-      <span class="selectedLang" tal:content="lang">en</span>
+      <li><span class="selectedLang" tal:content="lang">en</span></li>
     </tal:block>
     <tal:block condition="not:selected_lang">
-      <a tal:content="lang" class="availableLang"
+      <li><a tal:content="lang" class="availableLang"
          tal:attributes="href string:${context_url}/switchLanguage/${lang};
-                         title string:To the '${lang}' translation">
-              fr</a>
+                         title string:To the '${lang}' translation">fr</a></li>
     </tal:block>
-  </tal:block></tal:block>
-</div>
+  </tal:block></tal:block></ul>
+  </div>
 </tal:block>
 <h1 tal:content="here/title_or_id">Page Title</h1>
 

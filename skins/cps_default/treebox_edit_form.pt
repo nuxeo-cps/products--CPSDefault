@@ -8,12 +8,20 @@
     <th align="right" i18n:translate="label_root">Root</th>
     <td><input type="text" name="root" value="" size="20"
           tal:attributes="value box/box/root" /></td>
-    <th aligh="right" i18n:translate="label_depth">Depth</th>
+    <th align="right" i18n:translate="label_depth">Depth</th>
     <td><input type="text" name="depth" value="" size="3"
            tal:attributes="value box/box/depth" /></td>
-    <th aligh="right" i18n:translate="label_contextual">Contextual</th>
-    <td><input type="checkbox" name="contextual" value="" size="3"
-           tal:attributes="value box/box/depth" /></td>
+    <th align="right" i18n:translate="label_contextual">Contextual</th>
+    <td><input type="checkbox" name="contextual" checked=""
+      tal:attributes="checked python:test(box['box'].contextual,'checked',
+      nothing)" /></td>
+  </tr>
+  <tr>
+    <th colspan="5" align="right" i18n:translate="label_children_only">Only sub
+      folder</th>
+      <td><input type="checkbox" name="children_only" checked=""
+      tal:attributes="checked python:test(box['box'].children_only, 'checked',
+      nothing)" /></td>
   </tr>
 </metal:fields>
 </metal:boxform>

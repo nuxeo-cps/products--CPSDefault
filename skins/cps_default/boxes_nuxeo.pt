@@ -3,13 +3,13 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="box_text">
+<metal:block define-macro="textbox_default">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" tal:content="box/box/title">
-      box text title
+    <metal:block fill-slot="box_title" 
+      tal:content="box/box/title">
+       box text title
     </metal:block>
-    <metal:block tal:condition="not:box/settings/minimized"
-                 fill-slot="box_body">
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd"
            tal:content="structure box/box/text">
         box text body
@@ -20,13 +20,9 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="box_content">
-  <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" tal:content="box/box/title">
-       box text title
-    </metal:block>
-    <metal:block tal:condition="not:box/settings/minimized"
-                 fill-slot="box_body">
+<metal:block define-macro="contentbox_default">
+  <metal:block use-macro="here/box_lib/macros/sbox">
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
        <tal:block define="
           folder python:box['box'].getFolderObject(here);
@@ -44,18 +40,17 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="box_tree">
+<metal:block define-macro="treebox_default">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" tal:content="box/box/title">
-      box text title
+    <metal:block fill-slot="box_title" 
+      tal:content="box/box/title">
+       box text title
     </metal:block>
-    <metal:block tal:condition="not:box/settings/minimized"
-                 fill-slot="box_body">
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
         <span tal:repeat="item python:box['box'].getTree(here)">
-          <span tal:replace="structure python:'&nbsp;'*4*item['depth']">&nbsp;</span>
-          <a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/short_title}">id</span>
-</a><span tal:condition="item/nb_children" tal:replace="string:*" /><br/>
+          <span tal:replace="structure python:'&nbsp;'*4*item['depth']">&nbsp;</span><a href="." tal:attributes="class python:context_url.endswith(item['rpath']) and 'selected' or default;
+                                 href string:${base_url}${item/rpath}/;"><span tal:replace="structure string:${item/short_title}">id</span></a><span tal:condition="item/nb_children" tal:replace="string:*" /><br/>
         </span>
       </div>
     </metal:block>
@@ -64,29 +59,58 @@
 
 
 <!-- ============================================================ -->
+<metal:block define-macro="treebox_center"
+  tal:define="items python:box['box'].getTree(here);">
+
+ <tal:block condition="python: len(items)>0"
+     define="root python:items[0];
+             depth python:root['depth']+1;
+             items python:items[1:];
+             nb_item python:len(items);
+             nb_row  python:nb_item/2+2;
+             ">
+      <table width="100%">
+	<tr><td valign="top" width="50%">
+        <tal:block repeat="item items">
+	  <tal:block condition="python:repeat['item'].number() == nb_row" replace="structure string:</td><td width=50% valign=top>" />
+          <tal:block condition="python:item['depth']==depth">
+          <br tal:condition="not:repeat/item/start" />
+        <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
+<b><a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><img src="" alt="[Link]" border="0"
+      tal:attributes="src string:${base_url}folder_icon.gif" />&nbsp;<span tal:replace="structure string:${item/title_or_id}">title</span></a></b><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
+          </tal:block>
+          <tal:block condition="python:item['depth']>depth">
+<a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>
+          </tal:block>
+
+        </tal:block>
+	</td></tr></table>
+  </tal:block>
+</metal:block>
+
+	
+<!-- ============================================================ -->
 <!-- actions should be define like in main_template -->
 <!-- actions python:atool.listFilteredActionsFor(here); -->
-<metal:block define-macro="box_action"
+<metal:block define-macro="actionbox_default"
   tal:define="items python:box['box'].getActions(here, actions)">
   <tal:block condition="python:len(items)">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title" tal:content="box/box/title">
        box text title
     </metal:block>
-    <metal:block tal:condition="not:box/settings/minimized"
-                 fill-slot="box_body">
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <tal:block repeat="category items">
-        <div tal:attributes="class python:'content '
-                               + test(repeat['category'].odd(), 'even', 'odd')">
-          <ul>
-            <li tal:repeat="action category">
-              <a tal:attributes="href action/url"
-                 tal:content="action/name">
-                 Action
-               </a>
-            </li>
-          </ul>
-        </div>
+      <div tal:attributes="class python:'content '+ test(repeat['category'].odd(), 'even', 'odd')">
+        <ul>
+          <li tal:repeat="action category">
+            <a tal:attributes="href action/url"
+               tal:content="action/name">
+               Action
+             </a>
+          </li>
+        </ul>
+      </div>
       </tal:block>
     </metal:block>
   </metal:block>

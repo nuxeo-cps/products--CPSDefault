@@ -9,6 +9,13 @@
 
 <metal:body use-macro="here/content_lib/macros/master">
 
+  <metal:block fill-slot="css_slot">
+    <metal:block define-macro="widgets_javascript">
+    <script type="text/javascript"
+      tal:attributes="src string:${base_url}functions.js"></script>
+   </metal:block>
+  </metal:block>
+
 <metal:header metal:fill-slot="header">
   <tal:block condition="python:checkPerm('List folder contents', here, 'aq_parent')">
      <a href="../xx"
@@ -46,14 +53,12 @@
 </div>
 
   <form action="" method="post"
-        tal:attributes="action here_url">
+        tal:attributes="action here_url"
+        tal:define="no_form python:not checkPerm('Delete objects', here);
+                    nav_action string:folder_contents;
+                    items python:here.getFolderContents(displayed=displayed);">
 
-   <tal:block define="no_form python:not checkPerm('Delete objects', here);
-                      nav_action string:folder_contents;
-                      items python:here.getFolderContents(displayed=displayed);
-                     ">
-     <metal:block use-macro="here/content_lib/macros/display_contents" />
-   </tal:block>
+   <metal:block use-macro="here/content_lib/macros/display_contents" />
 
    <table border="0" width="100%" cellspacing="0" cellpadding="2"
           tal:define="can_add python:checkPerm('Add portal content', here);
@@ -62,6 +67,11 @@
      <tr>
       <td align="left" valign="top" width="16" rowspan="3"></td>
       <td align="left" valign="top">
+        <span tal:condition="items">
+          <input type="button" value="button_toggle_select_all" class="context"
+                 onclick="toggleSelect(this)"
+                 i18n:attributes="value">
+        </span>
         <span tal:condition="can_add">
           <input type="submit" name="folder_cut:method" value="button_cut"
                  class="context" i18n:attributes="value"

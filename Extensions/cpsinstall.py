@@ -363,7 +363,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'id': 'print',
             'name': 'action_print',
             'action':
-            'string:javascript:if (window.print) window.print();',
+            'string:javascript:if%20(window.print)%20window.print();',
             'permission': (View,),
             'condition': '',
             'category': 'global_header',

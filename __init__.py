@@ -38,6 +38,8 @@ import ImageBox
 import FlashBox
 import EventCalendarBox
 
+cpsdefault_globals = globals()
+
 contentClasses = (Folder.Folder, Dummy.Dummy,
                   BaseBox.BaseBox,
                   TextBox.TextBox, TreeBox.TreeBox,

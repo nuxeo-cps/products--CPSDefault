@@ -5,6 +5,7 @@
 
 import os
 import sys
+from Globals import package_home
 from AccessControl import getSecurityManager
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.ActionInformation import ActionInformation
@@ -23,6 +24,8 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_ALLOWSUB_MOVE, TRANSITION_ALLOWSUB_COPY
 
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
+from Products.CPSDefault import cpsdefault_globals
+from Products.CMFCore.utils import minimalpath
 
 def cpsinstall(self):
     """
@@ -223,6 +226,11 @@ def cpsupdate(self, langs_list=None):
             else:
                 pass
         else:
+            # XXX: Hack around a CMFCore/DirectoryView bug (?)
+            path = os.path.join(package_home(cpsdefault_globals),
+                 "..", "..", path)
+            path = minimalpath(path)
+
             portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
             pr("  Creating skin")
     allskins = portal.portal_skins.getSkinPaths()

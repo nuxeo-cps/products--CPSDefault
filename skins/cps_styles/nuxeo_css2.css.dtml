@@ -228,24 +228,24 @@ span.legend {
  * MENU
  * http://alistapart.com/articles/slidingdoors2/ 
  */
-#menu {
+.menu {
   float: left;
   width: 100%;
   margin: 0;
   border-bottom: 1px solid &dtml-mainTabBorderColorSelected;;
   padding: 0.5em 0 0 1em;
 }
-#menu li {
+.menu li {
   float: left;
   background: &dtml-mainTabBackgroundNotSelected; url("opentab.gif") no-repeat left top;
   margin: 0 1ex 0 0;
   padding: 0 0 0 3px;
   list-style: none;
 }
-#menu li.workspace {
+.menu li.workspace {
   background: &dtml-workspaceBackground; url("opentab.gif") no-repeat left top;
 }
-#menu a {
+.menu a {
   display: block;
   float: left;
   width: .1em;
@@ -256,26 +256,26 @@ span.legend {
   text-decoration:none;
   white-space: nowrap;
 }
-#menu li > a {width:auto;}
+.menu li > a {width:auto;}
 /* Commented Backslash Hack hides rule from IE5-Mac \*/
-#menu a {float:none;}
+.menu a {float:none;}
 /* End IE5-Mac hack */
-#menu li#selected, #menu li:hover {
+.menu li.selected, .menu li:hover {
   background: &dtml-mainTabBackground; url("opentab.gif") no-repeat left top;
 }
-#menu li#selected a, #menu li a:hover {
+.menu li.selected a, .menu li a:hover {
   color: &dtml-mainTabFontColorSelected;;
   background: &dtml-mainTabBackground; url('closetab.gif') no-repeat right top;
 }
 /* Override for workspaces */
-#menu li.workspace a {
+.menu li.workspace a {
   color: #000;
   background: &dtml-workspaceBackground; url("closetab.gif") no-repeat right top;
 }
-#menu li.workspace#selected, #menu li.workspace:hover {
+.menu li.workspace.selected, .menu li.workspace:hover {
   background: &dtml-workspaceBackgroundSelected; url("opentab.gif") no-repeat left top;
 }
-#menu li.workspace#selected a, #menu li.workspace a:hover {
+.menu li.workspace.selected a, .menu li.workspace a:hover {
   color: #fff;
   background: &dtml-workspaceBackgroundSelected; url('closetab.gif') no-repeat right top;
 }

@@ -9,9 +9,9 @@ ids = member_ids
 member = pmtool.getAuthenticatedMember()
 member_id = member.getUserName()
 
-group_ids = [group[len('group:'):] 
+group_ids = [group[len('group:'):]
              for group in ids if group.startswith('group:') ]
-member_ids = [user[len('user:'):] 
+member_ids = [user[len('user:'):]
               for user in ids if user.startswith('user:') ]
 
 if change_type == 'add':

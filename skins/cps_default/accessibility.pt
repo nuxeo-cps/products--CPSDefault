@@ -1,0 +1,45 @@
+<metal:block use-macro="here/main_template/macros/master">
+
+<metal:block fill-slot="css_slot">
+ <tal:block define="dummy python:request.set('breadcrumb_set',
+    [{
+      'id': 'accessibility',
+      'url': here.portal_url() + '/accessibility',
+      'title': here.Localizer.default('accessibility_title'),
+    },
+   ]);" />
+</metal:block>
+
+
+<metal:block fill-slot="main">
+<h1 i18n:translate="accessibility_title">Accessibility</h1>
+<div class="description">
+<p i18n:translate="accessibility_description">
+this site try to use access-pour-tous
+</p></div>
+
+<h2 i18n:translate="accessibility_shortcut_title">Keyboard shortcuts or
+accesskeys</h2>
+
+<div>
+<p i18n:translate="accessibility_shortcut_description">bla</p>
+
+<ul>
+  <li><strong>0</strong>: <span i18n:translate="accessibility_shortcut_accessibility">Accessibility information</span></li>
+  <li><strong>1</strong>: <span i18n:translate="accessibility_shortcut_homepage">Go to the
+  homepage</span></li>
+  <li><strong>2</strong>: <span i18n:translate="accessibility_shortcut_content">Go to the
+  content</span></li>
+  <li><strong>3</strong>: <span i18n:translate="accessibility_shortcut_menu">Go to the
+  menu</span></li>
+  <li><strong>4</strong>: <span i18n:translate="accessibility_shortcut_search">Go to the
+  internal search engine</span></li>
+  <li><strong>9</strong>: <span i18n:translate="accessibility_shortcut_contact">Contact</span></li>
+</ul>
+
+<p i18n:translate="accessibility_shortcut_description2">bla</p>
+
+</div>
+</metal:block>
+
+</metal:block>

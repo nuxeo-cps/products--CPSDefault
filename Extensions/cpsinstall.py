@@ -1369,7 +1369,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                         'slot':'center',
                         'order':10,
                         'btype':'default',
-                        'box_skin': 'here/box_lib/macros/wbox',
+                         # No frame, no title box, no class="box" cf. box_lib.pt
+                        'box_skin': 'here/box_lib/macros/wbox3',
                         'display_in_subfolder': 0,
                         'display_only_in_subfolder': 0,
                         'text': 'welcome_body',

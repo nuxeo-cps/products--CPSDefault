@@ -5,7 +5,7 @@
 
 <metal:block>
 
-<!-- a sample box title and body -->
+<!-- A sample box title and body -->
 <metal:block define-macro="box">
 <div class="box">
   <div class="title">
@@ -22,7 +22,7 @@
 
 
 <!-- ============================================================ -->
-<!-- a min max box -->
+<!-- A min max box -->
 <metal:block define-macro="mmbox">
 <div class="box"
      tal:define="minimized box/settings/minimized">
@@ -51,7 +51,7 @@
 
 
 <!-- ============================================================ -->
-<!-- a min max close box -->
+<!-- A min max close box -->
 <metal:block define-macro="mmcbox">
 <div class="box"
      tal:define="minimized box/settings/minimized">
@@ -84,7 +84,7 @@
 
 
 <!-- ============================================================ -->
-<!-- a frame box -->
+<!-- A frame box -->
 <metal:block define-macro="sbox">
 <div class="box">
   <div class="body">
@@ -101,7 +101,7 @@
 
 
 <!-- ============================================================ -->
-<!-- a frame box without title  -->
+<!-- A frame box without title  -->
 <metal:block define-macro="sbox2">
 <div class="box">
   <div class="body">
@@ -115,7 +115,7 @@
 
 
 <!-- ============================================================ -->
-<!-- no frame box -->
+<!-- No frame box -->
 <metal:block define-macro="wbox">
 <div class="box">
   <div class="title2">
@@ -128,7 +128,7 @@
 
 
 <!-- ============================================================ -->
-<!-- no frame no title box -->
+<!-- No frame, no title box -->
 <metal:block define-macro="wbox2">
 <div class="box">
   <metal:block define-slot="box_body">Box Body</metal:block>
@@ -137,7 +137,14 @@
 
 
 <!-- ============================================================ -->
-<!-- a closed box -->
+<!-- No frame, no title box, no class="box" -->
+<metal:block define-macro="wbox3">
+  <metal:block define-slot="box_body">Box Body</metal:block>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<!-- A closed box -->
 <metal:block define-macro="closed_box">
 <a href="" tal:define="nobutton isHomeless"
    tal:condition="not:nobutton" tal:attributes="href

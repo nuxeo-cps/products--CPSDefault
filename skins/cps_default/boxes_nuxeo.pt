@@ -256,8 +256,6 @@
        <tal:block define="
           no_form not:nothing;
           items python:box['box'].getFolderContents(here);
-          columns python:1;
-          items_per_page python:10;
           nav_action string:folder_view">
           <metal:block use-macro="here/content_lib/macros/display_contents" />
         </tal:block>
@@ -279,7 +277,6 @@
        <tal:block define="
           no_form not:nothing;
           format box/box/display;
-          columns python:1;
           items_per_page box/box/nb_items|python:10;
           nav_action string:folder_view">
           <metal:block use-macro="here/content_lib/macros/display_contents" />

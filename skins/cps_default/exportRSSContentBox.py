@@ -89,7 +89,7 @@ for item in items:
                              'item_link': url,
                              'item_dc': dc_text,}
 
-text = rss_fmt % {'css_url': base_url + 'nuxeo_rss_css.css',
+text = rss_fmt % {'css_url': base_url + 'rss.css',
                   'rdf_ns': rdf_ns,
                   'channel_about': channel_url,
                   'channel_title': escape(box.title_or_id()),
@@ -100,7 +100,7 @@ text = rss_fmt % {'css_url': base_url + 'nuxeo_rss_css.css',
                   'js_url': base_url + 'rss.js',
                   }
 
-if REQUEST:
+if REQUEST is not None:
    REQUEST.RESPONSE.setHeader('Content-Type', 'text/xml; charset=ISO-8859-15')
    REQUEST.RESPONSE.setHeader('Cache-Control', 'no-cache')
 

@@ -16,6 +16,7 @@ ret = box.getContents(context)
 items = ret[0]
 
 atom_feed = r"""<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml-stylesheet href="%(css_url)s" type="text/css"?>
 <feed version="0.3" xmlns="http://purl.org/atom/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <title type="text/plain">%(feed_title)s</title>
   <tagline type="text/plain">%(feed_tagline)s</tagline>
@@ -115,7 +116,8 @@ try:
 except AttributeError:
     generator_version = 'unknown'
 
-text = atom_feed % {'feed_title' : feed_title,
+text = atom_feed % {'css_url': base_url + 'atom.css',
+                    'feed_title' : feed_title,
                     'feed_tagline' : 'ATOM feed',
                     'feed_link' : feed_link,
                     'feed_id' : feed_id,

@@ -1,0 +1,143 @@
+<dtml-comment>
+Nuxeo RSS CSS
+$Id$
+</dtml-comment>
+
+<dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
+</dtml-let>
+
+rss, RDF, channel, item, title{
+    display: block;
+}
+
+link, description, date, subject, creator, contributor, rights, language, source, coverage, relation {
+    display: block;
+	margin-left: 1em;
+}
+
+RDF {
+	padding : 1em 0.5em;
+	margin : 1em 5em;
+    font: 80% Verdana, Helvetica, Arial, sans-serif;
+}
+
+channel, item {
+	padding:0.5em;
+	margin : 0 0 0.5em 0;
+}
+
+title {
+    font-weight: bold;
+    border-bottom: 1px solid #838183;
+    margin-bottom: 0.5em;
+}
+
+channel title {
+    font-size: 150%;
+}
+
+item title {
+    font-size: 120%;
+}
+
+channel description {
+	font-size: 120%;
+}
+
+item {
+    margin-left: 2em;
+	border:1px solid #ccc;
+}
+
+link {
+    text-align: right;
+  	font-weight: bold;
+    font-size: 100%;
+	color : #060;
+    padding-top: 2em;
+}
+
+channel link, item link {
+	color : #006;
+    text-align: left;
+  	font-weight: normal;
+    font-size: 100%;
+    padding: 0;
+}
+
+relation {
+	color : #060;
+}
+
+
+<dtml-comment>
+:before
+</dtml-comment>
+
+channel title:before {
+    content: "RSS Channel: ";
+}
+
+item title:before {
+    content: "Title: ";
+}
+
+description:before {
+    content: "Description: ";
+  	font-weight: bold;
+}
+
+channel link:before, item link:before {
+    content: "Link: ";
+  	font-weight: bold;
+}
+
+date:before {
+    content: "Date: ";
+  	font-weight: bold;
+}
+
+subject:before {
+    content: "Subject: ";
+  	font-weight: bold;
+}
+
+
+creator:before {
+    content: "Creator: ";
+  	font-weight: bold;
+}
+
+contributor:before {
+    content: "Contributor: ";
+  	font-weight: bold;
+}
+
+rights:before {
+    content: "Rights: ";
+  	font-weight: bold;
+}
+
+language:before {
+    content: "Language: ";
+  	font-weight: bold;
+}
+
+source:before {
+    content: "Source: ";
+  	font-weight: bold;
+}
+
+coverage:before {
+    content: "Coverage: ";
+  	font-weight: bold;
+}
+
+relation:before {
+    content: "Relation: ";
+  	font-weight: bold;
+}

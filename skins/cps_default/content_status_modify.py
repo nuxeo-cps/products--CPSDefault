@@ -44,5 +44,5 @@ if REQUEST is not None:
         else:
             url = folder.absolute_url()
 
-    redirect_url = '%s/?%s' % (url, 'portal_status_message=Status+changed.')
+    redirect_url = '%s/?%s' % (url, 'portal_status_message=psm_status_changed')
     REQUEST.RESPONSE.redirect(redirect_url)

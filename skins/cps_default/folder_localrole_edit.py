@@ -18,13 +18,16 @@ if change_type == 'add':
                     , member_role=member_role
                     )
     pm.setLocalGroupRoles( context, group_ids, member_role)
-    
+
 else:
     pm.deleteLocalRoles( obj=context
                        , member_ids=member_ids
                        )
     pm.deleteLocalGroupRoles(context, group_ids)
-    
-qst='?portal_status_message=Local+Roles+changed.'
 
-context.REQUEST.RESPONSE.redirect( context.absolute_url() + '/folder_localrole_form' + qst )
+psm='psm_local_roles_changed'
+
+context.REQUEST.RESPONSE.redirect(
+    '%s/folder_localrole_form?portal_status_message=%s' %
+    (context.absolute_url(), psm))
+

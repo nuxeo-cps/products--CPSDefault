@@ -1,0 +1,69 @@
+<!-- nuxeo boxes macros -->
+<!-- $Id$ -->
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="box_text">
+  <metal:block use-macro="here/box_lib/macros/box">
+    <metal:block fill-slot="box_title" i18n:translate=""
+      tal:content="box/box/title">
+       box text title
+    </metal:block>
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
+      <div class="content odd"
+           tal:content="structure box/box/text">
+        box text body
+      </div>
+    </metal:block>
+  </metal:block>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="box_content">
+<b tal:replace="python:CPSD_bmt_mark('CONTENT_start')" />
+  <metal:block use-macro="here/box_lib/macros/box">
+    <metal:block fill-slot="box_title" i18n:translate=""
+      tal:content="box/box/title">
+       box text title
+    </metal:block>
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
+      <div class="content odd">
+       <tal:block define="
+          folder python:box['box'].getFolderObject(here);
+          no_form not:nothing;
+          items python:box['box'].getFolderContents(here);
+          format string:compact;
+          columns python:1;
+          items_per_page python:10">
+          <metal:block use-macro="here/content_lib/macros/display_contents" />
+        </tal:block>
+      </div>
+    </metal:block>
+  </metal:block>
+<b tal:replace="python:CPSD_bmt_mark('CONTENT_stop')" />
+</metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="box_tree">
+<b tal:replace="python:CPSD_bmt_mark('TREE_start')" />
+  <metal:block use-macro="here/box_lib/macros/box">
+    <metal:block fill-slot="box_title" i18n:translate=""
+      tal:content="box/box/title">
+       box text title
+    </metal:block>
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
+      <div class="content odd">
+        <span tal:repeat="item python:box['box'].getTree(here)">
+          <span tal:replace="structure python:'&nbsp;'*4*item['depth']">&nbsp;</span>
+
+          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="structure string:${item/short_title}">id</span>
+</a><span tal:condition="item/nb_children" tal:replace="string:*" /><br/>
+        </span>
+      </div>
+    </metal:block>
+  </metal:block>
+<b tal:replace="python:CPSD_bmt_mark('TREE_stop')" />
+</metal:block>
+

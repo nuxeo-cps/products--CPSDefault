@@ -5,7 +5,7 @@
 <metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
 <metal:fields fill-slot="additional_fields" >
 <script type="text/javascript">
-<!-- 
+<!--
      function popup_nav_sc(destId, title){
       var args
       args='?input_id='+destId+'&root_uid=sections&title='+escape(title);
@@ -14,7 +14,7 @@
         popup.opener = window;
       return false;
   }
- 
+
      function popup_nav_ws(destId, title){
       var args
       args='?input_id='+destId+'&root_uid=workspaces&title='+escape(title);
@@ -27,7 +27,7 @@
 </script>
   <tr valign="top">
     <th align="right" i18n:translate="label_folder">Folder</th>
-    <td colspan="3" tal:define="cps_navigation_installed python:here.isProductPresent('CPSNavigation')">
+    <td colspan="3" tal:define="cps_navigation_installed python:modules['Products.CPSUtil.integration'].isProductPresent('Products.CPSNavigation')">
     <tal:block condition="cps_navigation_installed">
     <tal:block define="selection_sc python:here.manageSelection(REQUEST=request,
                                                                 type='folder',
@@ -37,20 +37,20 @@
                                                                 root_uid='workspaces')">
        <div id="divsubmitselection_sc">
         <tal:block condition="selection_sc">
-          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value selection_sc"> 
-        </tal:block> 
-           
+          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value selection_sc">
+        </tal:block>
+
         <tal:block condition="selection_ws">
-          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value selection_ws">  
+          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value selection_ws">
         </tal:block>
-        
+
         <tal:block condition="python: not selection_ws and not selection_sc">
-          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value box/box/folder">  
+          <input type="text" name="folder_prefix_l:list" value="" size="40" tal:attributes="value box/box/folder">
         </tal:block>
-        
-        
+
+
        </div>
-      
+
      <button type="button" size="30"
           i18n:translate="label_choose_workspace" onclick="popup_nav_ws('divsubmitselection_sc',
                                                                       'Select workspaces for recherche') " >
@@ -64,13 +64,13 @@
     <input tal:condition="not:cps_navigation_installed"
            type="text" name="folder" value="" size="30"
            tal:attributes="value box/box/folder" />
-   
+
    </td>
     <th align="right" i18n:translate="label_nb_items">Nb items</th>
     <td><input type="text" name="nb_items" value="" size="3"
            tal:attributes="value box/box/nb_items" /></td>
   </tr>
-  
+
   <tr valign="top">
     <th></th>
     <td colspan="5" align="left"
@@ -95,20 +95,20 @@
       <label for="cb_zoom" i18n:translate="label_contentbox_zoom">zoom</label>
     </td>
   </tr>
-  
+
   <tr valign="top">
     <td>&nbsp;</td>
-    <td colspan="5"> 
+    <td colspan="5">
         <input type="checkbox" id="cb_no_recurse" name="no_recurse" class= "noborder" tal:attributes="checked box/box/no_recurse" />
         <label for="cb_no_recurse" i18n:translate="label_contentbox_no_recurse">Do not recurse into subfolders </label>
-        
+
         <button type="button" class="tooltipControl" onclick="toggleElementVisibility('no_recurse_help')">?</button>
         <div class="tooltipArea" style="visibility: hidden;"
         id="no_recurse_help" onclick="showElement(false, 'no_recurse_help')"
         i18n:translate="help_contentbox_no_recurse"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
     </td>
   </tr>
-  
+
   <tr valign="top">
     <th align="right" i18n:translate="label_search">search</th>
     <td colspan="5" class="even">

@@ -8,7 +8,7 @@ from DateTime import DateTime
 from Globals import InitializeClass, DTMLFile
 from types import DictType, StringType
 
-from AccessControl import ClassSecurityInfo
+from AccessControl import ClassSecurityInfo, getSecurityManager
 from Acquisition import aq_base, aq_parent, aq_inner
 from OFS.SimpleItem import SimpleItem
 from ZODB.PersistentMapping import PersistentMapping
@@ -95,7 +95,9 @@ class BoxesTool(UniqueObject, SimpleItem):
         boxes = []
         for box in allboxes:
             # Skip it if there is no view permission
-            if not _checkPermission('View', box):
+            #if not _checkPermission('View', box):
+            #    continue
+            if not box.getGuard().check(getSecurityManager(), None, context):
                 continue
             # Only add boxes if they are to be displayed
             # in the subfolders, or if this is the root or if

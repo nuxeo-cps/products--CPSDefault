@@ -6,7 +6,7 @@
 import string
 from ComputedAttribute import ComputedAttribute
 
-from Globals import InitializeClass
+from Globals import InitializeClass, DTMLFile
 from AccessControl import getSecurityManager, ClassSecurityInfo
 from Acquisition import aq_base, aq_parent, aq_inner
 
@@ -22,6 +22,8 @@ from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFCore.Expression import Expression
 from zLOG import LOG, DEBUG
 #from Traversal import RestrictedTRaverse
+
+from Products.DCWorkflow.Guard import Guard
 
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
@@ -63,7 +65,7 @@ factory_type_information = (
                   'name': 'Render box',
                   'action': '',
                   'visible': 0,
-                  'permissions': (View,)},                 
+                  'permissions': (View,)},
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -82,12 +84,13 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     isPortalBox = 1
 
     manage_options = ( PropertyManager.manage_options +
+                       ({'label': 'Guard', 'action': 'manage_guardForm'},) +
                        PortalContent.manage_options[:1] +
                        PortalContent.manage_options[3:]
                        )
 
     security = ClassSecurityInfo()
-
+    guard = None
     _can_minimized = None
     locked = 0
     display_in_subfolder = 1
@@ -110,7 +113,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                  style='', slot=0, order=0,
                  visible_if_empty= 0, display_in_subfolder=1,
                  locked=0, **kw):
-        DefaultDublinCoreImpl.__init__(self)        
+        DefaultDublinCoreImpl.__init__(self)
         self.id = id
         self.style = style
         self.slot = int(slot)
@@ -122,6 +125,28 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         self.display_in_subfolder = display_in_subfolder
         self.locked = locked
 
+    #
+    # ZMI
+    #
+    security.declarePublic('manage_guardForm') # XXX protect
+    manage_guardForm = DTMLFile('zmi/manage_guardForm', globals())
+
+    def setGuardProperties(self, REQUEST=None):
+        '''
+        '''
+        g = Guard()
+        if g.changeFromProperties(REQUEST):
+            self.guard = g
+        else:
+            self.guard = None
+        if REQUEST is not None:
+            return self.manage_guardForm(REQUEST,
+                management_view='Guard',
+                manage_tabs_message='Guard setting changed')
+
+    #
+    # Public API
+    #
     security.declarePublic('getSettings')
     def getSettings(self):
         """Return a dictionary of properties that can be overriden"""
@@ -131,17 +156,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                 'closed': self.minimized,
                 'style': self.style,
                 }
-
-    def getPhysicalParentPath(self):
-        parentpath = self.getPhysicalPath()[:-1]
-        if parentpath and parentpath[-1] == '.cps_boxes':
-            parentpath = parentpath[:-1]
-        return parentpath
-
-    parent_path = ComputedAttribute(getPhysicalParentPath, 1)
-
-    def sort_order(self):
-        return ('/'.join(self.getPhysicalParentPath()), self.slot)
 
     def is_closed(self):
         """Returns 0 is it is closed, 1 otherwise
@@ -197,16 +211,13 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         determine if the box can be deleted
         """
         return _checkPermission('Delete objects', aq_parent(aq_inner(self)))
-    
+
     security.declarePublic('is_minimized')
     def is_minimized(self):
         request = self.REQUEST
         cookie_name = '%s_minimized' % (self.cps_prefId(), )
         return request.cookies.get(cookie_name)
 
-    def cps_prefId(self):
-        return 'bx_' + self.getId()
-    
     security.declarePublic('getIconRelative')
     def getIconRelative(self):
         """
@@ -221,6 +232,22 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         Default edit method, changes the properties.
         """
         self.manage_changeProperties(**kw)
+
+    #
+    # Internal API's mainly called from itself or other Zope tools
+    #
+
+    def cps_prefId(self):
+        return 'bx_' + self.getId()
+
+    def getGuard(self):
+        if self.guard is not None:
+            return self.guard
+        else:
+            return Guard().__of__(self)  # Create a temporary guard.
+
+    def sort_order(self):
+        return ('/'.join(self.getPhysicalParentPath()), self.slot)
 
     security.declarePrivate('callAction')
     def callAction(self, actionid, **kw):
@@ -242,7 +269,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             'Cannot find %s action for "%s"' %
             (actionid, self.absolute_url(relative=1)))
 
-
     security.declareProtected(View, 'getMacro')
     def getMacro(self, style=None):
         """
@@ -251,7 +277,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         ti = self.getTypeInfo()
         if ti is None:
             raise Exception('No portal type found for box: %s' % self.getId())
-        
+
         template_name = ti.getActionById('render_box')
         if not template_name:
             raise Exception('No render template for box: %s' % self.getId())
@@ -268,7 +294,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         render_method = self.restrictedTraverse(macro)
         rendering = render_method(self)
         return rendering.strip()
-
 
     security.declareProtected(View, 'edit_form')
     def edit_form(self, **kw):

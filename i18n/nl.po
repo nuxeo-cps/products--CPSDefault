@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"POT-Creation-Date: 2004-11-08 11:49default\n"
+"POT-Creation-Date: 2004-11-16 15:01default\n"
 "PO-Revision-Date: 2004-05-21 18:33+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -81,8 +81,17 @@ msgstr "Items: ${batch_start} - ${batch_limit} op ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
+#.   <td align="left" class="description" content="item/Description">
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Beschrijving document type"
 
@@ -92,8 +101,17 @@ msgstr "Beschrijving document type"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
+#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Titel document type"
 
@@ -307,6 +325,8 @@ msgstr "Kladversie verlaten"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Toevoegen"
 
@@ -723,6 +743,9 @@ msgstr "CPS heeft een fout gevonden"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Inhoud toevoegen"
 
@@ -1015,7 +1038,11 @@ msgstr "Het wachtwoord zou in uw mailbox moeten zijn aangekomen."
 #.   <span>
 #.             No content type can be created.
 #.           </span>
+#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 "No content type can be created. It surely comes from workflows which don't "
@@ -2015,6 +2042,7 @@ msgstr "Zoekmogelijkheden"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2119,8 +2147,9 @@ msgstr ""
 "Deze gebruikers hebben momenteel lokale rollen toegewezen gekregen in deze "
 "folder&nbsp;:"
 
-#.   <span>
-#.         Local roles are acquired. To block acquisition, click here:</span>
+#.   <block>
+#.         Local roles are acquired.
+#.         You can unblock acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #, fuzzy
 msgid "legend_local_roles_block"
@@ -2163,9 +2192,9 @@ msgstr "Selecteer Groep(en) en de toe te wijzen rol&nbsp;:"
 msgid "legend_local_roles_select_members_and_roles"
 msgstr "Selecteer Lid/Leden en de toe te wijzen rol&nbsp;:"
 
-#.   <span>
+#.   <block>
 #.         Local roles acquisition is <strong>blocked</strong>.
-#.         To unblock acquisition, click here:</span>
+#.         You can unblock acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #, fuzzy
 msgid "legend_local_roles_unblock"

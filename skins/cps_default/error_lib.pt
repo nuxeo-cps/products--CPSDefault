@@ -1,0 +1,37 @@
+<!-- macro library for rendering specific error messages per error type -->
+<!-- $Id$ -->
+
+<!-- ============================================================ -->
+<metal:block define-macro="not_found">
+  <h1 i18n:translate="heading_error_not_found">Not Found</h1>
+
+  <p i18n:translate="error_not_found">The resource you asked was not
+  found. If the document has moved you may find it using the search form
+  below.</p>
+
+  <metal:block use-macro="here/advanced_search_form/macros/search_form" />
+
+</metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="key_or_name">
+  <h1 i18n:translate="heading_error_key_or_name">Key or name error</h1>
+
+  <p i18n:translate="error_key_or_name">This error means that the resource you
+  wanted to view tried to access an unknown parameter.</p>
+
+  <p>The best is probably to return to were you come from.</p>
+  <a href="javascript:history.back()">Go back</a>.<br>
+</metal:block>
+
+  
+<!-- ============================================================ -->
+<metal:block define-macro="other">
+  <h1 i18n:translate="heading_error_other">Untreated error</h1>
+
+  <p>Untreated error.</p>
+
+  <p>The best is probably to return to were you come from.</p>
+  <a href="javascript:history.back()">Go back</a>
+</metal:block>

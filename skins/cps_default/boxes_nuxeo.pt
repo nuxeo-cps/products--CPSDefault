@@ -300,7 +300,8 @@
             <a href="."
                tal:attributes="class python:test(context_url.endswith(
                                            item['rpath']),'selected', default);
-                               href string:${base_url}${item/rpath}/;"
+                               href string:${base_url}${item/rpath}/;
+                               title item/title;"
                tal:content="structure string:${item/short_title}">
             </a><tal:block tal:condition="item/nb_children" tal:replace="string:*" />
           </tal:block>

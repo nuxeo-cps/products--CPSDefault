@@ -120,8 +120,37 @@ format:</pre>
           nav_action params/nav_action;
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
-          batches python:here.getBatchList(items, columns, items_per_page);
+          batches_all python:here.getBatchList(items,
+          columns,items_per_page);
+          batches python:batches_all[0];
+          batch_string python:batches_all[1];
+          batch_info python:batches_all[2];
      ">
+  <tal:block condition="python:batch_string is not None">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr bgcolor="#EEEEEE">
+        <td align="right" width="100%">
+          <span i18n:translate="label_result_objects">
+            Objects
+          </span>
+          &nbsp;:&nbsp;
+          <span tal:replace="structure batch_info" />
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left" width="100%">
+          <span tal:replace="structure batch_string" />
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </tal:block>
+  <br />
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top"
@@ -131,30 +160,25 @@ format:</pre>
                 use-macro="here/content_lib/macros/display_contents_column" />
       </td>
     </tr>
-  </table>
-  <br>
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td width="50%" align="left" nowrap>
-        <span tal:define="p python:batches[0]" tal:condition="p/previous">
-          <a href=""
-             tal:define="previous python:p.previous.first - items_per_page + (items_per_page / columns)"
-             tal:attributes="href python:nav_action + '?'
-                                         + mq(form, b_start=previous)"
-             i18n:translate="batch_previous_items">Previous Items</a>
-         </span>
-      </td>
-      <td width="50%" align="right" nowrap>
-        <span tal:define="n python:batches[-1]" tal:condition="n/next">
-          <a href=""
-             tal:define="next n/next/first"
-             tal:attributes="href python:nav_action + '?'
-                                         + mq(form, b_start=next)"
-             i18n:translate="batch_next_items">Next Items</a>
-        </span>
-      </td>
+      <td>&nbsp;</td>
     </tr>
   </table>
+
+  <br />
+
+  <tal:block condition="python:batch_string is not None">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="left" width="100%">
+          <span tal:replace="structure batch_string" />
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </tal:block>
 </tal:block>
 </metal:block>
 

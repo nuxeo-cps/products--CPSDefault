@@ -1305,7 +1305,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                             },
 
             'contact': {'type': 'Text Box',
-                       'title': 'Footer',
+                       'title': 'Contact',
                        'btype': 'default',
                        'box_skin': 'here/box_lib/macros/wbox2',
                        'slot': 'bottom',

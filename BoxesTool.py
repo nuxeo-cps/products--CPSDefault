@@ -88,6 +88,7 @@ class BoxesTool(UniqueObject, PortalFolder):
     # Replace the pointless 'View' with 'Overview'
     manage_options[1] = {'label': "Overview", 'action': 'manage_overview',}
 
+
     #
     # ZMI
     #
@@ -99,10 +100,10 @@ class BoxesTool(UniqueObject, PortalFolder):
             if entry['name'] == BoxSlot.meta_type:
                 return (entry,)
         return ()
+
     #
     # Public API
     #
-
     security.declarePublic('getBoxes')
     def getBoxes(self, context, slot=None, include_personal=1):
         """Return a sorted list of boxes
@@ -209,6 +210,105 @@ class BoxesTool(UniqueObject, PortalFolder):
         return [x for x in boxes if (x['settings']['slot']==slot and
                                      not x['settings']['closed'])]
 
+
+    def setBoxOverride(self, boxurl, settings, context):
+        """Allows you to override the box default settings
+
+        boxurl is the relative url of the box (gotten from
+        portal_url.getRelativeUrl(box) )
+
+        settings is a dictionary of the settings and the values
+
+        context is the object where defaults should be stored.
+        """
+        sm = getSecurityManager()
+        if not sm.checkPermission('Manage Box Overrides', context):
+            raise Unauthorized()
+
+        if not hasattr(aq_base(context), '_box_overrides'):
+            context._box_overrides = PersistentMapping()
+
+        # TODO: check which settings you are allowed to change
+        context._box_overrides[boxurl] = settings
+
+    security.declarePublic('getBoxOverride')
+    def getBoxOverride(self, boxurl, context):
+        """Gets the overridden settings for a box"""
+        if not hasattr(aq_base(context), '_box_overrides'):
+            return {}
+        return context._box_overrides.get(boxurl, {})
+
+    security.declarePublic('getAllBoxOverrides')
+    def getAllBoxOverrides(self, context):
+        """Gets all the local overrides"""
+        return getattr(aq_base(context), '_box_overrides', {})
+
+    #
+    # managing Personal overrides
+    #
+    security.declarePublic('updatePersonalBoxOverride')
+    def updatePersonalBoxOverride(self, boxurl, new_settings):
+        """Save personal override for a single box"""
+        # find the personal boxes container pbc, create if empty
+        home = getToolByName(self, 'portal_membership').getHomeFolder()
+        utool = getToolByName(self, 'portal_url')
+        idbc = BoxContainer.id_perso
+        
+        pbc = None
+        if hasattr(aq_base(home), idbc):
+            pbc = home[idbc]
+        else:
+            home.manage_addProduct['CPSDefault'].addBoxContainer()
+            pbc = home[idbc]
+            pbc.manage_permission('Manage Box Overrides',
+                                  roles=('Owner','Manager','WorkspaceManager'),
+                                  acquire=0)
+            LOG('portal_boxes', INFO, 'updatePersonalBoxOverride',
+                'Creating personal boxes container %s/%s\n' % (
+                home.absolute_url(), idbc))
+            
+        # get current override and update
+        settings = self.getBoxOverride(boxurl, pbc)
+        settings.update(new_settings)
+
+        for field in settings.keys():
+            if not settings[field]:
+                del settings[field]
+            elif field in ('mimimized', 'order', 'closed'):
+                settings[field] = int(settings[field])
+
+        self.setBoxOverride(boxurl, settings, pbc)
+        LOG('portal_boxes', DEBUG,
+            'updatePersonalBoxOverride', 'in %s setting: %s\n' % (
+            pbc.absolute_url(), str(settings)))
+
+    security.declarePublic('delPersonalBoxOverrides')
+    def delPersonalBoxOverrides(self):
+        """Delete all personal boxes overrides"""
+        # find the personal boxes container pbc
+        home = getToolByName(self, 'portal_membership').getHomeFolder()
+        utool = getToolByName(self, 'portal_url')
+        idbc = BoxContainer.id_perso
+        
+        if hasattr(aq_base(home), idbc):
+            pbc = home[idbc]
+            home.manage_delObject([idbc])
+            LOG('portal_boxes', INFO, 'delPersonalBoxOverrides',
+                'Delete all personal boxes settings: %s/%s\n' % (
+                home.absolute_url(), idbc))
+
+
+    #
+    # managing Slot
+    #
+    security.declarePublic('getSlots')
+    def getSlots(self):
+        return self.objectValues(BoxSlot.meta_type)
+
+    security.declarePublic('getSlotIds')
+    def getSlotIds(self):
+        return [slot.id in self.getSlots()]
+   
     #
     # Private
     #
@@ -251,46 +351,6 @@ class BoxesTool(UniqueObject, PortalFolder):
             else:
                 set1[k] = set2[k]
 
-    def setBoxOverride(self, boxurl, settings, context):
-        """Allows you to override the box default settings
-
-        boxurl is the relative url of the box (gotten from
-        portal_url.getRelativeUrl(box) )
-
-        settings is a dictionary of the settings and the values
-
-        context is the object where defaults should be stored.
-        """
-        sm = getSecurityManager()
-        if not sm.checkPermission('Manage Box Overrides', context):
-            raise Unauthorized()
-
-        if not hasattr(aq_base(context), '_box_overrides'):
-            context._box_overrides = PersistentMapping()
-
-        # TODO: check which settings you are allowed to change
-        context._box_overrides[boxurl] = settings
-
-    security.declarePublic('getBoxOverride')
-    def getBoxOverride(self, boxurl, context):
-        """Gets the overridden settings for a box"""
-        if not hasattr(aq_base(context), '_box_overrides'):
-            return {}
-        return context._box_overrides.get(boxurl, {})
-
-    security.declarePublic('getAllBoxOverrides')
-    def getAllBoxOverrides(self, context):
-        """Gets all the local overrides"""
-        return getattr(aq_base(context), '_box_overrides', {})
-
-    security.declarePublic('getSlots')
-    def getSlots(self):
-        return self.objectValues(BoxSlot.meta_type)
-
-    security.declarePublic('getSlotIds')
-    def getSlotIds(self):
-        return [slot.id in self.getSlots()]
-   
 
 
 InitializeClass(BoxesTool)

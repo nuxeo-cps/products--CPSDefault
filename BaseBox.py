@@ -24,7 +24,6 @@ from zLOG import LOG, DEBUG
 #from Traversal import RestrictedTRaverse
 
 from Products.DCWorkflow.Guard import Guard
-from BoxesTool import BoxContainer
 
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
@@ -235,7 +234,10 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     def minimize(self, REQUEST=None):
         """Minimize the box using personal settings"""
-        self.savePersonalSettings({'minimized':1, 'closed':0})
+        btool = getToolByName(self, 'portal_boxes')
+        box_url = getToolByName(self, 'portal_url').getRelativeUrl(self)
+        btool.updatePersonalBoxOverride(box_url,
+                                     {'minimized':1, 'closed':0})
         if REQUEST is not None:
             goto = REQUEST.get('goto')
             if goto:
@@ -243,7 +245,10 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     def maximize(self, REQUEST=None):
         """Maximize the box using personal settings"""
-        self.savePersonalSettings({'minimized':0, 'closed':0})
+        btool = getToolByName(self, 'portal_boxes')
+        box_url = getToolByName(self, 'portal_url').getRelativeUrl(self)
+        btool.updatePersonalBoxOverride(box_url,
+                                        {'minimized':0, 'closed':0})
         if REQUEST is not None:
             goto = REQUEST.get('goto')
             if goto:
@@ -251,53 +256,14 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     def close(self, REQUEST=None):
         """Close the box using personal settings """
-        self.savePersonalSettings({'closed':1})
+        btool = getToolByName(self, 'portal_boxes')
+        box_url = getToolByName(self, 'portal_url').getRelativeUrl(self)
+        btool.updatePersonalBoxOverride(box_url,
+                                        {'closed':1})
         if REQUEST is not None:
             goto = REQUEST.get('goto')
             if goto:
                 REQUEST['RESPONSE'].redirect(goto)
-
-
-    def savePersonalSettings(self, new_settings):
-        """ personal override for this box """
-        # find the personal boxes container pbc, create if empty
-        home = getToolByName(self, 'portal_membership').getHomeFolder()
-        utool = getToolByName(self, 'portal_url')
-        btool = getToolByName(self, 'portal_boxes')
-        box_url = utool.getRelativeUrl(self)
-        idbc = BoxContainer.id_perso
-        
-        pbc = None
-        if hasattr(aq_base(home), idbc):
-            pbc = home[idbc]
-        else:
-            home.manage_addProduct['CPSDefault'].addBoxContainer()
-            pbc = home[idbc]
-            pbc.manage_permission('Manage Box Overrides',
-                                  roles=('Owner','Manager','WorkspaceManager'),
-                                  acquire=0)
-            LOG('BaseBox', DEBUG, 'SavePersonalSettings',
-                'Creating personal boxes container %s/%s\n' % (
-                str(utool.getRelativeContentURL(home)), idbc))
-            
-        # get current override
-        overrides = pbc.getOverrides()
-        settings={}
-        for s in overrides:
-            if s['box_path'] == box_url:
-                settings = s
-                break
-        settings.update(new_settings)
-
-        for field in settings.keys():
-            if not settings[field]:
-                del settings[field]
-            elif field in ('mimimized', 'order', 'closed'):
-                settings[field] = int(settings[field])
-        btool.setBoxOverride(box_url, settings, pbc)
-        LOG('BaseBox', DEBUG,
-            'SavePersonalSettings', '%s settings %s\n' % (box_url,
-                                                        str(settings)))
 
 
 InitializeClass(BaseBox)

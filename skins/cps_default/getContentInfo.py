@@ -91,7 +91,11 @@ info['id']=proxy.id
 info['icon']=proxy.getIcon()
 info['type']=proxy.getPortalTypeName()
 info['review_state']=wtool.getInfoFor(proxy, 'review_state', '')
-langrev = proxy.getLanguageRevisions()
+try:
+    langrev = proxy.getLanguageRevisions()
+except AttributeError:
+    # not a proxy
+    langrev = {'en': 0}
 info['rev']=langrev.values()[0]
 info['lang']=langrev.keys()[0]
 info['time']=wtool.getInfoFor(proxy, 'time', '')
@@ -103,7 +107,11 @@ else:
 # level 1
 if level > 0:
     if not doc:
-        doc = proxy.getContent()
+        try:
+            doc = proxy.getContent()
+        except AttributeError:
+            # not a proxy
+            doc = proxy
     description = doc.Description() or ''
     if len(description) > max_description:
         description = description[:max_description] + '...'

@@ -15,8 +15,12 @@ type_name = kw['type_name']
 context.invokeFactory(type_name, id)
 ob = getattr(context, id)
 
-doc = ob.getEditableContent()
-doc.edit(**kw)
+try:
+    doc = ob.getEditableContent()
+    doc.edit(**kw)
+except AttributeError:
+    # not a proxy
+    doc = ob
 context.portal_eventservice.notifyEvent('modify_object', context, {})
 context.portal_eventservice.notifyEvent('modify_object', ob, {})
 

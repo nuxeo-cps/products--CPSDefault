@@ -80,7 +80,7 @@ function validateRequiredFields(fieldIds, fieldLabels, informationText) {
     for (i = 0; i < fieldIds.length; i++) {
         element = document.getElementById(fieldIds[i]);
         if (!element.value) {
-            window.alert(fieldLabels[i] + informationText);
+            window.alert("'" + fieldLabels[i] + "' " + informationText);
             return false;
         }
     }

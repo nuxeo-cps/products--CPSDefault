@@ -9,24 +9,9 @@ os.environ['STUPID_LOG_SEVERITY'] = '-200'
 os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
 from Testing import ZopeTestCase
+import CPSTestCase
 
-ZopeTestCase.installProduct('CMFCore')
-ZopeTestCase.installProduct('CMFDefault')
-ZopeTestCase.installProduct('DCWorkflow')
-ZopeTestCase.installProduct('BTreeFolder2')
-ZopeTestCase.installProduct('NuxUserGroups')
-ZopeTestCase.installProduct('Localizer')
-ZopeTestCase.installProduct('OrderedFolderSupportPatch')
-ZopeTestCase.installProduct('TranslationService')
-ZopeTestCase.installProduct('MailHost')
-ZopeTestCase.installProduct('VerboseSecurity')
-ZopeTestCase.installProduct('NuxMetaDirectories')
-ZopeTestCase.installProduct('CPSCore')
-
-ZopeTestCase.installProduct('CPSDefault')
-
-
-class TestCPSInstaller(ZopeTestCase.ZopeTestCase):
+class TestCPSInstaller(CPSTestCase.CPSTestCase):
 
     def afterSetUp(self):
         pass
@@ -43,7 +28,9 @@ class TestCPSInstaller(ZopeTestCase.ZopeTestCase):
                        roles, ())
 
         dispatcher = self.folder.manage_addProduct['CPSDefault']
-        dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
+        dispatcher.manage_addCPSDefaultSite('cps', 
+            title='The test case Site', 
+            root_password1='root', root_password2='root')
         self.cps = self.folder['cps']
 
         # checking for root folders

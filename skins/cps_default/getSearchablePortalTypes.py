@@ -9,7 +9,7 @@ ttool = context.portal_types
 searchable = []
 
 for ti in ttool.listTypeInfo():
-    if ti.getActionById('issearchabledocument', None):
+    if hasattr(ti, 'cps_is_searchable') and ti.cps_is_searchable:
         if only_ids:
             searchable.append(ti.getId())
         else:

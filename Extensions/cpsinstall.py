@@ -74,6 +74,13 @@ def cpsupdate(self, langs_list=None):
     installername = getSecurityManager().getUser().getUserName()
     pr("Current user: %s" % installername)
 
+    # setting roles
+    pr("Verifying roles")
+    already = portal.valid_roles()
+    for role in ('Reader', 'Reviewer', 'Worker', 'SectionManager'):
+        if role not in already:
+            portal._addRole(role)
+            pr(" Add role %s" % role)
 
     # acl_users with group
     pr("Verifying User Folder")
@@ -92,6 +99,19 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating User Folder With Groups")
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
+    # create index_html for portal redirection
+    pr("Verifying global index_html")
+    #if portalhas('index_html'):
+        #if portal.index_html.meta_type != 'DTML Method':
+            #pr(" !!! index_html is not a DTML Method")
+            #primp()
+        #else:
+            #prok()
+    #else:
+        #pr(" Creating index_html")
+        #portal.manage_addProduct['OFSP'].manage_addDTMLMethod('index_html')
+        #doc = portal['index_html']
+        #doc.munge('<dtml-var portal>')
 
     # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
     # CPS Object Repository.
@@ -211,6 +231,17 @@ def cpsupdate(self, langs_list=None):
     ttool['Workspace'].manage_changeProperties(None,
                                                title='Workspace',
                                                content_meta_type='Workspace')
+    # check workflow association
+    pr("Verifying workflow schemas")
+    wfs = {
+        'Section': 'cps_section_workflow',
+        'Workspace': 'cps_workspace_workflow',
+        }
+    wftool = portal.portal_workflow
+    pr("Installing workflow schemas")
+    for pt, chain in wfs.items():
+        wftool.setChainForPortalTypes([pt], chain)
+    wftool.setDefaultChain('')
 
     # check site and workspaces proxies
     sections_id = 'sections'
@@ -224,19 +255,7 @@ def cpsupdate(self, langs_list=None):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',
                                                 sections_id)
         pr("  Adding %s Folder" % sections_id)
-
-    # check workflow association
-    pr("Verifying workflow schemas")
-    wfs = {
-        'Section': 'cps_section_workflow',
-        'Workspace': 'cps_workspace_workflow',
-        }
-    wftool = portal.portal_workflow
-    pr("Installing workflow schemas")
-    for pt, chain in wfs.items():
-        wftool.setChainForPortalTypes([pt], chain)
-    wftool.setDefaultChain('')
-
+    
     pr("Verifying local workflow association")
     if not '.cps_workflow_configuration' in portal[workspaces_id].objectIds():
         pr("  Adding workflow configuration to %s" % workspaces_id)
@@ -299,6 +318,12 @@ def cpsupdate(self, langs_list=None):
         pr(" Fixup of skin %s" % skin_name)
 
 
+    pr("Verifying private area creation flag")
+    if not portal.portal_membership.getMemberareaCreationFlag():
+        pr(" Activated")
+        portal.portal_membership.setMemberareaCreationFlag()
+    else:
+        prok()
 
     # remove cpsinstall external method
     # and fix cpsupdate permission

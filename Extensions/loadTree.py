@@ -19,7 +19,8 @@ filename='data.ini'
 _log=[]
 def pr(bla, _log=_log):
     if bla == 'flush':
-        return '\n'.join(_log)
+        return '<html><head><title>IMORT DATA</title></head><body><pre>' + \
+               '\n'.join(_log) + '</body></html>'
     _log.append(bla)
     if (bla):
         LOG('importData:', INFO, bla)

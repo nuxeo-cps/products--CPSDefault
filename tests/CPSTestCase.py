@@ -24,6 +24,7 @@ ZopeTestCase.installProduct('SiteAccess', quiet=1)
 # XXX: these products should (and used to be) be optional, but they aren't
 # right now.
 ZopeTestCase.installProduct('CPSForum', quiet=1)
+ZopeTestCase.installProduct('CPSSubscriptions', quiet=1)
 ZopeTestCase.installProduct('CPSSchemas', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)

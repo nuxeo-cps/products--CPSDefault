@@ -1,0 +1,19 @@
+<!-- macro library for boxes -->
+<!-- $Id$ -->
+
+<!-- context contain: object box, box_id and settings
+<!-- ============================================================ -->
+<metal:block define-macro="box">
+  <div class="box">
+    <div class="title">
+      <tal:block condition="settings/minimized">_</tal:block>
+      <tal:block condition="not:settings/minimized">[]</tal:block>
+      <div metal:define-slot="box_title">Box Title</div>
+    </div>
+    <div class="body">
+      <div metal:define-slot="box_body">Box Body</div>
+    </div>
+  </div>
+</metal:block>
+
+

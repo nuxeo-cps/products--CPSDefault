@@ -966,6 +966,14 @@ def cpsupdate(self, langs_list=None):
             'type': 'CPS TextArea Widget Type',
             'data': {},
             },
+        'File Widget': {
+            'type': 'CPS File Widget Type',
+            'data': {},
+            },
+        'Image Widget': {
+            'type': 'CPS Image Widget Type',
+            'data': {},
+            },
         'Dummy Widget': {
             'type': 'CPS Customizable Widget Type',
             'data': {

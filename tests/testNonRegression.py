@@ -80,7 +80,7 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     def testPortalTypesZMI(self):
         # Broke between Zope 2.6.1 and 2.6.3
         self.assert_(
-            self.portal.portal_types.News.manage_propertiesForm(URL1=""))
+            self.portal.portal_types['News Item'].manage_propertiesForm(URL1=""))
 
     def testZopeExport(self):
         # These tests should catch an error that occur during XML export of

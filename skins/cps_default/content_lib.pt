@@ -120,11 +120,13 @@ format:</pre>
           nav_action params/nav_action;
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
+          zoom zoom|nothing;
           batches_all python:here.getBatchList(items,
-          columns,items_per_page);
+          columns,items_per_page,zoom);
           batches python:batches_all[0];
           batch_string python:batches_all[1];
           batch_info python:batches_all[2];
+          zoomed python:batches_all[3];
      ">
   <tal:block condition="python:batch_string is not None">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -147,6 +149,18 @@ format:</pre>
     </table>
   </tal:block>
   <br />
+  <table width="100%" border="0" cellspacing="0" cellpadding="0"
+    tal:condition="zoomed">
+    <tr tal:repeat="item zoomed">
+      <td align="left" valign="top">
+       <tal:block define="no_form not:nothing;
+         info python:here.getContentInfo(item, level=1);">
+         <metal:block use-macro="here/content_lib/macros/info_summary" />
+         <br><br>
+       </tal:block>
+      </td>
+    </tr>
+  </table>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top"

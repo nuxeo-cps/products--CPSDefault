@@ -682,6 +682,7 @@ format:</pre>
 
     <span tal:content="item/time_str">May 6, 2003 5:28 pm</span>:
 
+    <tal:block condition="python:item.get('language_revs')">
     <tal:block repeat="language_rev item/language_revs/items">
       <tal:block i18n:translate="">label_revision
         <span i18n:name="status_revision"
@@ -693,6 +694,7 @@ format:</pre>
           content="python:'label_language_%s' % language_rev[0]">en</tal:block>
         </span>
       </tal:block>
+    </tal:block>
     </tal:block>
 
     <span tal:content="item/action" i18n:translate="">publish</span>

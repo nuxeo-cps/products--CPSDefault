@@ -74,7 +74,7 @@ class ContentBox(BaseBox):
          'label': 'Search criteria' },
         {'id': 'query_status', 'type': 'string', 'mode': 'w',
          'label': 'Search criteria' },
-        {'id': 'query_portal_type', 'type': 'string', 'mode': 'w',
+        {'id': 'query_portal_type', 'type': 'lines', 'mode': 'w',
          'label': 'Search criteria' },
         {'id': 'query_modified', 'type': 'string', 'mode': 'w',
          'label': 'Search criteria' },
@@ -83,7 +83,7 @@ class ContentBox(BaseBox):
     def __init__(self, id, folder='', nb_items=0, sort_by='',
                  direction='', display='',
                  query_title='', query_description='', query_fulltext='',
-                 query_status='', query_portal_type='', query_modified='', **kw):
+                 query_status='', query_portal_type=[], query_modified='', **kw):
         BaseBox.__init__(self, id, category='contentbox', kw=kw)
         self.folder = folder
         self.nb_items = nb_items

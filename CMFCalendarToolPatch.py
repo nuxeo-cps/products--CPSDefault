@@ -22,11 +22,11 @@ security = ClassSecurityInfo()
 security.declarePublic('catalog_getcpsevents')
 def catalog_getcpsevents(self, year, month):
     """ given a year and month return a list of days that have events """
-    
+
     nb_days=calendar.monthrange(year, month)[1]
     first_date = DateTime(str(month)+'/1/'+str(year)+ ' 12:00:00AM')
     last_date = DateTime(str(month)+'/'+str(nb_days)+'/'+str(year)+ ' 23:59:59AM')
-    
+
     query = self.search(query={'portal_type':self.calendar_types,
                                'review_state':'published',
                                },
@@ -38,30 +38,39 @@ def catalog_getcpsevents(self, year, month):
         eventDays[daynumber] = {'eventslist':[], 'event':0, 'day':daynumber}
     for q in query:
         result = q.getContent()
+        if callable(result.start):
+            sd = result.start()
+        else:
+            sd = result.start
+        if callable(result.end):
+            ed = result.end()
+        else:
+            ed = result.end
+
         event={}
         # we need to deal with events that end next month
-        if  result.end().month() != month:  # doesn't work for events that last ~12 months - fix it if it's a problem, otherwise ignore
+        if  ed.month() != month:  # doesn't work for events that last ~12 months - fix it if it's a problem, otherwise ignore
             eventEndDay = last_day
             event['end'] = None
         else:
-            eventEndDay = result.end().day()
-            event['end'] = result.end().Time()
+            eventEndDay = ed.day()
+            event['end'] = ed.Time()
         # and events that started last month
-        if result.start().month() != month:  # same as above re: 12 month thing
+        if sd.month() != month:  # same as above re: 12 month thing
             eventStartDay = 1
             event['start'] = None
         else:
-            eventStartDay = result.start().day()
-            event['start'] = result.start().Time()
+            eventStartDay = sd.day()
+            event['start'] = sd.Time()
         event['title'] = result.Title or result.id
         if eventStartDay != eventEndDay:
             allEventDays = range(eventStartDay, eventEndDay+1)
-            eventDays[eventStartDay]['eventslist'].append({'end':None, 'start':result.start().Time(), 'title':result.Title})
+            eventDays[eventStartDay]['eventslist'].append({'end':None, 'start':sd.Time(), 'title':result.Title})
             eventDays[eventStartDay]['event'] = 1
             for eventday in allEventDays[1:-1]:
                 eventDays[eventday]['eventslist'].append({'end':None, 'start':None, 'title':result.Title})
                 eventDays[eventday]['event'] = 1
-            eventDays[eventEndDay]['eventslist'].append({'end':result.end().Time(), 'start':None, 'title':result.Title})
+            eventDays[eventEndDay]['eventslist'].append({'end':ed.Time(), 'start':None, 'title':result.Title})
             eventDays[eventEndDay]['event'] = 1
         else:
             eventDays[eventStartDay]['eventslist'].append(event)
@@ -74,7 +83,7 @@ def getCPSEventsForCalendar(self, month='1', year='2002'):
     """ recreates a sequence of weeks, by days each day is a mapping.
     {'day': #, 'url': None}
     """
-    
+
     year=int(year)
     month=int(month)
     # daysByWeek is a list of days inside a list of weeks, like so:
@@ -85,9 +94,9 @@ def getCPSEventsForCalendar(self, month='1', year='2002'):
     #  [28, 29, 30, 31, 0, 0, 0]]
     daysByWeek=calendar.monthcalendar(year, month)
     weeks=[]
-    
+
     events=self.catalog_getcpsevents(year, month)
-    
+
     for week in daysByWeek:
         days=[]
         for day in week:
@@ -95,9 +104,9 @@ def getCPSEventsForCalendar(self, month='1', year='2002'):
                 days.append(events[day])
             else:
                 days.append({'day': day, 'event': 0, 'eventslist':[]})
-                
+
         weeks.append(days)
-            
+
     return weeks
 
 
@@ -117,29 +126,42 @@ def getCPSEventsForThisDay(self, thisDay):
                         end_date = last_date)
 
     results = []
-    
+
     for q in query:
         results.append(q)
 
     def sort_function(x,y):
         x_doc = x.getContent()
         y_doc = y.getContent()
-        try:
-            z = cmp(x_doc.start(),y_doc.start())
-            if not z: 
-                return cmp(x_doc.end(),y_doc.end())
-            return z
-        except AttributeError,ae:
-            LOG('CMFCalendarToolPatch.getCPSEventsForThisDay: Error: missing attribute: ',DEBUG,ae)
-            return 0
-    
+
+        if callable(x_doc.start):
+            x_sd = x_doc.start()
+        else:
+            x_sd = x_doc.start
+        if callable(x_doc.end):
+            x_ed = x_doc.end()
+        else:
+            x_ed = x_doc.end
+        if callable(y_doc.start):
+            y_sd = y_doc.start()
+        else:
+            y_sd = y_doc.start
+        if callable(y_doc.end):
+            y_ed = y_doc.end()
+        else:
+            y_ed = y_doc.end
+
+        z = cmp(x_sd, y_sd)
+        if not z:
+            return cmp(x_ed, y_ed)
+        return z
+
     # Sort by start date
     results.sort(sort_function)
-    
+
     return results
 
 #Adding methods to class CalendarTool
 CalendarTool.CalendarTool.getCPSEventsForCalendar = getCPSEventsForCalendar
 CalendarTool.CalendarTool.catalog_getcpsevents = catalog_getcpsevents
 CalendarTool.CalendarTool.getCPSEventsForThisDay = getCPSEventsForThisDay
-

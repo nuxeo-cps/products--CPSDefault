@@ -44,6 +44,7 @@
 <!-- End search -->
 </div>
 
+
 <div tal:condition="python:searching and (search_param == 'username')"
   tal:define="search_param python: request.get( 'search_param', '' );
   search_term  python: request.get( 'search_term', '' );
@@ -164,7 +165,7 @@
             value=""
             tal:attributes="value group">
     </td>
-    <td tal:content="python:group.replace('role:','group ')"> Groupame </td>
+    <td tal:content="python:group"> Groupame </td>
     <td>  </td>
    </tr>
 
@@ -228,7 +229,14 @@
    <th style="text-align:left;">User/Group</th>
    <th style="text-align:left;">Role(s)</th>
  </tr>
-
+ <tal:block define="aq_roles python:here.portal_membership.getMergedLocalRoles(here)">
+   <tr tal:repeat="aq_user python:aq_roles.keys()">
+     <td></td>
+     <td><span tal:content="aq_user"/></td>
+     <td><span tal:content="python:', '.join(aq_roles[aq_user])"/></td>
+     <td><b>From aquisition</b></td>
+   </tr>
+ </tal:block>
  <tbody tal:repeat="role_tuple lroles">
  <tr tal:define="user_name python: role_tuple[0];
                  roles python: role_tuple[1];
@@ -244,7 +252,7 @@
    >
    <br tal:condition="python: user_name == auth_name">
   </td>
-  <td tal:content="python:user_name.replace('role:','group ')"> Username 1 </td>
+  <td tal:content="python:user_name"> Username 1 </td>
   <td tal:content="python: modules['string'].join( roles, ', ' )">
    Role1, Role2
   </td>

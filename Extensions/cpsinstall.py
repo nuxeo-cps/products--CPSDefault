@@ -1373,8 +1373,10 @@ def cps_i18n_update(self, langs_list=None):
     this does not reset the mcat.
     """
     # langs_list is deprecated as it is set in the Localizer
-    installer = CPSInstaller('CPS Default i18n import')
-    installer.install(langs_list)
-    return installer.logResults()
+    installer = CPSInstaller(self, 'CPS Default i18n import')
+    installer.log("CPSDefault i18n update")
+    installer.setupTranslations(product_name='CPSDefault')
+    installer.log("CPSDefault i18n update Finished")
+    return installer.logResult()
 
 

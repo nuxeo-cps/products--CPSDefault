@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-10-17 11:34default\n"
+"POT-Creation-Date: 2003-10-18 18:19default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -191,7 +191,7 @@ msgstr ""
 #.     </input>
 #.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
 #.       </input>
-#.   <input onclick="history.back()" type="button" value="button_cancel">
+#.   <input onclick="javascript:history.back()" type="button" value="button_cancel">
 #.     </input>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
@@ -216,7 +216,7 @@ msgstr ""
 #.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input></input></input>
 #.   <input value="button_change" type="submit">
-#.       <input onclick="history.back()" type="button" value="button_cancel">
+#.       <input onclick="javascript:history.back()" type="button" value="button_cancel">
 #.     </input></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_contents.pt
@@ -506,7 +506,8 @@ msgid "description_up_to ${up_id}"
 msgstr ""
 
 #.   <p>
-#.   description_visible_box_from ${context_url (tal content="context_url")}</p>
+#.     description_visible_box_from ${context_url (tal content="context_url")}
+#.   </p>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr ""
@@ -942,7 +943,7 @@ msgstr ""
 msgid "label_author_desc"
 msgstr ""
 
-#.   <th align="right" colspan="5">Only authorized folders</th>
+#.   <th align="right" colspan="5">Authorized folders only</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_authorized_only"
 msgstr ""
@@ -1269,37 +1270,37 @@ msgstr ""
 msgid "label_in_section ${section_id}"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_author"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_date"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_size"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_status"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_title"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_type"
 msgstr ""
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_version"
 msgstr ""
@@ -1487,16 +1488,16 @@ msgstr ""
 msgid "label_search_description"
 msgstr ""
 
+#.   <span>Full text</span>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#: ../skins/cps_default/generic_lib.pt
+msgid "label_search_full_text"
+msgstr ""
+
 #.   <span>Modified since</span>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_modified_since"
-msgstr ""
-
-#.   <span>Plain text</span>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
-msgid "label_search_plain_text"
 msgstr ""
 
 #.   <span>Portal type</span>
@@ -1577,7 +1578,7 @@ msgstr ""
 
 #.   <th align="right">Title</th>
 #.   <strong>Title:</strong>
-#.   <div class="label required">
+#.   <div class="label">
 #.           Title
 #.         </div>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1857,8 +1858,7 @@ msgstr ""
 
 #.   <span attributes="class
 #.         info/review_state" content="info/review_state">published</span>
-#.   <td attributes="class
-#.       info/review_state" content="info/review_state" align="center">published</td>
+#.   <td condition="status_in_tabs" attributes="class info/review_state" content="info/review_state" align="center">published</td>
 #: from ../skins/cps_default/content_lib.pt
 msgid "published"
 msgstr ""
@@ -2045,6 +2045,9 @@ msgid "action_moderate_chat"
 msgstr ""
 
 msgid "action_modify"
+msgstr ""
+
+msgid "action_my_preferences"
 msgstr ""
 
 msgid "action_reply_question"

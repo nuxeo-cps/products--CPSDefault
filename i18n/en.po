@@ -16,14 +16,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-17 11:34default\n"
-"PO-Revision-Date: 2003-10-17 11:44+0200\n"
-"Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
-"Language-Team: francais <fr@li.org>\n"
+"POT-Creation-Date: 2003-10-18 18:19default\n"
+"PO-Revision-Date: 2003-10-18 18:21+0200\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: KBabel 1.0.2\n"
 
@@ -201,7 +201,7 @@ msgstr "Back"
 #.     </input>
 #.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
 #.       </input>
-#.   <input onclick="history.back()" type="button" value="button_cancel">
+#.   <input onclick="javascript:history.back()" type="button" value="button_cancel">
 #.     </input>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
@@ -226,7 +226,7 @@ msgstr "Cancel"
 #.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input></input></input>
 #.   <input value="button_change" type="submit">
-#.       <input onclick="history.back()" type="button" value="button_cancel">
+#.       <input onclick="javascript:history.back()" type="button" value="button_cancel">
 #.     </input></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_contents.pt
@@ -519,7 +519,8 @@ msgid "description_up_to ${up_id}"
 msgstr "Up to ${up_id}"
 
 #.   <p>
-#.   description_visible_box_from ${context_url (tal content="context_url")}</p>
+#.     description_visible_box_from ${context_url (tal content="context_url")}
+#.   </p>
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr "Description box visible from ${context_url}"
@@ -681,7 +682,7 @@ msgid "heading_mail_password_response"
 msgstr "Don't panic!"
 
 #.   <h1>
-#.       Configure portal
+#.       Configure Portal
 #.     </h1>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "heading_reconfig_portal"
@@ -998,7 +999,7 @@ msgstr "Date"
 msgid "label_author_desc"
 msgstr "Date desc."
 
-#.   <th align="right" colspan="5">Only authorized folders</th>
+#.   <th align="right" colspan="5">Authorized folders only</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_authorized_only"
 msgstr "Display authorized folders only"
@@ -1326,37 +1327,37 @@ msgstr "in"
 msgid "label_in_section ${section_id}"
 msgstr "In section ${section_id}"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_author"
 msgstr "Author"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_date"
 msgstr "Date"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_size"
 msgstr "Size"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_status"
 msgstr "Status"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_title"
 msgstr "Title"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_type"
 msgstr "Type"
 
-#.   <th align="center" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" href="" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_version"
 msgstr "Version"
@@ -1544,17 +1545,17 @@ msgstr "Search"
 msgid "label_search_description"
 msgstr "Description"
 
-#.   <span>Modified since</span>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
-msgid "label_search_modified_since"
-msgstr "Modified since"
-
 #.   <span>Full text</span>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_full_text"
 msgstr "Full text"
+
+#.   <span>Modified since</span>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#: ../skins/cps_default/generic_lib.pt
+msgid "label_search_modified_since"
+msgstr "Modified since"
 
 #.   <span>Portal type</span>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1634,7 +1635,7 @@ msgstr "Subject"
 
 #.   <th align="right">Title</th>
 #.   <strong>Title:</strong>
-#.   <div class="label required">
+#.   <div class="label">
 #.           Title
 #.         </div>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1916,8 +1917,7 @@ msgstr "Publish"
 
 #.   <span attributes="class
 #.         info/review_state" content="info/review_state">published</span>
-#.   <td attributes="class
-#.       info/review_state" content="info/review_state" align="center">published</td>
+#.   <td condition="status_in_tabs" attributes="class info/review_state" content="info/review_state" align="center">published</td>
 #: from ../skins/cps_default/content_lib.pt
 msgid "published"
 msgstr "published"
@@ -2045,7 +2045,8 @@ msgstr "Portal actions"
 msgid "Preferences"
 msgstr "Preferences"
 
-msgid "Reconfigure portal"
+#, fuzzy
+msgid "Reconfigure Portal"
 msgstr "Reconfigure portal"
 
 msgid "submit"
@@ -2104,6 +2105,9 @@ msgstr "Moderate Chat"
 
 msgid "action_modify"
 msgstr "Modify"
+
+msgid "action_my_preferences"
+msgstr "My preferences"
 
 msgid "action_reply_question"
 msgstr "Reply to pending questions"

@@ -23,22 +23,13 @@
         enable the site manager to prevent for example moving of boxes
         between slots
 
-- [encolpe] search
-   x [] make catalog search work with proxies
-   x [] CPSCore CPSBaseDocument should implement SearchableText method
-   x [] make advanced search with status metadata ...
-   o i18n
-   o reusable search with result list page for a popup version
-      with checkbox/action ?
-   o try to use content_lib macros as much as possible
-
 - [] i18n usage
    x [] audit i18n tools opental:i18n_xgettext/kbabel/msgmerge ...
    x [] eval domain usage
      one domain 'cps' one message catalogue
-   x [julien] write doc/HOWTO.i18n + tools 
-     Check the pot/po files utilities providing an easy way 
-     to create, manage and update them within a product. 
+   x [julien] write doc/HOWTO.i18n + tools
+     Check the pot/po files utilities providing an easy way
+     to create, manage and update them within a product.
    o cvsupdate
       load i18n folder in each products
    o have a full cpsdefault in fr/en
@@ -156,6 +147,13 @@
 
    x [] element integration: infinite postpone
 
+   o [encolpe] search
+      o use textindex NG by default
+      x [] make catalog search work with proxies
+      x [] CPSCore CPSBaseDocument should implement SearchableText method
+      x [] make advanced search with status metadata ...
+      x [] i18n
+
    o cpsinstaller
       x [] don't need any more to rename folder actions
       o long term: big refactoring to enable registration of products
@@ -200,7 +198,7 @@
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
    o puffin is buggy cps return __ac_name after __ac and we can not
       store the login cookie :/
-   x [] advanced search, search link broken on result page 
+   x [] advanced search, search link broken on result page
       url like //search_form
    x [fg] error after install in generic_lib no standard:'item/title'
       happened because new skins were not immediately available

@@ -3,30 +3,43 @@
 <metal:main fill-slot="main"
   tal:define="context_urlc python:here.getContextUrl(utool=utool, concat=1);">
 
-<h2 i18n:translate="heading_box_manage_form">Box management</h2>
+<h2 i18n:translate="heading_box_manage_form">Boxes management</h2>
 
-Current location: <tal:block replace="context_url" />
+<p i18n:translate="">
+description_visible_box_from <span i18n:name="context_url"
+tal:content="context_url" /></p>
 
-
-<form action="box_manage" method="post"
-  tal:attributes="action string:${context_urlc}/box_manage">
-
+<form action="" method="post"
+  tal:attributes="action string:${context_urlc}">
 
 <table>
-
+  <tr>
+    <th></th>
+    <th i18n:translate="listingheader_slot">Slot</th>
+    <th i18n:translate="listingheader_order">Order</th>
+    <th i18n:translate="listingheader_title">Title</th>
+    <th i18n:translate="listingheader_type">Type</th>
+    <th i18n:translate="listingheader_location">location</th>
+  </tr>
   <tal:block repeat="box boxes">
   <tr tal:define="action python:box['box'].getTypeInfo().immediate_view">
+    <td><input type="checkbox" name="ids:list" value=""
+               tal:attributes="value box/url;"></td>
     <td><tal:block replace="box/box/slot" /></td>
     <td><tal:block replace="box/box/order" /></td>
     <td><tal:block replace="box/box/title" /></td>
     <td><tal:block replace="box/box/macro" /></td>
-    <td><tal:block replace="string:${base_url}${box/display_url}" /></td>a
+    <td><tal:block replace="string:${base_url}${box/display_url}" /></td>
     <td><a href=""
           tal:attributes="href string:${context_urlc}/${action}?box_url=${box/url}">edit</a></td>
   </tr>
   </tal:block>
 </table>
-  <a href="box_create_form" tal:attributes="href string:${context_urlc}/box_create_form">Add a new Box</a>
+  <input type="submit" name="box_create_form:method"
+    value="button_create_box" i18n:attributes="value">
+  <input type="submit" name="box_delete:method"
+    value="button_delete_box" i18n:attributes="value">
+
 </form>
 
 

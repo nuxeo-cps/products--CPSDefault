@@ -41,9 +41,10 @@ if order:
 
 box.edit(**kw)
 
-context_urlc = context.getContextUrl(concat=1)
 if REQUEST is not None:
     psm = 'psm_box_modified'
-    REQUEST.RESPONSE.redirect('%s/?portal_status_message=%s' %
-                              (context_urlc, psm))
+    action_path = context.getTypeInfo().getActionById('boxes')
+    REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' %
+                              (context.absolute_url(), action_path,
+                               psm))
 return psm

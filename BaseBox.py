@@ -241,16 +241,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             btype = self.btype
         return 'here/boxes_%s/macros/%s_%s' % (provider, self.category, btype)
 
-    security.declarePublic('render')
-    def render(self, **kw):
-        """
-        Renders the box.
-        """
-        macro = self.getMacro()
-        render_method = self.restrictedTraverse(macro)
-        rendering = render_method(self)
-        return rendering.strip()
-
     security.declareProtected(View, 'edit_form')
     def edit_form(self, **kw):
         """

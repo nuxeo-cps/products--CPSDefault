@@ -47,7 +47,7 @@ class TreeBox(BaseBox):
     """
     meta_type = 'Tree Box'
     portal_type = 'Tree Box'
-    
+
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -77,7 +77,7 @@ class TreeBox(BaseBox):
             obj = aq_parent(aq_inner(obj))
         current_url = portal_url.getRelativeUrl(obj)
         current_path = current_url.split('/')
-        
+
         if not self.root:
             root_path = current_path
         else:
@@ -95,7 +95,7 @@ class TreeBox(BaseBox):
         if self.depth and self.contextual:
             depth = self.depth - 1
             max_depth = len(current_path) + depth
-                
+
             tfilter = []
             for i in range(len(current_path)+1):
                 if i:
@@ -106,14 +106,14 @@ class TreeBox(BaseBox):
                 d = item['depth']
                 if d > max_depth:
                     continue
-                url = item['rpath'] 
+                url = item['rpath']
                 for f in tfilter:
                     if d > f['depth']:
                         continue
                     if url.startswith(f['url']):
                         items.append(item)
                         break
-                    
+
             return items
 
         if self.depth:
@@ -121,7 +121,7 @@ class TreeBox(BaseBox):
             root_url = '/'.join(root_path)
             return [x for x in tree if (x['depth']<=d and
                                         x['rpath'].startswith(root_url))]
-        
+
         return tree
 
 

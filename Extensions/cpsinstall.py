@@ -114,7 +114,7 @@ def cpsupdate(self, langs_list=None):
         #doc.munge('<dtml-var portal>')
 
     # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
-    # CPS Object Repository.
+    # CPS Object Repository, Tree tools
     pr("Verifying CPS Tools")
     if portalhas('portal_eventservice'):
         prok()
@@ -134,13 +134,12 @@ def cpsupdate(self, langs_list=None):
         portal.manage_addProduct["NuxCPS3"].manage_addTool(
             'CPS Repository Tool')
 
-    if portalhas('portal_elements'):
+    if portalhas('portal_trees'):
         prok()
     else:
-        pr(" Creating (CPS Tools) CPS Elements Tool")
-        portal.manage_addProduct["NuxCPS3"].manage_addTool('CPS Elements Tool')
-
-
+        pr(" Creating (CPS Tools) CPS Trees Tool")
+        portal.manage_addProduct["NuxCPS3"].manage_addTool('CPS Trees Tool')
+    
     # configure event service to hook the proxies, by adding a subscriber
     pr("Verifying Event service tool")    
     objs = portal.portal_eventservice.objectValues()
@@ -186,6 +185,28 @@ def cpsupdate(self, langs_list=None):
             wftool.manage_delObjects([wfid])
         tryimport(wftool, wfid, pr=pr)
 
+    #pr("Verifying new actions")
+    #actionadd = {
+                 #'portal_actions':[
+                                   #ActionInformation(id='print',
+                                                     #title='_action_print_',
+                                                     #action=Expression(
+                                                                       #text='string:${object_url}/view?pp=1'),
+                                                      #text='string:${portal_url}/Members/'),
+                                    #permissions=('Manage users',),
+                                    #category='global',
+                                    #visible=1),
+                 #],
+    #}
+    #for tool, newactions in actionadd.items():
+        #actions = list(portal[tool]._actions)
+        #for action in newactions:
+            #if action.id not in [ac.id for ac in actions]:
+                #actions.append(action)
+                #pr(" Add %s: %s" % (tool, action.id))
+        #portal[tool]._actions = actions
+        
+        
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder, 
     # CPS Dummy Document, CPS Folder
     pr("Verifying portal types")
@@ -200,6 +221,10 @@ def cpsupdate(self, langs_list=None):
 #        'SSS3':()
         }
     ptypes_installed = ttool.objectIds()
+    # remove all ptypes
+    ttool.manage_delObjects(ptypes_installed)
+    ptypes_installed = ttool.objectIds()
+    
     for prod in ptypes.keys():
         for ptype in ptypes[prod]:
             pr("  Type '%s'" % ptype)
@@ -280,8 +305,27 @@ def cpsupdate(self, langs_list=None):
         wfc.manage_addChain(portal_type='CPS Dummy Document',
                             chain='cps_section_document_workflow',
                             under_sub_add=1)
-
+    # init Tree Tool
+    trtool = portal.portal_trees
+    pr("Verifying cache trees")
+    if sections_id not in trtool.objectIds():
+        pr("  Adding cache for tree %s" % sections_id)
+        trtool.manage_addCPSTreeCache(id=sections_id)
+        trtool[sections_id].manage_changeProperties(title=sections_id+' Cache', 
+                                                    root=sections_id, 
+                                                    type_names=('Section',))
+        trtool[sections_id].manage_rebuild()
+        
+    if workspaces_id not in trtool.objectIds():
+        pr("  Adding cache for tree %s" % workspaces_id)
+        trtool.manage_addCPSTreeCache(id=workspaces_id)
+        trtool[workspaces_id].manage_changeProperties(title=workspaces_id+' Cache', 
+                                                      root=workspaces_id, 
+                                                      type_names=('Workspace',))
+        trtool[workspaces_id].manage_rebuild()
+        
     # skins
+    pr("Verifying skins")
     skins = ('sss3', 'sss3_images', 'nuxcps3', )
     paths = {
         'sss3': 'Products/SSS3/skins/templates',

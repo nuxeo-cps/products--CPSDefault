@@ -79,6 +79,9 @@ class DummyMessageCatalog:
     def manage_import(self, *args, **kw):
         pass
 
+    def wl_isLocked(self):
+        return None # = False
+
 
 from StringIO import StringIO
 from Products.Localizer import LocalizerStringIO

@@ -12,6 +12,11 @@ if kw.get('back'):
     return REQUEST.RESPONSE.redirect('%s/box_manage_form' %
                                      (context.absolute_url()))
 
+box_url = kw['box_url']
+del kw['box_url']
+box_category = kw['box_category']
+del kw['box_category']
+
 # handle box display
 disp = kw.get('display_box')
 if disp:
@@ -29,8 +34,7 @@ if disp:
 # handle checkbox
 for k in ('display_in_subfolder', 'display_only_in_subfolder',
           'children_only', 'contextual', 'zoom'):
-    v = kw.get(k)
-    kw[k] = not not v
+    kw[k] = test(kw.has_key(k), 1, 0)
 
 # handle empty selection in contentbox_edit_form
 if not kw.get('query_portal_type'):
@@ -82,11 +86,6 @@ if kw.has_key('display_style'):
     if kw['display'] == 'None':
         kw['display'] = None
     del kw['display_style']
-
-box_url = kw['box_url']
-del kw['box_url']
-box_category = kw['box_category']
-del kw['box_category']
 
 box = context.restrictedTraverse(box_url)
 box.edit(**kw)

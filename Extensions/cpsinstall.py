@@ -4,6 +4,7 @@
 """
 
 import os
+import sys
 from random import randrange
 from Acquisition import aq_base
 from DateTime.DateTime import DateTime
@@ -43,13 +44,13 @@ def cpsinstall(self):
 
     pr("Cleaning actions")
     actiondelmap = {
-        'portal_actions': ['folderContents', 'folder_contents'],
-        'portal_membership': ['preferences',
+        'portal_actions': ('folderContents', 'folder_contents'),
+        'portal_membership': ('preferences',
                               'addFavorite',
                               'mystuff',
                               'favorites',
-                              ],
-        'portal_syndication': ['syndication'],
+                              ),
+        'portal_syndication': ('syndication',),
         }
     for tool, actionids in actiondelmap.items():
         actions = list(portal[tool]._actions)
@@ -76,7 +77,7 @@ def cpsupdate(self, langs_list=None):
             LOG('cpsupdate:', INFO, bla)
 
     def primp(pr=pr):
-        pr(" !!! Can migrate that component !!!")
+        pr(" !!! Cannot migrate that component !!!")
 
     def prok(pr=pr):
         pr(" Already correctly installed")
@@ -690,7 +691,8 @@ def cpsupdate(self, langs_list=None):
             root=sections_id, 
             type_names=('Section',),
             info_method='getFolderInfo')
-        trtool[sections_id].manage_rebuild()
+    trtool[sections_id].manage_rebuild()
+    pr("   Sections cache rebuilded")
         
     if workspaces_id not in trtool.objectIds():
         pr("  Adding cache for tree %s" % workspaces_id)
@@ -700,7 +702,9 @@ def cpsupdate(self, langs_list=None):
             root=workspaces_id, 
             type_names=('Workspace',),
             info_method='getFolderInfo')
-        trtool[workspaces_id].manage_rebuild()
+    trtool[workspaces_id].manage_rebuild()
+    pr("   Workspaces cache rebuilded")
+
         
     pr("Verifying private area creation flag")
     if not portal.portal_membership.getMemberareaCreationFlag():
@@ -793,6 +797,70 @@ def cpsupdate(self, langs_list=None):
         ob = getattr(box_container, box)
         ob.manage_changeProperties(boxes[box])
         
+    # i18n
+    pr(" Adding i18n support")
+
+    # Localizer
+    if not portalhas('Localizer'):
+        pr("  Adding Localizer")
+        languages = langs_list or ('en',)
+        portal.manage_addProduct['Localizer'].manage_addLocalizer(
+            title='',
+            languages=languages,
+        )
+    else:
+        pr("  Localizer already here")
+    Localizer = portal['Localizer']
+
+    # languages
+    languages = Localizer.get_supported_languages()
+
+    # MessageCatalog
+    if 'default' in Localizer.objectIds():
+        Localizer.manage_delObjects(['default'])
+        pr("  previous default MessageCatalog deleted")
+    Localizer.manage_addProduct['Localizer'].manage_addMessageCatalog(
+        id='default',
+        title='CPSDefault messages',
+        languages=languages,
+    )
+    pr("  default MessageCatalogCreated")
+    defaultCatalog = Localizer.default
+
+    # computing po files' system directory
+    CPSDefault_path = sys.modules['Products.CPSDefault'].__path__[0]
+    i18n_path = os.path.join(CPSDefault_path, 'i18n')
+    pr("   po files are searched in %s" % i18n_path)
+    pr("   po files for %s are expected" % str(languages))
+
+    # loading po files
+    for lang in languages:
+        if lang == 'en':
+            po_filename = 'locale.pot'
+        else:
+            po_filename = lang + '.po'
+        pr("   importing %s file" % po_filename)
+        po_path = os.path.join(i18n_path, po_filename)
+        try:
+            po_file = open(po_path)
+        except NameError:
+            pr("    %s file not found" % po_path)
+        else:
+            defaultCatalog.manage_import(lang, po_file)
+            pr("    %s file imported" % po_path)
+    
+    # translation_service
+    if not portalhas('translation_service'):
+        portal.manage_addProduct['TranslationService'].addPlacefulTranslationService(
+            id='translation_service'
+        )
+        pr("  translation_service tool added")
+    translation_service = portal.translation_service
+
+    # translation domains
+    translation_service.manage_setDomainInfo(path_0='Localizer/default')
+    pr("   default domain set to Localizer/default")
+    
         
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)

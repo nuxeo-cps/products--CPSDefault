@@ -169,12 +169,8 @@ format:</pre>
 <pre>status of a content:</pre>
 <metal:block define-macro="status">
   <tal:block condition="not:status_short_fmt|nothing">
-
-    <tal:block i18n:translate="">
-      label_status
-      <span tal:content="info/review_state"
-            i18n:name="review_state">Work</span>
-    </tal:block>
+    <span i18n:translate="label_status">Label Status</span>
+    <span tal:content="info/review_state" i18n:translate="">Work</span>
 
     <tal:block i18n:translate="">
       label_revision
@@ -203,11 +199,11 @@ format:</pre>
     </tal:block>
 
     <span i18n:translate="">
-    v<span tal:replace="info/rev" i18n:name="status_revision">1</span>-<span
-    tal:replace="info/lang" i18n:name="status_language">en</span>
-    <span tal:replace="info/review_state"
-          i18n:name="review_state">published</span>
+      v<span tal:replace="info/rev" i18n:name="status_revision">1</span>- <span       
+      tal:replace="info/lang" i18n:name="status_language">en</span>
     </span>
+    <span tal:content="info/review_state" i18n:translate="">published</span>
+
   </tal:block>
 </metal:block>
 
@@ -331,8 +327,8 @@ format:</pre>
     <span tal:content="item/stime" 
           i18n:name="history_time">May 6, 2003 5:28 pm</span>:
 
-    <span tal:content="item/action" i18n:name="history_action">publish</span>
-  </span>
+    </span>
+    <span tal:content="item/action" i18n:translate="">publish</span>
 
    <tal:block condition="item/has_dest|nothing" i18n:translate="">
     into <span i18n:name="history_dest">

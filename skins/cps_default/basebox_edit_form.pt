@@ -111,7 +111,7 @@
   condition="category">
   <hr />
   <strong i18n:translate="label_btype">Type</strong>:
-  <span i18n:translate="" tal:content="category/title" /> (<span i18n:translate="" tal:content="category/desc" />)
+  <tal:block i18n:translate="" tal:content="category/title" /> (<tal:block i18n:translate="" tal:content="category/desc" />)
   <ul tal:define="global boxtype_selected python:0"
     style="list-style-type: none;">
   <tal:block repeat="type category/types">
@@ -123,9 +123,8 @@
         id choice_id;
         checked python:test(sfISpt,'checked',test(repeat['type'].end and not boxtype_selected,'checked', nothing))" />
     <tal:block tal:define="global boxtype_selected python:test(boxtype_selected or sfISpt, 1,0)" />
-    <label tal:attributes="for choice_id"><span
-      i18n:translate="" tal:content="type/desc" />
-      <span tal:condition="python:type['id']!='default'"> *</span></label>
+    <label tal:attributes="for choice_id"><tal:block i18n:translate="" tal:content="type/desc" />
+      <tal:block tal:condition="python:type['id']!='default'"> *</tal:block></label>
     </li>
   </tal:block>
   </ul>
@@ -135,7 +134,7 @@
   </em>
   </tal:block>
   <hr />
-  <table  border="0" summary="box additional properties layout">
+  <table border="0" summary="Box additional properties layout">
   <metal:block define-slot="additional_fields">
   </metal:block>
   </table>

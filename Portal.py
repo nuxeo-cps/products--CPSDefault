@@ -65,7 +65,6 @@ def manage_addCPSDefaultSite(dispatcher, id,
                              manager_email='',
                              manager_password='',
                              manager_password_confirmation='',
-                             enable_portal_joining=0,
                              REQUEST=None):
     """Add a CPSDefault Site."""
 

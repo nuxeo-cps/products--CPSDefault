@@ -165,7 +165,7 @@ def cpsupdate(self, langs_list=None):
         pr(" Added Action My Preferences")
 
 
-    
+
     # adding more actions
     actions = {
         'accessibility': {'id': 'accessibility',
@@ -1306,25 +1306,30 @@ except:
                         'slot':'left',
                         'order':20,
                         'categories':'user',
+                        'box_skin': 'here/box_lib/macros/sbox',
                         },
         'action_portal' : {'type':'Action Box',
                            'title': 'Portal actions',
                            'slot':'left',
                            'order':30,
                            'categories':'global',
+                           'box_skin': 'here/box_lib/macros/sbox',
                            },
         'navigation': {'type':'Tree Box',
                        'title':'Navigation',
                        'depth':1,
                        'contextual':1,
                        'slot':'left',
-                       'order':40},
+                       'order':40,
+                       'box_skin': 'here/box_lib/macros/mmbox',
+                       },
 
         'action_object' : {'type':'Action Box',
                            'title': 'Object actions',
                            'slot':'right',
                            'order':10,
                            'categories':('object', 'workflow'),
+                           'box_skin': 'here/box_lib/macros/sbox',
                            },
 
         'action_folder' : {'type':'Action Box',
@@ -1597,7 +1602,7 @@ except:
 
     pr(" Reindexing catalog")
     # this rebuild all index
-    portal.portal_catalog.refreshCatalog(clear=1)
+#    portal.portal_catalog.refreshCatalog(clear=1)
 
     # remove cpsinstall external method
     # and fix cpsupdate permission

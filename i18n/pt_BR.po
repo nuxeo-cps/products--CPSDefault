@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pt-BR\n"
-"POT-Creation-Date: 2004-12-14 10:26default\n"
+"POT-Creation-Date: 2004-12-27 14:58default\n"
 "PO-Revision-Date: 2004-09-08 15:46-0300\n"
 "Last-Translator: Mario Olimpio de Menezes <mario@curiango.ipen.br>\n"
 "Language-Team: Portugues do Brasil <pt@li.org>\n"
@@ -26,9 +26,9 @@ msgstr "Uma caixa de teste"
 #.             Action
 #.           </option>
 #.   <a content="action/name" attributes="href action/url;
-#.                               onclick action/onclick|nothing">Action</a>
+#.   			    onclick action/onclick|nothing">Action</a>
 #.   <a content="action/name" attributes="href action/url;
-#.                                class python:test(selected, 'selected', default)">Action</a>
+#.   			     class python:test(selected, 'selected', default)">Action</a>
 #.   <a content="action/name" attributes="href action/url">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
@@ -41,12 +41,12 @@ msgstr "Ação"
 #.       Last modified
 #.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
 #.     </span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "Criado por ${item_creator}, Última modificação ${item_modification}"
 
 #.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
-#.                               selected locale/selected|nothing" condition="l10n_translated">
+#.   			    selected locale/selected|nothing" condition="l10n_translated">
 #.         Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "Language"
@@ -64,7 +64,7 @@ msgstr "Idioma"
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objetos: ${batch_start} - ${batch_limit} de ${batch_length}"
 
@@ -135,13 +135,14 @@ msgstr "Título"
 #.                                          nothing">
 #.     Translated status message.
 #.   </div>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_portal_message.pt
 msgid "Translated status message."
 msgstr "Mensagem de Estado Traduzida"
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_byline.pt
+#: ../skins/cps_default/content_lib_status.pt
 msgid "Work"
 msgstr "Trabalho"
 
@@ -157,12 +158,12 @@ msgid "Your query gave ${nb_results} results."
 msgstr "Sua pesquisa deu ${nb_results} resultados."
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_contact_link"
 msgstr "Contato"
 
 #.   <a accesskey="2" href="#content">Go to the content</a>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_content_link"
 msgstr "Conteúdo"
 
@@ -174,22 +175,22 @@ msgid "accessibility_description"
 msgstr "Este site é projetado para acessibilidade de navegação definida em "
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Home"
 
 #.   <a accesskey="3" href="#menu">Go to the menu</a>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_menu_link"
 msgstr "Menu"
 
 #.   <a accesskey="0" attributes="href string:${base_url}accessibility">Accessibility</a>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_page_link"
 msgstr "Página"
 
 #.   <a accesskey="4" attributes="href string:${base_url}advanced_search_form">Go to search engine</a>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_search_link"
 msgstr "Busca Avançada"
 
@@ -256,13 +257,13 @@ msgstr "Acessibilidade"
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_next"
 msgstr "Próximo"
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                               mq(request.form, b_start=previous))" condition="python:previous is not None" define="previous batch_info/previous">Previous</a>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
 msgstr "Anterior"
 
@@ -459,7 +460,7 @@ msgstr "Colar"
 #.   <input type="submit" class="standalone" value="button_publish" />
 #.   <input type="submit" value="button_publish" />
 #: from ../skins/cps_default/content_accept_form.pt
-#: ../skins/cps_default/content_lib.pt
+#: ../skins/cps_default/content_lib_transition_form.pt
 msgid "button_publish"
 msgstr "Publicar"
 
@@ -489,7 +490,7 @@ msgstr "Reverter Revisão"
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 msgid "button_search"
 msgstr "Procurar"
@@ -602,23 +603,27 @@ msgstr "Subir para ${up_id}"
 msgid "description_visible_box_from ${context_url}"
 msgstr "Caixa visível a partir de ${context_url}"
 
+#.   <td content="string:label_language_${item/lang}">en</td>
 #.   <block content="string:label_language_${info/lang}">en</block>
 #.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
-#.   <td content="string:label_language_${item/lang}">en</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
+#: ../skins/cps_default/content_lib_byline.pt
+#: ../skins/cps_default/content_lib_history.pt
+#: ../skins/cps_default/content_lib_info_detail_tab.pt
+#: ../skins/cps_default/content_lib_status.pt
 msgid "en"
 msgstr "Inglês"
 
 #.   <p>We apologize for the
 #.     incovenience.</p>
-#: from ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib_other.pt
 msgid "error_default_message"
 msgstr "Pedimos desculpas pelo inconveniente."
 
 #.   <p>The resource you asked was not
 #.     found. If the document has moved you may find it using the search form
 #.     below.</p>
-#: from ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib_not_found.pt
 msgid "error_not_found"
 msgstr "Recurso procurado não encontrado"
 
@@ -702,12 +707,12 @@ msgid "heading_edit ${item_id}"
 msgstr "Editar ${item_id}"
 
 #.   <h1>Not Found</h1>
-#: from ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib_not_found.pt
 msgid "heading_error_not_found"
 msgstr "Não Encontrado"
 
 #.   <h1>CPS encountered an error</h1>
-#: from ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib_other.pt
 msgid "heading_error_other"
 msgstr "CPS encontrou um erro"
 
@@ -890,9 +895,7 @@ msgid "help_checkout_draft"
 msgstr ""
 "Se você criar um rascunho, você será o único capaz de trabalhar no documento."
 
-#.   <div style="background: #ffffe1; border: 1px solid #000000;
-#.           padding:0.8em;font-size: 80%; position: absolute;
-#.           visibility: hidden; zIndex: 1000; text-align:left;" id="sort_help" onclick="showElement(false, 'sort_help')">help help</div>
+#.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "help_contentbox_sort"
 msgstr ""
@@ -1139,32 +1142,32 @@ msgstr "Despublicar itens publicados"
 #.   <p condition="not:info/archived">
 #.           There aren't any archived revisions of this document.
 #.         </p>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 msgid "info_no_archived_revisions_of_this_document"
 msgstr ""
 
 #.   <p condition="not:items">
 #.           There aren't any published revisions of this document.
 #.         </p>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_states.pt
 msgid "info_no_published_revisions_of_this_document"
 msgstr ""
 
 #.   <block condition="item/has_dest|nothing">
 #.                   into ${history_dest}
 #.                 </block>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_history.pt
 msgid "into ${history_dest}"
 msgstr "em ${history_dest}"
 
 #.   <td>Action</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_action"
 msgstr "Usuário"
 
 #.   <h2>Actions history</h2>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_actions_history"
 msgstr "Usuário"
@@ -1194,17 +1197,17 @@ msgstr "Use CPS"
 #.   <option attributes="selected not:portal_type" value="">All</option>
 #.   <option value="" attributes="selected not:Subject">All</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_all"
 msgstr "Tudo"
 
 #.   <h2>Archived revisions</h2>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
 msgstr "Revisões Antigas"
 
 #.   <td>Author</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_author"
 msgstr "Crescente por Autor"
@@ -1213,7 +1216,7 @@ msgstr "Crescente por Autor"
 #.                                python:sort_by == 'author' and direction == 'asc'">
 #.               Author ascending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_author_asc"
 msgstr "Crescente por Autor"
 
@@ -1221,7 +1224,7 @@ msgstr "Crescente por Autor"
 #.                                python:sort_by == 'author' and direction =='desc'">
 #.               Author descending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_author_desc"
 msgstr "Decrescente por Autor"
 
@@ -1273,7 +1276,7 @@ msgstr "Subpastas apenas"
 #.                                   selected python:request.get('modified',
 #.                                     default) == default or nothing">Choose</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
 msgstr "Escolha"
 
@@ -1288,7 +1291,7 @@ msgid "label_collaborative_folder"
 msgstr "Pasta Colaborativa"
 
 #.   <td>Comments</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_comments"
 msgstr "Ícones"
@@ -1296,7 +1299,7 @@ msgstr "Ícones"
 #.   <option value="compact" attributes="selected python:format == 'compact'">
 #.               Compact
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_compact"
 msgstr "Compactar"
 
@@ -1316,7 +1319,7 @@ msgid "label_conformance_wai_1a"
 msgstr "Site conforme o W3C Web Content Accessibility Level A"
 
 #.   <td>Consultation</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_consultation"
 msgstr "Estado da publicação"
@@ -1343,7 +1346,9 @@ msgid "label_current_status"
 msgstr "Estado"
 
 #.   <td>Date</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
+#: ../skins/cps_default/content_lib_history.pt
+#: ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_date"
 msgstr "Crescente por Data"
@@ -1352,7 +1357,7 @@ msgstr "Crescente por Data"
 #.                                 python:sort_by == 'effective' and direction == 'asc'">
 #.               Effective date ascending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_effective_asc"
 msgstr "Crescente por Data"
@@ -1361,7 +1366,7 @@ msgstr "Crescente por Data"
 #.                                python:sort_by == 'effective' and direction == 'desc'">
 #.               Effective date descending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_effective_desc"
 msgstr "Decrescente por Data"
@@ -1370,7 +1375,7 @@ msgstr "Decrescente por Data"
 #.                                 python:sort_by == 'date' and direction == 'asc'">
 #.               Modification date ascending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_modification_asc"
 msgstr "Crescente por Data"
@@ -1379,7 +1384,7 @@ msgstr "Crescente por Data"
 #.                                python:sort_by == 'date' and direction == 'desc'">
 #.               Modification date descending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_modification_desc"
 msgstr "Decrescente por Data"
@@ -1387,7 +1392,7 @@ msgstr "Decrescente por Data"
 #.   <option value="None" attributes="selected not:format">
 #.               Default
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_default"
 msgstr "Padrão"
 
@@ -1411,7 +1416,7 @@ msgid "label_description"
 msgstr "Descrição"
 
 #.   <td>Destruction</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_destruction"
 msgstr "Descrição"
@@ -1419,14 +1424,14 @@ msgstr "Descrição"
 #.   <option value="detail" attributes="selected python:format == 'detail'">
 #.               Detail
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_detailed"
 msgstr "Detalhe"
 
 #.   <option value="detail_tab" attributes="selected python:format == 'detail_tab'">
 #.               Detail Tab
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_detailed_tab"
 msgstr "Aba de detalhe"
 
@@ -1463,7 +1468,7 @@ msgstr "Habilitada"
 #.   <label for="box_display">Display</label>
 #.   <label for="display_style">Display with</label>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/content_lib.pt
+#: ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_display"
 msgstr "Mostrar"
 
@@ -1572,7 +1577,7 @@ msgid "label_format"
 msgstr "Formatar"
 
 #.   <span omit-tag="">From</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail.pt
 msgid "label_from"
 msgstr "De"
 
@@ -1588,7 +1593,7 @@ msgid "label_group_name"
 msgstr "Nome do Grupo"
 
 #.   <span condition="isAnon">
-#.           Guest
+#.   	Guest
 #.         </span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
@@ -1603,7 +1608,7 @@ msgstr "Em"
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_icons"
 msgstr "Ícones"
 
@@ -1625,37 +1630,37 @@ msgid "label_in"
 msgstr "Em"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_author"
 msgstr "Autor"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_date"
 msgstr "Data"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_size"
 msgstr "Tamanho"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_status"
 msgstr "Estado"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_title"
 msgstr "Título"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_type"
 msgstr "Tipo"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" />
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_version"
 msgstr "Versão"
 
@@ -1663,7 +1668,8 @@ msgstr "Versão"
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
 #: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/content_lib.pt
+#: ../skins/cps_default/content_lib_archived.pt
+#: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
 msgstr "Idioma"
@@ -1674,12 +1680,14 @@ msgstr "Idioma"
 #.   <block>label_language
 #.                       ${status_language}
 #.                     </block>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_byline.pt
+#: ../skins/cps_default/content_lib_history.pt
+#: ../skins/cps_default/content_lib_status.pt
 msgid "label_language ${status_language}"
 msgstr "Idioma ${status_language}"
 
 #.   <span>Last modified:</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_byline.pt
 #, fuzzy
 msgid "label_last_modified"
 msgstr "Data da última modificação"
@@ -1712,7 +1720,7 @@ msgstr "Núm. de Itens"
 #.   <option value="None" attributes="selected not:sort_by">
 #.               No sort
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_none"
 msgstr "Sem ordenar"
 
@@ -1722,7 +1730,7 @@ msgid "label_order"
 msgstr "Ordenar"
 
 #.   <span>Pages</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "label_page"
 msgstr "Páginas"
 
@@ -1770,13 +1778,13 @@ msgid "label_portal_title"
 msgstr "Título do Portal"
 
 #.   <td>Publication location</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_publication_location"
 msgstr "Estado da publicação"
 
 #.   <h2>label_publication_states</h2>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_states.pt
 msgid "label_publication_states"
 msgstr "Estado da publicação"
 
@@ -1802,13 +1810,15 @@ msgid "label_requires_approval"
 msgstr "Não pode ser publicado; requer aprovação."
 
 #.   <td>Reversion</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_reversion"
 msgstr "Localização dos Eventos"
 
 #.   <td>Version</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
+#: ../skins/cps_default/content_lib_history.pt
+#: ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_revision"
 msgstr "Revisões Antigas"
@@ -1819,7 +1829,9 @@ msgstr "Revisões Antigas"
 #.   <block>label_revision
 #.                       ${status_revision (tal content="python:language_rev[1]")}
 #.                     </block>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_byline.pt
+#: ../skins/cps_default/content_lib_history.pt
+#: ../skins/cps_default/content_lib_status.pt
 msgid "label_revision ${status_revision}"
 msgstr "Revisão ${status_revision}"
 
@@ -1838,7 +1850,7 @@ msgstr "Papel(is)"
 msgid "label_root"
 msgstr "Raiz"
 
-#.   <img src="rss10.png" title="label_rss_export" alt="RSS 1.0" width="80" height="15" attributes="src string:${base_url}rss10.png" />
+#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #, fuzzy
 msgid "label_rss_export"
@@ -1850,7 +1862,7 @@ msgid "label_search"
 msgstr "Busca"
 
 #.   <label attributes="for id2">all</label>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
 msgid "label_search_all_site"
 msgstr "Busca em todo o site"
 
@@ -1859,7 +1871,7 @@ msgstr "Busca em todo o site"
 #.           Description
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_description"
 msgstr "Descrição"
 
@@ -1868,19 +1880,19 @@ msgstr "Descrição"
 #.           Full text
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_full_text"
 msgstr "Texto completo"
 
 #.   <label attributes="for id1">here</label>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
 msgid "label_search_here"
 msgstr "Aqui"
 
 #.   <block>
 #.           Search location
 #.         </block>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_location"
 msgstr "Localização"
 
@@ -1889,7 +1901,7 @@ msgstr "Localização"
 #.           Modified since
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_modified_since"
 msgstr "Modificado desde"
 
@@ -1898,7 +1910,7 @@ msgstr "Modificado desde"
 #.           Document type
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_portal_type"
 msgstr "Tipo do Portal"
 
@@ -1907,7 +1919,7 @@ msgstr "Tipo do Portal"
 #.           Status
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_status"
 msgstr "Estado"
 
@@ -1916,14 +1928,14 @@ msgstr "Estado"
 #.           Title
 #.         </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_title"
 msgstr "Título"
 
 #.   <block condition="status_time|nothing">label_since
 #.         ${status_time (tal content="info/time_str")}
 #.       </block>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_status.pt
 msgid "label_since ${status_time}"
 msgstr "Desde ${status_time}"
 
@@ -1942,7 +1954,7 @@ msgid "label_smtp_server"
 msgstr "Servidor SMTP"
 
 #.   <label for="display_order">Sort by</label>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_sort_by"
 msgstr "Ordenar por"
 
@@ -1953,7 +1965,9 @@ msgstr "Data de Início"
 
 #.   <span>Label Status</span>
 #.   <td>Status</td>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_byline.pt
+#: ../skins/cps_default/content_lib_states.pt
+#: ../skins/cps_default/content_lib_status.pt
 msgid "label_status"
 msgstr "Estado"
 
@@ -1961,7 +1975,7 @@ msgstr "Estado"
 #.                                python:sort_by == 'status' and direction == 'asc'">
 #.               Status ascending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_status_asc"
 msgstr "Crescente por Estado"
 
@@ -1969,7 +1983,7 @@ msgstr "Crescente por Estado"
 #.                                python:sort_by == 'status' and direction =='desc'">
 #.               Status descending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_status_desc"
 msgstr "Decrescente por Estado"
 
@@ -1978,7 +1992,7 @@ msgstr "Decrescente por Estado"
 #.           Subject
 #.         </label>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_subject"
 msgstr "Assunto"
@@ -2015,7 +2029,7 @@ msgstr "Título"
 #.                                 python:sort_by == 'title' and direction == 'asc'">
 #.               Title ascending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_title_asc"
 msgstr "Crescente por título"
 
@@ -2023,12 +2037,12 @@ msgstr "Crescente por título"
 #.                                python:sort_by == 'title' and direction == 'desc'">
 #.               Title descending
 #.       </option>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_title_desc"
 msgstr "Decrescente por título"
 
 #.   <span omit-tag="">To</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_info_detail.pt
 msgid "label_to"
 msgstr "Para"
 
@@ -2081,7 +2095,7 @@ msgstr "Trabalho"
 
 #.   <block>You are
 #.     here:&nbsp;</block>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/generic_lib_breadcrumbs.pt
 msgid "label_you_are_here"
 msgstr "Você está aqui:&nbsp;"
 
@@ -2211,18 +2225,18 @@ msgid "link_box_view"
 msgstr "Visualizar"
 
 #.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
 msgstr "Consultar"
 
 #.   <a href="mailto:admin@here.com" attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
 #.                            title p_props/email_from_address">Contact the administrator</a>
-#: from ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib_other.pt
 msgid "link_contact_admin"
 msgstr "Contacte o administrador"
 
 #.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}">Purge this revision</a>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_delete_this_revision"
 msgstr "Remover este arquivo"
 
@@ -2234,7 +2248,7 @@ msgid "link_form_already_member"
 msgstr "Formulário de personalização"
 
 #.   <a href="javascript:history.back()">Go back</a>
-#: from ../skins/cps_default/error_lib.pt
+#: from ../skins/cps_default/error_lib_other.pt
 msgid "link_go_back"
 msgstr "Voltar"
 
@@ -2277,13 +2291,11 @@ msgid "link_registered_return_home_page"
 msgstr "Retornar para a página principal"
 
 #.   <a href="." attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}">Revert to this revision</a>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_revert_to_this_revision"
 msgstr "Reverter"
 
-#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">
-#.             <img src="rss10.png" title="label_rss_export" alt="RSS 1.0" width="80" height="15" attributes="src string:${base_url}rss10.png" />
-#.           </a>
+#.   <a attributes="href string:exportRSSContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #, fuzzy
 msgid "link_rss_export"
@@ -2340,13 +2352,14 @@ msgstr "Formulário inválido, por favor corrija o erro."
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">publish</span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_status.pt
 msgid "publish"
 msgstr "Publicar"
 
-#.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
 #.   <span content="item/action" class="action">published</span>
-#: from ../skins/cps_default/content_lib.pt
+#.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
+#: from ../skins/cps_default/content_lib_history.pt
+#: ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "published"
 msgstr "Publicado"
 
@@ -2369,7 +2382,7 @@ msgstr "Data da Expiração"
 #.   <option attributes="value lastLogin;
 #.                                   selected python:modified == lastLogin or None" condition="not:isAnon">Last login</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_login"
 msgstr "Último Login"
 
@@ -2382,7 +2395,7 @@ msgstr "Data da última modificação"
 #.   <option attributes="value lastMonth;
 #.                                   selected python:modified == lastMonth or None">Last month</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_month"
 msgstr "Último mês"
 
@@ -2390,7 +2403,7 @@ msgstr "Último mês"
 #.   <option attributes="value lastWeek;
 #.                                   selected python:modified == lastWeek or None">Last week</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_week"
 msgstr "Última Semana"
 
@@ -2398,7 +2411,7 @@ msgstr "Última Semana"
 #.   <option attributes="value yesterday;
 #.                                   selected python:modified == yesterday or None">Yesterday</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_yesterday"
 msgstr "Ontem"
 
@@ -2406,14 +2419,14 @@ msgstr "Ontem"
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
-#: ../skins/cps_default/content_lib.pt
+#: ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentários"
 
 #.   <span>
 #.         v${status_revision (tal replace="info/rev")}- ${status_language}
 #.       </span>
-#: from ../skins/cps_default/content_lib.pt
+#: from ../skins/cps_default/content_lib_status.pt
 msgid "v${status_revision}- ${status_language}"
 msgstr "v${status_revision}- ${status_language}"
 

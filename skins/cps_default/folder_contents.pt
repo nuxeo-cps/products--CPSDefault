@@ -197,12 +197,17 @@
                                sort_by params/sort_by;
                                direction params/direction;
                                format params/format;
-			       change_display python:request.get('change_display', None);"
-                   condition="python:change_display is None">
-	  <input type="submit" value="button_move_up" i18n:attributes="value"
+			       change_display python:request.get('change_display', None);
+			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);"
+                   condition="python:change_display is None and isWsManager">
+	  <input type="submit" value="button_move_up"     i18n:attributes="value"
                  name="moveItemsUp:method" />
-	  <input type="submit" value="button_move_down" i18n:attributes="value"
+	  <input type="submit" value="button_move_down"   i18n:attributes="value"
                  name="moveItemsDown:method" />
+          <input type="submit" value="button_move_top"    i18n:attributes="value"
+                 name="moveItemsTop:method" />
+	  <input type="submit" value="button_move_bottom" i18n:attributes="value"
+                 name="moveItemsBottom:method" />
 	</tal:block>
       </span>
       </td>

@@ -32,9 +32,7 @@ def generateNewId(newid):
             tries = 0
         suffix = str(randrange(1000, 10000))
         newid = prefix + suffix
-        if not hasattr(container.aq_explicit, newid):
-            # No collision
-            return newid
+        return newid
 
 
 # Create, no id, get from title

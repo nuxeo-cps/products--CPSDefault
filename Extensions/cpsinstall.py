@@ -976,7 +976,7 @@ def cpsupdate(self, langs_list=None):
     # Adding it now
     portal['portal_actions'].addAction(
         id='boxes',
-        name='action_boxes',
+        name='action_boxes_root',
         action='string: ${portal_url}/box_manage_form',
         condition='python:folder is object',
         permission=('Manage Boxes',),

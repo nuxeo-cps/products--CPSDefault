@@ -440,7 +440,7 @@ def cpsupdate(self, langs_list=None):
 
     s = wf.states.get('draft')
     s.setProperties(title='Draft',
-                    transitions=('checkin_draft', 'abandon_draft'))
+                    transitions=('checkin_draft', 'abandon_draft', 'unlock'))
     s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'Owner'))
     s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'Owner'))
 

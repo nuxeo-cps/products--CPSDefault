@@ -3,8 +3,11 @@
 """
 Tidy a page
 """
-from mx import Tidy
 from cgi import escape
+try:
+    from mx import Tidy
+except ImportError:
+    return "you need to install mx Tidy"
 
 #get the output
 if body_content is None:

@@ -441,10 +441,11 @@
         </tal:block>
           <tal:block condition="python:item['depth']>depth">
           <a href="." tal:attributes="href string:${base_url}${item/rpath}/">
-          <span tal:replace="structure string:${item/title_or_id}">title</span></a>
-          <span tal:condition="item/nb_children" tal:replace="string:..." />
-          <span tal:condition="python: repeat['item'].number() != last_child">,
-          </span> <span tal:condition="python: repeat['item'].number() == last_child">,<br /></span>
+          <span tal:replace="structure string:${item/title_or_id}">
+          title</span></a><span
+          tal:condition="item/nb_children" tal:replace="string:..." /><span
+          tal:condition="python: repeat['item'].number() != last_child"
+          >,</span><span tal:condition="python: repeat['item'].number() == last_child">.<br /></span>
           </tal:block>
         </tal:block>
         </td></tr></table><br />

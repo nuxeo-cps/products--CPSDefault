@@ -74,7 +74,8 @@
 
 <!-- ============================================================ -->
 <h1>Footer for a document or a folder</h1>
-<metal:block metal:define-macro="byline"
+<metal:block metal:define-macro="byline">
+  <tal:block condition="not:isAnon"
   tal:define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
   cname dname/fullname|doc/Creator;
   info python:(here_url != utool.getPortalObject().absolute_url())
@@ -87,7 +88,7 @@
       tal:content="cname" i18n:name="item_creator">Creator</a>.
     Last modified
     <tal:block content="python:here.getDateStr(doc.modification_date, 'medium')"
-      i18n:name="item_modification" />.
+      i18n:name="item_modification"/>.
   </span>
   <tal:block condition="info">
     <span i18n:translate="label_status">Label Status</span>
@@ -102,6 +103,11 @@
         content="string:label_language_${info/lang}">en</tal:block>
        </span>
     </tal:block>
+  </tal:block>
+  </tal:block>
+  <tal:block condition="isAnon">
+    <span i18n:translate="label_last_modified">Last modified:</span>
+    <tal:block content="python:here.getDateStr(doc.modification_date, 'medium')"/>
   </tal:block>
 </metal:block>
           

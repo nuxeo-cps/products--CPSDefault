@@ -8,7 +8,7 @@ from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
-from Products.NuxCPS3.CPSBase import CPSBaseDocument, CPSBase_adder
+from Products.CPSCore.CPSBase import CPSBaseDocument, CPSBase_adder
 
 
 factory_type_information = (

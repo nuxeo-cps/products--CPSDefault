@@ -15,7 +15,7 @@ from Products.CMFCore.Expression import Expression
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
 
-from Products.NuxCPS3.CPSWorkflow import \
+from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE
@@ -122,7 +122,7 @@ def cpsupdate(self, langs_list=None):
     paths = {
         'cpsdefault': 'Products/CPSDefault/skins',
         'cpsdefault_images': 'Products/CPSDefault/skins/images',
-        'nuxcps3': 'Products/NuxCPS3/skins',
+        'nuxcps3': 'Products/CPSCore/skins',
     }
     for skin in skins:
         path = paths[skin]
@@ -161,25 +161,25 @@ def cpsupdate(self, langs_list=None):
         prok()
     else:
         pr(" Creating portal_eventservice")
-        portal.manage_addProduct["NuxCPS3"].manage_addTool(
+        portal.manage_addProduct["CPSCore"].manage_addTool(
             'CPS Event Service Tool')
     if portalhas('portal_proxies'):
         prok()
     else:
         pr(" Creating portal_proxies")
-        portal.manage_addProduct["NuxCPS3"].manage_addTool('CPS Proxies Tool')
+        portal.manage_addProduct["CPSCore"].manage_addTool('CPS Proxies Tool')
     if portalhas('portal_repository'):
         prok()
     else:
         pr(" Creating portal_repository")
-        portal.manage_addProduct["NuxCPS3"].manage_addTool(
+        portal.manage_addProduct["CPSCore"].manage_addTool(
             'CPS Repository Tool')
 
     if portalhas('portal_trees'):
         prok()
     else:
         pr(" Creating (CPS Tools) CPS Trees Tool")
-        portal.manage_addProduct["NuxCPS3"].manage_addTool('CPS Trees Tool')
+        portal.manage_addProduct["CPSCore"].manage_addTool('CPS Trees Tool')
     
     # configure event service to hook the proxies, by adding a subscriber
     pr("Verifying Event service tool")    
@@ -220,7 +220,7 @@ def cpsupdate(self, langs_list=None):
             
     if not portalhas('portal_workflow'):
         pr(" Creating (CPS Tools) CPS Workflow Tool")
-        portal.manage_addProduct["NuxCPS3"].manage_addTool('CPS Workflow Tool')
+        portal.manage_addProduct["CPSCore"].manage_addTool('CPS Workflow Tool')
 
 
     # create workflow
@@ -424,7 +424,7 @@ def cpsupdate(self, langs_list=None):
     pr("Verifying portal types")
     ttool = portal.portal_types
     ptypes = {
-        'NuxCPS3':('CPS Proxy Document',
+        'CPSCore':('CPS Proxy Document',
                    'CPS Proxy Folder',
                    'CPS Folder'
                    ),
@@ -459,7 +459,7 @@ def cpsupdate(self, langs_list=None):
     ttool.manage_addTypeInformation(
         id='Section',
         add_meta_type='Factory-based Type Information',
-        typeinfo_name='NuxCPS3: CPS Folder',
+        typeinfo_name='CPSCore: CPS Folder',
         )
     ttool['Section'].manage_changeProperties(None,
                                              title='Section',
@@ -467,7 +467,7 @@ def cpsupdate(self, langs_list=None):
     ttool.manage_addTypeInformation(
         id='Workspace',
         add_meta_type='Factory-based Type Information',
-        typeinfo_name='NuxCPS3: CPS Folder',
+        typeinfo_name='CPSCore: CPS Folder',
         )
     ttool['Workspace'].manage_changeProperties(None,
                                                title='Workspace',
@@ -557,7 +557,7 @@ def cpsupdate(self, langs_list=None):
     pr("Verifying local workflow association")
     if not '.cps_workflow_configuration' in portal[workspaces_id].objectIds():
         pr("  Adding workflow configuration to %s" % workspaces_id)
-        portal[workspaces_id].manage_addProduct['NuxCPS3'].addCPSWorkflowConfiguration()
+        portal[workspaces_id].manage_addProduct['CPSCore'].addCPSWorkflowConfiguration()
         wfc = getattr(portal[workspaces_id], '.cps_workflow_configuration')
         wfc.manage_addChain(portal_type='Workspace',
                             chain='wf_workspace')
@@ -568,7 +568,7 @@ def cpsupdate(self, langs_list=None):
         
     if not '.cps_workflow_configuration' in portal[sections_id].objectIds():
         pr("  Adding workflow configuration to %s" % sections_id)
-        portal[sections_id].manage_addProduct['NuxCPS3'].addCPSWorkflowConfiguration()
+        portal[sections_id].manage_addProduct['CPSCore'].addCPSWorkflowConfiguration()
         wfc = getattr(portal[sections_id], '.cps_workflow_configuration')
         wfc.manage_addChain(portal_type='Workspace',
                             chain='')

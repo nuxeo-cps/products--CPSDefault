@@ -87,8 +87,11 @@
     i18n:name="item_modification" />.
   <span i18n:name="revision">Revision</span> :
   <span tal:content="python:contentInfo['rev']"/>
-  <tal:block tal:content="python:contentInfo['review_state']"
+  <tal:block define="reviewState python:contentInfo.get('review_state')"
+        condition="reviewState">
+    <tal:block tal:content="reviewState"
           i18n:translate=""/>
+  </tal:block>
 </span>
 
 

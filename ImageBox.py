@@ -86,7 +86,7 @@ class ImageBox(BaseBox, Folder):
         f = open(path,'r')
         if len(f.read(max_len)) < max_len:
             f.seek(0)
-            img = Image(image_id, self.image_name, f)
+            img = Image(image_id, self.title, f)
             if hasattr(aq_base(self), image_id):
                 self._delObject(image_id)
             self._setObject(image_id, img)
@@ -94,6 +94,8 @@ class ImageBox(BaseBox, Folder):
     def edit(self, **kw):
         image_id = 'image_id'
         max_len = 2*1024*1024
+
+        BaseBox.edit(self, **kw)
 
         file_action = self.REQUEST.form.get('file_action')
         if file_action == 'delete':
@@ -110,9 +112,10 @@ class ImageBox(BaseBox, Folder):
                     if hasattr(aq_base(self), image_id):
                         self._delObject(image_id)
                     self._setObject(image_id, img)
-
-        BaseBox.edit(self, **kw)
-
+        else:
+            if hasattr(aq_base(self), image_id):
+                img = getattr(aq_base(self), image_id)
+                img.manage_edit(self.title, img.getContentType())
 
 InitializeClass(ImageBox)
 

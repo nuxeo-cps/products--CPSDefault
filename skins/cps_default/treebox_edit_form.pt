@@ -3,7 +3,9 @@
 <metal:main fill-slot="main">
 
 <metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
-<metal:fields fill-slot="additional_fields">
+<metal:fields fill-slot="additional_fields"
+              tal:define="is_manager python:'Manager' in
+                here.portal_membership.getAuthenticatedMember().getRoles()">
   <tr valign="top">
     <th align="right" i18n:translate="label_root">Root</th>
     <td><input type="text" name="root" value="" size="20"
@@ -16,7 +18,7 @@
       tal:attributes="checked python:test(box['box'].contextual,'checked',
                               nothing)"></td>
   </tr>
-  <tr>
+  <tr tal:condition="is_manager">
     <th colspan="5" align="right"
         i18n:translate="label_authorized_only">Authorized folders only</th>
     <td>
@@ -24,6 +26,12 @@
              tal:attributes="checked python:test(box['box'].authorized_only,
 	                                         'checked',
                                                  None)">
+    </td>
+  </tr>
+  <tr tal:condition="not: is_manager">
+    <th colspan="5" align="right"></th>
+    <td>
+      <input type="hidden" name="authorized_only" value="1">
     </td>
   </tr>
   <tr>

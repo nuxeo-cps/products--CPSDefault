@@ -29,7 +29,10 @@ rpath = None
 if hasattr(proxy.aq_explicit, 'getRID'):
     # this is a brain
     # rpath is build with catalog path that include languageView selection
+
+    # FIXME: something is broken here when using virtual host monsters
     rpath = proxy.getPath()[len(context.getBaseUrl()):]
+
     # change view to switch to have a sticky behaviour
     from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
          KEYWORD_VIEW_LANGUAGE

@@ -67,8 +67,6 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         #print "creation fr --------------------"
         new_lang = 'fr'
         self.portal.content_translate(lang=new_lang, proxy=proxy)
-        # XXX reindex should have been done!
-        #proxy.reindexObject()
 
         doc_new = proxy.getContent(lang=new_lang)
         self.assert_(doc_new.Language() == new_lang)

@@ -5,6 +5,7 @@
 template.
 """
 
-container.portal_properties.manage_editProperties(REQUEST)
+container.manage_editProperties(REQUEST)
+container.MailHost.smtp_host = REQUEST['smtp_server']
 url = '%s/reconfig_form?portal_status_message=psm_portal_reconfigured'
-return REQUEST.RESPONSE.redirect(url % context.portal_url())
+return REQUEST.RESPONSE.redirect(url % container.portal_url())

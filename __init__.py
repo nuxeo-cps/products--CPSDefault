@@ -38,6 +38,7 @@ import ImageBox
 import FlashBox
 import EventCalendarBox
 import InternalLinksBox
+import DocRenderBox
 
 cpsdefault_globals = globals()
 
@@ -46,7 +47,8 @@ contentClasses = (Folder.Folder, Dummy.Dummy,
                   ContentBox.ContentBox, ActionBox.ActionBox,
                   ImageBox.ImageBox,FlashBox.FlashBox,
                   EventCalendarBox.EventCalendarBox,
-                  InternalLinksBox.InternalLinksBox)
+                  InternalLinksBox.InternalLinksBox,
+                  DocRenderBox.DocRenderBox)
 
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        BaseBox.addBaseBox, TextBox.addTextBox,
@@ -54,7 +56,8 @@ contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        ActionBox.addActionBox,
                        ImageBox.addImageBox,FlashBox.addFlashBox,
                        EventCalendarBox.addEventCalendarBox,
-                       InternalLinksBox.addInternalLinksBox)
+                       InternalLinksBox.addInternalLinksBox,
+                       DocRenderBox.addDocRenderBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
@@ -67,6 +70,7 @@ fti = (Folder.factory_type_information +
        FlashBox.factory_type_information +
        EventCalendarBox.factory_type_information +
        InternalLinksBox.factory_type_information +
+       DocRenderBox.factory_type_information +
        ()
        )
 

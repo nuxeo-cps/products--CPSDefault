@@ -10,15 +10,17 @@
     heading_edit
     <span tal:replace="here/getId" i18n:name="item_id">ID</span>
   </h1>
-
 </div>
 
 <div metal:fill-slot="main">
 
-  <form class="group" action="content_edit" method="post"
-        tal:attributes="action string:${here/absolute_url}/content_edit">
 
-    <span tal:condition="nothing" class="legend">help contenu d'une hypothétique aide</span>
+
+  <form class="group" action="content_edit" method="post"
+    enctype="multipart/form-data"
+    tal:attributes="action string:${here/absolute_url}/content_edit">
+
+    <span class="legend">blabamlkjazmlkej </span>
 
     <div class="row">
       <div class="label required" i18n:translate="label_title">
@@ -38,6 +40,23 @@
         <textarea name="description:text" rows="4" cols="80" wrap="soft"
                   tal:content="doc/Description">
         </textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label" i18n:translate="label_image" />
+      <div class="field">
+        <input type="radio" name="file_action" value="keep" checked="checked"
+          class="noborder">
+        <label i18n:translate="">label_file_keep</label>
+        <span tal:replace="doc/image_name|string:" />
+        <br>
+        <input type="radio" name="file_action" value="change" class="noborder">
+        <label i18n:translate="">label_file_change</label>
+        <input type="file" name="file" size="42">
+        <br>
+        <input type="radio" name="file_action" value="delete" class="noborder">
+        <label i18n:translate="">label_file_delete</label>
       </div>
     </div>
 

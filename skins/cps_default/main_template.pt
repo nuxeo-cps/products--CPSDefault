@@ -24,14 +24,17 @@
   CPSD_bmt_stop nocall:CPSD_BMT/stop;
   CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
   CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
-  "><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+  ">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitionnal.dtd">
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns="http://www.w3.org/1999/xhtml">
 <span tal:replace="CPSD_bmt_start" />
 <head>
 <metal:block use-macro="here/header_lib/macros/header">
   <metal:block fill-slot="base"><metal:block define-slot="base"><base
     href="" tal:attributes="href
-    string:${here_url}/"></metal:block></metal:block>
+    string:${here_url}/" /></metal:block></metal:block>
   <metal:block fill-slot="head_slot"><metal:block define-slot="head_slot"
     /></metal:block>
   <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"

@@ -169,7 +169,7 @@
         <table cellpadding="2" cellspacing="0" border="0" class="calendar">
           <tr>
             <th>
-              <a href="#" class="CalendarArrow" 
+              <a href="#" class="CalendarArrow"
 		 tal:attributes="href python:here.getPreviousMonthLink(
                                              request.URL0, month, year)">
                 «
@@ -181,7 +181,7 @@
               <span tal:replace="python:DateTime(date).year()"/>
             </th>
             <th>
-              <a href="#" class="CalendarArrow" 
+              <a href="#" class="CalendarArrow"
                  tal:attributes="href python:here.getNextMonthLink(
                                              request.URL0, month, year)">
                 »
@@ -274,6 +274,36 @@
 <!-- ============================================================ -->
 <metal:block define-macro="contentbox_last_modified">
   <metal:block use-macro="here/boxes_nuxeo/macros/contentbox_default" />
+</metal:block>
+
+
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="contentbox_simple"
+  tal:define="ret python:box['box'].getContents(here);
+              items python:ret[0];
+              link_more python:ret[1];"
+  tal:condition="items">
+  <metal:block use-macro="python:path(box['settings']['box_skin'])">
+    <metal:block fill-slot="box_title" i18n:translate=""
+      tal:content="box/box/title">box text title</metal:block>
+
+    <metal:block fill-slot="box_body">
+      <div style="padding-bottom: 6px;"
+         tal:repeat="item items">
+        <tal:block define="info python:here.getContentInfo(item, level=1);
+                           start repeat/item/start|nothing;
+                           end repeat/item/end|nothing">
+          <metal:block use-macro="here/content_lib/macros/info_simple" />
+        </tal:block>
+       </div>
+       <div tal:condition="link_more">
+         <a href="" tal:attributes="href string:${base_url}${link_more}"
+           i18n:translate="link_more">More ...</a>
+       </div>
+    </metal:block>
+  </metal:block>
 </metal:block>
 
 
@@ -376,7 +406,7 @@
           </tal:block>
 <a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><b>
         <img tal:condition="disp_icons"
-             tal:replace="structure 
+             tal:replace="structure
                             python:
                               here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
                                              base_url=base_url)">
@@ -418,11 +448,11 @@
                 <tal:block tal:replace="structure string:</dl></dd>"/>
               </tal:block>
             </tal:block>
-            <tal:block tal:condition="python:delta_depth == 0" 
+            <tal:block tal:condition="python:delta_depth == 0"
 		       tal:replace="structure string:</dd>" />
             <dt>
               <img tal:condition="python:getattr(box['box'],'display_icons',0)"
-                   tal:replace="structure 
+                   tal:replace="structure
                                   python:
                                     here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
                                                    base_url=base_url)">

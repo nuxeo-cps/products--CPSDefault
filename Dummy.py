@@ -148,7 +148,7 @@ class Dummy(CPSBaseDocument, Folder):
             return ''
 
     security.declareProtected(View, 'getAdditionalContentInfo')
-    def getAdditionalContentInfo(self):
+    def getAdditionalContentInfo(self, proxy):
         """Return a dictonary used in getContentInfo"""
         infos = {}
         max_len = 512
@@ -159,7 +159,8 @@ class Dummy(CPSBaseDocument, Folder):
                 infos['summary'] = self.body
 
         if hasattr(aq_base(self), self.image_id):
-            infos['preview'] = self.absolute_url(1) + '/' + self.image_id
+            infos['preview'] = proxy.absolute_url(1) + '/' + self.image_id
+            infos['photo'] = info['preview']
 
         return infos
 

@@ -1093,8 +1093,70 @@ def cpsupdate(self, langs_list=None):
             widget.manage_changeProperties(**widgetinfo['data'])
         layout.setLayoutDefinition(info['layout'])
 
+
+    #
     # i18n
-    pr(" Adding i18n support")
+    # 
+    log_i18n = cps_i18n_update(self, langs_list)
+    pr (log_i18n)
+
+    #
+    # i18n Updater
+    #
+
+    if not portalhas('i18n Updater'):
+        from Products.ExternalMethod.ExternalMethod import ExternalMethod
+        pr('Creating i18n Updater Support')
+        i18n_updater = ExternalMethod('i18n Updater',
+                                      'i18n Updater',
+                                      'CPSDefault.cpsinstall',
+                                      'cps_i18n_update')
+        portal._setObject('i18n Updater', i18n_updater)
+    
+    pr(" Reindexing catalog")
+    portal.portal_catalog.refreshCatalog(clear=1)
+
+    # remove cpsinstall external method
+    # and fix cpsupdate permission
+    if 'cpsinstall' in portal.objectIds():
+        pr("Removing cpsinstall")
+        portal._delObject('cpsinstall')
+    if 'cpsupdate' in portal.objectIds():
+        pr("Protecting cpsupdate")
+        portal.cpsupdate.manage_permission(
+            'View', roles=['Manager'], acquire=0
+        )
+        portal.cpsupdate.manage_permission(
+            'Access contents information', roles=['Manager'], acquire=0
+        )
+
+    pr("Update Done")
+    return pr('flush')
+
+def cps_i18n_update(self, langs_list=None):
+    """
+    Importation of the po files for internationalization.
+    For CPS itself and compulsory products.
+    """
+    _log = []
+    def pr(bla, _log=_log):
+        if bla == 'flush':
+            return '\n'.join(_log)
+        _log.append(bla)
+        if (bla):
+            LOG('cps_i18n_update:', INFO, bla)
+
+    def primp(pr=pr):
+        pr(" !!! Cannot migrate that component !!!")
+
+    def prok(pr=pr):
+        pr(" Already correctly installed")
+
+    portal = self.portal_url.getPortalObject()
+    def portalhas(id, portal=portal):
+        return id in portal.objectIds()
+    
+    pr(" Updating i18n support")
 
     # Localizer
     if not portalhas('Localizer'):
@@ -1105,7 +1167,7 @@ def cpsupdate(self, langs_list=None):
             languages=languages,
         )
     else:
-        pr("  Localizer already here")
+        pr("Localizer already here")
     Localizer = portal['Localizer']
 
     # languages
@@ -1154,12 +1216,11 @@ def cpsupdate(self, langs_list=None):
 
         translation_service.manage_setDomainInfo(path_0='Localizer/default')
         pr("   default domain set to Localizer/default")
-
-    ############################################################################
+        
+    ###################################################
     # i18n for NuxMetaDIrectories
-    # XXX Perhaps moving that somewhere else  ??
     # Use of a Localizer message Catalog.
-    ###########################################################################
+    ###################################################
 
     pr(" Adding i18n support for NuxMetaDirectories")
     metadir_catalog_id = 'cpsmetadirectories'
@@ -1228,29 +1289,9 @@ def cpsupdate(self, langs_list=None):
     else:
         raise str('DependanceError'), 'translation_service'
 
-    ###########################################################################
+    ######################################################
     # End of i18n for NuxMetaDirectories
-    ###########################################################################
+    ######################################################
 
-
-
-    pr(" Reindexing catalog")
-    portal.portal_catalog.refreshCatalog(clear=1)
-
-
-    # remove cpsinstall external method
-    # and fix cpsupdate permission
-    if 'cpsinstall' in portal.objectIds():
-        pr("Removing cpsinstall")
-        portal._delObject('cpsinstall')
-    if 'cpsupdate' in portal.objectIds():
-        pr("Protecting cpsupdate")
-        portal.cpsupdate.manage_permission(
-            'View', roles=['Manager'], acquire=0
-        )
-        portal.cpsupdate.manage_permission(
-            'Access contents information', roles=['Manager'], acquire=0
-        )
-
-    pr("Update Done")
+    pr("i18n Update Done")
     return pr('flush')

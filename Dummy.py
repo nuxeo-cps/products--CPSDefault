@@ -146,6 +146,17 @@ class Dummy(CPSBaseDocument, Folder):
 
         if hasattr(aq_base(self), self.image_id):
             infos['preview'] = self.absolute_url(1) + '/' + self.image_id
+
+        if hasattr(aq_base(self), 'start'):
+            start = self.start()
+            if start:
+                infos['start'] = start
+
+        if hasattr(aq_base(self), 'end'):
+            end = self.end()
+            if end:
+                infos['end'] = end
+
         return infos
 
     security.declareProtected(View, 'get_size')

@@ -25,16 +25,20 @@
   tal:attributes="value box_category" />
 <table border="0" summary="box properties layout">
   <tr valign="top">
-    <th align="right" i18n:translate="label_title">Title</th>
+    <th align="right">
+      <label for="box_title" i18n:translate="label_title">Title</label>
+    </th>
     <td colspan="5">
-      <input type="text" name="title" value="" size="60"
+      <input type="text" name="title" id="box_title" value="" size="60"
              tal:attributes="value box/box/title" />
     </td>
   </tr>
   <tr valign="top">
-    <th align="right" i18n:translate="label_slot">Slot</th>
+    <th align="right">
+      <label for="box_slot" i18n:translate="label_slot">Slot</label>
+    </th>
     <td>
-      <select name="slot">
+      <select name="slot" id="box_slot">
       <tal:block repeat="slot here/getBoxSlots"
         tal:define="selected_slot
         python:test(box['settings']['slot']=='creation_slot', 'center_top',
@@ -45,12 +49,16 @@
       </tal:block>
       </select>
     </td>
-    <th align="right" i18n:translate="label_order">Order</th>
-    <td><input type="text" name="order" value="" size="3"
+    <th align="right">
+      <label for="box_order" i18n:translate="label_order">Order</label>
+    </th>
+    <td><input type="text" name="order" id="box_order" value="" size="3"
            tal:attributes="value box/settings/order" /></td>
-    <th align="right" i18n:translate="label_display">Display</th>
+    <th align="right">
+      <label for="box_display" i18n:translate="label_display">Display</label>
+    </th>
     <td>
-      <select name="display_box">
+      <select name="display_box" id="box_display">
         <option value="maximized" i18n:translate="label_maximized"
           tal:attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');">Maximized</option>
         <option value="minimized" i18n:translate="label_minimized"
@@ -61,9 +69,11 @@
     </td>
   </tr>
   <tr>
-    <th align="right" i18n:translate="label_box_skin">Box skin</th>
+    <th align="right">
+      <label for="box_skin" i18n:translate="label_box_skin">Box skin</label>
+    </th>
     <td colspan="5">
-      <select name="box_skin">
+      <select name="box_skin" id="box_skin">
         <tal:block repeat="skin here/getBoxSkins">
         <option value="skin/macro_path"
           tal:attributes="value skin/macro_path;
@@ -76,19 +86,24 @@
   </tr>
   </table>
 
-
+  <p>
   <input type="checkbox" name="display_in_subfolder"
+                         id="box_display_in_subfolder"
                checked="" class="noborder"
                tal:attributes="checked
                  python:test(box['box'].display_in_subfolder, 'checked',
                    nothing)" />
-  <label i18n:translate="label_visible_in_subfolder">visible in subfolder</label><br />
+  <label for="box_display_in_subfolder"
+    i18n:translate="label_visible_in_subfolder">visible in subfolder</label><br />
   <input type="checkbox" name="display_only_in_subfolder:boolean"
+                         id="box_display_only_in_subfolder"
                checked="" class="noborder"
                tal:attributes="checked
                  python:test(box['box'].display_only_in_subfolder, 'checked',
                    nothing)" />
-  <label i18n:translate="label_visible_only_in_subfolder">visible only in subfolder</label>
+  <label for="box_display_only_in_subfolder"
+    i18n:translate="label_visible_only_in_subfolder">visible only in subfolder</label>
+  </p>
 
   <tal:block
   define="category python:here.getBoxTypes(category=box_category);
@@ -101,13 +116,14 @@
     style="list-style-type: none;">
   <tal:block repeat="type category/types">
     <li tal:define="sf string:${type/provider}@${type/id};
-      sfISpt python:test(sf==providertype,1,0)">
+      sfISpt python:test(sf==providertype,1,0);
+      choice_id python:sf.replace('@', '_at_')">
     <input type="radio" name="providertype" value="" class="noborder"
       tal:attributes="value sf;
-        id sf;
+        id choice_id;
         checked python:test(sfISpt,'checked',test(repeat['type'].end and not boxtype_selected,'checked', nothing))" />
     <tal:block tal:define="global boxtype_selected python:test(boxtype_selected or sfISpt, 1,0)" />
-    <label tal:attributes="for sf"><span
+    <label tal:attributes="for choice_id"><span
       i18n:translate="" tal:content="type/desc" />
       <span tal:condition="python:type['id']!='default'"> *</span></label>
     </li>
@@ -123,7 +139,7 @@
   <metal:block define-slot="additional_fields">
   </metal:block>
   </table>
-  <br />
+  <p>
   <input type="submit" name="change_and_edit" value="button_change_and_edit"
       class="standalone" i18n:attributes="value"
       tal:condition="python:checkPerm('Manage Boxes', box['box'])" />
@@ -132,7 +148,7 @@
       tal:condition="python:checkPerm('Manage Boxes', box['box'])" />
   <input type="submit" name="back" i18n:attributes="value"
       class="context" value="button_back" />
-
+  </p>
 </form>
   </tal:block>
 </tal:block>

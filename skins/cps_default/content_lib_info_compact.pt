@@ -5,12 +5,11 @@
 
 <metal:block define-macro="info_compact">
 <div
-  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)"
-  tal:define="action
-  python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
+  tal:define="action python:test(info['type'] in ('Section', 'Workspace'), '/folder_contents', '')"
+  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)">
  <tal:block replace="structure python:path('here/'+ info['icon'])" />
- <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
-   title info/description">
+ <a href="" tal:attributes="href string:${base_url}${info/rpath}${action};
+                            title info/description">
  <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br />
  <small>
    <tal:block define="status_short_fmt not:nothing;

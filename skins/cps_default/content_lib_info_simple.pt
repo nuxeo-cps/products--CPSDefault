@@ -6,11 +6,11 @@
 <metal:block define-macro="info_simple">
 <div
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 'folder_contents', 'view');">
+                                 '/folder_contents', '');">
   <a tal:attributes="href info/relation" tal:omit-tag="not:info/relation">
   <img tal:replace="structure python:here.getImgTag(info['icon'],
        base_url=base_url, title=info['type'])" /></a>&nbsp;<a
-   href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
+   href="" tal:attributes="href string:${base_url}${info/rpath}${action};
                            title info/description;">
 <span tal:replace="info/title_or_id">ID</span></a>
 <span tal:condition="display_description|nothing">

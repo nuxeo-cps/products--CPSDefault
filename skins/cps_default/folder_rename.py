@@ -8,6 +8,7 @@ Used within the folder_contents template.
 
 REQUEST = context.REQUEST
 
+# FIXME: this is fucking bogus!
 new_ids = [context.computeId(id) for id in REQUEST['new_ids']]
 
 context.manage_renameObjects(REQUEST['ids'], new_ids, REQUEST) 

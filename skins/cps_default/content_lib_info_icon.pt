@@ -6,16 +6,16 @@
 <metal:block define-macro="info_icon">
 <div style="text-align: center"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 'folder_contents', 'view')">
- <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
-   title info/description;">
+                                 '/folder_contents', '')">
+ <a href="" tal:attributes="href string:${base_url}${info/rpath}${action};
+                            title info/description">
   <img tal:condition="not:info/preview|nothing"
        tal:replace="structure python:here.getImgTag(info['icon'],
        base_url=base_url, zoom=2, title=info['description'])" />
   <img tal:condition="info/preview|nothing"
        tal:replace="structure python:here.getImgTag(info['preview'],
-       base_url=base_url, width='32', height='32', keep_ratio=1,
-       title=info['description'])" />
+          base_url=base_url, width='32', height='32', keep_ratio=1,
+          title=info['description'])" />
    <br />
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
 </div>

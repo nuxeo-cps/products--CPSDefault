@@ -54,9 +54,9 @@
     </tr>
 </tal:block>
 
-<tr tal:attributes="class python:test(repeat['item'].even(), 'even', 'odd')"
- tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                'folder_contents', 'view')">
+<tr tal:define="action python:test(info['type'] in ('Section', 'Workspace'),
+                '/folder_contents', '')"
+    tal:attributes="class python:test(repeat['item'].even(), 'even', 'odd')">
   <td align="left" valign="middle" width="5">
     <input type="checkbox" name="ids:list" value="" id="" class="noborder"
            tal:condition="not:no_form"
@@ -67,8 +67,8 @@
                           " />
   </td>
   <td tal:condition="title_in_tabs">
-    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
-                                 title info/description;">
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}${action};
+                               title info/description;">
     <strong tal:content="info/title_or_id">ID</strong></a></td>
   <td align="center" tal:condition="type_in_tabs">
     <img tal:replace="structure python:here.getImgTag(info['icon'], base_url=base_url, title=info['type'])" /></td>

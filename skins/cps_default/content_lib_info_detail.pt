@@ -7,9 +7,9 @@
 
 <metal:block define-macro="info_detail">
 <div
-  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 'folder_contents', 'view')">
+                                 '/folder_contents', '')"
+  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)">
   <div tal:condition="info/preview|nothing" style="float: right">
     <img tal:condition="info/preview|nothing"
       tal:replace="structure python:here.getImgTag(info['preview'],
@@ -19,10 +19,10 @@
   <img tal:replace="structure python:here.getImgTag(info['icon'],
     base_url=base_url, title='%s, id:%s' % (info['type_l10n'], info['id']))" />
   </a>
-   <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
+   <a href="" tal:attributes="href string:${base_url}${info/rpath}${action};">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   <br />
-  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}">
+  <a href="" tal:attributes="href string:${base_url}${info/rpath}${action}">
   <small>
     <tal:block define="status_short_fmt not:nothing;
                        status_time not:nothing;">

@@ -138,9 +138,13 @@
         ('es', 'Spanish'),
         ]">
         <li>
+        <dtml-let checked="_['sequence-key'] in ('fr', 'en') and 'checked' or ' '">
         <input type="checkbox" name="langs_list:list"
                id="<dtml-var sequence-key>"
-               value="<dtml-var sequence-key>"/>
+               value="<dtml-var sequence-key>"
+               &dtml-checked;
+               />
+        </dtml-let>
         <label for="<dtml-var sequence-key>"><dtml-var sequence-item></label>
         </li>
       </dtml-in>

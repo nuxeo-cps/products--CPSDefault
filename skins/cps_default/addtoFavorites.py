@@ -36,9 +36,9 @@ if referer and len(referer) >= portal_URL_length:
   rurl = portal.portal_url.getPortalPath() + REQUEST.HTTP_REFERER[portal_URL_length:]
 else:
   rurl = portal.portal_url.getPortalPath() + '/' + context.portal_url.getRelativeUrl(context)
-  
-kw = {'title': context.TitleOrId(),
-      'description': context.getContent().description,
+
+kw = {'Title': context.TitleOrId(),
+      'Description': context.getContent().description,
       'href': rurl}
 
 doc = getattr(targetFolder, new_id).getEditableContent()
@@ -49,9 +49,7 @@ if REQUEST:
   if '?' in rurl:
     url = REQUEST.HTTP_SERVER + rurl + '&' +\
           make_query(portal_status_message='psm_added_to_favorites')
-  else:    
+  else:
     url = REQUEST.HTTP_SERVER + rurl + '?' +\
           make_query(portal_status_message='psm_added_to_favorites')
   return REQUEST.RESPONSE.redirect(url)
-
-

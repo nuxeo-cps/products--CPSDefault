@@ -160,7 +160,7 @@ class Dummy(CPSBaseDocument, Folder):
 
         if hasattr(aq_base(self), self.image_id):
             infos['preview'] = proxy.absolute_url(1) + '/' + self.image_id
-            infos['photo'] = info['preview']
+            infos['photo'] = infos['preview']
 
         return infos
 

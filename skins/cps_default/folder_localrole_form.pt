@@ -264,7 +264,8 @@
   <p>
     <input type="hidden" name="change_type" value="delete" />
   </p>
-  <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
+  <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];
+                     mdir here/portal_directories/members;">
     <tal:block repeat="type python:['user','group']">
       <table width="100%" summary="Listing of roles">
       <tr>
@@ -296,14 +297,22 @@
             <tal:block condition="not:haslrhere">
               <td width="3%">&nbsp;</td>
             </tal:block>
-          <td width="40%">
-          <tal:block define="anuser python:user.split(':', 1)[1]">
-            <label tal:content="python:test(anuser.startswith('role:'),
-                                           cpsmcat(anuser), anuser)"
-                   tal:attributes="for input_id">
-             User 1
-            </label>
-          </tal:block>
+            <td width="40%">
+              <tal:block define="anuser python:user.split(':', 1)[1]">
+                <tal:block tal:condition="python:type=='user'"><label
+                    tal:define="user_name
+                          python:mdir.getEntry(anuser).get('fullname', anuser)"
+                    tal:content="user_name"
+                    tal:attributes="for input_id">
+                    User 1
+                </label></tal:block>
+                <tal:block  tal:condition="python:type=='group'"><label
+                    tal:content="python:test(anuser.startswith('role:'),
+                                             cpsmcat(anuser), anuser)"
+                    tal:attributes="for input_id">
+                    Group 1
+                </label></tal:block>
+              </tal:block>
           </td>
           <td width="57%">
           <tal:block repeat="item python:roles[user]">

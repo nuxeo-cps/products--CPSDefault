@@ -1,28 +1,28 @@
-<!-- a content_lib macro -->
-<!-- $Id$ -->
 <!-- Form used for state transition -->
+<!-- $Id$ -->
 
 <metal:block define-macro="transition_form">
-<form class="workflow" method="post" action="content_status_modify"
-  tal:attributes="action string:${proxy/absolute_url}/content_status_modify;
+  <form class="workflow" method="post" action="content_status_modify"
+    tal:attributes="action string:${proxy/absolute_url}/content_status_modify;
     onsubmit python:'return validateRequiredFields([\'comment\'], [\'%s\'], \'%s\')'
-                     % (cpsmcat('transition_comments'), cpsmcat('description_field_required'))
+    % (cpsmcat('transition_comments'), cpsmcat('description_field_required'))
     ">
-  <p metal:define-slot="fields">
-    <!-- more fields -->
-  </p>
+    <p metal:define-slot="fields">
+      <!-- Put your fields here -->
+    </p>
     <dl>
-      <dt><label class="required" for="comment" i18n:translate="transition_comments">Comments</label></dt>
+      <dt><label class="required" for="comment"
+          i18n:translate="transition_comments">Comments</label></dt>
       <dd>
         <textarea name="comment" id="comment" cols="60" rows="5"
-                  tal:content="nothing">
+          tal:content="nothing">
         </textarea>
       </dd>
     </dl>
-  <p metal:define-slot="button">
-    <!-- these are examples -->
-    <input type="hidden" name="workflow_action" value="transition" />
-    <input type="submit" value="button_publish" i18n:attributes="value" />
-  </p>
-</form>
+    <p metal:define-slot="button">
+      <!-- Put your buttons here: these are examples -->
+      <input type="hidden" name="workflow_action" value="transition" />
+      <input type="submit" value="button_publish" i18n:attributes="value" />
+    </p>
+  </form>
 </metal:block>

@@ -11,6 +11,8 @@
   boxes python:btool.getBoxes(here);
   member mtool/getAuthenticatedMember;
   isAnon mtool/isAnonymousUser;
+  isHomeless python:isAnon or member.getProperty('homeless', 0);
+  isHomeless python:(isHomeless == '0' and [0] or [isHomeless])[0];
   actions python:atool.listFilteredActionsFor(here);
   wf_state python:wtool.getInfoFor(here,'review_state','');
   uname python: isAnon and 'Guest' or member.getUserName();

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-16 16:20default\n"
+"POT-Creation-Date: 2004-02-17 12:47default\n"
 "PO-Revision-Date: 2004-02-05 09:00+0100\n"
 "Last-Translator: Paolo Dina <paolo@php3.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -27,6 +27,7 @@ msgstr "Un contenitore di prova"
 #.                               onclick action/onclick|nothing" content="action/name">Action</a>
 #.   <a attributes="href action/url;
 #.                                class python:test(selected, 'selected', default)" content="action/name">Action</a>
+#.   <a attributes="href action/url" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
@@ -116,6 +117,107 @@ msgstr "FAKE"
 #: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "La vostra ricerca '${query}'"
+
+#.   <a define="contact_email here/portal_properties/email_from_address" attributes="href string:mailto:${contact_email}?subject=Info" accesskey="9">Contact</a>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "accessibility_contact_link"
+msgstr ""
+
+#.   <a href="#content" accesskey="2">Go to the content</a>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "accessibility_content_link"
+msgstr ""
+
+#.   <p>
+#.   this site try to use access-pour-tous
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_description"
+msgstr "Descrizione"
+
+#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_home_link"
+msgstr "Accetta"
+
+#.   <a href="#menu" accesskey="3">Go to the menu</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_menu_link"
+msgstr "Accetta"
+
+#.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_page_link"
+msgstr "Collegamento ad immagine"
+
+#.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_search_link"
+msgstr "locazione"
+
+#.   <li>0 : Accessibility information</li>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_accessibility"
+msgstr "Accetta"
+
+#.   <li>9 : Contact</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_contact"
+msgstr ""
+
+#.   <li>2 : Go to the
+#.     content</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_content"
+msgstr ""
+
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_description"
+msgstr "Descrizione"
+
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_description2"
+msgstr "Descrizione"
+
+#.   <li>1 : Go to the
+#.     homepage</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_homepage"
+msgstr ""
+
+#.   <li>3 : Go to the
+#.     menu</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_menu"
+msgstr ""
+
+#.   <li>4 : Go to the internal
+#.     search engine</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_search"
+msgstr ""
+
+#.   <h2>Keyboard shortcuts or
+#.   accesskeys</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_title"
+msgstr ""
+
+#.   <h1>Accessibility</h1>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_title"
+msgstr "Accetta"
 
 #.   <a define="next batch_info/next" condition="python:next is not None" attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))">Next</a>
@@ -334,9 +436,6 @@ msgstr "Sposta all'inizio"
 msgid "button_move_up"
 msgstr "Sposta in alto"
 
-#.   <input value="button_ok" class="context searchButton" type="submit"><br>
-#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.     </br></input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.         </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -421,10 +520,14 @@ msgstr "Rinomina"
 msgid "button_revert_revision"
 msgstr "Ritorna alla versione archiviata"
 
+#.   <input value="button_search" class="context searchButton" type="submit"><br>
+#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.     </br></input>
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
 #.   <input value="button_search" class="standalone" type="submit" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
 msgstr "Cerca"
@@ -1886,13 +1989,10 @@ msgstr "non ha fornito alcun risultato."
 msgid "legend_one_search_result"
 msgstr "ha generato un solo documento."
 
-#.   <a attributes="href string:./advanced_search_form" href="search_form">
-#.     Advanced search</a>
 #.   <span>
 #.                Advanced search
 #.              </span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
 msgstr "Ricerca avanzata"
 
@@ -2317,6 +2417,23 @@ msgstr "Esporta dati collezionati"
 msgid "action_erase_data"
 msgstr "Cancella dati collezionati"
 
+# ###########
+#, fuzzy
+msgid "action_print"
+msgstr "Esporta"
+
+#, fuzzy
+msgid "action_advanced_search"
+msgstr "Ricerca avanzata"
+
+#, fuzzy
+msgid "action_accessibility"
+msgstr "Accetta"
+
+#, fuzzy
+msgid "action_contact"
+msgstr "Commenta questo documento"
+
 msgid "label_action_workflow"
 msgstr "workflow"
 
@@ -2330,6 +2447,10 @@ msgid "label_action_folder"
 msgstr "cartella"
 
 msgid "label_action_global"
+msgstr "globale"
+
+#, fuzzy
+msgid "label_action_global_header"
 msgstr "globale"
 
 msgid "label_bottom"
@@ -2572,6 +2693,13 @@ msgid "description_nuxeo_actionbox_default"
 msgstr "Contenitore predefinito."
 
 msgid "description_nuxeo_actionbox_user"
+msgstr "Contenitore per gli utenti."
+
+msgid "description_nuxeo_actionbox_menu"
+msgstr "A menu box with tabs."
+
+#, fuzzy
+msgid "description_nuxeo_actionbox_header"
 msgstr "Contenitore per gli utenti."
 
 msgid "description_nuxeo_imagebox_default"
@@ -2938,9 +3066,6 @@ msgstr ""
 
 #~ msgid "m_12"
 #~ msgstr "December"
-
-#~ msgid "description_nuxeo_actionbox_menu"
-#~ msgstr "A menu box with tabs."
 
 #~ msgid "label_sort_asc"
 #~ msgstr "Ascending"

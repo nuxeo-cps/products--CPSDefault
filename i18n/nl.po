@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"POT-Creation-Date: 2004-02-16 16:20default\n"
+"POT-Creation-Date: 2004-02-17 12:47default\n"
 "PO-Revision-Date: 2004-02-13 13:14+0100\n"
 "Last-Translator: Koen Adriaensen <koen.adriaensen@cgey.be>\n"
 "Language-Team: francais <fr@li.org>\n"
@@ -31,6 +31,7 @@ msgstr "Een testbox"
 #.                               onclick action/onclick|nothing" content="action/name">Action</a>
 #.   <a attributes="href action/url;
 #.                                class python:test(selected, 'selected', default)" content="action/name">Action</a>
+#.   <a attributes="href action/url" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
@@ -121,6 +122,107 @@ msgstr "FAKE"
 #: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "Uw query '${query}'"
+
+#.   <a define="contact_email here/portal_properties/email_from_address" attributes="href string:mailto:${contact_email}?subject=Info" accesskey="9">Contact</a>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "accessibility_contact_link"
+msgstr ""
+
+#.   <a href="#content" accesskey="2">Go to the content</a>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "accessibility_content_link"
+msgstr ""
+
+#.   <p>
+#.   this site try to use access-pour-tous
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_description"
+msgstr "Beschrijving"
+
+#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_home_link"
+msgstr "Aanvaarden"
+
+#.   <a href="#menu" accesskey="3">Go to the menu</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_menu_link"
+msgstr "Aanvaarden"
+
+#.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_page_link"
+msgstr "Afbeelding_link"
+
+#.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_search_link"
+msgstr "Lokatie"
+
+#.   <li>0 : Accessibility information</li>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_accessibility"
+msgstr "Aanvaarden"
+
+#.   <li>9 : Contact</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_contact"
+msgstr ""
+
+#.   <li>2 : Go to the
+#.     content</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_content"
+msgstr ""
+
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_description"
+msgstr "Beschrijving"
+
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_description2"
+msgstr "Beschrijving"
+
+#.   <li>1 : Go to the
+#.     homepage</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_homepage"
+msgstr ""
+
+#.   <li>3 : Go to the
+#.     menu</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_menu"
+msgstr ""
+
+#.   <li>4 : Go to the internal
+#.     search engine</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_search"
+msgstr ""
+
+#.   <h2>Keyboard shortcuts or
+#.   accesskeys</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_title"
+msgstr ""
+
+#.   <h1>Accessibility</h1>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_title"
+msgstr "Aanvaarden"
 
 #.   <a define="next batch_info/next" condition="python:next is not None" attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))">Next</a>
@@ -339,9 +441,6 @@ msgstr "Bovenaan plaatsen"
 msgid "button_move_up"
 msgstr "Hoger plaatsen"
 
-#.   <input value="button_ok" class="context searchButton" type="submit"><br>
-#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.     </br></input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.         </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -426,10 +525,14 @@ msgstr "Een andere naam geven"
 msgid "button_revert_revision"
 msgstr "Terugkeren naar deze versie"
 
+#.   <input value="button_search" class="context searchButton" type="submit"><br>
+#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.     </br></input>
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
 #.   <input value="button_search" class="standalone" type="submit" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
 msgstr "Zoeken"
@@ -1869,13 +1972,10 @@ msgstr "geeft geen resultaat."
 msgid "legend_one_search_result"
 msgstr "geeft 1 resultaat."
 
-#.   <a attributes="href string:./advanced_search_form" href="search_form">
-#.     Advanced search</a>
 #.   <span>
 #.                Advanced search
 #.              </span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
 msgstr "Geavanceerd zoeken"
 
@@ -2301,6 +2401,22 @@ msgstr "CSV exporteren"
 msgid "action_erase_data"
 msgstr "Data verwijderen"
 
+#, fuzzy
+msgid "action_print"
+msgstr "Exporteren"
+
+#, fuzzy
+msgid "action_advanced_search"
+msgstr "Geavanceerd zoeken"
+
+#, fuzzy
+msgid "action_accessibility"
+msgstr "Aanvaarden"
+
+#, fuzzy
+msgid "action_contact"
+msgstr "Becommentariëren"
+
 msgid "label_action_workflow"
 msgstr "Workflow"
 
@@ -2314,6 +2430,10 @@ msgid "label_action_folder"
 msgstr "Folder"
 
 msgid "label_action_global"
+msgstr "Globaal"
+
+#, fuzzy
+msgid "label_action_global_header"
 msgstr "Globaal"
 
 msgid "label_bottom"
@@ -2549,6 +2669,14 @@ msgid "description_nuxeo_actionbox_default"
 msgstr "Standaard actiebox."
 
 msgid "description_nuxeo_actionbox_user"
+msgstr "Gebruikersbox."
+
+#, fuzzy
+msgid "description_nuxeo_actionbox_menu"
+msgstr "Gebruikersbox."
+
+#, fuzzy
+msgid "description_nuxeo_actionbox_header"
 msgstr "Gebruikersbox."
 
 msgid "description_nuxeo_imagebox_default"

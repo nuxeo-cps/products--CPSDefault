@@ -2,13 +2,13 @@
 # translation of en.po to francais
 # translation of en.po to French
 # translation of en.po to ben
-# translation of en.po to Français
+# translation of en.po to FranÃ§ais
 # Gettext Message File for default.
 # Your Name <your@email>, Year
 # Julien Anguenot <ja@nuxeo.org>, 2003.
 # Julien Anguenot <ja@nuxeo.com>, 2003.
 # ben <ben@nuxeo.com>, 2003,2004.
-# Hervé CAUWELIER <hc@nuxeo.com>, 2003.
+# HervÃ© CAUWELIER <hc@nuxeo.com>, 2003.
 # emmanuel <epietriga@nuxeo.com>, 2003, 2004.
 # DARCHE <madarche@nuxeo.com>, 2004.
 # Encolpe DEGOUTE <ed@nuxeo.com>, 2004.
@@ -18,12 +18,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-16 16:20default\n"
+"POT-Creation-Date: 2004-02-17 12:47default\n"
 "PO-Revision-Date: 2004-02-16 16:24+0100\n"
 "Last-Translator: ben <ben@nuxeo.com>\n"
 "Language-Team: ben\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2X-Generator: \n"
 "X-Generator: KBabel 1.0.1\n"
@@ -41,6 +41,7 @@ msgstr "A test box"
 #.                               onclick action/onclick|nothing" content="action/name">Action</a>
 #.   <a attributes="href action/url;
 #.                                class python:test(selected, 'selected', default)" content="action/name">Action</a>
+#.   <a attributes="href action/url" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
@@ -130,6 +131,107 @@ msgstr "FAKE"
 #: from ../skins/cps_default/search_form.pt
 msgid "Your query '${query}'"
 msgstr "Your query '${query}'"
+
+#.   <a define="contact_email here/portal_properties/email_from_address" attributes="href string:mailto:${contact_email}?subject=Info" accesskey="9">Contact</a>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "accessibility_contact_link"
+msgstr ""
+
+#.   <a href="#content" accesskey="2">Go to the content</a>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "accessibility_content_link"
+msgstr ""
+
+#.   <p>
+#.   this site try to use access-pour-tous
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_description"
+msgstr "Description"
+
+#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_home_link"
+msgstr "Accept"
+
+#.   <a href="#menu" accesskey="3">Go to the menu</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_menu_link"
+msgstr "Accept"
+
+#.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_page_link"
+msgstr "Image link"
+
+#.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "accessibility_search_link"
+msgstr "Search"
+
+#.   <li>0 : Accessibility information</li>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_accessibility"
+msgstr "Accept"
+
+#.   <li>9 : Contact</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_contact"
+msgstr ""
+
+#.   <li>2 : Go to the
+#.     content</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_content"
+msgstr ""
+
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_description"
+msgstr "Description"
+
+#.   <p>bla</p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_shortcut_description2"
+msgstr "Description"
+
+#.   <li>1 : Go to the
+#.     homepage</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_homepage"
+msgstr ""
+
+#.   <li>3 : Go to the
+#.     menu</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_menu"
+msgstr ""
+
+#.   <li>4 : Go to the internal
+#.     search engine</li>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_search"
+msgstr ""
+
+#.   <h2>Keyboard shortcuts or
+#.   accesskeys</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_shortcut_title"
+msgstr ""
+
+#.   <h1>Accessibility</h1>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_title"
+msgstr "Accept"
 
 #.   <a define="next batch_info/next" condition="python:next is not None" attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))">Next</a>
@@ -348,9 +450,6 @@ msgstr "Move top"
 msgid "button_move_up"
 msgstr "Move up"
 
-#.   <input value="button_ok" class="context searchButton" type="submit"><br>
-#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.     </br></input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.         </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -361,7 +460,7 @@ msgstr "Move up"
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="standalone searchButton" type="submit">
 #.           <br>
@@ -435,10 +534,14 @@ msgstr "Change object id"
 msgid "button_revert_revision"
 msgstr "Revert to the archived version"
 
+#.   <input value="button_search" class="context searchButton" type="submit"><br>
+#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.     </br></input>
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
 #.   <input value="button_search" class="standalone" type="submit" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
 msgstr "Search"
@@ -532,8 +635,8 @@ msgstr "You are logged in outside the portal.  You may need to"
 msgid "description_reconfig_form"
 msgstr "This form is used to set the portal configuration options."
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -816,7 +919,8 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "If you commit this version, it will replace the document currently locked."
+msgstr ""
+"If you commit this version, it will replace the document currently locked."
 
 #.   <span>
 #.       If you create a draft, you will be the only one able to work on the document.
@@ -881,7 +985,8 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1867,13 +1972,10 @@ msgstr "gave no result."
 msgid "legend_one_search_result"
 msgstr "gave one result."
 
-#.   <a attributes="href string:./advanced_search_form" href="search_form">
-#.     Advanced search</a>
 #.   <span>
 #.                Advanced search
 #.              </span>
-#: from ../skins/cps_default/boxes_nuxeo.pt
-#: ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
 msgstr "Advanced search"
 
@@ -2295,6 +2397,22 @@ msgstr "Export collected data"
 msgid "action_erase_data"
 msgstr "Erase collected data"
 
+#, fuzzy
+msgid "action_print"
+msgstr "Export"
+
+#, fuzzy
+msgid "action_advanced_search"
+msgstr "Advanced search"
+
+#, fuzzy
+msgid "action_accessibility"
+msgstr "Accept"
+
+#, fuzzy
+msgid "action_contact"
+msgstr "Comment this document"
+
 msgid "label_action_workflow"
 msgstr "workflow"
 
@@ -2308,6 +2426,10 @@ msgid "label_action_folder"
 msgstr "folder"
 
 msgid "label_action_global"
+msgstr "global"
+
+#, fuzzy
+msgid "label_action_global_header"
 msgstr "global"
 
 msgid "label_bottom"
@@ -2543,6 +2665,13 @@ msgstr "A default box."
 msgid "description_nuxeo_actionbox_user"
 msgstr "The Nuxeo user box."
 
+msgid "description_nuxeo_actionbox_menu"
+msgstr "A menu box with tabs."
+
+#, fuzzy
+msgid "description_nuxeo_actionbox_header"
+msgstr "The Nuxeo user box."
+
 msgid "description_nuxeo_imagebox_default"
 msgstr "A sample image box."
 
@@ -2622,7 +2751,8 @@ msgid "psm_join_password_mismatch"
 msgstr "Your password and your confirmation don't match."
 
 msgid "psm_join_invalid_name"
-msgstr "The name you have chosen is invalid. Please change it or try another one."
+msgstr ""
+"The name you have chosen is invalid. Please change it or try another one."
 
 msgid "psm_join_login_already_used"
 msgstr "The login you have chosen is already in use. Please try another one."
@@ -2890,9 +3020,6 @@ msgstr "Abandon version"
 #~ msgid "m_12"
 #~ msgstr "December"
 
-#~ msgid "description_nuxeo_actionbox_menu"
-#~ msgstr "A menu box with tabs."
-
 #~ msgid "label_sort_asc"
 #~ msgstr "Ascending"
 
@@ -2956,4 +3083,3 @@ msgstr "Abandon version"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
-

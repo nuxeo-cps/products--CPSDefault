@@ -16,11 +16,11 @@ tal:attributes="action string:${here_url}/box_create">
              tal:repeat="item here/getBoxFTI">
         <tbody>
         <tr valign="top">
-          <td align="left" width="2%" nowrap>
+          <td align="left" width="2%" nowrap="nowrap">
             <input type="radio" name="type_name" value="" id=""
             class="noborder" tal:attributes="value item/getId;
             checked python:test(repeat['item'].start, '1', default);
-            id string:cb_${repeat/item/number}">
+            id string:cb_${repeat/item/number}" />
           </td>
           <th align="left" colspan="2" class="ListName">
             <label for="" tal:attributes="for string:cb_${repeat/item/number}"
@@ -31,7 +31,7 @@ tal:attributes="action string:${here_url}/box_create">
           </th>
         </tr>
         <tr valign="top">
-          <td colspan="2"><br></td>
+          <td colspan="2"><br /></td>
           <td align="left" class="ListDefinition" tal:content="item/Description"
             i18n:translate="">
             Portal type's description
@@ -44,12 +44,12 @@ tal:attributes="action string:${here_url}/box_create">
 </table>
 <table class="FormLayout">
   <tr valign="top">
-    <td><br></td>
+    <td><br /></td>
     <td colspan="2" class="TextField">
       <strong i18n:translate="label_title">Title:</strong>
-      <input type="text" name="title" size="20">
+      <input type="text" name="title" size="20" />
       <input type="submit" class="standalone searchButton" value="button_add"
-        i18n:attributes="value">
+        i18n:attributes="value" />
     </td>
   </tr>
 </table>

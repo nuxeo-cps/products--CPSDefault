@@ -31,7 +31,7 @@
            condition="python:len(sboxes)">
 <h3>
 <img tal:replace="structure python:here.getImgTag('slot_' + slot + '.png',
-                                                  base_url=base_url)">
+                                                  base_url=base_url)" />
   <span i18n:translate="label_slot" />: <span i18n:translate="" tal:content="string:label_${slot}">Slot</span></h3>
 
 <table width="100%">
@@ -47,13 +47,13 @@
                   editable python:checkPerm('Manage Boxes', box['box'])"
     tal:attributes="class python:test(repeat['box'].even(), 'even', 'odd')">
     <td align="right"><tal:block replace="box/box/order" /></td>
-    <td nowrap>
+    <td nowrap="nowrap">
       <tal:block
         i18n:translate="" content="python:box['box'].getTypeInfo().Title()" />
     </td>
     <td><tal:block replace="box/box/title" /></td>
-    <td nowrap><tal:block replace="string:${base_url}${box/display_url}" /></td>
-    <td nowrap>
+    <td nowrap="nowrap"><tal:block replace="string:${base_url}${box/display_url}" /></td>
+    <td nowrap="nowrap">
       <tal:block condition="editable">
         <a href="" tal:attributes="href
       string:${context_urlc}/${action}?box_url=${box/url}"
@@ -71,8 +71,8 @@
   </tr>
   </tal:block>
 </table>
-<br>
-<br>
+<br/>
+<br/>
 
 </tal:block>
 </tal:block>

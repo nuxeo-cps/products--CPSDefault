@@ -1,6 +1,6 @@
-$Id$
-
 CPS and i18n
+
+  $Id$
 
   This documents gives rules and hints for translating CPS 3 and third-party
   products.
@@ -43,13 +43,18 @@ Tools used
   and declare this domain and its associated catalog in the translation_service
   object.
 
-  For python script file we have to use this syntax for the moment:
+  For python script file we have to use this syntax for the moment::
 
     mcat = context.Localizer.productname
 
-  In near futur it will be: 
+  In near future it will be::
 
     mcat = context.translation_service
+
+  And with translation_service it will be possible to also pass a domain
+  and substitution variables, whereas the current usage of calling
+  directly a message catalog doesn't give us the automatic domain
+  flexibility.
 
 What to translate and how
 

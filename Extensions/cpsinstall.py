@@ -306,6 +306,7 @@ class DefaultInstaller(CPSInstaller):
             if action.id == 'join':
                 action.condition = Expression('python: portal.'
                     'portal_properties.enable_portal_joining and not member')
+                break
 
         self.verifyTool('portal_membership', 'CPSCore', 'CPS Membership Tool')
         self.verifyAction('portal_actions',
@@ -325,7 +326,7 @@ class DefaultInstaller(CPSInstaller):
             actiondelmap = {
                 'portal_actions': ('folderContents', 'folder_contents'),
                 'portal_syndication': ('syndication',),
-                }
+            }
             self.deleteActions(actiondelmap)
 
         # Setting up misc actions
@@ -357,7 +358,7 @@ class DefaultInstaller(CPSInstaller):
             'condition': '',
             'category': 'global_header',
             'visible': 1,
-            },
+          },
           { 'tool': 'portal_actions',
             'id': 'contact',
             'name': 'action_contact',
@@ -443,7 +444,7 @@ class DefaultInstaller(CPSInstaller):
     def setupEventService(self):
         # configure event service to hook the proxies, by adding a subscriber
         self.verifyTool('portal_eventservice', 'CPSCore',
-            'CPS Event Service Tool')
+                        'CPS Event Service Tool')
         subscriptions = (
             {
                 'subscriber': 'portal_proxies',
@@ -1001,8 +1002,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'title': 'Member publishes directly',
                 'new_state_id': 'published',
                 'transition_behavior': (TRANSITION_INITIAL_PUBLISHING,
-                                        TRANSITION_BEHAVIOR_MERGE,
-                                        TRANSITION_BEHAVIOR_FREEZE),
+                                        TRANSITION_BEHAVIOR_FREEZE,
+                                        TRANSITION_BEHAVIOR_MERGE),
                 'clone_allowed_transitions': None,
                 'after_script_name': 'mail_notification',
                 'props': {'guard_permissions': '',

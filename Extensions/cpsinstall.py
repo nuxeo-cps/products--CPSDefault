@@ -13,6 +13,7 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, \
      ReviewPortalContent, RequestReview
 from Products.PythonScripts.PythonScript import PythonScript
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
+from Products.CMFCore.Expression import Expression
 
 from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
@@ -125,9 +126,9 @@ def cpsupdate(self, langs_list=None):
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
     # portal registration
-    for action in portal['portal_actions'].listActions():
+    for action in portal['portal_registration'].listActions():
         if action.id == 'join':
-            ac.condition = Expression('python: portal.portal_properties.enable_portal_joining and not member')
+            action.condition = Expression('python: portal.portal_properties.enable_portal_joining and not member')
 
     # portal membership
     pr("Verifying Portal Membership tool")

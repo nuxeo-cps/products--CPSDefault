@@ -32,32 +32,53 @@ print 'context_url = proxy.getContextUrl: ', proxy.getContextUrl()
 print 'in_ws = proxy.isInWorkspace: ', proxy.isInWorkspace()
 print
 
-try:
-    doc = proxy.getContent()
-except:
-    doc = proxy
+doc = proxy.getContent()
 
 doc_path = '/'.join(doc.getPhysicalPath())
 proxy_path = '/'.join(proxy.getPhysicalPath())
-
+if 'portal_repository' in doc_path:
+    is_proxy = 1
+else:
+    is_proxy = 0
 
 print 'CPS getContentInfo --------------'
 print proxy.getContentInfo()
 print
 
+if is_proxy:
+    print 'CPS Proxy -----------------------'
+    languages = proxy.Languages()
+    print 'Languages: %s' % languages
+    print 'default language: %s' % proxy.getDefaultLanguage()
+    print 'best language: %s rev: %s' % (proxy.getLanguage(),
+                                         proxy.getRevision())
+    print
 
-print 'ZCatalog proxy ---------------'
-proxy_rid = proxy.portal_catalog.getrid(proxy_path)
-print 'proxy %s' % proxy_path
-print 'zcat.getrid(%s) = %s' % (proxy_path, proxy_rid)
-print '<a href="portal_catalog/manage_objectInformation?rid=%s">view catalog info</a>' % proxy_rid
+
+    print 'ZCatalog proxy ---------------'
+    proxy_rid = proxy.portal_catalog.getrid(proxy_path)
+    if proxy_rid:
+        print 'proxy %s' % proxy_path
+        print 'zcat.getrid(%s) = %s' % (proxy_path, proxy_rid)
+        print '<a href="portal_catalog/manage_objectInformation?rid=%s">view catalog info</a>' % proxy_rid
+        print
+    if languages:
+        for language in languages:
+            uid = proxy_path + '/viewLanguage/%s' % language
+            proxy_rid = proxy.portal_catalog.getrid(uid)
+            print 'language proxy %s' % uid
+            print 'language zcat.getrid(%s) = %s' % (uid, proxy_rid)
+            if proxy_rid:
+                print '<a href="portal_catalog/manage_objectInformation?rid=%s">view catalog info</a>' % proxy_rid
+            print
 print
 
 print 'ZCatalog doc --------------'
 doc_rid = proxy.portal_catalog.getrid(doc_path)
 print 'doc %s' % doc_path
 print 'zcat.getrid(%s) = %s' % (doc_path, doc_rid)
-print '<a href="portal_catalog/manage_objectInformation?rid=%s">view catalog info</a>' % doc_rid
+if doc_rid:
+    print '<a href="portal_catalog/manage_objectInformation?rid=%s">view catalog info</a>' % doc_rid
 
 print
 

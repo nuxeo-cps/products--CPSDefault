@@ -26,7 +26,6 @@ from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base
 from copy import deepcopy
-
 from zLOG import LOG, DEBUG, INFO
 
 factory_type_information = (
@@ -99,6 +98,7 @@ class TreeBox(BaseBox):
         self.depth = depth
         self.contextual = contextual
         self.children_only = children_only
+
 
     security.declarePublic('getTree')
     def getTree(self, context):
@@ -223,6 +223,22 @@ class TreeBox(BaseBox):
                     if not is_hidden:
                         items.append(item)
                 tree = items
+
+        # l10n
+        locale = self.Localizer.get_selected_language()
+        for item in tree:
+            if item.has_key('l10n_titles') and \
+                   item['l10n_titles'].has_key(locale):
+                item['title'] = item['l10n_titles'][locale]
+                if item['title']:
+                    title_or_id = item['title']
+                else:
+                    title_or_id = item['id']
+                item['title_or_id'] = title_or_id
+                item['short_title'] = truncateText(title_or_id)
+            if item.has_key('l10n_descriptions') and \
+                   item['l10n_descriptions'].has_key(locale):
+                item['description'] = item['l10n_descriptions'][locale]
 
         return tree
 

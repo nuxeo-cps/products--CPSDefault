@@ -107,6 +107,18 @@
   </span>
   </a>
 </div>
+<tal:block tal:define="languages here/Languages|nothing"
+  tal:condition="python:len(languages)>1">
+<div class="documentActions" tal:define="current_lang doc/Language">
+  <tal:block repeat="lang languages"><tal:block
+    define="selected_lang python:current_lang==lang">
+    <span tal:replace="string:[" tal:condition="selected_lang" /><a
+     tal:attributes="href string:${context_url}/switchLanguage/${lang}"
+     tal:content="lang" tal:omit-tag="selected_lang" /><span
+     tal:replace="string:]" tal:condition="selected_lang" />
+  </tal:block></tal:block>
+</div>
+</tal:block>
 <h1 tal:content="here/title_or_id">Page Title</h1>
 
 <div class="description" tal:condition="doc/Description|nothing"
@@ -119,7 +131,7 @@
    tal:define="map here/Localizer/get_languages_map;
                l10n_translated nothing"
    tal:condition="python:len(map) > 1">
-<form id="idioma" name="idioma" action="Localizer/changeLanguage" method="post"
+<form id="idioma" name="idioma" method="post"
       tal:attributes="action string:${base_url}Localizer/changeLanguage"
       tal:define="lang_voc here/portal_vocabularies/language_voc">
   <p>

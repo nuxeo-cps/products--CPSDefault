@@ -463,6 +463,7 @@ class DefaultInstaller(CPSInstaller):
         self.setupWorkflow3()
         self.setupWorkflow4()
         self.setupWorkflow5()
+        self.setupWorkflowTranslation()
         self.log("Verifying workflow schemas")
 
         wfs = {
@@ -1133,9 +1134,41 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'update_always': 1,
             },
         }
-
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
                      wfscripts, wfvariables)
+
+
+
+    def setupWorkflowTranslation(self):
+        # translate action for folder and workspace content
+        wftool = self.portal.portal_workflow
+        wf = wftool.section_folder_wf
+        for wf in (wftool.section_folder_wf, wftool.workspace_folder_wf,
+                   wftool.workspace_content_wf):
+            self.log(" Checking wf %s" % wf.getId())
+            transitions = wf.transitions
+            if hasattr(transitions, 'translate'):
+                self.log("  Removing old translate")
+                transitions.manage_delObjects('translate')
+            transitions.addTransition('translate')
+            translate = transitions.get('translate')
+            translate.setProperties(
+                title="Add translation",
+                new_state_id='',
+                actbox_name='action_translate',
+                actbox_category='workflow',
+                actbox_url='%(content_url)s/content_translate_form',
+                props={'guard_permissions': 'Modify portal content',
+                       'guard_roles': '',
+                       'guard_expr': ''})
+            self.log("  Added translate")
+            work_state = wf.states['work']
+            transitions = work_state.transitions
+            if not 'translate' in transitions:
+                # XXX seems nothing is available for just adding a transition
+                work_state.transitions = transitions + ('translate',)
+                self.log("  translate activated for %s" % wf.getId)
+
 
     def setupTypes(self):
         # setup portal_type: CPS Proxy Document, CPS Proxy Folder

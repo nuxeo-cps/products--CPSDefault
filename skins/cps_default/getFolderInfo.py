@@ -7,9 +7,10 @@
 # this is why you should not use proxy.xxx methods
 proxy = context
 if doc is None:
-    doc = proxy.getContent()
+    # portal_trees use the default language not the latest user selection
+    doc = proxy.getContent(lang='default')
 
-title_or_id = proxy.title_or_id()
+title_or_id = doc.Title() or proxy.getId()
 l = len(title_or_id)
 ml = 25
 mml = (ml-3)/2
@@ -39,10 +40,23 @@ if manager_role:
         if user.startswith('user:') and manager_role in roles:
             managers.append(user[5:])
 
-return {'title': doc.Title(),
+l10n_titles = {}
+l10n_descriptions = {}
+try:
+    if proxy.Languages() > 1:
+        # used only if more than one locale
+        l10n_titles = proxy.getL10nTitles()
+        l10n_descriptions = proxy.getL10nDescriptions()
+except AttributeError:
+    pass
+
+return {'id': proxy.getId(),
+        'title': doc.Title(),
         'title_or_id': title_or_id,
         'short_title': short_title.replace(' ', '&nbsp;'),
         'description': description,
+        'l10n_titles': l10n_titles,
+        'l10n_descriptions': l10n_descriptions,
         'managers': managers,
         'hidden_folder': hidden_folder,
         }

@@ -31,7 +31,8 @@
 <metal:block fill-slot="header">
 <metal:block define-slot="header">
   <h1 tal:content="here/title_or_id">Page Title</h1>
-  <div class="description" tal:content="doc/Description">
+  <div class="description" tal:content="doc/Description"
+    tal:condition="doc/Description">
     Document Description goes here.
    </div>
 </metal:block>
@@ -143,7 +144,8 @@ format:</pre>
           zoomed python:batches_all[2];
      ">
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
-         tal:condition="batch_info">
+         summary="batching layout"
+         tal:condition="python: batch_info and batch_info['nb_pages'] > 1">
     <tr class="even">
       <td align="left" width="50%"
           tal:condition="filter">
@@ -168,8 +170,7 @@ format:</pre>
         <tal:block condition="no_form" tal:replace='structure string:
         &lt;/form>' />
       </td>
-      <td align="right"
-        tal:condition="python: batch_info['nb_pages'] > 1">
+      <td align="right">
         <span i18n:translate="">
           Objects: <tal:block replace="batch_info/start"
           i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
@@ -181,6 +182,7 @@ format:</pre>
   </table>
   <br />
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
+    summary="zoomed layout"
     tal:condition="zoomed">
     <tr tal:repeat="item zoomed">
       <td align="left" valign="top">
@@ -192,7 +194,8 @@ format:</pre>
       </td>
     </tr>
   </table>
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0"
+    summary="content layout column">
     <tr tal:define="col_width python:str(100 / columns)+'%'">
       <td align="left" valign="top"
           tal:attributes="width col_width"
@@ -206,7 +209,8 @@ format:</pre>
   </table>
   <tal:block condition="python:batch_info and batch_info['nb_pages'] > 1">
     <br />
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0"
+      summary="navigation layout">
       <tr class="even">
         <td align="center" width="100%">
           <span i18:translate="label_page">Pages</span>:
@@ -245,7 +249,7 @@ format:</pre>
                      choosen_ids python:request.SESSION.get('choosen_ids', []);
                      no_table python:format == 'detail_tab';">
   <table tal:condition="not:no_table" width="100%" border="0" cellspacing="0"
-         cellpadding="5">
+    cellpadding="5" summary="content column layout">
     <tr valign="top" tal:repeat="item batch_items">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
         <input type="checkbox" name="ids:list" value="" id="" class="noborder"
@@ -536,7 +540,7 @@ format:</pre>
                          context_url context_url|here/getContextUrl;
                         ">
 <tal:block condition="start">
-  <tal:block replace='structure string:&lt;table width="100%">' />
+  <tal:block replace='structure string:&lt;table width="100%" summary="content layout">' />
     <tr>
       <td> </td>
       <th tal:condition="title_in_tabs" align="center">

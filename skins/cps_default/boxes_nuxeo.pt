@@ -66,22 +66,22 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_search">
-<div class="searchBox">
-  <form method="get" action="search_form"
-    onsubmit="return checkEmptySearch(this)"
-    tal:define="sfpo_id string:box">
-  <p>
-    <label for="searchGadget"
-	   i18n:translate="label_text_to_search">Text to search</label>
-    <input id="searchGadget" type="text" name="SearchableText" size="20"
-      value="" tal:attributes="value request/SearchableText|nothing" />
-    <input class="context searchButton" type="submit" value="button_search"
-      i18n:attributes="value" /><br />
-    <metal:block
-     use-macro="here/generic_lib_search_folder_prefix_option/macros/search_folder_prefix_option" />
-  </p>
-  </form>
-</div>
+  <div class="searchBox">
+    <form method="get" action="search_form"
+      onsubmit="return checkEmptySearch(this)"
+      tal:define="sfpo_id string:box">
+      <p>
+        <label for="searchGadget"
+          i18n:translate="label_text_to_search">Text to search</label>
+        <input id="searchGadget" type="text" name="SearchableText" size="20"
+          value="" tal:attributes="value request/SearchableText|nothing" />
+        <input class="context searchButton" type="submit" value="button_search"
+          i18n:attributes="value" /><br />
+        <metal:block
+          use-macro="here/generic_lib_search_folder_prefix_option/macros/search_folder_prefix_option" />
+      </p>
+    </form>
+  </div>
 </metal:block>
 
 

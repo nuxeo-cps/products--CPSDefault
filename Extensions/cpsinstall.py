@@ -133,6 +133,7 @@ class DefaultInstaller(CPSInstaller):
             'Add portal content': ['Manager', 'SectionManager'],
             'Add portal folders': ['Manager', 'SectionManager'],
             'Change permissions': ['Manager', 'SectionManager'],
+            'Change subobjects order': ['Manager', 'SectionManager'],
             'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
             'List folder contents': ['Manager', 'SectionManager',
                                      'SectionReviewer', 'SectionReader'],

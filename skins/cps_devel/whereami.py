@@ -37,9 +37,14 @@ try:
 except:
     doc = proxy
 
-
 doc_path = '/'.join(doc.getPhysicalPath())
 proxy_path = '/'.join(proxy.getPhysicalPath())
+
+
+print 'CPS getContentInfo --------------'
+print proxy.getContentInfo()
+print
+
 
 print 'ZCatalog proxy ---------------'
 proxy_rid = proxy.portal_catalog.getrid(proxy_path)

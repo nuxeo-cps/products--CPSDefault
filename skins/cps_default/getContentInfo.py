@@ -77,16 +77,19 @@ def compute_states(no_history=0):
         review_history = wtool.getFullHistoryOf(proxy)
         if not review_history:
             review_history = wtool.getInfoFor(proxy, 'review_history', ())
+            remove_redundant = 0
+        else:
+            remove_redundant = 1
         for d in review_history:
             if not (d.has_key('actor')
                     and d.has_key('time')
                     and d.has_key('action')):
                 continue
             # Skip redundant history (two transition when publishing).
-            if d['action'] == 'copy_submit':
+            if d['action'] == 'copy_submit' and remove_redundant:
                 continue
             # Transitions involving a destination container.
-            if d['action'] == 'submit':
+            if d['action'] in ('submit', 'copy_submit'):
                 d['has_dest'] = 1
                 dest_container = d.get('dest_container', '')
                 d['dest_container'] = dest_container

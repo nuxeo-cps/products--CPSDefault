@@ -29,7 +29,7 @@ class CPSDefaultSite(CMFSite):
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
     enable_portal_joining = 1
-    cps_version = ('CPS', 3, 2, 1)
+    cps_version = ('CPS', 3, 3, 0)
 
     security = ClassSecurityInfo()
 

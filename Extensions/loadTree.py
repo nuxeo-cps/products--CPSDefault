@@ -12,6 +12,10 @@ from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base
 
 
+product_name='MCI'
+filename='data.ini'
+
+
 _log=[]
 def pr(bla, _log=_log):
     if bla == 'flush':
@@ -129,15 +133,18 @@ def buildTree(cfg, parent='root', path='', parent_type=None):
 
 def main(self):
     global _log, cfg, portal, portal_url, portal_workflow, portal_eventservice
+    global product_name, filename
     portal_url = getToolByName(self, 'portal_url')
     portal_workflow = getToolByName(self, 'portal_workflow')
     portal_eventservice = getToolByName(self, 'portal_eventservice')    
     portal = portal_url.getPortalObject()
     filename = 'data.ini'
     app=self.getPhysicalRoot()
-    p=getattr(app.Control_Panel.Products, 'CPSDefault')
+    p=getattr(app.Control_Panel.Products, product_name)
     filename = os.path.join(p.home + '/Extensions/', filename)
     cfg=DataConfig(filename)
+
+    pr('INITIALIZING %s TREE with %s:' % (product_name, filename))
     buildTree(cfg)
     return pr('flush')
 

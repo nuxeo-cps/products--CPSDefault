@@ -1,52 +1,52 @@
-<tal:block define="doc here/getContent">
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/main_template/macros/master">
-<body>
+<html tal:define="doc here/getContent">
+<body metal:use-macro="here/main_template/macros/master">
 <div metal:fill-slot="main">	  
 <div class="Desktop">
 
 
 <span tal:replace="request/message"
-   tal:condition="request/message|nothing"><hr /></span>
+   tal:condition="request/message|nothing"><hr></span>
 
 <div class="Dummy">
 
-<h2>Edit <span tal:replace="here/getId">My ID</span></h2>
+<h2 i18n:translate="">
+  Edit
+  <span tal:replace="here/getId" i18n:name="item_id">My ID</span>
+</h2>
 
 <form action="content_edit" method="post"
-      tal:attributes="action string:${here/absolute_url}/content_edit"
->
-<table class="FormLayout">
+      tal:attributes="action string:${here/absolute_url}/content_edit">
+  <table border="0" width="100%" cellspacing="0" cellpadding="0"
+         class="FormLayout">
+    <tr>
+      <th i18n:translate="item_title">Title</th>
+      <td><span tal:replace="doc/Title">My Title</span></td>
+    </tr>
 
- <tr>
-  <th> Title
-  </th>
-  <td> <span tal:replace="doc/Title">My Title</span> </td>
- </tr>
+    <tr>
+      <th class="TextField" i18n:translate="item_description">Description</th>
+      <td><span tal:replace="doc/Description">My Title</span></td>
+    </tr>
 
- <tr>
-  <th class="TextField"> Description </th>
-  <td> <span tal:replace="doc/Description">My Title</span> </td>
- </tr>
- <tr>
-  <th class="TextField"> Body
-  </th>
-  <td class="TextField">
-   <textarea name="body:text" rows="10" cols="65" wrap="soft"
-             tal:content="doc/body"></textarea>
-  </td>
- </tr>
+    <tr>
+      <th class="TextField" i18n:translate="item_body">Body</th>
+      <td class="TextField">
+        <textarea name="body:text" rows="10" cols="65" wrap="soft"
+        tal:content="doc/body">
+        </textarea>
+      </td>
+    </tr>
 
- <tr>
-  <th><br /></th>
-  <td>
-   <input type="submit" name="change_and_edit" value=" Change " />
-   <input type="submit" name="change_and_view" value=" Change and View " />
-  </td>
- </tr>
-
-</table>
+    <tr>
+      <th><br></th>
+      <td>
+        <input type="submit" name="change_and_edit" value=" Change " 
+               i18n:attributes="value">
+        <input type="submit" name="change_and_view" value=" Change and View " 
+               i18n:attributes="value">
+      </td>
+    </tr>
+  </table>
 </form>
 
 </div>
@@ -54,4 +54,3 @@
 </div>
 </body>
 </html>
-</tal:block>

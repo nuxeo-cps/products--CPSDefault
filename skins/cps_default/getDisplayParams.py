@@ -1,5 +1,5 @@
 ## Script (Python) "getDisplayParams"
-##parameters=format=None, sort_by=None, columns=None, items_per_page=None, nav_action=None, nb_items=None
+##parameters=format=None, sort_by=None, direction=None, columns=None, items_per_page=None, nav_action=None, nb_items=None
 # $Id$
 """ return params for display_content macro """
 
@@ -7,6 +7,7 @@ cps_pref = context.REQUEST.SESSION.get('cps_display_params', {})
 
 def_params = {'format': 'detail',
               'sort_by': 'title',
+              'direction': 'asc',
               'items_per_page': 10,
               'nav_action': 'folder_view',
               }

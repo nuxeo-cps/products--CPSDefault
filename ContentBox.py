@@ -108,7 +108,7 @@ class ContentBox(BaseBox):
             query = self._buildQuery()
             if len(query):
                 # this is a search box
-                folder_prefix = None
+                folder_prefix = ''
                 if self.folder:
                     folder_prefix = utool.getRelativeUrl(folder)
                 items = folder.search(query=query,

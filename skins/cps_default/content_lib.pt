@@ -84,7 +84,7 @@
   <div metal:define-slot="button">
     <!-- these are examples -->
     <input type="hidden" name="workflow_action" value="transition">
-    <input type="submit" value="Transition" i18n:attributes="value">
+    <input type="submit" value="button_publish" i18n:attributes="value">
   </div>
 </form>
 </metal:block>
@@ -120,7 +120,7 @@ format:</pre>
              tal:define="previous p/previous/first"
              tal:attributes="href python:nav_action + '?'
                                          + mq(form, b_start=previous)"
-             i18n:translate="previous_items">Previous Items</a>
+             i18n:translate="batch_previous_items">Previous Items</a>
          </span>
       </td>
       <td width="50%" align="right" nowrap>
@@ -129,7 +129,7 @@ format:</pre>
              tal:define="next n/next/first"
              tal:attributes="href python:nav_action + '?'
                                          + mq(form, b_start=next)"
-             i18n:translate="next_items">Next Items</a>
+             i18n:translate="batch_next_items">Next Items</a>
         </span>
       </td>
     </tr>
@@ -170,22 +170,22 @@ format:</pre>
 <metal:block define-macro="status">
   <tal:block condition="not:status_short_fmt|nothing">
     <tal:block i18n:translate="">
-      <strong>Status: </strong>
+      label_status
       <span tal:content="info/review_state"
             i18n:name="review_state">Work</span>
     </tal:block>
     <tal:block i18n:translate="">
-      <strong>Revision: </strong>
+      label_revision
       <span tal:content="info/rev"
             i18n:name="status_revision">1</span>
     </tal:block>
     <tal:block i18n:translate="">
-      <strong>Language: </strong>
+      label_language
       <span tal:content="info/lang"
             i18n:name="status_language">en</span>
     </tal:block>
     <tal:block condition="status_time|nothing" i18n:translate="">
-      <strong>Since: </strong>
+      label_since
       <span tal:content="info/stime"
             i18n:name="status_time">May 6, 2003 5:28 pm</span>
     </tal:block>
@@ -290,7 +290,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized proxies states for a document</pre>
 <metal:block define-macro="states">
-<strong i18n:translate="">Publication states: </strong><br>
+<strong i18n:translate="">label_publication_states</strong><br>
 <span tal:repeat="item info/states">
   <span tal:condition="python:item['review_state'] != 'work'">
     <tal:block define="info item;
@@ -298,7 +298,7 @@ format:</pre>
                        status_short_fmt not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
-    <span i18n:translate="">in section:
+    <span i18n:translate="">label_in_section
       <a href="." tal:attributes="href string:${base_url}${item/rpath}/"
          tal:content="item/title" i18n:name="section_id">Section</a>
     </span><br>
@@ -314,7 +314,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized history of a document</pre>
 <metal:block define-macro="history">
-  <strong i18n:translate="reviewing_history">Reviewing history:</strong><br>
+  <strong i18n:translate="label_reviewing_history">Reviewing history:</strong><br>
   <span tal:repeat="item info/history" i18n:translate="">
     <span tal:content="item/stime"
           i18n:name="history_time">May 6, 2003 5:28 pm</span>:

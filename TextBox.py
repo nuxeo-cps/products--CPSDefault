@@ -9,16 +9,6 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 
-
-def addTextBox(dispatcher, id, REQUEST=None, **kw):
-    """Add a Text Box."""
-    ob = TextBox(id, **kw)
-    dispatcher._setObject(id, ob)
-    if REQUEST is not None:
-        url = dispatcher.DestinationURL()
-        REQUEST.RESPONSE.redirect('%s/manage_main' % url)
-
-
 factory_type_information = (
     {'id': 'Text Box',
      'title': '_portal_type_Text Box',
@@ -66,14 +56,19 @@ class TextBox(BaseBox):
         {'id':'text', 'type':'text', 'mode':'w', 'label':'Text'},
         )
 
-    def __init__(self, id, title='', text='', **kw):
-        BaseBox.__init__(self, id, kw=kw)
+    def __init__(self, id, title='', text='', style='box_text', **kw):
+        BaseBox.__init__(self, id, style, kw=kw)
         self.title = title
         self.text = text
-        self.style = 'box_text'
-
-
 
 
 InitializeClass(TextBox)
 
+
+def addTextBox(dispatcher, id, REQUEST=None, **kw):
+    """Add a Text Box."""
+    ob = TextBox(id, **kw)
+    dispatcher._setObject(id, ob)
+    if REQUEST is not None:
+        url = dispatcher.DestinationURL()
+        REQUEST.RESPONSE.redirect('%s/manage_main' % url)

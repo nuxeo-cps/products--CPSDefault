@@ -6,7 +6,7 @@ import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
-from Products.CMFCore.tests.base.utils import has_path
+from Products.CMFCore.WorkflowCore import WorkflowException
 
 
 class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
@@ -14,12 +14,15 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.login('root')
 
         members = self.portal.portal_directories.members
-        members.createEntry({'id': 'user', 'roles': ['Member']})
-        self.user_ws = self.portal.workspaces.members.user
+        members.createEntry({'id': 'member', 'roles': ['Member']})
+        members.createEntry({'id': 'reviewer', 'roles': ['Member']})
+        self.member_ws = self.portal.workspaces.members.member
 
         pmtool = self.portal.portal_membership
         pmtool.setLocalRoles(obj=self.portal.sections, 
-            member_ids=['user'], member_role='SectionReader')
+            member_ids=['member'], member_role='SectionReader')
+        pmtool.setLocalRoles(obj=self.portal.sections, 
+            member_ids=['reviewer'], member_role='SectionReviewer')
 
         # Some ZPTs need a session. 
         # XXX: this might be moved to a more generic place someday.
@@ -29,17 +32,50 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.logout()
 
     def testSubmit(self):
-        self.login('user')
+        self.login('member')
 
         # Create some document
-        self.user_ws.invokeFactory('News', 'news')
-        proxy = self.user_ws.news
+        self.member_ws.invokeFactory('News', 'news')
+        proxy = self.member_ws.news
         doc = proxy.getContent()
         doc.edit()
+
+        info = proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'work')
 
         # Then submit it (using skin script)
         proxy.content_status_modify(
             submit='sections', workflow_action='copy_submit')
+        info = proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'work')
+
+        self.logout()
+        self.login('reviewer')
+
+        published_proxy = self.portal.sections.news
+        info = published_proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'pending')
+
+        # Now accept it
+        published_proxy.content_status_modify(workflow_action='accept')
+        info = published_proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'published')
+
+        self.logout()
+        self.login('member')
+
+        # Non-reviewer can't unpublish his own stuff
+        published_proxy = self.portal.sections.news
+        self.assertRaises(WorkflowException,
+            published_proxy.content_status_modify, workflow_action='unpublish')
+
+        self.logout()
+        self.login('reviewer')
+
+        published_proxy = self.portal.sections.news
+        published_proxy.content_status_modify(workflow_action='unpublish')
+        info = published_proxy.getContentInfo(level=3)
+        #self.assertEquals(info['review_state'], 'pending')
 
 
 def test_suite():

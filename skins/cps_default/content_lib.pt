@@ -102,8 +102,8 @@ format:</pre>
       <td width="50%" align="right" nowrap>
         <span tal:define="n python:batches[-1]" tal:condition="n/next">
           <a href=""
-             tal:attributes="href
-                               string:${nav_action}?b_start:int=${n/next/first}"
+             tal:define="next n/next/first"
+             tal:attributes="href string:${nav_action}?b_start:int=${next}"
              i18n:translate="">Next Items</a>
         </span>
       </td>

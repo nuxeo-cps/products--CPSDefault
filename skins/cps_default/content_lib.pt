@@ -271,8 +271,9 @@ format:</pre>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
                      site_wide site_wide|nothing;
-                     format python:format or 'detail';
+                     format python:format or 'detail';d
                      choosen_ids python:request.SESSION.get('choosen_ids', []);
+                     dummy python:request.SESSION.update({'choosen_ids': []});
                      no_table python:format == 'detail_tab';">
   <table tal:condition="not:no_table" width="100%" border="0" cellspacing="0"
     cellpadding="5" summary="content column layout">

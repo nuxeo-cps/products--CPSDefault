@@ -71,8 +71,10 @@ class ContentBox(BaseBox):
                 return self.restrictedTraverse(self.folder)
             else: #rpath
                 if hasattr(aq_base(context), self.folder):
-                    folder = context.absolute_url(relative=1) + self.folder
+                    folder = context.absolute_url(relative=1) + '/' + \
+                             self.folder
                     return self.restrictedTraverse(folder)
+                return None
         return context
 
     security.declarePublic('getFolderContents')
@@ -85,7 +87,10 @@ class ContentBox(BaseBox):
         # filtering
         items = []
         now = context.ZopeTime()
-        for item in context.objectValues():
+        folder = self.getFolderObject(context)
+        if not folder:
+            return []
+        for item in folder.objectValues():
             if item.getId().startswith('.'):
                 continue
             if item.isPrincipiaFolderish:
@@ -94,7 +99,6 @@ class ContentBox(BaseBox):
                 continue
             if item.effective() <= now and item.expires() > now:
                 items.append(item)
-
 
         # sorting
         # XXX hardcoded status !

@@ -53,8 +53,10 @@ if end_date and not query.has_key('end'):
 if sort_by and not query.has_key('sort-on'):
     if sort_by in ('title', 'date'):
         sort_by = sort_by.capitalize()  # for compatibility
-    if sort_by == 'status':
+    elif sort_by == 'status':
         sort_by = 'review_state'
+    elif sort_by == 'author':
+        sort_by = 'Creator'
     query['sort-on'] = sort_by
     if direction and not query.has_key('sort-order'):
         if direction.startswith('desc'):
@@ -62,10 +64,13 @@ if sort_by and not query.has_key('sort-on'):
     if sort_limit and not query.has_key('sort-limit'):
         query['sort-limit'] = sort_limit
 
-
+bmt = context.Benchmarktimer('search chrono')
 LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
+bmt.setMarker('start')
 brains = catalog(**query)
-LOG('CPSDefault.search', DEBUG, 'found %s items' % (len(brains)))
+bmt.setMarker('stop')
+LOG('CPSDefault.search', DEBUG, 'found %s items in %7.3fs' % (
+    len(brains), bmt.timeElapsed('start', 'stop')))
 
 # no more need to use filterContents
 

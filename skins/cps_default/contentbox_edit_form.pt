@@ -3,7 +3,7 @@
 <metal:main fill-slot="main">
 
 <metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
-<metal:fields fill-slot="additional_fields">
+<metal:fields fill-slot="additional_fields" >
   <tr valign="top">
     <th align="right" i18n:translate="label_folder">Folder</th>
     <td colspan="3"><input type="text" name="folder" value="" size="30"
@@ -25,6 +25,7 @@
       <div class="tooltipArea" style="visibility: hidden;"
         id="sort_help" onclick="showElement(false, 'sort_help')"
         i18n:translate="help_contentbox_sort">help help</div>
+
     </td>
   </tr>
   <tr valign="top">
@@ -35,6 +36,22 @@
       <label for="cb_zoom" i18n:translate="label_contentbox_zoom">zoom</label>
     </td>
   </tr>
+  
+  <tr valign="top">
+    <td>&nbsp;</td>
+    <td colspan="5"> 
+       <input type="checkbox" id="cb_search_type" name="search_type" class= "noborder" 
+              tal:attributes="checked box/box/search_type" />
+       <label for="search_type" i18n:translate="label_contentbox_searchtype">Ne pas rechercher dans les sous-repertoire</label>
+       <button type="button" class="tooltipControl"
+	onclick="toggleElementVisibility('search_type_help')">?</button>
+      <div class="tooltipArea" style="visibility: hidden;"
+        id="search_type_help" onclick="showElement(false, 'search_type_help')"
+        i18n:translate="help_contentbox_search_type">searchtype_help</div>
+
+    </td>
+  </tr>
+  
   <tr valign="top">
     <th align="right" i18n:translate="label_search">search</th>
     <td colspan="5" class="even">

@@ -97,6 +97,7 @@ def setupPortal():
     # Create a CPS site in the test (demo-) storage
     app = ZopeTestCase.app()
     # PortalTestCase expects object to be called "portal", not "cps"
-    PortalInstaller(app).install('portal')
+    if not hasattr(app, 'portal'):
+        PortalInstaller(app).install('portal')
     ZopeTestCase.close(app)
 

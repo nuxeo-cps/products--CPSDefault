@@ -65,11 +65,10 @@
                      Batch nocall: modules/ZTUtils/Batch;
                      global batch1 python:Batch( items, 10, int(b_start)
                                               , orphan=0);
-                     global batch2 batch1/next;
                     "
      >
       <!-- First column, first half batch in 'batch1'. -->
-      <td colspan="1" align="left" width="49%">
+      <td colspan="2" align="left">
        <table>
         <tr valign="top" tal:repeat="item batch1">
          <td align="left" width="5" nowrap
@@ -100,59 +99,23 @@
           <a href=""
              tal:attributes="href string:${item/getId}/${methodID};
                             "
-          ><span tal:replace="item/getId">ID</span>
+          ><span tal:replace="item/title_or_id">ID</span>
            <span tal:condition="item/Title"
-                 tal:replace="string:(${item/Title})">(Title)</span></a>
-	   <span tal:condition="not:item/isPrincipiaFolderish"><br/>
-	     <i><span tal:replace="python:here.portal_workflow.getInfoFor(item, 'review_state', None)">state</span>,
-	   <span tal:replace="here/getLanguageRevisions">Rev</span></i>
-	   </span>
-         </td>
-        </tr>
-       </table>
-      </td>
-      <!-- Spacer column. -->
-      <td width="2%">&nbsp;</td>
-      <!-- Second column, second half batch in 'batch2'. -->
-      <td colspan="1" width="49%">
-       <table>
-        <tr valign="top" tal:repeat="item batch2">
-         <td align="left" width="5" nowrap
-             tal:define="folderish item/isPrincipiaFolderish;
-                         portalish item/isPortalContent | nothing;
-                         global methodID python:( folderish
-                                              and 'folder_contents'
-                                               or (portalish and 'view' or '')
-                                                );
-                         global icon item/getIcon | item/icon | nothing
-                        ">
-            <input type="checkbox" name="ids:list" value="" id=""
-                   tal:attributes="value item/getId;
-                                   id python: 'cb_' + item.getId()" />
-         </td>
-         <td>
-          <span tal:condition="icon">
-           <a href=""
-              tal:attributes="href string:${item/getId}/${methodID};
-                             "
-           ><img src="" alt="" border="0"
-                 tal:attributes="src string:${here/portal_url}/${icon};
-                                 alt item/Type|nothing;"
-                 i18n:attributes="alt" /></a>
-          </span>
-         </td>
-         <td>
-          <a href=""
-             tal:attributes="href string:${item/getId}/${methodID};
-                            "
-          ><span tal:replace="item/getId">ID</span>
-           <span tal:condition="item/Title"
-                 tal:replace="string:(${item/Title})">(Title)</span></a>
-         </td>
-        </tr>
-       </table>
-      </td>
+                 tal:replace="string:(${item/getId})">(Title)</span></a>
+	   <span tal:condition="not:item/isPrincipiaFolderish"
+	         tal:define="state python:here.portal_workflow.getInfoFor(item, 'review_state', None);
+	                     tmp item/getLanguageRevisions;
+	                     rev python:tmp.values()[0];
+	                     lang python:tmp.keys()[0];
+	                     sincedate python:here.portal_workflow.getInfoFor(item, 'time', None);"
+	   ><br/>
+	   <small><em>Rev: <span tal:replace="rev">3</span>-<span tal:replace="lang">3</span>, <span tal:replace="state">state</span> <span tal:condition="sincedate" tal:replace="python:sincedate.strftime('%H:%M:%S %m/%d')">10/12/2003 11:12</span></em></small>
+	 </span>
 
+         </td>
+        </tr>
+       </table>
+      </td>
      </tr>
 
      <tr>
@@ -160,17 +123,17 @@
        <span tal:define="p batch1/previous" tal:condition="p">
         <a href=""
            tal:attributes="
-                href string:folder_contents?b_start=${p/previous/first}"
+                href string:folder_contents?b_start=${p/first}"
            i18n:translate=""
         >Previous Items</a>
        </span>
       </td>
       <td>&nbsp;</td>
       <td align="right">
-       <span tal:define="n batch2/next | nothing" tal:condition="n">
+       <span tal:define="n batch1/next | nothing" tal:condition="n">
         <a href=""
            tal:attributes="
-                href string:folder_contents?b_start=${batch2/end}"
+                href string:folder_contents?b_start=${batch1/end}"
            i18n:translate=""
         >Next Items</a>
        </span>
@@ -191,14 +154,6 @@
       <span tal:condition="python: checkPerm('View management screens', here)">
         <input type="submit" name="folder_rename_form:method" value="Rename"
                i18n:attributes="value" />
-        <input type="submit" name="folder_cut:method" value="Cut"
-               i18n:attributes="value" />
-        <input type="submit" name="folder_copy:method" value="Copy"
-               i18n:attributes="value" />
-        <span tal:condition="here/cb_dataValid">
-        <input type="submit" name="folder_paste:method" value="Paste"
-               i18n:attributes="value" />
-        </span>
       </span>
       <span tal:condition="python: checkPerm('Delete objects', here)">
         <input type="submit" name="folder_delete:method" value="Delete"

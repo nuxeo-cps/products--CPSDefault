@@ -3,7 +3,7 @@
 """
   BoxesTool
 """
-from zLOG import LOG, DEBUG
+from zLOG import LOG, DEBUG, INFO
 
 from DateTime import DateTime
 from Globals import InitializeClass, DTMLFile, MessageDialog
@@ -195,7 +195,6 @@ class BoxesTool(UniqueObject, PortalFolder):
         """Save personal override for a single box"""
         # find the personal boxes container pbc, create if empty
         home = getToolByName(self, 'portal_membership').getHomeFolder()
-        utool = getToolByName(self, 'portal_url')
         idbc = self.getBoxContainerId(home)
 
         home.manage_addProduct['CPSDefault'].addBoxContainer(quiet=1)
@@ -222,19 +221,13 @@ class BoxesTool(UniqueObject, PortalFolder):
         XXX TODO rename ? indead delete the personal boxcontainer"""
         # find the personal boxes container pbc
         home = getToolByName(self, 'portal_membership').getHomeFolder()
-        utool = getToolByName(self, 'portal_url')
         idbc = self.getBoxContainerId(home)
 
         if hasattr(aq_base(home), idbc):
-            pbc = home[idbc]
             home.manage_delObject([idbc])
             LOG('portal_boxes', INFO, 'delPersonalBoxOverrides',
                 'Delete all personal boxes settings: %s/%s\n' % (
                 home.absolute_url(), idbc))
-
-    security.declarePublic('getSlotIds')
-    def getSlotIds(self):
-        return [slot.id in self.getSlots()]
 
     #
     # misc
@@ -350,6 +343,7 @@ class BoxContainer(PortalFolder):
             for override in overrides:
                 settings = {}
                 # Filter out empty settings:
+                box_path = None
                 for key, item in override.items():
                     if item:
                         if key in ('order', 'minimized', 'closed'):

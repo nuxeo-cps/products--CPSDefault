@@ -106,6 +106,7 @@ class TreeBox(BaseBox):
 
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
+        portal = portal_url.getPortalObject()
 
         # find the current container
         obj = context
@@ -119,8 +120,7 @@ class TreeBox(BaseBox):
         else:
             root_path = filter(None, self.root.split('/'))
             try:
-                root_obj = portal_url.getPortalObject().restrictedTraverse(
-                    root_path)
+                root_obj = portal.restrictedTraverse(root_path)
             except KeyError:
                 LOG('TreeBox', INFO, 'box:%s use invalid root_path:%s.' %
                     (self.absolute_url(1), self.root))
@@ -129,9 +129,37 @@ class TreeBox(BaseBox):
 
         root_tree = root_path[0]
 
+        # If there no tree for root_tree, it means that the box is neither in
+        # the workspaces and neither in the sections, thus we conclude that the
+        # tree box is a the root of the portal.
         if not hasattr(aq_base(portal_trees), root_tree):
-            # no tree for root_tree
-            return []
+            mtool = getToolByName(self, 'portal_membership')
+            rpath_sections = 'sections'
+            sections = portal.restrictedTraverse(rpath_sections)
+            rpath_workspaces = 'workspaces'
+            workspaces = portal.restrictedTraverse(rpath_workspaces)
+            tree_list = []
+            if (sections and
+                mtool.checkPermission('List folder contents', sections)):
+                tree_list.append({'rpath': rpath_sections,
+                                  'depth': 0,
+                                  'portal_type': sections.portal_type,
+                                  'visible': 1,
+                                  'title': sections.Title(),
+                                  'short_title': sections.Title(),
+                                  'nb_children': 0,
+                                  })
+            if (workspaces and
+                mtool.checkPermission('List folder contents', workspaces)):
+                tree_list.append({'rpath': rpath_workspaces,
+                                  'depth': 0,
+                                  'portal_type': workspaces.portal_type,
+                                  'visible': 1,
+                                  'title': workspaces.Title(),
+                                  'short_title': workspaces.Title(),
+                                  'nb_children': 0,
+                                  })
+            return tree_list
 
         tree = portal_trees[root_tree].getList(filter=self.authorized_only)
 

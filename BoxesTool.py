@@ -44,7 +44,7 @@ class BoxesTool(UniqueObject, SimpleItem):
     #
 
     security.declarePublic('getBoxes')
-    def getBoxes(self, context, slot=None):
+    def getBoxes(self, context, slot=None, include_personal=1):
         """Return a sorted list of boxes
         box are loaded from root to current path
         and overriden by personal boxes folder
@@ -83,16 +83,19 @@ class BoxesTool(UniqueObject, SimpleItem):
             self._updateSettings(settings, f_settings)
 
         home = getToolByName(self, 'portal_membership').getHomeFolder()
-        if home:
+        if home and include_personal:
             f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
-
-        if home:
             homepath = portal_url.getRelativeContentPath(home)
         else:
             homepath = None
-        LOG('portal_boxes: home path', DEBUG, homepath)
+
+        if include_personal:
+            LOG('portal_boxes: home path', DEBUG, homepath)
+        else:
+            LOG('portal_boxes: home path', DEBUG, 'skip personal boxes')
+
         boxes = []
         for box in allboxes:
             # Skip it if there is no view permission
@@ -109,7 +112,8 @@ class BoxesTool(UniqueObject, SimpleItem):
             if box.display_in_subfolder or \
                not rpath or \
                elem == rpath[-1] or \
-               (homepath and boxpath[:len(homepath)] == homepath):
+               (include_personal and homepath and \
+               boxpath[:len(homepath)] == homepath):
                 newbox = {'path': portal_url.getRelativeUrl(box),
                           'settings': box.getSettings(),
                           'macro': box.getMacro(),

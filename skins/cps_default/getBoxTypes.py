@@ -69,14 +69,17 @@ items = [
                 'config': {'contextual': 1,
                            'children_only': 1,
                            'depth': 2,
-                           'root': ''}
+                           'root': '',
+                           'authorized_only': 0,
+                           'display_managers': 0,
+                           'show_root': 1}
                 },
                {'provider': 'nuxeo',
                 'id': 'sitemap',
-                'desc': 'description_nuxeo_treebox_sitemap'},
-               {'provider': 'nuxeo',
-                'id': 'restricted',
-                'desc': 'description_nuxeo_treebox_restricted'},
+                'desc': 'description_nuxeo_treebox_sitemap',
+                'config': {'authorized_only': 0,
+                           },
+                }
                ]
      },
     {'category': 'contentbox',

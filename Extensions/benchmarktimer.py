@@ -93,7 +93,7 @@ class pyBenchmarkTimer:
         i = 0
         total = 0
         profiling = []
-        str = '<pre>Profiling lvl:%d %s:<small>\n' % (self._level, self.title)
+        str = '<pre>Profiling lvl:%d %s:\n' % (self._level, self.title)
         str += '%-6s  %-10s %-4s\n' % ('t', 'mark', 'delta t')
         for name in self.markerOrder:
             time = self.markers[name]
@@ -114,7 +114,7 @@ class pyBenchmarkTimer:
 
             temp = time
             i = i+1
-        str += '</small></pre>'
+        str += '</pre>'
         str += tidy_hook
 
         if return_str:

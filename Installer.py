@@ -191,7 +191,7 @@ class BaseInstaller:
 
     def setupPortalProperties(self, props):
         """Set portal properties using the ones found in the props list of
-        dictionaries: ({'id': 'xxx', type: 'xxx', value: xxx}, {...}, ).
+        dictionaries: ({'id': xxx, 'type': xxx, 'value': xxx}, {...}, ).
 
         Note that existing values don't have to specify the type.
         """

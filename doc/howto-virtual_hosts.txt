@@ -1,7 +1,8 @@
 
+===========================================================
 HOWTO to setup CPS with Apache httpd VirtualHost directives
 ===========================================================
-$Id$
+*$Id$*
 
 Here are some configuration examples using Apache httpd VirtualHost directives
 as it can be setup on a Debian Sarge machine with the "apache-ssl" package.
@@ -12,97 +13,145 @@ and "libapache-mod-ssl" packages, but the configuration to use might be slightly
 different.
 
 What you need:
-  * apt-get install apache-ssl
-  * Be sure to have the following line in your /etc/apache-ssl/modules.conf:
+
+* apt-get install apache-ssl
+
+* Be sure to have the following line in your /etc/apache-ssl/modules.conf::
+
     LoadModule proxy_module /usr/lib/apache/1.3/libproxy.so
-  * You should have the SSLDisable option at the server config level because we
-    will be using virtual hosts.
-  * You should generate a private key and certificate files for your web server.
+
+* You should have the SSLDisable option at the server config level because we
+  will be using virtual hosts.
+
+* You should generate a private key and certificate files for your web server.
+
+
+
+Adapting those examples to your needs
+=====================================
 
 The port 9673 is the Zope default port on Debian, you might have to change it to
 8080 depending on your configuration.
 
+Note that in all the following examples "demo1.localdomain" can be replaced by
+"localhost" if your Zope server runs on the same machine as your Apache httpd
+server is.
 
-Sample HTTP + HTTPS configuration
----------------------------------
 
-<VirtualHost 192.168.2.20:80>
-ServerName mysite.net
 
-RewriteEngine on
+Simple HTTP + HTTPS configuration
+=================================
 
-RewriteCond %{HTTP:Authorization}  ^(.*)
-RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+This configuration is what most people would need. This is not a secure
+configuration but it is easy to setup and understand.
 
-CustomLog /var/log/apache-ssl/mysite.net.log combined
-ErrorLog /var/log/apache-ssl/mysite.net-error.log
-</VirtualHost>
+Example::
 
-<VirtualHost 192.168.2.20:443>
-ServerName mysite.net
-
-SSLEnable
-SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
-SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
-
-RewriteEngine on
-
-RewriteCond %{HTTP:Authorization}  ^(.*)
-RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
-
-CustomLog /var/log/apache-ssl/mysite.net.log combined
-ErrorLog /var/log/apache-ssl/mysite.net-error.log
-</VirtualHost>
+  <VirtualHost 192.168.2.20:80>
+  ServerName mysite.net
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  </VirtualHost>
+  
+  <VirtualHost 192.168.2.20:443>
+  ServerName mysite.net
+  
+  SSLEnable
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  </VirtualHost>
 
 
 Secure HTTP + HTTPS configuration
----------------------------------
+=================================
 
-This is the configuration to use if you want to:
-  * force the use of HTTPS for working in the ZMI
-  * force the use of HTTPS for authenticated users (because for logged users
-    cookies containing vulnerable login/password information is sent with each
-    request)
+This is a secure configuration because:
 
-<VirtualHost 192.168.2.20:80>
-ServerName mysite.net
+* it forces the use of HTTPS for administering Zope in the ZMI
 
-RewriteEngine on
+* it forces the use of HTTPS for authenticated users (because for logged users
+  cookies containing vulnerable login/password information is sent with each
+  request)
 
-# Using OR instead of the implicit AND between conditions
-RewriteCond %{REQUEST_URI} ^(.*)/manage$ [OR]
-RewriteCond %{REQUEST_URI} ^(.*)/login_form$
-RewriteRule ^/(.*) https://mysite.net/$1 [R=permanent,L]
+Example::
 
-RewriteCond %{HTTP:Authorization}  ^(.*)
-RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
-
-CustomLog /var/log/apache-ssl/mysite.net.log combined
-ErrorLog /var/log/apache-ssl/mysite.net-error.log
-</VirtualHost>
-
-<VirtualHost 192.168.2.20:443>
-ServerName mysite.net
-
-SSLEnable
-SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
-SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
-
-RewriteEngine on
-
-RewriteCond %{HTTP:Authorization}  ^(.*)
-RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
-
-CustomLog /var/log/apache-ssl/mysite.net.log combined
-ErrorLog /var/log/apache-ssl/mysite.net-error.log
-</VirtualHost>
+  # Main HTTP access to http://mysite.net/ for anonymous users
+  <VirtualHost 192.168.2.20:80>
+  ServerName mysite.net
+  
+  RewriteEngine on
+  
+  # Using OR instead of the implicit AND between conditions
+  RewriteCond %{REQUEST_URI} ^(.*)/manage$ [OR]
+  RewriteCond %{REQUEST_URI} ^(.*)/login_form$
+  RewriteRule ^/(.*) https://mysite.net/$1 [R=permanent,L]
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  </VirtualHost>
+  
+  # Main HTTPS access to https://mysite.net/ for authenticated users
+  <VirtualHost 192.168.2.20:443>
+  ServerName mysite.net
+  
+  SSLEnable
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  </VirtualHost>
+  
+  
+  # HTTPS access to https://mysite.net:453/ for administrators.
+  # This is the access to use to administer Zope through the ZMI.
+  <VirtualHost 192.168.2.20:453>
+  ServerName mysite.net
+  
+  SSLEnable
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}/VirtualHostRoot/$1 [P,L]
+  # Note that the line below with "%{HTTP_HOST}:453" will not work. The working
+  # rule above has been crafted through the reading of the Z2.log file.
+  #RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:453/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  </VirtualHost>
 
 
 
 Related bug reports
--------------------
+===================
 
-- bug #436
+* bug #436
   "getBaseUrl.py doesn't work as expected behind Apache virtual hosts"
   http://bugs.nuxeo.com/bugzilla/show_bug.cgi?id=436
 

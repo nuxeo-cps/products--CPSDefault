@@ -89,6 +89,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     _can_minimized = None
     locked = 0
+    display_in_subfolder = 1
+    guard_roles = ''
     
     _properties = (
         {'id': 'minimized', 'type': 'boolean', 'mode': 'w', 'label': 'Minimized'},
@@ -98,8 +100,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         {'id': 'ypos', 'type': 'int', 'mode': 'w', 'label': 'YPos'},
         {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
         {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
-        {'id': 'guard_roles', 'type': 'string', 'mode': 'w', 'label': 'List of roles required separted with semi-column ;'},
         {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
+        {'id': 'guard_roles', 'type': 'string', 'mode': 'w', 'label': 'List of roles required separted with semi-column ;'},
 
         )
 
@@ -117,8 +119,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
         self.visible_if_empty = visible_if_empty
         self.display_in_subfolder = display_in_subfolder
-        self.guard_roles = self.guard_roles
         self.locked = locked
+        self.guard_roles = self.guard_roles
 
     security.declarePublic('getSettings')
     def getSettings(self):

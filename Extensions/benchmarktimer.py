@@ -10,6 +10,20 @@ import Globals
 import time
 import os
 
+tidy_hook = """
+<script type="text/javascript">
+function setBodyContent() {
+  document.tidyform.body_content.value = document.body.innerHTML;
+  return true;
+}
+</script>
+<form name="tidyform" action="tidy" method="post" target="_blank"
+  onsubmit="return setBodyContent()">
+<input type="hidden" name="body_content" />
+<input type="submit" value="Tidy the body of this page" />
+</form>
+"""
+
 class pyBenchmarkTimer:
     def __init__(self, title='', level=-1):
         """
@@ -97,11 +111,12 @@ class pyBenchmarkTimer:
                        total, name, diff)
             else:
                 str += '%7.4f: %-10s +%7.4f\n' % (total, name, diff)
-            
+
             temp = time
             i = i+1
         str += '</small></pre>'
-        
+        str += tidy_hook
+
         if return_str:
             return str
         return profiling

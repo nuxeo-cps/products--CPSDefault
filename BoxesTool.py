@@ -89,14 +89,18 @@ class BoxesTool(UniqueObject, SimpleItem):
             # box[0] box_id
             # box[1] settings dict
             # box[2] macro path
-            # box[3] box object            
-            if settings.get(box[0]):
+            # box[3] box object
+            if not box[3].locked and settings.get(box[0]):
                 box[1].update(settings[box[0]])
-                box[2].getMacro(box[1]['style'])
+                box[2] = box[3].getMacro(box[1]['style'])
 
-        # filtering on xpos
-        if xpos is not None:
-            boxes = [x for x in boxes if (x[1]['xpos']==xpos)]
+        # TODO filter on display_in_subfolder
+
+        # filtering on closed, xpos
+        boxes = [x for x in boxes if (not x[1]['closed'] and
+                                      (xpos is None or x[1]['xpos']==xpos))]
+
+        # TODO filter on guard_roles
 
         # sorting
         def cmpbox(a, b):

@@ -3,7 +3,11 @@ Requires:
 - CPSCore > 3.21.2
 - CPSCompat >= 0.1.0
 - CPSBoxes >= 0.0.1
-- CPSSchemas >= 0.40.0
+- CPSSchemas > 0.40.0
+- CPSDocument > 0.33.0
+- to use the new filter set default_languages requires to remove an index:
+  zmi: portal_catalog/indexes/ select cps_filter_sets ->Remove index
+  then launch the cpsupdate external method
 New features:
 ~~~~~~~~~~~~~
 -

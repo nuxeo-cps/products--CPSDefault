@@ -17,7 +17,7 @@ catalog = context.portal_catalog
 proxytool = context.portal_proxies
 ttool = context.portal_types
 
-okpt = context.getSearchablePortalTypes()
+okpt = context.getSearchablePortalTypes(only_ids=1)
 
 pt = params.get('portal_type', None)
 if pt:

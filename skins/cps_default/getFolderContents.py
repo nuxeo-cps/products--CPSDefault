@@ -5,9 +5,9 @@
 Get a sorted list of contents object
 """
 if not sort_by:
-    cps_cookie = context.REQUEST.SESSION.get('cps_display_params', {})
-    sort_by    = cps_cookie.get('sort_by', 'title');
-    direction  = cps_cookie.get('direction', 'asc');
+    disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
+    sort_by    = disp_params.get('sort_by', 'title');
+    direction  = disp_params.get('direction', 'asc');
 elif not direction:
     direction = 'asc'
 

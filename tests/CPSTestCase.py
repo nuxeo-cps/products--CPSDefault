@@ -30,10 +30,11 @@ ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('CPSSchemas', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
+ZopeTestCase.installProduct('CPSWiki', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
 
 # Optional products
-for product in ('CPSRSS', 'CPSChat', 'CPSCalendar', 'CPSCollector', 
+for product in ('CPSRSS', 'CPSChat', 'CPSCalendar', 'CPSCollector',
         'CPSMailBoxer', 'CPSNavigation', 'CPSPortlets'):
     try:
         ZopeTestCase.installProduct(product, quiet=1)

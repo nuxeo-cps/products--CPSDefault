@@ -1,11 +1,11 @@
-## Script (Python) "breadcrumbs.py from zpt_generic"
+## Script (Python) "getBreadCrumbs.py"
 ##parameters=include_root=1
 ##title=Return breadcrumbs
 ##
 from string import join
 
 result = []
-portal_url = '/' + context.portal_url(relative=1) + '/'
+portal_url = context.portal_url(relative=1) + '/'
 
 if include_root:
     title = context.portal_properties.title().strip()

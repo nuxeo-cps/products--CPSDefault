@@ -174,8 +174,6 @@ if level > 0:
         elif size:
             info['size'] = str(int(size)/1024)+' K'
 
-
-
     if hasattr(doc.aq_explicit, 'start'):
         if callable(doc.start):
             start = doc.start()
@@ -210,6 +208,11 @@ if level > 0:
             info[key] = value
         except:
             info[key] = ''
+
+    if hasattr(doc.aq_explicit, 'hidden_folder'):
+        info['hidden'] = doc.hidden_folder
+    else:
+        info['hidden'] = 0
 
     if hasattr(doc.aq_explicit, 'getAdditionalContentInfo'):
         add_info = doc.getAdditionalContentInfo(proxy)

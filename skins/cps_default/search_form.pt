@@ -22,33 +22,25 @@
     <h1 tal:condition="title_search"
       tal:content="title_search">Title for search results</h1>
 
-    <p>
-      <span i18n:translate="">
-        Your query '<span class="emphasis"
-                          tal:content="SearchableText"
-                          i18n:name="query">Query</span>'
-      </span>
-      <tal:block condition="python:items_length == 0">
-        <span i18n:translate="legend_no_search_result">
-          gave no result.</span>
-      </tal:block>
-      <tal:block condition="python:items_length == 1">
-        <span i18n:translate="legend_one_search_result">
-          gave 1 result</span>
-      </tal:block>
-      <tal:block condition="python:items_length > 1">
-        <span i18n:translate="">
-          gave <span class="emphasis"
-                     tal:content="items_length"
-                     i18n:name="nb_results">n results.</span>
-        </span>
-      </tal:block>
+    <p tal:condition="python:items_length == 0"
+       i18n:translate="legend_no_search_result">
+      Your query gave no result.
+    </p>
+    <p tal:condition="python:items_length == 1"
+       i18n:translate="legend_one_search_result">
+      Your query gave 1 result.
+    </p>
+    <p tal:condition="python:items_length > 1"
+       i18n:translate="">
+      Your query gave <span class="emphasis"
+                            tal:content="items_length"
+                            i18n:name="nb_results">n</span> results.
     </p>
     <metal:block use-macro="here/content_lib/macros/display_contents" />
     <div style="text-align:right;" class="group">
       <form name="searchFormBottom" method="get" action="search_form"
         onsubmit="return checkEmptySearch(this)">
-        <a href="./advanced_search_form">
+        <a href="advanced_search_form">
            <span i18n:translate="link_advanced_search">
              Advanced search
            </span>

@@ -26,6 +26,28 @@ box should look like.</p>
     '<dtml-var sequence-key>': <dtml-var sequence-item>,
 </dtml-if>
 </dtml-in>
+<dtml-if expr="getGuard() is not None">
+<dtml-let guard_props="{'permissions' : getGuard().getPermissionsText(),
+                        'roles'       : getGuard().getRolesText(),
+                        'expr'        : getGuard().getExprText(),}">
+    'guard_props': {
+    <dtml-in expr="guard_props.items()">
+    <dtml-if "_.same_type(_['sequence-item'], '')">
+<dtml-if "_['sequence-item'].find(dquote) != -1 or
+          _['sequence-item'].find(cr) != -1">
+    'guard_<dtml-var sequence-key>': """<dtml-var sequence-item html_quote>""",
+<dtml-elif "_['sequence-item'].find(squote) != -1">
+    'guard_<dtml-var sequence-key>': "<dtml-var sequence-item html_quote>",
+<dtml-else>
+    'guard_<dtml-var sequence-key>': '<dtml-var sequence-item html_quote>',
+</dtml-if>
+<dtml-else>
+    'guard_<dtml-var sequence-key>': <dtml-var sequence-item>,
+</dtml-if>
+    </dtml-in>
+   },
+</dtml-let>
+</dtml-if>
 },
 </pre>
 </dtml-let>

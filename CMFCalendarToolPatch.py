@@ -34,14 +34,19 @@ from zLOG import LOG, DEBUG
 security = ClassSecurityInfo()
 
 security.declarePublic('catalog_getcpsevents')
-def catalog_getcpsevents(self, year, month, location=None):
+def catalog_getcpsevents(self, year, month, location=None, event_types=None):
     """ given a year and month return a list of days that have events """
+    
     last_day=calendar.monthrange(year, month)[1]
     nb_days=calendar.monthrange(year, month)[1]
     first_date = DateTime(str(month)+'/1/'+str(year)+ ' 12:00:00AM')
     last_date = DateTime(str(month)+'/'+str(nb_days)+'/'+str(year)+ ' 23:59:59AM')
 
-    query = self.search(query={'portal_type':self.calendar_types,
+    final_event_types = self.calendar_types
+    if event_types:
+        final_event_types = event_types
+
+    query = self.search(query={'portal_type':final_event_types,
                                'review_state':'published',
                                },
                         folder_prefix=location,
@@ -94,7 +99,8 @@ def catalog_getcpsevents(self, year, month, location=None):
     return eventDays
 
 security.declarePublic('getCPSEventsForCalendar')
-def getCPSEventsForCalendar(self, month='1', year='2002', location=None):
+def getCPSEventsForCalendar(self, month='1', year='2002', location=None,
+                            event_types=None):
     """ recreates a sequence of weeks, by days each day is a mapping.
     {'day': #, 'url': None}
     """
@@ -118,7 +124,7 @@ def getCPSEventsForCalendar(self, month='1', year='2002', location=None):
     daysByWeek=calendar.monthcalendar(year, month)
     weeks=[]
 
-    events=self.catalog_getcpsevents(year, month, location)
+    events=self.catalog_getcpsevents(year, month, location, event_types)
 
     for week in daysByWeek:
         days=[]
@@ -134,15 +140,21 @@ def getCPSEventsForCalendar(self, month='1', year='2002', location=None):
 
 
 security.declarePublic('getCPSEventsForThisDay')
-def getCPSEventsForThisDay(self, thisDay, location=None):
+def getCPSEventsForThisDay(self, thisDay, location=None, event_types=None):
     """ given an exact day return ALL events that:
     A) Start on this day  OR
     B) End on this day  OR
     C) Start before this day  AND  end after this day"""
 
-    first_date, last_date = self.getBeginAndEndTimes(thisDay.day(), thisDay.month(), thisDay.year())
+    first_date, last_date = self.getBeginAndEndTimes(thisDay.day(),
+                                                     thisDay.month(),
+                                                     thisDay.year())
 
-    query = self.search(query={'portal_type':self.calendar_types,
+    final_event_types = self.calendar_types
+    if event_types:
+        final_event_types = event_types.split(',')
+
+    query = self.search(query={'portal_type':final_event_types,
                                'review_state':'published',
                                },
                         folder_prefix=location,

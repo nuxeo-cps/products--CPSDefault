@@ -123,7 +123,9 @@ class BoxesTool(UniqueObject, SimpleItem):
                 # If the box isn't locked and there are overrides
                 if not newbox['box'].locked and settings.get(newbox['path']):
                     newbox['settings'].update(settings[newbox['path']])
-                    newbox['macro'] = newbox['box'].getMacro(newbox['settings']['style'])
+                    newbox['macro'] = newbox['box'].getMacro(
+                        style=newbox['settings']['style'],
+                        format=newbox['settings']['format'])
 
                 boxes.append(newbox)
 

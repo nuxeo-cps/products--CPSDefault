@@ -1,0 +1,21 @@
+#!/usr/bin/python
+
+"""check_css_props: check that CSS properties are actually used in the CSS"""
+
+import os, sys
+
+if len(sys.argv) > 1 and sys.argv[1] == '-h':
+    print __doc__
+    sys.exit()
+
+STYLESHEET_PROPERTIES = "skins/cps_styles/nuxeo/stylesheet_properties.props"
+
+for line in open(STYLESHEET_PROPERTIES).readlines():
+    property_name = line.split(":", 1)[0].strip()
+    if not property_name:
+        continue
+    print
+    print "### Checking property:", property_name
+    print
+    os.system("find . -name '*.dtml' | xargs grep dtml-%s" % property_name)
+

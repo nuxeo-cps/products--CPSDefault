@@ -78,19 +78,36 @@ class InternalLinksBox(BaseBox):
 
     security.declarePublic('getContents')
     def getContents(self):
-        """Get a list of contents object"""
+        """Get a list of contents object
+        Returns a list of tuples:
+        (obj_reference, title, description).
+        The expected format for each item is:
+        item_path item_title|item_desc
+        """
         utool = getToolByName(self, 'portal_url')
         items = []
-        for url in self.links:
-            LOG("internallinksbox:getcontents", DEBUG, url)
-            LOG("internallinksbox:getcontents", DEBUG, utool.restrictedTraverse(url))
-            if not url:
+        for item in self.links:
+            if not item:
                 continue
-            items.append(utool.restrictedTraverse(url))
-        return items
-    
-InitializeClass(InternalLinksBox)
+            seq = item.split(' ', 1)
+            url = seq[0]
+            try:
+                obj = utool.restrictedTraverse(url)
+            except KeyError:
+                continue
+            title_set = ''
+            desc_set = ''
+            if len(seq) > 1:
+                new_seq = seq[1].split('|', 1)
+                title_set = new_seq[0].strip()
+                if len(new_seq) > 1:
+                    desc_set = new_seq[1].strip()
+            if not title_set:
+                title_set = obj.title_or_id()
+            items.append((obj, title_set, desc_set))
+        return items   
 
+InitializeClass(InternalLinksBox)
 
 def addInternalLinksBox(dispatcher, id, REQUEST=None, **kw):
     """Add a Content Box."""

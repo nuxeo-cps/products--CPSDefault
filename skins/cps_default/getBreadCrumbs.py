@@ -1,5 +1,5 @@
 ## Script (Python) "getBreadCrumbs.py"
-##parameters=url=None, parent=0
+##parameters=url=None, parent=0, REQUEST=None
 # $Id$
 
 def format_title(title):
@@ -10,6 +10,15 @@ def format_title(title):
     else:
         short_title = title
     return short_title
+
+#
+# Faking the real path by setting
+# a variable "breadcrumb_set" in the REQUEST
+# and then returning it without computing
+# Cf. Directories Templates
+if REQUEST is not None:
+    if REQUEST.has_key('breadcrumb_set'):
+        return getattr(REQUEST, 'breadcrumb_set', None)
 
 if not url:
     url = context.getPortalUrl()

@@ -12,6 +12,6 @@ for ti in ttool.listTypeInfo():
         if only_ids:
             searchable.append(ti.getId())
         else:
-            searchable.append({'id': ti.getId(), 'title': ti.Title()})
-            
+            searchable.append(ti)
+
 return searchable

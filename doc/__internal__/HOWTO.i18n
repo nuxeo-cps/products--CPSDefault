@@ -179,12 +179,24 @@ Rules to generate pot/pos files and updating them
   You'll find this one within dev2 /home/download/_packages directory.
 
   Appart the products mentionned in the HOWTO.INSTALL_CPS3 guide you'll need
-  GNU Gettext version >= 0.11.4-7 installed on the computer where you will launch
-  the scripts included in the nuxeo_env. (make_pot & update_pos)
+  GNU Gettext version >= 0.11.4-7 installed on the computer where you will
+  launch the scripts included in the nuxeo_env. (make_pot & update_pos)
 
   Set ISO 8859-15 encoding in your po editor (Whatever the tool) !!
   The characters with  accents will not be accepted at diplay page time
   if you don't ;)
+
+  update_pos and make_pot can handle a blacklist pot file, removing all
+  msgid that are present in then blacklist pot file, this is usefull
+  when you share a mcat with another products and you don't want to duplicate
+  existing translation.
+
+  To use this feature you need to edit/create a file named '.blacklist_pot'
+  in i18n repository and set the content to the path of the pot file like
+  '../../CPSDefault/i18n/cpsdefault.pot',
+  by doing this the update_pos command will remove all msgid found in your
+  template and custom that exist in the '../../CPSDefault/i18n/cpsdefault.pot'
+  file.
 
 -----------------
 Process outline
@@ -252,14 +264,17 @@ Process outline
 Within CPS3
 ------------
 
-  - ONE domain and ONE MessageCatalog (default) for the CPSDefault and the compulsory
-    products following the guide for the internationalization of CPS3.
+  - ONE domain and ONE MessageCatalog (default) for the CPSDefault
+    and the compulsory products following the guide for the
+    internationalization of CPS3.
+    The compulsory products should use .blacklist_pot file refering
+    ../../CPSDefault/i18n/cpsdefault.pot file to not duplicate translation.
 
-  - ONE domain and ONE MessageCatalog for the others products added to CPS3
+  - ONE domain and ONE MessageCatalog for the others products,
     note that actions msgid should be define in the Default domain
 
-  - More generally : don't put anything in the default catalog until you checked
-    the msgids are according to the above nomenclature.
+  - More generally : don't put anything in the default catalog until you
+    checked the msgids are according to the above nomenclature.
 
-  - Waiting for some feedbacks about domains in our case ??? Don't see really the
-    usefulness.
+  - Waiting for some feedbacks about domains in our case ??? Don't see really
+    the usefulness.

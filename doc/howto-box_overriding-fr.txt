@@ -1,0 +1,51 @@
+$Id$
+
+Procédure de surcharge des boites
+---------------------------------
+(exemple avec une boite de logo)
+
+
+A. Ajout de la nouvelle image
+
+  1. Aller dans un workspace, une entité ou une communauté
+
+  2. -> Gérer les boites
+
+     Cette action se situe sur la barre d'actions sous le document, attention
+     pas « Gérer les boîtes à la racine »
+
+  3. -> Ajouter une boîte -> Boîte d'image
+
+    Utiliser les paramètres suivants :
+    - Titre : par exemple, « Logo 1 »
+    - Emplacement : En-tête de la page
+    - Habillage : boîte sans cadre et sans titre
+    - visible dans les sous-répertoires
+    - Type Boîte image : nuxeo-default
+
+
+B. Surcharge de l'ancienne image
+
+  1. Aller dans la zmi dans le répertoire du workspace, de l'entité ou de la
+  communauté, par exemple /cps/workspaces/area2 ou encore /cps/entities/entity2
+
+  2. Aller dans le conteneur de boîte qui doit s'y trouver : .cps_boxes
+
+  3. -> Overrides
+
+  4. -> Add new override :
+
+     Ici il faut mettre le chemin pour trouver la boîte présente dans
+     .cps_boxes_root que l'on veut surcharger. Par exemple si la boite qui
+     contient le logo du site s'appelle site_logo il faut utiliser la valeur
+     suivante :
+     .cps_boxes_root/site_logo
+
+  5. Mettre le même numéro de Slot que celui présent pour la boîte du logo, dans
+     notre exemple site_logo, par défaut c'est souvent 10, mais il est essentiel
+     d'utiliser la valeur utilisée dans votre site CPS.
+
+  6. -> Save changes
+
+
+

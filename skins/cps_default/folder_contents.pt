@@ -10,39 +10,40 @@
 
 <metal:header metal:fill-slot="header">
   <tal:block condition="python:checkPerm('List folder contents', here, 'aq_parent')">
-     <a href="../xx"
-       tal:attributes="href python:test(hasattr(here.aq_parent.aq_parent,
+    <a href="../xx"
+       tal:attributes="href 
+        python:test(hasattr(here.aq_parent.aq_parent,
           'portal_url'), '../folder_contents', '..')">
-     <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
-       base_url=base_url)" />
-       <span i18n:translate="">description_up_to
-         <b i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
-         Up ID</b></span></a>
+    <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
+      base_url=base_url)" />
+      <span i18n:translate="">description_up_to
+        <b i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
+          Up ID</b></span></a>
   </tal:block>
-<h1 tal:content="here/title_or_id">Page Title</h1>
-<a href="" accesskey="V"
-   style="display:none"
-   tal:attributes="href string:${context_url}/"></a>
-<a href="" accesskey="N"
-   style="display:none"
-   tal:attributes="href string:${context_url}/folder_factories"></a>
-<div align="right">
-  <form action="" method="post" name="formf"
-        tal:attributes="action string:${here_url}/changeDisplayParams">
-    <metal:params use-macro="here/content_lib/macros/display_params_form" />
-    <input type="submit" value="button_apply" class="standalone"
-           i18n:attributes="value" />
-  </form>
-</div>
+  <h1 tal:content="here/title_or_id">Page Title</h1>
+  <a href="" accesskey="V"
+     style="display:none"
+     tal:attributes="href string:${context_url}/"></a>
+  <a href="" accesskey="N"
+     style="display:none"
+     tal:attributes="href string:${context_url}/folder_factories"></a>
+  <div align="right">
+    <form action="" method="post" name="formf"
+          tal:attributes="action string:${here_url}/changeDisplayParams">
+      <metal:params use-macro="here/content_lib/macros/display_params_form" />
+      <input type="submit" value="button_apply" class="standalone"
+             i18n:attributes="value" />
+    </form>
+  </div>
 </metal:header>
 
 <metal:main fill-slot="main"
-     tal:define="list_here python:checkPerm('List folder contents', here);">
+  tal:define="list_here python:checkPerm('List folder contents', here);">
 
-<div tal:condition="not: list_here"
-  tal:define="response request/RESPONSE;url here_url;">
-  <span tal:define="redirect python: response.redirect(url)"></span>
-</div>
+  <div tal:condition="not: list_here"
+    tal:define="response request/RESPONSE;url here_url;">
+    <span tal:define="redirect python: response.redirect(url)"></span>
+  </div>
 
   <form action="" method="post"
         tal:attributes="action here_url"
@@ -50,47 +51,47 @@
                     nav_action string:folder_contents;
                     items python:here.getFolderContents(displayed=displayed);">
 
-   <metal:block use-macro="here/content_lib/macros/display_contents" />
+    <metal:block use-macro="here/content_lib/macros/display_contents" />
 
-   <table border="0" width="100%" cellspacing="0" cellpadding="2"
-     summary="contents of the folder"
-     tal:define="can_add python:checkPerm('Add portal content', here);
-                 can_del python:checkPerm('Delete objects', here);">
-     <tr>
-      <td align="left" valign="top" width="16" rowspan="3"></td>
-      <td align="left" valign="top">
-        <span tal:condition="items">
-          <input type="button" value="button_select_all" class="context"
-                 onclick="someJavaScriptFunctionThatWillBeReplaced"
-                 i18n:attributes="value"
-                 tal:attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
-                                 % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
-        </span>
-        <span tal:condition="can_add">
-          <input type="submit" name="folder_cut:method" value="button_cut"
-                 class="context" i18n:attributes="value"
-                 tal:condition="can_del" />
-          <input type="submit" name="folder_copy:method" value="button_copy"
-            class="context" i18n:attributes="value" />
-        </span>
-        <span tal:condition="python:can_add and here.cb_dataValid()">
-          <input type="submit" name="folder_paste:method" value="button_paste"
-            class="context" i18n:attributes="value" />
-        </span>
-        <span tal:condition="can_del">
-          <input type="submit" name="folder_rename_form:method"
-            class="context" value="button_rename" i18n:attributes="value" />
-          <input type="submit" name="folder_delete:method" value="button_delete"
-            class="destructive" i18n:attributes="value"
-            tal:attributes="onclick python:'return window.confirm(\'%s\')' %
-            (cpsmcat('description_confirm_delete'), )" />
-        </span>
-      </td>
-     </tr>
-     <tr tal:define="isWsManager python:checkPerm('Modify portal content',
-                                                  here);"
-         tal:condition="python:isWsManager and sort_by is None">
-      <td>
+    <table border="0" width="100%" cellspacing="0" cellpadding="2"
+      summary="contents of the folder"
+      tal:define="can_add python:checkPerm('Add portal content', here);
+                  can_del python:checkPerm('Delete objects', here);">
+      <tr>
+        <td align="left" valign="top" width="16" rowspan="3"></td>
+        <td align="left" valign="top">
+          <span tal:condition="items">
+            <input type="button" value="button_select_all" class="context"
+                   onclick="someJavaScriptFunctionThatWillBeReplaced"
+                   i18n:attributes="value"
+                   tal:attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
+                                   % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
+          </span>
+          <span tal:condition="can_add">
+            <input type="submit" name="folder_cut:method" value="button_cut"
+                   class="context" i18n:attributes="value"
+                   tal:condition="can_del" />
+            <input type="submit" name="folder_copy:method" value="button_copy"
+              class="context" i18n:attributes="value" />
+          </span>
+          <span tal:condition="python:can_add and here.cb_dataValid()">
+            <input type="submit" name="folder_paste:method" value="button_paste"
+              class="context" i18n:attributes="value" />
+          </span>
+          <span tal:condition="can_del">
+            <input type="submit" name="folder_rename_form:method"
+              class="context" value="button_rename" i18n:attributes="value" />
+            <input type="submit" name="folder_delete:method" value="button_delete"
+              class="destructive" i18n:attributes="value"
+              tal:attributes="onclick python:'return window.confirm(\'%s\')' %
+              (cpsmcat('description_confirm_delete'), )" />
+          </span>
+        </td>
+      </tr>
+      <tr tal:define="isWsManager python:checkPerm('Modify portal content',
+                                                   here);"
+          tal:condition="python:isWsManager and sort_by is None">
+        <td>
           <input type="submit" value="button_move_up" class="context moveUp"
                  i18n:attributes="value" name="moveItemsUp:method" />
           <input type="submit" value="button_move_down" class="context moveDown"
@@ -100,9 +101,9 @@
           <input type="submit" value="button_move_bottom"
                  class="context moveBottom"
                  i18n:attributes="value" name="moveItemsBottom:method" />
-      </td>
-     </tr>
-   </table>
+        </td>
+      </tr>
+    </table>
   </form>
 </metal:main>
 </metal:body>

@@ -7,6 +7,10 @@ CPS and i18n
 
   History:
 
+    - refactored the part about portal types
+
+    - completed the part about sentences
+
     - added a note about dates
 
     - added a note about boxes
@@ -43,13 +47,22 @@ What to translate and how
 
   - For sentences:
 
-    We use a msgid, e.g. a short name like the one you would use for a variable.
+    At most, we use a msgid, e.g. a short name like the one you would use for a variable.
     For instance::
     
       <p i18n:translate="help_join">Becoming a member gives [...]</p>
 
     Be sure to be specific, it would have been a mess to use "help_message" in
     the former example.
+
+    Msgids are not always convenient. For sentences like::
+
+      <h2>Edit <span tal:replace="doc/getId" /></h2>
+
+    We must leave the sentence as-is and use the i18n:name attribute::
+
+      <h2 i18:translate="">Edit <span tal:replace="doc/getId"
+                                      i18n:name="item_id" /></h2>
 
   - For the portal status message:
 
@@ -72,14 +85,15 @@ What to translate and how
     Proxies handle translation by themselves so don't place i18n:translate=""
     around the title.
 
-  - For portal types' title:
+  - For portal types:
 
-    Given the portal_type id, use 'portal_type_%s' % id as the title. For
-    instance, the portal type 'newsdocument' is given 'portal_type_newsdocument'
-    as the title.
+    Given the portal_type id, use 'portal_type_%s_title' % id as the title and
+    'portal_type_%s_description" % id as the description. For instance, the
+    portal type 'newsdocument' is given 'portal_type_newsdocument_title' as the
+    title.
 
-    Don't bother if other products you try to integrate have a title in plain
-    english, that's just the loss of an explicit msgid, nevermind.
+    Don't bother for other products you try to integrate if they have a title in
+    plain english. We want msgids in CPSDefault at least.
 
   - For portal types' actions:
 

@@ -5,7 +5,7 @@
 """
 from zLOG import LOG, DEBUG
 from DateTime import DateTime
-from Globals import InitializeClass, DTMLFile
+from Globals import InitializeClass, DTMLFile, MessageDialog
 from types import DictType, StringType
 
 from AccessControl import ClassSecurityInfo, getSecurityManager
@@ -13,6 +13,7 @@ from Acquisition import aq_base, aq_parent, aq_inner
 from OFS.SimpleItem import SimpleItem
 from ZODB.PersistentMapping import PersistentMapping
 
+from Products.CMFCore.PortalFolder import PortalFolder
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
      View, AccessContentsInformation, ManagePortal
 from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
@@ -208,3 +209,25 @@ class BoxesTool(UniqueObject, SimpleItem):
 
 InitializeClass(BoxesTool)
 
+
+class BoxContainer(PortalFolder):
+    id = '.cps_boxes'
+    meta_type = 'CPS Boxes Container'
+
+    security = ClassSecurityInfo()
+
+def addBoxContainer(self, REQUEST=None):
+    """Add a Base Box."""
+    ob = BoxContainer(BoxContainer.id)
+    self=self.this()
+    if hasattr(aq_base(self), ob.id):
+        return MessageDialog(
+            title  ='Item Exists',
+            message='This object already contains an %s' % ob.id,
+            action ='%s/manage_main' % REQUEST['URL1'])
+    self._setObject(ob.id, ob)
+    if REQUEST is not None:
+        REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
+
+
+InitializeClass(BoxContainer)

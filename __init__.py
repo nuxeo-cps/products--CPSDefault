@@ -17,7 +17,7 @@ import TreeBox
 import ContentBox
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
-                  TextBox.TextBox, TreeBox.TreeBox)
+                  TextBox.TextBox, TreeBox.TreeBox,)
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        TextBox.addTextBox, TreeBox.addTreeBox,
                        ContentBox.addContentBox)
@@ -26,7 +26,7 @@ fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
        TextBox.factory_type_information +
        TreeBox.factory_type_information +
-       ContentBox.factory_type_information +       
+       ContentBox.factory_type_information +
        ()
        )
 
@@ -51,4 +51,7 @@ def initialize(context):
     context.registerClass(Portal.CPSDefaultSite,
                           constructors=(Portal.manage_addCPSDefaultSiteForm,
                                         Portal.manage_addCPSDefaultSite,))
+    context.registerClass(BoxesTool.BoxContainer,
+                          permission='Add Box Container',
+                          constructors=(BoxesTool.addBoxContainer,))
     return

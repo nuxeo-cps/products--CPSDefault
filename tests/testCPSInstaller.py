@@ -20,7 +20,9 @@ ZopeTestCase.installProduct('OrderedFolderSupportPatch')
 ZopeTestCase.installProduct('TranslationService')
 ZopeTestCase.installProduct('MailHost')
 ZopeTestCase.installProduct('VerboseSecurity')
+ZopeTestCase.installProduct('NuxMetaDirectories')
 ZopeTestCase.installProduct('CPSCore')
+ZopeTestCase.installProduct('CPSDocument')
 
 ZopeTestCase.installProduct('CPSDefault')
 

@@ -16,6 +16,8 @@ display_cache = {}
 all_portal_types = ttool.objectIds()
 
 for item in items:
+    if getattr(item, 'view', None) is None:
+        continue
     if item.getId().startswith('.'):
         continue
     if not mtool.checkPermission('View', item):

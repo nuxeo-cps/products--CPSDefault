@@ -414,11 +414,14 @@
                             python:
                               here.getImgTag(here.portal_types[item['portal_type']].getIcon(),
                                              base_url=base_url)">
-        <span tal:replace="structure string:${item/title_or_id}">title</span></b></a><span tal:condition="item/nb_children" tal:replace="string::" /><br>
+        <span tal:replace="structure
+                   string:${item/title_or_id}">title</span></b></a><span
+                   tal:condition="item/nb_children" tal:define="global
+                   last_child python: repeat['item'].number() +
+                   item['nb_children']" tal:replace="string::" /><br>
           </tal:block>
-          <tal:block condition="python:item['depth']>depth"
-                     define="last_child python: repeat['item'].number() + item['nb_children']">
-<a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">, </span><span tal:condition="python: repeat['item'].number() == last_child">.<br></span>
+          <tal:block condition="python:item['depth']>depth">
+            <a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">, </span><span tal:condition="python: repeat['item'].number() == last_child">.<br></span>
           </tal:block>
         </tal:block>
         </td></tr></table><br>

@@ -1502,21 +1502,6 @@ except:
     log_i18n = cps_i18n_update(self, langs_list)
     pr (log_i18n)
 
-    #
-    #  CPSDirectory installer/updater
-    #
-    try:
-        import Products.CPSDirectory
-        if not portalhas('cpsdirectory_installer'):
-            pr('Adding cpsdirectory installer')
-            cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
-                                                    'CPSDirectroy Updater',
-                                                    'CPSDirectory.install',
-                                                    'install')
-            portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
-        pr(portal.cpsdirectory_installer())
-    except ImportError:
-        pass
 
     #
     #  CPSDocument installer/updater
@@ -1533,6 +1518,22 @@ except:
         pr(portal.cpsdocument_installer())
     except ImportError:
         pr("!! Could not import CPSDocument installer")
+
+    #
+    #  CPSDirectory installer/updater
+    #
+    try:
+        import Products.CPSDirectory
+        if not portalhas('cpsdirectory_installer'):
+            pr('Adding cpsdirectory installer')
+            cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
+                                                    'CPSDirectroy Updater',
+                                                    'CPSDirectory.install',
+                                                    'install')
+            portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
+        pr(portal.cpsdirectory_installer())
+    except ImportError:
+        pass
 
     #
     #  CPSMailingLists installer/updater

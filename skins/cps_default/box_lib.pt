@@ -24,17 +24,17 @@
 <!-- a min max box -->
 <metal:block define-macro="mmbox">
 <div class="box">
-  <div class="title">
-    <tal:block condition="box/settings/minimized"><a href="" class="close"
+  <div class="title"
+       tal:define="minimized box/settings/minimized; box_url box/url">
+    <a href="" class="close" tal:condition="python:not isAnon and minimized"
       tal:attributes="href
-      string:${base_url}${box/url}/maximize?goto=${context_url}"><tal:block
+      string:${base_url}${box_url}/maximize?goto=${context_url}"><tal:block
       replace="structure python:here.getImgTag('maximize.gif',
-      base_url=base_url)" /></a></tal:block><tal:block
-      condition="not:box/settings/minimized"><a href="" class="close"
-      tal:attributes="href
-      string:${base_url}${box/url}/minimize?goto=${context_url}"><tal:block
+      base_url=base_url)" /></a><a href="" class="close"
+      tal:condition="python:not(isAnon or minimized)" tal:attributes="href
+      string:${base_url}${box_url}/minimize?goto=${context_url}"><tal:block
       replace="structure python:here.getImgTag('minimize.gif',
-      base_url=base_url)" /></a></tal:block>
+      base_url=base_url)" /></a>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
@@ -51,21 +51,21 @@
 <!-- a min max close box -->
 <metal:block define-macro="mmcbox">
 <div class="box">
-  <div class="title">
-    <a href="" class="close" tal:attributes="href
-      string:${base_url}${box/url}/close?goto=${context_url}"><tal:block
-      replace="structure python:here.getImgTag('close.gif',
-      base_url=base_url)" /></a>
-    <tal:block condition="box/settings/minimized"><a href="" class="close"
+  <div class="title"
+       tal:define="minimized box/settings/minimized; box_url box/url">
+    <a href="" class="close" tal:condition="not:isAnon"
       tal:attributes="href
-      string:${base_url}${box/url}/maximize?goto=${context_url}"><tal:block
+      string:${base_url}${box_url}/close?goto=${context_url}"><tal:block
+      replace="structure python:here.getImgTag('close.gif',
+      base_url=base_url)" /></a><a href="" class="close"
+      tal:condition="python:not isAnon and minimized" tal:attributes="href
+      string:${base_url}${box_url}/maximize?goto=${context_url}"><tal:block
       replace="structure python:here.getImgTag('maximize.gif',
-      base_url=base_url)" /></a></tal:block><tal:block
-      condition="not:box/settings/minimized"><a
-      href="" class="close" tal:attributes="href
-      string:${base_url}${box/url}/minimize?goto=${context_url}"><tal:block
+      base_url=base_url)" /></a><a href="" class="close"
+      tal:condition="python:not(isAnon or minimized)" tal:attributes="href
+      string:${base_url}${box_url}/minimize?goto=${context_url}"><tal:block
       replace="structure python:here.getImgTag('minimize.gif',
-      base_url=base_url)" /></a></tal:block>
+      base_url=base_url)" /></a>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">

@@ -1,14 +1,15 @@
 ## Script (Python) "getContentInfo"
 ##parameters=proxy=None, doc=None, level=0
-##title=
+##title=Get content info used by macros
+##$Id $
 """ Return information about a content item (ie a proxy)
-level: 0 (default)
+level: 0 (default cost 1)
   id, title, title_or_id, review_state, icon, rev, lang, stime
-level: 1
+level: 1 (cost 1.3)
   level 0 + descr, size
-level: 2
+level: 2 (cost 4.6)
   level 1 + states
-level: 3
+level: 3 (cost 7)
   level 2 + history
 """
 
@@ -105,6 +106,7 @@ if level > 0:
             info['size'] = doc.get_size()
         except:
             pass
+
 # level 2
 if level == 2:
     info['states'], None = compute_states(1)

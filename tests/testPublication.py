@@ -117,12 +117,12 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             info = proxy.getContentInfo(level=level)
             self._checkGetContentInfo(info, level)
 
-    def testSubmit(self):
+    def _testSubmit(self, document_type):
         self.login('member')
 
         # Create some document
-        self.member_ws.invokeFactory('News', 'news')
-        proxy = self.member_ws.news
+        self.member_ws.invokeFactory(document_type, 'doc')
+        proxy = self.member_ws.doc
 
         info = proxy.getContentInfo(level=3)
         self.assertEquals(info['review_state'], 'work')
@@ -136,7 +136,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
         self.login('reviewer')
 
-        published_proxy = self.portal.sections.news
+        published_proxy = self.portal.sections.doc
         info = published_proxy.getContentInfo(level=3)
         self.assertEquals(info['review_state'], 'pending')
 
@@ -148,19 +148,35 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.login('member')
 
         # Non-reviewer can't unpublish his own stuff
-        published_proxy = self.portal.sections.news
+        published_proxy = self.portal.sections.doc
         self.assertRaises(WorkflowException,
             published_proxy.content_status_modify, workflow_action='unpublish')
 
         self.login('reviewer')
 
         info = published_proxy.getContentInfo(level=3)
-        published_proxy = self.portal.sections.news
+        published_proxy = self.portal.sections.doc
         published_proxy.content_status_modify(workflow_action='unpublish')
         
         self.login('root')
 
-        assert not 'news' in self.portal.sections.objectIds()
+        assert not 'doc' in self.portal.sections.objectIds()
+
+        # Cleanup
+        self.member_ws.manage_delObjects(['doc'])
+
+    # XXX: Error/failure message won't be very explicit
+    def testSubmitAllDocumentTypes(self):
+        all_document_types = self.portal.getDocumentTypes()
+        del all_document_types['Workspace']
+        print all_document_types.keys()
+        for document_type in all_document_types.keys():
+            self._testSubmit(document_type)
+
+    # Same as test as above, but here we know what document type causes
+    # trouble
+    def testSubmitImageGallery(self):
+        self._testSubmit("ImageGallery")
 
 
 def test_suite():

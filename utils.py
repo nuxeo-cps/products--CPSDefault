@@ -28,6 +28,7 @@ import re
 # Allowing the methods of this file to be imported in restricted code
 ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getHtmlBody')
 ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getNonArchivedVersionContextUrl')
+ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('truncateText')
 
 
 # Regexp of the form xxx<body>xxx</body>xxx.
@@ -56,7 +57,7 @@ def getHtmlBody(html_content):
     #html_body = re.sub(html_body_regexp, r'\1', html_content)
     html_body = bodyfinder(html_content)
     html_body = re.sub(strip_attributes_regexp, '', html_body)
-    
+
     return html_body
 
 
@@ -66,7 +67,14 @@ def getNonArchivedVersionContextUrl(content_url):
     """
     # Removing any matched '/archivedRevision/\d+' if present
     content_url = re.sub(archived_revision_url_regexp, '', content_url)
-    
+
     return content_url
 
+
+def truncateText(text, size=25):
+    """Middle truncature."""
+    if text is None or len(text) < size:
+        return text
+    mid_size = (size-3)/2
+    return text[:mid_size] + '...' + text[-mid_size:]
 

@@ -136,7 +136,6 @@ class TreeBox(BaseBox):
         # In this case, we return a navigation tree for both sections and
         # workspaces.
         if not hasattr(aq_base(portal_trees), root_tree):
-            mtool = getToolByName(self, 'portal_membership')
             rpath_sections = 'sections'
             sections = portal.restrictedTraverse(rpath_sections)
             rpath_workspaces = 'workspaces'

@@ -1,51 +1,43 @@
 <tal:block define="doc here/getContent">
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/main_template/macros/master">
+<html metal:use-macro="here/main_template/macros/master">
 <body>
 <div metal:fill-slot="main">	  
-<div class="Desktop">
-<h2>Edit: <span tal:replace="here/getId">My ID</span></h2>
- 
-<form action="content_edit" method="post"
-      tal:attributes="action string:${here/absolute_url}/content_edit"
->
-<table class="FormLayout">
- 
- <tr valign="top">
-  <th align="right"> Title
-  </th>
-  <td colspan="3">
-   <input type="text"
-          name="title"
-          value=""
-		  tal:attributes="value doc/Title"
-          size="65">
-  </td>
- </tr>
-  
- <tr valign="top">
-  <th align="right"> Description
-  </th>
-  <td colspan="3">
-   <textarea name="description:text" rows="5"
-             cols="65" wrap="soft"
-			 tal:content="doc/Description">
-   </textarea>
-  </td>
- </tr>
+  <div class="Desktop">
+    <h2 i18n:translate="">Edit
+      <span tal:replace="here/getId" i18n:name="item_id">My ID</span></h2>
+     
+    <form action="content_edit" method="post"
+          tal:attributes="action string:${here/absolute_url}/content_edit">
+      <table class="FormLayout">
+        <tr valign="top">
+          <th align="right" i18n:translate="item_title">Title</th>
+          <td colspan="3">
+            <input type="text" name="title" value="" size="65"
+                   tal:attributes="value doc/Title">
+          </td>
+        </tr>
 
- <tr valign="top">
-  <td> <br> </td>
-  <td>
-   <input type="submit" name="change_and_edit" value=" Change ">
-   <input type="submit" name="change_and_view" value=" Change and View ">
-  </td>
- </tr>
- 
-</table>
-</form>
-</div>
+        <tr valign="top">
+          <th align="right">Description</th>
+          <td colspan="3">
+            <textarea name="description:text" rows="5" cols="65" wrap="soft"
+                      tal:content="doc/Description">
+            </textarea>
+          </td>
+        </tr>
+
+        <tr valign="top">
+          <td><br></td>
+          <td>
+            <input type="submit" name="change_and_edit" value=" Change "
+                   i18n:attributes="value">
+            <input type="submit" name="change_and_view" value=" Change and View "
+                   i18n:attributes="value">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
 </div>
 </body>
 </html>

@@ -1,99 +1,92 @@
-<tal:block define="doc here/getContent">
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-xmlns:metal="http://xml.zope.org/namespaces/metal"
-metal:use-macro="here/content_lib/macros/master"> <body> <div
-metal:fill-slot="main"> <div class="Desktop">
-
+<html tal:define="doc here/getContent">
+<body metal:use-macro="here/content_lib/macros/master">
+<div metal:fill-slot="main">
+<div class="Desktop">
 
 <span tal:replace="request/message"
    tal:condition="request/message|nothing"><hr></span>
 
 <div class="Metadata">
 
-<h2>Standard Resource Metadata </h2>
+<h2 i18n:translate="standard_resource_metadata">Standard Resource Metadata</h2>
 
 <form action="content_edit" method="post"
-      tal:attributes="action string:${here/absolute_url}/content_edit"
->
+      tal:attributes="action string:${here/absolute_url}/content_edit">
+
 <table class="FormLayout">
+  <tr valign="top">
+    <th i18n:translate="item_discussion">Enable Discussion?</th>
+    <td>
+      <select name="allowDiscussion" tal:define="val doc/isDiscussable">
+        <option value="None" tal:attributes="selected python: val == None"
+                i18n:translate="discussion_default">
+          Default
+        </option>
+        <option value="0" tal:attributes="selected python: val == 0"
+                i18n:translate="discussion_off">
+          Off
+        </option>
+        <option value="1" tal:attributes="selected python: val == 1"
+                i18n:translate="discussion_on">
+          On
+        </option>
+      </select>
+    </td>
+    <td colspan="2" align="right">
+      <a href="full_metadata_edit_form"
+         tal:attributes="href string:${here/absolute_url}/full_metadata_edit_form">
+        Edit all metadata
+      </a>
+    </td>
+  </tr>
+  <tr valign="top">
 
- <tr valign="top">
-   <th>
-    Enable Discussion?
-  </th>
-  <td>
-    <select name="allowDiscussion"
-            tal:define="val doc/isDiscussable">
-        <option value="None"
-                tal:attributes="selected python: val == None"> Default </option>
-        <option value="0"
-                tal:attributes="selected python: val == 0"> Off </option>
-        <option value="1"
-                tal:attributes="selected python: val == 1"> On </option>
-     </select>
-  </td>
-  <td colspan="2" align="right">
-   <a href="full_metadata_edit_form"
-      tal:attributes="href string:${here/absolute_url}/full_metadata_edit_form"
-     >Edit all metadata</a>
-  </td>
-
- </tr>
-
- 
- <tr valign="top">
-
-  <th align="right"> Title </th>
-  <td colspan="3">
-   <input type="text"
-          name="title"
-          value=""
-          size="65"
-		  tal:attributes="value doc/Title">
-  </td>
-
- </tr>
-
- <tr valign="top">
-
-  <th align="right"> Description </th>
-  <td colspan="3">
-   <textarea name="description:text" rows="5"
-             cols="65" wrap="soft"
-			 tal:content="doc/Description"></textarea>
-  </td>
-
- </tr>
-
- <tr valign="top">
-       <th align="right"> Subject </th>
-  <td tal:define="subj_lines python: modules['string'].join(
-                                         doc.subjectsList(), '\n' )">
-     <textarea name="subject:lines" rows="3" cols="20"
-	           tal:content="subj_lines"></textarea>
- <br> 
-   <select name="subject:list" multiple>
-     <option value=""
-		   tal:define="items python: doc.portal_metadata.listAllowedSubjects(
-                                              doc);
-                       subjects doc/Subject;
-                      "
-		   tal:repeat="item items"
-		   tal:attributes="value item; selected python: item in subjects"
-		   tal:content="item">
-      </option>
-    </select> 
-  </td>
-
-  <th align="right"> Format </th>
-  <td> <input type="text" name="format" value="" tal:attributes="value doc/Format">
-  <br> <input type="submit" name="change" value=" Change ">
-  <br> <input type="submit" name="change_and_edit" value=" Change & Edit ">
-  <br> <input type="submit" name="change_and_view" value=" Change & View ">
-  </td>
-
- </tr>
-
+    <th align="right" i18n:translate="item_title">Title</th>
+    <td colspan="3">
+      <input type="text" name="title" value="" size="65"
+             tal:attributes="value doc/Title">
+    </td>
+  </tr>
+  <tr valign="top">
+    <th align="right" i18n:translate="item_description">
+      Description
+    </th>
+    <td colspan="3">
+      <textarea name="description:text" rows="5" cols="65" wrap="soft"
+                tal:content="doc/Description">
+      </textarea>
+    </td>
+  </tr>
+  <tr valign="top">
+    <th align="right" i18n:translate="item_subject">Subject</th>
+    <td tal:define="subj_lines python: '\n'.join(doc.subjectsList())">
+      <textarea name="subject:lines" rows="3" cols="20"
+                tal:content="subj_lines">
+      </textarea>
+      <br> 
+      <select name="subject:list" multiple>
+        <option value=""
+                tal:define="mdtool nocall:here/portal_metadata;
+                            items python: mdtool.listAllowedSubjects(doc);
+                            subjects doc/Subject"
+                tal:repeat="item items"
+                tal:attributes="value item; selected python: item in subjects"
+                tal:content="item">
+        </option>
+      </select> 
+    </td>
+    <th align="right" i18n:translate="item_format">Format</th>
+    <td>
+      <input type="text" name="format" value=""
+             tal:attributes="value doc/Format">
+      <br><input type="submit" name="change" value=" Change "
+                 i18n:attributes="value">
+      <br><input type="submit" name="change_and_edit" value=" Change & Edit "
+                 i18n:attributes="value">
+      <br><input type="submit" name="change_and_view" value=" Change & View "
+                 i18n:attributes="value">
+    </td>
+  </tr>
 </table>
 
 </form>
@@ -101,34 +94,56 @@ metal:fill-slot="main"> <div class="Desktop">
 </div>
 
 <div>
-<hr />
-<table class="FormLayout" bgcolor="#EEEEEE">
- <tr valign="top">
-  <th align="right"> Proxy identifier </th>
-  <td colspan="3"> <span tal:replace="here/Identifier" /> </td>
- </tr>
- <tr valign="top">
-  <th align="right"> Document identifier </th>
-  <td colspan="3"> <span tal:replace="doc/Identifier" /> </td>
- </tr>
- <tr valign="top">
-  <th align="right" nowrap> Doc id </th>
-  <td> <span tal:replace="here/getDocid" /> </td>
-  <th align="right" nowrap> Revision </th>
-  <td> <span tal:replace="here/getRevision" /> </td>
- </tr>
- <tr valign="top">
-  <th align="right" nowrap> Language  Revision </th>
-  <td> <span tal:replace="here/getLanguageRevisions" /> </td>
-  <th align="right" nowrap> Proxy Tag </th>
-  <td> <span tal:replace="here/getTag" /> </td>
- </tr>
-</table>
+  <hr>
+  <table class="FormLayout" bgcolor="#EEEEEE">
+    <tr valign="top">
+      <th align="right" i18n:translate="item_proxy_identifier">
+        Proxy identifier
+      </th>
+      <td colspan="3">
+        <span tal:replace="here/Identifier" />
+      </td>
+    </tr>
+    <tr valign="top">
+      <th align="right" i18n:translate="item_document_identifier">
+        Document identifier
+      </th>
+      <td colspan="3">
+        <span tal:replace="doc/Identifier" />
+      </td>
+    </tr>
+    <tr valign="top">
+      <th align="right" nowrap i18n:translate="item_doc_id">
+        Doc id
+      </th>
+      <td>
+        <span tal:replace="here/getDocid" />
+      </td>
+      <th align="right" nowrap i18n:translate="item_revision">
+        Revision
+      </th>
+      <td>
+        <span tal:replace="here/getRevision" />
+      </td>
+    </tr>
+    <tr valign="top">
+      <th align="right" nowrap i18n:translate="item_language_revision">
+        Language Revision
+      </th>
+      <td>
+        <span tal:replace="here/getLanguageRevisions" />
+      </td>
+      <th align="right" nowrap i18n:translate="item_proxy_tag">
+        Proxy Tag
+      </th>
+      <td>
+        <span tal:replace="here/getTag" />
+      </td>
+    </tr>
+  </table>
 </div>
-
 
 </div>
 </div>
 </body>
 </html>
-</tal:block>

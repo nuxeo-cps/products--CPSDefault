@@ -4,8 +4,10 @@
                  checkPerm nocall: m_tool/checkPermission;
                  list_here python:checkPerm('List folder contents', here);
                  list_parent python:checkPerm('List folder contents', here, 'aq_parent');">
-<div tal:condition="not: list_here"
-  tal:define="response request/RESPONSE;url here/absolute_url;">
+
+<div tal:define="response request/RESPONSE;
+                 url here/absolute_url"
+     tal:condition="not: list_here">
   <span tal:define="redirect python: response.redirect(url)"></span>
 </div>
 
@@ -16,18 +18,19 @@
             upID python: here.aq_parent.getId()">
   <span tal:condition="upNav | nothing">
     <a href="../folder_contents"><img src="" alt="[Link]" border="0"
-      tal:attributes="src string:${base_url}UpFolder_icon.gif" /></a>
+       tal:attributes="src string:${base_url}UpFolder_icon.gif"></a>
   </span>&nbsp;&nbsp;
-  <span tal:condition="upNav">Up to <a href="../folder_view"
-    tal:content="upID">Up ID</a></span>
+  <span tal:condition="upNav" i18n:translate="">Up to
+    <a href="../folder_view" tal:content="upID" i18n:name="upID">Up ID</a>
+  </span>
 </tal:block>
 <br><br>
  
- <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
-  <tal:block repeat="box python:btool.filterBoxes(boxes, slot='folder_view');">
-    <metal:block use-macro="python:path(box['macro'])" /><br/>
-  </tal:block>
-  <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />     
+<b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
+<tal:block repeat="box python:btool.filterBoxes(boxes, slot='folder_view');">
+  <metal:block use-macro="python:path(box['macro'])" /><br/>
+</tal:block>
+<b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />     
 
 </div>
 

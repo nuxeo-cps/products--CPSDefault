@@ -15,10 +15,12 @@
             upID python: here.aq_parent.getId()">
     <span tal:condition="upNav | nothing">
       <a href="../folder_contents"><img src="" alt="[Link]" border="0"
-        tal:attributes="src string:${base_url}UpFolder_icon.gif" /></a>
+        tal:attributes="src string:${base_url}UpFolder_icon.gif"></a>
     </span>&nbsp;&nbsp;
-    <span tal:condition="upNav">Up to <a href="../folder_contents"
-      tal:content="upID">Up ID</a></span>
+    <span tal:condition="upNav" i18n:translate="">Up to
+      <a href="../folder_contents"
+         tal:content="upID" i18n:name="upID">Up ID</a>
+    </span>
   </tal:block>
 
   <form action="" method="post"
@@ -39,13 +41,13 @@
       <span tal:condition="python: test(checkPerm('Add portal content', here)
             and here.allowedContentTypes(), 1, 0)">
         <input type="submit" name="folder_factories:method" value="New..."
-               i18n:attributes="value" />
+               i18n:attributes="value">
       </span>
       <span tal:condition="python: checkPerm('Delete objects', here)">
         <input type="submit" name="folder_rename_form:method" value="Rename"
-               i18n:attributes="value" />
+               i18n:attributes="value">
         <input type="submit" name="folder_delete:method" value="Delete"
-               i18n:attributes="value" />
+               i18n:attributes="value">
       </span>
       </td>
      </tr>

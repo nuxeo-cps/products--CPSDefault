@@ -54,15 +54,17 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <!-- ============================================================ -->
 <metal:block define-macro="searchbox">
   <div class="searchBox">
-    <form method="get" action="/search"
-        tal:attributes="action string:${context_url}/search_form">
-      <a href="/search_form"
-         tal:attributes="href string:${context_url}/advanced_search_form">
+    <form method="get" action="search"
+        tal:attributes="action string:${base_url}/search_form">
+      <a href="search_form"
+         tal:attributes="href string:${base_url}/advanced_search_form"
+         i18n:translate="advanced_search">
         Advanced search</a>
-      <br/>
+      <br>
       <input id="searchGadget" type="text" name="SearchableText" size="20"
-             value="" tal:attributes="value request/SearchableText|nothing" />
-      <input class="context searchButton" type="submit" value="OK" />
+             value="" tal:attributes="value request/SearchableText|nothing">
+      <input class="context searchButton" type="submit" value="OK"
+             i18n:attributes="value">
     </form>
   </div>
 </metal:block>
@@ -71,7 +73,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <!-- ============================================================ -->
 <metal:block define-macro="breadcrumbs">
   <div class="pathBar">
-    <span>You are here:&nbsp;</span>
+    <span i18n:translate="you_are_here">You are here:&nbsp;</span>
     <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url)">
       <a href="/cps/id"
          tal:omit-tag="not:bc/url"
@@ -80,7 +82,8 @@ want the special NS4 look - it will still work, just be plain text instead. -->
          tal:content="bc/title">
          Title
       </a>
-      <strong tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
+      <strong tal:condition="not:repeat/bc/end"
+              i18n:translate="breadcrumbs_separator">&nbsp;&gt;&nbsp;</strong>
     </span>
   </div>
 </metal:block>
@@ -152,8 +155,9 @@ want the special NS4 look - it will still work, just be plain text instead. -->
         <ul>
           <li tal:repeat="action actionblock">
             <a tal:attributes="href action/url"
-               tal:content="action/name">
-               Action
+               tal:content="action/name"
+               i18n:translate="">
+               Translated action
              </a>
           </li>
         </ul>

@@ -1,11 +1,9 @@
-<tal:block define="doc here/getContent">
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/main_template/macros/master">
-  <metal:block fill-slot="base">
-    <base href="" tal:attributes="href python: here.absolute_url() + '/'" />
-  </metal:block>
-<body>
+<html tal:define="doc here/getContent">
+<body metal:use-macro="here/main_template/macros/master">
+
+<metal:block fill-slot="base">
+  <base href="" tal:attributes="href python: here.absolute_url() + '/'" />
+</metal:block>
 
 <div metal:fill-slot="header">
   <h1 id="DesktopTitle" tal:content="doc/Title">Document Title</h1>
@@ -16,16 +14,22 @@
 </div>
 
 <div metal:fill-slot="main">
-  <table bgcolor="#EEEEEE">
-    <tr><td><pre tal:content="structure doc/body">Body</pre></td></tr>
+  <table border="0" width="100%" cellspacing="0" cellpadding="0"
+         bgcolor="#EEEEEE">
+    <tr>
+      <td>
+        <pre tal:content="structure doc/body">Body</pre>
+      </td>
+    </tr>
   </table>
 
   <div class="Discussion">
     <span tal:replace="structure doc/viewThreadsAtBottom"
-    tal:condition="doc/viewThreadsAtBottom|nothing"></span>
+          tal:condition="doc/viewThreadsAtBottom|nothing">
+      Discussion goes here
+    </span>
   </div>
 </div>
 
 </body>
 </html>
-</tal:block>

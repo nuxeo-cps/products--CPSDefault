@@ -30,6 +30,7 @@ cps:id:${doc/id}
 </metal:block>
 </metal:block>
 
+
 <!-- ============================================================ -->
 <pre>form used for state transition:</pre>
 <metal:block define-macro="transition_form">
@@ -54,10 +55,11 @@ cps:id:${doc/id}
   <tal:block define="nav_action nav_action|string:'folder_contents';
                      b_start request/b_start | python:0;
                      Batch nocall: modules/ZTUtils/Batch;
-                     batch1 python:Batch( items, 3, int(b_start), orphan=0);">
+                     batch1 python:Batch(items, 10, int(b_start), orphan=0);
+                     format_detail not:nothing">
   <table width="100%">
     <tr><td colspan="2">
-      <tal:block define="batch_items batch1; format_summary not:nothing">
+      <tal:block define="batch_items batch1;">
         <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
       </tal:block>
     </td></tr>
@@ -74,16 +76,49 @@ cps:id:${doc/id}
   </tal:block>
 </metal:block>
 
+  
 <!-- ============================================================ -->
 <pre>list contents in 'items' compact:</pre>
 <metal:block define-macro="display_contents_compact">
   <tal:block define="nav_action nav_action|string:'folder_contents';
                      b_start request/b_start | python:0;
                      Batch nocall: modules/ZTUtils/Batch;
-                     batch1 python:Batch( items, 3, int(b_start), orphan=0);
+                     batch1 python:Batch( items, 5, int(b_start), orphan=0);
+                     batch2 batch1/next;
+                     format_compact not:nothing">
+  <table width="100%">
+    <tr><td>
+      <tal:block define="batch_items batch1">
+        <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
+      </tal:block>
+    </td><td>
+      <tal:block define="batch_items batch2">
+        <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
+      </tal:block>
+    </td></tr>
+    <tr><td align="left" nowrap>
+      <span tal:define="p batch1/previous" tal:condition="p">
+        <a href="" tal:attributes="href string:${nav_action}?b_start=${p/first}" i18n:translate="">Previous Items</a>
+       </span>
+    </td><td align="right" colspan="2" nowrap>
+      <span tal:define="n batch2/next | nothing" tal:condition="n">
+        <a href="" tal:attributes="href string:${nav_action}?b_start=${batch1/end}" i18n:translate="">Next Items</a>
+      </span>
+    </td></tr>
+  </table>
+  </tal:block>
+</metal:block>
+
+<!-- ============================================================ -->
+<pre>list contents in 'items' with icon</pre>
+<metal:block define-macro="display_contents_icon">
+  <tal:block define="nav_action nav_action|string:'folder_contents';
+                     b_start request/b_start | python:0;
+                     Batch nocall: modules/ZTUtils/Batch;
+                     batch1 python:Batch( items, 5, int(b_start), orphan=0);
                      batch2 batch1/next;
                      batch3 batch2/next|batch1/next;
-                     format_summary not:nothing">
+                     format_icon not:nothing">
   <table width="100%">
     <tr><td>
       <tal:block define="batch_items batch1">
@@ -112,7 +147,6 @@ cps:id:${doc/id}
 </metal:block>
 
 
-
   
 <!-- ============================================================ -->
 <pre>list contents in 'batch_items' in a column:</pre>
@@ -126,13 +160,13 @@ cps:id:${doc/id}
              tal:attributes="value item/getId;
                              id python:'cb_'+item.getId()" />
     </td>
-    <td colspan="2">
+    <td>
       <span tal:define="info python:here.getContentInfo(item, level=1);">
         <tal:block condition="format_detail|nothing">
   	  <metal:block use-macro="here/content_lib/macros/info_detail" />
         </tal:block>
-        <tal:block condition="format_summary|nothing">
-          <metal:block use-macro="here/content_lib/macros/info_summary" />
+        <tal:block condition="format_compact|nothing">
+          <metal:block use-macro="here/content_lib/macros/info_compact" />
         </tal:block>
         <tal:block condition="format_icon|nothing">
           <metal:block use-macro="here/content_lib/macros/info_icon" />
@@ -146,7 +180,6 @@ cps:id:${doc/id}
 
   
   
-
 <!-- ============================================================ -->
 <!-- below macros require getContentInfo                          -->
 
@@ -216,9 +249,10 @@ cps:id:${doc/id}
 <table cellspacing="0" cellpadding="0" width="100"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td align="center">
-   <img src="" border="0" width="30" length="40"
-     tal:attributes="src string:${here/portal_url}/${info/icon};
-                     title info/type;"/>
+   <a href="" tal:attributes="href string:${info/id}/view;
+                              title info/description;">
+    <img src="" border="0" width="30" length="40"
+     tal:attributes="src string:${here/portal_url}/${info/icon};"/></a>
   </td></tr>
   <tr><td align="center">
    <a href="" tal:attributes="href string:${info/id}/view;"
@@ -230,7 +264,7 @@ cps:id:${doc/id}
 
 <!-- ============================================================ -->
 <pre>short doc information in a table:</pre>
-<metal:block define-macro="info_summary">
+<metal:block define-macro="info_compact">
 <table cellspacing="0" cellpadding="0" width="100%"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td width="20">

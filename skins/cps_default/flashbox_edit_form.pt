@@ -1,0 +1,62 @@
+<metal:html use-macro="here/main_template/macros/master">
+
+<metal:main fill-slot="main">
+
+<metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
+<metal:fields fill-slot="additional_fields">
+  <tr>
+    <th align="right" i18n:translate="">label_flash_file</th>
+    <td>
+      <input type="radio" name="file_action" value="keep" checked="checked"
+        class="noborder" id="radio_keep">
+      <label for="radio_keep" i18n:translate="">label_file_keep</label>
+    </td>
+    <td colspan="4">
+      <span tal:replace="box/box/flash_filename|string:" />
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <input type="radio" name="file_action" value="change" class="noborder"
+             id="radio_change">
+      <label for="radio_change" i18n:translate="">label_file_change</label>
+    </td>
+    <td colspan="4">
+      <input type="file" name="file">
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <input type="radio" name="file_action" value="delete" class="noborder"
+             id="radio_delete">
+      <label for="radio_delete" i18n:translate="">label_file_delete</label>
+    </td>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="1">
+      <label for="flash_width" i18n:translate="">label_flash_width</label>
+    </td>
+    <td colspan="4">
+      <input type="text" name="flash_width" size="3"
+             tal:attributes="value box/box/flash_width|nothing">
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="1">
+      <label for="flash_height" i18n:translate="">label_flash_height</label>
+    </td>
+    <td colspan="4">
+      <input type="text" name="flash_height" size="3"
+             tal:attributes="value box/box/flash_height|nothing">
+    </td>
+  </tr>
+</metal:fields>
+</metal:boxform>
+</metal:main>
+
+</metal:html>

@@ -166,7 +166,7 @@ class BoxesTool(UniqueObject, PortalFolder):
             else:
                 boxdisplayurl = '/'.join(boxpath[:-2])
             rurl = '/'.join(rpath)
-            LOG( 'xx', DEBUG, '['+str(boxdisplayurl) +']'+ str(rurl))
+            LOG( 'CPSDefault BoxesTool ', DEBUG, '['+str(boxdisplayurl) +']'+ str(rurl))
             if box.display_in_subfolder or (rurl == boxdisplayurl):
                 newbox = {'url': portal_url.getRelativeUrl(box),
                           'display_url': boxdisplayurl,

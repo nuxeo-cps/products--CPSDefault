@@ -30,7 +30,6 @@
 <metal:block fill-slot="header">
 <metal:block define-slot="header">
   <h1 tal:content="here/title_or_id">Page Title</h1>
-  <div metal:use-macro="here/content_lib/macros/byline">By Me</div>
   <div class="description" tal:content="doc/Description">
     Document Description goes here.
    </div>
@@ -43,11 +42,16 @@
 
 <metal:block fill-slot="sub">
 <metal:block define-slot="sub">
+  <div style="clear:both; text-align:right; border-top: solid 1px; margin-top: 2em;">
+    <small>
+      <div metal:use-macro="here/content_lib/macros/byline">By Me</div>
+    </small>
+  </div>
    <tal:block tal:condition="python:hasattr(here,'portal_discussion') and
                                     hasattr(here.portal_discussion,
                                             'isCommentingAllowedFor')">
      <tal:block tal:define="comments_allowed
-                              python:here.portal_discussion.isCommentingAllowedFor(	 
+                              python:here.portal_discussion.isCommentingAllowedFor(
                                                                            here);"
                 tal:condition="comments_allowed">
        <metal:block

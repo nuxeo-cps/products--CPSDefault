@@ -664,16 +664,16 @@ def cpsupdate(self, langs_list=None):
         add_meta_type='Factory-based Type Information',
         typeinfo_name='CPSDefault: Folder',
         )
-    ttool['Section'].manage_changeProperties(None,
-                                             title='Section',
+    ttool['Section'].manage_changeProperties(title='portal_type_Section_title',
+                                             description='portal_type_Section_description',
                                              content_meta_type='Section')
     ttool.manage_addTypeInformation(
         id='Workspace',
         add_meta_type='Factory-based Type Information',
         typeinfo_name='CPSDefault: Folder',
         )
-    ttool['Workspace'].manage_changeProperties(None,
-                                               title='Workspace',
+    ttool['Workspace'].manage_changeProperties(title='portal_type_Workspace_title',
+                                               description='portal_type_Workspace_description',
                                                content_meta_type='Workspace')
     for ptype in ('Section', 'Workspace'):
         ttool[ptype].allowed_content_types = allowed_content_type[ptype]

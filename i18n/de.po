@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2004-12-01 10:07default\n"
+"POT-Creation-Date: 2004-12-14 10:26default\n"
 "PO-Revision-Date: 2004-07-12 18:00default\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: German <rheinland@dzug.org>\n"
@@ -71,8 +71,17 @@ msgstr "Objekte: ${batch_start} - ${batch_limit} von ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
+#.   <td align="left" class="description" content="item/Description">
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Portal Typ Beschreibung"
 
@@ -82,8 +91,17 @@ msgstr "Portal Typ Beschreibung"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
+#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Portal Typ Titel"
 
@@ -286,6 +304,8 @@ msgstr "Version aufgeben"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Anlegen"
 
@@ -702,6 +722,9 @@ msgstr "CPS ist auf einen Fehler gelaufen"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Content hinzufügen"
 
@@ -990,7 +1013,11 @@ msgstr "Es sollte gleich in Ihrer Mailbox ankommen."
 #.   <span>
 #.             No content type can be created.
 #.           </span>
+#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #, fuzzy
 msgid "help_no_content_type_can_be_created"
 msgstr "Inhalt erstellt."
@@ -1998,6 +2025,7 @@ msgstr "Suchen"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2416,6 +2444,54 @@ msgstr "Kommentar"
 msgid "v${status_revision}- ${status_language}"
 msgstr "v${status_revision}- ${status_language}"
 
+msgid "Login"
+msgstr "Login"
+
+msgid "Log out"
+msgstr "Logout"
+
+msgid "Join"
+msgstr "Anmelden"
+
+msgid "My stuff"
+msgstr "Mein Arbeitsbereich"
+
+msgid "My calendar"
+msgstr "Meine Kalender"
+
+msgid "Create my home calendar"
+msgstr "Neuer Kalender"
+
+msgid "Add to favorites"
+msgstr "zu Favoriten nehmen"
+
+msgid "Undo"
+msgstr "Schritt Zurück (Undo)"
+
+msgid "Contents"
+msgstr "Inhalt"
+
+msgid "Directories"
+msgstr "Verzeichnisse"
+
+msgid "Folder actions"
+msgstr "Folder Aktionen"
+
+msgid "Object actions"
+msgstr "Objekt Aktionen"
+
+msgid "Portal actions"
+msgstr "Portal Aktionen"
+
+msgid "Preferences"
+msgstr "Einstellungen"
+
+msgid "Reconfigure Portal"
+msgstr "Portal Konfiguration"
+
+msgid "words_meaningless"
+msgstr ""
+
 msgid "welcome_body"
 msgstr ""
 "<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
@@ -2473,76 +2549,31 @@ msgstr ""
 "Microsystems, Timothy O'Malley, Morten W.  Petersen, and other contributors. "
 "</p> "
 
-msgid "accept"
-msgstr "Akzeptieren"
-
-msgid "Add to favorites"
-msgstr "zu Favoriten nehmen"
-
 msgid "create"
 msgstr "Erstellt"
-
-msgid "Contents"
-msgstr "Inhalt"
-
-msgid "deferred"
-msgstr "aufgeschoben bis "
 
 #, fuzzy
 msgid "translate"
 msgstr "Löschen der Daten"
 
-msgid "Directories"
-msgstr "Verzeichnisse"
+msgid "checkin_draft"
+msgstr "Einchecken Version"
 
-msgid "expired"
-msgstr "abgelaufen seit "
+msgid "checkout_draft"
+msgstr "Auschecken Version"
 
-msgid "Folder actions"
-msgstr "Folder Aktionen"
-
-msgid "Join"
-msgstr "Anmelden"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Log out"
-msgstr "Logout"
-
-msgid "My stuff"
-msgstr "Mein Arbeitsbereich"
-
-msgid "My calendar"
-msgstr "Meine Kalender"
-
-msgid "Create my home calendar"
-msgstr "Neuer Kalender"
-
-msgid "Object actions"
-msgstr "Objekt Aktionen"
-
-msgid "pending"
-msgstr "schwebend"
-
-msgid "Portal actions"
-msgstr "Portal Aktionen"
-
-msgid "Preferences"
-msgstr "Einstellungen"
-
-msgid "Reconfigure Portal"
-msgstr "Portal Konfiguration"
+msgid "abandon_draft"
+msgstr "Aufgeben Version"
 
 msgid "submit"
 msgstr "Publizieren"
 
+msgid "accept"
+msgstr "Akzeptieren"
+
 #, fuzzy
 msgid "reject"
 msgstr "Ablehnen"
-
-msgid "Undo"
-msgstr "Schritt Zurück (Undo)"
 
 msgid "unpublish"
 msgstr "Zurückziehen"
@@ -2555,6 +2586,15 @@ msgstr "Draft"
 
 msgid "locked"
 msgstr "gesperrt"
+
+msgid "pending"
+msgstr "schwebend"
+
+msgid "deferred"
+msgstr "aufgeschoben bis "
+
+msgid "expired"
+msgstr "abgelaufen seit "
 
 msgid "action_accept"
 msgstr "Akzeptieren"
@@ -3139,6 +3179,12 @@ msgstr "%d.%m.%Y %H:%M:%S"
 msgid "link_search"
 msgstr "Suchen"
 
+msgid "role:Anonymous"
+msgstr ""
+
+msgid "role:Authenticated"
+msgstr ""
+
 msgid "WorkspaceManager"
 msgstr "Arbeitsbereich Manager"
 
@@ -3255,21 +3301,6 @@ msgstr "Sa"
 
 msgid "calendar_day_6"
 msgstr "So"
-
-msgid "checkin_draft"
-msgstr "Einchecken Version"
-
-msgid "checkout_draft"
-msgstr "Auschecken Version"
-
-msgid "abandon_draft"
-msgstr "Aufgeben Version"
-
-msgid "role:Anonymous"
-msgstr ""
-
-msgid "role:Authenticated"
-msgstr ""
 
 msgid "_blank"
 msgstr ""

@@ -26,12 +26,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-01 10:07default\n"
-"PO-Revision-Date: 2004-12-01 10:07+0100\n"
-"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
-"Language-Team: Français <http://lists.nuxeo.com>\n"
+"POT-Creation-Date: 2004-12-14 10:26default\n"
+"PO-Revision-Date: 2004-12-14 10:29+0100\n"
+"Last-Translator: DARCHE <madarche@nuxeo.com>\n"
+"Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2X-Generator: X-\n"
 "X-Generator: KBabel 1.3.1\n"
@@ -94,8 +94,17 @@ msgstr "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
+#.   <td align="left" class="description" content="item/Description">
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Portal type's description"
 
@@ -105,8 +114,17 @@ msgstr "Portal type's description"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
+#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Portal type's title"
 
@@ -310,6 +328,8 @@ msgstr "Give up the revision"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Add"
 
@@ -717,6 +737,9 @@ msgstr "CPS encountered an error"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Add content"
 
@@ -996,7 +1019,11 @@ msgstr "It should arrive in your mailbox momentarily."
 #.   <span>
 #.             No content type can be created.
 #.           </span>
+#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 "No content type can be created. It surely comes from workflows which don't "
@@ -1974,6 +2001,7 @@ msgstr "Text to search"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2380,6 +2408,54 @@ msgstr "Comments"
 msgid "v${status_revision}- ${status_language}"
 msgstr "v${status_revision}- ${status_language}"
 
+msgid "Login"
+msgstr "Login"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "Join"
+msgstr "Join"
+
+msgid "My stuff"
+msgstr "My stuff"
+
+msgid "My calendar"
+msgstr "My calendar"
+
+msgid "Create my home calendar"
+msgstr "Create my home calendar"
+
+msgid "Add to favorites"
+msgstr "Add to favorites"
+
+msgid "Undo"
+msgstr "Undo"
+
+msgid "Contents"
+msgstr "Contents"
+
+msgid "Directories"
+msgstr "Directories"
+
+msgid "Folder actions"
+msgstr "Folder actions"
+
+msgid "Object actions"
+msgstr "Object actions"
+
+msgid "Portal actions"
+msgstr "Portal actions"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Reconfigure Portal"
+msgstr "Reconfigure portal"
+
+msgid "words_meaningless"
+msgstr "a the of is are has have"
+
 msgid "welcome_body"
 msgstr ""
 "<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
@@ -2437,74 +2513,29 @@ msgstr ""
 "Walsh, Gareth Rees, Sun Microsystems, Timothy O'Malley, Morten W.  Petersen, "
 "and other contributors. </p> "
 
-msgid "accept"
-msgstr "Publication request accepted"
-
-msgid "Add to favorites"
-msgstr "Add to favorites"
-
 msgid "create"
 msgstr "Creation"
-
-msgid "Contents"
-msgstr "Contents"
-
-msgid "deferred"
-msgstr "deferred to "
 
 msgid "translate"
 msgstr "Translation"
 
-msgid "Directories"
-msgstr "Directories"
+msgid "checkin_draft"
+msgstr "Commit of this revision"
 
-msgid "expired"
-msgstr "expired since "
+msgid "checkout_draft"
+msgstr "Creation of a revision"
 
-msgid "Folder actions"
-msgstr "Folder actions"
-
-msgid "Join"
-msgstr "Join"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Log out"
-msgstr "Log out"
-
-msgid "My stuff"
-msgstr "My stuff"
-
-msgid "My calendar"
-msgstr "My calendar"
-
-msgid "Create my home calendar"
-msgstr "Create my home calendar"
-
-msgid "Object actions"
-msgstr "Object actions"
-
-msgid "pending"
-msgstr "pending"
-
-msgid "Portal actions"
-msgstr "Portal actions"
-
-msgid "Preferences"
-msgstr "Preferences"
-
-msgid "Reconfigure Portal"
-msgstr "Reconfigure portal"
+msgid "abandon_draft"
+msgstr "Abandon of the revision"
 
 msgid "submit"
 msgstr "Publication request"
 
+msgid "accept"
+msgstr "Publication request accepted"
+
 msgid "reject"
 msgstr "rejected"
-
-msgid "Undo"
-msgstr "Undo"
 
 msgid "unpublish"
 msgstr "unpublish"
@@ -2517,6 +2548,15 @@ msgstr "working revision"
 
 msgid "locked"
 msgstr "locked"
+
+msgid "pending"
+msgstr "pending"
+
+msgid "deferred"
+msgstr "deferred to "
+
+msgid "expired"
+msgstr "expired since "
 
 msgid "action_accept"
 msgstr "Accept"
@@ -3085,6 +3125,12 @@ msgstr "%m/%d/%Y %I:%M:%S %p"
 msgid "link_search"
 msgstr "Search"
 
+msgid "role:Anonymous"
+msgstr "role:Anonymous"
+
+msgid "role:Authenticated"
+msgstr "role:Authenticated"
+
 # # Roles ==================================================
 msgid "WorkspaceManager"
 msgstr "Workspace manager"
@@ -3201,21 +3247,6 @@ msgstr "Sa"
 
 msgid "calendar_day_6"
 msgstr "Su"
-
-msgid "checkin_draft"
-msgstr "Commit of this revision"
-
-msgid "checkout_draft"
-msgstr "Creation of a revision"
-
-msgid "abandon_draft"
-msgstr "Abandon of the revision"
-
-msgid "role:Anonymous"
-msgstr "role:Anonymous"
-
-msgid "role:Authenticated"
-msgstr "role:Authenticated"
 
 msgid "_blank"
 msgstr " "

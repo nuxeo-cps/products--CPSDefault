@@ -73,13 +73,21 @@ if not id:
     #LOG('computeId', DEBUG, 'fallback = %s' % id)
     id = str(int(DateTime())) + str(randrange(1000, 10000))
 
-# Preventing word cuts
+# Word splitting
 # The following regexp split the given id into words separated by the following
 # separators: '-' '_' '.'
 words = re.split('-*_*\.*\s*', id)
 #LOG('computeId', DEBUG, 'words = %s' % words)
-# TODO: remove from words all the meaningless words according to a
-# specified locale.
+
+# Removing meaningless words according to the current locale.
+#locale = self.Localizer.get_selected_language()
+cpsmcat = context.Localizer.default
+words_meaningless = cpsmcat('words_meaningless')
+#LOG('computeId', DEBUG, 'words_meaningless = %s' % words_meaningless)
+words = [w for w in words if w not in words_meaningless]
+#LOG('computeId', DEBUG, 'words = %s' % words)
+
+# Preventing word cuts
 id = words[0] # The id needs to contain at least one word
 words = words[1:]
 while words and ((len(id) + len(words[0]) + 1) <= max_chars_for_id):

@@ -57,4 +57,8 @@ def initialize(context):
     context.registerClass(BoxesTool.BoxContainer,
                           permission='Add Box Container',
                           constructors=(BoxesTool.addBoxContainer,))
+    context.registerClass(BoxesTool.BoxSlot,
+                          permission='Manage Boxes',
+                          visibility=None,
+                          constructors=(BoxesTool.addBoxSlotForm,BoxesTool.addBoxSlot))
     return

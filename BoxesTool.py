@@ -4,13 +4,16 @@
   BoxesTool
 """
 from zLOG import LOG, DEBUG
-from DateTime import DateTime
-from Globals import InitializeClass, DTMLFile, MessageDialog
 from types import DictType, StringType
 
+from DateTime import DateTime
+from Globals import InitializeClass, DTMLFile, MessageDialog
+import Products
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
+from Persistence import Persistent
 from OFS.SimpleItem import SimpleItem
+from OFS.ObjectManager import ObjectManager
 from ZODB.PersistentMapping import PersistentMapping
 
 from Products.CMFCore.PortalFolder import PortalFolder
@@ -20,18 +23,45 @@ from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 
 ManageOverridesPermission = 'Manage Overrides'
 
-class BoxesTool(UniqueObject, SimpleItem):
+class BoxSlot(SimpleItem):
+    meta_type = 'CPS Box Slot'
+    security = ClassSecurityInfo()
+
+    def __init__(self, id, title=''):
+        self.id = id
+        self.title = title
+        self.up = ''
+        self.down = ''
+        self.left = ''
+        self.right = ''
+
+addBoxSlotForm = DTMLFile('zmi/addBoxSlotForm', globals())
+
+def addBoxSlot(self, id, title='', REQUEST=None):
+    """Add a BoxSlot.
+    """
+    ob = BoxSlot(id, title)
+    self=self.this()
+    self._setObject(ob.id, ob)
+    if REQUEST is not None:
+        REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
+
+InitializeClass(BoxSlot)
+
+
+class BoxesTool(UniqueObject, PortalFolder):
     """
     Boxes Tool.
     """
     id = 'portal_boxes'
     meta_type = 'CPS Boxes Tool'
-
     security = ClassSecurityInfo()
+    #meta_types = (,)
+
 
     manage_options = (
         ({'label': "Overview", 'action': 'manage_overview',},) +
-        SimpleItem.manage_options
+        PortalFolder.manage_options
         )
 
     #
@@ -40,6 +70,11 @@ class BoxesTool(UniqueObject, SimpleItem):
     security.declareProtected(ManagePortal, 'manage_overview')
     manage_overview = DTMLFile('zmi/explainBoxesTool', globals())
 
+    def all_meta_types(self):
+        for entry in Products.meta_types:
+            if entry['name'] == BoxSlot.meta_type:
+                return (entry,)
+        return ()
     #
     # Public API
     #
@@ -225,7 +260,6 @@ class BoxesTool(UniqueObject, SimpleItem):
 
 InitializeClass(BoxesTool)
 
-
 class BoxContainer(PortalFolder):
     id = '.cps_boxes'
     meta_type = 'CPS Boxes Container'
@@ -312,9 +346,8 @@ class BoxContainer(PortalFolder):
         return result
 
 def addBoxContainer(self, id=None, REQUEST=None):
-    """Add a Base Box.
-    id is not take into account, it is define to have
-    homogeneous portal creator """
+    """Add a Box Container.
+    """
     ob = BoxContainer(BoxContainer.id)
     self=self.this()
     if hasattr(aq_base(self), ob.id):
@@ -328,3 +361,5 @@ def addBoxContainer(self, id=None, REQUEST=None):
 
 
 InitializeClass(BoxContainer)
+
+

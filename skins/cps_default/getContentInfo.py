@@ -1,5 +1,5 @@
 ## Script (Python) "getContentInfo"
-##parameters=proxy, doc=None, level=0
+##parameters=proxy=None, doc=None, level=0
 ##title=
 """ Return information about a content item (ie a proxy)
 level: 0 (default)
@@ -11,6 +11,10 @@ level: 2
 level: 3
   level 2 + history
 """
+
+if not proxy:
+    proxy = context
+
 bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id,
                              level=-3)
 bmt.setMarker('start')

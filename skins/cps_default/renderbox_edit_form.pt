@@ -1,0 +1,51 @@
+<metal:html use-macro="here/main_template/macros/master">
+<metal:main fill-slot="main">
+<metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
+<metal:fields fill-slot="additional_fields">
+
+<tal:block define="doc_url python:box['box'].doc_url;
+		           cpsmcat nocall:here/Localizer/default;
+		           item_per_page python:10666
+		  ">	
+
+<tal:block>
+
+    <script type="text/javascript" tal:content="structure string:<!--
+      var here_url = '${here_url}'
+    -->">
+    </script>
+    <script type="text/javascript">
+      <!--
+       function open_dialog_render_box()
+       {
+	    selector_window = window.open(here_url + '/popup_choosedocument', 'popup_link', 'toolbar=0,' + 'scrollbars=1, location=0, statusbar=0, menubar=0, resizable=0' + 'dependent=1, width=500,height=300' );
+	    if (! selector_window.opener)
+           selector_window.opener = window
+        }
+       function update_doc(doc_url)
+	   {
+	    textareaElement = document.form.doc_url
+            value = textareaElement.value
+            textareaElement.value = doc_url
+	    }
+       -->
+     </script>
+
+     <div style="margin-bottom: 1em">
+     <input type="text" name="doc_url" id="doc_url"
+        	 tal:attributes="value doc_url" > <br />
+      <input type="button" name="search_doc" value="button_search" i18n:attributes="value"
+        onClick="open_dialog_render_box()" >
+  
+      </div>
+     </tal:block>
+</tal:block>
+
+
+</metal:fields>
+</metal:boxform>
+
+</metal:main>
+</metal:html>
+
+

@@ -14,8 +14,7 @@ from OFS.SimpleItem import SimpleItem
 
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
      View, AccessContentsInformation, ManagePortal
-from Products.CMFCore.utils import UniqueObject, getToolByName
-
+from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 from zLOG import LOG, DEBUG
 
 
@@ -92,6 +91,9 @@ class BoxesTool(UniqueObject, SimpleItem):
             LOG('portal_boxes', DEBUG, 'isPrincipiaFolderish: ' + str(obj.isPrincipiaFolderish))
 
             for box in f_boxes:
+                # Skip it if there is no view permission
+                if not _checkPermission('View', box):
+                    continue
                 # boxes should be visible if they are to be displayed
                 # in the subfolder, or if this is the root or if
                 # this is the last part of the path.

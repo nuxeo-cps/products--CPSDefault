@@ -32,8 +32,8 @@ params['portal_type'] = pt
 
 # seulement parmi les "vrais" documents
 # ensuite on cherchera tous les proxy qui pointent sur chacun
-cps_name = str(context.portal_url(relative = 1))
-params['path'] = '/'+cps_name+'/portal_repository/'
+portal_path = context.portal_url.getPortalPath()
+params['path'] = portal_path+'/portal_repository/'
 
 #if params.setdefault('SearchableText', '').strip():
 #    results = catalog(**params)

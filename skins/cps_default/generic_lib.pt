@@ -89,7 +89,8 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <!-- ============================================================ -->
 <metal:block define-macro="sections">
   <div class="tabs"
-       tal:define="tree python:sections.getList(start_depth=0, stop_depth=1);">
+       tal:define="sections sections|ttool/sections;
+                   tree python:sections.getList(start_depth=0, stop_depth=1);">
     <a href="" class="plain"
        tal:repeat="item tree"
        tal:attributes="href string:${base_url}${item/rpath}/;

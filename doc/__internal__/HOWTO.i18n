@@ -78,15 +78,12 @@ How to translate:
   - zpt dynamic sentences:
 
     Msgids are not always convenient. For sentences like:
+    <h2 i18n:translate="">
+      heading_reject_publication_of
+      <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
+    </h2>
 
-      <h2>Edit <span tal:replace="doc/getId" /></h2>
-
-    We must leave the sentence as-is and use the i18n:name attribute::
-
-      <h2 i18:translate="">Edit <span tal:replace="doc/getId"
-                                      i18n:name="item_id" /></h2>
-
-    here the msgid to translate is 'Edit ${item_id}'
+    here the msgid to translate is 'heading_accept_publication_of ${item_id}'
 
     for dynamic keywork like :
 

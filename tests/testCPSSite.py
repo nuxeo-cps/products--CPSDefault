@@ -13,6 +13,7 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 import unittest
 from Testing import ZopeTestCase
 import CPSTestCase
+CPSTestCase.setupPortal()
 
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.Permissions import access_contents_information, view

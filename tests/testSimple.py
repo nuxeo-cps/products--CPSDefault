@@ -5,6 +5,8 @@ if __name__ == '__main__':
 import unittest
 from Testing import ZopeTestCase
 import CPSTestCase
+CPSTestCase.setupPortal()
+
 
 class TestSimple(CPSTestCase.CPSTestCase):
     def test1(self):

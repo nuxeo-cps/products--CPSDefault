@@ -10,6 +10,7 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
 from Testing import ZopeTestCase
 import CPSTestCase
+CPSTestCase.setupPortal()
 
 class TestCPSInstaller(CPSTestCase.CPSTestCase):
 

@@ -71,6 +71,7 @@ def optimize():
         self.text = text
     from Products.CMFCore.Expression import Expression
     Expression.__init__ = __init__
+
     def _cloneActions(self):
         # Don't clone actions but convert to list only
         return list(self._actions)
@@ -79,9 +80,10 @@ def optimize():
 
 optimize()
 
-# Create a CPS site in the test (demo-) storage
-app = ZopeTestCase.app()
-# PortalTestCase expects object to be called "portal", not "cps"
-setupCPSSite(app, id='portal') 
-ZopeTestCase.close(app)
+def setupPortal():
+    # Create a CPS site in the test (demo-) storage
+    app = ZopeTestCase.app()
+    # PortalTestCase expects object to be called "portal", not "cps"
+    setupCPSSite(app, id='portal') 
+    ZopeTestCase.close(app)
 

@@ -11,57 +11,47 @@
 </dtml-let>
 */
 
-rss, channel, item, title, description, link, date, subject, creator, contirbutors, rights, language {
-  display: block;
+rss, RDF, channel, item, title{
+    display: block;
+}
+
+link, description, date, subject, creator, contributor, rights, language, source, coverage, relation {
+    display: block;
+	margin-left: 1em;
 }
 
 RDF {
-	display:block;
-	min-width:12em;
 	padding : 1em 0.5em;
-	margin : 1em 8%;
+	margin : 1em 5em;
     font: 80% Verdana, Helvetica, Arial, sans-serif;
 }
 
 channel, item {
 	padding:0.5em;
-	margin : 0.5em 0 0 0;
+	margin : 0 0 0.5em 0;
 }
 
-item {
-    margin-left: 2em;
-	border:1px solid #ccc;
+title {
+    font-weight: bold;
+    border-bottom: 1px solid #838183;
+    margin-bottom: 0.5em;
 }
 
 channel title {
-  margin: 0;
-  padding-top: 0.5em;
-  font-size: 150%;
-  margin-bottom: 0.5em;
-  border-bottom: 1px solid #838183;
+    font-size: 150%;
 }
 
-channel title:before {
-    content: "RSS Channel: ";
+item title {
+    font-size: 120%;
 }
 
 channel description {
 	font-size: 120%;
 }
 
-item title {
-	font-weight: bold;
-    font-size: 120%;
-	padding-bottom: 0.5em;
-}
-
-item title:before {
-    content: "Title: ";
-}
-
-description:before {
-    content: "Description: ";
-  	font-weight: bold;
+item {
+    margin-left: 2em;
+	border:1px solid #ccc;
 }
 
 link {
@@ -72,16 +62,32 @@ link {
     padding-top: 2em;
 }
 
-item link, item description, subject, date, creator, contributors, rights {
-	margin-left: 1em;
-}
-
 channel link, item link {
 	color : #006;
     text-align: left;
   	font-weight: normal;
     font-size: 100%;
     padding: 0;
+}
+
+relation {
+	color : #060;
+}
+
+
+/* :before */
+
+channel title:before {
+    content: "RSS Channel: ";
+}
+
+item title:before {
+    content: "Title: ";
+}
+
+description:before {
+    content: "Description: ";
+  	font-weight: bold;
 }
 
 channel link:before, item link:before {
@@ -99,13 +105,14 @@ subject:before {
   	font-weight: bold;
 }
 
+
 creator:before {
     content: "Creator: ";
   	font-weight: bold;
 }
 
-contributors:before {
-    content: "Contributors: ";
+contributor:before {
+    content: "Contributor: ";
   	font-weight: bold;
 }
 
@@ -119,3 +126,17 @@ language:before {
   	font-weight: bold;
 }
 
+source:before {
+    content: "Source: ";
+  	font-weight: bold;
+}
+
+coverage:before {
+    content: "Coverage: ";
+  	font-weight: bold;
+}
+
+relation:before {
+    content: "Relation: ";
+  	font-weight: bold;
+}

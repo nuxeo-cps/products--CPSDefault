@@ -6,9 +6,6 @@ import os, sys, time
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
-os.environ['STUPID_LOG_SEVERITY'] = '-200'
-os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
-
 import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase

@@ -1,32 +1,8 @@
-# (c) 2002 Nuxeo SARL <http://nuxeo.com>
-# (c) 2002 Florent Guillaume <mailto:fg@nuxeo.com>
-# (c) 2002 Julien Jalon <mailto:jj@nuxeo.com>
-# (c) 2002 Préfecture du Bas-Rhin, France
-# (c) 2002 CIRB, Belgique
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 2 as published
-# by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
-#
+# (c) 2003 Nuxeo SARL <http://nuxeo.com>
 # $Id$
-
 """
   BaseBox
 """
-
-__version__='$Revision$'[11:-2]
-
-from zLOG import LOG, DEBUG
 import string
 from ComputedAttribute import ComputedAttribute
 
@@ -44,6 +20,7 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFCore.Expression import Expression
+from zLOG import LOG, DEBUG
 
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
@@ -123,6 +100,17 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     visible_if_empty = 0
 
+    def __init__(self, id, minimized=0, closed=0, style='',
+                 xpos=1, ypos=0, **kw):
+        DefaultDublinCoreImpl.__init__(self)        
+        self.id = id
+        self.minimized = minimized
+        self.closed = closed
+        self.style = style
+        self.xpos = int(xpos)
+        self.ypos = int(ypos)
+
+
     def getPhysicalParentPath(self):
         parentpath = self.getPhysicalPath()[:-1]
         if parentpath and parentpath[-1] == '.cps_boxes':
@@ -146,7 +134,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declarePublic('can_edit')
     def can_edit(self):
         """
-        determine if the box can be minimized
+
         """
         return _checkPermission(ModifyPortalContent, self)
 
@@ -161,28 +149,24 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declarePublic('can_closed')
     def can_closed(self):
         """
-        determine if the box can be minimized
         """
         return _checkPermission(ModifyPortalContent, self)
 
     security.declarePublic('can_style')
     def can_style(self):
         """
-        determine if the box can be minimized
         """
         return _checkPermission(ModifyPortalContent, self)
 
     security.declarePublic('can_xpos')
     def can_xpos(self):
         """
-        determine if the box can be minimized
         """
         return _checkPermission(ModifyPortalContent, self)
 
     security.declarePublic('can_ypos')
     def can_ypos(self):
         """
-        determine if the box can be minimized
         """
         return _checkPermission(ModifyPortalContent, self)
 
@@ -202,15 +186,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     def cps_prefId(self):
         return 'bx_' + self.getId()
     
-    def __init__(self, id, minimized=0, closed=0, style='', xpos=1, ypos=0, **kw):
-        self.id = id
-        self.minimized = minimized
-        self.closed = closed
-        self.style = style
-        self.xpos = int(xpos)
-        self.ypos = int(ypos)
-        DefaultDublinCoreImpl.__init__(self)
-
     security.declarePublic('getIconRelative')
     def getIconRelative(self):
         """

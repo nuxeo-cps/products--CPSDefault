@@ -37,7 +37,7 @@ factory_type_information = (
                                           'permissions': (ModifyPortalContent,)
                                           },
                                          ),
-                             'cps_is_proxytype': 1,
+                             'cps_proxytype': 'document',
                              'cps_is_searchable': 1,
                              },
                             )

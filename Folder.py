@@ -25,7 +25,6 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
 from Products.CPSCore.CPSBase import CPSBaseFolder, CPSBase_adder
 
-
 factory_type_information = (
     {'id': 'Folder',
      'title': 'portal_type_Folder_title',
@@ -37,12 +36,7 @@ factory_type_information = (
      'immediate_view': 'folder_edit_form',
      'filter_content_types': 0,
      'allowed_content_types': (),
-     'actions': ({'id': 'isproxytype',
-                  'name': 'isproxytype',
-                  'action': 'folder',
-                  'permissions': ('',),
-                  'visible': 0},
-                 {'id': 'view',
+     'actions': ( {'id': 'view',
                   'name': 'action_view',
                   'action': 'folder_view',
                   'permissions': (View,)},
@@ -66,7 +60,8 @@ factory_type_information = (
                   'name': 'action_boxes',
                   'action': 'box_manage_form',
                   'permissions': ('Manage Boxes',)},
-                 )
+                 ),
+      'cps_proxytype': 'folder',
      },
     )
 

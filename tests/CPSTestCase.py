@@ -25,6 +25,7 @@ ZopeTestCase.installProduct('SiteAccess', quiet=1)
 # right now.
 ZopeTestCase.installProduct('CPSForum', quiet=1)
 ZopeTestCase.installProduct('CPSSubscriptions', quiet=1)
+ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('CPSSchemas', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
@@ -39,8 +40,6 @@ try: ZopeTestCase.installProduct('CPSChat', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSCalendar', quiet=1)
 except: pass
-try: ZopeTestCase.installProduct('CPSMailingLists', quiet=1)
-except: pass
 try: ZopeTestCase.installProduct('CPSCollector', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSMailBoxer', quiet=1)
@@ -48,9 +47,9 @@ except: pass
 
 test_cpsskins = (os.environ.get('CPSSKINS_TARGET', '') == 'CPS3')
 if test_cpsskins:
-    try: 
+    try:
         ZopeTestCase.installProduct('CPSSkins', quiet=1)
-    except: 
+    except:
         pass
 
 from AccessControl.SecurityManagement \
@@ -159,7 +158,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
 
 class CPSInstaller:
     def __init__(self, app, quiet=0):
-        if not quiet: 
+        if not quiet:
             ZopeTestCase._print('Adding Portal Site ... ')
         self.app = app
         self._start = time.time()
@@ -185,7 +184,7 @@ class CPSInstaller:
 
     def addPortal(self, portal_id):
         factory = self.app.manage_addProduct['CPSDefault']
-        factory.manage_addCPSDefaultSite(portal_id, 
+        factory.manage_addCPSDefaultSite(portal_id,
             root_password1="passwd", root_password2="passwd",
             langs_list=['en'])
 
@@ -206,8 +205,8 @@ class CPSInstaller:
     def logout(self):
         noSecurityManager()
         get_transaction().commit()
-        if not self._quiet: 
-            ZopeTestCase._print('done (%.3fs)\n' 
+        if not self._quiet:
+            ZopeTestCase._print('done (%.3fs)\n'
                 % (time.time() - self._start,))
 
 
@@ -235,4 +234,3 @@ def setupPortal(PortalInstaller=CPSInstaller):
         app.manage_delObjects(['portal'])
     PortalInstaller(app).install('portal')
     ZopeTestCase.close(app)
-

@@ -44,6 +44,12 @@ def cpsinstall(self):
     pr("Cleaning actions")
     actiondelmap = {
         'portal_actions': ['folderContents', 'folder_contents'],
+        'portal_membership': ['preferences',
+                              'addFavorite',
+                              'mystuff',
+                              'favorites',
+                              ],
+        'portal_syndication': ['syndication'],
         }
     for tool, actionids in actiondelmap.items():
         actions = list(portal[tool]._actions)
@@ -671,6 +677,23 @@ def cpsupdate(self, langs_list=None):
         portal.portal_membership.setMemberareaCreationFlag()
     else:
         prok()
+
+    pr("Verifiying status history action for document")
+    action_found = 0
+    for action in  portal['portal_actions'].listActions():
+        if action.id == 'status_history':
+            action_found = 1
+    if not action_found:
+        portal['portal_actions'].addAction(
+            id='status_history',
+            name='Status History',
+            action='string: ${object/absolute_url}/content_status_history',
+            condition='python: folder is not object',
+            permission='View',
+            category='workflow')
+        pr(" Added")
+    else:
+        pr(" Present")
 
         
     pr(" Reindexing catalog")

@@ -412,11 +412,13 @@ format:</pre>
                                  'folder_contents', 'view')">
   <div tal:condition="info/preview|nothing" style="float: right">
     <img tal:condition="info/preview|nothing"
-         tal:replace="structure python:here.getImgTag(info['preview'],
-                               base_url=base_url, width=64, height=64, keep_ratio=1)" />
+      tal:replace="structure python:here.getImgTag(info['preview'],
+        base_url=base_url, width=64, height=64, keep_ratio=1)" />
   </div>
+  <a tal:attributes="href info/relation" tal:omit-tag="not:info/relation">
   <img tal:replace="structure python:here.getImgTag(info['icon'],
-                                     base_url=base_url, title='%s, id:%s' % (info['type'], info['id']))" />
+    base_url=base_url, title='%s, id:%s' % (info['type'], info['id']))" />
+  </a>
    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
   <br />
@@ -447,6 +449,7 @@ format:</pre>
            tal:define="url python: here.truncURL(base_url + info['rpath'])"
            tal:content="url">URL</small>
   </tal:block>
+
 </div>
 </metal:block>
 
@@ -624,8 +627,9 @@ format:</pre>
 <div
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view');">
+  <a tal:attributes="href info/relation" tal:omit-tag="not:info/relation">
   <img tal:replace="structure python:here.getImgTag(info['icon'],
-       base_url=base_url, title=info['type'])" />&nbsp;<a
+       base_url=base_url, title=info['type'])" /></a>&nbsp;<a
    href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
                            title info/description;">
 <span tal:replace="info/title_or_id">ID</span></a>

@@ -169,7 +169,7 @@ try:
 except AttributeError:
     # not a proxy
     # FIXME: default lang should not be hardcoded
-    info['rev'] = 0
+    info['rev'] = '0'
     info['lang'] = 'en'
 info['time'] = proxy.modified()
 

@@ -40,7 +40,7 @@
 <div class="top">
   <!-- TOP Slot ================================= -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
-  <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
+  <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top')">
     <metal:block use-macro="python:path(box['macro'])" />
   </tal:block>
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
@@ -52,7 +52,7 @@
     <td class="left" width="150">
       <!-- LEFT Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
-      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left');">
+      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
@@ -64,7 +64,7 @@
 
       <!-- CENTER_TOP Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
-        <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top');">
+        <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top')">
           <metal:block use-macro="python:path(box['macro'])" />
         </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_stop')" />
@@ -90,7 +90,7 @@
 
       <!-- CENTER_BOTTOM Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_start')" />
-      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom');">
+      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
@@ -99,7 +99,7 @@
     <td class="right" width="150" tal:condition="showthirdcol">
       <!-- RIGHT Slot ================================= -->
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
-      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right');">
+      <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
@@ -120,7 +120,7 @@
 
 <!-- BOTTOM Slot ================================= -->
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_start')" />
-<tal:block repeat="box python:btool.filterBoxes(boxes, slot='bottom');">
+<tal:block repeat="box python:btool.filterBoxes(boxes, slot='bottom')">
   <metal:block use-macro="python:path(box['macro'])" />
 </tal:block>
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />

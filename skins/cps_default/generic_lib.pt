@@ -69,7 +69,7 @@
         <div class="label" i18n:translate="label_search_full_text" /></td>
       <td><input name="SearchableText" size="40" /></td>
     </tr>
-    <tr tal:condition="python: checkPerm('Review portal content', here)">
+    <tr tal:condition="not:isAnon">
       <td align="right" valign="top">
         <div class="label" i18n:translate="label_search_status" /></td>
       <td>

@@ -1,10 +1,15 @@
-##parameters=
+##parameters=root_id='sections'
 # $Id$
 """
 Get all sections info with allowed publishing transitions
+
+You can specify root_id if the sections are located elsewhere
 """
 
-sections = context.portal_trees.sections.getList()
+locale = context.Localizer.get_selected_language()
+sections = context.portal_trees[root_id].getList(
+        locale_keys=('title', 'short_title'),
+        locale_lang=locale)
 
 wftool = context.portal_workflow
 getInitialTransitions = wftool.getInitialTransitions

@@ -35,7 +35,8 @@ tal:content="context_url" /></p>
   <tr tal:define="action python:box['box'].getTypeInfo().immediate_view"
     tal:attributes="bgcolor python:repeat['box'].odd() and '#EEEEEE' or nothing">
     <td><input type="checkbox" name="ids:list" value=""
-               tal:attributes="value box/url;"></td>
+          tal:attributes="value box/url;"
+          tal:condition="python:checkP("")"></td>
     <td align="right"><tal:block replace="box/box/order" /></td>
     <td><a href="" tal:attributes="href
       string:${context_urlc}/${action}?box_url=${box/url}">

@@ -1,8 +1,6 @@
 <metal:block use-macro="here/content_lib/macros/master">
 <div metal:fill-slot="main"
-     tal:define="m_tool here/portal_membership;
-                 checkPerm nocall: m_tool/checkPermission;
-                 list_here python:checkPerm('List folder contents', here);
+     tal:define="list_here python:checkPerm('List folder contents', here);
                  list_parent python:checkPerm('List folder contents', here, 'aq_parent');">
 <div tal:condition="not: list_here"
   tal:define="response request/RESPONSE;url here/absolute_url;">

@@ -1,6 +1,6 @@
 <metal:html metal:use-macro="here/content_lib/macros/master">
 
-  <div tal:condition="python: not(here.portal_membership.checkPermission('Access contents information', here))">
+  <div tal:condition="python: not(checkPerm('Access contents information', here))">
     <span tal:define="dummy here/unauthRedirect"></span>
   </div>
 

@@ -5,6 +5,9 @@ Filter and sort items (proxy)
 """
 mtool = context.portal_membership
 wtool = context.portal_workflow
+ttool = context.portal_types
+
+from zLOG import LOG, DEBUG
 
 # filtering
 filtered_items = []
@@ -14,8 +17,13 @@ for item in items:
         continue
     if not mtool.checkPermission('View', item):
         continue
-    if hide_folder and item.isPrincipiaFolderish:
-        continue
+    portal_type = getattr(item, 'portal_type', None)
+    if portal_type in ttool.objectIds():
+        display_as_document_in_listing = getattr(ttool[portal_type],
+                                                 'cps_display_as_document_in_listing',
+                                                 None)
+    if hide_folder and (item.isPrincipiaFolderish and not display_as_document_in_listing):
+       continue
     if displayed != [''] and item.portal_type not in displayed:
         continue
     review_state = wtool.getInfoFor(item, 'review_state', 'nostate')

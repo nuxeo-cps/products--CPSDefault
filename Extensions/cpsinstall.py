@@ -20,15 +20,6 @@ from Products.NuxCPS3.CPSWorkflow import TRANSITION_BEHAVIOR_SUBCREATE, \
      TRANSITION_BEHAVIOR_CLONE, TRANSITION_BEHAVIOR_FREEZE, TRIGGER_CREATION
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
-zexpdir = os.path.join('Products', 'NuxCPS3')
-
-def tryimport(container, name, suffix='zexp', zexpdir=zexpdir, pr=None):
-    zexppath = getPath(zexpdir, name, suffixes=(suffix, ))
-    if zexppath is None:
-        pr(" !!! Unable to find %s.%s in %s" % (name, suffix, zexpdir))
-    else:
-        container._importObjectFromFile(zexppath)
-        pr(" Import of %s.%s" % (name, suffix))
 
 
 def cpsinstall(self):
@@ -111,20 +102,6 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating User Folder With Groups")
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
-    # create index_html for portal redirection
-    pr("Verifying global index_html")
-    #if portalhas('index_html'):
-        #if portal.index_html.meta_type != 'DTML Method':
-            #pr(" !!! index_html is not a DTML Method")
-            #primp()
-        #else:
-            #prok()
-    #else:
-        #pr(" Creating index_html")
-        #portal.manage_addProduct['OFSP'].manage_addDTMLMethod('index_html')
-        #doc = portal['index_html']
-        #doc.munge('<dtml-var portal>')
-
     # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
     # CPS Object Repository, Tree tools
     pr("Verifying CPS Tools")
@@ -164,7 +141,7 @@ def cpsupdate(self, langs_list=None):
         pr(" Creation portal_proxies subscribers")
         portal.portal_eventservice.manage_addSubscriber(
             subscriber='portal_proxies',
-            action='proxies',
+            action='proxy',
             meta_type='*',
             event_type='synchronous',
             notification_type='*',
@@ -394,18 +371,6 @@ def cpsupdate(self, langs_list=None):
                            'guard_roles':'SectionReviewer; SectionManager, Manager', 'guard_expr':''},
                     )
    
-    # import the 4 standard workflow
-    #pr("Setup workflow shemas")
-    #wftool = portal.portal_workflow
-    #wfids = wftool.objectIds()
-    #for wfid in ('cps_section_document_workflow',
-                 #'cps_section_workflow',
-                 #'cps_workspace_document_workflow',
-                 #'cps_workspace_workflow'):
-        #if wfid in wfids:
-            #wftool.manage_delObjects([wfid])
-        #tryimport(wftool, wfid, pr=pr)
-        
         
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder, 
     # CPS Dummy Document, CPS Folder
@@ -490,8 +455,7 @@ def cpsupdate(self, langs_list=None):
         wfc.manage_addChain(portal_type='Section',
                             chain='')
         wfc.manage_addChain(portal_type='Dummy',
-                            chain='wf_workspace_document',
-                            under_sub_add=1)
+                            chain='wf_workspace_document')
         
     if not '.cps_workflow_configuration' in portal[sections_id].objectIds():
         pr("  Adding workflow configuration to %s" % sections_id)
@@ -502,8 +466,7 @@ def cpsupdate(self, langs_list=None):
         wfc.manage_addChain(portal_type='Section',
                             chain='wf_section')
         wfc.manage_addChain(portal_type='Dummy',
-                            chain='wf_section_document',
-                            under_sub_add=1)
+                            chain='wf_section_document')
     # init Tree Tool
     trtool = portal.portal_trees
     pr("Verifying cache trees")

@@ -140,7 +140,6 @@ def manage_addCPSDefaultSite(dispatcher, id,
         'sn': root_sn,
     }
     mdir.createEntry(entry)
-    mdir.editEntry(entry)
 
     pr('Done')
     if REQUEST is not None:

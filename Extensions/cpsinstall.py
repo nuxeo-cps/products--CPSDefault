@@ -1294,7 +1294,7 @@ except:
                    },
 
         'l10n_select': {'type':'Base Box',
-                        'title': 'Local selector',
+                        'title': 'Locale selector',
                         'btype': 'l10n_select',
                         'slot': 'left',
                         'order': 10,

@@ -421,7 +421,7 @@
         <tr><td valign="top" width="50%">
         <tal:block repeat="item items">
           <tal:block condition="python:item['depth']==depth">
-          <br tal:condition="not:repeat/item/start" />
+          <tal:block condition="not:repeat/item/start"><br /><br /></tal:block>
           <tal:block condition="python:repeat['item'].number() >= treenb_row">
             <tal:block define="global treenb_row python:nb_item + 1"
                  replace="structure string:&lt;/td>&lt;td width='50%' valign='top'>"/>
@@ -435,9 +435,9 @@
         <span tal:replace="structure string:${item/title_or_id}">
           title
         </span></b></a>
-        <span tal:condition="item/nb_children" 
-                tal:define="global last_child python: repeat['item'].number() + 
-                item['nb_children']" tal:replace="string::" /><br />
+        <tal:block condition="item/nb_children"
+           tal:define="global last_child python: repeat['item'].number() +
+            item['nb_children']">:<br /></tal:block>
         </tal:block>
           <tal:block condition="python:item['depth']>depth">
           <a href="." tal:attributes="href string:${base_url}${item/rpath}/">
@@ -445,7 +445,7 @@
           title</span></a><span
           tal:condition="item/nb_children" tal:replace="string:..." /><span
           tal:condition="python: repeat['item'].number() != last_child"
-          >,</span><span tal:condition="python: repeat['item'].number() == last_child">.<br /></span>
+          >,</span><span tal:condition="python: repeat['item'].number() == last_child">.</span>
           </tal:block>
         </tal:block>
         </td></tr></table><br />

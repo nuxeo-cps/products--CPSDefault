@@ -18,6 +18,7 @@
       x [] impl skin proxy history i.e wf history
          x [] add wf variables: transition, date, user
             o add rpath variable (section)
+         o modify src wf history ??? for reject ??? accept ???
    o folder
       x [] folder_contents with more info
         display proxy rev, lang, status
@@ -51,23 +52,27 @@
       o rewrite cpsinstaller
 
 - Bug fix
+   o getInfoFor review_state failed if not owner or manager ????
+   o set local roles page should display aquisition roles
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
    x [] folder_contents permission denied for SectionReader on folder
      with pending (in_submit) document
    x [] content_publish_form should display only section with
      SectionReader rights
-   o folder_contents display links with broken path 
+   x [] folder_contents display links with broken path 
      if there are a missing trailing '/' in the URL
-   o fix folder_edit_form do not save change
-   o set local roles page should display aquisition roles
+   x [] fix folder_edit_form do not save change
 
 - Open questions
-   o still need simple scenarii wf/multi version/multi language
+   x [] still need simple scenarii wf/multi version/multi language
    o unpublish what's happen to the history of a doc 
      how to remember that it was published and by who and when
-   o how to accept multiple submit for a doc ?
-   o how to allow unpublish for author
+   x [] how to accept multiple submit for a doc ?
+      handle simple accept by section like CMF
+   x [] how to allow unpublish for author
+      allow unpublish only for reviewer 
    o how and when shoud we delete a doc in the repository
+   o how to restrict access in sub folder ??
 
 - Make CPSDemo product
    this product should be a skeleton for any new cps site

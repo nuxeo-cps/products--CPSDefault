@@ -987,12 +987,6 @@ def cpsupdate(self, langs_list=None):
         ob.manage_changeProperties(**boxes[box])
 
     #
-    # i18n
-    #
-    log_i18n = cps_i18n_update(self, langs_list)
-    pr (log_i18n)
-
-    #
     # i18n Updater
     #
 
@@ -1005,6 +999,12 @@ def cpsupdate(self, langs_list=None):
                                       'cps_i18n_update')
         portal._setObject('i18n Updater', i18n_updater)
 
+    #
+    # i18n
+    #
+    log_i18n = cps_i18n_update(self, langs_list)
+    pr (log_i18n)
+    
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)
 

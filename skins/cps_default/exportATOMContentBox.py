@@ -125,7 +125,7 @@ text = atom_feed % {'feed_title' : feed_title,
                     'entries' : body_text
                     }
 
-if REQUEST:
+if REQUEST is not None:
    REQUEST.RESPONSE.setHeader('Content-Type', 'application/xml; charset=ISO-8859-15')
    REQUEST.RESPONSE.setHeader('Cache-Control', 'no-cache')
 

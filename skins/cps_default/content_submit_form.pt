@@ -11,7 +11,7 @@
 </metal:title>
 
 <metal:help fill-slot="help">
-  <span i18n:translate="help_publish_publication">To make an item viewable
+  <tal:block i18n:translate="help_publish_publication">To make an item viewable
   by readers it has to be published. You can publish this item directly
   in the sections where you are entitled to  without requiring any reviewing.<br />
   A copy of the item will be created into each of these sections with the
@@ -20,7 +20,7 @@
   You can also submit the item in the section folders where you are not
   entitled to publish directly.<br /> A copy of the item will be created into
   each of these sections with a <strong>pending</strong> status, waiting to be
-  reviewed and finally <strong>published</strong> by a section's reviewer.</span>
+  reviewed and finally <strong>published</strong> by a section's reviewer.</tal:block>
 </metal:help>
 
 <metal:main fill-slot="main"
@@ -30,8 +30,7 @@
                         submit_wf_action string:submit;
                         start_wf_action string:copy_submit;">
 
-  <br />
-  <metal:block use-macro="here/content_lib_status/macros/status" /><br /><br />
+  <metal:block use-macro="here/content_lib_status/macros/status" />
 
   <metal:block use-macro="here/content_lib_transition_form/macros/transition_form">
     <metal:block fill-slot="fields"
@@ -88,7 +87,7 @@
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib_states/macros/states" /><br />
+  <metal:block use-macro="here/content_lib_states/macros/states" />
 
   <metal:block use-macro="here/content_lib_history/macros/history" />
 </metal:main>

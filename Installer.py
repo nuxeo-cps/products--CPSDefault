@@ -80,7 +80,7 @@ class BaseInstaller:
         Necessary after any skin manipulation.
         """
         self.log(" Resetting skin cache")
-        self.portal._v_skindata = None
+        self.portal.clearCurrentSkin()
         self.portal.setupCurrentSkin()
 
     def setSkinsOnTop(self, skins):

@@ -134,16 +134,11 @@ class PortalBoxesTool(UniqueObject, SimpleItem):
         Personal boxes can get retrieved by sending the
         portal_preferences.getUserPreferences container as the context.
         """
-        from zLOG import LOG, DEBUG
-        LOG('getBoxesContainer', DEBUG, str(context.absolute_url()))
-        #return getattr(context, '.cps_boxes', None)
         y = context.objectIds()
-        LOG('getBoxesContainer', DEBUG, str(y))
 
         if hasattr(context, '.cps_boxes'):
             f = getattr(context, '.cps_boxes', None)
             if f is not None:
-              LOG('getBoxesContainer', DEBUG, f.absolute_url())
               return f
         return None
 

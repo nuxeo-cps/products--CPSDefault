@@ -11,7 +11,10 @@ if REQUEST is not None:
     kw.update(REQUEST.form)
 
 type_name = kw['type_name']
-id = kw.get('id', type_name)
+id = kw.get('id', None)
+if not id:
+    id = 'my ' + type_name
+
 id = context.computeId(compute_from=id)
 
 context.invokeFactory(type_name, id)

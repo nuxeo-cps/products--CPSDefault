@@ -233,4 +233,60 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
         BaseBox.inheritedAttribute('manage_afterAdd')(self, item, container)
 
+    def minimize(self, REQUEST=None):
+        """ """
+        self.savePersonalSettings({'minimized':1})
+        if REQUEST is not None:
+            goto = REQUEST.get('goto')
+            if goto:
+                REQUEST['RESPONSE'].redirect(goto)
+
+    def maximize(self, REQUEST=None):
+        """ """
+        self.savePersonalSettings({'minimized':0})
+        if REQUEST is not None:
+            goto = REQUEST.get('goto')
+            if goto:
+                REQUEST['RESPONSE'].redirect(goto)
+
+    def savePersonalSettings(self, new_settings):
+        """ personal override for this box """
+        # find the personal boxes container pbc, create if empty
+        home = getToolByName(self, 'portal_membership').getHomeFolder()
+        portal_url = getToolByName(self, 'portal_url')
+        btool = getToolByName(self, 'portal_boxes')
+        box_url = portal_url.getRelativeUrl(self)
+        
+        pbc = None
+        if hasattr(aq_base(home), '.cps_boxes'):
+            pbc = home['.cps_boxes']
+        else:
+            home.manage_addProduct['CPSDefault'].addBoxContainer(id='.cps_boxes')
+            pbc = home['.cps_boxes']
+
+            LOG('Box', DEBUG, 'SavePersonalSettings', 'Creating personal boxes container %s/.cps_boxes' % str(portal_url.getRelativeContentPath(home)))
+            
+        # get current override
+        overrides = pbc.getOverrides()
+        settings={}
+        for s in overrides:
+            if s['box_path'] == box_url:
+                settings = s
+                break
+        settings.update(new_settings)
+
+        for field in settings.keys():
+            if not settings[field]:
+                del settings[field]
+            elif field in ('mimimized', 'order', 'closed'):
+                settings[field] = int(settings[field])
+        btool.setBoxOverride(box_url, settings, pbc )
+        LOG('Box', DEBUG,
+            'SavePersonalSettings', '%s settings %s' % (box_url,
+                                                        str(settings)))
+
+        
+
+
+
 InitializeClass(BaseBox)

@@ -33,15 +33,21 @@
   <tr>
     <td class="left" width="15%" valign="top">
 <!-- BEGIN LEFT Slot ============================== -->
-      
+
       <metal:block define-macro="test_box_skin">
       <tal:block repeat="bs here/getBoxSkins"
         define="box python:boxes[1]">
 
       <metal:block use-macro="python:path(bs['macro_path'])">
-      <metal:block fill-slot="box_title">A test box</metal:block>
-      <metal:block fill-slot="box_body" tal:content="bs/title"
-        i18n:translate="">Bla blabla blablaba.</metal:block>
+      <metal:block fill-slot="box_title" tal:content="bs/title"
+        i18n:translate="">A test box</metal:block>
+      <metal:block fill-slot="box_body">testing: <span  tal:content="bs/title"
+        i18n:translate="" /><br>
+      <ul><li>et un</li>
+      <li>et de 2</li>
+      <li>Trois</li>
+      </ul>
+      </metal:block>
       </metal:block>
 
       </tal:block>

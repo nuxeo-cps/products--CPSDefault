@@ -6,18 +6,17 @@
 <!-- a sample box title and body -->
 <metal:block define-macro="box">
 <div class="box">
-<table width="100%" border="1" cellspacing="0" cellpadding="5" valign="top"
-  bgcolor="#FFFFFF">
-  <tr>
-    <td bgcolor="#EEEEEE">
-      <b><metal:block define-slot="box_title">Box Title</metal:block></b>
+<table class="box" width="100%" cellpadding="5" cellspacing="0" valign="top"
+  border="1">
+  <tr class="title">
+    <td><b><font color="white" >
+      <metal:block define-slot="box_title">Box Title</metal:block>
+      </font></b>
     </td>
   </tr>
-  <tr>
+  <tr class="odd">
     <td>
-      <div class="content odd">
       <metal:block define-slot="box_body">Box Body</metal:block>
-      </div>
     </td>
   </tr>
 </table>
@@ -29,11 +28,10 @@
 <!-- a min max box -->
 <metal:block define-macro="mmbox">
 <div class="box">
-<table width="100%" border="1" cellspacing="0" cellpadding="5" valign="top"
-  bgcolor="#FFFFFF">
-  <tr>
-    <td bgcolor="#EEEEEE">
-      <b>
+<table class="box" width="100%" border="1" cellspacing="0" cellpadding="5"
+  valign="top">
+  <tr class="title">
+    <td>
     <tal:block condition="box/settings/minimized"><a href="" class="close"
       tal:attributes="href
       string:${base_url}${box/url}/maximize?goto=${context_url}"><img border="0"
@@ -44,15 +42,14 @@
       string:${base_url}${box/url}/minimize?goto=${context_url}"><img border="0"
       src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
       /></a></tal:block>
-    <metal:block define-slot="box_title">Box Title</metal:block>
-      </b>
+      <b><font color="white">
+      <metal:block define-slot="box_title">Box Title</metal:block>
+      </font></b>
     </td>
   </tr>
-  <tr tal:condition="not:box/settings/minimized">
+  <tr tal:condition="not:box/settings/minimized" class="odd">
     <td>
-      <div class="content odd">
       <metal:block define-slot="box_body">Box Body</metal:block>
-      </div>
     </td>
   </tr>
 </table>
@@ -64,11 +61,10 @@
 <!-- a min max close box -->
 <metal:block define-macro="mmcbox">
 <div class="box">
-<table width="100%" border="1" cellspacing="0" cellpadding="5" valign="top"
-  bgcolor="#FFFFFF">
-  <tr>
-    <td bgcolor="#EEEEEE">
-      <b>
+<table class="box" width="100%" border="1" cellspacing="0" cellpadding="5"
+  valign="top">
+  <tr class="title">
+    <td>
       <a href="" class="close" tal:attributes="href
       string:${base_url}${box/url}/close?goto=${context_url}"><img border="0"
       src="close.gif" tal:attributes="src string:${base_url}close.gif" /></a>
@@ -81,15 +77,14 @@
       string:${base_url}${box/url}/minimize?goto=${context_url}"><img border="0"
       src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
       /></a></tal:block>
+      <b><font color="white">
     <metal:block define-slot="box_title">Box Title</metal:block>
-      </b>
+      </font></b>
     </td>
   </tr>
-  <tr tal:condition="not:box/settings/minimized">
+  <tr tal:condition="not:box/settings/minimized" class="odd">
     <td>
-      <div class="content odd">
       <metal:block define-slot="box_body">Box Body</metal:block>
-      </div>
     </td>
   </tr>
 </table>
@@ -101,13 +96,12 @@
 <!-- a frame box -->
 <metal:block define-macro="sbox">
 <div class="box">
-<table width="100%" border="1" cellspacing="0" cellpadding="5" valign="top"
-  bgcolor="#FFFFFF">
-  <tr><td>
-    <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
-    <div class="content odd">
+<table class="box" width="100%" border="1" cellspacing="0" cellpadding="5"
+  valign="top">
+  <tr class="odd"><td>
+    <div class="title2"><metal:block define-slot="box_title">Box Title</metal:block></div>
+    <hr class="netscape4">
     <metal:block define-slot="box_body">Box Body</metal:block>
-    </div>
   </td></tr>
 </table>
 </div>
@@ -118,9 +112,9 @@
 <!-- a frame box without title  -->
 <metal:block define-macro="sbox2">
 <div class="box">
-<table width="100%" border="1" cellspacing="0" cellpadding="5" valign="top"
-  bgcolor="#FFFFFF">
-  <tr><td>
+<table class="box" width="100%" border="1" cellspacing="0" cellpadding="5"
+  valign="top">
+  <tr class="odd"><td>
     <metal:block define-slot="box_body">Box Body</metal:block>
   </td></tr>
 </table>
@@ -132,10 +126,13 @@
 <!-- no frame box -->
 <metal:block define-macro="wbox">
 <div class="box">
-<table width="100%" border="0" cellspacing="0" cellpadding="5" valign="top"
-  bgcolor="#FFFFFF">
-  <tr><td>
-  <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
+<table class="box" width="100%" border="0" cellspacing="0" cellpadding="5"
+  valign="top">
+  <tr class="odd"><td>
+  <div class="title2">
+    <metal:block define-slot="box_title">Box Title</metal:block>
+  </div>
+  <hr class="netscape4">
   <metal:block define-slot="box_body">Box Body</metal:block>
   </td></tr>
 </table>
@@ -147,7 +144,12 @@
 <!-- no frame no title box -->
 <metal:block define-macro="wbox2">
 <div class="box">
+<table class="box" width="100%" border="0" cellspacing="0" cellpadding="5"
+  valign="top">
+  <tr class="odd"><td>
   <metal:block define-slot="box_body">Box Body</metal:block>
+  </td></tr>
+</table>
 </div>
 </metal:block>
 

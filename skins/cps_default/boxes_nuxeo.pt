@@ -523,6 +523,7 @@
 </tal:block>
 </metal:block>
 
+        
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_sitemap"
              tal:define="items python:box['box'].getTree(here);">
@@ -725,6 +726,19 @@
 </tal:block>
 </metal:block>
 
+
+<!-- ============================================================ -->
+<metal:block define-macro="treebox_menu"
+  tal:define="items python:box['box'].getTree(here.portal_url.getPortalObject())">
+<ul class="menu" tal:condition="items"><tal:block repeat="item items">
+  <li tal:condition="python:item['portal_type']=='Section' or item['depth']==0"
+    tal:define="class_name python:test(item['portal_type']=='Section', 'section', 'workspace')"
+    tal:attributes="class python:test(context_url.endswith(item['rpath']), class_name+' selected', class_name)"><a
+    tal:attributes="href string:${base_url}${item/rpath}/;title item/title"
+    tal:content="structure item/short_title">Folder title</a></li></tal:block>
+</ul>
+<br style="clear: both;" />
+</metal:block>
 
 
 <!-- ============================================================ -->

@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-29 11:50default\n"
-"PO-Revision-Date: 2003-07-29 11:51+0200\n"
+"POT-Creation-Date: 2003-07-29 12:36default\n"
+"PO-Revision-Date: 2003-07-29 12:37+0200\n"
 "Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
 "Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -214,6 +214,14 @@ msgid "button_default"
 msgstr "Default"
 
 #.   <input value="button_delete" name="folder_delete:method" type="submit">
+#.           <block define="params here/getDisplayParams;
+#.                                  sort_by params/sort_by;
+#.                                  direction params/direction;
+#.                                  format params/format;
+#.   			       change_display python:request.get('change_display', None);" condition="python:sort_by=='title' and direction=='asc' and change_display is None">
+#.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
+#.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#.   	</block>
 #.         </input>
 #.   <input value="button_delete" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -225,6 +233,16 @@ msgstr "Delete"
 #: from ../skins/cps_default/login_form.pt
 msgid "button_login"
 msgstr "Login"
+
+#.   <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_move_down"
+msgstr "Move down"
+
+#.   <input value="button_move_up" name="moveItemsUp:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_move_up"
+msgstr "Move down"
 
 #.   <input value="button_new" name="folder_factories:method" type="submit">
 #.         </input>
@@ -271,6 +289,14 @@ msgstr "Reject publication"
 
 #.   <input value="button_rename" name="folder_rename_form:method" type="submit">
 #.           <input value="button_delete" name="folder_delete:method" type="submit">
+#.           <block define="params here/getDisplayParams;
+#.                                  sort_by params/sort_by;
+#.                                  direction params/direction;
+#.                                  format params/format;
+#.   			       change_display python:request.get('change_display', None);" condition="python:sort_by=='title' and direction=='asc' and change_display is None">
+#.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
+#.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#.   	</block>
 #.         </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"

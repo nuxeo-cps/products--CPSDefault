@@ -6,12 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-03 16:37default\n"
+"POT-Creation-Date: 2004-02-09 16:40default\n"
 "PO-Revision-Date: 2004-02-05 09:00+0100\n"
 "Last-Translator: Paolo Dina <paolo@php3.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #.   <block fill-slot="box_title" content="bs/title">A test box</block>
@@ -32,7 +32,7 @@ msgstr "Un contenitore di prova"
 msgid "Action"
 msgstr "Azione"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator());
+#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
@@ -334,8 +334,9 @@ msgstr "Sposta all'inizio"
 msgid "button_move_up"
 msgstr "Sposta in alto"
 
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.     </input>
+#.   <input value="button_ok" class="context searchButton" type="submit"><br>
+#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.     </br></input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.         </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -348,8 +349,27 @@ msgstr "Sposta in alto"
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.   
 #.   </input>
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.          </input>
+#.   <input value="button_ok" class="standalone searchButton" type="submit">
+#.           <br>
+#.           <block condition="not:swr">
+#.             <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.           </block>
+#.           <block define="criteria python:['search_within_results', 'title_search',
+#.                                      'folder_prefix', 'review_state'];
+#.                     criteria_list python:['portal_type'];" condition="swr">
+#.             <block repeat="criterion criteria">
+#.               <input type="hidden" define="value request/?criterion|nothing" condition="value" attributes="name criterion;
+#.                                 value value">
+#.             </input></block>
+#.             <block repeat="criterion criteria_list">
+#.               <block define="values request/?criterion|nothing" condition="values">
+#.                 <block repeat="value values">
+#.                   <input type="hidden" define="value value" attributes="name python:criterion+':list'; value value">
+#.                 </input></block>
+#.               </block>
+#.             </block>
+#.           </block>
+#.        </br></input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -403,7 +423,7 @@ msgstr "Ritorna alla versione archiviata"
 
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
-#.   <input value="button_search" class="context" type="submit" />
+#.   <input value="button_search" class="standalone" type="submit" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
@@ -449,7 +469,7 @@ msgstr "da ${history_actor}: ${history_comments}"
 #.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_1"
-msgstr "Sei già  un collaboratore. Puoi utilizzare "
+msgstr "Sei giÃ Â  un collaboratore. Puoi utilizzare "
 
 #.   <span>
 #.           to change your membership information.
@@ -468,7 +488,7 @@ msgid "description_login_failure"
 msgstr ""
 "Attualmente non sei stato riconosciuto come un utente registrato. Il nome "
 "utente inserito e/o la chiave d'accesso possono essere scorrette. Inoltre, "
-"il programma per la navigazione può non essere impostato per accettare i "
+"il programma per la navigazione puÃ² non essere impostato per accettare i "
 "cookie. In caso ti sia necessario aiuto puoi contattare "
 
 #.   <p>
@@ -498,7 +518,7 @@ msgstr "Sei connesso all'esterno del portale. Puoi avere bisogno di "
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "description_reconfig_form"
 msgstr ""
-"Questo modulo è utilizzato per impostare le opzioni di configurazione del "
+"Questo modulo Ã¨ utilizzato per impostare le opzioni di configurazione del "
 "portale."
 
 #.   <p> 
@@ -543,7 +563,7 @@ msgstr "Ci scusiamo per l'inconveniente."
 #: from ../skins/cps_default/error_lib.pt
 msgid "error_not_found"
 msgstr ""
-"La risorsa a cui hai tentato di accedere non è stata trovata. Se ha subito "
+"La risorsa a cui hai tentato di accedere non Ã¨ stata trovata. Se ha subito "
 "uno spostamento all'interno del portale puoi provare ad effettuare una "
 "ricerca tramite il seguente modulo."
 
@@ -632,7 +652,7 @@ msgstr "Risorsa non trovata"
 #.   <h1>CPS encountered an error</h1>
 #: from ../skins/cps_default/error_lib.pt
 msgid "heading_error_other"
-msgstr "CPS è incappato in un errore"
+msgstr "CPS Ã¨ incappato in un errore"
 
 #.   <h1 fill-slot="header">
 #.       Add Content
@@ -731,7 +751,7 @@ msgstr "Metadati della risorsa"
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "Ritorna alla versione archiviata di ${item_id}"
 
-#.   <h2>Search Results</h2>
+#.   <h1 condition="not:title_search">Search Results</h1>
 #: from ../skins/cps_default/search_form.pt
 #, fuzzy
 msgid "heading_search_results"
@@ -774,14 +794,14 @@ msgstr "Ritira ${item_id}"
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
 msgstr ""
-"Se decidi di abbandonare questa versione, il documento originale verrà  "
+"Se decidi di abbandonare questa versione, il documento originale verrÃ Â  "
 "sbloccato."
 
 #.   <span>Accept publication of this item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
 msgstr ""
-"Accettando la pubblicazione di questo elemento lo si renderà  disponibile ai "
+"Accettando la pubblicazione di questo elemento lo si renderÃ Â  disponibile ai "
 "lettori della sezione"
 
 #.   <span>
@@ -790,7 +810,7 @@ msgstr ""
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
 msgstr ""
-"Se accetti questa versione essa rimpiazzerà  il documento correntemente "
+"Se accetti questa versione essa rimpiazzerÃ Â  il documento correntemente "
 "bloccato."
 
 #.   <span>
@@ -810,7 +830,7 @@ msgstr ""
 msgid "help_italic_vendor_boxes_types"
 msgstr ""
 "I contenitori presentati in italico sono di tipo predefinito. Alcune "
-"proprietà  non possono essere modificate da questa interfaccia. A questo "
+"proprietÃ Â  non possono essere modificate da questa interfaccia. A questo "
 "scopo utilizza il contenitore che ti viene proposto come standard."
 
 #.   <p>
@@ -820,8 +840,8 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
 msgstr ""
-"Diventare collaboratore ti offre la possibilità  di personalizzare il sito e "
-"di partecipare alle attività  del portale."
+"Diventare collaboratore ti offre la possibilitÃ Â  di personalizzare il sito e "
+"di partecipare alle attivitÃ Â  del portale."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
@@ -840,7 +860,7 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
-"Devi specificare un indirizzo di posta elettronica valido. Esso verrà  "
+"Devi specificare un indirizzo di posta elettronica valido. Esso verrÃ Â  "
 "utilizzato per inviarti una parola d'accesso generata casualmente. Dopo "
 "avere inserito la password al login, puoi decidere di cambiarla a qualsiasi "
 "altro valore ti aggradi maggiormente."
@@ -861,8 +881,8 @@ msgstr ""
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
 msgstr ""
-"Hai avuto difficoltà  ad accedere? Accertati che il tuo browser sia impostato "
-"per accettare i cookie."
+"Hai avuto difficoltÃ Â  ad accedere? Accertati che il tuo browser sia "
+"impostato per accettare i cookie."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -873,7 +893,7 @@ msgstr ""
 msgid "help_mail_password_1"
 msgstr ""
 "Inserisci il tuo nome qua sotto, clicca <em>Invia</em> e la tua password ti "
-"sarà  spedita all'indirizzo di posta che hai specificato al momento "
+"sarÃ Â  spedita all'indirizzo di posta che hai specificato al momento "
 "dell'iscrizione."
 
 #.   <span>
@@ -894,7 +914,7 @@ msgstr ""
 msgid "help_mail_password_response_1"
 msgstr ""
 "Inserisci il tuo nome utente qua sotto e clicca <em>Invia</em>; la tua "
-"parola chiave ti verrà  inviate se hai fornito un indirizzo di posta "
+"parola chiave ti verrÃ Â  inviate se hai fornito un indirizzo di posta "
 "elettronica valido al momento dell'iscrizione."
 
 #.   <p>
@@ -913,7 +933,7 @@ msgstr ""
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_no_items_to_rename"
 msgstr ""
-"E' necessario selezionare uno o più elementi affinché possano essere "
+"E' necessario selezionare uno o piÃ¹ elementi affinchÃ© possano essere "
 "rinominati."
 
 #.   <em>
@@ -933,8 +953,8 @@ msgstr "Seleziona questa opzione per ricevere la password via mail."
 msgid "help_publish_publication"
 msgstr ""
 "Puoi pubblicare direttamente questo oggetto nelle sezioni , senza che venga "
-"richiesta alcuna revisione.<br> Una copia di esso verrà  creata all'interno "
-"di ogni sezione e lo stato del documento sarà  <b>pubblicato</b>. I lettori "
+"richiesta alcuna revisione.<br> Una copia di esso verrÃ Â  creata all'interno "
+"di ogni sezione e lo stato del documento sarÃ Â  <b>pubblicato</b>. I lettori "
 "di queste sezioni saranno in grado di leggerlo."
 
 #.   <span>
@@ -944,7 +964,7 @@ msgstr ""
 #: from ../skins/cps_default/registered.pt
 msgid "help_registred_mail"
 msgstr ""
-"Riceverai a breve una lettera che conterrà  la tua parola chiave e le "
+"Riceverai a breve una lettera che conterrÃ Â  la tua parola chiave e le "
 "istruzioni necessarie per come attivare la tua area di collaboratore."
 
 #.   <span>
@@ -962,8 +982,8 @@ msgstr "Rifiuta la pubblicazione di questo elemento"
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
 msgstr ""
-"Impostare l'opzione 'Ricorda nome utente' farà  si che un cookie contenente "
-"il tuo nome utente venga memorizzato sul tuo computer, cosicché al prossimo "
+"Impostare l'opzione 'Ricorda nome utente' farÃ Â  si che un cookie contenente "
+"il tuo nome utente venga memorizzato sul tuo computer, cosicchÃ© al prossimo "
 "accesso farai a meno di specificarlo nuovamente."
 
 #.   <em>Changing the id of an object does not
@@ -972,7 +992,7 @@ msgstr ""
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
 msgstr ""
-"Modificare l'id di un oggetto non apporta modifiche al titolo, bensì "
+"Modificare l'id di un oggetto non apporta modifiche al titolo, bensÃ¬ "
 "modifica l'URL di accesso ad esso. Pertanto i collegamenti ipertestuali che "
 "puntano al documento prima della modifica non rispecchiano la locazione "
 "attuale."
@@ -997,8 +1017,8 @@ msgstr "Ritorna ad una versione precedente di questo documento."
 msgid "help_status_history"
 msgstr ""
 "Lo stato di un documento(noto anche come stato di revisione) determina da "
-"chi può essere visualizzato. Un documento con lo stato <b>in lavorazione</b> "
-"può essere visualizzato dai lettori dell'area di lavoro, mentre può essere "
+"chi puÃ² essere visualizzato. Un documento con lo stato <b>in lavorazione</b> "
+"puÃ² essere visualizzato dai lettori dell'area di lavoro, mentre puÃ² essere "
 "modificato dei collaboratori e dai responsabili dell'area di lavoro. "
 "Solamente i documenti <b>pubblicati</b> nelle sezioni possono essere "
 "disponibili ai lettori delle sezioni. Per rendere un documento pubblicato, "
@@ -1006,7 +1026,7 @@ msgstr ""
 "Puoi richiedere ad un documento di essere analizzato impostando il suo stato "
 "al valore <b>da approvare</b>. Questo avviene quando si intende trasportare "
 "un documento dalla propria area di lavoro ad una sezione tramite la voce di "
-"menù 'Richiedi pubblicazione'."
+"menÃ¹ 'Richiedi pubblicazione'."
 
 #.   <span>To make an item published and
 #.     viewable by readers, it has to be reviewed by one of the section reviewers.
@@ -1016,11 +1036,12 @@ msgstr ""
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "help_submit_publication"
 msgstr ""
-"Perchè un documento venga pubblicato e quindi diventi visualizzabile dai "
+"PerchÃ¨ un documento venga pubblicato e quindi diventi visualizzabile dai "
 "lettori, esso deve essere analizzato e approvato da uno dei revisori di "
-"sezione. Puoi inserire il documento in più sezioni se lo desideri. <br>Verrà  "
-"creata una copia del documento per ogni sezione e sarà  posta in stato '<b>da "
-"approvare<b>', in attesa che qualche revisore lo analizzi e lo pubblichi."
+"sezione. Puoi inserire il documento in piÃ¹ sezioni se lo desideri. "
+"<br>VerrÃ Â  creata una copia del documento per ogni sezione e sarÃ Â  posta in "
+"stato '<b>da approvare<b>', in attesa che qualche revisore lo analizzi e lo "
+"pubblichi."
 
 #.   <span>
 #.     Unpublish published item</span>
@@ -1189,7 +1210,7 @@ msgstr "Default"
 #.   <th align="right">Depth</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_depth"
-msgstr "Profondità "
+msgstr "ProfonditÃ Â "
 
 #.   <div class="label">
 #.           Description
@@ -1575,7 +1596,7 @@ msgstr "Storico delle validazioni:"
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
 #.   <block>label_revision
-#.           ${status_revision (tal content="item/rev")}
+#.           ${status_revision (tal content="rev")}
 #.         </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
@@ -1607,14 +1628,17 @@ msgid "label_search_all_site"
 msgstr "in tutto il sito"
 
 #.   <span>Description</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_description"
 msgstr "Descrizione"
 
 #.   <span>Full text</span>
+#.   <div class="label" />
+#.   <div class="label">search</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
 msgid "label_search_full_text"
 msgstr "Testo completo"
 
@@ -1629,25 +1653,28 @@ msgid "label_search_location"
 msgstr "locazione"
 
 #.   <span>Modified since</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_modified_since"
 msgstr "Ultima modifica effettuata"
 
 #.   <span>Portal type</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_portal_type"
 msgstr "Tipo di documento"
 
 #.   <span>Status</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_status"
 msgstr "Stato"
 
 #.   <span>Description</span>
-#.   <span>Title</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_title"
@@ -1859,7 +1886,7 @@ msgstr "non ha fornito alcun risultato."
 msgid "legend_one_search_result"
 msgstr "ha generato un solo documento."
 
-#.   <a attributes="href string:${base_url}advanced_search_form" href="search_form">
+#.   <a attributes="href string:./advanced_search_form" href="search_form">
 #.     Advanced search</a>
 #.   <span>
 #.                Advanced search
@@ -1891,6 +1918,12 @@ msgstr "Modifica"
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "link_box_view"
 msgstr "Visualizza impostazioni"
+
+#.   <a attributes="href string:${here_url}/cpsdocument_view?${query}" href=".">Consult</a>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "link_consult_this_revision"
+msgstr "Ritorna a questa versione"
 
 #.   <a attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
 #.                            title p_props/email_from_address" href="mailto:admin@here.com">Contact the administrator</a>
@@ -1939,7 +1972,7 @@ msgstr ""
 msgid "link_logout_zmi"
 msgstr " esci dall'interfaccia di gestione di Zope(ZMI)"
 
-#.   <a attributes="href string:${base_url}${link_more}" href="">More ...</a>
+#.   <a attributes="href link_more" href="">More ...</a>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "link_more"
 msgstr "Ancora..."
@@ -1958,7 +1991,7 @@ msgstr "Puoi connetterti immediatamente cliccando"
 msgid "link_registred_return_home_page"
 msgstr "Torna alla pagina principale"
 
-#.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${item/rev}" href=".">Revert</a>
+#.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${rev}" href=".">Revert</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_revert_to_this_revision"
 msgstr "Ritorna a questa versione"
@@ -2080,7 +2113,7 @@ msgstr "Commenti"
 msgid "v${status_revision}- ${status_language}"
 msgstr "Versione: ${status_revision}; lingua: ${status_language}; stato:"
 
-#.   <div class="footer">
+#.   <div style="margin-top:3em" class="footer">
 #.     welcome_cps ${cps_link}
 #.   </div>
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -2273,7 +2306,7 @@ msgid "action_view_results"
 msgstr "Visualizza risultati"
 
 msgid "action_modify_prop"
-msgstr "Modifica proprietà "
+msgstr "Modifica proprietÃ Â "
 
 msgid "action_modify_form"
 msgstr "Modifica modulo"
@@ -2300,10 +2333,10 @@ msgid "label_action_global"
 msgstr "globale"
 
 msgid "label_bottom"
-msgstr "Piè di pagina"
+msgstr "PiÃ¨ di pagina"
 
 msgid "label_center_bottom"
-msgstr "Piè di documento"
+msgstr "PiÃ¨ di documento"
 
 msgid "label_center"
 msgstr "Abito della cartella corrente"
@@ -2492,7 +2525,7 @@ msgstr "Il modulo di ricerca"
 
 msgid "description_nuxeo_basebox_menu"
 msgstr ""
-"Un menu principale mostra la radice delle aree di lavoro, così come la "
+"Un menu principale mostra la radice delle aree di lavoro, cosÃ¬ come la "
 "radice delle sezioni e sotto-sezioni."
 
 msgid "description_nuxeo_basebox_breadcrumbs"
@@ -2503,7 +2536,7 @@ msgid "description_nuxeo_basebox_l10n_select"
 msgstr "Contenitore per la selezione della lingua."
 
 msgid "description_nuxeo_basebox_footer"
-msgstr "Piè pagina di Nuxeo."
+msgstr "PiÃ¨ pagina di Nuxeo."
 
 msgid "description_nuxeo_basebox_folder_header"
 msgstr "Titolo di una cartella."
@@ -2621,15 +2654,15 @@ msgstr "La password che hai inserito e la conferma non coincidono."
 
 msgid "psm_join_invalid_name"
 msgstr ""
-"Il nome che hai scelto non è valido. Per cortesia scegli un nome differente."
+"Il nome che hai scelto non Ã¨ valido. Per cortesia scegli un nome differente."
 
 msgid "psm_join_login_already_used"
 msgstr ""
-"Il nome utente che hai scelto è già  utilizzato da qualcun altro. Per "
+"Il nome utente che hai scelto Ã¨ giÃ Â  utilizzato da qualcun altro. Per "
 "cortesia scegli un nome diffenrente."
 
 msgid "psm_join_invalid_email"
-msgstr "La mail che hai inserito non è valida. Controlla e correggi il valore."
+msgstr "La mail che hai inserito non Ã¨ valida. Controlla e correggi il valore."
 
 # =============
 msgid "collector_psm_erase_data_cancel"

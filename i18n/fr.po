@@ -17,15 +17,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-06 18:15default\n"
-"PO-Revision-Date: 2004-02-06 18:16+0100\n"
-"Last-Translator: ben <ben@nuxeo.com>\n"
-"Language-Team: ben\n"
+"POT-Creation-Date: 2004-02-09 16:40default\n"
+"PO-Revision-Date: 2004-02-09 16:41+0100\n"
+"Last-Translator: DARCHE <madarche@nuxeo.com>\n"
+"Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2X-Generator: \n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #.   <block fill-slot="box_title" content="bs/title">A test box</block>
 #: from ../skins/cps_devel/test_box_lib.pt
@@ -362,9 +362,27 @@ msgstr "Déplacer au dessus"
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.
 #.   </input>
-#.   <input value="button_ok" class="context searchButton" type="submit"><br>
-#.           <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-#.          </br></input>
+#.   <input value="button_ok" class="standalone searchButton" type="submit">
+#.           <br>
+#.           <block condition="not:swr">
+#.             <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.           </block>
+#.           <block define="criteria python:['search_within_results', 'title_search',
+#.                                      'folder_prefix', 'review_state'];
+#.                     criteria_list python:['portal_type'];" condition="swr">
+#.             <block repeat="criterion criteria">
+#.               <input type="hidden" define="value request/?criterion|nothing" condition="value" attributes="name criterion;
+#.                                 value value">
+#.             </input></block>
+#.             <block repeat="criterion criteria_list">
+#.               <block define="values request/?criterion|nothing" condition="values">
+#.                 <block repeat="value values">
+#.                   <input type="hidden" define="value value" attributes="name python:criterion+':list'; value value">
+#.                 </input></block>
+#.               </block>
+#.             </block>
+#.           </block>
+#.        </br></input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -744,7 +762,7 @@ msgstr "Méta-données de la ressource"
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "Revenir à une version archivée de ${item_id}"
 
-#.   <h2>Search Results</h2>
+#.   <h1 condition="not:title_search">Search Results</h1>
 #: from ../skins/cps_default/search_form.pt
 msgid "heading_search_results"
 msgstr "Résultats de la recherche"
@@ -1573,7 +1591,7 @@ msgstr "Historique de validation"
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
 #.   <block>label_revision
-#.           ${status_revision (tal content="item/rev")}
+#.           ${status_revision (tal content="rev")}
 #.         </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
@@ -1613,8 +1631,9 @@ msgstr "Description"
 
 #.   <span>Full text</span>
 #.   <div class="label" />
+#.   <div class="label">search</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib.pt
+#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
 msgid "label_search_full_text"
 msgstr "Plein texte"
 
@@ -1895,6 +1914,11 @@ msgstr "Éditer"
 msgid "link_box_view"
 msgstr "Voir"
 
+#.   <a attributes="href string:${here_url}/cpsdocument_view?${query}" href=".">Consult</a>
+#: from ../skins/cps_default/content_lib.pt
+msgid "link_consult_this_revision"
+msgstr "Consulter cette version"
+
 #.   <a attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
 #.                            title p_props/email_from_address" href="mailto:admin@here.com">Contact the administrator</a>
 #: from ../skins/cps_default/error_lib.pt
@@ -1942,7 +1966,7 @@ msgstr ""
 msgid "link_logout_zmi"
 msgstr "déconnectez vous de l'interface de gestion de Zope (ZMI)"
 
-#.   <a attributes="href string:${base_url}${link_more}" href="">More ...</a>
+#.   <a attributes="href link_more" href="">More ...</a>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "link_more"
 msgstr "La suite..."
@@ -1961,7 +1985,7 @@ msgstr "Vous pouvez vous connecter directement en cliquant"
 msgid "link_registred_return_home_page"
 msgstr "Retourner sur la page principale"
 
-#.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${item/rev}" href=".">Revert</a>
+#.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${rev}" href=".">Revert</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_revert_to_this_revision"
 msgstr "Revenir à cette version"

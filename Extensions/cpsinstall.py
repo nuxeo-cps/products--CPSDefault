@@ -358,7 +358,7 @@ def cpsupdate(self, langs_list=None):
 
 
     # create workflow
-    pr("Setup workflow shemas")
+    pr("Setup workflow schemas")
     wftool = portal.portal_workflow
     wfids = wftool.objectIds()
 

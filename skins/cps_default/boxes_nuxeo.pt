@@ -463,7 +463,12 @@
       <tal:block condition="python:len(category)">
         <!-- br tal:condition="not:repeat/category/start" -->
         <tal:block repeat="action category">
-          <tal:block define="selected python:request['URL'].startswith(action['url'])">
+          <tal:block
+            define="selected python:request['URL'].startswith(action['url'])
+                                    or (action['id']=='view'
+                                        and
+                                       (request['URL'] == here.absolute_url() or
+                                        request['URL'].endswith('/view')))">
           <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a i18n:translate=""
              tal:attributes="href action/url;
                              class python:test(selected, 'selected', default)"

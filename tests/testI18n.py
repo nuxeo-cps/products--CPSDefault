@@ -1,7 +1,4 @@
 import os, sys
-from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
-     KEYWORD_VIEW_LANGUAGE
-
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
@@ -10,7 +7,8 @@ from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
-
+from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
+     KEYWORD_VIEW_LANGUAGE
 
 class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
     login_id = 'manager'

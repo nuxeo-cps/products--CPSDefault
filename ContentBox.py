@@ -9,6 +9,7 @@ from Acquisition import aq_base
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
+from DateTime import DateTime
 
 from zLOG import LOG, DEBUG
 
@@ -49,6 +50,8 @@ class ContentBox(BaseBox):
 
     nb_items=0
     sort_by=direction=display=None
+    query_title=query_description=query_fulltext=\
+                 query_status=query_modified=None
 
     security = ClassSecurityInfo()
 
@@ -63,16 +66,71 @@ class ContentBox(BaseBox):
          'label': 'direction for sorting'},
         {'id': 'display', 'type': 'string', 'mode': 'w',
          'label': 'format for display'},
+        {'id': 'query_title', 'type': 'string', 'mode': 'w',
+         'label': 'Search criteria' },
+        {'id': 'query_description', 'type': 'string', 'mode': 'w',
+         'label': 'Search criteria' },
+        {'id': 'query_fulltext', 'type': 'string', 'mode': 'w',
+         'label': 'Search criteria' },
+        {'id': 'query_status', 'type': 'string', 'mode': 'w',
+         'label': 'Search criteria' },
+        {'id': 'query_modified', 'type': 'string', 'mode': 'w',
+         'label': 'Search criteria' },
         )
 
     def __init__(self, id, folder=None, nb_items=None, sort_by=None,
-                 direction=None, display=None, **kw):
+                 direction=None, display=None,
+                 query_title=None, query_description=None, query_fulltext=None,
+                 query_status=None, query_modified=None, **kw):
         BaseBox.__init__(self, id, macro='contentbox', kw=kw)
         self.folder = folder
+        self.nb_items = nb_items
+        self.sort_by = sort_by
+        self.direction = direction
+        self.display = display
+        self.query_status = query_status
+        self.query_fulltext = query_fulltext
+        self.query_description = query_description
+        self.query_title = query_title
+        self.query_modified = query_modified
 
 
-    security.declarePublic('getFolderObject')
-    def getFolderObject(self, context):
+
+    security.declarePublic('getContents')
+    def getContents(self, context, sort_by='status',
+                          direction='asc'):
+        """Get a sorted list of contents object"""
+        folder = self._getFolderObject(context)
+        items = []
+        if folder:
+            query = self._buildQuery()
+            if len(query):
+                # this is a search box
+                folder_prefix = None
+                if self.folder:
+                    utool = getToolByName(self, 'portal_url')
+                    folder_prefix = utool.getRelativeUrl(folder)
+                items = folder.search(query=query,
+                                      sort_by=self.sort_by,
+                                      direction=self.direction,
+                                      hide_folder=1,
+                                      folder_prefix=folder_prefix)
+
+            else:
+                # this is a folder content box
+                items = folder.getFolderContents(sort_by=self.sort_by,
+                                                 direction=self.direction,
+                                                 hide_folder=1)
+
+
+            if self.nb_items and len(items) > self.nb_items:
+                items = items[:self.nb_items]
+
+        return items
+
+
+    security.declarePrivate('_getFolderObject')
+    def _getFolderObject(self, context):
         """Return the self.folder object or the context object if any"""
         obj = None
         if not self.folder:
@@ -98,21 +156,41 @@ class ContentBox(BaseBox):
 
         return obj
 
-    security.declarePublic('getFolderContents')
-    def getFolderContents(self, context, sort_by='status',
-                          direction='asc'):
-        """Get a sorted list of contents object"""
-        folder = self.getFolderObject(context)
-        if folder:
-            items = folder.getFolderContents(sort_by=self.sort_by,
-                                             direction=self.direction,
-                                             hide_folder=1)
-            if self.nb_items and len(items) > self.nb_items:
-                items = items[:self.nb_items]
 
-            return items
 
-        return []
+    security.declarePrivate('_buildQuery')
+    def _buildQuery(self):
+        """Build a query for search.py """
+        query = {}
+        if self.query_fulltext:
+            query['SearchableText'] = self.query_fulltext
+        if self.query_title:
+            query['Title'] = self.query_title
+        if self.query_description:
+            query['Description'] = self.query_description
+        if self.query_status:
+            query['review_state'] = self.query_status
+
+        if self.query_modified:
+            modified = None
+            if self.query_modified == 'time_last_login':
+                mtool = getToolByName(self, 'portal_membership')
+                member = mtool.getAuthenticatedMember()
+                if hasattr(aq_base(member), 'last_login_time'):
+                    modified = member.last_login_time
+            else:
+                today = DateTime()
+                if self.query_modified == 'time_yesterday':
+                    modified = (today-1).Date()
+                elif self.query_modified == 'time_last_week':
+                    modified = (today-7).Date()
+                elif self.query_modified == 'time_last_month':
+                    modified = (today-31).Date()
+            if modified:
+                query['modified'] = modified
+                query['modified_usage'] = "range:min"
+
+        return query
 
 InitializeClass(ContentBox)
 

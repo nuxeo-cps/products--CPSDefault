@@ -14,6 +14,21 @@
              tal:attributes="value box/box/events_in|nothing">
     </td>
   </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="1">
+      <label for="event_types" i18n:translate="">label_event_types</label>
+    </td>
+    <td colspan="4">
+      <select  name="event_types:list" multiple="multiple" size="7">
+        <option tal:repeat="type python:here.getSearchablePortalTypes(1)"
+                tal:attributes="value type;
+                  selected python:
+                         test(type in box['box'].event_types,'selected',None)" 
+                tal:content="type"></option>
+      </select>
+    </td>
+  </tr>
 </metal:fields>
 </metal:boxform>
 </metal:main>

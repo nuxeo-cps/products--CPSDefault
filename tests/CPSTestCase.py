@@ -185,8 +185,11 @@ class CPSInstaller:
     def addPortal(self, portal_id):
         factory = self.app.manage_addProduct['CPSDefault']
         factory.manage_addCPSDefaultSite(portal_id,
-            root_password1="passwd", root_password2="passwd",
-            langs_list=['en'])
+                                         langs_list=['en'],
+                                         manager_email='webmaster@localhost',
+                                         manager_password='passwd',
+                                         manager_password_confirmation='passwd',
+                                         )
 
     # Change translation_service to DummyTranslationService
     def fixupTranslationServices(self, portal_id):

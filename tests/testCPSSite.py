@@ -30,7 +30,7 @@ class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
         self.wftool = getToolByName(self.portal, 'portal_workflow')
         self.work = self.portal[_workspaces]
         self.pub = self.portal[_sections]
-        self.login("root")
+        self.login("manager")
 
         # create cps test users
         for u in (_user_name1, _user_name2):

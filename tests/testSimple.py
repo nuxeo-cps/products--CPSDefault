@@ -13,6 +13,7 @@ class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
         if self.login_id:
             self.login(self.login_id)
+            self.portal.portal_membership.createMemberArea()
 
         # Some ZPTs need a session. 
         # XXX: this might be moved to a more generic place someday.

@@ -1,19 +1,24 @@
-<metal:html>
+<metal:html tal:define="type_name request/type_name|nothing;
+                       ">
 <metal:body use-macro="here/content_lib/macros/master">
 <metal:header fill-slot="header">
-  <h2 i18n:translate="">heading_edit
+  <h2 tal:condition="type_name" i18n:translate="">heading_create</h2>
+  <h2 tal:condition="not:type_name" i18n:translate="">heading_edit
     <span tal:replace="here/getId" i18n:name="item_id">My ID</span></h2>
 </metal:header>
 
 <metal:main fill-slot="main">
   <form action="content_edit" method="post"
-        tal:attributes="action string:${here_url}/content_edit">
-    <table class="FormLayout">
+        tal:attributes="action python:here_url + test(type_name,
+                                      '/content_create', '/content_edit')">
+    <input type="hidden" name="type_name" tal:condition="type_name"
+           tal:attributes="value type_name">
+    <table cellpadding="1" cellspacing="1">
       <tr valign="top">
         <th align="right" i18n:translate="label_title">Title</th>
         <td colspan="3">
           <input id="field_focus" type="text" name="title" value="" size="50"
-                 tal:attributes="value doc/Title">
+                 tal:attributes="value python:test(type_name, '', doc.Title())">
         </td>
       </tr>
 
@@ -21,7 +26,7 @@
         <th align="right">Description</th>
         <td colspan="3">
           <textarea name="description:text" rows="5" cols="65" wrap="soft"
-                    tal:content="doc/Description">
+                    tal:content="python:test(type_name, '', doc.Description())">
           </textarea>
         </td>
       </tr>
@@ -31,7 +36,9 @@
         <td colspan="3">
           <input id="custom_css" type="text" name="cps_custom_css"
                  value="" size="50"
-                 tal:attributes="value here/cps_custom_css|nothing">
+                 tal:define="cps_custom_css here/cps_custom_css|nothing"
+                 tal:attributes="value python:test(type_name, '',
+                                                   cps_custom_css)">
         </td>
       </tr>
 

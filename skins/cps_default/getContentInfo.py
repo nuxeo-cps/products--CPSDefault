@@ -56,7 +56,7 @@ def compute_states(no_history=0):
              'rev': str(px['language_revs'].values()[0]), # XXX str problem fixed in Zope 2.6.1
              'lang': px['language_revs'].keys()[0],
              'time': px['time'],
-             'stime': px['time'].aCommon(), # XXX TODO: i18n
+             'stime': context.getDateStr(px['time'])
              }
         states.append(d)
 
@@ -70,7 +70,7 @@ def compute_states(no_history=0):
                     and d.has_key('time')
                     and d.has_key('action')):
                 continue
-            d['stime']=d['time'].aCommon() # XXX TODO: i18n            
+            d['stime']=context.getDateStr(d['time'])
             d['section_title'] = folder_title
             history.append(d)
 
@@ -103,7 +103,7 @@ info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
 info['lang']=langrev.keys()[0]
 info['time']=wtool.getInfoFor(proxy, 'time', '')
 if info['time']:
-    info['stime']=info['time'].aCommon() # XXX i18n
+    info['stime']=context.getDateStr(info['time'])
 else:
     info['stime']=''
 

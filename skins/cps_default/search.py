@@ -13,6 +13,10 @@ ptool = context.portal_proxies
 # get searchable portal type only
 okpt = context.getSearchablePortalTypes(only_ids=1)
 pt = query.get('portal_type', None)
+if pt is not None:
+    if not same_type(pt, []):
+        pt = [pt]
+
 del_portal_type = 0
 if pt and pt != ['']:
     pt = [t for t in pt if t in okpt]

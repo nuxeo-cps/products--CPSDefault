@@ -1257,7 +1257,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             if not 'translate' in transitions:
                 # XXX seems nothing is available for just adding a transition
                 work_state.transitions = transitions + ('translate',)
-                self.log("  translate activated for %s" % wf.getId)
+                self.log("  translate activated for %s" % wf.getId())
 
 
     def setupTypes(self):

@@ -107,8 +107,8 @@
   </span>
   </a>
 </div>
-<tal:block tal:define="languages here/Languages|nothing"
-  tal:condition="python:languages and len(languages)>1">
+<tal:block tal:define="languages here/getProxyLanguages"
+  tal:condition="python:len(languages)>1">
 <div class="documentActions" tal:define="current_lang doc/Language">
   <tal:block repeat="lang languages"><tal:block
     define="selected_lang python:current_lang==lang">

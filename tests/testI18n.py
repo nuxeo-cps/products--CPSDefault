@@ -38,8 +38,8 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         proxy = getattr(ws, proxy_id)
         doc = proxy.getContent()
 
-        self.assert_(len(proxy.Languages()) == 1)
-        self.assert_(self.default_lang in proxy.Languages())
+        self.assert_(len(proxy.getProxyLanguages()) == 1)
+        self.assert_(self.default_lang in proxy.getProxyLanguages())
         self.assert_(doc.Language() == self.default_lang)
         self.assert_(has_path(catalog, "/portal/workspaces/"+proxy_id))
 
@@ -71,7 +71,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         doc_new = proxy.getContent(lang=new_lang)
         self.assert_(doc_new.Language() == new_lang)
 
-        languages = proxy.Languages()
+        languages = proxy.getProxyLanguages()
         self.assert_(default_lang in languages)
         self.assert_(new_lang in languages)
         self.assert_(not has_path(catalog, "/portal/workspaces/"+proxy_id))
@@ -117,7 +117,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         #proxy.delLanguageFromProxy(lang='fr')
         #proxy.reindexObject()
 
-        #languages = proxy.Languages()
+        #languages = proxy.getProxyLanguages()
         #self.assert_('en' in languages)
         #self.assert_(len(languages) == 1)
         #self.assert_(has_path(catalog, "/portal/workspaces/a_workspace"))

@@ -47,8 +47,8 @@ print
 
 if is_proxy:
     print 'CPS Proxy -----------------------'
-    languages = proxy.Languages()
-    print 'Languages: %s' % languages
+    languages = proxy.getProxyLanguages()
+    print 'getProxyLanguages: %s' % languages
     print 'default language: %s' % proxy.getDefaultLanguage()
     print 'best language: %s rev: %s' % (proxy.getLanguage(),
                                          proxy.getRevision())

@@ -43,7 +43,7 @@ if manager_role:
 l10n_titles = {}
 l10n_descriptions = {}
 try:
-    if proxy.Languages() > 1:
+    if proxy.getProxyLanguages() > 1:
         # used only if more than one locale
         l10n_titles = proxy.getL10nTitles()
         l10n_descriptions = proxy.getL10nDescriptions()

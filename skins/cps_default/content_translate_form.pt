@@ -20,7 +20,7 @@
   tal:define="Localizer nocall:here/Localizer;
               default_lang Localizer/get_selected_language;
               language_voc here/portal_vocabularies/language_voc;
-              languages python: [l for l in language_voc.keys() if l not in here.Languages()];
+              languages python: [l for l in language_voc.keys() if l not in here.getProxyLanguages()];
              ">
   <form action="content_translate" method="post"
     tal:attributes="action string:${context_url}/content_translate"

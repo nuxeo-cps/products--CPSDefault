@@ -8,11 +8,13 @@
     <th align="right" i18n:translate="label_categories">Categories</th>
     <td colspan="5">
       <select name="categories" multiple>
-        <tal:block repeat="cat python:actions.keys()">
         <option i18n:translate=""
-          tal:attributes="value cat"
-          tal:content="string:label_action_${cat}">Action</option>
-        </tal:block>
+          tal:repeat="cat actions/keys"
+          tal:attributes="value cat;
+                          selected python:cat in box['box'].categories"
+          tal:content="string:label_action_${cat}">
+          Action
+        </option>
       </select>
     </td>
   </tr>

@@ -18,8 +18,7 @@ metal:fill-slot="main"> <div class="Desktop">
 <table class="FormLayout">
 
  <tr valign="top">
-
-  <th>
+   <th>
     Enable Discussion?
   </th>
   <td>
@@ -41,19 +40,7 @@ metal:fill-slot="main"> <div class="Desktop">
 
  </tr>
 
- <tr valign="top">
-
-  <th align="right"> Proxy id </th>
-  <td colspan="3"> <span tal:replace="here/Identifier" /> </td>
-
- </tr>
- <tr valign="top">
-
-  <th align="right" nowrap> Doc id </th>
-  <td colspan="3"> <span tal:replace="doc/Identifier" /> </td>
-
- </tr>
-
+ 
  <tr valign="top">
 
   <th align="right"> Title </th>
@@ -112,6 +99,33 @@ metal:fill-slot="main"> <div class="Desktop">
 </form>
 
 </div>
+
+<div>
+<hr />
+<table class="FormLayout" bgcolor="#EEEEEE">
+ <tr valign="top">
+  <th align="right"> Proxy identifier </th>
+  <td colspan="3"> <span tal:replace="here/Identifier" /> </td>
+ </tr>
+ <tr valign="top">
+  <th align="right"> Document identifier </th>
+  <td colspan="3"> <span tal:replace="doc/Identifier" /> </td>
+ </tr>
+ <tr valign="top">
+  <th align="right" nowrap> Doc id </th>
+  <td> <span tal:replace="here/getDocid" /> </td>
+  <th align="right" nowrap> Revision </th>
+  <td> <span tal:replace="here/getRevision" /> </td>
+ </tr>
+ <tr valign="top">
+  <th align="right" nowrap> Language  Revision </th>
+  <td> <span tal:replace="here/getLanguageRevisions" /> </td>
+  <th align="right" nowrap> Proxy Tag </th>
+  <td> <span tal:replace="here/getTag" /> </td>
+ </tr>
+</table>
+</div>
+
 
 </div>
 </div>

@@ -10,14 +10,14 @@
 <span tal:replace="request/message"
    tal:condition="request/message|nothing"><hr /></span>
 
-
 <div class="Metadata">
-
-<h2>Resource Metadata </h2>
 
 <form action="content_edit" method="post"
       tal:attributes="action string:${here/absolute_url}/content_edit"
 >
+
+<h2>Resource Metadata </h2>
+
 <table class="FormLayout">
  <tr>
   <th>
@@ -34,18 +34,6 @@
                 tal:attributes="selected python: val == 1"> On </option>
      </select>
   </td>
- </tr>
- <tr valign="top">
-
-  <th align="right"> Proxy id </th>
-  <td colspan="3"> <span tal:replace="here/Identifier" /> </td>
-
- </tr>
- <tr valign="top">
-
-  <th align="right" nowrap> Doc id </th>
-  <td colspan="3"> <span tal:replace="doc/Identifier" /> </td>
-
  </tr>
  <tr valign="top">
   <th align="right"> Title

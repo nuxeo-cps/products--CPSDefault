@@ -1,4 +1,4 @@
-##parameters=proxy=None
+##parameters=REQUEST, proxy=None
 ##
 
 utool = context.portal_url
@@ -68,7 +68,8 @@ try:
 except:
     pass
 
-
-
 print '</pre>'
+
+print REQUEST
+
 return printed

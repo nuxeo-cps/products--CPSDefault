@@ -2,6 +2,8 @@
 # $Id$
 """ return a string date using the current locale """
 
+from DateTime.DateTime import DateTimeError
+
 if not dt:
     return ''
 
@@ -38,7 +40,7 @@ try:
             ret += ' PM'
         else:
             ret += ' AM'
-except 'TimeError':
+except DateTimeError:
     ret = 'Invalid'
 
 return ret

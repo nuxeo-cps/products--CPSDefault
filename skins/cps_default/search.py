@@ -25,6 +25,11 @@ if folder_prefix:
     if not query.has_key('path'):
         portal_path = '/' + catalog.getPhysicalPath()[1] + '/'
         query['path'] =  portal_path + folder_prefix
+    
+    if query.has_key('search_relative_path'):
+        current_depth = len(folder_prefix.split('/')) + 1 
+        query['relative_path_depth'] = current_depth
+
 if query.has_key('folder_prefix'):
     del query['folder_prefix']
 
@@ -48,15 +53,6 @@ if start_date and not query.has_key('start'):
 if end_date and not query.has_key('end'):
     query['end'] = {'query': end_date,
                     'range': 'max'}
-
-
-depth_min = len(folder_prefix.split('/')) + 1
-
-
-if query.has_key('search_relative_path'):
-    query['relative_path_depth'] = { 'query' : (depth_min,depth_min),
-                                     'range' : 'min:max'
-                                    }
 # sorting
 if sort_by and not query.has_key('sort-on'):
     if sort_by in ('title', 'date'):

@@ -20,7 +20,15 @@ homeFolder = portal.portal_membership.getHomeFolder()
 favorites_id = 'Favorites'
 
 if favorites_id not in homeFolder.objectIds():
+    # try to i18n the title using UI locale,
+    # still better than just an english id
+    cpsmcat = context.Localizer.default
+    title = cpsmcat('action_view_favorites').encode('iso-8859-15', 'ignore')
     homeFolder.invokeFactory('Workspace', favorites_id)
+    targetFolder = getattr(homeFolder, favorites_id)
+    targetFolder.getEditableContent().edit(Title=title)
+    context.portal_eventservice.notifyEvent('modify_object', targetFolder, {})
+
 targetFolder = getattr(homeFolder, favorites_id)
 
 new_id = 'fav_' + str(int(context.ZopeTime()))

@@ -22,7 +22,6 @@ if search_param in ('fullname', 'email'):
     elif search_param == 'email':
         return mdir.searchEntries(email=search_term,
                                      return_fields=return_fields)
-# XXX group search is not even used by folder_localrole_form.pt
 elif search_param == 'groupname':
     gdir  = context.portal_directories.groups
     # XXX hardcoded but not GroupsDirectory's job

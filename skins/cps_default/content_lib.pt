@@ -257,17 +257,19 @@ format:</pre>
 <pre>all doc information in a table:</pre>
 <metal:block define-macro="info_detail">
 <table cellspacing="0" cellpadding="0" width="100%"
+  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                                 'folder_contents', 'view')"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EFEFEF' or nothing">
   <tr><td width="20">
    <img src="" border="0"
      tal:attributes="src string:/${info/icon};
                      title info/type;"/>
   </td><td>
-   <a href="" tal:attributes="href string:/${info/rpath}/view">
+   <a href="" tal:attributes="href string:/${info/rpath}/${action}">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   </td></tr>
   <tr><td colspan="2" nowrap>
-  <a href="" tal:attributes="href string:/${info/rpath}/view">
+  <a href="" tal:attributes="href string:/${info/rpath}/${action}">
   <small>
     <span tal:replace="string:id:${info/id}">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
@@ -288,15 +290,17 @@ format:</pre>
 <pre>iconic doc information in a table:</pre>
 <metal:block define-macro="info_icon">
 <table border="0" cellspacing="0" cellpadding="0" width="100%"
+  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                                 'folder_contents', 'view')"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td align="center">
-   <a href="" tal:attributes="href string:${info/id}/view;
+   <a href="" tal:attributes="href string:${info/id}/${action};
                               title info/description;">
     <img src="" border="0" width="30" length="40"
      tal:attributes="src string:/${info/icon};"/></a>
   </td></tr>
   <tr><td align="center">
-   <a href="" tal:attributes="href string:${info/id}/view;"
+   <a href="" tal:attributes="href string:${info/id}/${action};"
       title="info/description">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   </td></tr>
@@ -307,13 +311,15 @@ format:</pre>
 <pre>short doc information in a table:</pre>
 <metal:block define-macro="info_compact">
 <table cellspacing="0" cellpadding="0" width="100%"
+  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                                 'folder_contents', 'view')"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td width="20">
    <img src="" border="0"
      tal:attributes="src string:/${info/icon};
                      title info/type;"/>
   </td><td>
-   <a href="" tal:attributes="href string:/${info/rpath}/view;
+   <a href="" tal:attributes="href string:/${info/rpath}/${action};
                               title info/description">
      <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
    <small>

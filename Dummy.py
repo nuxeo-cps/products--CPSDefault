@@ -5,8 +5,10 @@
 
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
+from Acquisition import aq_base
+from OFS.Image import Image
+from OFS.Folder import Folder
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
-
 from Products.CPSCore.CPSBase import CPSBaseDocument, CPSBase_adder
 
 factory_type_information = (
@@ -41,10 +43,14 @@ factory_type_information = (
      },
     )
 
-class Dummy(CPSBaseDocument):
+class Dummy(CPSBaseDocument, Folder):
     """ The simpliest CPS document with a body """
     meta_type = 'Dummy'
-    portal_type = meta_type # to ease testing
+    portal_type = meta_type
+
+    image_name = ''
+    image_id = 'dummy_image'
+    image_max_size = 2*1024*1024
 
     _properties = CPSBaseDocument._properties + (
         {'id': 'body', 'type': 'text', 'mode': 'w', 'label': 'Body'},
@@ -61,6 +67,23 @@ class Dummy(CPSBaseDocument):
     def edit(self, **kw):
         """ edit """
         CPSBaseDocument.edit(self, **kw)
+
+        file_action = self.REQUEST.form.get('file_action')
+        if file_action == 'delete':
+            self.image_name = ''
+            if hasattr(aq_base(self), self.image_id):
+                self._delObject(self.image_id)
+        elif file_action == 'change':
+            f = self.REQUEST.form.get('file')
+            if f and f.filename and f.read(1) != '':
+                if len(f.read(self.image_max_size)) < self.image_max_size:
+                    f.seek(0)
+                    self.image_name = f.filename
+                    img = Image(self.image_id, self.image_name, f)
+                    if hasattr(aq_base(self), self.image_id):
+                        self._delObject(self.image_id)
+                    self._setObject(self.image_id, img)
+
         self._size = self._compute_size()
 
 
@@ -68,14 +91,15 @@ class Dummy(CPSBaseDocument):
     def getAdditionalContentInfo(self):
         """ Return a dictonary used in getContentInfo """
         infos = {}
-        max_len = 64
+        max_len = 512
         if hasattr(self, 'body'):
             if len(self.body) > max_len:
                 infos['summary'] = self.body[:max_len] + '...'
             else:
                 infos['summary'] = self.body
 
-        # infos['preview'] = 'logo_nuxeo.gif'
+        if hasattr(aq_base(self), self.image_id):
+            infos['preview'] = self.absolute_url(1) + '/' + self.image_id
         return infos
 
     security.declareProtected(View, 'get_size')
@@ -90,6 +114,9 @@ class Dummy(CPSBaseDocument):
         s = 0
         for item in self.propdict().keys():
             s += len(str(getattr(self, item, '')))
+        if hasattr(aq_base(self), self.image_id):
+            s += self[self.image_id].get_size()
+        
         return s
     #EOC
 

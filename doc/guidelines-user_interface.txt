@@ -20,30 +20,75 @@ What's inside
 Ergonomics/usability
 ====================
 
-CPS user interface should be designed to be usable.
+The product should be fully and securely usable as soon as it is installed.
+
+The default behavior of CPS should be what most of the users and clients are
+expecting from this kind of product.
+
 
 
 Accessibility
 =============
 
+General
+-------
+
+Accessibility is about making content usable or more usable by:
+
+* other devices such as personal assistant, web-phones, news readers, etc.
+
+* blind people
+
+* old people
+
+* people with any kind of disabilities
+
+* people who don't have any disabilities, yet
+
+
 One should read http://diveintoaccessibility.org/ to have a precise idea about
-what accessibility and interoperability are.
+what accessibility and interoperability are. "Dive into accessibility" is
+available in many languages: http://diveintoaccessibility.org/translations.html
 
-The site http://openweb.eu.org/ [fr] is also a must read, but only available in French.
+The site http://openweb.eu.org/ [fr] is also a must read, but only available in
+French.
 
-Laws in Europe, France and the USA require that government web sites are
-accessible::
+Laws
+----
+
+Laws in Europe (including France) and the USA require that government web sites
+are accessible.
+
+In Europe::
+
+  XXX
+
+
+In France::
 
   Les sites publics ont 3 ans pour etre accessibles aux handicapes
 
   Legislation - Apres un an de travaux parlementaires, la loi sur le
-  handicap a ete adoptee le 3 fevrier. Dans son volet internet, elle
-  impose aux sites de l'administration en ligne de devenir « accessibles
-  aux personnes handicapees ».
+  handicap a ete adoptee le 3 fevrier 2005. Dans son volet internet, elle impose
+  aux sites de l'administration en ligne de devenir « accessibles aux personnes
+  handicapees ».
 
 cf. http://zdnet.fr/actualites/internet/0,39020774,39204632,00.htm [fr]
 
 cf. http://formats-ouverts.org/blog/2005/02/05/273-laccessibilite-est-inscrite-dans-la-loi-sur-legalite-des-droits [fr]
+
+
+In the USA::
+
+  XXX
+
+
+Conformance
+-----------
+
+CPS is WAI-A compliant and this compliance should not be broken. WAI-AA
+compliance might be possible, but an audit is required.
+
 
 
 XHTML
@@ -78,12 +123,35 @@ Checkpoints
   And then upload your file to http://validator.w3.org/
 
 
+* Unneeded markup shouldn't clutter the HTML output.
+
+  Check that your templates don't produce useless <div> and <span> elements.
+  Also do not over-use the <div> elements to position "class" attributes
+  everywhere.
+  Finally do not use <div> elements where you should have semantically used <p>
+  elements.
+
+
 * Don't use presentational elements and attributes in your code such as <b>,
   <i>, <center>, border="0". CSS properties take care of that.
 
 
-* Avoid the <table> markup for layout purpose, and if you use <table> make
-  sure to specify the "summary" attribute::
+* <table> is *good* for tabular data, matrix-like data and some kind of
+  listings. Try to specify column names.
+
+
+* Avoid as much as possible the <table> markup for layout purpose.
+
+  In a complicated layout case, table layout may be bad but the only solution,
+  so one cannot totally exclude the use of tables for layout purpose at this
+  time.
+
+  But one can always use tables *without* any align, valign, border
+  kind of information. All those can be safely and cleanly specified through
+  CSS.
+
+
+* Specify the "summary" attribute for your <table> ::
 
     <table class="listing" summary="A table listing the available events and their notifications in this context">
 
@@ -97,8 +165,8 @@ Checkpoints
         Blah blah.
       </p>
       <p>
-        <input class="standalone" value="Checkin of a revision" type="submit"/>
-        <input class="context" onclick="history.back()" value="Cancel" type="button"/>
+        <button type="submit">Checkin</button>
+        <button onclick="history.back()">Cancel</button>
       </p>
     </form>
 
@@ -165,6 +233,24 @@ Checkpoints
   Example::
 
     action="string:foo"
+
+
+* Use the <button> element instead of the <input type="submit"> or <input
+  type="button"> markup. The <button> markup is more semantic and cleanly
+  separates the value of the button from its label. This is very clean and
+  practical, especially for localized user interfaces. Separating the value from
+  the label is not possible when using the <input> markup.
+
+  Example::
+
+    <form>
+      <button name="action" value="copy" type="submit">Copy</button>
+    </form>
+
+    <form>
+      <button name="action" value="copy" type="submit"
+              i18n:translate="button_copy">Copy</button>
+    </form>
 
 
 * Form attribute method's value must be written with lower case letters::
@@ -284,6 +370,26 @@ Checkpoints
       color: #000000;
       border-color: <dtml-var bordercolor>;
     }
+
+
+User feedback and web links
+---------------------------
+
+One should provide as much user feedback in the user interface as possible.
+A good way to provide user feedback is to use the *hover* state: when an item is
+hovered it should change its decoration.
+
+Web links should be underlined because this is the default canonical way to
+represent links. Exception can be made for links in action box or control panels
+were it is clear that all items in the container are links.
+
+Web links with no underline when not hovered and underline when hovered should
+be avoided since this behavior is the exact opposite of the default canonical
+web link behavior.
+
+Hovered links can loose their underline and/or have different background.
+
+Hovered buttons can change their background.
 
 
 CSS dirty hacks

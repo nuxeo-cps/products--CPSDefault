@@ -202,11 +202,11 @@ format:</pre>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
                      format python:format or 'detail';
-                     choosen_ids python:request.SESSION.get('choosen_ids', [])">
-  <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                     choosen_ids python:request.SESSION.get('choosen_ids', []);
+                     no_table python:format in ['detail_tab'];">
+  <table tal:condition="not:no_table" width="100%" border="0" cellspacing="0" cellpadding="5">
     <tr valign="top" tal:repeat="item batch_items">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
-
         <input type="checkbox" name="ids:list" value="" id="" class="noborder"
                tal:condition="python:item.getId() not in choosen_ids"
                tal:attributes="value item/getId;
@@ -218,12 +218,21 @@ format:</pre>
       </td>
       <td align="left" valign="top"
           tal:define="info python:here.getContentInfo(item, level=1)">
-        <metal:block
-          use-macro="python:path('here/content_lib/macros/info_%s' % format)" />
+        <metal:block use-macro="python:path('here/content_lib/macros/info_%s'%format)" />
       </td>
     </tr>
   </table>
-</tal:block>
+  <tal:block condition="no_table">
+    <tal:block repeat="item batch_items">
+    <tal:block define="info python:here.getContentInfo(item, level=1);
+                       start repeat/item/start|nothing;
+                       end repeat/item/end|nothing">
+      <metal:block use-macro="python:path('here/content_lib/macros/info_detail_tab')" /> 
+    </tal:block>
+    </tal:block>
+  <br>
+  </tal:block>
+  </tal:block>
 </metal:block>
 
 <!-- ============================================================ -->
@@ -288,6 +297,10 @@ format:</pre>
             tal:attributes="selected python:format == 'detail'">
             Detail
     </option>
+    <option i18n:translate="label_detailed_tab" value="detail_tab"
+            tal:attributes="selected python:format == 'detail_tab'">
+            Detail Tab
+    </option>
   </select>
 </metal:block>
 
@@ -343,7 +356,7 @@ format:</pre>
 <div width="100%"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
-  <div tal:condition="info/preview|nothing" STYLE="float: right">
+  <div tal:condition="info/preview|nothing" style="float: right">
     <tal:block condition="info/preview|nothing"
       replace="structure python:here.getImgTag(info['preview'],
       base_url='', width='64', height='64')" />
@@ -422,7 +435,7 @@ format:</pre>
     <b tal:content="info/title_or_id">ID</b></a>
   </h2>
   <div tal:condition="info/preview|nothing"
-    STYLE="float: left;margin: 1em; width:140; height:140;">
+    style="float: left;margin: 1em; width:140; height:140;">
     <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
       tal:content="structure python:here.getImgTag(info['preview'],
       base_url='', width='128', height='128')" />
@@ -445,6 +458,44 @@ format:</pre>
   </tal:block>
   </div>
 </div>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<pre>all doc information:</pre>
+<metal:block define-macro="info_detail_tab">
+
+<tal:block condition="start" replace="structure string:<table border width=100%>
+                        <tr><td> </td><td align=center>Titre du document</td>
+                            <td align=center>Type</td>
+                            <td align=center>Infos</td>
+                            </tr>" />
+  
+<tr tal:define="action python:test(info['type'] in ('Section','Workspace'),
+                'folder_contents', 'view')">
+  <td bgcolor="white" tal:condition="not:no_form" align="left" valign="top" width="5">
+    <input type="checkbox" name="ids:list" value="" id="" class="noborder"
+    tal:condition="python:item.getId() not in choosen_ids"
+    tal:attributes="value item/getId;
+    id python:'cb_'+item.getId()">
+    <input type="checkbox" name="ids:list" value="" id="" checked
+    tal:condition="python:item.getId() in choosen_ids"
+    tal:attributes="value item/getId;
+    id python:'cb_'+item.getId()">
+  </td>
+  <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
+   <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
+  <td align=center><tal:block replace="structure python:here.getImgTag(info['icon'],
+    base_url=base_url, title=info['type'])" /></td>
+  <td>
+    <tal:block define="status_short_fmt not:nothing;
+      status_time not:nothing;">
+      <metal:block use-macro="here/content_lib/macros/status" />
+    </tal:block>
+  </td>
+</tr>
+
+<tal:block condition="end" replace="structure string:</table>" />
 </metal:block>
 
 

@@ -58,7 +58,7 @@ class DefaultInstaller(CPSInstaller):
     # this set is supposed to match anything that can be viewed
     # ie anything except document in portal_repository
     CPS_FILTER_SEARCHABLE_SET = 'searchable'
-    CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s:s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
+    CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s: s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
     CPS_FILTER_LEAVES_SET = 'leaves'
     CPS_FILTER_LEAVES_EXPR = """getattr(o, 'portal_type', None) not in ('Section', 'Workspace')"""
 
@@ -263,11 +263,11 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 }
             self.setupPortalPermissions(portal_perms, self.portal)
         sections_perms = {
-            'Request review':['Manager', 'WorkspaceManager',
-                              'WorkspaceMember',  'SectionReviewer',
-                              'SectionManager'],
-            'Review portal content':['Manager', 'SectionReviewer',
-                                     'SectionManager'],
+            'Request review': ['Manager', 'WorkspaceManager',
+                               'WorkspaceMember',  'SectionReviewer',
+                               'SectionManager'],
+            'Review portal content': ['Manager', 'SectionReviewer',
+                                      'SectionManager'],
             'Add Box Container': ['Manager', 'SectionManager'],
             'Manage Box Overrides': ['Manager','SectionManager'],
             'Manage Boxes': ['Manager', 'SectionManager'],
@@ -279,7 +279,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'List folder contents': ['Manager', 'SectionManager',
                                      'SectionReviewer', 'SectionReader'],
             'Modify portal content': ['Manager', 'SectionManager'],
-            'Modify Folder Properties' : ['Manager', 'SectionManager'],
+            'Modify Folder Properties': ['Manager', 'SectionManager'],
             'View': ['Manager', 'SectionManager', 'SectionReviewer',
                      'SectionReader'],
             'View management screens': ['Manager', 'SectionManager'],
@@ -301,7 +301,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                                      'WorkspaceMember', 'WorkspaceReader'],
             'Modify portal content': ['Manager', 'WorkspaceManager',
                                       'WorkspaceMember', 'Owner'],
-            'Modify Folder Properties' : ['Manager', 'WorkspaceManager'],
+            'Modify Folder Properties': ['Manager', 'WorkspaceManager'],
             'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember',
                      'WorkspaceReader'],
             'View management screens': ['Manager', 'WorkspaceManager',
@@ -542,7 +542,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         wfstates = {
             'work': {
                 'title': 'Work',
-                'transitions':('create_content', 'cut_copy_paste'),
+                'transitions': ('create_content', 'cut_copy_paste'),
                 'permissions': {View: ('Manager', 'WorkspaceManager',
                                        'WorkspaceMember', 'WorkspaceReader')},
             },
@@ -560,10 +560,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
             'create': {
                 'title': 'Initial creation',
@@ -571,10 +571,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 'transition_behavior': (TRANSITION_INITIAL_CREATE,),
                 'clone_allowed_transitions': None,
                 'actbox_category': 'workflow',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
                                         'WorkspaceMember',
-                          'guard_expr':''},
+                          'guard_expr': ''},
             },
             'create_content': {
                 'title': 'Create content',
@@ -584,10 +584,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 'clone_allowed_transitions': None,
                 'trigger_type': TRIGGER_USER_ACTION,
                 'actbox_name': '',
-                'props': {'guard_permissions':'',
-                          'guard_roles':'Manager; WorkspaceManager; '
-                                        'WorkspaceMember',
-                          'guard_expr':''},
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
+                          'guard_expr': ''},
             },
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
@@ -605,8 +605,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         wfstates = {
             'work': {
                 'title': 'Work',
-                'transitions':('copy_submit', 'checkout_draft',
-                               'cut_copy_paste'),
+                'transitions': ('copy_submit', 'checkout_draft',
+                                'cut_copy_paste'),
                  'permissions': {View: ('Manager', 'WorkspaceManager',
                                          'WorkspaceMember', 'WorkspaceReader'),
                                  ModifyPortalContent: ('Manager', 'Owner',
@@ -630,7 +630,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             },
             'locked': {
                 'title': 'Locked',
-                'transitions':('unlock',),
+                'transitions': ('unlock',),
                 'permissions': {View: ('Manager', 'WorkspaceManager',
                                          'WorkspaceMember', 'WorkspaceReader'),
                                 ModifyPortalContent: (),
@@ -662,10 +662,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 'actbox_name': 'action_submit',
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_submit_form',
-                'props': {'guard_permissions':'',
+                'props': {'guard_permissions': '',
                           'guard_roles': 'Manager; WorkspaceManager; '
                                          'WorkspaceMember',
-                          'guard_expr':''},
+                          'guard_expr': ''},
             },
             'checkout_draft': {
                 'title': 'Checkout content into a draft',
@@ -810,7 +810,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         wfstates = {
             'work': {
                 'title': 'Work',
-                'transitions':('copy_submit', 'create_content',
+                'transitions': ('copy_submit', 'create_content',
                                'cut_copy_paste'),
                  'permissions': {View: ('Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'WorkspaceReader'),
@@ -832,7 +832,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'actbox_name': '',
                 'actbox_category': 'workflow',
                 'actbox_url': '',
-                'props': {'guard_permissions':'',
+                'props': {'guard_permissions': '',
                         'guard_roles': 'Manager; WorkspaceManager; '
                                       'WorkspaceMember',
                         'guard_expr': ''},
@@ -1007,7 +1007,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         wfstates = {
             'pending': {
                 'title': 'Waiting for reviewer',
-                'transitions':('accept', 'reject'),
+                'transitions': ('accept', 'reject'),
                  'permissions': {View: ('SectionReviewer', 'SectionManager',
                                         'Manager'),
                                  ModifyPortalContent: ('SectionReviewer',
@@ -1378,32 +1378,32 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.verifyTool('portal_boxes', 'CPSDefault', 'CPS Boxes Tool')
         self.log("Adding cps default boxes")
         boxes = {
-            'action_header': {'type':'Action Box',
+            'action_header': {'type': 'Action Box',
                     'title': 'Header actions',
                     'btype': 'header',
                     'slot': 'top',
-                    'categories':'global_header',
+                    'categories': 'global_header',
                     'order': 5,
                     },
-            'search': {'type':'Base Box',
+            'search': {'type': 'Base Box',
                     'title': 'Search form',
                     'btype': 'search',
                     'slot': 'top',
                     'order': 10,
                     },
-            'logo': {'type':'Base Box',
+            'logo': {'type': 'Base Box',
                     'title': 'Portal logo',
                     'btype': 'logo',
                     'slot': 'top',
                     'order': 20,
                     },
-            'menu': {'type':'Tree Box',
+            'menu': {'type': 'Tree Box',
                     'title': 'Tab menu',
                     'btype': 'menu',
                     'slot': 'top',
                     'order': 30,
                     },
-            'breadcrumbs': {'type':'Base Box',
+            'breadcrumbs': {'type': 'Base Box',
                             'title': 'Navigation path',
                             'btype': 'breadcrumbs',
                             'slot': 'top',
@@ -1426,7 +1426,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     'order': 20,
                     },
 
-            'l10n_select': {'type':'Base Box',
+            'l10n_select': {'type': 'Base Box',
                             'title': 'Locale selector',
                             'btype': 'l10n_select',
                             'slot': 'left',
@@ -1436,47 +1436,47 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'action_user': {'type': 'Action Box',
                             'title': 'User actions',
                             'btype': 'user',
-                            'slot':'left',
-                            'order':20,
-                            'categories':'user',
+                            'slot': 'left',
+                            'order': 20,
+                            'categories': 'user',
                             'box_skin': 'here/box_lib/macros/sbox',
                             },
-            'action_portal' : {'type':'Action Box',
+            'action_portal': {'type': 'Action Box',
                             'title': 'Portal actions',
-                            'slot':'left',
-                            'order':30,
-                            'categories':'global',
+                            'slot': 'left',
+                            'order': 30,
+                            'categories': 'global',
                             'box_skin': 'here/box_lib/macros/sbox',
                             },
-            'navigation': {'type':'Tree Box',
-                        'title':'Navigation tree menu',
-                        'depth':1,
-                        'contextual':1,
-                        'slot':'left',
-                        'order':40,
+            'navigation': {'type': 'Tree Box',
+                        'title': 'Navigation tree menu',
+                        'depth': 1,
+                        'contextual': 1,
+                        'slot': 'left',
+                        'order': 40,
                         'box_skin': 'here/box_lib/macros/mmbox',
                         },
 
-            'action_object' : {'type':'Action Box',
+            'action_object': {'type': 'Action Box',
                             'title': 'Object actions',
-                            'slot':'right',
-                            'order':10,
-                            'categories':('object', 'workflow'),
+                            'slot': 'right',
+                            'order': 10,
+                            'categories': ('object', 'workflow'),
                             'box_skin': 'here/box_lib/macros/sbox',
                             },
 
-            'action_folder' : {'type':'Action Box',
+            'action_folder': {'type': 'Action Box',
                             'title': 'Folder actions',
-                            'slot':'right',
-                            'order':20,
-                            'categories':'folder',
+                            'slot': 'right',
+                            'order': 20,
+                            'categories': 'folder',
                             },
 
-            'welcome' : {'type':'Text Box',
+            'welcome': {'type': 'Text Box',
                         'title': 'Portal welcome message',
-                        'slot':'center',
-                        'order':10,
-                        'btype':'default',
+                        'slot': 'center',
+                        'order': 10,
+                        'btype': 'default',
                          # No frame, no title box, no class="box" cf. box_lib.pt
                         'box_skin': 'here/box_lib/macros/wbox3',
                         'display_in_subfolder': 0,
@@ -1485,30 +1485,30 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                         'i18n': 1,
                         },
 
-            'nav_header' : {'type':'Base Box',
+            'nav_header': {'type': 'Base Box',
                             'title': 'Folder header',
-                            'slot':'folder_view',
-                            'order':0,
-                            'btype':'folder_header',
+                            'slot': 'folder_view',
+                            'order': 0,
+                            'btype': 'folder_header',
                             },
 
-            'nav_folder' : {'type':'Tree Box',
+            'nav_folder': {'type': 'Tree Box',
                             'title': 'Sub folders',
-                            'slot':'folder_view',
-                            'order':10,
+                            'slot': 'folder_view',
+                            'order': 10,
                             'box_skin': 'here/box_lib/macros/wbox2',
-                            'btype':'center',
-                            'contextual':1,
-                            'depth':2,
-                            'children_only':1,
+                            'btype': 'center',
+                            'contextual': 1,
+                            'depth': 2,
+                            'children_only': 1,
                             },
 
-            'nav_content' : {'type':'Content Box',
+            'nav_content': {'type': 'Content Box',
                             'title': 'Contents',
-                            'slot':'folder_view',
-                            'btype':'default',
+                            'slot': 'folder_view',
+                            'btype': 'default',
                             'box_skin': 'here/box_lib/macros/sbox2',
-                            'order':20,
+                            'order': 20,
                             },
         }
         self.verifyBoxes(boxes)
@@ -1539,7 +1539,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             translation_service.manage_setDomainInfo(path_0='Localizer/default')
             self.log("   default domain set to Localizer/default")
 
-        self.verifyMessageCatalog('default','CPSDefault messages')
+        self.verifyMessageCatalog('default', 'CPSDefault messages')
 
         # Method handy to reimport translations, but not really necessary.
         if not self.portalHas('i18n Updater'):

@@ -46,6 +46,13 @@ except: pass
 try: ZopeTestCase.installProduct('CPSMailBoxer', quiet=1)
 except: pass
 
+test_cpsskins = (os.environ.get('CPSSKINS_TARGET', '') == 'CPS3')
+if test_cpsskins:
+    try: 
+        ZopeTestCase.installProduct('CPSSkins', quiet=1)
+    except: 
+        pass
+
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager
 
@@ -163,6 +170,8 @@ class CPSInstaller:
         self.login()
         self.addPortal(portal_id)
         self.fixupTranslationServices(portal_id)
+        if test_cpsskins:
+            self.setupCPSSkins(portal_id)
         self.logout()
 
     def addUser(self):
@@ -187,6 +196,12 @@ class CPSInstaller:
         localizer = portal.Localizer
         for domain in localizer.objectIds():
             setattr(localizer, domain, DummyMessageCatalog())
+
+    def setupCPSSkins(self, portal_id):
+        portal = getattr(self.app, portal_id)
+        factory = portal.manage_addProduct['CPSSkins']
+        factory.manage_addCPSSkins(portal_id, SourceSkin='Basic',
+             Target='CPS3', ReinstallDefaultThemes=1)
 
     def logout(self):
         noSecurityManager()

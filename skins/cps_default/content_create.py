@@ -15,7 +15,7 @@ if REQUEST:
     if ti.meta_type == 'CPS Flexible Type Information':
         args = {'type_name': type_name}
         # XXX pass prefilled title, a bit of a hack...
-        args['widget__title'] = kw.get('title', '')
+        args['widget__Title'] = kw.get('title', '')
         return REQUEST.RESPONSE.redirect('%s/cpsdocument_create_form?%s' %
                                 (context.absolute_url(), urlencode(args)))
 

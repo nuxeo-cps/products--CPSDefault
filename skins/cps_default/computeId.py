@@ -18,6 +18,6 @@ else:
 
 id = generateId(compute_from, max_chars=max_chars_for_id, lower=True,
                 portal_type=portal_type, meaningless_words=meaningless_words,
-                portal_check=container)
+                container=container)
 
 return id

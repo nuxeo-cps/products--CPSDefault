@@ -3,46 +3,110 @@
 
 <!-- context contain: object box from portal_boxes.getBoxes -->
 
+
+<!-- a sample box title and body -->
+<metal:block define-macro="box">
+<div class="box">
+  <div class="title">
+    <metal:block define-slot="box_title">Box Title</metal:block>
+  </div>
+  <div class="body">
+    <div class="content odd">
+      <metal:block define-slot="box_body">Box Body</metal:block>
+    </div>
+  </div>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<!-- a min max box -->
+<metal:block define-macro="mmbox">
+<div class="box">
+  <div class="title">
+    <tal:block condition="box/settings/minimized"><a href="" class="close"
+      tal:attributes="href
+      string:${base_url}${box/url}/maximize?goto=${context_url}"><img
+      src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif"
+      /></a></tal:block><tal:block
+      condition="not:box/settings/minimized"><a href="" class="close"
+      tal:attributes="href
+      string:${base_url}${box/url}/minimize?goto=${context_url}"><img
+      src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
+      /></a></tal:block>
+    <metal:block define-slot="box_title">Box Title</metal:block>
+  </div>
+  <div class="body">
+    <div class="content odd" tal:condition="not:box/settings/minimized">
+      <metal:block define-slot="box_body">Box Body</metal:block>
+    </div>
+  </div>
+</div>
+</metal:block>
+
+
 <!-- ============================================================ -->
 <!-- a min max close box -->
-<metal:block define-macro="box">
-  <div class="box">
-    <div class="title">
-      <a href="" class="close" tal:attributes="href string:${base_url}${box/url}/close?goto=${context_url}"><img src="close.gif" tal:attributes="src string:${base_url}close.gif" /></a>
-      <tal:block condition="box/settings/minimized"><a href="" class="close" tal:attributes="href string:${base_url}${box/url}/maximize?goto=${context_url}"><img src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif" /></a></tal:block>
-      <tal:block condition="not:box/settings/minimized"><a href="" class="close" tal:attributes="href string:${base_url}${box/url}/minimize?goto=${context_url}"><img src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif" /></a></tal:block>
-      <div metal:define-slot="box_title">Box Title</div>
-    </div>
-    <div class="body">
-      <div metal:define-slot="box_body">Box Body</div>
+<metal:block define-macro="mmcbox">
+<div class="box">
+  <div class="title">
+    <a href="" class="close" tal:attributes="href
+      string:${base_url}${box/url}/close?goto=${context_url}"><img
+      src="close.gif" tal:attributes="src string:${base_url}close.gif" /></a>
+    <tal:block condition="box/settings/minimized"><a href="" class="close"
+      tal:attributes="href
+      string:${base_url}${box/url}/maximize?goto=${context_url}"><img
+      src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif"
+      /></a></tal:block><tal:block condition="not:box/settings/minimized"><a
+      href="" class="close" tal:attributes="href
+      string:${base_url}${box/url}/minimize?goto=${context_url}"><img
+      src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
+      /></a></tal:block>
+    <metal:block define-slot="box_title">Box Title</metal:block>
+  </div>
+  <div class="body">
+    <div class="content odd" tal:condition="not:box/settings/minimized">
+      <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
   </div>
+</div>
 </metal:block>
 
-<!-- a simple box without title -->
+
+<!-- ============================================================ -->
+<!-- a frame box -->
 <metal:block define-macro="sbox">
-  <div class="box">
-    <div class="body">
-      <div metal:define-slot="box_body">Box Body</div>
+<div class="box">
+  <div class="body">
+    <div class="content odd">
+      <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
+      <div>
+        <metal:block define-slot="box_body">Box Body</metal:block>
+      </div>
     </div>
   </div>
+</div>
 </metal:block>
 
-<!-- a fixed box title and body -->
-<metal:block define-macro="fbox">
-  <div class="box">
-    <div class="title">
-      <div metal:define-slot="box_title">Box Title</div>
-    </div>
-    <div class="body">
-      <div metal:define-slot="box_body">Box Body</div>
-    </div>
+
+<!-- ============================================================ -->
+<!-- no frame box -->
+<metal:block define-macro="wbox">
+<div class="box">
+  <div class="content odd">
+    <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
+    <metal:block define-slot="box_body">Box Body</metal:block>
   </div>
+</div>
 </metal:block>
 
+
+<!-- ============================================================ -->
+<!-- a closed box -->
 <metal:block define-macro="closed_box">
-  <a href="" tal:attributes="href string:${base_url}${box/url}/maximize?goto=${context_url}">
-   <img src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif" />
-   <tal:block replace="box/box/title" />&nbsp;
-  </a>
+<a href="" tal:attributes="href
+  string:${base_url}${box/url}/maximize?goto=${context_url}">
+  <img src="maximize.gif" tal:attributes="src
+    string:${base_url}maximize.gif" />
+  <tal:block replace="box/box/title" />&nbsp;
+</a>
 </metal:block>

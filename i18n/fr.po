@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-30 13:04default\n"
-"PO-Revision-Date: 2003-07-30 15:16+0200\n"
-"Last-Translator: ben <ben@nuxeo.com>\n"
-"Language-Team: ben\n"
+"POT-Creation-Date: 2003-07-30 16:18default\n"
+"PO-Revision-Date: 2003-07-30 16:23+0200\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language-name: Language\n"
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
@@ -164,7 +164,6 @@ msgstr "Annuler"
 #.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" name="change" type="submit">
 #.         <input onclick="history.back()" type="button" value="button_back">
 #.       </input></input>
-#.   <input attributes="name string:changeDisplayParams:method" value="button_change" type="submit" />
 #.   <input value="button_change" type="submit">
 #.       </input>
 #.   <input value="button_change" name="change" type="submit">
@@ -172,7 +171,6 @@ msgstr "Annuler"
 #.         <br><input value="button_change_and_view" name="change_and_view" type="submit">
 #.       </input></br></input></br></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change"
@@ -210,18 +208,14 @@ msgstr "Modifier et voir"
 msgid "button_create_box"
 msgstr "Ajouter une boîte"
 
-#.   <input attributes="name string:removeDisplayParams:method" value="button_default" type="submit" />
-#: from ../skins/cps_default/folder_contents.pt
-msgid "button_default"
-msgstr "Defaut"
-
 #.   <input value="button_delete" name="folder_delete:method" type="submit">
 #.           <block define="params here/getDisplayParams;
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
 #.   			       change_display python:request.get('change_display', None);
-#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:change_display is None and isWsManager">
+#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:isWsManager and sort_by is None">
+#.
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
@@ -233,6 +227,11 @@ msgstr "Defaut"
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
 msgstr "Effacer"
+
+#.   <input attributes="name string:changeDisplayParams:method" value="button_go" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_go"
+msgstr "Aller"
 
 #.   <input value="button_login" name="submit" type="submit" />
 #: from ../skins/cps_default/login_form.pt
@@ -309,7 +308,8 @@ msgstr "Rejeter publication"
 #.                                  direction params/direction;
 #.                                  format params/format;
 #.   			       change_display python:request.get('change_display', None);
-#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:change_display is None and isWsManager">
+#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:isWsManager and sort_by is None">
+#.
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
@@ -825,28 +825,26 @@ msgstr "Contextuel"
 msgid "label_contributors"
 msgstr "Contributeurs"
 
-#.   <option condition="python:sort_by == 'date'" selected="" value="date">
+#.   <option condition="python:sort_by == 'date' and direction == 'asc' " selected="" value="date">
 #.                       Date
 #.               </option>
-#.   <option condition="python:sort_by != 'date'" value="date">
+#.   <option condition="python:sort_by != 'date' and direction != 'asc'" value="date">
 #.                       Date
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
-msgid "label_date"
-msgstr "Date"
+msgid "label_date_asc"
+msgstr "Date croissant"
 
-#.   <option condition="python:sort_by is None" selected="" value="title">
-#.                       Default
+#.   <option condition="python:sort_by == 'date' and direction == 'desc' " selected="" value="date">
+#.                       Date
 #.               </option>
-#.   <option condition="python:sort_by is not None" value="title">
-#.                       Default
+#.   <option condition="python:not sort_by != 'date' and direction != 'desc'" value="date">
+#.                       Date
 #.               </option>
-#.   <option condition="python:direction == 'default'" selected="" value="default">
-#.                       Asc
-#.               </option>
-#.   <option condition="python:direction != 'default'" value="default">
-#.                       Asc
-#.               </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "label_date_desc"
+msgstr "Date décroissant"
+
 #.   <option condition="python:format == None" selected="" value="compact">
 #.                        Default
 #.   	     </option>
@@ -916,7 +914,7 @@ msgid "label_discussion_on"
 msgstr "actif"
 
 #.   <th align="right">Display</th>
-#.   <strong>Display with</strong>
+#.   <strong valign="top">Display with</strong>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "label_display"
@@ -1064,6 +1062,16 @@ msgstr "Nom"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_nb_items"
 msgstr "Nb Objets"
+
+#.   <option condition="python:sort_by is None" selected="" value="None">
+#.                       Default
+#.               </option>
+#.   <option condition="python:sort_by is not None" value="None">
+#.                       Default
+#.               </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "label_none"
+msgstr "Aucun"
 
 #.   <th align="right">Order</th>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1218,14 +1226,7 @@ msgid "label_slot"
 msgstr "Emplacement"
 
 #.   <option attributes="selected python:box['box'].direction != 'desc'" value="asc">asc</option>
-#.   <option condition="python:direction == 'asc'" selected="" value="asc">
-#.                       Asc
-#.               </option>
-#.   <option condition="python:direction != 'asc'" value="asc">
-#.                       Asc
-#.               </option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
 msgid "label_sort_asc"
 msgstr "Croissant"
 
@@ -1252,28 +1253,34 @@ msgid "label_sort_by_title"
 msgstr "Titre"
 
 #.   <option attributes="selected python:box['box'].direction == 'desc'" value="desc">desc</option>
-#.   <option condition="python:direction == 'desc'" selected="" value="desc">
-#.                       Desc
-#.               </option>
-#.   <option condition="python:direction != 'desc'" value="desc">
-#.                       Desc
-#.               </option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
 msgid "label_sort_desc"
 msgstr "Décroissant"
 
 #.   <span>Label Status</span>
-#.   <option condition="python:sort_by == 'status'" selected="" value="status">
-#.                       Status
-#.               </option>
-#.   <option condition="python:sort_by != 'status'" value="status">
-#.                       Status
-#.               </option>
 #: from ../skins/cps_default/content_lib.pt
-#: ../skins/cps_default/folder_contents.pt
 msgid "label_status"
 msgstr "Statut"
+
+#.   <option condition="python:sort_by == 'status' and direction =='asc'" selected="" value="status">
+#.                       Status
+#.               </option>
+#.   <option condition="python:not sort_by != 'status' or direction !='asc' " value="status">
+#.                       Status
+#.               </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "label_status_asc"
+msgstr "Statut croissant"
+
+#.   <option condition="python:sort_by == 'status' and direction =='desc'" selected="" value="status">
+#.                       Status
+#.               </option>
+#.   <option condition="python:not sort_by != 'status' or direction !='desc' " value="status">
+#.                       Status
+#.               </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "label_status_desc"
+msgstr "Statut décroissant"
 
 #.   <th align="right">Subject</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1285,20 +1292,33 @@ msgstr "Sujet"
 #.   <div class="label required">
 #.           Title
 #.         </div>
-#.   <option condition="python:sort_by == 'title'" selected="" value="title">
-#.                       Title
-#.               </option>
-#.   <option condition="python:sort_by != 'title'" value="title">
-#.                       Title
-#.               </option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
 msgstr "Titre"
+
+#.   <option condition="python:sort_by == 'title' and direction == 'asc'" selected="" value="title">
+#.                       Title
+#.               </option>
+#.   <option condition="python:not sort_by != 'title' or direction !='asc'" value="title">
+#.                       Title
+#.               </option>
+#.   <option condition="python:not sort_by != 'title' or direction !='desc'" value="title">
+#.                       Title
+#.               </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "label_title_asc"
+msgstr "Titre croissant"
+
+#.   <option condition="python:sort_by == 'title' and direction == 'desc'" selected="" value="title">
+#.                       Title
+#.               </option>
+#: from ../skins/cps_default/folder_contents.pt
+msgid "label_title_desc"
+msgstr "Titre décroissant"
 
 #.   <th align="right">Type</th>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1427,13 +1447,6 @@ msgstr "édition"
 msgid "link_box_view"
 msgstr "voir"
 
-#.   <a condition="python:display_change == '0'" href="./folder_contents?change_display=1">
-#.        Change display settings
-#.     </a>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "link_change_display"
-msgstr "Changer l'ordre d'affichage des objets"
-
 #.   <span>
 #.         I forgot my password!
 #.       </span>
@@ -1452,13 +1465,6 @@ msgstr "Formulaire de personnalisation"
 #: from ../skins/cps_default/registered.pt
 msgid "link_here"
 msgstr "ici"
-
-#.   <a condition="python:display_change == '1'" href="./folder_contents">
-#.        Hide display settings
-#.     </a>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "link_hide_display_settings"
-msgstr "Cacher la configuration de l'affichage"
 
 #.   <span>
 #.     <i>Roles in underlined </i> are set in parent folders.
@@ -1855,8 +1861,14 @@ msgstr "%d/%m/%Y %H:%M:%S"
 msgid "link_search"
 msgstr "Rechercher"
 
-#~ msgid "label_none"
-#~ msgstr "Aucun"
+#~ msgid "button_default"
+#~ msgstr "Defaut"
+
+#~ msgid "link_change_display"
+#~ msgstr "Changer l'ordre d'affichage des objets"
+
+#~ msgid "link_hide_display_settings"
+#~ msgstr "Cacher la configuration de l'affichage"
 
 #~ msgid "button_invert"
 #~ msgstr "Inverser"

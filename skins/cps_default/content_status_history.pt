@@ -23,7 +23,11 @@
 
 <metal:main fill-slot="main"
             tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=4)">
-  <metal:block use-macro="here/content_lib/macros/status" />
+
+  <h2 i18n:translate="label_actual_status">Actual status of the document</h2>
+  <p>
+    <metal:block use-macro="here/content_lib/macros/status" />
+  </p>
 
   <metal:block use-macro="here/content_lib/macros/states" />
 

@@ -1144,21 +1144,26 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         prok()
 
     pr("Verifiying status history action for document")
-    action_found = 0
+    #force the update of this action
+    index = 0
     for action in  portal['portal_actions'].listActions():
         if action.id == 'status_history':
-            action_found = 1
-    if not action_found:
-        portal['portal_actions'].addAction(
-            id='status_history',
-            name='action_status_history',
-            action='string: ${object/absolute_url}/content_status_history',
-            condition='python:test(getattr(object,"portal_type"),test(object.portal_type in ["Section","Workspace","Portal"],0,1),0)',
-            permission='View',
-            category='workflow')
-        pr(" Added")
-    else:
-        pr(" Present")
+            portal['portal_actions'].deleteActions((index,))
+        index += 1
+    portal['portal_actions'].addAction(
+        id='status_history',
+        name='action_status_history',
+        action='string: ${object/absolute_url}/content_status_history',
+        condition="""python:test(getattr(object,'portal_type'),
+                                 test(object.portal_type in ['Section',
+                                                             'Workspace', 
+                                                             'Portal'],
+                                      0,
+                                      1), 
+                                 0)""",
+        permission='View',
+        category='workflow')
+    pr(" Added")
 
 
     pr("Verifiying bookmark actions (favorites)")

@@ -1,0 +1,41 @@
+<tal:block
+  define="res python:here.processMyForm(request.form);">
+<metal:block use-macro="here/main_template/macros/master">
+  <metal:block fill-slot="css_slot">
+    <metal:block
+      use-macro="here/cpsdocument_edit_form/macros/widgets_javascript" />
+  </metal:block>
+
+  <metal:block fill-slot="header">
+    <h1>Testing layout</h1>
+    <div class="description">test displaying layouts without document</div>
+  </metal:block>
+
+  <metal:block fill-slot="main">
+    <h2>here's the form: </h2>
+    <div class="message" tal:condition="python: res['status'] == 'invalid'"
+      i18n:translate="psm_invalid_form">Invalid form, plz correct error</div>
+    <div class="message" tal:condition="python: res['status'] == 'valid'"
+      i18n:translate="psm_form_ok">Result form</div>
+    <div class="group" tal:condition="not:res/result">
+    <form action="" method="post">
+      <div tal:replace="structure res/rendered_form" />
+      <div class="row">
+        <div class="field">
+          <input type="submit" class="standalone" value="Submit" />
+        </div>
+      </div>
+    </form>
+    </div>
+
+    <div tal:condition="res/result" class="group">
+    <h2>here is the result</h2>
+    <dl tal:repeat="field python:res['result'].items()">
+       <dt class="label" tal:content="python: field[0]" />
+       <dd class="field" tal:content="python: field[1]" />
+    </dl>
+    </div>
+  </metal:block>
+
+</metal:block>
+</tal:block>

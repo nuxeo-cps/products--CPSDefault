@@ -84,6 +84,12 @@ class DummyTranslationService(SimpleItem):
     def manage_addDomainInfo(self, domain, path, REQUEST=None, **kw):
         pass
 
+    def getDefaultLanguage(self):
+        return 'en'
+
+    def getSelectedLanguage(self):
+        return 'en'
+
 class DummyMessageCatalog(SimpleItem):
     security = ClassSecurityInfo()
     def __call__(self, message, *args, **kw):
@@ -110,6 +116,7 @@ class DummyMessageCatalog(SimpleItem):
 
     def wl_isLocked(self):
         return None # = False
+
 InitializeClass(DummyMessageCatalog)
 
 
@@ -214,6 +221,9 @@ class CPSInstaller:
     # Change translation_service to DummyTranslationService
     def fixupTranslationServices(self, portal_id):
         portal = getattr(self.app, portal_id)
+        # XXX don't know why we use a fake translation service
+        # we only need to add getSelectedLanguage and getLanguage methods
+        # to TranslationService.Domain.DummyDomain to use the real one
         portal.translation_service = DummyTranslationService()
         localizer = portal.Localizer
         for domain in localizer.objectIds():

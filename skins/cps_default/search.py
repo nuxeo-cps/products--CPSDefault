@@ -38,6 +38,8 @@ if query.get('review_state'):
     del query['review_state']
 
 # search and get documents brains
+# XXX : When this script is called from the unit tests environment no document
+# brains are ever returned by the catalog. Why ?
 b_docs = catalog(**query)
 
 # restore query as it is pass trought request.form

@@ -173,7 +173,7 @@
               </a>
             </th>
           </tr>
-          <tr tal:define="weekdays here/portal_calendar/getDays">
+          <tr tal:define="weekdays python:here.portal_calendar.getDayList(here.Localizer)">
             <tal:weekday tal:repeat="weekday weekdays">
               <td class="weekdays" tal:content="python:cpsmcat('calendar_day_%s' % weekday)">Su</td>
             </tal:weekday>

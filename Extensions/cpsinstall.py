@@ -1320,8 +1320,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             #workspaces.getEditableContent().edit(Title="Root of Workspaces")
             workspaces.getEditableContent().setTitle("Root of Workspaces")
             # XXX Make L10N more generic
-            #workspaces.addLanguageToProxy('fr')
-            #workspaces.getEditableContent('fr').setTitle("Espaces de travail")
+            workspaces.addLanguageToProxy('fr')
+            workspaces.getEditableContent('fr').setTitle("Espaces de travail")
 
         if getattr(self.portal[WORKSPACES_ID], members_id, None) is None:
             self.log("  Adding %s Folder" % members_id)
@@ -1331,8 +1331,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             member_areas = getattr(workspaces, members_id, None)
             member_areas.getEditableContent().setTitle("Member Areas")
             # XXX Make L10N more generic
-            #member_areas.addLanguageToProxy('fr')
-            #member_areas.getEditableContent('fr').setTitle("Espaces des membres")
+            member_areas.addLanguageToProxy('fr')
+            member_areas.getEditableContent('fr').setTitle("Espaces des membres")
 
         if not self.portalHas(SECTIONS_ID):
             self.log("  Adding %s Folder" % SECTIONS_ID)
@@ -1341,8 +1341,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             sections = self.portal[SECTIONS_ID]
             sections.getEditableContent().setTitle("Root of Sections")
             # XXX Make L10N more generic
-            #sections.addLanguageToProxy('fr')
-            #sections.getEditableContent('fr').setTitle("Espaces de publication")
+            sections.addLanguageToProxy('fr')
+            sections.getEditableContent('fr').setTitle("Espaces de publication")
 
     def setupTreesTool(self):
         self.verifyTool('portal_trees', 'CPSCore', 'CPS Trees Tool')

@@ -183,9 +183,17 @@ class BaseInstaller:
 
 
     def setupPortalProperties(self, props):
-        """Change portal properties with the ones found in the props
-        dictionary."""
-        self.portal.manage_changeProperties(**props)
+        """Set portal properties using the ones found in the props list of
+        dictionaries: ({'id': 'xxx', type: 'xxx', value: xxx}, {...}, ).
+        Note that existing values don't have to specify the type."""
+        for property in props:
+            propId = property['id']
+            propValue = property['value']
+            if self.portal.hasProperty(propId):
+                self.portal.manage_changeProperties({propId: propValue})
+            else:
+                self.portal.manage_addProperty(propId, propValue,
+                                               property['type'])
 
 
     def setupSiteStructure(self, filename):

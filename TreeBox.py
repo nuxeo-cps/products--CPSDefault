@@ -61,10 +61,9 @@ class TreeBox(BaseBox):
         {'id':'children_only', 'type':'boolean', 'mode':'w', 'label':'display children only'},
         )
 
-    def __init__(self, id, title='', root='', depth=0, contextual=0,
-                 children_only=0, style='box_tree', **kw):
-        BaseBox.__init__(self, id, style=style, kw=kw)
-        self.title = title
+    def __init__(self, id, root='', depth=0, contextual=0,
+                 children_only=0, **kw):
+        BaseBox.__init__(self, id, kw=kw)
         self.root = root
         self.depth = depth
         self.contextual = contextual

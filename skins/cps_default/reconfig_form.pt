@@ -1,6 +1,16 @@
 <metal:html>
 <metal:body use-macro="here/main_template/macros/master">
 
+<metal:block fill-slot="head_slot">
+ <tal:block define="dummy python:request.set('breadcrumb_set',
+    [{
+      'id': 'reconfig_form',
+      'url': '%sreconfig_form' % base_url,
+      'title': cpsmcat('heading_reconfig_portal'),
+    },
+   ]);" />
+</metal:block>
+
 <metal:header fill-slot="header">
   <h1 i18n:translate="heading_reconfig_portal">
     Configure Portal

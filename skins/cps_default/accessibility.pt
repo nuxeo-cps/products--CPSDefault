@@ -1,11 +1,11 @@
 <metal:block use-macro="here/main_template/macros/master">
 
-<metal:block fill-slot="css_slot">
+<metal:block fill-slot="head_slot">
  <tal:block define="dummy python:request.set('breadcrumb_set',
     [{
       'id': 'accessibility',
-      'url': here.portal_url() + '/accessibility',
-      'title': here.Localizer.default('accessibility_title'),
+      'url': '%saccessibility' % base_url,
+      'title': cpsmcat('accessibility_title'),
     },
    ]);" />
 </metal:block>

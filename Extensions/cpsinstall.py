@@ -949,7 +949,8 @@ if locked_ob is not None:
         )
     ttool['Section'].manage_changeProperties(title='portal_type_Section_title',
                                              description='portal_type_Section_description',
-                                             content_meta_type='Section')
+                                             content_meta_type='Section',
+                                             filter_content_types=1)
 
     if 'Workspace' in ptypes_installed:
         pr("  Type Workspace Deleted")
@@ -961,7 +962,8 @@ if locked_ob is not None:
         )
     ttool['Workspace'].manage_changeProperties(title='portal_type_Workspace_title',
                                                description='portal_type_Workspace_description',
-                                               content_meta_type='Workspace')
+                                               content_meta_type='Workspace',
+                                               filter_content_types=1)
     for ptype in ('Section', 'Workspace'):
         ttool[ptype].allowed_content_types = allowed_content_type[ptype]
 

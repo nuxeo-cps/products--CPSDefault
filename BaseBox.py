@@ -81,7 +81,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declareObjectPublic()
 
     guard = None
-
+    display_only_in_subfolder = 0
+    
     _properties = (
         {'id': 'title', 'type': 'string', 'mode': 'w', 'label': 'Title'},
         {'id': 'minimized', 'type': 'boolean', 'mode': 'w', 'label': 'Minimized'},
@@ -92,13 +93,14 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         {'id': 'order', 'type': 'int', 'mode': 'w', 'label': 'Order'},
         {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
         {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
+        {'id': 'display_only_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
         {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
         )
 
     def __init__(self, id, title='', macro='basebox', minimized=0, closed=0,
                  style='nuxeo', format='default', slot='left', order=0,
                  visible_if_empty=0, display_in_subfolder=1,
-                 locked=0, **kw):
+                 display_only_in_subfolder=0, locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)
         self.id = id
         self.title = title
@@ -112,6 +114,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
         self.visible_if_empty = visible_if_empty
         self.display_in_subfolder = display_in_subfolder
+        self.display_only_in_subfolder = display_only_in_subfolder
         self.locked = locked
 
     #

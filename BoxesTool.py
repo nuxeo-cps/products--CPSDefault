@@ -167,20 +167,30 @@ class BoxesTool(UniqueObject, PortalFolder):
             else:
                 boxdisplayurl = '/'.join(boxpath[:-2])
             rurl = '/'.join(rpath)
-            if box.display_in_subfolder or (rurl == boxdisplayurl):
-                newbox = {'url': portal_url.getRelativeUrl(box),
-                          'display_url': boxdisplayurl,
-                          'settings': box.getSettings(),
-                          'macro': box.getMacro(),
-                          'box': box}
-                # Override any box settings with the local settings
-                # If the box isn't locked and there are overrides
-                if not newbox['box'].locked and settings.get(newbox['url']):
-                    newbox['settings'].update(settings[newbox['url']])
-                    newbox['macro'] = newbox['box'].getMacro(
-                        style=newbox['settings']['style'],
-                        format=newbox['settings']['format'])
-                boxes.append(newbox)
+
+            if not box.display_in_subfolder and \
+                   not box.display_only_in_subfolder and \
+                   rurl != boxdisplayurl:
+                continue
+
+            if box.display_only_in_subfolder and rurl == boxdisplayurl:
+                continue
+
+            newbox = {'url': portal_url.getRelativeUrl(box),
+                      'display_url': boxdisplayurl,
+                      'settings': box.getSettings(),
+                      'macro': box.getMacro(),
+                      'box': box}
+
+            # Override any box settings with the local settings
+            # If the box isn't locked and there are overrides
+            if not newbox['box'].locked and settings.get(newbox['url']):
+                newbox['settings'].update(settings[newbox['url']])
+                newbox['macro'] = newbox['box'].getMacro(
+                    style=newbox['settings']['style'],
+                    format=newbox['settings']['format'])
+
+            boxes.append(newbox)
 
         # We now have a list of all boxes that can be displayed in this context.
         # We'll now filter to only get the open boxes in the asked for slot.
@@ -188,8 +198,6 @@ class BoxesTool(UniqueObject, PortalFolder):
         # can be overriden by local setting
         boxes = [x for x in boxes if (
             slot is None or x['settings']['slot']==slot)]
-
-        # TODO: filter on permission ?
 
         # sorting
         def cmpbox(a, b):

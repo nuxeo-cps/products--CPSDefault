@@ -26,7 +26,8 @@ if disp:
             kw['minimized'] = 0
 
 # handle checkbox
-for k in ('display_in_subfolder', 'children_only', 'contextual'):
+for k in ('display_in_subfolder', 'display_only_in_subfolder',
+          'children_only', 'contextual'):
     v = kw.get(k)
     kw[k] = not not v
 

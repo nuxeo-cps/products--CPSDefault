@@ -1,4 +1,4 @@
-HTMLDOCS := howto-virtual_hosts.html
+HTMLDOCS := howto-virtual_hosts.html guidelines-user_interface.html
 
 all: $(HTMLDOCS)
 

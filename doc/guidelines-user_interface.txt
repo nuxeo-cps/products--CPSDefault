@@ -1,0 +1,446 @@
+=========================
+User Interface Guidelines
+=========================
+$Id$
+
+
+What's inside
+=============
+
+* `Ergonomics/usability`_
+* `Accessibility`_
+* `XHTML`_
+* `CSS`_
+* `JavaScript`_
+* `Image formats`_
+* `Translation recommendations`_
+
+
+
+Ergonomics/usability
+====================
+
+CPS user interface should be designed to be usable.
+
+
+Accessibility
+=============
+
+One should read http://diveintoaccessibility.org/ to have a precise idea about
+what accessibility and interoperability are.
+
+The site http://openweb.eu.org/ [fr] is also a must read, but only available in French.
+
+Laws in Europe, France and the USA require that government web sites are
+accessible::
+
+  Les sites publics ont 3 ans pour etre accessibles aux handicapes
+
+  Legislation - Apres un an de travaux parlementaires, la loi sur le
+  handicap a ete adoptee le 3 fevrier. Dans son volet internet, elle
+  impose aux sites de l'administration en ligne de devenir « accessibles
+  aux personnes handicapees ».
+
+cf. http://zdnet.fr/actualites/internet/0,39020774,39204632,00.htm [fr]
+
+cf. http://formats-ouverts.org/blog/2005/02/05/273-laccessibilite-est-inscrite-dans-la-loi-sur-legalite-des-droits [fr]
+
+
+XHTML
+=====
+
+General
+-------
+
+CPS follows the XHTML 1.0 Transitional DTD::
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+But CPS is already almost XHTML Strict::
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+So developers and web designers should code as if CPS follows already XHTML Strict.
+
+
+Checkpoints
+-----------
+
+* Check your XHTML pages against the W3C validator: http://validator.w3.org/
+
+  One can check one's HTML pages even if one's website is not reachable from the
+  outside::
+
+    $ curl --user yourlogin:yourpassword
+           --location "http://localhost:8080/cps/workspaces/my_doc/cpsdocument_import_zip_form"
+           > out.html
+
+  And then upload your file to http://validator.w3.org/
+
+
+* Don't use presentational elements and attributes in your code such as <b>,
+  <i>, <center>, border="0". CSS properties take care of that.
+
+
+* Avoid the <table> markup for layout purpose, and if you use <table> make
+  sure to specify the "summary" attribute::
+
+    <table class="listing" summary="A table listing the available events and their notifications in this context">
+
+
+* Include <input> elements and <form> content into <p>
+
+  As we are aiming for XHTML Strict, we should use a stricter markup::
+
+    <form method="get">
+      <p>
+        Blah blah.
+      </p>
+      <p>
+        <input class="standalone" value="Checkin of a revision" type="submit"/>
+        <input class="context" onclick="history.back()" value="Cancel" type="button"/>
+      </p>
+    </form>
+
+
+* Associate labels explicitly with their controls
+
+  In other words it means: use <label> along with your <input type="text"/>,
+  your <input type="checkbox"/> and your <input type="radio"/> elements.
+  Using labels makes it possible to use the pointer on the label
+  (clicking on the label) to active the input, so that it is easier to select a
+  text input, a check box or a radio box, just like it is in heavy client
+  applications such as Firefox.
+
+  Example::
+
+    <label for="firstName">First name:
+      <input type="text" name="firstname" id="firstName"/>
+    </label>
+
+  cf. "Labeling form controls"
+  http://www.w3.org/TR/WCAG10-HTML-TECHS/#forms-labels
+
+
+* Use the "id" attribute to provide relative location URL instead of
+  the old <a name="xxx"/> markup.
+  This is needed to do the transition to XHTML1.1.
+  Example::
+
+    <p>
+      Check the <a href="#subject">subject headings</a>.
+    </p>
+
+    <h3 id="subject">Subject</h3>
+    <p>
+      Blah blah.
+    </p>
+
+
+* Structure your text into paragraphs using <p>.
+  To create paragraphs do not use <br/><br/>.
+
+  Example::
+
+    <p>
+      Blablah
+    </p>
+    <p>
+      Blablah
+    </p>
+    <p>
+      <input type="checkbox" name="item1" id="item1" value="xxx"/><label for="item1">Item1</label><br/>
+      <input type="checkbox" name="item2" id="item2" value="yyy"/><label for="item2">Item2</label><br/>
+      <input type="checkbox" name="item3" id="item3" value="zzz"/><label for="item3">Item3</label><br/>
+    </p>
+
+
+* Do not put spaces in strings:
+  Write
+  action="string:foo" (without space)
+  NOT
+  action="string: foo"
+  that produces a link <a href=" foo"> which is a malformed URI.
+
+  Example::
+
+    action="string:foo"
+
+
+* Form attribute method's value must be written with lower case letters::
+
+    <form method="get">
+      <p>
+      </p>
+    </form>
+
+    <form method="post">
+      <p>
+      </p>
+    </form>
+
+
+* Avoid the "target" attribute, as it conveys layout information.
+  But if you do use this attribute anyway, its value must be a single token:
+  <a target="external_link">
+  NOT
+  <a target="external link">
+
+
+
+CSS
+===
+
+General
+-------
+
+Sample CSS code::
+
+  .tooltipArea {
+    color: #000000;
+    background: #ffffe1;
+    padding: 0.8em;
+    font-weight: normal;
+    font-size: 80%;
+    text-align: left;
+    visibility: hidden;
+    display: none;
+    z-index: 1000;
+  }
+
+Here are the main aims in those CSS guidelines:
+
+1. everybody follows the same convention, so the code is clean and easy to read
+
+2. there is not too much lost space
+
+3. diffs should be rare and easy to read
+
+4. sizes are proportional so that the defined layout is "elastic" (scalable),
+   diffs which is essential for accessibility
+
+Basically those guidelines are what can be found in the CSS specs of the W3C,
+though they put everything on the same line if there is only one property that
+is used, but this is not practical if we want to diminish the occurrence of
+diffs.
+
+
+Checkpoints
+-----------
+
+* Check your CSS files against the W3C validator:
+  http://jigsaw.w3.org/css-validator/
+
+  One can check one's CSS files even if one's website is not reachable from the
+  outside::
+
+    $ curl --user yourlogin:yourpassword
+      --location "http://meteore.in.nuxeo.com:9090/cps/nuxeo_css2.css"
+      > out.css
+
+  And then upload your file to http://jigsaw.w3.org/css-validator/
+
+
+* Indentation width of 2 characters inside parentheses
+
+* No space before the ":" character and 1 space after
+
+* 1 property definition per line
+
+* The names of the Ids and classes should be written in mixedCase,
+  for example "div.contentTabs", "div.bookPageHeader", "#idioma",
+  "#byline", etc.
+
+* The names to use for the selectors, that is the attributes "id" and "class" of
+  the HTML elements, *should not* contain any "_" character.
+  (the first CSS standards were not allowing the "_" character so old browsers
+  like Netscape 4.x choke on them)
+
+* Use the "em" unit instead of the "px" and "pt" units every time it's possible.
+  The "em" unit is a proportional unit that scales according to the font size,
+  so all the sizes specified in "em" will grown or shrink as the user asks her
+  browser to increase or decrease the size of the text.
+  This is essential for accessibility.
+
+* Write the color codes in lowercase and in their full 6 digits hexa notation:
+  #ffffff, #98a2b9, etc.
+
+* It is possible and valid to specify more than one class for an HTML element::
+
+    <table class="history listing" summary="Action history list">
+      <thead>
+     ...
+
+
+* for CSS code generated through DTML, for example using
+  <dtml-with stylesheet_properties>, the variable substitutions should be done
+  by using <dtml-var color> and not &dtml-color; because HTML escaping is not to
+  be done in CSS files.
+
+  Sample CSS code using DTML variables::
+
+    div.contentTabs a:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: <dtml-var bordercolor>;
+    }
+
+
+JavaScript
+==========
+
+JavaScript should provide usability enhancements and not be required on the
+client side to have a functional CPS.
+
+A too heavy use of JavaScript conflicts with accessibility.
+
+It should be possible to visit, search and navigate through the web site with a
+browser without JavaScript support or with JavaScript disabled.
+
+
+Image formats
+=============
+
+The main format to use is PNG.
+
+For all the products one will use images in the PNG format, because:
+
+* PNG is a libre, free and open standard format defined by the W3C
+
+* PNG is to this day the most powerful format available for the web medium
+
+* PNG is not encumbered by any software patents
+
+* PNG is cool :-) , it is appreciated by techies and geeks
+
+One should note that PNG is not the best suited image format, in terms of
+compression, for images of landscape and photo types. In this case one
+could use the JPEG format. But landscape and photo type images are usually
+seldom found in CSS and user interface skins. Landscape and photo type images
+are more often present as web site contents.
+
+Tools
+-----
+
+Lorsque des habillages de sites web sont realises pour CPS, ces habillages sont
+la plupart du temps realises par des graphistes, ou mieux des graphistes web,
+independants. Ces derniers travaillent essentiellement avec Photoshop, sous Mac
+ou sous Microsoft Windows. Or, Photoshop, compresse assez mal le PNG. En effet,
+ce format possede plusieurs niveaux de compression, de 0 a 9 et Photoshop est
+bloque a 6 sans qu'il soit possible de changer ce parametre dans les options. La
+compression etant non destructive, le niveau 9 assure le meme rendu a l'image
+tout en etant bien plus leger. De meme, les images creees avec ce logiciel ne
+semblent pas prendre en compte la correction gamma correctement. Pour corriger
+ces problemes de Photoshop on conseillera aux graphistes d'utiliser des modules
+pour Photoshop ou des outils exterieurs pour produire des images PNG de bonne
+qualite :
+
+* SuperPNG, free of charge plugin for Photoshop (Mac, Windows)
+  http://www.fnordware.com/superpng/
+
+* PngOptimizer, simple and efficient tool (Windows)
+  http://www.psydk.org/PngOptimizer.php.
+
+
+Explanations
+------------
+
+Contrairement a ce qui est generalement admis, compte tenu des limitations de
+Microsoft Internet Explorer (MSIE) on peut tout a fait utiliser du PNG a la
+place du GIF. Petit rappel (simplifie) :
+
+* GIF permet de decrire des images avec un formalisme de 256 couleurs
+  indexees.
+
+* PNG permet de decrire des images soit avec le formalisme RGB/RVB 16
+  millions de couleurs + canal alpha, soit le formalisme de 256
+  couleurs indexees.
+
+* MSIE sait gerer le GIF indexe, le PNG RGB sans canal alpha ou le PNG
+  indexe avec eventuellement une couleur de transparence (comme c'est
+  le cas pour le GIF).
+
+=> Dans l'etat actuel de MSIE, on peut toujours avantageusement remplacer un GIF
+(meme avec de la transparence) par un PNG. Le seul cas ou le GIF n'est pas
+remplaçable sans se poser de questions est le cas ou on a affaire a du GIF
+anime. C'est un cas tres rare, qu'on ne trouve pas jusqu'a present dans CPS.
+Il y a bien un equivalent PNG, le MNG, mais peu de navigateurs savent le lire,
+par exemple Mozilla ne sait plus le lire en standard et Firefox n'a jamais su.
+
+Technical details: The alpha channel
+------------------------------------
+
+On peut quand meme utiliser du PNG RGB + alpha avec MSIE si :
+
+* on utilise un MSIE behavior pour le PNG, c'est le cas
+  de CPS qui integre le behavior suivant :
+  http://webfx.eae.net/dhtml/pngbehavior/pngbehavior.html
+
+* on prend la precaution de creer un calque de fond (le calque le plus bas de
+  la pile dans le GIMP) avec comme couleur de fond la couleur qui viendra
+  remplacer sous MSIE le canal alpha, en quelque sorte la couleur de fond
+  (bien preciser << enregistrer la couleur de fond >>).
+
+
+
+Translation recommendations
+===========================
+
+Checkpoints
+-----------
+
+* Use <tal:block> or <label> for translation strings, not span
+
+  Use::
+
+    <tal:block i18n:translate="msgid">A meaningful translation</tal:block>
+
+  Or::
+
+    <label i18n:translate="msgid">A meaningful translation</label>
+
+  and NOT
+  <span i18n:translate="msgid">blah</span>
+  because it produces:
+  <span>msgstr</span>
+  with useless <span> elements that needlessly encumber the HTML output.
+
+
+* Beware of empty <label>
+
+  <label i18n:translate="msgid" />
+  produces:
+  <label />msgstr
+
+  To produce <label>msgstr</label> one must write::
+
+    <label i18n:translate="msgid">A meaningful translation</label>
+
+
+* Provide a meaningful translation message example in the template
+
+  Example::
+
+    <tal:block i18n:translate="msgid">A meaningful translation</tal:block>
+
+  and NOT
+  <tal:block i18n:translate="msgid"/>
+  because a meaningful translation will help translators later on.
+
+
+Recommendations for .po translations
+------------------------------------
+
+Respect language specific punctuation
+
+Ex: ":" should be preceded by an unbreakable space in French, but not in English.
+
+Use proper capitalization.
+
+Ex: Only the first word of each sentence is capitalized in French. In
+English too, except for newspaper headlines (I believe). Anyway, choose
+a consistent style and used is consistently.
+
+Be consistent in the use of ":"
+
+Group msgids by area.

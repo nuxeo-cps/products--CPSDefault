@@ -1,8 +1,8 @@
 ##parameters=type_name, REQUEST=None, **kw
+# $Id$
 """
 Create an object.
 """
-# $Id$
 from urllib import urlencode
 
 if REQUEST is not None:

@@ -1,6 +1,7 @@
 ## Script (Python) "folder_delete"
 ##title=Delete objects from a folder
 ##parameters=
+# $Id$
 
 REQUEST = context.REQUEST
 ret_url = context.absolute_url() + '/folder_contents'

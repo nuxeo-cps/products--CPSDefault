@@ -1,7 +1,7 @@
 ## Script (Python) "addtoFavorites"
 ##title=Add item to favorites
 ##parameters=REQUEST=None
-##$Id$
+# $Id$
 
 #note: there is another solution that does not rely on HTTP_REFERER:
 #have the add_favorites action generate a url with the object to bookmark

@@ -1,11 +1,11 @@
 ##parameters=state_change
+# $Id$
 """
 Unlock the locked object before a draft is abandonned.
 
 Called during the abandon_draft transition by the workflow.
 context is the object.
 """
-# $Id$
 
 wftool = context.portal_workflow
 

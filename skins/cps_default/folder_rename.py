@@ -1,6 +1,7 @@
 ## Script (Python) "folder_rename"
 ##title=Rename Object
 ##parameters=
+# $Id$
 
 """
 Rename objects which ids are passed in the request. Used within the

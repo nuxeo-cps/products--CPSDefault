@@ -52,6 +52,8 @@ if end_date and not query.has_key('end'):
 if sort_by and not query.has_key('sort-on'):
     if sort_by in ('title', 'date'):
         sort_by = sort_by.capitalize()  # for compatibility
+    if sort_by == 'status':
+        sort_by = 'review_state'
     query['sort-on'] = sort_by
     if direction and not query.has_key('sort-order'):
         if direction.startswith('desc'):

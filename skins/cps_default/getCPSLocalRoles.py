@@ -48,6 +48,8 @@ for user in dict_roles.keys():
 cps_roles = mtool.getCPSCandidateLocalRoles( context )
 cps_roles.reverse()
 
+# XXX a better way of doing is that is necessarly
+
 # Filter them for CPS
 cps_roles = [x for x in cps_roles if x not in ('Owner',
                                                'Member',
@@ -56,13 +58,13 @@ cps_roles = [x for x in cps_roles if x not in ('Owner',
                                                'Authenticated')]
 # Checking the context (Ws or section)
 if context.portal_type == "Section":
-    cps_roles = [x for x in cps_roles if x not in ('WorkspaceManager',
-                                                   'WorkspaceMember',
-                                                   'WorkspaceReader')]
+    cps_roles = [x for x in cps_roles if x in ('SectionManager',
+                                               'SectionReviewer',
+                                               'SectionReader')]
 elif context.portal_type == "Workspace":
-    cps_roles = [x for x in cps_roles if x not in ('SectionManager',
-                                                   'SectionReader',
-                                                   'SectionReviewer')]
+    cps_roles = [x for x in cps_roles if x in ('WorkspaceManager',
+                                               'WorkspaceMember',
+                                               'WorkspaceReader')]
 else:
     cps_roles = cps_roles
 

@@ -40,15 +40,13 @@
   <tr valign="top">
     <td>&nbsp;</td>
     <td colspan="5"> 
-       <input type="checkbox" id="cb_search_type" name="search_type" class= "noborder" 
-              tal:attributes="checked box/box/search_type" />
-       <label for="search_type" i18n:translate="label_contentbox_searchtype">Ne pas rechercher dans les sous-repertoire</label>
-       <button type="button" class="tooltipControl"
-	onclick="toggleElementVisibility('search_type_help')">?</button>
-      <div class="tooltipArea" style="visibility: hidden;"
-        id="search_type_help" onclick="showElement(false, 'search_type_help')"
-        i18n:translate="help_contentbox_search_type">searchtype_help</div>
-
+        <input type="checkbox" id="cb_no_recurse" name="no_recurse" class= "noborder" tal:attributes="checked box/box/no_recurse" />
+        <label for="cb_no_recurse" i18n:translate="label_contentbox_no_recurse">Do not recurse into subfolders </label>
+        
+        <button type="button" class="tooltipControl" onclick="toggleElementVisibility('no_recurse_help')">?</button>
+        <div class="tooltipArea" style="visibility: hidden;"
+        id="no_recurse_help" onclick="showElement(false, 'no_recurse_help')"
+        i18n:translate="help_contentbox_no_recurse"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
     </td>
   </tr>
   

@@ -243,15 +243,16 @@ def cpsupdate(self, langs_list=None):
     # CMF Tools
     pr("")
     pr("### CMFCalendar update")
-    if not portalhas('portal_calendar'):
-        if not portalhas('cmfcalendar_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
-            pr('Adding cmfcalendar installer')
-            cmfcalendar_installer = ExternalMethod('cmfcalendar_installer',
-                                                   'CMFCalendar Updater',
-                                                   'CMFCalendar.Install',
-                                                   'install')
-            portal._setObject('cmfcalendar_installer', cmfcalendar_installer)
+    if not portalhas('cmfcalendar_installer'):
+        if portalhas('portal_calendar'):
+            portal.manage_delObjects(['portal_calendar'])
+        from Products.ExternalMethod.ExternalMethod import ExternalMethod
+        pr('Adding cmfcalendar installer')
+        cmfcalendar_installer = ExternalMethod('cmfcalendar_installer',
+                                               'CMFCalendar Updater',
+                                               'CMFCalendar.Install',
+                                               'install')
+        portal._setObject('cmfcalendar_installer', cmfcalendar_installer)
         pr(portal.cmfcalendar_installer())
     pr("### End of CMFCalendar update")
     pr("")
@@ -287,7 +288,6 @@ def cpsupdate(self, langs_list=None):
     else:
         pr(" Creating portal_boxes")
         portal.manage_addProduct["CPSDefault"].manage_addTool('CPS Boxes Tool')
-
 
     # configure event service to hook the proxies, by adding a subscriber
     pr("Verifying Event service tool")

@@ -199,8 +199,7 @@ class ContentBox(BaseBox):
             query['SearchableText'] = self.query_fulltext
         if self.query_title:
             query['Title'] = self.query_title
-        if self.query_portal_type and (
-                self.query_portal_type not in ([''], ('',))):
+        if self.query_portal_type and filter(None, self.query_portal_type):
             query['portal_type'] = list(self.query_portal_type)
         if self.query_description:
             query['Description'] = self.query_description

@@ -59,13 +59,14 @@
                <option value="1970/01/01 00:00:00 GMT"
                        i18n:translate="label_choose">Choisir
                </option>
-               <option i18n:translate="time_last_login" value="lastLogin"
+               <option i18n:translate="time_last_login" 
+                       tal:attributes="value lastLogin"
                        tal:condition="python:not(here.portal_membership.isAnonymousUser())">
                  time_last_login
                </option>
-               <option i18n:translate="time_yesterday"  value="yesterday">time_yesterday</option>
-               <option i18n:translate="time_last_week"  value="lastWeek">time_last_week</option>
-               <option i18n:translate="time_last_month" value="lastMth">time_last_month</option>
+               <option i18n:translate="time_yesterday"  tal:attributes="value yesterday">time_yesterday</option>
+               <option i18n:translate="time_last_week"  tal:attributes="value lastWeek">time_last_week</option>
+               <option i18n:translate="time_last_month" tal:attributes="value lastMth">time_last_month</option>
              </select>
              <input type="hidden" name="modified_usage" value="range:min" />
              </td>

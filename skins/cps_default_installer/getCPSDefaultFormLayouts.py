@@ -22,6 +22,18 @@ cpsdefault_search_layout = {
                 'size': 3,
                 },
             },
+        'review_state': {
+            'type': 'Generic MultiSelect Widget',
+            'data': {
+                'fields': ['review_state'],
+                'is_i18n': 1,
+                'label_edit': 'label_review_state',
+                'vocabulary': 'review_state_voc',
+                'render_format': 'checkbox',
+                'translated': 1,
+                'size': 3,
+                },
+            },
         'modified': {
             'type': 'Search Modified Widget',
             'data': {
@@ -42,8 +54,8 @@ cpsdefault_search_layout = {
     'layout': {
         'style_prefix': 'layout_default_',
         'rows': [[{'widget_id': 'ZCText'}, ],
+                 [{'widget_id': 'Subject'}, {'widget_id': 'review_state'}],
                  [{'widget_id': 'modified'}, ],
-                 [{'widget_id': 'Subject'}, ],
                  [{'widget_id': 'Language'}, ],
                 ],
         }

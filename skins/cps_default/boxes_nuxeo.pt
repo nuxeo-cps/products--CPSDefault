@@ -720,7 +720,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_menu"
   tal:define="items python:box['box'].getTree(here.portal_url.getPortalObject())">
-<ul class="menu" tal:condition="items"><tal:block repeat="item items">
+<ul id="menuSectionsAndWorkspaceRoot" tal:condition="items"><tal:block repeat="item items">
   <li tal:condition="python:item['portal_type']=='Section' or item['depth']==0"
     tal:define="class_name python:test(item['portal_type']=='Section', 'section', 'workspace')"
     tal:attributes="class python:test(context_url.endswith(item['rpath']), class_name+' selected', class_name)"><a

@@ -1,25 +1,24 @@
-
 //**********************************************************************
 // Folder content
 //**********************************************************************
 
 isSelected = false;
 
-function toggleSelect(toggleSelectButton) {
+function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
     formElements = toggleSelectButton.form.elements;
 
-    if (isSelected == false) {
-	for (i = 0; i < formElements.length; i++) {
-	    formElements[i].checked = true ;
-	}
-	isSelected = true;
-	//toggleSelectButton.value = "button_deselect_all";
-    } else {
+    if (isSelected) {
 	for (i = 0; i < formElements.length; i++) {
 	    formElements[i].checked = false ;
 	}
 	isSelected = false;
-	//toggleSelectButton.value = "button_select_all";
+	toggleSelectButton.value = selectAllText;
+    } else {
+	for (i = 0; i < formElements.length; i++) {
+	    formElements[i].checked = true ;
+	}
+	isSelected = true;
+	toggleSelectButton.value = deselectAllText;
     }
 }
 

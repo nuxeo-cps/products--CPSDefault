@@ -105,10 +105,10 @@ class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
         return all_box_types
 
     security.declarePublic('searchBoxes')
-    def searchBoxes(self, context, xpos=None, alsoclosed=0, noaqcuire=0):
+    def searchBoxes(self, context, xpos=None, alsoclosed=0, noacquire=0):
         all_box_types = self.getBoxTypesList()
 
-        if noaqcuire:
+        if noacquire:
             container = self.getBoxesContainer(context)
             containerparent = container.aq_parent
             paths = [containerparent.getPhysicalPath()]
@@ -151,8 +151,8 @@ class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
         return mapping
 
     security.declarePublic('getBoxes')
-    def getBoxes(self, context, xpos=None, alsoclosed=0, permission = 'View', noaqcuire=0):
-        boxes = self.searchBoxes(context, xpos=xpos, alsoclosed=alsoclosed, noaqcuire=noaqcuire)
+    def getBoxes(self, context, xpos=None, alsoclosed=0, permission = 'View', noacquire=0):
+        boxes = self.searchBoxes(context, xpos=xpos, alsoclosed=alsoclosed, noacquire=noacquire)
         result = []
         if permission is not None:
             securityManager = getSecurityManager()

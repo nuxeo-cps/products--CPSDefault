@@ -11,7 +11,7 @@ if REQUEST is not None:
     kw.update(REQUEST.form)
 
 type_name = kw['type_name']
-id = kw.get('id')
+id = kw.get('title')
 if not id:
     id = 'my ' + type_name
 

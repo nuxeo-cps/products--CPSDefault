@@ -144,7 +144,10 @@ def cpsupdate(self, langs_list=None):
             prok()
         else:
             portal.manage_delObjects(['portal_metadirectories'])
-            
+
+    #
+    # NuxMetaDirectories
+    #
     if not portalhas('portal_metadirectories'):
         pr(" Creating CMF MetaDirectories Tool")
         portal.manage_addProduct["NuxMetaDirectories"].manage_addTool('CMF MetaDirectories Tool')
@@ -152,13 +155,34 @@ def cpsupdate(self, langs_list=None):
     mtool = portal.portal_metadirectories
     pr("  Adding Member Areas : member")
     mtool.manage_addProduct['NuxMetaDirectories'].manage_addMembersDirectory(id='members',title='Members')
-
     pr("  Adding Group Directory : group")
     mtool.manage_addProduct['NuxMetaDirectories'].manage_addGroupsDirectory(id='groups', title='Groups')
+
+    # Synchronization with MemberData
+    mtool.members.syncSchemaAndMemberData()
+
+    # Verification of the action and addinf if neccesarly 
+    action_found = 0
+    for action in portal['portal_actions'].listActions():
+        if action.id == 'directories':
+            action_found = 1
+
+    if not action_found:
+        portal['portal_actions'].addAction(
+            id='directories',
+            name='Directories',
+            action='string: ${portal_url}/directories',
+            condition='python:not portal.portal_membership.isAnonymousUser()',
+            permission=('View',),
+            category='global',
+            visible=1)
+        pr(" Added Action Directories")
+    else:
+        pass
     
     # skins
     pr("Verifying skins")
-    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_document', 'cps_default','nuxmetadirectories')
+    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_document', 'cps_default','cps_nuxmetadirectories')
     paths = {
         'cps_styles': 'Products/CPSDefault/skins/cps_styles/nuxeo',
         'cps_plone_styles': 'Products/CPSDefault/skins/cps_styles',
@@ -166,7 +190,7 @@ def cpsupdate(self, langs_list=None):
         'cps_devel': 'Products/CPSDefault/skins/cps_devel',
         'cps_default': 'Products/CPSDefault/skins/cps_default',
         'cps_document': 'Products/CPSDocument/skins/cps_document',
-        'nuxmetadirectories' : 'Products/NuxMetaDirectories/skins',
+        'cps_nuxmetadirectories' : 'Products/NuxMetaDirectories/skins/cps_nuxmetadirectories',
     }
     for skin in skins:
         path = paths[skin]
@@ -180,6 +204,14 @@ def cpsupdate(self, langs_list=None):
             else:
                 pr("  Correctly installed, correcting path")
                 dv.manage_properties(dirpath=path)
+            # Update for inner dev version
+            # Perhaps not necessarly afterwords ?? 
+            if skin == 'cps_nuxmetadirectories':
+                if getattr(portal.portal_skins, 'nuxmetadirectories', None) != None:
+                    pr(" Removing the old skins directory for NuxMetaDirectory")
+                    portal.portal_skins.manage_delObjects(['nuxmetadirectories'])
+            else:
+                pass
         else:
             portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
             pr("  Creating skin")
@@ -199,7 +231,7 @@ def cpsupdate(self, langs_list=None):
     pr(" Resetting skin cache")
     portal._v_skindata = None
     portal.setupCurrentSkin()
-
+    
     pr(" Checking portal_catalog indexes")
     indexes = {
         }
@@ -841,9 +873,6 @@ def cpsupdate(self, langs_list=None):
         pr(" Present")
 
 
-
-
-    
     pr(" Adding cps default boxes")
     idbc = portal.portal_boxes.getBoxContainerId(portal)
     pr("  Checking /%s" % idbc )
@@ -1104,6 +1133,87 @@ def cpsupdate(self, langs_list=None):
     
         translation_service.manage_setDomainInfo(path_0='Localizer/default')
         pr("   default domain set to Localizer/default")
+
+    ############################################################################ 
+    # i18n for NuxMetaDIrectories
+    # XXX Perhaps moving that somewhere else  ??
+    # Use of a Localizer message Catalog.
+    ###########################################################################
+    
+    pr(" Adding i18n support for NuxMetaDirectories")
+    metadir_catalog_id = 'cpsmetadirectories'
+
+    Localizer = portal['Localizer']
+    languages = Localizer.get_supported_languages()
+
+    # Message Catalog
+    if metadir_catalog_id in Localizer.objectIds():
+        Localizer.manage_delObjects([metadir_catalog_id])
+        pr(" Previous default MessageCatalog deleted for NuxMetaDirectories")
+
+    # Adding the new message Catalog 
+    Localizer.manage_addProduct['Localizer'].manage_addMessageCatalog(
+        id=metadir_catalog_id,
+        title='NuxMetaDirectories messages',
+        languages=languages,
+        ) 
+
+    pr(" NuxMetaDirectories MessageCatalogCreated")
+
+    defaultCatalog = getattr(Localizer, metadir_catalog_id, None)
+
+    # Working now on the po files
+    product_path = sys.modules['Products.NuxMetaDirectories'].__path__[0]
+    i18n_path = os.path.join(product_path, 'i18n')
+    pr(" po files for NuxMetaDirectories are searched in %s" % i18n_path)
+    pr(" po files for NuxMetaDirectories %s are expected" % str(languages))
+
+    # loading po files
+    for lang in languages:
+        if lang == 'en':
+            po_filename = 'locale.pot'
+        else:
+            po_filename = lang + '.po'
+        pr("   importing %s file" % po_filename)
+        po_path = os.path.join(i18n_path, po_filename)
+        try:
+            po_file = open(po_path)
+        except NameError:
+            pr("    %s file not found" % po_path)
+        po_path = os.path.join(i18n_path, po_filename)
+        try:
+            po_file = open(po_path)
+        except NameError:
+            pr("    %s file not found" % po_path)
+        else:
+            pr("  before  %s file imported" % po_path)
+            defaultCatalog.manage_import(lang, po_file)
+            pr("    %s file imported" % po_path)
+
+    # Translation Service Tool
+
+    if portalhas('translation_service'):
+        translation_service = portal.translation_service
+        pr (" Translation Sevice Tool found in here ")
+
+        try:
+            if getattr(portal['translation_service'], metadir_catalog_id, None) == None:
+                # translation domains
+                translation_service.manage_addDomainInfo(metadir_catalog_id,
+                                                         'Localizer/'+metadir_catalog_id)
+                pr(" cpsmetadirecties domain set to Localizer/cpsmetadirecties")
+        except:
+            pass
+
+        pr(" Reindexing catalog")
+        portal.portal_catalog.refreshCatalog(clear=1)
+    else:
+        raise str('DependanceError'), 'translation_service'
+
+    ###########################################################################
+    # End of i18n for NuxMetaDirectories 
+    ###########################################################################
+    
     
         
     pr(" Reindexing catalog")

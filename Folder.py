@@ -24,23 +24,17 @@ from zLOG import LOG, DEBUG
 from Globals import InitializeClass
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
-
+from Products.CPSCore.CPSBase import CPSBase_adder
 try:
-    from Products.CPSDocument.CPSDocument import CPSDocument as BaseDocument, \
-         addCPSDocument
-
-    def addFolder(container, id, REQUEST=None, **kw):
-        """Add a Folder."""
-        return addCPSDocument(container, id, REQUEST=REQUEST, **kw)
-
+    from Products.CPSDocument.CPSDocument import CPSDocument as BaseDocument
 except ImportError:
-    from Products.CPSCore.CPSBase import CPSBaseFolder as BaseDocument, \
-         CPSBase_adder
+    from Products.CPSCore.CPSBase import CPSBaseFolder as BaseDocument
 
-    def addFolder(container, id, REQUEST=None, **kw):
-        """Add a Folder."""
-        ob = Folder(id, **kw)
-        return CPSBase_adder(container, ob, REQUEST=REQUEST)
+
+def addFolder(container, id, REQUEST=None, **kw):
+    """Add a Folder."""
+    ob = Folder(id, **kw)
+    return CPSBase_adder(container, ob, REQUEST=REQUEST)
 
 
 factory_type_information = (

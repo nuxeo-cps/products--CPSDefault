@@ -26,5 +26,7 @@ psm = 'psm_translation_added'
 url = proxy.absolute_url()
 
 if REQUEST is not None:
+    from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE
     action = proxy.getTypeInfo().getActionById('view')
-    REQUEST.RESPONSE.redirect('%s/switchLanguage/%s/%s?portal_status_message=%s' % (url, lang, action, psm))
+    REQUEST.RESPONSE.redirect('%s/%s/%s/%s?portal_status_message=%s' % (
+        url, KEYWORD_SWITCH_LANGUAGE, lang, action, psm))

@@ -12,17 +12,15 @@ import Folder
 import Dummy
 
 import BoxesTool
-import BaseBox
 import TextBox
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
-                  BaseBox.BaseBox, TextBox.TextBox)
+                  TextBox.TextBox)
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
-                       BaseBox.addBaseBox, TextBox.addTextBox)
+                       TextBox.addTextBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
-       BaseBox.factory_type_information +
        TextBox.factory_type_information +
        ()
        )

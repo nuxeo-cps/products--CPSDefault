@@ -65,21 +65,25 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="box_action">
+<metal:block define-macro="box_action"
+  tal:define="actions python:box['box'].getActions(here)">
+  <tal:block condition="python:len(actions)">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" i18n:translate=""
-      tal:content="box/box/title">
+    <metal:block fill-slot="box_title" tal:content="box/box/title">
        box text title
     </metal:block>
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
-      <div class="content odd">
+      <div tal:repeat="category actions" class="content even">
         <ul>
-        <tal:block tal:repeat="item python:box['box'].getActions(here)">
-          <li><a href="" tal:attributes="href string:${base_url}${item/rpath}/" tal:content="item/title">title</a></li>
-	</tal:block>
-	</ul>
+          <li tal:repeat="action category">
+            <a tal:attributes="href action/url"
+               tal:content="action/name">
+               Action
+             </a>
+          </li>
+        </ul>
       </div>
     </metal:block>
   </metal:block>
+  </tal:block>
 </metal:block>
-

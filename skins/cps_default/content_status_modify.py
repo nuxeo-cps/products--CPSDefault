@@ -1,4 +1,4 @@
-##parameters=workflow_action, comment='', REQUEST=None, **kw
+##parameters=workflow_action, REQUEST=None, **kw
 # $Id$
 
 wftool = context.portal_workflow
@@ -6,13 +6,15 @@ wftool = context.portal_workflow
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
+comment = kw.get('comment', '')
+
 folder = context.aq_parent
 id = context.getId()
 url = None
 
 if workflow_action != 'copy_submit':
     # accept, reject, ...
-    res = wftool.doActionFor(context, workflow_action, comment=comment)
+    res = wftool.doActionFor(context, workflow_action, **kw)
     if same_type(res, ()):
         if res[0] == 'ObjectMoved':
             rpath = res[1]

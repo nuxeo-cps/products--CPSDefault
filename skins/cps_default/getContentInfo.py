@@ -194,22 +194,22 @@ if level > 0:
             info['end'] = end
             info['end_str'] = context.getDateStr(end)
 
-    try:
-        info['creator'] = doc.Creator()
-    except:
-        info['creator'] = ''
-    try:
-        info['subject'] = ', '.join(doc.Subject())
-    except:
-        info['subject'] = ''
-    try:
-        info['rights'] = doc.Rights()
-    except:
-        info['rights'] = ''
-    try:
-        info['contributors'] = ', '.join(doc.Contributors())
-    except:
-        info['contributors'] = ''
+    for dc in ('Creator', 'Rights', 'Language',
+               'contributors', 'source', 'relation', 'coverage'):
+        key = dc.lower()
+        if key == 'contributors':
+            key = 'contributor'         # this is the real DC name
+        try:
+            meth = getattr(doc, dc)
+            if callable(meth):
+                value = meth()
+            else:
+                value = meth
+            if value and not same_type(value, ''):
+                value = ', '.join(value)
+            info[key] = value
+        except:
+            info[key] = ''
 
     if hasattr(doc.aq_explicit, 'getAdditionalContentInfo'):
         add_info = doc.getAdditionalContentInfo(proxy)

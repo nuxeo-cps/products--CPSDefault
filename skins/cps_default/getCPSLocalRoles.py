@@ -7,7 +7,7 @@
 if mtool is None:
     mtool = context.portal_membership
 
-if base_url is None: 
+if base_url is None:
     base_url = context.getBaseUrl()
 
 if context_url is None:
@@ -32,6 +32,23 @@ for user in dict_roles.keys():
         if base_url+item['url'] == context_url:
             editable_users.append(user)
             continue
-    
-return dict_roles, editable_users
 
+# List local roles
+cps_roles = mtool.getCandidateLocalRoles( context )
+cps_roles = [x for x in cps_roles if x not in ('Owner',
+                                               'Member',
+                                               'Reviewer',
+                                               'Manager')]
+
+if context.portal_type == "Section":
+    cps_roles = [x for x in cps_roles if x not in ('WorkspaceManager',
+                                                   'WorkspaceMember',
+                                                   'WorkspaceReader')]
+elif context.portal_type == "Workspace":
+    cps_roles = [x for x in cps_roles if x not in ('SectionManager',
+                                                   'SectionReader',
+                                                   'SectionReviewer')]
+else:
+    cps_roles = cps_roles
+
+return dict_roles, editable_users, cps_roles

@@ -33,6 +33,7 @@
    <th i18n:translate="label_local_roles_search_term">Search Term</th>
    <td><input type="text" name="search_term" size="30" /></td>
  </tr>
+
  <tr>
   <td><br /></td>
    <td>
@@ -113,7 +114,8 @@
     </th>
     <td>
      <select name="member_role"
-             tal:define="roles python: mtool.getCandidateLocalRoles( here )">
+             tal:define="cpslr python:here.getCPSLocalRoles( mtool=mtool );
+                         roles python:cpslr[2]">
       <option tal:repeat="role roles"
               tal:content="role"> Role1 </option>
       <option tal:condition="nothing"> Role2 </option>

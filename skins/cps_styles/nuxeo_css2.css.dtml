@@ -15,16 +15,17 @@
 <dtml-with stylesheet_properties>
 */
 
+/* hack for IE6 bugs */
 /* Hides from IE5-mac \*/
-/* IE 6 peekaboo bug */
-* html h1,h2,h3,h4,h5 {
-  position: relative;
-}
-/* other IE 6 bugs */
-* html .group, div.box, div.box .content {
-  height: 1%;
-}
-/* End hide from IE5-mac */
+* html .group {height: 1%;}
+* html div.box {height: 1%;}
+* html div.box .content {height: 1%;}
+* html h1 {position: relative;}
+* html h2 {position: relative;}
+* html h3 {position: relative;}
+* html h4 {position: relative;}
+* html h5 {position: relative;}
+/* End hide from IE-mac */
 
 .netscape4 {
   display: none;

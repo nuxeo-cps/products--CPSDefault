@@ -333,8 +333,9 @@ def cpsupdate(self, langs_list=None):
     vdef = wf.variables['review_history']
     vdef.setProperties(description='Provides access to workflow history',
                        default_expr="state_change/getHistory",
-                       props={'guard_permissions':
-                              RequestReview + ';' + ReviewPortalContent})
+                       props={'guard_permissions':'',
+                              'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; WorkspaceReader',
+                              'guard_expr':''})
 
     vdef = wf.variables['time']
     vdef.setProperties(description='Time of the last transition',
@@ -490,8 +491,7 @@ def cpsupdate(self, langs_list=None):
     vdef = wf.variables['review_history']
     vdef.setProperties(description='Provides access to workflow history',
                        default_expr="state_change/getHistory",
-                       props={'guard_permissions':
-                              RequestReview + ';' + ReviewPortalContent})
+                       props={'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader' } )
 
     vdef = wf.variables['time']
     vdef.setProperties(description='Time of the last transition',

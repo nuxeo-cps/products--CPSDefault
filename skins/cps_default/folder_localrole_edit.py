@@ -15,7 +15,7 @@ if change_type == 'add':
                     , member_role=context.REQUEST.get('member_role', '')
                     )
     for groupid in groupids:
-        context.manage_setLocalGroupRoles(groupid=groupid, roles=[context.REQUEST.get('member_role'),])
+        context.manage_addLocalGroupRoles(groupid=groupid, roles=[context.REQUEST.get('member_role'),])
         
 else:
     pm.deleteLocalRoles( obj=context

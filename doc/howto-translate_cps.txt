@@ -10,9 +10,26 @@ others. All of them should be translated.
 
 1. Definition
 
-TODO What is a pot file, a po file.
+PO file (.po file): PO stands for "Portable Object". PO files contain sets of
+strings which associate each translatable string with its translation in a
+particular language. A single PO file relates to only one language. A PO file
+is derived from a POT file and is edited either by hand or using KBabel.
 
-TODO What are msgids, msgstrs, fuzzy translation
+POT file (.pot file):  POT stands for "Portable Object Template". A POT file is
+built by extracting all the translatable strings from application source files.
+A POT file does not contain translations into any particular language. It is
+used by the translators as a template.
+
+Message ID:  msgid is the keyword which introduces the original string
+in a PO file. It is followed by a C-like string that spans one or more lines.
+
+Message String: msgstr is the keyword which introduce the translated string in
+PO file. It is followed by C-like string that span on one or multiple lines. 
+
+Fuzzy translation: This is a flag generated, in general, by msgmerge. It shows
+that a msgstr string might not be a correct translation. The translator must
+see and make modifications to the string if necessary and then remove the
+"fuzzy" flag from the message's comment. 
 
 See: 
 
@@ -47,7 +64,7 @@ CPSDocument/skins/cps_document/getDocumentVocabularies.py.
 There are three keys to add: the first one is the i18n label, the same 
 that you used to name your po file; the second one is how you name your 
 language in your own language -- note how some strings are not to be 
-translated; the third one is the label you used in CPSDefault's custom.pot 
+translated; the third one is the msgid you used in CPSDefault's custom.pot 
 file, it will be used when the vocabulary gets translated.
 
 Finally, modify the file CPSDefault/zmi/manage_addCPSSiteForm.dtml.
@@ -97,7 +114,7 @@ Dictionary.com: http://www.dictionary.com/
 
 6. Good practices
 
-First, never add a chain outside custom.pot files. It would break our 
+First, never add a string outside custom.pot files. It would break our 
 updater, and consequently delay the addition of your po files. For the 
 same reason, do not use Localizer to export your files.
 
@@ -113,7 +130,7 @@ necessary to make sure you don't use too much technical or abstract
 terms.
 
 For odd reason, we cannot currently use UTF-8; so we have fallen back to ISO
-8859-15 encoding (latin9). Since it will be the default enconding sent
+8859-15 encoding (latin9). Since it will be the default encoding sent
 by CPS's main template, set it accordingly in your po editor. Diacritics
 signs (accents) or uncommon punctuation will be replaced by strange
 characters if you do not use the same encoding as ours... We know this
@@ -125,7 +142,7 @@ the mailing list so you can contact the upstream translator or people speaking
 that language.
 
 
-7. General rules:
+7. General rules
 
 Action names or page title:
 - Modify/Modification not Edit/Edition

@@ -5,6 +5,10 @@
 <tal:block define="tmp python:btool.filterBoxes(boxes, slot='center');
   boxes_view python:test(len(tmp), tmp, btool.filterBoxes(boxes,
   slot='folder_view'));">
+<a href="" accesskey="E"
+  tal:attributes="href string:${context_url}/folder_contents" />
+<a href="" accesskey="N"
+  tal:attributes="href string:${context_url}/folder_factories" />
 <!-- BEGIN FOLDER_VIEW Slot ======================= -->
 <tal:block repeat="box boxes_view">
   <metal:block use-macro="python:path(box['macro'])" />

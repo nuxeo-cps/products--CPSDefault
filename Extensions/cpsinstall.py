@@ -1540,17 +1540,17 @@ def cps_i18n_update(self, langs_list=None):
 
     pr("i18n Update Done")
 
-    pr("### Starting CPSDocument Install ###")
-    pr("Check the logs for more information")
-    # call cpsdocument install
-    # Cause now with the favorites it's needed.
-    # XXX : gotta do something for that ?
-    from Products.CPSDocument.Extensions.install import install as \
-         cpsdocument_install
-    res = cpsdocument_install(self)
-    # Format really bad if we're doing that.
-    # Check the log for more information.
-    #pr(res)
-    pr("### END OF CPSDocument Install ###")
+#    pr("### Starting CPSDocument Install ###")
+#    pr("Check the logs for more information")
+#    # call cpsdocument install
+#    # Cause now with the favorites it's needed.
+#    # XXX : gotta do something for that ?
+#    from Products.CPSDocument.Extensions.install import install as \
+#         cpsdocument_install
+#    res = cpsdocument_install(self)
+#    # Format really bad if we're doing that.
+#    # Check the log for more information.
+#    #pr(res)
+#    pr("### END OF CPSDocument Install ###")
 
     return pr('flush')

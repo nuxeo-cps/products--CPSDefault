@@ -1,12 +1,10 @@
-##parameters=
+##parameters=REQUEST
 #$Id$
 
-"""
-This script just save the portal properties from the reconfig_form template.
+"""This script just save the portal properties from the reconfig_form
+template.
 """
 
-REQUEST=context.REQUEST
-context.portal_properties.editProperties(REQUEST)
-return REQUEST.RESPONSE.redirect(context.portal_url() + \
-                                 '/reconfig_form?portal_status_message=%s' \
-                                 % ('psm_portal_reconfigured', ))
+container.portal_properties.manage_editProperties(REQUEST)
+url = '%s/reconfig_form?portal_status_message=psm_portal_reconfigured'
+return REQUEST.RESPONSE.redirect(url % context.portal_url())

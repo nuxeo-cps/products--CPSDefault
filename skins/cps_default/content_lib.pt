@@ -164,9 +164,9 @@ format:</pre>
           batch_info python:batches_all[1];
           zoomed python:batches_all[2];
      ">
+ <tal:block tal:condition="python: batch_info and batch_info['nb_pages'] > 1">
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
-         summary="batching layout"
-         tal:condition="python: batch_info and batch_info['nb_pages'] > 1">
+         summary="batching layout">
     <tr class="even">
       <td align="left" width="50%"
           tal:condition="filter">
@@ -202,6 +202,7 @@ format:</pre>
     </tr>
   </table>
   <br />
+ </tal:block>
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
     summary="zoomed layout"
     tal:condition="zoomed">
@@ -216,7 +217,8 @@ format:</pre>
     </tr>
   </table>
   <table width="100%" border="0" cellspacing="0" cellpadding="0"
-    summary="content layout column">
+    summary="content layout column"
+    tal:condition="batches">
     <tr tal:define="col_width python:str(100 / columns)+'%'">
       <td align="left" valign="top"
           tal:attributes="width col_width"

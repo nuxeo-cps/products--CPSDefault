@@ -30,7 +30,6 @@ WebDavLockItem = 'WebDAV Lock items'
 WebDavUnlockItem = 'WebDAV Unlock items'
 
 
-
 class DefaultInstaller(CPSInstaller):
 
     product_name = 'CPSDefault'
@@ -44,6 +43,7 @@ class DefaultInstaller(CPSInstaller):
     CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s:s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
     CPS_FILTER_LEAVES_SET = 'leaves'
     CPS_FILTER_LEAVES_EXPR = """o.portal_type not in ('Section', 'Workspace')"""
+
     def install(self, langs_list=None, is_creation=0):
         self.langs_list = langs_list
         self.is_creation = is_creation
@@ -283,7 +283,7 @@ class DefaultInstaller(CPSInstaller):
         if 'cpsupdate' in self.portal.objectIds():
             self.log("Protecting cpsupdate")
             self.portal.cpsupdate.manage_permission(
-                'View', roles=['Manager'], acquire=0)
+                View, roles=['Manager'], acquire=0)
             self.portal.cpsupdate.manage_permission(
                 'Access contents information', roles=['Manager'], acquire=0)
 
@@ -311,7 +311,7 @@ class DefaultInstaller(CPSInstaller):
                 action="string:${portal_url}/cpsdirectory_entry_view?"
                        "dirname=members&id=${member}",
                 condition='member',
-                permission=('View',),
+                permission=(View,),
                 category='user',
                 visible=1)
 
@@ -331,7 +331,7 @@ class DefaultInstaller(CPSInstaller):
             'id': 'accessibility',
             'name': 'action_accessibility',
             'action': 'string: ${portal_url}/accessibility',
-            'permission': ('View', ),
+            'permission': (View, ),
             'condition': '',
             'category': 'global_header',
             'visible': 1,
@@ -341,7 +341,7 @@ class DefaultInstaller(CPSInstaller):
             'name': 'action_print',
             'action':
             'string:javascript:if (window.print) window.print();',
-            'permission': ('View',),
+            'permission': (View,),
             'condition': '',
             'category': 'global_header',
             'visible': 1
@@ -350,7 +350,7 @@ class DefaultInstaller(CPSInstaller):
             'id': 'advanced_search',
             'name': 'action_advanced_search',
             'action': 'string: ./advanced_search_form',
-            'permission': ('View', ),
+            'permission': (View, ),
             'condition': '',
             'category': 'global_header',
             'visible': 1,
@@ -360,7 +360,7 @@ class DefaultInstaller(CPSInstaller):
             'name': 'action_contact',
             'action': 'string:mailto:${portal/portal_properties/'
                       'email_from_address}?subject=Info',
-            'permission': ('View', ),
+            'permission': (View, ),
             'condition': '',
             'category': 'global_header',
             'visible': 1,
@@ -369,7 +369,7 @@ class DefaultInstaller(CPSInstaller):
             'id': 'status_history',
             'name': 'action_status_history',
             'action': 'string:${object/absolute_url}/content_status_history',
-            'permission': ('View', ),
+            'permission': (View, ),
             # XXX: this is messy.
             'condition': "python:getattr(object, 'portal_type', None) not in "
                 "('Section', 'Workspace', 'Portal', 'Calendar', 'Event')",
@@ -385,7 +385,7 @@ class DefaultInstaller(CPSInstaller):
                     'id': 'add_favorites',
                     'name': 'action_add_favorites',
                     'action': 'string:${object/absolute_url}/addtoFavorites',
-                    'permission': ('View', ),
+                    'permission': (View, ),
                     'condition': "python: member and portal.portal_membership."
                                  "getHomeFolder()",
                     'category': 'user',
@@ -396,7 +396,7 @@ class DefaultInstaller(CPSInstaller):
                     'name': 'action_view_favorites',
                     'action': 'string:${portal/portal_membership/getHomeUrl}/'
                               'Favorites',
-                    'permission': ('View', ),
+                    'permission': (View, ),
                     'condition': 'python: hasattr(portal.portal_membership.'
                                  'getHomeFolder(),"Favorites")',
                     'category': 'user',

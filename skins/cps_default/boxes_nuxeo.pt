@@ -133,13 +133,14 @@
    tal:define="map here/Localizer/get_languages_map;
 	       l10n_translated nothing"
    tal:condition="python:len(map) > 1">
-<form id="idioma" name="idioma" method="post"
+<form id="idioma" method="post"
       tal:attributes="action string:${base_url}changeCPSLanguage"
       tal:define="lang_voc here/portal_vocabularies/language_voc">
   <p>
   <label for="languageChooser"
 	 i18n:translate="label_language">Language</label><br />
-  <select name="lang" id="languageChooser" onchange="idioma.submit()">
+  <select name="lang" id="languageChooser"
+    onchange="var elt = document.getElementById('idioma'); if (elt) {elt.submit()}">
     <option tal:repeat="locale map"
 	    tal:condition="not:l10n_translated"
 	    tal:attributes="value locale/id;

@@ -150,9 +150,10 @@ def getCPSEventsForThisDay(self, thisDay, location=None, event_types=None):
                                                      thisDay.month(),
                                                      thisDay.year())
 
-    final_event_types = self.calendar_types
     if event_types:
         final_event_types = event_types.split(',')
+    else:
+        final_event_types = self.calendar_types
 
     query = self.search(query={'portal_type':final_event_types,
                                'review_state':'published',

@@ -47,10 +47,13 @@ class ContentBox(BaseBox):
     meta_type = 'Content Box'
     portal_type = 'Content Box'
 
+    nb_items=0
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
         {'id':'folder', 'type':'string', 'mode':'w', 'label':'folder path'},
+        {'id':'nb_items', 'type':'int', 'mode':'w',
+         'label':'number of items'},
         )
 
     def __init__(self, id, folder=None, **kw):
@@ -61,16 +64,22 @@ class ContentBox(BaseBox):
     security.declarePublic('getFolderObject')
     def getFolderObject(self, context):
         """Return the self.folder object or the context object if any"""
-        from zLOG import LOG, DEBUG
         obj = None
         if not self.folder:
             obj = context
         else:
             container = context
             folder = self.folder
+            # if folder path start with a '/' then
+            #     we 're expecting an absolute path
+            # else
+            #     folder must be an attribute of context,
+            #     because we don't want any acquisition
             if self.folder[0]=='/':
                 container = self.portal_url.getPortalObject()
                 folder = self.folder[1:]
+            elif not hasattr(aq_base(container), folder):
+                return obj
 
             try:
                 obj = container.restrictedTraverse(folder)
@@ -85,9 +94,14 @@ class ContentBox(BaseBox):
         """Get a sorted list of contents object"""
         folder = self.getFolderObject(context)
         if folder:
-            return folder.getFolderContents(sort_by=sort_by,
-                                            direction=direction,
-                                            hide_folder=1)
+            items = folder.getFolderContents(sort_by=sort_by,
+                                             direction=direction,
+                                             hide_folder=1)
+            if self.nb_items and len(items) > self.nb_items:
+                items = items[:self.nb_items]
+
+            return items
+
         return []
 
 InitializeClass(ContentBox)

@@ -288,11 +288,6 @@ class BoxesTool(UniqueObject, PortalFolder):
 
             settings = self.getAllBoxOverrides(folder_boxes)
 
-        if folder_boxes:
-            LOG('portal_boxes', DEBUG,
-                'Found boxes and settings at %s:' %folder_boxes.absolute_url(),
-                "Boxes: %s\nSettings: %s\n" % (str([b.id for b in boxes]),
-                                               str(settings)))
         return boxes, settings
 
 

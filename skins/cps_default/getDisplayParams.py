@@ -1,17 +1,11 @@
 ## Script (Python) "getDisplayParams"
-##parameters=format=None, sort_by=None, direction=None, columns=None, items_per_page=None, nav_action=None, nb_items=None, filter=None
+##parameters=format=None, sort_by=None, direction=None, columns=None, items_per_page=None, nav_action=None, nb_items=None, filter=None, detail_tab_columns=None
 # $Id$
 """ return params for display_content macro """
 
 cps_pref = context.REQUEST.SESSION.get('cps_display_params', {})
 
-def_params = {'format': None,
-              'sort_by': None,
-              'direction': 'asc',
-              'items_per_page': 10,
-              'nav_action': 'folder_view',
-              'filter': 0,
-              }
+def_params = context.getCustomDisplayParams()
 
 params = def_params
 
@@ -59,5 +53,10 @@ if filter:
     params['filter'] = filter
 else:
     params['filter'] = def_params['filter']
+
+if detail_tab_columns:
+    params['detail_tab_columns'] = detail_tab_columns
+else:
+    params['detail_tab_columns'] = def_params['detail_tab_columns']
 
 return params

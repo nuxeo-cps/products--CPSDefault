@@ -26,16 +26,18 @@ from App.Extensions import getPath
 from re import match
 from zLOG import LOG, INFO, DEBUG
 
-SECTIONS_ID = 'sections'
-WORKSPACES_ID = 'workspaces'
-
 class BaseInstaller:
     """Base class for product-specific installers"""
+
+    SECTIONS_ID = 'sections'
+    WORKSPACES_ID = 'workspaces'
 
     def __init__(self, context):
         self._log = []
         self.context = context
         self.portal = context.portal_url.getPortalObject()
+        self.workspaces = self.portal[self.WORKSPACES_ID]
+        self.sections = self.portal[self.SECTIONS_ID]
 
 
     #
@@ -53,13 +55,12 @@ class BaseInstaller:
         return '<html><head><title>CPSDocument Update</title></head>' \
             '<body><pre>'+ '\n'.join(self._log) + '</pre></body></html>'
 
-
     #
     # These methods do the actual work
     #
     def setupSkins(self, skins):
-        """Install or update skins. 
-        
+        """Install or update skins.
+
         <skins> parameter is a sequence of (<skin_name>, <skin_path>)."""
 
         skin_installed = 0

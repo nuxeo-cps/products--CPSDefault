@@ -20,7 +20,7 @@ if path_info.startswith('/VirtualHostBase/') :
             base = base.split('/')[0]
         return '/' + base + '/'
     else:
-        return utool.getPortalPath() + '/'
+        return '/'
 else:
     # XXX squid detection
     # classic case

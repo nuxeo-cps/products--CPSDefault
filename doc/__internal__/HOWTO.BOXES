@@ -1,0 +1,57 @@
+$Id$
+
+WARNING THIS A DRAFT !!!!
+
+
+How to skin a folder
+====================
+the view action on a folder (section|workspace) is folder_view
+
+folder_view will check if there are boxes defined with the slot: 'center'
+(named 'Skin folder' in the UI), on success folder_view will display only
+those boxes,
+if there is no box with the slot 'center' folder_view will display
+default boxes from an hidden slot named 'folder_view'
+these hidden boxes should be edited througth the ZMI
+
+boxes that belong to the center slot can not be 'acquire' in sub folder
+this way you can have different skin in sub folder
+
+
+Create a simple foo Box
+=======================
+your project is named 'bar'
+you want to create a 'foo' box
+
+1/ create a metal macro named 'basebox_foo_default' in a skin
+   named 'boxes_bar.pt'
+
+2/ in getBoxesStyles.py
+    {'type': 'basebox',
+     'title': 'portal_type_BaseBox_title',
+     'desc': 'portal_type_BaseBox_description',
+     'fmt': [
+           ... # add the 3 following lines:
+             {'style': 'bar',
+              'format': 'foo',
+              'desc': 'description_bar_basebox_default'},
+           ...
+3/ add to /i18n/custom.pot :
+
+msgid "description_bar_basebox_default"
+msgstr ""
+then update_pos
+
+if the box is more than a sample macro create a new portal_type
+see ActionBox or other *Box.py example
+
+
+How to override box properties in sub folder ?
+==============================================
+minimized/maximized/closed are actions that override default properties
+in this case overrides are stored in the personal box container
+(workspaces/members/user/.cps_boxes)
+
+if you need to do global override like changing a slot for a box
+in a specific sub folder you need to do it with the ZMI
+see .cps_boxes/override tab

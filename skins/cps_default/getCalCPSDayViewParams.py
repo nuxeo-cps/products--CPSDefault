@@ -3,15 +3,14 @@
 # $Id$
 """Compute the correct list of URL parameters for calendar_cpsday_view"""
 
-res = context_url + 'calendar_cpsday_view?date='+datestring
+from urllib import urlencode
+
+args = {'date': datestring}
 
 if location and not location.isspace():
-    res = res + '&location=' + location
+    args['location'] = location
 
 if event_types:
-    res = res + '&event_types='
-    for t in event_types:
-        res = res + t + ','
-    res = res [:-1]
+    args['event_types'] = ','.join(event_types)
 
-return res
+return context_url + '/calendar_cpsday_view?' + urlencode(args)

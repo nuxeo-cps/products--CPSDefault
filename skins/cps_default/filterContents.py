@@ -1,5 +1,5 @@
 ## Script (Python) "FilterContents"
-##parameters=items=[], sort_by='date', direction='asc'
+##parameters=items=[], sort_by='title', direction='asc'
 # $Id$
 """
 Filter and sort items (proxy)

@@ -219,7 +219,10 @@ class DefaultInstaller(CPSInstaller):
         setDefaultRoles(ModifyFolderPoperties,
             ( 'Manager', 'WorkspaceManager',))
 
-        sections_perm = {
+        portal_perms = {
+            UseExternalEditor: ['Manager', 'Member'],
+            }
+        sections_perms = {
             'Request review':['Manager', 'WorkspaceManager',
                               'WorkspaceMember',  'SectionReviewer',
                               'SectionManager'],
@@ -243,9 +246,8 @@ class DefaultInstaller(CPSInstaller):
             'View archived revisions': ['Manager', 'SectionManager'],
             WebDavLockItem: ['SectionManager', 'SectionReviewer'],
             WebDavUnlockItem: ['SectionManager', 'SectionReviewer'],
-            UseExternalEditor: ['SectionManager', 'SectionReviewer'],
             }
-        workspaces_perm = {
+        workspaces_perms = {
             'Add portal content': ['Manager', 'WorkspaceManager',
                                    'WorkspaceMember', ],
             'Add portal folders': ['Manager', 'WorkspaceManager'],
@@ -271,10 +273,10 @@ class DefaultInstaller(CPSInstaller):
                                         'WorkspaceMember'],
             WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
-            UseExternalEditor: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             }
-        self.setupPortalPermissions(sections_perm, self.portal[SECTIONS_ID])
-        self.setupPortalPermissions(workspaces_perm, self.portal[WORKSPACES_ID])
+        self.setupPortalPermissions(portal_perms, self.portal)
+        self.setupPortalPermissions(sections_perms, self.portal[SECTIONS_ID])
+        self.setupPortalPermissions(workspaces_perms, self.portal[WORKSPACES_ID])
 
         if 'cpsupdate' in self.portal.objectIds():
             self.log("Protecting cpsupdate")

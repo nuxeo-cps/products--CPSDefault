@@ -1292,6 +1292,9 @@ except:
         self.runExternalUpdater('cpscollector_installer',
                                 'CPSCollector Installer',
                                 'CPSCollector', 'install', 'install')
+        self.runExternalUpdater('cpsmailboxer_installer',
+                                'CPSMailBoxer Installer',
+                                'CPSMailBoxer', 'install', 'install')
         self.runExternalUpdater('cpsdocument_installer',
                                 'CPSDocument Installer',
                                 'CPSDocument', 'install', 'install')
@@ -1313,9 +1316,6 @@ except:
         self.runExternalUpdater('cpsml_installer',
                                 'CPSMailingLists Installer',
                                 'CPSMailingLists', 'install', 'install')
-        self.runExternalUpdater('cpsmailboxer_installer',
-                                'CPSMailBoxer Installer',
-                                'CPSMailBoxer', 'install', 'install')
         self.runExternalUpdater('nuxmailboxer_install',
                                 'NuxMailBoxerLists Installer',
                                 'NuxMailBoxer', 'install', 'install')

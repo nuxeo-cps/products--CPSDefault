@@ -36,9 +36,7 @@ Localizer.get_selected_language = get_selected_language
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager
-from AccessControl.User import User
 
-from Acquisition import aq_base
 import time
 
 

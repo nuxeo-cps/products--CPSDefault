@@ -1,7 +1,6 @@
 # CPS Unit Test
 #
 # this suite is much more a functional suite than unit test suite
-# FIXME: it doesn't work and needs to be rewritten or replaced.
 # 
 import os, sys, time
 if __name__ == '__main__':
@@ -14,11 +13,8 @@ import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
-from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.Permissions import access_contents_information, view
 from Products.CMFCore.utils import getToolByName
-
-init_suite_flag = 0
 
 _folder_name          = 'testFolder_1_'
 _user_name            = 'testUser_1_'
@@ -31,44 +27,6 @@ _sections             = 'sections'
 _workspaces           = 'workspaces'
 _doc_name             = 'testCPSDoc'
 
-
-def init_suite():
-    global init_suite_flag, _portal, _app
-    if init_suite_flag:
-        return
-    init_suite_flag = 1
-
-    # create a CPS Site fixture
-    _app = ZopeTestCase.app()
-    _app.manage_addFolder(_folder_name)
-    _folder = _app._getOb(_folder_name)
-    _folder._addRole(_user_role)
-    _folder.manage_addUserFolder()
-    _uf = _folder.acl_users
-    _uf._addUser(_user_name, 'secret', 'secret', (_user_role,), ())
-    _user = _uf.getUserById(_user_name).__of__(_uf)
-    _folder.manage_role(_user_role, _standard_permissions)
-    newSecurityManager(None, _user)
-    _uf._changeUser(ZopeTestCase._user_name,
-                    'secret', 'secret',
-                    ('Manager', _user_role), ())
-
-    _dispatcher = _folder.manage_addProduct['CPSDefault']
-    _dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
-    _portal = _folder['cps']
-
-    # create cps test users
-    for u in (_user_name1, _user_name2):
-        _portal.acl_users._addUser(name=u, password=u, confirm=u,
-                                   roles=('Member', ), domains=None)
-
-    _portal[_sections].manage_setLocalRoles(_user_name1, ('SectionReader',))
-    _portal[_sections].manage_setLocalRoles(_user_name2, ('SectionReviewer',))
-    _portal[_workspaces].manage_setLocalRoles(_user_name1, ('WorkspaceMember',))
-    _portal[_workspaces].manage_setLocalRoles(_user_name2, ('WorkspaceMember',))
-
-
-
 class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
     
     def afterSetUp(self):
@@ -76,6 +34,21 @@ class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
         self.work = self.portal[_workspaces]
         self.pub = self.portal[_sections]
         self.login("root")
+
+        # create cps test users
+        for u in (_user_name1, _user_name2):
+            self.portal.acl_users._addUser(name=u, password=u, confirm=u,
+                roles=('Member',), domains=None)
+
+        self.portal[_sections].manage_setLocalRoles(_user_name1, 
+            ('SectionReader',))
+        self.portal[_sections].manage_setLocalRoles(_user_name2, 
+            ('SectionReviewer',))
+        self.portal[_workspaces].manage_setLocalRoles(_user_name1, 
+            ('WorkspaceMember',))
+        self.portal[_workspaces].manage_setLocalRoles(_user_name2, 
+            ('WorkspaceMember',))
+
 
     def beforeTearDown(self):
         self.logout()

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2005-01-17 15:34default\n"
+"POT-Creation-Date: 2005-01-19 15:43default\n"
 "PO-Revision-Date: 2004-07-12 18:00default\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: German <rheinland@dzug.org>\n"
@@ -634,9 +634,9 @@ msgstr ""
 "verschoben wurde finden Sie es vielleicht mit Hilfe des Such Formulars:"
 
 #.   <title fill-slot="title">
-#.     heading_abandon_draft_of
-#.     ${item_id (tal replace="here/title_or_id")}
-#.   </title>
+#.           heading_abandon_draft_of
+#.           ${item_id (tal replace="here/title_or_id")}
+#.         </title>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "heading_abandon_draft_of ${item_id}"
 msgstr "Draft Version ${item_id} aufgeben"
@@ -672,17 +672,17 @@ msgid "heading_box_manage_form"
 msgstr "Boxen managen"
 
 #.   <title fill-slot="title">
-#.     heading_checkin_draft_of
-#.     ${item_id (tal replace="here/title_or_id")}
-#.   </title>
+#.           heading_checkin_draft_of
+#.           ${item_id (tal replace="here/title_or_id")}
+#.         </title>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "heading_checkin_draft_of ${item_id}"
 msgstr "Einchecken Version ${item_id}"
 
 #.   <title fill-slot="title">
-#.     heading_checkout_draft_of
-#.     ${item_id (tal replace="here/title_or_id")}
-#.   </title>
+#.           heading_checkout_draft_of
+#.           ${item_id (tal replace="here/title_or_id")}
+#.         </title>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "heading_checkout_draft_of ${item_id}"
 msgstr "Auschecken Version ${item_id}"
@@ -869,9 +869,9 @@ msgstr "Ablehnen Publikation von "
 msgid "heading_unpublish_of ${item_id}"
 msgstr "Zurückziehen von ${item_id}"
 
-#.   <span>
-#.       If you abandon this draft, the original document will be unlocked.
-#.     </span>
+#.   <block>
+#.             If you abandon this draft, the original document will be unlocked.
+#.           </block>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
 msgstr ""
@@ -885,18 +885,18 @@ msgstr ""
 "Akzeptiere Publikation dieses Objekts, damit wird es für die Leser der "
 "Websektionen sichtbar"
 
-#.   <span>
-#.       If you commit this draft, it will replace the document currently locked.
-#.     </span>
+#.   <block>
+#.             If you commit this draft, it will replace the document currently locked.
+#.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
 msgstr ""
 "Wenn sie diese Version einchecken, wird sie die momentane gesperrte Version "
 "ersetzen."
 
-#.   <span>
-#.       If you create a draft, you will be the only one able to work on the document.
-#.     </span>
+#.   <block>
+#.             If you create a draft, you will be the only one able to work on the document.
+#.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
 msgstr ""
@@ -1219,6 +1219,12 @@ msgstr "Alle"
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
 msgstr "Archivierte Versionen"
+
+#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "label_atom_export"
+msgstr "Sortiert nach"
 
 #.   <td>Author</td>
 #: from ../skins/cps_default/content_lib_history.pt
@@ -2229,6 +2235,12 @@ msgstr "Erweiterte Suche"
 msgid "link_all_metadata"
 msgstr "Bearbeite alle Metadaten"
 
+#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "link_atom_export"
+msgstr "Exportiere RSS Daten"
+
 #.   <a href="" attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
 #.         onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )">delete</a>
 #: from ../skins/cps_default/box_manage_form.pt
@@ -2442,12 +2454,8 @@ msgstr "Letzte Woche"
 msgid "time_yesterday"
 msgstr "Gestern"
 
-#.   <label for="comment">Comments</label>
 #.   <label class="required" for="comment">Comments</label>
-#: from ../skins/cps_default/content_abandon_draft_form.pt
-#: ../skins/cps_default/content_checkin_draft_form.pt
-#: ../skins/cps_default/content_checkout_draft_form.pt
-#: ../skins/cps_default/content_lib_transition_form.pt
+#: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Kommentar"
 

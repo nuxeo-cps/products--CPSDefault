@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-17 15:34default\n"
+"POT-Creation-Date: 2005-01-19 15:43default\n"
 "PO-Revision-Date: 2004-05-21 18:32+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -766,9 +766,9 @@ msgstr ""
 "búsqueda."
 
 #.   <title fill-slot="title">
-#.     heading_abandon_draft_of
-#.     ${item_id (tal replace="here/title_or_id")}
-#.   </title>
+#.           heading_abandon_draft_of
+#.           ${item_id (tal replace="here/title_or_id")}
+#.         </title>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "heading_abandon_draft_of ${item_id}"
 msgstr "Abandonar la versión ${item_id}"
@@ -807,17 +807,17 @@ msgid "heading_box_manage_form"
 msgstr "Gestión de cajas"
 
 #.   <title fill-slot="title">
-#.     heading_checkin_draft_of
-#.     ${item_id (tal replace="here/title_or_id")}
-#.   </title>
+#.           heading_checkin_draft_of
+#.           ${item_id (tal replace="here/title_or_id")}
+#.         </title>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "heading_checkin_draft_of ${item_id}"
 msgstr "Validar la versión ${item_id}"
 
 #.   <title fill-slot="title">
-#.     heading_checkout_draft_of
-#.     ${item_id (tal replace="here/title_or_id")}
-#.   </title>
+#.           heading_checkout_draft_of
+#.           ${item_id (tal replace="here/title_or_id")}
+#.         </title>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "heading_checkout_draft_of ${item_id}"
 msgstr "Crear una versión ${item_id}"
@@ -1015,9 +1015,9 @@ msgstr "Rechazar la publicación de ${item_id}"
 msgid "heading_unpublish_of ${item_id}"
 msgstr "Retirar ${item_id}"
 
-#.   <span>
-#.       If you abandon this draft, the original document will be unlocked.
-#.     </span>
+#.   <block>
+#.             If you abandon this draft, the original document will be unlocked.
+#.           </block>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
 msgstr "Si abandona la versión, el documento original será desbloqueado."
@@ -1036,9 +1036,9 @@ msgstr ""
 #      </span>
 # Mi traducciÃ³n anterior (comparar)
 # Esta versiÃ³n se convertirÃ¡ en el documento original.
-#.   <span>
-#.       If you commit this draft, it will replace the document currently locked.
-#.     </span>
+#.   <block>
+#.             If you commit this draft, it will replace the document currently locked.
+#.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
 msgstr ""
@@ -1047,9 +1047,9 @@ msgstr ""
 #    <span>
 #        If you create a draft, you will be the only one able to work on the document.
 #      </span>
-#.   <span>
-#.       If you create a draft, you will be the only one able to work on the document.
-#.     </span>
+#.   <block>
+#.             If you create a draft, you will be the only one able to work on the document.
+#.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
 msgstr ""
@@ -1427,6 +1427,13 @@ msgstr "Todos"
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
 msgstr "Versiones archivadas"
+
+#    <span>sort by</span>
+#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "label_atom_export"
+msgstr "Ordenado por"
 
 #.   <td>Author</td>
 #: from ../skins/cps_default/content_lib_history.pt
@@ -2496,6 +2503,12 @@ msgstr "Búsqueda avanzada"
 msgid "link_all_metadata"
 msgstr "Modificar metadatos"
 
+#.   <a attributes="href string:exportATOMContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "link_atom_export"
+msgstr "Exportar datos recogidos (CSV)"
+
 #    <a attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
 #          onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )" href="">delete</a>
 #.   <a href="" attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
@@ -2726,12 +2739,8 @@ msgstr "La última semana"
 msgid "time_yesterday"
 msgstr "Ayer"
 
-#.   <label for="comment">Comments</label>
 #.   <label class="required" for="comment">Comments</label>
-#: from ../skins/cps_default/content_abandon_draft_form.pt
-#: ../skins/cps_default/content_checkin_draft_form.pt
-#: ../skins/cps_default/content_checkout_draft_form.pt
-#: ../skins/cps_default/content_lib_transition_form.pt
+#: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentario"
 

@@ -36,20 +36,9 @@ factory_type_information = (
                                           'action': 'metadata_edit_form',
                                           'permissions': (ModifyPortalContent,)
                                           },
-                                         # CPS actions
-                                         {'id': 'isproxytype',
-                                          'name': 'isproxytype',
-                                          'action': 'document',
-                                          'permissions': (None,),
-                                          'visible': 0,
-                                          },
-                                         {'id': 'issearchabledocument',
-                                          'name': 'issearchabledocument',
-                                          'action': 'document',
-                                          'permissions': (None,),
-                                          'visible': 0,
-                                          },
-                                         )
+                                         ),
+                             'cps_is_proxytype': 1,
+                             'cps_is_searchable': 1,
                              },
                             )
 

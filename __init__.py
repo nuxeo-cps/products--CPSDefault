@@ -8,14 +8,16 @@ from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.CMFCorePermissions import AddPortalContent
 
 import Portal
+import Folder
 import Dummy
 
-contentClasses = (Dummy.Dummy,)
-contentConstructors = (Dummy.addDummy,)
+contentClasses = (Folder.Folder, Dummy.Dummy,)
+contentConstructors = (Folder.addFolder, Dummy.addDummy,)
 
-fti = ( Dummy.factory_type_information +
-        ()
-        )
+fti = (Folder.factory_type_information +
+       Dummy.factory_type_information +
+       ()
+       )
 
 registerDirectory('skins', globals())
 registerDirectory('skins/images', globals())

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-23 17:34default\n"
+"POT-Creation-Date: 2003-07-24 15:10default\n"
 "PO-Revision-Date: 2003-07-23 17:41+0200\n"
 "Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
 "Language-Team: Français <fr@li.org>\n"
@@ -22,9 +22,9 @@ msgstr ""
 "Domain: default\n"
 "X-Generator: KBabel 1.0\n"
 
-#.   <span>
+#.   <span> 
 #.       ${history_time (tal content="item/stime")}:
-#.
+#.   
 #.       </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "${history_time}:"
@@ -79,9 +79,9 @@ msgstr "Portal type's description"
 msgid "Portal type's title"
 msgstr "Portal type's title"
 
-#.   <strong content="portal_message">
-#.         Translated status message.
-#.       </strong>
+#.   <div define="portal_message request/portal_status_message|nothing" condition="portal_message" content="portal_message" class="message">
+#.          Translated status message.
+#.        </div>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr "Translated status message."
@@ -189,11 +189,9 @@ msgstr "Change & Edit "
 msgid "button_change_and_view"
 msgstr "Change & View "
 
-#.   <input value="button_create_box" name="box_create_form:method" type="submit">
-#.     <input value="button_delete_box" name="box_delete:method" type="submit">
-#.
-#.   </input></input>
+#.   <a attributes="href string:${context_urlc}/box_create_form" href="box_create_form">Add a box</a>
 #: from ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form2.pt
 msgid "button_create_box"
 msgstr "Create box"
 
@@ -206,9 +204,11 @@ msgid "button_delete"
 msgstr "Delete"
 
 #.   <input value="button_delete_box" name="box_delete:method" type="submit">
-#.
-#.   </input>
-#: from ../skins/cps_default/box_manage_form.pt
+#.   <br>
+#.   <br>
+#.   </br></br></input>
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "button_delete_box"
 msgstr "Delete box"
 
@@ -223,17 +223,18 @@ msgstr "Login"
 msgid "button_new"
 msgstr "New"
 
+#.   <input value="button_ok" class="context searchButton" type="submit">
+#.       </input>
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
-#.       </input>
-#.   <input value="button_ok" class="context searchButton" type="submit">
 #.             </input>
-#: from ../skins/cps_default/folder_rename_form.pt
-#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/folder_rename_form.pt
+#: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "OK"
 
@@ -345,8 +346,8 @@ msgstr "You have been logged out."
 msgid "description_logout_zmi_warning"
 msgstr "You are logged in outside the portal.  You may need to"
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -366,6 +367,7 @@ msgstr "Up to ${up_id}"
 #.   <p>
 #.   description_visible_box_from ${context_url (tal content="context_url")}</p>
 #: from ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form2.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr "Description box visible from ${context_url}"
 
@@ -417,6 +419,7 @@ msgstr "Box edition"
 
 #.   <h2>Boxes management</h2>
 #: from ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form2.pt
 msgid "heading_box_manage_form"
 msgstr "Manage boxes"
 
@@ -578,9 +581,10 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.   </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
-#.   <p>
+#.   <p> 
 #.         Just enter your username below, click <em>Send</em>, and your
 #.         password will be mailed to you if you gave a valid email address
 #.         when you signed on.  </p>
@@ -590,9 +594,9 @@ msgstr ""
 "Just enter your username below, click <em>Send</em>, and yourpassword will "
 "be mailed to you if you gave a valid email addresswhen you signed on.  "
 
-#.   <span>
+#.   <span> 
 #.         If this will not work for you (for example, if you forget your member
-#.         name or didn't enter your email address) send email to
+#.         name or didn't enter your email address) send email to 
 #.       </span>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
@@ -1017,7 +1021,9 @@ msgid "label_since ${status_time}"
 msgstr "Since ${status_time}"
 
 #.   <th align="right">Slot</th>
+#.   <span />
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/box_lib.pt ../skins/cps_default/box_manage_form.pt
 msgid "label_slot"
 msgstr "Slot"
 
@@ -1081,7 +1087,7 @@ msgid "label_work"
 msgstr "Work"
 
 #.   <span>You are here:&nbsp;</span>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_you_are_here"
 msgstr "You are here:&nbsp;"
 
@@ -1139,7 +1145,7 @@ msgstr "Select Member(s) and a role to assign:"
 #.   <span>
 #.                    Advanced search
 #.                  </span>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
 msgstr "Advanced search"
@@ -1201,13 +1207,6 @@ msgstr "You can log on immediately by clicking"
 msgid "link_registred_return_home_page"
 msgstr "Return to homepage"
 
-#.   <a attributes="href action/url" content="action/name">
-#.                  Translated action
-#.                </a>
-#: from ../skins/cps_default/generic_lib.pt
-msgid "link_translated_action"
-msgstr "Translated action"
-
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
@@ -1215,13 +1214,16 @@ msgstr "Translated action"
 msgid "listingheader_existing_revision"
 msgstr "Existing revision of the same document"
 
+#.   <span>in</span>
 #.   <th>location</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_location"
 msgstr "Location"
 
 #.   <th>Order</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_order"
 msgstr "Order"
 
@@ -1230,18 +1232,17 @@ msgstr "Order"
 msgid "listingheader_sections"
 msgstr "Section"
 
-#.   <th>Slot</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_slot"
-msgstr "Slot"
-
+#.   <span />
 #.   <th>Title</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_title"
 msgstr "Title"
 
+#.   <span />
 #.   <th>Type</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_type"
 msgstr "Type"
 
@@ -1472,6 +1473,12 @@ msgstr "%m/%d/%Y %H:%M"
 msgid "date_long"
 msgstr "%m/%d/%Y %H:%M:%S"
 
+#~ msgid "link_translated_action"
+#~ msgstr "Translated action"
+
+#~ msgid "listingheader_slot"
+#~ msgstr "Slot"
+
 #~ msgid "label_status ${review_state}"
 #~ msgstr "Status ${review_state}"
 
@@ -1480,4 +1487,3 @@ msgstr "%m/%d/%Y %H:%M:%S"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
-

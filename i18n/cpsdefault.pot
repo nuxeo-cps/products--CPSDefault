@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-07-23 17:34default\n"
+"POT-Creation-Date: 2003-07-24 15:10default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -76,9 +76,9 @@ msgstr ""
 msgid "Portal type's title"
 msgstr ""
 
-#.   <strong content="portal_message">
-#.         Translated status message.
-#.       </strong>
+#.   <div define="portal_message request/portal_status_message|nothing" condition="portal_message" content="portal_message" class="message">
+#.          Translated status message.
+#.        </div>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr ""
@@ -186,11 +186,9 @@ msgstr ""
 msgid "button_change_and_view"
 msgstr ""
 
-#.   <input value="button_create_box" name="box_create_form:method" type="submit">
-#.     <input value="button_delete_box" name="box_delete:method" type="submit">
-#.   
-#.   </input></input>
+#.   <a attributes="href string:${context_urlc}/box_create_form" href="box_create_form">Add a box</a>
 #: from ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form2.pt
 msgid "button_create_box"
 msgstr ""
 
@@ -203,9 +201,11 @@ msgid "button_delete"
 msgstr ""
 
 #.   <input value="button_delete_box" name="box_delete:method" type="submit">
-#.   
-#.   </input>
-#: from ../skins/cps_default/box_manage_form.pt
+#.   <br>
+#.   <br>
+#.   </br></br></input>
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "button_delete_box"
 msgstr ""
 
@@ -220,17 +220,18 @@ msgstr ""
 msgid "button_new"
 msgstr ""
 
+#.   <input value="button_ok" class="context searchButton" type="submit">
+#.       </input>
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
-#.       </input>
-#.   <input value="button_ok" class="context searchButton" type="submit">
 #.             </input>
-#: from ../skins/cps_default/folder_rename_form.pt
-#: ../skins/cps_default/generic_lib.pt ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/folder_rename_form.pt
+#: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr ""
 
@@ -360,6 +361,7 @@ msgstr ""
 #.   <p>
 #.   description_visible_box_from ${context_url (tal content="context_url")}</p>
 #: from ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form2.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr ""
 
@@ -411,6 +413,7 @@ msgstr ""
 
 #.   <h2>Boxes management</h2>
 #: from ../skins/cps_default/box_manage_form.pt
+#: ../skins/cps_default/box_manage_form2.pt
 msgid "heading_box_manage_form"
 msgstr ""
 
@@ -981,7 +984,9 @@ msgid "label_since ${status_time}"
 msgstr ""
 
 #.   <th align="right">Slot</th>
+#.   <span />
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/box_lib.pt ../skins/cps_default/box_manage_form.pt
 msgid "label_slot"
 msgstr ""
 
@@ -1045,7 +1050,7 @@ msgid "label_work"
 msgstr ""
 
 #.   <span>You are here:&nbsp;</span>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_you_are_here"
 msgstr ""
 
@@ -1103,7 +1108,7 @@ msgstr ""
 #.   <span>
 #.                    Advanced search
 #.                  </span>
-#: from ../skins/cps_default/generic_lib.pt
+#: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
 msgstr ""
@@ -1163,13 +1168,6 @@ msgstr ""
 msgid "link_registred_return_home_page"
 msgstr ""
 
-#.   <a attributes="href action/url" content="action/name">
-#.                  Translated action
-#.                </a>
-#: from ../skins/cps_default/generic_lib.pt
-msgid "link_translated_action"
-msgstr ""
-
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
@@ -1177,13 +1175,16 @@ msgstr ""
 msgid "listingheader_existing_revision"
 msgstr ""
 
+#.   <span>in</span>
 #.   <th>location</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_location"
 msgstr ""
 
 #.   <th>Order</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_order"
 msgstr ""
 
@@ -1192,18 +1193,17 @@ msgstr ""
 msgid "listingheader_sections"
 msgstr ""
 
-#.   <th>Slot</th>
-#: from ../skins/cps_default/box_manage_form.pt
-msgid "listingheader_slot"
-msgstr ""
-
+#.   <span />
 #.   <th>Title</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_title"
 msgstr ""
 
+#.   <span />
 #.   <th>Type</th>
-#: from ../skins/cps_default/box_manage_form.pt
+#: from ../skins/cps_default/box_lib.pt
+#: ../skins/cps_default/box_manage_form.pt
 msgid "listingheader_type"
 msgstr ""
 

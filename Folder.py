@@ -24,7 +24,7 @@ from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
-from Products.NuxCPS3.CPSBase import CPSBaseFolder, CPSBase_adder
+from Products.CPSCore.CPSBase import CPSBaseFolder, CPSBase_adder
 
 
 factory_type_information = (
@@ -32,7 +32,7 @@ factory_type_information = (
      'description': 'A container for documents.',
      'title': '',
      'content_icon': 'folder_icon.gif',
-     'product': 'NuxCPS3',
+     'product': 'CPSCore',
      'meta_type': 'CPS Folder',
      'factory': 'addCPSFolder',
      'immediate_view': 'folder_contents',

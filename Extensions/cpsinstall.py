@@ -1468,7 +1468,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             from Products.ExternalMethod.ExternalMethod import ExternalMethod
             pr('Adding CPSDocument installer')
             cpsdocument_installer = ExternalMethod('cpsdocument_installer',
-                                              'CPSDocumcent Installer',
+                                              'CPSDocument Installer',
                                               'CPSDocument.install',
                                               'install')
             portal._setObject('cpsdocument_installer', cpsdocument_installer)

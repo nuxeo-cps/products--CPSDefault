@@ -67,11 +67,11 @@
 <pre>a header for a document or folder:</pre>
 <div metal:define-macro="byline"
      tal:define="creator doc/Creator;
-                 home_url python: here.portal_membership.getHomeUrl(creator)">
+                 email python:member.getProperty('email', None)">
 <p i18n:translate="">
   Created by
-  <a href="." title="Here" tal:omit-tag="not: home_url"
-     tal:attributes="href string:${home_url}/; title creator"
+  <a href="." title="Here" tal:omit-tag="not:email"
+     tal:attributes="href string:mailto:${email}; title email"
      tal:content="creator" i18n:name="item_creator">Creator</a>.
   Last modified
   <span tal:content="python:doc.ModificationDate()"

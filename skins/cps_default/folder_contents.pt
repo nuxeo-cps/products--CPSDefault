@@ -155,7 +155,7 @@
                i18n:attributes="value">
       </span>
       <span tal:condition="python: checkPerm('Delete objects', here)">
-        <input type="submit" name="folder_rename_form:method" 
+        <input type="submit" name="folder_rename_form:method"
                value="button_rename"
                i18n:attributes="value">
         <input type="submit" name="folder_delete:method" value="button_delete"
@@ -164,7 +164,8 @@
                                sort_by params/sort_by;
                                direction params/direction;
                                format params/format;
-                               isWsManager python:mtool.checkPermission('WorkspaceManager', here);"
+                               isWsManager
+      python:mtool.checkPermission('View management screens', here);"
                    condition="python:isWsManager and sort_by is None">
           <br />
           <input type="submit" value="button_move_up"

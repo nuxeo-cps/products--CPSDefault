@@ -1,4 +1,42 @@
 *******************************************
+** CPSDefault V3.9.0 [R1 build 2004/02/05-15:19 by ben]
+
+ZODB Requires:
+~~~~~~~~~~~~~~
+- ep: if you have a custom stylesheet_properties.props you must include:
+ legendFontSize:string=80%
+- Permissions on the repository have been tightened. To upgrade an
+  existing site:
+  - update CPSCore
+  - update your workflows for sections and workspaces
+  - in portal_workflows click on 'update security settings'
+  - in portal_repository's security, check that for all permissions
+    corresponding to special roles like 'permission:foo', the permission
+    is not acquired and only given to Manager and foo.
+  - reindex the tree caches in portal_trees.
+New features:
+~~~~~~~~~~~~~
+- Id renaming form now displays a help message.
+- Adding a property 'enable_portal_joining' to the portal that controls both the
+  display of the 'join' action and execution of the register.py.
+Bug fixes:
+~~~~~~~~~~
+- check/convert ID when "renaming" an object through folder contents
+- changed button_rename translation as it was misleading
+- #151: anonymous user can access box_manage_form
+- dw: fixing TreeBox if root is a rurl deeper than 1 level?
+- box site_map_adv display the folder displaying the map in the map
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- ep: adding legendFontSize in stylesheet_properties.props
+- Content publish form for when your workflow need it.
+- enable onclick javascript on actionbox link
+- Fully uses CPSDirectory instead of NuxMetaDirectories. CPSDefault do not
+  require the latter any longer although other products might still do.
+- The workspace/section folder workflows now manage their View permission.
+- Fixed an incompatibility with range in python 2.3.3 in getBatchList.py.
+
+*******************************************
 ** CPSDefault V3.8.4 [R1 build 2004/01/21-10:39 by ben]
 
 ZODB Requires:

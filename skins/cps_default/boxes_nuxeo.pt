@@ -22,37 +22,32 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_menu">
-<div id="menu" class="tabs"
-  tal:define="sections sections|ttool/sections;
-              workspaces workspaces|ttool/workspaces;
-              stree python:sections.getList(start_depth=0, stop_depth=1);
-              wtree python:workspaces.getList(start_depth=0, stop_depth=2)[:1]">
-  <tal:block repeat="item stree">
-    <tal:block define="selected python:context_url.endswith(item['rpath'])"
-      condition="not:item/hidden_folder|not:nothing">
-      <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)">&#160;</span><a href="" class=""
-         tal:attributes="href string:${base_url}${item/rpath}/;
-                         class python:test(selected, 'selected', default);
-                         title item/title"
-         tal:content="structure item/short_title">
-         section title
-      </a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)">&#160;</span>
-    </tal:block>
-  </tal:block>
-  <tal:block repeat="item wtree">
-    <tal:block define="selected python:context_url.endswith(item['rpath'])"
-      condition="not:item/hidden_folder|not:nothing">
-      <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)">&#160;</span><a href="" class="workspace"
-         tal:attributes="href string:${base_url}${item/rpath}/;
-                         class python:test(selected, 'wsSelected', default);
-                         title item/title"
-         tal:content="structure item/short_title">
-         workspace title
-      </a><span class="wsClosetab" tal:attributes="class python:test(selected, 'wsClosetabSelected', default)">&#160;</span>
-    </tal:block>
-  </tal:block>
-  <br tal:condition="python:stree == [] and wtree == []" />
-</div>
+<ul id="menu">
+  <li tal:define="sections sections|ttool/sections;
+                  stree python:sections.getList(start_depth=0, stop_depth=1)"
+      tal:repeat="item stree"
+      tal:omit-tag="item/hidden_folder|nothing"
+      tal:attributes="id python:context_url.endswith(item['rpath']) and (
+        'selected') or nothing"><a href=""
+      tal:condition="not:item/hidden_folder|python:1"
+      tal:attributes="href string:${base_url}${item/rpath}/;
+                      title item/title"
+      tal:content="structure item/short_title">
+    Section title</a></li>
+  <li class="workspace"
+      tal:define="workspaces workspaces|ttool/workspaces;
+                  wtree python:workspaces.getList(start_depth=0,
+                    stop_depth=2)[:1]"
+      tal:repeat="item wtree"
+      tal:omit-tag="item/hidden_folder|nothing"
+      tal:attributes="id python:context_url.endswith(item['rpath']) and (
+        'selected') or nothing"><a href=""
+      tal:condition="not:item/hidden_folder|python:1"
+      tal:attributes="href string:${base_url}${item/rpath}/;
+                      title item/title"
+      tal:content="structure item/short_title">
+    Workspace title</a></li>
+</ul>
 </metal:block>
 
 

@@ -224,92 +224,61 @@ span.legend {
   padding: 0.7em 0.7em 0.7em 0.7em;
 }
 
-
-/* MENU --------------------------------------- */
-div.tabs {
-  background: &dtml-mainTabBackdrop;;
-  border-collapse: collapse;
-  border-bottom-color: &dtml-mainTabBorderColorSelected;;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  padding: 0.5em 0em 0em 2em;
+/*
+ * MENU
+ * http://alistapart.com/articles/slidingdoors2/ 
+ */
+#menu {
+  float: left;
+  width: 100%;
+  margin: 0;
+  border-bottom: 1px solid &dtml-mainTabBorderColorSelected;;
+  padding: 0.5em 0 0 1em;
+}
+#menu li {
+  float: left;
+  background: &dtml-mainTabBackgroundNotSelected; url("opentab.gif") no-repeat left top;
+  margin: 0 1ex 0 0;
+  padding: 0 0 0 3px;
+  list-style: none;
+}
+#menu li.workspace {
+  background: &dtml-workspaceBackground; url("opentab.gif") no-repeat left top;
+}
+#menu a {
+  display: block;
+  float: left;
+  width: .1em;
+  padding: 0 10px 0 7px;
+  color: &dtml-mainTabFontColor;;
+  background: &dtml-mainTabBackgroundNotSelected; url("closetab.gif") no-repeat right top;
+  font-weight: &dtml-mainTabFontWeight;;
+  text-decoration:none;
   white-space: nowrap;
 }
-
-div.tabs a {
-  background: &dtml-mainTabBackgroundNotSelected;;
-  border-color: &dtml-mainTabBorderColor;;
-  border-width: 1px;
-  border-style: solid none none none;
-  color: &dtml-mainTabFontColor;;
-  font-weight: &dtml-mainTabFontWeight;;
-  height: 1.2em;
-  margin-right: 0em;
-  padding: 0em 0.5em;
-  text-transform: &dtml-textTransform;;
+#menu li > a {width:auto;}
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#menu a {float:none;}
+/* End IE5-Mac hack */
+#menu li#selected, #menu li:hover {
+  background: &dtml-mainTabBackground; url("opentab.gif") no-repeat left top;
 }
-
-div.tabs a.selected {
-  background: &dtml-mainTabBackground;;
-  border-top: 1px solid &dtml-mainTabBorderColorSelected;;
-  border-bottom: 1px solid &dtml-mainTabBackground;;
+#menu li#selected a, #menu li a:hover {
   color: &dtml-mainTabFontColorSelected;;
-  font-weight: &dtml-mainTabFontWeight;;
+  background: &dtml-mainTabBackground; url('closetab.gif') no-repeat right top;
 }
-
-div.tabs a:hover {
-  background: &dtml-mainTabBackground;;
-  border-color: &dtml-mainTabBorderColorSelected;;
-  border-bottom-color: &dtml-mainTabBackground;;
-  color: &dtml-mainTabFontColorSelected;;
+/* Override for workspaces */
+#menu li.workspace a {
+  color: #000;
+  background: &dtml-workspaceBackground; url("closetab.gif") no-repeat right top;
 }
-
-div.tabs a.workspace:hover {
-  color: #ffffff;
-  background: &dtml-workspaceBackgroundSelected;;
+#menu li.workspace#selected, #menu li.workspace:hover {
+  background: &dtml-workspaceBackgroundSelected; url("opentab.gif") no-repeat left top;
 }
-
-div.tabs a.wsSelected {
-  color: #ffffff;
-  background: &dtml-workspaceBackgroundSelected;;
+#menu li.workspace#selected a, #menu li.workspace a:hover {
+  color: #fff;
+  background: &dtml-workspaceBackgroundSelected; url('closetab.gif') no-repeat right top;
 }
-
-div.tabs .opentab {
-  background: &dtml-mainTabBackgroundNotSelected; url('opentab.gif') no-repeat top left;
-}
-
-div.tabs .closetab {
-  background: &dtml-mainTabBackgroundNotSelected; url('closetab.gif') no-repeat top right;
-}
-
-div.tabs .opentabSelected {
-  background: &dtml-mainTabBackground; url('opentab.gif') no-repeat top left;
-  border-bottom: 1px solid &dtml-mainTabBackground;;
-}
-
-div.tabs .closetabSelected {
-  background: &dtml-mainTabBackground; url('closetab.gif') no-repeat top right;
-  border-bottom: 1px solid &dtml-mainTabBackground;;
-}
-
-div.tabs .wsOpentab {
-  background: &dtml-workspaceBackground; url('opentab.gif') no-repeat top left;
-}
-
-div.tabs .wsClosetab {
-  background: &dtml-workspaceBackground; url('closetab.gif') no-repeat top right;
-}
-
-div.tabs .wsOpentabSelected {
-  background: &dtml-workspaceBackgroundSelected; url('opentab.gif') no-repeat top left;
-  border-bottom: 1px solid &dtml-workspaceBackgroundSelected;;
-}
-
-div.tabs .wsClosetabSelected {
-  background: &dtml-workspaceBackgroundSelected; url('closetab.gif') no-repeat top right;
-  border-bottom: 1px solid &dtml-workspaceBackgroundSelected;;
-}
-
 
 div.contentTabs {
   background: &dtml-contentTabBackdrop;;

@@ -104,6 +104,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupLocalWorkflow()
         self.upgradeWorkflowStatus()
         self.setupTreesTool()
+        self.setupPortlets()
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
@@ -1499,6 +1500,14 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                             'CPS Proxy Folderish Document',),
                 info_method='getFolderInfo')
             self.flagRebuildTreeCache(WORKSPACES_ID)
+
+    def setupPortlets(self):
+        self.verifyTool('portal_cpsportlets',
+                        'CPSPortlets', 'CPS Portlets Tool')
+        self.log("Adding cps default portlets")
+        portlets = {
+                   }
+        self.verifyPortlets(portlets)
 
     def setupBoxes(self):
         self.verifyTool('portal_boxes', 'CPSBoxes', 'CPS Boxes Tool')

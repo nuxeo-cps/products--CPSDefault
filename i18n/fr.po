@@ -11,16 +11,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-15 17:26default\n"
-"PO-Revision-Date: 2003-09-15 17:32+0200\n"
-"Last-Translator: ben <ben@nuxeo.com>\n"
-"Language-Team: ben\n"
+"POT-Creation-Date: 2003-09-23 18:56default\n"
+"PO-Revision-Date: 2003-09-23 18:57+0200\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
@@ -133,6 +133,12 @@ msgstr "FAKE"
 #: from ../skins/cps_devel/main_template.pt
 msgid "box_closed_boxes"
 msgstr "Boîtes fermées&nbsp;:"
+
+#.   <span>Search:</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "box_search"
+msgstr "Rechercher"
 
 #.   <input value="button_add" class="standalone searchButton" type="submit">
 #.       </input>
@@ -422,7 +428,7 @@ msgstr ""
 msgid "description_login_success"
 msgstr "Bienvenue. Vous êtes connecté au portail."
 
-#.   <p condition="here/portal_membership/isAnonymousUser">
+#.   <p condition="isAnon">
 #.       You have been logged out.
 #.     </p>
 #: from ../skins/cps_default/logged_out.pt
@@ -466,6 +472,19 @@ msgstr "vers ${up_id}"
 #: from ../skins/cps_default/box_manage_form.pt
 msgid "description_visible_box_from ${context_url}"
 msgstr "Boîte visible depuis&nbsp;:&nbsp;${context_url}"
+
+#.   <p>This error means that the resource you
+#.     wanted to view tried to access an unknown parameter.</p>
+#: from ../skins/cps_default/error_lib.pt
+msgid "error_key_or_name"
+msgstr ""
+
+#.   <p>The resource you asked was not
+#.     found. If the document has moved you may find it using the search form
+#.     below.</p>
+#: from ../skins/cps_default/error_lib.pt
+msgid "error_not_found"
+msgstr ""
 
 #.   <span>
 #.           gave ${nb_results (tal content="items_length")}
@@ -514,6 +533,24 @@ msgstr "Gestion des boîtes"
 #: ../skins/cps_default/folder_edit_form.pt
 msgid "heading_edit ${item_id}"
 msgstr "Éditer ${item_id}"
+
+#.   <h1>Key or name error</h1>
+#: from ../skins/cps_default/error_lib.pt
+#, fuzzy
+msgid "heading_error_key_or_name"
+msgstr "Édition de la boîte"
+
+#.   <h1>Not Found</h1>
+#: from ../skins/cps_default/error_lib.pt
+#, fuzzy
+msgid "heading_error_not_found"
+msgstr "Devenez membre"
+
+#.   <h1>Untreated error</h1>
+#: from ../skins/cps_default/error_lib.pt
+#, fuzzy
+msgid "heading_error_other"
+msgstr "Devenez membre"
 
 #.   <h1 fill-slot="header">
 #.       Add Content
@@ -626,6 +663,14 @@ msgid "help_accept_publication"
 msgstr ""
 "L'acceptation de la publication de cet objet le rendra disponible pour les "
 "lecteurs de la rubrique."
+
+#.   <em>
+#.           Box types in italic are predefined types. You cannot change their
+#.           properties from this interface. Use the default box to do so.
+#.         </em>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "help_italic_vendor_boxes_types"
+msgstr ""
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -862,13 +907,10 @@ msgstr "Choisir"
 msgid "label_closed"
 msgstr "Fermer"
 
-#.   <option condition="python:format == 'compact'" selected="" value="compact">
-#.                 Compact
-#.         </option>
-#.   <option condition="python:format != 'compact'" value="compact">
-#.                 Compact
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected python:format == 'compact'" value="compact">
+#.               Compact
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_compact"
 msgstr "Compact"
 
@@ -887,36 +929,30 @@ msgstr "Contextuel"
 msgid "label_contributors"
 msgstr "Contributeurs"
 
-#.   <option condition="python:sort_by == 'date' and direction == 'asc' " selected="" value="date_asc">
-#.                 Date
-#.         </option>
-#.   <option condition="python:sort_by != 'date' or direction != 'asc'" value="date_asc">
-#.                 Date
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected
+#.                                 python:sort_by == 'date' and direction == 'asc' " value="date_asc">
+#.               Date ascending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_date_asc"
 msgstr "Date"
 
-#.   <option condition="python:sort_by == 'date' and direction == 'desc' " selected="" value="date_desc">
-#.                 Date
-#.         </option>
-#.   <option condition="python:not sort_by != 'date' or direction != 'desc'" value="date_desc">
-#.                 Date
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected
+#.                                python:sort_by == 'date' and direction == 'desc' " value="date_desc">
+#.               Date descending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_date_desc"
 msgstr "Date inv."
 
-#.   <option attributes="selected python:box['box'].sort_by is None" value="None">
-#.             Default
-#.           </option>
-#.   <option attributes="selected python:box['box'].direction is None" value="None">
-#.             Default
-#.           </option>
+#.   <option attributes="selected not:format" value="None">
+#.               Default
+#.       </option>
 #.   <option attributes="selected python:box['box'].display is None" value="None">
 #.             Default
 #.           </option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/content_lib.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_default"
 msgstr "Défaut"
 
@@ -938,13 +974,10 @@ msgstr "Profondeur"
 msgid "label_description"
 msgstr "Description"
 
-#.   <option condition="python:format == 'detail' or format == 'None'" selected="" value="detail">
-#.                 Detail
-#.         </option>
-#.   <option condition="python:format != 'detail'" value="detail">
-#.                 Detail
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected python:format == 'detail'" value="detail">
+#.               Detail
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_detailed"
 msgstr "Détaillé"
 
@@ -981,7 +1014,7 @@ msgstr "actif"
 #.   <th align="right">Display</th>
 #.   <span valign="top">Display with</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
+#: ../skins/cps_default/content_lib.pt
 msgid "label_display"
 msgstr "Afficher"
 
@@ -1077,13 +1110,10 @@ msgstr "Nom du groupe"
 msgid "label_guest"
 msgstr "Anonyme"
 
-#.   <option condition="python:format == 'icon'" selected="" value="icon">
-#.                 Icon
-#.         </option>
-#.   <option condition="python:format != 'icon'" value="icon">
-#.                 Icon
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected python:format == 'icon'" value="icon">
+#.               Icon
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_icons"
 msgstr "Icônes"
 
@@ -1160,13 +1190,10 @@ msgstr "Nom"
 msgid "label_nb_items"
 msgstr "Nb Objets"
 
-#.   <option condition="python:sort_by is None" selected="" value="None">
-#.                 Default
-#.         </option>
-#.   <option condition="python:sort_by is not None" value="None">
-#.                 Default
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected not:sort_by" value="None">
+#.               No sort
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_none"
 msgstr "Aucun tri"
 
@@ -1355,66 +1382,29 @@ msgstr "Emplacement"
 msgid "label_smtp_server"
 msgstr "Serveur SMTP"
 
-#.   <option attributes="selected python:box['box'].direction == 'asc'" value="asc">asc</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_sort_asc"
-msgstr "Croissant"
-
-#.   <th align="right">sort by</th>
 #.   <span>sort by</span>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_sort_by"
 msgstr "Trié par"
-
-#.   <option attributes="selected python:box['box'].sort_by == 'date'" value="date">
-#.             date
-#.           </option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_sort_by_date"
-msgstr "Date"
-
-#.   <option attributes="selected python:box['box'].sort_by == 'status'" value="status">
-#.             status
-#.           </option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_sort_by_status"
-msgstr "Statut"
-
-#.   <option attributes="selected python:box['box'].sort_by == 'title'" value="title">
-#.             title
-#.           </option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_sort_by_title"
-msgstr "Titre"
-
-#.   <option attributes="selected python:box['box'].direction == 'desc'" value="desc">desc</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_sort_desc"
-msgstr "Décroissant"
 
 #.   <span>Label Status</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_status"
 msgstr "Statut"
 
-#.   <option condition="python:sort_by == 'status' and direction =='asc'" selected="" value="status_asc">
-#.                 Status
-#.         </option>
-#.   <option condition="python:sort_by != 'status' or direction !='asc' " value="status_asc">
-#.                 Status
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected
+#.                                python:sort_by == 'status' and direction == 'asc'" value="status_asc">
+#.               Status ascending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_status_asc"
 msgstr "Statut"
 
-#.   <option condition="python:sort_by == 'status' and direction =='desc'" selected="" value="status_desc">
-#.                 Status
-#.         </option>
-#.   <option condition="python:sort_by != 'status' or direction !='desc' " value="status_desc">
-#.                 Status
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected
+#.                                python:sort_by == 'status' and direction =='desc'" value="status_desc">
+#.               Status descending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_status_desc"
 msgstr "Statut inv."
 
@@ -1439,23 +1429,19 @@ msgstr "Sujet"
 msgid "label_title"
 msgstr "Titre"
 
-#.   <option condition="python:sort_by == 'title' and direction == 'asc'" selected="" value="title_asc">
-#.                 Title
-#.         </option>
-#.   <option condition="python:sort_by != 'title' or direction !='asc'" value="title_asc">
-#.                 Title
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected
+#.                                 python:sort_by == 'title' and direction == 'asc'" value="title_asc">
+#.               Title ascending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_title_asc"
 msgstr "Titre"
 
-#.   <option condition="python:sort_by == 'title' and direction == 'desc'" selected="" value="title_desc">
-#.                 Title
-#.         </option>
-#.   <option condition="python:sort_by != 'title' or direction !='desc'" value="title_desc">
-#.                 Title
-#.         </option>
-#: from ../skins/cps_default/folder_contents.pt
+#.   <option attributes="selected
+#.                                python:sort_by == 'title' and direction == 'desc'" value="title_desc">
+#.               Title descending
+#.       </option>
+#: from ../skins/cps_default/content_lib.pt
 msgid "label_title_desc"
 msgstr "Titre inv."
 
@@ -1567,7 +1553,7 @@ msgid "legend_one_search_result"
 msgstr "a retourné un document."
 
 #.   <a attributes="href string:${base_url}advanced_search_form" href="search_form">
-#.         Advanced search</a>
+#.     Advanced search</a>
 #.   <span>
 #.                Advanced search
 #.              </span>
@@ -1827,6 +1813,9 @@ msgstr "travail"
 
 msgid "action_accept"
 msgstr "Accepter"
+
+msgid "action_access_chat_room"
+msgstr "Accéder au chat"
 
 msgid "action_boxes"
 msgstr "Gérer les boîtes"
@@ -2157,6 +2146,21 @@ msgstr "Précédents"
 
 msgid "batch_next"
 msgstr "Suivants"
+
+#~ msgid "label_sort_asc"
+#~ msgstr "Croissant"
+
+#~ msgid "label_sort_by_date"
+#~ msgstr "Date"
+
+#~ msgid "label_sort_by_status"
+#~ msgstr "Statut"
+
+#~ msgid "label_sort_by_title"
+#~ msgstr "Titre"
+
+#~ msgid "label_sort_desc"
+#~ msgstr "Décroissant"
 
 #~ msgid "help_password_requirement"
 #~ msgstr "Votre mot de passe doit contenir au minimum 5 caractères."

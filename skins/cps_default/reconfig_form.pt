@@ -18,9 +18,9 @@
   <h1 i18n:translate="heading_reconfig_portal">
     Configure Portal
   </h1>
-  <div class="description" i18n:translate="description_reconfig_form">
+  <p class="description" i18n:translate="description_reconfig_form">
     This form is used to set the portal configuration options.
-  </div>
+  </p>
 </metal:header>
 
 <metal:main fill-slot="main">
@@ -29,81 +29,115 @@
         tal:attributes="action string:${base_url}reconfig"
         tal:define="pprops here/portal_properties">
     <table border="0" cellspacing="2" cellpadding="2"
-      summary="portal properties form">
+      summary="Portal properties form">
       <tr>
-        <th class="even" align="right">
-          <tal:block i18n:translate="label_admin_name">
+        <th align="right">
+          <label for="email_from_name"
+                 i18n:translate="label_admin_name">
             Administrator Name
-          </tal:block>
+          </label>
         </th>
         <td>
-          <input name="email_from_name" value=""
+          <input name="email_from_name" id="email_from_name" value=""
                  tal:attributes="value pprops/email_from_name" />
         </td>
       </tr>
       <tr>
-        <th class="even" align="right">
-          <tal:block i18n:translate="label_admin_email">
-            Administrator E-mail
-          </tal:block>
+        <th align="right">
+          <label for="email_from_address"
+                 i18n:translate="label_admin_email">
+            Administrator Email
+          </label>
         </th>
         <td>
-          <input name="email_from_address" value=""
+          <input name="email_from_address" id="email_from_address" value=""
                  tal:attributes="value pprops/email_from_address" />
         </td>
       </tr>
       <tr>
-        <th class="even" align="right">
-          <tal:block i18n:translate="label_smtp_server">
+        <th align="right">
+          <label for="smtp_server"
+                 i18n:translate="label_smtp_server">
             SMTP Server
-          </tal:block>
+          </label>
         </th>
         <td>
-          <input name="smtp_server" value=""
+          <input name="smtp_server" id="smtp_server" value=""
                  tal:attributes="value pprops/smtp_server" />
         </td>
       </tr>
       <tr>
-        <th class="even" align="right">
-          <tal:block i18n:translate="label_portal_title">
+        <th align="right">
+          <label for="portal_title"
+                 i18n:translate="label_portal_title">
             Portal title
-          </tal:block>
+          </label>
         </th>
         <td>
-          <input name="title" value=""
+          <input name="title" id="portal_title" value=""
                  tal:attributes="value pprops/title" />
         </td>
       </tr>
       <tr>
-        <th class="even" align="right">
-          <tal:block i18n:translate="label_portal_description">
+        <th align="right">
+          <label for="portal_description"
+                 i18n:translate="label_portal_description">
             Portal description
-          </tal:block>
+          </label>
         </th>
         <td>
-          <textarea cols="40" rows="6" name="description"
-                    style="width: 100%" tal:content="pprops/description">
+          <textarea name="description" id="portal_description"
+                cols="40" rows="6" style="width: 100%"
+                tal:content="pprops/description">
           </textarea>
         </td>
       </tr>
       <tr>
-        <th class="even" align="right">
-          <tal:block i18n:translate="label_portal_enable_join">
+        <th align="right">
+          <label for="enable_password_reset"
+                 i18n:translate="label_portal_enable_password_reset">
+            Enable password resetting
+          </label>
+        </th>
+        <td>
+          <input type="checkbox" name="enable_password_reset:boolean"
+                 id="enable_password_reset"
+                 tal:attributes="checked pprops/enable_password_reset" />
+        </td>
+      </tr>
+      <tr>
+        <th align="right">
+          <label for="enable_password_reminder"
+                 i18n:translate="label_portal_enable_password_reminder">
+            Enable sending of password reminder
+          </label>
+        </th>
+        <td>
+          <input type="checkbox" name="enable_password_reminder:boolean"
+                 id="enable_password_reminder"
+                 tal:attributes="checked pprops/enable_password_reminder" />
+        </td>
+      </tr>
+      <tr>
+        <th align="right">
+          <label for="enable_portal_joining"
+                 i18n:translate="label_portal_enable_join">
             Enable portal joining
-          </tal:block>
+          </label>
         </th>
         <td>
           <input type="checkbox" name="enable_portal_joining:boolean"
+                 id="enable_portal_joining"
                  tal:attributes="checked pprops/enable_portal_joining" />
         </td>
       </tr>
     </table>
     <p>
-    <input type="submit" value="button_change"
-           i18n:attributes="value" />
-    <input type="button" onClick="history.back()" value="button_cancel"
-           i18n:attributes="value" />
-        </p>
+      <input type="submit" value="button_change"
+             i18n:attributes="value" />
+      <input type="button" onClick="history.back()" value="button_cancel"
+             i18n:attributes="value" />
+    </p>
   </form>
 </metal:main>
 </body>

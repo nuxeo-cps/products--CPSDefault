@@ -331,12 +331,34 @@ state_change.object.addLanguageToProxy(lang, from_lang)
 
     def setupMembership(self):
         self.log('Setting up portal membership support,')
+        portal = self.portal
 
-        # portal registration
-        if not hasattr(self.portal, 'enable_portal_joining'):
-            self.portal.manage_addProperty('enable_portal_joining', 1,'boolean')
+        # Adding properties that previous versions of CPS portal didn't have.
+        # All this code is complicated because in the past some values were not
+        # stored in a good manner (as properties) in the portal.
+        properties = [['enable_password_reset', True, 'boolean'],
+                      ['enable_password_reminder', False, 'boolean'],
+                      ['enable_portal_joining', False, 'boolean'],
+                      ]
+        for prop in properties:
+            if not portal.hasProperty(prop[0]):
+                if portal.__dict__.has_key(prop[0]):
+                    # This code converts possible old bad way to store those
+                    # variables.
+                    # This value was set as an instance variable.
+                    value = getattr(portal, prop[0])
+                    delattr(portal, prop[0])
+                    # Adding this property back as a property from the
+                    # PropertyManager.
+                    portal.manage_addProperty(prop[0], value, prop[2])
+                else:
+                    # Adding the new properties that are declared as class
+                    # variables but that might not be already present in the
+                    # properties of the portal.
+                    portal._properties += tuple([p for p in portal.__class__._properties
+                                                 if p['id'] == prop[0]])
 
-        for action in self.portal['portal_registration'].listActions():
+        for action in portal['portal_registration'].listActions():
             if action.id == 'join':
                 action.condition = Expression('python: portal.'
                     'portal_properties.enable_portal_joining and not member')

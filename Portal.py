@@ -1,4 +1,6 @@
-# Copyright (c) 2003 Nuxeo SARL <http://nuxeo.com>
+# Copyright (c) 2003-2005 Nuxeo SARL <http://nuxeo.com>
+# Authors:
+# M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -28,8 +30,8 @@ class CPSDefaultSite(CMFSite):
     """CPS variant of a CMF Portal."""
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
-    enable_portal_joining = 0
-    cps_version = ('CPS', 3, 3, 0)
+
+    cps_version = ('CPS', 3, 3, 2)
 
     # Override default OrderSupport behavior for ZMI convenience
     _default_sort_key = 'id'
@@ -37,9 +39,16 @@ class CPSDefaultSite(CMFSite):
     security = ClassSecurityInfo()
 
     _properties = CMFSite._properties + (
+        {'id': 'enable_password_reset', 'type': 'boolean',
+         'label': 'Enable password resetting'},
+        {'id': 'enable_password_reminder', 'type': 'boolean',
+         'label': 'Enable sending password reminder'},
         {'id': 'enable_portal_joining', 'type': 'boolean',
-         'title': 'Enable portal joining'},
-    )
+         'label': 'Enable portal joining'},
+        )
+    enable_password_reset = True
+    enable_password_reminder = False
+    enable_portal_joining = False
 
     security.declarePublic('getCPSVersion')
     def getCPSVersion(self):

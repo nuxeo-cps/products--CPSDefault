@@ -214,6 +214,26 @@ class TreeBox(BaseBox):
 
         return tree
 
+    security.declarePublic('searchTree')
+    def searchTree(self, context, query):
+        """Searching over folder title and description."""
+        ptree = self.getTreeObject(context)
+        if not ptree:
+            return []
+        tree = ptree.getList(filter=0)
+
+        if not query:
+            return tree
+        query = query.lower()
+        items = []
+        for item in tree:
+            if item['title_or_id'].lower().find(query) >= 0:
+                items.append(item)
+            elif item['description'].lower().find(query) >= 0:
+                items.append(item)
+
+        return items
+
 InitializeClass(TreeBox)
 
 

@@ -18,15 +18,21 @@ try:
 except (KeyError, 'NotFound'):
     return '<img src="%s" alt="%s" />' % (img_url, alt)
 
+# XXX: workaround BMP bug
+# Note: int(getattr(img, 'height', 0)) raises :
+# ValueError: invalid literal for int()
+original_height = getattr(img, 'height', 0)
+original_width = getattr(img, 'width', 0)
+
 if not height:
-    height = int(zoom * getattr(img, 'height', 0))
+    height = int(zoom * original_height)
 if not width:
-    width = int(zoom * getattr(img,'width', 0))
+    width = int(zoom * original_width)
 
 if keep_ratio:
     z_w = z_h = 1
-    h = int(getattr(img, 'height', 0))
-    w = int(getattr(img, 'width', 0))
+    h = original_height
+    w = original_width
     if w and h:
         if w > int(width):
             z_w = int(width) / float(w)

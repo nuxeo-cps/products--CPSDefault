@@ -439,7 +439,9 @@ format:</pre>
     <br /><small tal:content="info/description">Description</small>
   </tal:block>
   <tal:block condition="site_wide|nothing">
-   <br /><small class="url" tal:content="item/absolute_url">URL</small>
+   <br /><small class="url"
+           tal:define="url python: here.truncURL(base_url + info['rpath'])"
+           tal:content="url">URL</small>
   </tal:block>
 </div>
 </metal:block>

@@ -21,7 +21,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFCore.Expression import Expression
 from zLOG import LOG, DEBUG
-#from Traversal import RestrictedTRaverse
 
 from Products.DCWorkflow.Guard import Guard
 
@@ -143,7 +142,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         return {'slot': self.slot,
                 'order': self.order,
                 'minimized': self.minimized,
-                'closed': self.minimized,
+                'closed': self.closed,
                 'style': self.style,
                 'format': self.format,
                 }

@@ -136,7 +136,7 @@
 <div tal:condition="python:searching and (search_param == 'groupname')"
   tal:define="search_param python: request.get( 'search_param', '' );
   search_term  python: request.get( 'search_term', '' );
-  found python: ['group:' +group for group in here.get_valid_groupids() if group.upper().find(search_term.upper()) > 0];
+  found python: (search_term and ['group:' +group for group in here.get_valid_groupids() if group.upper().find(search_term.upper()) > 0]) or here.get_valid_groupids() ;
  "
 >
 <!-- Assignment -->

@@ -25,6 +25,7 @@ if folder_prefix:
     if not query.has_key('path'):
         portal_path = '/' + catalog.getPhysicalPath()[1] + '/'
         query['path'] =  portal_path + folder_prefix
+if query.has_key('folder_prefix'):
     del query['folder_prefix']
 
 # use filter set to remove objects inside 'portal_*' or named '.foo'

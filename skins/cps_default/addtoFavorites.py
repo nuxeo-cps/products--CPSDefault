@@ -39,7 +39,7 @@ else:
 
 kw = {'Title': context.TitleOrId(),
       'Description': context.getContent().description,
-      'href': rurl}
+      'Relation': rurl}
 
 doc = getattr(targetFolder, new_id).getEditableContent()
 

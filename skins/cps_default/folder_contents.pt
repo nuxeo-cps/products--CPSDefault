@@ -55,10 +55,10 @@
 
     </table>
 
-    <tal:block define="no_form python:not checkPerm('View management screens', here);
-                       items python:here.getFolderContents(sort_by='status');
-                       nav_action string:folder_contents">
-      <metal:block use-macro="here/content_lib/macros/display_contents_compact" />
+    <tal:block define="
+                  no_form python:not checkPerm('View management screens', here);
+                  items python:here.getFolderContents(sort_by='status')">
+            <metal:block use-macro="here/content_lib/macros/display_contents" />
     </tal:block>
     
     <table border="0" cellspacing="0" cellpadding="2">

@@ -1,0 +1,75 @@
+/* Nuxeo print CSS
+** $Id$
+** this is heavily based on the Plone css by Alexander Limi and alistapart.com
+*/
+
+<dtml-let last_modified="_.DateTime()-14"
+      expires="_.DateTime()+7" >
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
+</dtml-let>
+
+body {
+  background: White;
+  font-family: Georgia, Garamond, Times, serif;
+  font-size: 10pt;
+  color: Black;
+  margin: 0;
+  padding: 0;
+}
+
+.netscape4,
+.tabs,
+.personalBar,
+td.left,
+td.right,
+td.workspace,
+div.documentActions,
+div.message,
+div.hidden,
+div.headerActions,
+div.searchBox,
+.footer,
+.help,
+.legend,
+input
+{
+  display: none;
+}
+
+ul {
+  list-style-image: none;
+}
+
+.editableDocument,
+.document,
+div.description,
+.group {
+  background: transparent;
+  border: none;
+  font-family: Georgia, Garamond, Times, serif;
+  font-size: 10pt;
+  padding: 0;
+  margin: 0;
+}
+
+table.listing,
+table.listing td
+ {
+	border: 1pt solid black;
+  border-collapse: collapse;
+}
+
+a:link, a:visited {
+  color: #520;
+  background: transparent;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+pre {
+  white-space: normal;
+}
+

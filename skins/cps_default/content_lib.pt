@@ -324,12 +324,12 @@ format:</pre>
       </span>
     </tal:block>
     <tal:block condition="status_time|nothing" i18n:translate="">label_since
-      <span tal:content="info/stime" i18n:name="status_time">May28 pm</span>
+      <span tal:content="info/time_str" i18n:name="status_time">May28 pm</span>
     </tal:block>
   </tal:block>
   <tal:block condition="status_short_fmt|nothing" >
     <tal:block condition="status_time|nothing" i18n:translate="">
-      <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>:
+      <span tal:content="info/time_str" i18n:name="status_time">May 6,...</span>:
     </tal:block>
     <span i18n:translate="">
       v<span tal:replace="info/rev" i18n:name="status_revision">1</span>-       <span i18n:name="status_language">
@@ -377,6 +377,14 @@ format:</pre>
     </tal:block>
   </small>
   </a>
+  <tal:block tal:condition="info/start_str|info/end_str|nothing">
+    <br><small>
+      <span i18n:translate="label_from" tal:omit-tag="">From</span>
+      <span tal:content="info/start_str|nothing" tal:omit-tag="" />
+      <span i18n:translate="label_to" tal:omit-tag="">To</span>
+      <span tal:content="info/end_str|nothing" tal:omit-tag="" />
+    </small>
+  </tal:block>
   <tal:block condition="info/description">
     <br><small tal:content="info/description">Description</small>
   </tal:block>
@@ -498,7 +506,7 @@ format:</pre>
     base_url=base_url, title=info['type'])" /></td>
   <td align=center><span tal:condition="info/size|nothing" tal:content="info/size"></span></td>
   <td align=center i18n:translate="">
-    <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>
+    <span tal:content="info/time_str" i18n:name="status_time">May 6,...</span>
   </td>
   <td align=center><span tal:content="info/creator"></span></td>
   <td align=center tal:content="info/review_state" tal:attributes="class
@@ -551,7 +559,7 @@ format:</pre>
   <span tal:repeat="item info/history" >
 
   <span i18n:translate="">
-    <span tal:content="item/stime"
+    <span tal:content="item/time_str"
           i18n:name="history_time">May 6, 2003 5:28 pm</span>:
 
     </span>

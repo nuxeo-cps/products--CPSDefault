@@ -318,14 +318,17 @@
        </tal:block>
        <div tal:condition="link_more">
          <a href="" tal:attributes="href link_more"
-           i18n:translate="link_more">More ...</a>
+           i18n:translate="link_more">More...</a>
        </div>
        <div class="rssExport">
-         <a tal:attributes="href
-          string:exportRSSContentBox?box_url=${box/url}"
-          title="label_export_rss"
-          i18n:attributes="title"
-          i18n:translate="link_export_rss">RSS</a>
+         <a tal:attributes="href string:exportRSSContentBox?box_url=${box/url}"
+          title="link_rss_export"
+          i18n:attributes="title">
+          <img src="rss10.png" width="80" height="15" alt="RSS 1.0"
+            tal:attributes="src string:${base_url}rss10.png"
+            title="label_rss_export"
+            i18n:attributes="title"/>
+        </a>
        </div>
     </metal:block>
   </metal:block>
@@ -365,14 +368,17 @@
        </div>
        <div tal:condition="link_more">
          <a href="" tal:attributes="href link_more"
-           i18n:translate="link_more">More ...</a>
+           i18n:translate="link_more">More...</a>
        </div>
        <div class="rssExport">
-         <a tal:attributes="href
-          string:exportRSSContentBox?box_url=${box/url}"
-          title="label_export_rss"
-          i18n:attributes="title"
-          i18n:translate="link_export_rss">RSS</a>
+         <a tal:attributes="href string:exportRSSContentBox?box_url=${box/url}"
+          title="link_rss_export"
+          i18n:attributes="title">
+          <img src="rss10.png" width="80" height="15" alt="RSS 1.0"
+            tal:attributes="src string:${base_url}rss10.png"
+            title="label_rss_export"
+            i18n:attributes="title"/>
+        </a>
        </div>
     </metal:block>
   </metal:block>
@@ -861,11 +867,14 @@
           <metal:block use-macro="here/content_lib/macros/display_contents" />
        </tal:block>
        <div class="rssExport">
-         <a tal:attributes="href
-          string:exportRSSContentBox?box_url=${box/url}"
-          title="label_export_rss"
-          i18n:attributes="title"
-          i18n:translate="link_export_rss">RSS</a>
+         <a tal:attributes="href string:exportRSSContentBox?box_url=${box/url}"
+          title="link_rss_export"
+          i18n:attributes="title">
+          <img src="rss10.png" width="80" height="15" alt="RSS 1.0"
+            tal:attributes="src string:${base_url}rss10.png"
+            title="label_rss_export"
+            i18n:attributes="title"/>
+        </a>
        </div>
     </metal:block>
   </metal:block>

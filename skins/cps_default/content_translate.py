@@ -1,4 +1,4 @@
-##parameters=lang, dest=None, proxy=None, REQUEST=None
+##parameters=lang, proxy=None, REQUEST=None
 # $Id$
 
 if proxy is None:
@@ -17,20 +17,13 @@ if not lang in localizer.get_supported_languages():
     psm = 'psm_translation_lang_not_supported'
     url = proxy.absolute_url()
 
-if dest:
-    # copy document for translating it.
-    wftool = context.portal_workflow
-    new_id = wftool.findNewId(dest, proxy.getId())
-    wftool.doActionFor(proxy, 'translate', dest_container=dest,
-                       initial_transition='checkout_translation_in',
-                       language_map={lang: proxy.getLanguage()})
-    psm = 'psm_translation_copied'
-    url = '%s/%s/%s' % (context.portal_url(), dest, new_id)
-else:
-    # translate in place
-    proxy.addLanguageToProxy(lang, from_lang=proxy.getLanguage())
-    psm = 'psm_translation_added'
-    url = proxy.absolute_url()
+wftool = context.portal_workflow
+from_lang=proxy.getLanguage()
+wftool.doActionFor(proxy, 'translate',
+                   comment='%s' % lang,
+                   lang=lang, from_lang=from_lang)
+psm = 'psm_translation_added'
+url = proxy.absolute_url()
 
 if REQUEST is not None:
     action = proxy.getTypeInfo().getActionById('view')

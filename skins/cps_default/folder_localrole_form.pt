@@ -307,8 +307,8 @@
           </td>
           <td width="57%">
           <tal:block repeat="item python:roles[user]">
-            <tal:block repeat="role python:item['roles']">
-              <tal:block define="ishere python:base_url+item['url']==context_url">
+            <ul tal:repeat="role python:item['roles']">
+              <li tal:define="ishere python:base_url+item['url']==context_url">
                 <tal:block condition="python:not ishere and not local_roles_blocked">
                   <a href="" tal:attributes="href string:${base_url}${item/url}/folder_localrole_form">
                     <tal:block i18n:translate="" tal:content="python:role" />
@@ -319,11 +319,10 @@
                 <tal:block condition="ishere">
                   <tal:block i18n:translate="" tal:content="role"/>
                 </tal:block>
-                <br tal:condition="not:repeat/role/end"/>
-                </tal:block>
-              </tal:block>
-            </tal:block>
-            </td>
+              </li>
+            </ul>
+          </tal:block>
+          </td>
           </tr>
           </tal:block>
         </tal:block>

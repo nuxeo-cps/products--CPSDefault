@@ -1,5 +1,5 @@
 <html tal:define="showthirdcol nothing;
-                  utool nocall:here/portal_url;	
+                  utool nocall:here/portal_url;
                   portal_object utool/getPortalObject;
                   portal_title portal_object/title;
                   dummy python:request.set('breadcrumb_set',
@@ -11,9 +11,9 @@
                     'title': portal_title,
                     },
                    {
-                   'id' : 'search_form', 
+                   'id' : 'search_form',
                    'url': here.portal_url()+'/search_form',
-                   'title': 'Search', 
+                   'title': 'Search',
                    'longtitle':'Search',
                    }, ]);
                  ">
@@ -27,7 +27,7 @@
                          items_per_page python:15;
                          no_form python:1;
                          items_length python:len(items);">
-        
+
         <div>
           <form action="search_form" method="get"
                 tal:attributes="action string:${base_url}search_form">
@@ -51,7 +51,7 @@
                             i18n:name="_dynamic_">Query</span>'
         </div>
         <tal:block condition="python:items_length == 0">
-            <span i18n:translate=""> 
+            <span i18n:translate="">
                   gave <span class="emphasis" i18n:name="legend_no_search_result">no result.</span>.
             </span>
         </tal:block>
@@ -61,10 +61,10 @@
             </span>
         </tal:block>
         <tal:block condition="python:items_length > 1">
-            <span i18n:translate=""> 
+            <span i18n:translate="">
               gave <span class="emphasis"
 	      tal:content="items_length"
-              i18n:name="_dynamic_">n results.</span> 
+              i18n:name="nb_results">n results.</span>
           </tal:block>
         <hr>
         <metal:block use-macro="here/content_lib/macros/display_contents" />

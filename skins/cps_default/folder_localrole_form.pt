@@ -87,7 +87,7 @@
 
    <tr tal:repeat="member found">
     <td width="16">
-     <input type="checkbox" name="member_ids:list" 
+     <input type="checkbox" name="member_ids:list"
             value=""
             tal:attributes="value string:user:${member/username}" />
     </td>
@@ -142,8 +142,8 @@
 
 <div tal:condition="python: not found">
 
- <p i18n:translate="legend_local_roles_no_results_members"> 
-    Sorry, no members matched your search. 
+ <p i18n:translate="legend_local_roles_no_results_members">
+    Sorry, no members matched your search.
  </p>
 
 </div>
@@ -176,21 +176,21 @@
        tal:attributes="action string:${here/absolute_url}/folder_localrole_edit"
  >
   <input type="hidden" name="change_type" value="add" />
-  
+
   <table class="FormLayout">
 
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;">
-        <span i18n:translate="label_group">Group</span> 
-	<span i18n:translate="label_name">Name</span> 
+        <span i18n:translate="label_group">Group</span>
+	<span i18n:translate="label_name">Name</span>
     </th>
     <th style="text-align:left;"></th>
    </tr>
 
    <tr tal:repeat="group found">
     <td width="16">
-     <input type="checkbox" name="member_ids:list" 
+     <input type="checkbox" name="member_ids:list"
             value=""
             tal:attributes="value string:group:${group}" />
     </td>
@@ -224,8 +224,8 @@
    <tr>
     <td width="16"><br /></td>
     <td colspan="2">
-      <input i18n:attributes="value" 
-             type="submit" value="button_assign_roles " /></td>
+      <input i18n:attributes="value"
+             type="submit" value="button_assign_roles" /></td>
    </tr>
 
   </table>
@@ -234,9 +234,9 @@
 </div>
 
 
-<div tal:condition="python: not found"> 
- <p i18n:translate="legend_local_roles_no_results_member"> 
-    Sorry, no groups matched your search. 
+<div tal:condition="python: not found">
+ <p i18n:translate="legend_local_roles_no_results_member">
+    Sorry, no groups matched your search.
  </p>
 
 </div>
@@ -261,7 +261,7 @@
  <input type="hidden" name="change_type" value="delete" />
  <input type="hidden" name="member_role" value="" />
 
- <table width="100%" class="FormLayout" 
+ <table width="100%" class="FormLayout"
    tal:define="lroles python:[('user:' + uroles[0],uroles[1]) for uroles in here.get_local_roles()] +
                               [('group:' + groles[0],groles[1]) for groles in here.get_local_group_roles()]"
  >
@@ -284,38 +284,38 @@
        <tal:block define="haslrhere python:user in editable_user">
          <tal:block condition="haslrhere">
            <td width="1%">
-             <input type="checkbox" 
+             <input type="checkbox"
 	            name="member_ids:list"
 		    value="id"
 		    tal:attributes="value user" />
             </td>
          </tal:block>
        <tal:block condition="not:haslrhere">
-         <td width="1%">&nbsp;</td>   
+         <td width="1%">&nbsp;</td>
        </tal:block>
      </tal:block>
      <td>
        <span tal:content="user" />
-     </td> 
-     <td>       
-       <tal:block repeat="item python:roles[user]">         
+     </td>
+     <td>
+       <tal:block repeat="item python:roles[user]">
          <tal:block repeat="roleElt python:item['roles']">
            <tal:block define="ishere python:base_url+item['url'] == context_url">
-             <tal:block condition="not:ishere">  
+             <tal:block condition="not:ishere">
                <a href tal:attributes="href string:${base_url}${item/url}/folder_localrole_form"
-                       tal:content="python:roleElt" /> 
+                       tal:content="python:roleElt" />
                        <span i18n:translate="label_in">in</span>
                        <i tal:content="item/url" />
              </tal:block>
-	     <tal:block condition="ishere">          
+	     <tal:block condition="ishere">
 	       <span tal:content="roleElt" />
              </tal:block>
-             <br tal:condition="not:repeat/item/last"/><br /> 
-           </tal:block> 
+             <br tal:condition="not:repeat/item/last"/><br />
+           </tal:block>
           </tal:block>
          </tal:block>
-        </td>     
-       </tr>  
+        </td>
+       </tr>
      </tal:block>
  </tal:block>
 
@@ -342,7 +342,7 @@
  <tr>
    <td><br /></td>
    <td colspan="2">
-     <input type="submit" 
+     <input type="submit"
             value="button_delete"
             i18n:attributes="value" />
    </td>
@@ -352,7 +352,7 @@
 </form>
 <br />
 <span i18n:translate="link_local_roles_underlined">
-  <i>Roles in underlined </i> are set in parent folders. 
+  <i>Roles in underlined </i> are set in parent folders.
   Follow the links to manage the local roles in these folders.
 </span>
 

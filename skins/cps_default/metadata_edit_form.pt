@@ -14,7 +14,7 @@
 
 <table class="FormLayout">
   <tr valign="top">
-    <th i18n:translate="label_item_discussion">Enable Discussion?</th>
+    <th i18n:translate="label_discussion">Enable Discussion?</th>
     <td>
       <select name="allowDiscussion" tal:define="val doc/isDiscussable">
         <option value="None" tal:attributes="selected python: val == None"
@@ -62,7 +62,7 @@
       <textarea name="subject:lines" rows="3" cols="20"
                 tal:content="subj_lines">
       </textarea>
-      <br> 
+      <br>
       <select name="subject:list" multiple>
         <option value=""
                 tal:define="mdtool nocall:here/portal_metadata;
@@ -72,7 +72,7 @@
                 tal:attributes="value item; selected python: item in subjects"
                 tal:content="item">
         </option>
-      </select> 
+      </select>
     </td>
     <th align="right" i18n:translate="label_format">Format</th>
     <td>
@@ -82,7 +82,7 @@
                  i18n:attributes="value">
       <br><input type="submit" name="change_and_edit" value="button_change_and_edit"
                  i18n:attributes="value">
-      <br><input type="submit" name="change_and_view" value="button_change_and_view "
+      <br><input type="submit" name="change_and_view" value="button_change_and_view"
                  i18n:attributes="value">
     </td>
   </tr>
@@ -118,7 +118,7 @@
       <td>
         <span tal:replace="here/getDocid" />
       </td>
-      <th align="right" nowrap i18n:translate="label_item_revision">
+      <th align="right" nowrap i18n:translate="label_revision">
         Revision
       </th>
       <td>

@@ -1066,7 +1066,6 @@ except:
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
                                                 workspaces_id)
         portal[workspaces_id].getContent().setTitle('Root of Workspaces') # XXX L10N
-        portal[workspaces_id].reindexObject()
         pr("  Adding %s Folder" % workspaces_id)
 
     # Member areas
@@ -1077,14 +1076,12 @@ except:
         ms = getattr(workspaces, members_id, None)
 
         ms.getContent().setTitle('Member Areas') # XXX Localization
-        ms.reindexObject()
         pr("  Adding %s Folder" % members_id)
 
     if not portalhas(sections_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',
                                                 sections_id)
         portal[sections_id].getContent().setTitle('Root of Sections') # XXX L10N
-        portal[sections_id].reindexObject()
         pr("  Adding %s Folder" % sections_id)
 
     #
@@ -1131,15 +1128,11 @@ except:
     for perm, roles in sections_perm.items():
         portal[sections_id].manage_permission(perm, roles, 0)
         pr("  Permission %s" % perm)
-    #portal[sections_id].reindexObjectSecurity()
 
     pr("Workspace")
     for perm, roles in workspaces_perm.items():
         portal[workspaces_id].manage_permission(perm, roles, 0)
         pr("  Permission %s" % perm)
-    #portal[workspaces_id].reindexObjectSecurity()
-
-
 
     pr("Verifying local workflow association")
     if not '.cps_workflow_configuration' in portal[workspaces_id].objectIds():
@@ -1594,10 +1587,16 @@ except:
     log_i18n = i18n_load_default_mcat(self)
     pr (log_i18n)
 
-    pr(" Reindexing object security")
-    portal.reindexObjectSecurity()
+    pr(" Reindexing %s" % workspaces_id)
+    # this will do a recursive reindexSecurityObject
+    # but reindex only the workspaces_id
+    portal[workspaces_id].reindexObject()
+
+    pr(" Reindexing %s" % sections_id)
+    portal[sections_id].reindexObject()
 
     pr(" Reindexing catalog")
+    # this rebuild all index
     portal.portal_catalog.refreshCatalog(clear=1)
 
     # remove cpsinstall external method

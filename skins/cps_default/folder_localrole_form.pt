@@ -210,14 +210,15 @@
         Role to assign:
     </th>
     <td>
-     <select name="member_role"
-             tal:define="roles python: mtool.getCandidateLocalRoles( here )">
+    <select name="member_role"
+             tal:define="cpslr python:here.getCPSLocalRoles( mtool=mtool );
+                         roles python:cpslr[2]">
       <option tal:repeat="role roles"
               i18n:translate=""
               tal:content="role"> Role1 </option>
       <option tal:condition="nothing"> Role2 </option>
       <option tal:condition="nothing"> Role3 </option>
-     </select>
+    </select>
     </td>
    </tr>
 

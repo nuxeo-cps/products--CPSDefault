@@ -1535,6 +1535,22 @@ except:
     except ImportError:
         pass
 
+    #
+    #  CPSDirectory installer/updater
+    #
+    try:
+        import Products.CPSDirectory
+        if not portalhas('cpsdirectory_installer'):
+            pr('Adding cpsdirectory installer')
+            cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
+                                                    'CPSDirectroy Updater',
+                                                    'CPSDirectory.install',
+                                                    'install')
+            portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
+        pr(portal.cpsdirectory_installer())
+    except ImportError:
+        pass
+
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)
 

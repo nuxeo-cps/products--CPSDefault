@@ -111,7 +111,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         box are loaded from root to current path
         and overriden by personal boxes folder
         return a list of dictionaries with keys:
-            'box_url', 'settings', 'macro', 'box'
+            'path', 'settings', 'macro', 'box'
         """
 
         # Find bottom-most folder:
@@ -376,7 +376,7 @@ class BoxContainer(PortalFolder):
         overrides = getattr(aq_base(self), '_box_overrides', {})
         for key, item in overrides.items():
             override = {'box_path': key, 'slot': '', 'order': '', 'closed':'',
-                        'minimized': ''}
+                        'minimized': '', 'style':'', 'format':''}
             override.update(item)
             result.append(override)
         LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )

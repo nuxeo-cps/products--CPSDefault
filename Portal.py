@@ -129,8 +129,8 @@ def manage_addCPSDefaultSite(dispatcher, id,
     # TODO: use portal_metadirectories to store emails and other stuff
     pr('Creating CPS Administrator account for CPSDefault')
     portal.acl_users.userFolderAddUser(name=root_id,
-                              password=root_password1,
-                              roles=('Manager', 'Member'), domains=None)
+                                       password=root_password1,
+                                       roles=('Manager', 'Member'), domains=[])
 
     pr('Done')
     if REQUEST is not None:

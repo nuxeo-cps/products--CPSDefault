@@ -3,6 +3,10 @@
 """ A Dummy document
 """
 
+
+from re import match
+from DateTime.DateTime import DateTime
+
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
@@ -52,8 +56,12 @@ class Dummy(CPSBaseDocument, Folder):
     image_id = 'dummy_image'
     image_max_size = 2*1024*1024
 
+    _end_date = _start_date = None
+
     _properties = CPSBaseDocument._properties + (
         {'id': 'body', 'type': 'text', 'mode': 'w', 'label': 'Body'},
+        {'id':'_start_date', 'type':'date', 'mode':'w', 'label':'Start'},
+        {'id':'_end_date', 'type':'date', 'mode':'w', 'label':'End'},
         )
 
     security = ClassSecurityInfo()
@@ -66,7 +74,12 @@ class Dummy(CPSBaseDocument, Folder):
     security.declareProtected(ModifyPortalContent, 'edit')
     def edit(self, **kw):
         """ edit """
+
         CPSBaseDocument.edit(self, **kw)
+        self.set_date('end_date', kw.get('end_date'))
+        self.set_date('start_date', kw.get('start_date'))
+        if self._start_date > self._end_date:
+            self._end_date = self._start_date
 
         file_action = self.REQUEST.form.get('file_action')
         if file_action == 'delete':
@@ -83,9 +96,42 @@ class Dummy(CPSBaseDocument, Folder):
                     if hasattr(aq_base(self), self.image_id):
                         self._delObject(self.image_id)
                     self._setObject(self.image_id, img)
-
+                    
         self._size = self._compute_size()
 
+    # Check date field syntax, localize and store in _start_date or _end_date
+    security.declareProtected(ModifyPortalContent, 'set_date')
+    def set_date(self, id, v):
+        if not v:
+            return 0
+        vn = '_%s' % id
+        if not hasattr(aq_base(self), vn):
+            return 0
+        if not match(r'^[0-9]?[0-9]/[0-9]?[0-9]/[0-9]{4,4}$', v):
+            return 0
+##        locale = self.portal_messages.get_selected_language()
+##        if locale == 'fr':
+        d, m, y = v.split('/')
+##        else:
+##            m, d, y = v.split('/')
+        try:
+            dtv = DateTime(int(y), int(m), int(d))
+        except:
+            return 0
+        setattr(self, vn, dtv)
+        self._p_changed = 1
+        return 1
+
+    security.declareProtected(ModifyPortalContent, 'get_date')
+    def get_date(self, id):
+        vn = '_%s' % id
+        if not hasattr(aq_base(self), vn):
+            return 'don\'t know %s ?' % id
+        dt = getattr(self, vn)
+        if dt:
+            return dt.strftime("%d/%m/%Y")
+        else:
+            return ''
 
     security.declareProtected(View, 'getAdditionalContentInfo')
     def getAdditionalContentInfo(self):
@@ -118,6 +164,21 @@ class Dummy(CPSBaseDocument, Folder):
             s += self[self.image_id].get_size()
         
         return s
+
+    #CMFCalendar interface
+    security.declarePublic('start')
+    def start(self):
+        "Return our start time as a string"
+        date = getattr(self, '_start_date', None )
+        return date is None and self.created() or date
+    
+    security.declarePublic('end')
+    def end(self):
+        "Return our stop time as a string"
+        date = getattr(self, '_end_date', None )
+        return date is None and self.created() or date
+
+    
     #EOC
 
 InitializeClass(Dummy)

@@ -1483,12 +1483,12 @@ except:
         self.runExternalUpdater('cpsdirectory_installer',
                                 'CPSDirectory Installer',
                                 'CPSDirectory', 'install', 'install')
-        self.runExternalUpdater('cpsml_installer',
-                                'CPSMailingLists Installer',
-                                'CPSMailingLists', 'install', 'install')
         self.runExternalUpdater('cpssubscriptions_installer',
                                 'CPSSubscriptions Installer',
                                 'CPSSubscriptions', 'install', 'install')
+        self.runExternalUpdater('cpsnewsletter_installer',
+                                'CPSNewsLetters Installer',
+                                'CPSNewsLetters', 'install', 'install')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

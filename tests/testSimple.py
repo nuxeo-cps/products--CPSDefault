@@ -46,10 +46,16 @@ class TestSimpleAsRoot(TestSimple):
         self.assert_(self.portal.sections.folder_view())
 
     def testAdminSkinsAtRoot(self):
-        self.assert_(self.portal.directories())
+        self.assert_(self.portal.reconfig_form())
+        # XXX: move this to CPSDirectory ?
+        self.assert_(self.portal.cpsdirectory_view())
+        for dirname in ('members', 'groups', 'roles'):
+            self.portal.REQUEST['dirname'] = dirname
+            self.assert_(self.portal.cpsdirectory_entry_search_form())
+            self.assert_(self.portal.cpsdirectory_entry_create_form())
+        # Boxes
         self.assert_(self.portal.box_manage_form())
         self.assert_(self.portal.box_create_form())
-        self.assert_(self.portal.reconfig_form())
 
     def testAdminSkinsAtSectionsAndWorkspaces(self):
         for folder in (self.portal.workspaces, self.portal.sections):

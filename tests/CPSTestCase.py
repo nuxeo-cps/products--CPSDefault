@@ -67,6 +67,12 @@ class DummyTranslationService(SimpleItem):
     def translate(self, domain, msgid, *args, **kw):
         return msgid
 
+    def getDomainInfo(self):
+        return [(None, 'Localizer/default')]
+
+    def manage_addDomainInfo(self, domain, path, REQUEST=None, **kw):
+        pass
+
 # Dummy MessageCatalog
 class DummyMessageCatalog:
     def __call__(self, message, *args, **kw):

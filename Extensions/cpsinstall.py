@@ -5,16 +5,12 @@
 
 import os
 import sys
-from Globals import package_home
 from AccessControl import getSecurityManager
 from zLOG import LOG, INFO, DEBUG
-from Products.CMFCore.ActionInformation import ActionInformation
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, \
-     ReviewPortalContent, RequestReview
-from Products.PythonScripts.PythonScript import PythonScript
+from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
-
 from Products.CPSCore.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
@@ -24,932 +20,922 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_BEHAVIOR_CHECKOUT, TRANSITION_ALLOW_CHECKIN, \
      TRANSITION_BEHAVIOR_CHECKIN, TRANSITION_ALLOWSUB_DELETE, \
      TRANSITION_ALLOWSUB_MOVE, TRANSITION_ALLOWSUB_COPY
-
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
-from Products.CPSDefault import cpsdefault_globals
-from Products.CMFCore.utils import minimalpath
-from Products.CPSCore.CPSCorePermissions import ChangeSubobjectsOrder
+from Products.CPSInstaller.CPSInstaller import CPSInstaller
 
-def cpsinstall(self):
-    """
-    Cleanup and change stuff from a fresh CMF.
-    Do this only once...
-    """
-    _log = []
-    def pr(bla, _log=_log):
-        if bla == 'flush':
-            return '\n'.join(_log)
-        _log.append(bla)
-        if (bla):
-            LOG('cpsinstall:', INFO, bla)
+SECTIONS_ID = 'sections'
+WORKSPACES_ID = 'workspaces'
 
-    pr("Starting install")
-    pr("")
-    installername = getSecurityManager().getUser().getUserName()
-    pr("Current user: %s" % installername)
-    portal = self.portal_url.getPortalObject()
+class DefaultInstaller(CPSInstaller):
 
-    pr("Cleaning actions")
-    actiondelmap = {
-        'portal_actions': ('folderContents', 'folder_contents'),
-        'portal_syndication': ('syndication',),
-        }
-    for tool, actionids in actiondelmap.items():
-        actions = list(portal[tool]._actions)
-        for ac in actions:
-            id = ac.id
-            if id in actionids:
-                if ac.visible:
-                    ac.visible = 0
-                    pr(" Deleting %s: %s" % (tool, id))
-        portal[tool]._actions = actions
+    product_name = 'CPSDefault'
 
-    pr("Install Done")
-    return pr('flush')
+    def install(self, langs_list=None, is_creation=0):
+        self.langs_list = langs_list
+        self.is_creation = is_creation
+        self.log("Starting CPS update")
+        self.log("")
+        installername = getSecurityManager().getUser().getUserName()
+        self.log("Current user: %s" % installername)
+        self.setupMembership()
+        self.setupSkins()
+        self.setupTools()
+        self.setupEventService()
+        self.setupTypes()
+        self.setupActions()
+        self.setupWorkflow()
+        self.setupRoots()
+        self.setupAccessControl()
+        self.setupLocalWorkflow()
+        self.setupTreesTool()
+        self.setupBoxes()
+        self.setupi18n()
+        self.setupCPSProducts()
 
-
-def cpsupdate(self, langs_list=None):
-    # helpers
-    _log = []
-    def pr(bla, _log=_log):
-        if bla == 'flush':
-            return '\n'.join(_log)
-        _log.append(bla)
-        if (bla):
-            LOG('cpsupdate:', INFO, bla)
-
-    def primp(pr=pr):
-        pr(" !!! Cannot migrate that component !!!")
-
-    def prok(pr=pr):
-        pr(" Already correctly installed")
-
-    portal = self.portal_url.getPortalObject()
-    def portalhas(id, portal=portal):
-        return id in portal.objectIds()
-
-
-    pr("Starting update")
-    pr("")
-    installername = getSecurityManager().getUser().getUserName()
-    pr("Current user: %s" % installername)
-
-    # setting roles
-    pr("Verifying roles")
-    already = portal.valid_roles()
-    for role in ('WorkspaceManager', # manage: sub object, user right, document, ask for publication
-                 'WorkspaceMember',  # manage: document, ask for publication
-                 'WorkspaceReader',  # only view documents
-                 'SectionManager',   # manage sub object, accept publication
-                 'SectionReviewer',  # accept/reject publication
-                 'SectionReader',    # only view published document
-                 ):
-        if role not in already:
-            portal._addRole(role)
-            pr(" Add role %s" % role)
-
-    # acl_users with group
-    pr("Verifying User Folder")
-    if portalhas('acl_users'):
-        aclu = portal.acl_users
-        if aclu.meta_type in ['User Folder With Groups',
-                              'LDAPUserGroupsFolder']:
-            prok()
+        self.log("Verifying private area creation flag")
+        if not self.portal.portal_membership.getMemberareaCreationFlag():
+            self.log(" Activated")
+            self.portal.portal_membership.setMemberareaCreationFlag()
         else:
-            usernames = aclu.getUserNames()
-            if usernames:
-                pr(" !!! User Folder already contains users")
-                primp()
-            else:
-                portal.manage_delObjects(['acl_users'])
-    if not portalhas('acl_users'):
-        pr(" Creating User Folder With Groups")
-        portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
-
-    # portal registration
-    if not hasattr(portal, 'enable_portal_joining'):
-        portal.manage_addProperty('enable_portal_joining', 1, 'boolean')
-
-    for action in portal['portal_registration'].listActions():
-        if action.id == 'join':
-            action.condition = Expression('python: portal.portal_properties.enable_portal_joining and not member')
-
-    # portal membership
-    pr("Verifying Portal Membership tool")
-    if portalhas('portal_membership'):
-        pm = portal.portal_membership
-        if pm.portal_type == 'CPS Membership Tool':
-            prok()
-        else:
-            portal.manage_delObjects(['portal_membership'])
-
-    if not portalhas('portal_membership'):
-        pr(" Creating CPS Membership Tool")
-        portal.manage_addProduct['CPSCore'].addCPSMembershipTool()
-
-    # Verification of the action and addinf if neccesarly
-    action_found = 0
-    for action in portal['portal_actions'].listActions():
-        if action.id == 'action_my_preferences':
-            action_found = 1
-
-    if not action_found:
-        portal['portal_actions'].addAction(
-            id='action_my_preferences',
-            name='action_my_preferences',
-            action="string:${portal_url}/cpsdirectory_entry_view?dirname=members&id=${member}",
-            condition='member',
-            permission=('View',),
-            category='user',
-            visible=1)
-        pr(" Added Action My Preferences")
+            self.logOK()
 
 
+        self.log(" Reindexing %s" % WORKSPACES_ID)
+        # this will do a recursive reindexSecurityObject
+        # but reindex only the WORKSPACES_ID
+        self.portal[WORKSPACES_ID].reindexObject()
+        self.log(" Reindexing %s" % SECTIONS_ID)
+        self.portal[SECTIONS_ID].reindexObject()
 
-    # adding more actions
-    actions = {
-        'accessibility': {'id': 'accessibility',
-                          'name': 'action_accessibility',
-                          'action': 'string: ${portal_url}/accessibility',
-                          'permission': ('View', ),
-                          'condition': '',
-                          'category': 'global_header',
-                          'visible': 1,
-                          },
-        'print': {'id': 'print',
-                  'name': 'action_print',
-                  'action':
-                  'string:javascript:if (window.print) window.print();',
-                  'permission': ('View',),
-                  'condition': '',
-                  'category': 'global_header',
-                  'visible': 1
-               },
-        'advanced_search': {'id': 'advanced_search',
-                            'name': 'action_advanced_search',
-                            'action': 'string: ./advanced_search_form',
-                            'permission': ('View', ),
-                            'condition': '',
-                            'category': 'global_header',
-                            'visible': 1,
-                            },
-        'contact': {'id': 'contact',
-                    'name': 'action_contact',
-                    'action': 'string:mailto:${portal/portal_properties/email_from_address}?subject=Info',
+        self.flagCatalogForReindex()
+
+        # remove cpsinstall external method
+        # and fix cpsupdate permission
+        if 'cpsinstall' in self.portal.objectIds():
+            self.log("Removing cpsinstall")
+            self.portal._delObject('cpsinstall')
+
+        self.setupTranslations()
+        self.finalize()
+        self.log("CPS update Finished")
+
+    def setupAccessControl(self):
+        # setting roles
+        # acl_users with group
+        self.log("Verifying User Folder")
+        if self.portalHas('acl_users'):
+            aclu = self.portal.acl_users
+            # Change from earlier installer; Now only replaces the user folder
+            # if it is an empty standard user folder. If it is NOT, somebody
+            # has already replaced it, and it should be kept.
+            if aclu.meta_type == 'User Folder':
+                if aclu.getUserNames():
+                    self.log('WARNING: You are not using a CPS compatible '
+                        'user folder! The current user folder will not be '
+                        'replaced this userfolder as it contains users. '
+                        'Please upgrade manually.')
+                else:
+                    self.log(' Replacing default user folder')
+                    self.portal.manage_delObjects(['acl_users'])
+        if not self.portalHas('acl_users'):
+            self.log(" Creating User Folder With Groups")
+            self.portal.manage_addProduct['NuxUserGroups'].\
+                addUserFolderWithGroups()
+
+        self.verifyRoles((
+            'WorkspaceManager', # manage: sub object, user right, document,
+                                # ask for publication
+            'WorkspaceMember',  # manage: document, ask for publication
+            'WorkspaceReader',  # only view documents
+            'SectionManager',   # manage sub object, accept publication
+            'SectionReviewer',  # accept/reject publication
+            'SectionReader',    # only view published document
+        ))
+
+        self.log("Verifying permissions")
+        ModifyFolderPoperties = 'Modify Folder Properties'
+        setDefaultRoles(ModifyFolderPoperties,
+            ( 'Manager', 'WorkspaceManager',))
+
+        sections_perm = {
+            'Request review':['Manager', 'WorkspaceManager',
+                              'WorkspaceMember',  'SectionReviewer',
+                              'SectionManager'],
+            'Review portal content':['Manager', 'SectionReviewer',
+                                     'SectionManager'],
+            'Add Box Container': ['Manager', 'SectionManager'],
+            'Manage Box Overrides': ['Manager','SectionManager'],
+            'Manage Boxes': ['Manager', 'SectionManager'],
+            'Add portal content': ['Manager', 'SectionManager'],
+            'Add portal folders': ['Manager', 'SectionManager'],
+            'Change permissions': ['Manager', 'SectionManager'],
+            'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
+            'List folder contents': ['Manager', 'SectionManager',
+                                     'SectionReviewer', 'SectionReader'],
+            'Modify portal content': ['Manager', 'SectionManager'],
+            'Modify Folder Properties' : ['Manager', 'SectionManager'],
+            'View': ['Manager', 'SectionManager', 'SectionReviewer',
+                     'SectionReader'],
+            'View management screens': ['Manager', 'SectionManager'],
+            }
+        workspaces_perm = {
+            'Add portal content': ['Manager', 'WorkspaceManager',
+                                   'WorkspaceMember', ],
+            'Add portal folders': ['Manager', 'WorkspaceManager'],
+            'Change permissions': ['Manager', 'WorkspaceManager'],
+            'Change subobjects order': ['Manager', 'WorkspaceManager',
+                                        'WorkspaceMember', ],
+            'Delete objects': ['Manager', 'WorkspaceManager',
+                               'WorkspaceMember', ],
+            'List folder contents': ['Manager', 'WorkspaceManager',
+                                     'WorkspaceMember', 'WorkspaceReader'],
+            'Modify portal content': ['Manager', 'WorkspaceManager',
+                                      'WorkspaceMember', 'Owner'],
+            'Modify Folder Properties' : ['Manager', 'WorkspaceManager'],
+            'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember',
+                     'WorkspaceReader'],
+            'View management screens': ['Manager', 'WorkspaceManager',
+                                        'WorkspaceMember',],
+            'Add Box Container': ['Manager', 'WorkspaceManager',
+                                  'SectionManager'],
+            'Manage Box Overrides': ['Manager','WorkspaceManager'],
+            'Manage Boxes': ['Manager', 'WorkspaceManager'],
+            }
+        self.setupPortalPermissions(sections_perm, self.portal[SECTIONS_ID])
+        self.setupPortalPermissions(workspaces_perm, self.portal[WORKSPACES_ID])
+
+        if 'cpsupdate' in self.portal.objectIds():
+            self.log("Protecting cpsupdate")
+            self.portal.cpsupdate.manage_permission(
+                'View', roles=['Manager'], acquire=0)
+            self.portal.cpsupdate.manage_permission(
+                'Access contents information', roles=['Manager'], acquire=0)
+
+    def setupMembership(self):
+        self.log('Setting up portal membership support,')
+
+        # portal registration
+        if not hasattr(self.portal, 'enable_portal_joining'):
+            self.portal.manage_addProperty('enable_portal_joining', 1,'boolean')
+
+        for action in self.portal['portal_registration'].listActions():
+            if action.id == 'join':
+                action.condition = Expression('python: portal.'
+                    'portal_properties.enable_portal_joining and not member')
+
+        self.verifyTool('portal_membership', 'CPSCore', 'CPS Membership Tool')
+        self.verifyAction('portal_actions',
+                id='action_my_preferences',
+                name='action_my_preferences',
+                action="string:${portal_url}/cpsdirectory_entry_view?"
+                       "dirname=members&id=${member}",
+                condition='member',
+                permission=('View',),
+                category='user',
+                visible=1)
+
+    def setupActions(self):
+
+        if self.is_creation:
+            self.log("Cleaning actions")
+            actiondelmap = {
+                'portal_actions': ('folderContents', 'folder_contents'),
+                'portal_syndication': ('syndication',),
+                }
+            self.deleteActions(actiondelmap)
+
+        # Setting up misc actions
+        actions = (
+          { 'tool': 'portal_actions',
+            'id': 'accessibility',
+            'name': 'action_accessibility',
+            'action': 'string: ${portal_url}/accessibility',
+            'permission': ('View', ),
+            'condition': '',
+            'category': 'global_header',
+            'visible': 1,
+          },
+          { 'tool': 'portal_actions',
+            'id': 'print',
+            'name': 'action_print',
+            'action':
+            'string:javascript:if (window.print) window.print();',
+            'permission': ('View',),
+            'condition': '',
+            'category': 'global_header',
+            'visible': 1
+          },
+          { 'tool': 'portal_actions',
+            'id': 'advanced_search',
+            'name': 'action_advanced_search',
+            'action': 'string: ./advanced_search_form',
+            'permission': ('View', ),
+            'condition': '',
+            'category': 'global_header',
+            'visible': 1,
+            },
+          { 'tool': 'portal_actions',
+            'id': 'contact',
+            'name': 'action_contact',
+            'action': 'string:mailto:${portal/portal_properties/'
+                      'email_from_address}?subject=Info',
+            'permission': ('View', ),
+            'condition': '',
+            'category': 'global_header',
+            'visible': 1,
+          },
+          { 'tool': 'portal_actions',
+            'id': 'status_history',
+            'name': 'action_status_history',
+            'action': 'string:${object/absolute_url}/content_status_history',
+            'permission': ('View', ),
+            # XXX: this is messy.
+            'condition': "python:getattr(object, 'portal_type', None) not in "
+                "('Section', 'Workspace', 'Portal', 'Calendar', 'Event')",
+            'category': 'workflow',
+            'visible': 1,
+          },
+
+        )
+
+        if 'Link' in self.portal['portal_types'].objectIds():
+            actions = actions + (
+                { 'tool': 'portal_actions',
+                    'id': 'add_favorites',
+                    'name': 'action_add_favorites',
+                    'action': 'string:${object/absolute_url}/addtoFavorites',
                     'permission': ('View', ),
-                    'condition': '',
-                    'category': 'global_header',
+                    'condition': "python: member and portal.portal_membership."
+                                 "getHomeFolder()",
+                    'category': 'user',
                     'visible': 1,
-                    },
-     }
-    actions_list = ('accessibility', 'advanced_search', 'print',
-                    'contact')
-
-    present_actions = [action.id for action in \
-                       portal['portal_actions'].listActions()]
-
-    for action in actions_list:
-        if action not in present_actions:
-            portal['portal_actions'].addAction(**actions[action])
-            pr(" Added Action %s" % action)
-
-    # skins
-    pr("Verifying skins")
-    skins = ('cps_nuxeo_style', 'cps_styles', 'cps_images', 'cps_devel',
-             'cps_default', 'cps_javascript', 'cmf_zpt_calendar',
-             'cmf_calendar')
-    paths = {
-        'cps_nuxeo_style': 'Products/CPSDefault/skins/cps_styles/nuxeo',
-        'cps_styles': 'Products/CPSDefault/skins/cps_styles',
-        'cps_images': 'Products/CPSDefault/skins/cps_images',
-        'cps_devel': 'Products/CPSDefault/skins/cps_devel',
-        'cps_default': 'Products/CPSDefault/skins/cps_default',
-        'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
-        'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
-        'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
-    }
-    skins_to_delete = ('calendar', 'zpt_calendar')
-
-    for skin in skins:
-        path = paths[skin]
-        path = path.replace('/', os.sep)
-        pr(" FS Directory View '%s'" % skin)
-        if skin in portal.portal_skins.objectIds():
-            dv = portal.portal_skins[skin]
-            oldpath = dv.getDirPath()
-            if oldpath == path:
-                prok()
-            else:
-                pr("  Correctly installed, correcting path")
-                dv.manage_properties(dirpath=path)
+                },
+                { 'tool': 'portal_actions',
+                    'id': 'view_favorites',
+                    'name': 'action_view_favorites',
+                    'action': 'string:${portal/portal_membership/getHomeUrl}/'
+                              'Favorites',
+                    'permission': ('View', ),
+                    'condition': 'python: hasattr(portal.portal_membership.'
+                                 'getHomeFolder(),"Favorites")',
+                    'category': 'user',
+                    'visible': 1,
+                },
+            )
         else:
-            # XXX: Hack around a CMFCore/DirectoryView bug (?)
-            path = os.path.join(package_home(cpsdefault_globals),
-                 "..", "..", path)
-            path = minimalpath(path)
+            self.log("WARNING: CPSDocument type Link does not seem to exist; "
+                     "Favorites will not be available")
 
-            portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
-            pr("  Creating skin")
-    allskins = portal.portal_skins.getSkinPaths()
-    for skin_name, skin_path in allskins:
-        if skin_name != 'Basic':
-            continue
-        path = [x.strip() for x in skin_path.split(',')]
-        path = [x for x in path if x not in skins] # strip all
-        if path and path[0] == 'custom':
-            path = path[:1] + list(skins) + path[1:]
-        else:
-            path = list(skins) + path
-        npath = ', '.join(path)
-        portal.portal_skins.addSkinSelection(skin_name, npath)
-        pr(" Fixup of skin %s" % skin_name)
+        self.verifyActions(actions)
 
-    # Delete useless skin (they get in the way of object creation).
-    for skin in skins_to_delete:
-        if skin in portal.portal_skins.objectIds():
-            portal.portal_skins._delObject(skin)
-
-    pr(" Resetting skin cache")
-    portal._v_skindata = None
-    portal.setupCurrentSkin()
-
-    pr(" Checking portal_catalog indexes")
-    indexes = {
+    def setupSkins(self):
+        self.deleteSkins(('calendar', 'zpt_calendar'))
+        skins = {
+            'cps_nuxeo_style': 'Products/CPSDefault/skins/cps_styles/nuxeo',
+            'cps_styles': 'Products/CPSDefault/skins/cps_styles',
+            'cps_images': 'Products/CPSDefault/skins/cps_images',
+            'cps_devel': 'Products/CPSDefault/skins/cps_devel',
+            'cps_default': 'Products/CPSDefault/skins/cps_default',
+            'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
+            'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
+            'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
         }
-    metadata = [
-        ]
-    catalog = portal.portal_catalog
-    for ix, typ in indexes.items():
-        if ix in catalog.Indexes.objectIds():
-            pr("  %s: ok" % ix)
-        else:
-            prod = catalog.Indexes.manage_addProduct['PluginIndexes']
-            constr = getattr(prod, 'manage_add%s' % typ)
-            constr(ix)
-            pr("  %s: added" % ix)
+        self.verifySkins(skins)
 
+    def setupTools(self):
+        # Needs to exist before types are installed.
+        if not self.portalHas("portal_calendar"):
+            self.runExternalUpdater('cmfcalendar_installer',
+                                    'CMFCalendar Updater',
+                                    'CMFCalendar',
+                                    'Install',
+                                    'install')
 
-    # CMF Tools
-    pr("")
-    pr("### CMFCalendar update")
-    if not portalhas('cmfcalendar_installer'):
-        if portalhas('portal_calendar'):
-            portal.manage_delObjects(['portal_calendar'])
-        pr('Adding cmfcalendar installer')
-        cmfcalendar_installer = ExternalMethod('cmfcalendar_installer',
-                                               'CMFCalendar Updater',
-                                               'CMFCalendar.Install',
-                                               'install')
-        portal._setObject('cmfcalendar_installer', cmfcalendar_installer)
-        pr(portal.cmfcalendar_installer())
-    pr("### End of CMFCalendar update")
-    pr("")
+        # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
+        # CPS Object Repository, Tree tools
+        self.verifyTool('portal_proxies', 'CPSCore', 'CPS Proxies Tool')
+        self.verifyTool('portal_repository', 'CPSCore', 'CPS Repository Tool')
 
-    # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
-    # CPS Object Repository, Tree tools
-    pr("Verifying CPS Tools")
-    if portalhas('portal_eventservice'):
-        prok()
-    else:
-        pr(" Creating portal_eventservice")
-        portal.manage_addProduct["CPSCore"].manage_addTool(
+    def setupEventService(self):
+        # configure event service to hook the proxies, by adding a subscriber
+        self.verifyTool('portal_eventservice', 'CPSCore',
             'CPS Event Service Tool')
-    if portalhas('portal_proxies'):
-        prok()
-    else:
-        pr(" Creating portal_proxies")
-        portal.manage_addProduct["CPSCore"].manage_addTool('CPS Proxies Tool')
-    if portalhas('portal_repository'):
-        prok()
-    else:
-        pr(" Creating portal_repository")
-        portal.manage_addProduct["CPSCore"].manage_addTool(
-            'CPS Repository Tool')
+        subscriptions = (
+            {
+                'subscriber': 'portal_proxies',
+                'action': 'proxy',
+                'meta_type': '*',
+                'event_type': '*',
+                'notification_type': 'synchronous',
+            },
+            {
+                'subscriber': 'portal_trees',
+                'action': 'tree',
+                'meta_type': '*',
+                'event_type': '*',
+                'notification_type': 'synchronous'
+             }
+        )
+        self.verifyEventSubscribers(subscriptions)
 
-    if portalhas('portal_trees'):
-        prok()
-    else:
-        pr(" Creating (CPS Tools) CPS Trees Tool")
-        portal.manage_addProduct["CPSCore"].manage_addTool('CPS Trees Tool')
-    if portalhas('portal_boxes'):
-        prok()
-    else:
-        pr(" Creating portal_boxes")
-        portal.manage_addProduct["CPSDefault"].manage_addTool('CPS Boxes Tool')
+    def setupWorkflow(self):
+        # replace portal_workflow with a (CPS Tools) CPW Workflow Tool.
+        self.verifyTool('portal_workflow', 'CPSCore', 'CPS Workflow Tool')
+        self.setupWorkflow1()
+        self.setupWorkflow2()
+        self.setupWorkflow3()
+        self.setupWorkflow4()
+        self.setupWorkflow5()
+        self.log("Verifying workflow schemas")
 
-    # configure event service to hook the proxies, by adding a subscriber
-    pr("Verifying Event service tool")
-    objs = portal.portal_eventservice.objectValues()
-    subscribers = []
-    for obj in objs:
-        subscribers.append(obj.subscriber)
-    if 'portal_proxies' in subscribers:
-        prok()
-    else:
-        pr(" Creation portal_proxies subscribers")
-        portal.portal_eventservice.manage_addSubscriber(
-            subscriber='portal_proxies',
-            action='proxy',
-            meta_type='*',
-            event_type='*',
-            notification_type='synchronous')
-    if 'portal_trees' in subscribers:
-        prok()
-    else:
-        pr(" Creation portal_proxies subscribers")
-        portal.portal_eventservice.manage_addSubscriber(
-            subscriber='portal_trees',
-            action='tree',
-            meta_type='*',
-            event_type='*',
-            notification_type='synchronous')
+        wfs = {
+            'Section': 'section_folder_wf',
+            'Workspace': 'workspace_folder_wf',
+            }
+        wftool = self.portal.portal_workflow
+        self.log("Installing workflow schemas")
+        for pt, chain in wfs.items():
+            wftool.setChainForPortalTypes([pt], chain)
+        wftool.setDefaultChain('')
+
+    def setupLocalWorkflow(self):
+        wfchains = {'Workspace': 'workspace_folder_wf',
+                    'Section': ''}
+        self.verifyLocalWorkflowChains(self.portal[WORKSPACES_ID], wfchains)
+
+        wfchains = {'Workspace': '',
+                    'Section': 'section_folder_wf'}
+        self.verifyLocalWorkflowChains(self.portal[SECTIONS_ID], wfchains)
 
 
-    # replace portal_workflow with a (CPS Tools) CPW Workflow Tool.
-    pr("Verifying portal_workflow")
-    if portalhas('portal_workflow'):
-        if portal.portal_workflow.meta_type == 'CPS Workflow Tool':
-            prok()
-        else:
-            pr(" Removing CMF Workflow Tool")
-            portal.manage_delObjects(['portal_workflow'])
+    def setupWorkflow1(self):
+        # workspace_folder_wf
+        wfdef = {'wfid': 'workspace_folder_wf',
+                'permissions': (View, ModifyPortalContent)}
 
-    if not portalhas('portal_workflow'):
-        pr(" Creating (CPS Tools) CPS Workflow Tool")
-        portal.manage_addProduct["CPSCore"].manage_addTool('CPS Workflow Tool')
+        wfstates = {
+            'work': {
+                'title': 'Work',
+                'transitions':('create_content', 'cut_copy_paste'),
+                'permissions': {View: ('Manager', 'WorkspaceManager',
+                                       'WorkspaceMember', 'WorkspaceReader')},
+            },
+        }
 
-
-    # create workflow
-    pr("Setup workflow schemas")
-    wftool = portal.portal_workflow
-    wfids = wftool.objectIds()
-
-    # WF workspace
-    wfid = 'workspace_folder_wf'
-    pr(" Setup workflow %s" % wfid)
-    if wfid in wfids:
-        wftool.manage_delObjects([wfid])
-    wftool.manage_addWorkflow(id=wfid,
-                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
-    wf = wftool[wfid]
-    wf.addManagedPermission(View)
-
-    for s in ('work', ):
-        wf.states.addState(s)
-
-    for t in ('create', 'create_content', 'cut_copy_paste'):
-        wf.transitions.addTransition(t)
-
-    s = wf.states.get('work')
-    s.setProperties(title='Work',
-                    transitions=('create_content', 'cut_copy_paste'))
-    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
-
-    t = wf.transitions.get('create')
-    t.setProperties(title='Initial creation', new_state_id='work',
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, ),
-                    clone_allowed_transitions=None,
-                    actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('create_content')
-    t.setProperties(title='Create content', new_state_id='work',
-                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE,
-                                         TRANSITION_ALLOWSUB_CHECKOUT),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    # For the cut/copy/paste feature
-    t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
-                                         TRANSITION_ALLOWSUB_MOVE,
-                                         TRANSITION_ALLOWSUB_COPY),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-
-    # WF workspace content
-    wfid = 'workspace_content_wf'
-    pr(" Setup workflow %s" % wfid)
-    if wfid in wfids:
-        wftool.manage_delObjects([wfid])
-    wftool.manage_addWorkflow(id=wfid,
-                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
-    wf = wftool[wfid]
-    for p in (View, ModifyPortalContent):
-        wf.addManagedPermission(p)
-
-    for s in ('work', 'draft', 'locked'):
-        wf.states.addState(s)
-    for t in ('create', 'copy_submit',
-              'checkout_draft', 'checkout_draft_in', 'checkin_draft',
-              'abandon_draft', 'unlock', 'cut_copy_paste'):
-        wf.transitions.addTransition(t)
-    for v in ('action', 'actor', 'comments', 'review_history', 'time',
-              'dest_container'):
-        wf.variables.addVariable(v)
-
-    s = wf.states.get('work')
-    s.setProperties(title='Work',
-                    transitions=('copy_submit', 'checkout_draft', 'cut_copy_paste'))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'Owner', ))
-    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
-
-    s = wf.states.get('draft')
-    s.setProperties(title='Draft',
-                    transitions=('checkin_draft', 'abandon_draft', 'unlock'))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'Owner'))
-    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'Owner'))
-
-    s = wf.states.get('locked')
-    s.setProperties(title='Locked',
-                    transitions=('unlock',))
-    s.setPermission(ModifyPortalContent, 0, ())
-    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
-
-    t = wf.transitions.get('create')
-    t.setProperties(title='Initial creation', new_state_id='work',
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, ),
-                    clone_allowed_transitions=None,
-                    actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('copy_submit')
-    t.setProperties(title='Copy content into a section for Publishing',
-                    new_state_id='',
-                    transition_behavior=(TRANSITION_BEHAVIOR_PUBLISHING, ),
-                    clone_allowed_transitions=('submit', 'publish'),
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='action_submit', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_submit_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('checkout_draft')
-    t.setProperties(title='Checkout content into a draft',
-                    new_state_id='locked',
-                    transition_behavior=(TRANSITION_BEHAVIOR_CHECKOUT,),
-                    checkout_allowed_initial_transitions=('checkout_draft_in',),
-                    actbox_name='action_checkout_draft', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_checkout_draft_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('checkout_draft_in')
-    t.setProperties(title='Draft is created',
-                    new_state_id='draft',
-                    transition_behavior=(TRANSITION_INITIAL_CHECKOUT,
-                                         TRANSITION_BEHAVIOR_FREEZE),
-                    )
-    t = wf.transitions.get('checkin_draft')
-    t.setProperties(title='Checkin draft',
-                    new_state_id='locked',
-                    transition_behavior=(TRANSITION_BEHAVIOR_CHECKIN,),
-                    checkin_allowed_transitions=('unlock',),
-                    actbox_name='action_checkin_draft', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_checkin_draft_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; Owner',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('abandon_draft')
-    t.setProperties(title='Abandon draft',
-                    new_state_id='',
-                    transition_behavior=(TRANSITION_BEHAVIOR_DELETE,),
-                    script_name='unlock_locked_before_abandon',
-                    actbox_name='action_abandon_draft', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_abandon_draft_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; Owner',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('unlock')
-    t.setProperties(title='Unlock content after a draft is done',
-                    new_state_id='work',
-                    transition_behavior=(TRANSITION_ALLOW_CHECKIN,),
-                    )
-
-    # For the cut/copy/paste feature
-    t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
-                                         TRANSITION_ALLOWSUB_MOVE,
-                                         TRANSITION_ALLOWSUB_COPY),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
+        wftransitions = {
+            'cut_copy_paste': {
+                'title': 'Cut/Copy/Paste',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_ALLOWSUB_DELETE,
+                                        TRANSITION_ALLOWSUB_MOVE,
+                                        TRANSITION_ALLOWSUB_COPY),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'create': {
+                'title': 'Initial creation',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_INITIAL_CREATE,),
+                'clone_allowed_transitions': None,
+                'actbox_category': 'workflow',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'create_content': {
+                'title': 'Create content',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_ALLOWSUB_CREATE,
+                                        TRANSITION_ALLOWSUB_CHECKOUT),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+        }
+        self.verifyWorkflow(wfdef, wfstates, wftransitions, {}, {})
 
 
-    # wf scripts
-    scripts = wf.scripts
+    def setupWorkflow2(self):
+        # workspace_content_wf
+        wfdef = {
+            'wfid': 'workspace_content_wf',
+            'permissions': (View, ModifyPortalContent),
+            'state_var': 'review_state',
+        }
 
-    script_name = 'unlock_locked_before_abandon'
-    scripts._setObject(script_name, PythonScript(script_name))
-    script = scripts[script_name]
-    script.write("""\
+
+        wfstates = {
+            'work': {
+                'title': 'Work',
+                'transitions':('copy_submit', 'checkout_draft',
+                               'cut_copy_paste'),
+                 'permissions': {View: ('Manager', 'WorkspaceManager',
+                                         'WorkspaceMember', 'WorkspaceReader'),
+                                 ModifyPortalContent: ('Manager', 'Owner',
+                                    'WorkspaceManager', 'WorkspaceMember')},
+           },
+            'draft': {
+                'title': 'Draft',
+                'transitions': ('checkin_draft', 'abandon_draft', 'unlock'),
+                'permissions': {View: ('Manager', 'WorkspaceManager', 'Owner'),
+                                ModifyPortalContent:
+                                    ('Manager', 'WorkspaceManager',)},
+            },
+            'locked': {
+                'title': 'Locked',
+                'transitions':('unlock',),
+                'permissions': {View: ('Manager', 'WorkspaceManager',
+                                         'WorkspaceMember', 'WorkspaceReader'),
+                                ModifyPortalContent: ()},
+            },
+        }
+
+        wftransitions = {
+            'create': {
+                'title': 'Initial creation',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_INITIAL_CREATE, ),
+                'clone_allowed_transitions': None,
+                'actbox_name': '',
+                'actbox_category': 'workflow',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'copy_submit': {
+                'title': 'Copy content into a section for Publishing',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_BEHAVIOR_PUBLISHING, ),
+                'clone_allowed_transitions': ('submit', 'publish'),
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'action_submit',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_submit_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'co py_submit': {
+                'title': 'Copy content into a section for Publishing',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_BEHAVIOR_PUBLISHING, ),
+                'clone_allowed_transitions': ('submit', 'publish'),
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'action_submit',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_submit_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'checkout_draft': {
+                'title': 'Checkout content into a draft',
+                'new_state_id': 'locked',
+                'transition_behavior': (TRANSITION_BEHAVIOR_CHECKOUT,),
+                'checkout_allowed_initial_transitions': ('checkout_draft_in',),
+                'actbox_name': 'action_checkout_draft',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_checkout_draft_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'checkout_draft_in': {
+                'title': 'Draft is created',
+                'new_state_id': 'draft',
+                'transition_behavior': (TRANSITION_INITIAL_CHECKOUT,
+                                        TRANSITION_BEHAVIOR_FREEZE),
+            },
+            'checkin_draft': {
+                'title': 'Checkin draft',
+                'new_state_id': 'locked',
+                'transition_behavior': (TRANSITION_BEHAVIOR_CHECKIN,),
+                'checkin_allowed_transitions': ('unlock',),
+                'actbox_name': 'action_checkin_draft',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_checkin_draft_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; Owner',
+                          'guard_expr':''},
+            },
+            'abandon_draft': {
+                'title': 'Abandon draft',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_BEHAVIOR_DELETE,),
+                'script_name': 'unlock_locked_before_abandon',
+                'actbox_name': 'action_abandon_draft',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_abandon_draft_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; Owner',
+                          'guard_expr':''},
+            },
+            'unlock': {
+                'title': 'Unlock content after a draft is done',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_ALLOW_CHECKIN,),
+            },
+            'cut_copy_paste': {
+                'title': 'Cut/Copy/Paste',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_ALLOWSUB_DELETE,
+                                        TRANSITION_ALLOWSUB_MOVE,
+                                        TRANSITION_ALLOWSUB_COPY),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+        }
+
+
+        wfscripts = {
+            'unlock_locked_before_abandon': {
+                '_owner': None,
+                'script': """\
 ##parameters=state_change
 return state_change.object.content_unlock_locked_before_abandon(state_change)
-""")
-    #script._proxy_roles = ('Manager',)
-    script._owner = None
+"""
+            },
+        }
 
-    # wf variables
-    wf.variables.setStateVar('review_state')
-    vdef = wf.variables['action']
-    vdef.setProperties(description='The last transition',
-                       default_expr='transition/getId|nothing',
-                       for_status=1, update_always=1)
+        wfvariables = {
+            'action': {
+                'description': 'The last transition',
+                'default_expr': 'transition/getId|nothing',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'actor': {
+                'description': 'The ID of the user who performed',
+                'default_expr': 'user/getId',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'comments': {
+                'description': 'Comments about the last transition',
+                'default_expr': "python:state_change.kwargs.get('comment', '')",
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'review_history': {
+                'description': 'Provides access to workflow history',
+                'default_expr': 'state_change/getHistory',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember; WorkspaceReader',
+                          'guard_expr':''}
+            },
+            'time': {
+                'description': 'Time of the last transition',
+                'default_expr': 'state_change/getDateTime',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'dest_container': {
+                'description': 'Destination container for the last '
+                               'paste/publish',
+                'default_expr': "python:state_change.kwargs.get("
+                                "'dest_container', '')",
+                'for_status': 1,
+                'update_always': 1,
+            },
+        }
 
-    vdef = wf.variables['actor']
-    vdef.setProperties(description='The ID of the user who performed '
-                       'the last transition',
-                       default_expr='user/getId',
-                       for_status=1, update_always=1)
+        self.verifyWorkflow(wfdef, wfstates, wftransitions,
+                            wfscripts, wfvariables)
 
-    vdef = wf.variables['comments']
-    vdef.setProperties(description='Comments about the last transition',
-                       default_expr="python:state_change.kwargs.get('comment', '')",
-                       for_status=1, update_always=1)
+    def setupWorkflow3(self):
+        # WF workspace folderish content
+        wfdef = {
+            'wfid': 'workspace_folderish_content_wf',
+            'permissions': (View, ModifyPortalContent),
+            'state_var': 'review_state',
+        }
 
-    vdef = wf.variables['review_history']
-    vdef.setProperties(description='Provides access to workflow history',
-                       default_expr="state_change/getHistory",
-                       props={'guard_permissions':'',
-                              'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; WorkspaceReader',
-                              'guard_expr':''})
+        wfstates = {
+            'work': {
+                'title': 'Work',
+                'transitions':('copy_submit', 'create_content',
+                               'cut_copy_paste'),
+                 'permissions': {View: ('Manager', 'WorkspaceManager',
+                                        'WorkspaceMember', 'WorkspaceReader'),
+                                 ModifyPortalContent: ('Manager',
+                                        'WorkspaceManager', 'WorkspaceMember')},
+           },
+        }
 
-    vdef = wf.variables['time']
-    vdef.setProperties(description='Time of the last transition',
-                       default_expr="state_change/getDateTime",
-                       for_status=1, update_always=1)
+        wftransitions = {
+           'create': {
+                'title': 'Initial creation',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_INITIAL_CREATE, ),
+                'clone_allowed_transitions': None,
+                'actbox_name': '',
+                'actbox_category': 'workflow',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                        'guard_roles':'Manager; WorkspaceManager; '
+                                      'WorkspaceMember',
+                        'guard_expr':''},
+            },
+            'copy_submit': {
+                'title': 'Copy content into a section for Publishing',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_BEHAVIOR_PUBLISHING, ),
+                'clone_allowed_transitions': ('submit', 'publish'),
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'action_submit',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_submit_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'create_content': {
+                'title': 'Create content',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_ALLOWSUB_CREATE, ),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+            'cut_copy_paste': {
+                'title': 'Cut/Copy/Paste',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_ALLOWSUB_DELETE,
+                                        TRANSITION_ALLOWSUB_MOVE,
+                                        TRANSITION_ALLOWSUB_COPY),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember',
+                          'guard_expr':''},
+            },
+        }
 
-    vdef = wf.variables['dest_container']
-    vdef.setProperties(description='Destination container for the last paste/publish',
-                       default_expr="python:state_change.kwargs.get('dest_container', '')",
-                       for_status=1, update_always=1)
+        wfvariables = {
+            'action': {
+                'description': 'The last transition',
+                'default_expr': 'transition/getId|nothing',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'actor': {
+                'description': 'The ID of the user who performed',
+                'default_expr': 'user/getId',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'comments': {
+                'description': 'Comments about the last transition',
+                'default_expr': "python:state_change.kwargs.get('comment', '')",
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'review_history': {
+                'description': 'Provides access to workflow history',
+                'default_expr': 'state_change/getHistory',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember; WorkspaceReader',
+                          'guard_expr':''}
+            },
+            'time': {
+                'description': 'Time of the last transition',
+                'default_expr': 'state_change/getDateTime',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'dest_container': {
+                'description': 'Destination container for the last '
+                                'paste/publish',
+                'default_expr': "python:state_change.kwargs.get("
+                                "'dest_container', '')",
+                'for_status': 1,
+                'update_always': 1,
+            },
+        }
 
-    # WF workspace folderish content
-    wfid = 'workspace_folderish_content_wf'
-    pr(" Setup workflow %s" % wfid)
-    if wfid in wfids:
-        wftool.manage_delObjects([wfid])
-    wftool.manage_addWorkflow(id=wfid,
-                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
-    wf = wftool[wfid]
-    for p in (View, ModifyPortalContent):
-        wf.addManagedPermission(p)
+        self.verifyWorkflow(wfdef, wfstates, wftransitions, {}, wfvariables)
 
-    for s in ('work', ):
-        wf.states.addState(s)
-    for t in ('create', 'copy_submit', 'create_content', 'cut_copy_paste'):
-        wf.transitions.addTransition(t)
-    for v in ('action', 'actor', 'comments', 'review_history', 'time',
-              'dest_container'):
-        wf.variables.addVariable(v)
+    def setupWorkflow4(self):
+        # section_folder_wf
+        wfdef = {'wfid': 'section_folder_wf',
+                'permissions': (View,)}
 
-    s = wf.states.get('work')
-    s.setProperties(title='Work',
-                    transitions=('copy_submit', 'create_content', 'cut_copy_paste'))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', ))
-    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
+        wfstates = {
+            'work': {
+                'title': 'Work',
+                'transitions':('create_content', 'cut_copy_paste'),
+                'permissions': {View: ('Manager', 'SectionManager',
+                                       'SectionReviewer', 'SectionReader')},
+            },
+        }
 
-    t = wf.transitions.get('create')
-    t.setProperties(title='Initial creation', new_state_id='work',
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, ),
-                    clone_allowed_transitions=None,
-                    actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('copy_submit')
-    t.setProperties(title='Copy content into a section for Publishing',
-                    new_state_id='',
-                    transition_behavior=(TRANSITION_BEHAVIOR_PUBLISHING, ),
-                    clone_allowed_transitions=('submit', 'publish'),
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='action_submit', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_submit_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('create_content')
-    t.setProperties(title='Create content', new_state_id='work',
-                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
+        wftransitions = {
+            'cut_copy_paste': {
+                'title': 'Cut/Copy/Paste',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_ALLOWSUB_DELETE,
+                                        TRANSITION_ALLOWSUB_MOVE,
+                                        TRANSITION_ALLOWSUB_COPY),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer; SectionReader',
+                          'guard_expr':''},
+            },
+            'create': {
+                'title': 'Initial creation',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_INITIAL_CREATE,),
+                'clone_allowed_transitions': None,
+                'actbox_category': 'workflow',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager;',
+                          'guard_expr':''},
+            },
+            # XXX: TODO warning guard for publishing and creating
+            # sub section are the same
+            'create_content': {
+                'title': 'Create content',
+                'new_state_id': 'work',
+                'transition_behavior': (TRANSITION_ALLOWSUB_CREATE,
+                                        TRANSITION_ALLOWSUB_PUBLISHING),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer; SectionReader',
+                          'guard_expr':''},
+            },
+        }
+        self.verifyWorkflow(wfdef, wfstates, wftransitions, {}, {})
 
-    # For the cut/copy/paste feature
-    t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
-                                         TRANSITION_ALLOWSUB_MOVE,
-                                         TRANSITION_ALLOWSUB_COPY),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
-                           'guard_expr':''},
-                    )
-
-    # wf variables
-    wf.variables.setStateVar('review_state')
-    vdef = wf.variables['action']
-    vdef.setProperties(description='The last transition',
-                       default_expr='transition/getId|nothing',
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['actor']
-    vdef.setProperties(description='The ID of the user who performed '
-                       'the last transition',
-                       default_expr='user/getId',
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['comments']
-    vdef.setProperties(description='Comments about the last transition',
-                       default_expr="python:state_change.kwargs.get('comment', '')",
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['review_history']
-    vdef.setProperties(description='Provides access to workflow history',
-                       default_expr="state_change/getHistory",
-                       props={'guard_permissions':'',
-                              'guard_roles':'Manager; WorkspaceManager; WorkspaceMember;  WorkspaceReader',
-                              'guard_expr':''})
-
-    vdef = wf.variables['time']
-    vdef.setProperties(description='Time of the last transition',
-                       default_expr="state_change/getDateTime",
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['dest_container']
-    vdef.setProperties(description='Destination container for the last paste/publish',
-                       default_expr="python:state_change.kwargs.get('dest_container', '')",
-                       for_status=1, update_always=1)
+    def setupWorkflow5(self):
+        # section_content_wf
+        wfdef = {
+            'wfid': 'section_content_wf',
+            'permissions': (View, ModifyPortalContent),
+            'state_var': 'review_state',
+        }
 
 
+        wfstates = {
+            'pending': {
+                'title': 'Waiting for reviewer',
+                'transitions':('accept', 'reject'),
+                 'permissions': {View: ('SectionReviewer', 'SectionManager',
+                                        'Manager'),
+                                 ModifyPortalContent: ('SectionReviewer',
+                                        'SectionManager', 'Manager')},
+           },
+            'published': {
+                'title': 'Public',
+                'transitions': ('unpublish', 'cut_copy_paste'),
+                'permissions': {View: ('SectionReader', 'SectionReviewer',
+                                       'SectionManager', 'Manager'),
+                                ModifyPortalContent: ('Manager',)},
+            },
+            'locked': {
+                'title': 'Locked',
+                'transitions':('unlock',),
+                'permissions': {View: ('Manager', 'WorkspaceManager',
+                                         'WorkspaceMember', 'WorkspaceReader'),
+                                ModifyPortalContent: ()},
+            },
+        }
 
-    # WF section
-    wfid = 'section_folder_wf'
-    pr(" Setup workflow %s" % wfid)
-    if wfid in wfids:
-        wftool.manage_delObjects([wfid])
-    wftool.manage_addWorkflow(id=wfid,
-                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
-    wf = wftool[wfid]
-    wf.addManagedPermission(View)
+        wftransitions = {
+            'publish': {
+                'title': 'Member publishes directly',
+                'new_state_id': 'published',
+                'transition_behavior': (TRANSITION_INITIAL_PUBLISHING,
+                                        TRANSITION_BEHAVIOR_FREEZE, ),
+                'clone_allowed_transitions': None,
+                'after_script_name': 'mail_notification',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer',
+                          'guard_expr':''},
+            },
+            'cut_copy_paste': {
+                'title': 'Cut/Copy/Paste',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_ALLOWSUB_DELETE,
+                                        TRANSITION_ALLOWSUB_MOVE,
+                                        TRANSITION_ALLOWSUB_COPY),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'New',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer',
+                          'guard_expr':''},
+            },
+            'submit': {
+                'title': 'Member requests publishing',
+                'new_state_id': 'pending',
+                'transition_behavior': (TRANSITION_INITIAL_PUBLISHING,
+                                        TRANSITION_BEHAVIOR_FREEZE),
+                'clone_allowed_transitions': None,
+                'after_script_name': 'mail_notification',
+                'actbox_name': '',
+                'actbox_category': '',
+                'actbox_url': '',
+                'props': {'guard_permissions': '',
+                          'guard_roles': 'Manager; Member',
+                          'guard_expr': ''},
+            },
+            'accept': {
+                'title': 'Reviewer accepts publishing',
+                'new_state_id': 'published',
+                'transition_behavior': (TRANSITION_BEHAVIOR_MERGE,),
+                'clone_allowed_transitions': None,
+                'after_script_name': 'mail_notification',
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'action_accept',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_accept_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer',
+                          'guard_expr':''},
+            },
+            'reject': {
+                'title': 'Reviewer rejects publishing',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_BEHAVIOR_DELETE,),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'action_reject',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_reject_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer',
+                          'guard_expr':''},
+            },
+            'unpublish': {
+                'title': 'Reviewer removes content from publication',
+                'new_state_id': '',
+                'transition_behavior': (TRANSITION_BEHAVIOR_DELETE,),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_name': 'action_un_publish',
+                'actbox_category': 'workflow',
+                'actbox_url': '%(content_url)s/content_unpublish_form',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; SectionManager; '
+                                        'SectionReviewer',
+                          'guard_expr':''},
+            },
+        }
 
-    for s in ('work', ):
-        wf.states.addState(s)
-    for t in ('create', 'create_content', 'cut_copy_paste'):
-        wf.transitions.addTransition(t)
-
-    s = wf.states.get('work')
-    s.setProperties(title='Work',
-                    transitions=('create_content', 'cut_copy_paste'))
-    s.setPermission(View, 0, ('Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'))
-
-    t = wf.transitions.get('create')
-    t.setProperties(title='Initial creation', new_state_id='work',
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, ),
-                    clone_allowed_transitions=None,
-                    actbox_name='', actbox_category='workflow', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager',
-                           'guard_expr':''},
-                    )
-    # XXX: TODO warning guard for publishing and creating sub section are the same
-    t = wf.transitions.get('create_content')
-    t.setProperties(title='Create a content', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, ),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='', actbox_category='', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
-                           'guard_expr':''},
-                    )
-
-    # For the cut/copy/paste feature
-    t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
-                                         TRANSITION_ALLOWSUB_MOVE,
-                                         TRANSITION_ALLOWSUB_COPY),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
-                           'guard_expr':''},
-                    )
-
-    # WF section content
-    wfid = 'section_content_wf'
-    pr(" Setup workflow %s" % wfid)
-    if wfid in wfids:
-        wftool.manage_delObjects([wfid])
-    wftool.manage_addWorkflow(id=wfid,
-                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
-    wf = wftool[wfid]
-    for p in (View, ModifyPortalContent):
-        wf.addManagedPermission(p)
-
-    for s in ('pending', 'published'):
-        wf.states.addState(s)
-##     for t in ('submit', 'publish', 'accept', 'reject', 'unpublish',
-##               'cut_copy_paste', 'publish_content',):
-    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish',
-              'cut_copy_paste',):
-        wf.transitions.addTransition(t)
-    for v in ('action', 'actor', 'comments', 'review_history', 'time',
-              'dest_container'):
-        wf.variables.addVariable(v)
-
-    s = wf.states.get('pending')
-    s.setProperties(title='Waiting for reviewer',
-                    transitions=('accept', 'reject'))
-    s.setPermission(ModifyPortalContent, 0, ('SectionReviewer', 'SectionManager', 'Manager'))
-    s.setPermission(View, 0, ('SectionReviewer', 'SectionManager', 'Manager'))
-
-    s = wf.states.get('published')
-##     s.setProperties(title='Public',
-##                     transitions=('unpublish', 'cut_copy_paste', 'publish_content',))
-    s.setProperties(title='Public',
-                    transitions=('unpublish', 'cut_copy_paste',))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', ))
-    s.setPermission(View, 0, ('SectionReader', 'SectionReviewer', 'SectionManager', 'Manager'))
-
-    t = wf.transitions.get('publish')
-    t.setProperties(title='Member publishes directly',
-                    new_state_id='published',
-                    transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
-                                         TRANSITION_BEHAVIOR_FREEZE,),
-                    clone_allowed_transitions=None,
-                    after_script_name='mail_notification',
-                    actbox_name='', actbox_category='', actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('submit')
-    t.setProperties(title='Member requests publishing',
-                    new_state_id='pending',
-                    transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
-                                         TRANSITION_BEHAVIOR_FREEZE),
-                    clone_allowed_transitions=None,
-                    after_script_name='mail_notification',
-                    actbox_name='', actbox_category='', actbox_url='',
-                    props={'guard_permissions': '',
-                           'guard_roles': 'Manager; Member',
-                           'guard_expr': ''},
-                    )
-    t = wf.transitions.get('accept')
-    t.setProperties(title='Reviewer accepts publishing',
-                    new_state_id='published',
-                    transition_behavior=(TRANSITION_BEHAVIOR_MERGE,),
-                    clone_allowed_transitions=None,
-                    after_script_name='mail_notification',
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='action_accept', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_accept_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('reject')
-    t.setProperties(title='Reviewer rejects publishing',
-                    new_state_id='',
-                    transition_behavior=(TRANSITION_BEHAVIOR_DELETE,),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='action_reject', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_reject_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer',
-                           'guard_expr':''},
-                    )
-    t = wf.transitions.get('unpublish')
-    t.setProperties(title='Reviewer removes content from publication',
-                    new_state_id='',
-                    transition_behavior=(TRANSITION_BEHAVIOR_DELETE,),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    actbox_name='action_un_publish', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_unpublish_form',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer',
-                           'guard_expr':''},
-                    )
-##     t = wf.transitions.get('publish_content')
-##     t.setProperties(title='Publish a subcontent', new_state_id='',
-##                     transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, ),
-##                     clone_allowed_transitions=None,
-##                     trigger_type=TRIGGER_USER_ACTION,
-##                     actbox_name='', actbox_category='', actbox_url='',
-##                     props={'guard_permissions':'',
-##                            'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader',
-##                            'guard_expr':''},
-##                     )
-
-    # For the cut/copy/paste feature
-    t = wf.transitions.get('cut_copy_paste')
-    t.setProperties(title='Cut/Copy/Paste', new_state_id='',
-                    transition_behavior=(TRANSITION_ALLOWSUB_DELETE,
-                                         TRANSITION_ALLOWSUB_MOVE,
-                                         TRANSITION_ALLOWSUB_COPY),
-                    clone_allowed_transitions=None,
-                    trigger_type=TRIGGER_USER_ACTION,
-                    after_script_name='mail_notification',
-                    actbox_name='New',
-                    actbox_category='',
-                    actbox_url='',
-                    props={'guard_permissions':'',
-                           'guard_roles':'Manager; SectionManager; SectionReviewer',
-                           'guard_expr':''},
-                    )
-
-    # wf variables
-    wf.variables.setStateVar('review_state')
-    vdef = wf.variables['action']
-    vdef.setProperties(description='The last transition',
-                       default_expr='transition/getId|nothing',
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['actor']
-    vdef.setProperties(description='The ID of the user who performed '
-                       'the last transition',
-                       default_expr='user/getId',
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['comments']
-    vdef.setProperties(description='Comments about the last transition',
-                       default_expr="python:state_change.kwargs.get('comment', '')",
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['review_history']
-    vdef.setProperties(description='Provides access to workflow history',
-                       default_expr="state_change/getHistory",
-                       props={'guard_roles':'Manager; SectionManager; SectionReviewer; SectionReader' } )
-
-    vdef = wf.variables['time']
-    vdef.setProperties(description='Time of the last transition',
-                       default_expr="state_change/getDateTime",
-                       for_status=1, update_always=1)
-
-    vdef = wf.variables['dest_container']
-    vdef.setProperties(description='Destination container for the last copy/publish',
-                       default_expr="python:state_change.kwargs.get('dest_container', '')",
-                       for_status=1, update_always=1)
-
-    #
-    # Python Script.
-    # For Mailing List notifications
-    #
-    scripts = wf.scripts
-
-    script_name = 'mail_notification'
-    scripts._setObject(script_name, PythonScript(script_name))
-    script = scripts[script_name]
-    script.write("""\
+        wfscripts = {
+            'mail_notification': {
+                '_owner': None,
+                'script': """\
 ##parameters=state_change
 object = state_change.object
 dest_container = state_change.kwargs.get('dest_container', '')
@@ -960,753 +946,386 @@ try:
 except:
     # No mailing list package in here.
     pass
-""")
-    #script._proxy_roles = ('Manager',)
-    script._owner = None
-
-    # setup portal_type: CPS Proxy Document, CPS Proxy Folder
-    # CPS Folder
-    pr("Verifying portal types")
-    ttool = portal.portal_types
-    if 'Workspace' in ttool.objectIds():
-        workspaceACT = list(ttool['Workspace'].allowed_content_types)
-    else:
-        workspaceACT = []
-    for ptype in ('Workspace',): # forget about 'Dummy' for now
-        if ptype not in  workspaceACT:
-            workspaceACT.append(ptype)
-
-    ptypes = {
-        'CPSCore':('CPS Proxy Document',
-                   'CPS Proxy Folder',
-                   'CPS Proxy Folderish Document',
-                   ),
-        'CPSDefault':('Folder',
-                      #'Dummy',
-                      'Base Box',
-                      'Text Box',
-                      'Tree Box',
-                      'Content Box',
-                      'Action Box',
-                      'Image Box',
-                      'Flash Box',
-                      'Event Calendar Box',
-                      )
+"""
+            },
         }
-    allowed_content_type = {
-                            'Section' : ('Section',),
-                            'Workspace' : workspaceACT,
-                            }
 
-    ptypes_installed = ttool.objectIds()
-
-    for prod in ptypes.keys():
-        for ptype in ptypes[prod]:
-            pr("  Type '%s'" % ptype)
-            if ptype in ptypes_installed:
-                ttool.manage_delObjects([ptype])
-                pr("   Deleted")
-
-            ttool.manage_addTypeInformation(
-                id=ptype,
-                add_meta_type='Factory-based Type Information',
-                typeinfo_name=prod+': '+ptype,
-                )
-            pr("   Installation")
-
-    # add Section and Workspace portal types based on CPS Proxy Folder
-    if 'Section' in ptypes_installed:
-        pr("  Type Section Deleted")
-        ttool.manage_delObjects('Section')
-    ttool.manage_addTypeInformation(
-        id='Section',
-        add_meta_type='Factory-based Type Information',
-        typeinfo_name='CPSDefault: Folder',
-        )
-    ttool['Section'].manage_changeProperties(title='portal_type_Section_title',
-                                             description='portal_type_Section_description',
-                                             content_meta_type='Section',
-                                             filter_content_types=1)
-
-    if 'Workspace' in ptypes_installed:
-        pr("  Type Workspace Deleted")
-        ttool.manage_delObjects('Workspace')
-    ttool.manage_addTypeInformation(
-        id='Workspace',
-        add_meta_type='Factory-based Type Information',
-        typeinfo_name='CPSDefault: Folder',
-        )
-    ttool['Workspace'].manage_changeProperties(title='portal_type_Workspace_title',
-                                               description='portal_type_Workspace_description',
-                                               content_meta_type='Workspace',
-                                               filter_content_types=1)
-    for ptype in ('Section', 'Workspace'):
-        ttool[ptype].allowed_content_types = allowed_content_type[ptype]
-
-
-    # check workflow association
-    pr("Verifying workflow schemas")
-    wfs = {
-        'Section': 'section_folder_wf',
-        'Workspace': 'workspace_folder_wf',
+        wfvariables = {
+            'action': {
+                'description': 'The last transition',
+                'default_expr': 'transition/getId|nothing',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'actor': {
+                'description': 'The ID of the user who performed',
+                'default_expr': 'user/getId',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'comments': {
+                'description': 'Comments about the last transition',
+                'default_expr': "python:state_change.kwargs.get('comment', '')",
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'review_history': {
+                'description': 'Provides access to workflow history',
+                'default_expr': 'state_change/getHistory',
+                'props': {'guard_permissions':'',
+                          'guard_roles':'Manager; WorkspaceManager; '
+                                        'WorkspaceMember; WorkspaceReader',
+                          'guard_expr':''}
+            },
+            'time': {
+                'description': 'Time of the last transition',
+                'default_expr': 'state_change/getDateTime',
+                'for_status': 1,
+                'update_always': 1,
+            },
+            'dest_container': {
+                'description': 'Destination container for the last '
+                                'paste/publish',
+                'default_expr': "python:state_change.kwargs.get("
+                                "'dest_container', '')",
+                'for_status': 1,
+                'update_always': 1,
+            },
         }
-    wftool = portal.portal_workflow
-    pr("Installing workflow schemas")
-    for pt, chain in wfs.items():
-        wftool.setChainForPortalTypes([pt], chain)
-    wftool.setDefaultChain('')
 
-    # check site and workspaces proxies
-    sections_id = 'sections'
-    workspaces_id = 'workspaces'
-    members_id = 'members'
+        self.verifyWorkflow(wfdef, wfstates, wftransitions,
+                     wfscripts, wfvariables)
 
-    pr("Verifying roots: %s and %s" % (sections_id, workspaces_id))
-    if not portalhas(workspaces_id):
-        portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
-                                                workspaces_id)
-        portal[workspaces_id].getContent().setTitle('Root of Workspaces') # XXX L10N
-        pr("  Adding %s Folder" % workspaces_id)
+    def setupTypes(self):
+        # setup portal_type: CPS Proxy Document, CPS Proxy Folder
+        # CPS Folder
+        if self.is_creation:
+            # Remove some default CPS types:
+            ttool = self.getTool('portal_types')
+            ttool.manage_delObjects(['Folder',])
 
-    # Member areas
-    if getattr(portal[workspaces_id], members_id, None) == None:
-        workspaces = portal[workspaces_id]
-        portal.portal_workflow.invokeFactoryFor(workspaces,'Workspace',
-                                                members_id)
-        ms = getattr(workspaces, members_id, None)
+        type_dict = {
+            'CPS Proxy Document': {
+                       'typeinfo_name': 'CPSCore: CPS Proxy Document',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'CPS Proxy Folder': {
+                       'typeinfo_name': 'CPSCore: CPS Proxy Folder',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'CPS Proxy Folderish Document': {
+                       'typeinfo_name': 'CPSCore: CPS Proxy Folderish Document',
+                       'add_meta_type': 'Factory-based Type Information',},
 
-        ms.getContent().setTitle('Member Areas') # XXX Localization
-        pr("  Adding %s Folder" % members_id)
+            'Section': {
+                       'typeinfo_name': 'CPSDefault: Folder',
+                       'add_meta_type': 'Factory-based Type Information',
+                       'properties': {
+                            'title': 'portal_type_Section_title',
+                            'description': 'portal_type_Section_description',
+                            'content_meta_type': 'Section',
+                            'filter_content_types': 1},},
+            'Workspace': {
+                       'typeinfo_name': 'CPSDefault: Folder',
+                       'add_meta_type': 'Factory-based Type Information',
+                       'properties': {
+                            'title': 'portal_type_Workspace_title',
+                            'description': 'portal_type_Workspace_description',
+                            'content_meta_type': 'Workspace',
+                            'filter_content_types': 1},},
 
-    if not portalhas(sections_id):
-        portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',
-                                                sections_id)
-        portal[sections_id].getContent().setTitle('Root of Sections') # XXX L10N
-        pr("  Adding %s Folder" % sections_id)
-
-    #
-    # To avoid the user being able to change the
-    # property of the workspace
-    #
-    from Products.CMFCore.CMFCorePermissions import setDefaultRoles
-    ModifyFolderPoperties = 'Modify Folder Properties'
-    setDefaultRoles( ModifyFolderPoperties, ( 'Manager', 'WorkspaceManager',))
-
-    pr("Verifying permissions")
-    sections_perm = {
-        'Request review':['Manager', 'WorkspaceManager', 'WorkspaceMember',  'SectionReviewer', 'SectionManager'],
-        'Review portal content':['Manager', 'SectionReviewer', 'SectionManager'],
-        'Add Box Container': ['Manager', 'SectionManager'],
-        'Manage Box Overrides': ['Manager','SectionManager'],
-        'Manage Boxes': ['Manager', 'SectionManager'],
-        'Add portal content': ['Manager', 'SectionManager'],
-        'Add portal folders': ['Manager', 'SectionManager'],
-        'Change permissions': ['Manager', 'SectionManager'],
-        'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
-        'List folder contents': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
-        'Modify portal content': ['Manager', 'SectionManager'],
-        'Modify Folder Properties' : ['Manager', 'SectionManager'],
-        'View': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
-        'View management screens': ['Manager', 'SectionManager'],
+            'Folder': {
+                       'typeinfo_name': 'CPSDefault: Folder',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Base Box': {
+                       'typeinfo_name': 'CPSDefault: Base Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Text Box': {
+                       'typeinfo_name': 'CPSDefault: Text Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Tree Box': {
+                       'typeinfo_name': 'CPSDefault: Tree Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Content Box': {
+                       'typeinfo_name': 'CPSDefault: Content Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Action Box': {
+                       'typeinfo_name': 'CPSDefault: Action Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Image Box': {
+                       'typeinfo_name': 'CPSDefault: Image Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Flash Box': {
+                       'typeinfo_name': 'CPSDefault: Flash Box',
+                       'add_meta_type': 'Factory-based Type Information',},
+            'Event Calendar Box': {
+                       'typeinfo_name': 'CPSDefault: Event Calendar Box',
+                       'add_meta_type': 'Factory-based Type Information',},
         }
-    workspaces_perm = {
-        'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
-        'Add portal folders': ['Manager', 'WorkspaceManager'],
-        'Change permissions': ['Manager', 'WorkspaceManager'],
-        'Change subobjects order': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
-        'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
-        'List folder contents': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
-        'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Owner'],
-        'Modify Folder Properties' : ['Manager', 'WorkspaceManager'],
-        'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
-        'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember',],
-        'Add Box Container': ['Manager', 'WorkspaceManager', 'SectionManager'],
-        'Manage Box Overrides': ['Manager','WorkspaceManager'],
-        'Manage Boxes': ['Manager', 'WorkspaceManager'],
-        }
-    pr("Section")
-    for perm, roles in sections_perm.items():
-        portal[sections_id].manage_permission(perm, roles, 0)
-        pr("  Permission %s" % perm)
 
-    pr("Workspace")
-    for perm, roles in workspaces_perm.items():
-        portal[workspaces_id].manage_permission(perm, roles, 0)
-        pr("  Permission %s" % perm)
+        self.verifyContentTypes(type_dict)
+        self.allowContentTypes('Workspace', 'Workspace')
+        self.allowContentTypes('Section', 'Section')
 
-    pr("Verifying local workflow association")
-    if not '.cps_workflow_configuration' in portal[workspaces_id].objectIds():
-        pr("  Adding workflow configuration to %s" % workspaces_id)
-        portal[workspaces_id].manage_addProduct['CPSCore'].addCPSWorkflowConfiguration()
-        wfc = getattr(portal[workspaces_id], '.cps_workflow_configuration')
-        wfc.manage_addChain(portal_type='Workspace',
-                            chain='workspace_folder_wf')
-        wfc.manage_addChain(portal_type='Section',
-                            chain='')
-        #wfc.manage_addChain(portal_type='Dummy',
-        #                    chain='workspace_content_wf')
+    def setupRoots(self):
+        # check site and workspaces proxies
+        members_id = 'members'
 
-    if not '.cps_workflow_configuration' in portal[sections_id].objectIds():
-        pr("  Adding workflow configuration to %s" % sections_id)
-        portal[sections_id].manage_addProduct['CPSCore'].addCPSWorkflowConfiguration()
-        wfc = getattr(portal[sections_id], '.cps_workflow_configuration')
-        wfc.manage_addChain(portal_type='Workspace',
-                            chain='')
-        wfc.manage_addChain(portal_type='Section',
-                            chain='section_folder_wf')
-        #wfc.manage_addChain(portal_type='Dummy',
-        #                    chain='section_content_wf')
-    # init Tree Tool
-    trtool = portal.portal_trees
-    pr("Verifying cache trees")
-    if sections_id not in trtool.objectIds():
-        pr("  Adding cache for tree %s" % sections_id)
-        trtool.manage_addCPSTreeCache(id=sections_id)
-        trtool[sections_id].manage_changeProperties(
-            title=sections_id+' Cache',
-            root=sections_id,
-            type_names=('Section',),
-            meta_types=('CPS Proxy Folder',
-                        'CPS Proxy Document',
-                        'CPS Proxy Folderish Document',),
-            info_method='getFolderInfo')
-    trtool[sections_id].manage_rebuild()
-    pr("   Sections cache rebuilded")
+        self.log("Verifying roots: %s and %s" % (SECTIONS_ID, WORKSPACES_ID))
+        if not self.portalHas(WORKSPACES_ID):
+            self.portal.portal_workflow.invokeFactoryFor(
+                self.portal.this(), 'Workspace', WORKSPACES_ID)
+            self.portal[WORKSPACES_ID].getContent().setTitle(
+                'Root of Workspaces') # XXX L10N
+            self.log("  Adding %s Folder" % WORKSPACES_ID)
 
-    if workspaces_id not in trtool.objectIds():
-        pr("  Adding cache for tree %s" % workspaces_id)
-        trtool.manage_addCPSTreeCache(id=workspaces_id)
-        trtool[workspaces_id].manage_changeProperties(
-            title=workspaces_id+' Cache',
-            root=workspaces_id,
-            type_names=('Workspace',),
-            meta_types=('CPS Proxy Folder',
-                        'CPS Proxy Document',
-                        'CPS Proxy Folderish Document',),
-            info_method='getFolderInfo')
-    trtool[workspaces_id].manage_rebuild()
-    pr("   Workspaces cache rebuilded")
+        # Member areas
+        if getattr(self.portal[WORKSPACES_ID], members_id, None) is None:
+            workspaces = self.portal[WORKSPACES_ID]
+            self.portal.portal_workflow.invokeFactoryFor(
+                workspaces,'Workspace', members_id)
+            ms = getattr(workspaces, members_id, None)
 
+            ms.getContent().setTitle('Member Areas') # XXX Localization
+            self.log("  Adding %s Folder" % members_id)
 
-    pr("Verifying private area creation flag")
-    if not portal.portal_membership.getMemberareaCreationFlag():
-        pr(" Activated")
-        portal.portal_membership.setMemberareaCreationFlag()
-    else:
-        prok()
+        if not self.portalHas(SECTIONS_ID):
+            self.portal.portal_workflow.invokeFactoryFor(
+                self.portal.this(), 'Section', SECTIONS_ID)
+            # XXX L10N
+            self.portal[SECTIONS_ID].getContent().setTitle('Root of Sections')
+            self.log("  Adding %s Folder" % SECTIONS_ID)
 
-    pr("Verifiying status history action for document")
-    #force the update of this action
-    index = 0
-    for action in  portal['portal_actions'].listActions():
-        if action.id == 'status_history':
-            portal['portal_actions'].deleteActions((index,))
-        index += 1
-    portal['portal_actions'].addAction(
-        id='status_history',
-        name='action_status_history',
-        action='string: ${object/absolute_url}/content_status_history',
-        # XXX: this is messy.
-        condition="python:getattr(object, 'portal_type', None) not in ('Section', 'Workspace', 'Portal', 'Calendar', 'Event')",
-        permission='View',
-        category='workflow')
-    pr(" Added")
+    def setupTreesTool(self):
+        self.verifyTool('portal_trees', 'CPSCore', 'CPS Trees Tool')
+        trtool = self.portal.portal_trees
+        self.log("Verifying cache trees")
+        if SECTIONS_ID not in trtool.objectIds():
+            self.log("  Adding cache for tree %s" % SECTIONS_ID)
+            trtool.manage_addCPSTreeCache(id=SECTIONS_ID)
+            trtool[SECTIONS_ID].manage_changeProperties(
+                title=SECTIONS_ID+' Cache',
+                root=SECTIONS_ID,
+                type_names=('Section',),
+                meta_types=('CPS Proxy Folder',
+                            'CPS Proxy Document',
+                            'CPS Proxy Folderish Document',),
+                info_method='getFolderInfo')
+            self.flagRebuildTreeCache(SECTIONS_ID)
 
+        if WORKSPACES_ID not in trtool.objectIds():
+            self.log("  Adding cache for tree %s" % WORKSPACES_ID)
+            trtool.manage_addCPSTreeCache(id=WORKSPACES_ID)
+            trtool[WORKSPACES_ID].manage_changeProperties(
+                title=WORKSPACES_ID+' Cache',
+                root=WORKSPACES_ID,
+                type_names=('Workspace',),
+                meta_types=('CPS Proxy Folder',
+                            'CPS Proxy Document',
+                            'CPS Proxy Folderish Document',),
+                info_method='getFolderInfo')
+            self.flagRebuildTreeCache(SECTIONS_ID)
 
-    pr("Verifiying bookmark actions (favorites)")
-    if 'Link' in portal['portal_types'].objectIds():
-        action_addfav_found = 0
-        action_viewfav_found = 0
-        for action in  portal['portal_actions'].listActions():
-            if action.id == 'add_favorites':
-                action_addfav_found = 1
-            elif action.id == 'view_favorites':
-                action_viewfav_found = 1
-        if not action_addfav_found:
-            portal['portal_actions'].addAction(
-                id='add_favorites',
-                name='action_add_favorites',
-                action='string:${object/absolute_url}/addtoFavorites',
-                condition='python: member and portal.portal_membership.getHomeFolder()',
-                permission='View',
-                category='user')
-            pr(" Action add_favorites added")
-        else:
-            pr(" Action add_favorites present")
-        if not action_viewfav_found:
-            portal['portal_actions'].addAction(
-                id='view_favorites',
-                name='action_view_favorites',
-                action='string:${portal/portal_membership/getHomeUrl}/Favorites',
-                condition='python: hasattr(portal.portal_membership.getHomeFolder(),"Favorites")',
-                permission='View',
-                category='user')
-            pr(" Action view_favorites added")
-        else:
-            pr(" Action view_favorites present")
-    else:
-        pr(" CPSDocument type Link does not seem to exist ; Favorites will not be available")
+    def setupBoxes(self):
+        self.verifyTool('portal_boxes', 'CPSDefault', 'CPS Boxes Tool')
+        self.log("Adding cps default boxes")
+        boxes = {
+            'action_header': {'type':'Action Box',
+                    'title': 'Header actions',
+                    'btype': 'header',
+                    'slot': 'top',
+                    'categories':'global_header',
+                    'order': 5,
+                    },
+            'search': {'type':'Base Box',
+                    'title': 'Search form',
+                    'btype': 'search',
+                    'slot': 'top',
+                    'order': 10,
+                    },
+            'logo': {'type':'Base Box',
+                    'title': 'Nuxeo logo',
+                    'btype': 'logo',
+                    'slot': 'top',
+                    'order': 20,
+                    },
+            'menu': {'type':'Base Box',
+                    'title': 'Main menu',
+                    'btype': 'menu',
+                    'slot': 'top',
+                    'order': 30,
+                    },
+            'breadcrumbs': {'type':'Base Box',
+                            'title': 'Bread crumbs',
+                            'btype': 'breadcrumbs',
+                            'slot': 'top',
+                            'order': 40,
+                            },
 
-    pr("Adding cps default boxes")
-    idbc = portal.portal_boxes.getBoxContainerId(portal)
-    pr("  Checking /%s" % idbc )
-    if not portalhas(idbc):
-        pr("   Creating")
-        portal.manage_addProduct['CPSDefault'].addBoxContainer()
-    boxes = {
-        'action_header': {'type':'Action Box',
-                 'title': 'Header actions',
-                 'btype': 'header',
-                 'slot': 'top',
-                 'categories':'global_header',
-                 'order': 5,
-                 },
-        'search': {'type':'Base Box',
-                 'title': 'Search form',
-                 'btype': 'search',
-                 'slot': 'top',
-                 'order': 10,
-                 },
-        'logo': {'type':'Base Box',
-                 'title': 'Nuxeo logo',
-                 'btype': 'logo',
-                 'slot': 'top',
-                 'order': 20,
-                 },
-        'menu': {'type':'Base Box',
-                 'title': 'Main menu',
-                 'btype': 'menu',
-                 'slot': 'top',
-                 'order': 30,
-                 },
-        'breadcrumbs': {'type':'Base Box',
-                        'title': 'Bread crumbs',
-                        'btype': 'breadcrumbs',
-                        'slot': 'top',
-                        'order': 40,
-                        },
+            'footer': {'type': 'Base Box',
+                    'title': 'Footer',
+                    'btype': 'footer',
+                    'slot': 'bottom',
+                    'order': 10,
+                    },
 
-        'footer': {'type': 'Base Box',
-                   'title': 'Footer',
-                   'btype': 'footer',
-                   'slot': 'bottom',
-                   'order': 10,
-                   },
+            'l10n_select': {'type':'Base Box',
+                            'title': 'Locale selector',
+                            'btype': 'l10n_select',
+                            'slot': 'left',
+                            'order': 10,
+                            },
 
-        'l10n_select': {'type':'Base Box',
-                        'title': 'Locale selector',
-                        'btype': 'l10n_select',
-                        'slot': 'left',
-                        'order': 10,
-                        },
-
-        'action_user': {'type': 'Action Box',
-                        'title': 'User actions',
-                        'btype': 'user',
-                        'slot':'left',
-                        'order':20,
-                        'categories':'user',
-                        'box_skin': 'here/box_lib/macros/sbox',
-                        },
-        'action_portal' : {'type':'Action Box',
-                           'title': 'Portal actions',
-                           'slot':'left',
-                           'order':30,
-                           'categories':'global',
-                           'box_skin': 'here/box_lib/macros/sbox',
-                           },
-        'navigation': {'type':'Tree Box',
-                       'title':'Navigation',
-                       'depth':1,
-                       'contextual':1,
-                       'slot':'left',
-                       'order':40,
-                       'box_skin': 'here/box_lib/macros/mmbox',
-                       },
-
-        'action_object' : {'type':'Action Box',
-                           'title': 'Object actions',
-                           'slot':'right',
-                           'order':10,
-                           'categories':('object', 'workflow'),
-                           'box_skin': 'here/box_lib/macros/sbox',
-                           },
-
-        'action_folder' : {'type':'Action Box',
-                           'title': 'Folder actions',
-                           'slot':'right',
-                           'order':20,
-                           'categories':'folder',
-                           },
-
-        'welcome' : {'type':'Base Box',
-                     'title': 'CPS Welcome',
-                     'slot':'center',
-                     'order':10,
-                     'btype':'welcome',
-                     'display_in_subfolder': 0,
-                     'display_only_in_subfolder': 0,
-                     },
-
-        'nav_header' : {'type':'Base Box',
-                        'title': 'Folder header',
-                        'slot':'folder_view',
-                        'order':0,
-                        'btype':'folder_header',
-                        },
-
-        'nav_folder' : {'type':'Tree Box',
-                        'title': 'Sub folder',
-                        'slot':'folder_view',
-                        'order':10,
-                        'box_skin': 'here/box_lib/macros/wbox2',
-                        'btype':'center',
+            'action_user': {'type': 'Action Box',
+                            'title': 'User actions',
+                            'btype': 'user',
+                            'slot':'left',
+                            'order':20,
+                            'categories':'user',
+                            'box_skin': 'here/box_lib/macros/sbox',
+                            },
+            'action_portal' : {'type':'Action Box',
+                            'title': 'Portal actions',
+                            'slot':'left',
+                            'order':30,
+                            'categories':'global',
+                            'box_skin': 'here/box_lib/macros/sbox',
+                            },
+            'navigation': {'type':'Tree Box',
+                        'title':'Navigation',
+                        'depth':1,
                         'contextual':1,
-                        'depth':2,
-                        'children_only':1,
+                        'slot':'left',
+                        'order':40,
+                        'box_skin': 'here/box_lib/macros/mmbox',
                         },
 
-        'nav_content' : {'type':'Content Box',
-                         'title': 'Contents',
-                         'slot':'folder_view',
-                         'btype':'default',
-                         'box_skin': 'here/box_lib/macros/sbox2',
-                         'order':20,
-                         },
+            'action_object' : {'type':'Action Box',
+                            'title': 'Object actions',
+                            'slot':'right',
+                            'order':10,
+                            'categories':('object', 'workflow'),
+                            'box_skin': 'here/box_lib/macros/sbox',
+                            },
+
+            'action_folder' : {'type':'Action Box',
+                            'title': 'Folder actions',
+                            'slot':'right',
+                            'order':20,
+                            'categories':'folder',
+                            },
+
+            'welcome' : {'type':'Base Box',
+                        'title': 'CPS Welcome',
+                        'slot':'center',
+                        'order':10,
+                        'btype':'welcome',
+                        'display_in_subfolder': 0,
+                        'display_only_in_subfolder': 0,
+                        },
+
+            'nav_header' : {'type':'Base Box',
+                            'title': 'Folder header',
+                            'slot':'folder_view',
+                            'order':0,
+                            'btype':'folder_header',
+                            },
+
+            'nav_folder' : {'type':'Tree Box',
+                            'title': 'Sub folder',
+                            'slot':'folder_view',
+                            'order':10,
+                            'box_skin': 'here/box_lib/macros/wbox2',
+                            'btype':'center',
+                            'contextual':1,
+                            'depth':2,
+                            'children_only':1,
+                            },
+
+            'nav_content' : {'type':'Content Box',
+                            'title': 'Contents',
+                            'slot':'folder_view',
+                            'btype':'default',
+                            'box_skin': 'here/box_lib/macros/sbox2',
+                            'order':20,
+                            },
         }
-    box_container = portal[idbc]
-    existing_boxes = box_container.objectIds()
-    for box in boxes.keys():
-        if box in existing_boxes:
-            continue
-        pr("   Creation of box: %s" % box)
-        apply(ttool.constructContent,
-              (boxes[box]['type'], box_container,
-               box, None), {})
-        ob = getattr(box_container, box)
-        ob.manage_changeProperties(**boxes[box])
+        self.verifyBoxes(boxes)
+        self.verifyAction(
+            tool='portal_actions',
+            id='boxes',
+            name='action_boxes_root',
+            action='string: ${portal_url}/box_manage_form',
+            condition='python:folder is object',
+            permission=('Manage Boxes',),
+            category='global',
+            visible=1)
 
-    # Box management action at the root of the portal
-    pactions = list(portal['portal_actions']._actions)
-    i = 0
-    for ac in pactions:
-        id = ac.id
-        if id == "boxes":
-            del pactions[i]
-        i+=1
-        pr(" Deleting %s: %s" % ('portal_actions', id))
-    portal['portal_actions']._actions = pactions
+    def setupi18n(self):
 
-    # Adding it now
-    portal['portal_actions'].addAction(
-        id='boxes',
-        name='action_boxes_root',
-        action='string: ${portal_url}/box_manage_form',
-        condition='python:folder is object',
-        permission=('Manage Boxes',),
-        category='global',
-        visible=1)
-    pr(" Added Action Boxes at global scope ")
+        if not self.portalHas('Localizer'):
+            self.log(" Adding Localizer")
+            languages = self.langs_list or ('en',)
+            self.portal.manage_addProduct['Localizer'].manage_addLocalizer(
+                title='',
+                languages=languages)
 
-    # Localizer - instantiating it before call to other services' installers
-    # as they make the asumption that it exists
-    if not portalhas('Localizer'):
-        pr(" Adding Localizer")
-        languages = langs_list or ('en',)
-        portal.manage_addProduct['Localizer'].manage_addLocalizer(
-            title='',
-            languages=languages,
-        )
-    else:
-        pr("Localizer already here")
+        # translation_service
+        if not self.portalHas('translation_service'):
+            self.portal.manage_addProduct['TranslationService'].\
+                addPlacefulTranslationService(id='translation_service')
+            self.log("  translation_service tool added")
+            translation_service = self.portal.translation_service
+            translation_service.manage_setDomainInfo(path_0='Localizer/default')
+            self.log("   default domain set to Localizer/default")
 
-    # translation_service
-    if not portalhas('translation_service'):
-        portal.manage_addProduct['TranslationService'].addPlacefulTranslationService(
-            id='translation_service'
-        )
-        pr("  translation_service tool added")
-        translation_service = portal.translation_service
+        self.verifyMessageCatalog('default','CPSDefault messages')
 
-        # translation domains
+        # Method handy to reimport translations, but not really necessary.
+        if not self.portalHas('i18n Updater'):
+            self.log('Creating i18n Updater Support')
+            i18n_updater = ExternalMethod('i18n Updater',
+                                        'i18n Updater',
+                                        'CPSDefault.cpsinstall',
+                                        'cps_i18n_update')
+            self.portal._setObject('i18n Updater', i18n_updater)
 
-        translation_service.manage_setDomainInfo(path_0='Localizer/default')
-        pr("   default domain set to Localizer/default")
+    def setupCPSProducts(self):
+        self.runExternalUpdater('cpscollector_installer',
+                                'CPSCollector Installer',
+                                'CPSCollector', 'install', 'install')
+        self.runExternalUpdater('cpsdocument_installer',
+                                'CPSDocument Installer',
+                                'CPSDocument', 'install', 'install')
+        self.runExternalUpdater('cpsrss_installer',
+                                'CPSRSS Installer',
+                                'CPSRSS', 'install', 'install')
+        self.runExternalUpdater('cpsforum_installer',
+                                'CPSForum Installer',
+                                'CPSForum', 'install', 'install')
+        self.runExternalUpdater('cpschat_installer',
+                                'CPSChat Installer',
+                                'CPSChat', 'install', 'install')
+        self.runExternalUpdater('cpscalendar_installer',
+                                'CPSCalendar Installer',
+                                'CPSCalendar', 'install', 'install')
+        self.runExternalUpdater('cpsdirectory_installer',
+                                'CPSDirectory Installer',
+                                'CPSDirectory', 'install', 'install')
+        self.runExternalUpdater('cpsml_installer',
+                                'CPSMailingLists Installer',
+                                'CPSMailingLists', 'install', 'install')
+        self.runExternalUpdater('cpsmailboxer_installer',
+                                'CPSMailBoxer Installer',
+                                'CPSMailBoxer', 'install', 'install')
+        self.runExternalUpdater('nuxmailboxer_install',
+                                'NuxMailBoxerLists Installer',
+                                'NuxMailBoxer', 'install', 'install')
 
-    # init the default mcat
-    i18n_init_default_mcat(self)
-
-    #
-    # i18n Updater
-    #
-    if not portalhas('i18n Updater'):
-        pr('Creating i18n Updater Support')
-        i18n_updater = ExternalMethod('i18n Updater',
-                                      'i18n Updater',
-                                      'CPSDefault.cpsinstall',
-                                      'cps_i18n_update')
-        portal._setObject('i18n Updater', i18n_updater)
-
-
-    ###########################################################
-    # INSTALLATION OF THE DIFFERENT SERVICES
-    ###########################################################
-
-    #
-    #  CPSMailBoxer installer/updater
-    #
-    try:
-        import Products.CPSMailBoxer
-        if not portalhas('cpsmailboxer_installer'):
-            pr('Adding CPSMailBoxer installer')
-            cpsmailboxer_installer = ExternalMethod('cpsmailboxer_installer',
-                                                    'CPSMailBoxer Installer',
-                                                    'CPSMailBoxer.install',
-                                                    'install')
-            portal._setObject('cpsmailboxer_installer', cpsmailboxer_installer)
-        pr(portal.cpsmailboxer_installer())
-    except ImportError:
-        pass
-
-    #
-    #  CPSCollector installer/updater
-    #
-    try:
-        import Products.CPSCollector
-        if not portalhas('cpscollector_installer'):
-            pr('Adding CPSCollector installer')
-            cpscollector_installer = ExternalMethod('cpscollector_installer',
-                                                    'CPSCollector Installer',
-                                                    'CPSCollector.install',
-                                                    'install')
-            portal._setObject('cpscollector_installer', cpscollector_installer)
-        pr(portal.cpscollector_installer())
-    except ImportError:
-        pass
-
-
-    #
-    #  CPSDocument installer/updater
-    #
-    try:
-        import Products.CPSDocument
-        if not portalhas('cpsdocument_installer'):
-            pr("Adding CPSDocument installer")
-            cpsdocument_installer = ExternalMethod('cpsdocument_installer',
-                                              'CPSDocument Installer',
-                                              'CPSDocument.install',
-                                              'install')
-            portal._setObject('cpsdocument_installer', cpsdocument_installer)
-        pr(portal.cpsdocument_installer())
-    except ImportError:
-        pr("!! Could not import or execute CPSDocument installer")
-
-
-    #
-    #  CPSRSS installer/updater
-    #
-    try:
-        import Products.CPSRSS
-        if not portalhas('cpsrss_installer'):
-            pr('Adding CPSRSS installer')
-            cpsrss_installer = ExternalMethod('cpsrss_installer',
-                                              'CPSRSS Installer',
-                                              'CPSRSS.install',
-                                              'install')
-            portal._setObject('cpsrss_installer', cpsrss_installer)
-        pr(portal.cpsrss_installer())
-    except ImportError:
-        pass
-
-    #
-    #  CPSForum installer/updater
-    #
-    try:
-        import Products.CPSForum
-        if not portalhas('cpsforum_installer'):
-            pr('Adding CPSForum installer')
-            cpsforum_installer = ExternalMethod('cpsforum_installer',
-                                                'CPSForum Installer',
-                                                'CPSForum.install',
-                                                'install')
-            portal._setObject('cpsforum_installer', cpsforum_installer)
-        pr(portal.cpsforum_installer())
-    except ImportError:
-        pass
-
-    #
-    #  CPSChat installer/updater
-    #
-    try:
-        import Products.CPSChat
-        if not portalhas('cpschat_installer'):
-            pr('Adding CPSChat installer')
-            cpschat_installer = ExternalMethod('cpschat_installer',
-                                               'CPSChat Installer',
-                                               'CPSChat.install',
-                                               'install')
-            portal._setObject('cpschat_installer', cpschat_installer)
-        pr(portal.cpschat_installer())
-    except ImportError:
-        pass
-
-    #
-    #  CPSCalendar installer/updater
-    #
-    try:
-        import Products.CPSCalendar
-        if not portalhas('cpscalendar_installer'):
-            pr('Adding cpsdocument installer')
-            cpsdocument_installer = ExternalMethod('cpscalendar_installer',
-                                                   'CPSCalendar Updater',
-                                                   'CPSCalendar.install',
-                                                   'update')
-            portal._setObject('cpscalendar_installer', cpsdocument_installer)
-        pr(portal.cpscalendar_installer())
-    except ImportError:
-        pass
-
-    #
-    #  CPSDirectory installer/updater
-    #
-    try:
-        import Products.CPSDirectory
-        if not portalhas('cpsdirectory_installer'):
-            pr('Adding cpsdirectory installer')
-            cpsdirectory_installer = ExternalMethod('cpsdirectory_installer',
-                                                    'CPSDirectory Updater',
-                                                    'CPSDirectory.install',
-                                                    'install')
-            portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
-        pr(portal.cpsdirectory_installer())
-        # Synchronization from members directory schema to MemberData
-        # properties
-        mdir = portal.portal_directories.members
-        mdir.updateMemberDataFromSchema()
-    except ImportError:
-        pr("!! Could not import or execute CPSDirectory installer")
-
-    #
-    #  CPSMailingLists installer/updater
-    #  To be called after cause we are using the default catalog too.
-    #
-    try:
-        import Products.CPSMailingLists
-        if not portalhas('cpsml_installer'):
-            pr('Adding cpsmailinglists installer')
-            cpsml_installer = ExternalMethod('cpsml_installer',
-                                                   'CPSMailingLists Updater',
-                                                   'CPSMailingLists.install',
-                                                   'install')
-            portal._setObject('cpsml_installer', cpsml_installer)
-        pr(portal.cpsml_installer())
-    except ImportError:
-        pass
-
-    #
-    # setting i18n default
-    # this has to be done last as we want CPSDefault override *
-    log_i18n = i18n_load_default_mcat(self)
-    pr (log_i18n)
-
-    pr(" Reindexing %s" % workspaces_id)
-    # this will do a recursive reindexSecurityObject
-    # but reindex only the workspaces_id
-    portal[workspaces_id].reindexObject()
-
-    pr(" Reindexing %s" % sections_id)
-    portal[sections_id].reindexObject()
-
-    pr(" Reindexing catalog")
-    # this rebuild all index
-    portal.portal_catalog.refreshCatalog(clear=1)
-
-    # remove cpsinstall external method
-    # and fix cpsupdate permission
-    if 'cpsinstall' in portal.objectIds():
-        pr("Removing cpsinstall")
-        portal._delObject('cpsinstall')
-    if 'cpsupdate' in portal.objectIds():
-        pr("Protecting cpsupdate")
-        portal.cpsupdate.manage_permission(
-            'View', roles=['Manager'], acquire=0
-        )
-        portal.cpsupdate.manage_permission(
-            'Access contents information', roles=['Manager'], acquire=0
-        )
-
-    pr("Update Done")
-    return pr('flush')
-
-
-
-def i18n_init_default_mcat(self):
-    """Delete and Create a message catalog Localizer.default."""
-    _log = []
-    def pr(bla, _log=_log):
-        if bla == 'flush':
-            return '\n'.join(_log)
-        _log.append(bla)
-        if (bla):
-            LOG('cps_i18n_init:', INFO, bla)
-
-    pr(" Initialize default i18n support")
-    portal = self.portal_url.getPortalObject()
-    Localizer = portal['Localizer']
-    languages = Localizer.get_supported_languages()
-
-    if 'default' in Localizer.objectIds():
-        Localizer.manage_delObjects(['default'])
-        pr("  previous default MessageCatalog deleted")
-
-    Localizer.manage_addProduct['Localizer'].manage_addMessageCatalog(
-        id='default',
-        title='CPSDefault messages',
-        languages=languages,
-    )
-    pr("  default MessageCatalogCreated")
-    return pr('flush')
-
-
-def i18n_load_default_mcat(self):
-    """Load *.po from CPSDefault/i18n/ directory."""
-    _log = []
-    def pr(bla, _log=_log):
-        if bla == 'flush':
-            return '\n'.join(_log)
-        _log.append(bla)
-        if (bla):
-            LOG('cps_i18n_update:', INFO, bla)
-
-    pr(" Updating i18n Localizer.default mcat")
-    portal = self.portal_url.getPortalObject()
-    Localizer = portal['Localizer']
-    defaultCatalog = Localizer.default
-    languages = Localizer.get_supported_languages()
-
-    # computing po files' system directory
-    CPSDefault_path = sys.modules['Products.CPSDefault'].__path__[0]
-    i18n_path = os.path.join(CPSDefault_path, 'i18n')
-    pr("   po files are searched in %s" % i18n_path)
-    pr("   po files for %s are expected" % str(languages))
-
-    # loading po files
-    for lang in languages:
-        po_filename = lang + '.po'
-        pr("   importing %s file" % po_filename)
-        po_path = os.path.join(i18n_path, po_filename)
-        try:
-            po_file = open(po_path)
-        except (IOError, NameError):
-            pr("    %s file not found" % po_path)
-        else:
-            defaultCatalog.manage_import(lang, po_file)
-            pr("    %s file imported" % po_path)
-
-    pr("i18n Update Done")
-
-    return pr('flush')
-
+def cpsupdate(self, langs_list=None, is_creation=0):
+    # helpers
+    installer = DefaultInstaller(self)
+    installer.install(langs_list, is_creation)
+    installer.finalize()
+    return installer.logResult()
 
 
 def cps_i18n_update(self, langs_list=None):
@@ -1717,6 +1336,8 @@ def cps_i18n_update(self, langs_list=None):
     this does not reset the mcat.
     """
     # langs_list is deprecated as it is set in the Localizer
-    text = ''
-    text += i18n_load_default_mcat(self)
-    return text
+    installer = CPSInstaller('CPS Default i18n import')
+    installer.install(langs_list)
+    return installer.logResults()
+
+

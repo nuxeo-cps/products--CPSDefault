@@ -86,13 +86,6 @@ def manage_addCPSDefaultSite(dispatcher, id,
                                email_from_name=email_from_name,
                                validate_email=0)
 
-    pr('Creating cpsinstall External Method in CPS Site')
-    cpsinstall = ExternalMethod('cpsinstall',
-                                'CPSDefault Installer',
-                                'CPSDefault.cpsinstall',
-                                'cpsinstall')
-    portal._setObject('cpsinstall', cpsinstall)
-
     pr('Creating cpsupdate External Method in CPS Site')
     cpsupdate = ExternalMethod('cpsupdate',
                                'CPSDefault Updater',
@@ -115,10 +108,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
     portal._setObject('i18n Updater', i18n_updater)
 
     pr('Executing CPSDefault Installer')
-    pr(portal.cpsinstall(), 0)
-
-    pr('Executing CPSDefault Updater')
-    pr(portal.cpsupdate(langs_list=langs_list), 0)
+    pr(portal.cpsupdate(langs_list=langs_list, is_creation=1 ), 0)
 
     pr('Configuring CPSDefault Portal')
     # editProperties do not work with ZTC due to usage of REQUEST

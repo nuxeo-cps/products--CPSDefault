@@ -8,17 +8,17 @@
 
 <tal:block define="require python:context.requirePermission('Manage Boxes')"/>
 
-<h2 i18n:translate="heading_box_edit_form">Box edition</h2>
+<h1 i18n:translate="heading_box_edit_form">Box edition</h1>
 
-box: <tal:block replace="box_url" />
+<div class="description" tal:content="box_url" />
 
 <tal:block repeat="box python:btool.getBoxes(here,
                        include_only_in_subfolder=1)">
-  <tal:block condition="python:box['url'] == box_url">
-   <br /><br />
+<tal:block condition="python:box['url'] == box_url">
 <form action="box_edit" method="post" enctype="multipart/form-data"
   tal:attributes="action string:${context_urlc}/box_edit"
-  tal:define="box_category python:box['box'].category" name="form">
+  tal:define="box_category python:box['box'].category" name="form"
+  class="group">
 <input type="hidden" name="box_url" value=""
   tal:attributes="value box_url" />
 <input type="hidden" name="box_category" value=""
@@ -74,92 +74,64 @@ box: <tal:block replace="box_url" />
       </select>
     </td>
   </tr>
-  <tr>
-    <td></td>
-    <td colspan="5">
-        <input type="checkbox" name="display_in_subfolder"
+  </table>
+
+
+  <input type="checkbox" name="display_in_subfolder"
                checked="" class="noborder"
                tal:attributes="checked
                  python:test(box['box'].display_in_subfolder, 'checked',
                    nothing)" />
-        <label i18n:translate="label_visible_in_subfolder">visible in subfolder</label><br />
-        <input type="checkbox" name="display_only_in_subfolder:boolean"
+  <label i18n:translate="label_visible_in_subfolder">visible in subfolder</label><br />
+  <input type="checkbox" name="display_only_in_subfolder:boolean"
                checked="" class="noborder"
                tal:attributes="checked
                  python:test(box['box'].display_only_in_subfolder, 'checked',
                    nothing)" />
-        <label i18n:translate="label_visible_only_in_subfolder">visible only in subfolder</label>
-    </td>
-  </tr>
-  <tr valign="top">
-    <th align="right" i18n:translate="label_btype">Type</th>
-    <td colspan="5">
-      <tal:block
-        define="category python:here.getBoxTypes(category=box_category);
-                providertype string:${box/settings/provider}@${box/settings/btype}"
-        condition="category">
-      <table border="0" width="100%" cellpadding="1" cellspacing="1"
-        summary="box types listing">
-        <tr><td colspan="2">
-          <strong i18n:translate="" tal:content="category/title" /><br />
-          <em i18n:translate="" tal:content="category/desc" />
-        </td></tr>
-        <tal:block define="global boxtype_selected python:0">
-          <tal:block repeat="type category/types">
-          <tr><td width="30%" tal:define="sf string:${type/provider}@${type/id};
-                                          sfISpt python:test(sf==providertype,1,0)">
-            <input type="radio" name="providertype" value="" class="noborder"
-                   tal:attributes="value sf;
-                                   id sf;
-                                   checked
-                                     python:test(sfISpt,
-                                                 'checked',
-                                                 test(repeat['type'].end and
-                                                        not boxtype_selected,
-                                                      'checked',
-                                                      nothing))" />
-            <label for="" tal:attributes="for sf">
-              <em tal:omit-tag="python:type['id']=='default'">
-                <span tal:replace="string:${type/provider}-${type/id}" />
-              </em>
-            </label>
-            <tal:block tal:define="global boxtype_selected
-                                     python:test(boxtype_selected or sfISpt,
-                                                 1,0)" />
-            </td>
-            <td><em tal:omit-tag="python:type['id']=='default'"
-                  i18n:translate="" tal:content="type/desc" /></td>
-          </tr>
-          </tal:block>
-        </tal:block>
-      </table>
-      <br />
-      <em i18n:translate="help_italic_vendor_boxes_types">
-        Box types in italic are predefined types. You cannot change their
-        properties from this interface. Use the default box to do so.
-      </em>
-      </tal:block>
-    </td>
-  </tr>
-  <tr>
-    <td></td><td colspan="5"><hr /></td>
-  </tr>
+  <label i18n:translate="label_visible_only_in_subfolder">visible only in subfolder</label>
+
+  <tal:block
+  define="category python:here.getBoxTypes(category=box_category);
+  providertype string:${box/settings/provider}@${box/settings/btype}"
+  condition="category">
+  <hr />
+  <strong i18n:translate="label_btype">Type</strong>:
+  <span i18n:translate="" tal:content="category/title" /> (<span i18n:translate="" tal:content="category/desc" />)
+  <ul tal:define="global boxtype_selected python:0"
+    style="list-style-type: none;">
+  <tal:block repeat="type category/types">
+    <li tal:define="sf string:${type/provider}@${type/id};
+      sfISpt python:test(sf==providertype,1,0)">
+    <input type="radio" name="providertype" value="" class="noborder"
+      tal:attributes="value sf;
+        id sf;
+        checked python:test(sfISpt,'checked',test(repeat['type'].end and not boxtype_selected,'checked', nothing))" />
+    <tal:block tal:define="global boxtype_selected python:test(boxtype_selected or sfISpt, 1,0)" />
+    <label tal:attributes="for sf"><span
+      i18n:translate="" tal:content="type/desc" />
+      <span tal:condition="python:type['id']!='default'"> *</span></label>
+    </li>
+  </tal:block>
+  </ul>
+  <em i18n:translate="help_italic_vendor_boxes_types">
+    Box types in italic are predefined types. You cannot change their
+    properties from this interface. Use the default box to do so.
+  </em>
+  </tal:block>
+  <hr />
+  <table  border="0" summary="box additional properties layout">
   <metal:block define-slot="additional_fields">
   </metal:block>
-  <tr>
-    <td></td>
-    <td colspan="5">
-      <input type="submit" name="change_and_edit" value="button_change_and_edit"
-             class="standalone" i18n:attributes="value"
-             tal:condition="python:checkPerm('Manage Boxes', box['box'])" />
-      <input type="submit" name="change" value="button_change"
-             class="standalone" i18n:attributes="value"
-             tal:condition="python:checkPerm('Manage Boxes', box['box'])" />
-      <input type="submit" name="back" i18n:attributes="value"
-             class="context" value="button_back" />
-    </td>
-  </tr>
-</table>
+  </table>
+  <br />
+  <input type="submit" name="change_and_edit" value="button_change_and_edit"
+      class="standalone" i18n:attributes="value"
+      tal:condition="python:checkPerm('Manage Boxes', box['box'])" />
+  <input type="submit" name="change" value="button_change"
+      class="standalone" i18n:attributes="value"
+      tal:condition="python:checkPerm('Manage Boxes', box['box'])" />
+  <input type="submit" name="back" i18n:attributes="value"
+      class="context" value="button_back" />
 
 </form>
   </tal:block>

@@ -11,10 +11,12 @@
 
 <metal:header metal:fill-slot="header">
 <h1 tal:content="here/title_or_id">Page Title</h1>
-
+<a href="" accesskey="V"
+   style="display:none"
+   tal:attributes="href string:${context_url}/"></a>
 <a href="" accesskey="N"
-  tal:attributes="href string:${context_url}/folder_factories" />
-
+   style="display:none"
+   tal:attributes="href string:${context_url}/folder_factories"></a>
 <div align="right">
   <form action="" method="post" name="formf"
         tal:attributes="action string:${here_url}/changeDisplayParams">

@@ -24,7 +24,8 @@
     <a href="/cps/id"
        tal:omit-tag="not:bc/url"
        tal:attributes="href bc/url;
-                       title bc/longtitle"
+                       title bc/longtitle;
+                       accesskey python:test(repeat['bc'].end, nothing, 'U')"
        tal:content="bc/title">
        Title
     </a><strong

@@ -22,12 +22,12 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_menu">
-<ul id="menu">
+<ul class="menu">
   <li tal:define="sections sections|ttool/sections;
                   stree python:sections.getList(start_depth=0, stop_depth=1)"
       tal:repeat="item stree"
       tal:omit-tag="item/hidden_folder|nothing"
-      tal:attributes="id python:context_url.endswith(item['rpath']) and (
+      tal:attributes="class python:context_url.endswith(item['rpath']) and (
         'selected') or nothing"><a href=""
       tal:condition="not:item/hidden_folder|python:1"
       tal:attributes="href string:${base_url}${item/rpath}/;
@@ -40,8 +40,8 @@
                     stop_depth=2)[:1]"
       tal:repeat="item wtree"
       tal:omit-tag="item/hidden_folder|nothing"
-      tal:attributes="id python:context_url.endswith(item['rpath']) and (
-        'selected') or nothing"><a href=""
+      tal:attributes="class python:context_url.endswith(item['rpath']) and (
+        'selected workspace') or 'workspace'"><a href=""
       tal:condition="not:item/hidden_folder|python:1"
       tal:attributes="href string:${base_url}${item/rpath}/;
                       title item/title"

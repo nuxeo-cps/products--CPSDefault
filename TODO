@@ -5,7 +5,8 @@
 - [lennart] 05/26: join CPSDefault
 - [florent] 05/26 +8d: CPSDocuments
 - [] 06/18+3w: CPSDefault with portal_boxes/workflow/i18n/users
-- [] 06/25: CPSDemo with few services tbd ...
+- [alex] 06/19: Users integration completed
+- [] 06/24: CPSDemo with few services tbd ...
 
 
 # on work priority tasks -----------------------------------
@@ -34,6 +35,10 @@
    o problems
       x [] defining more than one macro to render a box
          style is the template name and format is the macro name
+      o getBoxes should return only boxes with Access Content Info and
+         View permission, this is needed for anonymous access
+         guard are not enought if the guard is ok and you don't have
+         view and access permission you will have an exception
 
 - [encolpe] search
    o CPSCore CPSBaseDocument should implement SearchableText method
@@ -44,11 +49,18 @@
    o try to use content_lib macros as much as possible
 
 - [alex] users
-   x add anonymous access
-   x handle group in local roles management
+   x [] add anonymous access
+      boxes should take care about guard and permission
+   x [] handle group in local roles management
+      o empty search should return list of groups
+   x [] NuxMetaDirectories integration
+      o cpsupdate integration
+      o check skin integration and update into
+        CPSDefault/skin/cps_nuxmetadirectories
+   x [] local roles page should display aquisition roles 
+      o display the folder where they are define will be cool
+        with a link to the folder local roles setting
    o put member's folder into workspaces
-   x local roles page should display aquisition roles 
-   x NuxMetaDirectories integration
    o how to remove roles for a user in a folder ?
       These are all closely related to the work lennart is doing
       (plugin user folder for SSL+LDAP+ZODB Users+Groups support)

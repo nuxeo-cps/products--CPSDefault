@@ -103,8 +103,9 @@ Example::
   RewriteEngine on
   
   # Using OR instead of the implicit AND between conditions
-  RewriteCond %{REQUEST_URI} ^(.*)/manage$ [OR]
-  RewriteCond %{REQUEST_URI} ^(.*)/login_form$
+  RewriteCond %{REQUEST_URI} ^(.*)/manage(.*) [OR]
+  RewriteCond %{REQUEST_URI} ^(.*)/login(.*)
+  RewriteCond %{REQUEST_URI} ^(.*)/account_(.*)
   RewriteCond %{REQUEST_URI} ^(.*)/join_form$
   RewriteRule ^/(.*) https://mysite.net/$1 [R=permanent,L]
   

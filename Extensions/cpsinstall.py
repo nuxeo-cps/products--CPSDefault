@@ -157,6 +157,17 @@ def cpsupdate(self, langs_list=None):
             event_type='synchronous',
             notification_type='*',
             compressed=0)
+    if 'portal_trees' in subscribers:
+        prok()
+    else:
+        pr(" Creation portal_proxies subscribers")
+        portal.portal_eventservice.manage_addSubscriber(
+            subscriber='portal_trees',
+            action='tree',
+            meta_type='*',
+            event_type='synchronous',
+            notification_type='*',
+            compressed=0)
 
 
     # replace portal_workflow with a (CPS Tools) CPW Workflow Tool.
@@ -289,7 +300,7 @@ def cpsupdate(self, langs_list=None):
                             chain='cps_workspace_workflow')
         wfc.manage_addChain(portal_type='Section',
                             chain='')
-        wfc.manage_addChain(portal_type='CPS Dummy Document',
+        wfc.manage_addChain(portal_type='Dummy',
                             chain='cps_workspace_document_workflow',
                             under_sub_add=1)
         
@@ -301,7 +312,7 @@ def cpsupdate(self, langs_list=None):
                             chain='')
         wfc.manage_addChain(portal_type='Section',
                             chain='cps_section_workflow')
-        wfc.manage_addChain(portal_type='CPS Dummy Document',
+        wfc.manage_addChain(portal_type='Dummy',
                             chain='cps_section_document_workflow',
                             under_sub_add=1)
     # init Tree Tool

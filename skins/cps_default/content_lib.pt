@@ -746,12 +746,12 @@ format:</pre>
       </tal:block>
       <tal:block condition="python:checkPerm('View archived revisions', here)">
         <a href="."
-           tal:attributes="href string:${here_url}/archivedRevision/${rev}/view"
+           tal:attributes="href string:${context_url}/archivedRevision/${rev}/view"
            i18n:translate="link_consult_this_revision">Consult</a>
         <tal:block condition="python:checkPerm('Modify portal content', here)">
           -
           <a href="."
-             tal:attributes="href string:${here_url}/content_revert_form?rev:int=${rev}"
+             tal:attributes="href string:${context_url}/content_revert_form?rev:int=${rev}"
              i18n:translate="link_revert_to_this_revision">Revert</a>
         </tal:block>
       </tal:block>

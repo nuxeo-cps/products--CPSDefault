@@ -67,10 +67,11 @@ def compute_states(no_history=0):
              'title': folder_title,
              'review_state': px['review_state'],
              'rev': str(px['language_revs'].values()[0]),
-             'lang': px['language_revs'].keys()[0],
+             'language': px['language_revs'].keys()[0],
              'time': px['time'],
              'time_str': context.getDateStr(px['time'])
              }
+        d['lang'] = d['language']       # for compatibility
         states.append(d)
 
     history = []
@@ -197,6 +198,18 @@ if level > 0:
         info['creator'] = doc.Creator()
     except:
         info['creator'] = ''
+    try:
+        info['subject'] = ', '.join(doc.Subject())
+    except:
+        info['subject'] = ''
+    try:
+        info['rights'] = doc.Rights()
+    except:
+        info['rights'] = ''
+    try:
+        info['contributors'] = ', '.join(doc.Contributors())
+    except:
+        info['contributors'] = ''
 
     if hasattr(doc.aq_explicit, 'getAdditionalContentInfo'):
         add_info = doc.getAdditionalContentInfo(proxy)

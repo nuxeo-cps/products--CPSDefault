@@ -1,4 +1,4 @@
-##parameters=items=[], columns=1, items_per_page=10, zoom=0
+##parameters=items=[], columns=1, items_per_page=10, zoom=0, max_items=100
 # $Id$
 """
 Given the desired number of colums, constructs a list of batches to render
@@ -19,6 +19,13 @@ len_items = len(items)
 if not len_items:
     return [], {}, []
 
+if max_items and max_items < len_items:
+    items = items[:max_items]
+    len_batch = max_items
+else:
+    len_batch = len_items
+
+
 b_start = int(context.REQUEST.get('b_start', 0))
 
 # extract the n first items in a zoomed list
@@ -26,7 +33,7 @@ zoomed = []
 if not b_start and zoom:
     zoom = int(zoom)
     zoomed = Batch(items[:zoom], zoom, 0)
-    n = len_items - zoom
+    n = len_batch - zoom
     # deal with items left
     items = items[zoom:]
 
@@ -47,7 +54,7 @@ for c in range(columns - 1):
 #
 
 # Calculate the number of pages
-nb_pages = len_items / items_per_page
+nb_pages = len_batch / items_per_page
 if not same_type(nb_pages, 1) and nb_pages > 1:
     nb_pages = int(nb_pages) + 1
 else:
@@ -58,8 +65,8 @@ items_per_page = int(items_per_page)
 
 # Test if we are on the last page
 limit = b_start + items_per_page
-if  limit > len_items:
-    limit = len_items
+if  limit > len_batch:
+    limit = len_batch
 
 batch_info = {'nb_pages': nb_pages,
               'start': b_start + 1,
@@ -67,7 +74,7 @@ batch_info = {'nb_pages': nb_pages,
               'length': len_items,
               'previous': None,
               'next': None,
-                 }
+              }
 
 # for the nb of items
 j = 0

@@ -23,21 +23,20 @@ if cpsmcat is None:
 if not proxy:
     proxy = context
 
-bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id,
-                             level=-3)
+bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id, level=-3)
 bmt.setMarker('start')
 
-wtool=context.portal_workflow
-utool=context.portal_url
+wtool = context.portal_workflow
+utool = context.portal_url
+ptool = context.portal_proxies
+ttool = context.portal_trees
 
 def compute_states(no_history=0):
-    ptool=context.portal_proxies
-    ttool=context.portal_trees
     folders_info = {}
 
     for tree in ttool.objectValues():
-        for f in tree.getList(filter=0):
-            folders_info[f['rpath']] = f
+        for folder in tree.getList(filter=0):
+            folders_info[folder['rpath']] = folder
 
     wf_vars = ['review_state', 'time']
     docid = proxy.getDocid()
@@ -64,8 +63,8 @@ def compute_states(no_history=0):
 
         folder_id = px['rpath'].split('/')[-2]
         folder_title = folders_info.get(folder_rpath,
-                                        {'title':folder_id}).get('title',
-                                                                 folder_id)
+                                        {'title': folder_id}).get('title',
+                                                                  folder_id)
         d = {'rpath': folder_rpath,
              'title': folder_title,
              'review_state': px['review_state'],
@@ -105,7 +104,7 @@ def compute_states(no_history=0):
                 dest_title = folders_info.get(dest_container, {}).get(
                     'title', '?')
                 d['dest_title'] = dest_title
-            d['time_str']=context.getDateStr(d['time'])
+            d['time_str'] = context.getDateStr(d['time'])
             history.append(d)
 
     def cmp_rs(a, b):
@@ -119,7 +118,6 @@ def compute_states(no_history=0):
     return states, history
 
 def compute_archived():
-    ptool=context.portal_proxies
     docid = proxy.getDocid()
     archived = ptool.getArchivedInfosForDocid(docid)
     # Keep only frozen revisions.
@@ -130,7 +128,7 @@ def compute_archived():
     return archived
 
 # basic information level 0
-info={}
+info = {}
 info['rpath'] = utool.getRelativeUrl(proxy)
 info['title_or_id'] = proxy.title_or_id()
 info['id'] = proxy.id
@@ -147,6 +145,7 @@ try:
     langrev = proxy.getLanguageRevisions()
 except AttributeError:
     # not a proxy
+    # FIXME: default lang should not be hardcoded
     langrev = {'en': 0}
 info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
 info['lang'] = langrev.keys()[0]
@@ -245,9 +244,9 @@ if level >= 3:
 if level >= 4:
     info['archived'] = compute_archived()
 
-info['level']=level
-
+info['level'] = level
 
 bmt.setMarker('stop')
 bmt.saveProfile(context.REQUEST)
+
 return info

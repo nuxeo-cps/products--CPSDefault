@@ -60,12 +60,12 @@ def compute_states(no_history=0):
 
         folder_id = px['rpath'].split('/')[-2]
         folder_title = folders_info.get(folder_rpath,
-                                     {'title':folder_id}).get('title',
-                                                              folder_id)
+                                        {'title':folder_id}).get('title',
+                                                                 folder_id)
         d = {'rpath': folder_rpath,
              'title': folder_title,
              'review_state': px['review_state'],
-             'rev': str(px['language_revs'].values()[0]), # XXX str problem fixed in Zope 2.6.1
+             'rev': str(px['language_revs'].values()[0]),
              'lang': px['language_revs'].keys()[0],
              'time': px['time'],
              'stime': context.getDateStr(px['time'])
@@ -101,7 +101,6 @@ def compute_states(no_history=0):
                     'title', '?')
                 d['dest_title'] = dest_title
             d['stime']=context.getDateStr(d['time'])
-            d['section_title'] = folder_title
             history.append(d)
 
     def cmp_rs(a, b):

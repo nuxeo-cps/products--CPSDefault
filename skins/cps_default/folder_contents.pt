@@ -67,7 +67,7 @@
         <input type="submit" name="folder_copy:method" value="button_copy"
           class="context" i18n:attributes="value">
       </span>
-      <span tal:condition="python:can_add and hasattr(request, '__cp')">
+      <span tal:condition="python:can_add and here.cb_dataValid()">
         <input type="submit" name="folder_paste:method" value="button_paste"
           class="context" i18n:attributes="value">
       </span>

@@ -27,7 +27,7 @@ from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base
 from copy import deepcopy
 
-from zLOG import LOG, DEBUG
+from zLOG import LOG, DEBUG, INFO
 
 factory_type_information = (
     {'id': 'Tree Box',
@@ -118,7 +118,13 @@ class TreeBox(BaseBox):
             root_path = current_path
         else:
             root_path = filter(None, self.root.split('/'))
-            root_obj = portal_url.getPortalObject().restrictedTraverse(root_path)
+            try:
+                root_obj = portal_url.getPortalObject().restrictedTraverse(
+                    root_path)
+            except KeyError:
+                LOG('TreeBox', INFO, 'box:%s use invalid root_path:%s.' %
+                    (self.absolute_url(1), self.root))
+                return []
             root_url = portal_url.getRelativeUrl(root_obj)
 
         root_tree = root_path[0]

@@ -1,19 +1,17 @@
 # $Id$
-# Zope 2.6.1, zope 2.6.2 or zope 2.6.4
-# Zope 2.7 doesn't work with i18n tools make_pot/update_pos
+# Zope 2.7.3
 make_zs
 
 cd Products
 # CMF 1.4.4
-tar xzvf /home/zopes/_packages/CMF-1.4.4.tar.gz
-mv CMF-1.4.4/CMF* .
-mv CMF-1.4.4/DCWorkflow .
-rm -rf CMF-1.4.4
+tar xzvf /home/zopes/_packages/CMF-1.4.7.tar.gz
+mv CMF-1.4.7/CMF* .
+mv CMF-1.4.7/DCWorkflow .
+rm -rf CMF-1.4.7
 
 # Products
-tar xzvf /home/zopes/_packages/Localizer-1.0.1.tgz
-tar xzvf /home/zopes/_packages/BTreeFolder2-0.5.0.tar.gz
-tar xzvf /home/zopes/_packages/TranslationService-0.4.0-1.tgz
+tar xzvf /home/zopes/_packages/BTreeFolder2-1.0.1.tar.gz
+tar xzvf /home/zopes/_packages/TranslationService-0.6.0-1.tgz
 
 # Packages for dev
 tar xzvf /home/zopes/_packages/VerboseSecurity-0.5.tar.gz
@@ -25,12 +23,10 @@ tar xzvf  /home/zopes/_packages/OpenPTi18n-nuxeo.tgz
 tar xzvf /home/zopes/_packages/DocFinderEverywhere-0.4.1.tar.gz
 
 cd ../lib/python/Testing
-tar xzvf /home/zopes/_packages/ZopeTestCase-0.8.6.tar.gz
+tar xzvf /home/zopes/_packages/ZopeTestCase-0.9.2.tar.gz
 cd -
 
-# NuxUserGroup > 0.9.0
-tar xzvf /home/zopes/_packages/NuxUserGroups-0.9.0-1.tgz
-mv NuxUserGroups-0.9.0 NuxUserGroups
+
 
 ## CPS 3 packaged replace x.x by the latest version available
 # tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
@@ -41,9 +37,19 @@ mv NuxUserGroups-0.9.0 NuxUserGroups
 ## or CPS3 dev
 cvs co CPSInstaller
 cvs co CPSCore
+cvs co CPSWorkflow
 cvs co CPSSchemas
+cvs co CPSDocument
+cvs co CPSUserFolder
 cvs co CPSDirectory
+cvs co CPSSubscriptions
 cvs co CPSDefault
+cvs co CPSForum
+cvs co Localizer
+cvs co PortalTransforms
+
+# You might check http://cvs.nuxeo.org/CPS3/ for additional packages you may
+# install on your CPS site
 
 # To use CPSDocument
 #

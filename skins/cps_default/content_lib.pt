@@ -649,8 +649,9 @@ format</h1>
 <metal:block define-macro="states"
       tal:define="items python:[x for x in info['states'] if x['review_state'] != 'work']">
       <h2 i18n:translate="">label_publication_states</h2>
-      <p tal:condition="not:items">
-        There aren't any published version of this document.
+      <p tal:condition="not:items"
+        i18n:translate="info_no_published_revisions_of_this_document">
+        There aren't any published revisions of this document.
       </p>
       <tal:block condition="items">
         <table class="history">
@@ -756,8 +757,9 @@ format</h1>
       context_url python:getNonArchivedVersionContextUrl(context_url)
       ">
       <h2 i18n:translate="label_archived_revisions">Archived revisions</h2>
-      <p tal:condition="not:info/archived">
-        There aren't any archived revisions.
+      <p tal:condition="not:info/archived"
+        i18n:translate="info_no_archived_revisions_of_this_document">
+        There aren't any archived revisions of this document.
       </p>
       <tal:block condition="info/archived">
         <table class="history">

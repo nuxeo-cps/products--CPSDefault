@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"POT-Creation-Date: 2004-10-11 12:47default\n"
+"POT-Creation-Date: 2004-10-12 10:32default\n"
 "PO-Revision-Date: 2004-05-21 18:33+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -72,8 +72,17 @@ msgstr "Items: ${batch_start} - ${batch_limit} op ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
+#.   <td align="left" class="description" content="item/Description">
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Beschrijving document type"
 
@@ -83,8 +92,17 @@ msgstr "Beschrijving document type"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
+#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Titel document type"
 
@@ -298,6 +316,8 @@ msgstr "Kladversie verlaten"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Toevoegen"
 
@@ -706,6 +726,9 @@ msgstr "CPS heeft een fout gevonden"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Inhoud toevoegen"
 
@@ -988,7 +1011,11 @@ msgstr "Het wachtwoord zou in uw mailbox moeten zijn aangekomen."
 #.   <span>
 #.             No content type can be created.
 #.           </span>
+#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 "No content type can be created. It surely comes from workflows which don't "
@@ -1108,6 +1135,20 @@ msgstr ""
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "help_unpublish_publication"
 msgstr "Depublicatie item"
+
+#.   <p condition="not:info/archived">
+#.           There aren't any archived revisions of this document.
+#.         </p>
+#: from ../skins/cps_default/content_lib.pt
+msgid "info_no_archived_revisions_of_this_document"
+msgstr ""
+
+#.   <p condition="not:items">
+#.           There aren't any published revisions of this document.
+#.         </p>
+#: from ../skins/cps_default/content_lib.pt
+msgid "info_no_published_revisions_of_this_document"
+msgstr ""
 
 #.   <block condition="item/has_dest|nothing">
 #.                   into ${history_dest}
@@ -1933,6 +1974,7 @@ msgstr "Zoekmogelijkheden"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2274,7 +2316,7 @@ msgid "publish"
 msgstr "Publiceren"
 
 #.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
-#.   <span content="item/action">published</span>
+#.   <span content="item/action" class="action">published</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "published"
 msgstr "Gepubliceerd"

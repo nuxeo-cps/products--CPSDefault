@@ -1,22 +1,22 @@
-# translation of fr.po to 
+# translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to Francais
 # translation of fr.po to francais
 # ben, 2004.
 # ben, 2004.
+# ben, 2004.
 # emmanuel <epietriga@nuxeo.com>, 2004.
 # DARCHE <madarche@nuxeo.com>, 2004.
-# ben, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 12:47default\n"
-"PO-Revision-Date: 2004-10-11 12:49+0200\n"
-"Last-Translator: ben\n"
-"Language-Team:  <en@li.org>\n"
+"POT-Creation-Date: 2004-10-12 10:32default\n"
+"PO-Revision-Date: 2004-10-12 10:39+0200\n"
+"Last-Translator: DARCHE <madarche@nuxeo.com>\n"
+"Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,8 +72,17 @@ msgstr "Objets ${batch_start} - ${batch_limit} sur ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
+#.   <label for="" content="item/Description" attributes="for checkbox_id">
+#.                     Portal type's description
+#.                   </label>
+#.   <td align="left" class="description" content="item/Description">
+#.                     Portal type's description
+#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Description du type de document"
 
@@ -83,8 +92,17 @@ msgstr "Description du type de document"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
+#.   <label for="" content="item/Title" attributes="for checkbox_id">
+#.                       Portal type's title
+#.                     </label>
+#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
+#.                       Portal type's title
+#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Titre du type de document"
 
@@ -295,6 +313,8 @@ msgstr "Abandonner la version"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Ajouter"
 
@@ -698,6 +718,9 @@ msgstr "CPS a rencontré une erreur"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Ajouter du contenu"
 
@@ -884,8 +907,8 @@ msgstr "Supprimer l'archive ${rev}"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "help_italic_vendor_boxes_types"
 msgstr ""
-"* boîte préconfigurée, certaines options de la boîte "
-"ne pourront être changées."
+"* boîte préconfigurée, certaines options de la boîte ne pourront être "
+"changées."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -978,7 +1001,11 @@ msgstr "Il devrait arriver dans votre boîte aux lettres électronique dans un mom
 #.   <span>
 #.             No content type can be created.
 #.           </span>
+#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_dl.pt
+#: ../skins/cps_default/folder_factories_li.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 "Aucun type de contenu ne peut être créé. Cela est sûrement dû aux workflows "
@@ -1104,6 +1131,20 @@ msgstr ""
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "help_unpublish_publication"
 msgstr "Dépublier ce document"
+
+#.   <p condition="not:info/archived">
+#.           There aren't any archived revisions of this document.
+#.         </p>
+#: from ../skins/cps_default/content_lib.pt
+msgid "info_no_archived_revisions_of_this_document"
+msgstr "Il n'y a aucune version archivée de ce document."
+
+#.   <p condition="not:items">
+#.           There aren't any published revisions of this document.
+#.         </p>
+#: from ../skins/cps_default/content_lib.pt
+msgid "info_no_published_revisions_of_this_document"
+msgstr "Il n'y a aucune version publiée de ce document."
 
 #.   <block condition="item/has_dest|nothing">
 #.                   into ${history_dest}
@@ -1912,6 +1953,7 @@ msgstr "Texte à rechercher"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2242,7 +2284,7 @@ msgid "publish"
 msgstr "Publié"
 
 #.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
-#.   <span content="item/action">published</span>
+#.   <span content="item/action" class="action">published</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "published"
 msgstr "publié"

@@ -113,6 +113,14 @@ items = [
                 'desc': 'description_nuxeo_imagebox_default'},
                ]
      },
+    {'category': 'flashbox',
+     'title': 'portal_type_FlashBox_title',
+     'desc': 'portal_type_FlashBox_description',
+     'types': [{'provider': 'nuxeo',
+                'id': 'default',
+                'desc': 'description_nuxeo_flashbox_default'},
+               ]
+     },
     ]
 
 citems = context.getCustomBoxTypes()

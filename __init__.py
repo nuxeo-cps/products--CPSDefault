@@ -7,6 +7,8 @@ from Products.CMFCore.utils import ContentInit, ToolInit
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.CMFCorePermissions import AddPortalContent
 
+import CMFCalendarToolPatch
+
 import Portal
 import Folder
 import Dummy

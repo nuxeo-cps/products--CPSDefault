@@ -1,12 +1,37 @@
+# Copyright (c) 2004 Nuxeo SARL <http://nuxeo.com>
 # $Id$
 
-import os, re
+usage = """
+WARNING this script will try to rewrite some zpts
+do not use it without backuping all your zope Products !!!!!
+
+this script split a set of macro library into one macro by file
+ex:
+if foo_lib.pt contains bar and foobar macros we produce
+foo_lib_bar.pt with bar macro and foo_lib_foobar.pt with foobar macro
+we keep header comments, foo_lib.pt is renamed into foo_lib.pt.before_split
+
+as macros paths change this script replace the path in all zpts turning:
+use-macro='here/foo_lib/macros/bar'
+into use-macro='here/foo_lib_bar/macros/bar'
+
+limitation:
+usage of dynamic macro path like path('here/foo_lib/%s' % 'bar')
+are not handle but you are have an explicit warning
+
+usage:
+this script must be run under zope root
+$ cd /home/zopes/cps.localhost/
+$ python Products/CPSDefault/Extensions/split_macro_lib.py split
+
+"""
+
+import os, re, sys
 import glob
 from cgi import escape
 
 LIB_NAMES = (
-    'generic_lib', 'content_lib', 'header_lib', # CPSDefault
-    'error_lib',
+    'generic_lib', 'content_lib', 'header_lib', 'error_lib', # CPSDefault
     # 'box_lib',
     'layout_lib',                       # CPSDocument
     'forum_comment_lib',                # CPSForum
@@ -73,8 +98,8 @@ def split_macro_lib(file_path):
             f = open(new_file_path, "w")
             f.write(macro)
             file_created_count += 1
-    print "###    found %s macros, generate %s files" % (
-        macro_count, file_created_count)
+    #print "###    found %s macros, generate %s files" % (
+    #    macro_count, file_created_count)
     return file_created_count
 
 def rename_macro_lib(file_path):
@@ -86,8 +111,8 @@ def rename_macro_lib(file_path):
     new_file_path = '%s.before_splitting' % file_path
     if os.path.exists(new_file_path):
         os.remove(new_file_path)
-    rename(file_path, new_file_path)
-    print "###   rename macro_lib into %s" new_file_path
+    os.rename(file_path, new_file_path)
+    print "###   rename macro_lib into %s" % new_file_path
 
 
 def replace_use_macro_lib(file_path, lib_names):
@@ -98,10 +123,22 @@ def replace_use_macro_lib(file_path, lib_names):
     macro_use_pattern = re.compile(pattern_str)
     content = open(file_path, 'r').read()
     content_len = len(content)
-    content = macro_use_pattern.sub(r'use-macro="here/\g<lib_name>_\g<macro_name>/macros/\g<macro_name>', content)
+    content = macro_use_pattern.sub(r'use-macro="here/\g<lib_name>_\g<macro_name>/macros/\g<macro_name>"', content)
     new_content_len = len(content)
     if new_content_len != content_len:
-        print "### Changing use-macro in zpt %s" % file_path
+        print "### Replace macro_lib call: %s" % file_path
+        try:
+            f = open(file_path, 'w')
+            f.write(content)
+            f.close()
+        except IOError, e:
+            print "### ERROR: %s" % e
+
+    # warn on pattern that can not be automaticly replaced
+    pattern_str = r'/(%s)/macros/' % '|'.join(lib_names)
+    warning_pattern = re.compile(pattern_str)
+    if warning_pattern.search(content):
+        print "### WARNING file %s must be edited manualy to replace path macro access" % file_path
     return
 
 
@@ -137,5 +174,9 @@ def replace_all_use_macro_lib(lib_names):
     for zpt in zpts:
         replace_use_macro_lib(zpt, lib_names)
 
-
-
+# main
+if len(sys.argv) == 2 and sys.argv[1] == 'split':
+    split_all_macro_libs(LIB_NAMES)
+    replace_all_use_macro_lib(LIB_NAMES)
+else:
+    print usage

@@ -3,24 +3,17 @@
 ##title=Bench
 ##$Id$
 """
-require External method Benchmarktimer installed by cpsintall
-set BENCHMARKTIMER_LEVEL in your start script
-to benchmark an object http://server/foo/bar run:
-http://server/foo/bar/bench
-to bench a zpt or a python script
-http://server/bench?foo/bar
+see doc/HOWTO.BENCHMARK
 """
 if obj is None:
-    ob_rurl=context.REQUEST.environ.get('QUERY_STRING')
-    if ob_rurl:
-        obj = context
-        ob_rpath = tuple(ob_rurl.split('/'))
-        for elem in ob_rpath:
+    obj = context
+    obj_rurl=context.REQUEST.environ.get('QUERY_STRING')
+    if obj_rurl:
+        obj_rpath = tuple(obj_rurl.split('/'))
+        for elem in obj_rpath:
             if elem and elem not in ['view']:
-#                print 'traversing to ', elem, '<br>'
+                #print 'traversing to ', elem, '<br>'
                 obj=getattr(obj, elem)
-    else:
-        obj=context
 
 def bench():
     bmt = context.Benchmarktimer(obj.getId())
@@ -42,7 +35,7 @@ def bench():
 
 context.REQUEST.RESPONSE.setHeader('content-type', 'text/html')
 print '<h3>bench python script</h3>'
-print '<b>making %s iteration of %s</b><br>' % (iteration, obj.getId())
+print '<b>making %s iterations of %s</b><br>' % (iteration, obj.getId())
 print 'Started:', DateTime(), '<hr>'
 print bench()
 

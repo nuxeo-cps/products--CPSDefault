@@ -86,7 +86,7 @@ def manage_addSss3Site(dispatcher, id,
     portal.acl_users._addUser(name=root_id,
                               password=root_password1,
                               confirm=root_password2,
-                              roles=('Manager',), domains=None)
+                              roles=('Manager', 'Member'), domains=None)
                                          
     pr('Done')
     if REQUEST is not None:

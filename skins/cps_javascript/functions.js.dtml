@@ -17,21 +17,21 @@ var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
 var isSelected = false;
 
 function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
-    formElements = toggleSelectButton.form.elements;
+  formElements = toggleSelectButton.form.elements;
 
-    if (isSelected) {
+  if (isSelected) {
     for (i = 0; i < formElements.length; i++) {
-        formElements[i].checked = false;
+      formElements[i].checked = false;
     }
     isSelected = false;
     toggleSelectButton.value = selectAllText;
-    } else {
+  } else {
     for (i = 0; i < formElements.length; i++) {
-        formElements[i].checked = true;
+      formElements[i].checked = true;
     }
     isSelected = true;
     toggleSelectButton.value = deselectAllText;
-    }
+  }
 }
 
 //************************************************************
@@ -44,10 +44,16 @@ function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
 function toggleElementVisibility(id) {
   element = document.getElementById(id);
   if (element) {
-    window.alert(element.tag)
+    //window.alert(element.tagName)
     if (element.style.visibility == 'hidden') {
       element.style.visibility = 'visible';
-      element.style.display = 'block';
+      if (element.tagName == 'DIV') {
+        element.style.display = 'block';
+      } else if (element.tagName == 'SPAN') {
+        element.style.display = 'inline';
+      } else {
+        element.style.display = 'block';
+      }
     } else {
       element.style.visibility = 'hidden';
       element.style.display = 'none';
@@ -58,9 +64,16 @@ function toggleElementVisibility(id) {
 function showElement(show, id) {
   element = document.getElementById(id);
   if (element) {
+    //window.alert(element.tagName)
     if (show) {
       element.style.visibility = 'visible';
-      element.style.display = 'block';
+      if (element.tagName == 'DIV') {
+        element.style.display = 'block';
+      } else if (element.tagName == 'SPAN') {
+        element.style.display = 'inline';
+      } else {
+        element.style.display = 'block';
+      }
     } else {
       element.style.visibility = 'hidden';
       element.style.display = 'none';
@@ -70,22 +83,22 @@ function showElement(show, id) {
 
 //************************************************************
 function trim(s) {
-    if (s) {
+  if (s) {
     return s.replace(/^\s*|\s*$/g, "");
-    }
-    return "";
+  }
+  return "";
 }
 
 //************************************************************
 function checkEmptySearch(formElem) {
-    var query = trim(formElem.SearchableText.value);
-    if (query != '') {
+  var query = trim(formElem.SearchableText.value);
+  if (query != '') {
     formElem.SearchableText.value = query;
     return true;
-    }
-    formElem.SearchableText.value = query;
-    formElem.SearchableText.focus();
-    return false;
+  }
+  formElem.SearchableText.value = query;
+  formElem.SearchableText.focus();
+  return false;
 }
 
 //************************************************************
@@ -99,74 +112,74 @@ function checkEmptySearch(formElem) {
  * This function does not work on crappy MSIE5.0 and MSIE5.5.
  */
 function setFocus() {
-    if (msie5) {
+  if (msie5) {
     return false;
-    }
-    var elements = document.getElementsByTagName('input');
-    for (var i = 0; i < elements.length; i++) {
+  }
+  var elements = document.getElementsByTagName('input');
+  for (var i = 0; i < elements.length; i++) {
     var nodeClass = elements[i].getAttributeNode('class');
     //alert("nodeClass = " + nodeClass);
     if (nodeClass) {
-        var classes = nodeClass.value.split(' ');
-        for (var j = 0; j < classes.length; j++) {
-    	if (classes[j] == 'focus') {
-    	    elements[i].focus();
-    	    return true;
-    	}
+      var classes = nodeClass.value.split(' ');
+      for (var j = 0; j < classes.length; j++) {
+        if (classes[j] == 'focus') {
+          elements[i].focus();
+          return true;
         }
+      }
     }
-    }
+  }
 }
 
 function validateRequiredFields(fieldIds, fieldLabels, informationText) {
-    for (i = 0; i < fieldIds.length; i++) {
+  for (i = 0; i < fieldIds.length; i++) {
     element = document.getElementById(fieldIds[i]);
     if (element && !element.value) {
-        window.alert("'" + fieldLabels[i] + "' " + informationText);
-        return false;
+      window.alert("'" + fieldLabels[i] + "' " + informationText);
+      return false;
     }
-    }
-    return true;
+  }
+  return true;
 }
 
 //************************************************************
 function getSelectedRadio(buttonGroup) {
-   if (buttonGroup[0]) {
-      for (var i=0; i<buttonGroup.length; i++) {
-     if (buttonGroup[i].checked) {
+  if (buttonGroup[0]) {
+    for (var i=0; i<buttonGroup.length; i++) {
+      if (buttonGroup[i].checked) {
         return i
-     }
       }
-   } else {
-      if (buttonGroup.checked) { return 0; }
-   }
-   return -1;
+    }
+  } else {
+    if (buttonGroup.checked) { return 0; }
+  }
+  return -1;
 }
 
 function getSelectedRadioValue(buttonGroup) {
-   var i = getSelectedRadio(buttonGroup);
-   if (i == -1) {
-      return "";
-   } else {
-      if (buttonGroup[i]) {
-     return buttonGroup[i].value;
-      } else {
-     return buttonGroup.value;
-      }
-   }
+  var i = getSelectedRadio(buttonGroup);
+  if (i == -1) {
+    return "";
+  } else {
+    if (buttonGroup[i]) {
+    return buttonGroup[i].value;
+    } else {
+    return buttonGroup.value;
+    }
+  }
 }
 
 function getSelectedRadioId(buttonGroup) {
-   var i = getSelectedRadio(buttonGroup);
-   if (i == -1) {
-      return "";
-   } else {
-      if (buttonGroup[i]) {
-     return buttonGroup[i].id;
-      } else {
-     return buttonGroup.id;
-      }
-   }
+  var i = getSelectedRadio(buttonGroup);
+  if (i == -1) {
+    return "";
+  } else {
+    if (buttonGroup[i]) {
+      return buttonGroup[i].id;
+    } else {
+      return buttonGroup.id;
+    }
+  }
 }
 
 <dtml-comment>

@@ -40,6 +40,7 @@ class BaseInstaller:
         self.portal = context.portal_url.getPortalObject()
         self.workspaces = self.portal[self.WORKSPACES_ID]
         self.sections = self.portal[self.SECTIONS_ID]
+        self.actiontool = self.portal.portal_actions
         self.boxtool = self.portal.portal_boxes
         self.treetool = self.portal.portal_trees
         self.typetool = self.portal.portal_types

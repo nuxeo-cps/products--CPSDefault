@@ -144,6 +144,12 @@ class BoxesTool(UniqueObject, SimpleItem):
         LOG('portal_boxes', DEBUG, 'Returned boxes:', str(boxes) + '\n')
         return boxes
 
+
+    security.declarePublic('filterBoxes')
+    def filterBoxes(self, boxes, slot):
+        """ filter a list boxes for required slot """       
+        return [x for x in boxes if (x['settings']['slot']==slot)]
+
     #
     # Private
     #

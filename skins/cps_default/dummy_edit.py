@@ -1,6 +1,7 @@
 ## Script (Python) "dummy_edit"
 ##parameters=body, description, choice=' Change '
 ##title=Edit a dummy
+# $Id$
 doc = context.getEditableContent()
 try:
     from Products.CMFDefault.utils import scrubHTML

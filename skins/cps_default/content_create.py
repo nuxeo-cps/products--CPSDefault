@@ -1,6 +1,7 @@
 ## Script (Python) "content_create"
 ##title=Create a new Content
 ##parameters=REQUEST=None, **kw
+# $Id$
 """
 Create an object
 """

@@ -1,7 +1,7 @@
 ## Script (Python) "content_edit"
 ##title=Update Content and Metadata
 ##parameters=REQUEST=None, **kw
-
+# $Id$
 def tuplify( value ):
     if not same_type( value, () ):
         value = tuple( value )

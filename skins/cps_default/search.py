@@ -1,8 +1,12 @@
+## Script (Python) "search"
 ##parameters=params={}, REQUEST=None, **kw
-
-# portal_type, SearchableText, Title, et Description
-# autre réponse: les index que connait le catalogue en clé et la chaîne de
-# caractères ou une liste de chaînes en valeur
+##title=Get content info used by macros
+# $Id$
+"""
+ portal_type, SearchableText, Title, et Description
+ autre réponse: les index que connait le catalogue en clé et la chaîne de
+ caractères ou une liste de chaînes en valeur
+"""
 
 from zLOG import LOG
 

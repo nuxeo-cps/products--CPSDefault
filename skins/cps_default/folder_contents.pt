@@ -6,11 +6,23 @@
                  direction params/direction;
                  format params/format;
                  ">
-<div align="right">
-<form action="" method="post" name="form"
+<div align="left" class="documentActions">
+<form action="" method="post" name="formf"
       tal:attributes="action string:${here/absolute_url};">
+<table bgcolor="white">
+  <tr valign="top">
+    <td>
       <span i18n:translate="label_sort_by">sort by</span>
        <select name="display_order">
+            <option i18n:translate="label_none" value="None" selected
+                    tal:condition="python:sort_by is None">
+                    Default
+            </option>
+	    <option i18n:translate="label_none" value="None"
+                    tal:condition="python:sort_by is not None">
+                    Default
+            </option>
+
             <option i18n:translate="label_title_asc" value="title_asc" selected
                     tal:condition="python:sort_by == 'title' and direction == 'asc'">
                     Title
@@ -64,15 +76,6 @@
                     tal:condition="python:sort_by != 'status' or direction !='desc' ">
                     Status
             </option>
-
-	    <option i18n:translate="label_none" value="None" selected
-                    tal:condition="python:sort_by is None">
-                    Default
-            </option>
-	    <option i18n:translate="label_none" value="None"
-                    tal:condition="python:sort_by is not None">
-                    Default
-            </option>
           </select>
 
 	  <span i18n:translate="label_display" valign="top">Display with</span>
@@ -85,14 +88,6 @@
 	             tal:condition="python:format != 'icon'">
                      Icon
              </option>
-	     <option i18n:translate="label_detailed" value="detail" selected
-                     tal:condition="python:format == 'detail' or format == 'None'">
-                     Detail
-             </option>
-	     <option i18n:translate="label_detailed" value="detail"
-                     tal:condition="python:format != 'detail'">
-                     Detail
-             </option>
 	     <option i18n:translate="label_compact" value="compact" selected
                      tal:condition="python:format == 'compact'">
                      Compact
@@ -101,18 +96,26 @@
                      tal:condition="python:format != 'compact'">
                      Compact
              </option>
+	     <option i18n:translate="label_detailed" value="detail" selected
+                     tal:condition="python:format == 'detail' or format == 'None'">
+                     Detail
+             </option>
+	     <option i18n:translate="label_detailed" value="detail"
+                     tal:condition="python:format != 'detail'">
+                     Detail
+             </option>
            </select>
-      <input type="submit" value="button_go" i18n:attributes="value"
+      <input type="submit" value="button_change" i18n:attributes="value"
         tal:attributes="name string:changeDisplayParams:method" />
+         </td>
+        </tr>
+      </table>
      </form>
 </div>
-  <h1 tal:content="here/title_or_id">
-      Page Title
-  </h1>
-  <div metal:use-macro="here/content_lib/macros/byline">By Me</div>
-  <div class="description" tal:content="doc/Description">
-    Document Description goes here.
-  </div>
+<h1 tal:content="here/title_or_id">Page Title</h1>
+<div class="description" tal:content="doc/Description">
+  Document Description goes here.
+</div>
 </div>
 
 <div metal:fill-slot="main"
@@ -166,7 +169,7 @@
                                format params/format;
 			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);"
                    condition="python:isWsManager and sort_by is None">
-
+          <br />
 	  <input type="submit" value="button_move_up"     i18n:attributes="value"
                  name="moveItemsUp:method" />
 	  <input type="submit" value="button_move_down"   i18n:attributes="value"

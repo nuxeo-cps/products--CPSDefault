@@ -8,6 +8,9 @@
                  dtool here/portal_metadirectories;
                  groups python:dtool['groups'];
                  display_prop python:groups['display_prop'];
+                 cpslr python:here.getCPSLocalRoles(mtool=mtool,
+                                                    base_url=base_url,
+                                                    context_url=context_url);
                 ">
 
 <div tal:condition="python: not searching">
@@ -111,8 +114,7 @@ search_param == 'email')"
     </th>
     <td>
      <select name="member_role"
-             tal:define="cpslr python:here.getCPSLocalRoles( mtool=mtool );
-                         roles python:cpslr[2]">
+             tal:define="roles python:cpslr[2]">
       <option tal:repeat="role roles"
               tal:attributes="value role"
               i18n:translate=""
@@ -218,8 +220,7 @@ search_param == 'email')"
     </th>
     <td>
       <select name="member_role"
-              tal:define="cpslr python:here.getCPSLocalRoles(mtool=mtool);
-                          roles python:cpslr[2]">
+              tal:define="roles python:cpslr[2]">
         <option tal:repeat="role roles"
                 tal:attributes="value role"
                 i18n:translate=""
@@ -271,10 +272,7 @@ search_param == 'email')"
  <input type="hidden" name="change_type" value="delete">
  <input type="hidden" name="member_role" value="">
 
- <table width="100%" class="FormLayout"
-   tal:define="lroles python:[('user:' + uroles[0],uroles[1]) for uroles in here.get_local_roles()] +
-                              [('group:' + groles[0],groles[1]) for groles in here.get_local_group_roles()]"
- >
+ <table width="100%">
  <tr>
    <td width="16"><br></td>
    <th style="text-align:left;">
@@ -286,8 +284,7 @@ search_param == 'email')"
    </th>
  </tr>
 
- <tal:block define="cpslr python:here.getCPSLocalRoles(mtool=mtool);
-                    roles python:cpslr[0];
+ <tal:block define="roles python:cpslr[0];
                     editable_user python:cpslr[1];">
    <tal:block repeat="user python:roles.keys()">
      <tr tal:attributes="class python:test(repeat['user'].even(), 'even',

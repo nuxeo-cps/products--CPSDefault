@@ -24,8 +24,6 @@
 <!-- This is the desktop area -->
 <div class="Desktop">
 
-<h1 i18n:translate="">Desktop</h1>
-
 <form action="" method="post"
       tal:attributes="action here/absolute_url">
  <table class="FormLayout">
@@ -99,9 +97,9 @@
           <a href=""
              tal:attributes="href string:${item/getId}/${methodID};
                             "
-          ><span tal:replace="item/title_or_id">ID</span>
-           <span tal:condition="item/Title"
-                 tal:replace="string:(${item/getId})">(Title)</span></a>
+          ><b><span tal:replace="item/title_or_id">ID</span></b>
+           <small><span tal:condition="item/Title"
+                 tal:replace="string:[id: ${item/getId}]">(Title)</span></small></a>
 	   <span tal:condition="not:item/isPrincipiaFolderish"
 	         tal:define="state python:here.portal_workflow.getInfoFor(item, 'review_state', None);
 	                     tmp item/getLanguageRevisions;

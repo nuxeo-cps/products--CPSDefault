@@ -6,7 +6,7 @@
 level: 0 (default cost 1)
   id, title, title_or_id, review_state, icon, rev, lang, stime
 level: 1 (cost 1.3)
-  level 0 + descr, size
+  level 0 + descr, size + additional information from obj
 level: 2 (cost 4.6)
   level 1 + states
 level: 3 (cost 7)
@@ -45,7 +45,7 @@ def compute_states(no_history=0):
             continue
         if not folders_info[folder_rpath]['visible']:
             continue
-    
+
         folder_id = px['rpath'].split('/')[-2]
         folder_title = folders_info.get(folder_rpath,
                                      {'title':folder_id}).get('title',
@@ -132,9 +132,20 @@ if level > 0:
     info['description'] = description
     if hasattr(doc, 'get_size'):
         try:
-            info['size'] = doc.get_size()
+            size = doc.get_size()
         except:
-            pass
+            size = 0
+
+        if size and size < 1024:
+            info['size'] = '1 K'
+        elif size > 1048576:
+            info['size'] = '%.02f M' % float(size/1048576.0)
+        elif size:
+            info['size'] = str(int(size)/1024)+' K'
+
+    if hasattr(doc, 'getAdditionalContentInfo'):
+        add_info = doc.getAdditionalContentInfo()
+        info.update(add_info)
 
 # level 2
 if level == 2:
@@ -145,6 +156,7 @@ if level > 2:
     info['states'], info['history'] = compute_states()
 
 info['level']=level
+
 
 bmt.setMarker('stop')
 bmt.saveProfile(context.REQUEST)

@@ -17,8 +17,8 @@ function setBodyContent() {
   return true;
 }
 </script>
-<form name="tidyform" action="tidy" method="post" target="_blank"
-  onsubmit="return setBodyContent()">
+<form class="doNotPrint" name="tidyform" action="tidy" method="post"
+  target="_blank" onsubmit="return setBodyContent()">
 <input type="hidden" name="body_content" />
 <input type="submit" value="Tidy the body of this page" />
 </form>
@@ -93,7 +93,8 @@ class pyBenchmarkTimer:
         i = 0
         total = 0
         profiling = []
-        str = '<pre>Profiling lvl:%d %s:\n' % (self._level, self.title)
+        str = '<pre class="doNotPrint">Profiling lvl:%d %s:\n' % (
+            self._level, self.title)
         str += '%-6s  %-10s %-4s\n' % ('t', 'mark', 'delta t')
         for name in self.markerOrder:
             time = self.markers[name]

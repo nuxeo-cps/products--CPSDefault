@@ -147,8 +147,10 @@
                      year python:yearmonth[0];
                      month python:yearmonth[1];
                      location box/box/events_in|nothing;
+                     event_types python:box['box'].event_types or [];
                      weeks python:here.portal_calendar.getCPSEventsForCalendar(
-                           month=month, year=year, location=location);">
+                           month=month, year=year, location=location,
+                           event_types=event_types);">
 
       <table cellpadding="0" cellspacing="0" border="0">
       <tr><td>
@@ -189,12 +191,12 @@
                     <td class="event"
                         tal:attributes="class python:here.getDaysClass(
                                         daynumber, month, year, day['event'])">
-                      <a href="" tal:condition="location"
-                         tal:attributes="href string:${context_url}/calendar_cpsday_view?date=${datestring}&location=${location}"
-                         tal:content="python: daynumber or default">
-                      </a>
-                      <a href="" tal:condition="not:location"
-                         tal:attributes="href string:${context_url}/calendar_cpsday_view?date=${datestring}"
+                      <a href=""
+                         tal:attributes="href python:here.getCalCPSDayViewParams(
+                                                      context_url=context_url,
+                                                      datestring=datestring,
+                                                      location=location,
+                                                      event_types=event_types)"
                          tal:content="python: daynumber or default">
                       </a>
                     </td>

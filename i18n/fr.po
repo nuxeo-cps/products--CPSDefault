@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-09 10:16default\n"
+"POT-Creation-Date: 2005-02-14 15:21default\n"
 "PO-Revision-Date: 2005-02-09 10:17+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -51,7 +51,7 @@ msgstr "Une boîte de test"
 #.           </option>
 #.   <a content="action/name" attributes="href action/url;">Action</a>
 #.   <a content="action/name" attributes="href action/url;
-#.   			     class python:test(selected, 'selected', default)">Action</a>
+#.                                class python:test(selected, 'selected', default)">Action</a>
 #.   <a content="action/name" attributes="href action/url">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
@@ -66,13 +66,15 @@ msgstr "Action"
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
+msgstr ""
+"Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
-#.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
-#.   			    selected locale/selected|nothing" condition="l10n_translated">
+#.   <option content="python:lang_voc.getMsgid(language)" repeat="language python:lang_voc.keysSortedBy('i18n')" attributes="value language;
+#.                               selected python:test(language==default_language,'selected', nothing);" condition="l10n_translated">
 #.         Language</option>
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
-#.                                 selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
+#.                                   label language;
+#.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "Language"
@@ -358,7 +360,7 @@ msgstr "Annuler"
 #.   <input name="change" type="submit" class="standalone" value="button_change" condition="python:checkPerm('Manage Boxes', box['box'])" />
 #.   <input type="submit" class="standalone" value="button_change" />
 #.   <input name="change" type="submit" class="standalone" value="button_change" />
-#.   <input type="submit" value="button_change" />
+#.   <button type="submit">Change</button>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
@@ -526,7 +528,7 @@ msgstr "Editeur de texte enrichi"
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
-#.
+#.     
 #.         </input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
@@ -587,7 +589,9 @@ msgstr "Vous êtes déjà membre. Vous pouvez utiliser le "
 msgid "description_join_form_already_member_2"
 msgstr "pour modifier vos informations personnelles. "
 
-#.   <p>description_languages_form</p>
+#.   <p>
+#.       This page give you the opportunity to manage languages available on the portal.
+#.     </p>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "description_languages_form"
 msgstr ""
@@ -628,15 +632,15 @@ msgstr "Vous êtes maintenant déconnecté."
 msgid "description_logout_zmi_warning"
 msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
 
-#.   <div class="description">
+#.   <p class="description">
 #.       This form is used to set the portal configuration options.
-#.     </div>
+#.     </p>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "description_reconfig_form"
 msgstr "Reconfigurer le portail"
 
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -787,7 +791,7 @@ msgstr "Ajouter du contenu"
 msgid "heading_join_form"
 msgstr "Devenez membre"
 
-#.   <h2>Languages management</h2>
+#.   <h1>Manage languages</h1>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "heading_language_manage_form"
 msgstr "Gestion des langues"
@@ -1106,7 +1110,8 @@ msgstr "Votre mot de passe vous a été envoyé."
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr "Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
+msgstr ""
+"Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
 
 #.   <span>
 #.             No content type can be created.
@@ -1130,7 +1135,8 @@ msgstr "Vous devez sélectionner un ou plusieurs objets à renommer."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
-msgstr "<a href='${link_password_forgotten}'>J'ai oublié mon mot de passe&nbsp;!</a>"
+msgstr ""
+"<a href='${link_password_forgotten}'>J'ai oublié mon mot de passe&nbsp;!</a>"
 
 #.   <em>
 #.             Check this box to have your password mailed to you.
@@ -1224,9 +1230,9 @@ msgstr ""
 "membres de ce même espace de travail et par les responsables. Seuls les "
 "objets ayant un statut <strong>publié</strong> seront accessibles aux "
 "lecteurs des rubriques. Pour publier un objet, il doit être validé par un "
-"valideur de la rubrique. Vous pouvez demander à ce qu'un objet soit validé en "
-"changeant sont statut en <strong>en attente</strong>. Vous réaliserez ceci "
-"en soumettant à validation votre document à l'intérieur d'une rubrique."
+"valideur de la rubrique. Vous pouvez demander à ce qu'un objet soit validé "
+"en changeant sont statut en <strong>en attente</strong>. Vous réaliserez "
+"ceci en soumettant à validation votre document à l'intérieur d'une rubrique."
 
 #.   <span>
 #.           Create a new translation for this document.
@@ -1272,16 +1278,16 @@ msgstr "Action"
 msgid "label_actions_history"
 msgstr "Historique des actions"
 
-#.   <block>
-#.               Administrator E-mail
-#.             </block>
+#.   <label for="email_from_address">
+#.               Administrator Email
+#.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_admin_email"
 msgstr "Mél de l'administrateur"
 
-#.   <block>
+#.   <label for="email_from_name">
 #.               Administrator Name
-#.             </block>
+#.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_admin_name"
 msgstr "Nom de l'administrateur"
@@ -1695,7 +1701,7 @@ msgid "label_group_name"
 msgstr "Nom du groupe"
 
 #.   <span condition="isAnon">
-#.   	Guest
+#.           Guest
 #.         </span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_guest"
@@ -1768,10 +1774,12 @@ msgstr "Version"
 #.   <label for="languageChooser">Language</label>
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
+#.   <label for="defaultLanguageChooser">Language</label>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "label_language"
 msgstr "Langue"
 
@@ -1856,23 +1864,39 @@ msgstr "Envoyer le mot de passe&nbsp;?"
 msgid "label_pending"
 msgstr "En attente"
 
-#.   <block>
+#.   <label for="portal_description">
 #.               Portal description
-#.             </block>
+#.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_description"
 msgstr "Description du portail"
 
-#.   <block>
+#.   <label for="enable_portal_joining">
 #.               Enable portal joining
-#.             </block>
+#.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_enable_join"
 msgstr "Autoriser l'inscription"
 
-#.   <block>
+#.   <label for="enable_password_reminder">
+#.               Enable sending of password reminder
+#.             </label>
+#: from ../skins/cps_default/reconfig_form.pt
+#, fuzzy
+msgid "label_portal_enable_password_reminder"
+msgstr "Autoriser l'inscription"
+
+#.   <label for="enable_password_reset">
+#.               Enable password resetting
+#.             </label>
+#: from ../skins/cps_default/reconfig_form.pt
+#, fuzzy
+msgid "label_portal_enable_password_reset"
+msgstr "Autoriser l'inscription"
+
+#.   <label for="portal_title">
 #.               Portal title
-#.             </block>
+#.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_title"
 msgstr "Titre du portail"
@@ -2042,9 +2066,9 @@ msgstr "depuis ${status_time}"
 msgid "label_slot"
 msgstr "Emplacement"
 
-#.   <block>
+#.   <label for="smtp_server">
 #.               SMTP Server
-#.             </block>
+#.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_smtp_server"
 msgstr "Serveur SMTP"
@@ -2166,6 +2190,7 @@ msgid "label_user_fullname"
 msgstr "Nom complet d'utilisateur"
 
 #.   <label for="username">User name</label>
+#.   <label for="username2">User name</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
@@ -2193,22 +2218,22 @@ msgstr "Travail"
 msgid "label_you_are_here"
 msgstr "Vous êtes ici&nbsp;:"
 
-#.   <span content="python:language_voc.getMsgid(language)">language</span>
+#.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language"
 msgstr "Langue"
 
-#.   <h2>language_add</h2>
+#.   <h2>Add languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_add"
 msgstr "Rendre disponible de nouvelles langues"
 
-#.   <h2>language_delete</h2>
+#.   <h2>Delete languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_delete"
 msgstr "Rendre indisponible certaines langues du portail"
 
-#.   <h2>language_set_default</h2>
+#.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_set_default"
 msgstr "Choisir la langue par défaut du portail"
@@ -3058,7 +3083,8 @@ msgid "portal_type_ImageBox_title"
 msgstr "Boîte d'image"
 
 msgid "portal_type_ImageBox_description"
-msgstr "Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
+msgstr ""
+"Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Boîte RSS"
@@ -3159,7 +3185,8 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La boîte d'actions sous forme de menu à onglets."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr "Une liste d'actions simple utilisée pour les actions en en-tête de la page."
+msgstr ""
+"Une liste d'actions simple utilisée pour les actions en en-tête de la page."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Une boîte avec une image."
@@ -3377,6 +3404,9 @@ msgstr "Malgache"
 msgid "label_language_ro"
 msgstr "Roumain"
 
+msgid "label_language_eu"
+msgstr "Basque"
+
 # # Dates
 msgid "calendar_month_1"
 msgstr "Janvier"
@@ -3437,4 +3467,3 @@ msgstr "Di"
 
 msgid "_blank"
 msgstr " "
-

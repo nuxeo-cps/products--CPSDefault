@@ -647,7 +647,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized proxies states for a document</pre>
 <metal:block define-macro="states">
-<strong i18n:translate="">label_publication_states</strong><br />
+<h2 i18n:translate="">label_publication_states</h2>
 <span tal:repeat="item info/states">
   <span tal:condition="python:item['review_state'] != 'work'">
     <tal:block define="info item;
@@ -671,7 +671,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized history of a document</pre>
 <metal:block define-macro="history">
-  <strong i18n:translate="label_reviewing_history">Reviewing history:</strong><br />
+  <h2 i18n:translate="label_reviewing_history">Reviewing history</h2>
 
   <span tal:repeat="item info/history">
 
@@ -725,10 +725,7 @@ format:</pre>
       getNonArchivedVersionContextUrl nocall:modules/Products.CPSDefault.utils/getNonArchivedVersionContextUrl;
       context_url python:getNonArchivedVersionContextUrl(context_url)
       ">
-  <div>
-    <strong i18n:translate="label_archived_revisions">Old revisions:</strong>
-  </div>
-
+  <h2 i18n:translate="label_archived_revisions">Old revisions</h2>
   <div tal:repeat="item info/archived">
     <tal:block condition="item/is_frozen"
                define="rev item/rev">

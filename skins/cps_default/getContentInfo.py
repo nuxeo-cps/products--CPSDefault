@@ -131,8 +131,7 @@ def compute_states(no_history=0):
     return states, history
 
 def compute_archived():
-    docid = proxy.getDocid()
-    archived = ptool.getArchivedInfosForDocid(docid)
+    archived = proxy.getArchivedInfos()
     # Keep only frozen revisions.
     archived = [d for d in archived if d['is_frozen']]
     archived.reverse()

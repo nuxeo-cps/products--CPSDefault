@@ -240,7 +240,7 @@ def cpsupdate(self, langs_list=None):
     else:
         pr(" Creating portal_layouts")
         portal.manage_addProduct["CPSDocument"].manage_addTool(
-            'CPS Widgets Tool')
+            'CPS Layouts Tool')
 
     # configure event service to hook the proxies, by adding a subscriber
     pr("Verifying Event service tool")    

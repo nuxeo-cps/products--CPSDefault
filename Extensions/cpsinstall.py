@@ -47,7 +47,6 @@ def cpsinstall(self):
         'portal_actions': ('folderContents', 'folder_contents'),
         'portal_membership': ('preferences',
                               'addFavorite',
-                              'mystuff',
                               'favorites',
                               ),
         'portal_syndication': ('syndication',),

@@ -28,16 +28,7 @@
               workspaces workspaces|ttool/workspaces;
               stree python:sections.getList(start_depth=0, stop_depth=1);
               wtree python:workspaces.getList(start_depth=0, stop_depth=2)[:1]">
-  <a href="" class="plain"
-     tal:repeat="item wtree"
-     tal:attributes="href string:${base_url}${item/rpath}/;
-                     class python:test(context_url.endswith(item['rpath']),
-                                       'selected', default);
-                     title item/title"
-     tal:content="structure item/short_title">
-     workspace title
-  </a>
-  <a href="" class="plain"
+  <a href="" class=""
      tal:repeat="item stree"
      tal:attributes="href string:${base_url}${item/rpath}/;
                      class python:test(context_url.endswith(item['rpath']),
@@ -45,6 +36,15 @@
                      title item/title"
      tal:content="structure item/short_title">
      section title
+  </a>
+  <a href="" class="workspace"
+     tal:repeat="item wtree"
+     tal:attributes="href string:${base_url}${item/rpath}/;
+                     class python:test(context_url.endswith(item['rpath']),
+                                       'wsSelected', default);
+                     title item/title"
+     tal:content="structure item/short_title">
+     workspace title
   </a>
 </div>
 </metal:block>

@@ -22,7 +22,7 @@ security = ClassSecurityInfo()
 security.declarePublic('catalog_getcpsevents')
 def catalog_getcpsevents(self, year, month):
     """ given a year and month return a list of days that have events """
-
+    last_day=calendar.monthrange(year, month)[1]
     nb_days=calendar.monthrange(year, month)[1]
     first_date = DateTime(str(month)+'/1/'+str(year)+ ' 12:00:00AM')
     last_date = DateTime(str(month)+'/'+str(nb_days)+'/'+str(year)+ ' 23:59:59AM')

@@ -47,7 +47,9 @@ box: <tal:block replace="box_url" />
 	  tal:attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
       </select><br>
       <input type="checkbox" name="display_in_subfolder"
-      checked="" tal:attributes="checked python:test(box['box'].display_in_subfolder,'checked', nothing)"><label>visible in subfolder</label>
+      checked="" tal:attributes="checked
+      python:test(box['box'].display_in_subfolder,'checked',
+      nothing)"><label i18n:translate="label_visible_in_subfolder">visible in subfolder</label>
     </td>
   </tr>
   <tr valign="top">

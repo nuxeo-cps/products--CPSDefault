@@ -197,7 +197,7 @@ if level > 0:
         info['creator'] = ''
 
     if hasattr(doc.aq_explicit, 'getAdditionalContentInfo'):
-        add_info = doc.getAdditionalContentInfo()
+        add_info = doc.getAdditionalContentInfo(proxy)
         info.update(add_info)
 
     if info['review_state'] == 'published':

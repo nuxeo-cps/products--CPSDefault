@@ -12,6 +12,14 @@ New features:
            to make a sitemap create a section with a folder skin that use a
            Treebox Sitemap you may have to rebuild your portal_tree if some
            item/description keyerror occurs
+- An event calendar is now available. Document types which should be considered
+  events to be displayed have to be selected in the Configure tab of the 
+  portal_calendar tool. They must also implement the event interface, consisting
+  of the start() and end() methods returning DateTime objects for the beginning
+  and end dates of the event. Instantiating a calendar box is achieved by creating
+  a new base box of type nuxeo-calendar.
+
+
 Bug fixes:
 ~~~~~~~~~~
 - no more error about a title when using the icon view.

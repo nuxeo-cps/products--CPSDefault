@@ -64,7 +64,22 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
        align="center" valign="top" class="columns">
   <tr>
-    <td class="left">
+    <td class="left" width="15%">
+      <!-- global actions box -->
+      <tal:block define="actionsblocks python:here.getGlobalActions(actions=actions)"
+                 condition="actionsblocks">
+        <metal:block use-macro="here/generic_lib/macros/box">
+          <metal:block fill-slot="box_title"
+          tal:content="member/getUserName">
+            user name
+          </metal:block>
+          <metal:block fill-slot="box_body">
+            <metal:block use-macro="here/generic_lib/macros/actions_list">
+              Global actions
+            </metal:block>
+          </metal:block>
+        </metal:block>
+      </tal:block>
       <!-- global actions box -->
       <tal:block define="actionsblocks python:here.getGlobalActions(actions=actions)"
                  condition="actionsblocks">
@@ -81,7 +96,7 @@
         </metal:block>
       </tal:block>
     </td>
-    <td class="main">
+    <td class="main" width="75%">
       
       <div class="document">
       
@@ -103,7 +118,7 @@
       <b tal:replace="python:bmt_mark('main_stop')" />
 
     </td>
-    <td class="right" tal:condition="showthirdcol">
+    <td class="right" width="15%" tal:condition="showthirdcol">
       <!-- document actions box -->
       <tal:block define="actionsblocks python:here.getDocumentActions(actions=actions)"
                  condition="python:actionsblocks and not hideactions">
@@ -117,6 +132,26 @@
             <metal:block use-macro="here/generic_lib/macros/actions_list">
               Global actions
             </metal:block>
+          </metal:block>
+        </metal:block>
+      </tal:block>
+      <!-- document actions box -->
+      <tal:block define="actionsblocks python:here.getDocumentActions(actions=actions)"
+                 condition="python:actionsblocks and not hideactions">
+        <metal:block use-macro="here/generic_lib/macros/box">
+          <metal:block fill-slot="box_title"
+                       tal:content="python:wf_state and 'Status: ' + wf_state or
+                       default">
+            Actions
+          </metal:block>
+          <metal:block fill-slot="box_body">
+            <metal:block use-macro="here/generic_lib/macros/actions_list">
+              Global actions
+            </metal:block>
+<div class="content odd">
+      bla<br>
+      bqlsdkfjqmlskdj<br>
+</div>
           </metal:block>
         </metal:block>
       </tal:block>

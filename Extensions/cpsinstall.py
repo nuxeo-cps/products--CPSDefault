@@ -277,7 +277,7 @@ def cpsupdate(self, langs_list=None):
     
     for s in ('work', ):
         wf.states.addState(s)
-    for t in ('create', 'copy_publish', ):
+    for t in ('create', 'copy_submit', ):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time'):
         wf.variables.addVariable(v)
@@ -286,7 +286,7 @@ def cpsupdate(self, langs_list=None):
         
     s = wf.states.get('work')
     s.setProperties(title='Work', 
-                    transitions=('copy_publish',))
+                    transitions=('copy_submit',))
     s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
     s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
 
@@ -299,14 +299,14 @@ def cpsupdate(self, langs_list=None):
                            'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 
                            'guard_expr':''},
                     )
-    t = wf.transitions.get('copy_publish')
+    t = wf.transitions.get('copy_submit')
     t.setProperties(title='Copy content into a section for Publishing',
                     new_state_id='', 
                     transition_behavior=(TRANSITION_BEHAVIOR_PUBLISHING, ), 
                     clone_allowed_transitions=('submit', 'publish'),
                     trigger_type=TRIGGER_USER_ACTION, 
-                    actbox_name='Publish', actbox_category='workflow',
-                    actbox_url='%(content_url)s/content_publish_form',
+                    actbox_name='Submit', actbox_category='workflow',
+                    actbox_url='%(content_url)s/content_submit_form',
                     props={'guard_permissions':'', 
                            'guard_roles':'Manager; WorkspaceManager; WorkspaceMember', 
                            'guard_expr':''},

@@ -68,7 +68,11 @@ types = [
               'desc': 'description_nuxeo_contentbox_center'},
              {'style': 'nuxeo',
               'format': 'last_modified',
-              'desc': 'description_nuxeo_contentbox_last_modified'},
+              'desc': 'description_nuxeo_contentbox_last_modified',
+              'config': {'sort_by': 'date',
+                         'direction': 'desc',
+                         'query_status': 'published'}
+              },
              ]
      },
     {'type': 'actionbox',

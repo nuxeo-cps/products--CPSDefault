@@ -117,6 +117,7 @@
              tal:define="cpslr python:here.getCPSLocalRoles( mtool=mtool );
                          roles python:cpslr[2]">
       <option tal:repeat="role roles"
+              i18n:translate=""
               tal:content="role"> Role1 </option>
       <option tal:condition="nothing"> Role2 </option>
       <option tal:condition="nothing"> Role3 </option>
@@ -212,6 +213,7 @@
      <select name="member_role"
              tal:define="roles python: mtool.getCandidateLocalRoles( here )">
       <option tal:repeat="role roles"
+              i18n:translate=""
               tal:content="role"> Role1 </option>
       <option tal:condition="nothing"> Role2 </option>
       <option tal:condition="nothing"> Role3 </option>
@@ -258,8 +260,7 @@
 </p>
 
 <form method="post" action="folder_localrole_edit"
-      tal:attributes="action string:${here/absolute_url}/folder_localrole_edit"
->
+      tal:attributes="action string:${here/absolute_url}/folder_localrole_edit">
  <input type="hidden" name="change_type" value="delete" />
  <input type="hidden" name="member_role" value="" />
 
@@ -304,13 +305,16 @@
          <tal:block repeat="roleElt python:item['roles']">
            <tal:block define="ishere python:base_url+item['url'] == context_url">
              <tal:block condition="not:ishere">
-               <a href tal:attributes="href string:${base_url}${item/url}/folder_localrole_form"
-                       tal:content="python:roleElt" />
+               <a href
+                  tal:attributes="href
+                    string:${base_url}${item/url}/folder_localrole_form">
+                  <span i18n:translate="" tal:content="python:roleElt" />
+               </a>
                        <span i18n:translate="label_in">in</span>
                        <i tal:content="item/url" />
              </tal:block>
              <tal:block condition="ishere">
-               <span tal:content="roleElt" />
+               <span i18n:translate="" tal:content="roleElt" />
              </tal:block>
              <br tal:condition="not:repeat/item/last"/><br />
            </tal:block>

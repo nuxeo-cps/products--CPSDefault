@@ -6,6 +6,8 @@ import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
+from pprint import pprint
+
 
 class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
@@ -63,6 +65,19 @@ class TestSimpleAsRoot(TestSimple):
         #self.assertEquals(ws.folder_contents(), '')
         self.assertEquals(ws.folder_localrole_form(), '')
         #self.assertEquals(ws.box_manage_form(), '')
+
+    def testPlayWithBoxes(self):
+        btool = self.portal.portal_boxes
+        for box_name in ('action_user', 'action_portal'):
+            box = getattr(self.portal['.cps_boxes_root'], box_name)
+            box.minimize()
+            # XXX: I should be able to test if the box is minimized now
+            box.maximize()
+            # XXX: I should be able to test if the box is maximized now
+            box.close()
+            # XXX: I should be able to test if the box is closed now
+            box.maximize()
+            # XXX: I should be able to test if the box is maximized now
 
 
 class TestSimpleAsAnonymous(TestSimple):

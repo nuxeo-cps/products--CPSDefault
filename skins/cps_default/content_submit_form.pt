@@ -5,62 +5,70 @@
 <metal:main fill-slot="main">
 <metal:std_main use-macro="here/content_lib/macros/std_main">
 
-<metal:title fill-slot="title">
-  <span i18n:translate="submit">Submit</span>
-  <span tal:replace="here/title_or_id">Item</span>
+<metal:title fill-slot="title" i18n:translate="">
+  Submit
+  <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
 </metal:title>
 
 <metal:help fill-slot="help">
-  <span i18n:translate="">To make an item published and viewable by readers, it
-   has to be reviewed by one of the sections's reviewers.
- You can submit the item in many sections folder.<br/> A copy of the item will be created into each section with a <b>pending</b> status, waiting to be reviewed and finally <b>published</b> by a section's reviewer.</span>
+  <span i18n:translate="help_submit_publication">To make an item published and
+  viewable by readers, it has to be reviewed by one of the sections's reviewers.
+  You can submit the item in many sections folder.<br/> A copy of the item will
+  be created into each section with a <b>pending</b> status, waiting to be
+  reviewed and finally <b>published</b> by a section's reviewer.</span>
 </metal:help>
 
-<metal:main fill-slot="main">
-  <tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
+<metal:main fill-slot="main"
+            tal:define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
   
-  <br/>
-  <metal:block use-macro="here/content_lib/macros/status" /><br/><br/>
+  <br>
+  <metal:block use-macro="here/content_lib/macros/status" /><br><br>
  
   <metal:block use-macro="here/content_lib/macros/transition_form">
-    <metal:block fill-slot="fields">
-    <tal:block define="stree python: here.getSectionsTree();">
-    <table cellpadding="2" >
-      <tr><td width="30%"><b>Section</b></td><td><b>Existing revision of the same document</b></td></tr>
-      <span tal:repeat="section stree">
-      <tr tal:condition="python:'submit' in section['publishing_transitions']">
-       <td>
-        <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
-	<input type="checkbox" name="." value="." tal:attributes="value section/rpath; name string:submit" />
-        <span tal:replace="section/id">Section</span>
-       </td>
-       <td>
-	<span tal:repeat="item info/states">
-	 <!-- XXX TODO FIX using getContentInfo -->
-          <tal:block condition="python:item['rpath'] == section['rpath']"
-	    define="review_state item/review_state;
-                    rev item/rev;
-                    lang item/lang;
-                    status_short_fmt not:nothing;">
-            <metal:block use-macro="here/content_lib/macros/status" /><br/>
-          </tal:block>
-	</span>
-       </td>
-      </tr>
-      </span>
-    </table>
-    </tal:block>
+    <metal:block fill-slot="fields"
+                 tal:define="stree python: here.getSectionsTree();">
+      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tr>
+          <th width="30%" i18n:translate="portal_type_Section">Section</th>
+          <th i18n:translate="existing_revision">
+            Existing revision of the same document
+          </th>
+        </tr>
+        <tal:block repeat="section stree">
+          <tr tal:condition="python:'submit' in section['publishing_transitions']">
+            <td>
+              <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
+              <input type="checkbox" name="" value=""
+                     tal:attributes="value section/rpath; name string:submit">
+              <span tal:replace="section/id">Section's id</span>
+            </td>
+            <td>
+              <span tal:repeat="item info/states">
+                <!-- XXX TODO FIX using getContentInfo -->
+                <tal:block condition="python:item['rpath'] == section['rpath']"
+                           define="review_state item/review_state;
+                                   rev item/rev;
+                                   lang item/lang;
+                                   status_short_fmt not:nothing;">
+                  <metal:block use-macro="here/content_lib/macros/status" /><br>
+                </tal:block>
+              </span>
+            </td>
+          </tr>
+        </tal:block>
+      </table>
     </metal:block>
 
-    <metal:block fill-slot="button" i18n:domain="cmf_default">
-      <input type="hidden" name="workflow_action" value="copy_submit" />
-      <input type="submit" value="Submit item" i18n:attributes="value" />
-      <input type="button" onClick="history.back()" value="Cancel" i18n:attributes="value" />
+    <metal:block fill-slot="button">
+      <input type="hidden" name="workflow_action" value="copy_submit">
+      <input type="submit" value="Submit item" i18n:attributes="value">
+      <input type="button" onClick="history.back()" value="Cancel"
+             i18n:attributes="value">
     </metal:block>
 
   </metal:block>
 
-  <metal:block use-macro="here/content_lib/macros/states" /><br/>
+  <metal:block use-macro="here/content_lib/macros/states" /><br>
 
   <metal:block use-macro="here/content_lib/macros/history" />
 </metal:main>

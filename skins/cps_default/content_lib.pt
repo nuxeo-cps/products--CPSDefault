@@ -24,7 +24,7 @@ cps:id:${doc/id}
   <metal:block define-slot="header">
     <h1 id="DesktopTitle"
         tal:content="here/title_or_id"> Page Title </h1>
-    <div id="DesktopDescription"><span tal:content="doc/Description" /><br/>
+    <div id="DesktopDescription"><span tal:content="doc/Description" /><br>
     </div>
   </metal:block>
 </metal:block>
@@ -43,7 +43,7 @@ cps:id:${doc/id}
 <metal:block define-macro="std_main">
   <div class="Desktop">
     <h1><metal:block define-slot="title">title</metal:block></h1>
-    <em><metal:block define-slot="help">help</metal:block></em><br/><br/>
+    <em><metal:block define-slot="help">help</metal:block></em><br><br>
     <div metal:define-slot="main" i18n:domain="cmf_default">
        main bla
     </div>
@@ -57,13 +57,16 @@ cps:id:${doc/id}
 <form method="post" action="content_status_modify"
   tal:attributes="action string:${proxy/absolute_url}/content_status_modify">
   <div metal:define-slot="fields">
-   <!-- more fields -->
+    <!-- more fields -->
   </div>
-  <strong><em i18n:translate="">Comments</em></strong><br/>
-  <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"></textarea>
+  <strong><em i18n:translate="transition_comments">Comments</em></strong><br>
+  <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"
+            tal:content="nothing">
+  </textarea>
   <div metal:define-slot="button">
-    <input type="hidden" name="workflow_action" value="transition" />
-    <input type="submit" value="Transition" i18n:attributes="value" />
+    <!-- these are examples -->
+    <input type="hidden" name="workflow_action" value="transition">
+    <input type="submit" value="Transition" i18n:attributes="value">
   </div>
 </form>
 </metal:block>
@@ -99,7 +102,7 @@ format:</pre>
              tal:define="previous p/previous/first"
              tal:attributes="href python:nav_action + '?'
                                          + mq(form, b_start=previous)"
-             i18n:translate="">Previous Items</a>
+             i18n:translate="previous_items">Previous Items</a>
          </span>
       </td>
       <td width="50%" align="right" nowrap>
@@ -108,7 +111,7 @@ format:</pre>
              tal:define="next n/next/first"
              tal:attributes="href python:nav_action + '?'
                                          + mq(form, b_start=next)"
-             i18n:translate="">Next Items</a>
+             i18n:translate="next_items">Next Items</a>
         </span>
       </td>
     </tr>
@@ -128,7 +131,7 @@ format:</pre>
         <input type="checkbox" name="ids:list" value="" id=""
                tal:condition="not:no_form"
                tal:attributes="value item/getId;
-                               id python:'cb_'+item.getId()" />
+                               id python:'cb_'+item.getId()">
       </td>
       <td align="left" valign="top"
           tal:define="info python:here.getContentInfo(item, level=1)">
@@ -148,25 +151,38 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>status of a content:</pre>
 <metal:block define-macro="status">
-<tal:block condition="not:status_short_fmt|nothing">
-  <strong i18n:translate="">Status: </strong>
-  <span tal:replace="info/review_state">Work</span>
-  <strong i18n:translate="">Revision: </strong>
-  <span tal:replace="info/rev">1</span>
-  <strong i18n:translate="">Language: </strong>
-  <span tal:replace="info/lang">en</span>
-  <tal:block condition="status_time|nothing">
-    <strong i18n:translate="">Since: </strong>
-    <span tal:replace="info/stime">May 6, 2003 5:28 pm</span>
+  <tal:block condition="not:status_short_fmt|nothing">
+    <tal:block i18n:translate="">
+      <strong>Status: </strong>
+      <span tal:content="info/review_state"
+            i18n:name="review_state">Work</span>
+    </tal:block>
+    <tal:block i18n:translate="">
+      <strong>Revision: </strong>
+      <span tal:content="info/rev"
+            i18n:name="status_revision">1</span>
+    </tal:block>
+    <tal:block i18n:translate="">
+      <strong>Language: </strong>
+      <span tal:content="info/lang"
+            i18n:name="status_language">en</span>
+    </tal:block>
+    <tal:block condition="status_time|nothing" i18n:translate="">
+      <strong>Since: </strong>
+      <span tal:content="info/stime"
+            i18n:name="status_time">May 6, 2003 5:28 pm</span>
+    </tal:block>
   </tal:block>
-</tal:block>
-<tal:block condition="status_short_fmt|nothing">
-  <tal:block condition="status_time|nothing">
-    <span tal:replace="info/stime">May 6, 2003 5:28 pm</span>:
+  <tal:block condition="status_short_fmt|nothing" i18n:translate="">
+    <tal:block condition="status_time|nothing">
+      <span tal:content="info/stime"
+            i18n:name="status_time">May 6, 2003 5:28 pm</span>:
+    </tal:block>
+    v<span tal:replace="info/rev" i18n:name="status_revision">1</span>-<span
+    tal:replace="info/lang" i18n:name="status_language">en</span>
+    <span tal:replace="info/review_state"
+          i18n:name="review_state">published</span>
   </tal:block>
-  v<span tal:replace="info/rev">1</span>-<span tal:replace="info/lang">en</span>
-  <span tal:replace="info/review_state">published</span>
-</tal:block>
 </metal:block>
 
 
@@ -257,7 +273,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized proxies states for a document</pre>
 <metal:block define-macro="states">
-<strong i18n:translate="">Publication states: </strong><br/>
+<strong i18n:translate="">Publication states: </strong><br>
 <span tal:repeat="item info/states">
   <span tal:condition="python:item['review_state'] != 'work'">
     <tal:block define="info item;
@@ -265,10 +281,10 @@ format:</pre>
                        status_short_fmt not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
-    <span i18n:translate="">in section: </span>
-    <a href="." tal:attributes="href string:/${item/rpath}/">
-      <span tal:replace="item/title">Section</span></a>
-    <br/>
+    <span i18n:translate="">in section:
+      <a href="." tal:attributes="href string:/${item/rpath}/"
+         tal:content="item/title" i18n:name="section_id">Section</a>
+    </span><br>
   </span>
 </span>
 </metal:block>
@@ -281,14 +297,14 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>display authorized history of a document</pre>
 <metal:block define-macro="history">
-<strong i18n:translate="">Reviewing history:</strong><br/>
-<span tal:repeat="item info/history">
-  <span tal:replace="item/stime">May 6, 2003 5:28 pm</span>:
-  <span tal:replace="item/action">publish</span>
-  <span tal:omit-tag="" i18n:translate="">by
-  <span tal:replace="item/actor" i18n:name="actor">bob</span>:</span>
-  <em tal:condition="item/comments"><span tal:replace="item/comments">Comments</span></em>
-  <br/>
-</span>
+  <strong i18n:translate="reviewing_history">Reviewing history:</strong><br>
+  <span tal:repeat="item info/history" i18n:translate="">
+    <span tal:content="item/stime"
+          i18n:name="history_time">May 6, 2003 5:28 pm</span>:
+    <span tal:content="item/action" i18n:name="history_action">publish</span>
+    by <span tal:replace="item/actor" i18n:name="history_actor">bob</span>:
+    <em tal:content="item/comments|nothing" i18n:name="history_comments">
+      Comments
+    </em><br>
+  </span>
 </metal:block>
-

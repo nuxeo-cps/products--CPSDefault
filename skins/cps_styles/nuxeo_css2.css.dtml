@@ -81,12 +81,6 @@ ol, ul {
   margin: 0em;
 }
 
-div.box ul {
-    list-style-image: url("bullet.gif");
-    margin: 0em 0em 0em 1em;
-    padding: 0em;
-}
-
 /* DIVs ------------------------------ */
 div.top {
   background: &dtml-topBackground;;
@@ -132,7 +126,6 @@ div.pathBar {
 div.box {
   border: none;
 }
-
 div.box .title {
   width: 100%;
   color: &dtml-boxHeaderFontColor;;
@@ -145,15 +138,32 @@ div.box .title a {
   background-color: &dtml-boxHeaderBackground;;
   color: &dtml-boxHeaderFontColor;;
 }
-
 div.box .body {
-  border: &dtml-boxBorder;;
+  border: 1px solid black; /*&dtml-boxBorder;;*/
 }
-
 div.box .content {
   width: 100%;
 }
-
+div.box ul {
+  list-style-image: url("bullet.gif");
+  margin: 0em 0em 0em 1em;
+  padding: 0em;
+}
+div.box a.close {
+  background-color: transparent;
+  float: right;
+  text-transform: none;
+  margin-top: -2px;
+}
+div.box .even {
+  background-color: &dtml-boxEvenBackground;;
+}
+div.box .odd {
+  background-color: &dtml-boxOddBackground;;
+}
+div.box .highlight {
+  background-color: &dtml-boxHighlight;;
+}
 
 /*
 </dtml-with>

@@ -4,7 +4,7 @@
     if allowed=0 return Searchable portaltype"""
 
 if allowed:
-    items = context.portal_workflow.getAllowedPortalTypes(context)
+    items = context.portal_workflow.getAllowedContentTypes(context)
 else:
     items = context.getSearchablePortalTypes()
 

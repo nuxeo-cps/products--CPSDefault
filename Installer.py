@@ -28,8 +28,8 @@ from Acquisition import aq_base
 from zLOG import LOG, INFO, DEBUG
 
 class BaseInstaller:
-    """Base class for product-specific installers"""
-
+    """Base class for product-specific installers.
+    """
     product_name = 'CPSDefault'
     SECTIONS_ID = 'sections'
     WORKSPACES_ID = 'workspaces'
@@ -122,7 +122,6 @@ class BaseInstaller:
 
         <skins> parameter is a sequence of (<skin_name>, <skin_path>).
         """
-
         new_skin_installed = 0
         for skin, path in skins:
             path = path.replace('/', os.sep)
@@ -158,9 +157,9 @@ class BaseInstaller:
 
     def setupTranslations(self, default_lang=None):
         """Import .po files into the Localizer/default Message Catalog.
+
         default_lang can be for example 'en', 'fr' or 'nl'.
         """
-
         mcat = self.portal.Localizer.default
         self.log(" Checking available languages")
         podir = os.path.join('Products', self.product_name)
@@ -193,7 +192,9 @@ class BaseInstaller:
     def setupPortalProperties(self, props):
         """Set portal properties using the ones found in the props list of
         dictionaries: ({'id': 'xxx', type: 'xxx', value: xxx}, {...}, ).
-        Note that existing values don't have to specify the type."""
+
+        Note that existing values don't have to specify the type.
+        """
         for property in props:
             propId = property['id']
             propValue = property['value']
@@ -206,7 +207,11 @@ class BaseInstaller:
 
     def setupSiteStructure(self, filename):
         """Load a site structure dump file and rebuild the site structure using
-        it."""
+        it.
+
+        Check the dump_tree script in the cps_devel skin for details on
+        obtaining such a dump file.
+        """
         portal = self.portal
 
         if 'loadTree' not in portal.objectIds():
@@ -226,7 +231,8 @@ class BaseInstaller:
 
     def setupDelBoxes(self, boxes_id, box_container):
         """Delete boxes with the id listed in boxes_id that are located in
-        box_container."""
+        box_container.
+        """
         existing_boxes = box_container.objectIds()
 
         if type(boxes_id) not in (TupleType, ListType):
@@ -240,8 +246,10 @@ class BaseInstaller:
     def setupEditBoxes(self, boxes_props, box_container):
         """Change one or more properties of an existing box, located in the
         specified box container.
+
         The format describing these boxes is the same as the one you see in the
-        'Export' tab, in the management screen of a box."""
+        'Export' tab, in the management screen of a box.
+        """
         existing_boxes = box_container.objectIds()
 
         for box, props in boxes_props.items():
@@ -253,8 +261,10 @@ class BaseInstaller:
     def setupAddBoxes(self, boxes_prop, box_container):
         """Add the boxes described in the boxes_prop dictionnary into the
         specified box container.
+
         The format is the one from the 'Export' tab, in the management screen of
-        a box."""
+        a box.
+        """
         portal_types = self.portal.portal_types
         existing_boxes = box_container.objectIds()
 
@@ -267,7 +277,8 @@ class BaseInstaller:
 
 
     def getBoxContainer(self, parent, create=0):
-        """Get a box container and create it if not found and asked for."""
+        """Get a box container and create it if not found and asked for.
+        """
         portal_boxes = self.portal.portal_boxes
         container_id = portal_boxes.getBoxContainerId(parent)
         if not hasattr(aq_base(parent), container_id) and create:
@@ -279,10 +290,12 @@ class BaseInstaller:
     def getBoxTypeConfig(self, box_types):
         """Extract box type configuration under the key 'config' in the given
         box_types dictionary.
+
         Because of context issues, you have to call get(Custom)BoxTypes() by
         yourself, e.g.:
             config = self.getBoxTypeConfig(self.portal.getBoxTypes())
-        Or just getCustomBoxTypes() if it's enough."""
+        Or just getCustomBoxTypes() if it's enough.
+        """
         configs = {}
         for box_type in box_types:
             types = [type for type in box_type['types'] if type.has_key('config')]

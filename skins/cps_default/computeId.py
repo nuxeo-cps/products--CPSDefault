@@ -38,7 +38,6 @@ def generateNewId(id):
 
 # Initialization
 id = compute_from
-#LOG('computeId', DEBUG, 'init = %s' % id)
 
 # Normalization
 id = id.replace('Æ', 'AE')
@@ -53,39 +52,32 @@ id = id.translate(tr)
 ok_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_.'
 id = ''.join([c for c in id if c in ok_chars])
 id = id.lower()
-#LOG('computeId', DEBUG, 'normal = %s' % id)
 
 # Avoiding duplication of meaningless chars
 id = re.sub('-+', '-', id)
 id = re.sub('_+', '_', id)
 id = re.sub('\.+', '.', id)
-#LOG('computeId', DEBUG, 'duplicate = %s' % id)
 
 # Avoiding annoying presence of meaningless chars
 while id.startswith('-') or id.startswith('_') or id.startswith('.'):
     id = id[1:]
 while id.endswith('-') or id.endswith('_') or id.endswith('.'):
     id = id[:-1]
-#LOG('computeId', DEBUG, 'meaningless = %s' % id)
 
 # Fallback if empty
 if not id:
-    #LOG('computeId', DEBUG, 'fallback = %s' % id)
     id = str(int(DateTime())) + str(randrange(1000, 10000))
 
 # Word splitting
 # The following regexp split the given id into words separated by the following
 # separators: '-' '_' '.'
 words = re.split('-*_*\.*\s*', id)
-#LOG('computeId', DEBUG, 'words = %s' % words)
 
 # Removing meaningless words according to the current locale.
 #locale = self.Localizer.get_selected_language()
 cpsmcat = context.Localizer.default
 words_meaningless = cpsmcat('words_meaningless')
-#LOG('computeId', DEBUG, 'words_meaningless = %s' % words_meaningless)
 words = [w for w in words if w not in words_meaningless]
-#LOG('computeId', DEBUG, 'words = %s' % words)
 
 # Preventing word cuts
 id = words[0] # The id needs to contain at least one word
@@ -93,7 +85,6 @@ words = words[1:]
 while words and ((len(id) + len(words[0]) + 1) <= max_chars_for_id):
     id = "%s_%s" % (id, words[0])
     words = words[1:]
-#LOG('computeId', DEBUG, 'wordcuts = %s' % id)
 
 # Get the container in which we want the new object to be created.
 if location is not None:
@@ -112,4 +103,3 @@ while (hasattr(portal, id)
     id = generateNewId(id)
 
 return id
-

@@ -49,6 +49,105 @@ cps:id:${doc/id}
 
 
 <!-- ============================================================ -->
+<pre>list contents in 'items' detail:</pre>
+<metal:block define-macro="display_contents">
+  <tal:block define="nav_action nav_action|string:'folder_contents';
+                     b_start request/b_start | python:0;
+                     Batch nocall: modules/ZTUtils/Batch;
+                     batch1 python:Batch( items, 3, int(b_start), orphan=0);">
+  <table width="100%">
+    <tr><td colspan="2">
+      <tal:block define="batch_items batch1; format_summary not:nothing">
+        <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
+      </tal:block>
+    </td></tr>
+    <tr><td align="left" nowrap>
+      <span tal:define="p batch1/previous" tal:condition="p">
+        <a href="" tal:attributes="href string:${nav_action}?b_start=${p/first}" i18n:translate="">Previous Items</a>
+       </span>
+    </td><td align="right" nowrap>
+      <span tal:define="n batch1/next | nothing" tal:condition="n">
+        <a href="" tal:attributes="href string:${nav_action}?b_start=${batch1/end}" i18n:translate="">Next Items</a>
+      </span>
+    </td></tr>
+  </table>
+  </tal:block>
+</metal:block>
+
+<!-- ============================================================ -->
+<pre>list contents in 'items' compact:</pre>
+<metal:block define-macro="display_contents_compact">
+  <tal:block define="nav_action nav_action|string:'folder_contents';
+                     b_start request/b_start | python:0;
+                     Batch nocall: modules/ZTUtils/Batch;
+                     batch1 python:Batch( items, 3, int(b_start), orphan=0);
+                     batch2 batch1/next;
+                     batch3 batch2/next;
+                     format_summary not:nothing">
+  <table width="100%">
+    <tr><td>
+      <tal:block define="batch_items batch1">
+        <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
+      </tal:block>
+    </td><td>
+      <tal:block define="batch_items batch2">
+        <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
+      </tal:block>
+    </td><td>
+      <tal:block define="batch_items batch3">
+        <metal:block use-macro="here/content_lib/macros/display_contents_column"/>
+      </tal:block>      
+    </td></tr>
+    <tr><td align="left" nowrap>
+      <span tal:define="p batch1/previous" tal:condition="p">
+        <a href="" tal:attributes="href string:${nav_action}?b_start=${p/first}" i18n:translate="">Previous Items</a>
+       </span>
+    </td><td align="right" colspan="2" nowrap>
+      <span tal:define="n batch3/next | nothing" tal:condition="n">
+        <a href="" tal:attributes="href string:${nav_action}?b_start=${batch1/end}" i18n:translate="">Next Items</a>
+      </span>
+    </td></tr>
+  </table>
+  </tal:block>
+</metal:block>
+
+
+
+  
+<!-- ============================================================ -->
+<pre>list contents in 'batch_items' in a column:</pre>
+<metal:block define-macro="display_contents_column">
+  <tal:block define="no_form no_form|nothing;">
+  <table width="100%">
+  <tr valign="top" tal:repeat="item batch_items">
+    <td align="left" width="5">
+      <input type="checkbox" name="ids:list" value="" id=""
+             tal:condition="not:no_form"
+             tal:attributes="value item/getId;
+                             id python:'cb_'+item.getId()" />
+    </td>
+    <td colspan="2">
+      <span tal:define="info python:here.getContentInfo(item, level=1);">
+        <tal:block condition="format_detail|nothing">
+  	  <metal:block use-macro="here/content_lib/macros/info_detail" />
+        </tal:block>
+        <tal:block condition="format_summary|nothing">
+          <metal:block use-macro="here/content_lib/macros/info_summary" />
+        </tal:block>
+        <tal:block condition="format_icon|nothing">
+          <metal:block use-macro="here/content_lib/macros/info_icon" />
+        </tal:block>
+      </span>
+    </td>
+  </tr>
+  </table>
+  </tal:block>
+</metal:block>
+
+  
+  
+
+<!-- ============================================================ -->
 <!-- below macros require getContentInfo                          -->
 
 

@@ -35,7 +35,7 @@ if not newid:
     return newid
 
 container = context.this()
-if not hasattr(container, newid):
+if not hasattr(container.aq_explicit, newid):
     # No collision
     return newid
 
@@ -55,6 +55,7 @@ while 1:
         tries = 0
     suffix = str(randrange(1000, 10000))
     newid = prefix + suffix
-    if not hasattr(container, newid):
+    if not hasattr(container.aq_explicit, newid):
+        # No collision
         return newid
 

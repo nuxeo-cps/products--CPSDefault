@@ -21,8 +21,9 @@ def format_title(title):
 if breadcrumb_set != None:
     return breadcrumb_set
 
-if not url:
-    url = context.getPortalUrl()
+if url is None:
+    url = context.getBaseUrl()
+
 path = url.split('/')
 path = filter(None, path)
 if parent:
@@ -49,11 +50,12 @@ for i in range(len(path)):
     url = '/' + '/'.join(ipath) + '/'
     # all containers but portal should be accessed by their 'view' action
     if ipath[-1] != portal_id:
-        url = url + 'view' 
+        url = url + 'view'
     items.append({'id': ipath[-1],
                   'title': format_title(title),
                   'longtitle': title,
                   'url': url,
+                  'rpath': '/'.join(ipath),
                  })
 
 return items

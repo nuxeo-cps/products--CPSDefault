@@ -32,17 +32,6 @@ cd -
 tar xzvf /home/zopes/_packages/NuxUserGroups-0.9.0-1.tgz
 mv NuxUserGroups-0.9.0 NuxUserGroups
 
-# Nuxeo package
-# XXX These 2 packages are not needed anymore.
-# XXX Do not install them without a good reason.
-tar xzvf /home/zopes/_packages/OrderedFolderSupportPatch-1.0.0-1.tgz
-mv OrderedFolderSupportPatch-1.0.0 OrderedFolderSupportPatch
-
-# NuxMetaDirectories > 2.1.0 
-# NuxMetaDirectories has been replaced by CPSDirectories
-tar xzvf /home/zopes/_packages/NuxMetaDirectories-2.1.0-1.tgz
-mv NuxMetaDirectories-2.1.0 NuxMetaDirectories
-
 
 ## CPS 3 packaged replace x.x by the latest version available
 # tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
@@ -52,8 +41,8 @@ mv NuxMetaDirectories-2.1.0 NuxMetaDirectories
 
 ## or CPS3 dev
 cvs co CPSCore
-#cvs co CPSDirectories
-#cvs co CPSDefault
+cvs co CPSDirectory
+cvs co CPSDefault
 
 ## For po utilities (DEV)
 ## note that this will add an error in the stupid log

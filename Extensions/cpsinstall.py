@@ -489,7 +489,8 @@ class DefaultInstaller(CPSInstaller):
         # workspace_folder_wf
         wfdef = {'wfid': 'workspace_folder_wf',
                  'permissions': (View, ModifyPortalContent,
-                                 WebDavLockItem, WebDavUnlockItem,)
+                                 WebDavLockItem, WebDavUnlockItem,),
+                 'state_var': 'review_state',
                  }
 
         wfstates = {
@@ -890,7 +891,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     def setupWorkflow4(self):
         # section_folder_wf
         wfdef = {'wfid': 'section_folder_wf',
-                'permissions': (View,)}
+                 'permissions': (View,),
+                 'state_var': 'review_state',
+                 }
 
         wfstates = {
             'work': {

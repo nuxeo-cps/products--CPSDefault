@@ -19,12 +19,15 @@ id = bc.computeId(compute_from=id)
 
 bc.invokeFactory(type_name, id)
 ob = getattr(bc, id)
+ob.edit(**kw)
+
 utool = context.portal_url
 box_url = utool.getRelativeUrl(ob)
 
 context_url = context.getContextUrl(utool=utool, concat=1)
+psm = 'psm_box_created'
+
 if REQUEST is not None:
-    psm = 'psm_box_created'
     action_path = ob.getTypeInfo().immediate_view
     REQUEST.RESPONSE.redirect('%s/%s?box_url=%s&portal_status_message=%s' % 
                               (context_url,action_path, box_url, psm))

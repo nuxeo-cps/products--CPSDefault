@@ -1,4 +1,4 @@
-# (C) Copyright 2003 Nuxeo SARL <http://nuxeo.com>
+# (C) Copyright 2003-2004 Nuxeo SARL <http://nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -29,6 +29,9 @@ from zLOG import LOG, INFO, DEBUG
 
 class BaseInstaller:
     """Base class for product-specific installers.
+
+    WARNING: this class is deprecated (but still used by some products).
+    Use CPSInstaller.CPSInstaller instead.
     """
     product_name = 'CPSDefault'
     SECTIONS_ID = 'sections'

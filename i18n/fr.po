@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-30 16:18default\n"
-"PO-Revision-Date: 2003-07-30 16:36+0200\n"
-"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
-"Language-Team: Français <fr@li.org>\n"
+"POT-Creation-Date: 2003-07-30 17:01default\n"
+"PO-Revision-Date: 2003-07-30 17:04+0200\n"
+"Last-Translator: ben <ben@nuxeo.com>\n"
+"Language-Team: ben\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language-name: Language\n"
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
@@ -213,7 +213,6 @@ msgstr "Ajouter une boîte"
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);
 #.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:isWsManager and sort_by is None">
 #.
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
@@ -307,7 +306,6 @@ msgstr "Rejeter publication"
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);
 #.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:isWsManager and sort_by is None">
 #.
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
@@ -825,35 +823,25 @@ msgstr "Contextuel"
 msgid "label_contributors"
 msgstr "Contributeurs"
 
-#.   <option condition="python:sort_by == 'date' and direction == 'asc' " selected="" value="date">
+#.   <option condition="python:sort_by == 'date' and direction == 'asc' " selected="" value="date_asc">
 #.                       Date
 #.               </option>
-#.   <option condition="python:sort_by != 'date' and direction != 'asc'" value="date">
+#.   <option condition="python:sort_by != 'date' or direction != 'asc'" value="date_asc">
 #.                       Date
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "label_date_asc"
 msgstr "Date croissant"
 
-#.   <option condition="python:sort_by == 'date' and direction == 'desc' " selected="" value="date">
+#.   <option condition="python:sort_by == 'date' and direction == 'desc' " selected="" value="date_desc">
 #.                       Date
 #.               </option>
-#.   <option condition="python:not sort_by != 'date' and direction != 'desc'" value="date">
+#.   <option condition="python:not sort_by != 'date' or direction != 'desc'" value="date_desc">
 #.                       Date
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "label_date_desc"
 msgstr "Date décroissant"
-
-#.   <option condition="python:format == None" selected="" value="compact">
-#.                        Default
-#.   	     </option>
-#.   <option condition="python:format != None" value="compact">
-#.                        Default
-#.   	     </option>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "label_default"
-msgstr "Defaut"
 
 #.   <th align="right">Depth</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
@@ -873,7 +861,7 @@ msgstr "Profondeur"
 msgid "label_description"
 msgstr "Description"
 
-#.   <option condition="python:format == 'detail'" selected="" value="detail">
+#.   <option condition="python:format == 'detail' or format == 'None'" selected="" value="detail">
 #.                        Detail
 #.                </option>
 #.   <option condition="python:format != 'detail'" value="detail">
@@ -914,7 +902,7 @@ msgid "label_discussion_on"
 msgstr "actif"
 
 #.   <th align="right">Display</th>
-#.   <strong valign="top">Display with</strong>
+#.   <span valign="top">Display with</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "label_display"
@@ -930,7 +918,7 @@ msgstr "Compact"
 msgid "label_display_detailed"
 msgstr "Détaillé"
 
-#.   <th aligh="right">format</th>
+#.   <th align="right">format</th>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_display_format"
 msgstr "Affichage"
@@ -1058,7 +1046,7 @@ msgstr "Minimiser"
 msgid "label_name"
 msgstr "Nom"
 
-#.   <th aligh="right">Nb items</th>
+#.   <th align="right">Nb items</th>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_nb_items"
 msgstr "Nb Objets"
@@ -1174,7 +1162,7 @@ msgstr "Rôle(s)"
 msgid "label_root"
 msgstr "Racine"
 
-#.   <span>search</span>
+#.   <th align="right">search</th>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search"
 msgstr "Options de recherche"
@@ -1231,7 +1219,7 @@ msgid "label_sort_asc"
 msgstr "Croissant"
 
 #.   <th align="right">sort by</th>
-#.   <strong>sort by</strong>
+#.   <span>sort by</span>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "label_sort_by"
@@ -1262,20 +1250,20 @@ msgstr "Décroissant"
 msgid "label_status"
 msgstr "Statut"
 
-#.   <option condition="python:sort_by == 'status' and direction =='asc'" selected="" value="status">
+#.   <option condition="python:sort_by == 'status' and direction =='asc'" selected="" value="status_asc">
 #.                       Status
 #.               </option>
-#.   <option condition="python:not sort_by != 'status' or direction !='asc' " value="status">
+#.   <option condition="python:sort_by != 'status' or direction !='asc' " value="status_asc">
 #.                       Status
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "label_status_asc"
 msgstr "Statut croissant"
 
-#.   <option condition="python:sort_by == 'status' and direction =='desc'" selected="" value="status">
+#.   <option condition="python:sort_by == 'status' and direction =='desc'" selected="" value="status_desc">
 #.                       Status
 #.               </option>
-#.   <option condition="python:not sort_by != 'status' or direction !='desc' " value="status">
+#.   <option condition="python:sort_by != 'status' or direction !='desc' " value="status_desc">
 #.                       Status
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
@@ -1300,20 +1288,20 @@ msgstr "Sujet"
 msgid "label_title"
 msgstr "Titre"
 
-#.   <option condition="python:sort_by == 'title' and direction == 'asc'" selected="" value="title">
+#.   <option condition="python:sort_by == 'title' and direction == 'asc'" selected="" value="title_asc">
 #.                       Title
 #.               </option>
-#.   <option condition="python:not sort_by != 'title' or direction !='asc'" value="title">
-#.                       Title
-#.               </option>
-#.   <option condition="python:not sort_by != 'title' or direction !='desc'" value="title">
+#.   <option condition="python:sort_by != 'title' or direction !='asc'" value="title_asc">
 #.                       Title
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "label_title_asc"
 msgstr "Titre croissant"
 
-#.   <option condition="python:sort_by == 'title' and direction == 'desc'" selected="" value="title">
+#.   <option condition="python:sort_by == 'title' and direction == 'desc'" selected="" value="title_desc">
+#.                       Title
+#.               </option>
+#.   <option condition="python:sort_by != 'title' or direction !='desc'" value="title_desc">
 #.                       Title
 #.               </option>
 #: from ../skins/cps_default/folder_contents.pt
@@ -1350,6 +1338,11 @@ msgstr "Nom d'utilisateur"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_visible_in_subfolder"
 msgstr "visible dans les sous répertoires"
+
+#.   <label>visible only in subfolder</label>
+#: from ../skins/cps_default/basebox_edit_form.pt
+msgid "label_visible_only_in_subfolder"
+msgstr "visible UNIQUEMENT dans les sous répertoires"
 
 #.   <option value="work">Work</option>
 #.   <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
@@ -1819,7 +1812,7 @@ msgid "description_nuxeo_treebox_default"
 msgstr "La boîte de navigation par défaut."
 
 msgid "description_nuxeo_treebox_center"
-msgstr "Navigation contextuel affichant deux niveaux de sous sections."
+msgstr "Navigation contextuel affichant deux niveaux de sous répertoires."
 
 msgid "description_nuxeo_actionbox_default"
 msgstr "La boîte d'actions par défaut."
@@ -1860,6 +1853,9 @@ msgstr "%d/%m/%Y %H:%M:%S"
 
 msgid "link_search"
 msgstr "Rechercher"
+
+#~ msgid "label_default"
+#~ msgstr "Defaut"
 
 #~ msgid "button_default"
 #~ msgstr "Defaut"

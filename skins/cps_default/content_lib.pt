@@ -133,19 +133,20 @@ format:</pre>
           detail_tab_columns params/detail_tab_columns;
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
-          zoom zoom|nothing;
-          batches_all python:here.getBatchList(items,
-          columns,items_per_page,zoom);
+          zoom zoom|python:0;
+          batches_all python:here.getBatchList(items, columns, items_per_page,
+                                               zoom);
           batches python:batches_all[0];
           batch_info python:batches_all[1];
           zoomed python:batches_all[2];
      ">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0"
+         tal:condition="batch_info">
     <tr class="even">
       <td align="left" width="50%"
           tal:condition="filter">
         <tal:block condition="no_form" tal:replace='structure string:
-          <form action="${request/URL0}" method="get">' />
+        <form action="${request/URL0}" method="get">' />
           <span i18n:translate="label_display">Display:</span>
           <select name="displayed:list"
                  tal:define="displayed displayed|python:request.get('displayed',
@@ -163,9 +164,9 @@ format:</pre>
                  tal:attributes="name python:test(no_form, None,
                                                   nav_action + ':method')">
         <tal:block condition="no_form" tal:replace='structure string:
-          </form>' />
+        </form>' />
       </td>
-      <td align="right" tal:condition="batch_info">
+      <td align="right">
         <span i18n:translate="">
           Objects: <tal:block replace="batch_info/start"
           i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
@@ -189,12 +190,14 @@ format:</pre>
     </tr>
   </table>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
+    <tr tal:define="col_width python:str(100 / columns)+'%'">
       <td align="left" valign="top"
-          tal:attributes="width python:str(100 / columns)+'%'"
+          tal:attributes="width col_width"
           tal:repeat="batch_items batches">
+        <tal:block condition="batch_items">
           <metal:block
-                use-macro="here/content_lib/macros/display_contents_column" />
+            use-macro="here/content_lib/macros/display_contents_column" />
+        </tal:block>
       </td>
     </tr>
   </table>
@@ -237,8 +240,9 @@ format:</pre>
                      site_wide site_wide|nothing;
                      format python:format or 'detail';
                      choosen_ids python:request.SESSION.get('choosen_ids', []);
-                     no_table python:format in ['detail_tab'];">
-  <table tal:condition="not:no_table" width="100%" border="0" cellspacing="0" cellpadding="5">
+                     no_table python:format == 'detail_tab';">
+  <table tal:condition="not:no_table" width="100%" border="0" cellspacing="0"
+         cellpadding="5">
     <tr valign="top" tal:repeat="item batch_items">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
         <input type="checkbox" name="ids:list" value="" id="" class="noborder"
@@ -322,7 +326,7 @@ format:</pre>
     </option>
   </select>
 
-  <span i18n:translate="label_display" valign="top">Display with</span>
+  <span i18n:translate="label_display">Display with</span>
   <select name="display_style">
     <option i18n:translate="label_default" value="None"
             tal:attributes="selected not:format">
@@ -396,8 +400,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>all doc information:</pre>
 <metal:block define-macro="info_detail">
-<div width="100%"
-  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+<div tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
   <div tal:condition="info/preview|nothing" style="float: right">
     <img tal:condition="info/preview|nothing"
@@ -441,7 +444,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>iconic doc information:</pre>
 <metal:block define-macro="info_icon">
-<div width="100%" align="center"
+<div style="text-align: center"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
@@ -460,7 +463,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>compact doc information:</pre>
 <metal:block define-macro="info_compact">
-<div width="100%" tal:define="action
+<div tal:define="action
   python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
  <tal:block replace="structure python:path('here/'+ info['icon'])" />
  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
@@ -479,8 +482,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>all doc information + summary</pre>
 <metal:block define-macro="info_summary">
-<div width="100%"
-  tal:define="action python:test(info['type'] in ('Section','Workspace'),
+<div tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
   <h2>
     <img tal:replace="structure python:here.getImgTag(info['icon'],
@@ -528,7 +530,7 @@ format:</pre>
                          context_url context_url|here/getContextUrl;
                         ">
 <tal:block condition="start">
-  <tal:block replace="structure string:<table width=100%>" />
+  <tal:block replace='structure string:<table width="100%">' />
     <tr>
       <td> </td>
       <th tal:condition="title_in_tabs" align="center">

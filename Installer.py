@@ -46,17 +46,17 @@ class BaseInstaller:
         self.typetool = self.portal.portal_types
         self.wftool = self.portal.portal_workflow
 
-
-    def log(self, bla, zlog=1):
-        self._log.append(bla)
-        if (bla and zlog):
-            LOG(self.product_name + ' install:', INFO, bla)
+    def log(self, msg, zlog=1):
+        if msg:
+            self._log.append(msg)
+        if msg and zlog:
+            LOG(self.product_name + ' install:', INFO, msg)
 
     def logOK(self):
         self.log(" Already correctly installed")
 
     def logResult(self):
-        return '<html><head><title> ' + self.product_name +\
+        return '<html><head><title> ' + self.product_name + \
             ' Install/Update</title></head>'\
             '<body><pre>'+ '\n'.join(self._log) + '</pre></body></html>'
 

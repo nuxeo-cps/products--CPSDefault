@@ -8,7 +8,7 @@ from DateTime import DateTime
 from Globals import InitializeClass, DTMLFile, MessageDialog
 from types import DictType, StringType
 
-from AccessControl import ClassSecurityInfo, getSecurityManager
+from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
 from OFS.SimpleItem import SimpleItem
 from ZODB.PersistentMapping import PersistentMapping
@@ -18,6 +18,7 @@ from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
      View, AccessContentsInformation, ManagePortal
 from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 
+ManageOverridesPermission = 'Manage Overrides'
 
 class BoxesTool(UniqueObject, SimpleItem):
     """
@@ -180,7 +181,6 @@ class BoxesTool(UniqueObject, SimpleItem):
             else:
                 set1[k] = set2[k]
 
-    #security.declareProtected('setBoxOverride', )
     def setBoxOverride(self, boxurl, settings, context):
         """Allows you to override the box default settings
 
@@ -194,6 +194,10 @@ class BoxesTool(UniqueObject, SimpleItem):
         if not hasattr(aq_base(context), '_box_overrides'):
             context._box_overrides = PersistentMapping()
 
+        # TODO: Add permission check in context
+        sm = getSecurityManager()
+        if not sm.checkPermission(ManageOverridesPermission, context):
+            raise Unauthorized()
         # TODO: check which settings you are allowed to change
         context._box_overrides[boxurl] = settings
 
@@ -220,8 +224,10 @@ class BoxContainer(PortalFolder):
     #
     # ZMI
     #
+    security.declareProtected(ManageOverridesPermission, 'manage_boxOverridesForm')
     manage_boxOverridesForm = DTMLFile('zmi/manage_boxOverridesForm', globals())
 
+    security.declareProtected(ManageOverridesPermission, 'manage_boxOverrides')
     def manage_boxOverrides(self, submit, new_path, overrides=[], selected=[], \
                             REQUEST=None):
         """Sets overrides"""

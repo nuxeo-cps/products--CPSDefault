@@ -40,7 +40,7 @@ for item in items:
         continue
     review_state = wtool.getInfoFor(item, 'review_state', 'nostate')
     if review_state == 'published':
-        if not mtool.checkPermission('Modify portal content', item):
+        if not mtool.checkPermission('Review portal content', item):
             doc = item.getContent()
             if now < doc.effective() or now > doc.expires():
                 continue

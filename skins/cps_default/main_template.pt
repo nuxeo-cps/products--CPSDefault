@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
 <html metal:define-macro="master"
       tal:define="global portal_url here/getPortalUrl;
                   form request/form;
@@ -20,13 +21,13 @@
                   folder_actions actions/folder;
                   global_actions actions/global;
                   wf_state python:wtool.getInfoFor(here,'review_state','');
-                  BMT python:here.Benchmarktimer('main_template');
-                  bmt_start nocall:BMT/start;
-                  bmt_stop nocall:BMT/stop;
-                  bmt_mark nocall:BMT/setMarker;
-                  bmt_elapsed nocall:BMT/getProfiling;
+                  CPSD_BMT python:here.Benchmarktimer('main_template');
+                  CPSD_bmt_start nocall:CPSD_BMT/start;
+                  CPSD_bmt_stop nocall:CPSD_BMT/stop;
+                  CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
+                  CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
                   ">
-<span tal:replace="bmt_start" />
+<span tal:replace="CPSD_bmt_start" />
 <head metal:use-macro="here/generic_lib/macros/header">
   <metal:block fill-slot="base">
     <metal:block define-slot="base" tal:replace="nothing">
@@ -116,13 +117,13 @@
               Status message.
             </strong>
           </div>
-          <b tal:replace="python:bmt_mark('main_start')" />
+          <b tal:replace="python:CPSD_bmt_mark('main_start')" />
           <!-- header -->
           <metal:block define-slot="header" />
 
           <!-- main -->
           <metal:block define-slot="main" />
-          <b tal:replace="python:bmt_mark('main_stop')" />
+          <b tal:replace="python:CPSD_bmt_mark('main_stop')" />
         </div>
 
       </div>
@@ -164,8 +165,7 @@
   the footer
 </div>
 
- <span tal:replace="bmt_stop" /><span tal:replace="structure bmt_elapsed" />
- <span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+ <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 
 </body>
 </html>

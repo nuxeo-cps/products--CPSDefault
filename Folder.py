@@ -40,13 +40,10 @@ factory_type_information = (
                    'name': 'action_view',
                    'action': 'folder_view',
                    'permissions': (View,)},
-
                  {'id': 'new_content',
                   'name': 'action_new_content',
                   'action': 'folder_factories',
-                  'permissions': (View,)},
-                 
-                 
+                  'permissions': (ModifyPortalContent,)},
                   {'id': 'contents',
                   'name': 'action_folder_contents',
                   'action': 'folder_contents',

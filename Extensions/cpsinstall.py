@@ -42,7 +42,7 @@ class DefaultInstaller(CPSInstaller):
     CPS_FILTER_SEARCHABLE_SET = 'searchable'
     CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s:s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
     CPS_FILTER_LEAVES_SET = 'leaves'
-    CPS_FILTER_LEAVES_EXPR = """o.portal_type not in ('Section', 'Workspace')"""
+    CPS_FILTER_LEAVES_EXPR = """getattr(o, 'portal_type', None) not in ('Section', 'Workspace')"""
 
     def install(self, langs_list=None, is_creation=0):
         self.langs_list = langs_list

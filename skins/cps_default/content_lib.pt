@@ -253,7 +253,7 @@ format:</pre>
   <tal:block replace="structure python:here.getImgTag(info['icon'],
    base_url=base_url, title=info['type'])" />
    <a href="" tal:attributes="href string:/${info/rpath}/${action};">
-   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
+   <b><span tal:replace="info/title_or_id">ID</span></b></a>
   <br>
   <a href="" tal:attributes="href string:/${info/rpath}/${action}">
   <small>
@@ -266,7 +266,7 @@ format:</pre>
   </small>
   </a>
   <tal:block condition="info/description">
-    <br><small><em tal:content="info/description">Description</em></small>
+    <br><small tal:content="info/description">Description</small>
   </tal:block>
 </div>
 </metal:block>
@@ -281,7 +281,7 @@ format:</pre>
    title info/description;">
    <img src="" border="0" width="30" length="40"
      tal:attributes="src string:/${info/icon};"/><br>
-   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
+   <b><span tal:replace="info/title_or_id">ID</span></b></a>
 </div>
 </metal:block>
 
@@ -293,7 +293,7 @@ format:</pre>
  <tal:block replace="structure python:path('here/'+ info['icon'])" />
  <a href="" tal:attributes="href string:/${info/rpath}/${action};
    title info/description">
- <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br>
+ <b><span tal:replace="info/title_or_id">ID</span></b></a><br>
  <small>
    <tal:block define="status_short_fmt not:nothing;
                       status_time not:nothing;">

@@ -237,9 +237,9 @@
           </tal:block>
 
         <tal:block define="global last_child python: repeat['item'].number() + item['nb_children']" />
-<b><a href="." tal:attributes="href string:${base_url}${item/rpath}/" >
+<a href="." tal:attributes="href string:${base_url}${item/rpath}/" ><b>
         <tal:block replace="structure
-        python:here.getImgTag('folder_icon.gif', base_url=base_url)" />&nbsp;<span tal:replace="structure string:${item/title_or_id}">title</span></a></b><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
+        python:here.getImgTag('folder_icon.gif', base_url=base_url)" />&nbsp;<span tal:replace="structure string:${item/title_or_id}">title</span></b></a><span tal:condition="item/nb_children" tal:replace="string::" /><br/>
           </tal:block>
           <tal:block condition="python:item['depth']>depth">
 <a href="." tal:attributes="href string:${base_url}${item/rpath}/"><span tal:replace="structure string:${item/title_or_id}">title</span></a><span tal:condition="item/nb_children" tal:replace="string:..." /><span tal:condition="python: repeat['item'].number() != last_child">,&nbsp;</span><span tal:condition="python: repeat['item'].number() == last_child">.<br/></span>

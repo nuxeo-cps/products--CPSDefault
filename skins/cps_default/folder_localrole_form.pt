@@ -169,15 +169,10 @@
  <p i18n:translate="legend_local_roles_select_groups_and_roles">
     Select Group(s) and a role to assign:
  </p>
-
  <form method="post" action="folder_localrole_edit"
        tal:attributes="action string:${here_url}/folder_localrole_edit"
  >
   <input type="hidden" name="change_type" value="add">
-
-
-
-
   <table>
    <tr>
     <td width="16"><br></td>
@@ -253,10 +248,7 @@
 <form method="post" action="folder_localrole_edit"
       tal:attributes="action string:${here_url}/folder_localrole_edit">
  <input type="hidden" name="change_type" value="delete" />
- 
-<!-- Displays users roles -->
 <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
-  <!-- Gathers users by categories 'user' then 'group' -->
   <tal:block repeat="type python:['user','group']"> 
   <table width="100%">
     <tr>
@@ -305,7 +297,7 @@
                <tal:block condition="ishere">
                  <span i18n:translate="" tal:content="roleElt"/>
                </tal:block>
-               <br tal:condition="not:repeat/item/last"><br/>
+               <br tal:condition="not:repeat/item/last">
                  </tal:block>
                </tal:block>
             </tal:block>
@@ -322,13 +314,13 @@
            </tr>
            <tr tal:condition="nothing">
              <td width="16">
-               <br />
+               <br>
              </td>
              <td> Auth username </td>
              <td> Role1, Role2, Role3 </td>
            </tr>
            <tr>
-             <td colspan="3"><br /></td>
+             <td colspan="3"><br></td>
            </tr>
 	</table>
     </tal:block>

@@ -1,0 +1,35 @@
+<metal:html use-macro="here/content_lib/macros/master">
+
+<metal:block fill-slot="header" />
+
+<metal:main fill-slot="main">
+<metal:std_main use-macro="here/content_lib/macros/std_main">
+
+<metal:title fill-slot="title" i18n:translate="">
+  heading_revert_to_old_revision_of
+  <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
+</metal:title>
+
+<metal:help fill-slot="help">
+  <span i18n:translate="help_revert_revision">
+    Revert to revision
+    <span tal:replace="request/rev" i18n:name="rev">rev</span>.
+  </span>
+</metal:help>
+
+<metal:main fill-slot="main">
+  <form action="." method="POST"
+    tal:attributes="action string:${here_url}/content_revert">
+
+    <input type="hidden" name="rev:int" value="."
+      tal:attributes="value request/rev">
+    <input type="submit" class="standalone" value="button_revert_revision"
+      i18n:attributes="value">
+    <input type="button" class="context" onClick="history.back()"
+      value="button_cancel" i18n:attributes="value">
+  </form>
+</metal:main>
+
+</metal:std_main>
+</metal:main>
+</metal:html>

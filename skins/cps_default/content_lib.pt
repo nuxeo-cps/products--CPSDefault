@@ -675,3 +675,31 @@ format:</pre>
     <br>
   </span>
 </metal:block>
+
+<!-- ============================================================ -->
+<!-- below macros require getContentInfo 4                        -->
+
+
+<!-- ============================================================ -->
+<pre>display archived revisions of a document</pre>
+<metal:block define-macro="archived">
+  <div>
+    <strong i18n:translate="label_archived_revisions">Old revisions:</strong>
+  </div>
+
+  <div tal:repeat="item info/archived">
+    <tal:block condition="item/is_frozen">
+      <span tal:replace="item/time_str">25/12/2003 11:45</span>:
+      <tal:block i18n:translate="">label_revision
+        <span tal:content="item/rev" i18n:name="status_revision">1</span>
+      </tal:block>
+      <tal:block i18n:translate="">label_language
+        <span i18n:name="status_language">
+        <tal:block i18n:translate=""
+          content="string:label_language_${item/lang}">en</tal:block>
+        </span>
+      </tal:block>
+      <a href="." tal:attributes="href string:${here_url}/content_revert_form?rev:int=${item/rev}" i18n:translate="link_revert_to_this_revision">Revert</a>
+    </tal:block>
+  </div>
+</metal:block>

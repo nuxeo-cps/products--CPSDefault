@@ -17,15 +17,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-29 14:22default\n"
-"PO-Revision-Date: 2003-10-29 14:22+0100\n"
+"POT-Creation-Date: 2003-10-29 17:07default\n"
+"PO-Revision-Date: 2003-10-29 17:09+0100\n"
 "Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
 "Language-Team: francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: KBabel 1.0.2\n"
+"Plural-Forms: nplurals=1; plural=0;"
 
 #.   <block fill-slot="box_title" content="bs/title">A test box</block>
 #: from ../skins/cps_devel/test_box_lib.pt
@@ -115,13 +114,6 @@ msgstr "slot"
 msgid "Translated status message."
 msgstr "Translated status message."
 
-#.   <option repeat="type allowed" attributes="value type/getId" content="type/Title">
-#.               Type Name
-#.             </option>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "Type Name"
-msgstr ""
-
 #.   <span attributes="class
 #.         info/review_state" content="info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib.pt
@@ -203,16 +195,14 @@ msgstr "Back"
 #.     </input>
 #.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
 #.       </input>
-#.   <input onclick="history.back()" type="button" value="button_cancel">
-#.     </input>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_reject_form.pt
+#: ../skins/cps_default/content_revert_form.pt
 #: ../skins/cps_default/content_submit_form.pt
-#: ../skins/cps_default/content_unpublish_form.pt
-#: ../skins/cps_default/reconfig_form.pt
+#: ../skins/cps_default/content_unpublish_form.pt 1 more references
 msgid "button_cancel"
 msgstr "Cancel"
 
@@ -348,12 +338,6 @@ msgstr "Move top"
 msgid "button_move_up"
 msgstr "Move up"
 
-#.   <input value="button_new" class="standalone" name="content_create:method" type="submit">
-#.         </input>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "button_new"
-msgstr "New"
-
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.     </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -364,7 +348,7 @@ msgstr "New"
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.          </input>
@@ -411,6 +395,13 @@ msgstr "Reject publication"
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Rename"
+
+#.   <input value="button_revert_revision" class="standalone" type="submit">
+#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
+#.     </input></input>
+#: from ../skins/cps_default/content_revert_form.pt
+msgid "button_revert_revision"
+msgstr "Revert to the archived version"
 
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
@@ -502,8 +493,8 @@ msgstr "You are logged in outside the portal.  You may need to"
 msgid "description_reconfig_form"
 msgstr "This form is used to set the portal configuration options."
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -528,6 +519,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr "Description box visible from ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
 msgstr "en"
@@ -629,12 +621,10 @@ msgstr "Resource not found"
 msgid "heading_error_other"
 msgstr "CPS encountered an error"
 
-#.   <span>Create a new:</span>
 #.   <h1 fill-slot="header">
 #.       Add Content
 #.     </h1>
-#: from ../skins/cps_default/folder_contents.pt
-#: ../skins/cps_default/folder_factories.pt
+#: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Add content"
 
@@ -713,6 +703,14 @@ msgstr "Rename items"
 msgid "heading_resource_metadata"
 msgstr "Resource metadata"
 
+#.   <title fill-slot="title">
+#.     heading_revert_to_old_revision_of
+#.     ${item_id (tal replace="here/title_or_id")}
+#.   </title>
+#: from ../skins/cps_default/content_revert_form.pt
+msgid "heading_revert_to_old_revision_of ${item_id}"
+msgstr "Revert to an archived version of ${item_id}"
+
 #.   <h1>
 #.     Standard Resource Metadata
 #.     </h1>
@@ -763,14 +761,16 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "If you commit this draft, it will replace the document currently locked."
+msgstr ""
+"If you commit this draft, it will replace the document currently locked."
 
 #.   <span>
 #.       If you create a draft, you will be the only one able to work on the document.
 #.     </span>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
-msgstr "If you create a draft, you will be the only one able to work on the document."
+msgstr ""
+"If you create a draft, you will be the only one able to work on the document."
 
 #.   <em>
 #.           Box types in italic are predefined types. You cannot change their
@@ -826,7 +826,8 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr ""
+"Having trouble logging in? Make sure to enable cookies in your web browser."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -913,6 +914,14 @@ msgstr ""
 "so that when you next log in, your user name will already be filled in for "
 "you."
 
+#.   <span>
+#.       Revert to revision
+#.       ${rev (tal replace="request/rev")}.
+#.     </span>
+#: from ../skins/cps_default/content_revert_form.pt
+msgid "help_revert_revision"
+msgstr "Revert to an older version of this object."
+
 #.   <span>An item's status (also called its
 #.     review state) determines who can see it.  An item with a <b>work</b> status
 #.     can be viewed by workspace's readers and edit by workspace's members and
@@ -982,6 +991,12 @@ msgstr "Administrator Name"
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_all"
 msgstr "All"
+
+#.   <strong>Old revisions:</strong>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_archived_revisions"
+msgstr "Revision"
 
 #.   <option attributes="selected
 #.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
@@ -1384,6 +1399,9 @@ msgstr "Language"
 #.   <block>label_language
 #.         ${status_language}
 #.       </block>
+#.   <block>label_language
+#.           ${status_language}
+#.         </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
 msgstr "Language ${status_language}"
@@ -1529,6 +1547,9 @@ msgstr "Revision"
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="item/rev")}
+#.         </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
 msgstr "Revision ${status_revision}"
@@ -1886,6 +1907,11 @@ msgstr "You can log on immediately by clicking"
 #: from ../skins/cps_default/registered.pt
 msgid "link_registred_return_home_page"
 msgstr "Return to homepage"
+
+#.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${item/rev}" href=".">Revert</a>
+#: from ../skins/cps_default/content_lib.pt
+msgid "link_revert_to_this_revision"
+msgstr "Revert to this version"
 
 #.   <th width="15%">action</th>
 #: from ../skins/cps_default/box_manage_form.pt
@@ -2486,6 +2512,9 @@ msgstr "Item(s) renamed."
 msgid "psm_operation_not_allowed"
 msgstr "Operation not allowed."
 
+msgid "psm_revision_reverted"
+msgstr "Reverted to old version."
+
 msgid "psm_select_at_least_one_document"
 msgstr "Select at least one document."
 
@@ -2505,7 +2534,8 @@ msgid "psm_join_password_mismatch"
 msgstr "Your password and your confirmation don't match."
 
 msgid "psm_join_invalid_name"
-msgstr "The named you have chosen is invalid. Please change it or try another one."
+msgstr ""
+"The named you have chosen is invalid. Please change it or try another one."
 
 msgid "psm_join_login_already_used"
 msgstr "The login you have chosen is already in use. Please try another one."
@@ -2616,6 +2646,9 @@ msgstr "Sa"
 
 msgid "calendar_day_6"
 msgstr "Su"
+
+#~ msgid "button_new"
+#~ msgstr "New"
 
 #, fuzzy
 #~ msgid "label_flash_document"
@@ -2789,4 +2822,3 @@ msgstr "Su"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
-

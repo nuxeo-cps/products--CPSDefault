@@ -10,6 +10,8 @@ level: 2 (cost 4.6)
   level 1 + states
 level: 3 (cost 7)
   level 2 + history
+level: 4 (cost ???)
+  level 3 + archived
 """
 
 # how many characters for the description
@@ -112,6 +114,15 @@ def compute_states(no_history=0):
 
     return states, history
 
+def compute_archived():
+    ptool=context.portal_proxies
+    docid = proxy.getDocid()
+    archived = ptool.getArchivedInfosForDocid(docid)
+    # Keep only frozen revisions.
+    archived = [d for d in archived if d['is_frozen']]
+    for d in archived:
+        d['time_str'] = context.getDateStr(d['modified'])
+    return archived
 
 # basic information level 0
 info={}
@@ -205,8 +216,12 @@ if level == 2:
     info['states'], None = compute_states(1)
 
 # level 3
-if level > 2:
+if level >= 3:
     info['states'], info['history'] = compute_states()
+
+# level 4
+if level >= 4:
+    info['archived'] = compute_archived()
 
 info['level']=level
 

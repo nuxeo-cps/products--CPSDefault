@@ -22,10 +22,14 @@
 </metal:help>
 
 <metal:main fill-slot="main"
-            tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=3)">
+            tal:define="info python:proxy.getContentInfo(proxy, doc=doc, level=4)">
   <metal:block use-macro="here/content_lib/macros/status" /><br><br>
 
   <metal:block use-macro="here/content_lib/macros/states" /><br>
+
+  <tal:block condition="python:checkPerm('Modify portal content', here)">
+    <metal:block use-macro="here/content_lib/macros/archived" /><br>
+  </tal:block>
 
   <metal:block use-macro="here/content_lib/macros/history" />
 </metal:main>

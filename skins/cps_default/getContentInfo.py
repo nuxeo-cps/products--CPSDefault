@@ -5,7 +5,7 @@ level: 0 (default cost 1)
   id, title, title_or_id, review_state, icon, rev, lang,
   time_str, creator
 level: 1 (cost 1.3)
-  level 0 + descr, size + additional information from obj
+  level 0 + descr, size + doc + additional information from obj
 level: 2 (cost 4.6)
   level 1 + states
 level: 3 (cost 7)
@@ -149,12 +149,9 @@ else:
 
 # level 1
 if level > 0:
-    if not doc:
-        try:
-            doc = proxy.getContent()
-        except AttributeError:
-            # not a proxy
-            doc = proxy
+    if doc is None:
+        doc = proxy.getContent()
+    info['doc'] = doc
     description = doc.Description() or ''
     if len(description) > max_description:
         description = description[:max_description] + '...'

@@ -14,13 +14,20 @@ x [seb + hervé] 05/12: working with Element proposal
 
 # on work
 - zpt usage
+  o css
+      x [] evaluate plone css1 with netscape 4.77
+        workable but with a different look, acceptable for now ?
+      o define compatible html usage with both css
+      o try to use plone css for main_template
+      o manage contextual css
+      o manage printable css
   o add rpath in the dbg info of master
   o finish display_content macro add a cookie to remind option
     icon/detail + filter ?
-  o handle batch sorting 
-  o restrict access to test_*_lib ?
+  o restrict access to test_*_lib ? 
+      use a separate skin devel
   o clean header of use-macro with tag <html xmlns ...
-  o create a clean CSS and use it *
+
 
 - [seb] search
    o make catalog search work with proxies
@@ -35,7 +42,8 @@ x [seb + hervé] 05/12: working with Element proposal
   o add wf_vars rpath + filter on review history copy_submit
   o add a comment on submit from copy_submit
   o how to handle proxy history for reject or accept transition ?
-
+      store proxy source ref in a wf then invoke a transition to
+      update proxy source when proxy destination change state ?
 - tests
   o add puffin test to create big amount of docs ?
     or write test creating 
@@ -75,7 +83,8 @@ x [seb + hervé] 05/12: working with Element proposal
       x [] folder_contents with more info
         display proxy rev, lang, status
    o document
-      o impl copy/cut/paste ...
+      o impl copy/cut/paste ... this should be action like in plone
+         same for rename delete history ...
       x [] full info skin: list all proxy about a document
    o cmf integration
       o clean or integrate fully cmf stuff ? undo ? preference ? favorite ?
@@ -86,7 +95,11 @@ x [seb + hervé] 05/12: working with Element proposal
       o don't need any more to rename folder actions
       o add multi po loader like gilupdate
       o long term: big refactoring to enable registration of products
+   o zpt usage
+      x [] handle batch sorting 
+        sort is done in getFolderContent
    o misc
+      o split skin repository into: cps_devel, cps_css, cps_nocss, cps_script
       o finalize zmi CPSSite form creation
       o rewrite cpsinstaller
       x [] use macro library
@@ -97,7 +110,7 @@ x [seb + hervé] 05/12: working with Element proposal
 - Bug fix
    o set local roles page should display aquisition roles
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
-   o find a way not using tal before xml declaration in zpt
+   x [] find a way not using tal before xml declaration in zpt
       ok htmlns will be removed
    x [] getInfoFor review_state failed if not owner or manager ????
    x [] folder_contents permission denied for SectionReader on folder

@@ -36,6 +36,7 @@
        </td>
        <td>
 	<span tal:repeat="item info/states">
+	 <!-- XXX TODO FIX using getContentInfo -->
           <tal:block condition="python:item['rpath'] == section['rpath']"
 	    define="review_state item/review_state;
                     rev item/rev;

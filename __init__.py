@@ -39,8 +39,6 @@ import FlashBox
 import EventCalendarBox
 import InternalLinksBox
 
-import utils
-
 cpsdefault_globals = globals()
 
 contentClasses = (Folder.Folder, Dummy.Dummy,

@@ -3,14 +3,19 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
+from pprint import pprint
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 from AccessControl import Unauthorized
 from Products.CMFCore.WorkflowCore import WorkflowException
 
+from DateTime import DateTime
+
 
 class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
+    # Test object creation and publication workflow
+
     def afterSetUp(self):
         self.login('root')
 
@@ -48,14 +53,44 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
+    def testGetContentInfo(self):
+        # Test the getContentInfo script
+
+        self.login('member')
+        self.member_ws.invokeFactory('News', 'news')
+        proxy = self.member_ws.news
+        doc = proxy.getContent()
+        doc.edit(title='Title')
+
+        for level in range(0, 5):
+            info = proxy.getContentInfo(level=0)
+            self.assertEquals(info['icon'], 'news_icon.gif')
+            self.assertEquals(info['id'], 'news')
+            self.assertEquals(info['lang'], 'en')
+            self.assertEquals(info['level'], 0)
+            self.assertEquals(info['rev'], '1')
+            self.assertEquals(info['review_state'], 'work')
+            self.assertEquals(info['rpath'], 'workspaces/members/member/news')
+            self.assert_(isinstance(info['time'], DateTime))
+            self.assertEquals(info['time_str'], 'date_medium')
+            self.assertEquals(info['title'], '')
+            self.assertEquals(info['title_or_id'], 'news')
+            self.assertEquals(info['type'], 'News')
+            self.assertEquals(info['type_l10n'], 'portal_type_News_title')
+
+        #print
+        #for level in range(0, 5):
+        #    info = proxy.getContentInfo(level=level)
+        #    print "level = %d" % level
+        #    pprint(info)
+        #print
+
     def testSubmit(self):
         self.login('member')
 
         # Create some document
         self.member_ws.invokeFactory('News', 'news')
         proxy = self.member_ws.news
-        doc = proxy.getContent()
-        doc.edit()
 
         info = proxy.getContentInfo(level=3)
         self.assertEquals(info['review_state'], 'work')

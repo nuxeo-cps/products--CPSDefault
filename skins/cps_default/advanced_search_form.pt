@@ -39,10 +39,10 @@
           <td ><span i18n:translate="label_search_status">Status</span></td>
           <td>
           <select name="review_state">
-            <option i18n:attributes="value" value="label_all" selected>All</option>
-            <option i18n:attributes="value" value="label_work">Work</option>
-            <option i18n:attributes="value" value="label_pending">Pending</option>
-            <option i18n:attributes="value" value="label_published">Published</option>
+            <option i18n:translate="label_all" value="-- All --" selected>All</option>
+            <option i18n:translate="label_work" value="work">Work</option>
+            <option i18n:translate="label_pending" value="pending">Pending</option>
+            <option i18n:translate="label_published" value="published">Published</option>
           </select>
           </td>
           </tr>
@@ -56,13 +56,16 @@
                                           lastWeek python:(today-7).Date();
                                           lastMth python:(today-31).Date();">
              <select name="modified:date">
-               <option i18n:attributes="value" value="time_last_login"
-                       tal:condition="python:not(here.portal_membership.isAnonymousUser())">
-                 Last login
+               <option value="1970/01/01 00:00:00 GMT"
+                       i18n:translate="label_choose">Choisir
                </option>
-               <option i18n:attributes="value" value="time_yesterday">Yesterday</option>
-               <option i18n:attributes="value" value="time_last_week">Last week</option>
-               <option i18n:attributes="value" value="time_last_month">Last month</option>
+               <option i18n:translate="time_last_login" value="lastLogin"
+                       tal:condition="python:not(here.portal_membership.isAnonymousUser())">
+                 time_last_login
+               </option>
+               <option i18n:translate="time_yesterday"  value="yesterday">time_yesterday</option>
+               <option i18n:translate="time_last_week"  value="lastWeek">time_last_week</option>
+               <option i18n:translate="time_last_month" value="lastMth">time_last_month</option>
              </select>
              <input type="hidden" name="modified_usage" value="range:min" />
              </td>

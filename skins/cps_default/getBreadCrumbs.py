@@ -29,18 +29,24 @@ if parent:
     path = path[:-1]
 
 portal = context.portal_url.getPortalObject()
-mtool = context.portal_membership
+portal_id = portal.getId()
+checkPermission = context.portal_membership.checkPermission
 items = []
+
 for i in range(len(path)):
     ipath = path[:i+1]
     obj = portal.restrictedTraverse(ipath)
-    if not mtool.checkPermission('View', obj):
+    if not checkPermission('View', obj):
         continue
-    title = obj.Title() or obj.getId()
+    title = obj.title_or_id()
+    url = '/' + '/'.join(ipath) + '/'
+    # all containers but portal should be accessed by their 'view' action
+    if ipath[-1] != portal_id:
+        url = url + 'view' 
     items.append({'id': ipath[-1],
-                   'title': format_title(title),
-                   'longtitle': title,
-                   'url': '/' + '/'.join(ipath) + '/view',
-                   })
+                  'title': format_title(title),
+                  'longtitle': title,
+                  'url': url,
+                 })
 
 return items

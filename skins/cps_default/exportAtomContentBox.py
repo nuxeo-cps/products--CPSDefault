@@ -3,6 +3,7 @@
 """Creates an ATOM feed from a Content Box content."""
 
 import re
+from cgi import escape
 
 SUMMARY_MAX_LENGTH = 200
 
@@ -18,7 +19,7 @@ items = ret[0]
 atom_feed = r"""<?xml version="1.0" encoding="ISO-8859-15"?>
 <?xml-stylesheet href="%(css_url)s" type="text/css"?>
 <feed version="0.3" xmlns="http://purl.org/atom/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <title type="text/plain">%(feed_title)s</title>
+  <title mode="escaped" type="text/html">%(feed_title)s</title>
   <tagline type="text/plain">%(feed_tagline)s</tagline>
   <link rel="alternate" type="text/html" href="%(feed_link)s" />
   <id>%(feed_id)s</id>
@@ -33,7 +34,7 @@ atom_feed = r"""<?xml version="1.0" encoding="ISO-8859-15"?>
 atom_entry = r"""
   <entry>
     <id>%(entry_id)s</id>
-    <title type="text/plain">%(entry_title)s</title>
+    <title mode="escaped" type="text/html">%(entry_title)s</title>
     <link rel="alternate" type="text/html" href="%(entry_link)s" />
     <issued>%(entry_issued)s</issued>
     <modified>%(entry_modified)s</modified>
@@ -95,7 +96,7 @@ for item in items:
         summary = ''
 
     body_text += atom_entry % {'entry_id' : entry_id,
-                               'entry_title' : entry_title,
+                               'entry_title' : escape(entry_title),
                                'entry_link' : entry_link,
                                'entry_issued' : entry_issued,
                                'entry_modified' : entry_modified,
@@ -117,7 +118,7 @@ except AttributeError:
     generator_version = 'unknown'
 
 text = atom_feed % {'css_url': base_url + 'atom.css',
-                    'feed_title' : feed_title,
+                    'feed_title' : escape(feed_title),
                     'feed_tagline' : 'ATOM feed',
                     'feed_link' : feed_link,
                     'feed_id' : feed_id,

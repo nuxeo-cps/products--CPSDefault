@@ -57,26 +57,21 @@ status_sort_order={'nostate':'0',
 
 # XXX these methods should return a tuple and not some half-baked string.
 def id_sortkey(a):
-    return str(not a.isPrincipiaFolderish) + \
-           a.getId()
+    return a.getId()
 
 def status_sortkey(a):
-    return str(not a.isPrincipiaFolderish) + \
-           status_sort_order[wtool.getInfoFor(a,'review_state','nostate')] + \
+    return status_sort_order[wtool.getInfoFor(a,'review_state','nostate')] + \
            a.title_or_id().lower()
 
 def title_sortkey(a):
-    return str(not a.isPrincipiaFolderish) + \
-           a.title_or_id().lower()
+    return a.title_or_id().lower()
 
 def date_sortkey(a):
-    return str(not a.isPrincipiaFolderish) + \
-           str(wtool.getInfoFor(a,'time','x')) + \
+    return str(wtool.getInfoFor(a,'time','x')) + \
            a.getId()
 
 def author_sortkey(a):
-    return str(not a.isPrincipiaFolderish) + \
-           str(wtool.getInfoFor(a,'actor','')) + \
+    return a.getContentInfo(level=1)['creator'] + \
            a.getId()
 
 def cmp_desc(x, y):

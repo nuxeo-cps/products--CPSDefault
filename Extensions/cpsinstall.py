@@ -913,6 +913,8 @@ if locked_ob is not None:
                       'Content Box',
                       'Action Box',
                       'Image Box',
+                      'Flash Box',
+                      'Event Calendar Box',
                       )
         }
     allowed_content_type = {

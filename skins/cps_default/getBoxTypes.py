@@ -119,6 +119,9 @@ items = [
                {'provider': 'nuxeo',
                 'id': 'menu',
                 'desc': 'description_nuxeo_actionbox_menu'},
+               {'provider': 'nuxeo',
+                'id': 'header',
+                'desc': 'description_nuxeo_actionbox_header'},
                ]
      },
     {'category': 'imagebox',

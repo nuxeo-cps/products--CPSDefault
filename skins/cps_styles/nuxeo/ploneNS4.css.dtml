@@ -27,7 +27,6 @@ p a { text-decoration: underline; }
 p img { border: &dtml-contentImageBorder;; }
 hr { margin:0; padding: 0; }
 h1, h2, h3, h4, h5, h6 { color: &dtml-headingFontColor;; }
-ul { list-style-image: url("bullet.gif"); }
 form { border: none; }
 textarea {  }
 input {  }
@@ -106,13 +105,6 @@ div.box .body {
     background: &dtml-boxHeaderBackground;;
 }
 
-div.box ul { 
-    list-style-image: url("bullet.gif");
-    padding: 0em;
-    margin: 0em;
-}
-
-
 table.box a.comment { background-image: url(&dtml-portal_url;/discussion_icon.gif); background-position: 0px 0px; padding: 0em 0em 0.5em 2em; }
 table.box a.plain { padding: 0; }
 span.folderName { font-size: 150%; font-weight: bold; }
@@ -122,6 +114,13 @@ div.spacer { }
 .pending { color: #FFA500; }
 .syndicated { color: #008000; }
 .expired { color: Red; }
+
+div.box ul {
+  margin: -1em;
+  padding: 0em;
+  list-style: square;
+}
+
 
 /* Calendar elements */
 div.day { background-color: #FFFFBB; }

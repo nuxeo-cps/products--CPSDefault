@@ -147,26 +147,23 @@ class TreeBox(BaseBox):
             max_depth = len(current_path) + depth
 
             tfilter = []
-            # make a comment to says in what the commented block is useful
-##            for i in range(len(current_path)+1):
-##                if i:
-##                    tfilter.append({'url': '/'.join(current_path[:i]),
-##                                    'depth': i + depth})
-            tfilter.append({'url': current_url,
-                            'depth': current_path_length})
-            
+            # we want to display all the path to the object and his sons and 
+            # brothers
+            for i in range(len(current_path)+1):
+                if i:
+                    tfilter.append({'rpath': '/'.join(current_path[:i]),
+                                    'depth': i + depth})
+
             items = []
             for item in tree:
                 d = item['depth']
                 if d > max_depth:
                     continue
-                url = item['rpath']
+                rpath = item['rpath']
                 for f in tfilter:
                     if d > f['depth']:
                         continue
-                    if url.startswith(f['url']):
-                        item = item.copy()
-                        item['depth'] = d - current_path_length + 1
+                    if rpath.startswith(f['rpath']):
                         items.append(item)
                         break
 

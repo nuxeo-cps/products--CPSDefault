@@ -17,6 +17,12 @@ ZopeTestCase.installProduct('CPSDefault')
 ZopeTestCase.installProduct('NuxMetaDirectories')
 ZopeTestCase.installProduct('NuxUserGroups')
 ZopeTestCase.installProduct('TranslationService')
+#
+ZopeTestCase.installProduct('CPSForum')
+ZopeTestCase.installProduct('CPSSchemas')
+ZopeTestCase.installProduct('CPSDocument')
+ZopeTestCase.installProduct('PortalTransforms')
+ZopeTestCase.installProduct('Epoz')
 
 # Patch Localizer, it doesn't want to work within the test
 # harness.

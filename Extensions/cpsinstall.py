@@ -166,6 +166,8 @@ class DefaultInstaller(CPSInstaller):
             'Manage Boxes': ['Manager', 'WorkspaceManager'],
             'View archived revisions': ['Manager', 'WorkspaceManager',
                                         'WorkspaceMember'],
+            WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
+            WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
             }
         self.setupPortalPermissions(sections_perm, self.portal[SECTIONS_ID])
         self.setupPortalPermissions(workspaces_perm, self.portal[WORKSPACES_ID])

@@ -24,6 +24,7 @@ bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id,
 bmt.setMarker('start')
 
 wtool=context.portal_workflow
+utool=context.portal_url
 
 def compute_states(no_history=0):
     ptool=context.portal_proxies
@@ -35,8 +36,19 @@ def compute_states(no_history=0):
             folders_info[f['rpath']] = f
 
     wf_vars = ['review_state', 'time']
-    proxies_info = ptool.getProxyInfosFromDocid(context.getDocid(),
-                                             workflow_vars=wf_vars)
+    docid = proxy.getDocid()
+    if docid:
+        proxies_info = ptool.getProxyInfosFromDocid(docid,
+                                                    workflow_vars=wf_vars)
+    else:
+        # Not a proxy
+        ob_info = {
+            'rpath': utool.getRelativeUrl(proxy),
+            'language_revs': {'en': 0},
+            }
+        for var in wf_vars:
+            ob_info[var] = wtool.getInfoFor(proxy, var)
+        proxies_info = [ob_info]
     states = []
     for px in proxies_info:
         # take in account only accessible proxies

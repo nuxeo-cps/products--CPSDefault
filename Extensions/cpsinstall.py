@@ -412,6 +412,15 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'category': 'global',
             'visible': 1,
           },
+          { 'tool': 'portal_actions',
+            'id': 'manage_languages',
+            'name': 'action_manage_languages',
+            'action': 'string:${portal_url}/language_manage_form',
+            'permission': (ModifyPortalContent, ),
+            'condition': '',
+            'category': 'global',
+            'visible': 1,
+          },
         )
 
         if 'Link' in self.portal['portal_types'].objectIds():

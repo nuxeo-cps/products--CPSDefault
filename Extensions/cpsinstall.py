@@ -765,7 +765,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     for s in ('pending', 'published'):
         wf.states.addState(s)
-    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish', 
+    for t in ('submit', 'publish', 'accept', 'reject', 'unpublish',
               'cut_copy_paste', 'publish_content',):
         wf.transitions.addTransition(t)
     for v in ('action', 'actor', 'comments', 'review_history', 'time',
@@ -792,6 +792,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE,),
                     clone_allowed_transitions=None,
+                    after_script_name='mail_notification',
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'',
                            'guard_roles':'Manager; SectionManager; SectionReviewer',
@@ -803,6 +804,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE),
                     clone_allowed_transitions=None,
+                    after_script_name='mail_notification',
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '',
                            'guard_roles': 'Manager; Member',
@@ -813,6 +815,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     new_state_id='published',
                     transition_behavior=(TRANSITION_BEHAVIOR_MERGE,),
                     clone_allowed_transitions=None,
+                    after_script_name='mail_notification',
                     trigger_type=TRIGGER_USER_ACTION,
                     actbox_name='action_accept', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_accept_form',
@@ -863,6 +866,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                          TRANSITION_ALLOWSUB_COPY),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION,
+                    after_script_name='mail_notification',
                     actbox_name='New',
                     actbox_category='',
                     actbox_url='',
@@ -904,6 +908,29 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                        default_expr="python:state_change.kwargs.get('dest_container', '')",
                        for_status=1, update_always=1)
 
+    #
+    # Python Script.
+    # For Mailing List notifications
+    #
+    scripts = wf.scripts
+
+    script_name = 'mail_notification'
+    scripts._setObject(script_name, PythonScript(script_name))
+    script = scripts[script_name]
+    script.write("""\
+##parameters=state_change
+object = state_change.object
+dest_container = state_change.kwargs.get('dest_container', '')
+
+try:
+    # Mailing Lists package in here
+    object.sendmail_after_transition(destination = dest_container)
+except:
+    # No mailing list package in here.
+    pass
+""")
+    #script._proxy_roles = ('Manager',)
+    script._owner = None
 
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder
     # CPS Folder
@@ -1155,10 +1182,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         action='string: ${object/absolute_url}/content_status_history',
         condition="""python:test(getattr(object,'portal_type'),
                                  test(object.portal_type in ['Section',
-                                                             'Workspace', 
+                                                             'Workspace',
                                                              'Portal'],
                                       0,
-                                      1), 
+                                      1),
                                  0)""",
         permission='View',
         category='workflow')

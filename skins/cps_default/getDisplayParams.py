@@ -10,7 +10,7 @@ def_params = {'format': None,
               'direction': 'asc',
               'items_per_page': 10,
               'nav_action': 'folder_view',
-              'filter': 1,
+              'filter': 0,
               }
 
 params = def_params

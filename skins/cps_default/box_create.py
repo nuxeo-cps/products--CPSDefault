@@ -12,7 +12,7 @@ bc = getattr(context,idbc)
 
 
 type_name = kw.get('type_name', 'Text Box')
-id = kw.get('id', None)
+id = kw.get('title')
 if not id:
     id = 'my ' + type_name
 id = bc.computeId(compute_from=id)

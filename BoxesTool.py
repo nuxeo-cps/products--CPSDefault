@@ -68,6 +68,7 @@ class BoxesTool(UniqueObject, SimpleItem):
             bmf = context
 
         # get boxes from root to current path
+        portal_url = getToolByName(self, 'portal_url')
         rpath = portal_url.getRelativeContentPath(bmf)
         obj = portal_url.getPortalObject()
         allboxes = []

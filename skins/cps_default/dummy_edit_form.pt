@@ -14,7 +14,6 @@
 
 <div metal:fill-slot="main">
 
-
   <div class="group">
   <form action="content_edit" method="post"
     enctype="multipart/form-data"
@@ -40,6 +39,22 @@
         <textarea name="description:text" rows="4" cols="80" wrap="soft"
                   tal:content="doc/Description">
         </textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label" i18n:translate="label_start_date">Start Date</div>
+      <div class="field">
+        <input type="text" name="start_date:string" size="10" 
+               tal:attributes="value python:doc.get_date('start_date')">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label" i18n:translate="label_end_date">End Date</div>
+      <div class="field">
+        <input type="text" name="end_date:string" size="10" 
+	       tal:attributes="value python:doc.get_date('end_date')">
       </div>
     </div>
 

@@ -869,7 +869,7 @@ def cpsupdate(self, langs_list=None):
         portal.manage_addProduct['CPSDefault'].addBoxContainer()
     boxes = {
         'search': {'type':'Base Box',
-                 'title': 'Search',
+                 'title': 'Search form',
                  'format': 'search',
                  'slot': 'top',
                  'order': 10,
@@ -887,7 +887,7 @@ def cpsupdate(self, langs_list=None):
                  'order': 30,
                  },
         'breadcrumbs': {'type':'Base Box',
-                        'title': 'Main menu',
+                        'title': 'Bread crumbs',
                         'format': 'breadcrumbs',
                         'slot': 'top',
                         'order': 40,

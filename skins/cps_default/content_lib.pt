@@ -3,38 +3,56 @@
 
 <!-- ============================================================ -->
 <pre>a master macro used for content stuff:</pre>
-<metal:block define-macro="master">
-<tal:block define="proxy here/this;
-                   doc here/getContent|nocall:here;
-                   ">
-<metal:block use-macro="here/main_template/macros/master">
+<metal:block define-macro="master"
+             tal:define="proxy here/this;
+                         doc doc|here/getContent|nocall:here">
+  <metal:block use-macro="here/main_template/macros/master">
 
-<metal:block fill-slot="base">
-  <tal:block define="rpath python:utool.getRelativeContentURL(here)" replace="structure string:<!--
-cps test / debug information:
-cps:path:${here/absolute_url}
-cps:rpath:${rpath}
-cps:proxy_id:${proxy/id}
-cps:id:${doc/id}
--->" />
-  <metal:block define-slot="base" />
-</metal:block>
+    <metal:block fill-slot="base">
+      <tal:block define="rpath python:utool.getRelativeContentURL(here)"
+                 replace="structure string:<!--
+                            cps test / debug information:
+                            cps:path:${here/absolute_url}
+                            cps:rpath:${rpath}
+                            cps:proxy_id:${proxy/id}
+                            cps:id:${doc/id}
+                            -->">
+        <!-- XXX debug stuff -->
+      </tal:block>
 
-<metal:block fill-slot="header">
-  <metal:block define-slot="header">
-    <h1 id="DesktopTitle"
-        tal:content="here/title_or_id"> Page Title </h1>
-    <div id="DesktopDescription"><span tal:content="doc/Description" /><br>
-    </div>
+      <metal:block define-slot="base">
+        <base href="" tal:attributes="href python: here.absolute_url() + '/'">
+      </metal:block>
+    </metal:block>
+
+    <metal:block fill-slot="header">
+      <metal:block define-slot="header">
+        <h1 tal:content="here/title_or_id">
+          Page Title
+        </h1>
+
+        <div metal:use-macro="here/content_byline/macros/byline">By Me</div>
+        
+        <div class="description" tal:content="doc/Description">
+          Document Description goes here.
+        </div>
+      </metal:block>
+    </metal:block>
+
+    <metal:block fill-slot="main">
+      <metal:block define-slot="main" />
+    </metal:block>
+
+    <metal:block fill-slot="sub">
+      <metal:block define-slot="sub">
+        <div class="box" tal:condition="doc/viewThreadsAtBottom|nothing"
+             tal:content="structure doc/viewThreadsAtBottom">
+          Discussion goes here
+        </div>
+      </metal:block>
+    </metal:block>
+
   </metal:block>
-</metal:block>
-
-<metal:block fill-slot="main">
-  <metal:block define-slot="main" />
-</metal:block>
-
-</metal:block>
-</tal:block>
 </metal:block>
 
 

@@ -25,7 +25,7 @@
       tal:attributes="action here/absolute_url">
 
    <tal:block define="no_form python:not checkPerm('Delete objects', here);
-                     items python:here.getFolderContents(sort_by='status');
+                     items python:here.getFolderContents();
                      format string:compact;
                      columns python:2;
                      items_per_page python:15">

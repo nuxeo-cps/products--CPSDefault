@@ -11,7 +11,7 @@ level: 2
 level: 3
   level 2 + descr, states, history
 """
-bmt = context.Benchmarktimer('getContentInfo')
+bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id)
 bmt.setMarker('start')
 
 wtool=context.portal_workflow

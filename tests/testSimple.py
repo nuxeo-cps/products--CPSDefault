@@ -33,9 +33,9 @@ class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
     def testAnonymousSkins(self):
         # XXX: result = '' for now because we have heavily patched Localizer
         # -> Need to find a better fix.
-        self.assertEquals(self.portal.index_html(), '')
-        self.assertEquals(self.portal.login_form(), '')
-        self.assertEquals(self.portal.join_form(), '')
+        self.assert_(self.portal.index_html())
+        self.assert_(self.portal.login_form())
+        self.assert_(self.portal.join_form())
 
         # XXX: this doesn't work (another Localizer problem)
         #self.assertEquals(self.portal.search_form(), '')
@@ -47,24 +47,24 @@ class TestSimpleAsRoot(TestSimple):
 
     def testMembersSkins(self):
         # XXX: why 'folder_view' works and nor 'view' ?
-        self.assertEquals(self.portal.workspaces.folder_view(), '')
-        self.assertEquals(self.portal.sections.folder_view(), '')
-        #self.assertEquals(self.portal.workspaces.view(), '')
-        #self.assertEquals(self.portal.sections.view(), '')
+        self.assert_(self.portal.workspaces.folder_view())
+        self.assert_(self.portal.sections.folder_view())
+        #self.assert_(self.portal.workspaces.view())
+        #self.assert_(self.portal.sections.view())
 
     def testAdminSkinsAtRoot(self):
-        self.assertEquals(self.portal.directories(), '')
-        #self.assertEquals(self.portal.box_manage_form(), '')
-        #self.assertEquals(self.portal.create_box_form(), '')
-        self.assertEquals(self.portal.reconfig_form(), '')
+        self.assert_(self.portal.directories())
+        #self.assert_(self.portal.box_manage_form())
+        #self.assert_(self.portal.create_box_form())
+        self.assert_(self.portal.reconfig_form())
 
     def testAdminSkinsAtWorkspaces(self):
         ws = self.portal.workspaces
-        self.assertEquals(ws.folder_view(), '')
-        self.assertEquals(ws.folder_factories(), '')
-        #self.assertEquals(ws.folder_contents(), '')
-        self.assertEquals(ws.folder_localrole_form(), '')
-        #self.assertEquals(ws.box_manage_form(), '')
+        self.assert_(ws.folder_view())
+        self.assert_(ws.folder_factories())
+        #self.assert_(ws.folder_contents())
+        self.assert_(ws.folder_localrole_form())
+        #self.assert_(ws.box_manage_form())
 
     def testPlayWithBoxes(self):
         btool = self.portal.portal_boxes

@@ -74,14 +74,25 @@ class DummyMessageCatalog:
     def manage_import(self, *args, **kw):
         pass
 
-# Un-patch LocalizerStringIO
 
 from StringIO import StringIO
 from Products.Localizer import LocalizerStringIO
+from types import StringType, UnicodeType
+# Un-patch LocalizerStringIO
 def LocalizerStringIO_write(self, s):
-    # Don't write anything
-    StringIO.write(self, "")
+    StringIO.write(self, s)
+# Hack around Unicode problem
+def LocalizerStringIO_getvalue(self):
+    if self.buflist:
+        for buf in self.buflist:
+            if type(buf) == UnicodeType:
+                self.buf += buf.encode('latin-1')
+            else:
+                self.buf += buf
+        self.buflist = []
+    return self.buf
 LocalizerStringIO.write = LocalizerStringIO_write
+LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
 
 class CPSTestCase(ZopeTestCase.PortalTestCase):

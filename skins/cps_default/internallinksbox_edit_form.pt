@@ -1,0 +1,62 @@
+<metal:html use-macro="here/main_template/macros/master">
+
+<metal:main fill-slot="main">
+
+<metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
+<metal:fields fill-slot="additional_fields">
+<tal:block define="id python:'links';
+                   values python:box['box'].links;
+                   cpsmcat nocall:here/Localizer/default;
+                   utool nocall:here/portal_url;
+                   base_url python:here.getBaseUrl(utool=utool);
+                   item_per_page python:10666
+                  ">
+
+    <tal:block define="base_url here/getBaseUrl">
+      <script type="text/javascript" tal:content="structure string:<!--
+        var base_url = '${base_url}'
+        var intlinks_w_id = '${id}'
+        -->">
+      </script>
+      <script type="text/javascript">
+        <!--
+        function open_search_dialog() {
+          selector_window = window.open(base_url + 'popup_internallinks_form'+
+          '?textarea=' + intlinks_w_id, 'popup_link', 'toolbar=0,' +
+          'scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,' +
+          'dependent=1,width=500,height=300');
+          if (! selector_window.opener)
+            selector_window.opener = window
+        }
+        function update_links(links) {
+            len = links.length
+            textareaElement = document.form.links
+            value = textareaElement.value
+            if (value && value.substr(value.length - 1) != '\n') {
+                textareaElement.value += '\n'
+            }
+            for (i = 0; i < len; i++) {
+                textareaElement.value += links[i] + "\n"
+            }
+        }
+        -->
+      </script>
+      <textarea style="width: 90%" name="links:lines"
+                tal:define="
+                            links python:'\n'.join(values)"
+                tal:attributes="
+                                id id;
+                                rows python:'4';
+                                cols string:75"
+                tal:content="links"></textarea>
+      <a href="javascript:open_search_dialog()">
+        <img tal:replace="structure python:here.getImgTag('link_popup.gif',
+                                       base_url=base_url, width=48, height=48)">
+      </a>
+    </tal:block>
+</tal:block>
+
+</metal:fields>
+</metal:boxform>
+</metal:main>
+</metal:html>

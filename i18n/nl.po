@@ -3,19 +3,19 @@
 # Gettext Message File for default.
 # Your Name <your@email>, Year
 # Christian Czerwinski <christian.czerwinski@cgey.be>, 2003.
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-11-03 11:10default\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-05 10:22default\n"
 "PO-Revision-Date: 2003-11-19 11:10+0200\n"
 "Last-Translator: Koen Adriaensen <koen.Adriaensen@cgey.be>\n"
 "Language-Team: Nederlands <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: KBabel 1.0.2\n"
 
@@ -36,15 +36,18 @@ msgstr "Een testbox"
 msgid "Action"
 msgstr "Actie"
 
-#.   <p>
+#.   <div metal:define-macro="byline" define="dname python:here.portal_metadirectories['members'].getEntry(doc.Creator());
+#.                 cname dname/fullname|doc/Creator;
+#.                 email dname/email|nothing;">
 #.     Created by
-#.     ${item_creator (tal content="creator" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
+#.     ${item_creator (tal content="cname" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
-#.     ${item_modification (tal content="python:doc.ModificationDate()")}.
-#.   </p>
+#.     ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.   </div>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Aangemaakt door ${item_creator}. Laatst gewijzigd  ${item_modification}."
+msgstr ""
+"Aangemaakt door ${item_creator}. Laatst gewijzigd  ${item_modification}."
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -63,7 +66,7 @@ msgstr "Portal type"
 #.   <td content="item/Description" align="left" class="ListDefinition">
 #.               Portal type's description
 #.             </td>
-#.   <td content="pt/Description" align="left" class="description">
+#.   <td content="item/Description" align="left" class="description">
 #.                 Portal type's description
 #.               </td>
 #: from ../skins/cps_default/box_create_form.pt
@@ -74,7 +77,7 @@ msgstr "Beschrijving portal type"
 #.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
 #.               Portal type's title
 #.               </label>
-#.   <label attributes="for string:cb_${repeat/item/number}" content="pt/Title" for="">
+#.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
 #.                   Portal type's title
 #.                 </label>
 #: from ../skins/cps_default/box_create_form.pt
@@ -98,19 +101,14 @@ msgstr "Rol1"
 msgid "Slot"
 msgstr "Positie"
 
-#.   <div content="portal_status_message" class="message">
+#.   <div define="portal_status_message portal_status_message |
+#.                                          request/portal_status_message |
+#.                                          nothing" condition="portal_status_message" content="portal_status_message" class="message">
 #.     Translated status message.
-#.     </div>
+#.   </div>
 #: from ../skins/cps_default/generic_lib.pt
 msgid "Translated status message."
 msgstr "FAKE"
-
-#.   <option repeat="type allowed" attributes="value type/getId" content="type/Title">
-#.               Type Name
-#.             </option>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "Type Name"
-msgstr "Type naam"
 
 #.   <span attributes="class
 #.         info/review_state" content="info/review_state">Work</span>
@@ -145,6 +143,9 @@ msgstr "vorige"
 #.   <block fill-slot="box_title" content="box/box/title">
 #.          box text title
 #.       </block>
+#.   <block fill-slot="box_title" content="box/box/title">
+#.          box text title
+#.     </block>
 #.   <block content="box/box/title">box text title</block>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "box text title"
@@ -176,6 +177,13 @@ msgstr "kladversie verlaten"
 msgid "button_add"
 msgstr "toevoegen"
 
+#.   <input value="button_apply" class="standalone" type="submit">
+#.     </input>
+#: from ../skins/cps_default/folder_contents.pt
+#, fuzzy
+msgid "button_apply"
+msgstr "kopiëren"
+
 #.   <input value="button_assign_roles" type="submit">
 #.       </input>
 #.   <input value="button_assign_roles" type="submit" />
@@ -193,16 +201,14 @@ msgstr "vorige pagina"
 #.     </input>
 #.   <input onclick="history.back()" class="context" type="button" value="button_cancel">
 #.       </input>
-#.   <input onclick="javascript:history.back()" type="button" value="button_cancel">
-#.     </input>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_reject_form.pt
+#: ../skins/cps_default/content_revert_form.pt
 #: ../skins/cps_default/content_submit_form.pt
-#: ../skins/cps_default/content_unpublish_form.pt
-#: ../skins/cps_default/reconfig_form.pt
+#: ../skins/cps_default/content_unpublish_form.pt 1 more references
 msgid "button_cancel"
 msgstr "annuleren"
 
@@ -210,18 +216,15 @@ msgstr "annuleren"
 #.         <input value="button_back" class="context" name="back" type="submit">
 #.       </input></input>
 #.   <input value="button_change" class="standalone" type="submit">
-#.     </input>
-#.   <input value="button_change" class="standalone" type="submit">
 #.       </input>
 #.   <input value="button_change" class="standalone" name="change" type="submit">
 #.         <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input></input></input>
 #.   <input value="button_change" type="submit">
-#.       <input onclick="javascript:history.back()" type="button" value="button_cancel">
+#.       <input onclick="history.back()" type="button" value="button_cancel">
 #.     </input></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 #: ../skins/cps_default/reconfig_form.pt
@@ -285,7 +288,7 @@ msgstr "kopiëren"
 msgid "button_create_box"
 msgstr "Een box aanmaken"
 
-#.   <input value="button_cut" class="context" name="folder_cut:method" type="submit">
+#.   <input condition="can_del" value="button_cut" class="context" name="folder_cut:method" type="submit">
 #.             <input value="button_copy" class="context" name="folder_copy:method" type="submit">
 #.           </input></input>
 #: from ../skins/cps_default/folder_contents.pt
@@ -338,23 +341,19 @@ msgstr "Bovenaan plaatsen"
 msgid "button_move_up"
 msgstr "hoger plaatsen"
 
-#.   <input value="button_new" class="standalone" name="content_create:method" type="submit">
-#.         </input>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "button_new"
-msgstr "aanmaken"
-
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.     </input>
+#.   <input value="button_ok" class="context searchButton" type="submit">
+#.         </input>
 #.   <input attributes="name python:test(no_form, None,
 #.                                                     nav_action + ':method')" value="button_ok" type="submit">
 #.           <block replace="structure string:
-#.             </form>" condition="no_form" />
+#.           </form>" condition="no_form" />
 #.         </input>
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
-#.
+#.   
 #.   </input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.          </input>
@@ -402,6 +401,14 @@ msgstr "publicatie weigeren"
 msgid "button_rename"
 msgstr "titel wijzigen"
 
+#.   <input value="button_revert_revision" class="standalone" type="submit">
+#.       <input onclick="history.back()" class="context" type="button" value="button_cancel">
+#.     </input></input>
+#: from ../skins/cps_default/content_revert_form.pt
+#, fuzzy
+msgid "button_revert_revision"
+msgstr "publicatie weigeren"
+
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
 #.   <input value="button_search" class="context" type="submit" />
@@ -422,6 +429,13 @@ msgstr "verzenden"
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "button_submit_document"
 msgstr "document versturen"
+
+#.   <input onclick="toggleSelect(this)" class="context" type="button" value="button_toggle_select_all">
+#.           </input>
+#: from ../skins/cps_default/folder_contents.pt
+#, fuzzy
+msgid "button_toggle_select_all"
+msgstr "schrappen"
 
 #.   <input value="button_unpublish_document" class="standalone" type="submit">
 #.         <input onclick="history.back()" class="context" type="button" value="button_cancel">
@@ -460,10 +474,9 @@ msgstr "om uw persoonlijke informatie te wijzigen. "
 #: from ../skins/cps_default/logged_in.pt
 msgid "description_login_failure"
 msgstr ""
-"Uw registratie werd niet aanvaard door het portaal. Uw gebruikersnaam "
-"en/of wachtwoord zijn misschien incorrect. Mogelijk is uw browser "
-"niet geconfigureerd om HTTP cookies te "
-"aanvaarden. Voor hulp contacteert u "
+"Uw registratie werd niet aanvaard door het portaal. Uw gebruikersnaam en/of "
+"wachtwoord zijn misschien incorrect. Mogelijk is uw browser niet "
+"geconfigureerd om HTTP cookies te aanvaarden. Voor hulp contacteert u "
 
 #.   <p>
 #.            Welcome. You are currently logged in.
@@ -484,7 +497,8 @@ msgstr "U heeft het portaal verlaten."
 #.       </span>
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_zmi_warning"
-msgstr "U wordt geregistreerd van buiten het portaal. U wordt misschien genoodzaakt "
+msgstr ""
+"U wordt geregistreerd van buiten het portaal. U wordt misschien genoodzaakt "
 
 #.   <div class="description">
 #.       This form is used to set the portal configuration options.
@@ -493,19 +507,18 @@ msgstr "U wordt geregistreerd van buiten het portaal. U wordt misschien genoodza
 msgid "description_reconfig_form"
 msgstr "reconfig het portaal"
 
-#.   <p>
-#.      You have been registered as a member.
+#.   <p> 
+#.      You have been registered as a member. 
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
 msgstr "Proficiat&nbsp;! U werd als lid geregistreerd."
 
 #.   <span>description_up_to
-#.             ${up_id (tal content="python:here.aq_parent.getId()")}
-#.           </span>
+#.       ${up_id (tal content="python:here.aq_parent.title_or_id()")}
+#.     </span>
 #.   <span>description_up_to
-#.            ${up_id (tal content="python:here.aq_parent.getId()")}
-#.          </span>
+#.            ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "description_up_to ${up_id}"
@@ -519,6 +532,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr "zichtbare box vanaf&nbsp;:&nbsp;${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
 msgstr "nl"
@@ -535,9 +549,9 @@ msgstr "Gelieve ons te verontschuldigen voor het ongemak."
 #: from ../skins/cps_default/error_lib.pt
 msgid "error_not_found"
 msgstr ""
-"De door u gevraagde informatie werd niet gevonden. Indien het "
-"document werd verplaatst, kunt u het waarschijnlijk terugvinden met "
-"behulp van de zoekfunctie."
+"De door u gevraagde informatie werd niet gevonden. Indien het document werd "
+"verplaatst, kunt u het waarschijnlijk terugvinden met behulp van de "
+"zoekfunctie."
 
 #.   <span>
 #.           gave ${nb_results (tal content="items_length")}
@@ -600,11 +614,17 @@ msgstr "checkin kladversie van ${item_id}"
 msgid "heading_checkout_draft_of ${item_id}"
 msgstr "checkout kladversie van ${item_id}"
 
+#.   <h2 condition="type_name">heading_create</h2>
+#: from ../skins/cps_default/folder_edit_form.pt
+#, fuzzy
+msgid "heading_create"
+msgstr "Items herbenoemen"
+
 #.   <h1>
 #.       heading_edit
 #.       ${item_id (tal replace="here/getId")}
 #.     </h1>
-#.   <h2>heading_edit
+#.   <h2 condition="not:type_name">heading_edit
 #.       ${item_id (tal replace="here/getId")}</h2>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -621,12 +641,10 @@ msgstr "Fout niet gevonden"
 msgid "heading_error_other"
 msgstr "CPS heeft een fout gevonden"
 
-#.   <span>Create a new:</span>
 #.   <h1 fill-slot="header">
 #.       Add Content
 #.     </h1>
-#: from ../skins/cps_default/folder_contents.pt
-#: ../skins/cps_default/folder_factories.pt
+#: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Inhoud toevoegen"
 
@@ -705,6 +723,15 @@ msgstr "Items herbenoemen"
 msgid "heading_resource_metadata"
 msgstr "Metadata"
 
+#.   <title fill-slot="title">
+#.     heading_revert_to_old_revision_of
+#.     ${item_id (tal replace="here/title_or_id")}
+#.   </title>
+#: from ../skins/cps_default/content_revert_form.pt
+#, fuzzy
+msgid "heading_revert_to_old_revision_of ${item_id}"
+msgstr "De publicatie van ${item_id} weigeren"
+
 #.   <h1>
 #.     Standard Resource Metadata
 #.     </h1>
@@ -741,14 +768,15 @@ msgstr "depublicatie van ${item_id}"
 #.     </span>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
-msgstr "Als u deze kladversie verlaat, wordt het originele document vrijgegeven."
+msgstr ""
+"Als u deze kladversie verlaat, wordt het originele document vrijgegeven."
 
 #.   <span>Accept publication of this item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
 msgstr ""
-"Het accepteren van de publicatie van dit item zal het beschikbaar stellen aan de "
-"lezers van de rubriek"
+"Het accepteren van de publicatie van dit item zal het beschikbaar stellen "
+"aan de lezers van de rubriek"
 
 #.   <span>
 #.       If you commit this draft, it will replace the document currently locked.
@@ -763,8 +791,8 @@ msgstr "Als u deze kladversie indient, zal ze het huidige document vervangen."
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
 msgstr ""
-"Als u een kladversie creëert, zult u de enige persoon zijn die aan het document kan "
-"werken."
+"Als u een kladversie creëert, zult u de enige persoon zijn die aan het "
+"document kan werken."
 
 #.   <em>
 #.           Box types in italic are predefined types. You cannot change their
@@ -773,8 +801,9 @@ msgstr ""
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "help_italic_vendor_boxes_types"
 msgstr ""
-"De boxes in cursief zijn gepredefinieerde types. U kan hun eigenschappen niet wijzigen via "
-"deze interface. Maak gebruik van de default box om dit te doen."
+"De boxes in cursief zijn gepredefinieerde types. U kan hun eigenschappen "
+"niet wijzigen via deze interface. Maak gebruik van de default box om dit te "
+"doen."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -783,8 +812,8 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
 msgstr ""
-"Als lid wordt u in staat gesteld de website te personaliseren en aan "
-"de samenwerking deel te nemen."
+"Als lid wordt u in staat gesteld de website te personaliseren en aan de "
+"samenwerking deel te nemen."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
@@ -792,8 +821,8 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_2"
 msgstr ""
-"Lid worden is volkomen gratis, en uw email en andere persoonlijke "
-"informatie zal niet worden vrijgegeven."
+"Lid worden is volkomen gratis, en uw email en andere persoonlijke informatie "
+"zal niet worden vrijgegeven."
 
 #.   <span>
 #.           You must submit a valid email address. This address will be used
@@ -803,10 +832,10 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
-"U moet een geldig emailadres opgeven. Dit adres zal gebruikt "
-"worden om u een wachtwoord voor het verkrijgen van toegang tot de website toe te sturen."
-"Eenmaal u zich met dit wachtwoord heeft geregistreerd op de web site, mag u dit wachtwoord "
-"aanpassen naar uw wensen."
+"U moet een geldig emailadres opgeven. Dit adres zal gebruikt worden om u een "
+"wachtwoord voor het verkrijgen van toegang tot de website toe te sturen."
+"Eenmaal u zich met dit wachtwoord heeft geregistreerd op de web site, mag u "
+"dit wachtwoord aanpassen naar uw wensen."
 
 #.   <p>
 #.       Don't forget to logout or exit your browser when you're done.
@@ -814,7 +843,8 @@ msgstr ""
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_aware_logout"
 msgstr ""
-"Vergeet niet om u uit te schrijven of uw browser te sluiten wanneer u klaar bent."
+"Vergeet niet om u uit te schrijven of uw browser te sluiten wanneer u klaar "
+"bent."
 
 #.   <p>
 #.       Having trouble logging in? Make sure to enable cookies in
@@ -823,7 +853,8 @@ msgstr ""
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
 msgstr ""
-"Ondervindt u problemen bij uw registratie&nbsp;? Zorg ervoor dat uw browser cookies aanvaardt."
+"Ondervindt u problemen bij uw registratie&nbsp;? Zorg ervoor dat uw browser "
+"cookies aanvaardt."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -833,8 +864,8 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
 msgstr ""
-"Vul hier uw gebruikersnaam in, klik op <em>Verzenden</em> en uw "
-"wachtwoord zal per email naar u worden opgestuurd indien u een geldig emailadres heeft "
+"Vul hier uw gebruikersnaam in, klik op <em>Verzenden</em> en uw wachtwoord "
+"zal per email naar u worden opgestuurd indien u een geldig emailadres heeft "
 "opgegeven op het ogenblik dat u zich heeft ingeschreven."
 
 #.   <span>
@@ -844,8 +875,9 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
 msgstr ""
-"Als dit niet gaat in uw geval (bijvoorbeeld, omdat u uw gebruikersnaam bent vergeten "
-"of u uw emailadres niet hebt opgegeven) stuur dan een email naar&nbsp;"
+"Als dit niet gaat in uw geval (bijvoorbeeld, omdat u uw gebruikersnaam bent "
+"vergeten of u uw emailadres niet hebt opgegeven) stuur dan een email "
+"naar&nbsp;"
 
 #.   <p>
 #.       Your password has been mailed.
@@ -853,8 +885,7 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_response.pt
 #, fuzzy
 msgid "help_mail_password_response_1"
-msgstr ""
-"Uw wachtwoord werd verzonden."
+msgstr "Uw wachtwoord werd verzonden."
 
 #.   <p>
 #.       It should arrive in your mailbox momentarily.
@@ -862,8 +893,7 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_response.pt
 #, fuzzy
 msgid "help_mail_password_response_2"
-msgstr ""
-"Het zou in uw mailbox moeten zijn aangekomen."
+msgstr "Het zou in uw mailbox moeten zijn aangekomen."
 
 #.   <p>
 #.       You must select one or more items to rename.
@@ -905,9 +935,18 @@ msgstr "De publicatie van dit item weigeren"
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
 msgstr ""
-"De keuze 'gebruikersnaam onthouden' aankruisen, "
-"zal een cookie met uw gebruikersnaam aanmaken, zodat uw gebruikersnaam bij de volgende "
-"registratie reeds zal zijn ingevuld."
+"De keuze 'gebruikersnaam onthouden' aankruisen, zal een cookie met uw "
+"gebruikersnaam aanmaken, zodat uw gebruikersnaam bij de volgende registratie "
+"reeds zal zijn ingevuld."
+
+#.   <span>
+#.       Revert to revision
+#.       ${rev (tal replace="request/rev")}.
+#.     </span>
+#: from ../skins/cps_default/content_revert_form.pt
+#, fuzzy
+msgid "help_revert_revision"
+msgstr "De publicatie van dit item weigeren"
 
 #.   <span>An item's status (also called its
 #.     review state) determines who can see it.  An item with a <b>work</b> status
@@ -920,16 +959,15 @@ msgstr ""
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
 msgstr ""
-"De status van een item (ook het niveau van goedkeuring genoemd) "
-"bepaalt aan wie het wordt getoond. Een item "
-"met de status < b>werk</b > kan door de geregistreerde bezoekers van de "
-"werkgroep geraadpleegd worden, en kan door de leden en de verantwoordelijken "
-"van de werkgroep worden bewerkt. Enkel "
-"de items met de status < b>gepubliceerd</b > zijn "
-"zichtbaar voor de bezoekers van een rubriek. Om een item te "
-"publiceren, moet het worden goedgekeurd door een controleur van de rubriek. "
-"U kunt een item ter goedkeuring voorleggen door de status te "
-"veranderen in < b>hangende</b > door het item in te dienen bij een rubriek."
+"De status van een item (ook het niveau van goedkeuring genoemd) bepaalt aan "
+"wie het wordt getoond. Een item met de status < b>werk</b > kan door de "
+"geregistreerde bezoekers van de werkgroep geraadpleegd worden, en kan door "
+"de leden en de verantwoordelijken van de werkgroep worden bewerkt. Enkel de "
+"items met de status < b>gepubliceerd</b > zijn zichtbaar voor de bezoekers "
+"van een rubriek. Om een item te publiceren, moet het worden goedgekeurd door "
+"een controleur van de rubriek. U kunt een item ter goedkeuring voorleggen "
+"door de status te veranderen in < b>hangende</b > door het item in te dienen "
+"bij een rubriek."
 
 #.   <span>To make an item published and
 #.     viewable by readers, it has to be reviewed by one of the sections's reviewers.
@@ -940,11 +978,11 @@ msgstr ""
 msgid "help_submit_publication"
 msgstr ""
 "Om een item te publiceren en aldus zichtbaar te maken voor de bezoekers, "
-"moet het door een van de controleurs van de rubriek worden goedgekeurd. "
-"U kunt het item in verschillende rubrieken indienen.<br> "
-"Een kopie van dit item zal in iedere rubriek gecreëerd worden, met "
-"een status < b>hangende</b >, wachtend op een goedkeuring door de controleur "
-"van de rubriek om uiteindelijk te worden gepubliceerd, status < b>gepubliceerd</b >."
+"moet het door een van de controleurs van de rubriek worden goedgekeurd. U "
+"kunt het item in verschillende rubrieken indienen.<br> Een kopie van dit "
+"item zal in iedere rubriek gecreëerd worden, met een status < b>hangende</b "
+">, wachtend op een goedkeuring door de controleur van de rubriek om "
+"uiteindelijk te worden gepubliceerd, status < b>gepubliceerd</b >."
 
 #.   <span>
 #.     Unpublish published item</span>
@@ -982,6 +1020,12 @@ msgstr "Naam van de website beheerder"
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_all"
 msgstr "Alle"
+
+#.   <strong>Old revisions:</strong>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_archived_revisions"
+msgstr "Herziening"
 
 #.   <option attributes="selected
 #.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
@@ -1056,6 +1100,12 @@ msgstr "Kiezen"
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_closed"
 msgstr "Afgesloten"
+
+#.   <h2 condition="repeat/item/start">label_collaborative_folder</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "label_collaborative_folder"
+msgstr "Folder"
 
 #.   <option attributes="selected python:format == 'compact'" value="compact">
 #.               Compact
@@ -1166,7 +1216,7 @@ msgstr "Aan"
 
 #.   <th align="right">Display</th>
 #.   <span>Display:</span>
-#.   <span valign="top">Display with</span>
+#.   <span>Display with</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/content_lib.pt
 msgid "label_display"
@@ -1177,6 +1227,12 @@ msgstr "Weergeven"
 msgid "label_display_description"
 msgstr "Beschrijving weergeven"
 
+#.   <th align="right" colspan="5">Display icons</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
+#, fuzzy
+msgid "label_display_icons"
+msgstr "Weergeven"
+
 #.   <th align="right" colspan="5">Display managers</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_managers"
@@ -1186,20 +1242,6 @@ msgstr "Verantwoordelijken weergeven"
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_root"
 msgstr "Basis tonen"
-
-#.   <th nowrap="" align="right">
-#.           Doc id
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_doc_id"
-msgstr "Doc id"
-
-#.   <th align="right">
-#.           Document identifier
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_document_identifier"
-msgstr "Document identificatie"
 
 #.   <th style="text-align:left;">
 #.           Email address
@@ -1219,6 +1261,12 @@ msgstr "Einddatum (JJ/MM/AAAA)"
 #: from ../skins/cps_default/eventcalendarbox_edit_form.pt
 #, fuzzy
 msgid "label_event_types"
+msgstr "evenement types"
+
+#.   <em>label_event_types_help</em>
+#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
+#, fuzzy
+msgid "label_event_types_help"
 msgstr "evenement types"
 
 #.   <label for="events_in">label_events_location</label>
@@ -1269,6 +1317,12 @@ msgstr "breedte van de flash box"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_folder"
 msgstr "Folder"
+
+#.   <h2>label_folder_search</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "label_folder_search"
+msgstr "Folder weergave"
 
 #.   <th align="right">Format</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1372,16 +1426,12 @@ msgstr "Taal"
 #.   <block>label_language
 #.         ${status_language}
 #.       </block>
+#.   <block>label_language
+#.           ${status_language}
+#.         </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
 msgstr "Taal ${status_language}"
-
-#.   <th nowrap="" align="right">
-#.           Language Revision
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_language_revision"
-msgstr "Taalkundige herziening"
 
 #.   <th>Search by</th>
 #: from ../skins/cps_default/folder_localrole_form.pt
@@ -1462,20 +1512,6 @@ msgstr "Beschrijving van het portaal"
 msgid "label_portal_title"
 msgstr "Titel van het portaal"
 
-#.   <th align="right">
-#.           Proxy identifier
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_proxy_identifier"
-msgstr "Proxy identificatie"
-
-#.   <th nowrap="" align="right">
-#.           Proxy Tag
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_proxy_tag"
-msgstr "Proxy Tag"
-
 #.   <strong>label_publication_states</strong>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
@@ -1507,16 +1543,12 @@ msgstr "naar"
 msgid "label_reviewing_history"
 msgstr "Overzicht van de uitgevoerde controles"
 
-#.   <th nowrap="" align="right">
-#.           Revision
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_revision"
-msgstr "Herziening"
-
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="item/rev")}
+#.         </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
 msgstr "herziening ${status_revision}"
@@ -1561,6 +1593,7 @@ msgstr "Laatst gewijzigd"
 
 #.   <span>Portal type</span>
 #: from ../skins/cps_default/contentbox_edit_form.pt
+#: ../skins/cps_default/generic_lib.pt
 msgid "label_search_portal_type"
 msgstr "Portaal type"
 
@@ -1715,13 +1748,20 @@ msgstr "Werk"
 msgid "label_you_are_here"
 msgstr "U bent hier&nbsp;:"
 
+#.   <span>nop</span>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+#, fuzzy
+msgid "legend_folder_no_search_result"
+msgstr "geeft geen resultaat."
+
 #.   <p>
 #.      These users currently have local roles assigned in this folder:
 #.   </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_assigned_users"
 msgstr ""
-"Deze gebruikers hebben momenteel lokale rollen toegewezen gekregen in deze folder&nbsp;:"
+"Deze gebruikers hebben momenteel lokale rollen toegewezen gekregen in deze "
+"folder&nbsp;:"
 
 #.   <h2>
 #.       Currently assigned local roles
@@ -1847,8 +1887,8 @@ msgstr "hier"
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "link_local_roles_underlined"
 msgstr ""
-"<i>De onderstreepte rollen</i> worden in parent folders vastgelegd."
-"Volg de links om de lokale rollen in deze folders te beheren."
+"<i>De onderstreepte rollen</i> worden in parent folders vastgelegd.Volg de "
+"links om de lokale rollen in deze folders te beheren."
 
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
@@ -1875,6 +1915,12 @@ msgstr "U kunt zich direct registreren door te klikken"
 #: from ../skins/cps_default/registered.pt
 msgid "link_registred_return_home_page"
 msgstr "Naar de hoofdpagina"
+
+#.   <a attributes="href string:${here_url}/content_revert_form?rev:int=${item/rev}" href=".">Revert</a>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "link_revert_to_this_revision"
+msgstr "Bestaande herziening van hetzelfde document"
 
 #.   <th width="15%">action</th>
 #: from ../skins/cps_default/box_manage_form.pt
@@ -2006,12 +2052,6 @@ msgstr "creëren"
 msgid "Contents"
 msgstr "Inhoud"
 
-msgid "Calendar"
-msgstr "Agenda"
-
-msgid "Calendars"
-msgstr "Agenda's"
-
 msgid "deferred"
 msgstr "opgeschort"
 
@@ -2102,6 +2142,10 @@ msgstr "Lokale rollen"
 msgid "action_metadata"
 msgstr "Metadata"
 
+#, fuzzy
+msgid "action_manage_members"
+msgstr "Deelnemers"
+
 msgid "action_moderate_chat"
 msgstr "Chat faciliteren"
 
@@ -2110,6 +2154,10 @@ msgstr "Wijzigen"
 
 msgid "action_my_preferences"
 msgstr "Mijn voorkeuren"
+
+#, fuzzy
+msgid "action_new_content"
+msgstr "Inhoud van de folder"
 
 msgid "action_reply_question"
 msgstr "Op vraag antwoorden"
@@ -2125,6 +2173,14 @@ msgstr "Weigeren"
 
 msgid "action_status_history"
 msgstr "Statusoverzicht"
+
+#, fuzzy
+msgid "action_subscribe"
+msgstr "Indienen"
+
+#, fuzzy
+msgid "action_unsubscribe"
+msgstr "Indienen"
 
 msgid "action_un_publish"
 msgstr "Depubliceren"
@@ -2169,6 +2225,30 @@ msgstr "Verwijderen"
 msgid "action_calendar"
 msgstr "Agenda"
 
+#, fuzzy
+msgid "action_view_stat"
+msgstr "Tonen"
+
+#, fuzzy
+msgid "action_view_results"
+msgstr "Mijn favorieten tonen"
+
+#, fuzzy
+msgid "action_modify_prop"
+msgstr "Wijzigen"
+
+#, fuzzy
+msgid "action_modify_form"
+msgstr "Wijzigen"
+
+#, fuzzy
+msgid "action_export_csv"
+msgstr "Exporteren"
+
+#, fuzzy
+msgid "action_erase_data"
+msgstr "Metadata"
+
 msgid "label_action_workflow"
 msgstr "Workflow"
 
@@ -2210,6 +2290,10 @@ msgstr "Rechts"
 
 msgid "label_top"
 msgstr "Bovenkant"
+
+#, fuzzy
+msgid "label_creator"
+msgstr "Midden"
 
 msgid "description_confirm_delete"
 msgstr "Verwijdering bevestigen"
@@ -2259,13 +2343,37 @@ msgstr "Een folder waarin inhoud wordt gecreëerd"
 msgid "portal_type_Workspace_title"
 msgstr "Werkgroep"
 
+#, fuzzy
+msgid "portal_type_Calendar"
+msgstr "box voor evenementen kalender"
+
+#, fuzzy
+msgid "portal_type_Calendars"
+msgstr "box voor evenementen kalender"
+
 msgid "portal_type_CPSForum_title"
 msgstr "Forum"
 
 msgid "portal_type_CPSForum_description"
 msgstr ""
-"Faciliteert discussies die volgens onderwerp worden georganiseerd (draden van "
-"discussies)"
+"Faciliteert discussies die volgens onderwerp worden georganiseerd (draden "
+"van discussies)"
+
+#, fuzzy
+msgid "portal_type_CollectorDocument_title"
+msgstr "rubriek"
+
+#, fuzzy
+msgid "portal_type_CollectorDocument_description"
+msgstr "&nbsp;"
+
+#, fuzzy
+msgid "portal_type_QuizDocument_title"
+msgstr "Dummy document"
+
+#, fuzzy
+msgid "portal_type_QuizDocument_description"
+msgstr "Een test document"
 
 msgid "portal_type_CPSChat_title"
 msgstr "Chat"
@@ -2278,6 +2386,14 @@ msgstr "box voor evenementen kalender"
 
 msgid "portal_type_EventCalendarBox_description"
 msgstr "Een kalender met links naar de evenementen"
+
+#, fuzzy
+msgid "portal_type_NuxMailBoxer_title"
+msgstr "Generieke box"
+
+#, fuzzy
+msgid "portal_type_NuxMailBoxer_description"
+msgstr "Om een eenvoudige tekst of HTML-inhoud in een box weer te geven."
 
 msgid "portal_type_ActionBox_title"
 msgstr "Actie box"
@@ -2307,9 +2423,7 @@ msgid "portal_type_ContentBox_title"
 msgstr "Inhoudsbox"
 
 msgid "portal_type_ContentBox_description"
-msgstr ""
-"Geeft de inhoud van een folder of het resultaat van een "
-"zoekopdracht."
+msgstr "Geeft de inhoud van een folder of het resultaat van een zoekopdracht."
 
 msgid "portal_type_ImageBox_title"
 msgstr "Afbeelding box"
@@ -2346,8 +2460,8 @@ msgstr "Aangepast zoekformulier aan de rechterkant."
 
 msgid "description_nuxeo_basebox_menu"
 msgstr ""
-"Box met de navigatie die de basis van de werkgroepen, "
-"en van de rubrieken en de rubrieken van eerste niveau omvat."
+"Box met de navigatie die de basis van de werkgroepen, en van de rubrieken en "
+"de rubrieken van eerste niveau omvat."
 
 msgid "description_nuxeo_basebox_breadcrumbs"
 msgstr "Geeft informatie over de afgelegde weg."
@@ -2373,6 +2487,10 @@ msgstr "De standaard inhoudsbox."
 msgid "description_nuxeo_contentbox_last_modified"
 msgstr "Inhoudsbox die de laatst gewijzigde items weergeeft."
 
+#, fuzzy
+msgid "description_nuxeo_contentbox_simple"
+msgstr "De standaard inhoudsbox."
+
 msgid "description_nuxeo_textbox_default"
 msgstr "De doos van tekst per gebrek."
 
@@ -2395,7 +2513,13 @@ msgid "description_nuxeo_imagebox_default"
 msgstr "De standaard afbeeldingsbox."
 
 msgid "description_nuxeo_flashbox_default"
-msgstr "Standaard box die een Flashbestand weergeeft, met aan te passen breedte en hoogte"
+msgstr ""
+"Standaard box die een Flashbestand weergeeft, met aan te passen breedte en "
+"hoogte"
+
+#, fuzzy
+msgid "description_nuxeo_treebox_sitemap_adv"
+msgstr "Navigatiebox met plan van website"
 
 msgid "psm_added_to_favorites"
 msgstr "Toegevoegd aan de persoonlijke favorieten"
@@ -2445,6 +2569,10 @@ msgstr "Object(en) nieuwe naam geven."
 msgid "psm_operation_not_allowed"
 msgstr "Niet toegelaten verrichting."
 
+#, fuzzy
+msgid "psm_revision_reverted"
+msgstr "Invoer verwijderd."
+
 msgid "psm_select_at_least_one_document"
 msgstr "Selecteer ten minste één document."
 
@@ -2465,16 +2593,20 @@ msgstr "Uw wachtwoord is niet correct."
 
 msgid "psm_join_invalid_name"
 msgstr ""
-"Uw gebruikersnaam is ongeldig. Gelieve deze te wijzigen of een andere "
-"in te voeren."
+"Uw gebruikersnaam is ongeldig. Gelieve deze te wijzigen of een andere in te "
+"voeren."
 
 msgid "psm_join_login_already_used"
-msgstr ""
-"Deze gebruikersnaam is reeds in gebruik. Gelieve een andere te "
-"kiezen."
+msgstr "Deze gebruikersnaam is reeds in gebruik. Gelieve een andere te kiezen."
 
 msgid "psm_join_invalid_email"
 msgstr "Uw emailadres is ongeldig. Gelieve het te controleren."
+
+msgid "collector_psm_erase_data_cancel"
+msgstr ""
+
+msgid "collector_psm_erased_data"
+msgstr ""
 
 # dates ===================================================
 msgid "date_short"
@@ -2574,3 +2706,33 @@ msgstr "Za"
 msgid "calendar_day_6"
 msgstr "Zo"
 
+#, fuzzy
+#~ msgid "button_select_all"
+#~ msgstr "schrappen"
+
+#~ msgid "Type Name"
+#~ msgstr "Type naam"
+
+#~ msgid "button_new"
+#~ msgstr "aanmaken"
+
+#~ msgid "label_doc_id"
+#~ msgstr "Doc id"
+
+#~ msgid "label_document_identifier"
+#~ msgstr "Document identificatie"
+
+#~ msgid "label_language_revision"
+#~ msgstr "Taalkundige herziening"
+
+#~ msgid "label_proxy_identifier"
+#~ msgstr "Proxy identificatie"
+
+#~ msgid "label_proxy_tag"
+#~ msgstr "Proxy Tag"
+
+#~ msgid "Calendar"
+#~ msgstr "Agenda"
+
+#~ msgid "Calendars"
+#~ msgstr "Agenda's"

@@ -28,7 +28,7 @@ class CPSDefaultSite(CMFSite):
     """CPS variant of a CMF Portal."""
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
-    enable_portal_joining = 1
+    enable_portal_joining = 0
     cps_version = ('CPS', 3, 3, 0)
 
     security = ClassSecurityInfo()
@@ -65,7 +65,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
                              manager_email='',
                              manager_password='',
                              manager_password_confirmation='',
-                             enable_portal_joining=1,
+                             enable_portal_joining=0,
                              REQUEST=None):
     """Add a CPSDefault Site."""
 

@@ -13,11 +13,11 @@
 
 <tal:haserror condition="error_type">
   <tal:NotFound condition="python:error_type == 'NotFound'">
-    <metal:block use-macro="here/error_lib/macros/not_found" />
+    <metal:block use-macro="here/error_lib_not_found/macros/not_found" />
   </tal:NotFound>
 
   <tal:default condition="python:error_type != 'NotFound'">
-    <metal:block use-macro="here/error_lib/macros/other" />
+    <metal:block use-macro="here/error_lib_other/macros/other" />
   </tal:default>
 
   <tal:debugging condition="python:1 or checkPerm('Manager', here)">

@@ -1,4 +1,4 @@
-<metal:block use-macro="here/content_lib/macros/master">
+<metal:block use-macro="here/content_lib_master/macros/master">
 
 <div metal:fill-slot="main">
 <h1>test content_lib on: <span tal:replace="here/getId">Item</span></h1>
@@ -7,92 +7,92 @@
 <tal:block define="global info python:proxy.getContentInfo(level=3)" />
 
 <pre>macro transition_form:</pre>
-<metal:block use-macro="here/content_lib/macros/transition_form" />
+<metal:block use-macro="here/content_lib_transition_form/macros/transition_form" />
 <hr/>
 
 
 <pre>macro info_icon:</pre>
-<metal:block use-macro="here/content_lib/macros/info_icon" />
+<metal:block use-macro="here/content_lib_info_icon/macros/info_icon" />
 <hr/>
 
 <pre>macro info_compact:</pre>
-<metal:block use-macro="here/content_lib/macros/info_compact" />
+<metal:block use-macro="here/content_lib_info_compact/macros/info_compact" />
 <hr/>
 
 <pre>macro info_detail:</pre>
-<metal:block use-macro="here/content_lib/macros/info_detail" />
+<metal:block use-macro="here/content_lib_info_detail/macros/info_detail" />
 <hr/>
 
 <pre>macro info_summary:</pre>
-<metal:block use-macro="here/content_lib/macros/info_summary" />
+<metal:block use-macro="here/content_lib_info_summary/macros/info_summary" />
 <hr/>
 
 <!-- pre>macro info_detail_tab:</pre>
-<metal:block use-macro="here/content_lib/macros/info_detail_tab" />
+<metal:block use-macro="here/content_lib_info_detail_tab/macros/info_detail_tab" />
 <hr/ -->
 
 <pre>macro status:</pre>
-<metal:block use-macro="here/content_lib/macros/status" />
+<metal:block use-macro="here/content_lib_status/macros/status" />
 <hr/>
 
 <pre>macro status with status_time:</pre>
 <tal:block define="status_time not:nothing;">
-  <metal:block use-macro="here/content_lib/macros/status" />
+  <metal:block use-macro="here/content_lib_status/macros/status" />
 </tal:block>
 <hr/>
 
 <pre>macro status status_short_fmt:</pre>
 <tal:block define="status_short_fmt not:nothing;">
-  <metal:block use-macro="here/content_lib/macros/status" />
+  <metal:block use-macro="here/content_lib_status/macros/status" />
 </tal:block>
 <hr/>
 
 <pre>macro status with status_time and status_short_fmt:</pre>
 <tal:block define="status_time not:nothing;
                    status_short_fmt not:nothing;">
-  <metal:block use-macro="here/content_lib/macros/status" />
+  <metal:block use-macro="here/content_lib_status/macros/status" />
 </tal:block>
 <hr/>
 
 <tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
 
 <pre>macro states:</pre>
-<metal:block use-macro="here/content_lib/macros/states" />
+<metal:block use-macro="here/content_lib_states/macros/states" />
 <hr/>
 
 <tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
 
 <pre>macro history:</pre>
-<metal:block use-macro="here/content_lib/macros/history" />
+<metal:block use-macro="here/content_lib_history/macros/history" />
 <hr/>
 
 <tal:block define="global items python:proxy.getFolderContents()" />
 
 <pre>macro display_content:</pre>
-<metal:block use-macro="here/content_lib/macros/display_contents" />
+<metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 <hr/>
 
 <pre>macro display_content_icon:</pre>
 <tal:block define="format string:icon">
-<metal:block use-macro="here/content_lib/macros/display_contents" />
+<metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 </tal:block>
 <hr/>
 
 <pre>macro display_content_compact:</pre>
 <tal:block define="format string:compact">
-<metal:block use-macro="here/content_lib/macros/display_contents" />
+<metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 </tal:block>
 <hr/>
 
 <pre>macro display_content_detail:</pre>
 <tal:block define="format string:detail">
-<metal:block use-macro="here/content_lib/macros/display_contents" />
+<metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 </tal:block>
 <hr/>
 
 <pre>macro display_content_detail_tab:</pre>
 <tal:block define="format string:detail_tab">
-<metal:block use-macro="here/content_lib/macros/display_contents" />
+<metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 </tal:block>
 <hr/>
 

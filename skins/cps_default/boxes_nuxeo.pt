@@ -319,16 +319,6 @@
     <metal:block fill-slot="box_title" i18n:translate=""
       tal:content="box/box/title">box text title</metal:block>
     <metal:block fill-slot="box_body">
-       <div class="atomExport">
-	 <a tal:attributes="href string:exportATOMContentBox?box_url=${box/url}"
-	  title="link_atom_export" i18n:attributes="title"
-	  i18n:translate="label_atom_export">ATOM</a>
-       </div>
-       <div class="rssExport">
-	 <a tal:attributes="href string:exportRSSContentBox?box_url=${box/url}"
-	  title="link_rss_export" i18n:attributes="title"
-	  i18n:translate="label_rss_export">RSS</a>
-       </div>
        <tal:block define="
 	  no_form python:1;
 	  filter python:0;
@@ -342,6 +332,7 @@
 	 <a href="" tal:attributes="href link_more"
 	   i18n:translate="link_more">More...</a>
        </div>
+      <metal:block use-macro="here/xml_exports/macros/rss_atom_exports"/>
     </metal:block>
   </metal:block>
 </metal:block>
@@ -370,11 +361,6 @@
       tal:content="box/box/title">box text title</metal:block>
 
     <metal:block fill-slot="box_body">
-       <div class="rssExport">
-	 <a tal:attributes="href string:exportRSSContentBox?box_url=${box/url}"
-	  title="link_rss_export" i18n:attributes="title"
-	  i18n:translate="label_rss_export">RSS</a>
-       </div>
       <div style="padding-bottom: 6px;"
 	 tal:repeat="item items">
 	<tal:block define="info python:here.getContentInfo(item, level=1);
@@ -387,6 +373,7 @@
 	 <a href="" tal:attributes="href link_more"
 	   i18n:translate="link_more">More...</a>
        </div>
+      <metal:block use-macro="here/xml_exports/macros/rss_atom_exports"/>
     </metal:block>
   </metal:block>
 </metal:block>
@@ -880,11 +867,6 @@
     <metal:block fill-slot="box_title" i18n:translate=""
       tal:content="box/box/title">box text title</metal:block>
     <metal:block fill-slot="box_body">
-       <div class="rssExport">
-	 <a tal:attributes="href string:exportRSSContentBox?box_url=${box/url}"
-	  title="link_rss_export" i18n:attributes="title"
-	  i18n:translate="label_rss_export">RSS</a>
-       </div>
        <tal:block define="
 	  no_form python:1;
 	  filter python:0;
@@ -892,6 +874,7 @@
 	  nav_action string:folder_view;">
 	  <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
        </tal:block>
+      <metal:block use-macro="here/xml_exports/macros/rss_atom_exports"/>
     </metal:block>
   </metal:block>
 </metal:block>

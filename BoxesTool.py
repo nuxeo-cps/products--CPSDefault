@@ -216,6 +216,8 @@ class BoxesTool(UniqueObject, PortalFolder):
         """Save personal override for a single box"""
         # find the personal boxes container pbc, create if empty
         home = getToolByName(self, 'portal_membership').getHomeFolder()
+        if home is None:
+            return
         idbc = self.getBoxContainerId(home)
 
         home.manage_addProduct['CPSDefault'].addBoxContainer(quiet=1)
@@ -242,6 +244,8 @@ class BoxesTool(UniqueObject, PortalFolder):
         XXX TODO rename ? indead delete the personal boxcontainer"""
         # find the personal boxes container pbc
         home = getToolByName(self, 'portal_membership').getHomeFolder()
+        if home is None:
+            return
         idbc = self.getBoxContainerId(home)
 
         if hasattr(aq_base(home), idbc):

@@ -1,19 +1,16 @@
 <metal:block define-macro="folder_view">
 <metal:block use-macro="here/main_template/macros/master">
-<div metal:fill-slot="main"
-     tal:define="list_here python:checkPerm('List folder contents', here);">
-
+<metal:block fill-slot="main"
+  tal:define="list_here python:checkPerm('List folder contents', here);">
 <tal:block define="tmp python:btool.filterBoxes(boxes, slot='center');
-                   boxes_view python:test(len(tmp), tmp, btool.filterBoxes(boxes, slot='folder_view'));">
-
-<b tal:replace="python:CPSD_bmt_mark('FOLDER_VIEW_boxes_start')" />
+  boxes_view python:test(len(tmp), tmp, btool.filterBoxes(boxes,
+  slot='folder_view'));">
+<!-- BEGIN FOLDER_VIEW Slot ======================= -->
 <tal:block repeat="box boxes_view">
-  <metal:block use-macro="python:path(box['macro'])" /><br/>
+  <metal:block use-macro="python:path(box['macro'])" />
 </tal:block>
-<b tal:replace="python:CPSD_bmt_mark('FOLDER_VIEW_boxes_stop')" />
-
+<!-- END FOLDER_VIEW Slot ========================= -->
 </tal:block>
-
-</div>
+</metal:block>
 </metal:block>
 </metal:block>

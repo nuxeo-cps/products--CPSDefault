@@ -20,10 +20,9 @@
 """
 from zLOG import LOG, DEBUG, INFO
 
-from Globals import InitializeClass, DTMLFile, MessageDialog
+from Globals import InitializeClass, DTMLFile, MessageDialog, PersistentMapping
 from AccessControl import ClassSecurityInfo, getSecurityManager, Unauthorized
 from Acquisition import aq_base, aq_parent, aq_inner
-from ZODB.PersistentMapping import PersistentMapping
 
 from Products.CMFCore.PortalFolder import PortalFolder
 from Products.CMFCore.CMFCorePermissions import View, ManagePortal

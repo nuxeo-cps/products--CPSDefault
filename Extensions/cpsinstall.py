@@ -183,7 +183,7 @@ def cpsupdate(self, langs_list=None):
         portal['portal_actions'].addAction(
             id='action_my_preferences',
             name='action_my_preferences',
-            action="string:${portal_url}/directory_getentry?dirname=members&entry_id=${member}",
+            action="string:${portal_url}/cpsdirectory_entry_view?dirname=members&id=${member}",
             condition='member',
             permission=('View',),
             category='user',

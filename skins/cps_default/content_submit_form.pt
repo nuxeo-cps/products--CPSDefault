@@ -1,21 +1,24 @@
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/content_lib/macros/master">
+<metal:html use-macro="here/content_lib/macros/master">
 
-<metal:block fill-slot="title">
-  <span i18n:translate="">Submit
-    <span tal:replace="here/getId" i18n:name="objectid"> Item</span>
-  </span>
-</metal:block>
+<metal:block fill-slot="header" />
 
-<metal:block fill-slot="help">
+<metal:main fill-slot="main">
+<metal:std_main use-macro="here/content_lib/macros/std_main">
+
+<metal:title fill-slot="title">
+  <span i18n:translate="submit">Submit</span>
+  <span tal:replace="here/title_or_id">Item</span>
+</metal:title>
+
+<metal:help fill-slot="help">
   <span i18n:translate="">To make an item published and viewable by readers, it
    has to be reviewed by one of the sections's reviewers.
  You can submit the item in many sections folder.<br/> A copy of the item will be created into each section with a <b>pending</b> status, waiting to be reviewed and finally <b>published</b> by a section's reviewer.</span>
-</metal:block>
+</metal:help>
 
-<div metal:fill-slot="main">
+<metal:main fill-slot="main">
   <tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
+  
   <br/>
   <metal:block use-macro="here/content_lib/macros/status" /><br/><br/>
  
@@ -59,7 +62,7 @@
   <metal:block use-macro="here/content_lib/macros/states" /><br/>
 
   <metal:block use-macro="here/content_lib/macros/history" />
-
-</div>
-
-</html>
+</metal:main>
+</metal:std_main>
+</metal:main>
+</metal:html>

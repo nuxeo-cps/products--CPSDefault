@@ -75,7 +75,8 @@ class BaseInstaller:
 
         <skins> parameter is a sequence of (<skin_name>, <skin_path>).
         """
-        all_skins = self.portal.portal_skins.getSkinPaths()
+        skintool = self.portal.portal_skins
+        all_skins = skintool.getSkinPaths()
         for skin_name, skin_path in all_skins:
             if skin_name != 'Basic':
                 continue
@@ -87,7 +88,7 @@ class BaseInstaller:
                 path.insert(1, skinLayer)
             newPath = ', '.join(path)
             self.log("New layers = %s" % newPath)
-            self.portal.portal_skins.addSkinSelection(skin_name, newPath)
+            skintool.addSkinSelection(skin_name, newPath)
         self.resetSkinCache()
 
     def setupCpsDocumentDependantSkins(self, skins):
@@ -122,12 +123,13 @@ class BaseInstaller:
 
         <skins> parameter is a sequence of (<skin_name>, <skin_path>).
         """
+        skintool = self.portal.portal_skins
         new_skin_installed = 0
         for skin, path in skins:
             path = path.replace('/', os.sep)
             self.log(" FS Directory View '%s'" % skin)
-            if skin in self.portal.portal_skins.objectIds():
-                dv = self.portal.portal_skins[skin]
+            if skin in skintool.objectIds():
+                dv = skintool[skin]
                 oldpath = dv.getDirPath()
                 if oldpath == path:
                     self.logOK()
@@ -136,24 +138,43 @@ class BaseInstaller:
                     dv.manage_properties(dirpath=path)
             else:
                 new_skin_installed = 1
-                self.portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
+                skintool.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
                 self.log("  Creating skin")
 
         if new_skin_installed:
-            all_skins = self.portal.portal_skins.getSkinPaths()
-            for skin_name, skin_path in all_skins:
-                if skin_name != 'Basic':
-                    continue
-                path = [x.strip() for x in skin_path.split(',')]
-                path = [x for x in path if x not in skins] # strip all
-                if path and path[0] == 'custom':
-                    path = path[:1] + [skin[0] for skin in skins] + path[1:]
-                else:
-                    path = [skin[0] for skin in skins] + path
-                npath = ', '.join(path)
-                self.portal.portal_skins.addSkinSelection(skin_name, npath)
-                self.log(" Fixup of skin %s" % skin_name)
-            self.resetSkinCache()
+            skin_name = 'Basic'
+            skin_path = skintool.getSkinPath(skin_name)
+            path = [x.strip() for x in skin_path.split(',')]
+            path = [x for x in path if x not in skins] # strip all
+            if path and path[0] == 'custom':
+                path = path[:1] + [skin[0] for skin in skins] + path[1:]
+            else:
+                path = [skin[0] for skin in skins] + path
+            npath = ', '.join(path)
+            skintool.addSkinSelection(skin_name, npath)
+            self.log(" Fixup of skin %s" % skin_name)
+
+        self.resetSkinCache()
+
+    def removeSkins(self, *skins):
+        """Remove the given set of skins.
+
+        <skins> parameter is the sequence of given of skin names.
+        """
+        skintool = self.portal.portal_skins
+        skin_path = skintool.getSkinPath('Basic')
+        # proper list of installed layers in Basic
+        path = [x.strip() for x in skin_path.split(',')]
+        # all but specified skins
+        path = [x for x in path if x not in skins]
+        newPath = ', '.join(path)
+        # update list of layers
+        skintool.addSkinSelection('Basic', newPath)
+        # then remove folders
+        skintool.manage_delObjects(*skins)
+        # refresh needed
+        self.resetSkinCache()
+            
 
     def setupTranslations(self, default_lang=None):
         """Import .po files into the Localizer/default Message Catalog.

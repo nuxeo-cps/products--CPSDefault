@@ -59,7 +59,6 @@ factory_type_information = (
     {'id': 'Base Box',
      'description': ('A Base Box is the most basic box.'),
      'meta_type': 'Base Box',
-     'content_icon': 'box_icon.gif',
      'product': 'CPSDefault',
      'factory': 'addBaseBox',
      'immediate_view': 'basebox_edit_form',

@@ -17,6 +17,16 @@ ZopeTestCase.installProduct('NuxMetaDirectories')
 ZopeTestCase.installProduct('NuxUserGroups')
 ZopeTestCase.installProduct('TranslationService')
 
+# Patch Localizer, it doesn't want to work within the test
+# harness.
+def get_selected_language(self):
+    """ """
+    return self._default_language
+
+
+from Products.Localizer.Localizer import Localizer
+Localizer.get_selected_language = get_selected_language
+
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager
 from AccessControl.User import User

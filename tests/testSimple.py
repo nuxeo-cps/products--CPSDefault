@@ -9,7 +9,7 @@ import CPSTestCase
 class TestSimple(CPSTestCase.CPSTestCase):
     def test1(self):
         assert self.portal.getId() == 'portal'
-        assert self.portal.title == ''
+        assert self.portal.title == 'CPSDefault Portal'
 
 
 def test_suite():

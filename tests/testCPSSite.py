@@ -1,6 +1,7 @@
 # CPS Unit Test
 #
 # this suite is much more a functional suite than unit test suite
+# FIXME: it doesn't work and needs to be rewritten or replaced.
 # 
 import os, sys, time
 if __name__ == '__main__':
@@ -11,25 +12,11 @@ os.environ['ZOPE_SECURITY_POLICY'] = 'PYTHON'
 
 import unittest
 from Testing import ZopeTestCase
+import CPSTestCase
 
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.Permissions import access_contents_information, view
 from Products.CMFCore.utils import getToolByName
-
-ZopeTestCase.installProduct('CMFCore')
-ZopeTestCase.installProduct('CMFDefault')
-ZopeTestCase.installProduct('DCWorkflow')
-ZopeTestCase.installProduct('BTreeFolder2')
-ZopeTestCase.installProduct('NuxUserGroups')
-ZopeTestCase.installProduct('Localizer')
-ZopeTestCase.installProduct('OrderedFolderSupportPatch')
-ZopeTestCase.installProduct('TranslationService')
-ZopeTestCase.installProduct('MailHost')
-ZopeTestCase.installProduct('VerboseSecurity')
-ZopeTestCase.installProduct('CPSCore')
-
-ZopeTestCase.installProduct('CPSDefault')
-
 
 init_suite_flag = 0
 

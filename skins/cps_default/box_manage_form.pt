@@ -9,7 +9,7 @@
     <tal:redirect define="response request/RESPONSE;
                           dummy python:response.redirect(context_url)" />
   </tal:security>
-  
+
   <div class="documentActions">
     <a href="box_create_form" i18n:translate="button_create_box"
       tal:attributes="href string:${context_urlc}/box_create_form">Add a box</a>
@@ -37,7 +37,7 @@
 <h3>
 <img tal:replace="structure python:here.getImgTag('slot_' + slot_name + '.png',
                                                   base_url=base_url)" />
-  <span i18n:translate="label_slot" />:
+  <span i18n:translate="label_slot">slot</span>:
   <span i18n:translate="" tal:content="string:label_${slot_name}">Slot</span>
 </h3>
 <table width="100%" summary="listing of boxes">

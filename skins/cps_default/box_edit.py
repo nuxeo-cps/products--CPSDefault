@@ -12,6 +12,15 @@ if kw.get('back'):
     return REQUEST.RESPONSE.redirect('%s/box_manage_form' %
                                      (context.absolute_url()))
 
+if kw['sort_by'] == 'None':
+    kw['sort_by'] = None
+
+if kw['direction'] == 'None':
+    kw['direction'] = None
+
+if kw['display'] == 'None':
+    kw['display'] = None
+
 box_url = kw['box_url']
 del kw['box_url']
 box_category = kw['box_category']

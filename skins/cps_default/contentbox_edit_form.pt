@@ -1,4 +1,6 @@
-<metal:html use-macro="here/main_template/macros/master">
+<metal:html tal:define="showthirdcol nothing">
+
+<metal:body use-macro="here/main_template/macros/master">
 
 <metal:main fill-slot="main">
 
@@ -16,16 +18,30 @@
     <th align="right" i18n:translate="label_sort_by">sort by</th>
     <td colspan="3">
       <select name="sort_by">
+        <option value="None" i18n:translate="label_default"
+                tal:attributes="selected python:box['box'].sort_by is None">
+          Default
+        </option>
         <option value="title" i18n:translate="label_sort_by_title"
-          tal:attributes="selected python:box['box'].sort_by == 'title'">title</option>
+                tal:attributes="selected python:box['box'].sort_by == 'title'">
+          title
+        </option>
         <option value="date" i18n:translate="label_sort_by_date"
-          tal:attributes="selected python:box['box'].sort_by == 'date'">date</option>
+                tal:attributes="selected python:box['box'].sort_by == 'date'">
+          date
+        </option>
         <option value="status" i18n:translate="label_sort_by_status"
-          tal:attributes="selected python:box['box'].sort_by == 'status'">status</option>
+                tal:attributes="selected python:box['box'].sort_by == 'status'">
+          status
+        </option>
       </select>
       <select name="direction">
+        <option value="None" i18n:translate="label_default"
+                tal:attributes="selected python:box['box'].direction is None">
+          Default
+        </option>
         <option value="asc" i18n:translate="label_sort_asc"
-          tal:attributes="selected python:box['box'].direction != 'desc'">asc</option>
+          tal:attributes="selected python:box['box'].direction == 'asc'">asc</option>
         <option value="desc" i18n:translate="label_sort_desc"
           tal:attributes="selected python:box['box'].direction == 'desc'">desc</option>
       </select>
@@ -33,6 +49,10 @@
     <th align="right" i18n:translate="label_display_format">format</th>
     <td>
       <select name="display">
+        <option value="None" i18n:translate="label_default"
+                tal:attributes="selected python:box['box'].display is None">
+          Default
+        </option>
         <option value="icon" i18n:translate="label_display_icon"
           tal:attributes="selected python:box['box'].display == 'icon'">icon</option>
         <option value="compact"
@@ -47,9 +67,9 @@
   <tr valign="top">
     <td>&nbsp;</td>
     <td colspan="5">
-      <input type="checkbox" name="zoom" checked="" class="noborder"
-        tal:attributes="checked python:test(box['box'].zoom, 'checked',
-        nothing)"><label i18n:translate="label_contentbox_zoom">zoom</label>
+      <input type="checkbox" id="cb_zoom" name="zoom" class="noborder"
+             tal:attributes="checked box/box/zoom">
+      <label for="cb_zoom" i18n:translate="label_contentbox_zoom">zoom</label>
     </td>
   </tr>
   <tr valign="top">
@@ -131,5 +151,5 @@
 </metal:fields>
 </metal:boxform>
 </metal:main>
-
+</metal:body>
 </metal:html>

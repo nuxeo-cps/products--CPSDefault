@@ -173,22 +173,6 @@ def cpsupdate(self, langs_list=None):
             visible=1)
         pr(" Added Action Directories")
 
-    action_found = 0
-    for action in portal['portal_actions'].listActions():
-        if action.id == 'boxes':
-            action_found = 1
-
-    if not action_found:
-        portal['portal_actions'].addAction(
-            id='boxes',
-            name='action_boxes',
-            action='string: ${object/absolute_url}/box_manage_form',
-            condition='python: folder is object',
-            permission = ('Manage Boxes',),
-            category='global',
-            visible=1)
-        pr(" Added Action Boxes")
-
     # skins
     pr("Verifying skins")
     skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_default','cps_nuxmetadirectories',)

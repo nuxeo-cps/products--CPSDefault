@@ -233,12 +233,15 @@
    <th style="text-align:left;">Role(s)</th>
  </tr>
   
- <tal:block define="aq_roles python:here.portal_membership.getMergedLocalRoles(here)">
+ <tal:block define="aq_roles python:here.portal_membership.getMergedLocalRoles(here);">
    <tal:block repeat="aq_user python:aq_roles.keys()">
-     <tr tal:condition="python:aq_user not in [lrole[0] for lrole in lroles]" >
+     <tr tal:condition="python:aq_user not in [lrole[0] for lrole in lroles]" 
+         tal:define="liste python:aq_roles[aq_user]; 
+                     d python:{};
+                     unique_aq_roles python:[item for item in liste if not(d.has_key(item)) and d.setdefault(item,1)]" >
        <td>&nbsp;</td>
        <td><span tal:content="aq_user"/></td>
-       <td><i><span tal:content="python:modules['string'].join( aq_roles[aq_user], ', ' )"/></i></td>
+       <td><i><span tal:content="python:modules['string'].join( unique_aq_roles, ', ' )"/></i></td>
      </tr>
    </tal:block>
  

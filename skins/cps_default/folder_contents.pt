@@ -169,7 +169,9 @@
         <input type="submit" name="folder_rename_form:method"
           class="context" value="button_rename" i18n:attributes="value">
         <input type="submit" name="folder_delete:method" value="button_delete"
-          class="destructive" i18n:attributes="value">
+          class="destructive" i18n:attributes="value"
+          tal:attributes="onclick python:'return window.confirm(\'%s\')' %
+          (cpsmcat('description_confirm_delete'), )">
         <tal:block tal:define="params here/getDisplayParams;
                                sort_by params/sort_by;
                                direction params/direction;

@@ -1,0 +1,23 @@
+<metal:block use-macro="here/main_template/macros/master">
+
+<div metal:fill-slot="main">
+<h1>test encodeJsString decodeJsString</h1>
+<p></p>
+
+<pre>macro portal_message:</pre>
+
+<tal:block define="var1 string:premiére ligne
+deuxieme ligne
+troisimeme\tligne\n'quatrieme' ceci est un slash/ et backslach \\ ligne\t.;
+ var1_js python: here.encodeJsString(var1);
+ var1_py python: here.decodeJsString(var1_js);">
+
+la string: <pre tal:content=var1 /><hr>
+la jsstring: <pre tal:content="var1_js" /><hr>
+la pystring depuis la jsstring: <pre tal:content="var1_py" /><hr>
+
+</tal:block>
+
+</div>
+
+</metal:block>

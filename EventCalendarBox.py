@@ -69,15 +69,22 @@ class EventCalendarBox(BaseBox):
         )
 
     events_in = None
+    event_types = []
 
     def __init__(self, id, flash_filename='', **kw):
         BaseBox.__init__(self, id, category='eventcalendarbox', kw=kw)
         self.events_in = None
+        self.event_types = []
 
     def edit(self, **kw):
         self.events_in = self.REQUEST.form.get('events_in')
         if not self.events_in:
             self.events_in = None
+        self.event_types = self.REQUEST.form.get('event_types')
+        if not self.event_types:
+            #necessary as the edit form does an inclusion test and
+            #thus needs event_types to be a sequence, even if empty
+            self.event_types = []
         BaseBox.edit(self, **kw)
 
 

@@ -1,0 +1,17 @@
+<metal:block use-macro="here/main_template/macros/master">
+
+<div metal:fill-slot="main" i18n:domain="cmf_default">
+<h1 i18n:translate="">test content_lib on: <span tal:replace="here/getId"
+i18n:name="objectid">Item</span></h1>
+
+
+<pre>list of boxes:</pre>
+<tal:block define="btool here/portal_boxes;">
+  <tal:block repeat="box python:btool.searchBoxes(here);">
+    <tal:block replace="structure box/render" />
+  </tal:block>
+</tal:block>
+
+</div>
+
+</metal:block>

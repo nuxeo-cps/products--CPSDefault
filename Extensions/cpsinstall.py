@@ -52,8 +52,8 @@ class DefaultInstaller(CPSInstaller):
 
         self.setupRegistration()
         self.setupMembership()
-        self.setupSkins()
         self.setupTools()
+        self.setupSkins()
         self.setupEventService()
         self.setupTypes()
         self.setupActions()

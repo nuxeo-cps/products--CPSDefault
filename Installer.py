@@ -24,6 +24,7 @@ import os
 from App.Extensions import getPath
 from re import match
 from types import TupleType, ListType
+from Acquisition import aq_base
 from zLOG import LOG, INFO, DEBUG
 
 class BaseInstaller:
@@ -214,6 +215,8 @@ class BaseInstaller:
                 roles=['Manager'], acquire=0)
 
         self.log(portal.loadTree(filename=filename))
+
+
     def setupDelBoxes(self, boxes_id, box_container):
         """Delete boxes with the id listed in boxes_id that are located in
         box_container."""
@@ -260,10 +263,9 @@ class BaseInstaller:
         """Get a box container and create it if not found and asked for."""
         portal_boxes = self.portal.portal_boxes
         container_id = portal_boxes.getBoxContainerId(parent)
-        box_container = getattr(parent, container_id, None)
-        if box_container is None and create:
+        if not hasattr(aq_base(parent), container_id) and create:
             parent.manage_addProduct['CPSDefault'].addBoxContainer()
-            box_container = getattr(parent, container_id)
+        box_container = getattr(parent, container_id)
         return box_container
 
 

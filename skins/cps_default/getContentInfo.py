@@ -14,6 +14,8 @@ level: 4 (cost ???)
   level 3 + archived
 """
 
+from zLOG import LOG, DEBUG
+
 # how many characters for the description
 DESCRIPTION_MAX_LENGTH = 150
 
@@ -151,7 +153,15 @@ except AttributeError:
                                                         info['rpath'])
 info['icon'] = proxy.getIcon(relative_to_portal=1)
 info['type'] = proxy.getPortalTypeName()
-info['type_l10n'] = cpsmcat(proxy.getTypeInfo().Title())
+
+if proxy.getTypeInfo() is not None:
+    info['type_l10n'] = cpsmcat(proxy.getTypeInfo().Title())
+else:
+    LOG("getContentInfo() pb getting Type Information",
+        DEBUG,
+        'Proxy :',
+        proxy)
+    info['type_l10n'] = ''
 info['review_state'] = wtool.getInfoFor(proxy, 'review_state', '')
 try:
     langrev = proxy.getLanguageRevisions()

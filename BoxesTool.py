@@ -114,13 +114,11 @@ class BoxesTool(UniqueObject, SimpleItem):
                 box['settings'].update(settings[box['path']])
                 box[macr] = box[box].getMacro(box['settings']['style'])
 
-        # TODO filter on display_in_subfolder
-
         # filtering on closed, slot
         boxes = [x for x in boxes if (not x['settings']['closed'] and
                                       (slot is None or x['settings']['slot']==slot))]
 
-        # TODO filter on guard_roles
+        # TODO: filter on permission ?
 
         # sorting
         def cmpbox(a, b):

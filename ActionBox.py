@@ -44,7 +44,7 @@ class ActionBox(BaseBox):
     """
     meta_type = 'Action Box'
     portal_type = 'Action Box'
-    
+
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -66,13 +66,13 @@ class ActionBox(BaseBox):
         if self.categories:
             categories = self.categories
 
-        items = []        
+        items = []
         for cat in categories:
             if cat in all_categories:
                 items.append(actions[cat])
         return items
-   
-        
+
+
 InitializeClass(ActionBox)
 
 
@@ -83,4 +83,3 @@ def addActionBox(dispatcher, id, REQUEST=None, **kw):
     if REQUEST is not None:
         url = dispatcher.DestinationURL()
         REQUEST.RESPONSE.redirect('%s/manage_main' % url)
-# TODO XXX FIX FIX FIX FIX FIX FIX FIX FIX !!!

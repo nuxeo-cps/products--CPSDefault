@@ -1,0 +1,110 @@
+<!-- macro library for contents -->
+<!-- $Id$ -->
+
+<!-- ============================================================ -->
+<pre>macro master:<hr/></pre>
+<metal:block define-macro="master">
+<metal:block use-macro="here/main_template/macros/master">
+
+<div metal:fill-slot="main">
+  <div class="Desktop"
+     tal:define="wtool here/portal_workflow;
+                 review_state python: wtool.getInfoFor(here, 'review_state');
+                 langrev here/getLanguageRevisions;
+                 lang python:langrev.keys()[0];
+                 rev python:langrev.values()[0];
+                 history here/getContentHistory;">
+
+    <h1><metal:block define-slot="title">title</metal:block></h1>
+    <em><metal:block define-slot="help">help</metal:block></em>
+    <div metal:define-slot="main" i18n:domain="cmf_default">
+       bla
+    </div>
+  </div>
+</div>
+
+</metal:block>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<pre>macro status:<hr/></pre>
+<metal:block define-macro="status">
+<tal:block condition="not:status_short_fmt|nothing">
+  <strong i18n:translate="">Status: </strong>
+  <span tal:replace="review_state">Work</span>
+  <strong i18n:translate="">Revision: </strong>
+  <span tal:replace="rev">1</span>
+  <strong i18n:translate="">Language: </strong>
+  <span tal:replace="lang">en</span>
+  <tal:block condition="status_time|nothing">
+    <strong i18n:translate="">Since: </strong>
+    <span tal:replace="python:status_time.aCommon()">10/12/2000 11:12</span>
+  </tal:block>
+</tal:block>
+<tal:block condition="status_short_fmt|nothing">
+  <tal:block condition="status_time|nothing">
+    <span tal:replace="python:status_time.aCommon()">10/12/2000 11:12</span>:
+  </tal:block>
+  v<span tal:replace="rev">1</span>-<span tal:replace="lang">en</span>
+  <span tal:replace="review_state">published</span>, 
+</tal:block>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<pre>macro states:<hr/></pre>
+<metal:block define-macro="states">
+<strong i18n:translate="">Publication states: </strong><br/>
+<span tal:repeat="item history/states">
+  <span tal:condition="python:item['review_state'] != 'work'">
+    <tal:block define="review_state item/review_state;
+                       rev item/rev;
+                       lang item/lang;
+                       status_time item/time;
+                       status_short_fmt not:nothing;">
+      <metal:block use-macro="here/content_lib/macros/status" />
+    </tal:block>
+    <span i18n:translate="">in section: </span>
+    <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/">
+      <span tal:replace="item/title">Section</span></a>
+    <br/>
+  </span>
+</span>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<pre>macro history:<hr/></pre>
+<metal:block define-macro="history">
+<strong i18n:translate="">Reviewing history:</strong><br/>
+<span tal:repeat="item history/history">
+  <span tal:replace="python: item['time'].aCommon()"></span>:
+  <span tal:omit-tag="" tal:content="item/action" i18n:translate=""></span>
+  <span tal:condition="item/effective_date|nothing" i18n:translate="">
+   (effective: <span tal:replace="python: item['effective_date'].aCommon()"
+                     i18n:name="eff_date"></span>)</span>
+  <span tal:omit-tag="" i18n:translate="">by
+    <span tal:replace="item/actor" i18n:name="actor">Actor</span></span>:
+    <span tal:replace="item/comments">Comments</span>
+    <br/>
+  </span>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="form">
+<form method="post" action="content_status_modify"
+  tal:attributes="action string:${here/absolute_url}/content_status_modify">
+  <div metal:define-slot="fields">
+   <!-- more fields -->
+  </div>
+  <strong><em i18n:translate="">Comments</em></strong><br/>
+  <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%">
+  </textarea>
+  <div metal:define-slot="button">
+    <input type="hidden" name="workflow_action" value="transition" />
+    <input type="submit" value="Transition" i18n:attributes="value" />
+  </div>
+</form>
+</metal:block>

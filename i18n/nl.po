@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-03 16:37default\n"
+"POT-Creation-Date: 2004-02-06 18:15default\n"
 "PO-Revision-Date: 2004-01-06 14:45+0100\n"
 "Last-Translator: emmanuel <epietriga@nuxeo.com>\n"
 "Language-Team: francais <fr@li.org>\n"
@@ -39,7 +39,7 @@ msgstr "Een testbox"
 msgid "Action"
 msgstr "Actie"
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator());
+#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
@@ -344,8 +344,9 @@ msgstr "Bovenaan plaatsen"
 msgid "button_move_up"
 msgstr "hoger plaatsen"
 
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.     </input>
+#.   <input value="button_ok" class="context searchButton" type="submit"><br>
+#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.     </br></input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.         </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -358,8 +359,9 @@ msgstr "hoger plaatsen"
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.   
 #.   </input>
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.          </input>
+#.   <input value="button_ok" class="context searchButton" type="submit"><br>
+#.           <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.          </br></input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -414,7 +416,7 @@ msgstr "publicatie weigeren"
 
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
-#.   <input value="button_search" class="context" type="submit" />
+#.   <input value="button_search" class="standalone" type="submit" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
@@ -1603,38 +1605,61 @@ msgstr "basis"
 msgid "label_search"
 msgstr "zoekmogelijkheden"
 
+#.   <label attributes="for id2">all</label>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "label_search_all_site"
+msgstr "Vrije tekst"
+
 #.   <span>Description</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_description"
 msgstr "Beschrijving"
 
 #.   <span>Full text</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_full_text"
 msgstr "Vrije tekst"
 
+#.   <label attributes="for id1">here</label>
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "label_search_here"
+msgstr "zoekmogelijkheden"
+
+#.   <div class="label" />
+#: from ../skins/cps_default/generic_lib.pt
+#, fuzzy
+msgid "label_search_location"
+msgstr "Beschrijving"
+
 #.   <span>Modified since</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_modified_since"
 msgstr "Laatst gewijzigd"
 
 #.   <span>Portal type</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_portal_type"
 msgstr "Portaal type"
 
 #.   <span>Status</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_status"
 msgstr "Status"
 
 #.   <span>Description</span>
-#.   <span>Title</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_title"
@@ -1847,7 +1872,7 @@ msgstr "geeft geen resultaat."
 msgid "legend_one_search_result"
 msgstr "geeft 1 resultaat."
 
-#.   <a attributes="href string:${base_url}advanced_search_form" href="search_form">
+#.   <a attributes="href string:./advanced_search_form" href="search_form">
 #.     Advanced search</a>
 #.   <span>
 #.                Advanced search
@@ -2069,7 +2094,7 @@ msgstr "Commentaar"
 msgid "v${status_revision}- ${status_language}"
 msgstr "Versie ${status_revision} Taal ${status_language} Status"
 
-#.   <div class="footer">
+#.   <div style="margin-top:3em" class="footer">
 #.     welcome_cps ${cps_link}
 #.   </div>
 #: from ../skins/cps_default/boxes_nuxeo.pt

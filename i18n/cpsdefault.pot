@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2004-02-03 16:37default\n"
+"POT-Creation-Date: 2004-02-06 18:15default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator());
+#.   <div metal:define-macro="byline" define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
 #.                 cname dname/fullname|doc/Creator;
 #.                 email dname/email|nothing;">
 #.     Created by
@@ -338,8 +338,9 @@ msgstr ""
 msgid "button_move_up"
 msgstr ""
 
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.     </input>
+#.   <input value="button_ok" class="context searchButton" type="submit"><br>
+#.       <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.     </br></input>
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.         </input>
 #.   <input attributes="name python:test(no_form, None,
@@ -352,8 +353,9 @@ msgstr ""
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.   
 #.   </input>
-#.   <input value="button_ok" class="context searchButton" type="submit">
-#.          </input>
+#.   <input value="button_ok" class="context searchButton" type="submit"><br>
+#.           <block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+#.          </br></input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -407,7 +409,7 @@ msgstr ""
 
 #.   <input value="button_search" name="role_submit" type="submit">
 #.      </input>
-#.   <input value="button_search" class="context" type="submit" />
+#.   <input value="button_search" class="standalone" type="submit" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "button_search"
@@ -1527,38 +1529,58 @@ msgstr ""
 msgid "label_search"
 msgstr ""
 
+#.   <label attributes="for id2">all</label>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "label_search_all_site"
+msgstr ""
+
 #.   <span>Description</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_description"
 msgstr ""
 
 #.   <span>Full text</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_full_text"
 msgstr ""
 
+#.   <label attributes="for id1">here</label>
+#: from ../skins/cps_default/generic_lib.pt
+msgid "label_search_here"
+msgstr ""
+
+#.   <div class="label" />
+#: from ../skins/cps_default/generic_lib.pt
+msgid "label_search_location"
+msgstr ""
+
 #.   <span>Modified since</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_modified_since"
 msgstr ""
 
 #.   <span>Portal type</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_portal_type"
 msgstr ""
 
 #.   <span>Status</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_status"
 msgstr ""
 
 #.   <span>Description</span>
-#.   <span>Title</span>
+#.   <div class="label" />
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_search_title"
@@ -1768,7 +1790,7 @@ msgstr ""
 msgid "legend_one_search_result"
 msgstr ""
 
-#.   <a attributes="href string:${base_url}advanced_search_form" href="search_form">
+#.   <a attributes="href string:./advanced_search_form" href="search_form">
 #.     Advanced search</a>
 #.   <span>
 #.                Advanced search
@@ -1987,7 +2009,7 @@ msgstr ""
 msgid "v${status_revision}- ${status_language}"
 msgstr ""
 
-#.   <div class="footer">
+#.   <div style="margin-top:3em" class="footer">
 #.     welcome_cps ${cps_link}
 #.   </div>
 #: from ../skins/cps_default/boxes_nuxeo.pt

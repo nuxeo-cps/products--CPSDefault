@@ -3,7 +3,7 @@
 # $Id$
 
 return [
-    "work",
-    "pending",
-    "published",
+    'work',
+    'pending',
+    'published',
     ]

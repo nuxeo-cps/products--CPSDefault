@@ -169,7 +169,6 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     def testSubmitAllDocumentTypes(self):
         all_document_types = self.portal.getDocumentTypes()
         del all_document_types['Workspace']
-        print all_document_types.keys()
         for document_type in all_document_types.keys():
             self._testSubmit(document_type)
 

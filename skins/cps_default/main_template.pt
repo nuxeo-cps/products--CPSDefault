@@ -1,6 +1,6 @@
 <metal:block define-macro="master" tal:define="
   showthirdcol showthirdcol|python:1;
-  emptybody emptybody|nothing;
+  emptybody emptybody|request/emptybody|nothing;
   utool nocall:here/portal_url;
   atool here/portal_actions;
   mtool here/portal_membership;
@@ -50,7 +50,9 @@
 </metal:block>
 </head>
 <body OnLoad="setFocus()" tal:condition="emptybody">
+  <!-- Has to be removed if nobody was using the slot before -->
   <metal:block define-slot="body" />
+  <metal:block define-slot="main" />
   <!-- CPSD CPS Debug information =================== -->
   <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>

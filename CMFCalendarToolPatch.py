@@ -23,14 +23,14 @@ security.declarePublic('catalog_getcpsevents')
 def catalog_getcpsevents(self, year, month):
     """ given a year and month return a list of days that have events """
     
-    first_date=DateTime(str(month)+'/1/'+str(year))
-    last_day=calendar.monthrange(year, month)[1]
-    ## This line was cropping the last day of the month out of the
-    ## calendar when doing the query
-    ## last_date=DateTime(str(month)+'/'+str(last_day)+'/'+str(year))
-    last_date=first_date + last_day    
-
-    query = self.search(query={'portal_type':self.calendar_types,'review_state':'published'},start_date=first_date,end_date=last_date)
+    nb_days=calendar.monthrange(year, month)[1]
+    first_date = DateTime(str(month)+'/1/'+str(year)+ ' 12:00:00AM')
+    last_date = DateTime(str(month)+'/'+str(nb_days)+'/'+str(year)+ ' 23:59:59AM')
+    
+    query = self.search(query={'portal_type':self.calendar_types,
+                               'review_state':'published',
+                               },
+                        start_date=first_date,end_date=last_date)
 
     # compile a list of the days that have events
     eventDays={}
@@ -66,6 +66,7 @@ def catalog_getcpsevents(self, year, month):
         else:
             eventDays[eventStartDay]['eventslist'].append(event)
             eventDays[eventStartDay]['event'] = 1
+
     return eventDays
 
 security.declarePublic('getCPSEventsForCalendar')
@@ -107,13 +108,19 @@ def getCPSEventsForThisDay(self, thisDay):
     B) End on this day  OR
     C) Start before this day  AND  end after this day"""
 
-    query = self.search(query={'portal_type':self.calendar_types,'review_state':'published'},start_date=thisDay,end_date=thisDay)
+    first_date, last_date = self.getBeginAndEndTimes(thisDay.day(), thisDay.month(), thisDay.year())
+
+    query = self.search(query={'portal_type':self.calendar_types,
+                               'review_state':'published',
+                               },
+                        start_date = first_date,
+                        end_date = last_date)
 
     results = []
-
+    
     for q in query:
         results.append(q)
-                
+
     def sort_function(x,y):
         x_doc = x.getContent()
         y_doc = y.getContent()
@@ -128,7 +135,7 @@ def getCPSEventsForThisDay(self, thisDay):
     
     # Sort by start date
     results.sort(sort_function)
-
+    
     return results
 
 #Adding methods to class CalendarTool

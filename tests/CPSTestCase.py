@@ -129,8 +129,9 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         # Some skins need sessions (not sure if it's a good thing).
         # Localizer too.
         # Both lines below are needed.
-        self.portal.REQUEST['SESSION'] = {}
-        self.portal.REQUEST.SESSION = {}
+        SESSION = {}
+        self.portal.REQUEST['SESSION'] = SESSION
+        self.portal.REQUEST.SESSION = SESSION
 
     def isValidXML(self, xml):
         filename = tempfile.mktemp()

@@ -3,47 +3,45 @@
       metal:use-macro="here/main_template/macros/master">
 <body>
 <div metal:fill-slot="main"
-     tal:define="purl here/portal_url;"
->
+     tal:define="purl here/portal_url">
 
-<div class="Desktop"
-     tal:define="pprops here/portal_properties; ve pprops/validate_email">
+<div tal:define="pprops here/portal_properties;
+                 ve pprops/validate_email">
 
 <h1 i18n:translate="heading_registred_title"> Success! </h1>
 
 <p i18n:translate="description_registred"> 
-   You have been registered as a member. 
+ You have been registered as a member. 
 </p>
 
 <p tal:condition="ve"> 
-    <span i18n:translate="help_registred_mail">
-      You will receive an email shortly containing
-      your password and instructions on how to activate your membership.
-    </span>
+  <span i18n:translate="help_registred_mail">
+    You will receive an email shortly containing
+    your password and instructions on how to activate your membership.
+  </span>
 </p>
 
-<p tal:condition="python:not(ve)" > 
-    <span i18n:translate="link_registred_login">
-      You can log on immediately by clicking
-    </span>
-    <a href=""
-       tal:define="pss modules/Products.PythonScripts.standard;
-                   uname request/username;
-                   u python:pss.url_quote(uname);
-                   pword request/password;
-                   p python:pss.url_quote(pword);
-                  "
-        tal:attributes="
-          href string:${purl}/logged_in?__ac_name=${u}&amp;__ac_password=${p}"
-     ><span i18n:translate="link_here">here</span></a>.  
+<form action="logged_in" method="post"
+      tal:condition="not:ve"
+      tal:attributes="action string:${base_url}logged_in">
+<p> 
+  <span i18n:translate="link_registred_login">
+    You can log on immediately by clicking
+  </span>
+  <input type="hidden" name="__ac_name" value=""
+         tal:attributes="value request/username" />
+  <input type="hidden" name="__ac_password" value=""
+         tal:attributes="value request/password" />
+  <input type="submit" value="link_here" i18n:attributes="value" />
 </p>
+</form>
 
 <p> 
 <a href=""
-   tal:attributes="href string:${purl}/">
-   <span i18n:translate="link_registred_return_home_page">
-     Return to homepage
-   </span>
+  tal:attributes="href string:${purl}/">
+  <span i18n:translate="link_registred_return_home_page">
+    Return to homepage
+  </span>
 </a> 
 </p>
 </div>

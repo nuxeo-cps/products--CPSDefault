@@ -1144,7 +1144,38 @@ if locked_ob is not None:
         pr(" Present")
 
 
-    pr(" Adding cps default boxes")
+    pr("Verifiying bookmark actions (favorites)")
+    action_addfav_found = 0
+    action_viewfav_found = 0
+    for action in  portal['portal_actions'].listActions():
+        if action.id == 'add_favorites':
+            action_addfav_found = 1
+        elif action.id == 'view_favorites':
+            action_viewfav_found = 1
+    if not action_addfav_found:
+        portal['portal_actions'].addAction(
+            id='add_favorites',
+            name='action_add_favorites',
+            action='string:${object/absolute_url}/addtoFavorites',
+            condition='python:not portal.portal_membership.isAnonymousUser()',
+            permission='View',
+            category='user')
+        pr(" Action add_favorites added")
+    else:
+        pr(" Action add_favorites present")
+    if not action_viewfav_found:
+        portal['portal_actions'].addAction(
+            id='view_favorites',
+            name='action_view_favorites',
+            action='string:${portal/portal_membership/getHomeUrl}/Favorites',
+            condition='python:not portal.portal_membership.isAnonymousUser()',
+            permission='View',
+            category='user')
+        pr(" Action view_favorites added")
+    else:
+        pr(" Action view_favorites present")
+
+    pr("Adding cps default boxes")
     idbc = portal.portal_boxes.getBoxContainerId(portal)
     pr("  Checking /%s" % idbc )
     if not portalhas(idbc):

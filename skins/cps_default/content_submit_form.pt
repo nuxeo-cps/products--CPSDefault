@@ -11,11 +11,11 @@
 </metal:title>
 
 <metal:help fill-slot="help">
-  <span i18n:translate="help_publish_publication">To make an item viewable 
+  <span i18n:translate="help_publish_publication">To make an item viewable
   by readers it has to be published. You can publish this item directly
   in the sections where you are entitled to  without requiring any reviewing.<br />
   A copy of the item will be created into each of these sections with the
-  <strong>published</strong>status. Section readers of those sections will then be 
+  <strong>published</strong>status. Section readers of those sections will then be
   able to read it.<br />
   You can also submit the item in the section folders where you are not
   entitled to publish directly.<br /> A copy of the item will be created into
@@ -62,14 +62,14 @@
                   tal:condition="not:can_publish">(requires approval)</em>
             </td>
             <td>
-              <span tal:repeat="item info/states">
+              <tal:block repeat="item info/states">
                 <tal:block condition="python:item['rpath'] == section['rpath']"
                            define="info item;
                                    status_short_fmt not:nothing;">
                   <metal:block use-macro="here/content_lib_status/macros/status" /><br />
 
                 </tal:block>
-              </span>
+              </tal:block>
             </td>
           </tr>
         </tal:block>

@@ -129,6 +129,7 @@ class DefaultInstaller(CPSInstaller):
                 , ('expires', 'DateIndex', None)
                 , ('modified', 'DateIndex', None)
                 , ('allowedRolesAndUsers', 'KeywordIndex', None)
+                , ('localUsersWithRoles', 'KeywordIndex', None)
                 , ('review_state', 'FieldIndex', None)
                 , ('in_reply_to', 'FieldIndex', None)
                 , ('meta_type', 'FieldIndex', None)

@@ -12,7 +12,12 @@ def cmp_type(a, b):
     cpsmcat = context.Localizer.default
     aa = cpsmcat(a.Title())
     bb = cpsmcat(b.Title())
-    return cmp(aa, bb)
+    try:
+        return cmp(aa, bb)
+    except:
+        # XXX FIX ME if Title contains non US ascii char we have UnicodeError
+        # using unicode(aa) doesn't work :(
+        return 1
 
 items.sort(cmp_type)
 allowed = context.portal_types[context.getPortalTypeName()].allowed_content_types

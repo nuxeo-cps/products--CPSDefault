@@ -4,7 +4,8 @@
 # $Id$
 """ Return information about a content item (ie a proxy)
 level: 0 (default cost 1)
-  id, title, title_or_id, review_state, icon, rev, lang, stime
+  id, title, title_or_id, review_state, icon, rev, lang,
+  stime, creator
 level: 1 (cost 1.3)
   level 0 + descr, size + additional information from obj
 level: 2 (cost 4.6)
@@ -160,6 +161,11 @@ if level > 0:
             info['size'] = '%.02f M' % float(size/1048576.0)
         elif size:
             info['size'] = str(int(size)/1024)+' K'
+
+    try:
+        info['creator'] = doc.Creator()
+    except:
+        info['creator'] = ''
 
     if hasattr(doc.aq_explicit, 'getAdditionalContentInfo'):
         add_info = doc.getAdditionalContentInfo()

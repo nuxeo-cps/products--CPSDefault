@@ -82,7 +82,7 @@ class TreeBox(BaseBox):
 
     display_managers = 0
     display_description = 0
-    authorized_only = 0
+    authorized_only = 1
     show_root = 1
 
     def __init__(self, id, root='', depth=0, contextual=0,
@@ -98,6 +98,7 @@ class TreeBox(BaseBox):
         """Return the ptree from root
 
         """
+
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
         portal_membership = getToolByName(self, 'portal_membership')
@@ -173,7 +174,7 @@ class TreeBox(BaseBox):
     security.declarePublic('getTreeObject')
     def getTreeObject(self, context):
         """Return the ptree object from root"""
-        # XXX: same docstring than above. Something must be wrong.
+        # XXX: same docstring as above. Something must be wrong.
 
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')

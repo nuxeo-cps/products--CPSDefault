@@ -1,132 +1,119 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
-<html metal:define-macro="master"
-      tal:define="
-                  showthirdcol showthirdcol|python:1;
-                  utool nocall:here/portal_url;
-                  atool here/portal_actions;
-                  mtool here/portal_membership;
-                  ttool here/portal_trees;
-                  wtool here/portal_workflow;
-                  btool here/portal_boxes;
-                  context_url python:here.getContextUrl(utool=utool);
-                  base_url python:here.getBaseUrl(utool=utool);
-                  boxes python:btool.getBoxes(here);
-                  member mtool/getAuthenticatedMember;
-                  isAnon mtool/isAnonymousUser;
-                  actions python:atool.listFilteredActionsFor(here);
-                  wf_state python:wtool.getInfoFor(here,'review_state','');
-                  uname python: isAnon and 'Guest' or member.getUserName();
-                  checkPerm nocall: mtool/checkPermission;
-                  cpsmcat nocall:here/Localizer/default;
-                  CPSD_BMT python:here.Benchmarktimer('main_template');
-                  CPSD_bmt_start nocall:CPSD_BMT/start;
-                  CPSD_bmt_stop nocall:CPSD_BMT/stop;
-                  CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
-                  CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
-                  ">
+<html metal:define-macro="master" tal:define="
+  showthirdcol showthirdcol|python:1;
+  utool nocall:here/portal_url;
+  atool here/portal_actions;
+  mtool here/portal_membership;
+  ttool here/portal_trees;
+  wtool here/portal_workflow;
+  btool here/portal_boxes;
+  context_url python:here.getContextUrl(utool=utool);
+  base_url python:here.getBaseUrl(utool=utool);
+  boxes python:btool.getBoxes(here);
+  member mtool/getAuthenticatedMember;
+  isAnon mtool/isAnonymousUser;
+  actions python:atool.listFilteredActionsFor(here);
+  wf_state python:wtool.getInfoFor(here,'review_state','');
+  uname python: isAnon and 'Guest' or member.getUserName();
+  checkPerm nocall: mtool/checkPermission;
+  cpsmcat nocall:here/Localizer/default;
+  CPSD_BMT python:here.Benchmarktimer('main_template');
+  CPSD_bmt_start nocall:CPSD_BMT/start;
+  CPSD_bmt_stop nocall:CPSD_BMT/stop;
+  CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
+  CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
+  ">
 <span tal:replace="CPSD_bmt_start" />
-<head metal:use-macro="here/generic_lib/macros/header">
-  <metal:block fill-slot="base"><metal:block define-slot="base"><base href="" tal:attributes="href string:${here/absolute_url}/"></metal:block></metal:block>
-
-  <metal:block fill-slot="head_slot"><metal:block define-slot="head_slot" /></metal:block>
-
-  <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot" /></metal:block>
-
-  <metal:block fill-slot="javascript_head_slot"><metal:block define-slot="javascript_head_slot" /></metal:block>
+<head>
+<metal:block use-macro="here/generic_lib/macros/header">
+  <metal:block fill-slot="base"><metal:block define-slot="base"><base
+    href="" tal:attributes="href
+    string:${here/absolute_url}/"></metal:block></metal:block>
+  <metal:block fill-slot="head_slot"><metal:block define-slot="head_slot"
+    /></metal:block>
+  <metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"
+    /></metal:block>
+  <metal:block fill-slot="javascript_head_slot"><metal:block
+    define-slot="javascript_head_slot" /></metal:block>
+</metal:block>
 </head>
-
 <body>
 <div class="top">
-  <!-- TOP Slot ================================= -->
+<!-- BEGIN TOP Slot =============================== -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
   <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top')">
-    <metal:block use-macro="python:path(box['macro'])" />
+    <metal:block use-macro="python:path(box['macro'])"/>
   </tal:block>
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
+<!-- END TOP Slot ================================= -->
 </div>
-
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
        align="center" valign="top" class="columns">
   <tr>
     <td class="left" width="150">
-      <!-- LEFT Slot ================================= -->
+<!-- BEGIN LEFT Slot ============================== -->
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_stop')" />
+<!-- END LEFT Slot ================================ -->
     </td>
-
     <td class="main">
-      <!-- portal status message -->
       <metal:block use-macro="here/generic_lib/macros/portal_message" />
-
-      <!-- CENTER_TOP Slot ================================= -->
+<!-- BEGIN CENTER_TOP Slot ======================== -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_start')" />
         <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_top')">
           <metal:block use-macro="python:path(box['macro'])" />
         </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_TOP_boxes_stop')" />
-
+<!-- END CENTER_TOP Slot ========================== -->
       <div class="document">
-
         <div id="content">
           <b tal:replace="python:CPSD_bmt_mark('main_start')" />
-
-          <!-- header -->
           <metal:block define-slot="header" />
-
-          <!-- main -->
           <metal:block define-slot="main" />
-
-          <!-- bottom -->
           <metal:block define-slot="sub" />
-
           <b tal:replace="python:CPSD_bmt_mark('main_stop')" />
         </div>
-
       </div>
-
-      <!-- CENTER_BOTTOM Slot ================================= -->
+<!-- BEGIN CENTER_BOTTOM Slot====================== -->
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='center_bottom')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
+<!-- END CENTER_BOTTOM Slot======================== -->
     </td>
-
     <td class="right" width="150" tal:condition="showthirdcol">
-      <!-- RIGHT Slot ================================= -->
+<!-- BEGIN RIGHT Slot ============================= -->
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right')">
         <metal:block use-macro="python:path(box['macro'])" />
       </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_stop')" />
+<!-- END RIGHT Slot =============================== -->
     </td>
     <td width="1" tal:condition="not:showthirdcol">
     </td>
   </tr>
-
-  <!-- ICONS FOR CLOSED BOXES ======================= -->
-  <tr tal:define="closed_box python:btool.filterBoxes(boxes, '', closed_only=1)" tal:condition="closed_box"><td colspan="3" class="left">
+  <tr tal:define="closed_box python:btool.filterBoxes(boxes, '',
+    closed_only=1)" tal:condition="closed_box"><td colspan="3" class="left">
     <span i18n:translate="box_closed_boxes">Closed boxes :&nbsp;</span>
-    <tal:block repeat="box closed_box">
-      <metal:block use-macro="here/box_lib/macros/closed_box" />
-    </tal:block>
+    <tal:block repeat="box closed_box"><metal:block
+      use-macro="here/box_lib/macros/closed_box" /></tal:block>
   </td></tr>
-
 </table>
-
-<!-- BOTTOM Slot ================================= -->
+<!-- BEGIN BOTTOM Slot ============================ -->
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_start')" />
 <tal:block repeat="box python:btool.filterBoxes(boxes, slot='bottom')">
   <metal:block use-macro="python:path(box['macro'])" />
 </tal:block>
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
+<!-- END BOTTOM Slot ============================== -->
 
-<!-- CPSD CPS Debug information ================================= -->
+<!-- CPSD CPS Debug information =================== -->
  <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
-
 </body>
 </html>

@@ -122,6 +122,9 @@ box: <tal:block replace="box_url" />
   <tr >
     <td></td>
     <td colspan="5">
+      <input type="submit" name="change_and_edit" value="button_change_and_edit"
+             class="standalone" i18n:attributes="value"
+             tal:condition="python:checkPerm('Manage Boxes', box['box'])">
       <input type="submit" name="change" value="button_change"
              class="standalone" i18n:attributes="value"
              tal:condition="python:checkPerm('Manage Boxes', box['box'])">

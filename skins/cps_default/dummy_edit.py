@@ -1,7 +1,7 @@
 ## Script (Python) "dummy_edit"
 ##parameters=body, description, choice=' Change '
 ##title=Edit a dummy
-doc = context.getContent()
+doc = context.getEditableContent()
 try:
     from Products.CMFDefault.utils import scrubHTML
     body = scrubHTML( body ) # Strip Javascript, etc.

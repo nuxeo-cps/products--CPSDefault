@@ -148,7 +148,7 @@ items = [
                 'desc': 'description_nuxeo_basebox_calendar'},
                ]
      },
-     {'category': 'internallinksbox',
+    {'category': 'internallinksbox',
      'title': 'portal_type_InternalLinksBox_title',
      'desc': 'portal_type_InternalLinksBox_description',
      'types': [{'provider': 'nuxeo',

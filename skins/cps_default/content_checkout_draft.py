@@ -1,4 +1,4 @@
-##parameters=comment='', REQUEST=None, **kw
+##parameters=comments='', REQUEST=None, **kw
 # $Id$
 
 wftool = context.portal_workflow
@@ -12,7 +12,7 @@ newid = wftool.findNewId(folder, context.getId())
 wftool.doActionFor(context, 'checkout_draft',
                    dest_container=folder,
                    initial_transition='checkout_draft_in',
-                   comment=comment)
+                   comment=comments)
 
 if REQUEST is not None:
     url = folder.absolute_url()+'/'+newid

@@ -121,6 +121,32 @@ class TreeBox(BaseBox):
 
         return tree
 
+    security.declarePublic('getTreeObject')
+    def getTreeObject(self, context):
+        """ return the ptree object from root """
+
+        portal_url = getToolByName(self, 'portal_url')
+        portal_trees = getToolByName(self, 'portal_trees')
+
+        # find the current container
+        obj = context
+        while obj and not obj.isPrincipiaFolderish:
+            obj = aq_parent(aq_inner(obj))
+        current_url = portal_url.getRelativeUrl(obj)
+        current_path = current_url.split('/')
+
+        if not self.root:
+            root_path = current_path
+        else:
+            root_path = filter(None,self.root.split('/'))
+        root_tree = root_path[0]
+        if not hasattr(aq_base(portal_trees), root_tree):
+            return None
+            #raise Exception('no tree for %s' % root_tree)
+
+        tree = portal_trees[root_tree]
+
+        return tree
 
 InitializeClass(TreeBox)
 

@@ -464,7 +464,7 @@ format:</pre>
 <!-- ============================================================ -->
 <pre>all doc information:</pre>
 <metal:block define-macro="info_detail_tab">
-<tal:block condition="start" tal:replace="structure string:<table border width=100%>"> 
+<tal:block condition="start" tal:replace="structure string:<table width=100%>"> 
 </tal:block>
 <tal:block condition="start">
     <tr>
@@ -478,7 +478,8 @@ format:</pre>
     </tr>
 </tal:block>
 
-<tr tal:define="action python:test(info['type'] in ('Section','Workspace'),
+<tr tal:attributes="class python:test(repeat['item'].index%2==0, 'even', 'odd')"
+ tal:define="action python:test(info['type'] in ('Section','Workspace'),
                 'folder_contents', 'view')">
   <td bgcolor="white" tal:condition="not:no_form" align="left" valign="center" width="5">
     <input type="checkbox" name="ids:list" value="" id="" class="noborder"
@@ -490,7 +491,7 @@ format:</pre>
     tal:attributes="value item/getId;
     id python:'cb_'+item.getId()">
   </td>
-  <td align=center><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
+  <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
   <td align=center><tal:block replace="structure python:here.getImgTag(info['icon'],
     base_url=base_url, title=info['type'])" /></td>

@@ -49,9 +49,9 @@ class ContentBox(BaseBox):
     portal_type = 'Content Box'
 
     nb_items=0
-    sort_by=direction=display=None
+    sort_by=direction=display=''
     query_title=query_description=query_fulltext=\
-                 query_status=query_modified=None
+                 query_status=query_modified=''
 
     security = ClassSecurityInfo()
 
@@ -100,15 +100,16 @@ class ContentBox(BaseBox):
     def getContents(self, context, sort_by='status',
                           direction='asc'):
         """Get a sorted list of contents object"""
+        utool = getToolByName(self, 'portal_url')
         folder = self._getFolderObject(context)
         items = []
+        link_more = ''
         if folder:
             query = self._buildQuery()
             if len(query):
                 # this is a search box
                 folder_prefix = None
                 if self.folder:
-                    utool = getToolByName(self, 'portal_url')
                     folder_prefix = utool.getRelativeUrl(folder)
                 items = folder.search(query=query,
                                       sort_by=self.sort_by,
@@ -125,8 +126,19 @@ class ContentBox(BaseBox):
 
             if self.nb_items and len(items) > self.nb_items:
                 items = items[:self.nb_items]
+                if len(query):
+                    from ZTUtils import make_query
+                    q = make_query(sort_by=self.sort_by,
+                                   direction=self.direction,
+                                   hide_folder=1,
+                                   folder_prefix=folder_prefix,
+                                   **self._buildQuery())
+                    link_more = 'search_form?%s' % q
+                else:
+                    link_more = utool.getRelativeUrl(folder)
 
-        return items
+
+        return (items, link_more)
 
 
     security.declarePrivate('_getFolderObject')

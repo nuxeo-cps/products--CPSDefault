@@ -4,8 +4,9 @@ CPS and i18n
   This documents gives rules and hints for translating CPS 3 and third-party
   products.
 
-
+-----------
 Tools used
+-----------
 
   We use a combination of "Localizer":http://www.j-david.net/software/localizer
   and "TranslationService":http://www.zope.org/Members/efge/TranslationService.
@@ -19,7 +20,7 @@ Tools used
   MessageCatalog objects like "Localizer/default".
 
   We use only the "default" domain for CPSDefault and all the required
-  products, this means that we have only one MessageCatalog.
+  products, this means that we will have only one MessageCatalog.
 
   CPSDefault skins do not provide a 'i18n:domain' attribute or at least the
   "default".
@@ -28,11 +29,9 @@ Tools used
 
     mcat = context.Localizer.default
 
-  This is our rules until we know how to work with domain :/
-
-
-
+---------------------------------------------------------------
 Guide to Prefixes your msgid (mostly from plone i18n guideline)
+---------------------------------------------------------------
 
     msgid is a short name like the one you would use for a variable.
 
@@ -62,8 +61,9 @@ them. Sorted the IDs will be grouped by type automatically.
 heading, then the prefix would be |zwiki_heading_edit_wiki_page|. This prevents
 collision between Message IDs.
 
-
+-----------------
 How to translate:
+-----------------
 
   - zpt static sentences:
 
@@ -86,10 +86,12 @@ How to translate:
 
     for dynamic keywork like :
 
-    <span tal:omit-tag="" tal:content="items/action" i18n:translate="">Action</span>
+    <span tal:omit-tag="" tal:content="items/action" i18n:translate="">
+          Action
+    </span>
     
-    Notice : it won't be neccesarly to translate this msgid in the po files since 
-    the content will be replace by the dynamic calculated value.
+    Notice : it won't be neccesarly to translate this msgid in the po
+    files since the content will be replace by the dynamic calculated value.
 
   - zpt tags' attributes:
 
@@ -101,12 +103,14 @@ How to translate:
   - For the portal status message:
 
     Typically, this sentence is sent as is by a redirect call. a
-    i18n:translate="" attribute is place in main_template so the entire sentence
+
+    i18n:translate="" attribute is place in main_template so the
+entire sentence
     is stored (no msgid).
 
-    As a consequence, do not use computed sentences like "5 items deleted." or
-    "please correct the following fields: [...]". Keep it simple like
-    psm_item_deleted or psm_error_found
+    As a consequence, do not use computed sentences like "5 items
+    deleted." or "please correct the following fields: [...]". Keep it
+    simple like psm_item_deleted or psm_error_found
 
 
   - For portal types:
@@ -157,37 +161,57 @@ Rules to generate pot/pos files and updating them
   original one for convenience. The package is called OpenPTi18n-nuxeo.
   You'll find this one within dev2 /home/download/_packages directory.
 
+  Appart the products mentionned in the HOWTO.INSTALL_CPS3 guide you'll need
+  GNU Gettext version >= 0.11.4-7 installed on the computer where you will launch
+  the scripts included in the nuxeo_env. (make_pot & update_pos)
+  
   Scenarios
   ----------
 
-  -- Initialization --
+-----------------
+Process outline
+-----------------
 
-     1) Create a subdirectory named i18n/ in your product directory.
-     2) launch the tool make_pot within this one. IT WILL  :
-        a) Parse the ZPTs and generate a xxxproduct.pot (pot template file)
-        b) Create an en.po and fr.po from the pot template.
-           (DO NOT EDIT THIS ONE AFTER)
-        c) Create a custom.pot file where you will put you self the needed
-           translation from dynamic content.
-           Idea : Display your ZPT on the site and check in Localizer the
-                  needed translations but don't export with Localizer anymore !)
-     3) Translate the local files (en/fr.po) with the help of tool such as
-        kbabel or still emacs mode.
-     4) Update the Localizer catalog
+  Before starting create a subdirectory i18n within your product directory.
 
-  -- Update with some add-ons in the custom.pot --
+  Main Branch (init)
+  -------------------
+    a1) $cd ./i18n 
+        
+    b1) Use make_pot the first time when you wanna start the
+        internationalization of your product. You'll get all the necessarily
+        files. Simply : $ make_pot 
 
-    1) Put the msgids in the custom.pot file
-    2) Launch the second tool : update_pos within the i18n directory.
-    3) Update the Localizer catalog
+    c1) Translate the local files using a tool such as Kabel or emacs
+ 
+    d1) Localizer feeds the po files
+  
+  Branch 1 :
+  ----------
+    b2) You change your ZPTs
 
-  -- Update : Your ZPT's changed --
+    c2) $update_pos 
 
-    1) Change your ZPT's
-    2 Launch the update_pos within the i18n directory.
-    3) That's it ! Update with Localizer.
+    d2) Translate the local files using a tool such as Kabel or emacs
+   
+    e2) Localizer feeds the po files
 
-  -- DEBUG mode with make_pot --
+  Branch 2 :
+  ----------
+    b3) You add some msgids in the custom.pot file. 
+        (Typically for the dynamic content.) 
+        You can check the localizer catalog after asking CPS to interpret
+        them. Just if you'd like to be sure to have all of them.
+        BUT DON'T USE Localizer FOR EXPORT ANYMORE !!
+
+    c3) $update_pos 
+
+    d3) Translate the local files using a tool such as Kabel or emacs
+   
+    e3) Localizer feeds the po files
+
+  DEBUG mode with make_pot
+  -------------------------
 
     You might find useful the debug mode of make_pot if your ZPTs contained errors.
     It means if you didn't set the i18n tags properly.
@@ -198,22 +222,17 @@ Rules to generate pot/pos files and updating them
     It will check all the ZPTs within directory and will inform you which one
     are not well formed (By mean of i18n tags)
 
-   Like that, if errors occurred use the debug mode, correct the ZPT's and relaunch make_pot
-   or update_pos if you are in update mode.
-   Notice that in debug mode you won't get any pot/po files.
+------------
+Within CPS3 
+------------
 
-More Generally
+  - ONE domain and ONE MessageCatalog (default) for the CPSDefault and the compulsory
+    products following the guide for the internationalization of CPS3.
+  
+  - ONE domain and ONE MessageCatalog for the others products added to CPS3
 
- // The tools will be launched within the i18n subdirectory of your
-    XxxProduct.
+  - More generally : don't put anything in the default catalog until you checked 
+    the msgids are according to the above nomenclature. 
 
- // Use make_pot the first time when you wanna start the
-    internationalization of your product. You'll get all the necessarily
-    files
-
- // Translate the local files (en/fr)
-
- // Use update_pos after some changes occurs within your ZPTs or still
-    of you added msgids within the custom.pot file.
-
- // Update the catalog. To be defined later.
+  - Waiting for some feedbacks about domains in our case ??? Don't see really the
+    usefulness.

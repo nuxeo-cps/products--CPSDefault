@@ -18,7 +18,7 @@ registerDirectory('skins/templates', globals())
 registerDirectory('skins/images', globals())
 
 def initialize(registrar):
-    registrar.registerClass(CPSSite.Sss3Site,
+      registrar.registerClass(CPSSite.Sss3Site,
       constructors=(CPSSite.manage_addSss3SiteForm,
                     CPSSite.manage_addSss3Site,))
     return

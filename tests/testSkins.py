@@ -67,7 +67,13 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testComputeId_2(self):
         # should keep something if the title is meaningless
-        self.assertEquals(self.portal.computeId("the the", lang='en'), "the")
+        self.assertEquals(self.portal.computeId("the the", lang='en'),
+                          "the_the")
+
+    def testComputeId_3(self):
+        # stupid id should return random number
+        for id in ('-', ' ', '.'):
+            self.assert_(self.portal.computeId(id), id)
 
     def testTruncURL(self):
         url = 'http://youpilala.com/il/fait/beau/et/chaud/ajourd/hui'

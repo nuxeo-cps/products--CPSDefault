@@ -18,18 +18,30 @@ try:
 except (KeyError, 'NotFound'):
     return '<img src="%s" alt="%s" />' % (img_url, alt)
 
-# XXX: workaround BMP bug
-# Note: int(getattr(img, 'height', 0)) raises :
-# ValueError: invalid literal for int()
-original_height = getattr(img, 'height', 0)
-original_width = getattr(img, 'width', 0)
+# Fix the BMP bug (#305): Zope is unable to detect height and
+# width for BMP images and thus this properties are valued to the empty string
+# for BMP files
 
-if not height:
+original_height = img.getProperty('height', '')
+if original_height == '':
+    original_height = None
+else:
+    original_height = int(original_height)
+
+original_width = img.getProperty('width', '')
+if original_width == '':
+    original_width = None
+else:
+    original_width = int(original_width)
+
+if not height and original_height is not None:
     height = int(zoom * original_height)
-if not width:
+if not width and original_width is not None:
     width = int(zoom * original_width)
 
-if keep_ratio:
+if ( keep_ratio
+     and ( original_height is not None )
+     and ( original_width is not None ) ):
     z_w = z_h = 1
     h = original_height
     w = original_width

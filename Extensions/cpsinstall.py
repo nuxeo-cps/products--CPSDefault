@@ -107,7 +107,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
-        self.setupPortlets()
+        if is_creation:
+            self.setupPortlets()
         self.setupForms()
         self.restoreEventSubscriber('portal_subscriptions')
 

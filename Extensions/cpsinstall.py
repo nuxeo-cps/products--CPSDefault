@@ -792,6 +792,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE,),
                     clone_allowed_transitions=None,
+                    after_script_name="mail_notification",
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'',
                            'guard_roles':'Manager; SectionManager; SectionReviewer',
@@ -803,6 +804,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE),
                     clone_allowed_transitions=None,
+                    after_script_name="mail_notification",
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '',
                            'guard_roles': 'Manager; Member',
@@ -812,6 +814,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     t.setProperties(title='Reviewer accepts publishing',
                     new_state_id='published',
                     transition_behavior=(TRANSITION_BEHAVIOR_MERGE,),
+                    after_script_name="mail_notification",
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION,
                     actbox_name='action_accept', actbox_category='workflow',
@@ -853,6 +856,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                          TRANSITION_ALLOWSUB_COPY),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION,
+                    after_script_name="mail_notification",
                     actbox_name='New',
                     actbox_category='',
                     actbox_url='',
@@ -893,6 +897,22 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     vdef.setProperties(description='Destination container for the last copy/publish',
                        default_expr="python:state_change.kwargs.get('dest_container', '')",
                        for_status=1, update_always=1)
+
+
+    #
+    # section_content_wf : scripts
+    # Adding the workflow script permitting the notification by mail
+    #
+    scripts = wf.scripts
+    script_name = 'mail_notification'
+    scripts._setObject(script_name, PythonScript(script_name))
+    script = scripts[script_name]
+    script.write("""\
+##parameters=state_change
+object = state_change.object
+object.sendmail_after_transition()
+""")
+    script._owner = None
 
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder
     # CPS Folder
@@ -1333,27 +1353,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     pr(" Added Action Boxes at global scope ")
 
     ###########################################################
-    # INSTALLATION OF CPSDocument
-    ###########################################################
-
-    try:
-        import Products.CPSDocument
-        from Products.CPSDocument.Extensions.install import install as \
-             cpsdocument_install
-        pr("### Starting CPSDocument Install ###")
-        pr("Check the logs for more information")
-        # call cpsdocument install
-        # Cause now with the favorites it's needed.
-        # XXX : gotta do something for that ?
-        res = cpsdocument_install(self)
-        # Format really bad if we're doing that.
-        # Check the log for more information.
-        #pr(res)
-        pr("### END OF CPSDocument Install ###")
-    except:
-        pr("### DEPENDENCY ERROR : CPSDocument ###")
-
-    ###########################################################
     # INSTALLATION OF THE DIFFERENT SERVICES
     ###########################################################
 
@@ -1445,23 +1444,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         pass
 
     #
-    #  CPSMailingLists installer/updater
-    #
-    try:
-        import Products.CPSMailingLists
-        if not portalhas('cpsml_installer'):
-            from Products.ExternalMethod.ExternalMethod import ExternalMethod
-            pr('Adding cpsmailinglists installer')
-            cpsdocument_installer = ExternalMethod('cpsml_installer',
-                                                   'CPSMailingLists Updater',
-                                                   'CPSMailingLists.install',
-                                                   'install')
-            portal._setObject('cpsml_installer', cpsdocument_installer)
-            pr(portal.cpsml_installer())
-    except:
-        pass
-
-    #
     # i18n Updater
     #
 
@@ -1479,6 +1461,41 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     #
     log_i18n = cps_i18n_update(self, langs_list)
     pr (log_i18n)
+
+    #
+    #  CPSDocument installer/updater
+    #
+    try:
+        import Products.CPSDocument
+        if not portalhas('cpsdocument_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding CPSDocument installer')
+            cpsdocument_installer = ExternalMethod('cpsdocument_installer',
+                                              'CPSDocumcent Installer',
+                                              'CPSDocument.install',
+                                              'install')
+            portal._setObject('cpsdocument_installer', cpsdocument_installer)
+        pr(portal.cpsdocument_installer())
+    except:
+        pass
+
+    #
+    #  CPSMailingLists installer/updater
+    #  To be called after cause we are using the default catalog too.
+    #
+    try:
+        import Products.CPSMailingLists
+        if not portalhas('cpsml_installer'):
+            from Products.ExternalMethod.ExternalMethod import ExternalMethod
+            pr('Adding cpsmailinglists installer')
+            cpsdocument_installer = ExternalMethod('cpsml_installer',
+                                                   'CPSMailingLists Updater',
+                                                   'CPSMailingLists.install',
+                                                   'install')
+            portal._setObject('cpsml_installer', cpsml_installer)
+        pr(portal.cpsml_installer())
+    except:
+        pass
 
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)

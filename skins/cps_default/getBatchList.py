@@ -18,7 +18,7 @@ size = int(ceil(items_per_page / columns))
 b_start = int(context.REQUEST.get('b_start', 0))
 
 # first default batch makes first column
-b1 = Batch(items, size, int(b_start), orphan=0)
+b1 = Batch(items, size, b_start, orphan=0)
 batches.append(b1)
 
 # computing other batches for the remaining columns

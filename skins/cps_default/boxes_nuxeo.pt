@@ -129,40 +129,40 @@
         </strong>
       </td>
       <td align="left">
-        <tal:block define="cps_cookie python:request.SESSION.get('cps_preferences', {});
-                           cps_display_order python:cps_cookie.get('cps_display_order', None)">
+        <tal:block define="cps_cookie python:request.SESSION.get('cps_display_params', {});
+                           sort_by python:cps_cookie.get('sort_by', None)">
           <select name="display_order">
 	    <option i18n:translate="label_default" value="title" selected
-                    tal:condition="python:cps_display_order is None">
+                    tal:condition="python:sort_by is None">
                     Default
             </option>
 	    <option i18n:translate="label_default" value="title"
-                    tal:condition="python:cps_display_order is not None">
+                    tal:condition="python:sort_by is not None">
                     Default
             </option>
             <option i18n:translate="label_title" value="title" selected
-                    tal:condition="python:cps_display_order == 'title'">
+                    tal:condition="python:sort_by == 'title'">
                     Title
             </option>
 	    <option i18n:translate="label_title" value="title"
-                    tal:condition="python:cps_display_order != 'title'">
+                    tal:condition="python:sort_by != 'title'">
                     Title
             </option>
 	    <option i18n:translate="label_date" value="date" selected
-                    tal:condition="python:cps_display_order == 'date'">
+                    tal:condition="python:sort_by == 'date'">
                     Date
             </option>
 	    <option i18n:translate="label_date" value="date"
-                    tal:condition="python:cps_display_order != 'date'">
+                    tal:condition="python:sort_by != 'date'">
                     Date
             </option>
 
 	    <option i18n:translate="label_status" value="status" selected
-                    tal:condition="python:cps_display_order == 'status'">
+                    tal:condition="python:sort_by == 'status'">
                     Status
             </option>
 	    <option i18n:translate="label_status" value="status"
-                    tal:condition="python:cps_display_order != 'status'">
+                    tal:condition="python:sort_by != 'status'">
                     Status
             </option>
           </select>
@@ -178,39 +178,39 @@
         </strong>
       </td>
       <td align="left">
-        <tal:block define="cps_cookie python:request.SESSION.get('cps_preferences', {});
-                           cps_display_style python:cps_cookie.get('cps_display_style', None)">
+        <tal:block define="cps_cookie python:request.SESSION.get('cps_display_params', {});
+                           format python:cps_cookie.get('format', None)">
            <select name="display_style">
 	     <option i18n:translate="label_default" value="compact" selected
-	             tal:condition="python:cps_display_style == None">
+	             tal:condition="python:format == None">
                      Default
 	     </option>
 	     <option i18n:translate="label_default" value="compact"
-	             tal:condition="python:cps_display_style != None">
+	             tal:condition="python:format != None">
                      Default
 	     </option>
              <option i18n:translate="label_icons" value="icon" selected
-	             tal:condition="python:cps_display_style == 'icon'">
+	             tal:condition="python:format == 'icon'">
                      Icon
              </option>
 	     <option i18n:translate="label_icons" value="icon"
-	             tal:condition="python:cps_display_style != 'icon'">
+	             tal:condition="python:format != 'icon'">
                      Icon
              </option>
 	     <option i18n:translate="label_detailed" value="detail" selected
-                     tal:condition="python:cps_display_style == 'detail'">
+                     tal:condition="python:format == 'detail'">
                      Detail
              </option>
 	     <option i18n:translate="label_detailed" value="detail"
-                     tal:condition="python:cps_display_style != 'detail'">
+                     tal:condition="python:format != 'detail'">
                      Detail
              </option>
 	     <option i18n:translate="label_compact" value="compact" selected
-                     tal:condition="python:cps_display_style == 'compact'">
+                     tal:condition="python:format == 'compact'">
                      Compact
              </option>
 	     <option i18n:translate="label_compact" value="compact"
-                     tal:condition="python:cps_display_style != 'compact'">
+                     tal:condition="python:format != 'compact'">
                      Compact
              </option>
            </select>

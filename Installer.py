@@ -22,6 +22,11 @@
 
 # FIXME: deprecate and remove this module.
 
+from warnings import warn
+warn("The module, 'Products.CPSDefault.Installer' "
+     "is a deprecated and will be removed from CPS in CPS 3.4",
+     DeprecationWarning)
+
 import os
 from App.Extensions import getPath
 from re import match

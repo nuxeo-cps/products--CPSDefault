@@ -71,8 +71,7 @@ def date_sortkey(a):
            a.getId()
 
 def author_sortkey(a):
-    return a.getContentInfo(level=1)['creator'] + \
-           a.getId()
+    return a.Creator() + a.getId()
 
 def cmp_desc(x, y):
     return -cmp(x, y)

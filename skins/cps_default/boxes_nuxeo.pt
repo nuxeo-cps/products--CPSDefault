@@ -345,7 +345,7 @@
     <metal:block fill-slot="box_body">
       <tal:block repeat="item items">
         <div style="white-space:nowrap">
-          <span tal:replace="structure python:'&#160;'*4*item['depth']"> </span>
+          <span tal:replace="structure python:'&nbsp;'*4*item['depth']"> </span>
           <img tal:condition="python:getattr(box['box'],'display_icons',0)"
                tal:replace="structure
                               python:
@@ -391,7 +391,7 @@
           <tal:block tal:define="description python:item['description']"
                      tal:condition="description">
             <span tal:replace="structure
-                               python:'&#160;'*4*(item['depth']+1)"> </span>
+                               python:'&nbsp;'*4*(item['depth']+1)"> </span>
             <span tal:replace="description" />
           </tal:block>
         </div>

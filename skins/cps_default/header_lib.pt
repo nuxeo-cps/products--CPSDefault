@@ -1,19 +1,18 @@
-<!-- macro library for html head overrides -->
+<!-- html head macro  -->
 <!-- $Id$ -->
 
 <!-- ============================================================ -->
 <metal:block define-macro="header">
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <title tal:content="here/expanded_title">Nuxeo | Collaborative Portal
-    Server</title>
+  <title tal:content="here/expanded_title">Intranet du MCC</title>
   <metal:block define-slot="base"></metal:block>
   <link rel="Stylesheet" type="text/css" href=""
-    tal:attributes="href string:${base_url}ploneNS4.css">
+    tal:attributes="href string:${base_url}nuxeo_css1.css">
   <style type="text/css" media="all"
-    tal:content="string:@import url(${base_url}plone.css);"></style>
+    tal:content="string:@import url(${base_url}nuxeo_css2.css);"></style>
   <style type="text/css" media="all"
-    tal:condition="exists: here/ploneCustom.css"
-    tal:content="string:@import url(${base_url}ploneCustom.css);"></style>
+    tal:condition="exists: here/custom.css"
+    tal:content="string:@import url(${base_url}custom.css);"></style>
   <link rel="stylesheet" type="text/css" media="print" href=""
     tal:attributes="href string:${base_url}plonePrint.css">
   <link rel="icon" href="" type="image/png" tal:attributes="href
@@ -23,3 +22,4 @@
   <metal:block define-slot="css_slot"></metal:block>
   <metal:block define-slot="javascript_head_slot"></metal:block>
 </metal:block>
+

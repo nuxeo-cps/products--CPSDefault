@@ -1473,6 +1473,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.runExternalUpdater('cpsnewsletter_installer',
                                 'CPSNewsLetters Installer',
                                 'CPSNewsLetters', 'install', 'install')
+        self.runExternalUpdater('cpsnavigation_installer',
+                                'CPSNavigation Installer',
+                                'CPSNavigation', 'install', 'install')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

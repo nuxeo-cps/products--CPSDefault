@@ -20,8 +20,9 @@ Current location: <tal:block replace="context_url" />
     <td><tal:block replace="box/box/order" /></td>
     <td><tal:block replace="box/box/title" /></td>
     <td><tal:block replace="box/box/macro" /></td>
+    <td><tal:block replace="string:${base_url}${box/display_url}" /></td>a
     <td><a href=""
-          tal:attributes="href string:${context_urlc}/${action}?box_url=${box/path}"><tal:block replace="box/path" /></a></td>
+          tal:attributes="href string:${context_urlc}/${action}?box_url=${box/url}">edit</a></td>
   </tr>
   </tal:block>
 </table>

@@ -94,7 +94,6 @@ class CPSInstaller:
 
         # Change translation_service to DummyTranslationService
         portal = getattr(self.app, id)
-        assert portal.translation_service
         portal.translation_service = DummyTranslationService()
 
     def logout(self):

@@ -1,10 +1,11 @@
 ## Script (Python) "getPortalUrl"
-##parameters=
+##parameters=obj=None, utool=None
 # $Id$
-utool = context.portal_url
-rurl = utool(relative=1)    # browser relative url
-cps_folder = context.getPhysicalPath()[1]
-cps_url = '/'
-if rurl.startswith(cps_folder):
-    cps_url += cps_folder + '/'
-return cps_url + utool.getRelativeUrl(context)
+# return the minimal url to access the object ex: /cps/foo
+if not utool:
+    utool=context.portal_url
+base_url=context.getBaseUrl(utool=utool)
+if not obj:
+    obj = context
+    
+return base_url + utool.getRelativeUrl(obj)

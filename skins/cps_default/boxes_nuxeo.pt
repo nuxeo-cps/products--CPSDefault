@@ -93,7 +93,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_folder_header"
-  tal:define="doc doc|here/getContent|nocall:here">
+  tal:define="doc nocall:doc|python:here.getContent()">
 <h1 tal:content="here/title_or_id">Page Title</h1>
 <div class="description">&nbsp;<span
   tal:content="doc/Description">description</span>

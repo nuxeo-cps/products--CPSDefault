@@ -1,6 +1,5 @@
-<html tal:define="doc here/getContent">
-
-<body metal:use-macro="here/main_template/macros/master">
+<html metal:use-macro="here/content_lib/macros/master">
+<body>
 
 <div metal:fill-slot="header">
 
@@ -67,6 +66,10 @@
 
   </form>
 
+</div>
+
+<div metal:fill-slot="sub" tal:condition="nothing">
+  no discussion, thanks !
 </div>
 
 </body>

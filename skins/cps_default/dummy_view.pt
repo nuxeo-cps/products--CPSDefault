@@ -1,32 +1,9 @@
-<html tal:define="doc here/getContent">
-
-<body metal:use-macro="here/main_template/macros/master">
-
-<metal:block fill-slot="base">
-  <base href="" tal:attributes="href python: here.absolute_url() + '/'">
-</metal:block>
-
-<div metal:fill-slot="header">
-
-  <h1 tal:content="doc/Title">Document Title</h1>
-
-  <div metal:use-macro="here/content_byline/macros/byline">By Me</div>
-
-  <div class="description" tal:content="doc/Description">
-      Document Description goes here.
-  </div>
-
-</div>
+<html metal:use-macro="here/content_lib/macros/master">
+<body>
 
 <pre class="stx" metal:fill-slot="main" tal:content="doc/body">
   Body
 </pre>
-
-<div class="box" metal:fill-slot="sub"
-     tal:condition="doc/viewThreadsAtBottom|nothing"
-     tal:content="structure doc/viewThreadsAtBottom">
-  Discussion goes here
-</div>
 
 </body>
 </html>

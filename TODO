@@ -18,23 +18,20 @@
          x [] display folder contents
          o display search result (separate search box?)
          o [lennart] attributes: sort, format, number of doc ...
-      x [] ActionBox  with categories to be displayed
          o need format like user and document ..?
-      x UserBox, LoginBox (all a part of the action box)
+      o [] ActionBox  
+         x [] with categories to be displayed
+         o make a specific render for user box with login box
       o [] RSSBox, HelpBox, ImageBox, FlashBox, BookmarkBox ...
    o box management
       o [ben] make cps ui to manage boxes
          o manage cps_boxes container
          o manage personal settings
-      x [] make a ZMI interface for setting overrides
-      x slots should be defined and managed in portal_boxes
    x [] override with personal boxes objects and settings in ~.cps_boxes
       o global settings for which settings that can be overridden to
         enable the site manager to prevent for example moving of boxes
         between slots
    o problems
-      x [] defining more than one macro to render a box
-         style is the template name and format is the macro name
       o getBoxes should return only boxes with Access Content Info and
          View permission, this is needed for anonymous access
          guard are not enought if the guard is ok and you don't have
@@ -118,6 +115,9 @@
       x [] boxes types
          x [] TextBox display static text
          x [] TreeBox
+      x [] make a ZMI interface for setting overrides
+      x [] slots should be defined and managed in portal_boxes
+
    o workflow and docs
       o impl skin reject
       o impl skin unpublish

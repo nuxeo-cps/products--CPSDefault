@@ -24,7 +24,7 @@ from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent, AddPortalContent
 
-from Products.NuxCPS3.CPSBase import CPSFolderBase, CPSBase_adder
+from Products.NuxCPS3.CPSBase import CPSBaseFolder, CPSBase_adder
 
 
 factory_type_information = (
@@ -72,7 +72,7 @@ factory_type_information = (
     )
 
 
-class CPSFolder(CPSFolderBase):
+class CPSFolder(CPSBaseFolder):
     meta_type = 'CPS Folder'
 
     security = ClassSecurityInfo()

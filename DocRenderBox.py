@@ -22,7 +22,7 @@ from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
 from zLOG import LOG, DEBUG, INFO
 
-from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from BaseBox import BaseBox
 

@@ -96,7 +96,7 @@ class Dummy(CPSBaseDocument, Folder):
                     if hasattr(aq_base(self), self.image_id):
                         self._delObject(self.image_id)
                     self._setObject(self.image_id, img)
-                    
+
         self._size = self._compute_size()
 
     # Check date field syntax, localize and store in _start_date or _end_date
@@ -163,7 +163,7 @@ class Dummy(CPSBaseDocument, Folder):
             s += len(str(getattr(self, item, '')))
         if hasattr(aq_base(self), self.image_id):
             s += self[self.image_id].get_size()
-        
+
         return s
 
     #CMFCalendar interface
@@ -172,14 +172,14 @@ class Dummy(CPSBaseDocument, Folder):
         "Return our start time as a string"
         date = getattr(self, '_start_date', None )
         return date is None and self.created() or date
-    
+
     security.declarePublic('end')
     def end(self):
         "Return our stop time as a string"
         date = getattr(self, '_end_date', None )
         return date is None and self.created() or date
 
-    
+
     #EOC
 
 InitializeClass(Dummy)

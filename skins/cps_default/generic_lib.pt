@@ -2,30 +2,6 @@
 <!-- $Id$ -->
 
 <!-- ============================================================ -->
-<metal:block define-macro="header">
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <title tal:content="here/expanded_title">Nuxeo | Collaborative Portal
-    Server</title>
-  <metal:block define-slot="base"></metal:block>
-  <link rel="Stylesheet" type="text/css" href=""
-    tal:attributes="href string:${base_url}ploneNS4.css">
-  <style type="text/css" media="all"
-    tal:content="string:@import url(${base_url}plone.css);"></style>
-  <style type="text/css" media="all"
-    tal:condition="exists: here/ploneCustom.css"
-    tal:content="string:@import url(${base_url}ploneCustom.css);"></style>
-  <link rel="stylesheet" type="text/css" media="print" href=""
-    tal:attributes="href string:${base_url}plonePrint.css">
-  <link rel="icon" href="" type="image/png" tal:attributes="href
-    string:${base_url}favicon.png">
-  <meta http-equiv="imagetoolbar" content="no">
-  <metal:block define-slot="head_slot"></metal:block>
-  <metal:block define-slot="css_slot"></metal:block>
-  <metal:block define-slot="javascript_head_slot"></metal:block>
-</metal:block>
-
-
-<!-- ============================================================ -->
 <metal:block define-macro="portal_message">
 <div class="document"
   tal:define="portal_message portal_message|request/portal_status_message|nothing"
@@ -34,32 +10,4 @@
   Translated status message.
   </div>
 </div>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<!-- XXX TODO this is only used by CPSCalendar for cps2 compatibiltiy
-     this should be moved to CPSCalendar -->
-<metal:block define-macro="form">
-  <table width="100%" cellpadding="4" cellspacing="4" border="0">
-    <metal:block define-slot="content">
-    </metal:block>
-  </table>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<!-- XXX TODO this is only used by CPSCalendar for cps2 compatibiltiy
-     this should be moved to CPSCalendar -->
-<metal:block define-macro="form_property">
-  <tal:block define="form_pos form_pos|nothing">
-    <tr>
-      <td valign="top" width="100" class="formMeta">
-        <metal:block define-slot="title">Field name</metal:block>
-      </td>
-      <td valign="middle">
-        <metal:block define-slot="content">Field content</metal:block>
-      </td>
-    </tr>
-  </tal:block>
 </metal:block>

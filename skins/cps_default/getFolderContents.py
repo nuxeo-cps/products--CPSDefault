@@ -1,5 +1,5 @@
 ## Script (Python) "getFolderContents"
-##parameters=sort_by='title', direction='asc'
+##parameters=sort_by='date', direction='asc'
 ##title=
 ##
 """
@@ -55,7 +55,7 @@ make_sortkey = id_sortkey
 if sort_by == 'status':
     make_sortkey = status_sortkey
 elif sort_by == 'date':
-    make_sortkey = status_sortkey
+    make_sortkey = date_sortkey
 elif sort_by == 'title':
     make_sortkey = title_sortkey
     

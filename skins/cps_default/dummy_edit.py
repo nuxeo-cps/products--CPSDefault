@@ -11,7 +11,7 @@ try:
     doc.edit(body=body, description=description)
     context.portal_eventservice.notifyEvent('modify_object', context, {})
 
-    qst='portal_status_message=Dummy+document+changed.'
+    qst='portal_status_message=Document+changed.'
 
     if choice == ' Change and View ':
         target_action = doc.getTypeInfo().getActionById('view')

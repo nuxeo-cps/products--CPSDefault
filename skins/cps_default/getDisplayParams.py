@@ -44,6 +44,8 @@ else:
         col = 2
     elif fmt == 'detail':
         col = 1
+    elif fmt == 'detail_tab':
+        col = 1
     else:
         col = 1
     params['columns'] = col

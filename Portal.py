@@ -31,6 +31,9 @@ class CPSDefaultSite(CMFSite):
     enable_portal_joining = 0
     cps_version = ('CPS', 3, 3, 0)
 
+    # Override default OrderSupport behavior for ZMI convenience
+    _default_sort_key = 'id'
+
     security = ClassSecurityInfo()
 
     _properties = CMFSite._properties + (
@@ -43,8 +46,6 @@ class CPSDefaultSite(CMFSite):
         """ returns cps version
         """
         return self.cps_version
-
-
 
 Globals.InitializeClass(CPSDefaultSite)
 

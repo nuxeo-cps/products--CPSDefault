@@ -28,12 +28,9 @@ factory_type_information = (
                   'name': 'action_edit',
                   'action': 'actionbox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'isportalbox',
-                  'name': 'isportalbox',
-                  'action': 'isportalbox',
-                  'visible': 0,
-                  'permissions': ()},
                  ),
+     # additionnal cps stuff
+     'cps_is_portalbox': 1,
      },
     )
 

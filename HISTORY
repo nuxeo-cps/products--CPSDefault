@@ -1,4 +1,91 @@
 *******************************************
+** CPSDefault V3.31.0 [R1 build 2005/01/20-11:12 by ben]
+
+Requires:
+~~~~~~~~~
+- WARNING: all ZPT macro lib are now splitted in one macro by file
+  this means that if you have overload a macro_lib (like content_lib,
+  header_lib ...) or if you use cps macro lib in your products
+  you have to update your sources to be compatible with this package
+  this can by launching:
+  python Products/CPSDefault/Extension/split_macro_lib.py on the root of your 
+  zope
+- WARNING: Many properties have been added to stylesheet_properties.props.
+  If you overload stylesheet_properties.props you need to add the following
+  properties:
+  listingHeaderBackground
+  listingHeaderColor
+  listingCellBackground
+  listingCellColor
+  listingCellOddBackground
+  listingCellOddColor
+  listingCellEvenBackground
+  listingCellEvenColor
+  rssBorder
+  rssBackground
+  rssColor
+  rssFont
+  atomBorder
+  atomBackground
+  atomColor
+  atomFont
+  cf CPSDefault/skins/cps_styles/nuxeo/stylesheet_properties.props
+
+- CPSWorkflow
+New features:
+~~~~~~~~~~~~~
+- Made comments on transition forms be mandatory through JavaScript checking.
+- Added ATOM export for content boxes.
+Bug fixes:
+~~~~~~~~~~
+- fix #453: it was a CSS bug and needed a little fix in JavaScript lib
+- Fixed computeId that did not have exactly the expected behavior and modified
+  the unit tests accordingly.
+- fix #457: menu box strange behavior
+- Modified the RSS link for content box to not be an image but rather a text 
+  + CSS as it was at the beginning, but better looking. It's now located at the
+  top right corner of the box.
+- Removed the "list-style-type" CSS property in nuxeo_css2.css since it was too
+  restrictive and prevented user agents to use the default nice adopted behavior
+  (at least for Mozilla and MSIE) to have an alternation of "disc", "circle" and
+  "square".
+- Fixed the spaces around li elements: added more focus to the CSS selector and
+  put space only after the li elements (but spaces around li element should
+  disappear eventually).
+- Made the tab style menu have more focus (for better integration with tools
+  like CPSSkins).
+- Cleaned HTML some more.
+- Made joining of the portal de-activated by default, as this is not the way
+  clients wants it to be by default.
+- Use <dtml-comment> to comment things in .css.dtml
+- fix #458: Firefox cannot syndicate RSS exports from CPS
+- Reduced the size of the h1, h2 and h3 headers.
+- Disabled the MSIE PNG behavior, but keeping it in the comments, since it
+  doesn't work on some MSIE 5.5 versions: totally blocking the display of PNG
+  images.
+- fix #470: login_form.pt did not display well (unusable) in old IE
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- splitting macro_lib makes customization easier
+- Trees have now a 'portal_tree_stop_depth' which can be set from
+  the zmi to restrict absolute depth
+- Renamed the "Nuxeo logo" box into "CPS logo" which it really is.
+- new CSS menuTabs class to create clean menu tabs like sections/workspaces
+- Renamed and added some CSS properties so that they are more generic and can be
+  used in other products such as CPSSubscriptions.
+- Made comments mandatory in transition forms through JavaScript control.
+- Factorization: made the transition_form from content_lib_transition_form.pt
+  used by all CPSDefault transition forms.
+- Renamed nuxeo_rss_css.css.dtml into rss.css.dtml because no-one will ever
+  customize this CSS on a per web site basis and this CSS has nothing Nuxeo
+  specific.
+- Factorized RSS and ATOM HTML code into an xml_exports.pt ZPT macro file.
+- Made renaming to follow the method name mixed-case naming scheme: 
+  exportRSSContentBox.py -> exportRssContentBox.py
+  exportATOMContentBox.py -> exportAtomContentBox.py
+  
+
+*******************************************
 ** CPSDefault V3.30.2 [R1 build 2004/12/21-09:16 by ben]
 
 Requires:

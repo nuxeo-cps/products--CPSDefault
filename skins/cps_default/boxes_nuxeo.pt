@@ -118,15 +118,24 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_l10n_select"
-   tal:define="map here/Localizer/get_languages_map"
+   tal:define="map here/Localizer/get_languages_map;
+               l10n_translated nothing"
    tal:condition="python:len(map) > 1">
 <form name="idioma" action="Localizer/changeLanguage" method="post"
-      tal:attributes="action string:${base_url}Localizer/changeLanguage">
+      tal:attributes="action string:${base_url}Localizer/changeLanguage"
+      tal:define="lang_voc here/portal_vocabularies/language_voc">
   <select name="lang" onchange="idioma.submit()">
     <option tal:repeat="locale map"
+            tal:condition="not:l10n_translated"
             tal:attributes="value locale/id;
                             selected locale/selected|nothing"
-            tal:content="string:label_language_${locale/id}"
+            tal:content="python:lang_voc[locale['id']]">
+      Language</option>
+    <option tal:repeat="locale map"
+            tal:condition="l10n_translated"
+            tal:attributes="value locale/id;
+                            selected locale/selected|nothing"
+            tal:content="python:lang_voc.getMsgid(locale['id'])"
             i18n:translate="">
       Language</option>
   </select>

@@ -83,17 +83,18 @@ for item in items:
             dc_text += rss_item_dc % {'dc_key': key,
                                       'dc_value': escape(value)}
     body_text += rss_item % {'item_id': url,
-                             'item_title': info.get('title', ''),
-                             'item_description': info.get('description', ''),
+                             'item_title': escape(info.get('title', '')),
+                             'item_description': escape(info.get('description',
+                                                                 '')),
                              'item_link': url,
                              'item_dc': dc_text,}
 
 text = rss_fmt % {'css_url': base_url + 'nuxeo_rss_css.css',
                   'rdf_ns': rdf_ns,
                   'channel_about': channel_url,
-                  'channel_title': box.title_or_id(),
+                  'channel_title': escape(box.title_or_id()),
                   'channel_link': channel_url,
-                  'channel_description': channel_description,
+                  'channel_description': escape(channel_description),
                   'items_li': header_text,
                   'items': body_text,
                   'js_url': base_url + 'rss.js',

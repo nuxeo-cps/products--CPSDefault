@@ -22,6 +22,7 @@ contentClasses = (Folder.Folder, Dummy.Dummy,
                   BaseBox.BaseBox,
                   TextBox.TextBox, TreeBox.TreeBox,
                   ContentBox.ContentBox, ActionBox.ActionBox)
+
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        BaseBox.addBaseBox,
                        TextBox.addTextBox, TreeBox.addTreeBox,

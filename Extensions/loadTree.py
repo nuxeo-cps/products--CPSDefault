@@ -64,6 +64,9 @@ class DataConfig:
 
     def getContents(self, folder='root'):
         return cfg.getList(folder, 'contents', '')
+
+    def getPermission(self, folder='root'):
+        return cfg.getList(folder, 'permission', '')
     
 
 def makeId(title):
@@ -96,8 +99,6 @@ def createContent(type, path, id, title, desc='', force=None, **kw):
             parent.manage_addPortalFolder(id, title)
         else:
             parent.invokeFactory(type, id)
-    if type == 'folder':
-        return
     ob = getattr(parent, id)
     ti = ob.getTypeInfo()
     if ti is None:
@@ -111,6 +112,9 @@ def createContent(type, path, id, title, desc='', force=None, **kw):
     else:
         ob.manage_changeProperties(title=title, description=desc, **kw)
         ob.reindexObject()
+
+    return ob
+        
 
 
 def buildTree(cfg, parent='root', path='', parent_type=None):
@@ -126,8 +130,17 @@ def buildTree(cfg, parent='root', path='', parent_type=None):
         force = cfg.get(content, 'force')
         kw = cfg.getKw(content,
                        remove=('id', 'title', 'type',
-                               'desc', 'force', 'contents'))
-        createContent(type, path, id, title, desc, force, **kw)
+                               'desc', 'force', 'contents', 'permission'))
+        ob = createContent(type, path, id, title, desc, force, **kw)
+        if ob:
+            for perm in cfg.getPermission(content):
+                permission = cfg.get(perm, 'permission')
+                roles=cfg.getList(perm, 'roles')
+                acquire=int(cfg.get(perm, 'acquire', '0'))
+                if not len(roles) or not permission:
+                    continue
+                ob.manage_permission(permission, roles=roles,
+                                     acquire=acquire)
 
     for content in contents:
         buildTree(cfg, content, path, parent_type)

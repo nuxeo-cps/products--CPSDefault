@@ -29,24 +29,26 @@
               stree python:sections.getList(start_depth=0, stop_depth=1);
               wtree python:workspaces.getList(start_depth=0, stop_depth=2)[:1]">
   <tal:block repeat="item stree">
-    <span class="opentab">&nbsp;</span><a href="" class=""
-       tal:attributes="href string:${base_url}${item/rpath}/;
-                       class python:test(context_url.endswith(item['rpath']),
-                                         'selected', default);
-                       title item/title"
-       tal:content="structure item/short_title">
-       section title
-    </a><span class="closetab">&nbsp;</span>
+    <tal:block define="selected python:context_url.endswith(item['rpath'])">
+      <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)">&nbsp;</span><a href="" class=""
+         tal:attributes="href string:${base_url}${item/rpath}/;
+                         class python:test(selected, 'selected', default);
+                         title item/title"
+         tal:content="structure item/short_title">
+         section title
+      </a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)">&nbsp;</span>
+  </tal:block>
   </tal:block>
   <tal:block repeat="item wtree">
-    <span class="wsOpentab">&nbsp;</span><a href="" class="workspace"
-       tal:attributes="href string:${base_url}${item/rpath}/;
-                       class python:test(context_url.endswith(item['rpath']),
-                                         'wsSelected', default);
-                       title item/title"
-       tal:content="structure item/short_title">
-       workspace title
-    </a><span class="wsClosetab">&nbsp;</span>
+    <tal:block define="selected python:context_url.endswith(item['rpath'])">
+      <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)">&nbsp;</span><a href="" class="workspace"
+         tal:attributes="href string:${base_url}${item/rpath}/;
+                         class python:test(selected, 'wsSelected', default);
+                         title item/title"
+         tal:content="structure item/short_title">
+         workspace title
+      </a><span class="wsClosetab" tal:attributes="class python:test(selected, 'wsClosetabSelected', default)">&nbsp;</span>
+    </tal:block>
   </tal:block>
 </div>
 </metal:block>

@@ -941,6 +941,15 @@ def cpsupdate(self, langs_list=None):
                            'categories':'folder',
                            },
 
+        'welcome' : {'type':'Base Box',
+                     'title': 'CPS Welcome',
+                     'slot':'center',
+                     'order':10,
+                     'format':'welcome',
+                     'display_in_subfolder': 0,
+                     'display_only_in_subfolder': 0,
+                     },
+
         'nav_header' : {'type':'Base Box',
                         'title': 'Folder header',
                         'slot':'folder_view',

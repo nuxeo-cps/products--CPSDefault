@@ -1,6 +1,10 @@
-##parameters=
 ##parameters=search_param=None, search_term=None
 #$Id$
+
+from AccessControl import Unauthorized
+
+if not context.portal_membership.checkPermission('Change permissions', context):
+    raise Unauthorized
 
 if search_param in ('fullname', 'email'):
     mdir = context.portal_directories.members

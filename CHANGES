@@ -7,9 +7,27 @@ Requires:
   this can by launching:
   python Products/CPSDefault/Extension/split_macro_lib.py on the root of your 
   zope
-- WARNING: if you overload stylesheet_properties.props you need to add:
-  conformanceBorder conformanceBackground conformanceColor conformanceFont
+- WARNING: Many properties have been added to stylesheet_properties.props.
+  If you overload stylesheet_properties.props you need to add the following
+  properties:
+  listingHeaderBackground
+  listingHeaderColor
+  listingCellBackground
+  listingCellColor
+  listingCellOddBackground
+  listingCellOddColor
+  listingCellEvenBackground
+  listingCellEvenColor
+  rssBorder
+  rssBackground
+  rssColor
+  rssFont
+  atomBorder
+  atomBackground
+  atomColor
+  atomFont
   cf CPSDefault/skins/cps_styles/nuxeo/stylesheet_properties.props
+
 - CPSWorkflow
 New features:
 ~~~~~~~~~~~~~
@@ -42,4 +60,6 @@ New internal features:
 - TreeBox have now a 'portal_tree_stop_depth' which can be set from
   the zmi to restrict absolute depth
 - Renamed the "Nuxeo logo" box into "CPS logo" which it really is.
-- new css menuTabs class to create clean menu tabs like sections/workspaces
+- new CSS menuTabs class to create clean menu tabs like sections/workspaces
+- Renamed and added some CSS properties so that they are more generic and can be
+  used in other product such as CPSSubscriptions.

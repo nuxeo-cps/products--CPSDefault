@@ -143,6 +143,53 @@ table.columns td.right {
   background: <dtml-var columnsRightBackground>;
 }
 
+table.listing {
+  width: 100%;
+}
+
+table.listing caption {
+  font-weight: bold;
+  font-size: large;
+}
+
+table.listing td {
+  padding: 0.4em;
+}
+
+table.listing thead td {
+  background-color: <dtml-var listingHeaderBackground>;
+  color: <dtml-var listingHeaderColor>;
+  text-align: center;
+  font-weight: bold;
+}
+
+table.listing tbody td {
+  background-color: <dtml-var listingCellBackground>;
+  color: <dtml-var listingCellColor>;
+}
+
+table.listing tbody tr.odd td {
+  background-color: <dtml-var listingCellOddBackground>;
+  color: <dtml-var listingCellOddColor>;
+}
+
+table.listing tbody tr.even td {
+  background-color: <dtml-var listingCellEvenBackground>;
+  color: <dtml-var listingCellEvenColor>;
+}
+
+table.listing .action {
+  font-weight: bold;
+  text-align: left;
+}
+
+table#subscriptions td {
+  text-align: center;
+}
+
+table#subscriptions .action {
+  text-align: left;
+}
 
 <dtml-comment>
 DIVs ------------------------------
@@ -500,33 +547,6 @@ div.bookPageInfo {
   float:right;
 }
 
-table.history {
-    width: 100%;
-}
-
-table.history caption {
-    font-weight: bold;
-    font-size: large;
-}
-
-table.history td {
-    padding: 0.4em;
-}
-
-table.history thead td {
-    background-color: #cde2a7;
-    text-align: center;
-    font-weight: bold;
-}
-
-table.history tbody td {
-    background-color: #efefdd;
-}
-
-table.history .action {
-    font-weight: bold;
-}
-
 <dtml-comment>
 Hide stuff by id and make it available in source
 </dtml-comment>
@@ -543,11 +563,11 @@ div.rssExport {
 }
 
 div.rssExport a {
-  border: <dtml-var conformanceBorder>;
-  background: <dtml-var conformanceBackground>;
-  color: <dtml-var conformanceColor>;
+  border: <dtml-var rssBorder>;
+  background: <dtml-var rssBackground>;
+  color: <dtml-var rssColor>;
   padding: 0 0.3em 0 0.3em;
-  font: <dtml-var conformanceFont>;
+  font: <dtml-var rssFont>;
   text-decoration: none;
 }
 

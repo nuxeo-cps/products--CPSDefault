@@ -1,25 +1,40 @@
+# $Id$
 # benchmarker from zopelabs'cookbook submited by zopedan
+""" Benchmark tools are available if
+ BENCHMARCKTIMER_LEVEL is define in environment
+"""
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import Implicit
 import Globals
 import time
+import os
 
 class pyBenchmarkTimer:
-    def __init__(self, title=''):
+    def __init__(self, title='', level=-1):
         """
         constructor, initializes
         """
         self.title = title
         self.markers = {}
         self.markerOrder = []
+        self._level = level
+        self._level_display = int(os.environ.get('BENCHMARKTIMER_LEVEL', 0))
+        if self._level_display and (self._level >= self._level_display):
+            self._in_bench = 1
+        else:
+            self._in_bench = 0
+
+    def in_bench(self):
+        """ are we benching or not """
+        return self._in_bench
 
     def start(self):
         """
         set the marker 'Start'
         a cheat shortcut function for basic use
         """
-        self.setMarker('Start')
+        return self.setMarker('Start')
 
     def stop(self):
         """
@@ -32,6 +47,8 @@ class pyBenchmarkTimer:
         """
         set the specific marker
         """
+        if not self._in_bench:
+            return
         self.markers[name] = time.clock()
         self.markerOrder.append(name)
 
@@ -57,10 +74,13 @@ class pyBenchmarkTimer:
         diff  -> difference between this marker and last marker
         total -> difference between this marker and first marker
         """
+        if not self._in_bench:
+            return
         i       = 0
         total   = 0
         profiling = []
-        str = '<pre>Profiling %s:<small>\n' % self.title
+        str = '<pre>Profiling lvl:%d %s:<small>\n' % (self._level,
+                                                      self.title)
         str += '%-6s  %-10s %-4s\n' % ('t', 'mark', 'delta t')
         for name in self.markerOrder:
             time = self.markers[name]
@@ -74,9 +94,9 @@ class pyBenchmarkTimer:
                                 'diff'  : diff,
                                 'total' : total } )
             if diff > 0.3:
-                str += '%.4f: %-10s +<font color="red">%.4f</font>\n' % (total, name, diff)
+                str += '%7.4f: %-10s +<font color="red">%7.4f</font>\n' % (total, name, diff)
             else:
-                str += '%.4f: %-10s +%.4f\n' % (total, name, diff)
+                str += '%7.4f: %-10s +%7.4f\n' % (total, name, diff)
             
             temp = time
             i = i+1
@@ -87,6 +107,8 @@ class pyBenchmarkTimer:
         return profiling
 
     def saveProfile(self, REQUEST):
+        if not self._in_bench:
+            return
         str = REQUEST.other.get('bench_mark_profiler', '')
         REQUEST.other['bench_mark_profiler'] = str + self.getProfiling()
 
@@ -100,9 +122,10 @@ class zBenchmarkTimer(Implicit, pyBenchmarkTimer):
     security.declarePublic('timeElapsed')
     security.declarePublic('getProfiling')
     security.declarePublic('saveProfile')
+    security.declarePublic('in_bench')
 
 Globals.InitializeClass(zBenchmarkTimer)
 
-def BenchmarkTimerInstance(title=''):
-    ob = zBenchmarkTimer(title)
+def BenchmarkTimerInstance(title='', level=-1):
+    ob = zBenchmarkTimer(title, level)
     return ob

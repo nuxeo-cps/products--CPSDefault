@@ -108,6 +108,7 @@ items = [
     ]
 
 citems = context.getCustomBoxTypes()
+
 for citem in citems:
     found = 0
     for item in items:
@@ -116,11 +117,11 @@ for citem in citems:
             found = 1
             break
     if not found:
-        items.extend(citem)
+        items.extend([citem])
 
 if category:
     for item in items:
         if item['category'] == category:
             return item
-
+        
 return items

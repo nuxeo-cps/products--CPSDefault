@@ -2,9 +2,15 @@
 <dtml-var manage_tabs>
 
 <form action="setGuardProperties" method="post">
-  <dtml-with getGuard>
-    <dtml-var guardForm>
-  </dtml-with>
+  <dtml-if getGuard>
+    <dtml-with getGuard>
+      <dtml-var guardForm>
+    </dtml-with>
+  <dtml-else>
+    <dtml-with getTempGuard>
+      <dtml-var guardForm>
+    </dtml-with>
+  </dtml-if>
   <input type="submit" name="submit" value="Save changes">
 </form>
 

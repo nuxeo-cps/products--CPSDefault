@@ -214,6 +214,10 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     # XXX which security declaration?
     def getGuard(self):
         return self.guard
+
+    def getTempGuard(self):
+        """Used only by the time of using guard management form."""
+        return BoxGuard().__of__(self)  # Create a temporary guard.
     
     security.declarePrivate('callAction')
     def callAction(self, actionid, **kw):

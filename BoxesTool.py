@@ -107,7 +107,7 @@ class BoxesTool(UniqueObject, PortalFolder):
             ##if not _checkPermission('View', box):
             ##    continue
             # Do ACL or TAL expression allow this box here
-            if not box.getGuard().check(getSecurityManager(), box, context):
+            if box.getGuard() and not box.getGuard().check(getSecurityManager(), box, context):
                 continue
             # Only add boxes if they are to be displayed
             # in the subfolders, or if

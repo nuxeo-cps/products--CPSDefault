@@ -18,7 +18,7 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
 from Products.NuxCPS3.CPSWorkflow import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
-     TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING\
+     TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
@@ -40,7 +40,21 @@ def cpsinstall(self):
     pr("")
     installername = getSecurityManager().getUser().getUserName()
     pr("Current user: %s" % installername)
+    portal = self.portal_url.getPortalObject()
 
+    pr("Cleaning actions")
+    actiondelmap = {
+        'portal_actions': ['folderContents', 'folder_contents'],
+        }
+    for tool, actionids in actiondelmap.items():
+        actions = list(portal[tool]._actions)
+        for ac in actions:
+            id = ac.id
+            if id in actionids:
+                if ac.visible:
+                    ac.visible = 0
+                    pr(" Deleting %s: %s" % (tool, id))
+        portal[tool]._actions = actions
 
     pr("Install Done")
     return pr('flush')
@@ -405,6 +419,7 @@ def cpsupdate(self, langs_list=None):
     ptypes = {
         'NuxCPS3':('CPS Proxy Document',
                    'CPS Proxy Folder',
+                   'CPS Folder'
                    ),
         'SSS3':('Dummy',)
         }
@@ -427,6 +442,7 @@ def cpsupdate(self, langs_list=None):
                 )
             pr("   Installation")
 
+           
     # add Section and Workspace portal types based on CPS Proxy Folder
     ttool.manage_addTypeInformation(
         id='Section',
@@ -444,7 +460,21 @@ def cpsupdate(self, langs_list=None):
     ttool['Workspace'].manage_changeProperties(None,
                                                title='Workspace',
                                                content_meta_type='Workspace')
-
+    # change actions for cps proxy folder
+    for ptype in ('Section', 'Workspace'):
+        actions = list(ttool[ptype]._actions)
+        for action in actions:
+            if action['id'] == 'edit':
+                action['action'] = 'folder_edit_form'
+            elif action['id'] == 'localroles':
+                action['action'] = 'folder_localrole_form'
+            elif action['id'] == 'view':
+                pass
+            else:
+                action['visible'] = 0
+        ttool[ptype]._actions = actions
+    
+    
     # check workflow association
     pr("Verifying workflow schemas")
     wfs = {

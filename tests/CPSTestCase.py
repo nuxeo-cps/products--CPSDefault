@@ -108,10 +108,11 @@ class CPSInstaller:
         self._start = time.time()
         self._quiet = quiet
 
-    def install(self, id):
+    def install(self, portal_id):
         self.addUser()
         self.login()
-        self.addPortal(id)
+        self.addPortal(portal_id)
+        self.fixupTranslationServices(portal_id)
         self.logout()
 
     def addUser(self):
@@ -123,17 +124,19 @@ class CPSInstaller:
         user = uf.getUserById('CPSTestCase').__of__(uf)
         newSecurityManager(None, user)
 
-    def addPortal(self, id):
+    def addPortal(self, portal_id):
         factory = self.app.manage_addProduct['CPSDefault']
-        factory.manage_addCPSDefaultSite(id, 
+        factory.manage_addCPSDefaultSite(portal_id, 
             root_password1="passwd", root_password2="passwd",
             langs_list=['en'])
 
-        # Change translation_service to DummyTranslationService
-        portal = getattr(self.app, id)
+    # Change translation_service to DummyTranslationService
+    def fixupTranslationServices(self, portal_id):
+        portal = getattr(self.app, portal_id)
         portal.translation_service = DummyTranslationService()
-        for domain in portal.Localizer.objectIds():
-            setattr(portal.Localizer, domain, DummyMessageCatalog())
+        localizer = portal.Localizer
+        for domain in localizer.objectIds():
+            setattr(localizer, domain, DummyMessageCatalog())
 
     def logout(self):
         noSecurityManager()

@@ -19,7 +19,7 @@ if not allow_empty_search and not query:
 bmt = context.Benchmarktimer('search query %s' % query)
 
 if folder_prefix and not query.has_key('path'):
-    query['path'] =  context.getBaseUrl + folder_prefix
+    query['path'] =  context.getBaseUrl() + folder_prefix
 
 # use the cps searchable set to remove objects in 'portal_*' or named '.foo'
 query['cps_filter_sets'] = 'searchable'
@@ -50,4 +50,3 @@ bmt.saveProfile(context.REQUEST)
 # no more need to use filterContents
 
 return brains
-

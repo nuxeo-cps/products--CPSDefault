@@ -73,7 +73,7 @@
 
 <!-- ============================================================ -->
 <h1>Footer for a document or a folder</h1>
-<metal:block metal:define-macro="byline">
+<metal:block define-macro="byline">
   <tal:block condition="not:isAnon"
   tal:define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
   cname dname/fullname|doc/Creator;

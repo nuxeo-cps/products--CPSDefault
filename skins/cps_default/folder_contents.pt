@@ -58,7 +58,7 @@
                      b_start request/b_start | b_start;
                      filterString python: request.get('folderfilter', '');
                      filter python: here.decodeFolderFilter(filterString);
-                     items python: here.folder_contents_get(
+                     items python: here.getFolderContents(
                                                 contentFilter=filter);
                      Batch nocall: modules/ZTUtils/Batch;
                      global batch1 python:Batch( items, 10, int(b_start)

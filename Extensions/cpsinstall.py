@@ -168,7 +168,9 @@ def cpsupdate(self, langs_list=None):
 
     # skins
     pr("Verifying skins")
-    skins = ('cps_nuxeo_style', 'cps_styles', 'cps_images', 'cps_devel', 'cps_default', 'cps_javascript', 'cps_nuxmetadirectories')
+    skins = ('cps_nuxeo_style', 'cps_styles', 'cps_images', 'cps_devel',
+             'cps_default', 'cps_javascript', 'cps_nuxmetadirectories',
+             'cmf_zpt_calendar', 'cmf_calendar')
     paths = {
         'cps_nuxeo_style': 'Products/CPSDefault/skins/cps_styles/nuxeo',
         'cps_styles': 'Products/CPSDefault/skins/cps_styles',
@@ -177,6 +179,8 @@ def cpsupdate(self, langs_list=None):
         'cps_default': 'Products/CPSDefault/skins/cps_default',
         'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
         'cps_nuxmetadirectories' : 'Products/NuxMetaDirectories/skins/cps_nuxmetadirectories',
+        'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
+        'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
     }
     for skin in skins:
         path = paths[skin]
@@ -323,7 +327,7 @@ def cpsupdate(self, langs_list=None):
 
     for s in ('work', ):
         wf.states.addState(s)
-    
+
     # create_folder is transition which does nothing?
     for t in ('create', 'create_content', 'create_folder'):
         wf.transitions.addTransition(t)

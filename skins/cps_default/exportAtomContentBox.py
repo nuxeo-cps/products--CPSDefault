@@ -35,8 +35,8 @@ atom_feed = r"""<?xml version="1.0" encoding="ISO-8859-15"?>
 
 atom_entry = r"""
   <entry>
-    <id>%(entry_id)s</id>
     <title mode="escaped" type="text/html">%(entry_title)s</title>
+    <id>%(entry_id)s</id>
     <link rel="alternate" type="text/html" href="%(entry_link)s" />
     <issued>%(entry_issued)s</issued>
     <modified>%(entry_modified)s</modified>

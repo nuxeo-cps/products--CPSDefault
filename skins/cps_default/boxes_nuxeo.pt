@@ -188,9 +188,9 @@
                     <td class="event"
                         tal:attributes="class python:here.getDaysClass(
                                         daynumber, month, year, day['event'])">
-                      <a href tal:attributes="href python:here.portal_url()+
-                                 '/calendar_cpsday_view?date=%s'%(datestring)"
-                              tal:content="python: daynumber or default">
+                      <a href tal:attributes="href
+                        string:${context_url}/calendar_cpsday_view?date=${datestring}"
+                      tal:content="python: daynumber or default">
                          
                       </a>
                     </td>

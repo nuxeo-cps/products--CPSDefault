@@ -1316,9 +1316,6 @@ except:
         self.runExternalUpdater('cpsml_installer',
                                 'CPSMailingLists Installer',
                                 'CPSMailingLists', 'install', 'install')
-        self.runExternalUpdater('nuxmailboxer_install',
-                                'NuxMailBoxerLists Installer',
-                                'NuxMailBoxer', 'install', 'install')
 
 def cpsupdate(self, langs_list=None, is_creation=0):
     # helpers

@@ -10,6 +10,8 @@
 # to generate the bookmark URL and to retrieve the object (in order to get
 # its title and description).
 
+# TODO: check that link doesn't exist already.
+
 from ZTUtils import make_query
 
 portal = context.portal_url.getPortalObject()
@@ -18,10 +20,10 @@ homeFolder = portal.portal_membership.getHomeFolder()
 favorites_id = 'Favorites'
 
 if favorites_id not in homeFolder.objectIds():
-  homeFolder.invokeFactory('Workspace', favorites_id)
+    homeFolder.invokeFactory('Workspace', favorites_id)
 targetFolder = getattr(homeFolder, favorites_id)
 
-new_id='fav_' + str(int(context.ZopeTime()))
+new_id = 'fav_' + str(int(context.ZopeTime()))
 
 targetFolder.invokeFactory('Link', new_id)
 
@@ -33,25 +35,28 @@ portal_URL_length = len(portal.portal_url())
 # might be incorrect - the above-mentioned method fixes this
 # but has not been retained because of its lower performace.
 if referer and len(referer) >= portal_URL_length:
-    rurl = portal.portal_url.getPortalPath() + \
+    referer_url = portal.portal_url.getPortalPath() + \
         REQUEST.HTTP_REFERER[portal_URL_length:]
 else:
-    rurl = portal.portal_url.getPortalPath() + '/' + \
+    referer_url = portal.portal_url.getPortalPath() + '/' + \
         context.portal_url.getRelativeUrl(context)
 
 kw = {'Title': context.TitleOrId(),
       'Description': context.getContent().description,
-      'Relation': rurl}
+      'Relation': referer_url}
 
 doc = getattr(targetFolder, new_id).getEditableContent()
 
 doc.edit(**kw)
 
 if REQUEST is not None:
-    if '?' in rurl:
-        url = REQUEST.HTTP_SERVER + rurl + '&' + \
-            make_query(portal_status_message='psm_added_to_favorites')
+    if referer_url.count('portal_status_message'):
+        query = ''
     else:
-        url = REQUEST.HTTP_SERVER + rurl + '?' + \
-            make_query(portal_status_message='psm_added_to_favorites')
+        query = make_query(portal_status_message='psm_added_to_favorites')
+    if '?' in referer_url:
+        url = REQUEST.HTTP_SERVER + referer_url + '&' + query
+    else:
+        url = REQUEST.HTTP_SERVER + referer_url + '?' + query
     return REQUEST.RESPONSE.redirect(url)
+

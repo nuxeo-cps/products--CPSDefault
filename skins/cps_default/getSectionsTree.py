@@ -1,6 +1,7 @@
-"""
-get all sections info with allowed publishing transitions
-"""
+## Script (Python) "getSectionsTree"
+##parameters=
+# $Id$
+"""Get all sections info with allowed publishing transitions"""
 
 sections = context.portal_trees.sections.getList()
 

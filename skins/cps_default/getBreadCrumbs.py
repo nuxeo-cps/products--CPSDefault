@@ -1,7 +1,6 @@
 ## Script (Python) "getBreadCrumbs.py"
 ##parameters=include_root=1
-##title=Return breadcrumbs
-##
+# $Id$
 from string import join
 
 result = []

@@ -1,7 +1,6 @@
 ## Script (Python) "getFolderContents"
 ##parameters=sort_by='date', direction='asc'
-##title=
-##
+# $Id$
 """
 Get a sorted list of contents object
 """

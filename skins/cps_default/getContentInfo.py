@@ -5,13 +5,14 @@
 level: 0 (default)
   id, title, title_or_id, review_state, icon, rev, lang, stime
 level: 1
-  level 0 + descr
+  level 0 + descr, size
 level: 2
-  level 1 + descr, states
+  level 1 + states
 level: 3
-  level 2 + descr, states, history
+  level 2 + history
 """
-bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id)
+bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id,
+                             level=-3)
 bmt.setMarker('start')
 
 wtool=context.portal_workflow
@@ -95,7 +96,11 @@ if level > 0:
     if not doc:
         doc = proxy.getContent()
     info['description'] = doc.Description()
-
+    if hasattr(doc, 'get_size'):
+        try:
+            info['size'] = doc.get_size()
+        except:
+            pass
 # level 2
 if level == 2:
     info['states'], None = compute_states(1)

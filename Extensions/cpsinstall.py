@@ -163,17 +163,8 @@ def cpsupdate(self, langs_list=None):
 
     pr(" Checking portal_catalog indexes")
     indexes = {
-        'is_closed': 'FieldIndex',
-        'parent_path': 'FieldIndex',
-        'sort_order': 'FieldIndex',
-        'xpos': 'FieldIndex',
-        'ypos': 'FieldIndex',
         }
     metadata = [
-        'is_closed',
-        'parent_path',
-        'sort_order',
-        'xpos', 'ypos',
         ]
     catalog = portal.portal_catalog
     for ix, typ in indexes.items():
@@ -735,11 +726,76 @@ def cpsupdate(self, langs_list=None):
     else:
         pr(" Present")
 
+
+
+
+    
+    pr(" Adding cps default boxes")
+    pr("  Checking /.cps_boxes")
+    if not portalhas('.cps_boxes'):
+        pr("   Creating")
+        portal.manage_addProduct['CPSDefault'].addBoxContainer()
+    boxes = {
+        'action_user': {'type':'Action Box',
+                        'title': 'User actions',
+                        'slot':'left',
+                        'order':1,
+                        'categories':'user',
+                        },
+        'action_portal' : {'type':'Action Box',
+                           'title': 'Portal actions',
+                           'slot':'left',
+                           'order':2,
+                           'categories':'global',
+                           },
+        'navigation': {'type':'Tree Box',
+                       'title':'Navigation',
+                       'depth':1,
+                       'contextual':1,
+                       'slot':'left',
+                       'order':4},
+        'action_object' : {'type':'Action Box',
+                           'title': 'Object actions',
+                           'slot':'right',
+                           'order':1,
+                           'categories':'object',
+                           },
+        'action_folder' : {'type':'Action Box',
+                           'title': 'Folder actions',
+                           'slot':'right',
+                           'order':2,
+                           'categories':'folder',
+                           },
+        'nav_folder' : {'type':'Tree Box',
+                        'title': 'Sub sections',
+                        'slot':'folder_view',
+                        'order':1,
+                        'format':'center',
+                        'contextual':1,
+                        'depth':2,
+                        'children_only':1,
+                        },
+        'nav_content' : {'type':'Content Box',
+                         'title': 'Contents',
+                         'slot':'folder_view',
+                         'order':2,
+                         },
+        }
+    box_container = portal['.cps_boxes']
+    existing_boxes = box_container.objectIds()
+    for box in boxes.keys():
+        if box in existing_boxes:
+            continue
+        pr("   Creation of box: %s" % box)
+        apply(ttool.constructContent,
+              (boxes[box]['type'], box_container,
+               box, None), {})
+        ob = getattr(box_container, box)
+        ob.manage_changeProperties(boxes[box])
+        
         
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)
-
-        
         
         
     # remove cpsinstall external method

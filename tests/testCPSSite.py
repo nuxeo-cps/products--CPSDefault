@@ -29,7 +29,7 @@ ZopeTestCase.installProduct('MailHost')
 ZopeTestCase.installProduct('VerboseSecurity')
 ZopeTestCase.installProduct('CPSCore')
 
-ZopeTestCase.installProduct('SSS3')
+ZopeTestCase.installProduct('CPSDefault')
 
 
 _folder_name          = 'testFolder_1_'
@@ -65,8 +65,8 @@ _print('done (%.3fs)\n' % (time.time() - _start))
 
 _print('Creating a CPS Site ... ')
 _start = time.time()
-_dispatcher = _folder.manage_addProduct['SSS3']
-_dispatcher.manage_addSss3Site('cps', title='The test case Site')
+_dispatcher = _folder.manage_addProduct['CPSDefault']
+_dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
 _portal = _folder['cps']
 _print('done (%.3fs)\n' % (time.time() - _start))
 
@@ -80,7 +80,7 @@ _portal[_sections].manage_setLocalRoles(_user_name2, ('SectionReviewer',))
 _portal[_workspaces].manage_setLocalRoles(_user_name1, ('WorkspaceMember',))
 _portal[_workspaces].manage_setLocalRoles(_user_name2, ('WorkspaceMember',))
 
-class TestSSS3(unittest.TestCase):
+class TestCPSDefault(unittest.TestCase):
     
     def setUp(self):
         self.portal = _portal
@@ -142,6 +142,6 @@ else:
     import unittest
     def test_suite():
         suite = unittest.TestSuite()
-        suite.addTest(unittest.makeSuite(TestSSS3))
+        suite.addTest(unittest.makeSuite(TestCPSDefault))
         return suite
 

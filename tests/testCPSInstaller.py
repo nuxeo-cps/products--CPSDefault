@@ -42,7 +42,7 @@ class TestCPSInstaller(ZopeTestCase.ZopeTestCase):
                        roles, ())
 
         dispatcher = self.folder.manage_addProduct['CPSDefault']
-        dispatcher.manage_addSss3Site('cps', title='The test case Site')
+        dispatcher.manage_addCPSDefaultSite('cps', title='The test case Site')
         self.cps = self.folder['cps']
 
         # checking for root folders

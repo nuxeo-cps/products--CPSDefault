@@ -120,6 +120,7 @@ def compute_archived():
     archived = ptool.getArchivedInfosForDocid(docid)
     # Keep only frozen revisions.
     archived = [d for d in archived if d['is_frozen']]
+    archived.reverse()
     for d in archived:
         d['time_str'] = context.getDateStr(d['modified'])
     return archived

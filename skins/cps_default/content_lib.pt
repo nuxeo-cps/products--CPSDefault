@@ -71,7 +71,7 @@
 <p i18n:translate="">
   Created by
   <a href="." title="Here" tal:omit-tag="not:email"
-     tal:attributes="href string:mailto:${email}; title email"
+     tal:attributes="href string:mailto:${email}?subject=[${doc/title}]; title email"
      tal:content="creator" i18n:name="item_creator">Creator</a>.
   Last modified
   <span tal:content="python:doc.ModificationDate()"

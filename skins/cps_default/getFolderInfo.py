@@ -19,7 +19,9 @@ except AttributeError:
     # not a proxy
     doc = context
 description = doc.Description() or ''
-
+hidden_folder = 0
+if hasattr(doc.aq_explicit, 'hidden_folder'):
+    hidden_folder = doc.hidden_folder
 #get all managers of this folder
 if context.portal_type == 'Section':
     manager_role = 'SectionManager'
@@ -42,4 +44,5 @@ return {'title': context.Title(),
         'short_title': short_title.replace(' ', '&nbsp;'),
         'description': description,
         'managers': managers,
+        'hidden_folder': hidden_folder,
         }

@@ -235,7 +235,8 @@
 <metal:block define-macro="contentbox_default"
   tal:define="ret python:box['box'].getContents(here);
               items python:ret[0];
-              link_more python:ret[1];">
+              link_more python:ret[1];"
+  tal:condition="items">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title" i18n:translate=""
       tal:content="box/box/title">box text title</metal:block>
@@ -267,7 +268,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_default"
   tal:define="items python:box['box'].getTree(here);">
-<tal:block condition="python: len(items)>0">
+<tal:block condition="items">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
       tal:content="box/box/title" i18n:translate="">
@@ -384,7 +385,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="treebox_sitemap"
              tal:define="items python:box['box'].getTree(here);">
-<tal:block condition="python: len(items)>0">
+<tal:block condition="items">
   <metal:block use-macro="python:path(box['settings']['box_skin'])">
     <metal:block fill-slot="box_title"
       tal:content="box/box/title" i18n:translate="">

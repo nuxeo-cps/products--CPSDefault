@@ -1,5 +1,4 @@
 # (C) Copyright 2003 Nuxeo SARL <http://nuxeo.com>
-# Author: Florent Guillaume <fg@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -39,10 +38,6 @@ class BaseInstaller:
         self.workspaces = self.portal[self.WORKSPACES_ID]
         self.sections = self.portal[self.SECTIONS_ID]
 
-
-    #
-    # Logging
-    #
     def log(self, bla, zlog=1):
         self._log.append(bla)
         if (bla and zlog):
@@ -55,15 +50,65 @@ class BaseInstaller:
         return '<html><head><title>CPSDocument Update</title></head>' \
             '<body><pre>'+ '\n'.join(self._log) + '</pre></body></html>'
 
-    #
-    # These methods do the actual work
-    #
+    def portalHas(self, id):
+        """Returns whether the portal has the object with the given Id or not.
+        """
+        return id in self.portal.objectIds()
+
+    def setSkinsOnTop(self, skins):
+        """Sets the given set of skins at the top of the skin layers, but
+        just below the 'custom' layer.
+
+        <skins> parameter is a sequence of (<skin_name>, <skin_path>).
+        """
+        all_skins = self.portal.portal_skins.getSkinPaths()
+        for skin_name, skin_path in all_skins:
+            if skin_name != 'Basic':
+                continue
+            path = [x.strip() for x in skin_path.split(',')]
+            for skinLayer, layerPath in skins:
+                self.log("Removing and inserting back this layer %s" % skinLayer)
+                path.remove(skinLayer)
+                # Insert after the custom layer which is at index 0
+                path.insert(1, skinLayer)
+            newPath = ', '.join(path)
+            self.log("New layers = %s" % newPath)
+            self.portal.portal_skins.addSkinSelection(skin_name, newPath)
+
+    def setupCpsDocumentDependantSkins(self, skins):
+        """Installs or updates the given set of skins for products having a
+        dependency on CPSDocument skins.
+
+        <skins> parameter is a sequence of (<skin_name>, <skin_path>).
+        """
+        precedenceAlteredSkins = list(skins)
+        precedenceAlteredSkins.append(
+            ('cps_document', 'Products/CPSDocument/skins/cps_document')
+            )
+        precedenceAlteredSkins.append(
+            ('cps_default', 'Products/CPSDefault/skins/cps_default')
+            )
+        self.setupSkins(precedenceAlteredSkins)
+
+    def setupCpsDependantSkins(self, skins):
+        """Installs or updates the given set of skins for products having a
+        dependency on CPSDefault skins.
+
+        <skins> parameter is a sequence of (<skin_name>, <skin_path>).
+        """
+        precedenceAlteredSkins = list(skins)
+        precedenceAlteredSkins.append(
+            ('cps_default', 'Products/CPSDefault/skins/cps_default')
+            )
+        self.setupSkins(precedenceAlteredSkins)
+
     def setupSkins(self, skins):
-        """Install or update skins.
+        """Installs or updates the given set of skins.
 
-        <skins> parameter is a sequence of (<skin_name>, <skin_path>)."""
+        <skins> parameter is a sequence of (<skin_name>, <skin_path>).
+        """
 
-        skin_installed = 0
+        new_skin_installed = 0
         for skin, path in skins:
             path = path.replace('/', os.sep)
             self.log(" FS Directory View '%s'" % skin)
@@ -76,11 +121,11 @@ class BaseInstaller:
                     self.log("  Correctly installed, correcting path")
                     dv.manage_properties(dirpath=path)
             else:
-                skin_installed = 1
+                new_skin_installed = 1
                 self.portal.portal_skins.manage_addProduct['CMFCore'].manage_addDirectoryView(filepath=path, id=skin)
                 self.log("  Creating skin")
 
-        if skin_installed:
+        if new_skin_installed:
             all_skins = self.portal.portal_skins.getSkinPaths()
             for skin_name, skin_path in all_skins:
                 if skin_name != 'Basic':

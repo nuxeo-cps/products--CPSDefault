@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2004-06-08 12:54default\n"
+"POT-Creation-Date: 2004-06-18 17:43default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -128,9 +128,13 @@ msgid "Work"
 msgstr ""
 
 #.   <p condition="python:items_length > 1">
+#.           Your query gave ${nb_results (tal content="items_length")} results.
+#.         </p>
+#.   <p condition="python:items_length > 1">
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
-#: from ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr ""
 
@@ -1029,9 +1033,9 @@ msgstr ""
 #.   <option value="" attributes="selected python:displayed != ['']">All</option>
 #.   <option value="">All</option>
 #.   <option value="" attributes="selected python:notempty==[] or selbox==[]">All</option>
-#.   <option attributes="selected not:request/review_state|nothing" value="">All</option>
-#.   <option attributes="selected not:request/portal_type|nothing" value="">All</option>
-#.   <option value="" attributes="selected not:request/Subject|nothing">All</option>
+#.   <option attributes="selected not:review_state" value="">All</option>
+#.   <option attributes="selected not:portal_type" value="">All</option>
+#.   <option value="" attributes="selected not:Subject">All</option>
 #: from ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
@@ -1882,17 +1886,25 @@ msgstr ""
 msgid "legend_local_roles_unblock"
 msgstr ""
 
+#.   <p condition="not:items_length">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="python:items_length == 0">
 #.         Your query gave no result.
 #.       </p>
-#: from ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr ""
 
 #.   <p condition="python:items_length == 1">
+#.           Your query gave 1 result.
+#.         </p>
+#.   <p condition="python:items_length == 1">
 #.         Your query gave 1 result.
 #.       </p>
-#: from ../skins/cps_default/search_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr ""
 
@@ -2048,14 +2060,14 @@ msgstr ""
 msgid "psm_invalid_form"
 msgstr ""
 
-#.   <span content="item/action">publish</span>
+#.   <span content="info/review_state" attributes="class
+#.         info/review_state">publish</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "publish"
 msgstr ""
 
-#.   <span content="info/review_state" attributes="class
-#.         info/review_state">published</span>
 #.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
+#.   <span content="item/action">published</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "published"
 msgstr ""
@@ -2803,6 +2815,9 @@ msgid "label_language_de"
 msgstr ""
 
 msgid "label_language_es"
+msgstr ""
+
+msgid "label_language_pt-BR"
 msgstr ""
 
 # # Dates

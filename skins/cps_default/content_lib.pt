@@ -294,13 +294,13 @@ format:</pre>
                                  'folder_contents', 'view')"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td align="center">
-   <a href="" tal:attributes="href string:${info/id}/${action};
+   <a href="" tal:attributes="href string:/${info/rpath}/${action};
                               title info/description;">
     <img src="" border="0" width="30" length="40"
      tal:attributes="src string:/${info/icon};"/></a>
   </td></tr>
   <tr><td align="center">
-   <a href="" tal:attributes="href string:${info/id}/${action};"
+   <a href="" tal:attributes="href string:${info/rpath}/${action};"
       title="info/description">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   </td></tr>

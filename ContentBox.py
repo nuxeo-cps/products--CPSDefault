@@ -130,7 +130,7 @@ class ContentBox(BaseBox):
                 items = folder.search(query=query,
                                       sort_by=self.sort_by,
                                       direction=self.direction,
-                                      hide_folder=1,
+                                      hide_folder=0,
                                       folder_prefix=folder_prefix)
 
             else:

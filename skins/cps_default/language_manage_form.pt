@@ -1,0 +1,78 @@
+<metal:html>
+<metal:body use-macro="here/main_template/macros/master">
+
+<metal:header fill-slot="header"
+  tal:define="global context_urlc python:here.getContextUrl(utool=utool,
+                                                            concat=1)">
+
+  <tal:security condition="python:not checkPerm('Manage languages', here)">
+    <tal:redirect define="response request/RESPONSE;
+                          dummy python:response.redirect(context_url)" />
+  </tal:security>
+
+  <h2 i18n:translate="heading_language_manage_form">Languages management</h2>
+  <p i18n:translate="">description_languages_form</p>
+</metal:header>
+
+<metal:main fill-slot="main"
+            tal:define="language_voc here/portal_vocabularies/language_voc;
+                        language_keys python:here.vocabulary_sort('language_voc', msgid=1);
+                        languages python: [lang['id'] for lang in here.Localizer.get_languages_map()];
+                        default_language here/Localizer/get_default_language;">
+
+<tal:defaultanguage condition="python:len(languages) != 0">
+<h2 i18n:translate="">language_set_default</h2>
+<form tal:attributes="action here/portal_url" method="post">
+  <select name="language">
+    <tal:language repeat="language language_keys">
+      <option tal:condition="python:language in languages"
+              tal:attributes="value language;
+                              selected python:test(language==default_language,'selected', nothing);"
+              tal:content="python:language_voc.getMsgid(language)"
+              i18n:translate="">Language</option>
+    </tal:language>
+  </select>
+  <br/>
+  <input type="submit" name="language_set_default:method" value="button_select"
+         i18n:attributes="value" />
+</form>
+<hr/>
+</tal:defaultanguage>
+<tal:addlanguage condition="python:len(language_keys) != len(languages)">
+<h2 i18n:translate="">language_add</h2>
+<form tal:attributes="action here/portal_url" method="post">
+  <tal:block repeat="language language_keys">
+    <tal:language condition="python:language not in languages">
+      <input type="checkbox" name="languages" value="en"
+             tal:attributes="value language;">
+      <span tal:content="python:language_voc.getMsgid(language)"
+            i18n:translate="">language</span>
+      <br/>
+    </tal:language>
+  </tal:block>
+  <input type="submit" name="language_add:method" value="button_add"
+         i18n:attributes="value" />
+</form>
+<hr/>
+</tal:addlanguage>
+
+<tal:dellanguage condition="python:len(languages) != 0">
+<h2 i18n:translate="">language_delete</h2>
+<form tal:attributes="action here/portal_url" method="post">
+  <tal:block repeat="language language_keys">
+    <tal:language condition="python:language in languages">
+      <input type="checkbox" name="languages" value="en"
+             tal:attributes="value language;">
+      <span tal:content="python:language_voc.getMsgid(language)"
+            i18n:translate="">language</span>
+      <br/>
+    </tal:language>
+  </tal:block>
+  <input type="submit" name="language_delete:method" value="button_remove"
+         i18n:attributes="value" />
+</form>
+</tal:dellanguage>
+
+</metal:main>
+</metal:body>
+</metal:html>

@@ -374,8 +374,7 @@ def cpsupdate(self, langs_list=None):
     for s in ('work', ):
         wf.states.addState(s)
 
-    # create_folder is transition which does nothing?
-    for t in ('create', 'create_content', 'create_folder', 'cut_copy_paste'):
+    for t in ('create', 'create_content', 'cut_copy_paste'):
         wf.transitions.addTransition(t)
 
     s = wf.states.get('work')

@@ -699,16 +699,19 @@ format:</pre>
 
 <!-- ============================================================ -->
 <pre>display archived revisions of a document</pre>
-<metal:block define-macro="archived">
+<metal:block define-macro="archived"
+             tal:define="mq nocall:modules/ZTUtils/make_query;">
   <div>
     <strong i18n:translate="label_archived_revisions">Old revisions:</strong>
   </div>
 
   <div tal:repeat="item info/archived">
-    <tal:block condition="item/is_frozen">
+    <tal:block condition="item/is_frozen"
+               define="rev item/rev;
+                       query python:mq(request.form, rev=rev);">
       <span tal:replace="item/time_str">25/12/2003 11:45</span>:
       <tal:block i18n:translate="">label_revision
-        <span tal:content="item/rev" i18n:name="status_revision">1</span>
+        <span tal:content="rev" i18n:name="status_revision">1</span>
       </tal:block>
       <tal:block i18n:translate="">label_language
         <span i18n:name="status_language">
@@ -716,8 +719,9 @@ format:</pre>
           content="string:label_language_${item/lang}">en</tal:block>
         </span>
       </tal:block>
-      <tal:block condition="python:checkPerm('Modify portal content', here)">
-        <a href="." tal:attributes="href string:${here_url}/content_revert_form?rev:int=${item/rev}" i18n:translate="link_revert_to_this_revision">Revert</a>
+      <a href="." tal:attributes="href string:${here_url}/cpsdocument_view?${query}" i18n:translate="link_consult_this_revision">Consult</a>
+      <tal:block condition="python:checkPerm('Modify portal content', here)"> -
+        <a href="." tal:attributes="href string:${here_url}/content_revert_form?rev:int=${rev}" i18n:translate="link_revert_to_this_revision">Revert</a>
       </tal:block>
     </tal:block>
   </div>

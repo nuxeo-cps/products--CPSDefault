@@ -1334,7 +1334,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     'slot': 'top',
                     'order': 20,
                     },
-            'menu': {'type':'Base Box',
+            'menu': {'type':'Tree Box',
                     'title': 'Main menu',
                     'btype': 'menu',
                     'slot': 'top',

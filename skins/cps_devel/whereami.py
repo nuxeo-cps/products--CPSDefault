@@ -5,6 +5,8 @@
 utool = context.portal_url
 
 ob = context
+print '<pre>'
+print
 print 'Zope info ---------------'
 print 'object id (context):', ob.getId()
 print 'portal_type:', ob.getPortalTypeName()
@@ -27,12 +29,34 @@ print 'here_url = context.absolute_url: ', context.absolute_url()
 print 'base_url = context.getBaseUrl: ', context.getBaseUrl()
 print 'context_url = context.getContextUrl: ', context.getContextUrl()
 print 'in_ws = context.isInWorkspace: ', context.isInWorkspace()
-
 print
-print 'Searchable text CPSDocument ---------------'
+
 try:
     doc = context.getContent()
 except:
     doc = context
-print 'text=%s.' % doc.SearchableText()
+
+try:
+    print 'Searchable text CPSDocument ---------------'
+    print 'text=%s.' % doc.SearchableText()
+    print
+except:
+    pass
+
+
+print 'CPSDocument ------------'
+path = '/'.join(doc.getPhysicalPath())
+print 'doc path: %s' % path
+print
+
+print 'ZCatalog ---------------'
+rid = doc.portal_catalog.getrid(path)
+print 'zcat.getrid(%s) = %s' % (path, rid)
+print '<a href="portal_catalog/manage_objectInformation?rid=%s>view catalog info</a>' % rid
+#zinfo = context.portal_catalog.manage_objectInformation(rid=rid)
+#print zinfo
+#utool.getRelativeUrl(doc)
+#print 'path = %s' % doc.portal_catalog.getpath(-1656972463)
+
+print '</pre>'
 return printed

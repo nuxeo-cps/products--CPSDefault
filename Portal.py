@@ -24,8 +24,8 @@ def manage_addSss3Site(dispatcher, id,
                       root_sn='CPS',
                       root_givenName='Root',
                       root_email='root@cps',
-                      root_password1='',
-                      root_password2='',
+                      root_password1='root',  # XXX TODO: remove this
+                      root_password2='root',  # XXX TODO: remove this
                       REQUEST=None):
     """Add a Sss3 Site."""
 
@@ -88,6 +88,13 @@ def manage_addSss3Site(dispatcher, id,
                               confirm=root_password2,
                               roles=('Manager', 'Member'), domains=None)
                                          
+    # XXX TODO: remove this test user
+    pr('Creating a CPS Member for testing')
+    portal.acl_users._addUser(name='member',
+                              password='member',
+                              confirm='member',
+                              roles=('Member',), domains=None)
+
     pr('Done')
     if REQUEST is not None:
         REQUEST.RESPONSE.setHeader('Content-Type', 'text/plain')

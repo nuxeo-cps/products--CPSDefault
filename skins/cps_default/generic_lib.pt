@@ -128,28 +128,26 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="actionbox">
-  <metal:block use-macro="here/generic_lib/macros/box">
-    <metal:block fill-slot="box_title" tal:content="blocktitle"
+<metal:block define-macro="actionbox" tal:condition="actionblock">
+    <metal:block use-macro="here/generic_lib/macros/box">
+      <metal:block fill-slot="box_title" define-slot="box_title">
+        action box title
+      </metal:block>
+      <metal:block fill-slot="box_body">
+        <div tal:define="blockclass blockclass|string:even"
+             tal:attributes="class python:'content '+blockclass">
+          <ul>
+            <li tal:repeat="action actionblock">
+              <a tal:attributes="href action/url"
+                 tal:content="action/name"
                  i18n:translate="">
-      action box title
+                 Action
+               </a>
+            </li>
+          </ul>
+        </div>
+      </metal:block>
     </metal:block>
-    <metal:block fill-slot="box_body">
-      <div class="content"
-           tal:define="blockclass blockclass|string:"
-           tal:attributes="class python:'content '+blockclass">
-        <ul>
-          <li tal:repeat="action actionblock">
-            <a tal:attributes="href action/url"
-               tal:content="action/name"
-               i18n:translate="">
-               Action
-             </a>
-          </li>
-        </ul>
-      </div>
-    </metal:block>
-  </metal:block>
 </metal:block>
 
 

@@ -258,9 +258,8 @@ format:</pre>
 <div width="100%"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
-  <img src="" border="0"
-     tal:attributes="src string:/${info/icon};
-                     title info/type;"/>
+  <tal:block replace="structure python:here.getImgTag(info['icon'],
+   base_url=base_url, title=info['type'])" />
    <a href="" tal:attributes="href string:/${info/rpath}/${action};">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   <br>
@@ -299,8 +298,7 @@ format:</pre>
 <metal:block define-macro="info_compact">
 <div width="100%" tal:define="action
   python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
- <img src="" border="0"
-   tal:attributes="src string:/${info/icon}; title info/type;"/>
+ <tal:block replace="structure python:path('here/'+ info['icon'])" />
  <a href="" tal:attributes="href string:/${info/rpath}/${action};
    title info/description">
  <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br>

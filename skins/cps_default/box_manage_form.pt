@@ -18,7 +18,9 @@ tal:content="context_url" /></p>
 <tal:block repeat="slot here/getBoxSlots">
 <tal:block define="sboxes python:btool.filterBoxes(boxes, slot=slot);"
   condition="python:len(sboxes)">
-<h3><img src="slot" tal:attributes="src string:${base_url}slot_${slot}.png"/>
+<h3>
+<tal:block replace="structure
+ python:here.getImgTag('slot_' + slot + '.png', base_url=base_url)" />
     <span i18n:translate="label_slot" />: <span i18n:translate="" tal:content="string:label_${slot}">Slot</span></h3>
 
 

@@ -27,14 +27,14 @@
   <div class="title">
     <tal:block condition="box/settings/minimized"><a href="" class="close"
       tal:attributes="href
-      string:${base_url}${box/url}/maximize?goto=${context_url}"><img
-      src="maximize.gif" tal:attributes="src string:${base_url}maximize.gif"
-      border="0"/></a></tal:block><tal:block
+      string:${base_url}${box/url}/maximize?goto=${context_url}"><tal:block
+      replace="structure python:here.getImgTag('maximize.gif',
+      base_url=base_url)" /></a></tal:block><tal:block
       condition="not:box/settings/minimized"><a href="" class="close"
       tal:attributes="href
-      string:${base_url}${box/url}/minimize?goto=${context_url}"><img
-      src="minimize.gif" tal:attributes="src string:${base_url}minimize.gif"
-      border="0"/></a></tal:block>
+      string:${base_url}${box/url}/minimize?goto=${context_url}"><tal:block
+      replace="structure python:here.getImgTag('minimize.gif',
+      base_url=base_url)" /></a></tal:block>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
@@ -53,18 +53,19 @@
 <div class="box">
   <div class="title">
     <a href="" class="close" tal:attributes="href
-      string:${base_url}${box/url}/close?goto=${context_url}"><img border="0"
-      src="close.gif" tal:attributes="src string:${base_url}close.gif" /></a>
+      string:${base_url}${box/url}/close?goto=${context_url}"><tal:block
+      replace="structure python:here.getImgTag('close.gif',
+      base_url=base_url)" /></a>
     <tal:block condition="box/settings/minimized"><a href="" class="close"
       tal:attributes="href
-      string:${base_url}${box/url}/maximize?goto=${context_url}"><img
-      border="0" src="maximize.gif" tal:attributes="src
-      string:${base_url}maximize.gif"/></a></tal:block><tal:block
+      string:${base_url}${box/url}/maximize?goto=${context_url}"><tal:block
+      replace="structure python:here.getImgTag('maximize.gif',
+      base_url=base_url)" /></a></tal:block><tal:block
       condition="not:box/settings/minimized"><a
       href="" class="close" tal:attributes="href
-      string:${base_url}${box/url}/minimize?goto=${context_url}"><img
-      border="0" src="minimize.gif" tal:attributes="src
-      string:${base_url}minimize.gif" /></a></tal:block>
+      string:${base_url}${box/url}/minimize?goto=${context_url}"><tal:block
+      replace="structure python:here.getImgTag('minimize.gif',
+      base_url=base_url)" /></a></tal:block>
     <metal:block define-slot="box_title">Box Title</metal:block>
   </div>
   <div class="body">
@@ -135,8 +136,8 @@
 <metal:block define-macro="closed_box">
 <a href="" tal:attributes="href
   string:${base_url}${box/url}/maximize?goto=${context_url}">
-  <img src="maximize.gif" border="0" tal:attributes="src
-    string:${base_url}maximize.gif" />
+  <tal:block replace="structure python:here.getImgTag('maximize.gif',
+    base_url=base_url)" />
   <tal:block replace="box/box/title" />&nbsp;
 </a>
 </metal:block>

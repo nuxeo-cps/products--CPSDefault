@@ -26,6 +26,7 @@ from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base
 from copy import deepcopy
+from Products.CPSDefault.utils import truncateText
 from zLOG import LOG, DEBUG, INFO
 
 factory_type_information = (

@@ -667,9 +667,6 @@ def cpsupdate(self, langs_list=None):
                             }
     
     ptypes_installed = ttool.objectIds()
-    # remove all ptypes
-    ttool.manage_delObjects(ptypes_installed)
-    ptypes_installed = ttool.objectIds()
     
     for prod in ptypes.keys():
         for ptype in ptypes[prod]:
@@ -695,6 +692,9 @@ def cpsupdate(self, langs_list=None):
         pr("   Installation")
 
     # add Section and Workspace portal types based on CPS Proxy Folder
+    if 'Section' in ptypes_installed:
+        pr("  Type Section Deleted")
+        ttool.manage_delObjects('Section')
     ttool.manage_addTypeInformation(
         id='Section',
         add_meta_type='Factory-based Type Information',
@@ -703,6 +703,10 @@ def cpsupdate(self, langs_list=None):
     ttool['Section'].manage_changeProperties(title='portal_type_Section_title',
                                              description='portal_type_Section_description',
                                              content_meta_type='Section')
+                                             
+    if 'Workspace' in ptypes_installed:
+        pr("  Type Workspace Deleted")
+        ttool.manage_delObjects('Workspace')
     ttool.manage_addTypeInformation(
         id='Workspace',
         add_meta_type='Factory-based Type Information',

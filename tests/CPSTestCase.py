@@ -88,7 +88,7 @@ class DummyMessageCatalog:
 
 from StringIO import StringIO
 from Products.Localizer import LocalizerStringIO
-from types import StringType, UnicodeType
+from types import UnicodeType
 # Un-patch LocalizerStringIO
 def LocalizerStringIO_write(self, s):
     StringIO.write(self, s)
@@ -113,7 +113,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
     def isValidCSS(self, css):
         """Check if <css> is valid CSS2 using W3C css-checker"""
 
-        import urllib2, urllib, os, re
+        import urllib2, urllib, re
         CHECKER_URL = 'http://jigsaw.w3.org/css-validator/validator'
         data = urllib.urlencode({
             'text': css,

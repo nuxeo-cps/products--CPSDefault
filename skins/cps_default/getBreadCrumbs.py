@@ -16,9 +16,7 @@ def format_title(title):
 # a variable "breadcrumb_set" in the REQUEST
 # and then returning it without computing
 # Cf. Directories Templates
-#if REQUEST is not None:
-#    if REQUEST.has_key('breadcrumb_set'):
-#        return getattr(REQUEST, 'breadcrumb_set', None)
+#
 
 if breadcrumb_set != None:
     return breadcrumb_set

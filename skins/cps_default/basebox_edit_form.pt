@@ -31,8 +31,16 @@ box: <tal:block replace="box_url" />
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_slot">Slot</th>
-    <td><input type="text" name="slot" value="" size="10"
-          tal:attributes="value box/settings/slot" /></td>
+    <td>
+      <select name="slot">
+      <tal:block repeat="slot here/getBoxSlots">
+        <option value="slot"
+          tal:attributes="value slot;
+                          selected python:test(slot!=box['settings']['slot'], nothing, 'selected');"
+          tal:content="slot">Slot</option>
+      </tal:block>
+
+    </td>
     <th aligh="right" i18n:translate="label_order">Order</th>
     <td><input type="text" name="order" value="" size="3"
            tal:attributes="value box/settings/order" /></td>

@@ -3,11 +3,21 @@
 <metal:main fill-slot="main"
   tal:define="context_urlc python:here.getContextUrl(utool=utool, concat=1);">
 
+<div class="documentActions">
+  <a href="box_create_form" i18n:translate="button_create_box"
+    tal:attributes="href string:${context_urlc}/box_create_form">Add a box</a>
+</div>
 <h2 i18n:translate="heading_box_manage_form">Boxes management</h2>
 
 <p i18n:translate="">
 description_visible_box_from <span i18n:name="context_url"
 tal:content="context_url" /></p>
+
+<tal:block repeat="slot here/getBoxSlots">
+<tal:block define="sboxes python:btool.filterBoxes(boxes, slot=slot);"
+  condition="python:len(sboxes)">
+<h3><span i18n:translate="label_slot" />: <span tal:content="slot">Slot</span></h3>
+
 
 <form action="" method="post"
   tal:attributes="action string:${context_urlc}">
@@ -15,17 +25,15 @@ tal:content="context_url" /></p>
 <table>
   <tr>
     <th></th>
-    <th i18n:translate="listingheader_slot">Slot</th>
     <th i18n:translate="listingheader_order">Order</th>
     <th i18n:translate="listingheader_title">Title</th>
     <th i18n:translate="listingheader_type">Type</th>
     <th i18n:translate="listingheader_location">location</th>
   </tr>
-  <tal:block repeat="box boxes">
+  <tal:block repeat="box sboxes">
   <tr tal:define="action python:box['box'].getTypeInfo().immediate_view">
     <td><input type="checkbox" name="ids:list" value=""
                tal:attributes="value box/url;"></td>
-    <td><tal:block replace="box/box/slot" /></td>
     <td><tal:block replace="box/box/order" /></td>
     <td><tal:block replace="box/box/title" /></td>
     <td><tal:block replace="box/box/macro" /></td>
@@ -35,13 +43,14 @@ tal:content="context_url" /></p>
   </tr>
   </tal:block>
 </table>
-  <input type="submit" name="box_create_form:method"
-    value="button_create_box" i18n:attributes="value">
   <input type="submit" name="box_delete:method"
     value="button_delete_box" i18n:attributes="value">
-
+<br>
+<br>
 </form>
 
+</tal:block>
+</tal:block>
 
 </metal:main>
 

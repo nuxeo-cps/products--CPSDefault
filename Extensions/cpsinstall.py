@@ -137,9 +137,11 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating CMF MetaDirectories Tool")
         portal.manage_addProduct["NuxMetaDirectories"].manage_addTool('CMF MetaDirectories Tool')
 
-        mtool = portal.portal_metadirectories
+    mtool = portal.portal_metadirectories
+    if "members" not in mtool.objectIds():
         pr("  Adding Member Areas : member")
         mtool.manage_addProduct['NuxMetaDirectories'].manage_addMembersDirectory(id='members',title='Members')
+    if "groups" not in mtool.objectIds():
         pr("  Adding Group Directory : group")
         mtool.manage_addProduct['NuxMetaDirectories'].manage_addGroupsDirectory(id='groups', title='Groups')
 

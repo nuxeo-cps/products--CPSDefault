@@ -38,9 +38,10 @@
          view and access permission you will have an exception
 
 - [encolpe] search
-   o CPSCore CPSBaseDocument should implement SearchableText method
    x [] make catalog search work with proxies
+   o CPSCore CPSBaseDocument should implement SearchableText method
    o make advanced search with status metadata ...
+   o i18n
    o reusable search with result list page for a popup version
       with checkbox/action ?
    o try to use content_lib macros as much as possible
@@ -64,11 +65,21 @@
       should talk to lennart first so we don't do anything double
 
 - [herve] i18n usage
-   x audit plone tools
+   x [] audit plone tools
       http://www.zug.cz/Members/Alekibango/Howtos/HowTo.i18n/document_view
-   o add multi po loader like gilupdate
-   o use one domain by product
-   x write doc/HOWTO.i18n
+   x [] write doc/HOWTO.i18n
+      o to be updated
+   o make a cvsupdate loading and creating a message catologue
+      for each file xxxx-yy.po
+      xxxx:domain yy:locale
+      o test import / export diff ...
+   o have a full cpsdefault in fr/en
+   o i18n skin
+      o actions
+      o boxes
+      o folder add an action localize ?
+   o toolz for .pot generation
+ 
 
 - workflow
   o [flo] make a workflow history tool
@@ -178,6 +189,7 @@
 
 # bugs or blocking tasks -----------------------------------
 - Bug fix
+   o advanced search, search link broken on result page url like //search_form
    o error after install in generic_lib no standard:'item/title'
       need run cpsupdate to fix it but why ?
    o puffin is buggy cps return __ac_name after __ac and we can not
@@ -203,8 +215,6 @@
 
 - Open questions
    o check that we can have many root sections and many workspace sections
-   o how to remove roles for a user in a folder ?
-      TBD using local roles black list
    x [] how to handle proxy history for reject or accept transition ?
    x [] unpublish what's happen to the history of a doc 
       how to remember that it was published and by who and when

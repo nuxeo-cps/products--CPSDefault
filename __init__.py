@@ -15,22 +15,25 @@ import BoxesTool
 import TextBox
 import TreeBox
 import ContentBox
+import ActionBox
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
-                  TextBox.TextBox, TreeBox.TreeBox,)
+                  TextBox.TextBox, TreeBox.TreeBox,
+                  ContentBox.ContentBox, ActionBox.ActionBox)
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        TextBox.addTextBox, TreeBox.addTreeBox,
-                       ContentBox.addContentBox)
+                       ContentBox.addContentBox, ActionBox.addActionBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
        TextBox.factory_type_information +
        TreeBox.factory_type_information +
        ContentBox.factory_type_information +
+       ActionBox.factory_type_information +
        ()
        )
 
-tools = (BoxesTool.BoxesTool,  # XXX this should be moved into CPSCore ?
+tools = (BoxesTool.BoxesTool,  # XXX this should move to CPSCore ?
          )
 
 registerDirectory('skins', globals())

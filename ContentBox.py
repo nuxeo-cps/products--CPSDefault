@@ -180,6 +180,9 @@ class ContentBox(BaseBox):
             if self.folder[0]=='/':
                 container = self.portal_url.getPortalObject()
                 folder = self.folder[1:]
+            # setting folder to '.' allow a contextual search
+            elif self.folder == '.':
+                return context
             elif not hasattr(aq_base(container), folder):
                 return obj
 

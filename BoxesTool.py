@@ -21,7 +21,7 @@
 # $Id$
 
 """
-  PortalBoxesTool
+  BoxesTool
 """
 
 __version__='$Revision$'[11:-2]
@@ -50,12 +50,12 @@ def cmporderbox(a, b):
     return cmp(a.xpos, b.xpos) or cmp(a.ypos, b.ypos)
 
 
-class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
+class BoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
     """
-    Portal Boxes Tool.
+    Boxes Tool.
     """
     id = 'portal_boxes'
-    meta_type = 'Portal Boxes Tool'
+    meta_type = 'CPS Boxes Tool'
 
     security = ClassSecurityInfo()
 
@@ -70,7 +70,7 @@ class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
     #
 
     security.declareProtected(ManagePortal, 'manage_overview')
-    manage_overview = DTMLFile('zmi/explainPortalBoxesTool', globals())
+    manage_overview = DTMLFile('zmi/explainBoxesTool', globals())
 
     #
     # Public API
@@ -131,7 +131,7 @@ class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
 
         catalog = getToolByName(self, 'portal_catalog')
         res = catalog.searchResults(query)
-        return res
+        return [brain.getObject() for brain in res]
 
     security.declarePublic('getBoxesDict')
     def getBoxesDict(self, context, xpos=None, alsoclosed=0, permission = 'View'):
@@ -275,5 +275,5 @@ class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
                }
 
 
-InitializeClass(PortalBoxesTool)
+InitializeClass(BoxesTool)
 

@@ -25,7 +25,23 @@ from Globals import InitializeClass
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
-from Products.CPSCore.CPSBase import CPSBaseFolder, CPSBase_adder
+try:
+    from Products.CPSDocument.CPSDocument import CPSDocument as BaseDocument, \
+         addCPSDocument
+
+    def addFolder(container, id, REQUEST=None, **kw):
+        """Add a Folder."""
+        return addCPSDocument(container, id, REQUEST=REQUEST, **kw)
+
+except ImportError:
+    from Products.CPSCore.CPSBase import CPSBaseFolder as BaseDocument, \
+         CPSBase_adder
+
+    def addFolder(container, id, REQUEST=None, **kw):
+        """Add a Folder."""
+        ob = Folder(id, **kw)
+        return CPSBase_adder(container, ob, REQUEST=REQUEST)
+
 
 factory_type_information = (
     {'id': 'Folder',
@@ -72,11 +88,11 @@ factory_type_information = (
     )
 
 
-class Folder(CPSBaseFolder):
+class Folder(BaseDocument):
     meta_type = 'Folder'
     portal_type = meta_type # To ease testing.
 
-    _properties = CPSBaseFolder._properties + (
+    _properties = BaseDocument._properties + (
         {'id': 'cps_custom_css', 'type': 'string', 'mode': 'w',
          'label': 'CPS Custom CSS'},
         )
@@ -85,8 +101,3 @@ class Folder(CPSBaseFolder):
 
 InitializeClass(Folder)
 
-
-def addFolder(container, id, REQUEST=None, **kw):
-    """Add a Folder."""
-    ob = Folder(id, **kw)
-    return CPSBase_adder(container, ob, REQUEST=REQUEST)

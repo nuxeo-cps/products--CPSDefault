@@ -32,6 +32,9 @@ if folder_prefix:
 
 if query.has_key('folder_prefix'):
     del query['folder_prefix']
+    
+if query.has_key('search_relative_path'):
+    del query['search_relative_path']
 
 # use filter set to remove objects inside 'portal_*' or named '.foo'
 query['cps_filter_sets'] = 'searchable'

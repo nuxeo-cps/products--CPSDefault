@@ -33,7 +33,8 @@ if disp:
 
 # handle checkbox
 for k in ('display_in_subfolder', 'display_only_in_subfolder',
-          'children_only', 'contextual', 'zoom'):
+          'children_only', 'contextual', 'zoom','display_managers',
+          'authorized_only','show_root', 'display_description'):
     kw[k] = test(kw.has_key(k), 1, 0)
 
 # handle empty selection in contentbox_edit_form

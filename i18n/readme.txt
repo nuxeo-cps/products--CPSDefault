@@ -4,7 +4,7 @@ Tips for translators
 General i18n / l10n tips
 ------------------------
 
-Look in ../doc/HOWTO.i18n
+Look in ../doc/HOWTO.i18n and ../doc/HOWTO.TRANSLATE_CPS
 
 Spellchecking using aspell
 --------------------------

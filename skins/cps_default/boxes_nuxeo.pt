@@ -71,7 +71,9 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_search">
 <div class="searchBox">
-  <form method="get" action="./search_form" tal:define="sfpo_id string:box">
+  <form method="get" action="search_form" name="searchBoxForm"
+    onsubmit="return checkEmptySearch(this)"
+    tal:define="sfpo_id string:box">
     <input id="searchGadget" type="text" name="SearchableText" size="20"
       value="" tal:attributes="value request/SearchableText|nothing" />
     <input class="context searchButton" type="submit" value="button_search"
@@ -342,7 +344,7 @@
     <metal:block fill-slot="box_body">
       <tal:block repeat="item items">
         <div style="white-space:nowrap">
-          <span tal:replace="structure python:''*4*item['depth']"> </span>
+          <span tal:replace="structure python:' '*4*item['depth']"> </span>
           <img tal:condition="python:getattr(box['box'],'display_icons',0)"
                tal:replace="structure
                               python:
@@ -388,7 +390,7 @@
           <tal:block tal:define="description python:item['description']"
                      tal:condition="description">
             <span tal:replace="structure
-                               python:''*4*(item['depth']+1)"> </span>
+                               python:' '*4*(item['depth']+1)"> </span>
             <span tal:replace="description" />
           </tal:block>
         </div>

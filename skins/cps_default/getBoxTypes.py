@@ -88,6 +88,9 @@ items = [
                 'id': 'default',
                 'desc': 'description_nuxeo_contentbox_default'},
                {'provider': 'nuxeo',
+                'id': 'simple',
+                'desc': 'description_nuxeo_contentbox_simple'},
+               {'provider': 'nuxeo',
                 'id': 'last_modified',
                 'desc': 'description_nuxeo_contentbox_last_modified',
                 'config': {'sort_by': 'date',
@@ -152,5 +155,5 @@ if category:
     for item in items:
         if item['category'] == category:
             return item
-        
+
 return items

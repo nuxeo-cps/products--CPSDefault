@@ -168,7 +168,7 @@ table.columns {
 table.columns td.left {
   vertical-align: top;
   padding-top: 2em;
-  background: &dtml-columnsLeftBackground;;
+  background: &dtml-columnsLeftBackgroundNS4;;
 }
 table.columns td.main {
   vertical-align: top;
@@ -177,7 +177,7 @@ table.columns td.main {
 table.columns td.right {
   vertical-align: top;
   padding-top: 2em;
-  background: &dtml-columnsRightBackground;;
+  background: &dtml-columnsRightBackgroundNS4;;
 }
 
 
@@ -299,12 +299,28 @@ div.tabs a.selected {
 
 
 /* BOX ---------------------------------------- */
+table.box tr.title {
+  color: &dtml-boxHeaderFontColor;; /* ! font color is hardcoded in box_lib */
+  background-color: &dtml-boxHeaderBackground;;
+}
+table.box tr.odd {
+  background: &dtml-boxOddBackground;;
+}
+table.box tr.even {
+  background: &dtml-boxEvenBackground;;
+}
+
+
 div.box {
-    margin: 0 0 1em 0;
+  margin: 0 0 1em 0;
 }
 div.box .title {
   font-weight: bold;
   text-transform: &dtml-textTransform;;
+}
+div.box .title2 {
+  font-size: 120%;
+  font-weight: bold;
 }
 div.box a.close {
   border: 0;
@@ -315,10 +331,9 @@ div.box .content {
   padding: 1em;
 }
 div.box ul {
-  margin: -1em;
+  margin-left: -1em;
   padding: 0;
 }
-
 div.box a.selected {
   background: &dtml-messageBackground;;
 }

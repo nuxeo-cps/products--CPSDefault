@@ -126,7 +126,13 @@ input.searchButton {
   margin-bottom: 1px ! important;
 }
 
-
+/* TABLEs ------------------------------ */
+table.columns td.left {
+  background: &dtml-columnsLeftBackground;;
+}
+table.columns td.right {
+  background: &dtml-columnsRightBackground;;
+}
 
 /* DIVs ------------------------------ */
 div.top {
@@ -210,8 +216,11 @@ div.tabs a:hover {
 }
 
 
-
 /* BOX ---------------------------------------- */
+table.box tr.odd ul, table.box tr.even ul {
+  margin-left: 2em;
+}
+
 div.box {
   border: none;
 }
@@ -224,8 +233,6 @@ div.box .title {
   padding: 0.2em 0.2em 0.2em 1em;
 }
 div.box .title2 {
-  font-size: 120%;
-  font-weight: bold;
   border: 1px solid &dtml-mainTabBorderColor;;
   border-style: none none solid none;
   padding: 0;
@@ -243,8 +250,7 @@ div.box .content {
 }
 div.box ul {
   list-style-image: url("bullet.gif");
-  margin: 0em 0em 0em 1em;
-  padding: 0em;
+  margin-left: 1em;
 }
 div.box a.close {
   background-color: transparent;

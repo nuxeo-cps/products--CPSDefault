@@ -5,13 +5,14 @@
 
 
 <pre>list of boxes:</pre>
-<tal:block define="btool here/portal_boxes;">
-  <tal:block repeat="box python:btool.getBoxes(here);">
-    <tal:block replace="python:box['path'] + ', settings:' + str(box['settings'])" />
-    <metal:block use-macro="python:path(box['macro'])" />
-  </tal:block>
-</tal:block>
 
+     <b tal:replace="python:CPSD_bmt_mark('ALL_BOXES_start')" />
+
+      <tal:block repeat="box boxes">
+        <b tal:content="python:box['url']" />
+            <metal:block use-macro="python:path(box['macro'])" /><hr>
+      </tal:block>
+      <b tal:replace="python:CPSD_bmt_mark('ALL_BOXES_stop')" />
 
 </div>
 

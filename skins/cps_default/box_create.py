@@ -24,7 +24,7 @@ box_url = utool.getRelativeUrl(ob)
 
 context_url = context.getContextUrl(utool=utool, concat=1)
 if REQUEST is not None:
-    psm = 'Box+created.'
+    psm = 'psm_box_created'
     action_path = ob.getTypeInfo().immediate_view
     REQUEST.RESPONSE.redirect('%s/%s?box_url=%s&portal_status_message=%s' % 
                               (context_url,action_path, box_url, psm))

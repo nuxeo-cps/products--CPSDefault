@@ -13,7 +13,7 @@ if REQUEST is not None:
 
 doc = context.getEditableContent()
 
-try:  
+try:
     # setting metadata, title and description are setup by doc.edit()
     if kw.get('subject'):
         doc.setSubject(tuplify(kw['subject']))
@@ -36,19 +36,19 @@ try:
     if kw.get('rights'):
         doc.setRights(kw['rights'])
         del kw['rights']
-    
+
     if kw.get('allowDiscussion'):
         doc.portal_discussion.overrideDiscussionFor(doc, kw['allowDiscussion'])
-        
-        
+
+
     # setting properties, edit will notify the doc itself with a 'modify_object'
     doc.edit(**kw)
 #    context.portal_eventservice.notifyEvent('modify_object', doc, {})
-    
+
     # notifying the proxy
     context.portal_eventservice.notifyEvent('modify_object', context, {})
-    
-    psm = 'Content+changed.'
+
+    psm = 'psm_content_changed'
 except Exception, msg:
     psm = msg
 
@@ -62,7 +62,7 @@ if REQUEST:
         action_id = 'metadata'
     action_path = doc.getTypeInfo().getActionById( action_id )
 
-    REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' % 
+    REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' %
                               (context.absolute_url(), action_path,
                                psm))
 return psm

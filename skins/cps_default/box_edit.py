@@ -25,8 +25,8 @@ if disp:
     del kw['display']
     if disp == 'closed':
         kw['closed'] = 1
-    else:  
-        kw['closed'] = 0      
+    else:
+        kw['closed'] = 0
         if disp == 'minimized':
             kw['minimized'] = 1
         elif disp == 'maximized':
@@ -35,12 +35,12 @@ if disp:
 order = kw.get('order')
 if order:
     kw['order'] = int(order)
-    
+
 box.edit(**kw)
 
 context_urlc = context.getContextUrl(concat=1)
 if REQUEST is not None:
-    psm = 'Box+modified.'
-    REQUEST.RESPONSE.redirect('%s/?portal_status_message=%s' % 
+    psm = 'psm_box_modified'
+    REQUEST.RESPONSE.redirect('%s/?portal_status_message=%s' %
                               (context_urlc, psm))
 return psm

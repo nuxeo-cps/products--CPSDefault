@@ -25,7 +25,6 @@ if max_items and max_items < len_items:
 else:
     len_batch = len_items
 
-
 b_start = int(context.REQUEST.get('b_start', 0))
 
 # extract the n first items in a zoomed list
@@ -53,11 +52,7 @@ for c in range(columns - 1):
 #
 
 # Calculate the number of pages
-nb_pages = len_batch / items_per_page
-if not same_type(nb_pages, 1) and nb_pages > 1:
-    nb_pages = int(nb_pages) + 1
-else:
-    nb_pages = 1
+nb_pages = int(ceil(len_batch / items_per_page))
 
 # no more advanced arithmetics
 items_per_page = int(items_per_page)

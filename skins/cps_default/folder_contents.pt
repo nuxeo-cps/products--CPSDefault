@@ -25,6 +25,7 @@
       tal:attributes="action here/absolute_url">
 
    <tal:block define="no_form python:not checkPerm('Delete objects', here);
+                      nav_action string:folder_contents;
                       items python:here.getFolderContents();">
      <metal:block use-macro="here/content_lib/macros/display_contents" />
    </tal:block>
@@ -54,12 +55,12 @@
            <a href="./folder_contents?change_display=1" i18n:translate="link_change_display"
               tal:condition="python:display_change == '0'">
               Change display settings
-           </a> 
+           </a>
            <a href="./folder_contents" i18n:translate="link_hide_display_settings"
               tal:condition="python:display_change == '1'">
               Hide display settings
-           </a>           
-         </tal:block> 
+           </a>
+         </tal:block>
        </td>
      </tr>
    </table>

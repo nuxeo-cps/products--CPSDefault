@@ -1,6 +1,4 @@
 <metal:html tal:define="showthirdcol nothing;
-                        debugging python:1;
-                        treated python:('NotFound','KeyError','NameError');
                         error_type options/error_type|nothing;
                         error_value options/error_value|nothing;
                         error_message options/error_message|nothing;
@@ -18,26 +16,27 @@
     <metal:block use-macro="here/error_lib/macros/not_found" />
   </tal:NotFound>
 
-  <tal:KeyNameError condition="python:error_type in ('KeyError','NameError')">
-    <metal:block use-macro="here/error_lib/macros/key_or_name" />
-  </tal:KeyNameError>
-
-  <tal:other condition="python:error_type not in treated">
+  <tal:default condition="python:error_type != 'NotFound'">
     <metal:block use-macro="here/error_lib/macros/other" />
-  </tal:other>
+  </tal:default>
 
-  <tal:debugging condition="debugging">
-    <strong>Error Type: <span tal:replace="error_type" /></strong>
-    <br>
-    <strong>Error Value:</strong>
-    <pre tal:content="structure error_value" />
-    
+  <tal:debugging condition="python:1 or checkPerm('Manager')">
+    <table border="0" width="100%" cellpadding="2" cellspacing="2">
+      <tr>
+        <th width="10%">Error Type:</th>
+        <td tal:content="error_type"></td>
+      </tr>
+      <tr>
+        <th>Error Value:</th>
+        <td><pre tal:content="structure error_value" /></td>
+      </tr>
+      <tr>
+        <th>Traceback:</th>
+        <td><pre tal:content="structure error_traceback" /></td>
+      </tr>
+    </table>
     <hr>
-    <strong>Traceback:</strong>
-    <pre tal:content="structure error_traceback" />
-    <strong>Request:</strong>
     <pre tal:content="structure request" />
-    
     <hr>
     <a href="" tal:condition="python:error_log_url and debugging"
                tal:attributes="href error_log_url">

@@ -92,16 +92,17 @@
 
 <!-- ============================================================ -->
 <pre>list contents in 'items' in the specified number of columns with the given
-format:</pre>
-<metal:block define-macro="display_contents">
-<tal:block define="nav_action nav_action|string:folder_contents;
-                   columns columns|python:2;
+format:</pre> 
+<metal:block define-macro="display_contents"> 
+<tal:block define="nav_action nav_action|string:folder_contents; 
+                   columns columns|python:2; 
                    items_per_page items_per_page|python:10;
                    mq nocall:modules/ZTUtils/make_query;
-                   form request/form;
+                   form request/form; 
                    batches python:here.getBatchList(items, columns, items_per_page);
-                   format format|string:detail"><!-- detail, compact, icon -->
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                   cps_cookie python:request.SESSION.get('cps_preferences', {});
+		   format python:cps_cookie.get('cps_display_style', 'detail')"><!-- detail, compact, icon --> 
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">    
     <tr>
       <td align="left" valign="top"
           tal:attributes="width python:str(100 / columns)+'%'"
@@ -285,8 +286,6 @@ format:</pre>
   </td></tr>
 </table>
 </metal:block>
-
-
 
 <!-- ============================================================ -->
 <!-- below macros require getContentInfo 2                        -->

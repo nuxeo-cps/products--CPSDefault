@@ -44,14 +44,43 @@ macro library:
   object_lib.pt
 
 
-Naming
-======
+Generic names
+=============
 Folder:  a folderish object
 Content: what is inside a folder
 items:   a list of objects
 proxy:   the cps proxy object
 doc:     a cps document in the portal_repository 
 info:    a dictionary of information about an object
+
+
+Python Script
+=============
+mandatory header:
+
+## Script (Python) "nameOfTheScript"
+##parameters=only_ids=0
+# $Id$
+""" A description of what the script does, param and return if
+it is not obvious """
+
+
+CVS
+===
+- use the alias 'needs' as much as possible
+  needs is a 'cvs -qnz6 up'
+  this tell you what cvs will do if you run 'cvs up' without doing anything
+  before working on a product you should run needs and check that 
+  you are uptodate
+- do not use mass commit
+- commiting a file:
+  1/ TEST IT
+  2/ cvs diff file
+    because you will know exactly what to put in the comment
+    and it gives you a last chance to remove some stupid code
+    never keep unused code or file, cvs will keep it for you
+  3/ set a valid comment
+    cvs commit -m"mandatory comment in ENGLISH" foo.py
 
 
 Macros
@@ -76,4 +105,5 @@ Customization
 =============
 We should be able to make light customization by adding custom css
 We should be able to make eavy customization by rewriting *_lib files
+
 

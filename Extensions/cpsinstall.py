@@ -1,7 +1,6 @@
 # (c) 2003 Nuxeo SARL <http://nuxeo.com>
 # $Id$
-"""
-    here we go
+""" here we go
 """
 
 import os
@@ -119,10 +118,10 @@ def cpsupdate(self, langs_list=None):
 
     # skins
     pr("Verifying skins")
-    skins = ('sss3', 'sss3_images', 'nuxcps3', )
+    skins = ('cpsdefault', 'cpsdefault_images', 'nuxcps3', )
     paths = {
-        'sss3': 'Products/SSS3/skins',
-        'sss3_images': 'Products/SSS3/skins/images',
+        'cpsdefault': 'Products/CPSDefault/skins',
+        'cpsdefault_images': 'Products/CPSDefault/skins/images',
         'nuxcps3': 'Products/NuxCPS3/skins',
     }
     for skin in skins:
@@ -429,7 +428,7 @@ def cpsupdate(self, langs_list=None):
                    'CPS Proxy Folder',
                    'CPS Folder'
                    ),
-        'SSS3':('Dummy',)
+        'CPSDefault':('Dummy',)
         }
     allowed_content_type = {
                             'Section' : ('Section',),

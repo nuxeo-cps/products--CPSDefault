@@ -1,7 +1,6 @@
 # (c) 2003 Nuxeo SARL <http://nuxeo.com>
 # $Id$
-"""
-    SSS3 Sample Skeleton Site for CPS3
+""" Default portal for CPS
 """
 
 import Globals
@@ -9,15 +8,15 @@ from zLOG import LOG, INFO, DEBUG
 from Products.CMFDefault.Portal import CMFSite
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
-class Sss3Site(CMFSite):
-    meta_type = 'Sss3 Site'
+class CPSDefaultSite(CMFSite):
+    meta_type = 'CPSDefault Site'
 
-Globals.InitializeClass(Sss3Site)
+Globals.InitializeClass(CPSDefaultSite)
 
-manage_addSss3SiteForm = Globals.HTMLFile('zmi/manage_addCPSSiteForm', globals())
+manage_addCPSDefaultSiteForm = Globals.HTMLFile('zmi/manage_addCPSSiteForm', globals())
 
-def manage_addSss3Site(dispatcher, id,
-                      title='Sss3 Portal',
+def manage_addCPSDefaultSite(dispatcher, id,
+                      title='CPSDefault Portal',
                       description='',
                       langs_list=None,
                       root_id='root',
@@ -27,7 +26,7 @@ def manage_addSss3Site(dispatcher, id,
                       root_password1='root',  # XXX TODO: remove this
                       root_password2='root',  # XXX TODO: remove this
                       REQUEST=None):
-    """Add a Sss3 Site."""
+    """Add a CPSDefault Site."""
 
     _log = []
     def pr(bla, zlog=1, _log=_log):
@@ -35,14 +34,14 @@ def manage_addSss3Site(dispatcher, id,
             return '\n'.join(_log)
         _log.append(bla)
         if (bla and zlog):
-            LOG('addSss3Site:', INFO, bla)
+            LOG('addCPSDefaultSite:', INFO, bla)
 
     if not root_password1:
         raise ValueError, 'You have to fill CPS Administrator password!'
     if root_password1 != root_password2:
         raise ValueError, 'Password confirmation does not match password'
 
-    pr('Adding a Sss3 Site')
+    pr('Adding a CPSDefault Site')
     container = dispatcher.Destination()
     pr('Creating CMF Site')
     container.manage_addProduct['CMFDefault'].manage_addCMFSite(id,
@@ -54,25 +53,25 @@ def manage_addSss3Site(dispatcher, id,
     
     pr('Creating cpsinstall External Method in CMF Site')
     cpsinstall = ExternalMethod('cpsinstall',
-                                'SSS3 Installer',
-                                'SSS3.cpsinstall',
+                                'CPSDefault Installer',
+                                'CPSDefault.cpsinstall',
                                 'cpsinstall')
     portal._setObject('cpsinstall', cpsinstall)
     
     pr('Creating cpsupdate External Method in CMF Site')
-    sss3update = ExternalMethod('cpsupdate',
-                               'SSS3 Updater',
-                               'SSS3.cpsinstall',
+    CPSDefaultupdate = ExternalMethod('cpsupdate',
+                               'CPSDefault Updater',
+                               'CPSDefault.cpsinstall',
                                'cpsupdate')
-    portal._setObject('cpsupdate', sss3update)
+    portal._setObject('cpsupdate', CPSDefaultupdate)
     
-    pr('Executing Sss3 Installer')
+    pr('Executing CPSDefault Installer')
     pr(portal.cpsinstall(), 0)
     
-    pr('Executing Sss3 Updater')
+    pr('Executing CPSDefault Updater')
     pr(portal.cpsupdate(langs_list=langs_list), 0)
     
-    pr('Configuring Sss3 Portal')
+    pr('Configuring CPSDefault Portal')
     # editProperties do not work with ZTC due to usage of REQUEST to send properties :/
     portal.MailHost.smtp_host = 'localhost'
     portal.manage_changeProperties(REQUEST=None, 
@@ -84,7 +83,7 @@ def manage_addSss3Site(dispatcher, id,
                                    )
     
     # TODO: use portal_metadirectories to store emails and other stuff
-    pr('Creating CPS Administrator account for Sss3')
+    pr('Creating CPS Administrator account for CPSDefault')
     portal.acl_users._addUser(name=root_id,
                               password=root_password1,
                               confirm=root_password2,

@@ -47,7 +47,7 @@
     <span tal:replace="python:status_time.aCommon()">10/12/2000 11:12</span>:
   </tal:block>
   v<span tal:replace="rev">1</span>-<span tal:replace="lang">en</span>
-  <span tal:replace="review_state">published</span>, 
+  <span tal:replace="review_state">published</span>
 </tal:block>
 </metal:block>
 
@@ -93,15 +93,14 @@
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="form">
+<metal:block define-macro="transition_form">
 <form method="post" action="content_status_modify"
   tal:attributes="action string:${here/absolute_url}/content_status_modify">
   <div metal:define-slot="fields">
    <!-- more fields -->
   </div>
   <strong><em i18n:translate="">Comments</em></strong><br/>
-  <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%">
-  </textarea>
+  <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"></textarea>
   <div metal:define-slot="button">
     <input type="hidden" name="workflow_action" value="transition" />
     <input type="submit" value="Transition" i18n:attributes="value" />

@@ -1,22 +1,35 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/transition_form/macros/master">
-<body>
+      metal:use-macro="here/content_lib/macros/master">
 
-<div metal:fill-slot="main" i18n:domain="cmf_default">
-<h1 i18n:translate="">Reject publication of <span tal:replace="here/getId"
-i18n:name="objectid">Item</span></h1>
+<metal:block fill-slot="title">
+  <span i18n:translate="">Reject publication of
+    <span tal:replace="here/getId" i18n:name="objectid"> Item</span>
+  </span>
+</metal:block>
 
-<p i18n:translate="">XXX: TODO not yet implemented</p>
+<metal:block fill-slot="help">
+  <span i18n:translate="">XXX: TODO not yet implemented<br/>Reject publication of this item</span>
+</metal:block>
+
+<div metal:fill-slot="main">
+  <br/>
+  <metal:block use-macro="here/content_lib/macros/status" /><br/><br/>
+ 
+  <metal:block use-macro="here/content_lib/macros/transition_form">
+
+    <metal:block fill-slot="button" i18n:domain="cmf_default">
+      <input type="hidden" name="workflow_action" value="reject" />
+      <input type="submit" value="Reject publication item" i18n:attributes="value" />
+      <input type="button" onClick="history.back()" value="Cancel" />
+    </metal:block>
+
+  </metal:block>
+
+  <metal:block use-macro="here/content_lib/macros/states" /><br/>
+
+  <metal:block use-macro="here/content_lib/macros/history" />
+
 </div>
 
-<form>
-<div metal:fill-slot="form" i18n:domain="cmf_default">
-  <input type="hidden" name="workflow_action" value="reject" />
-  <input type="submit" value="Reject publication item" i18n:attributes="value" />
-  <input type="button" onClick="history.back()" value="Cancel" />
-</div>
-</form>
-
-</body>
 </html>

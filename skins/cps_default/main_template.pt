@@ -2,6 +2,7 @@
 <!-- cat cps_devel/main_template.pt | grep -v CPSD_  > cps_default/main_template.pt -->
 <html metal:define-macro="master" tal:define="
   showthirdcol showthirdcol|python:1;
+  emptybody emptybody|nothing;
   utool nocall:here/portal_url;
   atool here/portal_actions;
   mtool here/portal_membership;
@@ -47,7 +48,14 @@
   </metal:block>
 </metal:block>
 </head>
-<body tal:attributes="OnLoad python:'setFocus()'">
+<body tal:attributes="OnLoad python:'setFocus()'"
+  tal:condition="emptybody">
+  <metal:block define-slot="body" />
+  <!-- CPSD CPS Debug information =================== -->
+  <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+</body>
+<body tal:attributes="OnLoad python:'setFocus()'"
+  tal:condition="not:emptybody">
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />

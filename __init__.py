@@ -133,3 +133,9 @@ def initialize(context):
                           permission='Add Box Container',
                           constructors=(BoxesTool.addBoxContainer,))
 
+    if has_profile_registry:
+        profile_registry.registerProfile('CPSDefault:default',
+                                         'CPS Default Site',
+                                         'Profile for a default CPS site.',
+                                         'profiles/default',
+                                         'CPSDefault')

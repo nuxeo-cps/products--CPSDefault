@@ -39,18 +39,19 @@
         }
         -->
       </script>
-      <textarea style="width: 90%" name="links:lines"
+      
+      <div style="margin-bottom: 1em">
+      <textarea style="width: 100%" name="links:lines"
                 tal:define="
                             links python:'\n'.join(values)"
                 tal:attributes="
                                 id id;
                                 rows python:'4';
                                 cols string:75"
-                tal:content="links"></textarea>
-      <a href="javascript:open_search_dialog()">
-        <img tal:replace="structure python:here.getImgTag('link_popup.png',
-                                       base_url=base_url, width=48, height=48)">
-      </a>
+                tal:content="links"></textarea><br />
+      <input type="button" name="search_item" value="button_search" i18n:attributes="value"
+        onClick="open_search_dialog()" />
+      </div>
     </tal:block>
 </tal:block>
 

@@ -17,18 +17,23 @@ ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('NuxMetaDirectories', quiet=1)
 ZopeTestCase.installProduct('NuxUserGroups', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
-#
+
+# XXX: these products should (and used to be) be optional, but they aren't
+# right now.
 ZopeTestCase.installProduct('CPSForum', quiet=1)
 ZopeTestCase.installProduct('CPSSchemas', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
+
 # Optional products
 try: ZopeTestCase.installProduct('CPSRSS', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSChat', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSCalendar', quiet=1)
+except: pass
+try: ZopeTestCase.installProduct('CPSMailingLists', quiet=1)
 except: pass
 
 from AccessControl.SecurityManagement \

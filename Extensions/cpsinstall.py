@@ -24,7 +24,7 @@ from Products.CMFCore.CMFCorePermissions import setDefaultRoles
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
-from Products.CPSCore.CPSWorkflow import \
+from Products.CPSWorkflow.CPSWorkflowTransitions import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \
@@ -502,7 +502,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
 
     def setupWorkflow(self):
         # replace portal_workflow with a (CPS Tools) CPS Workflow Tool.
-        self.verifyTool('portal_workflow', 'CPSCore', 'CPS Workflow Tool')
+        self.verifyTool('portal_workflow', 'CPSWorkflow', 'CPS Workflow Tool')
         self.setupWorkflow1()
         self.setupWorkflow2()
         self.setupWorkflow3()

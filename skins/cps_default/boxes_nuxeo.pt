@@ -41,6 +41,29 @@
 
 
 <!-- ============================================================ -->
+<metal:block define-macro="contentbox_center"
+  tal:define="items python:box['box'].getFolderContents(here)">
+  <tal:block condition="python:len(items)>0">
+  <metal:block use-macro="here/box_lib/macros/sbox">
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
+      <div class="content odd">
+       <tal:block define="
+          folder python:box['box'].getFolderObject(here);
+          no_form not:nothing;
+          format string:detail;
+          columns python:1;
+          items_per_page python:10;
+          nav_action string:folder_view">
+          <metal:block use-macro="here/content_lib/macros/display_contents" />
+        </tal:block>
+      </div>
+    </metal:block>
+  </metal:block>
+  </tal:block>
+</metal:block>
+
+
+<!-- ============================================================ -->
 <metal:block define-macro="treebox_default">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title" 

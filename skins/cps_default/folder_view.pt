@@ -1,12 +1,7 @@
+<metal:block define-macro="folder_view">
 <metal:block use-macro="here/main_template/macros/master">
 <div metal:fill-slot="main"
      tal:define="list_here python:checkPerm('List folder contents', here);">
-
-<div tal:define="response request/RESPONSE;
-                 url here/absolute_url"
-  tal:condition="not: list_here">
-  <span tal:define="redirect python: response.redirect(url)"></span>
-</div>
 
 <tal:block define="tmp python:btool.filterBoxes(boxes, slot='center');
                    boxes_view python:test(len(tmp), tmp, btool.filterBoxes(boxes, slot='folder_view'));">
@@ -20,4 +15,5 @@
 </tal:block>
 
 </div>
+</metal:block>
 </metal:block>

@@ -63,7 +63,7 @@ class pyBenchmarkTimer:
         """
         if not self._in_bench:
             return
-        self.markers[name] = time.clock()
+        self.markers[name] = time.time()
         self.markerOrder.append(name)
 
     def timeElapsed(self, start=None, end=None):

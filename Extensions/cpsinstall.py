@@ -166,13 +166,14 @@ def cpsupdate(self, langs_list=None):
 
     # skins
     pr("Verifying skins")
-    skins = ('cps_styles', 'cps_plone_styles', 'cps_images', 'cps_devel', 'cps_default','cps_nuxmetadirectories',)
+    skins = ('cps_nuxeo_style', 'cps_styles', 'cps_images', 'cps_devel', 'cps_default', 'cps_javascript', 'cps_nuxmetadirectories')
     paths = {
-        'cps_styles': 'Products/CPSDefault/skins/cps_styles/nuxeo',
-        'cps_plone_styles': 'Products/CPSDefault/skins/cps_styles',
+        'cps_nuxeo_style': 'Products/CPSDefault/skins/cps_styles/nuxeo',
+        'cps_styles': 'Products/CPSDefault/skins/cps_styles',
         'cps_images': 'Products/CPSDefault/skins/cps_images',
         'cps_devel': 'Products/CPSDefault/skins/cps_devel',
         'cps_default': 'Products/CPSDefault/skins/cps_default',
+        'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
         'cps_nuxmetadirectories' : 'Products/NuxMetaDirectories/skins/cps_nuxmetadirectories',
     }
     for skin in skins:

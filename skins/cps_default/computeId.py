@@ -61,7 +61,7 @@ else:
 
 
 # Get the container in which we want the new object to be created.
-if location:
+if location is not None:
     container = location
 else:
     container = context.this()

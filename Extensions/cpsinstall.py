@@ -1349,11 +1349,34 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         visible=1)
     pr(" Added Action Boxes at global scope ")
 
+    # Localizer - instantiating it before call to other services' installers
+    # as they make the asumption that it exists
+    if not portalhas('Localizer'):
+        pr(" Adding Localizer")
+        languages = langs_list or ('en',)
+        portal.manage_addProduct['Localizer'].manage_addLocalizer(
+            title='',
+            languages=languages,
+        )
+    else:
+        pr("Localizer already here")
+
+    # translation_service
+    if not portalhas('translation_service'):
+        portal.manage_addProduct['TranslationService'].addPlacefulTranslationService(
+            id='translation_service'
+        )
+        pr("  translation_service tool added")
+        translation_service = portal.translation_service
+
+        # translation domains
+
+        translation_service.manage_setDomainInfo(path_0='Localizer/default')
+        pr("   default domain set to Localizer/default")
+
     ###########################################################
     # INSTALLATION OF THE DIFFERENT SERVICES
     ###########################################################
-
-    # XXX : ImportError
 
     #
     #  CPSRSS installer/updater
@@ -1531,16 +1554,16 @@ def cps_i18n_update(self, langs_list=None):
 
     pr(" Updating i18n support")
 
-    # Localizer
-    if not portalhas('Localizer'):
-        pr("  Adding Localizer")
-        languages = langs_list or ('en',)
-        portal.manage_addProduct['Localizer'].manage_addLocalizer(
-            title='',
-            languages=languages,
-        )
-    else:
-        pr("Localizer already here")
+##    # Localizer
+##    if not portalhas('Localizer'):
+##        pr("  Adding Localizer")
+##        languages = langs_list or ('en',)
+##        portal.manage_addProduct['Localizer'].manage_addLocalizer(
+##            title='',
+##            languages=languages,
+##        )
+##    else:
+##        pr("Localizer already here")
     Localizer = portal['Localizer']
 
     # languages
@@ -1576,19 +1599,6 @@ def cps_i18n_update(self, langs_list=None):
         else:
             defaultCatalog.manage_import(lang, po_file)
             pr("    %s file imported" % po_path)
-
-    # translation_service
-    if not portalhas('translation_service'):
-        portal.manage_addProduct['TranslationService'].addPlacefulTranslationService(
-            id='translation_service'
-        )
-        pr("  translation_service tool added")
-        translation_service = portal.translation_service
-
-        # translation domains
-
-        translation_service.manage_setDomainInfo(path_0='Localizer/default')
-        pr("   default domain set to Localizer/default")
 
     ###################################################
     # i18n for NuxMetaDIrectories

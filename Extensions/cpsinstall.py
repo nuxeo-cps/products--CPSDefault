@@ -692,17 +692,21 @@ def cpsupdate(self, langs_list=None):
     if sections_id not in trtool.objectIds():
         pr("  Adding cache for tree %s" % sections_id)
         trtool.manage_addCPSTreeCache(id=sections_id)
-        trtool[sections_id].manage_changeProperties(title=sections_id+' Cache', 
-                                                    root=sections_id, 
-                                                    type_names=('Section',))
+        trtool[sections_id].manage_changeProperties(
+            title=sections_id+' Cache', 
+            root=sections_id, 
+            type_names=('Section',),
+            info_method='getFolderInfo')
         trtool[sections_id].manage_rebuild()
         
     if workspaces_id not in trtool.objectIds():
         pr("  Adding cache for tree %s" % workspaces_id)
         trtool.manage_addCPSTreeCache(id=workspaces_id)
-        trtool[workspaces_id].manage_changeProperties(title=workspaces_id+' Cache', 
-                                                      root=workspaces_id, 
-                                                      type_names=('Workspace',))
+        trtool[workspaces_id].manage_changeProperties(
+            title=workspaces_id+' Cache', 
+            root=workspaces_id, 
+            type_names=('Workspace',),
+            info_method='getFolderInfo')
         trtool[workspaces_id].manage_rebuild()
         
     pr("Verifying private area creation flag")

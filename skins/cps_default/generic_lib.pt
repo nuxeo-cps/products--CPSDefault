@@ -57,96 +57,6 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="logo">
-  <a href="http://www.nuxeo.com/"
-     tal:attributes="href string:${base_url}">
-    <img height="43" width="173" border="0" src="logo_nuxeo.gif" class="logo"
-         alt="Nuxeo Logo" title="Nuxeo Web Site"
-         tal:attributes="src string:${base_url}logo_nuxeo.gif" />
-  </a>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="searchbox">
-  <div class="searchBox">
-    <form method="get" action="search"
-        tal:attributes="action string:${base_url}search_form">
-      <a href="search_form"
-         tal:attributes="href string:${base_url}advanced_search_form"
-         i18n:translate="link_advanced_search">
-        Advanced search</a>
-      <br>
-      <input id="searchGadget" type="text" name="SearchableText" size="20"
-             value="" tal:attributes="value request/SearchableText|nothing">
-      <input class="context searchButton" type="submit" value="button_ok"
-             i18n:attributes="value">
-    </form>
-  </div>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="sections">
-  <div class="tabs"
-       tal:define="sections sections|ttool/sections;
-                   workspaces workspaces|ttool/workspaces;
-                   stree python:sections.getList(start_depth=0, stop_depth=1);
-                   wtree python:workspaces.getList(start_depth=0, stop_depth=0)">
-
-    <a href="" class="plain"
-       tal:repeat="item wtree"
-       tal:attributes="href string:${base_url}${item/rpath}/;
-                       class python:context_url.endswith(item['rpath']) and 'selected' or default;
-                       title item/title"
-       tal:content="structure item/short_title">
-       section title
-    </a>
-
-    <a href="" class="plain"
-       tal:repeat="item stree"
-       tal:attributes="href string:${base_url}${item/rpath}/;
-                       class python:context_url.endswith(item['rpath']) and 'selected' or default;
-                       title item/title"
-       tal:content="structure item/short_title">
-       section title
-    </a>
-  </div>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="breadcrumbs">
-  <div class="pathBar">
-    <span i18n:translate="label_you_are_here">You are here:&nbsp;</span>
-    <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url, breadcrumb_set=getattr(request, 'breadcrumb_set', None))">
-      <a href="/cps/id"
-         tal:omit-tag="not:bc/url"
-         tal:attributes="href bc/url;
-                         title bc/longtitle"
-         tal:content="bc/title">
-         Title
-      </a>
-      <strong tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
-    </span>
-  </div>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="box">
-  <div class="box">
-    <div class="title">
-      <div metal:define-slot="box_title">Box Title</div>
-    </div>
-    <div class="body">
-      <div metal:define-slot="box_body">Box Body</div>
-    </div>
-  </div>
-</metal:block>
-
-
-<!-- ============================================================ -->
 <metal:block define-macro="portal_message">
   <div class="message"
        tal:define="portal_message request/portal_status_message|nothing"
@@ -157,57 +67,10 @@ want the special NS4 look - it will still work, just be plain text instead. -->
   </div>
 </metal:block>
 
-<!-- ============================================================ -->
-<metal:block define-macro="footer">
-  <div class="footer">
-    Nuxeo - 14, rue du Soleillet, 75020 Paris France
-    <br/>
-    Email : <a href="mailto:contact@nuxeo.com"> contact@nuxeo.com</a>
-    - Tél: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15
-  </div>
-</metal:block>
-
 
 <!-- ============================================================ -->
-<metal:block define-macro="actionbox">
-  <metal:block use-macro="here/generic_lib/macros/box">
-    <metal:block fill-slot="box_title" tal:content="blocktitle">
-      action box title
-    </metal:block>
-    <metal:block fill-slot="box_body">
-      <div class="content"
-           tal:define="blockclass blockclass|string:"
-           tal:attributes="class python:'content '+blockclass">
-        <ul>
-          <li tal:repeat="action actionblock">
-            <a tal:attributes="href action/url"
-               tal:content="action/name"
-               i18n:translate="link_translated_action">
-               Translated action
-             </a>
-          </li>
-        </ul>
-      </div>
-    </metal:block>
-  </metal:block>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="folder_list">
-</metal:block>
-
-
-<!-- ============================================================ -->
-<metal:block define-macro="title_content">
-  <h2>
-    <metal:block define-slot="title">Title</metal:block>
-  </h2>
-  <metal:block define-slot="content">Content</metal:block>
-</metal:block>
-
-
-<!-- ============================================================ -->
+<!-- XXX TODO this is only used by CPSCalendar for cps2 compatibiltiy
+     this should be moved to CPSCalendar -->
 <metal:block define-macro="form">
   <table width="100%" cellpadding="4" cellspacing="4" border="0">
     <metal:block define-slot="content">
@@ -217,6 +80,8 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
 
 <!-- ============================================================ -->
+<!-- XXX TODO this is only used by CPSCalendar for cps2 compatibiltiy
+     this should be moved to CPSCalendar -->
 <metal:block define-macro="form_property">
   <tal:block define="form_pos form_pos|nothing">
     <tr>

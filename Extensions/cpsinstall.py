@@ -885,7 +885,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             'create_content': {
                 'title': 'Create content',
                 'new_state_id': 'work',
-                'transition_behavior': (TRANSITION_ALLOWSUB_CREATE, ),
+                'transition_behavior': (TRANSITION_ALLOWSUB_CREATE,
+                                        TRANSITION_ALLOWSUB_CHECKOUT,
+                                        ),
                 'clone_allowed_transitions': None,
                 'trigger_type': TRIGGER_USER_ACTION,
                 'actbox_name': '',

@@ -48,10 +48,6 @@ class ContentBox(BaseBox):
     meta_type = 'Content Box'
     portal_type = 'Content Box'
 
-    nb_items=0
-    sort_by=direction=display=''
-    query_title=query_description=query_fulltext=\
-                 query_status=query_modified=''
     query_portal_type=[]
 
     security = ClassSecurityInfo()

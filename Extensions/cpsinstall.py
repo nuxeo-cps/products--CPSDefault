@@ -74,6 +74,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTools()
         self.setupSkins()
         self.setupEventService()
+        # we get rid of portal subscriptions notification during installation
+        self.maskEventSubscriber('portal_subscriptions')
         self.setupTypes()
         self.setupActions()
         self.setupWorkflow()
@@ -84,6 +86,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
+        self.restoreEventSubscriber('portal_subscriptions')
 
         self.log("Verifying private area creation flag")
         if not self.portal.portal_membership.getMemberareaCreationFlag():
@@ -1542,18 +1545,18 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.runExternalUpdater('cpsdirectory_installer',
                                 'CPSDirectory Installer',
                                 'CPSDirectory', 'install', 'install')
-        self.runExternalUpdater('cpssubscriptions_installer',
-                                'CPSSubscriptions Installer',
-                                'CPSSubscriptions', 'install', 'install')
-        self.runExternalUpdater('cpsnewsletter_installer',
-                                'CPSNewsLetters Installer',
-                                'CPSNewsLetters', 'install', 'install')
         self.runExternalUpdater('cpsnavigation_installer',
                                 'CPSNavigation Installer',
                                 'CPSNavigation', 'install', 'install')
         self.runExternalUpdater('cpsooo_installer',
                                 'CPSOOo Installer',
                                 'CPSOOo', 'install', 'install')
+        self.runExternalUpdater('cpssubscriptions_installer',
+                                'CPSSubscriptions Installer',
+                                'CPSSubscriptions', 'install', 'install')
+        self.runExternalUpdater('cpsnewsletter_installer',
+                                'CPSNewsLetters Installer',
+                                'CPSNewsLetters', 'install', 'install')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

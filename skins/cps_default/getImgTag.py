@@ -1,4 +1,4 @@
-##parameters=img_name, title=None, base_url=None, zoom=1, height=0, width=0, alt='', keep_ratio=0
+##parameters=img_name, title=None, base_url=None, zoom=1, height=None, width=None, alt='', keep_ratio=0
 # $Id$
 """
 Return an HTML img tag
@@ -34,9 +34,9 @@ if original_width == '':
 else:
     original_width = int(original_width)
 
-if not height and original_height is not None:
+if ( height is None) and ( original_height is not None ):
     height = int(zoom * original_height)
-if not width and original_width is not None:
+if ( width is None ) and ( original_width is not None ):
     width = int(zoom * original_width)
 
 if ( keep_ratio
@@ -54,7 +54,7 @@ if ( keep_ratio
         width = int(zoom * w)
         height = int(zoom * h)
 
-if width and height:
+if ( width is not None ) and ( height is not None ):
     tag = '<img src="%s" width="%s" height="%s" alt="%s"' % (
         img_url, str(width), str(height), alt)
 else:

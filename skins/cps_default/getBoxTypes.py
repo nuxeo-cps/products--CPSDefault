@@ -174,8 +174,11 @@ for citem in citems:
         items.append(citem)
 
 if category:
+    found = None
     for item in items:
         if item['category'] == category:
-            return item
+            found = item
+            break
+    return found
 
 return items

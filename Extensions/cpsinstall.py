@@ -1011,15 +1011,13 @@ if locked_ob is not None:
         portal[sections_id].reindexObject()
         pr("  Adding %s Folder" % sections_id)
 
-
     #
-    # Test for the ModifyWorkspaceContent permission
-    # XXX : Why sould I do this for that ??
-    # Don't really see the usefullness
+    # To avoid the user being able to change the
+    # property of the workspace
     #
     from Products.CMFCore.CMFCorePermissions import setDefaultRoles
-    ModifyWorkspaceContent = 'Modify Workspace Content'
-    setDefaultRoles( ModifyWorkspaceContent, ( 'Manager', 'WorkspaceManager', 'WorkspaceMember', ))
+    ModifyFolderPoperties = 'Modify Folder Properties'
+    setDefaultRoles( ModifyFolderPoperties, ( 'Manager', 'WorkspaceManager',))
 
     pr("Verifying permissions")
     sections_perm = {
@@ -1034,6 +1032,7 @@ if locked_ob is not None:
         'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
         'List folder contents': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
         'Modify portal content': ['Manager', 'SectionManager'],
+        'Modify Folder Properties' : ['Manager', 'SectionManager'],
         'View': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
         'View management screens': ['Manager', 'SectionManager'],
         }
@@ -1044,6 +1043,7 @@ if locked_ob is not None:
         'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
         'List folder contents': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Owner'],
+        'Modify Folder Properties' : ['Manager', 'WorkspaceManager'],
         'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember',],
         'Add Box Container': ['Manager', 'WorkspaceManager', 'SectionManager'],

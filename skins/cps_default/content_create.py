@@ -19,7 +19,7 @@ if REQUEST:
         return REQUEST.RESPONSE.redirect('%s/cpsdocument_create_form?%s' %
                                 (context.absolute_url(), urlencode(args)))
 
-if REQUEST and not kw.has_key('title'):
+if REQUEST and not kw.get('title', ''):
     # Need a title before creating folders
     if type_name in ('Section', 'Workspace'):
         args = {'type_name': type_name}

@@ -41,9 +41,12 @@ newid = compute_from.strip()[:max_chars_for_id]
 # Normalization
 newid = newid.replace('ֶ', 'AE')
 newid = newid.replace('ז', 'ae')
+newid = newid.replace('¼', 'OE')
+newid = newid.replace('½', 'oe')
 newid = newid.replace('ß', 'ss')
-tr = maketrans(' ְֱֲֳִֵַָֹÊֻּֽ־ֿׁׂ׃װױײ״ÙÚÛÜÝאבגדהוחטיךכלםמןסעףפץצרשתûü‎ÿ',
-               '_AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy')
+tr = maketrans(
+    r"'\;/ &:ְֱֲֳִֵַָֹÊֻּֽ־ֿׁׂ׃װױײ״ÙÚÛÜÝאבגדהוחטיךכלםמןסעףפץצרשתûü‎ÿ",
+    r'_______AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy')
 newid = newid.translate(tr)
 ok = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_.'
 newid = ''.join([c for c in newid if c in ok])

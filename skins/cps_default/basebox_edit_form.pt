@@ -10,7 +10,8 @@
 
 box: <tal:block replace="box_url" />
 
-<tal:block repeat="box boxes">
+<tal:block repeat="box python:btool.getBoxes(here,
+                       include_only_in_subfolder=1)">
   <tal:block condition="python:box['url'] == box_url">
    <br><br>
 <form action="box_edit" method="post" enctype="multipart/form-data"

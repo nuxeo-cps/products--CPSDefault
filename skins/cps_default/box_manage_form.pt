@@ -16,9 +16,11 @@ description_visible_box_from <span i18n:name="context_url"
 tal:content="context_url" /></p>
 
 <tal:block repeat="slot here/getBoxSlots">
-<tal:block define="sboxes python:btool.filterBoxes(boxes, slot=slot,
-  keep_closed=1);"
-  condition="python:len(sboxes)">
+<tal:block define="sboxes python:btool.getBoxes(here,
+                          include_only_in_subfolder=1);
+                   sboxes python:btool.filterBoxes(sboxes, slot=slot,
+                          keep_closed=1);"
+           condition="python:len(sboxes)">
 <h3>
 <tal:block replace="structure
  python:here.getImgTag('slot_' + slot + '.png', base_url=base_url)" />

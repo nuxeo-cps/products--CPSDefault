@@ -108,7 +108,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     def __init__(self, id, minimized=0, closed=0,
                  style='', slot=0, order=0,
-                 visible_if_empty= 0, display_in_subfolder=1, guard_roles='',
+                 visible_if_empty= 0, display_in_subfolder=1,
                  locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)        
         self.id = id
@@ -121,7 +121,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         self.visible_if_empty = visible_if_empty
         self.display_in_subfolder = display_in_subfolder
         self.locked = locked
-        self.guard_roles = self.guard_roles
 
     security.declarePublic('getSettings')
     def getSettings(self):

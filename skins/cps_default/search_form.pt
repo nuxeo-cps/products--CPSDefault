@@ -39,7 +39,10 @@
                             tal:content="items_length"
                             i18n:name="nb_results">n</span> results.
     </p>
-    <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
+    <div id="searchResults">
+      <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
+    </div>
+
     <div style="text-align:right;" class="group">
       <form name="searchFormBottom" method="get" action="search_form"
         onsubmit="return checkEmptySearch(this)">

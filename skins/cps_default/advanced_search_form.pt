@@ -38,13 +38,15 @@
                               tal:content="items_length"
                               i18n:name="nb_results">n</span> results.
       </p>
-      <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
+      <div id="searchResults">
+        <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
+      </div>
     </div>
     <metal:block define-macro="search_form">
       <form method="post" action="advanced_search_form">
         <metal:block use-macro="here/generic_lib_search_form/macros/search_form" />
       </form>
-    </metal:block> 
+    </metal:block>
   </metal:block>
   </body>
 </html>

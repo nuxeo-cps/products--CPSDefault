@@ -24,7 +24,7 @@ from Products.CMFCore.CMFCorePermissions import setDefaultRoles
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
-from Products.CPSWorkflow.CPSWorkflowTransitions import \
+from Products.CPSWorkflow.transitions import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \

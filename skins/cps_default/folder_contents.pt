@@ -2,16 +2,16 @@
 <div metal:fill-slot="header"
      tal:define="display_change python:request.get('change_display', '0');
                  params here/getDisplayParams;
-	         sort_by params/sort_by;
+                 sort_by params/sort_by;
                  direction params/direction;
                  format params/format;
                  ">
-<div align="left" class="documentActions">
+
+<h1 tal:content="here/title_or_id">Page Title</h1>
+
+<div align="right">
 <form action="" method="post" name="formf"
       tal:attributes="action string:${here/absolute_url};">
-<table bgcolor="white">
-  <tr valign="top">
-    <td>
       <span i18n:translate="label_sort_by">sort by</span>
        <select name="display_order">
             <option i18n:translate="label_none" value="None" selected
@@ -107,14 +107,7 @@
            </select>
       <input type="submit" value="button_change" i18n:attributes="value"
         tal:attributes="name string:changeDisplayParams:method" />
-         </td>
-        </tr>
-      </table>
      </form>
-</div>
-<h1 tal:content="here/title_or_id">Page Title</h1>
-<div class="description" tal:content="doc/Description">
-  Document Description goes here.
 </div>
 </div>
 

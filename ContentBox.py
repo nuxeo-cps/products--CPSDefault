@@ -48,7 +48,7 @@ class ContentBox(BaseBox):
     portal_type = 'Content Box'
 
     nb_items=0
-    sort_by=direction=display=''
+    sort_by=direction=display=None
 
     security = ClassSecurityInfo()
 
@@ -65,7 +65,8 @@ class ContentBox(BaseBox):
          'label': 'format for display'},
         )
 
-    def __init__(self, id, folder=None, **kw):
+    def __init__(self, id, folder=None, nb_items=None, sort_by=None,
+                 direction=None, display=None, **kw):
         BaseBox.__init__(self, id, macro='contentbox', kw=kw)
         self.folder = folder
 

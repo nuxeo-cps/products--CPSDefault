@@ -25,10 +25,10 @@
 <div tal:condition="not:searching">
 <!-- Search -->
 
-<h2 i18n:translate="heading_local_roles_search_members">
+<h1 i18n:translate="heading_local_roles_search_members">
  Assign local roles: Search Members
-</h2>
-
+</h1>
+<div class="group">
 <form method="post" action="folder_localrole_form"
       tal:attributes="action string:${here_url}/folder_localrole_form">
 
@@ -44,24 +44,19 @@
       <option i18n:translate="label_user_email"
               value="email">Email address</option>
     </select>
+    
   </td>
  </tr>
  <tr>
    <th i18n:translate="label_local_roles_search_term">Search Term</th>
-   <td><input type="text" name="search_term" size="30" /></td>
- </tr>
-
- <tr>
-  <td><br /></td>
-   <td>
-     <input type="submit" name="role_submit" value="button_search"
-            i18n:attributes="value" />
-   </td>
+   <td><input type="text" name="search_term" size="30" />
+   <input type="submit" name="role_submit" value="button_search"
+       class="standalone" i18n:attributes="value" /></td>
  </tr>
 </table>
 
 </form>
-
+</div>
 
 <!-- End search -->
 </div>
@@ -70,21 +65,21 @@
 <div tal:condition="python:searching and search_param in ('fullname', 'email')">
 
 <!-- Assignment -->
-<h2 i18n:translate="heading_local_roles_search_results">
+<h1 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
-</h2>
+</h1>
 
 <div tal:condition="found">
 
  <p i18n:translate="legend_local_roles_select_members_and_roles">
     Select Member(s) and a role to assign:
  </p>
-
+ <div class="group">
  <form method="post" action="folder_localrole_edit"
        tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="add" />
 
-  <table summary="result list">
+  <table summary="result list" width="100%">
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;" i18n:translate="label_user">
@@ -95,11 +90,12 @@
     </th>
    </tr>
 
-   <tr tal:repeat="member found">
+   <tal:block repeat="member found">
+   <tr tal:attributes="class python:test(repeat['member'].even(),'even','odd')">
      <tal:block define="entry python:member[1]">
        <td width="16">
          <input type="checkbox" name="member_ids:list" value=""
-                tal:attributes="value string:user:${entry/id}" />
+           class="noborder" tal:attributes="value string:user:${entry/id}" />
        </td>
        <td tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or entry['id']">
          Username 1
@@ -107,10 +103,11 @@
        <td tal:content="entry/email|nothing"> Email 1 </td>
      </tal:block>
    </tr>
+   </tal:block>
 
    <tr tal:condition="nothing">
     <td width="16">
-     <input type="checkbox" name="member_ids:list" value="" />
+     <input type="checkbox" name="member_ids:list" value="" class="noborder"/>
     </td>
     <td> Username 2 </td>
     <td> Email 2 </td>
@@ -119,12 +116,9 @@
    <tr>
     <td colspan="3"><br /></td>
    </tr>
-
-   <tr>
-    <th colspan="2" i18n:translate="legend_local_roles_role_to_assign">
-        Role to assign:
-    </th>
-    <td>
+   </table>
+   <span i18n:translate="legend_local_roles_role_to_assign">
+        Role to assign:</span>
      <select name="member_role"
              tal:define="roles python:cpslr[2]">
       <option tal:repeat="role roles"
@@ -136,24 +130,10 @@
       <option tal:condition="nothing"> Role2 </option>
       <option tal:condition="nothing"> Role3 </option>
      </select>
-    </td>
-   </tr>
-
-   <tr>
-    <td colspan="3"><br /></td>
-   </tr>
-
-   <tr>
-    <td width="16"><br /></td>
-    <td colspan="2">
-        <input i18n:attributes="value"
+   <input i18n:attributes="value" class="standalone"
                type="submit" value="button_assign_roles" />
-    </td>
-   </tr>
-
-  </table>
- </form>
-
+   </form>
+ </div>
 </div>
 
 
@@ -171,11 +151,11 @@
 <div tal:condition="python:searching and search_param == 'groupname'">
 
 <!-- Assignment -->
-<h2 i18n:translate="heading_local_roles_search_results">
+<h1 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
-</h2>
+</h1>
 
-<div tal:condition="found">
+<div class="group" tal:condition="found">
 
  <p i18n:translate="legend_local_roles_select_groups_and_roles">
     Select Group(s) and a role to assign:
@@ -183,7 +163,7 @@
  <form method="post" action="folder_localrole_edit"
        tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="add" />
-  <table summary="group listing">
+  <table width="100%" summary="group listing">
    <tr>
     <td width="16"><br /></td>
     <th style="text-align:left;">
@@ -191,9 +171,10 @@
     </th>
    </tr>
 
-   <tr tal:repeat="group found">
+   <tal:block repeat="group found">
+   <tr tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
      <td width="16">
-       <input type="checkbox" name="member_ids:list" value=""
+       <input type="checkbox" name="member_ids:list" value="" class="noborder"
               tal:attributes="value string:group:${group}" />
      </td>
      <td tal:content="python:test(group.startswith('role:'),
@@ -201,9 +182,10 @@
        Group
      </td>
    </tr>
-
+   </tal:block>
+   
    <tr>
-    <td colspan="3"><br /></td>
+    <td colspan="2"><br /></td>
    </tr>
 
    <tr>
@@ -222,19 +204,10 @@
       </select>
     </td>
    </tr>
+   </table>
+   <input i18n:attributes="value" class="standalone"
+     type="submit" value="button_assign_roles" />
 
-   <tr>
-    <td colspan="3"><br /></td>
-   </tr>
-
-   <tr>
-    <td width="16"><br /></td>
-    <td colspan="2">
-      <input i18n:attributes="value"
-             type="submit" value="button_assign_roles" /></td>
-   </tr>
-
-  </table>
  </form>
 </div>
 
@@ -246,15 +219,13 @@
 
 <!-- End assignment -->
 </div>
-<hr />
 
-<h2 i18n:translate="legend_local_roles_currently_assigned">
+<h1 i18n:translate="legend_local_roles_currently_assigned">
     Currently assigned local roles
-</h2>
-
+</h1>
+<div class="group" tal:condition="has_local_roles_blocking">
 <form method="post" action="folder_localrole_edit"
-      tal:attributes="action string:${here_url}/folder_localrole_edit"
-      tal:condition="has_local_roles_blocking">
+      tal:attributes="action string:${here_url}/folder_localrole_edit">
 
   <input type="hidden" name="change_type" value="block" />
   <div tal:condition="local_roles_blocked">
@@ -262,21 +233,22 @@
       Local roles acquisition is <strong>blocked</strong>.
       To unblock acquisition, click here:</span>
     <input type="submit" name="lr_unblock" value="button_local_roles_unblock"
-           i18n:attributes="value" />
+           i18n:attributes="value" class="standalone" />
   </div>
 
   <div tal:condition="not:local_roles_blocked">
     <span i18n:translate="legend_local_roles_block">
       Local roles are acquired. To block acquisition, click here:</span>
     <input type="submit" name="lr_block" value="button_local_roles_block"
-           i18n:attributes="value" />
+           i18n:attributes="value" class="standalone" />
   </div>
 </form>
-
+</div>
+  
 <p i18n:translate="legend_local_roles_assigned_users">
    These users currently have local roles assigned in this folder:
 </p>
-
+<div class="group">
 <form method="post" action="folder_localrole_edit"
       tal:attributes="action string:${here_url}/folder_localrole_edit">
   <input type="hidden" name="change_type" value="delete" />
@@ -300,7 +272,7 @@
           <tal:block define="haslrhere python:user in editable_user">
             <tal:block condition="haslrhere">
               <td width="1%" style="text-align:right;">
-                <input type="checkbox"
+                <input type="checkbox" class="noborder"
                       name="member_ids:list"
                       value="id"
                       tal:attributes="value user" />
@@ -340,7 +312,7 @@
       </tal:block>
       <tr tal:condition="nothing">
         <td width="16">
-          <input type="checkbox" name="member_ids:list" value="id" />
+          <input type="checkbox" name="member_ids:list" value="id" class="noborder"/>
         </td>
           <td> Username 2 </td>
           <td> Role3 </td>
@@ -356,8 +328,9 @@
         </table>
     </tal:block>
   </tal:block>
-  <input type="submit" value="button_delete" i18n:attributes="value" />
+  <input type="submit" value="button_delete" i18n:attributes="value" class="destructive" />
 </form>
+</div>
 <br />
 <span i18n:translate="link_local_roles_underlined">
   <em>Roles in underlined</em> are set in parent folders.

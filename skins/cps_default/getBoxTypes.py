@@ -82,6 +82,10 @@ items = [
                {'provider': 'nuxeo',
                 'id': 'sitemap_adv',
                 'desc': 'description_nuxeo_treebox_sitemap_adv',
+                },
+               {'provider': 'nuxeo',
+                'id': 'nav',
+                'desc': 'XXX test tree nav',
                 }
                ]
      },

@@ -48,8 +48,7 @@
     </div>
     </td>
     <td align="left" valign="top">
-    <textarea name="description" cols="60" rows="10"
-     style="width: 100%"></textarea>
+    <textarea name="description" cols="40" rows="2"></textarea>
     </td>
   </tr>
 
@@ -128,14 +127,18 @@
     </div>
     </td>
     <td align="left" valign="top">
+      <ul>
       <dtml-in "[('en', 'English'), ('fr', 'French'), ('de', 'German'),
                  ('nl', 'Dutch'), ('it', 'Italian'), ('es', 'Spanish'),
-                 ('pt_BR', 'Portugese(Brazilian)')]">
+                 ('pt_BR', 'Portugese (Brazilian)')]">
+        <li>
         <input type="checkbox" name="langs_list:list"
                id="<dtml-var sequence-key>"
                value="<dtml-var sequence-key>"/>
         <label for="<dtml-var sequence-key>"><dtml-var sequence-item></label>
+        </li>
       </dtml-in>
+      </ul>
     </td>
   </tr>
 

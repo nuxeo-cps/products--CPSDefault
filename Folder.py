@@ -25,10 +25,7 @@ from Globals import InitializeClass
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from Products.CPSCore.CPSBase import CPSBase_adder
-try:
-    from Products.CPSDocument.CPSDocument import CPSDocument as BaseDocument
-except ImportError:
-    from Products.CPSCore.CPSBase import CPSBaseFolder as BaseDocument
+from Products.CPSDocument.CPSDocument import CPSDocument as BaseDocument
 
 
 def addFolder(container, id, REQUEST=None, **kw):

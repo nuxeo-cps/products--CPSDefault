@@ -33,6 +33,7 @@ ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
+ZopeTestCase.installProduct('CPSSkins', quiet=1)
 
 # Optional products
 for product in ('CPSRSS', 'CPSChat', 'CPSCalendar', 'CPSCollector',

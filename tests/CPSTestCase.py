@@ -35,6 +35,8 @@ try: ZopeTestCase.installProduct('CPSCalendar', quiet=1)
 except: pass
 try: ZopeTestCase.installProduct('CPSMailingLists', quiet=1)
 except: pass
+try: ZopeTestCase.installProduct('CPSCollector', quiet=1)
+except: pass
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager

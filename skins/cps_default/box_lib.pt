@@ -1,3 +1,4 @@
+
 <!-- macro library for boxes -->
 <!-- $Id$ -->
 
@@ -12,6 +13,7 @@
   </div>
   <div class="body">
     <div class="content odd">
+      <hr class="netscape4">
       <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
   </div>
@@ -37,6 +39,7 @@
   </div>
   <div class="body">
     <div class="content odd" tal:condition="not:box/settings/minimized">
+      <hr class="netscape4">
       <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
   </div>
@@ -66,6 +69,7 @@
   </div>
   <div class="body">
     <div class="content odd" tal:condition="not:box/settings/minimized">
+      <hr class="netscape4">
       <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
   </div>
@@ -79,10 +83,11 @@
 <div class="box">
   <div class="body">
     <div class="content odd">
-      <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
-      <div>
-        <metal:block define-slot="box_body">Box Body</metal:block>
+      <div class="title2">
+        <metal:block define-slot="box_title">Box Title</metal:block>
       </div>
+      <hr class="netscape4">
+      <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
   </div>
 </div>
@@ -95,9 +100,8 @@
 <div class="box">
   <div class="body">
     <div class="content odd">
-      <div>
-        <metal:block define-slot="box_body">Box Body</metal:block>
-      </div>
+      <hr class="netscape4">
+      <metal:block define-slot="box_body">Box Body</metal:block>
     </div>
   </div>
 </div>
@@ -108,7 +112,10 @@
 <!-- no frame box -->
 <metal:block define-macro="wbox">
 <div class="box">
-  <h3><metal:block define-slot="box_title">Box Title</metal:block></h3>
+  <div class="title2">
+    <metal:block define-slot="box_title">Box Title</metal:block>
+  </div>
+  <hr class="netscape4">
   <metal:block define-slot="box_body">Box Body</metal:block>
 </div>
 </metal:block>

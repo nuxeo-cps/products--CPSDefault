@@ -632,7 +632,10 @@ def cpsupdate(self, langs_list=None):
     # CPS Folder
     pr("Verifying portal types")
     ttool = portal.portal_types
-    workspaceACT = list(ttool['Workspace'].allowed_content_types)
+    if 'Workspace' in ttool.objectIds():
+        workspaceACT = list(ttool['Workspace'].allowed_content_types)
+    else:
+        workspaceACT = []
     for ptype in ('Workspace', 'Dummy', 'Dummy2'):
         if ptype not in  workspaceACT:
             workspaceACT.append(ptype)

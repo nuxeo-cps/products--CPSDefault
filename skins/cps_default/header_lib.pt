@@ -9,13 +9,28 @@
   <meta name="generator" content="Nuxeo CPS http://www.cps-project.org/" />
   <title tal:content="expanded_title|here/expanded_title">CPS Default</title>
   <metal:block define-slot="base"></metal:block>
+
+  <tal:block condition="nothing">
+    nuxeo_css1.css follows the CSS1 spec.
+    nuxeo_css2.css follows the CSS2 spec.
+    CSS1-only compliant browsers like Netscape 4.7.x only understand the
+    (link rel="stylesheet") syntax and not the "@import" CSS2 syntax.
+    This is done to have CSS1-only compliant browsers not to try to interpret
+    CSS2 properties and display badly CPS sites.
+  </tal:block>
   <link rel="stylesheet" type="text/css" href=""
     tal:attributes="href string:${base_url}nuxeo_css1.css" />
   <style type="text/css" media="all"
     tal:content="string:@import url(${base_url}nuxeo_css2.css);"></style>
   <link rel="stylesheet" type="text/css" media="print"
     tal:attributes="href string:${base_url}nuxeo_print_css.css" />
+
+  <tal:block condition="nothing">
+    This is an MSIE conditional comment. DO NOT REMOVE IT, it is used and
+    read only by MSIE.
+  </tal:block>
   <!--[if IE]><link rel="stylesheet" type="text/css" href="msie.css"><![endif]-->
+
   <link rel="icon" href="" type="image/png" tal:attributes="href
     string:${base_url}site_icon.png" />
   <meta http-equiv="imagetoolbar" content="no" />

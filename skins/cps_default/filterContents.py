@@ -12,18 +12,28 @@ from zLOG import LOG, DEBUG
 # filtering
 filtered_items = []
 now = context.ZopeTime()
+display_cache = {}
 for item in items:
     if item.getId().startswith('.'):
         continue
     if not mtool.checkPermission('View', item):
         continue
+
+    # Using a cache to optimize the retrieval of the
+    # 'cps_display_as_document_in_listing' attribute.
     portal_type = getattr(item, 'portal_type', None)
     if portal_type in ttool.objectIds():
-        display_as_document_in_listing = getattr(ttool[portal_type],
-                                                 'cps_display_as_document_in_listing',
-                                                 None)
+        if display_cache.has_key(portal_type):
+            display_as_document_in_listing = display_cache[portal_type]
+        else:
+            display_as_document_in_listing = getattr(ttool[portal_type],
+                                                     'cps_display_as_document_in_listing',
+                                                     None)
+            display_cache[portal_type] = display_as_document_in_listing
+
     if hide_folder and (item.isPrincipiaFolderish and not display_as_document_in_listing):
        continue
+
     if displayed != [''] and item.portal_type not in displayed:
         continue
     review_state = wtool.getInfoFor(item, 'review_state', 'nostate')

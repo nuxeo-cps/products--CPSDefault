@@ -10,10 +10,10 @@ result = membership_tool.resetPassword(username,
                                        request_emission_time, reset_token)
 
 if result['reset_password_success'] and result['email_password_success']:
-    REQUEST.RESPONSE.redirect("%s/?portal_status_message=%s" %
+    REQUEST.RESPONSE.redirect("%s/login_form?portal_status_message=%s" %
                               (context.absolute_url(),
                                "psm_reset_password_success"))
 else:
-    REQUEST.RESPONSE.redirect("%s/?portal_status_message=%s" %
+    REQUEST.RESPONSE.redirect("%saccount_lost_password_form/?portal_status_message=%s" %
                               (context.absolute_url(),
                                "psm_reset_password_problem"))

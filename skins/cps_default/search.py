@@ -4,7 +4,6 @@
 # $Id$
 """ return a list of proxy matching the query
 """
-from zLOG import LOG
 
 if REQUEST is not None:
     kw.update(REQUEST.form)

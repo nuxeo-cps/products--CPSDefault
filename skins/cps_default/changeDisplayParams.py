@@ -1,15 +1,15 @@
 ## Script (Python) "changeDisplayParams"
-##parameters=
+##parameters=REQUEST
 # $Id$
 """ Change the order/style of the item display within a folder """
 
 portal_url  = context.portal_url()
-context_url = context.REQUEST.get("context_url", context.getContextUrl())
+context_url = REQUEST.get("context_url", context.getContextUrl())
 
 # cps cookie checking
-cps_cookie = context.REQUEST.SESSION.get('cps_display_params', {})
+cps_cookie = REQUEST.SESSION.get('cps_display_params', {})
 
-form = context.REQUEST.form
+form = REQUEST.form
 
 if form is not None:
     # Order and direction
@@ -31,7 +31,7 @@ if form is not None:
     cps_cookie['format'] = format
 
     # Update cookie
-    context.REQUEST.SESSION['cps_display_params'] = cps_cookie
+    REQUEST.SESSION['cps_display_params'] = cps_cookie
 
 redirection_url = context_url + "/folder_contents"
-context.REQUEST.RESPONSE.redirect(redirection_url)
+REQUEST.RESPONSE.redirect(redirection_url)

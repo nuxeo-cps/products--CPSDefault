@@ -173,7 +173,8 @@ format:</pre>
         <tal:block condition="no_form" tal:replace='structure string:
         </form>' />
       </td>
-      <td align="right">
+      <td align="right"
+        tal:condition="python: batch_info['nb_pages'] > 1">
         <span i18n:translate="">
           Objects: <tal:block replace="batch_info/start"
           i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"

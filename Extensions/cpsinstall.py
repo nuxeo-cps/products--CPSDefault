@@ -891,17 +891,55 @@ def cpsupdate(self, langs_list=None):
         pr("   Creating")
         portal.manage_addProduct['CPSDefault'].addBoxContainer()
     boxes = {
-        'action_user': {'type':'Action Box',
+        'search': {'type':'Base Box',
+                 'title': 'Search',
+                 'format': 'search',
+                 'slot': 'top',
+                 'order': 10,
+                 },
+        'logo': {'type':'Base Box',
+                 'title': 'Nuxeo logo',
+                 'format': 'logo',
+                 'slot': 'top',
+                 'order': 20,
+                 },
+        'menu': {'type':'Base Box',
+                 'title': 'Main menu',
+                 'format': 'menu',
+                 'slot': 'top',
+                 'order': 30,
+                 },
+        'breadcrumbs': {'type':'Base Box',
+                        'title': 'Main menu',
+                        'format': 'breadcrumbs',
+                        'slot': 'top',
+                        'order': 40,
+                        },
+
+        'footer': {'type': 'Base Box',
+                   'tille': 'Footer',
+                   'format': 'footer',
+                   'slot': 'bottom',
+                   'order': 10,
+                   },
+
+        'l10n_select': {'type':'Base Box',
+                        'title': 'Local selector',
+                        'format': 'l10n_select',
+                        'slot': 'left',
+                        'order': 10,
+                        },
+        'action_user': {'type': 'Action Box',
                         'title': 'User actions',
                         'format': 'user',
                         'slot':'left',
-                        'order':1,
+                        'order':20,
                         'categories':'user',
                         },
         'action_portal' : {'type':'Action Box',
                            'title': 'Portal actions',
                            'slot':'left',
-                           'order':2,
+                           'order':30,
                            'categories':'global',
                            },
         'navigation': {'type':'Tree Box',
@@ -909,23 +947,26 @@ def cpsupdate(self, langs_list=None):
                        'depth':1,
                        'contextual':1,
                        'slot':'left',
-                       'order':4},
+                       'order':40},
+
         'action_object' : {'type':'Action Box',
                            'title': 'Object actions',
                            'slot':'right',
-                           'order':1,
+                           'order':10,
                            'categories':('object', 'workflow'),
                            },
+
         'action_folder' : {'type':'Action Box',
                            'title': 'Folder actions',
                            'slot':'right',
-                           'order':2,
+                           'order':20,
                            'categories':'folder',
                            },
+
         'nav_folder' : {'type':'Tree Box',
                         'title': 'Sub sections',
                         'slot':'folder_view',
-                        'order':1,
+                        'order':10,
                         'format':'center',
                         'contextual':1,
                         'depth':2,
@@ -935,7 +976,7 @@ def cpsupdate(self, langs_list=None):
                          'title': 'Contents',
                          'slot':'folder_view',
                          'format':'center',
-                         'order':2,
+                         'order':20,
                          },
         }
     box_container = portal[idbc]
@@ -1095,7 +1136,7 @@ def cpsupdate(self, langs_list=None):
 
     #
     # i18n
-    # 
+    #
     log_i18n = cps_i18n_update(self, langs_list)
     pr (log_i18n)
 
@@ -1111,7 +1152,7 @@ def cpsupdate(self, langs_list=None):
                                       'CPSDefault.cpsinstall',
                                       'cps_i18n_update')
         portal._setObject('i18n Updater', i18n_updater)
-    
+
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)
 
@@ -1154,7 +1195,7 @@ def cps_i18n_update(self, langs_list=None):
     portal = self.portal_url.getPortalObject()
     def portalhas(id, portal=portal):
         return id in portal.objectIds()
-    
+
     pr(" Updating i18n support")
 
     # Localizer
@@ -1215,7 +1256,7 @@ def cps_i18n_update(self, langs_list=None):
 
         translation_service.manage_setDomainInfo(path_0='Localizer/default')
         pr("   default domain set to Localizer/default")
-        
+
     ###################################################
     # i18n for NuxMetaDIrectories
     # Use of a Localizer message Catalog.

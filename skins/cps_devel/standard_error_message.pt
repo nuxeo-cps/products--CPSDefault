@@ -1,64 +1,54 @@
-<html metal:use-macro="here/main_template/macros/master">
-<body>
-<div metal:fill-slot="main">
-<div class="Desktop">
- 
+<metal:html tal:define="showthirdcol nothing;
+                        debugging python:1;
+                        treated python:('NotFound','KeyError','NameError');
+                        error_type options/error_type|nothing;
+                        error_value options/error_value|nothing;
+                        error_message options/error_message|nothing;
+                        error_tb options/error_tb|nothing;
+                        error_traceback options/error_traceback|nothing;
+                        error_log_url options/error_log_url|nothing;
+                       ">
+<metal:body use-macro="here/main_template/macros/master">
 
-<div tal:condition="options/error_message"
-     tal:content="structure options/error_message" />
+<metal:main fill-slot="main">
 
-<div tal:condition="not: options/error_message">
-  <h2>CPS Site Error</h2>
+<tal:haserror condition="error_type">
+  <tal:NotFound condition="python:error_type == 'NotFound'">
+    <metal:block use-macro="here/error_lib/macros/not_found" />
+  </tal:NotFound>
 
-  <p>An error was encountered while publishing this resource.</p>
-  
-  <p> <strong>Error Type:
-        <span tal:replace="options/error_type" />
-      </strong>
-  <br><strong>Error Value:
-      <span tal:replace="options/error_value" /></strong>
-  </p>
-  <hr noshade />
-      <span tal:replace="structure options/error_tb" />
-  <br><strong>Request obj:</strong>
-      <span tal:replace="structure python:str(here.REQUEST)" />
+  <tal:KeyNameError condition="python:error_type in ('KeyError','NameError')">
+    <metal:block use-macro="here/error_lib/macros/key_or_name" />
+  </tal:KeyNameError>
 
- 
-  <hr noshade />
- 
-  <p>Troubleshooting Suggestions</p>
+  <tal:other condition="python:error_type not in treated">
+    <metal:block use-macro="here/error_lib/macros/other" />
+  </tal:other>
 
-  <ul>
-  <div tal:condition="python: options['error_type'] in ('KeyError'
-                                                       ,'NameError')">
-  <li>This resource may be trying to reference a
-      nonexistent object or variable
-      <strong><span tal:replace="options/error_value" /></strong>.</li>
-  </div>
-  <li>The URL may be incorrect.</li>
-  <li>The parameters passed to this resource may be incorrect.</li>
-  <li>A resource that this resource relies on may be encountering
-      an error.</li>
-  </ul>
+  <tal:debugging condition="debugging">
+    <strong>Error Type: <span tal:replace="error_type" /></strong>
+    <br>
+    <strong>Error Value:</strong>
+    <pre tal:content="structure error_value" />
+    
+    <hr>
+    <strong>Traceback:</strong>
+    <pre tal:content="structure error_traceback" />
+    <strong>Request:</strong>
+    <pre tal:content="structure request" />
+    
+    <hr>
+    <a href="" tal:condition="python:error_log_url and debugging"
+               tal:attributes="href error_log_url">
+      Show Error Log Entry
+    </a>
+  </tal:debugging>
+</tal:haserror>
 
-  <p>For more detailed information about the error, please
-  refer to the HTML source for this page.
-  </p>
+<tal:hasnoerror tal:condition="not:error_type">
+  In Heaven, everything's fine...
+</tal:hasnoerror>
 
-  <p>If the error persists please contact the site maintainer.
-  Thank you for your patience.
-  </p>
-
-</div>
-
-  
-<div tal:condition="options/error_log_url | nothing">
-  <hr noshade />
-  <a href="error_log_url" tal:attributes="href options/error_log_url">
-    Show Error Log Entry
-  </a>
-</div>
-</div>
-</div>
-</body>
-</html>
+</metal:main>
+</metal:body>
+</metal:html>

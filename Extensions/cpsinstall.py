@@ -162,6 +162,9 @@ def cpsupdate(self, langs_list=None):
         mtool.manage_addProduct['NuxMetaDirectories'].manage_addGroupsDirectory(id='groups', title='Groups')
 
     # Synchronization with MemberData
+    # TODO This is the last reason to use NuxMetaDirectories in CPSDefault.
+    # We will recode it elsewhere and remove installation/update of
+    # NuxMetaDirectories in the near future.
     mtool = portal.portal_metadirectories
     mtool.members.syncSchemaAndMemberData()
 

@@ -5,7 +5,7 @@
 i18n:name="objectid">Item</span></h1>
 <p i18n:translate=""></p>
 
-<tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
+<tal:block define="global info python:proxy.getContentInfo(level=3)" />
 
 <pre>macro transition_form:</pre>
 <metal:block use-macro="here/content_lib/macros/transition_form" />
@@ -16,8 +16,8 @@ i18n:name="objectid">Item</span></h1>
 <metal:block use-macro="here/content_lib/macros/info_icon" />
 <hr/>
 
-<pre>macro info_summary:</pre>
-<metal:block use-macro="here/content_lib/macros/info_summary" />
+<pre>macro info_compact:</pre>
+<metal:block use-macro="here/content_lib/macros/info_compact" />
 <hr/>
 
 <pre>macro info_detail:</pre>
@@ -58,6 +58,20 @@ i18n:name="objectid">Item</span></h1>
 
 <pre>macro history:</pre>
 <metal:block use-macro="here/content_lib/macros/history" />
+<hr/>
+
+<tal:block define="global items python:proxy.getFolderContents()" />
+
+<pre>macro display_content:</pre>
+<metal:block use-macro="here/content_lib/macros/display_contents" />
+<hr/>
+
+<pre>macro display_content_icon:</pre>
+<metal:block use-macro="here/content_lib/macros/display_contents_icon" />
+<hr/>
+
+<pre>macro display_content_compact:</pre>
+<metal:block use-macro="here/content_lib/macros/display_contents_compact" />
 <hr/>
 
 

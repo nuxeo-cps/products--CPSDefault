@@ -19,6 +19,7 @@
 """Miscellaneous utility functions.
 """
 
+from Products.CMFDefault.utils import bodyfinder
 from AccessControl import allow_type, allow_class
 from AccessControl import ModuleSecurityInfo
 from zLOG import LOG, INFO, DEBUG
@@ -52,7 +53,8 @@ def getHtmlBody(html_content):
     # Substituting the <html><body>xxx</body></html> by xxx.
     # This has the effect of getting the content of the <body> tag of an HTML
     # document.
-    html_body = re.sub(html_body_regexp, r'\1', html_content)
+    #html_body = re.sub(html_body_regexp, r'\1', html_content)
+    html_body = bodyfinder(html_content)
     html_body = re.sub(strip_attributes_regexp, '', html_body)
     
     return html_body

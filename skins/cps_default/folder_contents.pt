@@ -49,8 +49,23 @@
       </span>
       </td>
      </tr>
-    </table>
-
+   </table>
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+       <td width="100%" align="right">
+         <tal:block define="display_change python:request.get('change_display', '0')">
+           <a href="./folder_contents?change_display=1" i18n:translate="link_change_display"
+              tal:condition="python:display_change == '0'">
+              Change display settings
+           </a> 
+           <a href="./folder_contents" i18n:translate="link_hide_display_settings"
+              tal:condition="python:display_change == '1'">
+              Hide display settings
+           </a>           
+         </tal:block> 
+       </td>
+     </tr>
+   </table>
   </form>
 </div>
 

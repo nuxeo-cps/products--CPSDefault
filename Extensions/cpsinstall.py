@@ -386,7 +386,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('create_content')
@@ -399,7 +399,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     # For the cut/copy/paste feature
@@ -414,7 +414,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
 
@@ -463,7 +463,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('copy_submit')
@@ -475,7 +475,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='action_submit', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_submit_form',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('checkout_draft')
@@ -486,7 +486,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='action_checkout_draft', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_checkout_draft_form',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('checkout_draft_in')
@@ -535,7 +535,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
 
@@ -619,7 +619,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='workflow', actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('copy_submit')
@@ -631,7 +631,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     actbox_name='action_submit', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_submit_form',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
     t = wf.transitions.get('create_content')
@@ -643,7 +643,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
 
@@ -659,7 +659,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     actbox_category='',
                     actbox_url='',
                     props={'guard_permissions':'',
-                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember; ',
+                           'guard_roles':'Manager; WorkspaceManager; WorkspaceMember',
                            'guard_expr':''},
                     )
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-10-16 15:12default\n"
+"POT-Creation-Date: 2003-10-17 11:34default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -47,10 +47,16 @@ msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
 
 #.   <span>
-#.               Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
-#.             </span>
+#.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
+#.           </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
+msgstr ""
+
+#.   <option repeat="type allowed|here/allowedContentTypes" attributes="selected python:type.getId() in displayed;
+#.                                       value type/getId" content="type/Title">Portal Type</option>
+#: from ../skins/cps_default/content_lib.pt
+msgid "Portal Type"
 msgstr ""
 
 #.   <td content="item/Description" align="left" class="ListDefinition">
@@ -338,6 +344,11 @@ msgstr ""
 
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.     </input>
+#.   <input attributes="name python:test(no_form, None,
+#.                                                     nav_action + ':method')" value="button_ok" type="submit">
+#.           <block replace="structure string:
+#.             </form>" condition="no_form" />
+#.         </input>
 #.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
@@ -346,6 +357,7 @@ msgstr ""
 #.   <input value="button_ok" class="context searchButton" type="submit">
 #.          </input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
@@ -904,10 +916,12 @@ msgstr ""
 msgid "label_admin_name"
 msgstr ""
 
+#.   <option attributes="selected python:displayed != ['']" value="">All</option>
 #.   <option value="">All</option>
 #.   <option attributes="selected python:notempty==[] or selbox==[]" value="">All</option>
 #.   <option selected="" value="">All</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
+#: from ../skins/cps_default/content_lib.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib.pt
 msgid "label_all"
 msgstr ""
@@ -926,6 +940,11 @@ msgstr ""
 #.       </option>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_author_desc"
+msgstr ""
+
+#.   <th align="right" colspan="5">Only authorized folders</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
+msgid "label_authorized_only"
 msgstr ""
 
 #.   <div class="label">
@@ -961,13 +980,12 @@ msgstr ""
 msgid "label_categories"
 msgstr ""
 
-#.   <th align="right" colspan="5">Only sub
-#.         folder</th>
+#.   <th align="right" colspan="5">Subfolders only</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_children_only"
 msgstr ""
 
-#.   <option value="none">Choose</option>
+#.   <option attributes="selected not:box/box/query_modified" value="">Choose</option>
 #.   <option value="1970/01/01 00:00:00 GMT">Choisir
 #.              </option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1088,10 +1106,26 @@ msgid "label_discussion_on"
 msgstr ""
 
 #.   <th align="right">Display</th>
+#.   <span>Display:</span>
 #.   <span valign="top">Display with</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/content_lib.pt
 msgid "label_display"
+msgstr ""
+
+#.   <th align="right" colspan="5">Display description</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
+msgid "label_display_description"
+msgstr ""
+
+#.   <th align="right" colspan="5">Display managers</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
+msgid "label_display_managers"
+msgstr ""
+
+#.   <th align="right" colspan="5">Show root</th>
+#: from ../skins/cps_default/treebox_edit_form.pt
+msgid "label_display_root"
 msgstr ""
 
 #.   <th nowrap="" align="right">
@@ -2277,6 +2311,9 @@ msgid "description_nuxeo_treebox_default"
 msgstr ""
 
 msgid "description_nuxeo_treebox_center"
+msgstr ""
+
+msgid "description_nuxeo_treebox_sitemap"
 msgstr ""
 
 msgid "description_nuxeo_actionbox_default"

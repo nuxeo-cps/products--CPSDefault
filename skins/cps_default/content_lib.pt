@@ -138,7 +138,8 @@ format:</pre>
   <tal:block condition="python:batch_string is not None">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr class="even">
-        <td align="right" width="100%">
+        <td align="right" width="100%"
+          tal:condition="python:batch_info['length']>1">
           <span i18n:translate="">
             Objects: <tal:block replace="batch_info/start"
             i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"
@@ -147,13 +148,6 @@ format:</pre>
           </span>
         </td>
       </tr>
-      <tal:block condition="batch_string">
-      <tr>
-        <td align="left" width="100%">
-          <span tal:replace="structure batch_string" />
-        </td>
-      </tr>
-      </tal:block>
     </table>
   </tal:block>
   <br />
@@ -179,12 +173,11 @@ format:</pre>
       </td>
     </tr>
   </table>
-
   <tal:block condition="batch_string">
   <br />
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="left" width="100%">
+      <tr class="even">
+        <td align="center" width="100%">
           <span tal:replace="structure batch_string" />
         </td>
       </tr>

@@ -12,4 +12,4 @@ if location and not location.isspace():
 if event_types:
     args['event_types'] = ','.join(event_types)
 
-return context_url + 'calendar_cpsday_view?' + urlencode(args)
+return context_url + '/calendar_cpsday_view?' + urlencode(args)

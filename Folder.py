@@ -35,7 +35,7 @@ factory_type_information = (
      'product': 'NuxCPS3',
      'meta_type': 'CPS Folder',
      'factory': 'addCPSFolder',
-     'immediate_view': 'cpsfolder_edit_form',
+     'immediate_view': 'cpsfolder_view',
      'filter_content_types': 0,
      'allowed_content_types': (),
      'actions': ({'id': 'create',
@@ -74,6 +74,18 @@ factory_type_information = (
 
 class CPSFolder(CPSFolderBase):
     meta_type = 'CPS Folder'
+
+    security = ClassSecurityInfo()
+
+    security.declareProtected(AddPortalContent, 'invokeFactory')
+    def invokeFactory(self, type_name, id, RESPONSE=None, *args, **kw):
+        """Create a CMF object in this folder.
+
+        A creation_transitions argument can be passed.
+        Creation is governed by the workflows allowed by the workflow tool.
+        """
+        wftool = getToolByName(self, 'portal_workflow')
+        return wftool.invokeFactoryFor(self, type_name, id, *args, **kw)
 
 InitializeClass(CPSFolder)
 

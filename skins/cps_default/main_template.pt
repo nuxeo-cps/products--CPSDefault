@@ -3,6 +3,7 @@
 <html metal:define-macro="master"
       tal:define="form request/form;
                   portal_status_message form/portal_status_message|nothing;
+                  hideactions hideactions|nothing;
                   showthirdcol showthirdcol|python:1;
                   utool nocall:here/portal_url;
                   atool here/portal_actions;
@@ -16,6 +17,11 @@
                   member mtool/getAuthenticatedMember;
                   isAnon mtool/isAnonymousUser;
                   actions python:atool.listFilteredActionsFor(here);
+                  user_actions actions/user;
+                  object_actions actions/object;
+                  workflow_actions actions/workflow;
+                  folder_actions actions/folder;
+                  global_actions actions/global;
                   wf_state python:wtool.getInfoFor(here,'review_state','');
                   CPSD_BMT python:here.Benchmarktimer('main_template');
                   CPSD_bmt_start nocall:CPSD_BMT/start;
@@ -71,25 +77,9 @@
   <tr>
     <!-- BAR LEFT ================================= -->
     <td class="left" width="150" tal:define="blockclass string:even">
-      <!-- user actions box -->
-      <tal:block define="actionblock actions/user">
-        <metal:block use-macro="here/generic_lib/macros/actionbox">
-          <metal:block fill-slot="box_title" tal:content="member">
-            Member's name
-          </metal:block>
-        </metal:block>
-      </tal:block>
-      <!-- global actions box -->
-      <tal:block define="actionblock actions/global">
-        <metal:block use-macro="here/generic_lib/macros/actionbox">
-          <metal:block fill-slot="box_title" i18n:translate="global_actions">
-            Portal actions
-          </metal:block>
-        </metal:block>
-      </tal:block>
 
       <!-- display left boxes -->
-      <hr>
+      <hr/>
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left');">
         <metal:block use-macro="python:path(box['macro'])" />
@@ -133,32 +123,14 @@
     <td class="right" width="150" tal:condition="showthirdcol"
         tal:define="blockclass string:odd">
       <!-- workflow actions box -->
-      <tal:block define="actionblock actions/workflow">
-        <metal:block use-macro="here/generic_lib/macros/actionbox">
-          <metal:block fill-slot="box_title" i18n:translate="">
-            Status: <span tal:replace="wf_state" i18n:name="wf_state" />
-          </metal:block>
-        </metal:block>
-      </tal:block>
-      <!-- object actions box -->
-      <tal:block define="actionblock actions/object">
-        <metal:block use-macro="here/generic_lib/macros/actionbox">
-          <metal:block fill-slot="box_title" tal:content="here/getId">
-            object's id
-          </metal:block>
-        </metal:block>
-      </tal:block>
-      <!-- folder actions box -->
-      <tal:block define="actionblock actions/folder">
-        <metal:block use-macro="here/generic_lib/macros/actionbox">
-          <metal:block fill-slot="box_title" tal:content="here/getId">
-            folder's id
-          </metal:block>
-        </metal:block>
+      <tal:block define="actionblock workflow_actions;
+                         blocktitle python:'Status: ' + wf_state"
+                 tal:condition="actionblock">
+        <metal:block use-macro="here/generic_lib/macros/actionbox" />
       </tal:block>
 
       <!-- display right boxes -->
-      <hr>
+      <hr/>
       <b tal:replace="python:CPSD_bmt_mark('RIGHT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='right');">
         <metal:block use-macro="python:path(box['macro'])" />

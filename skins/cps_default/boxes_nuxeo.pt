@@ -685,34 +685,6 @@
 </metal:block>
 
 
-
-<!-- ============================================================ -->
-<metal:block define-macro="treebox_nav"
-  tal:define="items python:box['box'].getNavTree(here, request.form);">
-<tal:block condition="items">
-  <metal:block use-macro="python:path(box['settings']['box_skin'])">
-    <metal:block fill-slot="box_title">
-      <metal:block define-slot="box_title">
-        <tal:block i18n:translate=""
-          content="box/box/title">box text title</tal:block>
-      </metal:block>
-    </metal:block>
-    <metal:block fill-slot="box_body">
-  <div tal:repeat="node items">
-    <metal:block use-macro="here/navigation_lib/macros/render_lines_text" />
-    <a tal:define="title_or_id python:node['object']['Title'] or node['object']['getId']"
-      tal:attributes="
-      class python:test(node['is_current'], 'selected', nothing);
-      href string:${base_url}${node/uid};"
-      tal:content="title_or_id" />
-  </div>
-    </metal:block>
-  </metal:block>
-</tal:block>
-</metal:block>
-
-
-
 <!-- ============================================================ -->
 <!-- actions should be define like in main_template -->
 <!-- actions python:atool.listFilteredActionsFor(here); -->
@@ -874,7 +846,3 @@
   </metal:block>
 </metal:block>
 
-
-<metal:block define-macro="toto">
-TOTOTOTO <a href="" i18n:translate="label_folder_search">lskj</a>
-</metal:block>

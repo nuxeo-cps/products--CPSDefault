@@ -61,7 +61,8 @@ if 'cps_is_portalbox' not in ftiprops_ids:
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
     ob = BaseBox(id)
-    ob.setPermission(View, 1, ('Anonymous',))
+    # XXX what for ? 
+    #ob.setPermission(View, 1, ('Anonymous',))
     container = dispatcher.Destination()
     container._setObject(id, ob)
     if REQUEST is not None:

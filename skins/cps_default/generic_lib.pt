@@ -95,6 +95,20 @@
       </tr>
       <tr>
         <td align="right" valign="top">
+          <div class="label" i18n:translate="label_subject" /></td>
+        <td>
+          <select size="5" name="Subject" multiple="multiple">
+            <option i18n:translate="label_all" value="" selected="selected">All</option>
+            <tal:block repeat="subjectVocItem python:here.getSortedSubjects().items()">
+              <option tal:define="id python:subjectVocItem[0]; name python:subjectVocItem[1];"
+                tal:attributes="value id;" i18n:translate=""
+                tal:content="name"></option>
+            </tal:block>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top">
           <div class="label" i18n:translate="label_search_modified_since" />
         </td>
         <td tal:define="today python: here.ZopeTime().earliestTime();

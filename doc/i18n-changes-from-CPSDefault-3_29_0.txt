@@ -1,0 +1,91 @@
+These is some explanation about changes to handle i18n from
+CPSDefault 3.29.0
+
+$Id$
+
+
+UI locale selector:
+~~~~~~~~~~~~~~~~~~~
+this change the ui locale like before
+but also take effect on object by:
+- use the selected locale if available to render a document
+- use the selected locale if available for folder in the navigation trees
+
+
+Object locale selector:
+~~~~~~~~~~~~~~~~~~~~~~~
+for a folder under folder_view or for a document under view/edit
+there is a locale selector at the right of the title like: [en] fr es
+
+selecting an object locale don't affect UI locale selector
+but only the locale for this object, this selection is sticky (using
+session)
+for example if you have an english document with a path: path_to_object
+choosing another locale for this object is done by accessing
+path_to_object/switchLanguage/fr
+then further access to path_to_object will return the fr selected locale
+until you choose another locale
+
+note that navigation trees don't take care of the object locale selector
+and keep using the UI locale selection, which is correct.
+
+
+Object locale selection
+~~~~~~~~~~~~~~~~~~~~~~~
+to know which locale will be choosen by cps
+see i18n-changes-from-CPSCore-3_18_0.txt
+  ProxyTool:getBestRevision(proxy, lang=None)
+
+
+translation page:
+~~~~~~~~~~~~~~~~~
+the translation page display the list of available language for translation,
+it removes from the list already translated locales,
+note that we have more object locales than UI locales.
+the submition of this form create a new revision of the document which is a
+copy of the current document revision, the proxy add a reference to this new
+revision and locale.
+this action also switch the locale of the proxy to the new one.
+
+
+
+CPSDefault changes
+~~~~~~~~~~~~~~~~~~
+TreeBox:
+    portal_tree via getFolderInfo store all locales title and description
+    the tree box just used the correct locale according to Localizer
+    selected locale
+
+folder_view
+    display a list of available locale with switchLanguage link
+
+new CPSSchema/DocumentLanguageSelect Widget that display available
+locale if any with switchLanguage link
+it is used on the common layout
+
+
+Compatibilty:
+~~~~~~~~~~~~
+by hiding the action_translate
+you should have exactly the same site and behaviour as before
+without running any updater
+
+there should have no overload
+only benefits from getBestRevision refactoring
+
+Bugs:
+~~~~~
+- search result list is ok but links to document point to
+proxy.getBestRevision instead of displayed locale
+
+Todo:
+~~~~~
+- finish i18n of translation page
+- check for garbage entry in catalog
+- check security reindexing process
+- search result list should display links with switchLanguage
+- UI language selector should reset all objects locale selection
+- action to remove a translation
+
+
+* more info on CPSCore/doc/i18n-changes-from-CPSCore-3_18_0.txt

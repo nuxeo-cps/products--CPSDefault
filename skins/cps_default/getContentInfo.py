@@ -5,7 +5,7 @@
 """ Return information about a content item (ie a proxy)
 level: 0 (default cost 1)
   id, title, title_or_id, review_state, icon, rev, lang,
-  stime, creator
+  time_str, creator
 level: 1 (cost 1.3)
   level 0 + descr, size + additional information from obj
 level: 2 (cost 4.6)
@@ -69,7 +69,7 @@ def compute_states(no_history=0):
              'rev': str(px['language_revs'].values()[0]),
              'lang': px['language_revs'].keys()[0],
              'time': px['time'],
-             'stime': context.getDateStr(px['time'])
+             'time_str': context.getDateStr(px['time'])
              }
         states.append(d)
 
@@ -101,7 +101,7 @@ def compute_states(no_history=0):
                 dest_title = folders_info.get(dest_container, {}).get(
                     'title', '?')
                 d['dest_title'] = dest_title
-            d['stime']=context.getDateStr(d['time'])
+            d['time_str']=context.getDateStr(d['time'])
             history.append(d)
 
     def cmp_rs(a, b):
@@ -133,9 +133,9 @@ info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
 info['lang'] = langrev.keys()[0]
 info['time'] = wtool.getInfoFor(proxy, 'time', '')
 if info['time']:
-    info['stime'] = context.getDateStr(info['time'])
+    info['time_str'] = context.getDateStr(info['time'])
 else:
-    info['stime'] = ''
+    info['time_str'] = ''
 
 # level 1
 if level > 0:
@@ -149,7 +149,7 @@ if level > 0:
     if len(description) > max_description:
         description = description[:max_description] + '...'
     info['description'] = description
-    if hasattr(doc, 'get_size'):
+    if hasattr(doc.aq_explicit, 'get_size'):
         try:
             size = doc.get_size()
         except:
@@ -161,6 +161,20 @@ if level > 0:
             info['size'] = '%.02f M' % float(size/1048576.0)
         elif size:
             info['size'] = str(int(size)/1024)+' K'
+
+
+    
+    if hasattr(doc.aq_explicit, 'start') and callable(doc.start):
+        start = doc.start()
+        if start:
+            info['start'] = start
+            info['start_str'] = context.getDateStr(start)
+            
+    if hasattr(doc.aq_explicit, 'end') and callable(doc.end):
+        end = doc.end()
+        if end:
+            info['end'] = end
+            info['end_str'] = context.getDateStr(end)
 
     try:
         info['creator'] = doc.Creator()

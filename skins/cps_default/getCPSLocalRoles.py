@@ -48,6 +48,7 @@ cps_roles = [x for x in cps_roles if x not in ('Owner',
 if context.portal_type == "Section":
     cps_roles = [x for x in cps_roles if x not in ('WorkspaceManager',
                                                    'WorkspaceMember',
+                                                   'WorkspacePMember',
                                                    'WorkspaceReader')]
 elif context.portal_type == "Workspace":
     cps_roles = [x for x in cps_roles if x not in ('SectionManager',

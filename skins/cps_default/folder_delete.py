@@ -9,6 +9,6 @@ if REQUEST.has_key('ids'):
     context.manage_delObjects(REQUEST['ids'])
     qs = '?portal_status_message=psm_item(s)_deleted'
 else:
-    qs = '?portal_status_message=psm_select_at_least_one_document'  
+    qs = '?portal_status_message=psm_select_at_least_one_document'
 
 return REQUEST.RESPONSE.redirect(ret_url + qs)

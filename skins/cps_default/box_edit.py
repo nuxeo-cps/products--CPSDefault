@@ -20,9 +20,9 @@ if sf:
     kw['format']=sf.split('@')[1]
     del kw['styleformat']
 
-disp = kw.get('display')
+disp = kw.get('display_box')
 if disp:
-    del kw['display']
+    del kw['display_box']
     if disp == 'closed':
         kw['closed'] = 1
     else:

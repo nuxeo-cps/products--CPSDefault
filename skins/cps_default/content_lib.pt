@@ -469,19 +469,20 @@ format:</pre>
 <tal:block condition="start">
     <tr>
       <td> </td>
-      <td i18n:translate="label_info_tab_title" align=center></td>
-      <td i18n:translate="label_info_tab_type" align=center></td>
-      <td i18n:translate="label_info_tab_date" align=center></td>
-      <td i18n:translate="label_info_tab_author" align=center></td>
-      <td i18n:translate="label_info_tab_status" align=center></td>
-      <td i18n:translate="label_info_tab_version" align=center></td>
+      <th i18n:translate="label_info_tab_title" align=center></th>
+      <th i18n:translate="label_info_tab_type" align=center></th>
+      <th i18n:translate="label_info_tab_size" align=center></th>
+      <th i18n:translate="label_info_tab_date" align=center></th>
+      <th i18n:translate="label_info_tab_author" align=center></th>
+      <th i18n:translate="label_info_tab_status" align=center></th>
+      <th i18n:translate="label_info_tab_version" align=center></th>
     </tr>
 </tal:block>
 
 <tr tal:attributes="class python:test(repeat['item'].index%2==0, 'even', 'odd')"
  tal:define="action python:test(info['type'] in ('Section','Workspace'),
                 'folder_contents', 'view')">
-  <td bgcolor="white" tal:condition="not:no_form" align="left" valign="center" width="5">
+  <td tal:condition="not:no_form" align="left" valign="center" width="5">
     <input type="checkbox" name="ids:list" value="" id="" class="noborder"
     tal:condition="python:item.getId() not in choosen_ids"
     tal:attributes="value item/getId;
@@ -491,10 +492,14 @@ format:</pre>
     tal:attributes="value item/getId;
     id python:'cb_'+item.getId()">
   </td>
-  <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
+  <td tal:condition="no_form" align="left" valign="center" width="5">
+  </td>
+  <td><a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
+                                 title info/description;">
    <b><span tal:replace="info/title_or_id">ID</span></b></a></td>
   <td align=center><tal:block replace="structure python:here.getImgTag(info['icon'],
     base_url=base_url, title=info['type'])" /></td>
+  <td align=center><span tal:content="info/size"></span></td>
   <td align=center i18n:translate="">
     <span tal:content="info/stime" i18n:name="status_time">May 6,...</span>
   </td>

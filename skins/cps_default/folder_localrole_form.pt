@@ -234,8 +234,9 @@
 <div class="group" tal:condition="has_local_roles_blocking">
 <form method="post" action="folder_localrole_edit"
       tal:attributes="action string:${here_url}/folder_localrole_edit">
-
-  <input type="hidden" name="change_type" value="block" />
+  <p>
+    <input type="hidden" name="change_type" value="block" />
+  </p>
   <div tal:condition="local_roles_blocked">
     <tal:block i18n:translate="legend_local_roles_unblock">
       Local roles acquisition is <strong>blocked</strong>.
@@ -260,10 +261,12 @@
 <div class="group">
 <form method="post" action="folder_localrole_edit"
       tal:attributes="action string:${here_url}/folder_localrole_edit">
-  <input type="hidden" name="change_type" value="delete" />
+  <p>
+    <input type="hidden" name="change_type" value="delete" />
+  </p>
   <tal:block define="roles python:cpslr[0]; editable_user python:cpslr[1];">
     <tal:block repeat="type python:['user','group']">
-      <table width="100%" summary="listing of roles">
+      <table width="100%" summary="Listing of roles">
       <tr>
         <td width="3%"><br /></td>
         <th width="40%" style="text-align:left;">
@@ -346,7 +349,9 @@
         </table>
     </tal:block>
   </tal:block>
-  <input type="submit" value="button_delete" i18n:attributes="value" class="destructive" />
+  <p>
+    <input type="submit" value="button_delete" i18n:attributes="value" class="destructive" />
+  </p>
 </form>
 </div>
 <br />

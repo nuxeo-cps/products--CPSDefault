@@ -637,7 +637,7 @@ def cpsupdate(self, langs_list=None):
                      'List folder contents': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
                      'Modify portal content': ['Manager', 'SectionManager'],
                      'View': ['Manager', 'SectionManager', 'SectionReviewer', 'SectionReader'],
-                     'View management screens': ['Manager', 'SectionManager', 'SectionReviewer'],
+                     'View management screens': ['Manager', 'SectionManager'],
         }
     workspaces_perm = {
                        'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],

@@ -52,13 +52,13 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
         # URLs are computed differently and intelligently depending on the
         # specified locale, because meaningless words are removed.
         id = "Voilà l'été"
-        self.assertEquals(self.portal.computeId(id, lang='fr'), "voila_ete")
-        self.assertNotEquals(self.portal.computeId(id, lang='en'), "voila_ete")
+        self.assertEquals(self.portal.computeId(id, lang='fr'), "voila-ete")
+        self.assertNotEquals(self.portal.computeId(id, lang='en'), "voila-ete")
         id = "This is a message from the president"
         self.assertEquals(self.portal.computeId(id, lang='en'),
-                          "message_from_president")
+                          "message-from-president")
         self.assertNotEquals(self.portal.computeId(id, lang='fr'),
-                             "message_from_president")
+                             "message-from-president")
 
     def testComputeId_1(self):
         # should keep meaningless word if their is only one !
@@ -68,7 +68,7 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
     def testComputeId_2(self):
         # should keep something if the title is meaningless
         self.assertEquals(self.portal.computeId("the the", lang='en'),
-                          "the_the")
+                          "the-the")
 
     def testComputeId_3(self):
         # stupid id should return random number

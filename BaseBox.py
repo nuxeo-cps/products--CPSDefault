@@ -234,20 +234,29 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         BaseBox.inheritedAttribute('manage_afterAdd')(self, item, container)
 
     def minimize(self, REQUEST=None):
-        """ """
-        self.savePersonalSettings({'minimized':1})
+        """Minimize the box using personal settings"""
+        self.savePersonalSettings({'minimized':1, 'closed':0})
         if REQUEST is not None:
             goto = REQUEST.get('goto')
             if goto:
                 REQUEST['RESPONSE'].redirect(goto)
 
     def maximize(self, REQUEST=None):
-        """ """
-        self.savePersonalSettings({'minimized':0})
+        """Maximize the box using personal settings"""
+        self.savePersonalSettings({'minimized':0, 'closed':0})
         if REQUEST is not None:
             goto = REQUEST.get('goto')
             if goto:
                 REQUEST['RESPONSE'].redirect(goto)
+
+    def close(self, REQUEST=None):
+        """Close the box using personal settings """
+        self.savePersonalSettings({'closed':1})
+        if REQUEST is not None:
+            goto = REQUEST.get('goto')
+            if goto:
+                REQUEST['RESPONSE'].redirect(goto)
+
 
     def savePersonalSettings(self, new_settings):
         """ personal override for this box """

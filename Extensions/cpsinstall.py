@@ -1379,6 +1379,21 @@ except:
         translation_service.manage_setDomainInfo(path_0='Localizer/default')
         pr("   default domain set to Localizer/default")
 
+    # init the default mcat
+    i18n_init_default_mcat(self)
+
+    #
+    # i18n Updater
+    #
+    if not portalhas('i18n Updater'):
+        pr('Creating i18n Updater Support')
+        i18n_updater = ExternalMethod('i18n Updater',
+                                      'i18n Updater',
+                                      'CPSDefault.cpsinstall',
+                                      'cps_i18n_update')
+        portal._setObject('i18n Updater', i18n_updater)
+
+
     ###########################################################
     # INSTALLATION OF THE DIFFERENT SERVICES
     ###########################################################
@@ -1448,41 +1463,6 @@ except:
         pass
 
     #
-    #  CPSCalendar installer/updater
-    #
-    try:
-        import Products.CPSCalendar
-        if not portalhas('cpscalendar_installer'):
-            pr('Adding cpsdocument installer')
-            cpsdocument_installer = ExternalMethod('cpscalendar_installer',
-                                                   'CPSCalendar Updater',
-                                                   'CPSCalendar.install',
-                                                   'update')
-            portal._setObject('cpscalendar_installer', cpsdocument_installer)
-        pr(portal.cpscalendar_installer())
-    except ImportError:
-        pass
-
-    #
-    # i18n Updater
-    #
-
-    if not portalhas('i18n Updater'):
-        pr('Creating i18n Updater Support')
-        i18n_updater = ExternalMethod('i18n Updater',
-                                      'i18n Updater',
-                                      'CPSDefault.cpsinstall',
-                                      'cps_i18n_update')
-        portal._setObject('i18n Updater', i18n_updater)
-
-    #
-    # i18n
-    #
-    log_i18n = cps_i18n_update(self, langs_list)
-    pr (log_i18n)
-
-
-    #
     #  CPSDocument installer/updater
     #
     try:
@@ -1497,6 +1477,23 @@ except:
         pr(portal.cpsdocument_installer())
     except ImportError:
         pr("!! Could not import or execute CPSDocument installer")
+
+
+    #
+    #  CPSCalendar installer/updater
+    #
+    try:
+        import Products.CPSCalendar
+        if not portalhas('cpscalendar_installer'):
+            pr('Adding cpsdocument installer')
+            cpsdocument_installer = ExternalMethod('cpscalendar_installer',
+                                                   'CPSCalendar Updater',
+                                                   'CPSCalendar.install',
+                                                   'update')
+            portal._setObject('cpscalendar_installer', cpsdocument_installer)
+        pr(portal.cpscalendar_installer())
+    except ImportError:
+        pass
 
     #
     #  CPSDirectory installer/updater
@@ -1518,7 +1515,6 @@ except:
     except ImportError:
         pr("!! Could not import or execute CPSDirectory installer")
 
-    
     #
     #  CPSMailingLists installer/updater
     #  To be called after cause we are using the default catalog too.
@@ -1535,6 +1531,12 @@ except:
         pr(portal.cpsml_installer())
     except ImportError:
         pass
+
+    #
+    # setting i18n default
+    # this has to be done last as we want CPSDefault override *
+    log_i18n = i18n_load_default_mcat(self)
+    pr (log_i18n)
 
     pr(" Reindexing catalog")
     portal.portal_catalog.refreshCatalog(clear=1)
@@ -1556,11 +1558,38 @@ except:
     pr("Update Done")
     return pr('flush')
 
-def cps_i18n_update(self, langs_list=None):
-    """
-    Importation of the po files for internationalization.
-    For CPS itself and compulsory products.
-    """
+
+
+def i18n_init_default_mcat(self):
+    """Delete and Create a message catalog Localizer.default."""
+    _log = []
+    def pr(bla, _log=_log):
+        if bla == 'flush':
+            return '\n'.join(_log)
+        _log.append(bla)
+        if (bla):
+            LOG('cps_i18n_init:', INFO, bla)
+
+    pr(" Initialize default i18n support")
+    portal = self.portal_url.getPortalObject()
+    Localizer = portal['Localizer']
+    languages = Localizer.get_supported_languages()
+
+    if 'default' in Localizer.objectIds():
+        Localizer.manage_delObjects(['default'])
+        pr("  previous default MessageCatalog deleted")
+
+    Localizer.manage_addProduct['Localizer'].manage_addMessageCatalog(
+        id='default',
+        title='CPSDefault messages',
+        languages=languages,
+    )
+    pr("  default MessageCatalogCreated")
+    return pr('flush')
+
+
+def i18n_load_default_mcat(self):
+    """Load *.po from CPSDefault/i18n/ directory."""
     _log = []
     def pr(bla, _log=_log):
         if bla == 'flush':
@@ -1569,44 +1598,11 @@ def cps_i18n_update(self, langs_list=None):
         if (bla):
             LOG('cps_i18n_update:', INFO, bla)
 
-    def primp(pr=pr):
-        pr(" !!! Cannot migrate that component !!!")
-
-    def prok(pr=pr):
-        pr(" Already correctly installed")
-
+    pr(" Updating i18n Localizer.default mcat")
     portal = self.portal_url.getPortalObject()
-    def portalhas(id, portal=portal):
-        return id in portal.objectIds()
-
-    pr(" Updating i18n support")
-
-##    # Localizer
-##    if not portalhas('Localizer'):
-##        pr("  Adding Localizer")
-##        languages = langs_list or ('en',)
-##        portal.manage_addProduct['Localizer'].manage_addLocalizer(
-##            title='',
-##            languages=languages,
-##        )
-##    else:
-##        pr("Localizer already here")
     Localizer = portal['Localizer']
-
-    # languages
-    languages = Localizer.get_supported_languages()
-
-    # MessageCatalog
-    if 'default' in Localizer.objectIds():
-        Localizer.manage_delObjects(['default'])
-        pr("  previous default MessageCatalog deleted")
-    Localizer.manage_addProduct['Localizer'].manage_addMessageCatalog(
-        id='default',
-        title='CPSDefault messages',
-        languages=languages,
-    )
-    pr("  default MessageCatalogCreated")
     defaultCatalog = Localizer.default
+    languages = Localizer.get_supported_languages()
 
     # computing po files' system directory
     CPSDefault_path = sys.modules['Products.CPSDefault'].__path__[0]
@@ -1630,3 +1626,17 @@ def cps_i18n_update(self, langs_list=None):
     pr("i18n Update Done")
 
     return pr('flush')
+
+
+
+def cps_i18n_update(self, langs_list=None):
+    """
+    Importation of the po files for internationalization.
+    For CPS Default itself.
+
+    this does not reset the mcat.
+    """
+    # langs_list is deprecated as it is set in the Localizer
+    text = ''
+    text += i18n_load_default_mcat(self)
+    return text

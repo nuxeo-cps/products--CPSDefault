@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-07-30 11:12default\n"
+"POT-Creation-Date: 2003-07-30 11:22default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -217,9 +217,12 @@ msgstr ""
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);" condition="python:change_display is None">
+#.   			       change_display python:request.get('change_display', None);
+#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:change_display is None and isWsManager">
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
+#.   	  <input value="button_move_bottom" name="moveItemsBottom:method" type="submit" />
 #.   	</block>
 #.         </input>
 #.   <input value="button_delete" type="submit" />
@@ -233,9 +236,19 @@ msgstr ""
 msgid "button_login"
 msgstr ""
 
+#.   <input value="button_move_bottom" name="moveItemsBottom:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_move_bottom"
+msgstr ""
+
 #.   <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
+msgstr ""
+
+#.   <input value="button_move_top" name="moveItemsTop:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_move_top"
 msgstr ""
 
 #.   <input value="button_move_up" name="moveItemsUp:method" type="submit" />
@@ -292,9 +305,12 @@ msgstr ""
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);" condition="python:change_display is None">
+#.   			       change_display python:request.get('change_display', None);
+#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:change_display is None and isWsManager">
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
+#.   	  <input value="button_move_bottom" name="moveItemsBottom:method" type="submit" />
 #.   	</block>
 #.         </input></input>
 #: from ../skins/cps_default/folder_contents.pt

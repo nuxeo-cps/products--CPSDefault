@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"POT-Creation-Date: 2003-07-30 11:12default\n"
-"PO-Revision-Date: 2003-07-30 11:14+0200\n"
-"Last-Translator: ben <ben@nuxeo.com>\n"
-"Language-Team: ben\n"
+"POT-Creation-Date: 2003-07-30 11:22default\n"
+"PO-Revision-Date: 2003-07-30 11:22+0200\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language-name: Language\n"
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
-"X-Generator: KBabel 1.0.1\n"
+"X-Generator: KBabel 1.0\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
@@ -220,9 +220,12 @@ msgstr "Defaut"
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);" condition="python:change_display is None">
+#.   			       change_display python:request.get('change_display', None);
+#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:change_display is None and isWsManager">
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
+#.   	  <input value="button_move_bottom" name="moveItemsBottom:method" type="submit" />
 #.   	</block>
 #.         </input>
 #.   <input value="button_delete" type="submit" />
@@ -236,10 +239,20 @@ msgstr "Effacer"
 msgid "button_login"
 msgstr "Authentification"
 
+#.   <input value="button_move_bottom" name="moveItemsBottom:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_move_bottom"
+msgstr "Déplacer à la fin"
+
 #.   <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Déplacer en dessous"
+
+#.   <input value="button_move_top" name="moveItemsTop:method" type="submit" />
+#: from ../skins/cps_default/folder_contents.pt
+msgid "button_move_top"
+msgstr "Déplacer au début"
 
 #.   <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -295,9 +308,12 @@ msgstr "Rejeter publication"
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);" condition="python:change_display is None">
+#.   			       change_display python:request.get('change_display', None);
+#.   			       isWsManager python:mtool.checkPermission('WorkspaceManager', here);" condition="python:change_display is None and isWsManager">
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
+#.             <input value="button_move_top" name="moveItemsTop:method" type="submit" />
+#.   	  <input value="button_move_bottom" name="moveItemsBottom:method" type="submit" />
 #.   	</block>
 #.         </input></input>
 #: from ../skins/cps_default/folder_contents.pt

@@ -1494,7 +1494,7 @@ except:
             portal._setObject('cpsdocument_installer', cpsdocument_installer)
         pr(portal.cpsdocument_installer())
     except ImportError:
-        pr("!! Could not import CPSDocument installer")
+        pr("!! Could not import or execute CPSDocument installer")
 
     #
     #  CPSDirectory installer/updater
@@ -1509,12 +1509,13 @@ except:
                                                     'install')
             portal._setObject('cpsdirectory_installer', cpsdirectory_installer)
         pr(portal.cpsdirectory_installer())
+        # Synchronization from members directory schema to MemberData
+        # properties
+        mdir = portal.portal_directories.members
+        mdir.updateMemberDataFromSchema()
     except ImportError:
-        pass
+        pr("!! Could not import or execute CPSDirectory installer")
 
-    # Synchronization from members directory schema to MemberData properties
-    mdir = portal.portal_directories.members
-    mdir.updateMemberDataFromSchema()
     
     #
     #  CPSMailingLists installer/updater

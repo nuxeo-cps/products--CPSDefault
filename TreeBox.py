@@ -172,9 +172,9 @@ class TreeBox(BaseBox):
             # we need a copy to modify items' data without modify portal_trees
             items = deepcopy(items)
             if items:
+                local_depth = items[0]['depth']
                 items[0]['depth'] = 0
                 local_rpath = items[0]['rpath']
-                local_depth = 0
                 for item in items[1:]:
                     if not item['rpath'].startswith(local_rpath):
                         local_rpath = item['rpath']

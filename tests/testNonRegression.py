@@ -26,6 +26,7 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     def testIdCollision(self):
         # Test that we can create a subobject with same id as its
         # container
+        # WARNING content_create is not used for a CPSDocument
         sections = self.portal.sections
         self.assertEquals(
             sections.content_create('Section', title='sections'),

@@ -29,10 +29,10 @@ ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getHtmlBody')
 ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getNonArchivedVersionContextUrl')
 
 
-# Regexp of the form <body>xxx</body>.
+# Regexp of the form xxx<body>xxx</body>xxx.
 # DOTALL: Make the "." special character match any character at all, including a
 # newline; without this flag, "." will match anything except a newline.
-html_body_regexp = re.compile('<body.*?>(.*)</body>',
+html_body_regexp = re.compile('.*<body.*?>(.*)</body>.*',
                               re.DOTALL)
 
 strip_attributes_regexp = re.compile('xml:lang=".*?"\s?',

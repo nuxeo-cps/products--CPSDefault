@@ -164,13 +164,13 @@ else:
     info['type_l10n'] = ''
 info['review_state'] = wtool.getInfoFor(proxy, 'review_state', '')
 try:
-    langrev = proxy.getLanguageRevisions()
+    info['rev'] = str(proxy.getRevision())
+    info['lang'] = proxy.getLanguage()
 except AttributeError:
     # not a proxy
     # FIXME: default lang should not be hardcoded
-    langrev = {'en': 0}
-info['rev'] = str(langrev.values()[0]) # XXX str problem fixed in Zope 2.6.1
-info['lang'] = langrev.keys()[0]
+    info['rev'] = 0
+    info['lang'] = 'en'
 info['time'] = proxy.modified()
 
 # level 1

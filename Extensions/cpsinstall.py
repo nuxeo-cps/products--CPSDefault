@@ -176,8 +176,22 @@ def cpsupdate(self, langs_list=None):
             category='global',
             visible=1)
         pr(" Added Action Directories")
-    else:
-        pass
+
+    action_found = 0
+    for action in portal['portal_actions'].listActions():
+        if action.id == 'boxes':
+            action_found = 1
+
+    if not action_found:
+        portal['portal_actions'].addAction(
+            id='boxes',
+            name='action_boxes',
+            action='string: ${portal_url}/box_manage_form',
+            condition='python:not portal.portal_membership.isAnonymousUser()',
+            permission = ('Manage Boxes',),
+            category='global',
+            visible=1)
+        pr(" Added Action Boxes")
 
     # skins
     pr("Verifying skins")
@@ -985,6 +999,9 @@ def cpsupdate(self, langs_list=None):
                box, None), {})
         ob = getattr(box_container, box)
         ob.manage_changeProperties(**boxes[box])
+
+
+
 
     #
     # i18n Updater

@@ -2,6 +2,51 @@ $Id$
 
 WARNING THIS A DRAFT !!!!
 
+the main template of the cps web page is divided into 7 slots:
+
+------------------
+|                |   1. top
+|       1        |
+|                |   2. center top
+|----------------|
+|   |        |   |   3. center or folder skin
+|   |   2    |   |
+|   |--------|   |   4. center bottom
+|   |        |   |
+| 6 |   3    | 7 |   5. bottom
+|   |        |   |
+|   |        |   |   6. left
+|   |--------|   |
+|   |        |   |   7. right
+|   |   4    |   |
+|----------------|
+|                |
+|       5        |
+------------------
+
+a box is dipslayed in its slot and ranked by its order attribute
+
+the main template page is a blank page only defining slots
+it use an html table for slot 6/2/3/4/7
+
+boxes are placefull objects they are located in a box container (.cps_boxes)
+located in a folder (section or workspace)
+
+boxes are searched from the root of the cps to your current location
+
+some attributes of a box can be overriden, this allow you to override 
+a box that is define in a parent folder
+
+override defined in the box container in the personal folder
+(/workspaces/members/user_login/.cps_boxes)
+are always interpreted
+except for the minimize/closed in the personal
+areattributes of the loaded boxes.
+
+if you need to do global override like changing a slot for a box
+in a specific sub folder you need to do it with the ZMI
+see .cps_boxes/override tab
+
 
 How to skin a folder
 ====================
@@ -20,38 +65,31 @@ this way you can have different skin in sub folder
 
 Create a simple foo Box
 =======================
-your project is named 'bar'
+if your project is named 'bar'
 you want to create a 'foo' box
 
-1/ create a metal macro named 'basebox_foo_default' in a skin
+1/ create a metal macro named 'basebox_foo' in a skin
    named 'boxes_bar.pt'
 
-2/ in getBoxesStyles.py
-    {'type': 'basebox',
+2/ in getBoxTypes.py
+    {'category': 'basebox',
      'title': 'portal_type_BaseBox_title',
      'desc': 'portal_type_BaseBox_description',
-     'fmt': [
+     'types': [
            ... # add the 3 following lines:
-             {'style': 'bar',
-              'format': 'foo',
-              'desc': 'description_bar_basebox_default'},
+             {'provider': 'bar',
+              'id': 'foo',
+              'desc': 'description_bar_basebox_foo'},
            ...
+
 3/ add to /i18n/custom.pot :
 
-msgid "description_bar_basebox_default"
+msgid "description_bar_basebox_foo"
 msgstr ""
-then update_pos
+
+then update_pos + kbabel
 
 if the box is more than a sample macro create a new portal_type
-see ActionBox or other *Box.py example
+see TextBox or other *Box.py files
 
 
-How to override box properties in sub folder ?
-==============================================
-minimized/maximized/closed are actions that override default properties
-in this case overrides are stored in the personal box container
-(workspaces/members/user/.cps_boxes)
-
-if you need to do global override like changing a slot for a box
-in a specific sub folder you need to do it with the ZMI
-see .cps_boxes/override tab

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-16 15:00default\n"
+"POT-Creation-Date: 2004-09-24 19:31default\n"
 "PO-Revision-Date: 2004-09-16 14:59+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -51,8 +51,8 @@ msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
 "Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
-#.   <option content="python:lang_voc.getMsgid(locale['id'])" repeat="locale map" attributes="value locale/id;
-#.                               selected locale/selected|nothing" condition="l10n_translated">
+#.   <option content="python:lang_voc.getMsgid(locale['id'])" attributes="value locale/id;
+#.                               selected locale/selected|nothing" repeat="locale map" condition="l10n_translated">
 #.         Language</option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "Language"
@@ -71,17 +71,8 @@ msgstr "Objets ${batch_start} - ${batch_limit} sur ${batch_length}"
 #.   <label for="" content="item/Description" attributes="for choice_id">
 #.                   Portal type's description
 #.                 </label>
-#.   <label for="" content="item/Description" attributes="for checkbox_id">
-#.                     Portal type's description
-#.                   </label>
-#.   <td align="left" class="description" content="item/Description">
-#.                     Portal type's description
-#.                   </td>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's description"
 msgstr "Description du type de document"
 
@@ -91,17 +82,8 @@ msgstr "Description du type de document"
 #.   <label for="" content="item/Title" attributes="for choice_id">
 #.                   Portal type's title
 #.                 </label>
-#.   <label for="" content="item/Title" attributes="for checkbox_id">
-#.                       Portal type's title
-#.                     </label>
-#.   <label for="" content="item/Title" attributes="for string:cb_${repeat/item/number}">
-#.                       Portal type's title
-#.                     </label>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "Portal type's title"
 msgstr "Titre du type de document"
 
@@ -223,14 +205,13 @@ msgstr ""
 msgid "accessibility_shortcut_description2"
 msgstr ""
 "<strong>Mozilla</strong>&nbsp;: Appuyez simultanément sur la touche Alt, sur "
-"la touche Maj et sur une des touches du clavier (pas le pavé numérique). Vous "
-"vous rendrez directement à l'endroit voulu. Si vous utilisez des lettres, "
-"vous pouvez vous dispenser d'appuyer sur la touche Maj.</p>"
-"<p>Avec <strong>IE&nbsp;6</strong>&nbsp;: Appuyez simultanément sur la "
-"touche Alt, sur la touche Maj et sur une des touches du clavier (pas le pavé "
-"numérique) et ensuite appuyez sur la touche \"Entrée\" pour vous rendre à "
-"l'endroit voulu.</p>"
-"<p><strong>Opera</strong> ne supporte pas les accesskey&nbsp;!"
+"la touche Maj et sur une des touches du clavier (pas le pavé numérique). "
+"Vous vous rendrez directement à l'endroit voulu. Si vous utilisez des "
+"lettres, vous pouvez vous dispenser d'appuyer sur la touche Maj.</p><p>Avec "
+"<strong>IE&nbsp;6</strong>&nbsp;: Appuyez simultanément sur la touche Alt, "
+"sur la touche Maj et sur une des touches du clavier (pas le pavé numérique) "
+"et ensuite appuyez sur la touche \"Entrée\" pour vous rendre à l'endroit "
+"voulu.</p><p><strong>Opera</strong> ne supporte pas les accesskey&nbsp;!"
 
 #.   <span>Go to the
 #.     homepage</span>
@@ -313,8 +294,6 @@ msgstr "Abandonner la version"
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "button_add"
 msgstr "Ajouter"
 
@@ -328,12 +307,12 @@ msgstr "Appliquer"
 msgid "button_assign_roles"
 msgstr "Déléguer rôle"
 
-#.   <input name="back" type="submit" class="context" value="button_back" />
+#.   <input type="submit" name="back" value="button_back" class="context" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "button_back"
 msgstr "Retour"
 
-#.   <input onclick="history.back()" type="button" class="context" value="button_cancel" />
+#.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
@@ -345,9 +324,9 @@ msgstr "Retour"
 msgid "button_cancel"
 msgstr "Annuler"
 
-#.   <input name="change" type="submit" class="standalone" value="button_change" condition="python:checkPerm('Manage Boxes', box['box'])" />
+#.   <input type="submit" name="change" value="button_change" class="standalone" condition="python:checkPerm('Manage Boxes', box['box'])" />
 #.   <input type="submit" class="standalone" value="button_change" />
-#.   <input name="change" type="submit" class="standalone" value="button_change" />
+#.   <input type="submit" name="change" value="button_change" class="standalone" />
 #.   <input type="submit" value="button_change" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -357,8 +336,9 @@ msgstr "Annuler"
 msgid "button_change"
 msgstr "Enregistrer"
 
-#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" condition="python:checkPerm('Manage Boxes', box['box'])" />
-#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" />
+#.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" condition="python:checkPerm('Manage Boxes', box['box'])" />
+#.   <input type="submit" class="standalone" value="button_change_and_edit" name="change_and_edit" />
+#.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -366,7 +346,8 @@ msgstr "Enregistrer"
 msgid "button_change_and_edit"
 msgstr "Enregistrer et modifier"
 
-#.   <input name="change_and_view" type="submit" class="standalone" value="button_change_and_view" />
+#.   <input type="submit" class="standalone" value="button_change_and_view" name="change_and_view" />
+#.   <input type="submit" name="change_and_view" value="button_change_and_view" class="standalone" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -383,7 +364,7 @@ msgstr "Valider la version"
 msgid "button_checkout_draft"
 msgstr "Créer une version"
 
-#.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
+#.   <input type="submit" name="folder_copy:method" value="button_copy" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr "Copier"
@@ -395,12 +376,12 @@ msgstr "Copier"
 msgid "button_create_box"
 msgstr "Ajouter une boîte"
 
-#.   <input name="folder_cut:method" type="submit" class="context" value="button_cut" condition="can_del" />
+#.   <input type="submit" name="folder_cut:method" value="button_cut" class="context" condition="can_del" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr "Couper"
 
-#.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
+#.   <input type="submit" name="folder_delete:method" value="button_delete" class="destructive" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -413,37 +394,37 @@ msgstr "Supprimer"
 msgid "button_delete_archive"
 msgstr "Supprimer cette archive"
 
-#.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
+#.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_block"
 msgstr "Bloquer"
 
-#.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
+#.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_unblock"
 msgstr "Débloquer"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_login" />
+#.   <input type="submit" class="standalone" value="button_login" name="submit" />
 #: from ../skins/cps_default/login_form.pt
 msgid "button_login"
 msgstr "Authentification"
 
-#.   <input name="moveItemsBottom:method" type="submit" class="context moveBottom" value="button_move_bottom" />
+#.   <input type="submit" class="context moveBottom" value="button_move_bottom" name="moveItemsBottom:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Déplacer à la fin"
 
-#.   <input name="moveItemsDown:method" type="submit" class="context moveDown" value="button_move_down" />
+#.   <input type="submit" class="context moveDown" value="button_move_down" name="moveItemsDown:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Déplacer en dessous"
 
-#.   <input name="moveItemsTop:method" type="submit" class="context moveTop" value="button_move_top" />
+#.   <input type="submit" class="context moveTop" value="button_move_top" name="moveItemsTop:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Déplacer au début"
 
-#.   <input name="moveItemsUp:method" type="submit" class="context moveUp" value="button_move_up" />
+#.   <input type="submit" class="context moveUp" value="button_move_up" name="moveItemsUp:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr "Déplacer au dessus"
@@ -458,7 +439,7 @@ msgstr "Déplacer au dessus"
 msgid "button_ok"
 msgstr "Ok"
 
-#.   <input name="folder_paste:method" type="submit" class="context" value="button_paste" />
+#.   <input type="submit" name="folder_paste:method" value="button_paste" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr "Coller"
@@ -470,7 +451,7 @@ msgstr "Coller"
 msgid "button_publish"
 msgstr "Publier"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_register" />
+#.   <input type="submit" class="standalone" value="button_register" name="submit" />
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr "M'enregistrer"
@@ -480,7 +461,7 @@ msgstr "M'enregistrer"
 msgid "button_reject_publication"
 msgstr "Rejeter la publication"
 
-#.   <input name="folder_rename_form:method" type="submit" class="context" value="button_rename" />
+#.   <input type="submit" name="folder_rename_form:method" value="button_rename" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Changer l'id de l'objet"
@@ -491,9 +472,9 @@ msgid "button_revert_revision"
 msgstr "Revenir à la version archivée"
 
 #.   <input type="submit" class="context searchButton" value="button_search" />
-#.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
+#.   <input type="submit" name="role_submit" value="button_search" class="standalone" />
 #.   <input type="submit" class="standalone" value="button_search" />
-#.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
+#.   <input type="button" name="search_item" value="button_search" onclick="open_search_dialog()" />
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib.pt
@@ -501,7 +482,7 @@ msgstr "Revenir à la version archivée"
 msgid "button_search"
 msgstr "Rechercher"
 
-#.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
+#.   <input type="button" class="context" value="button_select_all" onclick="someJavaScriptFunctionThatWillBeReplaced" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
@@ -726,9 +707,6 @@ msgstr "CPS a rencontré une erreur"
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "heading_folder_factories"
 msgstr "Ajouter du contenu"
 
@@ -1010,11 +988,7 @@ msgstr ""
 #.   <span>
 #.             No content type can be created.
 #.           </span>
-#.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_dl.pt
-#: ../skins/cps_default/folder_factories_li.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 msgid "help_no_content_type_can_be_created"
 msgstr ""
 "Aucun type de contenu ne peut être créé. Cela est sûrement dû aux workflows "
@@ -1092,10 +1066,10 @@ msgstr "Rejeter la publication de ce document"
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
 msgstr ""
-"Si vous choisissez l'option 'Se rappeler mon nom d'utilisateur', un "
-"cookie sera placé avec votre nom d'utilisateur et ainsi quand vous vous "
-"connecterez la prochaine fois, le champ contenant votre nom d'utilisateur "
-"sera déjà saisi pour vous."
+"Si vous choisissez l'option 'Se rappeler mon nom d'utilisateur', un cookie "
+"sera placé avec votre nom d'utilisateur et ainsi quand vous vous connecterez "
+"la prochaine fois, le champ contenant votre nom d'utilisateur sera déjà "
+"saisi pour vous."
 
 #.   <div class="description">Changing the id of an object does not
 #.   affect its title but changes the URL to access it. Links that point to the
@@ -1916,7 +1890,6 @@ msgstr "Texte à rechercher"
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/folder_factories_orig.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2321,96 +2294,12 @@ msgstr "Commentaires"
 msgid "v${status_revision}- ${status_language}"
 msgstr "Version ${status_revision} Langue ${status_language} Statut"
 
-#.   <block>The body of the welcome text</block>
+#.   <div style="margin-top:3em" class="footer">
+#.     welcome_cps ${cps_link}
+#.   </div>
 #: from ../skins/cps_default/boxes_nuxeo.pt
-msgid "welcome_body"
+msgid "welcome_cps ${cps_link}"
 msgstr ""
-"<h1>Bienvenue sur Nuxeo CPS</h1> "
-"<p>Cette page vise à vous fournir une introduction à "
-"<acronym title=\"Collaborative Portal Server\">CPS</acronym> "
-"(Nuxeo Collaborative Portal Server) et à ce que vous pouvez réaliser avec. "
-"(<a href= "
-"\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Modifier ce "
-"texte</a>.)</p> "
-"<h2>À propos de CPS</h2> "
-"<p> "
-"<acronym title=\"Collaborative Portal Server\">CPS</acronym> "
-"est un système de gestion de contenu (CMS) Web collaboratif implémenté "
-"au-dessus de <a href=\"http://www.zope.org/\">Zope</a> et du <a href= "
-"  \"http://www.zope.org/Products/CMF/\">CMF</a>, qui permet aux organisations "
-"d'implémenter facilement, rapidement et efficacement des portails collaboratifs "
-"(intranet, extranet ou internet) et des applications métier orientées "
-"workflow. "
-"</p> "
-"<p>CPS fournit, entre autres :</p> "
-"<ul> "
-"  <li><a href=\"workspaces\">Des espaces de travail collaboratif</a>  "
-"  et <a href=\"sections\">des espaces de publication</a> "
-"  (il se peut que vous ayez besoin d'être authentifié avec des droits d'accès "
-"  suffisants pour accéder à ces URL)</li> "
-"  <li>Du suivi de version sur les documents, ce qui permet à un document d'être "
-"  publié pour une version et en cours d'édition pour une autre version "
-"  </li> "
-"  <li><a href=\"cpsdirectory_view\">Une gestion des utilisateurs</a> basée sur "
-"  les groupes, et sous-tendue par un ou des annuaires</li> "
-"  <li>Une interface de type Portail <a href=\"box_manage_form\">configurable</a>, "
-"  avec une apparence par défaut qui respecte les standards du Web et les "
-"  normes d'accessibilité (vous devez être authentifié avec des droits d'accès "
-"  suffisant pour accéder à cette URL).</li> "
-"   "
-"  <li>Des notifications pour de nombreux types d'événements susceptibles de "
-"  se produire dans le système.</li> "
-"  <li>Un éditeur WYSIWYG (optionnel) qui permet de modifier facilement "
-"  l'apparence du portail (il vous suffit d'installer <em>CPSSkins</em> dans "
-"  votre instance de CPS depuis la <a href=\"manage\">ZMI</a>)</li> "
-"  <li>De nombreux services utilisateurs, comme un webmail, des forums, des "
-"  calendriers partagés, des lettres d'informations, des listes de "
-"  discussion...</li> "
-"  <li>De nombreux et puissants services pour les développeurs et les "
-"  webmasters, comme la possibilité de créer facilement vos propres types de "
-"  documents, vos propres workflows, etc.</li> "
-"</ul> "
-"  "
-"<p>CPS a déjà été adopté par des grands comptes dans l'administration "
-"(ministères français de l'Intérieur, de la Culture, des Finances, de la "
-"Défense, de la Justice; CEA; Université de Chalmers...), dans le secteur "
-"privé (Groupe Suez, STMicroelectronics...) et par les principales SSII "
-"européennes (Capgemini, Unilog, Stéria...).</p> "
-"<p>Pour plus d'informations sur Zope et CPS, nous vous suggérons les "
-"sites suivants :</p> "
-"<ul> "
-"  <li><a href= "
-"  \"http://www.cps-project.org/\">CPS-project.org</a> : le portail communautaire "
-"  pour les utilisateurs et les développeurs de CPS</li> "
-"  <li><a href= "
-"  \"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 sur "
-"  Zope.org</a> (pour télécharger les dernières versions stables ou de "
-"  développement)</li> "
-"  <li><a href=\"http://lists.nuxeo.com/\">Les listes de discussion sur "
-"  CPS</a></li> "
-"  <li><a href= "
-"  \"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\"> "
-"  Les transparents des conférences sur CPS à EuroPython 2004</a> et ceux "
-"  du <a href= "
-"  \"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/\"> "
-"  sprint CPS/ERP5 à Paris (2004)</a></li> "
-"  <li><a href=\"http://www.zope.org/\">Zope.org</a> : le portail de la  "
-"  communauté Zope</li> "
-"  <li><a href= "
-"  \"http://zope.org/Documentation/Books/ZopeBook/2_6Edition/\">Le "
-"  Zope Book</a></li> "
-"</ul> "
-"<h2>Contributeurs</h2> "
-"<p>Merci d'essayer ou d'utiliser CPS. CPS est développé par <a "
-"href=\"http://www.nuxeo.com/\">Nuxeo</a> et une <a href= "
-"\"http://www.cps-project.org/\">communauté de contributeurs</a>.</p> "
-"<p>CPS contient du code sous licence GPL, ZPL et d'autres licences libres/open "
-"source compatibles avec la GPL. Des portions du code de CPS sont copyright "
-"Nuxeo SARL, Zope Corporation and Contributors, Chalmers University, Jean-Marc Orliaguet, Capgemini, "
-"Unilog, Ministère de l'Intérieur, de la Sécurité Intérieure et des Libertés "
-"Locales, Préfecture du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh, Norman Walsh, "
-"Gareth Rees, Sun Microsystems, Timothy O'Malley, Morten W. Petersen, et "
-"d'autres contributeurs.</p> "
 
 msgid "accept"
 msgstr "Accepté"
@@ -2590,7 +2479,7 @@ msgid "action_addevent"
 msgstr "Ajouter un événement"
 
 msgid "action_addmeeting"
-msgstr "Ajouter une réunion"
+msgstr "Assistant"
 
 msgid "action_display"
 msgstr "Afficher"
@@ -2606,6 +2495,9 @@ msgstr "Supprimer"
 
 msgid "action_calendar"
 msgstr "Retourner à l'agenda"
+
+msgid "action_calendar_overview"
+msgstr "Vue globale des agendas"
 
 msgid "action_view_stat"
 msgstr "Voir les statistiques"
@@ -2726,9 +2618,6 @@ msgstr "boîte sans cadre"
 
 msgid "description_box_skin_wbox2"
 msgstr "boîte sans cadre et sans titre"
-
-msgid "description_box_skin_wbox3"
-msgstr "boîte sans cadre, sans titre et sans style"
 
 msgid "description_required"
 msgstr "est vide alors qu\\'il est requis."
@@ -3185,3 +3074,71 @@ msgstr "rôle:Authentifié"
 
 msgid "_blank"
 msgstr " "
+
+#~ msgid "welcome_body"
+#~ msgstr ""
+#~ "<h1>Bienvenue sur Nuxeo CPS</h1> <p>Cette page vise à vous fournir une "
+#~ "introduction à <acronym title=\"Collaborative Portal Server\">CPS</"
+#~ "acronym> (Nuxeo Collaborative Portal Server) et à ce que vous pouvez "
+#~ "réaliser avec. (<a href= \"textbox_edit_form?box_url=.cps_boxes_root/"
+#~ "welcome\">Modifier ce texte</a>.)</p> <h2>À propos de CPS</h2> <p> "
+#~ "<acronym title=\"Collaborative Portal Server\">CPS</acronym> est un "
+#~ "système de gestion de contenu (CMS) Web collaboratif implémenté au-dessus "
+#~ "de <a href=\"http://www.zope.org/\">Zope</a> et du <a href=   \"http://"
+#~ "www.zope.org/Products/CMF/\">CMF</a>, qui permet aux organisations "
+#~ "d'implémenter facilement, rapidement et efficacement des portails "
+#~ "collaboratifs (intranet, extranet ou internet) et des applications métier "
+#~ "orientées workflow. </p> <p>CPS fournit, entre autres :</p> <ul>   <li><a "
+#~ "href=\"workspaces\">Des espaces de travail collaboratif</a>    et <a href="
+#~ "\"sections\">des espaces de publication</a>   (il se peut que vous ayez "
+#~ "besoin d'être authentifié avec des droits d'accès   suffisants pour "
+#~ "accéder à ces URL)</li>   <li>Du suivi de version sur les documents, ce "
+#~ "qui permet à un document d'être   publié pour une version et en cours "
+#~ "d'édition pour une autre version   </li>   <li><a href=\"cpsdirectory_view"
+#~ "\">Une gestion des utilisateurs</a> basée sur   les groupes, et sous-"
+#~ "tendue par un ou des annuaires</li>   <li>Une interface de type Portail "
+#~ "<a href=\"box_manage_form\">configurable</a>,   avec une apparence par "
+#~ "défaut qui respecte les standards du Web et les   normes d'accessibilité "
+#~ "(vous devez être authentifié avec des droits d'accès   suffisant pour "
+#~ "accéder à cette URL).</li>      <li>Des notifications pour de nombreux "
+#~ "types d'événements susceptibles de   se produire dans le système.</li>   "
+#~ "<li>Un éditeur WYSIWYG (optionnel) qui permet de modifier facilement   "
+#~ "l'apparence du portail (il vous suffit d'installer <em>CPSSkins</em> "
+#~ "dans   votre instance de CPS depuis la <a href=\"manage\">ZMI</a>)</li>   "
+#~ "<li>De nombreux services utilisateurs, comme un webmail, des forums, "
+#~ "des   calendriers partagés, des lettres d'informations, des listes de   "
+#~ "discussion...</li>   <li>De nombreux et puissants services pour les "
+#~ "développeurs et les   webmasters, comme la possibilité de créer "
+#~ "facilement vos propres types de   documents, vos propres workflows, etc.</"
+#~ "li> </ul>   <p>CPS a déjà été adopté par des grands comptes dans "
+#~ "l'administration (ministères français de l'Intérieur, de la Culture, des "
+#~ "Finances, de la Défense, de la Justice; CEA; Université de Chalmers...), "
+#~ "dans le secteur privé (Groupe Suez, STMicroelectronics...) et par les "
+#~ "principales SSII européennes (Capgemini, Unilog, Stéria...).</p> <p>Pour "
+#~ "plus d'informations sur Zope et CPS, nous vous suggérons les sites "
+#~ "suivants :</p> <ul>   <li><a href=   \"http://www.cps-project.org/\">CPS-"
+#~ "project.org</a> : le portail communautaire   pour les utilisateurs et les "
+#~ "développeurs de CPS</li>   <li><a href=   \"http://zope.org/Members/nuxeo/"
+#~ "Products/CPS3\">CPS3 sur   Zope.org</a> (pour télécharger les dernières "
+#~ "versions stables ou de   développement)</li>   <li><a href=\"http://lists."
+#~ "nuxeo.com/\">Les listes de discussion sur   CPS</a></li>   <li><a href=   "
+#~ "\"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\">   Les "
+#~ "transparents des conférences sur CPS à EuroPython 2004</a> et ceux   du "
+#~ "<a href=   \"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-"
+#~ "pictures/\">   sprint CPS/ERP5 à Paris (2004)</a></li>   <li><a href="
+#~ "\"http://www.zope.org/\">Zope.org</a> : le portail de la    communauté "
+#~ "Zope</li>   <li><a href=   \"http://zope.org/Documentation/Books/"
+#~ "ZopeBook/2_6Edition/\">Le   Zope Book</a></li> </ul> <h2>Contributeurs</"
+#~ "h2> <p>Merci d'essayer ou d'utiliser CPS. CPS est développé par <a href="
+#~ "\"http://www.nuxeo.com/\">Nuxeo</a> et une <a href= \"http://www.cps-"
+#~ "project.org/\">communauté de contributeurs</a>.</p> <p>CPS contient du "
+#~ "code sous licence GPL, ZPL et d'autres licences libres/open source "
+#~ "compatibles avec la GPL. Des portions du code de CPS sont copyright Nuxeo "
+#~ "SARL, Zope Corporation and Contributors, Chalmers University, Jean-Marc "
+#~ "Orliaguet, Capgemini, Unilog, Ministère de l'Intérieur, de la Sécurité "
+#~ "Intérieure et des Libertés Locales, Préfecture du Bas-Rhin, CEA, Logilab "
+#~ "SA, Fredrik Lundh, Norman Walsh, Gareth Rees, Sun Microsystems, Timothy "
+#~ "O'Malley, Morten W. Petersen, et d'autres contributeurs.</p> "
+
+#~ msgid "description_box_skin_wbox3"
+#~ msgstr "boîte sans cadre, sans titre et sans style"

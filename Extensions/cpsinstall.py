@@ -75,13 +75,6 @@ class DefaultInstaller(CPSInstaller):
 
         self.setupCatalog()
 
-        self.log(" Reindexing %s" % WORKSPACES_ID)
-        # this will do a recursive reindexSecurityObject
-        # but reindex only the WORKSPACES_ID
-        self.portal[WORKSPACES_ID].reindexObject()
-        self.log(" Reindexing %s" % SECTIONS_ID)
-        self.portal[SECTIONS_ID].reindexObject()
-
         # remove cpsinstall external method
         # and fix cpsupdate permission
         if 'cpsinstall' in self.portal.objectIds():
@@ -89,7 +82,6 @@ class DefaultInstaller(CPSInstaller):
             self.portal._delObject('cpsinstall')
 
         self.setupTranslations()
-        self.finalize()
         self.log("CPS update Finished")
         self.verifyVHM()
 

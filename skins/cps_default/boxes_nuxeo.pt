@@ -473,13 +473,13 @@
             <tal:block tal:condition="python:delta_depth > 0"
                        tal:replace="structure string:&lt;dl>" />
             <tal:block tal:condition="python:delta_depth &lt; 0">
-              <tal:block tal:replace="structure string:&lt;/dd>"/>
+              <tal:block tal:replace="structure string:&lt;/dd>" />
               <tal:block tal:repeat="i python:range(0,-delta_depth)">
                 <tal:block tal:replace="structure string:&lt;/dl>&lt;/dd>"/>
               </tal:block>
             </tal:block>
             <tal:block tal:condition="python:delta_depth == 0"
-                       tal:replace="structure string:&lt;/dd\>" />
+                       tal:replace="structure string:&lt;/dd>" />
             <dt>
               <img tal:condition="python:getattr(box['box'],'display_icons',0)"
                    tal:replace="structure

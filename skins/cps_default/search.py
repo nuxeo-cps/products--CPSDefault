@@ -1,4 +1,4 @@
-##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=1, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100
+##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100
 # $Id$
 """ return a list of proxy matching the query """
 
@@ -7,6 +7,10 @@ from zLOG import LOG, DEBUG
 
 if REQUEST is not None:
     query.update(REQUEST.form)
+
+for k, v in query.items():
+    if not v:
+        del query[k]
 
 if str(query.get('modified')) == '1970/01/01':
     del query['modified']
@@ -26,13 +30,15 @@ query['cps_filter_sets'] = 'searchable'
 
 if hide_folder:
     query['cps_filter_sets'] = {'query' : ('searchable', 'leaves'),
-                               'operator' : 'and'}
+                                'operator' : 'and'}
 
 # XXX TODO make start/end search
 
 
 # sorting
 if sort_by and not query.has_key('sort-on'):
+    if sort_by in ('title', 'date'):
+        sort_by = sort_by.capitalize()
     query['sort-on'] = sort_by
     if direction and not query.has_key('sort-order'):
         if direction.startswith('desc'):

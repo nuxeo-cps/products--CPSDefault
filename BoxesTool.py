@@ -208,7 +208,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         """Filter a list boxes for required slot removing closed boxes."""
         if closed_only:
             return [x for x in boxes if(x['settings']['closed'])]
-        
+
         return [x for x in boxes if (x['settings']['slot']==slot and
                                      not x['settings']['closed'])]
 
@@ -281,7 +281,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         utool = getToolByName(self, 'portal_url')
         idbc = self.getBoxContainerId(home)
-        
+
         if hasattr(aq_base(home), idbc):
             pbc = home[idbc]
             home.manage_delObject([idbc])
@@ -317,7 +317,7 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         return BoxContainer.id_root
 
-   
+
     #
     # Private
     #
@@ -458,7 +458,7 @@ def addBoxContainer(self, id=None, REQUEST=None, quiet=0):
     self = self.this()
     btool = getToolByName(self, 'portal_boxes')
     id = btool.getBoxContainerId(self)
-    
+
     if hasattr(aq_base(self), id):
         if quiet:
             return
@@ -470,14 +470,12 @@ def addBoxContainer(self, id=None, REQUEST=None, quiet=0):
 
     ob = BoxContainer(id)
     self._setObject(id, ob)
-    
+
     LOG('addBoxContainer', DEBUG,
         'adding box container %s/%s' % (self.absolute_url(), id))
-    
+
     if REQUEST is not None:
         REQUEST['RESPONSE'].redirect(self.absolute_url()+'/manage_main')
 
 
 InitializeClass(BoxContainer)
-
-

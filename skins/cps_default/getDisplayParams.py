@@ -7,7 +7,7 @@ cps_pref = context.REQUEST.SESSION.get('cps_display_params', {})
 
 def_params = {'format': 'detail',
               'sort_by': 'title',
-              'direction': 'asc',
+              'direction': 'default',
               'items_per_page': 10,
               'nav_action': 'folder_view',
               }

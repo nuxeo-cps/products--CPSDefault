@@ -11,36 +11,159 @@ XXX: Why the hell do we use "id" for
 </tal:block>
 
 
-<!-- boxleft -->
-<metal:block define-macro="boxleft">
-  <div id="main_widgets_leftbox" style="border:1px solid gray; width:128px">
-    <div style="width:130px; height:19px; color:rgb(255, 255, 255); background-color:rgb(43, 42, 126); font-size:10px; text-align:center; vertical-align:middle; font-family:Verdana,sans-serif; font-weight: 700">
-      <span><metal:block define-slot="box_title">Box Title</metal:block></span>
+<!-- macro library for all general use -->
+<!-- $Id$ -->
+
+<!-- ============================================================ -->
+<metal:block define-macro="header">
+  <title tal:content="here/expanded_title">
+    Nuxeo | Solutions web pour mieux collaborer
+  </title>
+
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+
+  <base href="" tal:attributes="href string:${here/absolute_url}/">
+
+  <!-- Basic crude style for Netscape4.x - This can be removed if you don't
+want the special NS4 look - it will still work, just be plain text instead. -->
+  <link rel="Stylesheet" type="text/css" href=""
+        tal:attributes="href string:${portal_url}/ploneNS4.css" />
+
+  <!-- Main style sheets for CSS2 capable browsers -->
+  <style type="text/css" media="all"
+         tal:content="string:@import url(${portal_url}/plone.css);">
+  </style>
+
+  <!-- Custom style sheet if available -->
+  <style type="text/css" media="all"
+         tal:condition="exists: here/ploneCustom.css"
+         tal:content="string:@import url(${portal_url}/ploneCustom.css);">
+  </style>
+
+  <!-- Style sheet used for printing -->
+  <link rel="stylesheet" type="text/css" media="print" href=""
+        tal:attributes="href string:${portal_url}/plonePrint.css" />
+
+  <!-- Style sheet used for presentations (Opera is the only browser
+supporting this at the moment) -->
+  <link rel="stylesheet" type="text/css" media="projection" href=""
+        tal:attributes="href string:${portal_url}/plonePresentation.css" />
+
+  <link rel="shortcut icon" href="" type="image/x-icon" tal:attributes="href
+string:${portal_url}/favicon.png" />
+
+  <!-- Disable IE6 image toolbar -->
+  <meta http-equiv="imagetoolbar" content="no" />
+</metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="logo">
+  <a href="http://nuxeo.com/"
+     tal:attributes="href string:${portal_url}/">
+    <img height="60" border="0" src="logo_nuxeo.jpg" class="logo"
+         tal:attributes="src string:${portal_url}/logo_nuxeo.jpg" />
+  </a>
+  <img height="60" src="baseline_nuxeo.gif" class="logo"
+       tal:attributes="src string:${portal_url}/baseline_nuxeo.gif" />
+</metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="searchbox">
+  <div class="searchBox">
+    <form method="get" action="/search"
+        tal:attributes="action string:${portal_url}/search">
+      &nbsp;<strong>Search</strong>
+      <br/>
+      <input id="searchGadget" type="text" name="SearchableText" size="20"
+             value="" tal:attributes="value request/SearchableText|nothing" />
+      <input class="context searchButton" type="submit" value="OK" />
+      <br/>
+      <a href="/search_form"
+         tal:attributes="href string:${portal_url}/search_form">
+         Advanced search
+       </a>&nbsp;
+    </form>
+  </div>
+</metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="breadcrumbs">
+  <div class="pathBar">
+    <span>You are here:&nbsp;</span>
+    <span tal:repeat="bc here/breadcrumbs">
+      <a href="/cps/id"
+         tal:omit-tag="not:bc/url"
+         tal:attributes="href bc/url;
+                         title bc/longtitle"
+         tal:content="bc/title">
+         Title
+      </a>
+      <strong tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
+    </span>
+  </div>
+</metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="sections">
+  <div class="tabs"
+       tal:define="tree python:sections.getList(start_depth=0, stop_depth=1);
+                   here_url python:'/' + here.absolute_url(relative=1)">
+    <a href="" class="plain"
+       tal:repeat="item tree"
+       tal:attributes="href string:${item/path}/;
+                       class python:item['path'] == here_url and 'selected' or
+                       default"
+       tal:content="item/id">
+       section id (no title ?)
+    </a>
+  </div>
+</metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="box">
+  <div class="box">
+    <div class="title">
+      <div metal:define-slot="box_title">Box Title</div>
     </div>
-    <div style="background-color:rgb(239,239,239); ">
-      <span><metal:block define-slot="box_body">Box Body</metal:block></span>
+    <div class="body">
+      <div metal:define-slot="box_body">Box Body</div>
     </div>
   </div>
 </metal:block>
-<!-- End boxleft -->
+
+<!-- ============================================================ -->
+<metal:block define-macro="footer">
+  <div class="footer">
+    Nuxeo - 14, rue du Soleillet, 75020 Paris France
+    <br/>
+    Email : <a href="mailto:contact@nuxeo.com"> contact@nuxeo.com</a>
+    - Tél: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 43 58 14 15
+  </div>
+</metal:block>
 
 
 <!-- actions_list -->
 <metal:block define-macro="actions_list">
-  <div id="main_widgets_actions_list" style="padding-left:5px; padding-top:5px; padding-bottom:5px; width:121px; background-color:rgb(239,239,239)">
-    <tal:block repeat="block actionsblocks">
-      <tal:block repeat="action block">
-        <li class="inbox"><a tal:attributes="href action/url; onclick action/onclick|nothing; target action/target|nothing"
-          tal:define="actionname action/name;"
-          tal:content="actionname"
-          i18n:translate="">Action</a>
-      </tal:block>
-      <hr tal:condition="not: repeat/block/end" noshade size="1px" width="50%" />
-    </tal:block>
+  <div class="content" tal:repeat="block actionsblocks"
+       tal:attributes="class python:'content ' + ('even',
+                             'odd')[path('repeat/block/odd')]">
+    <ul><li tal:condition="block" tal:repeat="action block">
+      <a tal:attributes="href action/url; onclick action/onclick|nothing; target
+action/target|nothing"
+         tal:define="actionname action/name;"
+         tal:content="actionname"
+         i18n:translate="">Action</a>
+    </li></ul>
   </div>
 </metal:block>
 <!-- End actions_list -->
 
+<!-- folder_list -->
+<metal:block define-macro="folder_list">
+</metal:block>
+<!-- end sections_list -->
 
 <!-- title_content -->
 <metal:block define-macro="title_content">
@@ -54,16 +177,24 @@ XXX: Why the hell do we use "id" for
 
 <!-- form -->
 <metal:block define-macro="form">
- <metal:block define-slot="content">No properties in this form</metal:block>
+  <table width="100%" cellpadding="4" cellspacing="4" border="0">
+    <metal:block define-slot="content">
+    </metal:block>
+  </table>
 </metal:block>
-<!-- End title_content -->
 
 
-<!-- form -->
+<!-- form_property -->
 <metal:block define-macro="form_property">
- <metal:block define-slot="content">No properties in this form</metal:block>
+  <tal:block define="form_pos form_pos|nothing">
+    <tr>
+      <td valign="top" width="100" class="formMeta">
+        <metal:block define-slot="title">Field name</metal:block>
+      </td>
+      <td valign="middle">
+        <metal:block define-slot="content">Field content</metal:block>
+      </td>
+    </tr>
+  </tal:block>
 </metal:block>
-<!-- End title_content -->
-
-
-
+<!-- End form_property -->

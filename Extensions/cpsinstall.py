@@ -22,7 +22,7 @@ from Products.CPSCore.CPSWorkflow import \
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE, \
      TRANSITION_BEHAVIOR_DELETE, TRANSITION_BEHAVIOR_MERGE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
-
+from Products.CPSDefault.BoxesTool import BoxContainer
 
 def cpsinstall(self):
     """
@@ -825,8 +825,9 @@ def cpsupdate(self, langs_list=None):
 
     
     pr(" Adding cps default boxes")
-    pr("  Checking /.cps_boxes")
-    if not portalhas('.cps_boxes'):
+    idbc = BoxContainer.id
+    pr("  Checking /%s" % idbc )
+    if not portalhas(idbc):
         pr("   Creating")
         portal.manage_addProduct['CPSDefault'].addBoxContainer()
     boxes = {
@@ -876,7 +877,7 @@ def cpsupdate(self, langs_list=None):
                          'order':2,
                          },
         }
-    box_container = portal['.cps_boxes']
+    box_container = portal[idbc]
     existing_boxes = box_container.objectIds()
     for box in boxes.keys():
         if box in existing_boxes:

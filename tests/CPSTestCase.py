@@ -88,7 +88,6 @@ class DummyTranslationService(SimpleItem):
 # Dummy MessageCatalog
 class DummyMessageCatalog(SimpleItem):
     security = ClassSecurityInfo()
-    security.declareObjectPublic()
     def __call__(self, message, *args, **kw):
         #return self.gettext(self, message, lang, args, kw)
         return message

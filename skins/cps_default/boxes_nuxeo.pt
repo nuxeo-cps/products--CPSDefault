@@ -168,7 +168,7 @@
           <tr>
             <th>
               <a href="#" class="CalendarArrow"
-		 tal:attributes="href python:here.getPreviousMonthLink(
+                 tal:attributes="href python:here.getPreviousMonthLink(
                                              request.URL0, month, year)">
                 «
               </a>
@@ -196,7 +196,7 @@
               <tal:day tal:repeat="day days">
                 <tal:daynumber tal:define="daynumber day/day;
                                            datestring python:'%d/%0.2d/%0.2d' %
-			                   (year, month, daynumber);">
+                                           (year, month, daynumber);">
                   <tal:block tal:condition="day/event">
                     <td class="event"
                         tal:attributes="class python:here.getDaysClass(
@@ -457,7 +457,7 @@
               </tal:block>
             </tal:block>
             <tal:block tal:condition="python:delta_depth == 0"
-		       tal:replace="structure string:</dd>" />
+                       tal:replace="structure string:</dd>" />
             <dt>
               <img tal:condition="python:getattr(box['box'],'display_icons',0)"
                    tal:replace="structure
@@ -729,7 +729,7 @@
     <metal:block fill-slot="box_body" tal:condition="box/box/flash_filename">
       <object type="application/x-shockwave-flash"
               tal:define="flashobject_url box/box/flash_id/absolute_url"
-	      tal:attributes="data flashobject_url;
+              tal:attributes="data flashobject_url;
                               width box/box/flash_id/flash_width;
                               height box/box/flash_id/flash_height">
         <param name="movie" value="" tal:attributes="value flashobject_url">

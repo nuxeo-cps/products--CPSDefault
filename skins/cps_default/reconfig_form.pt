@@ -1,91 +1,92 @@
-<metal:block use-macro="here/content_lib/macros/master">
+<metal:html>
+<metal:body use-macro="here/main_template/macros/master">
 
-<div metal:fill-slot="header">
+<metal:header fill-slot="header">
   <h1 i18n:translate="heading_reconfig_portal">
     Configure Portal
   </h1>
-</div>
+  <div class="description" i18n:translate="description_reconfig_form">
+    This form is used to set the portal configuration options.
+  </div>
+</metal:header>
 
-<div class="Desktop" metal:fill-slot="main">
-<p i18n:translate="description_reconfig_form">
-  This form is used to set the portal configuration options.
-</p>
+<metal:main fill-slot="main">
 
-<tal:block define="pprops here/portal_properties">
-  <form action="" method="Post"
-        tal:attributes="action string:${here/portal_url}/reconfig">
+  <form action="" method="POST"
+        tal:attributes="action string:${base_url}reconfig"
+        tal:define="pprops here/portal_properties">
     <table border="0" cellspacing="2" cellpadding="2">
-     <tr>
-       <td class="even" align="right">
-           <strong>
-             <span i18n:translate="label_admin_name">
-               Administrator Name
-             </span>
-           </strong>
-       </td>
-       <td>
-         <input name="email_from_name" value=""
-                tal:attributes="value pprops/email_from_name">
-       </td>
-     </tr>
-     <tr>
-       <td class="even" align="right">
-         <strong>
-           <span i18n:translate="label_admin_email">
-             Administrator E-mail
-           </span>
-         </strong>
-       </td>
-       <td>
-         <input name="email_from_address" value=""
-                tal:attributes="value pprops/email_from_address">
-       </td>
-     </tr>
-     <tr>
-       <td class="even" align="right">
-         <strong>
-           <span i18n:translate="label_smtp_server">
-             SMTP Server
-           </span>
-         </strong>
-       </td>
-       <td>
-         <input name="smtp_server" value=""
-                tal:attributes="value pprops/smtp_server">
-       </td>
-     </tr>
-     <tr>
-      <td class="even" align="right">
-        <strong>
-          <span i18n:translate="label_portal_title">
-            Portal title
-          </span>
-        </strong>
-      </td>
-      <td>
-        <input name="title" value=""
-              tal:attributes="value pprops/title">
-      </td>
-     </tr>
-     <tr>
-       <td class="even" align="right">
-         <strong>
-           <span i18n:translate="label_portal_description">
-             Portal description
-           </span>
-         </strong>
-       </td>
-       <td>
-         <textarea cols="40" rows="6" name="description"
-                   style="width: 100%" wrap="soft"
-                   tal:content="pprops/description"></textarea>
-     </tr>
-   </table>
-   <input type="submit" value="button_change"
-          i18n:attributes="value">
-   <input type="button" onClick="history.back()" value="button_cancel"
-          i18n:attributes="value">
+      <tr>
+        <td class="even" align="right">
+          <strong>
+            <span i18n:translate="label_admin_name">
+              Administrator Name
+            </span>
+          </strong>
+        </td>
+        <td>
+          <input name="email_from_name" value=""
+                 tal:attributes="value pprops/email_from_name">
+        </td>
+      </tr>
+      <tr>
+        <td class="even" align="right">
+          <strong>
+            <span i18n:translate="label_admin_email">
+              Administrator E-mail
+            </span>
+          </strong>
+        </td>
+        <td>
+          <input name="email_from_address" value=""
+                 tal:attributes="value pprops/email_from_address">
+        </td>
+      </tr>
+      <tr>
+        <td class="even" align="right">
+          <strong>
+            <span i18n:translate="label_smtp_server">
+              SMTP Server
+            </span>
+          </strong>
+        </td>
+        <td>
+          <input name="smtp_server" value=""
+                 tal:attributes="value pprops/smtp_server">
+        </td>
+      </tr>
+      <tr>
+        <td class="even" align="right">
+          <strong>
+            <span i18n:translate="label_portal_title">
+              Portal title
+            </span>
+          </strong>
+        </td>
+        <td>
+          <input name="title" value=""
+                 tal:attributes="value pprops/title">
+        </td>
+      </tr>
+      <tr>
+        <td class="even" align="right">
+          <strong>
+            <span i18n:translate="label_portal_description">
+              Portal description
+            </span>
+          </strong>
+        </td>
+        <td>
+          <textarea cols="40" rows="6" name="description"
+                    style="width: 100%" wrap="soft"
+                    tal:content="pprops/description"></textarea>
+      </tr>
+    </table>
+    <input type="submit" value="button_change"
+           i18n:attributes="value">
+    <input type="button" onClick="history.back()" value="button_cancel"
+           i18n:attributes="value">
   </form>
-</tal:block>
-</div>
-</metal:block>
+</metal:main>
+</metal:body>
+</metal:html>

@@ -29,7 +29,9 @@ def checkUpgradeWorkflows(context):
     upgrade = 0
     portal = getToolByName(context, 'portal_url').getPortalObject()
     for rpath in CHECK_ROOTS:
-        ob = portal.restrictedTraverse(rpath)
+        ob = portal.restrictedTraverse(rpath, default=None)
+        if ob is None:
+            continue
         workflow_history = getattr(aq_base(ob), 'workflow_history', None)
         if workflow_history is None:
             continue

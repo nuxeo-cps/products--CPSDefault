@@ -16,6 +16,7 @@ else:
 try:
     dfmt = mcat(fmt)
     ret = dt.strftime(dfmt)
+    # XXX remove this as soon as strftime is fixed
     # space hack to fix %p strftime bug when LC_ALL=fr_FR
     if (dfmt.endswith('%p') and not ret.endswith('M')):
         h = int(dt.strftime('%H'))

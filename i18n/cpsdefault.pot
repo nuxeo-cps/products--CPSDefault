@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-09-08 17:51default\n"
+"POT-Creation-Date: 2003-09-15 13:13default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -39,7 +39,10 @@ msgstr ""
 msgid "A test box"
 msgstr ""
 
-#.   <option attributes="value cat" content="string:label_action_${cat}">Action</option>
+#.   <option repeat="cat actions/keys" attributes="value cat;
+#.                             selected python:cat in box['box'].categories" content="string:label_action_${cat}">
+#.             Action
+#.           </option>
 #.   <a attributes="href action/url" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
@@ -87,7 +90,7 @@ msgid "Role1"
 msgstr ""
 
 #.   <option attributes="value slot;
-#.                             selected python:test(slot!=box['settings']['slot'], nothing, 'selected');" content="string:label_${slot}" value="slot">Slot</option>
+#.             selected python:test(slot==selected_slot,'selected', nothing);" content="string:label_${slot}" value="slot">Slot</option>
 #.   <span content="string:label_${slot}">Slot</span>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/box_manage_form.pt
@@ -142,7 +145,7 @@ msgstr ""
 msgid "button_assign_roles"
 msgstr ""
 
-#.   <input onclick="history.back()" class="context" type="button" value="button_back">
+#.   <input value="button_back" class="context" name="back" type="submit">
 #.       </input>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "button_back"
@@ -160,10 +163,10 @@ msgid "button_cancel"
 msgstr ""
 
 #.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
-#.         <input onclick="history.back()" class="context" type="button" value="button_back">
+#.         <input value="button_back" class="context" name="back" type="submit">
 #.       </input></input>
-#.   <input attributes="name
-#.         string:changeDisplayParams:method" value="button_change" class="standalone" type="submit" />
+#.   <input value="button_change" class="standalone" type="submit" name="changeDisplayParams:method">
+#.     </input>
 #.   <input value="button_change" class="standalone" type="submit">
 #.       </input>
 #.   <input value="button_change" class="standalone" name="change" type="submit">
@@ -179,6 +182,10 @@ msgstr ""
 msgid "button_change"
 msgstr ""
 
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
+#.         <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
+#.         <input value="button_back" class="context" name="back" type="submit">
+#.       </input></input></input>
 #.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #.           <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.         </input></input>
@@ -188,7 +195,8 @@ msgstr ""
 #.   <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #.         <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #.       </input></input>
-#: from ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_edit"
@@ -206,7 +214,8 @@ msgstr ""
 msgid "button_change_and_view"
 msgstr ""
 
-#.   <input value="button_copy" class="context" name="folder_copy:method" type="submit" />
+#.   <input value="button_copy" class="context" name="folder_copy:method" type="submit">
+#.         </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr ""
@@ -216,25 +225,23 @@ msgstr ""
 msgid "button_create_box"
 msgstr ""
 
-#.   <input value="button_cut" class="context" name="folder_cut:method" type="submit" />
+#.   <input value="button_cut" class="context" name="folder_cut:method" type="submit">
+#.           <input value="button_copy" class="context" name="folder_copy:method" type="submit">
+#.         </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr ""
 
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.             (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#.           <block define="params here/getDisplayParams;
-#.                                  sort_by params/sort_by;
-#.                                  direction params/direction;
-#.                                  format params/format;
-#.                                  isWsManager
-#.         python:mtool.checkPermission('View management screens', here);" condition="python:isWsManager and sort_by is None">
-#.             <br />
-#.           <input value="button_move_up" class="context" type="submit" name="moveItemsUp:method" />
-#.           <input value="button_move_down" class="context" type="submit" name="moveItemsDown:method" />
-#.           <input value="button_move_top" class="context" type="submit" name="moveItemsTop:method" />
-#.           <input value="button_move_bottom" class="context" type="submit" name="moveItemsBottom:method" />
-#.           </block>
+#.           <block define="isWsManager python:mtool.checkPermission('View management screens', here);" condition="python:isWsManager and sort_by is None">
+#.   
+#.             <br>
+#.             <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
+#.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
+#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
+#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
+#.           </input></input></input></input></br></block>
 #.         </input>
 #.   <input value="button_delete" type="submit" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -242,27 +249,38 @@ msgstr ""
 msgid "button_delete"
 msgstr ""
 
-#.   <input value="button_login" class="standalone" name="submit" type="submit" />
+#.   <input value="button_login" class="standalone" name="submit" type="submit">
+#.         </input>
 #: from ../skins/cps_default/login_form.pt
 msgid "button_login"
 msgstr ""
 
-#.   <input value="button_move_bottom" class="context" type="submit" name="moveItemsBottom:method" />
+#.   <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
+#.           </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr ""
 
-#.   <input value="button_move_down" class="context" type="submit" name="moveItemsDown:method" />
+#.   <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
+#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
+#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
+#.           </input></input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr ""
 
-#.   <input value="button_move_top" class="context" type="submit" name="moveItemsTop:method" />
+#.   <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
+#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
+#.           </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr ""
 
-#.   <input value="button_move_up" class="context" type="submit" name="moveItemsUp:method" />
+#.   <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
+#.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
+#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
+#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
+#.           </input></input></input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr ""
@@ -288,7 +306,8 @@ msgstr ""
 msgid "button_ok"
 msgstr ""
 
-#.   <input value="button_paste" class="context" name="folder_paste:method" type="submit" />
+#.   <input value="button_paste" class="context" name="folder_paste:method" type="submit">
+#.         </input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr ""
@@ -303,7 +322,8 @@ msgstr ""
 msgid "button_publish"
 msgstr ""
 
-#.   <input value="button_register" class="standalone" name="submit" type="submit" />
+#.   <input value="button_register" class="standalone" name="submit" type="submit">
+#.           </input>
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr ""
@@ -318,18 +338,14 @@ msgstr ""
 #.   <input value="button_rename" class="context" name="folder_rename_form:method" type="submit">
 #.           <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.             (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#.           <block define="params here/getDisplayParams;
-#.                                  sort_by params/sort_by;
-#.                                  direction params/direction;
-#.                                  format params/format;
-#.                                  isWsManager
-#.         python:mtool.checkPermission('View management screens', here);" condition="python:isWsManager and sort_by is None">
-#.             <br />
-#.           <input value="button_move_up" class="context" type="submit" name="moveItemsUp:method" />
-#.           <input value="button_move_down" class="context" type="submit" name="moveItemsDown:method" />
-#.           <input value="button_move_top" class="context" type="submit" name="moveItemsTop:method" />
-#.           <input value="button_move_bottom" class="context" type="submit" name="moveItemsBottom:method" />
-#.           </block>
+#.           <block define="isWsManager python:mtool.checkPermission('View management screens', here);" condition="python:isWsManager and sort_by is None">
+#.   
+#.             <br>
+#.             <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
+#.             <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
+#.             <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
+#.             <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
+#.           </input></input></input></input></br></block>
 #.         </input></input>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
@@ -370,43 +386,45 @@ msgid "by ${history_actor}: ${history_comments}"
 msgstr ""
 
 #.   <span>
-#.         You are already a member. You may use the
-#.       </span>
+#.           You are already a member. You may use the
+#.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_1"
 msgstr ""
 
 #.   <span>
-#.          to change your membership information.
-#.       </span>
+#.           to change your membership information.
+#.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr ""
 
 #.   <span>
-#.            You are not currently logged in.  Your username
-#.            and or password may be incorrect.  Your browser may also not be
-#.            configured to accept HTTP cookies.  If you need help please contact
-#.      </span>
+#.           You are not currently logged in. Your username and or password may be
+#.           incorrect. Your browser may also not be configured to accept HTTP
+#.           cookies. If you need help please contact
+#.         </span>
 #: from ../skins/cps_default/logged_in.pt
 msgid "description_login_failure"
 msgstr ""
 
 #.   <p>
-#.          Welcome. You are currently logged in.
-#.       </p>
+#.            Welcome. You are currently logged in.
+#.         </p>
 #: from ../skins/cps_default/logged_in.pt
 msgid "description_login_success"
 msgstr ""
 
-#.   <span content="string:You have been logged out." />
+#.   <p condition="here/portal_membership/isAnonymousUser">
+#.       You have been logged out.
+#.     </p>
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_success"
 msgstr ""
 
 #.   <span>
 #.         You are logged in outside the portal.  You may need to
-#.   </span>
+#.       </span>
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_zmi_warning"
 msgstr ""
@@ -521,7 +539,7 @@ msgstr ""
 msgid "heading_login_failure"
 msgstr ""
 
-#.   <h2>Log in</h2>
+#.   <h1>Log in</h1>
 #: from ../skins/cps_default/login_form.pt
 msgid "heading_login_form"
 msgstr ""
@@ -603,7 +621,7 @@ msgstr ""
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
 #.         and participate in the community.
-#.     </p>
+#.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
 msgstr ""
@@ -616,17 +634,17 @@ msgid "help_join_form_2"
 msgstr ""
 
 #.   <span>
-#.         You must submit a valid email address. This address will be used
-#.         to send you a randomly-generated password.  Once you have logged
-#.         in with this password, you may change it to anything you like.
-#.       </span>
+#.           You must submit a valid email address. This address will be used
+#.           to send you a randomly-generated password.  Once you have logged
+#.           in with this password, you may change it to anything you like.
+#.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
 
 #.   <p>
-#.      Don't forget to logout or exit your browser when you're done.
-#.   </p>
+#.       Don't forget to logout or exit your browser when you're done.
+#.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_aware_logout"
 msgstr ""
@@ -634,7 +652,7 @@ msgstr ""
 #.   <p>
 #.       Having trouble logging in? Make sure to enable cookies in
 #.       your web browser.
-#.   </p>
+#.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
 msgstr ""
@@ -662,19 +680,12 @@ msgstr ""
 msgid "help_no_items_to_rename"
 msgstr ""
 
-#.   <span>
-#.                Check this box to have your password
-#.                mailed to you.
-#.             </span>
+#.   <em>
+#.                   Check this box to have your password
+#.                   mailed to you.
+#.                 </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
-msgstr ""
-
-#.   <span>
-#.            Your password must contain at least 5 characters.
-#.          </span>
-#: from ../skins/cps_default/join_form.pt
-msgid "help_password_requirement"
 msgstr ""
 
 #.   <span>
@@ -696,7 +707,7 @@ msgstr ""
 #.       Setting the 'Remember my name' option will set a cookie with your
 #.       username, so that when you next log in, your user name will already
 #.       be filled in for you.
-#.   </p>
+#.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
 msgstr ""
@@ -813,7 +824,7 @@ msgstr ""
 msgid "label_compact"
 msgstr ""
 
-#.   <label>zoom</label>
+#.   <label for="cb_zoom">zoom</label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_contentbox_zoom"
 msgstr ""
@@ -846,6 +857,19 @@ msgstr ""
 #.         </option>
 #: from ../skins/cps_default/folder_contents.pt
 msgid "label_date_desc"
+msgstr ""
+
+#.   <option attributes="selected python:box['box'].sort_by is None" value="None">
+#.             Default
+#.           </option>
+#.   <option attributes="selected python:box['box'].direction is None" value="None">
+#.             Default
+#.           </option>
+#.   <option attributes="selected python:box['box'].display is None" value="None">
+#.             Default
+#.           </option>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_default"
 msgstr ""
 
 #.   <th align="right">Depth</th>
@@ -1163,9 +1187,11 @@ msgstr ""
 msgid "label_published"
 msgstr ""
 
-#.   <span>
-#.         <label for="cb_remember">Remember my name.</label>
-#.   </span>
+#.   <label for="cb_remember">
+#.             <em>
+#.               Remember my name.
+#.             </em>
+#.           </label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr ""
@@ -1278,7 +1304,7 @@ msgstr ""
 msgid "label_smtp_server"
 msgstr ""
 
-#.   <option attributes="selected python:box['box'].direction != 'desc'" value="asc">asc</option>
+#.   <option attributes="selected python:box['box'].direction == 'asc'" value="asc">asc</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_sort_asc"
 msgstr ""
@@ -1290,17 +1316,23 @@ msgstr ""
 msgid "label_sort_by"
 msgstr ""
 
-#.   <option attributes="selected python:box['box'].sort_by == 'date'" value="date">date</option>
+#.   <option attributes="selected python:box['box'].sort_by == 'date'" value="date">
+#.             date
+#.           </option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_sort_by_date"
 msgstr ""
 
-#.   <option attributes="selected python:box['box'].sort_by == 'status'" value="status">status</option>
+#.   <option attributes="selected python:box['box'].sort_by == 'status'" value="status">
+#.             status
+#.           </option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_sort_by_status"
 msgstr ""
 
-#.   <option attributes="selected python:box['box'].sort_by == 'title'" value="title">title</option>
+#.   <option attributes="selected python:box['box'].sort_by == 'title'" value="title">
+#.             title
+#.           </option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_sort_by_title"
 msgstr ""
@@ -1342,12 +1374,15 @@ msgid "label_subject"
 msgstr ""
 
 #.   <th align="right">Title</th>
+#.   <strong>Title:</strong>
 #.   <div class="label required">
 #.           Title
 #.         </div>
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
+#: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -1512,14 +1547,14 @@ msgid "link_box_view"
 msgstr ""
 
 #.   <span>
-#.         I forgot my password!
-#.       </span>
+#.           I forgot my password!
+#.         </span>
 #: from ../skins/cps_default/login_form.pt
 msgid "link_forgot_password"
 msgstr ""
 
 #.   <span>
-#.            personalization form
+#.             personalization form
 #.           </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "link_form_already_member"
@@ -1538,9 +1573,9 @@ msgstr ""
 msgid "link_local_roles_underlined"
 msgstr ""
 
-#.   <span>
-#.            log out of the Zope management interface
-#.      </span>
+#.   <a href="/manage_zmi_logout">
+#.         log out of the Zope management interface
+#.       </a>
 #: from ../skins/cps_default/logged_out.pt
 msgid "link_logout_zmi"
 msgstr ""
@@ -1755,6 +1790,9 @@ msgid "action_local_roles"
 msgstr ""
 
 msgid "action_metadata"
+msgstr ""
+
+msgid "action_modify"
 msgstr ""
 
 msgid "action_submit"
@@ -1985,10 +2023,19 @@ msgstr ""
 msgid "psm_entry_modified"
 msgstr ""
 
+msgid "psm_item(s)_copied"
+msgstr ""
+
 msgid "psm_item(s)_cut"
 msgstr ""
 
 msgid "psm_item(s)_pasted"
+msgstr ""
+
+msgid "psm_item(s)_deleted"
+msgstr ""
+
+msgid "psm_item(s)_renamed"
 msgstr ""
 
 msgid "psm_operation_not_allowed"
@@ -2006,7 +2053,19 @@ msgstr ""
 msgid "psm_local_roles_changed"
 msgstr ""
 
-msgid "psm_object_copied"
+msgid "psm_join_password_too_short"
+msgstr ""
+
+msgid "psm_join_password_mismatch"
+msgstr ""
+
+msgid "psm_join_invalid_name"
+msgstr ""
+
+msgid "psm_join_login_already_used"
+msgstr ""
+
+msgid "psm_join_invalid_email"
 msgstr ""
 
 # dates ===================================================

@@ -34,6 +34,7 @@ status_sort_order={'nostate':'0',
                    'work':'3',
                    }
 
+# XXX these methods should return a tuple and not some half-baked string.
 def id_sortkey(a):
     return str(not a.isPrincipiaFolderish) + \
            a.getId()

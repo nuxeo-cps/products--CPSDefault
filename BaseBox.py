@@ -269,7 +269,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             'Cannot find %s action for "%s"' %
             (actionid, self.absolute_url(relative=1)))
 
-    security.declareProtected(View, 'getMacro')
+    security.declarePublic('getMacro')
     def getMacro(self, style=None):
         """
         GetMacros to render the box.
@@ -285,7 +285,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             style = self.style
         return 'here/%s/macros/%s' % (template_name, style)
 
-    security.declareProtected(View, 'render')
+    security.declarePublic('render')
     def render(self, **kw):
         """
         Renders the box.

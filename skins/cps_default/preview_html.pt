@@ -10,6 +10,9 @@
       <base href="" tal:attributes="href python:'%s/preview_html?file=%s&amp;file_html=%s' % (here_url, file_name, file_html_name)" />
     </metal:block>
 
+    <metal:block fill-slot="header">
+    </metal:block>
+
     <metal:block fill-slot="main"
       tal:define="
       getHtmlBody nocall:modules/Products.CPSDefault.utils/getHtmlBody;

@@ -2,15 +2,43 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="here/main_template/macros/master"
 >
-<body>
-<div metal:fill-slot="main">
-
-<tal:block define="items python:here.search(query={'SearchableText':request.get('SearchableText','')}, sort_by='status');
-                   format string:compact;
-                   columns python:2;
-                   items_per_page python:15">
-  <metal:block use-macro="here/content_lib/macros/display_contents" />
-</tal:block>
-</div>
-</body>
+  <body>
+    <div metal:fill-slot="main">
+      
+      <tal:block define="items python:here.search(query={'SearchableText':request.get('SearchableText','')}, sort_by='status');
+                         format string:compact;
+                         columns python:2;
+                         items_per_page python:15;
+                         no_form python:1;">
+        
+        <div>
+          <form method="get" action="/search"
+            tal:attributes="action string:${portal_url}/search_form">
+            &nbsp;<a href="/search_form"
+              tal:attributes="href string:${portal_url}/advanced_search_form">
+              Advanced search
+            </a>
+            <br/>
+            <input id="searchGadget" type="text" name="SearchableText" size="64"
+              value="" tal:attributes="value request/SearchableText|nothing" />
+            <input class="context searchButton" type="submit" value="OK" />
+          </form><br/>
+        </div>
+        <div tal:define="items_length python:len(items)">
+          Votre requête '<span class="emphasys" tal:content="request/SearchableText">Query</span>' 
+          <tal:block condition="python:items_length == 0"> 
+            n'a donné <span class="emphasys">aucune</span> réponse.
+          </tal:block>
+          <tal:block condition="python:items_length == 1"> 
+            a donné <span class="emphasys">1</span> réponse.
+          </tal:block>
+          <tal:block condition="python:items_length > 1"> 
+            a donné <span class="emphasys" tal:content="items_length">number</span> réponses.
+          </tal:block>
+        </div>
+        <hr />
+        <metal:block use-macro="here/content_lib/macros/display_contents" />
+      </tal:block>
+    </div>
+  </body>
 </html>

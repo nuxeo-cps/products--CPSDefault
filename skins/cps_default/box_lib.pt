@@ -138,6 +138,14 @@
   string:${base_url}${box/url}/maximize?goto=${context_url}">
   <img tal:replace="structure python:here.getImgTag('maximize.gif',
                                                     base_url=base_url)">
-  <tal:block replace="box/box/title" />&nbsp;
+  <tal:block tal:condition="python:box['box'].category != 'actionbox' or
+                            box['box'].btype != 'user'" i18n:translate=""
+             tal:content="box/box/title">Title</tal:block>
+  <tal:block tal:condition="python:box['box'].category == 'actionbox' and
+                            box['box'].btype == 'user'"
+             tal:define="directory here/portal_directories/members;
+                         entry python:not isAnon and directory.getEntry(uname, default=None)"
+             tal:content="python:entry and entry.get('fullname', uname) or uname"
+             tal:omit-tag="not:entry">Title</tal:block>&nbsp;
 </a>
 </metal:block>

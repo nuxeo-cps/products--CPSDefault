@@ -992,7 +992,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                         TRANSITION_BEHAVIOR_FREEZE,
                                         TRANSITION_BEHAVIOR_MERGE),
                 'clone_allowed_transitions': None,
-                'after_script_name': 'mail_notification',
+                'after_script_name': '',
                 'props': {'guard_permissions': '',
                           'guard_roles': 'Manager; SectionManager; '
                                          'SectionReviewer',
@@ -1020,7 +1020,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'transition_behavior': (TRANSITION_INITIAL_PUBLISHING,
                                         TRANSITION_BEHAVIOR_FREEZE),
                 'clone_allowed_transitions': None,
-                'after_script_name': 'mail_notification',
+                'after_script_name': '',
                 'actbox_name': '',
                 'actbox_category': '',
                 'actbox_url': '',
@@ -1033,7 +1033,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'new_state_id': 'published',
                 'transition_behavior': (TRANSITION_BEHAVIOR_MERGE,),
                 'clone_allowed_transitions': None,
-                'after_script_name': 'mail_notification',
+                'after_script_name': '',
                 'trigger_type': TRIGGER_USER_ACTION,
                 'actbox_name': 'action_accept',
                 'actbox_category': 'workflow',
@@ -1085,21 +1085,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         }
 
         wfscripts = {
-            'mail_notification': {
-                '_owner': None,
-                'script': """\
-##parameters=state_change
-object = state_change.object
-dest_container = state_change.kwargs.get('dest_container', '')
-
-try:
-    # Mailing Lists package in here
-    object.sendmail_after_transition(destination = dest_container)
-except:
-    # No mailing list package in here.
-    pass
-"""
-            },
         }
 
         wfvariables = {

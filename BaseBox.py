@@ -208,7 +208,6 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         if self.guard is not None:
             return self.guard
         else:
-            from Products.DCWorkflow.Guard import Guard
             return Guard().__of__(self)  # Create a temporary guard.
 
     security.declarePrivate('callAction')

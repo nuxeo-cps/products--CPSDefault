@@ -29,4 +29,4 @@ report:
 	echo "Annotated files saved in cover/*.py,cover"
 
 clean:
-	rm -rf *.pyc *~ cover
+	rm -rf *.pyc *~ cover .coverage

@@ -37,6 +37,7 @@ import ActionBox
 import ImageBox
 import FlashBox
 import EventCalendarBox
+import InternalLinksBox
 
 import utils
 
@@ -47,14 +48,14 @@ contentClasses = (Folder.Folder, Dummy.Dummy,
                   TextBox.TextBox, TreeBox.TreeBox,
                   ContentBox.ContentBox, ActionBox.ActionBox,
                   ImageBox.ImageBox,FlashBox.FlashBox,
-                  EventCalendarBox.EventCalendarBox,)
+                  EventCalendarBox.EventCalendarBox, InternalLinksBox.InternalLinksBox)
 
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
                        BaseBox.addBaseBox,
                        TextBox.addTextBox, TreeBox.addTreeBox,
                        ContentBox.addContentBox, ActionBox.addActionBox,
                        ImageBox.addImageBox,FlashBox.addFlashBox,
-                       EventCalendarBox.addEventCalendarBox,)
+                       EventCalendarBox.addEventCalendarBox,InternalLinksBox.addInternalLinksBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
@@ -66,6 +67,7 @@ fti = (Folder.factory_type_information +
        ImageBox.factory_type_information +
        FlashBox.factory_type_information +
        EventCalendarBox.factory_type_information +
+       InternalLinksBox.factory_type_information +
        ()
        )
 

@@ -61,10 +61,11 @@ class ActionBox(BaseBox):
         self.categories = categories
 
     security.declarePublic('getActions')
-    def getActions(self, context):
+    def getActions(self, context, actions=None):
         """ return actions that belong to self.categories """
-        atool = getToolByName(self, 'portal_actions')
-        actions = atool.listFilteredActionsFor(context)
+        if not actions:
+            atool = getToolByName(self, 'portal_actions')
+            actions = atool.listFilteredActionsFor(context)
 
         categories = all_categories = actions.keys()
         if self.categories:

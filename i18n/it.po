@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
-"POT-Creation-Date: 2004-02-20 09:46default\n"
+"POT-Creation-Date: 2004-02-25 23:41default\n"
 "PO-Revision-Date: 2004-02-18 11:03+0100\n"
 "Last-Translator: Paolo Dina <paolo@php3.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -104,6 +104,12 @@ msgstr "Role1"
 #: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
 msgstr "Alloggiamento"
+
+#.   <block condition="python:box['box'].category != 'actionbox' or
+#.                               box['box'].btype != 'user'" content="box/box/title">Title</block>
+#: from ../skins/cps_default/box_lib.pt
+msgid "Title"
+msgstr ""
 
 #.   <div define="portal_status_message portal_status_message |
 #.                                          request/portal_status_message |
@@ -343,6 +349,8 @@ msgstr "Annulla"
 #.         <input value="button_back" class="context" name="back" type="submit">
 #.       </input></input>
 #.   <input value="button_change" class="standalone" type="submit">
+#.         </input>
+#.   <input value="button_change" class="standalone" type="submit">
 #.       </input>
 #.   <input value="button_change" class="standalone" name="change" type="submit">
 #.         <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
@@ -352,6 +360,7 @@ msgstr "Annulla"
 #.       <input onclick="history.back()" type="button" value="button_cancel">
 #.     </input></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 #: ../skins/cps_default/reconfig_form.pt
@@ -474,8 +483,6 @@ msgstr "Sposta in alto"
 #.                                                     nav_action + ':method')" value="button_ok" type="submit">
 #.           <block replace="structure string:
 #.           </form>" condition="no_form" />
-#.         </input>
-#.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.   
@@ -868,7 +875,7 @@ msgstr "Successo!"
 msgid "heading_reject_publication_of ${item_id}"
 msgstr "Rifiuta pubblicazione di "
 
-#.   <h2>Rename Items</h2>
+#.   <h1>Rename Items</h1>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "heading_rename_items"
 msgstr "Rinomina elemento"
@@ -1121,9 +1128,9 @@ msgstr ""
 "il tuo nome utente venga memorizzato sul tuo computer, cosicché al prossimo "
 "accesso farai a meno di specificarlo nuovamente."
 
-#.   <em>Changing the id of an object does not
+#.   <div class="description">Changing the id of an object does not
 #.   affect its title but changes the URL to access it. Links that point to the
-#.   current id won't find it anymore.</em>
+#.   current id won't find it anymore.</div>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
 msgstr ""
@@ -2280,6 +2287,10 @@ msgstr "Elenchi"
 
 msgid "expired"
 msgstr "scade dopo "
+
+#, fuzzy
+msgid "Folder actions"
+msgstr "Azioni relative al portale"
 
 msgid "Join"
 msgstr "Iscriviti"

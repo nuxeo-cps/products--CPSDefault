@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"POT-Creation-Date: 2004-02-20 09:46default\n"
+"POT-Creation-Date: 2004-02-25 23:41default\n"
 "PO-Revision-Date: 2004-02-13 13:14+0100\n"
 "Last-Translator: Koen Adriaensen <koen.adriaensen@cgey.be>\n"
 "Language-Team: francais <fr@li.org>\n"
@@ -100,6 +100,12 @@ msgstr "Rol1"
 #: ../skins/cps_default/box_manage_form.pt
 msgid "Slot"
 msgstr "Positie"
+
+#.   <block condition="python:box['box'].category != 'actionbox' or
+#.                               box['box'].btype != 'user'" content="box/box/title">Title</block>
+#: from ../skins/cps_default/box_lib.pt
+msgid "Title"
+msgstr ""
 
 #.   <div define="portal_status_message portal_status_message |
 #.                                          request/portal_status_message |
@@ -316,6 +322,8 @@ msgstr "Annuleren"
 #.         <input value="button_back" class="context" name="back" type="submit">
 #.       </input></input>
 #.   <input value="button_change" class="standalone" type="submit">
+#.         </input>
+#.   <input value="button_change" class="standalone" type="submit">
 #.       </input>
 #.   <input value="button_change" class="standalone" name="change" type="submit">
 #.         <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
@@ -325,6 +333,7 @@ msgstr "Annuleren"
 #.       <input onclick="history.back()" type="button" value="button_cancel">
 #.     </input></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 #: ../skins/cps_default/reconfig_form.pt
@@ -447,8 +456,6 @@ msgstr "Hoger plaatsen"
 #.                                                     nav_action + ':method')" value="button_ok" type="submit">
 #.           <block replace="structure string:
 #.           </form>" condition="no_form" />
-#.         </input>
-#.   <input value="button_ok" type="submit">
 #.         </input>
 #.   <input onclick="history.back()" type="button" value="button_ok">
 #.   
@@ -840,7 +847,7 @@ msgstr "Succes&nbsp;!"
 msgid "heading_reject_publication_of ${item_id}"
 msgstr "De publicatie van ${item_id} weigeren"
 
-#.   <h2>Rename Items</h2>
+#.   <h1>Rename Items</h1>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "heading_rename_items"
 msgstr "Items een andere naam geven"
@@ -1078,9 +1085,9 @@ msgstr ""
 "gebruikersnaam aanmaken, zodat uw gebruikersnaam bij de volgende registratie "
 "reeds zal zijn ingevuld."
 
-#.   <em>Changing the id of an object does not
+#.   <div class="description">Changing the id of an object does not
 #.   affect its title but changes the URL to access it. Links that point to the
-#.   current id won't find it anymore.</em>
+#.   current id won't find it anymore.</div>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
 msgstr "Items een andere naam geven"
@@ -2230,6 +2237,10 @@ msgstr "Folders"
 
 msgid "expired"
 msgstr "Verlopen"
+
+#, fuzzy
+msgid "Folder actions"
+msgstr "Activiteiten aan het portaal"
 
 msgid "Join"
 msgstr "Zich inschrijven"

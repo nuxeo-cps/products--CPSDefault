@@ -207,6 +207,8 @@ def cpsupdate(self, langs_list=None):
         'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
         'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
     }
+    skins_to_delete = ('calendar', 'zpt_calendar')
+
     for skin in skins:
         path = paths[skin]
         path = path.replace('/', os.sep)
@@ -248,6 +250,12 @@ def cpsupdate(self, langs_list=None):
         npath = ', '.join(path)
         portal.portal_skins.addSkinSelection(skin_name, npath)
         pr(" Fixup of skin %s" % skin_name)
+
+    # Delete useless skin (they get in the way of object creation).
+    for skin in skins_to_delete:
+        if skin in portal.portal_skins.objectIds():
+            portal.portal_skins._delObject(skin)
+
     pr(" Resetting skin cache")
     portal._v_skindata = None
     portal.setupCurrentSkin()

@@ -35,6 +35,9 @@ ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getNonArchivedVer
 html_body_regexp = re.compile('.*<html.*?>.*<body.*?>(.*)</body>.*</html>.*',
                               re.DOTALL)
 
+strip_attributes_regexp = re.compile('xml:lang=".*?"\s?',
+                                     re.DOTALL)
+
 # This regexp is for path of the following forms :
 # /cps/workspaces/cores/myDoc/view
 # /cps/workspaces/cores/myDoc/archivedRevision/1/view
@@ -50,6 +53,7 @@ def getHtmlBody(html_content):
     # This has the effect of getting the content of the <body> tag of an HTML
     # document.
     html_body = re.sub(html_body_regexp, r'\1', html_content)
+    html_body = re.sub(strip_attributes_regexp, '', html_body)
     
     return html_body
 

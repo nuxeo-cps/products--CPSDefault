@@ -73,6 +73,8 @@ class TreeBox(BaseBox):
          'label': 'display children only'},
         {'id': 'authorized_only', 'type': 'boolean', 'mode': 'w',
          'label': 'display authorized content only'},
+        {'id': 'display_hidden_folder', 'type': 'boolean', 'mode': 'w',
+         'label': 'Display folder with hidden properties'},
         {'id': 'display_managers', 'type': 'boolean', 'mode': 'w',
          'label': 'display managers'},
         {'id': 'display_description', 'type': 'boolean', 'mode': 'w',
@@ -86,6 +88,7 @@ class TreeBox(BaseBox):
     display_managers = 0
     display_description = 0
     display_icons = 1
+    display_hidden_folder = 0
     authorized_only = 1
     show_root = 1
 
@@ -172,7 +175,6 @@ class TreeBox(BaseBox):
                     parents_len.append(len(url.split('/'))+1)
 
             rpath_len_max = len(current_path) + 2
-            current_url += '/'
             items = []
             for item in tree:
                 rpath = item['rpath'] + '/'
@@ -189,6 +191,25 @@ class TreeBox(BaseBox):
                         break
 
             tree = items
+
+        # now remove hidden_folder that are not in the current path
+        if not self.display_hidden_folder:
+            cur_url = current_url + '/'
+            hidden = [item for item in tree if item.get('hidden_folder')]
+            if hidden:
+                hidden = [item for item in hidden \
+                          if not cur_url.startswith(item['rpath'] + '/')]
+            if hidden:
+                items = []
+                for item in tree:
+                    is_hidden = 0
+                    for h in hidden:
+                        if (item['rpath'] + '/').startswith(h['rpath'] + '/'):
+                            is_hidden = 1
+                            break
+                    if not is_hidden:
+                        items.append(item)
+                tree = items
 
         return tree
 

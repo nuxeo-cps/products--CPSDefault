@@ -6,7 +6,7 @@ Make available a new language in a CPS portal with Localizer
 
 # FIXME: localizergeddon
 
-from Products.CPSCore.utils import manageCPSLanguage
+from Products.CPSDefault.utils import manageCPSLanguage
 
 request = context.REQUEST
 context_url = context.portal_url.getPortalObject().absolute_url()

@@ -27,7 +27,12 @@ from Products.CMFCore.utils import getToolByName
 from Products.DCWorkflow.Guard import Guard
 
 def createExpressionContext(sm, box, context):
-    """Create a name space for TALES expressions."""
+    """Create a name space for TALES expressions.
+       
+    @param sm: SecurityManager instance
+    @param box: Box instance
+    @param context: Zope context (which object is being published)
+    """
     portal = getToolByName(context, 'portal_url').getPortalObject()
     data = {
         'box': box,
@@ -40,9 +45,15 @@ def createExpressionContext(sm, box, context):
     return getEngine().getContext(data)
 
 class BoxGuard(Guard):
-    """DCWorkflow Guard with a box-specific name space."""
+    """DCWorkflow Guard with a box-specific name space.
+    """
     def check(self, sm, box, context):
-        """Checks conditions in this guard."""
+        """Checks conditions in this guard.
+        
+        @param sm: SecurityManager instance
+        @param box: Box instance
+        @param context: Zope context (which object is being published)
+        """
         pp = self.permissions
         if pp:
             found = 0

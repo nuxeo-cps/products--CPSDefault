@@ -13,7 +13,9 @@ portal = context.portal_url.getPortalObject()
 allowed_transitions = wftool.getAllowedPublishingTransitions(context)
 for transition in allowed_transitions:
     rpaths=kw.get(transition)
-    if rpaths: # XXX fix if it is not a list !
+    if rpaths: 
+        if same_type(rpaths, ''):
+            rpaths = (rpaths,)
         for rpath in rpaths:
             context.portal_workflow.doActionFor(context, publish_transition,
                                                 dest_container=rpath,

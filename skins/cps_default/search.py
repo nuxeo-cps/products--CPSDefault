@@ -1,7 +1,9 @@
 ## Script (Python) "search"
-##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None
+##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None
 # $Id$
 """ return a list of proxy matching the query """
+
+from zLOG import LOG, DEBUG
 
 if REQUEST is not None:
     query.update(REQUEST.form)
@@ -49,6 +51,7 @@ for b_doc in b_docs:
     i_proxies = ptool.getProxiesFromObjectId(doc_id)
     for i_proxy in i_proxies:
         proxy = i_proxy['object']
+        
         # prevent zcatalog desynchronization ??
         try:
             title = proxy.Title()
@@ -60,9 +63,20 @@ for b_doc in b_docs:
             continue
 
         # status filtering
-        if status and \
-               wtool.getInfoFor(proxy, 'review_state','nostate') != status:
+        if (status and
+            wtool.getInfoFor(proxy, 'review_state','nostate') != status):
             continue
+
+        if start_date and end_date:
+            doc = proxy.getContent()
+            sd = doc.start()
+            ed = doc.end()
+            # start/end date filtering
+            if sd-end_date > 0 or start_date-ed > 0:
+                #if doc's start date is after range's end date,
+                #or doc's end date is before range's start date
+                #discard this document
+                continue
 
         items.append(proxy)
 

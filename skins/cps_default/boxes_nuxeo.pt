@@ -275,7 +275,7 @@
   </metal:block>
 </metal:block>
 
-      
+
 <!-- ============================================================ -->
 <metal:block define-macro="contentbox_last_modified">
   <metal:block use-macro="here/boxes_nuxeo/macros/contentbox_default" />
@@ -310,6 +310,13 @@
        <div tal:condition="link_more">
          <a href="" tal:attributes="href link_more"
            i18n:translate="link_more">More ...</a>
+       </div>
+       <div class="rssExport">
+         <a tal:attributes="href
+          string:exportRSSContentBox?box_url=${box/url}"
+          title="label_export_rss"
+          i18n:attributes="title"
+          i18n:translate="link_export_rss">RSS</a>
        </div>
     </metal:block>
   </metal:block>

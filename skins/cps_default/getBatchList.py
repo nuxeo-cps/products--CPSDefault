@@ -14,34 +14,41 @@ from ZTUtils import Batch
 # First constructing the batch
 #
 
-batches = []
+len_items = len(items)
+
+# desperately empty, no need to go further
+if not len_items:
+    return [], {}, []
+
+b_start = int(context.REQUEST.get('b_start', 0))
+
+# extract the n first items in a zoomed list
+zoomed = []
+if not b_start and zoom:
+    zoom = int(zoom)
+    zoomed = Batch(items[:zoom], zoom, 0)
+    n = len_items - zoom
+    # deal with items left
+    items = items[zoom:]
 
 items_per_page = float(items_per_page)
 size = int(ceil(items_per_page / columns))
 
-b_start = int(context.REQUEST.get('b_start', 0))
-
 b1 = Batch(items, size, b_start, orphan=0)
-empty_batch = Batch( [], 1, 1)
+batches = [b1]
 
-batches.append(b1)
 b_next = b1
 for c in range(columns - 1):
     if b_next.next:
         b_next = b_next.next
         batches.append(b_next)
-    else:
-        batches.append(empty_batch)
 
 #
 # Now the page results parameters
 #
 
-if len(items) == 0:
-    return batches, {}, []
-
 # Calculate the number of pages
-nb_pages = len(items) / items_per_page
+nb_pages = len_items / items_per_page
 if not same_type(nb_pages, 1) and nb_pages > 1:
     nb_pages = int(nb_pages) + 1
 
@@ -50,13 +57,13 @@ items_per_page = int(items_per_page)
 
 # Test if we are on the last page
 limit = b_start + items_per_page
-if  limit > len(items):
-    limit = len(items)
+if  limit > len_items:
+    limit = len_items
 
 batch_info = {'nb_pages': nb_pages,
               'start': b_start + 1,
               'limit': limit,
-              'length': len(items),
+              'length': len_items,
               'previous': None,
               'next': None,
                  }
@@ -85,14 +92,5 @@ if current[0] > 1:
 # Adding the next link if we are not at the end of the list
 if current[0] != nb_pages:
     batch_info['next'] = current[1] + items_per_page
-
-zoomed = None
-if b_start == 0 and zoom:
-    zoom = int(zoom)
-    zoomed = Batch(items[:zoom], zoom, 0)
-    n = len(batches[0])
-    batches[0] = []
-    if n > zoom:
-        batches[0] = Batch(items[zoom:n], n, 0)
 
 return batches, batch_info, zoomed

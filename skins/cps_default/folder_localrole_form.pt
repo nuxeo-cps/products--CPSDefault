@@ -276,10 +276,11 @@
       </tr>
       <tal:block define="users python:[x for x in roles.keys() if x.split(':')[0]==type]">   
         <tal:block repeat="user users">
+          <tal:block define="haslrhere python:user in editable_user">
+          <tal:block condition="python:haslrhere or not local_roles_blocked">
           <tr tal:define="input_id python:user.replace('@', '_at_')"
               tal:attributes="class python:test(repeat['user'].even(), 
                                                 'even', 'odd')">
-          <tal:block define="haslrhere python:user in editable_user">
             <tal:block condition="haslrhere">
               <td width="1%" style="text-align:right;">
                 <input type="checkbox" class="noborder"
@@ -292,7 +293,6 @@
             <tal:block condition="not:haslrhere">
               <td width="3%">&nbsp;</td>
             </tal:block>
-          </tal:block>
           <td width="40%">
           <tal:block define="anuser python:user.split(':', 1)[1]">
             <label tal:content="python:test(anuser.startswith('role:'),
@@ -306,7 +306,7 @@
           <tal:block repeat="item python:roles[user]">
             <tal:block repeat="roleElt python:item['roles']">
               <tal:block define="ishere python:base_url+item['url']==context_url">
-                <tal:block condition="not:ishere">
+                <tal:block condition="python:not ishere and not local_roles_blocked">
                   <a href="" tal:attributes="href string:${base_url}${item/url}/folder_localrole_form">
                     <span i18n:translate="" tal:content="python:roleElt" />
                   </a>
@@ -322,7 +322,9 @@
             </tal:block>
             </td>
           </tr>
+          </tal:block>
         </tal:block>
+      </tal:block>
       </tal:block>
       <tr tal:condition="nothing">
         <td width="16">

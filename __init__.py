@@ -134,7 +134,7 @@ def initialize(context):
                           constructors=(BoxesTool.addBoxContainer,))
 
     if has_profile_registry:
-        profile_registry.registerProfile('default',
+        profile_registry.registerProfile('cpsdefault', # XXX 'default'
                                          'CPS Default Site',
                                          'Profile for a default CPS site.',
                                          'profiles/default',

@@ -61,7 +61,6 @@ search_param == 'email')"
 <h2 i18n:translate="heading_local_roles_search_results">
     Assign local roles: Search Results
 </h2>
-
 <div tal:condition="found">
 
  <p i18n:translate="legend_local_roles_select_members_and_roles">
@@ -89,7 +88,7 @@ search_param == 'email')"
     <td width="16">
      <input type="checkbox" name="member_ids:list"
             value=""
-            tal:attributes="value string:user:${member/fullname}" />
+            tal:attributes="value string:user:${member/id_}" />
     </td>
     <td tal:content="string:user:${member/fullname}"> Username 1 </td>
     <td tal:content="member/email"> Email 1 </td>

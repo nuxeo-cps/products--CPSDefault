@@ -107,20 +107,24 @@
 <!-- ============================================================ -->
 <pre>form used for state transition:</pre>
 <metal:block define-macro="transition_form">
-<form method="post" action="content_status_modify"
+<form class="workflow" method="post" action="content_status_modify"
   tal:attributes="action string:${proxy/absolute_url}/content_status_modify">
-  <div metal:define-slot="fields">
+  <p metal:define-slot="fields">
     <!-- more fields -->
-  </div>
-  <strong><em i18n:translate="transition_comments">Comments</em></strong><br />
-  <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"
-            tal:content="nothing">
-  </textarea>
-  <div metal:define-slot="button">
+  </p>
+    <dl>
+      <dt><label for="comment" i18n:translate="transition_comments">Comments</label></dt>
+      <dd>
+        <textarea name="comment" id="comment" cols="60" rows="5"
+                  tal:content="nothing">
+        </textarea>
+      </dd>
+    </dl>
+  <p metal:define-slot="button">
     <!-- these are examples -->
     <input type="hidden" name="workflow_action" value="transition" />
     <input type="submit" value="button_publish" i18n:attributes="value" />
-  </div>
+  </p>
 </form>
 </metal:block>
 

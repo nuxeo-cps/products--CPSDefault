@@ -20,13 +20,14 @@
 <metal:main fill-slot="main">
   <form action="." method="post"
     tal:attributes="action string:${here_url}/content_revert">
-
-    <input type="hidden" name="rev:int" value="."
-      tal:attributes="value request/rev" />
-    <input type="submit" class="standalone" value="button_revert_revision"
-      i18n:attributes="value" />
-    <input type="button" class="context" onClick="history.back()"
-      value="button_cancel" i18n:attributes="value" />
+    <p>
+      <input type="hidden" name="rev:int" value="."
+        tal:attributes="value request/rev" />
+      <input type="submit" class="standalone" value="button_revert_revision"
+        i18n:attributes="value" />
+      <input type="button" class="context" onClick="history.back()"
+        value="button_cancel" i18n:attributes="value" />
+    </p>
   </form>
 </metal:main>
 

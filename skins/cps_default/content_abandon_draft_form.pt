@@ -17,20 +17,22 @@
 </metal:help>
 
 <metal:main fill-slot="main">
-  <form action="." method="post"
+  <form class="workflow" action="." method="post"
     tal:attributes="action string:${here_url}/content_abandon_draft">
-
+    <dl>
+      <dt><label for="comment" i18n:translate="transition_comments">Comments</label></dt>
+      <dd>
+        <textarea name="comment" id="comment" cols="60" rows="5"
+                  tal:content="nothing">
+        </textarea>
+      </dd>
+    </dl>
     <p>
-      <strong><em i18n:translate="transition_comments">Commentaires</em></strong><br />
-      <textarea name="comment" cols="60" rows="5" wrap="soft" style="width: 100%"
-                tal:content="nothing">
-      </textarea>
+      <input type="submit" class="standalone" value="button_abandon_draft"
+        i18n:attributes="value" />
+      <input type="button" class="context" onClick="history.back()"
+        value="button_cancel" i18n:attributes="value" />
     </p>
-
-    <input type="submit" class="standalone" value="button_abandon_draft"
-      i18n:attributes="value" />
-    <input type="button" class="context" onClick="history.back()"
-      value="button_cancel" i18n:attributes="value" />
   </form>
 </metal:main>
 

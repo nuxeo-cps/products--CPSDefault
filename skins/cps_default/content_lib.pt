@@ -7,7 +7,7 @@
 <!-- $Id$ -->
 
 <!-- ============================================================ -->
-<pre>a master macro used for content stuff:</pre>
+<h1>Master macro used for content stuff</h1>
 <metal:block define-macro="master"
   tal:define="proxy here/this;
   doc nocall:doc|python:here.getContent()">
@@ -62,7 +62,7 @@
 
 
 <!-- ============================================================ -->
-<pre>a std formated main:</pre>
+<h1>Standard formated main</h1>
 <metal:block define-macro="std_main">
   <h1><metal:block define-slot="title">title</metal:block></h1>
   <em><metal:block define-slot="help">help</metal:block></em><br /><br />
@@ -71,7 +71,7 @@
 
 
 <!-- ============================================================ -->
-<pre>a footer for a document or a folder:</pre>
+<h1>Footer for a document or a folder</h1>
 <metal:block metal:define-macro="byline"
   tal:define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
   cname dname/fullname|doc/Creator;
@@ -105,7 +105,7 @@
           
 
 <!-- ============================================================ -->
-<pre>form used for state transition:</pre>
+<h1>Form used for state transition</h1>
 <metal:block define-macro="transition_form">
 <form class="workflow" method="post" action="content_status_modify"
   tal:attributes="action string:${proxy/absolute_url}/content_status_modify">
@@ -130,8 +130,8 @@
 
 
 <!-- ============================================================ -->
-<pre>list contents in 'items' in the specified number of columns with the given
-format:</pre>
+<h1>List contents in 'items' in the specified number of columns with the given
+format</h1>
 <metal:block define-macro="display_contents">
 <tal:block
   define="tmp_format format|nothing;
@@ -235,7 +235,7 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>final display of items in a column using the given format:</pre>
+<h1>Final display of items in a column using the given format</h1>
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
                      site_wide site_wide|nothing;
@@ -275,7 +275,7 @@ format:</pre>
 </metal:block>
 
 <!-- ============================================================ -->
-<pre>Display of a form to change display params</pre>
+<h1>Display of a form to change display params</h1>
 <metal:block define-macro="display_params_form">
   <span i18n:translate="label_sort_by">sort by</span>
   <select name="display_order">
@@ -359,7 +359,7 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>status of a content:</pre>
+<h1>Status of a content</h1>
 <metal:block define-macro="status">
   <tal:block condition="not:status_short_fmt|nothing">
     <span i18n:translate="label_status">Label Status</span>
@@ -401,7 +401,7 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>all doc information:</pre>
+<h1>All information of a document</h1>
 <metal:block define-macro="info_detail">
 <div
   tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)"
@@ -451,7 +451,7 @@ format:</pre>
 </metal:block>
 
 <!-- ============================================================ -->
-<pre>iconic doc information:</pre>
+<h1>Iconic doc information</h1>
 <metal:block define-macro="info_icon">
 <div style="text-align: center"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
@@ -471,7 +471,7 @@ format:</pre>
 </metal:block>
 
 <!-- ============================================================ -->
-<pre>compact doc information:</pre>
+<h1>Compact doc information</h1>
 <metal:block define-macro="info_compact">
 <div
   tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)"
@@ -492,7 +492,7 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>all doc information + summary</pre>
+<h1>All doc information + summary</h1>
 <metal:block define-macro="info_summary">
 <div tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
@@ -530,7 +530,7 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>all doc information:</pre>
+<h1>All doc information</h1>
 <metal:block define-macro="info_detail_tab"
              tal:define="title_in_tabs python:'title' in detail_tab_columns;
                          type_in_tabs python:'type' in detail_tab_columns;
@@ -621,7 +621,7 @@ format:</pre>
 </metal:block>
 
 <!-- ============================================================ -->
-<pre>simple doc information:</pre>
+<h1>Simple doc information</h1>
 <metal:block define-macro="info_simple">
 <div
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
@@ -645,22 +645,39 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>display authorized proxies states for a document</pre>
-<metal:block define-macro="states">
-<h2 i18n:translate="">label_publication_states</h2>
-<span tal:repeat="item info/states">
-  <span tal:condition="python:item['review_state'] != 'work'">
-    <tal:block define="info item;
-                       status_time not:nothing;
-                       status_short_fmt not:nothing;">
-      <metal:block use-macro="here/content_lib/macros/status" />
-    </tal:block>
-    <span i18n:translate="">label_in_section
-      <a href="." tal:attributes="href string:${base_url}${item/rpath}/"
-         tal:content="item/title" i18n:name="section_id">Section</a>
-    </span><br />
-  </span>
-</span>
+<h1>Display authorized proxies states for a document</h1>
+<metal:block define-macro="states"
+      tal:define="items python:[x for x in info['states'] if x['review_state'] != 'work']">
+      <h2 i18n:translate="">label_publication_states</h2>
+      <p tal:condition="not:items">
+        There aren't any published version of this document.
+      </p>
+      <tal:block condition="items">
+        <table class="history">
+          <thead>
+            <tr>
+              <td i18n:translate="label_date">Date</td>
+              <td i18n:translate="label_publication">Publication</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="item items">
+              <td>
+                <tal:block define="info item;
+                  status_time not:nothing;
+                  status_short_fmt not:nothing;">
+                  <metal:block use-macro="here/content_lib/macros/status" />
+                </tal:block>
+              </td>
+              <td>
+                  <a href="." tal:attributes="href string:${base_url}${item/rpath}/"
+                    tal:content="item/title">Section</a>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </tal:block>
 </metal:block>
 
 
@@ -669,49 +686,61 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>display authorized history of a document</pre>
+<h1>Display authorized history of a document</h1>
 <metal:block define-macro="history">
-  <h2 i18n:translate="label_actions_history">Actions history</h2>
+      <h2 i18n:translate="label_actions_history">Actions history</h2>
+      <table class="history">
+        <thead>
+          <tr>
+            <td i18n:translate="label_date">Date</td>
+            <td i18n:translate="label_action">Action</td>
+            <td i18n:translate="label_revision">Version</td>
+            <td i18n:translate="label_author">Author</td>
+            <td i18n:translate="label_comments">Comments</td></tr>
+        </thead>
+        <tbody>
+          <tr tal:repeat="item info/history">
 
-  <span tal:repeat="item info/history">
+            <td tal:content="item/time_str">May 6, 2003 5:28 pm</td>
 
-    <span tal:content="item/time_str">May 6, 2003 5:28 pm</span>:
+            <td>
+              <span tal:content="item/action" i18n:translate="">published</span>
 
-    <tal:block condition="python:item.get('language_revs')">
-    <tal:block repeat="language_rev item/language_revs/items">
-      <tal:block i18n:translate="">label_revision
-        <span i18n:name="status_revision"
-          tal:content="python:language_rev[1]">1</span>
-      </tal:block>
-      <tal:block i18n:translate="">label_language
-        <span i18n:name="status_language">
-        <tal:block i18n:translate=""
-          content="python:'label_language_%s' % language_rev[0]">en</tal:block>
-        </span>
-      </tal:block>
-    </tal:block>
-    </tal:block>
+              <tal:block condition="item/has_dest|nothing" i18n:translate="">
+                into <span i18n:name="history_dest">
+                  <a href="."
+                    tal:content="item/dest_title"
+                    tal:attributes="href string:${base_url}${item/dest_container}/">
+                    Foo Section
+                  </a>
+                </span>
+              </tal:block>
+            </td>
 
-    <span tal:content="item/action" i18n:translate="">published</span>
+            <td>
+              <tal:block condition="python:item.get('language_revs')">
+                <tal:block repeat="language_rev item/language_revs/items">
+                  <tal:block i18n:translate="">label_revision
+                    <span i18n:name="status_revision"
+                      tal:content="python:language_rev[1]">1</span>
+                  </tal:block>
+                  <tal:block i18n:translate="">label_language
+                    <span i18n:name="status_language">
+                      <tal:block i18n:translate=""
+                        content="python:'label_language_%s' % language_rev[0]">en</tal:block>
+                    </span>
+                  </tal:block>
+                </tal:block>
+              </tal:block>
+            </td>
 
-    <tal:block condition="item/has_dest|nothing" i18n:translate="">
-      into <span i18n:name="history_dest">
-        <a href="."
-           tal:content="item/dest_title"
-           tal:attributes="href string:${base_url}${item/dest_container}/">
-           Foo Section
-        </a>
-      </span>
-    </tal:block>
+            <td tal:content="item/actor">Bob</td>
 
-    <span i18n:translate="">
-      by <span tal:replace="item/actor" i18n:name="history_actor">bob</span>:
-      <em tal:content="item/comments|nothing" i18n:name="history_comments">
-        Comments
-      </em>
-    </span>
-    <br />
-  </span>
+            <td tal:content="item/comments|nothing">Comments</td>
+
+          </tr>
+        </tbody>
+      </table>
 </metal:block>
 
 <!-- ============================================================ -->
@@ -719,45 +748,69 @@ format:</pre>
 
 
 <!-- ============================================================ -->
-<pre>display archived revisions of a document</pre>
+<h1>Display archived revisions of a document</h1>
 <metal:block define-macro="archived"
       tal:define="mq nocall:modules/ZTUtils/make_query;
       getNonArchivedVersionContextUrl nocall:modules/Products.CPSDefault.utils/getNonArchivedVersionContextUrl;
       context_url python:getNonArchivedVersionContextUrl(context_url)
       ">
-  <h2 i18n:translate="label_archived_revisions">Old revisions</h2>
-  <div tal:repeat="item info/archived">
-    <tal:block condition="item/is_frozen"
-               define="rev item/rev">
-      <span tal:replace="item/time_str">25/12/2003 11:45</span>:
-      <tal:block i18n:translate="">label_revision
-        <span tal:content="rev" i18n:name="status_revision">1</span>
+      <h2 i18n:translate="label_archived_revisions">Archived revisions</h2>
+      <p tal:condition="not:info/archived">
+        There aren't any archived revisions.
+      </p>
+      <tal:block condition="info/archived">
+        <table class="history">
+          <thead>
+            <tr>
+              <td i18n:translate="label_date">Date</td>
+              <td i18n:translate="label_revision">Version</td>
+              <td i18n:translate="label_language">Langue</td>
+              <tal:block condition="python:checkPerm('View archived revisions', here)">
+                <td i18n:translate="label_language">Consultation</td>
+                <tal:block condition="python:checkPerm('Modify portal content', here)">
+                  <td i18n:translate="label_reversion">Reversion</td>
+                  <td i18n:translate="label_destruction">Destruction</td>
+                </tal:block>
+              </tal:block>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="item info/archived">
+
+              <td tal:content="item/time_str">25/12/2003 11:45</td>
+
+              <td tal:content="item/rev">1</td>
+
+              <td tal:content="string:label_language_${item/lang}" i18n:translate="">en</td>
+
+              <tal:block condition="python:checkPerm('View archived revisions', here)">
+                <td>
+                  <a href="."
+                    tal:attributes="href string:${context_url}/archivedRevision/${item/rev}/view"
+                    i18n:translate="link_consult_this_revision">Consult this revision</a>
+                </td>
+
+                <tal:block condition="python:checkPerm('Modify portal content', here)">
+                  <td>
+                    <a href="."
+                      tal:attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}"
+                      i18n:translate="link_revert_to_this_revision">Revert to this revision</a>
+                  </td>
+                  <td>
+                    <tal:block condition="item/is_archived">
+                      <a href="."
+                        tal:attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}"
+                        i18n:translate="link_delete_this_revision">Purge this revision</a>
+                    </tal:block>
+                  </td>
+                </tal:block>
+
+              </tal:block>
+            </tr>
+          </tbody>
+        </table>
       </tal:block>
-      <tal:block i18n:translate="">label_language
-        <span i18n:name="status_language">
-        <tal:block i18n:translate=""
-          content="string:label_language_${item/lang}">en</tal:block>
-        </span>
-      </tal:block>
-      <tal:block condition="python:checkPerm('View archived revisions', here)">
-        <a href="."
-           tal:attributes="href string:${context_url}/archivedRevision/${rev}/view"
-           i18n:translate="link_consult_this_revision">Consult</a>
-        <tal:block condition="python:checkPerm('Modify portal content', here)">
-          -
-          <a href="."
-             tal:attributes="href string:${context_url}/content_revert_form?rev:int=${rev}"
-             i18n:translate="link_revert_to_this_revision">Revert</a>
-          <tal:block condition="item/is_archived">
-            -
-            <a href="."
-               tal:attributes="href string:${context_url}/content_delete_archive_form?rev:int=${rev}"
-               i18n:translate="link_delete_this_revision">Purge</a>
-          </tal:block>
-        </tal:block>
-      </tal:block>
-    </tal:block>
-  </div>
+
 </metal:block>
 
 </body>

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2004-10-08 15:39default\n"
+"POT-Creation-Date: 2004-10-08 20:29default\n"
 "PO-Revision-Date: 2004-07-12 18:00default\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: German <rheinland@dzug.org>\n"
@@ -509,14 +509,6 @@ msgid "button_unpublish_document"
 msgstr "Publikation zurücknehmen"
 
 #.   <span>
-#.         by ${history_actor (tal replace="item/actor")}:
-#.         ${history_comments (tal content="item/comments|nothing")}
-#.       </span>
-#: from ../skins/cps_default/content_lib.pt
-msgid "by ${history_actor}: ${history_comments}"
-msgstr "durch ${history_actor}: ${history_comments}"
-
-#.   <span>
 #.           You are already a member. You may use the
 #.         </span>
 #: from ../skins/cps_default/join_form.pt
@@ -599,7 +591,7 @@ msgstr "Boxen sichtbar von ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
 #.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
-#.   <block content="string:label_language_${item/lang}">en</block>
+#.   <td content="string:label_language_${item/lang}">en</td>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
 msgstr "en"
@@ -1127,11 +1119,17 @@ msgid "help_unpublish_publication"
 msgstr "Zurückziehen eines publizierten Objekts"
 
 #.   <block condition="item/has_dest|nothing">
-#.         into ${history_dest}
-#.       </block>
+#.                   into ${history_dest}
+#.                 </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "into ${history_dest}"
 msgstr "in ${history_dest}"
+
+#.   <td>Action</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_action"
+msgstr "Teilnehmer"
 
 #.   <h2>Actions history</h2>
 #: from ../skins/cps_default/content_lib.pt
@@ -1169,10 +1167,16 @@ msgstr "Teilnehmer"
 msgid "label_all"
 msgstr "Alle"
 
-#.   <h2>Old revisions</h2>
+#.   <h2>Archived revisions</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_archived_revisions"
 msgstr "Archivierte Versionen"
+
+#.   <td>Author</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_author"
+msgstr "Autor"
 
 #.   <option value="author_asc" attributes="selected
 #.                                python:sort_by == 'author' and direction == 'asc'">
@@ -1252,6 +1256,12 @@ msgstr "Geschlossen"
 msgid "label_collaborative_folder"
 msgstr "Mein Arbeitsplatz"
 
+#.   <td>Comments</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_comments"
+msgstr "Icons"
+
 #.   <option value="compact" attributes="selected python:format == 'compact'">
 #.               Compact
 #.       </option>
@@ -1291,6 +1301,12 @@ msgstr "Kontext"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Beteiligte"
+
+#.   <td>Date</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_date"
+msgstr "Datum"
 
 #.   <option value="date_asc" attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc' ">
@@ -1333,6 +1349,12 @@ msgstr "Tiefe"
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_description"
+msgstr "Beschreibung"
+
+#.   <td>Destruction</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_destruction"
 msgstr "Beschreibung"
 
 #.   <option value="detail" attributes="selected python:format == 'detail'">
@@ -1552,13 +1574,6 @@ msgstr "Bild Link"
 msgid "label_in"
 msgstr "in"
 
-#.   <span>label_in_section
-#.         ${section_id (tal content="item/title" attributes="href string:${base_url}${item/rpath}/")}
-#.       </span>
-#: from ../skins/cps_default/content_lib.pt
-msgid "label_in_section ${section_id}"
-msgstr "In Sektion ${section_id}"
-
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_author"
@@ -1595,8 +1610,11 @@ msgid "label_info_tab_version"
 msgstr "Version"
 
 #.   <label for="languageChooser">Language</label>
+#.   <td>Langue</td>
+#.   <td>Consultation</td>
 #.   <th align="right">Language</th>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
 msgstr "Sprache"
@@ -1605,8 +1623,8 @@ msgstr "Sprache"
 #.         ${status_language}
 #.       </block>
 #.   <block>label_language
-#.           ${status_language}
-#.         </block>
+#.                       ${status_language}
+#.                     </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
 msgstr "Sprache ${status_language}"
@@ -1696,6 +1714,12 @@ msgstr "Ermögliche Registrierung am Portal"
 msgid "label_portal_title"
 msgstr "Portal Titel"
 
+#.   <td>Publication</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_publication"
+msgstr "Publikations Stand"
+
 #.   <h2>label_publication_states</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
@@ -1722,15 +1746,24 @@ msgstr "zu"
 msgid "label_requires_approval"
 msgstr ""
 
+#.   <td>Reversion</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_reversion"
+msgstr "Suche nach Events in"
+
+#.   <td>Version</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_revision"
+msgstr "Archivierte Versionen"
+
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
 #.   <block>label_revision
-#.           ${status_revision (tal content="python:language_rev[1]")}
-#.         </block>
-#.   <block>label_revision
-#.           ${status_revision (tal content="rev")}
-#.         </block>
+#.                       ${status_revision (tal content="python:language_rev[1]")}
+#.                     </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
 msgstr "Version ${status_revision}"
@@ -2108,7 +2141,7 @@ msgstr "Bearbeiten"
 msgid "link_box_view"
 msgstr "Anzeigen Einstellungen"
 
-#.   <a href="." attributes="href string:${context_url}/archivedRevision/${rev}/view">Consult</a>
+#.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_consult_this_revision"
 msgstr "Aufrufen dieser Version"
@@ -2119,7 +2152,7 @@ msgstr "Aufrufen dieser Version"
 msgid "link_contact_admin"
 msgstr "Kontakt zum Administrator"
 
-#.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${rev}">Purge</a>
+#.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}">Purge this revision</a>
 #: from ../skins/cps_default/content_lib.pt
 #, fuzzy
 msgid "link_delete_this_revision"
@@ -2185,7 +2218,7 @@ msgstr "Sie können sich sofort einloggen durch einen Klick"
 msgid "link_registred_return_home_page"
 msgstr "Zurück zur Homepage"
 
-#.   <a href="." attributes="href string:${context_url}/content_revert_form?rev:int=${rev}">Revert</a>
+#.   <a href="." attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}">Revert to this revision</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_revert_to_this_revision"
 msgstr "Zurück zu dieser Version"
@@ -3102,6 +3135,16 @@ msgstr ""
 
 msgid "_blank"
 msgstr ""
+
+#, fuzzy
+#~ msgid "label_version"
+#~ msgstr "in"
+
+#~ msgid "by ${history_actor}: ${history_comments}"
+#~ msgstr "durch ${history_actor}: ${history_comments}"
+
+#~ msgid "label_in_section ${section_id}"
+#~ msgstr "In Sektion ${section_id}"
 
 #~ msgid "label_reviewing_history"
 #~ msgstr "Objekt Historie:"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
-"POT-Creation-Date: 2004-10-08 15:39default\n"
+"POT-Creation-Date: 2004-10-08 20:29default\n"
 "PO-Revision-Date: 2004-10-01 08:36+0100\n"
 "Last-Translator: Fabio Nosari <fabnos@fastwebnet.it>\n"
 "Language-Team: Italia <fabnos@fastwebnet.it>\n"
@@ -515,14 +515,6 @@ msgid "button_unpublish_document"
 msgstr "Ritira dalla pubblicazione"
 
 #.   <span>
-#.         by ${history_actor (tal replace="item/actor")}:
-#.         ${history_comments (tal content="item/comments|nothing")}
-#.       </span>
-#: from ../skins/cps_default/content_lib.pt
-msgid "by ${history_actor}: ${history_comments}"
-msgstr "da ${history_actor}: ${history_comments}"
-
-#.   <span>
 #.           You are already a member. You may use the
 #.         </span>
 #: from ../skins/cps_default/join_form.pt
@@ -608,7 +600,7 @@ msgstr "descrizione dei contenitori visualizzabili da: ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
 #.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
-#.   <block content="string:label_language_${item/lang}">en</block>
+#.   <td content="string:label_language_${item/lang}">en</td>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
 msgstr ""
@@ -1153,11 +1145,17 @@ msgid "help_unpublish_publication"
 msgstr "Ritira dalla pubblicazione l'oggetto."
 
 #.   <block condition="item/has_dest|nothing">
-#.         into ${history_dest}
-#.       </block>
+#.                   into ${history_dest}
+#.                 </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "into ${history_dest}"
 msgstr "nella sezione ${history_dest}"
+
+#.   <td>Action</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_action"
+msgstr "Utente"
 
 #.   <h2>Actions history</h2>
 #: from ../skins/cps_default/content_lib.pt
@@ -1194,10 +1192,16 @@ msgstr "Usa CPS"
 msgid "label_all"
 msgstr "Qualsiasi"
 
-#.   <h2>Old revisions</h2>
+#.   <h2>Archived revisions</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_archived_revisions"
 msgstr "Versioni archiviate:"
+
+#.   <td>Author</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_author"
+msgstr "Autore a -->z"
 
 #.   <option value="author_asc" attributes="selected
 #.                                python:sort_by == 'author' and direction == 'asc'">
@@ -1277,6 +1281,12 @@ msgstr "Chiuso"
 msgid "label_collaborative_folder"
 msgstr "Il mio ambiente di lavoro"
 
+#.   <td>Comments</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_comments"
+msgstr "Icone"
+
 #.   <option value="compact" attributes="selected python:format == 'compact'">
 #.               Compact
 #.       </option>
@@ -1313,6 +1323,12 @@ msgstr "Contestuale:"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Contributori:"
+
+#.   <td>Date</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_date"
+msgstr "Data 01 -->31"
 
 #.   <option value="date_asc" attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc' ">
@@ -1354,6 +1370,12 @@ msgstr "Profondità di livello:"
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_description"
+msgstr "Descrizione:"
+
+#.   <td>Destruction</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_destruction"
 msgstr "Descrizione:"
 
 #.   <option value="detail" attributes="selected python:format == 'detail'">
@@ -1571,13 +1593,6 @@ msgstr "Collegamento dell'immagine:"
 msgid "label_in"
 msgstr "in"
 
-#.   <span>label_in_section
-#.         ${section_id (tal content="item/title" attributes="href string:${base_url}${item/rpath}/")}
-#.       </span>
-#: from ../skins/cps_default/content_lib.pt
-msgid "label_in_section ${section_id}"
-msgstr "nella sezione ${section_id}"
-
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" />
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_info_tab_author"
@@ -1614,8 +1629,11 @@ msgid "label_info_tab_version"
 msgstr "Versione"
 
 #.   <label for="languageChooser">Language</label>
+#.   <td>Langue</td>
+#.   <td>Consultation</td>
 #.   <th align="right">Language</th>
 #: from ../skins/cps_default/boxes_nuxeo.pt
+#: ../skins/cps_default/content_lib.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
 msgstr "Lingua:"
@@ -1624,8 +1642,8 @@ msgstr "Lingua:"
 #.         ${status_language}
 #.       </block>
 #.   <block>label_language
-#.           ${status_language}
-#.         </block>
+#.                       ${status_language}
+#.                     </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
 msgstr "Lingua: ${status_language}"
@@ -1715,6 +1733,12 @@ msgstr "Abilita l'iscrizione al portale:"
 msgid "label_portal_title"
 msgstr "Titolo del portale:"
 
+#.   <td>Publication</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_publication"
+msgstr "Stati di pubblicazione:"
+
 #.   <h2>label_publication_states</h2>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
@@ -1741,15 +1765,24 @@ msgstr "Rinomina con:"
 msgid "label_requires_approval"
 msgstr "(necessita di accettazione)"
 
+#.   <td>Reversion</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_reversion"
+msgstr "Cerca degli avvenimenti in:"
+
+#.   <td>Version</td>
+#: from ../skins/cps_default/content_lib.pt
+#, fuzzy
+msgid "label_revision"
+msgstr "Versioni archiviate:"
+
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
 #.   <block>label_revision
-#.           ${status_revision (tal content="python:language_rev[1]")}
-#.         </block>
-#.   <block>label_revision
-#.           ${status_revision (tal content="rev")}
-#.         </block>
+#.                       ${status_revision (tal content="python:language_rev[1]")}
+#.                     </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_revision ${status_revision}"
 msgstr "Versione: ${status_revision}"
@@ -2127,7 +2160,7 @@ msgstr "modifica"
 msgid "link_box_view"
 msgstr "Visualizza le impostazioni"
 
-#.   <a href="." attributes="href string:${context_url}/archivedRevision/${rev}/view">Consult</a>
+#.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_consult_this_revision"
 msgstr "Consulta questa versione"
@@ -2138,7 +2171,7 @@ msgstr "Consulta questa versione"
 msgid "link_contact_admin"
 msgstr "@ --> webmaster"
 
-#.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${rev}">Purge</a>
+#.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}">Purge this revision</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_delete_this_revision"
 msgstr "Elimina questa versione archiviata"
@@ -2202,7 +2235,7 @@ msgstr "Puoi entrare immediatamente agendo su questo pulsante"
 msgid "link_registred_return_home_page"
 msgstr "Ritirna alla pagina iniziale del portale."
 
-#.   <a href="." attributes="href string:${context_url}/content_revert_form?rev:int=${rev}">Revert</a>
+#.   <a href="." attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}">Revert to this revision</a>
 #: from ../skins/cps_default/content_lib.pt
 msgid "link_revert_to_this_revision"
 msgstr "Utilizza questa versione"
@@ -3129,6 +3162,16 @@ msgstr "ruolo:  Autenticato"
 
 msgid "_blank"
 msgstr "-- Vuoto --"
+
+#, fuzzy
+#~ msgid "label_version"
+#~ msgstr "in"
+
+#~ msgid "by ${history_actor}: ${history_comments}"
+#~ msgstr "da ${history_actor}: ${history_comments}"
+
+#~ msgid "label_in_section ${section_id}"
+#~ msgstr "nella sezione ${section_id}"
 
 #~ msgid "label_reviewing_history"
 #~ msgstr "Cronologia delle versioni:"

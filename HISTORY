@@ -1,4 +1,47 @@
 *******************************************
+** CPSDefault V3.30.0 [R1 build 2004/12/13-08:59 by madarche]
+
+Requires:
+~~~~~~~~~
+- CPSCore > 3.18.0
+- CPSDocument > 0.29.0
+- CPSSchemas > 0.33.0
+- CPSInstaller > 0.14.0
+- if you want to have an i18n menu you need to replace the basebox_menu
+  with an treebox_menu
+New features:
+~~~~~~~~~~~~~
+- enable i18n of folder/document using the translate action
+  see doc/i18n-changes-from-CPSDefault-3_29_0.txt for more information
+- add malagasy language
+Bug fixes:
+~~~~~~~~~~
+- The navigation tree now is displayed as well at the root of the portal.
+- Trying to add a box container failed in non-quiet mode if there was already
+  one.
+- CSS remove more IE peekaboo bugs
+- Better wording for role acquisition blocking, do not use "Click here" wording.
+- Setting the needed(!) missing 'Use external editor' for both sections and
+  workspaces, as well as missing WebDAV permissions for sections.
+- Fix getBaseUrl with VirtualHostBase and non root installed CPS
+- Improved "basebox_edit_form.pt" accessibility.
+- Workflow status for existing old (version <= 3.2.1) workspaces and sections
+  are automatically upgraded by the installer (bug #426).
+- getDateStr.py. Catch the DateTimeError exception to avoid crash
+- Made computeId.py not cut words in the ids it generates.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- merging ben-i18n-branch
+- basebox_menu is deprecated replace existing basebox_menu with treebox_menu
+  which is i18n
+- Normalized CSS according to CPS coding guides.
+- cpsudpate mask event notification for portal_subscriptions during install
+  this speed up things on update and prevent raising CMF bug 
+  http://zope.org/Collectors/CMF/198
+- Normalized the CSS files.
+- Added comments in header_lib.pt about how CPS uses CSS.
+
+*******************************************
 ** CPSDefault V3.29.0 [R1 build 2004/11/05-15:16 by ben]
 
 Requires:

@@ -75,9 +75,10 @@
       <td>
       <select name="review_state">
         <option i18n:translate="label_all" value="" selected="selected">All</option>
-        <option i18n:translate="label_work" value="work">Work</option>
-        <option i18n:translate="label_pending" value="pending">Pending</option>
-        <option i18n:translate="label_published" value="published">Published</option>
+        <tal:block repeat="stateName python:here.getWorkflowStateNames()">
+          <option tal:attributes="value stateName"
+                tal:content="python: 'label_' + stateName" i18n:translate="">State name</option>
+        </tal:block>
       </select>
       </td>
       </tr>

@@ -52,6 +52,7 @@ class ContentBox(BaseBox):
     sort_by=direction=display=''
     query_title=query_description=query_fulltext=\
                  query_status=query_modified=''
+    query_portal_type=[]
 
     security = ClassSecurityInfo()
 

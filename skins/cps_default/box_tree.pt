@@ -31,10 +31,9 @@
              items python:items[1:];
              nb_item python:len(items);
              nb_row  python:nb_item/2+1">
-  <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" i18n:translate="" tal:condition="items"
-      tal:content="python:root['id']">
-       box text title
+  <metal:block use-macro="here/box_lib/macros/wbox">
+    <metal:block fill-slot="box_title" i18n:translate="" tal:condition="items">
+      <div metal:use-macro="here/generic_lib/macros/breadcrumbs">breadcrumbs</div>
     </metal:block>
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">

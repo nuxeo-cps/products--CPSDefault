@@ -36,20 +36,22 @@ factory_type_information = (
      'product': 'NuxCPS3',
      'meta_type': 'CPS Folder',
      'factory': 'addCPSFolder',
-     'immediate_view': 'cpsfolder_view',
+     'immediate_view': 'folder_contents',
      'filter_content_types': 0,
      'allowed_content_types': (),
      'actions': ({'id': 'isproxytype',
-                  'name': '',
+                  'name': 'isproxytype',
                   'action': 'folder',
-                  'permissions': ('',)},
+                  'permissions': ('',),
+                  'visible': 0},
                  {'id': 'create',
                   'name': 'Create',
                   'action': 'cpsfolder_create',
-                  'permissions': ('',)},
+                  'permissions': ('',),
+                  'visible': 0},
                  {'id': 'view',
                   'name': 'View',
-                  'action': 'cpsfolder_view',
+                  'action': 'folder_contents',
                   'permissions': (View,)},
                  {'id': 'edit',
                   'name': 'Edit',
@@ -80,32 +82,6 @@ factory_type_information = (
 class CPSFolder(CPSBaseFolder):
     meta_type = 'CPS Folder'
     portal_type = meta_type # To ease testing.
-
-    security = ClassSecurityInfo()
-
-    security.declareProtected(AddPortalContent, 'invokeFactory')
-    def invokeFactory(self, type_name, id, RESPONSE=None, *args, **kw):
-        """Create a CMF object in this folder.
-
-        A creation_transitions argument should be passed for CPS
-        object creation.
-        Creation is governed by the workflows allowed by the workflow tool.
-        """
-        wftool = getToolByName(self, 'portal_workflow')
-        newid = wftool.invokeFactoryFor(self, type_name, id, *args, **kw)
-        if RESPONSE is not None:
-            ob = self[newid]
-            ttool = getToolByName(self, 'portal_types')
-            info = ttool.getTypeInfo(type_name)
-            RESPONSE.redirect('%s/%s' % (ob.absolute_url(),
-                                         info.immediate_view))
-        return newid
-
-    security.declarePrivate('invokeFactoryCMF')
-    def invokeFactoryCMF(self, type_name, id, RESPONSE=None, *args, **kw):
-        """Original CMF factory invocation."""
-        return CPSBaseFolder.invokeFactory(self, type_name, id,
-                                           RESPONSE=RESPONSE, *args, **kw)
 
 InitializeClass(CPSFolder)
 

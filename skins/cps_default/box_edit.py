@@ -8,6 +8,10 @@ from zLOG import LOG, DEBUG
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
+if kw.get('back'):
+    return REQUEST.RESPONSE.redirect('%s/box_manage_form' %
+                                     (context.absolute_url()))
+
 box_url = kw['box_url']
 del kw['box_url']
 box_category = kw['box_category']
@@ -76,7 +80,7 @@ psm = 'psm_box_modified'
 
 if REQUEST is not None:
     if kw.get('change_and_edit'):
-        action_path = 'basebox_edit_form'
+        action_path = box.getTypeInfo().immediate_view
         psm = psm + '&box_url=' + box_url
     else:
         action_path = 'box_manage_form'

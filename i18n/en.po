@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-25 19:08default\n"
-"PO-Revision-Date: 2003-07-25 19:11+0200\n"
+"POT-Creation-Date: 2003-07-28 13:40default\n"
+"PO-Revision-Date: 2003-07-28 13:41+0200\n"
 "Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
 "Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -165,6 +165,7 @@ msgstr "Cancel"
 #.   <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" name="change" type="submit">
 #.         <input onclick="history.back()" type="button" value="button_back">
 #.       </input></input>
+#.   <input attributes="name string:changeListingDisplay:method" value="button_change" type="submit" />
 #.   <input value="button_change" type="submit">
 #.       </input>
 #.   <input value="button_change" name="change" type="submit">
@@ -172,6 +173,7 @@ msgstr "Cancel"
 #.         <br><input value="button_change_and_view" name="change_and_view" type="submit">
 #.       </input></br></input></br></input>
 #: from ../skins/cps_default/basebox_edit_form.pt
+#: ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change"
@@ -216,6 +218,11 @@ msgstr "Create box"
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_delete"
 msgstr "Delete"
+
+#.   <input attributes="name string:changeListingDirection:method" value="button_invert" type="submit" />
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "button_invert"
+msgstr "Invert"
 
 #.   <input value="button_login" name="submit" type="submit" />
 #: from ../skins/cps_default/login_form.pt
@@ -736,10 +743,10 @@ msgstr "Choose"
 msgid "label_closed"
 msgstr "Close"
 
-#.   <option condition="python:cps_display_style == 'compact'" selected="" value="compact">
+#.   <option condition="python:format == 'compact'" selected="" value="compact">
 #.                        Compact
 #.                </option>
-#.   <option condition="python:cps_display_style != 'compact'" value="compact">
+#.   <option condition="python:format != 'compact'" value="compact">
 #.                        Compact
 #.                </option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -756,26 +763,26 @@ msgstr "Contextual"
 msgid "label_contributors"
 msgstr "Contributors"
 
-#.   <option condition="python:cps_display_order == 'date'" selected="" value="date">
+#.   <option condition="python:sort_by == 'date'" selected="" value="date">
 #.                       Date
 #.               </option>
-#.   <option condition="python:cps_display_order != 'date'" value="date">
+#.   <option condition="python:sort_by != 'date'" value="date">
 #.                       Date
 #.               </option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "label_date"
 msgstr "Date"
 
-#.   <option condition="python:cps_display_order is None" selected="" value="title">
+#.   <option condition="python:sort_by is None" selected="" value="title">
 #.                       Default
 #.               </option>
-#.   <option condition="python:cps_display_order is not None" value="title">
+#.   <option condition="python:sort_by is not None" value="title">
 #.                       Default
 #.               </option>
-#.   <option condition="python:cps_display_style == None" selected="" value="compact">
+#.   <option condition="python:format == None" selected="" value="compact">
 #.                        Default
 #.   	     </option>
-#.   <option condition="python:cps_display_style != None" value="compact">
+#.   <option condition="python:format != None" value="compact">
 #.                        Default
 #.   	     </option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -800,10 +807,10 @@ msgstr "Depth"
 msgid "label_description"
 msgstr "Description"
 
-#.   <option condition="python:cps_display_style == 'detail'" selected="" value="detail">
+#.   <option condition="python:format == 'detail'" selected="" value="detail">
 #.                        Detail
 #.                </option>
-#.   <option condition="python:cps_display_style != 'detail'" value="detail">
+#.   <option condition="python:format != 'detail'" value="detail">
 #.                        Detail
 #.                </option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -896,10 +903,10 @@ msgstr "Group Name"
 msgid "label_guest"
 msgstr "Guest"
 
-#.   <option condition="python:cps_display_style == 'icon'" selected="" value="icon">
+#.   <option condition="python:format == 'icon'" selected="" value="icon">
 #.                        Icon
 #.                </option>
-#.   <option condition="python:cps_display_style != 'icon'" value="icon">
+#.   <option condition="python:format != 'icon'" value="icon">
 #.                        Icon
 #.                </option>
 #: from ../skins/cps_default/boxes_nuxeo.pt
@@ -1105,10 +1112,10 @@ msgstr "Since ${status_time}"
 msgid "label_slot"
 msgstr "Slot"
 
-#.   <option condition="python:cps_display_order == 'status'" selected="" value="status">
+#.   <option condition="python:sort_by == 'status'" selected="" value="status">
 #.                       Status
 #.               </option>
-#.   <option condition="python:cps_display_order != 'status'" value="status">
+#.   <option condition="python:sort_by != 'status'" value="status">
 #.                       Status
 #.               </option>
 #.   <span>Label Status</span>
@@ -1124,10 +1131,10 @@ msgid "label_subject"
 msgstr "Subject"
 
 #.   <th align="right">Title</th>
-#.   <option condition="python:cps_display_order == 'title'" selected="" value="title">
+#.   <option condition="python:sort_by == 'title'" selected="" value="title">
 #.                       Title
 #.               </option>
-#.   <option condition="python:cps_display_order != 'title'" value="title">
+#.   <option condition="python:sort_by != 'title'" value="title">
 #.                       Title
 #.               </option>
 #.   <div class="label required">

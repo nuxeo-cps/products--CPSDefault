@@ -5,7 +5,7 @@
 """
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-
+from Acquisition import aq_parent, aq_inner
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
@@ -56,28 +56,65 @@ class TreeBox(BaseBox):
 
     _properties = BaseBox._properties + (
         {'id':'root', 'type':'string', 'mode':'w', 'label':'Root'},
+        {'id':'depth', 'type':'int', 'mode':'w', 'label':'depth of the tree'},
         )
 
-    def __init__(self, id, title='', root='', style='box_tree', **kw):
+    def __init__(self, id, title='', root='', depth=0,
+                 style='box_tree', **kw):
         BaseBox.__init__(self, id, style=style, kw=kw)
         self.title = title
         self.root = root
+        self.depth = depth
 
     security.declarePublic('getTree')
     def getTree(self, context):
         """ return the ptree from root """
-        root = self.root
-        if not root:
-            portal_url = getToolByName(self, 'portal_url')
-            root = portal_url.getRelativeUrl(context)
-        LOG('TreeBox', DEBUG, 'Starting in root ' + root)
-        path = filter(None, root.split('/'))
+        portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
-        if not hasattr(portal_trees, path[0]):
-            raise Exception('no tree for %s' % path[0])
-        prefix = '/'.join(path)
 
-        return portal_trees[path[0]].getList(prefix=prefix)
+        # find the current container
+        obj = context
+        while obj and not obj.isPrincipiaFolderish:
+            obj = aq_parent(aq_inner(obj))
+        current_url = portal_url.getRelativeUrl(obj)
+        current_path = current_url.split('/')
+        
+        if not self.root:
+            root_tree = current_path[0]
+        else:
+            root_tree = self.root.split('/')[0]
+        
+        if not hasattr(portal_trees, root_tree):
+            raise Exception('no tree for %s' % root_tree)
+
+        tree = portal_trees[root_tree].getList()
+
+        if self.depth:
+            depth = self.depth - 1
+            max_depth = len(current_path) + depth
+
+            tfilter = []
+            for i in range(len(current_path)+1):
+                if i:
+                    tfilter.append({'url': '/'.join(current_path[:i]),
+                                    'depth': i + depth})
+            items = []
+            for item in tree:
+                d = item['depth']
+                if d > max_depth:
+                    continue
+                url = item['rpath'] 
+                for f in tfilter:
+                    if d > f['depth']:
+                        continue
+                    if url.startswith(f['url']):
+                        items.append(item)
+                        break
+                    
+            return items
+        
+        return tree
+
 
 InitializeClass(TreeBox)
 

@@ -74,7 +74,7 @@
        align="center" valign="top" class="columns">
   <tr>
     <!-- BAR LEFT ================================= -->
-    <td class="left" width="15%" tal:define="blockclass string:even">
+    <td class="left" width="150" tal:define="blockclass string:even">
       <!-- user actions box -->
       <tal:block define="actionblock user_actions;
                          blocktitle member"
@@ -104,8 +104,8 @@
       </metal:block>
     </td>
 
-    <!-- MAIN ===================================== -->    
-    <td class="main" width="75%">
+    <!-- MAIN = no width to let it float ========== -->    
+    <td class="main">
       
       <div class="document">
       
@@ -130,7 +130,7 @@
     </td>
     
     <!-- BAR RIGHT ================================ -->
-    <td class="right" width="15%" tal:condition="showthirdcol"
+    <td class="right" width="150" tal:condition="showthirdcol"
         tal:define="blockclass string:odd">
       <!-- workflow actions box -->
       <tal:block define="actionblock workflow_actions;
@@ -153,7 +153,7 @@
         <metal:block use-macro="here/generic_lib/macros/actionbox" />
       </tal:block>
     </td>
-    <td class="right" width="1" tal:condition="not:showthirdcol">
+    <td width="1" tal:condition="not:showthirdcol">
     </td>
   </tr>
 </table>

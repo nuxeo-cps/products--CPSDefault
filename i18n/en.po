@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
-"POT-Creation-Date: 2003-07-29 12:36default\n"
-"PO-Revision-Date: 2003-07-29 12:39+0200\n"
+"POT-Creation-Date: 2003-07-29 16:53default\n"
+"PO-Revision-Date: 2003-07-29 16:54+0200\n"
 "Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
 "Language-Team: Français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -218,7 +218,7 @@ msgstr "Default"
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);" condition="python:sort_by=='title' and direction=='asc' and change_display is None">
+#.   			       change_display python:request.get('change_display', None);" condition="python:change_display is None">
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #.   	</block>
@@ -293,7 +293,7 @@ msgstr "Reject publication"
 #.                                  sort_by params/sort_by;
 #.                                  direction params/direction;
 #.                                  format params/format;
-#.   			       change_display python:request.get('change_display', None);" condition="python:sort_by=='title' and direction=='asc' and change_display is None">
+#.   			       change_display python:request.get('change_display', None);" condition="python:change_display is None">
 #.   	  <input value="button_move_up" name="moveItemsUp:method" type="submit" />
 #.   	  <input value="button_move_down" name="moveItemsDown:method" type="submit" />
 #.   	</block>
@@ -307,7 +307,7 @@ msgstr "Rename"
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "button_search"
-msgstr "Search"
+msgstr "Search\""
 
 #.   <input value="button_send" type="submit" />
 #: from ../skins/cps_default/mail_password_form.pt
@@ -734,7 +734,9 @@ msgid "into ${history_dest}"
 msgstr "into ${history_dest}"
 
 #.   <option selected="" value="">All</option>
+#.   <option value="">All</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_all"
 msgstr "All"
 
@@ -757,7 +759,9 @@ msgstr "Categories"
 
 #.   <option value="1970/01/01 00:00:00 GMT">Choisir
 #.                  </option>
+#.   <option value="none">Choose</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_choose"
 msgstr "Choose"
 
@@ -801,6 +805,12 @@ msgstr "Date"
 #.               </option>
 #.   <option condition="python:sort_by is not None" value="title">
 #.                       Default
+#.               </option>
+#.   <option condition="python:direction == 'default'" selected="" value="default">
+#.                       Asc
+#.               </option>
+#.   <option condition="python:direction != 'default'" value="default">
+#.                       Asc
 #.               </option>
 #.   <option condition="python:format == None" selected="" value="compact">
 #.                        Default
@@ -877,12 +887,12 @@ msgstr "On"
 msgid "label_display"
 msgstr "Display"
 
-#.   <option value="compact">compact</option>
+#.   <option attributes="selected python:box['box'].display == 'compact'" value="compact">compact</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_display_compact"
 msgstr "Compact"
 
-#.   <option value="detail">detailed</option>
+#.   <option attributes="selected python:box['box'].display == 'detail'" value="detail">detailed</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_display_detailed"
 msgstr "Detailed"
@@ -892,7 +902,7 @@ msgstr "Detailed"
 msgid "label_display_format"
 msgstr "Display"
 
-#.   <option value="icon">icon</option>
+#.   <option attributes="selected python:box['box'].display == 'icon'" value="icon">icon</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_display_icon"
 msgstr "Icons"
@@ -1042,7 +1052,9 @@ msgid "label_password_mailed"
 msgstr "Mail Password?"
 
 #.   <option value="pending">Pending</option>
+#.   <option attributes="selected python:box['box'].query_status == 'pending'" value="pending">Pending</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_pending"
 msgstr "Pending"
 
@@ -1066,7 +1078,9 @@ msgid "label_publication_states"
 msgstr "Publication states"
 
 #.   <option value="published">Published</option>
+#.   <option attributes="selected python:box['box'].query_status == 'published'" value="published">Published</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_published"
 msgstr "Published"
 
@@ -1117,28 +1131,39 @@ msgstr "Role(s)"
 msgid "label_root"
 msgstr "Root"
 
+#.   <span>search</span>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_search"
+msgstr "Search"
+
 #.   <span>Description</span>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search_description"
 msgstr "Description"
 
 #.   <span>Modified since</span>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search_modified_since"
 msgstr "Modified since"
 
 #.   <span>Plain text</span>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search_plain_text"
 msgstr "Plain text"
 
 #.   <span>Status</span>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search_status"
 msgstr "Status"
 
 #.   <span>Title</span>
+#.   <span>Description</span>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_search_title"
 msgstr "Title"
 
@@ -1272,7 +1297,9 @@ msgid "label_visible_in_subfolder"
 msgstr "visible in sub folder"
 
 #.   <option value="work">Work</option>
+#.   <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_work"
 msgstr "Work"
 
@@ -1494,7 +1521,9 @@ msgstr "Expiration Date"
 #.   <option condition="python:not(here.portal_membership.isAnonymousUser())" attributes="value lastLogin">
 #.                    time_last_login
 #.                  </option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_last_login'" value="time_last_login">time_last_login</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "time_last_login"
 msgstr "Last login"
 
@@ -1504,17 +1533,23 @@ msgid "time_last_modified"
 msgstr "Last Modified Date"
 
 #.   <option attributes="value lastMth">time_last_month</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_last_month'" value="time_last_month">time_last_month</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "time_last_month"
 msgstr "Last month"
 
 #.   <option attributes="value lastWeek">time_last_week</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_last_week'" value="time_last_week">time_last_week</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "time_last_week"
 msgstr "Last week"
 
 #.   <option attributes="value yesterday">time_yesterday</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_yesterday'" value="time_yesterday">time_yesterday</option>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/contentbox_edit_form.pt
 msgid "time_yesterday"
 msgstr "Yesterday"
 
@@ -1757,6 +1792,9 @@ msgstr "%m/%d/%Y %H:%M"
 
 msgid "date_long"
 msgstr "%m/%d/%Y %H:%M:%S"
+
+msgid "link_search"
+msgstr "Search"
 
 #~ msgid "button_invert"
 #~ msgstr "Invert"

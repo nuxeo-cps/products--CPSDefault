@@ -1,7 +1,7 @@
 # $Id$
 # benchmarker from zopelabs'cookbook submited by zopedan
 """ Benchmark tools are available if
- BENCHMARCKTIMER_LEVEL is define in environment
+ BENCHMARCKTIMER_LEVEL is defined in environment
 """
 
 from AccessControl import ClassSecurityInfo
@@ -27,7 +27,7 @@ function setBodyContent() {
 class pyBenchmarkTimer:
     def __init__(self, title='', level=-1):
         """
-        constructor, initializes
+        Constructor, initializes
         """
         self.title = title
         self.markers = {}
@@ -40,26 +40,26 @@ class pyBenchmarkTimer:
             self._in_bench = 0
 
     def in_bench(self):
-        """ are we benching or not """
+        """Are we benching or not """
         return self._in_bench
 
     def start(self):
         """
-        set the marker 'Start'
+        Set the marker 'Start'
         a cheat shortcut function for basic use
         """
         return self.setMarker('Start')
 
     def stop(self):
         """
-        set the marker 'Stop'
+        Set the marker 'Stop'
         a cheat shortcut function for basic use
         """
         self.setMarker('Stop')
 
-    def setMarker(self,name):
+    def setMarker(self, name):
         """
-        set the specific marker
+        Set the specific marker
         """
         if not self._in_bench:
             return
@@ -68,9 +68,9 @@ class pyBenchmarkTimer:
 
     def timeElapsed(self, start=None, end=None):
         """
-        time diff between two markers, order is unimportant
+        Time diff between two markers, order is unimportant
             returns the absolute value of the difference
-        if called without arguments, return the time
+        If called without arguments, return the time
             elapsed from the first marker to the last marker
         """
         if len(self.markerOrder) < 2:

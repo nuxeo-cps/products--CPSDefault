@@ -792,7 +792,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE,),
                     clone_allowed_transitions=None,
-                    after_script_name="mail_notification",
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'',
                            'guard_roles':'Manager; SectionManager; SectionReviewer',
@@ -804,7 +803,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     transition_behavior=(TRANSITION_INITIAL_PUBLISHING,
                                          TRANSITION_BEHAVIOR_FREEZE),
                     clone_allowed_transitions=None,
-                    after_script_name="mail_notification",
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '',
                            'guard_roles': 'Manager; Member',
@@ -814,7 +812,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     t.setProperties(title='Reviewer accepts publishing',
                     new_state_id='published',
                     transition_behavior=(TRANSITION_BEHAVIOR_MERGE,),
-                    after_script_name="mail_notification",
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION,
                     actbox_name='action_accept', actbox_category='workflow',
@@ -856,7 +853,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                          TRANSITION_ALLOWSUB_COPY),
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION,
-                    after_script_name="mail_notification",
                     actbox_name='New',
                     actbox_category='',
                     actbox_url='',
@@ -898,21 +894,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                        default_expr="python:state_change.kwargs.get('dest_container', '')",
                        for_status=1, update_always=1)
 
-
-    #
-    # section_content_wf : scripts
-    # Adding the workflow script permitting the notification by mail
-    #
-    scripts = wf.scripts
-    script_name = 'mail_notification'
-    scripts._setObject(script_name, PythonScript(script_name))
-    script = scripts[script_name]
-    script.write("""\
-##parameters=state_change
-object = state_change.object
-object.sendmail_after_transition()
-""")
-    script._owner = None
 
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder
     # CPS Folder

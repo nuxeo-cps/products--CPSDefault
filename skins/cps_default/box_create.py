@@ -9,6 +9,9 @@ context.manage_addProduct['CPSDefault'].addBoxContainer(quiet=1)
 idbc = context.portal_boxes.getBoxContainerId(context)
 bc = getattr(context,idbc)
 
+slot_name = kw.get('slot_name')
+if slot_name is not None:
+    kw['slot'] = slot_name
 
 type_name = kw.get('type_name', 'Text Box')
 id = kw.get('title')
@@ -29,5 +32,5 @@ psm = 'psm_box_created'
 if REQUEST is not None:
     action_path = ob.getTypeInfo().immediate_view
     REQUEST.RESPONSE.redirect('%s/%s?box_url=%s&portal_status_message=%s' % 
-                              (context_url,action_path, box_url, psm))
+                              (context_url, action_path, box_url, psm))
 return psm

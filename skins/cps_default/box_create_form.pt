@@ -42,17 +42,16 @@ tal:attributes="action string:${here_url}/box_create">
     </td>
   </tr>
 </table>
-<table class="FormLayout" summary="title form layout">
-  <tr valign="top">
-    <td><br /></td>
-    <td colspan="2" class="TextField">
-      <strong i18n:translate="label_title">Title:</strong>
-      <input type="text" name="title" size="20" />
-      <input type="submit" class="standalone searchButton" value="button_add"
-        i18n:attributes="value" />
-    </td>
-  </tr>
-</table>
+<p>
+  <tal:block define="slot_name python:request.get('slot_name')"
+       condition="slot_name">
+    <input type="hidden" name="slot_name" tal:attributes="value slot_name"/>
+  </tal:block>
+  <strong><label for="title" i18n:translate="label_title">Title</label></strong>
+  <input type="text" id="title" name="title" size="20"/>
+  <input type="submit" class="standalone searchButton" value="button_add"
+         i18n:attributes="value" />
+</p>
 </form>
 </div>
 </div>

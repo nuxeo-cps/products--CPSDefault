@@ -24,6 +24,12 @@ if sort_by:
 else:
     params['sort_by'] = cps_pref.get('sort_by', def_params['sort_by'])
 
+if direction:
+    params['direction'] = direction
+else:
+    params['direction'] = cps_pref.get('direction', def_params['direction'])
+
+
 if nav_action:
     params['nav_action'] = nav_action
 

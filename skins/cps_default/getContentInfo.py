@@ -167,7 +167,7 @@ if level > 0:
         eff = doc.effective()
         exp = doc.expires()
         if now < eff:
-            info['review_state'] = 'differed'
+            info['review_state'] = 'deferred'
             info['review_state_date'] = context.getDateStr(eff)
         elif now > exp:
             info['review_state'] = 'expired'

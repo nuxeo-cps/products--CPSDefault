@@ -4,11 +4,11 @@
 make_zs
 
 cd Products
-# CMF 1.4.2
-tar xzvf /home/zopes/_packages/CMF-1.4.2.tar.gz
-mv CMF-1.4.2/CMF* .
-mv CMF-1.4.2/DCWorkflow .
-rm -rf CMF-1.4.2
+# CMF 1.4.4
+tar xzvf /home/zopes/_packages/CMF-1.4.4.tar.gz
+mv CMF-1.4.4/CMF* .
+mv CMF-1.4.4/DCWorkflow .
+rm -rf CMF-1.4.4
 
 # Products
 tar xzvf /home/zopes/_packages/Localizer-1.0.1.tgz
@@ -32,7 +32,6 @@ cd -
 tar xzvf /home/zopes/_packages/NuxUserGroups-0.9.0-1.tgz
 mv NuxUserGroups-0.9.0 NuxUserGroups
 
-
 ## CPS 3 packaged replace x.x by the latest version available
 # tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
 # mv CPSCore-3.x.x CPSCore
@@ -40,9 +39,18 @@ mv NuxUserGroups-0.9.0 NuxUserGroups
 # mv CPSDefault-3.x.x CPSDefault
 
 ## or CPS3 dev
+cvs co CPSInstaller
 cvs co CPSCore
+cvs co CPSSchemas
 cvs co CPSDirectory
 cvs co CPSDefault
+
+# To use CPSDocument
+#
+# Epoz is mandatory for CPSDocument otherwise CPSDocument cannot even be
+# installed.
+tar xvzf /home/zopes/_packages/Epoz-0.8.1.tar.gz
+cvs co CPSDocument
 
 ## For po utilities (DEV)
 ## note that this will add an error in the stupid log

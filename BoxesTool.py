@@ -6,7 +6,7 @@
 import string
 from DateTime import DateTime
 from Globals import InitializeClass, DTMLFile
-from types import DictType
+from types import DictType, StringType
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
@@ -130,9 +130,14 @@ class BoxesTool(UniqueObject, SimpleItem):
 
             if hasattr(aq_base(folder_boxes), 'settings'):
                 folder_settings = getattr(folder_boxes, 'settings')
+                if type(folder_settings) is StringType:
+                    # XXX TODO find another way without eval
+                    # for security reasons
+                    folder_settings = eval(folder_settings)
                 if type(folder_settings) is DictType:
                     # XXX TODO check integrity of a folder_setting
                     settings = folder_settings
+                    LOG('portal_boxes', DEBUG, 'got settings: %s' % repr(folder_settings))
 
         return boxes, settings
 

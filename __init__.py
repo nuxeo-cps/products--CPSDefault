@@ -24,10 +24,12 @@ from Products.CMFCore.permissions import AddPortalContent
 
 import CMFCalendarToolPatch
 
+# Making sure that the ModuleSecurityInfo info statements of the utils module is
+# taken into account.
+import utils
 import Portal
 import Folder
 import Dummy
-
 import BoxesTool
 import BaseBox
 import TextBox

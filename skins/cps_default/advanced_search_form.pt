@@ -18,36 +18,36 @@
                  ">
 <body metal:use-macro="here/main_template/macros/master">
   <div metal:fill-slot="main">
-    <h1 i18n:translate="Advanced Search">
+    <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
     <form action="search" tal:attributes="action string:${base_url}search_form">
       <table class="FormLayout">
         <tr>
-          <td><span i18n:translate="title">Title</span></td>
+          <td><span i18n:translate="label_search_title">Title</span></td>
           <td><input name="Title" size="20"></td>
         </tr>
         <tr>
-          <td><span i18n:translate="description">Description</span></td>
+          <td><span i18n:translate="label_search_description">Description</span></td>
           <td><input name="Description" size="20"></td>
         </tr>
         <tr valign="top">
-          <td> <span i18n:translate="plain_text">Plain text</span></td>
+          <td> <span i18n:translate="label_search_plain_text">Plain text</span></td>
           <td><input name="SearchableText" size="40"></td>
         </tr>
         <tr tal:condition="python: here.portal_membership.checkPermission('Review portal content', here)">
-          <td ><span i18n:translate="status">Status</span></td>
+          <td ><span i18n:translate="label_search_status">Status</span></td>
           <td>
           <select name="review_state">
-            <option i18n:translate="all" i18n:attributes="value" value="-- All --" selected>All</option>
-            <option i18n:translate="work" i18n:attributes="value" value="work">Work</option>
-            <option i18n:translate="pending" i18n:attributes="value" value="pending">Pending</option>
-            <option i18n:translate="published" i18n:attributes="value" value="published">Published</option>
+            <option i18n:attributes="value" value="label_all" selected>All</option>
+            <option i18n:attributes="value" value="label_work">Work</option>
+            <option i18n:attributes="value" value="label_pending">Pending</option>
+            <option i18n:attributes="value" value="label_published">Published</option>
           </select>
           </td>
           </tr>
           <tr>
-            <td><span i18n:translate="modified_since">Modified since</span></td>
+            <td><span i18n:translate="label_search_modified_since">Modified since</span></td>
             <td tal:define="today python: here.ZopeTime().earliestTime();
                                           mtool here/portal_membership;
                                           member python:mtool.getAuthenticatedMember();
@@ -56,20 +56,19 @@
                                           lastWeek python:(today-7).Date();
                                           lastMth python:(today-31).Date();">
              <select name="modified:date">
-               <option i18n:translate="last_login" i18n:attributes="value"
-                       value="last_login"
+               <option i18n:attributes="value" value="time_last_login"
                        tal:condition="python:not(here.portal_membership.isAnonymousUser())">
-                 last login
+                 Last login
                </option>
-               <option i18n:translate="yesterday" i18n:attributes="value" value="yesterday">yesterday</option>
-               <option i18n:translate="last_week" i18n:attributes="value" value="last_week">last week</option>
-               <option i18n:translate="last_month" i18n:attributes="value" value="last_month">last month</option>
+               <option i18n:attributes="value" value="time_yesterday">Yesterday</option>
+               <option i18n:attributes="value" value="time_last_week">Last week</option>
+               <option i18n:attributes="value" value="time_last_month">Last month</option>
              </select>
              <input type="hidden" name="modified_usage" value="range:min" />
              </td>
           </tr>
 	  <tr>
-            <td><br><input type="submit" value="Search"/></td>
+            <td><br><input type="submit" i18n:attributes="value" value="button_search"/></td>
           </tr>
        </table>
      </form>

@@ -33,33 +33,39 @@
                 tal:attributes="action string:${base_url}search_form">
             &nbsp;
             <a href="advanced_search_form"
-               tal:attributes="href string:${base_url}advanced_search_form"
-               i18n:translate="advanced_search">
-              Advanced search
+               tal:attributes="href string:${base_url}advanced_search_form">
+               <span i18n:translate="link_advanced_search">
+                 Advanced search
+               </span>
             </a>
             <br/>
             <input id="searchGadget" type="text" name="SearchableText" value=""
                    size="64" tal:attributes="value SearchableText">
-            <input class="context searchButton" type="submit" value="OK"
+            <input class="context searchButton" type="submit" value="button_ok"
                    i18n:attributes="value">
           </form><br>
         </div>
         <div i18n:translate="">
           Your query '<span class="emphasis"
                             tal:content="SearchableText"
-                            i18n:name="query">Query</span>'
-          <tal:block condition="python:items_length == 0">
-            gave <span class="emphasis" i18n:name="no_result">no</span> result.
-          </tal:block>
-          <tal:block condition="python:items_length == 1">
-            gave <span class="emphasis" i18n:name="one_result">1</span> result.
-          </tal:block>
-          <tal:block condition="python:items_length > 1">
-            gave <span class="emphasis"
-                       tal:content="items_length"
-                       i18n:name="n_results">number</span> results.
-          </tal:block>
+                            i18n:name="_dynamic_">Query</span>'
         </div>
+        <tal:block condition="python:items_length == 0">
+            <span i18n:translate=""> 
+                  gave <span class="emphasis" i18n:name="legend_no_search_result">no result.</span>.
+            </span>
+        </tal:block>
+        <tal:block condition="python:items_length == 1">
+            <span i18n:translate="">
+             gave <span class="emphasis" i18n:name="legend_one_search_result">1 result.</span>
+            </span>
+        </tal:block>
+        <tal:block condition="python:items_length > 1">
+            <span i18n:translate=""> 
+              gave <span class="emphasis"
+	      tal:content="items_length"
+              i18n:name="_dynamic_">n results.</span> 
+          </tal:block>
         <hr>
         <metal:block use-macro="here/content_lib/macros/display_contents" />
       </tal:block>

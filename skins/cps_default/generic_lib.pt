@@ -74,12 +74,12 @@ want the special NS4 look - it will still work, just be plain text instead. -->
         tal:attributes="action string:${base_url}search_form">
       <a href="search_form"
          tal:attributes="href string:${base_url}advanced_search_form"
-         i18n:translate="advanced_search">
+         i18n:translate="link_advanced_search">
         Advanced search</a>
       <br>
       <input id="searchGadget" type="text" name="SearchableText" size="20"
              value="" tal:attributes="value request/SearchableText|nothing">
-      <input class="context searchButton" type="submit" value="OK"
+      <input class="context searchButton" type="submit" value="button_ok"
              i18n:attributes="value">
     </form>
   </div>
@@ -118,7 +118,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <!-- ============================================================ -->
 <metal:block define-macro="breadcrumbs">
   <div class="pathBar">
-    <span i18n:translate="you_are_here">You are here:&nbsp;</span>
+    <span i18n:translate="label_you_are_here">You are here:&nbsp;</span>
     <span tal:repeat="bc python:here.getBreadCrumbs(url=context_url, breadcrumb_set=getattr(request, 'breadcrumb_set', None))">
       <a href="/cps/id"
          tal:omit-tag="not:bc/url"
@@ -127,8 +127,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
          tal:content="bc/title">
          Title
       </a>
-      <strong tal:condition="not:repeat/bc/end"
-              i18n:translate="breadcrumbs_separator">&nbsp;&gt;&nbsp;</strong>
+      <strong tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
     </span>
   </div>
 </metal:block>
@@ -183,7 +182,7 @@ want the special NS4 look - it will still work, just be plain text instead. -->
           <li tal:repeat="action actionblock">
             <a tal:attributes="href action/url"
                tal:content="action/name"
-               i18n:translate="">
+               i18n:translate="link_translated_action">
                Translated action
              </a>
           </li>

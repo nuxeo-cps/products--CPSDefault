@@ -9,21 +9,21 @@
 <div class="Desktop"
      tal:define="pprops here/portal_properties; ve pprops/validate_email">
 
-<h1 i18n:translate="registred_title"> Success! </h1>
+<h1 i18n:translate="heading_registred_title"> Success! </h1>
 
-<p i18n:translate="registred_message"> 
+<p i18n:translate="description_registred"> 
    You have been registered as a member. 
 </p>
 
 <p tal:condition="ve"> 
-    <span i18n:translate="registred_mail_message">
+    <span i18n:translate="help_registred_mail">
       You will receive an email shortly containing
       your password and instructions on how to activate your membership.
     </span>
 </p>
 
 <p tal:condition="python:not(ve)" > 
-    <span i18n:translate="registred_login_link">
+    <span i18n:translate="link_registred_login">
       You can log on immediately by clicking
     </span>
     <a href=""
@@ -35,13 +35,13 @@
                   "
 	   tal:attributes="
         href string:${purl}/logged_in?__ac_name=${u}&__ac_password=${p}"
-     ><span i18n:translate="here">here</span></a>.  
+     ><span i18n:translate="link_here">here</span></a>.  
 </p>
 
 <p> 
 <a href=""
    tal:attributes="href string:${purl}/">
-   <span i18n:translate="registred_return_home_page">
+   <span i18n:translate="link_registred_return_home_page">
      Return to homepage
    </span>
 </a> 

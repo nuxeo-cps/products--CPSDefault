@@ -104,7 +104,7 @@ else:
 if level > 0:
     if not doc:
         doc = proxy.getContent()
-    description = doc.Description()
+    description = doc.Description() or ''
     if len(description) > max_description:
         description = description[:max_description] + '...'
     info['description'] = description

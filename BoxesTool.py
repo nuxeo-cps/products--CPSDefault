@@ -135,15 +135,17 @@ class BoxesTool(UniqueObject, PortalFolder):
         settings = {}
         path = '/'
 
+        home = getToolByName(self, 'portal_membership').getHomeFolder()
         for elem in ('',) + rpath:
             if elem:
                 path += elem + '/'
                 obj = getattr(obj, elem)
+            if obj == home and include_personal:
+                continue
             f_boxes, f_settings = self._getFolderBoxesAndSettings(obj)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
 
-        home = getToolByName(self, 'portal_membership').getHomeFolder()
         if home and include_personal:
             f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
             allboxes.extend(f_boxes)
@@ -253,7 +255,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         utool = getToolByName(self, 'portal_url')
         idbc = self.getBoxContainerId(home)
-        
+
         home.manage_addProduct['CPSDefault'].addBoxContainer(quiet=1)
         pbc = getattr(home, idbc, None)
 
@@ -262,10 +264,10 @@ class BoxesTool(UniqueObject, PortalFolder):
         settings.update(new_settings)
 
         for field in settings.keys():
-            if not settings[field]:
-                del settings[field]
-            elif field in ('mimimized', 'order', 'closed'):
+            if field in ('minimized', 'order', 'closed'):
                 settings[field] = int(settings[field])
+            elif not settings[field]:
+                del settings[field]
 
         self.setBoxOverride(boxurl, settings, pbc)
         LOG('portal_boxes', DEBUG,

@@ -615,7 +615,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             },
             'language_revs': {
                 'description': 'The language revisions of the proxy',
-                'default_expr': 'python:{state_change.object.getDefaultLanguage(): state_change.object.getRevision()}',
+                'default_expr': 'state_change/getLanguageRevisions',
                 'for_status': 1,
                 'update_always': 1,
             },
@@ -750,8 +750,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_expr': ''}
             },
             'language_revs': {
-                'description': 'The lang of the proxy',
-                'default_expr': 'python:{state_change.object.getDefaultLanguage(): state_change.object.getRevision()}',
+                'description': 'The language revisions of the proxy',
+                'default_expr': 'state_change/getLanguageRevisions',
                 'for_status': 1,
                 'update_always': 1,
             },
@@ -1006,8 +1006,8 @@ except:
                           'guard_expr': ''}
             },
             'language_revs': {
-                'description': 'The lang of the proxy',
-                'default_expr': 'python:{state_change.object.getDefaultLanguage(): state_change.object.getRevision()}',
+                'description': 'The language revisions of the proxy',
+                'default_expr': 'state_change/getLanguageRevisions',
                 'for_status': 1,
                 'update_always': 1,
             },

@@ -65,13 +65,10 @@
         with a link to the folder local roles setting
    x [julien] put member's folder into workspaces
    x [julien] NuxMetaDirectories integration
-      x cpsupdate integration
-      x skins integration. Check the TODO file in 
+      x [] cpsupdate integration
+      x [] skins integration. Check the TODO file in 
         NuxMetaDirectories/skins/cps_nuxmetadirectories/
-   o how to remove roles for a user in a folder ?
-      These are all closely related to the work lennart is doing
-      (plugin user folder for SSL+LDAP+ZODB Users+Groups support)
-      should talk to lennart first so we don't do anything double
+   o update user box title with the full name + link to directory
 
 - [herve] i18n usage
    x [herve] audit plone tools
@@ -114,10 +111,16 @@
   o implement copy/paste workflow
 
 - misc
+   o [julien] find a way to override breadcrumb 
+      o use it in search form
+      o use it in directories
+   o broken object action on '/': metadata or folder content
+     displaying portal tools
+   o clean cmf actions stuff ? undo ? preference ? favorite ?
    o navigation
       how to stay in folder_content or folder_view mode ?
    o actionify *
-      make everything an action header_menu new print (copy/paste)?  ...
+      make everything an action header_menu new print (copy/paste)?
    o benching framework
       need script to create big amount of docs
    o remove durty code
@@ -126,6 +129,13 @@
 
 # other tasks ----------------------------------------------
 - CPSDefault
+   o users
+      o roles managment screen displaying all roles/folder for a user
+      o how to remove roles for a user in a folder ?
+         These are all closely related to the work lennart is doing
+         (plugin user folder for SSL+LDAP+ZODB Users+Groups support)
+         should talk to lennart first so we don't do anything double
+
    o portal_boxes
       x [lennart+ben] designing
       x [] make .cps_boxes a portal_type with a 'settings' attributes
@@ -146,14 +156,15 @@
       x [] make a ZMI interface for setting overrides
       x [] slots should be defined and managed in portal_boxes
 
-   o workflow and docs
-      o impl skin reject
-      o impl skin unpublish
+   x [] workflow and docs
+      x [] impl skin rejectimpl skin unpublish
       x [] impl skin accept
       x [] impl skin proxy history i.e wf history
       x [] add wf variables: transition, date, user
       x [] display history of a document = * proxies history
       x [] content_submit_form: add link from existing document to the document
+      o impl copy/cut/paste ...
+
    o folder
       o impl folder_factories_form 
         check perms for creating/display sub section/workspace action
@@ -164,22 +175,24 @@
       x [] display sections and workspaces tree
       x [] folder_contents with more info
         display proxy rev, lang, status
+
    o document
-      o impl copy/cut/paste ...
-         same for rename delete history ...
       x [] full info skin: list all proxy about a document
+
    o cmf integration
-      o clean or integrate fully cmf stuff ? undo ? preference ? favorite ?
       x [] remove my stuff ? preference ? favorite ?
          o idealy port CMFDefault ptype and make it work ....
+
    x [] element integration: infinite postpone
+
    o cpsinstaller
       x [] don't need any more to rename folder actions
       o long term: big refactoring to enable registration of products
+
    o zpt usage
       o finish display_content macro add a cookie to remind option
         icon/detail + sort order + filter ?
-      x clean header of use-macro with tag <html xmlns ...
+      x [] clean header of use-macro with tag <html xmlns ...
       x [] handle batch sorting 
         sort is done in getFolderContent
       x [] evaluate plone css1 with netscape 4.77
@@ -190,10 +203,12 @@
       x [] manage printable css
       x [] restrict access to test_*_lib ? 
            use a separate skin devel
+
    o tests
       o unit tests for Dummy and Folder
       o add puffin test to create big amount of docs ?
          puffin is buggy !#@#
+
    o misc
       o finalize zmi CPSSite form creation
       o rewrite cpsinstaller
@@ -206,14 +221,14 @@
 
 # bugs or blocking tasks -----------------------------------
 - Bug fix
+   o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
+   o puffin is buggy cps return __ac_name after __ac and we can not
+      store the login cookie :/
    x []  advanced search, search link broken on result page url like //search_form
    x [fg] error after install in generic_lib no standard:'item/title'
       happened because new skins were not immediately available
-   o puffin is buggy cps return __ac_name after __ac and we can not
-      store the login cookie :/
    x [] url in breadcrumbs broken
-   x set local roles page should display acquisition roles
-   o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
+   x [] set local roles page should display acquisition roles
    x [] find a way not using tal before xml declaration in zpt
       ok htmlns will be removed
    x [] getInfoFor review_state failed if not owner or manager ????

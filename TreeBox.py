@@ -94,7 +94,7 @@ class TreeBox(BaseBox):
 
     def __init__(self, id, root='', depth=0, contextual=0,
                  children_only=0, **kw):
-        BaseBox.__init__(self, id, category='treebox', kw=kw)
+        BaseBox.__init__(self, id, category='treebox', **kw)
         self.root = root
         self.depth = depth
         self.contextual = contextual
@@ -106,7 +106,6 @@ class TreeBox(BaseBox):
 
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
-        portal_membership = getToolByName(self, 'portal_membership')
 
         # find the current container
         obj = context
@@ -164,17 +163,16 @@ class TreeBox(BaseBox):
         if self.depth and not self.contextual:
             tree = [x for x in tree if (x['depth'] <= self.depth)]
         elif self.depth and self.contextual:
-            # contextual means displaying current path as well as
+            # 'contextual' means displaying current path as well as
             # its childrens and brothers
             parents_url = []
             parents_len = []
-            for i in range(len(current_path)+1):
+            for i in range(len(current_path) + 1):
                 if i:
-                    url = '/'.join(current_path[:i])+'/'
+                    url = '/'.join(current_path[:i]) + '/'
                     parents_url.append(url)
-                    parents_len.append(len(url.split('/'))+1)
+                    parents_len.append(len(url.split('/')) + 1)
 
-            rpath_len_max = len(current_path) + 2
             items = []
             for item in tree:
                 rpath = item['rpath'] + '/'
@@ -197,7 +195,7 @@ class TreeBox(BaseBox):
             cur_url = current_url + '/'
             hidden = [item for item in tree if item.get('hidden_folder')]
             if hidden:
-                hidden = [item for item in hidden \
+                hidden = [item for item in hidden
                           if not cur_url.startswith(item['rpath'] + '/')]
             if hidden:
                 items = []

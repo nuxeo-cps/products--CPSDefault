@@ -76,7 +76,7 @@ class FlashBox(BaseBox,Folder):
     flash_height = '200'
 
     def __init__(self, id, flash_filename='', **kw):
-        BaseBox.__init__(self, id, category='flashbox', kw=kw)
+        BaseBox.__init__(self, id, category='flashbox', **kw)
         self.flash_filename = flash_filename
         self.flash_width = '300'
         self.flash_height = '200'

@@ -69,7 +69,7 @@ class ImageBox(BaseBox, Folder):
         )
 
     def __init__(self, id, image_name='', image_link='', **kw):
-        BaseBox.__init__(self, id, category='imagebox', kw=kw)
+        BaseBox.__init__(self, id, category='imagebox', **kw)
         self.image_name = image_name
         self.image_link = image_link
 

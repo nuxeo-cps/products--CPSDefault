@@ -193,7 +193,6 @@ class BaseInstaller:
             self.log(" !!! Unable to find .po dir")
         else:
             self.log("  Checking installable languages")
-            langs = []
             avail_langs = mcat.get_languages()
             self.log("    Available languages: %s" % str(avail_langs))
             for file in os.listdir(popath):

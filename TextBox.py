@@ -63,7 +63,7 @@ class TextBox(BaseBox):
     )
 
     def __init__(self, id, text='', **kw):
-        BaseBox.__init__(self, id, category='textbox', kw=kw)
+        BaseBox.__init__(self, id, category='textbox', **kw)
         self.text = text
 
 

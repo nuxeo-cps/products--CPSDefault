@@ -98,7 +98,7 @@ class ContentBox(BaseBox):
                  query_status='', query_portal_type=[], query_modified='',
                  zoom = 0,
                  **kw):
-        BaseBox.__init__(self, id, category='contentbox', kw=kw)
+        BaseBox.__init__(self, id, category='contentbox', **kw)
         self.folder = folder
         self.nb_items = nb_items
         self.sort_by = sort_by

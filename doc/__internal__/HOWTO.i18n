@@ -29,6 +29,15 @@ Tools used
 
      cpsmcat = context.Localizer.default
 
+  we recommand strongly to use kbabel with the following configuration:
+    Settings/Save/General/Encoding
+    ISO-8859-15
+    do not check Keep the encoding of the file
+
+  you may need to launch kbabel like this
+  LC_ALL=fr_FR@euro kbabel&
+
+
 ---------------------------------------------------------------
 Guide to Prefixes your msgid (mostly from plone i18n guideline)
 ---------------------------------------------------------------
@@ -173,9 +182,9 @@ Rules to generate pot/pos files and updating them
   GNU Gettext version >= 0.11.4-7 installed on the computer where you will launch
   the scripts included in the nuxeo_env. (make_pot & update_pos)
 
-  Set UTF-8 encoding in your po editor (Whatever the tool) !! 
-  The characters with  accents will not be accepted at diplay page time 
-  if you don't ;) 
+  Set ISO 8859-15 encoding in your po editor (Whatever the tool) !!
+  The characters with  accents will not be accepted at diplay page time
+  if you don't ;)
 
 -----------------
 Process outline
@@ -191,7 +200,7 @@ Process outline
         internationalization of your product. You'll get all the necessarily
         files. Simply : $ make_pot
 
-    c1) Translate the local files using a tool such as Kabel or emacs
+    c1) Translate the local files using a tool such as Kbabel or emacs
 
     d1) Localizer feeds the po files
 
@@ -201,7 +210,7 @@ Process outline
 
     c2) $update_pos
 
-    d2) Translate the local files using a tool such as Kabel or emacs
+    d2) Translate the local files using a tool such as Kbabel or emacs
 
     e2) Localizer feeds the po files
 
@@ -213,9 +222,9 @@ Process outline
         them. Just if you'd like to be sure to have all of them.
         BUT DON'T USE Localizer FOR EXPORT ANYMORE !!
 
-    c3) $update_pos 
+    c3) $update_pos
 
-    d3) Translate the local files using a tool such as Kabel or emacs
+    d3) Translate the local files using a tool such as Kbabel or emacs
         do not change
 
     e3) Localizer feeds the po files

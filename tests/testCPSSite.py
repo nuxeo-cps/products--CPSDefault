@@ -109,7 +109,7 @@ class TestCPSDefault(unittest.TestCase):
     def test_11_sections_folder(self):
         ob = self.pub
         wfid = self.wftool.getChainFor(ob)
-        self.assertEqual(wfid[0], 'wf_section')
+        self.assertEqual(wfid[0], 'section_folder_wf')
 
     def test_12_sections_folder(self):
         ob = self.pub
@@ -123,7 +123,7 @@ class TestCPSDefault(unittest.TestCase):
     def test_21_workspaces_folder(self):
         ob = self.work
         wfid = self.wftool.getChainFor(ob)
-        self.assertEqual(wfid[0], 'wf_workspace')
+        self.assertEqual(wfid[0], 'workspace_folder_wf')
 
     def test_22_workspaces_folder(self):
         ob = self.work

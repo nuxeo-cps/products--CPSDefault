@@ -92,17 +92,19 @@
 
 <!-- ============================================================ -->
 <pre>list contents in 'items' in the specified number of columns with the given
-format:</pre> 
-<metal:block define-macro="display_contents"> 
-<tal:block define="nav_action nav_action|string:folder_contents; 
-                   columns columns|python:2; 
-                   items_per_page items_per_page|python:10;
-                   mq nocall:modules/ZTUtils/make_query;
-                   form request/form; 
-                   batches python:here.getBatchList(items, columns, items_per_page);
-                   cps_cookie python:request.SESSION.get('cps_preferences', {});
-		   format python:cps_cookie.get('cps_display_style', 'detail')"><!-- detail, compact, icon --> 
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">    
+format:</pre>
+<metal:block define-macro="display_contents">
+<tal:block
+  define="nav_action nav_action|string:folder_contents;
+          columns columns|python:2;
+          items_per_page items_per_page|python:10;
+          mq nocall:modules/ZTUtils/make_query;
+          form request/form;
+          batches python:here.getBatchList(items, columns, items_per_page);
+		  format python:test(format, format,
+                             request.SESSION.get('cps_preferences', {}).get('cps_display_style', 'detail'))">
+          <!-- detail, compact, icon -->
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td align="left" valign="top"
           tal:attributes="width python:str(100 / columns)+'%'"
@@ -200,7 +202,7 @@ format:</pre>
     </tal:block>
 
     <span i18n:translate="">
-      v<span tal:replace="info/rev" i18n:name="status_revision">1</span>- <span       
+      v<span tal:replace="info/rev" i18n:name="status_revision">1</span>- <span
       tal:replace="info/lang" i18n:name="status_language">en</span>
     </span>
     <span tal:content="info/review_state" i18n:translate="">published</span>
@@ -322,8 +324,8 @@ format:</pre>
 
   <span tal:repeat="item info/history" >
 
-  <span i18n:translate=""> 
-    <span tal:content="item/stime" 
+  <span i18n:translate="">
+    <span tal:content="item/stime"
           i18n:name="history_time">May 6, 2003 5:28 pm</span>:
 
     </span>
@@ -331,8 +333,8 @@ format:</pre>
 
    <tal:block condition="item/has_dest|nothing" i18n:translate="">
     into <span i18n:name="history_dest">
-         <a href="." 
-            tal:content="item/dest_title" 
+         <a href="."
+            tal:content="item/dest_title"
             tal:attributes="href string:${base_url}${item/dest_container}/">
             Foo Section
          </a>

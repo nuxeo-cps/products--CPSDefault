@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html metal:define-macro="master" tal:define="
+  showthirdcol showthirdcol|python:1;
+  utool nocall:here/portal_url;
+  atool here/portal_actions;
+  mtool here/portal_membership;
+  ttool here/portal_trees;
+  wtool here/portal_workflow;
+  btool here/portal_boxes;
+  context_url python:here.getContextUrl(utool=utool);
+  base_url python:here.getBaseUrl(utool=utool);
+  boxes python:btool.getBoxes(here);
+  member mtool/getAuthenticatedMember;
+  isAnon mtool/isAnonymousUser;
+  actions python:atool.listFilteredActionsFor(here);
+  wf_state python:wtool.getInfoFor(here,'review_state','');
+  uname python: isAnon and 'Guest' or member.getUserName();
+  checkPerm nocall: mtool/checkPermission;
+  cpsmcat nocall:here/Localizer/default;
+  CPSD_BMT python:here.Benchmarktimer('main_template');
+  CPSD_bmt_start nocall:CPSD_BMT/start;
+  CPSD_bmt_stop nocall:CPSD_BMT/stop;
+  CPSD_bmt_mark nocall:CPSD_BMT/setMarker;
+  CPSD_bmt_elapsed nocall:CPSD_BMT/getProfiling;
+  ">
+<span tal:replace="CPSD_bmt_start" />
+<head>
+<metal:block use-macro="here/generic_lib/macros/header" />
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="10"
+       align="center" valign="top" class="columns">
+  <tr>
+    <td class="left" width="15%" valign="top">
+<!-- BEGIN LEFT Slot ============================== -->
+      
+      <metal:block define-macro="test_box_skin">
+      <tal:block repeat="bs here/getBoxSkins"
+        define="box python:boxes[1]">
+
+      <metal:block use-macro="python:path(bs['macro_path'])">
+      <metal:block fill-slot="box_title">A test box</metal:block>
+      <metal:block fill-slot="box_body" tal:content="bs/title"
+        i18n:translate="">Bla blabla blablaba.</metal:block>
+      </metal:block>
+
+      </tal:block>
+      </metal:block>
+
+<!-- END LEFT Slot ================================ -->
+    </td>
+    <td class="main" width="70%" valign="top">
+<!-- BEGIN CENTER_TOP Slot ======================== -->
+      <metal:block use-macro="here/test_box_lib/macros/test_box_skin" />
+    </td>
+    <td class="right" width="15%" valign="top" tal:condition="showthirdcol">
+<!-- BEGIN RIGHT Slot ============================= -->
+      <metal:block use-macro="here/test_box_lib/macros/test_box_skin" />
+<!-- END RIGHT Slot =============================== -->
+    </td>
+  </tr>
+</table>
+
+<!-- CPSD CPS Debug information =================== -->
+ <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+</body>
+</html>

@@ -1,10 +1,10 @@
 ##parameters=allowed=1
 # $Id$
-"""
-Sorting for display allowedContentTypes
-If allowed=0, return Searchable portaltype
+"""Return content types information list, sorted by their localized title.
 
-FIXME: I don't understand.
+It keeps workspace/section types at the begining of the list,
+if allowed is set return allowed content type for the context, else
+return all searchable content type.
 """
 
 if allowed:
@@ -15,8 +15,7 @@ else:
     items = context.getSearchablePortalTypes()
 
 def l10n(s):
-    # FIXME: localizergeddon
-    cpsmcat = context.Localizer.default
+    cpsmcat = context.translation_service
     ret = cpsmcat(s)
     if same_type(ret, u''):
         # FIXME: unicodegeddon

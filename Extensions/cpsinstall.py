@@ -164,6 +164,55 @@ def cpsupdate(self, langs_list=None):
             visible=1)
         pr(" Added Action My Preferences")
 
+
+    
+    # adding more actions
+    actions = {
+        'accessibility': {'id': 'accessibility',
+                          'name': 'action_accessibility',
+                          'action': 'string: ${portal_url}/accessibility',
+                          'permission': ('View', ),
+                          'condition': '',
+                          'category': 'global_header',
+                          'visible': 1,
+                          },
+        'print': {'id': 'print',
+                  'name': 'action_print',
+                  'action':
+                  'string:javascript:if (window.print) window.print();',
+                  'permission': ('View',),
+                  'condition': '',
+                  'category': 'global_header',
+                  'visible': 1
+               },
+        'advanced_search': {'id': 'advanced_search',
+                            'name': 'action_advanced_search',
+                            'action': 'string: ./advanced_search_form',
+                            'permission': ('View', ),
+                            'condition': '',
+                            'category': 'global_header',
+                            'visible': 1,
+                            },
+        'contact': {'id': 'contact',
+                    'name': 'action_contact',
+                    'action': 'string:mailto:${portal/portal_properties/email_from_address}?subject=Info',
+                    'permission': ('View', ),
+                    'condition': '',
+                    'category': 'global_header',
+                    'visible': 1,
+                    },
+     }
+    actions_list = ('accessibility', 'advanced_search', 'print',
+                    'contact')
+
+    present_actions = [action.id for action in \
+                       portal['portal_actions'].listActions()]
+
+    for action in actions_list:
+        if action not in present_actions:
+            portal['portal_actions'].addAction(**actions[action])
+            pr(" Added Action %s" % action)
+
     # skins
     pr("Verifying skins")
     skins = ('cps_nuxeo_style', 'cps_styles', 'cps_images', 'cps_devel',
@@ -1212,6 +1261,12 @@ except:
         pr("   Creating")
         portal.manage_addProduct['CPSDefault'].addBoxContainer()
     boxes = {
+        'action_header': {'type':'Action Box',
+                 'title': 'Header actions',
+                 'btype': 'header',
+                 'slot': 'top',
+                 'order': 5,
+                 },
         'search': {'type':'Base Box',
                  'title': 'Search form',
                  'btype': 'search',

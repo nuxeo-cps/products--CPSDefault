@@ -117,7 +117,7 @@ for citem in citems:
             found = 1
             break
     if not found:
-        items.extend([citem])
+        items.append(citem)
 
 if category:
     for item in items:

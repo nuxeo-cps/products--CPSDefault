@@ -20,17 +20,17 @@ function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
     formElements = toggleSelectButton.form.elements;
 
     if (isSelected) {
-	for (i = 0; i < formElements.length; i++) {
-	    formElements[i].checked = false;
-	}
-	isSelected = false;
-	toggleSelectButton.value = selectAllText;
+    for (i = 0; i < formElements.length; i++) {
+        formElements[i].checked = false;
+    }
+    isSelected = false;
+    toggleSelectButton.value = selectAllText;
     } else {
-	for (i = 0; i < formElements.length; i++) {
-	    formElements[i].checked = true;
-	}
-	isSelected = true;
-	toggleSelectButton.value = deselectAllText;
+    for (i = 0; i < formElements.length; i++) {
+        formElements[i].checked = true;
+    }
+    isSelected = true;
+    toggleSelectButton.value = deselectAllText;
     }
 }
 
@@ -38,33 +38,40 @@ function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
 /**
  * Toggles an element's visibility.
  * Function to show tooltips.
+ * If your element is a span, you must use inline display instead of block
+ * XXX recognize div and span then automaticly choose the best display rule
  */
 function toggleElementVisibility(id) {
-    element = document.getElementById(id);
-    if (element) {
-	if (element.style.visibility == 'hidden') {
-	    element.style.visibility = 'visible';
-	} else {
-	    element.style.visibility = 'hidden';
-	}
+  element = document.getElementById(id);
+  if (element) {
+    window.alert(element.tag)
+    if (element.style.visibility == 'hidden') {
+      element.style.visibility = 'visible';
+      element.style.display = 'block';
+    } else {
+      element.style.visibility = 'hidden';
+      element.style.display = 'none';
     }
+  }
 }
 
 function showElement(show, id) {
-    element = document.getElementById(id);
-    if (element) {
-	if (show) {
-	    element.style.visibility = 'visible';
-	} else {
-	    element.style.visibility = 'hidden';
-	}
+  element = document.getElementById(id);
+  if (element) {
+    if (show) {
+      element.style.visibility = 'visible';
+      element.style.display = 'block';
+    } else {
+      element.style.visibility = 'hidden';
+      element.style.display = 'none';
     }
+  }
 }
 
 //************************************************************
 function trim(s) {
     if (s) {
-	return s.replace(/^\s*|\s*$/g, "");
+    return s.replace(/^\s*|\s*$/g, "");
     }
     return "";
 }
@@ -73,8 +80,8 @@ function trim(s) {
 function checkEmptySearch(formElem) {
     var query = trim(formElem.SearchableText.value);
     if (query != '') {
-	formElem.SearchableText.value = query;
-	return true;
+    formElem.SearchableText.value = query;
+    return true;
     }
     formElem.SearchableText.value = query;
     formElem.SearchableText.focus();
@@ -93,31 +100,31 @@ function checkEmptySearch(formElem) {
  */
 function setFocus() {
     if (msie5) {
-	return false;
+    return false;
     }
     var elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {
-	var nodeClass = elements[i].getAttributeNode('class');
-	//alert("nodeClass = " + nodeClass);
-	if (nodeClass) {
-	    var classes = nodeClass.value.split(' ');
-	    for (var j = 0; j < classes.length; j++) {
-		if (classes[j] == 'focus') {
-		    elements[i].focus();
-		    return true;
-		}
-	    }
-	}
+    var nodeClass = elements[i].getAttributeNode('class');
+    //alert("nodeClass = " + nodeClass);
+    if (nodeClass) {
+        var classes = nodeClass.value.split(' ');
+        for (var j = 0; j < classes.length; j++) {
+    	if (classes[j] == 'focus') {
+    	    elements[i].focus();
+    	    return true;
+    	}
+        }
+    }
     }
 }
 
 function validateRequiredFields(fieldIds, fieldLabels, informationText) {
     for (i = 0; i < fieldIds.length; i++) {
-	element = document.getElementById(fieldIds[i]);
-	if (element && !element.value) {
-	    window.alert("'" + fieldLabels[i] + "' " + informationText);
-	    return false;
-	}
+    element = document.getElementById(fieldIds[i]);
+    if (element && !element.value) {
+        window.alert("'" + fieldLabels[i] + "' " + informationText);
+        return false;
+    }
     }
     return true;
 }
@@ -126,9 +133,9 @@ function validateRequiredFields(fieldIds, fieldLabels, informationText) {
 function getSelectedRadio(buttonGroup) {
    if (buttonGroup[0]) {
       for (var i=0; i<buttonGroup.length; i++) {
-	 if (buttonGroup[i].checked) {
-	    return i
-	 }
+     if (buttonGroup[i].checked) {
+        return i
+     }
       }
    } else {
       if (buttonGroup.checked) { return 0; }
@@ -142,9 +149,9 @@ function getSelectedRadioValue(buttonGroup) {
       return "";
    } else {
       if (buttonGroup[i]) {
-	 return buttonGroup[i].value;
+     return buttonGroup[i].value;
       } else {
-	 return buttonGroup.value;
+     return buttonGroup.value;
       }
    }
 }
@@ -155,9 +162,9 @@ function getSelectedRadioId(buttonGroup) {
       return "";
    } else {
       if (buttonGroup[i]) {
-	 return buttonGroup[i].id;
+     return buttonGroup[i].id;
       } else {
-	 return buttonGroup.id;
+     return buttonGroup.id;
       }
    }
 }

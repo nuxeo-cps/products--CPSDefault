@@ -96,24 +96,31 @@ box: <tal:block replace="box_url" />
         define="category python:here.getBoxTypes(category=box_category);
                 providertype string:${box/settings/provider}@${box/settings/btype}"
         condition="category">
-      <table>
+      <table border="0" width="100%" cellpadding="1" cellspacing="1">
         <tr><td colspan="2">
           <strong i18n:translate="" tal:content="category/title" /><br>
           <em><tal:block i18n:translate="" content="category/desc" /></em>
         </td></tr>
         <tal:block repeat="type category/types">
-        <tr><td nowrap tal:define="sf string:${type/provider}@${type/id}">
+        <tr><td width="30%" tal:define="sf string:${type/provider}@${type/id}">
           <input type="radio" name="providertype" value="" class="noborder"
-            tal:attributes="value sf; id sf;
-                            checked python:test(sf==providertype,'checked',nothing)" />
+                 tal:attributes="value sf; id sf;
+                       checked python:test(sf==providertype,'checked',nothing)">
           <label for="" tal:attributes="for sf">
-            <span tal:replace="type/provider" />-<span tal:replace="type/id" />
+            <i tal:omit-tag="python:type['id']=='default'">
+              <span tal:replace="string:${type/provider}-${type/id}" />
+            </i>
           </label>
           </td>
           <td><em i18n:translate=""  tal:content="type/desc" />
         </td></tr>
         </tal:block>
       </table>
+      <br>
+      <em i18n:translate="help_italic_vendor_boxes_types">
+        Box types in italic are predefined types. You cannot change their
+        properties from this interface. Use the default box to do so.
+      </em>
       </tal:block>
     </td>
   </tr>

@@ -186,6 +186,9 @@ class TreeBox(BaseBox):
 
         if self.depth:
             d = self.depth + len(root_path) - 1
+            if not self.show_root:
+                #take into account the fact that root is hidden
+                d = d - 1
             root_url = '/'.join(root_path)
             res = [x for x in tree if (x['depth']<=d and
                                       x['rpath'].startswith(root_url))]

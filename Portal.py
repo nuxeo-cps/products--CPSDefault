@@ -96,7 +96,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
     gen.setupDefaultProperties(portal, title, description,
                                email_from_address=root_email,
                                email_from_name=email_from_name,
-                               validate_email=0)
+                               validate_email=0, default_charset='')
 
     pr('Creating cpsupdate External Method in CPS Site')
     cpsupdate = ExternalMethod('cpsupdate',

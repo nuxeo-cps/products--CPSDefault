@@ -2,41 +2,31 @@
 # CPSDefault TODO
 
 # milestones -----------------------------------------------
-- [encolpe] 05/12: encolpe coding for CPSDefault
+x [encolpe] 05/12: encolpe coding for CPSDefault
    postpone to 05/15 :( postpone 05/22 :(((
 x [ben] 05/14: CPSDefault workable mainframe
-- [florent] 05/14: first impl of CPSDocuments
-  postpone to 05/23
-- [] 05/22: CPSDefault a la CMF ready
-  postpone until boxes tool/workflow/i18n/users tasks done
-  may be end of june 25/06
-- [] 05/28: CPSDemo with few services tbd ...
+- [florent] 05/26 +8d: CPSDocuments
+- [] 06/18+3w: CPSDefault with portal_boxes/workflow/i18n/users
+- [] 06/25: CPSDemo with few services tbd ...
 
 
 # on work priority tasks -----------------------------------
-- [ben] boxes tool (known as portlets or portal tool)
-   o full refactoring
-      o make .cps_boxes a portal_type with a 'settings' attributes
-         settings is a dictionary: path, box_id, xpos, ypos, visible, style?
-      o make getBoxes work
-         search for box object from root to current path
-         loading box object and update settings dictionnary
-         override with personal boxes objects and settings in ~.cps_boxes
-      o make a .cps_boxes view screen to manage boxes positions
-         save setting for local boxes into boxes object
-         save setting for aquire boxes into folder settings dictionnary
-      o use boxes attributes
-         available in subfolder
-         Condition
-         Permission
-      o how to manage ~/.cps_boxes/view ?
-
-- misc
-   o actionify *
-      make everything an action header_menu new print (copy/paste)?  ...
-   o i18n framework 
-      o audit plone tools write an HOWTO
-      o add multi po loader like gilupdate
+- [lennart] portal_boxes (known as portlets or portal tool)
+   x [lennart+ben] designing
+   o make .cps_boxes a portal_type with a 'settings' attributes
+      settings is a dictionary: path, box_id, xpos, ypos, visible, style?
+   o make getBoxes work
+      search for box object from root to current path
+      loading box object and update settings dictionnary
+      override with personal boxes objects and settings in ~.cps_boxes
+   o make a .cps_boxes view screen to manage boxes positions
+      save setting for local boxes into boxes object
+      save setting for aquire boxes into folder settings dictionnary
+   o use boxes attributes
+      available in subfolder
+      Condition
+      Permission
+   o how to manage ~/.cps_boxes/view ?
 
 - [encolpe] search
    o make catalog search work with proxies
@@ -45,27 +35,39 @@ x [ben] 05/14: CPSDefault workable mainframe
       with checkbox/action ?
    o try to use content_lib macros as much as possible
 
-- workflow
-  o display list of pending document for a reviewer
-    require catalog search ??
-  o add wf_vars rpath src/dest + filter on review history copy_submit
-  o add a comment on submit from copy_submit
-      o need to propagte args between transitions
-  o make a workflow history tool
-     using doc_id as pkey
-     o how to check permission, trying proxy access ?
-         for the moment display * history for doc_id
-  o how to notify reject or accept transition ?
-      add a submitter variable to the wf updated only on new/creation
-      then notify submitter ?
-
-- [seb] users
+- [seb+alex] users
    o handle group in local roles management
    o add anonymous access
    o put member's folder into workspaces
    o local roles page should display aquisition roles 
    o how to remove roles for a user in a folder ?
    o do we need NuxMetaDirectories ?
+
+- i18n usage
+   o audit plone tools
+   o add multi po loader like gilupdate
+   o use one domain by product
+   o write doc/HOWTO.i18n      
+
+- workflow
+  o [flo] make a workflow history tool
+     using doc_id as pkey
+     o how to check permission, trying proxy access ?
+         for the moment display * history for doc_id
+  o display list of pending document for a reviewer
+    require catalog search ??
+  o add wf_vars rpath src/dest + filter on review history copy_submit
+  o add a comment on submit from copy_submit
+      o need to propagte args between transitions
+  o how to notify reject or accept transition ?
+      add a submitter variable to the wf updated only on new/creation
+      then notify submitter ?
+
+- misc
+   o actionify *
+      make everything an action header_menu new print (copy/paste)?  ...
+   o benching framework
+      need script to create big amount of docs
 
 
 # other tasks ----------------------------------------------
@@ -89,7 +91,7 @@ x [ben] 05/14: CPSDefault workable mainframe
       x [] folder_contents with more info
         display proxy rev, lang, status
    o document
-      o impl copy/cut/paste ... this should be action like in plone
+      o impl copy/cut/paste ...
          same for rename delete history ...
       x [] full info skin: list all proxy about a document
    o cmf integration
@@ -98,7 +100,7 @@ x [ben] 05/14: CPSDefault workable mainframe
          o idealy port CMFDefault ptype and make it work ....
    x [] element integration: infinite postpone
    o cpsinstaller
-      o don't need any more to rename folder actions
+      x [] don't need any more to rename folder actions
       o long term: big refactoring to enable registration of products
    o zpt usage
       o finish display_content macro add a cookie to remind option

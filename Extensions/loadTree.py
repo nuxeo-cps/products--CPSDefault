@@ -87,23 +87,48 @@ def createContent(type, path, id, title, desc='', force=None, **kw):
         path = path[1:]
         pr('check %s/%s' % (path, id))
     parent = portal.unrestrictedTraverse(path)
+
+    ttool = getToolByName(parent, 'portal_types')
+    ti = None
+    proxy_type = None
+    for t in ttool.listTypeInfo():
+        if t.getId() == type:
+            ti = t
+            break
+    if ti:
+        proxy_type = ti.getActionById('isproxytype', 0)
+
+    #dbg display ti info find builder
     if id in parent.objectIds():
         pr('\t%s already created' % id)
         if not force:
             return
         pr('\tforcing title %s desc:%s and %s' % (title, desc, str(kw)))
     else:
-        pr('\tcreate %s id:%s title:%s desc:%s and %s' % (type, id, title,
-                                                          desc, str(kw)))
-        if type == 'folder':
-            parent.manage_addPortalFolder(id, title)
-        else:
+        pr('\tcreate %s id:%s title:%s desc:%s and %s' % (
+            type, id, title, desc, str(kw)))
+        if proxy_type:
             parent.invokeFactory(type, id)
+        elif proxy_type == 0:
+            apply(ttool.constructContent,
+                  (type, parent, id, None), {})
+        elif proxy_type is None:
+            all_types = parent.filtered_meta_types()
+            ti = None
+            for t in all_types:
+                if t['name'] == type:
+                    ti = t
+                    break
+            if ti is None:
+                raise 'No meta type info for type %s' % type
+            # XXX: ouch there must be another way...
+            meth_name = ti['action'].split('/')[-1]
+            cmd = 'parent.manage_addProduct[\'%s\'].%s(id)' % (
+                ti['product'], meth_name)
+            pr('executing %s' % cmd)
+            eval(cmd)                        
+            
     ob = getattr(parent, id)
-    ti = ob.getTypeInfo()
-    if ti is None:
-        raise Exception('No portal type found for box: %s' % ob.getId())
-    proxy_type = ti.getActionById('isproxytype', None)
     if proxy_type:
         doc = ob.getEditableContent()
         doc.edit(title=title, description=desc, **kw)

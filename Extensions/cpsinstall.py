@@ -1523,7 +1523,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             visible=1)
 
     def setupi18n(self):
-
         if not self.portalHas('Localizer'):
             self.log(" Adding Localizer")
             languages = self.langs_list or ('en',)
@@ -1552,45 +1551,19 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             self.portal._setObject('i18n Updater', i18n_updater)
 
     def setupCPSProducts(self):
-        self.runExternalUpdater('cpscollector_installer',
-                                'CPSCollector Installer',
-                                'CPSCollector', 'install', 'install')
-        self.runExternalUpdater('cpsdocument_installer',
-                                'CPSDocument Installer',
-                                'CPSDocument', 'install', 'install')
-        self.runExternalUpdater('cpsmailboxer_installer',
-                                'CPSMailBoxer Installer',
-                                'CPSMailBoxer', 'install', 'install')
-        self.runExternalUpdater('cpsrss_installer',
-                                'CPSRSS Installer',
-                                'CPSRSS', 'install', 'install')
-        self.runExternalUpdater('cpsforum_installer',
-                                'CPSForum Installer',
-                                'CPSForum', 'install', 'install')
-        self.runExternalUpdater('cpschat_installer',
-                                'CPSChat Installer',
-                                'CPSChat', 'install', 'install')
-        self.runExternalUpdater('cpscalendar_installer',
-                                'CPSCalendar Installer',
-                                'CPSCalendar', 'install', 'install')
-        self.runExternalUpdater('cpsdirectory_installer',
-                                'CPSDirectory Installer',
-                                'CPSDirectory', 'install', 'install')
-        self.runExternalUpdater('cpsnavigation_installer',
-                                'CPSNavigation Installer',
-                                'CPSNavigation', 'install', 'install')
-        self.runExternalUpdater('cpssubscriptions_installer',
-                                'CPSSubscriptions Installer',
-                                'CPSSubscriptions', 'install', 'install')
-        self.runExternalUpdater('cpsnewsletter_installer',
-                                'CPSNewsLetters Installer',
-                                'CPSNewsLetters', 'install', 'install')
-        self.runExternalUpdater('cpsooo_installer',
-                                'CPSOOo Installer',
-                                'CPSOOo', 'install', 'install')
-        self.runExternalUpdater('cpsportlets_installer',
-                                'CPSPortlets Installer',
-                                'CPSPortlets', 'install', 'install')
+        self.setupProduct('CPSCollector')
+        self.setupProduct('CPSDocument')
+        self.setupProduct('CPSMailboxer')
+        self.setupProduct('CPSRSS')
+        self.setupProduct('CPSForum')
+        self.setupProduct('CPSChat')
+        self.setupProduct('CPSCalendar')
+        self.setupProduct('CPSDirectory')
+        self.setupProduct('CPSNavigation')
+        self.setupProduct('CPSSubscriptions')
+        self.setupProduct('CPSNewsLetters')
+        self.setupProduct('CPSOOo')
+        self.setupProduct('CPSPortlets')
 
 
 def cpsupdate(self, langs_list=None, is_creation=0):

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-11-19 16:42default\n"
+"POT-Creation-Date: 2003-12-02 12:48default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -62,7 +62,7 @@ msgstr ""
 #.   <td content="item/Description" align="left" class="ListDefinition">
 #.               Portal type's description
 #.             </td>
-#.   <td content="pt/Description" align="left" class="description">
+#.   <td content="item/Description" align="left" class="description">
 #.                 Portal type's description
 #.               </td>
 #: from ../skins/cps_default/box_create_form.pt
@@ -73,7 +73,7 @@ msgstr ""
 #.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
 #.               Portal type's title
 #.               </label>
-#.   <label attributes="for string:cb_${repeat/item/number}" content="pt/Title" for="">
+#.   <label attributes="for string:cb_${repeat/item/number}" content="item/Title" for="">
 #.                   Portal type's title
 #.                 </label>
 #: from ../skins/cps_default/box_create_form.pt
@@ -138,6 +138,9 @@ msgstr ""
 #.   <block fill-slot="box_title" content="box/box/title">
 #.          box text title
 #.       </block>
+#.   <block fill-slot="box_title" content="box/box/title">
+#.          box text title
+#.     </block>
 #.   <block content="box/box/title">box text title</block>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 msgid "box text title"
@@ -588,11 +591,16 @@ msgstr ""
 msgid "heading_checkout_draft_of ${item_id}"
 msgstr ""
 
+#.   <h2 condition="type_name">heading_create</h2>
+#: from ../skins/cps_default/folder_edit_form.pt
+msgid "heading_create"
+msgstr ""
+
 #.   <h1>
 #.       heading_edit
 #.       ${item_id (tal replace="here/getId")}
 #.     </h1>
-#.   <h2>heading_edit
+#.   <h2 condition="not:type_name">heading_edit
 #.       ${item_id (tal replace="here/getId")}</h2>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -1015,6 +1023,11 @@ msgstr ""
 msgid "label_closed"
 msgstr ""
 
+#.   <h2 condition="repeat/item/start">label_collaborative_folder</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_collaborative_folder"
+msgstr ""
+
 #.   <option attributes="selected python:format == 'compact'" value="compact">
 #.               Compact
 #.       </option>
@@ -1153,20 +1166,6 @@ msgstr ""
 #.   <th align="right" colspan="5">Show root</th>
 #: from ../skins/cps_default/treebox_edit_form.pt
 msgid "label_display_root"
-msgstr ""
-
-#.   <th nowrap="" align="right">
-#.           Doc id
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_doc_id"
-msgstr ""
-
-#.   <th align="right">
-#.           Document identifier
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_document_identifier"
 msgstr ""
 
 #.   <th style="text-align:left;">
@@ -1351,13 +1350,6 @@ msgstr ""
 msgid "label_language ${status_language}"
 msgstr ""
 
-#.   <th nowrap="" align="right">
-#.           Language Revision
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_language_revision"
-msgstr ""
-
 #.   <th>Search by</th>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_by"
@@ -1400,6 +1392,11 @@ msgstr ""
 msgid "label_order"
 msgstr ""
 
+#.   <h2 condition="repeat/item/start">label_other_folder</h2>
+#: from ../skins/cps_default/boxes_nuxeo.pt
+msgid "label_other_folder"
+msgstr ""
+
 #.   <th> Password </th>
 #.   <strong>Password</strong>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
@@ -1437,20 +1434,6 @@ msgstr ""
 msgid "label_portal_title"
 msgstr ""
 
-#.   <th align="right">
-#.           Proxy identifier
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_proxy_identifier"
-msgstr ""
-
-#.   <th nowrap="" align="right">
-#.           Proxy Tag
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_proxy_tag"
-msgstr ""
-
 #.   <strong>label_publication_states</strong>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_publication_states"
@@ -1480,13 +1463,6 @@ msgstr ""
 #.   <strong>Reviewing history:</strong>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_reviewing_history"
-msgstr ""
-
-#.   <th nowrap="" align="right">
-#.           Revision
-#.         </th>
-#: from ../skins/cps_default/full_metadata_edit_form.pt
-msgid "label_revision"
 msgstr ""
 
 #.   <block>label_revision
@@ -1986,12 +1962,6 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
-msgid "Calendar"
-msgstr ""
-
-msgid "Calendars"
-msgstr ""
-
 msgid "deferred"
 msgstr ""
 
@@ -2210,6 +2180,9 @@ msgstr ""
 msgid "label_top"
 msgstr ""
 
+msgid "label_creator"
+msgstr ""
+
 # ## description_confirm ====================================
 msgid "description_confirm_delete"
 msgstr ""
@@ -2258,6 +2231,12 @@ msgid "portal_type_Workspace_description"
 msgstr ""
 
 msgid "portal_type_Workspace_title"
+msgstr ""
+
+msgid "portal_type_Calendar"
+msgstr ""
+
+msgid "portal_type_Calendars"
 msgstr ""
 
 msgid "portal_type_CPSForum_title"

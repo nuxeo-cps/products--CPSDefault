@@ -41,7 +41,7 @@
      tal:repeat="item stree"
      tal:attributes="href string:${base_url}${item/rpath}/;
                      class python:test(context_url.endswith(item['rpath']),
-                                       'selected' or default);
+                                       'selected', default);
                      title item/title"
      tal:content="structure item/short_title">
      section title

@@ -286,6 +286,7 @@
     </metal:block>
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <tal:block repeat="category items">
+      <tal:block condition="python:len(category)">
       <div tal:attributes="class python:'content '+ test(repeat['category'].odd(), 'even', 'odd')">
         <ul>
           <li tal:repeat="action category">
@@ -296,6 +297,7 @@
           </li>
         </ul>
       </div>
+      </tal:block>
       </tal:block>
     </metal:block>
   </metal:block>

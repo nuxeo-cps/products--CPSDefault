@@ -30,7 +30,7 @@ conversion = {
 # Does the corresponding homeFolder exists ? If it does the given login cannot
 # be used because it could be used to access someone else's home folder.
 mtool = getToolByName(context, 'portal_membership')
-if not mtool.isIdValid(request.form.get('username')):
+if not mtool.isUserIdValid(request.form.get('username')):
     failMessage = 'psm_join_login_already_used'
     if failMessage and request is not None:
         request.set('portal_status_message',

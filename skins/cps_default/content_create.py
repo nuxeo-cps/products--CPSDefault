@@ -7,7 +7,6 @@ from urllib import urlencode
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
-
     # Use creation without empty object.
     # XXX should find better
     ti = getattr(context.portal_types, type_name)
@@ -16,8 +15,14 @@ if REQUEST is not None:
         args = {'type_name': type_name}
         # XXX pass prefilled title, a bit of a hack...
         args['widget__Title'] = kw.get('title', '')
-        return REQUEST.RESPONSE.redirect('%s/cpsdocument_create_form?%s' %
-                                (context.absolute_url(), urlencode(args)))
+
+        # Look for the create action on the ti
+        create_action_form = ti.getActionById('create', 'cpsdocument_create_form')
+
+        return REQUEST.RESPONSE.redirect('%s/%s?%s'
+                                         % (context.absolute_url(),
+                                            create_action_form,
+                                            urlencode(args)))
 
 if REQUEST and not kw.get('title'):
     # Need a title before creating folders

@@ -140,7 +140,7 @@
 <!-- actions python:atool.listFilteredActionsFor(here); -->
 <metal:block define-macro="actionbox_default"
   tal:define="items python:box['box'].getActions(here, actions)">
-  <tal:block condition="python:len(items)">
+  <tal:block condition="python:len(items) and len([x for x in items if len(x)>1])">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title" tal:content="box/box/title">
        box text title

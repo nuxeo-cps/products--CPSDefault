@@ -22,10 +22,9 @@ tal:content="context_url" /></p>
                           keep_closed=1);"
            condition="python:len(sboxes)">
 <h3>
-<tal:block replace="structure
- python:here.getImgTag('slot_' + slot + '.png', base_url=base_url)" />
-    <span i18n:translate="label_slot" />: <span i18n:translate="" tal:content="string:label_${slot}">Slot</span></h3>
-
+<img tal:replace="structure python:here.getImgTag('slot_' + slot + '.png',
+                                                  base_url=base_url)">
+  <span i18n:translate="label_slot" />: <span i18n:translate="" tal:content="string:label_${slot}">Slot</span></h3>
 
 <table width="100%">
   <tr>

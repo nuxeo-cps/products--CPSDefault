@@ -34,8 +34,8 @@
      <a href="../xx"
         tal:attributes="href python:test(hasattr(here.aq_parent.aq_parent,
            'portal_url'), '../folder_contents', '..')">
-     <tal:block replace="structure
-       python:here.getImgTag('UpFolder_icon.gif', base_url=base_url)" />
+     <img tal:replace="structure python:here.getImgTag('UpFolder_icon.gif',
+                                                       base_url=base_url)">
        <span i18n:translate="">description_up_to
          <b i18n:name="up_id" tal:content="python:here.aq_parent.getId()">
          Up ID</b>

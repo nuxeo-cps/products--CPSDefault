@@ -24,8 +24,15 @@ ZopeTestCase.installProduct('CPSDocument')
 ZopeTestCase.installProduct('PortalTransforms')
 ZopeTestCase.installProduct('Epoz')
 
-# Patch Localizer, it doesn't want to work within the test
-# harness.
+from AccessControl.SecurityManagement \
+    import newSecurityManager, noSecurityManager
+
+import time
+
+# The folowing are patches needed because Localizer doesn't work
+# well within ZTC
+
+# This one is needed by ProxyTool.
 def get_selected_language(self):
     """ """
     return self._default_language
@@ -33,11 +40,23 @@ def get_selected_language(self):
 from Products.Localizer.Localizer import Localizer
 Localizer.get_selected_language = get_selected_language
 
+# Dummy portal_catalog.
 
-from AccessControl.SecurityManagement \
-    import newSecurityManager, noSecurityManager
+from OFS.SimpleItem import SimpleItem
+class DummyTranslationService(SimpleItem):
+    meta_type = 'Translation Service'
+    id = 'translation_service'
+    def translate(self, domain, *args, **kw):
+        return ""
 
-import time
+# Un-patch LocalizerStringIO
+
+from StringIO import StringIO
+from Products.Localizer import LocalizerStringIO
+def LocalizerStringIO_write(self, s):
+    # Don't write anything
+    StringIO.write(self, "")
+LocalizerStringIO.write = LocalizerStringIO_write
 
 
 class CPSTestCase(ZopeTestCase.PortalTestCase):
@@ -72,6 +91,11 @@ class CPSInstaller:
         factory.manage_addCPSDefaultSite(id, 
             root_password1="passwd", root_password2="passwd",
             langs_list=['en'])
+
+        # Change translation_service to DummyTranslationService
+        portal = getattr(self.app, id)
+        assert portal.translation_service
+        portal.translation_service = DummyTranslationService()
 
     def logout(self):
         noSecurityManager()

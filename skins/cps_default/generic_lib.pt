@@ -28,7 +28,7 @@
 <!-- ============================================================ -->
 <metal:block define-macro="portal_message">
 <div class="document"
-  tal:define="portal_message request/portal_status_message|nothing"
+  tal:define="portal_message portal_message|request/portal_status_message|nothing"
   tal:condition="portal_message">
   <div class="message" i18n:translate="" tal:content="portal_message">
   Translated status message.

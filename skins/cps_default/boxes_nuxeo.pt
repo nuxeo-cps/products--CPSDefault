@@ -162,3 +162,33 @@
   </metal:block>
   </tal:block>
 </metal:block>
+
+<!-- ============================================================ -->
+<!-- actions should be define like in main_template -->
+<!-- actions python:atool.listFilteredActionsFor(here); -->
+<metal:block define-macro="actionbox_user"
+  tal:define="items python:box['box'].getActions(here, actions)">
+  <tal:block condition="python:len(items)">
+  <metal:block use-macro="here/box_lib/macros/box">
+    <metal:block fill-slot="box_title" tal:content="box/box/title">
+       box text title
+    </metal:block>
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
+      <tal:block repeat="category items">
+      <div tal:attributes="class python:'content '+ test(repeat['category'].odd(), 'even', 'odd')">
+        <ul>
+          <li tal:repeat="action category">
+            <a tal:attributes="href action/url"
+               tal:content="action/name">
+               Action
+             </a>
+          </li>
+        </ul>
+      </div>
+      </tal:block>
+    </metal:block>
+  </metal:block>
+  </tal:block>
+</metal:block>
+
+	

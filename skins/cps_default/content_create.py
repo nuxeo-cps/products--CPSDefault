@@ -10,8 +10,10 @@ from urllib import urlencode
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
-id = kw['id']
 type_name = kw['type_name']
+id = kw.get('id', type_name)
+id = context.computeId(compute_from=id)
+
 context.invokeFactory(type_name, id)
 ob = getattr(context, id)
 

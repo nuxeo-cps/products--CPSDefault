@@ -1,13 +1,14 @@
 <metal:html use-macro="here/content_lib/macros/master">
 <div metal:fill-slot="main">
-<div class="Desktop">
 
 <span tal:replace="request/message"
    tal:condition="request/message|nothing"><hr></span>
-
-<div class="Metadata">
-
-<h2 i18n:translate="heading_standard_resource_metadata">Standard Resource Metadata</h2>
+<div class="documentActions">
+<a href="full_metadata_edit_form"
+  tal:attributes="href string:${here/absolute_url}/full_metadata_edit_form"
+  i18n:translate="link_all_metadata">Edit all metadata</a>
+</div>
+<h1 i18n:translate="heading_standard_resource_metadata">Standard Resource Metadata</h1>
 
 <form action="content_edit" method="post"
       tal:attributes="action string:${here/absolute_url}/content_edit">
@@ -31,12 +32,7 @@
         </option>
       </select>
     </td>
-    <td colspan="2" align="right">
-      <a href="full_metadata_edit_form"
-         tal:attributes="href string:${here/absolute_url}/full_metadata_edit_form" 
-         i18n:translate="link_all_metadata">
-        Edit all metadata
-      </a>
+    <td colspan="2" align="right">&nbsp;
     </td>
   </tr>
   <tr valign="top">
@@ -79,19 +75,23 @@
     <td>
       <input type="text" name="format" value=""
              tal:attributes="value doc/Format">
-      <br><input type="submit" name="change" value="button_change"
-                 i18n:attributes="value">
-      <br><input type="submit" name="change_and_edit" value="button_change_and_edit"
-                 i18n:attributes="value">
-      <br><input type="submit" name="change_and_view" value="button_change_and_view"
-                 i18n:attributes="value">
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="3">
+      <input type="submit" name="change" value="button_change"
+        class="standalone" i18n:attributes="value">
+      <input type="submit" name="change_and_edit"  class="standalone"
+        value="button_change_and_edit" i18n:attributes="value">
+      <input type="submit" name="change_and_view" class="standalone"
+        value="button_change_and_view" i18n:attributes="value">
     </td>
   </tr>
 </table>
 
 </form>
 
-</div>
 
 <div>
   <hr>
@@ -141,7 +141,6 @@
       </td>
     </tr>
   </table>
-</div>
 
 </div>
 </div>

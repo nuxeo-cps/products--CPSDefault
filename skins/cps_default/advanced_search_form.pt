@@ -22,7 +22,7 @@
     <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
-    <form action="search" 
+    <form action="search"
           tal:attributes="action string:${base_url}search_form">
       <table class="FormLayout">
         <tr>
@@ -66,19 +66,19 @@
                        tal:condition="python:not(here.portal_membership.isAnonymousUser())">
                  time_last_login
                </option>
-               <option i18n:translate="time_yesterday"  
+               <option i18n:translate="time_yesterday"
                        tal:attributes="value yesterday">time_yesterday</option>
-               <option i18n:translate="time_last_week"  
+               <option i18n:translate="time_last_week"
                        tal:attributes="value lastWeek">time_last_week</option>
-               <option i18n:translate="time_last_month" 
+               <option i18n:translate="time_last_month"
                        tal:attributes="value lastMth">time_last_month</option>
              </select>
              <input type="hidden" name="modified_usage" value="range:min" />
              </td>
           </tr>
           <tr>
-            <td><br><input type="submit" 
-                           i18n:attributes="value" 
+            <td><br><input type="submit" class="context"
+                           i18n:attributes="value"
                            value="button_search"/></td>
           </tr>
        </table>

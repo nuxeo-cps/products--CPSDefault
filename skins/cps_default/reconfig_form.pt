@@ -1,5 +1,8 @@
-<metal:html>
-<metal:body use-macro="here/main_template/macros/master">
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns="http://www.w3.org/1999/xhtml"
+      metal:use-macro="here/main_template/macros/master">
+<body>
 
 <metal:block fill-slot="head_slot">
  <tal:block define="dummy python:request.set('breadcrumb_set',
@@ -29,9 +32,9 @@
       summary="portal properties form">
       <tr>
         <th class="even" align="right">
-          <span i18n:translate="label_admin_name">
+          <tal:block i18n:translate="label_admin_name">
             Administrator Name
-          </span>
+          </tal:block>
         </th>
         <td>
           <input name="email_from_name" value=""
@@ -40,9 +43,9 @@
       </tr>
       <tr>
         <th class="even" align="right">
-          <span i18n:translate="label_admin_email">
+          <tal:block i18n:translate="label_admin_email">
             Administrator E-mail
-          </span>
+          </tal:block>
         </th>
         <td>
           <input name="email_from_address" value=""
@@ -51,9 +54,9 @@
       </tr>
       <tr>
         <th class="even" align="right">
-          <span i18n:translate="label_smtp_server">
+          <tal:block i18n:translate="label_smtp_server">
             SMTP Server
-          </span>
+          </tal:block>
         </th>
         <td>
           <input name="smtp_server" value=""
@@ -62,9 +65,9 @@
       </tr>
       <tr>
         <th class="even" align="right">
-          <span i18n:translate="label_portal_title">
+          <tal:block i18n:translate="label_portal_title">
             Portal title
-          </span>
+          </tal:block>
         </th>
         <td>
           <input name="title" value=""
@@ -73,21 +76,21 @@
       </tr>
       <tr>
         <th class="even" align="right">
-          <span i18n:translate="label_portal_description">
+          <tal:block i18n:translate="label_portal_description">
             Portal description
-          </span>
+          </tal:block>
         </th>
         <td>
           <textarea cols="40" rows="6" name="description"
-                    style="width: 100%" wrap="soft"
-                    tal:content="pprops/description"></textarea>
+                    style="width: 100%" tal:content="pprops/description">
+          </textarea>
         </td>
       </tr>
       <tr>
         <th class="even" align="right">
-          <span i18n:translate="label_portal_enable_join">
+          <tal:block i18n:translate="label_portal_enable_join">
             Enable portal joining
-          </span>
+          </tal:block>
         </th>
         <td>
           <input type="checkbox" name="enable_portal_joining:boolean"
@@ -95,12 +98,13 @@
         </td>
       </tr>
     </table>
-    <br />
+    <p>
     <input type="submit" value="button_change"
            i18n:attributes="value" />
     <input type="button" onClick="history.back()" value="button_cancel"
            i18n:attributes="value" />
+        </p>
   </form>
 </metal:main>
-</metal:body>
-</metal:html>
+</body>
+</html>

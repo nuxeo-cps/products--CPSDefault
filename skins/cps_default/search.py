@@ -27,12 +27,13 @@ query['portal_type'] = pt
 portal_path = context.portal_url.getPortalPath()
 query['path'] = portal_path+'/portal_repository/'
 
-#if query.setdefault('SearchableText', '').strip():
-#    results = catalog(**query)
-#else:
-#    results = []
+if query.setdefault('SearchableText', '').strip():
+    results = catalog(**query)
+else:
+    results = []
 
 items = []
+
 results = catalog(**query)
 for result in results:
     # XXX may be we should add Id as metadata

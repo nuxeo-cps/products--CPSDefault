@@ -21,6 +21,11 @@
 from Products.CMFCore.utils import ContentInit, ToolInit
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.permissions import AddPortalContent
+try:
+    from Products.CMFSetup import profile_registry
+    has_profile_registry = True
+except ImportError:
+    has_profile_registry = False
 
 import CMFCalendarToolPatch
 
@@ -100,3 +105,10 @@ def initialize(context):
     context.registerClass(BoxesTool.BoxContainer,
                           permission='Add Box Container',
                           constructors=(BoxesTool.addBoxContainer,))
+
+    if has_profile_registry:
+        profile_registry.registerProfile('CPSDefault:default',
+                                         'CPS Default Site',
+                                         'Profile for a default CPS site.',
+                                         'profiles/default',
+                                         'CPSDefault')

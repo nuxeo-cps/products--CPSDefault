@@ -81,38 +81,46 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declareObjectPublic()
 
     guard = None
-    display_only_in_subfolder = 0
-    
+
     _properties = (
         {'id': 'title', 'type': 'string', 'mode': 'w', 'label': 'Title'},
-        {'id': 'minimized', 'type': 'boolean', 'mode': 'w', 'label': 'Minimized'},
+
+        {'id': 'provider', 'type': 'string', 'mode': 'w', 'label': 'Provider'},
+        {'id': 'btype', 'type': 'string', 'mode': 'w', 'label': 'type of box'},
+
+        {'id': 'box_skin', 'type': 'string', 'mode': 'w',
+         'label': 'skin of the box'},
+        {'id': 'minimized', 'type': 'boolean', 'mode': 'w',
+         'label': 'Minimized'},
         {'id': 'closed', 'type': 'boolean', 'mode': 'w', 'label': 'Closed'},
-        {'id': 'style', 'type': 'string', 'mode': 'w', 'label': 'Style'},
-        {'id': 'format', 'type': 'string', 'mode': 'w', 'label': 'Display format'},
         {'id': 'slot', 'type': 'string', 'mode': 'w', 'label': 'Slot'},
         {'id': 'order', 'type': 'int', 'mode': 'w', 'label': 'Order'},
-        {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
-        {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
-        {'id': 'display_only_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
-        {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
+        {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w',
+         'label': 'Display in sub folder'},
+        {'id': 'display_only_in_subfolder', 'type': 'boolean', 'mode': 'w',
+         'label': 'Display in sub folder'},
+        {'id': 'locked', 'type': 'boolean', 'mode': 'w',
+         'label': 'Locked box'},
         )
 
-    def __init__(self, id, title='', macro='basebox', minimized=0, closed=0,
-                 style='nuxeo', format='default', slot='left', order=0,
-                 visible_if_empty=0, display_in_subfolder=1,
+    def __init__(self, id, title='', category='basebox',
+                 box_skin='here/box_lib/macros/mmcbox',
+                 minimized=0, closed=0,
+                 provider='nuxeo', btype='default', slot='left', order=0,
+                 display_in_subfolder=1,
                  display_only_in_subfolder=0, locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)
         self.id = id
         self.title = title
-        self.macro = macro
-        self.style = style
-        self.format = format
+        self.category = category
+        self.provider = provider
+        self.box_skin = box_skin
+        self.btype = btype
         self.slot = slot
         self.order = int(order)
         self.minimized = minimized
         self.closed = closed
 
-        self.visible_if_empty = visible_if_empty
         self.display_in_subfolder = display_in_subfolder
         self.display_only_in_subfolder = display_only_in_subfolder
         self.locked = locked
@@ -143,11 +151,12 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     def getSettings(self):
         """Return a dictionary of properties that can be overriden"""
         return {'slot': self.slot,
+                'provider': self.provider,
+                'btype': self.btype,
                 'order': self.order,
                 'minimized': self.minimized,
                 'closed': self.closed,
-                'style': self.style,
-                'format': self.format,
+                'box_skin': self.box_skin,
                 }
 
     security.declareProtected('Manage Boxes', 'edit')
@@ -187,15 +196,15 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             (actionid, self.absolute_url(relative=1)))
 
     security.declarePublic('getMacro')
-    def getMacro(self, style=None, format=None):
+    def getMacro(self, provider=None, btype=None):
         """
         GetMacros to render the box.
         """
-        if not style:
-            style = self.style
-        if not format:
-            format = self.format
-        return 'here/boxes_%s/macros/%s_%s' % (style, self.macro, format)
+        if not provider:
+            provider = self.provider
+        if not btype:
+            btype = self.btype
+        return 'here/boxes_%s/macros/%s_%s' % (provider, self.category, btype)
 
     security.declarePublic('render')
     def render(self, **kw):

@@ -41,7 +41,7 @@ def title_sortkey(a):
 
 def date_sortkey(a):
     return str(not a.isPrincipiaFolderish) + \
-           str(wtool.getInfoFor(a,'time','x').timeTime()) + \
+           str(wtool.getInfoFor(a,'time','x')) + \
            a.getId()
 
 def cmp_desc(x, y):

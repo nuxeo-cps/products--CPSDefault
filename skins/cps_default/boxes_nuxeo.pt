@@ -160,36 +160,36 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_conformance_statement">
 <hr class="netscape4" />
-<div class="conformanceStatement doNotPrint">
+<ul class="conformanceStatement doNotPrint">
+  <li>
     <a href="http://www.cps-project.org/">
-      <img src="cps-minibanner.png" 
-        alt=""
-        title="label_advertisement_use_cps"
+      <img src="cps-minibanner.png" alt="" title="label_advertisement_use_cps"
         tal:attributes="src string:${base_url}cps-minibanner.png"
-        i18n:attributes="title"/>
-    </a>
+        i18n:attributes="title"/></a>
+  </li>
+  <li>
     <a href="http://validator.w3.org/check/referer">
-      <img src="valid-xhtml10.png" 
-        alt="Valid XHTML 1.0"
+      <img src="valid-xhtml10.png" alt="Valid XHTML 1.0"
         title="label_conformance_valid_xhtml"
         tal:attributes="src string:${base_url}valid-xhtml10.png"
-        i18n:attributes="title"/>
-    </a>
+        i18n:attributes="title"/></a>
+  </li>
+  <li>
     <a href="http://jigsaw.w3.org/css-validator/check/referer">
-      <img src="valid-css.png"
-        alt="Valid CSS"
-        title="label_conformance_valid_css" 
+      <img src="valid-css.png" alt="Valid CSS"
+        title="label_conformance_valid_css"
         tal:attributes="src string:${base_url}valid-css.png"
-        i18n:attributes="title"/>
-    </a>
+        i18n:attributes="title"/></a>
+  </li>
+  <li>
     <a href="http://www.w3.org/WAI/WCAG1A-Conformance">
-      <img src="wcag1A.png" 
+      <img src="wcag1A.png"
         alt="W3C Web Content Accessibility Level A conformance"
         title="label_conformance_wai_1a"
         tal:attributes="src string:${base_url}wcag1A.png"
-        i18n:attributes="title"/>
-    </a>
-</div>
+        i18n:attributes="title"/></a>
+  </li>
+</ul>
 <hr class="netscape4" />
 </metal:block>
 
@@ -803,15 +803,15 @@
   tal:define="items python:box['box'].getActions(here, actions);
               row_len python:3">
   <div class="headerActions" tal:condition="items">
-    <tal:block repeat="category items"><tal:block
-      condition="python:len(category)">
-      <tal:block repeat="action category">
+    <ul tal:repeat="category items">
+      <li tal:condition="python:len(category)"
+          tal:repeat="action category">
          <a i18n:translate=""
            tal:attributes="href action/url"
            tal:content="action/name">Action</a>
         <tal:block condition="not:repeat/action/end">-</tal:block>
-      </tal:block>
-    </tal:block></tal:block>
+      </li>
+    </ul>
   </div>
 </metal:block>
 

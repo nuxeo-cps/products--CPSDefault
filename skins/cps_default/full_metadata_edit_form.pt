@@ -8,7 +8,7 @@
 
 
 <span tal:replace="request/message"
-   tal:condition="request/message|nothing"><hr></span>
+   tal:condition="request/message|nothing"><hr /></span>
 
 
 <div class="Metadata">
@@ -55,7 +55,7 @@
           name="title"
           value=""
           size="65"
-		  tal:attributes="value doc/Title">
+		  tal:attributes="value doc/Title" />
   </td>
  </tr>
  <tr valign="top">
@@ -74,7 +74,7 @@
                                          doc.subjectsList(), '\n' )">
      <textarea name="subject:lines" rows="3" cols="20"
 	           tal:content="subj_lines"></textarea>
- <br> 
+ <br /> 
    <select name="subject:list" multiple>
      <option value=""
 		   tal:define="items python: doc.portal_metadata.listAllowedSubjects(doc); subjects doc/Subject"
@@ -106,41 +106,41 @@
   <td> <input type="text" name="effective_date"
                           value=""
 						  tal:define="effectiveString python: doc.effective_date and doc.effective_date.ISO() or 'None'"
-						  tal:attributes="value effectiveString">
+						  tal:attributes="value effectiveString" />
   </td>
   <th align="right"> Expiration Date
   </th>
   <td> <input type="text" name="expiration_date"
                           value=""
 						  tal:define="expirationString python: doc.expiration_date and doc.expiration_date.ISO() or 'None'"
-						  tal:attributes="value expirationString">
+						  tal:attributes="value expirationString" />
   </td>
  </tr>
  <tr valign="top">
   <th align="right"> Format
   </th>
   <td> <input type="text" name="format" value=""
-  		tal:attributes="value doc/Format">
+  		tal:attributes="value doc/Format" />
   </td>
  </tr>
  <tr valign="top">
   <th align="right"> Language
   </th>
   <td> <input type="text" name="language" value=""
-  		tal:attributes="value doc/Language">
+  		tal:attributes="value doc/Language" />
   </td>
  </tr>
  <tr valign="top">
   <th align="right"> Rights
   </th>
   <td> <input type="text" name="rights" value=""
-        tal:attributes="value doc/Rights">
+        tal:attributes="value doc/Rights" />
   </td>
  </tr>
  <tr valign="top">
-  <td> <br> </td>
+  <td> <br /> </td>
   <td>
-   <input type="submit" value=" Change ">
+   <input type="submit" value=" Change " />
   </td>
  </tr>
 </table>

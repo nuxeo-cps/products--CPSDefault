@@ -41,7 +41,7 @@
           <a href="../folder_contents"
           ><img src="" alt="[Link]" border="0"
                 tal:attributes="src string:${here/portal_url}/UpFolder_icon.gif"
-          ></a>
+          /></a>
          </span>&nbsp;&nbsp;
          <span tal:condition="upNav">
           Up to <a href="../folder_contents"
@@ -90,7 +90,7 @@
            ><img src="" alt="" border="0"
                  tal:attributes="src string:${here/portal_url}/${icon};
                                  alt item/Type|nothing;
-                                "></a>
+                                " /></a>
           </span>
          </td>
          <td>
@@ -131,7 +131,7 @@
            ><img src="" alt="" border="0"
                  tal:attributes="src string:${here/portal_url}/${icon};
                                  alt item/Type|nothing;
-                                "></a>
+                                " /></a>
           </span>
          </td>
          <td>
@@ -175,18 +175,18 @@
       <td align="left" valign="top" width="16"></td>
       <td align="left" valign="top">
       <span tal:condition="python: checkPerm('Add portal content', here)">
-        <input type="submit" name="folder_factories:method" value="New...">
+        <input type="submit" name="folder_factories:method" value="New..." />
       </span>
       <span tal:condition="python: checkPerm('View management screens', here)">
-        <input type="submit" name="folder_rename_form:method" value="Rename">
-        <input type="submit" name="folder_cut:method" value="Cut"> 
-        <input type="submit" name="folder_copy:method" value="Copy">
+        <input type="submit" name="folder_rename_form:method" value="Rename" />
+        <input type="submit" name="folder_cut:method" value="Cut" /> 
+        <input type="submit" name="folder_copy:method" value="Copy" />
         <span tal:condition="here/cb_dataValid">
-        <input type="submit" name="folder_paste:method" value="Paste">
+        <input type="submit" name="folder_paste:method" value="Paste" />
         </span>
       </span>
       <span tal:condition="python: checkPerm('Delete objects', here)">
-        <input type="submit" name="folder_delete:method" value="Delete">
+        <input type="submit" name="folder_delete:method" value="Delete" />
       </span>
       </td>
      </tr>

@@ -7,7 +7,7 @@
   tal:define="proxy here/this;
   doc doc|here/getContent|nocall:here">
 <metal:block use-macro="here/main_template/macros/master">
- <metal:block fill-slot="base">
+<metal:block fill-slot="base">
 <tal:block replace="structure string:<!--
   cps test / debug information:
   cps:path:${here/absolute_url}
@@ -19,6 +19,13 @@
   <base href="" tal:attributes="href python: here.absolute_url() + '/'">
 </metal:block>
 </metal:block>
+
+<metal:block fill-slot="head_slot"><metal:block
+  define-slot="head_slot" /></metal:block>
+<metal:block fill-slot="css_slot"><metal:block define-slot="css_slot"
+  /></metal:block>
+<metal:block fill-slot="javascript_head_slot"><metal:block
+  define-slot="javascript_head_slot" /></metal:block>
 
 <metal:block fill-slot="header">
 <metal:block define-slot="header">

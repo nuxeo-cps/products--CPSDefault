@@ -43,6 +43,7 @@ class BaseInstaller:
         self.boxtool = self.portal.portal_boxes
         self.treetool = self.portal.portal_trees
         self.typetool = self.portal.portal_types
+        self.wftool = self.portal.portal_workflow
 
 
     def log(self, bla, zlog=1):

@@ -222,6 +222,13 @@ class BoxContainer(PortalFolder):
     id = '.cps_boxes'
     meta_type = 'CPS Boxes Container'
     security = ClassSecurityInfo()
+
+    manage_options = (
+        (PortalFolder.manage_options[0],
+        {'label': "Overrides", 'action': 'manage_boxOverridesForm',},) +
+        PortalFolder.manage_options[2:]
+        )
+
     #
     # ZMI
     #

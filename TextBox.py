@@ -52,7 +52,6 @@ class TextBox(BaseBox):
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
-        {'id':'title', 'type':'string', 'mode':'w', 'label':'Title'},
         {'id':'text', 'type':'text', 'mode':'w', 'label':'Text'},
         )
 

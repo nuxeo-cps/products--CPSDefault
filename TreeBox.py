@@ -55,7 +55,6 @@ class TreeBox(BaseBox):
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
-        {'id':'title', 'type':'string', 'mode':'w', 'label':'Title'},
         {'id':'root', 'type':'string', 'mode':'w', 'label':'Root'},
         )
 

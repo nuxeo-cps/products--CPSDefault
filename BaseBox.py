@@ -92,13 +92,16 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     locked = 0
     display_in_subfolder = 1
     guard_roles = ''
-    
+    slot = 'right'
+    order = 0
+
     _properties = (
+        {'id': 'title', 'type': 'string', 'mode': 'w', 'label': 'Title'},
         {'id': 'minimized', 'type': 'boolean', 'mode': 'w', 'label': 'Minimized'},
         {'id': 'closed', 'type': 'boolean', 'mode': 'w', 'label': 'Closed'},
         {'id': 'style', 'type': 'string', 'mode': 'w', 'label': 'Style'},
-        {'id': 'xpos', 'type': 'int', 'mode': 'w', 'label': 'XPos'},
-        {'id': 'ypos', 'type': 'int', 'mode': 'w', 'label': 'YPos'},
+        {'id': 'slot', 'type': 'string', 'mode': 'w', 'label': 'Slot'},
+        {'id': 'order', 'type': 'int', 'mode': 'w', 'label': 'Order'},
         {'id': 'visible_if_empty', 'type': 'boolean', 'mode': 'w', 'label': 'Visible if empty'},
         {'id': 'display_in_subfolder', 'type': 'boolean', 'mode': 'w', 'label': 'Display in sub folder'},
         {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
@@ -107,14 +110,14 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         )
 
     def __init__(self, id, minimized=0, closed=0,
-                 style='', xpos=0, ypos=0, 
+                 style='', slot=0, order=0,
                  visible_if_empty= 0, display_in_subfolder=1, guard_roles='',
                  locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)        
         self.id = id
         self.style = style
-        self.xpos = int(xpos)
-        self.ypos = int(ypos)
+        self.slot = int(slot)
+        self.order = int(order)
         self.minimized = minimized
         self.closed = closed
 
@@ -126,8 +129,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declarePublic('getSettings')
     def getSettings(self):
         """Return a dictionary of properties that can be overriden"""
-        return {'xpos': self.xpos,
-                'ypos': self.ypos,
+        return {'slot': self.slot,
+                'order': self.order,
                 'minimized': self.minimized,
                 'closed': self.minimized,
                 'style': self.style,
@@ -142,7 +145,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     parent_path = ComputedAttribute(getPhysicalParentPath, 1)
 
     def sort_order(self):
-        return ('/'.join(self.getPhysicalParentPath()), self.xpos)
+        return ('/'.join(self.getPhysicalParentPath()), self.slot)
 
     def is_closed(self):
         """Returns 0 is it is closed, 1 otherwise
@@ -180,14 +183,14 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         """
         return _checkPermission(ModifyPortalContent, self)
 
-    security.declarePublic('can_xpos')
-    def can_xpos(self):
+    security.declarePublic('can_slot')
+    def can_slot(self):
         """
         """
         return _checkPermission(ModifyPortalContent, self)
 
-    security.declarePublic('can_ypos')
-    def can_ypos(self):
+    security.declarePublic('can_order')
+    def can_order(self):
         """
         """
         return _checkPermission(ModifyPortalContent, self)
@@ -289,21 +292,21 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                     if style['id'] == my_style:
                         self._can_minimized = style.get('can_minimized')
 
-            # sets ypos attribute correctly
-            ypos_max_set = 0
-            ypos_max = -1
-            my_xpos = self.xpos
+            # sets order attribute correctly
+            order_max_set = 0
+            order_max = -1
+            my_slot = self.slot
             for box in container.objectValues():
-                xpos = getattr(aq_base(box), 'xpos', None)
-                if xpos is not None and xpos == my_xpos:
-                    ypos = getattr(aq_base(box), 'ypos', None)
-                    if ypos is not None:
-                        if ypos_max_set and ypos_max < ypos:
-                            ypos_max = ypos
-                        elif not ypos_max_set:
-                            ypos_max_set = 1
-                            ypos_max = ypos
-            self.ypos = ypos_max + 1
+                slot = getattr(aq_base(box), 'slot', None)
+                if slot is not None and slot == my_slot:
+                    order = getattr(aq_base(box), 'order', None)
+                    if order is not None:
+                        if order_max_set and order_max < order:
+                            order_max = order
+                        elif not order_max_set:
+                            order_max_set = 1
+                            order_max = order
+            self.order = order_max + 1
 
         BaseBox.inheritedAttribute('manage_afterAdd')(self, item, container)
 

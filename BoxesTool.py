@@ -43,26 +43,20 @@ class BoxesTool(UniqueObject, SimpleItem):
     # Public API
     #
     #security.declarePublic('getBoxes')
-    #def getBoxes(self, context, xpos=None):
-    #    boxesinfo = self.getBoxesInfo(context, xpos)
+    #def getBoxes(self, context, slot=None):
+    #    boxesinfo = self.getBoxesInfo(context, slot)
     #    return [info['box'] for info in boxesinfo]
 
 
     security.declarePublic('getBoxes')
-    def getBoxes(self, context, xpos=None):
+    def getBoxes(self, context, slot=None):
         """Return a sorted list of boxes
         box are loaded from root to current path
         and overriden by personal boxes folder
         return a list of:
             [box_id, settings, macro_path, box_object]
         """
-        if xpos == 'left':
-            xpos = 0
-        elif xpos == 'center':
-            xpos = 1
-        elif xpos == 'right':
-            xpos = 2
-            
+
         # get boxes from root to current path
         portal_url = getToolByName(self, 'portal_url')
         rpath = portal_url.getRelativeContentPath(context)
@@ -101,16 +95,15 @@ class BoxesTool(UniqueObject, SimpleItem):
 
         # TODO filter on display_in_subfolder
 
-        # filtering on closed, xpos
+        # filtering on closed, slot
         boxes = [x for x in boxes if (not x['settings']['closed'] and
-                                      (xpos is None or x['settings']['xpos']==xpos))]
+                                      (slot is None or x['settings']['slot']==slot))]
 
         # TODO filter on guard_roles
 
         # sorting
         def cmpbox(a, b):
-            return (a['settings']['xpos']*100 + a['settings']['ypos']) - \
-                   (b['settings']['xpos']*100 + b['settings']['ypos'])
+            return a['settings']['order'] - b['settings']['order']
 
         boxes.sort(cmpbox)
 

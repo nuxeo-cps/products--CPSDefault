@@ -140,6 +140,7 @@ class DefaultInstaller(CPSInstaller):
             'View': ['Manager', 'SectionManager', 'SectionReviewer',
                      'SectionReader'],
             'View management screens': ['Manager', 'SectionManager'],
+            'View archived revisions': ['Manager', 'SectionManager'],
             }
         workspaces_perm = {
             'Add portal content': ['Manager', 'WorkspaceManager',
@@ -163,6 +164,8 @@ class DefaultInstaller(CPSInstaller):
                                   'SectionManager'],
             'Manage Box Overrides': ['Manager','WorkspaceManager'],
             'Manage Boxes': ['Manager', 'WorkspaceManager'],
+            'View archived revisions': ['Manager', 'WorkspaceManager',
+                                        'WorkspaceMember'],
             }
         self.setupPortalPermissions(sections_perm, self.portal[SECTIONS_ID])
         self.setupPortalPermissions(workspaces_perm, self.portal[WORKSPACES_ID])

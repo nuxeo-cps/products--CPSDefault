@@ -49,19 +49,19 @@ for item in items:
 
 # sorting
 # XXX hardcoded status !
-status_sort_order={'nostate':'0',
-                   'pending':'1',
-                   'published':'2',
-                   'work':'3',
-                   }
+status_sort_order = {'nostate':'0',
+                     'pending':'1',
+                     'published':'2',
+                     'work':'3',
+                     }
 
 # XXX these methods should return a tuple and not some half-baked string.
 def id_sortkey(a):
     return a.getId()
 
 def status_sortkey(a):
-    return status_sort_order[wtool.getInfoFor(a,'review_state','nostate')] + \
-           a.title_or_id().lower()
+    return status_sort_order.get(wtool.getInfoFor(a, 'review_state', 'nostate'),
+                                 '10') + a.title_or_id().lower()
 
 def title_sortkey(a):
     return a.title_or_id().lower()

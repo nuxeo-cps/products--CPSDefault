@@ -27,7 +27,11 @@ def cmp_type(a, b):
     return cmp(aa, bb)
 
 if allowed:
-    allowed = context.portal_types[context.getPortalTypeName()].allowed_content_types
+    ti = getattr(context.portal_types, context.getPortalTypeName(), None)
+	if ti is not None:
+	    allowed = ti.allowed_content_types
+    else:
+		allowed = []
     items = [i for i in items if i.getId() in allowed]
 
 items.sort(cmp_type)

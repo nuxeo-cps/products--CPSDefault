@@ -24,7 +24,7 @@ from zLOG import LOG, DEBUG
 #from Traversal import RestrictedTRaverse
 
 from Products.DCWorkflow.Guard import Guard
-
+from BoxesTool import BoxContainer
 
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
@@ -253,18 +253,22 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         """ personal override for this box """
         # find the personal boxes container pbc, create if empty
         home = getToolByName(self, 'portal_membership').getHomeFolder()
-        portal_url = getToolByName(self, 'portal_url')
+        utool = getToolByName(self, 'portal_url')
         btool = getToolByName(self, 'portal_boxes')
-        box_url = portal_url.getRelativeUrl(self)
+        box_url = utool.getRelativeUrl(self)
+        idbc = BoxContainer.id_perso
         
         pbc = None
-        if hasattr(aq_base(home), '.cps_boxes'):
-            pbc = home['.cps_boxes']
+        if hasattr(aq_base(home), idbc):
+            pbc = home[idbc]
         else:
-            home.manage_addProduct['CPSDefault'].addBoxContainer(id='.cps_boxes')
-            pbc = home['.cps_boxes']
-
-            LOG('Box', DEBUG, 'SavePersonalSettings', 'Creating personal boxes container %s/.cps_boxes' % str(portal_url.getRelativeContentPath(home)))
+            home.manage_addProduct['CPSDefault'].addBoxContainer()
+            pbc = home[idbc]
+            pbc.manage_permission('Manage Overrides',
+                                  roles=('Owner',) , acquire=0)
+            LOG('BaseBox', DEBUG, 'SavePersonalSettings',
+                'Creating personal boxes container %s/%s\n' % (
+                str(utool.getRelativeContentURL(home)), idbc))
             
         # get current override
         overrides = pbc.getOverrides()
@@ -281,12 +285,9 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             elif field in ('mimimized', 'order', 'closed'):
                 settings[field] = int(settings[field])
         btool.setBoxOverride(box_url, settings, pbc )
-        LOG('Box', DEBUG,
-            'SavePersonalSettings', '%s settings %s' % (box_url,
+        LOG('BaseBox', DEBUG,
+            'SavePersonalSettings', '%s settings %s\n' % (box_url,
                                                         str(settings)))
-
-        
-
 
 
 InitializeClass(BaseBox)

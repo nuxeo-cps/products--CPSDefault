@@ -24,6 +24,7 @@ from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 
 ManageOverridesPermission = 'Manage Overrides'
 
+
 class BoxSlot(PropertyManager, SimpleItem):
     meta_type = 'CPS Box Slot'
     security = ClassSecurityInfo()
@@ -146,17 +147,12 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         if home and include_personal:
-            f_boxes, f_settings = self._getFolderBoxesAndSettings(home)
+            f_boxes, f_settings = self._getFolderBoxesAndSettings(home, personal=1)
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
             homepath = portal_url.getRelativeContentPath(home)
         else:
             homepath = None
-
-        if include_personal:
-            LOG('portal_boxes: home path', DEBUG, homepath)
-        else:
-            LOG('portal_boxes: home path', DEBUG, 'skip personal boxes')
 
         boxes = []
         for box in allboxes:
@@ -170,7 +166,6 @@ class BoxesTool(UniqueObject, PortalFolder):
             # this is the last part of the path, or if it's a
             # personal box.
             boxpath = portal_url.getRelativeContentPath(box)
-            LOG('portal_boxes: box path', DEBUG, boxpath)
             if box.display_in_subfolder or \
                not rpath or \
                elem == rpath[-1] or \
@@ -217,15 +212,19 @@ class BoxesTool(UniqueObject, PortalFolder):
     # Private
     #
     security.declarePrivate('_getFolderBoxes')
-    def _getFolderBoxesAndSettings(self, folder):
+    def _getFolderBoxesAndSettings(self, folder, personal=0):
         """Load all boxes in a .cps_boxes folder
         load folder settings
         """
+        if personal:
+            idbc = BoxContainer.id_perso
+        else:
+            idbc = BoxContainer.id
         boxes = []
         settings = {}
         folder_boxes = None
-        if hasattr(aq_base(folder), '.cps_boxes'):
-            folder_boxes = getattr(folder, '.cps_boxes')
+        if hasattr(aq_base(folder), idbc):
+            folder_boxes = getattr(folder, idbc)
             for box in folder_boxes.objectValues():
                 if not hasattr(aq_base(box), 'isPortalBox'):
                     continue
@@ -261,13 +260,13 @@ class BoxesTool(UniqueObject, PortalFolder):
 
         context is the object where defaults should be stored.
         """
-        if not hasattr(aq_base(context), '_box_overrides'):
-            context._box_overrides = PersistentMapping()
-
-        # TODO: Add permission check in context
         sm = getSecurityManager()
         if not sm.checkPermission(ManageOverridesPermission, context):
             raise Unauthorized()
+
+        if not hasattr(aq_base(context), '_box_overrides'):
+            context._box_overrides = PersistentMapping()
+
         # TODO: check which settings you are allowed to change
         context._box_overrides[boxurl] = settings
 
@@ -290,11 +289,15 @@ class BoxesTool(UniqueObject, PortalFolder):
     security.declarePublic('getSlotIds')
     def getSlotIds(self):
         return [slot.id in self.getSlots()]
+   
+
 
 InitializeClass(BoxesTool)
 
 class BoxContainer(PortalFolder):
     id = '.cps_boxes'
+    id_perso = '.cps_personal_boxes'    # different name to make _checkId
+                                        # working for non admin
     meta_type = 'CPS Boxes Container'
     security = ClassSecurityInfo()
 
@@ -379,14 +382,22 @@ class BoxContainer(PortalFolder):
                         'minimized': '', 'style':'', 'format':''}
             override.update(item)
             result.append(override)
-        LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )
+        #LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )
         return result
+
 
 def addBoxContainer(self, id=None, REQUEST=None):
     """Add a Box Container.
     """
-    ob = BoxContainer(BoxContainer.id)
     self=self.this()
+    home=getToolByName(self, 'portal_membership').getHomeFolder()
+    if home == self:
+        id = BoxContainer.id_perso
+    else:
+        id = BoxContainer.id
+        
+    ob = BoxContainer(id)
+    
     if hasattr(aq_base(self), ob.id):
         return MessageDialog(
             title  ='Item Exists',

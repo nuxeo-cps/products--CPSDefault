@@ -8,13 +8,6 @@
 
 <metal:body use-macro="here/content_lib/macros/master">
 
-  <metal:block fill-slot="css_slot">
-    <metal:block define-macro="widgets_javascript">
-    <script type="text/javascript"
-      tal:attributes="src string:${base_url}functions.js"></script>
-   </metal:block>
-  </metal:block>
-
 <metal:header metal:fill-slot="header">
   <tal:block condition="python:checkPerm('List folder contents', here, 'aq_parent')">
      <a href="../xx"

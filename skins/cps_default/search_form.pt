@@ -14,8 +14,13 @@
                      items_length python:len(items);
                      format string:detail;
                      filter python:0;
+                     title_search request/title_search|nothing;
+                     swr request/searchwithinresults|nothing;
                     ">
-    <h1 i18n:translate="heading_search_results">Search Results</h1>
+    <h1 tal:condition="not:title_search"
+      i18n:translate="heading_search_results">Search Results</h1>
+    <h1 tal:condition="title_search"
+      tal:content="title_search">Title for search results</h1>
 
     <p>
       <span i18n:translate="">
@@ -53,8 +58,32 @@
         <input class="standalone searchButton" type="submit" value="button_ok"
                i18n:attributes="value">
         <br>
-        <metal:block use-macro="here/generic_lib/macros/search_folder_prefix_option" />
-       </form>
+        <tal:block condition="not:swr">
+          <metal:block
+            use-macro="here/generic_lib/macros/search_folder_prefix_option" />
+        </tal:block>
+        <tal:block condition="swr"
+          define="criteria python:['searchwithinresults', 'title_search',
+                                   'folder_prefix', 'review_state'];
+                  criteria_list python:['portal_type'];">
+          <tal:block repeat="criterion criteria">
+            <input type="hidden" tal:condition="value"
+              tal:define="value request/?criterion|nothing"
+              tal:attributes="name criterion;
+                              value value">
+          </tal:block>
+          <tal:block repeat="criterion criteria_list">
+            <tal:block tal:condition="values"
+               tal:define="values request/?criterion|nothing">
+              <tal:block repeat="value values">
+                <input type="hidden"
+                  tal:define="value value"
+                  tal:attributes="name python:criterion+':list'; value value">
+              </tal:block>
+            </tal:block>
+          </tal:block>
+        </tal:block>
+     </form>
     </div>
   </tal:block>
 </div>

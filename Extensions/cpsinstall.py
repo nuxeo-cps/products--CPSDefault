@@ -29,10 +29,21 @@ WORKSPACES_ID = 'workspaces'
 WebDavLockItem = 'WebDAV Lock items'
 WebDavUnlockItem = 'WebDAV Unlock items'
 
+
+
 class DefaultInstaller(CPSInstaller):
 
     product_name = 'CPSDefault'
+    DEFAULT_CPS_LEXICON_ID = 'cps_defaut_lexicon'
+    DEFAULT_CPS_LEXICON_TITLE = 'CPS Default Lexicon for ZCTextIndex'
 
+    CPS_FILTER_SETS_INDEX = 'cps_filter_sets'
+    # this set is supposed to match anything that can be viewed
+    # ie anything except document in portal_repository
+    CPS_FILTER_SEARCHABLE_SET = 'searchable'
+    CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s:s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
+    CPS_FILTER_LEAVES_SET = 'leaves'
+    CPS_FILTER_LEAVES_EXPR = """o.portal_type not in ('Section', 'Workspace')"""
     def install(self, langs_list=None, is_creation=0):
         self.langs_list = langs_list
         self.is_creation = is_creation
@@ -40,6 +51,7 @@ class DefaultInstaller(CPSInstaller):
         self.log("")
         installername = getSecurityManager().getUser().getUserName()
         self.log("Current user: %s" % installername)
+
         self.setupRegistration()
         self.setupMembership()
         self.setupSkins()
@@ -63,6 +75,7 @@ class DefaultInstaller(CPSInstaller):
         else:
             self.logOK()
 
+        self.setupCatalog()
 
         self.log(" Reindexing %s" % WORKSPACES_ID)
         # this will do a recursive reindexSecurityObject
@@ -82,6 +95,62 @@ class DefaultInstaller(CPSInstaller):
         self.setupTranslations()
         self.finalize()
         self.log("CPS update Finished")
+
+
+    #
+    # Catalog
+    #
+    def enumerateIndexes( self ):
+        #   Return a list of ( index_name, type ) pairs for the initial
+        #   index set.
+        class Struct:
+            def __init__(self, **kw):
+                for k, v in kw.items():
+                    setattr(self, k, v)
+
+        return (('Title', 'ZCTextIndex',
+                 Struct(doc_attr='Title',
+                        lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                        index_type='Okapi BM25 Rank'))
+                , ('Subject', 'KeywordIndex', None)
+                , ('Description', 'ZCTextIndex',
+                   Struct(doc_attr='Description',
+                          lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                          index_type='Okapi BM25 Rank'))
+                , ('Creator', 'FieldIndex', None)
+                , ('SearchableText', 'ZCTextIndex',
+                   Struct(doc_attr='SearchableText',
+                          lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                          index_type='Okapi BM25 Rank'))
+                , ('Date', 'DateIndex', None)
+                , ('Type', 'FieldIndex', None)
+                , ('created', 'DateIndex', None)
+                , ('effective', 'DateIndex', None)
+                , ('expires', 'DateIndex', None)
+                , ('modified', 'DateIndex', None)
+                , ('allowedRolesAndUsers', 'KeywordIndex', None)
+                , ('review_state', 'FieldIndex', None)
+                , ('in_reply_to', 'FieldIndex', None)
+                , ('meta_type', 'FieldIndex', None)
+                , ('id', 'FieldIndex', None)
+                , ('getId', 'FieldIndex', None)
+                , ('path', 'PathIndex', None)
+                , ('portal_type', 'FieldIndex', None)
+                , (self.CPS_FILTER_SETS_INDEX, 'TopicIndex',
+                   (Struct(id=self.CPS_FILTER_SEARCHABLE_SET,
+                           expr=self.CPS_FILTER_SEARCHABLE_EXPR),
+                    Struct(id=self.CPS_FILTER_LEAVES_SET,
+                           expr=self.CPS_FILTER_LEAVES_EXPR),))
+               )
+
+    def setupCatalog(self):
+        # check default ZCTextIndex lexicon
+        self.addZCTextIndexLexicon(self.DEFAULT_CPS_LEXICON_ID,
+                                   self.DEFAULT_CPS_LEXICON_TITLE)
+        ct = self.portal.portal_catalog
+        # check indexes
+        for index_name, index_type, index_extra in self.enumerateIndexes():
+            self.addPortalCatalogIndex(index_name, index_type, index_extra)
 
     def setupAccessControl(self):
         # setting roles
@@ -1379,5 +1448,3 @@ def cps_i18n_update(self, langs_list=None):
     installer.setupTranslations(product_name='CPSDefault')
     installer.log("CPSDefault i18n update Finished")
     return installer.logResult()
-
-

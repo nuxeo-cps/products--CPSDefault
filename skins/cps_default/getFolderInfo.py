@@ -7,8 +7,9 @@ from zLOG import LOG, DEBUG
 title_or_id = context.title_or_id()
 l = len(title_or_id)
 ml = 25
+mml = (ml-3)/2
 if l > ml:
-    short_title = title_or_id[:ml-6]+ '...' + title_or_id[l-3:]
+    short_title = title_or_id[:mml]+ '...' + title_or_id[-mml:]
 else:
     short_title = title_or_id
 

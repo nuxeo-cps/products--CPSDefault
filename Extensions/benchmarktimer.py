@@ -6,10 +6,11 @@ import Globals
 import time
 
 class pyBenchmarkTimer:
-    def __init__(self):
+    def __init__(self, title=''):
         """
         constructor, initializes
         """
+        self.title = title
         self.markers = {}
         self.markerOrder = []
 
@@ -59,7 +60,7 @@ class pyBenchmarkTimer:
         i       = 0
         total   = 0
         profiling = []
-        str = '<pre>Profiling:<small>\n'
+        str = '<pre>Profiling %s:<small>\n' % self.title
         str += '%-6s  %-10s %-4s\n' % ('t', 'mark', 'delta t')
         for name in self.markerOrder:
             time = self.markers[name]
@@ -80,10 +81,15 @@ class pyBenchmarkTimer:
             temp = time
             i = i+1
         str += '</small></pre>'
+        
         if return_str:
             return str
         return profiling
-        
+
+    def saveProfile(self, REQUEST):
+        str = REQUEST.other.get('bench_mark_profiler', '')
+        REQUEST.other['bench_mark_profiler'] = str + self.getProfiling()
+
 
 class zBenchmarkTimer(Implicit, pyBenchmarkTimer):
     security = ClassSecurityInfo()
@@ -93,9 +99,10 @@ class zBenchmarkTimer(Implicit, pyBenchmarkTimer):
     security.declarePublic('setMarker')
     security.declarePublic('timeElapsed')
     security.declarePublic('getProfiling')
+    security.declarePublic('saveProfile')
 
 Globals.InitializeClass(zBenchmarkTimer)
 
-def BenchmarkTimerInstance():
-    ob = zBenchmarkTimer()
+def BenchmarkTimerInstance(title=''):
+    ob = zBenchmarkTimer(title)
     return ob

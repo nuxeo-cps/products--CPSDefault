@@ -6,6 +6,7 @@
 <metal:block define-macro="basebox_default">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title"
+      i18n:translate=""
       tal:content="box/box/title">
       box text title
     </metal:block>
@@ -22,6 +23,7 @@
 <metal:block define-macro="textbox_default">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title"
+      i18n:translate=""
       tal:content="box/box/title">
        box text title
     </metal:block>
@@ -142,7 +144,7 @@
   tal:define="items python:box['box'].getActions(here, actions)">
   <tal:block condition="python:filter(None, items)">
   <metal:block use-macro="here/box_lib/macros/box">
-    <metal:block fill-slot="box_title" tal:content="box/box/title">
+    <metal:block fill-slot="box_title" i18n:translate="" tal:content="box/box/title">
        box text title
     </metal:block>
     <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
@@ -150,9 +152,9 @@
       <div tal:attributes="class python:'content '+ test(repeat['category'].odd(), 'even', 'odd')">
         <ul>
           <li tal:repeat="action category">
-            <a i18n:translate="_dynamic_" tal:attributes="href action/url"
+            <a i18n:translate="" tal:attributes="href action/url"
                tal:content="action/name">
-               Action
+	      Action
              </a>
           </li>
         </ul>
@@ -182,6 +184,7 @@
 
          <tal:block define="notLogged python:mtool.isAnonymousUser()">
            <span tal:condition="notLogged"
+	         i18n:translate="label_guest"
                  tal:content="uname">
               box text title
            </span>
@@ -206,6 +209,7 @@
         <ul>
           <li tal:repeat="action category">
             <a tal:attributes="href action/url"
+               i18n:translate=""
                tal:content="action/name">
                Action
              </a>

@@ -44,8 +44,9 @@ test_cpsskins = (os.environ.get('CPSSKINS_TARGET', '') == 'CPS3')
 if test_cpsskins:
     try:
         ZopeTestCase.installProduct('CPSSkins', quiet=1)
-    except:
-        pass
+        import Products.CPSSkins
+    except ImportError:
+        test_cpsskins = False
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager

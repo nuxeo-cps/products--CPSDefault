@@ -1399,6 +1399,39 @@ except:
     ###########################################################
 
     #
+    #  CPSCollector installer/updater
+    #
+    try:
+        import Products.CPSCollector
+        if not portalhas('cpscollector_installer'):
+            pr('Adding CPSCollector installer')
+            cpscollector_installer = ExternalMethod('cpscollector_installer',
+                                                    'CPSCollector Installer',
+                                                    'CPSCollector.install',
+                                                    'install')
+            portal._setObject('cpscollector_installer', cpscollector_installer)
+        pr(portal.cpscollector_installer())
+    except ImportError:
+        pass
+
+    #
+    #  CPSDocument installer/updater
+    #
+    try:
+        import Products.CPSDocument
+        if not portalhas('cpsdocument_installer'):
+            pr("Adding CPSDocument installer")
+            cpsdocument_installer = ExternalMethod('cpsdocument_installer',
+                                              'CPSDocument Installer',
+                                              'CPSDocument.install',
+                                              'install')
+            portal._setObject('cpsdocument_installer', cpsdocument_installer)
+        pr(portal.cpsdocument_installer())
+    except ImportError:
+        pr("!! Could not import or execute CPSDocument installer")
+
+
+    #
     #  CPSRSS installer/updater
     #
     try:
@@ -1431,22 +1464,6 @@ except:
         pass
 
     #
-    #  CPSCollector installer/updater
-    #
-    try:
-        import Products.CPSCollector
-        if not portalhas('cpscollector_installer'):
-            pr('Adding CPSCollector installer')
-            cpscollector_installer = ExternalMethod('cpscollector_installer',
-                                                    'CPSCollector Installer',
-                                                    'CPSCollector.install',
-                                                    'install')
-            portal._setObject('cpscollector_installer', cpscollector_installer)
-        pr(portal.cpscollector_installer())
-    except ImportError:
-        pass
-
-    #
     #  CPSChat installer/updater
     #
     try:
@@ -1461,23 +1478,6 @@ except:
         pr(portal.cpschat_installer())
     except ImportError:
         pass
-
-    #
-    #  CPSDocument installer/updater
-    #
-    try:
-        import Products.CPSDocument
-        if not portalhas('cpsdocument_installer'):
-            pr("Adding CPSDocument installer")
-            cpsdocument_installer = ExternalMethod('cpsdocument_installer',
-                                              'CPSDocument Installer',
-                                              'CPSDocument.install',
-                                              'install')
-            portal._setObject('cpsdocument_installer', cpsdocument_installer)
-        pr(portal.cpsdocument_installer())
-    except ImportError:
-        pr("!! Could not import or execute CPSDocument installer")
-
 
     #
     #  CPSCalendar installer/updater

@@ -6,13 +6,15 @@ if REQUEST is not None:
     kw.update(REQUEST.form)
 
 portal = context.portal_url.getPortalObject()
-lang = kw['languages']
+languages = kw['languages']
+if same_type(languages, ''):
+    languages = [languages]
 
 # Make unavailable languages in Localizer
 catalogs = context.Localizer.objectValues()
 catalogs.append(context.Localizer)
 for catalog in catalogs:
-    catalog.manage_delLanguages(lang)
+    catalog.manage_delLanguages(languages)
 
 context_url = portal.absolute_url()
 action = 'language_manage_form'

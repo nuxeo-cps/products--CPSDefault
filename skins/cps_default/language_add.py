@@ -7,6 +7,8 @@ if REQUEST is not None:
 
 portal = context.portal_url.getPortalObject()
 languages = kw['languages']
+if same_type(languages, ''):
+    languages = [languages]
 
 # Make languages available in Localizer
 catalogs = context.Localizer.objectValues()

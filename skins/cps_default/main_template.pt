@@ -13,10 +13,9 @@
                   btool here/portal_boxes;
                   context_url python:here.getContextUrl(utool=utool);
                   base_url python:here.getBaseUrl(utool=utool);
+                  boxes python:btool.getBoxes(here);
                   member mtool/getAuthenticatedMember;
                   isAnon mtool/isAnonymousUser;
-                  sections ttool/sections;
-                  workspaces ttool/workspaces;
                   actions python:atool.listFilteredActionsFor(here);
                   user_actions actions/user;
                   object_actions actions/object;
@@ -24,7 +23,6 @@
                   folder_actions actions/folder;
                   global_actions actions/global;
                   wf_state python:wtool.getInfoFor(here,'review_state','');
-                  boxes python:btool.getBoxes(here);
                   CPSD_BMT python:here.Benchmarktimer('main_template');
                   CPSD_bmt_start nocall:CPSD_BMT/start;
                   CPSD_bmt_stop nocall:CPSD_BMT/stop;

@@ -93,8 +93,8 @@ class ContentBox(BaseBox):
             if not mtool.checkPermission('View', item):
                 continue
 # XXX expire should be handle by wf
-#            if item.effective() <= now and item.expires() > now:
-#                items.append(item)
+
+            items.append(item)
 
         # sorting
         # XXX hardcoded status !

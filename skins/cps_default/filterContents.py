@@ -16,8 +16,7 @@ for item in items:
     if not mtool.checkPermission('View', item):
         continue
 # XXX TODO expire should be handel by wf
-#    if item.effective() <= now and item.expires() > now:
-#        filtered_items.append(item)
+    filtered_items.append(item)
 
 # sorting
 # XXX hardcoded status !

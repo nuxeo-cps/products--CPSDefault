@@ -42,10 +42,20 @@ def dump_it(obj, level=-1):
         val = getattr(doc, param)
         if callable(val):
             val = val()
-        if val or params[param]['type'] in ('boolean', 'int'):
-            val = str(val)
-            val = val.replace('\n', '\n  ')
+        param_type = params[param]['type']
+        if val:
+            if param_type == 'lines':
+                if same_type(val, []) or same_type(val, ()):
+                    val = '\n  '.join(val)
+                else:
+                    val = str(val)
+                    val = val.replace('\n', '\n  ')
             s += '%s = %s\n' % (param, str(val))
+        elif param_type == 'boolean':
+            s += '%s =\n' % param
+        elif param_type == 'int':
+            s += '%s = 0\n' % param
+
 
     if obj.isPrincipiaFolderish:
         ss = ''

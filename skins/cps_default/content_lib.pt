@@ -145,9 +145,8 @@ format:</pre>
                      format format|string:icon">
   <table width="100%" border="0" cellspacing="0" cellpadding="5">
     <tr valign="top" tal:repeat="item batch_items">
-      <td align="left" valign="top" width="5">
+      <td tal:condition="not:no_form" align="left" valign="top" width="5">
         <input type="checkbox" name="ids:list" value="" id=""
-               tal:condition="not:no_form"
                tal:attributes="value item/getId;
                                id python:'cb_'+item.getId()">
       </td>

@@ -45,11 +45,13 @@
     /></metal:block>
 </metal:block>
 </head>
-<body tal:attributes="onload python:here.getOnLoad()" tal:condition="emptybody">
+<body tal:condition="emptybody" 
+      tal:attributes="onload python:here.getOnLoad()">
   <metal:block define-slot="body" />
   <metal:block define-slot="main" />
 </body>
-<body tal:attributes="onload python:here.getOnLoad()" tal:condition="not:emptybody">
+<body tal:condition="not:emptybody"
+      tal:attributes="onload python:here.getOnLoad()">
 <metal:block use-macro="here/generic_lib_accessibility/macros/accessibility" />
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->

@@ -146,8 +146,10 @@ class BaseInstaller:
             self.portal._v_skindata = None
             self.portal.setupCurrentSkin()
 
-    def setupTranslations(self):
-        """Import .po files into the Localizer/default Message Catalog."""
+    def setupTranslations(self, default_lang=None):
+        """Import .po files into the Localizer/default Message Catalog.
+        default_lang can be for example 'en', 'fr' or 'nl'.
+        """
 
         mcat = self.portal.Localizer.default
         self.log(" Checking available languages")
@@ -174,6 +176,8 @@ class BaseInstaller:
                         mcat.manage_import(lang, lang_file)
                     else:
                         self.log('    Skipping not installed locale for file %s' % file)
+        if default_lang:
+            mcat.manage_changeDefaultLang(default_lang)
 
     def setupBoxes(self, boxes_def, box_container):
         """Sets up .cps_boxes or .cps_boxes_root depending on the given box_container.

@@ -1,70 +1,38 @@
-<tal:x define="dummy here/filterCookie;"/>
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/content_lib/macros/master"
->
-<body>
+<metal:block use-macro="here/content_lib/macros/master">
 <div metal:fill-slot="main"
      tal:define="m_tool here/portal_membership;
                  checkPerm nocall: m_tool/checkPermission;
                  list_here python:checkPerm('List folder contents', here);
-                 list_parent python:checkPerm( 'List folder contents', here
-                                             , 'aq_parent' );
-                "
-     i18n:domain="cmf_default"
->
+                 list_parent python:checkPerm('List folder contents', here, 'aq_parent');">
 <div tal:condition="not: list_here"
-      tal:define="response request/RESPONSE;
-                  url here/absolute_url;
-                 "
- >
-  <span tal:define="redirect python: response.redirect( url )"></span>
+  tal:define="response request/RESPONSE;url here/absolute_url;">
+  <span tal:define="redirect python: response.redirect(url)"></span>
 </div>
 
-<!-- This is the desktop area -->
 <div class="Desktop">
+  <tal:block condition="list_parent"
+    define="upNav python: hasattr(here.aq_parent, 'portal_url');
+            upID python: here.aq_parent.getId()">
+    <span tal:condition="upNav | nothing">
+      <a href="../folder_contents"><img src="" alt="[Link]" border="0"
+        tal:attributes="src string:${base_url}UpFolder_icon.gif" /></a>
+    </span>&nbsp;&nbsp;
+    <span tal:condition="upNav">Up to <a href="../folder_contents"
+      tal:content="upID">Up ID</a></span>
+  </tal:block>
 
-<form action="" method="post"
+  <form action="" method="post"
       tal:attributes="action here/absolute_url">
- <table class="FormLayout">
-  <tr>
-   <td valign="top">
-    <table class="ContentsList">
-     <tbody tal:condition="list_parent">
-      <tr valign="top"
-          tal:define="upNav python: hasattr(here.aq_parent, 'portal_url');
-                      upID python: here.aq_parent.getId()">
-        <td colspan="3" align="left">
-         <span tal:condition="upNav | nothing">
-          <a href="../folder_contents"
-          ><img src="" alt="[Link]" border="0"
-                tal:attributes="src string:${base_url}UpFolder_icon.gif"
-          /></a>
-         </span>&nbsp;&nbsp;
-         <span tal:condition="upNav">
-          <span tal:omit-tag="" i18n:translate="">Up to</span>
-          <a href="../folder_contents"
-                   tal:content="upID">Up ID</a>
-         </span>
-         <span tal:condition="python: not(upNav)">
-           <span class="mild" i18n:translate="">Root</span>
-         </span>
-        </td>
-      </tr>
-     </tbody>
 
-    </table>
+   <tal:block define="no_form python:not checkPerm('Delete objects', here);
+                     items python:here.getFolderContents(sort_by='status');
+                     format string:compact;
+                     columns python:2;
+                     items_per_page python:15">
+     <metal:block use-macro="here/content_lib/macros/display_contents" />
+   </tal:block>
 
-    <tal:block define="
-                  no_form python:not checkPerm('Delete objects', here);
-                  items python:here.getFolderContents(sort_by='status');
-                  format string:compact;
-                  columns python:2;
-                  items_per_page python:15">
-      <metal:block use-macro="here/content_lib/macros/display_contents" />
-    </tal:block>
-    
-    <table border="0" cellspacing="0" cellpadding="2">
+   <table border="0" cellspacing="0" cellpadding="2">
      <tr>
       <td align="left" valign="top" width="16"></td>
       <td align="left" valign="top">
@@ -83,14 +51,8 @@
      </tr>
     </table>
 
-   </td>
-  </tr>
- </table>
-</form>
-
-<div tal:replace="structure here/folder_filter_form">Filter Form Here</div>
+  </form>
+</div>
 
 </div>
-</div>
-</body>
-</html>
+</metal:block>

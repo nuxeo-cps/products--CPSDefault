@@ -28,7 +28,7 @@ conversion = {
 
 # Does the corresponding homeFolder exists ? If it does the given login cannot
 # be used because it could be used to access someone else's home folder.
-if not portal_registration.isMemberIdAllowed(request.form.get('username')):
+if not portal_registration.isMemberIdAllowed(request.form.get('username', '')):
     failMessage = 'psm_join_login_already_used'
     if failMessage and request is not None:
         request.set('portal_status_message',

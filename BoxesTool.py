@@ -307,6 +307,10 @@ class BoxContainer(PortalFolder):
     #
     # ZMI
     #
+    security.declarePublic('objectIds')
+    security.declarePublic('objectValues')
+    security.declarePublic('objectItems')
+
     security.declareProtected(ManageOverridesPermission, 'manage_boxOverridesForm')
     manage_boxOverridesForm = DTMLFile('zmi/manage_boxOverridesForm', globals())
 

@@ -14,7 +14,7 @@ bc.manage_delObjects(box.id)
 
 if REQUEST is not None:
     psm = 'psm_box_deleted'
-    action_path = context.getTypeInfo().getActionById('boxes')
+    action_path = 'box_manage_form'
     REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' %
                               (context.absolute_url(), action_path,
                                psm))

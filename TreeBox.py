@@ -113,7 +113,6 @@ class TreeBox(BaseBox):
             obj = aq_parent(aq_inner(obj))
         current_url = portal_url.getRelativeUrl(obj)
         current_path = current_url.split('/')
-        current_path_length = len(current_path)
 
         if not self.root:
             root_path = current_path

@@ -9,7 +9,7 @@ from Globals import InitializeClass, DTMLFile
 from types import DictType, StringType
 
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_base
+from Acquisition import aq_base, aq_parent, aq_inner
 from OFS.SimpleItem import SimpleItem
 
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
@@ -57,13 +57,28 @@ class BoxesTool(UniqueObject, SimpleItem):
             [box_id, settings, macro_path, box_object]
         """
 
+        # Find bottom-most folder:
+        obj = context
+        bmf = None
+        while 1:
+            if obj.isPrincipiaFolderish:
+                bmf = obj
+                break
+            parent = aq_parent(aq_inner(obj))
+            if not obj or parent == obj:
+                break
+            obj = parent
+        if not bmf:
+            bmf = context
+
         # get boxes from root to current path
         portal_url = getToolByName(self, 'portal_url')
-        rpath = portal_url.getRelativeContentPath(context)
+        rpath = portal_url.getRelativeContentPath(bmf)
         obj = portal_url.getPortalObject()
         boxes = []
         settings = {}
         path = '/'
+
         for elem in ('',) + rpath:
             if elem:
                 path += elem + '/'
@@ -74,14 +89,19 @@ class BoxesTool(UniqueObject, SimpleItem):
             if len(f_settings):
                 LOG('portal_boxes', DEBUG, 'got settings in %s: %s' % (
                     path, str(f_settings)))
+            LOG('portal_boxes', DEBUG, 'isPrincipiaFolderish: ' + str(obj.isPrincipiaFolderish))
 
             for box in f_boxes:
-                boxes.append({'path': portal_url.getRelativeUrl(box),
-                              'settings': box.getSettings(),
-                              'macro': box.getMacro(),
-                              'box': box})
+                # boxes should be visible if they are to be displayed
+                # in the subfolder, or if this is the root or if
+                # this is the last part of the path.
+                if box.display_in_subfolder or not rpath or elem == rpath[-1]:
+                    boxes.append({'path': portal_url.getRelativeUrl(box),
+                                'settings': box.getSettings(),
+                                'macro': box.getMacro(),
+                                'box': box})
             self._updateSettings(settings, f_settings)
-                                        
+
         # TODO: add get .cps_boxes for member
         # obj = self.restrictedTraverse( '~/.cps_boxes')
         # f_boxes, f_settings = self._getFolderBoxesAndSettings(obj)

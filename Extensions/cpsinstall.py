@@ -1219,6 +1219,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             self.portal.portal_workflow.invokeFactoryFor(
                 self.portal.this(), 'Workspace', WORKSPACES_ID)
             workspaces = self.portal[WORKSPACES_ID]
+            # XXX This should work is workspaces were a true CPSDocument.
+            # What is the problem?
+            #workspaces.getEditableContent().edit(Title="Root of Workspaces")
             workspaces.getEditableContent().setTitle("Root of Workspaces")
             # XXX Make L10N more generic
             #workspaces.addLanguageToProxy('fr')

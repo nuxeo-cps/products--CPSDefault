@@ -3,81 +3,97 @@
 
 # milestones
 - [encolpe] 05/12: encolpe coding for CPSDefault
-  - postpone to 05/15 :(
-- [seb + hervé] 05/12: working with Element proposal
+   postpone to 05/15 :(
+x [seb + hervé] 05/12: working with Element proposal
+  cpsdefault will not use element. 
 - [ben] 05/14: CPSDefault main skins impl, basic unit test for core
 - [florent] 05/14: first impl of CPSDocuments
 - [] 05/22: CPSDefault a la CMF ready
 - [] 05/28: CPSDemo with few services tbd ...
 
+
 # on work
-- make _ut pass
-x [] using zpt macro library
+- zpt usage
   o finish display_content macro add a cookie to remind option
-   icon/detail + filter ?
+    icon/detail + filter ?
   o restrict access to test_*_lib ?
   o clean header of use-macro with tag <html xmlns ...
-x [] display sections and workspaces tree
-x [] display history of a document = * proxies history
+  o create a clean CSS and use it *
+
+- [seb] search
+   o make catalog search work with proxies
+   o make advanced search with status metadata ...
+   o reusable search with result list page for a popup version
+      with checkbox/action ?
+   o try to use content_lib macros as much as possible
+
+- workflow
+  o display list of pending document for a reviewer
+    imply search ??
   o add wf_vars rpath + filter on review history copy_submit
   o add a comment on submit from copy_submit
-- content_submit_form: add link from existing document to the document
-- display list of pending document for a reviewer
-   o imply search ???
-x [] update content_status_history using transition_form + add global
-   action view history
-x [] remove my stuff ? preference ? favorite ?
-   o idealy port CMFDefault ptype and make it work ....
-- add anonymous access
+  o how to handle proxy history for reject or accept transition ?
 
-# tasks list
+- tests
+  o make _ut pass on CPSCore
+  o refactoring cpssite suite
+  o unit tests for Dummy and Folder
+
+- users
+   o handle group in local roles management
+   o add anonymous access
+   o put member's folder into workspaces
+   o local roles page should display aquisition roles 
+   o how to remove roles for a user in a folder ?
+   o do we need NuxMetaDirectories ?
+
+- portlet integration
+
+
+
+# others tasks list
 - CPS a la CMF
    o workflow and docs
-      x [] impl skin accept
       o impl skin reject
       o impl skin unpublish
+      x [] impl skin accept
       x [] impl skin proxy history i.e wf history
-         x [] add wf variables: transition, date, user
-         o add rpath variable (section)
-         o do not dislay copy_submit and submit action ?
-            what about the comment only in copy_submit ?
-         o modify src wf history ??? for reject ??? accept ???
+      x [] add wf variables: transition, date, user
+      x [] display history of a document = * proxies history
+      x [] content_submit_form: add link from existing document to the document
    o folder
-      x [] folder_contents with more info
-        display proxy rev, lang, status
       o impl folder_factories_form 
         check perms for creating/display sub section/workspace action
       o add constraint on type of document for workspace/creation
         and sections/publication
+      o quota folder
+         o display size of contents and folders
+      x [] display sections and workspaces tree
+      x [] folder_contents with more info
+        display proxy rev, lang, status
    o document
-      x [] full info skin: list all proxy about a document
       o impl copy/cut/paste ...
-   o directory integration
-      o update localrole management using group and anonymous
-   o portlet integration
-     is this possible without elements ????
-      x [] displaying sections and workspaces folder
-   o search
-      o impl skin for full text search
+      x [] full info skin: list all proxy about a document
    o cmf integration
-      o put members folder into workspaces
       o clean or integrate fully cmf stuff ? undo ? preference ? favorite ?
-   o element integration
-     add a new skin directory mutualize stuff in an other ?
+      x [] remove my stuff ? preference ? favorite ?
+         o idealy port CMFDefault ptype and make it work ....
+   x [] element integration: infinite postpone
    o cpsinstaller
       o don't need any more to rename folder actions
       o add multi po loader like gilupdate
       o long term: big refactoring to enable registration of products
    o misc
       o finalize zmi CPSSite form creation
-      o unit tests for Dummy and Folder
-      o refactoring functional tests in testCPSSite
       o rewrite cpsinstaller
+      x [] use macro library
 
 - Bug fix
-   x [] getInfoFor review_state failed if not owner or manager ????
    o set local roles page should display aquisition roles
    o fix duplicate registration for 'CPSDefault' and 'CPS Default' in ZMI
+   o find a way not using tal before xml declaration in zpt
+      ok htmlns will be removed
+   x [] getInfoFor review_state failed if not owner or manager ????
    x [] folder_contents permission denied for SectionReader on folder
      with pending (in_submit) document
    x [] content_publish_form should display only section with
@@ -85,23 +101,22 @@ x [] remove my stuff ? preference ? favorite ?
    x [] folder_contents display links with broken path 
      if there are a missing trailing '/' in the URL
    x [] fix folder_edit_form do not save change
-   o find a way not using tal before xml declaration in zpt
 
 - Open questions
-   x [] still need simple scenarii wf/multi version/multi language
+   o how to handle proxy history for reject or accept transition ?
    o unpublish what's happen to the history of a doc 
      how to remember that it was published and by who and when
+   o how and when shoud we delete a doc in the repository
+   o check that we can have many root sections and many workspace sections
+   o how to remove roles for a user in a folder ?
+   x [] still need simple scenarii wf/multi version/multi language
    x [] how to accept multiple submit for a doc ?
       handle simple accept by section like CMF
    x [] how to allow unpublish for author
       allow unpublish only for reviewer 
-   o how and when shoud we delete a doc in the repository
-   o how to restrict access in sub folder ??
-   o check that we can have many root sections and many workspace sections
 
 - Make CPSDemo product
    this product should be a skeleton for any new cps site
-   o based on CPSDefault element skin
    o define basic document type like News, File ... using CPSDocuments
    o Integration of * NuxCPS2 products
    o example of cpsdemoupdate script

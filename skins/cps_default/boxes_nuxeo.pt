@@ -23,7 +23,7 @@
 
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_menu">
-<div class="tabs"
+<div id="menu" class="tabs"
   tal:define="sections sections|ttool/sections;
               workspaces workspaces|ttool/workspaces;
               stree python:sections.getList(start_depth=0, stop_depth=1);
@@ -72,15 +72,10 @@
 <!-- ============================================================ -->
 <metal:block define-macro="basebox_search">
 <div class="searchBox">
-  <a href="search_form"
-     tal:attributes="href string:./advanced_search_form"
-     i18n:translate="link_advanced_search">
-  Advanced search</a>
   <form method="get" action="./search_form" tal:define="sfpo_id string:box">
-    <span i18n:translate="box_search">Search:</span>
     <input id="searchGadget" type="text" name="SearchableText" size="20"
       value="" tal:attributes="value request/SearchableText|nothing">
-    <input class="context searchButton" type="submit" value="button_ok"
+    <input class="context searchButton" type="submit" value="button_search"
       i18n:attributes="value"><br>
     <metal:block
      use-macro="here/generic_lib/macros/search_folder_prefix_option" />
@@ -684,6 +679,24 @@
     </tal:block>
   </div>
 </metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="actionbox_header"
+  tal:define="items python:box['box'].getActions(here, actions);
+              row_len python:3">
+  <div class="headerActions" tal:condition="items">
+    <tal:block repeat="category items"><tal:block
+      condition="python:len(category)">
+      <tal:block repeat="action category">
+         <a i18n:translate=""
+           tal:attributes="href action/url"
+           tal:content="action/name">Action</a>
+        <tal:block condition="not:repeat/action/end">-</tal:block>
+      </tal:block>
+    </tal:block></tal:block>
+  </div>
+</metal:block>
+
 
 <!-- ============================================================ -->
 <metal:block define-macro="imagebox_default">

@@ -12,7 +12,7 @@ if obj is None:
         obj_rpath = tuple(obj_rurl.split('/'))
         for elem in obj_rpath:
             if elem and elem not in ['view']:
-                #print 'traversing to ', elem, '<br>'
+                #print 'traversing to ', elem, '<br />'
                 obj=getattr(obj, elem)
 
 def bench():
@@ -31,12 +31,12 @@ def bench():
     bmt.setMarker('last exec  start')
     ret = obj(**kw)
     bmt.setMarker('last exec  stop ')                   
-    return bmt.getProfiling() + '<hr>last exec result:<br>' + str(ret)
+    return bmt.getProfiling() + '<hr />last exec result:<br />' + str(ret)
 
 context.REQUEST.RESPONSE.setHeader('content-type', 'text/html')
 print '<h3>bench python script</h3>'
 print '<b>making %s iterations of %s</b><br>' % (iteration, obj.getId())
-print 'Started:', DateTime(), '<hr>'
+print 'Started:', DateTime(), '<hr />'
 print bench()
 
 return printed

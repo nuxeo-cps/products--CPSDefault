@@ -92,7 +92,7 @@ string:${portal_url}/favicon.png" />
 <metal:block define-macro="breadcrumbs">
   <div class="pathBar">
     <span>You are here:&nbsp;</span>
-    <span tal:repeat="bc here/breadcrumbs">
+    <span tal:repeat="bc here/getBreadCrumbs">
       <a href="/cps/id"
          tal:omit-tag="not:bc/url"
          tal:attributes="href bc/url;

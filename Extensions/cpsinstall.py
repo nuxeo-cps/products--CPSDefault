@@ -47,6 +47,20 @@ class DefaultInstaller(CPSInstaller):
     CPS_FILTER_LEAVES_SET = 'leaves'
     CPS_FILTER_LEAVES_EXPR = """getattr(o, 'portal_type', None) not in ('Section', 'Workspace')"""
 
+
+    WFS_ADD_LANGUAGE_TO_PROXY = {
+        'add_language_to_proxy': {
+            '_owner': None,
+            'script': """\
+##parameters=state_change
+lang=state_change.kwargs.get('lang')
+from_lang=state_change.kwargs.get('from_lang')
+state_change.object.addLanguageToProxy(lang, from_lang)
+"""
+            },
+        }
+
+
     def install(self, langs_list=None, is_creation=0):
         self.langs_list = langs_list
         self.is_creation = is_creation
@@ -557,7 +571,8 @@ class DefaultInstaller(CPSInstaller):
                           'guard_expr':''},
             },
         }
-        self.verifyWorkflow(wfdef, wfstates, wftransitions, {}, {})
+        self.verifyWorkflow(wfdef, wfstates, wftransitions,
+                            self.WFS_ADD_LANGUAGE_TO_PROXY, {})
 
 
     def setupWorkflow2(self):
@@ -709,8 +724,8 @@ class DefaultInstaller(CPSInstaller):
 ##parameters=state_change
 return state_change.object.content_unlock_locked_before_abandon(state_change)
 """
-            },
-        }
+            },}
+        wfscripts.update(self.WFS_ADD_LANGUAGE_TO_PROXY)
 
         wfvariables = {
             'action': {
@@ -959,7 +974,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_expr': ''},
             },
         }
-        self.verifyWorkflow(wfdef, wfstates, wftransitions, {}, {})
+        self.verifyWorkflow(wfdef, wfstates, wftransitions,
+                            self.WFS_ADD_LANGUAGE_TO_PROXY, {})
 
     def setupWorkflow5(self):
         # section_content_wf
@@ -1170,6 +1186,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 actbox_name='action_translate',
                 actbox_category='workflow',
                 actbox_url='%(content_url)s/content_translate_form',
+                script_name='add_language_to_proxy',
                 props={'guard_permissions': 'Modify portal content',
                        'guard_roles': '',
                        'guard_expr': ''})

@@ -1,10 +1,15 @@
-<html metal:use-macro="here/main_template/macros/master">
-<body>
-<div metal:fill-slot="main">
+<metal:html use-macro="here/main_template/macros/master">
 
-<div class="Desktop">
+<metal:header fill-slot="header">
 
-<h3 i18n:translate="heading_rename_items">Rename Items</h3>
+<h2 i18n:translate="heading_rename_items">Rename Items</h2>
+<em i18n:translate="help_rename_items">Changing the id of an object does not
+affect its title but changes the URL to access it. Links that point to the
+current id won't find it anymore.</em>
+
+</metal:header>
+
+<metal:main fill-slot="main">
 
 <div tal:condition="here/folder_rename_items" >
 
@@ -57,9 +62,5 @@
 
 </div>
 
-</div><!-- class="Desktop"-->
-
-</div><!-- metal:fill-slot="main" -->
-
-</body>
-</html>
+</metal:main>
+</metal:html>

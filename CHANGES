@@ -26,5 +26,6 @@ New internal features:
   languages:
     query['cps_filter_sets'] = {'query': ('searchable', 'default_languages'),
                                 'operator': 'and'}
-			      
-  
+  or using skin/cps_default/search.py:
+    brains = portal.search(query={'path': '/cps/workspaces/folder1'},
+                           default_languages=1)

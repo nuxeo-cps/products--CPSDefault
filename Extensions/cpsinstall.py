@@ -127,7 +127,7 @@ def cpsupdate(self, langs_list=None):
 
     # portal registration
     if not hasattr(portal, 'enable_portal_joining'):
-        portal._setProperty('enable_portal_joining', 1, 'boolean')
+        portal.manage_addProperty('enable_portal_joining', 1, 'boolean')
 
     for action in portal['portal_registration'].listActions():
         if action.id == 'join':

@@ -16,7 +16,7 @@ box: <tal:block replace="box_url" />
    <br /><br />
 <form action="box_edit" method="post" enctype="multipart/form-data"
   tal:attributes="action string:${context_urlc}/box_edit"
-  tal:define="box_category python:box['box'].category">
+  tal:define="box_category python:box['box'].category" name="form">
 <input type="hidden" name="box_url" value=""
   tal:attributes="value box_url" />
 <input type="hidden" name="box_category" value=""

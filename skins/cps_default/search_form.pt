@@ -1,4 +1,18 @@
-<html tal:define="showthirdcol nothing">
+<html tal:define="showthirdcol nothing;
+                  dummy python:request.set('breadcrumb_set',
+                   [{
+                   'id' : 'portal_root', 
+                   'url': here.portal_url(),
+                   'title': 'Portal', 
+                   'longtitle':'Portal',
+                   },
+                   {
+                   'id' : 'search_form', 
+                   'url': here.portal_url()+'/search_form',
+                   'title': 'Search', 
+                   'longtitle':'Search',
+                   }, ]);
+                 ">
   <body metal:use-macro="here/main_template/macros/master">
     <div metal:fill-slot="main">
       <tal:block define="SearchableText python:request.get('SearchableText','');

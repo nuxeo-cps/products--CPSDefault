@@ -278,20 +278,27 @@
       <tal:block repeat="item items">
         <span tal:replace="structure python:' '*4*item['depth']"></span>
         <tal:block tal:condition="item/nb_children">
-          <a href="."
-             tal:attributes="class python:test(context_url.endswith(
-                                         item['rpath']),'selected', default);
-                             href string:${base_url}${item/rpath}/;"
-             tal:content="structure string:${item/short_title}">
-          </a>&nbsp;*
+          <tal:block tal:condition="item/visible">
+            <a href="."
+               tal:attributes="class python:test(context_url.endswith(
+                                           item['rpath']),'selected', default);
+                               href string:${base_url}${item/rpath}/;"
+               tal:content="structure string:${item/short_title}">
+            </a>&nbsp;*
+          </tal:block>
+          <tal:block tal:condition="not: item/visible"
+                     tal:content="structure python:item['short_title']+'&nbsp;*'" />
         </tal:block>
         <tal:block tal:condition="not: item/nb_children">
-          <a href="."
+          <a tal:condition="item/visible"
+             href="."
              tal:attributes="class python:test(context_url.endswith(
                                          item['rpath']),'selected', default);
                              href string:${base_url}${item/rpath}/;"
              tal:content="structure string:${item/short_title}">
           </a>
+          <tal:block tal:condition="not: item/visible"
+                     tal:content="structure string:${item/short_title}" />
         </tal:block>
         <br>
         <tal:block tal:condition="python:getattr(box['box'],'display_managers',0)">

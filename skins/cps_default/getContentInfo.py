@@ -25,8 +25,14 @@ if cpsmcat is None:
 if proxy is None:
     proxy = context
 
+rpath = None
 if hasattr(proxy.aq_explicit, 'getRID'):
     # this is a brain
+    # rpath is build with catalog path that include languageView selection
+    rpath = proxy.getPath()[len(context.getBaseUrl()):]
+    # change view to switch to have a sticky behaviour
+    # XXX should use import for view/switch keywords
+    rpath = rpath.replace('/viewLanguage/', '/switchLanguage/')
     proxy = proxy.getObject()
 
 bmt = context.Benchmarktimer('getContentInfo for ' + proxy.id, level=-3)
@@ -143,7 +149,11 @@ def compute_archived():
 
 # basic information level 0
 info = {}
-info['rpath'] = utool.getRelativeUrl(proxy)
+if rpath is None:
+    info['rpath'] = utool.getRelativeUrl(proxy)
+else:
+    info['rpath'] = rpath
+
 info['title_or_id'] = proxy.title_or_id()
 info['id'] = proxy.id
 try:

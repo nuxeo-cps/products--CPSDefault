@@ -194,7 +194,7 @@ search_param == 'email')"
    <tr tal:repeat="group found">
     <td width="16">
         <input type="checkbox" name="member_ids:list" value=""
-               tal:attributes="value string:group:${group}">
+               tal:attributes="value python:group.startswith('group:') and group or 'group:'+group">
     </td>
     <tal:block define="igroup python:groups.searchEntry(**{'id_':group})">
       <td tal:condition="python:igroup != ()"

@@ -1,6 +1,12 @@
 Requires:
 ~~~~~~~~~
--
+- WARNING: all zpt macro lib are now splitted in one macro by file
+  this means that if you have overload a macro_lib (like content_lib,
+  header_lib ...) or if you use cps macro lib in your products
+  you have to update your sources to be compatible with this package
+  this can by launching:
+  python Products/CPSDefault/Extension/split_macro_lib.py on the root of your 
+  zope
 New features:
 ~~~~~~~~~~~~~
 -
@@ -12,6 +18,6 @@ Bug fixes:
 - fix #457: menu box strange behavior
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- splitting macro_lib 
+- splitting macro_lib makes customization easier
 - TreeBox have now a 'portal_tree_stop_depth' which can be set from
   the zmi to restrict absolute depth

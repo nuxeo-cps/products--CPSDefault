@@ -146,10 +146,6 @@ def cpsupdate(self, langs_list=None):
         pr(" Creating CPS Membership Tool")
         portal.manage_addProduct['CPSCore'].addCPSMembershipTool()
 
-    # Synchronization from members directory schema to MemberData properties
-    mdir = portal.portal_directories.members
-    mdir.updateMemberDataFromSchema()
-    
     # Verification of the action and addinf if neccesarly
     action_found = 0
     for action in portal['portal_actions'].listActions():
@@ -1516,6 +1512,10 @@ except:
     except ImportError:
         pass
 
+    # Synchronization from members directory schema to MemberData properties
+    mdir = portal.portal_directories.members
+    mdir.updateMemberDataFromSchema()
+    
     #
     #  CPSMailingLists installer/updater
     #  To be called after cause we are using the default catalog too.

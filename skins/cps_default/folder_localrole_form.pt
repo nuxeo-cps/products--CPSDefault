@@ -290,7 +290,8 @@ search_param == 'email')"
                     roles python:cpslr[0];
                     editable_user python:cpslr[1];">
    <tal:block repeat="user python:roles.keys()">
-     <tr tal:attributes="bgcolor python:repeat['user'].odd() and '#EEEEEE' or nothing">
+     <tr tal:attributes="class python:test(repeat['user'].even(), 'even',
+       'odd')">
        <tal:block define="haslrhere python:user in editable_user">
          <tal:block condition="haslrhere">
            <td width="1%">

@@ -61,7 +61,7 @@ def id_sortkey(a):
 
 def status_sortkey(a):
     return status_sort_order.get(wtool.getInfoFor(a, 'review_state', 'nostate'),
-                                 '10') + a.title_or_id().lower()
+                                 '9') + a.title_or_id().lower()
 
 def title_sortkey(a):
     return a.title_or_id().lower()

@@ -11,12 +11,12 @@
 # on work priority tasks -----------------------------------
 - [lennart] portal_boxes (known as portlets or portal tool)
    x [lennart+ben] designing
-   o make .cps_boxes a portal_type with a 'settings' attributes
+   x [] make .cps_boxes a portal_type with a 'settings' attributes
       settings is a dictionary: path, box_id, xpos, ypos, visible, style?
-   o make getBoxes work
+   x [] make getBoxes work
       search for box object from root to current path
       loading box object and update settings dictionnary
-      override with personal boxes objects and settings in ~.cps_boxes
+   o override with personal boxes objects and settings in ~.cps_boxes
    o make a .cps_boxes view screen to manage boxes positions
       save setting for local boxes into boxes object
       save setting for aquire boxes into folder settings dictionnary
@@ -25,14 +25,12 @@
       Condition like for SectionReader or SectionReviewer ?
       or Permission
    o how to manage ~/.cps_boxes/view ?
-   o files naming proposal:
-      BoxesTool     the portal boxes
-      BoxesFolder or BoxesSettings the .cps_boxes ptype
-      BaseBox       base class
-      TextBox       display static text
-      ContentBox    param: metadata search, sort, format, number of doc
-      FolderBox     use portal_tree display navigation folder
-      ActionBox, UserBox, LoginBox, RSSBox, HelpBox,
+   o boxes types
+      TextBox    display static text
+      ContentBox with metadata search or folder contents
+                 sort, format, number of doc ...
+      ActionBox  with categories to be displayed
+      UserBox, LoginBox, RSSBox, HelpBox,
       ImageBox, FlashBox, BookmarkBox ...
 
 - [encolpe] search

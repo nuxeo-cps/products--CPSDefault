@@ -32,10 +32,6 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         pmtool.setLocalRoles(obj=self.portal.sections, 
             member_ids=['reviewer'], member_role='SectionReviewer')
 
-        # Some ZPTs need a session. 
-        # XXX: this might be moved to a more generic place someday.
-        self.portal.REQUEST.SESSION = {}
-
     def beforeTearDown(self):
         self.logout()
 

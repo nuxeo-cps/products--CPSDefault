@@ -15,10 +15,6 @@ class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
             self.login(self.login_id)
             self.portal.portal_membership.createMemberArea()
 
-        # Some ZPTs need a session. 
-        # XXX: this might be moved to a more generic place someday.
-        self.portal.REQUEST.SESSION = {}
-
     def beforeTearDown(self):
         self.logout()
 

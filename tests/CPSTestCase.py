@@ -123,6 +123,14 @@ LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
 
 class CPSTestCase(ZopeTestCase.PortalTestCase):
+    def setUp(self):
+        ZopeTestCase.PortalTestCase.setUp(self)
+
+        # Some skins need sessions (not sure if it's a good thing).
+        # Localizer too.
+        # Both lines below are needed.
+        self.portal.REQUEST['SESSION'] = {}
+        self.portal.REQUEST.SESSION = {}
 
     def isValidXML(self, xml):
         filename = tempfile.mktemp()

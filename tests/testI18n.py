@@ -15,9 +15,6 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         if self.login_id:
             self.login(self.login_id)
             self.portal.portal_membership.createMemberArea()
-
-        # switchLanguage need a session.
-        self.portal.REQUEST['SESSION'] = {}
         self.default_lang = 'en'
 
     def beforeTearDown(self):

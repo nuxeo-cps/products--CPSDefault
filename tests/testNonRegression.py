@@ -12,11 +12,6 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
         self.login('manager')
 
-        # Some ZPTs need a session. 
-        # XXX: this might be moved to a more generic place someday.
-        self.portal.REQUEST.SESSION = {}
-        #self.portal.REQUEST.form = {}
-
     def beforeTearDown(self):
         self.logout()
 

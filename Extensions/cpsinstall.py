@@ -1183,23 +1183,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     else:
         pr(" CPSDocument type Link does not seem to exist ; Favorites will not be available")
 
-    pr("Verifiying New Content action")
-    action_newcontent_found = 0
-    for action in  portal['portal_actions'].listActions():
-        if action.id == 'new_content':
-            action_newcontent_found = 1
-    if not action_newcontent_found:
-        portal['portal_actions'].addAction(
-            id='new_content',
-            name='action_new_content',
-            action='string: ${folder_url}/folder_factories',
-            condition='python: folder is object',
-            permission='List folder contents',
-            category='object')
-        pr(" Action new_content added")
-    else:
-        pr(" Action new_content present")
-
     pr("Adding cps default boxes")
     idbc = portal.portal_boxes.getBoxContainerId(portal)
     pr("  Checking /%s" % idbc )

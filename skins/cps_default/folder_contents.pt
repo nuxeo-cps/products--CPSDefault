@@ -155,14 +155,13 @@
         <input type="submit" name="folder_factories:method" value="button_new"
           class="standalone" i18n:attributes="value">
       </span>
-      <span tal:condition="python: test(checkPerm('View  Management Screen',here))">
+      <span tal:condition="python: test(checkPerm('Add portal content',here))">
         <input type="submit" name="folder_cut:method" value="button_cut"
           class="context" i18n:attributes="value" />
         <input type="submit" name="folder_copy:method" value="button_copy"
           class="context" i18n:attributes="value" />
       </span>
-      <span tal:condition="python:test(checkPerm('View  Management
-      Screen',here) and here.cb_dataValid)">
+      <span tal:condition="python:test(checkPerm('Add portal content',here)and request.get('__cp', 0))">
         <input type="submit" name="folder_paste:method" value="button_paste"
           class="context" i18n:attributes="value" />
       </span>

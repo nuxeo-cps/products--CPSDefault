@@ -38,8 +38,10 @@ def addBaseBox(dispatcher, id, REQUEST=None):
 
 factory_type_information = (
     {'id': 'Base Box',
-     'description': ('A Base Box is the most basic box.'),
+     'title': 'portal_type_BaseBox_title',
+     'description': 'portal_type_BaseBox_description',     
      'meta_type': 'Base Box',
+     'icon': 'box.gif',     
      'product': 'CPSDefault',
      'factory': 'addBaseBox',
      'immediate_view': 'basebox_edit_form',
@@ -68,6 +70,8 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     """
 
     isPortalBox = 1
+    meta_type = 'Base Box'
+    portal_type = 'Base Box'
 
     manage_options = ( PropertyManager.manage_options +
                        ({'label': 'Guard', 'action': 'manage_guardForm'},) +

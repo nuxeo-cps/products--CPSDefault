@@ -12,20 +12,24 @@ import Folder
 import Dummy
 
 import BoxesTool
+import BaseBox
 import TextBox
 import TreeBox
 import ContentBox
 import ActionBox
 
 contentClasses = (Folder.Folder, Dummy.Dummy,
+                  BaseBox.BaseBox,
                   TextBox.TextBox, TreeBox.TreeBox,
                   ContentBox.ContentBox, ActionBox.ActionBox)
 contentConstructors = (Folder.addFolder, Dummy.addDummy,
+                       BaseBox.addBaseBox,
                        TextBox.addTextBox, TreeBox.addTreeBox,
                        ContentBox.addContentBox, ActionBox.addActionBox)
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
+       BaseBox.factory_type_information +
        TextBox.factory_type_information +
        TreeBox.factory_type_information +
        ContentBox.factory_type_information +

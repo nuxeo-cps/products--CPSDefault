@@ -571,6 +571,7 @@ def cpsupdate(self, langs_list=None):
                    ),
         'CPSDefault':('Folder',
                       'Dummy',
+                      'Base Box',
                       'Text Box',
                       'Tree Box',
                       'Content Box',

@@ -168,13 +168,18 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     manage_guardForm = DTMLFile('zmi/manage_guardForm', globals())
 
     security.declareProtected(ModifyPortalContent, 'setGuardProperties')
-    def setGuardProperties(self, REQUEST=None):
+    def setGuardProperties(self, props={}, REQUEST=None):
         """Postprocess guard values."""
-        g = BoxGuard()
-        if g.changeFromProperties(REQUEST):
-            self.guard = g
-        else:
-            self.guard = None
+        if REQUEST is not None:
+            # XXX Using REQUEST itself should work.
+            # but update is complaining it is not a dictionary
+            props.update(REQUEST.form)
+
+        # XXX found we must create a new instance every time.
+        # not that much resource friendly...
+        self.guard = BoxGuard()
+        self.guard.changeFromProperties(props)
+
         if REQUEST is not None:
             return self.manage_guardForm(REQUEST,
                 management_view='Guard',
@@ -208,10 +213,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     # XXX which security declaration?
     def getGuard(self):
-        if self.guard is not None:
-            return self.guard
-        else:
-            return BoxGuard().__of__(self)  # Create a temporary guard.
+        return self.guard
     
     security.declarePrivate('callAction')
     def callAction(self, actionid, **kw):

@@ -779,6 +779,12 @@ format:</pre>
           <a href="."
              tal:attributes="href string:${context_url}/content_revert_form?rev:int=${rev}"
              i18n:translate="link_revert_to_this_revision">Revert</a>
+          <tal:block condition="item/is_archived">
+            -
+            <a href="."
+               tal:attributes="href string:${context_url}/content_delete_archive_form?rev:int=${rev}"
+               i18n:translate="link_delete_this_revision">Purge</a>
+          </tal:block>
         </tal:block>
       </tal:block>
     </tal:block>

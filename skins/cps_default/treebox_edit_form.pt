@@ -1,0 +1,22 @@
+<metal:html use-macro="here/main_template/macros/master">
+
+<metal:main fill-slot="main">
+
+<metal:boxform use-macro="here/basebox_edit_form/macros/boxform">
+<metal:fields fill-slot="additional_fields">
+  <tr valign="top">
+    <th align="right" i18n:translate="item_root">Root</th>
+    <td><input type="text" name="root" value="" size="20"
+          tal:attributes="value box/box/root" /></td>
+    <th aligh="right" i18n:translate="item_depth">Depth</th>
+    <td><input type="text" name="depth" value="" size="3"
+           tal:attributes="value box/box/depth" /></td>
+    <th aligh="right" i18n:translate="item_contextual">Contextual</th>
+    <td><input type="checkbox" name="contextual" value="" size="3"
+           tal:attributes="value box/box/depth" /></td>
+  </tr>
+</metal:fields>
+</metal:boxform>
+</metal:main>
+
+</metal:html>

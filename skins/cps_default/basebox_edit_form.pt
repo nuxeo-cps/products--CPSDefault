@@ -1,0 +1,92 @@
+<metal:html use-macro="here/main_template/macros/master">
+
+<metal:main fill-slot="main">
+
+<metal:macro define-macro="boxform"
+  tal:define="box_url request/box_url|python:0;
+              context_urlc python:here.getContextUrl(utool=utool, concat=1);">
+
+<h2 i18n:translate="box_edit_title">Box edition</h2>
+
+box: <tal:block replace="box_url" />
+
+<tal:block repeat="box boxes">
+  <tal:block condition="python:box['path'] == box_url">
+   <br><br>
+
+<form action="content_edit" method="post"
+  tal:attributes="action string:${context_urlc}/box_edit"
+  tal:define="box_type python:box['box'].macro">
+<input type="hidden" name="box_url" value=""
+  tal:attributes="value box_url" />
+<input type="hidden" name="box_type" value=""
+  tal:attributes="value box_type" />
+<table class="FormLayout">
+  <tr valign="top">
+    <th align="right" i18n:translate="item_title">Title</th>
+    <td colspan="5">
+      <input type="text" name="title" value="" size="60"
+             tal:attributes="value box/box/title">
+    </td>
+  </tr>
+  <tr valign="top">
+    <th align="right" i18n:translate="item_slot">Slot</th>
+    <td><input type="text" name="slot" value="" size="10"
+          tal:attributes="value box/settings/slot" /></td>
+    <th aligh="right" i18n:translate="item_order">Order</th>
+    <td><input type="text" name="order" value="" size="3"
+           tal:attributes="value box/settings/order" /></td>
+    <th aligh="right" i18n:translate="item_display">Display</th>
+    <td>
+      <select name="display">
+	<option value="maximized"
+	  tal:attributes="selected python:test(box['settings']['minimized'], nothing, 'selected')">Maximized</option>
+	<option value="minimized"
+	  tal:attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)">Minimized</option>
+	<option value="closed"
+	  tal:attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
+      </select>
+    </td>
+  </tr>
+  <tr valign="top">
+    <th align="right" i18n:translate="item_type">Type</th>    
+    <td colspan="5">
+      <tal:block
+      define="styles python:here.getBoxesStyles(type=box_type);
+              styleformat string:${box/settings/style}@${box/settings/format}"
+      condition="styles">
+        <tal:block replace="styles/type" /><br>
+        <em><tal:block replace="styles/desc" /></em><br>
+        <tal:block repeat="format styles/fmt">
+          <input type="radio" name="styleformat" value=""
+            tal:define="sf string:${format/style}@${format/format}"
+            tal:attributes="value sf; checked python:test(sf==styleformat,'checked',nothing)" />
+      
+            <tal:block replace="format/style" />-<tal:block replace="format/format" />: <tal:block replace="format/desc" /> <br>
+       </tal:block>
+      </tal:block>
+    </td>
+  </tr>
+  <metal:block define-slot="additional_fields">
+  </metal:block>
+  <tr>
+    <td></td>
+    <td colspan="5">
+      <input type="submit" name="change" value=" Change "
+        i18n:attributes="value">
+    </td>
+  </tr>
+</table>
+
+</form>
+
+  <hr>
+Render: <metal:block use-macro="python:path(box['macro'])" /><br>
+Settings: <tal:block replace="box/settings" />
+  <hr>
+  </tal:block>
+</tal:block>
+</metal:macro>
+</metal:main>
+
+</metal:html>

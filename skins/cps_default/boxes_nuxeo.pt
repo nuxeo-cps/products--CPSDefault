@@ -765,3 +765,30 @@
     </metal:block>
   </metal:block>
 </metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="internallinksbox_default"
+  tal:define="items python:box['box'].getContents();
+              " tal:condition="items">
+  <metal:block use-macro="python:path(box['settings']['box_skin'])">
+    <metal:block fill-slot="box_title" i18n:translate=""
+      tal:content="box/box/title">box text title</metal:block>
+    <metal:block fill-slot="box_body">
+       <tal:block define="
+          no_form python:1;
+          filter python:0;
+          items_per_page box/box/nb_items|python:10;
+          nav_action string:folder_view;">
+          <metal:block use-macro="here/content_lib/macros/display_contents" />
+       </tal:block>
+       <div class="rssExport">
+         <a tal:attributes="href
+          string:exportRSSContentBox?box_url=${box/url}"
+          title="label_export_rss"
+          i18n:attributes="title"
+          i18n:translate="link_export_rss">RSS</a>
+       </div>
+    </metal:block>
+  </metal:block>
+</metal:block>
+

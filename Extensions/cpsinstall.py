@@ -342,7 +342,8 @@ def cpsupdate(self, langs_list=None):
         wf.states.addState(s)
     for t in ('create', 'copy_submit', ):
         wf.transitions.addTransition(t)
-    for v in ('action', 'actor', 'comments', 'review_history', 'time'):
+    for v in ('action', 'actor', 'comments', 'review_history', 'time',
+              'dest_container'):
         wf.variables.addVariable(v)
     for p in (View, ModifyPortalContent, ):
         wf.addManagedPermission(p)
@@ -405,6 +406,11 @@ def cpsupdate(self, langs_list=None):
                        default_expr="state_change/getDateTime",
                        for_status=1, update_always=1)
 
+    vdef = wf.variables['dest_container']
+    vdef.setProperties(description='Destination container for the last paste/publish',
+                       default_expr="python:state_change.kwargs.get('dest_container', '')",
+                       for_status=1, update_always=1)
+
 
     # WF section
     wfid = 'section_folder_wf'
@@ -457,7 +463,8 @@ def cpsupdate(self, langs_list=None):
         wf.states.addState(s)
     for t in ('submit', 'publish', 'accept', 'reject', 'unpublish'):        
         wf.transitions.addTransition(t)
-    for v in ('action', 'actor', 'comments', 'review_history', 'time'):
+    for v in ('action', 'actor', 'comments', 'review_history', 'time',
+              'dest_container'):
         wf.variables.addVariable(v)
     for p in (View, ModifyPortalContent, ):
         wf.addManagedPermission(p)
@@ -561,7 +568,11 @@ def cpsupdate(self, langs_list=None):
                        default_expr="state_change/getDateTime",
                        for_status=1, update_always=1)
 
-        
+    vdef = wf.variables['dest_container']
+    vdef.setProperties(description='Destination container for the last copy/publish',
+                       default_expr="python:state_change.kwargs.get('dest_container', '')",
+                       for_status=1, update_always=1)
+
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder
     # CPS Folder
     pr("Verifying portal types")

@@ -48,6 +48,8 @@
 <body tal:attributes="onload python:here.getOnLoad()" tal:condition="emptybody">
   <metal:block define-slot="body" />
   <metal:block define-slot="main" />
+  <!-- CPSD CPS Debug information =================== -->
+  <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>
 <body tal:attributes="onload python:here.getOnLoad()" tal:condition="not:emptybody">
 <metal:block use-macro="here/generic_lib_accessibility/macros/accessibility" />
@@ -126,6 +128,9 @@
 </tal:block>
 <strong tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
 <!-- END BOTTOM Slot ============================== -->
+
+<!-- CPSD CPS Debug information =================== -->
+ <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>
 </html>
 </metal:block>

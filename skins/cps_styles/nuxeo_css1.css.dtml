@@ -35,11 +35,10 @@ a {
 
 img {
   border: 0;
-  vertical-align: middle;
 }
 
 p {
-  margin: 0.5em 0em 1em 0em;
+  margin: 0.5em 0 1em 0;
   text-align: left;
   line-height: 1.5em;
 }
@@ -90,8 +89,8 @@ h6 {
 }
 
 ol, ul {
-  padding: 0em;
-  margin: 0em;
+  padding: 0;
+  margin: 0;
 }
 ul a, ol a {
   text-decoration: underline;
@@ -215,7 +214,7 @@ div.message {
   background: &dtml-messageBackground;;
   color: &dtml-mainFontColor;;
   font: &dtml-messageFont;;
-  margin: 1em 0em;
+  margin: 1em 0;
   padding: 0.5em 1em;
   vertical-align: middle;
 }
@@ -229,7 +228,7 @@ div.message a {
 div.description {
   font: &dtml-descriptionFont;;
   display: block;
-  margin: 1em 0em;
+  margin: 1em 0;
   line-height: 1.5em;
 }
 
@@ -248,10 +247,27 @@ div.pathBar {
   padding-right: 2em;
   text-transform: &dtml-textTransform;;
 }
+/* MENU --------------------------------------- */
+div.tabs {
+  padding: 0 0 0 1em;
+  margin: 0;
+}
+div.tabs a {
+  background-color: &dtml-mainTabBackgroundNotSelected;;
+  color: &dtml-mainTabFontColor;;
+  font-weight: &dtml-mainTabFontWeight;;
+}
+div.tabs a.selected {
+  background-color: &dtml-mainTabBackground;;
+  color: &dtml-mainTabFontColorSelected;;
+  font-weight: &dtml-mainTabFontWeight;;
+}
+
+
 
 /* BOX ---------------------------------------- */
 div.box {
-    margin: 0em 0em 1em 0em;
+    margin: 0 0 1em 0;
 }
 div.box .title {
   font-weight: bold;
@@ -268,6 +284,10 @@ div.box .content {
 div.box ul {
   margin: -1em;
   padding: 0;
+}
+
+div.box a.selected {
+  background: &dtml-messageBackground;;
 }
 
 

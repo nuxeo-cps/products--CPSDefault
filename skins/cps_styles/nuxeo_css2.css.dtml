@@ -32,6 +32,10 @@ body {
   scrollbar-arrow-color: &dtml-mainTabFontColorSelected;;
 }
 
+img {
+  vertical-align: middle;
+}
+
 table {
   font-size: 100%;
 }
@@ -98,7 +102,7 @@ div.footer {
 
 
 div.document {
-  border: 1px solid black;
+  font: &dtml-contentFont;;
   background: &dtml-contentBackground;;
   width: 100%;
 }
@@ -123,6 +127,48 @@ div.pathBar {
   border-bottom-width: 1px;
 }
 
+/* MENU --------------------------------------- */
+div.tabs {
+  background: &dtml-mainTabBackdrop;;
+  border-collapse: collapse;
+  border-bottom-color: &dtml-mainTabBorderColorSelected;;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding: 0.5em 0em 0em 2em;
+  white-space: nowrap;
+}
+
+div.tabs a {
+  background: &dtml-mainTabBackgroundNotSelected;;
+  border-color: &dtml-mainTabBorderColor;;
+  border-width: 1px;
+  border-style: solid solid none solid;
+  color: &dtml-mainTabFontColor;;
+  font-weight: &dtml-mainTabFontWeight;;
+  height: 1.2em;
+  margin-right: 0.5em;
+  padding: 0em 2em;
+  text-transform: &dtml-textTransform;;
+}
+
+div.tabs a.selected {
+  background: &dtml-mainTabBackground;;
+  border: 1px solid &dtml-mainTabBorderColorSelected;;
+  border-bottom: &dtml-mainTabBackground; 1px solid;
+  color: &dtml-mainTabFontColorSelected;;
+  font-weight: &dtml-mainTabFontWeight;;
+}
+
+div.tabs a:hover {
+  background: &dtml-mainTabBackground;;
+  border-color: &dtml-mainTabBorderColorSelected;;
+  border-bottom-color: &dtml-mainTabBackground;;
+  color: &dtml-mainTabFontColorSelected;;
+}
+
+
+
+/* BOX ---------------------------------------- */
 div.box {
   border: none;
 }

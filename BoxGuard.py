@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-15 -*-
 # Copyright (c) 2003 Nuxeo SARL <http://nuxeo.com>
 # Author Hervé Cauwelier <hc@nuxeo.com>
 #

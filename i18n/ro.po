@@ -2,6 +2,8 @@
 # translation of ro.po to
 # translation of ro.po to
 # translation of ro.po to
+# translation of ro.po to
+# translation of ro.po to
 # translation of ro.po to Romanian
 # ##########################################################
 # ################# DON'T EDIT THIS FILE! ##################
@@ -12,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
-"POT-Creation-Date: 2005-02-14 15:44default\n"
-"PO-Revision-Date: 2005-04-01 12:07+0300\n"
+"POT-Creation-Date: 2005-04-04 17:46default\n"
+"PO-Revision-Date: 2005-04-04 17:31+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,8 +56,8 @@ msgstr "Actiune"
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "Creat de ${item_creator}. Modificat ultima oara ${item_modification}."
 
-#.   <option content="python:lang_voc.getMsgid(language)" repeat="language python:lang_voc.keysSortedBy('i18n')" attributes="value language;
-#.                               selected python:test(language==default_language,'selected', nothing);" condition="l10n_translated">
+#.   <option content="python:lang_voc.getMsgid(language)" attributes="value language;
+#.                               selected python:test(language==selected_language,'selected', nothing);" condition="python:language in languages">
 #.         Language</option>
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
@@ -296,7 +298,7 @@ msgid "button_abandon_draft"
 msgstr "Abandoneaza revizia"
 
 #.   <input type="submit" class="standalone searchButton" value="button_add" />
-#.   <input type="submit" name="manageCPSLanguage:method" value="button_add" />
+#.   <button type="submit" name="manageCPSLanguage:method">Add</button>
 #: from ../skins/cps_default/box_create_form.pt
 #: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/language_manage_form.pt
@@ -369,10 +371,9 @@ msgid "button_checkout_draft"
 msgstr "Cere o revizie"
 
 #.   <button onclick="window.close()">Fermer</button>
-#: from ../skins/cps_default/popup_folder_search.pt
-#, fuzzy
+#: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_close"
-msgstr "Copiaza"
+msgstr "Inchide"
 
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -394,7 +395,7 @@ msgstr "Taie"
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
 #.   <input type="submit" class="destructive" value="button_delete" />
-#.   <input type="submit" name="manageCPSLanguage:method" value="button_delete" />
+#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/language_manage_form.pt
@@ -479,6 +480,16 @@ msgstr "Respinge publicarea"
 msgid "button_rename"
 msgstr "Redenumeste"
 
+#.   <input type="submit" class="standalone" value="button_request_reset_password" />
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "button_request_reset_password"
+msgstr "Cerere de reinitializare a parolei"
+
+#.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
+#: from ../skins/cps_default/account_reset_password_form.pt
+msgid "button_reset_password"
+msgstr "Trimite-mi o instiintare cu parola mea"
+
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
@@ -489,7 +500,7 @@ msgstr "Revino la revizia arhivata"
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
-#.
+#.     
 #.         </input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
@@ -501,7 +512,7 @@ msgstr "Cauta"
 
 # Buttons
 # ########
-#.   <input type="submit" name="manageCPSLanguage:method" value="button_select" />
+#.   <button type="submit" name="manageCPSLanguage:method">Select</button>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "button_select"
 msgstr "Selecteaza"
@@ -528,6 +539,14 @@ msgstr "Trimite-mi o instiintare cu parola mea"
 msgid "button_submit_document"
 msgstr "Trimite document"
 
+#.   <button type="button" attributes="
+#.           style string:visibility: visible;
+#.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
+#.           ">Layout</button>
+#: from ../skins/cps_default/textbox_edit_form.pt
+msgid "button_text_editor_popup"
+msgstr "Editor de text..."
+
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "button_translate_document"
@@ -538,9 +557,9 @@ msgstr "Creeaza o versiune pentru traducere"
 msgid "button_unpublish_document"
 msgstr "Retrage document publicat"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update">
+#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
 #.       </input>
-#: from ../skins/cps_default/popup_folder_search.pt
+#: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Aducere la zi"
 
@@ -557,6 +576,13 @@ msgstr "Esti deja membru inregistrat. Poti folosi"
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "pentru a-ti schimba datele de inregistrare"
+
+#.   <p>
+#.       This page give you the opportunity to manage languages available on the portal.
+#.     </p>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "description_languages_form"
+msgstr "Aceasta pagina iti da oportunitatea de a administra limbile din portal"
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -598,8 +624,8 @@ msgstr "Esti autentificat din afara portalului. S-ar putea sa fie nevoie sa"
 msgid "description_reconfig_form"
 msgstr "Acest formular este folosit pentru a configura optiunile portalului"
 
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -749,6 +775,11 @@ msgstr "Adauga continut"
 msgid "heading_join_form"
 msgstr "Inregistreaza-te ca membru"
 
+#.   <h1>Manage languages</h1>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "heading_language_manage_form"
+msgstr "Administrare Limbi"
+
 #.   <h1>
 #.    Assign local roles: Search Members
 #.   </h1>
@@ -777,6 +808,12 @@ msgstr "Autentificare"
 #: from ../skins/cps_default/logged_in.pt
 msgid "heading_login_success"
 msgstr "Autentificare reusita"
+
+#.   <h1>Lost password</h1>
+#: from ../skins/cps_default/account_lost_password_form.pt
+msgid "heading_lost_password"
+msgstr ""
+"Ti-ai pierdut parola"
 
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
@@ -878,6 +915,12 @@ msgstr "Traducere \"${item_id}\""
 msgid "heading_unpublish_of ${item_id}"
 msgstr "Retragere publicare ${item_id}"
 
+#.   <h1>
+#.           Validate the resetting of your password</h1>
+#: from ../skins/cps_default/account_reset_password_form.pt
+msgid "heading_validate_password_resetting"
+msgstr "Valideaza resetarea parolei tale"
+
 #.   <block>
 #.             If you abandon this draft, the original document will be unlocked.
 #.           </block>
@@ -907,17 +950,23 @@ msgstr ""
 #.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
-msgstr "Daca creezi o versiune, esti singurul(a) care va putea sa lucreze in acest document."
+msgstr ""
+"Daca creezi o versiune, esti singurul(a) care va putea sa lucreze in acest "
+"document."
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'no_recurse_help')" class="tooltipArea" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "help_contentbox_no_recurse"
-msgstr "Selecteaza daca vrei ca aceasta cautare sa se desfasoare doar in folderul ales, fara o cautare recursiva in subfoldere."
+msgstr ""
+"Selecteaza daca vrei ca aceasta cautare sa se desfasoare doar in folderul "
+"ales, fara o cautare recursiva in subfoldere."
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "help_contentbox_sort"
-msgstr "Pentru ratiuni de performanta, sortarea rezultatelor cautarii va returna doar primele 100 de documente. "
+msgstr ""
+"Pentru ratiuni de performanta, sortarea rezultatelor cautarii va returna "
+"doar primele 100 de documente. "
 
 #.   <span>
 #.       Delete archive
@@ -941,7 +990,9 @@ msgstr "Aceasta cerere de reinitializare a parolei nu este valida."
 #.     </em>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "help_italic_vendor_boxes_types"
-msgstr "* tip de box predefinit. Unele proprietati nu pot fi schimbate din aceasta interfata."
+msgstr ""
+"* tip de box predefinit. Unele proprietati nu pot fi schimbate din aceasta "
+"interfata."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -949,14 +1000,18 @@ msgstr "* tip de box predefinit. Unele proprietati nu pot fi schimbate din aceas
 #.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
-msgstr "Devenind un membru vei avea posibilitatea de a-ti personaliza site-ul si de a participa la comunitate."
+msgstr ""
+"Devenind un membru vei avea posibilitatea de a-ti personaliza site-ul si de "
+"a participa la comunitate."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
 #.         other personal information will remain private.</p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_2"
-msgstr "Nu costa nimic sa devii un membru si adresa ta de email si celelalte informatii personale vor ramane private."
+msgstr ""
+"Nu costa nimic sa devii un membru si adresa ta de email si celelalte "
+"informatii personale vor ramane private."
 
 #.   <p condition="python: ptool.validate_email">
 #.         You must submit a valid email address. This address will be used
@@ -966,17 +1021,19 @@ msgstr "Nu costa nimic sa devii un membru si adresa ta de email si celelalte inf
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
-"Trebuie sa introduci o adresa de email valida. Aceasta adresa va fi utilizata "
-"pentru a ti se trimite "
-"o parola generata la intamplare. O data ce te-ai logat cu aceasta parola, "
-"poti sa o schimbi cu orice alta parola pe care o vrei."
+"Trebuie sa introduci o adresa de email valida. Aceasta adresa va fi "
+"utilizata pentru a ti se trimite o parola generata la intamplare. O data ce "
+"te-ai logat cu aceasta parola, poti sa o schimbi cu orice alta parola pe "
+"care o vrei."
 
 #.   <p>
 #.       Don't forget to logout or exit your browser when you're done.
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_aware_logout"
-msgstr "Nu uita sa te deconectezi sau sa inchizi fereastra de navigare cand ai terminat."
+msgstr ""
+"Nu uita sa te deconectezi sau sa inchizi fereastra de navigare cand ai "
+"terminat."
 
 #.   <p>
 #.       Having trouble logging in? Make sure to enable cookies in
@@ -984,7 +1041,9 @@ msgstr "Nu uita sa te deconectezi sau sa inchizi fereastra de navigare cand ai t
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "Ai probleme la conectare&nbsp;? Asigura-te ca ai activate cookie-urile in fereastra ta de navigare."
+msgstr ""
+"Ai probleme la conectare&nbsp;? Asigura-te ca ai activate cookie-urile in "
+"fereastra ta de navigare."
 
 #.   <p>
 #.           You have lost your password but hopefuly there is a solution.
@@ -992,9 +1051,9 @@ msgstr "Ai probleme la conectare&nbsp;? Asigura-te ca ai activate cookie-urile i
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_lost_pasword"
 msgstr ""
-"Introdu numele contului tau mai jos, apasa <em>Trimite</em>, si "
-"parola ta iti va fi "
-"trimisa daca ai dat o adresa de email valida in momentul in care te-ai inregistrat ca membru."
+"Introdu numele contului tau mai jos, apasa <em>Trimite</em>, si parola ta "
+"iti va fi trimisa daca ai dat o adresa de email valida in momentul in care "
+"te-ai inregistrat ca membru."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1004,9 +1063,9 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
 msgstr ""
-"Introdu numele contului tau mai jos, apasa <em>Trimite</em>, si "
-"parola ta iti va fi "
-"trimisa daca ai dat o adresa de email valida in momentul in care te-ai inregistrat ca membru."
+"Introdu numele contului tau mai jos, apasa <em>Trimite</em>, si parola ta "
+"iti va fi trimisa daca ai dat o adresa de email valida in momentul in care "
+"te-ai inregistrat ca membru."
 
 #.   <span>
 #.             If this will not work for you (for example, if you forget your member
@@ -1019,7 +1078,9 @@ msgstr ""
 #: from ../skins/cps_default/account_lost_password_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
-msgstr "Daca aceasta nu merge in cazul tau (de exemplu, daca ti-ai uitat numele de utilizator sau daca nu ti-ai introdus adresa de email) trimite un email la "
+msgstr ""
+"Daca aceasta nu merge in cazul tau (de exemplu, daca ti-ai uitat numele de "
+"utilizator sau daca nu ti-ai introdus adresa de email) trimite un email la "
 
 #.   <p>
 #.       Your password has been mailed.
@@ -1040,14 +1101,17 @@ msgstr "Trebuie sa ajunga in cutia ta de mesaje electronice in scurt timp."
 #.           </span>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "help_no_content_type_can_be_created"
-msgstr "Nici un tip de continut nu poate fi creat. Aceasta este in mod sigur din cauza 'workflows' care nu va permite acest lucru."
+msgstr ""
+"Nici un tip de continut nu poate fi creat. Aceasta este in mod sigur din "
+"cauza 'workflows' care nu va permite acest lucru."
 
 #.   <p>
 #.       You must select one or more items to rename.
 #.     </p>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_no_items_to_rename"
-msgstr "Trebuie sa selectionati unul sau mai multe obiecte pentru a le redenumi."
+msgstr ""
+"Trebuie sa selectionati unul sau mai multe obiecte pentru a le redenumi."
 
 #.   <p>
 #.       help_password_forgotten
@@ -1062,7 +1126,8 @@ msgstr "<a href='${link_password_forgotten}'>Am uitat parola!</a>"
 #.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
-msgstr "Selecteaza aceasta casuta pentru a primi un email care sa contina parola ta."
+msgstr ""
+"Selecteaza aceasta casuta pentru a primi un email care sa contina parola ta."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1083,8 +1148,10 @@ msgstr "Selecteaza aceasta casuta pentru a primi un email care sa contina parola
 #: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
 msgstr ""
-"Poti publica aceste articole direct, fara a trece printr-o etapa de moderare, "
-"in rubricile pe care le-ai selectionat. <br />O copie a acestui document va fi creata in fiecare dintre sectiuni cu starea <strong>publicat</strong>. Cititorii de sectiuni pot sa citeasca apoi aceasta copie."
+"Poti publica aceste articole direct, fara a trece printr-o etapa de "
+"moderare, in rubricile pe care le-ai selectionat. <br />O copie a acestui "
+"document va fi creata in fiecare dintre sectiuni cu starea <strong>publicat</"
+"strong>. Cititorii de sectiuni pot sa citeasca apoi aceasta copie."
 
 #.   <span>
 #.             You will receive an email shortly containing
@@ -1092,7 +1159,9 @@ msgstr ""
 #.           </span>
 #: from ../skins/cps_default/registered.pt
 msgid "help_registered_mail"
-msgstr "Vei primi un email scurt continand parola si instructiunile despre cum sa-ti activezi calitatea de membru."
+msgstr ""
+"Vei primi un email scurt continand parola si instructiunile despre cum sa-ti "
+"activezi calitatea de membru."
 
 #.   <span>
 #.       Reject publication of this item
@@ -1109,10 +1178,9 @@ msgstr "Refuza publicarea acestui document"
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
 msgstr ""
-"Daca alegi optiunea 'Tine minte numele meu', un cookie va fi creat cu numele tau de utilizator "
-"astfel incat de fiecare data cand te vei conecta, "
-"campul care contine numele tau de utilizator "
-"va fi deja completat pentru voi."
+"Daca alegi optiunea 'Tine minte numele meu', un cookie va fi creat cu numele "
+"tau de utilizator astfel incat de fiecare data cand te vei conecta, campul "
+"care contine numele tau de utilizator va fi deja completat."
 
 #.   <div class="description">Changing the id of an object does not
 #.   affect its title but changes the URL to access it. Links that point to the
@@ -1121,8 +1189,8 @@ msgstr ""
 msgid "help_rename_items"
 msgstr ""
 "Schimbarea id-ului unui obiect nu afecteaza titlul obiectului ci schimba "
-"adresa URL prin care acesta este accesat. Atentie la legaturile catre acest obiect care nu il vor mai gasi "
-"daca nu sunt aduse la zi. "
+"adresa URL prin care acesta este accesat. Atentie la legaturile catre acest "
+"obiect care nu il vor mai gasi daca nu sunt aduse la zi. "
 
 #.   <span>
 #.       Revert to revision
@@ -1138,17 +1206,16 @@ msgstr "Revenire la o versiune anterioara a acestui document."
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
 msgstr ""
-"Starea unui document (numita de altfel si starea de validare) "
-"determina cine este autorizat sa vada acest document. "
-"Un document care este in starea <strong>in lucru</strong> "
-"poate fi consultat de catre cititorii spatiului de lucru, "
-"poate fi editat de membrii aceluiasi spatiu de lucru si de catre responsabili. "
-"Doar obiectele care au statutul <strong>publicat</strong>"
-"pot fi accesibile cititorilor de sectiuni. Pentru a putea publica un obiect, obiectul trebuie validat de catre un validator de sectiune."
-"Poti cere ca un obiect sa fie validat prin schimbarea "
-"starii sale in <strong>in asteptare</strong>."
-" Obtineti "
-"acest lucru  prin validarea documentului in aceasta rubrica."
+"Starea unui document (numita de altfel si starea de validare) determina cine "
+"este autorizat sa vada acest document. Un document care este in starea "
+"<strong>in lucru</strong> poate fi consultat de catre cititorii spatiului de "
+"lucru, poate fi editat de membrii aceluiasi spatiu de lucru si de catre "
+"responsabili. Doar obiectele care au statutul <strong>publicat</strong>pot "
+"fi accesibile cititorilor de sectiuni. Pentru a putea publica un obiect, "
+"obiectul trebuie validat de catre un validator de sectiune.Poti cere ca un "
+"obiect sa fie validat prin schimbarea starii sale in <strong>in asteptare</"
+"strong>. Obtineti acest lucru  prin validarea documentului in aceasta "
+"rubrica."
 
 #.   <span>
 #.           Create a new translation for this document.
@@ -1306,15 +1373,19 @@ msgstr "Afiseaza doar subdosarele"
 msgid "label_choose"
 msgstr "Alege"
 
-#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
-#.                                                                         'Select workspaces for recherche') " size="30">
-#.                                                                Choose workspaces</button>
 #.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
 #.                                                                         'Select folder for recherche') " size="30">
-#.                                                                        Choose sections</button>
+#.                                                                Choose sections</button>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_choose_section"
 msgstr "Inchide"
+
+#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
+#.                                                                         'Select workspaces for recherche') " size="30">
+#.                                                                Choose workspaces</button>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+msgid "label_choose_workspace"
+msgstr "Alege"
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1811,6 +1882,13 @@ msgstr "Autorizeaza inscrierea"
 msgid "label_portal_enable_password_reminder"
 msgstr "Autorizeaza trimiterea unui memento cu parola"
 
+#.   <label for="enable_password_reset">
+#.               Enable password resetting
+#.             </label>
+#: from ../skins/cps_default/reconfig_form.pt
+msgid "label_portal_enable_password_reset"
+msgstr "Autorizeaza trimiterea unui memento cu parola"
+
 #.   <label for="portal_title">
 #.               Portal title
 #.             </label>
@@ -2112,7 +2190,7 @@ msgstr "Numele complet al utilizatorului"
 #: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
-msgstr "Numele utilizatorului"
+msgstr "Utilizator"
 
 #.   <label for="box_display_in_subfolder">visible in subfolder</label>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -2134,6 +2212,21 @@ msgstr "Lucru"
 #: from ../skins/cps_default/generic_lib_breadcrumbs.pt
 msgid "label_you_are_here"
 msgstr "Te afli aici: "
+
+#.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language"
+msgstr "Limba"
+
+#.   <h2>Add languages</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_add"
+msgstr "Adauga Limba"
+
+#.   <h2>Delete languages</h2>
+#: from ../skins/cps_default/language_manage_form.pt
+msgid "language_delete"
+msgstr "Sterge Limba"
 
 #.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/language_manage_form.pt
@@ -2157,7 +2250,8 @@ msgstr "Roluri locale delegate"
 #.   </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_assigned_users"
-msgstr "Acesti utilizatori au pentru moment roluri locale in acest director&nbsp;:"
+msgstr ""
+"Acesti utilizatori au pentru moment roluri locale in acest director&nbsp;:"
 
 #.   <block>
 #.         Local roles are acquired.
@@ -2208,7 +2302,9 @@ msgstr "Alege un membru(membri) si rolul care i se va incredinta&nbsp;:"
 #.         You can unblock acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_unblock"
-msgstr "Mostenirea rolurilor locale este <strong>blocata</strong>. Puteti debloca mostenirea :"
+msgstr ""
+"Mostenirea rolurilor locale este <strong>blocata</strong>. Puteti debloca "
+"mostenirea :"
 
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
@@ -2243,6 +2339,11 @@ msgstr "Cautare avansata"
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
 msgstr "Editeaza toate metadatele"
+
+#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
+#: from ../skins/cps_default/xml_exports.pt
+msgid "link_atom_export"
+msgstr "ATOM"
 
 #.   <a href="" attributes="href string:${context_urlc}/box_delete?box_url=${box/url};
 #.         onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), )">delete</a>
@@ -2297,8 +2398,9 @@ msgstr "Inapoi"
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "link_local_roles_underlined"
 msgstr ""
-"<em>Rolurile subliniate</em> sunt definite intr-unul dintre directoarele parinte. "
-"Urmariti legaturile pentru a administra drepturile in acest director."
+"<em>Rolurile subliniate</em> sunt definite intr-unul dintre directoarele "
+"parinte. Urmariti legaturile pentru a administra drepturile in acest "
+"director."
 
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
@@ -2317,9 +2419,7 @@ msgstr "Mai mult..."
 #.             </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registered_login"
-msgstr ""
-"Poti acum sa te conectezi direct la "
-"site&nbsp;:"
+msgstr "Poti acum sa te conectezi direct la site&nbsp;:"
 
 #.   <span>
 #.               Return to homepage
@@ -2332,6 +2432,11 @@ msgstr "Inapoi la pagina principala"
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_revert_to_this_revision"
 msgstr "Revenire la aceasta versiune"
+
+#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
+#: from ../skins/cps_default/xml_exports.pt
+msgid "link_rss_export"
+msgstr "RSS"
 
 #.   <th width="15%">action</th>
 #: from ../skins/cps_default/box_manage_form.pt
@@ -2780,6 +2885,9 @@ msgstr "Arhive de email-uri"
 msgid "action_manage_vocabularies"
 msgstr "Administreaza vocabularele"
 
+msgid "action_manage_languages"
+msgstr "Administreaza vocabularele"
+
 msgid "action_translate"
 msgstr "Administreaza limbile"
 
@@ -2910,7 +3018,8 @@ msgid "portal_type_CPSForum_title"
 msgstr "Forum"
 
 msgid "portal_type_CPSForum_description"
-msgstr "Pastreaza discutiile organizate in functie de subiect (foi de discutie)"
+msgstr ""
+"Pastreaza discutiile organizate in functie de subiect (foi de discutie)"
 
 msgid "portal_type_CollectorDocument_title"
 msgstr "Colector de informatii"
@@ -3023,9 +3132,8 @@ msgstr "Formular de cautare aliniat la dreapta"
 
 msgid "description_nuxeo_basebox_menu"
 msgstr ""
-"Meniul Nuxeo afiseaza radacina spatiilor de lucru, "
-"a sectiunilor si "
-"a sectiunilor de pe primul nivel."
+"Meniul Nuxeo afiseaza radacina spatiilor de lucru, a sectiunilor si a "
+"sectiunilor de pe primul nivel."
 
 msgid "description_nuxeo_basebox_breadcrumbs"
 msgstr "Linie de localizare, pozitia curenta."
@@ -3058,7 +3166,8 @@ msgid "description_nuxeo_contentbox_simple"
 msgstr "Box de continut care afiseaza o lista simpla."
 
 msgid "description_nuxeo_contentbox_pending"
-msgstr "Box de continut care afiseaza documentele in asteptare de a fi publicate."
+msgstr ""
+"Box de continut care afiseaza documentele in asteptare de a fi publicate."
 
 msgid "description_nuxeo_textbox_default"
 msgstr "Box de text initial."
@@ -3082,7 +3191,9 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "Un box de actiuni format din spatii."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr "O lista de actiuni simple utilizate pentru actiunile din partea de sus a paginii."
+msgstr ""
+"O lista de actiuni simple utilizate pentru actiunile din partea de sus a "
+"paginii."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Un box cu o imagine"
@@ -3097,6 +3208,9 @@ msgstr "Plan de spatii de lucru"
 
 msgid "description_nuxeo_internallinks_default"
 msgstr "Box initial de legaturi interne."
+
+msgid "description_nuxeo_render_default"
+msgstr "Box de navigare initial."
 
 # Status messages (psm)
 # ######################
@@ -3173,9 +3287,7 @@ msgid "psm_join_password_mismatch"
 msgstr "Parola ta si confirmarea ei nu corespund."
 
 msgid "psm_join_invalid_name"
-msgstr ""
-"Numele tau de utilizator este invalid. Modifica-l sau alege "
-"altul."
+msgstr "Numele tau de utilizator este invalid. Modifica-l sau alege altul."
 
 msgid "psm_join_login_already_used"
 msgstr "Acest nume de utilizator este deja luat. Alege alt nume."
@@ -3185,11 +3297,31 @@ msgstr "Adresa de email este invalida. Te rog sa o verifici."
 
 msgid "psm_reset_password_request_received"
 msgstr ""
-"Cererea de reinitializare a parolei a fost primita. "
-"Un email de confirmare ti-a fost trimis."
+"Cererea de reinitializare a parolei a fost primita. Un email de confirmare "
+"ti-a fost trimis."
+
+msgid "psm_reset_password_success"
+msgstr ""
+"Cererea de reinitializare a parolei a fost primita. Un email de confirmare "
+"ti-a fost trimis."
+
+msgid "psm_reset_password_problem"
+msgstr ""
+"Resetarea parolei tale a esuat."
 
 msgid "psm_translation_added"
 msgstr "Versiunea pentru traducere a fost adaugata."
+
+# Languages
+# ##########
+msgid "psm_default_language_set"
+msgstr "Limba initiala setata in portal"
+
+msgid "psm_language_added"
+msgstr "Noi limbi disponibile"
+
+msgid "psm_language_deleted"
+msgstr "Aceasta Limba nu mai este disponibila."
 
 msgid "psm_language_error_select_at_least_one_item"
 msgstr "Limba initiala a site-ului a fost modificata"
@@ -3284,6 +3416,12 @@ msgstr "Braziliana"
 msgid "label_language_mg"
 msgstr "Malgasa"
 
+msgid "label_language_ro"
+msgstr "Romana"
+
+msgid "label_language_eu"
+msgstr "Spaniola"
+
 # Dates
 # ######
 msgid "calendar_month_1"
@@ -3345,4 +3483,3 @@ msgstr "Du"
 
 msgid "_blank"
 msgstr " "
-

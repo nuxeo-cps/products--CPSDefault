@@ -52,7 +52,7 @@ class ActionBox(BaseBox):
         )
 
     def __init__(self, id, categories=[], **kw):
-        BaseBox.__init__(self, id, macro='actionbox', kw=kw)
+        BaseBox.__init__(self, id, category='actionbox', kw=kw)
         self.categories = categories
 
     security.declarePublic('getActions')
@@ -69,7 +69,13 @@ class ActionBox(BaseBox):
         items = []
         for cat in categories:
             if cat in all_categories:
-                items.append(actions[cat])
+                if len(actions[cat]):
+                    items.append(actions[cat])
+
+        if len(items) == 1 and len(items[0]) == 1 \
+           and items[0][0]['id'] == 'view':
+            items = []
+
         return items
 
 

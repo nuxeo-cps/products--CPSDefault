@@ -18,17 +18,19 @@
 """
   ContentBox
 """
+
 from AccessControl import ClassSecurityInfo
 from Globals import InitializeClass
 from Acquisition import aq_base
 from ZTUtils import make_query
 from DateTime import DateTime
-from zLOG import LOG, DEBUG
+from zLOG import LOG, DEBUG, INFO
 
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 
 from BaseBox import BaseBox
+
 
 
 factory_type_information = (
@@ -54,8 +56,6 @@ factory_type_information = (
      'cps_is_portalbox': 1,
      },
     )
-
-
 class ContentBox(BaseBox):
     """
     A Content Box display content
@@ -65,7 +65,7 @@ class ContentBox(BaseBox):
 
     query_portal_type = []
     zoom = 0
-
+    search_type = 0
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -93,12 +93,14 @@ class ContentBox(BaseBox):
          'label': 'Portal type criteria' },
         {'id': 'query_modified', 'type': 'string', 'mode': 'w',
          'label': 'Modified criteria' },
+	{'id': 'search_type', 'type': 'int', 'mode': 'w',
+	 'label': 'Searching criteria'}, 
         )
 
     def __init__(self, id, category='contentbox', folder='', nb_items=0,
                  sort_by='', direction='', display='', query_title='',
                  query_description='', query_fulltext='', query_status='',
-                 query_portal_type=[], query_modified='', zoom=0, **kw):
+                 query_portal_type=[], query_modified='', zoom=0,search_type = 0, **kw):
         BaseBox.__init__(self, id, category=category, **kw)
         self.folder = folder
         self.nb_items = nb_items
@@ -112,28 +114,32 @@ class ContentBox(BaseBox):
         self.query_title = query_title
         self.query_modified = query_modified
         self.zoom = zoom
+	self.search_type = search_type
 
 
     security.declarePublic('getContents')
     def getContents(self, context):
         """Get a sorted list of contents object"""
         utool = getToolByName(self, 'portal_url')
+        
         folder = self._getFolderObject(context)
         items = []
         link_more = ''
+        
         if folder:
-            query = self._buildQuery()
+            query = self._buildQuery(folder)
+
             if len(query):
                 # this is a search box
                 folder_prefix = ''
                 if self.folder:
                     folder_prefix = utool.getRelativeUrl(folder)
+
                 items = folder.search(query=query,
                                       sort_by=self.sort_by,
                                       direction=self.direction,
                                       hide_folder=0,
                                       folder_prefix=folder_prefix)
-
             else:
                 # this is a folder content box
                 displayed = context.REQUEST.get('displayed', [''])
@@ -141,7 +147,7 @@ class ContentBox(BaseBox):
                                                  direction=self.direction,
                                                  hide_folder=1,
                                                  displayed=displayed)
-
+                
             if self.nb_items and len(items) > self.nb_items:
                 items = items[:self.nb_items]
                 if len(query):
@@ -156,10 +162,10 @@ class ContentBox(BaseBox):
                                    title_search=self.title,
                                    search_within_results=1,
                                    **query)
+
                     link_more = './advanced_search_form?%s' % q
                 else:
                     link_more = utool.getRelativeUrl(folder)
-
         return (items, link_more)
 
 
@@ -195,7 +201,7 @@ class ContentBox(BaseBox):
 
 
     security.declarePrivate('_buildQuery')
-    def _buildQuery(self):
+    def _buildQuery(self, folder):
         """Build a query for search.py """
         query = {}
         if self.query_fulltext:
@@ -208,6 +214,9 @@ class ContentBox(BaseBox):
             query['Description'] = self.query_description
         if self.query_status:
             query['review_state'] = self.query_status
+
+        if self.search_type == 1:
+            query['search_relative_path'] = 1
 
         if self.query_modified:
             modified = None

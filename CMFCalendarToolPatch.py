@@ -57,7 +57,7 @@ def catalog_getcpsevents(self, year, month, location=None, event_types=None):
     for daynumber in range(1, 32): # 1 to 31
         eventDays[daynumber] = {'eventslist':[], 'event':0, 'day':daynumber}
     for q in query:
-        result = q.getContent()
+        result = q.getObject().getContent()
         if callable(result.start):
             sd = result.start()
         else:
@@ -155,45 +155,16 @@ def getCPSEventsForThisDay(self, thisDay, location=None, event_types=None):
     else:
         final_event_types = self.calendar_types
 
-    query = self.search(query={'portal_type':final_event_types,
-                               'review_state':'published',
-                               },
-                        folder_prefix=location,
-                        start_date = first_date,end_date = last_date)
+    results = self.search(query={'portal_type': final_event_types,
+                                 'review_state': 'published',
+                                 'sort-on': 'start',
+                                 'start': {'query': last_date,
+                                           'range': 'max'},
+                                 'end': {'query': first_date,
+                                         'range': 'min'},
+                                 },
+                          folder_prefix=location,)
 
-    results = []
-
-    for q in query:
-        results.append(q)
-
-    def sort_function(x,y):
-        x_doc = x.getContent()
-        y_doc = y.getContent()
-
-        if callable(x_doc.start):
-            x_sd = x_doc.start()
-        else:
-            x_sd = x_doc.start
-        if callable(x_doc.end):
-            x_ed = x_doc.end()
-        else:
-            x_ed = x_doc.end
-        if callable(y_doc.start):
-            y_sd = y_doc.start()
-        else:
-            y_sd = y_doc.start
-        if callable(y_doc.end):
-            y_ed = y_doc.end()
-        else:
-            y_ed = y_doc.end
-
-        z = cmp(x_sd, y_sd)
-        if not z:
-            return cmp(x_ed, y_ed)
-        return z
-
-    # Sort by start date
-    results.sort(sort_function)
 
     return results
 

@@ -5,18 +5,20 @@
 """
 Get a datastructure describing what's in a folder.
 """
-bmt = context.Benchmarktimer('getFolderContent')
+bmt = context.Benchmarktimer('getFolderContent', level=-2)
 bmt.start()
 
 mtool=context.portal_membership
 wtool=context.portal_workflow
-fc = []
+items = []
 for item in context.objectValues():
     if item.getId().startswith('.'):
         continue
     if not mtool.checkPermission('View', item):
         continue
-    fc.append(item)
+    if item.effective() <= context.ZopeTime() and \
+           item.expires() > context.ZopeTime():
+        items.append(item)
 
 def title_cmp(a, b): # cmp by folder then title
     return (-cmp(a.isPrincipiaFolderish, b.isPrincipiaFolderish) or
@@ -32,9 +34,9 @@ def status_cmp(a, b):
             0
             )
 
-fc.sort(title_cmp)
+items.sort(title_cmp)
 
 bmt.stop()
 bmt.saveProfile(context.REQUEST)
 
-return fc
+return items

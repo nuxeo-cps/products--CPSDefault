@@ -29,7 +29,8 @@
               stree python:sections.getList(start_depth=0, stop_depth=1);
               wtree python:workspaces.getList(start_depth=0, stop_depth=2)[:1]">
   <tal:block repeat="item stree">
-    <tal:block define="selected python:context_url.endswith(item['rpath'])">
+    <tal:block define="selected python:context_url.endswith(item['rpath'])"
+      condition="not:item/hidden_folder|not:nothing">
       <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a href="" class=""
          tal:attributes="href string:${base_url}${item/rpath}/;
                          class python:test(selected, 'selected', default);
@@ -40,7 +41,8 @@
     </tal:block>
   </tal:block>
   <tal:block repeat="item wtree">
-    <tal:block define="selected python:context_url.endswith(item['rpath'])">
+    <tal:block define="selected python:context_url.endswith(item['rpath'])"
+      condition="not:item/hidden_folder|not:nothing">
       <span class="wsOpentab" tal:attributes="class python:test(selected, 'wsOpentabSelected', default)"> </span><a href="" class="workspace"
          tal:attributes="href string:${base_url}${item/rpath}/;
                          class python:test(selected, 'wsSelected', default);

@@ -1,6 +1,6 @@
 ## Script (Python) "addtoFavorites"
-##title=Add item to favourites
-##parameters=
+##title=Add item to favorites
+##parameters=REQUEST=None
 ##$Id$
 
 portal = context.portal_url.getPortalObject()
@@ -9,15 +9,15 @@ homeFolder = portal.portal_membership.getHomeFolder()
 favorites_id = 'Favorites'
 
 if favorites_id not in homeFolder.objectIds():
-  portal.portal_workflow.invokeFactoryFor(homeFolder,'Workspace',favorites_id)
+  homeFolder.invokeFactory('Workspace', favorites_id)
 targetFolder = getattr(homeFolder, favorites_id)
 
 new_id='fav_' + str(int(context.ZopeTime()))
 myPath=context.portal_url.getRelativeUrl(context)
 
-portal.portal_workflow.invokeFactoryFor(targetFolder,'Link',new_id)
+targetFolder.invokeFactory('Link', new_id)
 
-doc = getattr(targetFolder,new_id).getEditableContent()
+doc = getattr(targetFolder, new_id).getEditableContent()
 
 kw = {'title':context.TitleOrId(),
       'description':context.getContent().description,
@@ -25,5 +25,8 @@ kw = {'title':context.TitleOrId(),
 
 doc.edit(**kw)
 
-url = '%s/?portal_status_message=psm_added_to_favorites' % context.absolute_url()
-return context.REQUEST.RESPONSE.redirect(url)
+if REQUEST:
+  url = '%s/?portal_status_message=psm_added_to_favorites' % context.absolute_url()
+  return REQUEST.RESPONSE.redirect(url)
+
+

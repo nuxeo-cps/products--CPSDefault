@@ -30,7 +30,7 @@
   "><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
   tal:attributes="lang locale; xml:lang locale"><span
-  tal:replace="CPSD_bmt_start" />
+  tal:replace="CPSD_bmt_start"/>
 <head>
 <metal:block use-macro="here/header_lib_header/macros/header">
   <metal:block fill-slot="base"><metal:block define-slot="base"><base
@@ -45,13 +45,13 @@
     /></metal:block>
 </metal:block>
 </head>
-<body OnLoad="setFocus()" tal:condition="emptybody">
+<body tal:attributes="OnLoad python:here.getOnLoad()" tal:condition="emptybody">
   <metal:block define-slot="body" />
   <metal:block define-slot="main" />
   <!-- CPSD CPS Debug information =================== -->
   <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>
-<body OnLoad="setFocus()" tal:condition="not:emptybody">
+<body tal:attributes="OnLoad python:here.getOnLoad()" tal:condition="not:emptybody">
 <metal:block use-macro="here/generic_lib_accessibility/macros/accessibility" />
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->

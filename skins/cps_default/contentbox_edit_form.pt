@@ -31,7 +31,7 @@
   </tr>
   <tr valign="top">
     <th align="right" i18n:translate="label_search">search</th>
-    <td colspan="5">
+    <td colspan="5" class="even">
       <table>
         <tr>
           <td><span i18n:translate="label_search_title">Description</span></td>
@@ -70,11 +70,12 @@
             <select name="query_portal_type" multiple>
             <option i18n:translate="label_all"
                     value="" tal:attributes="selected python:notempty==[] or selbox==[]">All</option>
-            <tal:block repeat="type python:here.getSearchablePortalTypes(only_ids=1)">
+            <tal:block repeat="ret python:here.getSearchablePortalTypes();">
             <option i18n:translate=""
+              tal:define="type ret/id;name ret/title;"
               tal:attributes="value type;
                               selected python:type in box['box'].query_portal_type"
-              tal:content="string:portal_type_${type}_title"></option>
+              tal:content="name"></option>
             </tal:block>
             </select>
             </tal:block>

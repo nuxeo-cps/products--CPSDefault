@@ -1,12 +1,20 @@
 ##parameters=utool=None
 # $Id$
 # return the base url of the cps server, ex: /cps/ or /
+
+#return context.absolute_url(relative=1)+'/'
 if not utool:
     utool = context.portal_url
-rurl = utool(relative=1)
-cps_folder = context.getPhysicalPath()[1]
-base_url = '/'
-if rurl.startswith(cps_folder):
-    base_url += cps_folder + '/'
+REQUEST = getattr(context, 'REQUEST', None)
+if REQUEST is None:
+    path_info = ''
+else:
+    path_info = getattr(REQUEST, 'PATH_INFO', '')
 
-return base_url
+if path_info.startswith('/VirtualHostBase/') :
+    # apache detection
+    return '/'
+else:
+    # XXX squid detection
+    # classic case
+    return utool.getPortalPath()+ '/'

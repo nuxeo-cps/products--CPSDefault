@@ -73,13 +73,13 @@ box: <tal:block replace="box_url" />
     <td></td>
     <td colspan="5">
         <input type="checkbox" name="display_in_subfolder"
-               checked="" 
-               tal:attributes="checked 
+               checked=""
+               tal:attributes="checked
                  python:test(box['box'].display_in_subfolder, 'checked',
                    nothing)"
           ><label i18n:translate="label_visible_in_subfolder">visible in subfolder</label><br>
         <input type="checkbox" name="display_only_in_subfolder"
-               checked="" 
+               checked=""
                tal:attributes="checked
                  python:test(box['box'].display_only_in_subfolder, 'checked',
                    nothing)"
@@ -102,7 +102,7 @@ box: <tal:block replace="box_url" />
         <tr><td nowrap>
           <input type="radio" name="providertype" value=""
             tal:define="sf string:${type/provider}@${type/id}"
-            tal:attributes="value sf; 
+            tal:attributes="value sf;
                             checked python:test(sf==providertype,'checked',nothing)" />
           <tal:block replace="type/provider" />-<tal:block replace="type/id" /></td>
           <td><em i18n:translate=""  tal:content="type/desc" />
@@ -121,10 +121,10 @@ box: <tal:block replace="box_url" />
     <td></td>
     <td colspan="5">
       <input type="submit" name="change" value="button_change"
-             i18n:attributes="value"
+             class="standalone" i18n:attributes="value"
              tal:condition="python:checkPerm('Manage Boxes', box['box'])">
-      <input type="button" i18n:attributes="value" 
-             value="button_back" onClick="history.back()">
+      <input type="button" i18n:attributes="value"
+             class="context" value="button_back" onClick="history.back()">
     </td>
   </tr>
 </table>

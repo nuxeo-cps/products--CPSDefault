@@ -105,8 +105,9 @@
               Detail
       </option>
     </select>
-    <input type="submit" value="button_change" i18n:attributes="value"
-           tal:attributes="name string:changeDisplayParams:method" />
+    <input type="submit" value="button_change" class="standalone"
+      i18n:attributes="value" tal:attributes="name
+      string:changeDisplayParams:method" />
   </form>
 </div>
 </div>
@@ -152,25 +153,24 @@
       <span tal:condition="python: test(checkPerm('Add portal content', here)
             and here.allowedContentTypes(), 1, 0)">
         <input type="submit" name="folder_factories:method" value="button_new"
-               i18n:attributes="value">
+          class="standalone" i18n:attributes="value">
       </span>
       <span tal:condition="python: test(checkPerm('View  Management Screen',here))">
         <input type="submit" name="folder_cut:method" value="button_cut"
-               i18n:attributes="value" />
+          class="context" i18n:attributes="value" />
         <input type="submit" name="folder_copy:method" value="button_copy"
-               i18n:attributes="value" />
+          class="context" i18n:attributes="value" />
       </span>
       <span tal:condition="python:test(checkPerm('View  Management
       Screen',here) and here.cb_dataValid)">
         <input type="submit" name="folder_paste:method" value="button_paste"
-               i18n:attributes="value" />
+          class="context" i18n:attributes="value" />
       </span>
       <span tal:condition="python: checkPerm('Delete objects', here)">
         <input type="submit" name="folder_rename_form:method"
-               value="button_rename"
-               i18n:attributes="value">
+          class="context" value="button_rename" i18n:attributes="value">
         <input type="submit" name="folder_delete:method" value="button_delete"
-               i18n:attributes="value">
+          class="destructive" i18n:attributes="value">
         <tal:block tal:define="params here/getDisplayParams;
                                sort_by params/sort_by;
                                direction params/direction;
@@ -179,18 +179,14 @@
       python:mtool.checkPermission('View management screens', here);"
                    condition="python:isWsManager and sort_by is None">
           <br />
-          <input type="submit" value="button_move_up"
-                 i18n:attributes="value"
-                 name="moveItemsUp:method" />
-          <input type="submit" value="button_move_down"
-                 i18n:attributes="value"
-                 name="moveItemsDown:method" />
-          <input type="submit" value="button_move_top"
-                 i18n:attributes="value"
-                 name="moveItemsTop:method" />
-          <input type="submit" value="button_move_bottom"
-                 i18n:attributes="value"
-                 name="moveItemsBottom:method" />
+        <input type="submit" value="button_move_up" class="context"
+          i18n:attributes="value" name="moveItemsUp:method"/>
+        <input type="submit" value="button_move_down" class="context"
+          i18n:attributes="value" name="moveItemsDown:method"/>
+        <input type="submit" value="button_move_top" class="context"
+          i18n:attributes="value" name="moveItemsTop:method" />
+        <input type="submit" value="button_move_bottom" class="context"
+          i18n:attributes="value" name="moveItemsBottom:method" />
         </tal:block>
       </span>
       </td>

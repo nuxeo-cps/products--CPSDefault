@@ -264,8 +264,9 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         else:
             home.manage_addProduct['CPSDefault'].addBoxContainer()
             pbc = home[idbc]
-            pbc.manage_permission('Manage Overrides',
-                                  roles=('Owner',) , acquire=0)
+            pbc.manage_permission('Manage Box Overrides',
+                                  roles=('Owner','Manager','WorkspaceManager'),
+                                  acquire=0)
             LOG('BaseBox', DEBUG, 'SavePersonalSettings',
                 'Creating personal boxes container %s/%s\n' % (
                 str(utool.getRelativeContentURL(home)), idbc))

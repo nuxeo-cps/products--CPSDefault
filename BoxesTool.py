@@ -22,9 +22,6 @@ from Products.CMFCore.CMFCorePermissions import setDefaultRoles, \
      View, AccessContentsInformation, ManagePortal
 from Products.CMFCore.utils import UniqueObject, getToolByName, _checkPermission
 
-ManageOverridesPermission = 'Manage Overrides'
-
-
 class BoxSlot(PropertyManager, SimpleItem):
     meta_type = 'CPS Box Slot'
     security = ClassSecurityInfo()
@@ -261,7 +258,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         context is the object where defaults should be stored.
         """
         sm = getSecurityManager()
-        if not sm.checkPermission(ManageOverridesPermission, context):
+        if not sm.checkPermission('Manage Box Overrides', context):
             raise Unauthorized()
 
         if not hasattr(aq_base(context), '_box_overrides'):
@@ -314,10 +311,10 @@ class BoxContainer(PortalFolder):
     security.declarePublic('objectValues')
     security.declarePublic('objectItems')
 
-    security.declareProtected(ManageOverridesPermission, 'manage_boxOverridesForm')
+    security.declareProtected('Manage Box Overrides', 'manage_boxOverridesForm')
     manage_boxOverridesForm = DTMLFile('zmi/manage_boxOverridesForm', globals())
 
-    security.declareProtected(ManageOverridesPermission, 'manage_boxOverrides')
+    security.declareProtected('Manage Box Overrides', 'manage_boxOverrides')
     def manage_boxOverrides(self, submit, new_path, overrides=[], selected=[], \
                             REQUEST=None):
         """Sets overrides"""

@@ -28,6 +28,7 @@ from Products.CPSCore.CPSWorkflow import \
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 from Products.CPSDefault import cpsdefault_globals
 from Products.CMFCore.utils import minimalpath
+from Products.CPSCore.CPSCorePermissions import ChangeSubobjectsOrder
 
 def cpsinstall(self):
     """
@@ -1066,6 +1067,7 @@ except:
         'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
         'Add portal folders': ['Manager', 'WorkspaceManager'],
         'Change permissions': ['Manager', 'WorkspaceManager'],
+        'Change subobjects order': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
         'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember', ],
         'List folder contents': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Owner'],

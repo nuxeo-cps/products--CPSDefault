@@ -19,6 +19,7 @@
                     <td align="left" width="2%" nowrap>
                       <input type="radio" name="type_name" value="" id=""
                              tal:attributes="value pt/getId;
+			                     checked python:test(repeat['item'].start, '1', default);
                                              id string:cb_${repeat/item/number}">
                     </td>
                     <td align="left" colspan="2" class="ListName">

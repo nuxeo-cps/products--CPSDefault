@@ -13,7 +13,7 @@ except KeyError:
     return '<img src="' + img_url + '">'
 
 tag = '<img src="%s" width="%s" height="%s" border="0" ' % (
-    img_url, img.width, img.height)
+    img_url, getattr(img,'width', ''), getattr(img, 'height', ''))
 if not title:
     title = img.title
 if title:

@@ -308,7 +308,7 @@ msgstr "Texto de título de la caja"
 #.          box text title
 #.     </block>
 #.   <block content="box/box/title">box text title</block>
-#: from ../skins/cps_default/boxes_nuxeo.pt 2 more references
+#: from ../skins/cps_default/boxes_nuxeo.pt 3 more references
 msgid "box text title"
 msgstr "Texto de título de la caja"
 
@@ -433,6 +433,12 @@ msgstr "Validar la versión"
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "button_checkout_draft"
 msgstr "Crear una versión"
+
+#.   <button onclick="window.close()">Fermer</button>
+#: from ../skins/cps_default/popup_folder_search.pt
+#, fuzzy
+msgid "button_close"
+msgstr "Copiar"
 
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -599,6 +605,9 @@ msgstr "Crear"
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
+#.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
+#.     
+#.         </input>
 #: from ../skins/cps_default/boxes_nuxeo.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
@@ -640,6 +649,12 @@ msgstr "Remitir para publicación"
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
 msgstr "Retirar el documento"
+
+#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
+#.       </input>
+#: from ../skins/cps_default/popup_folder_search.pt
+msgid "button_update"
+msgstr "Actualizar"
 
 #    <span>
 #            You are already a member. You may use the
@@ -1565,6 +1580,17 @@ msgstr "Mostrar solamente las subcarpetas"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
+msgstr "Escoger"
+
+#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
+#.                                                                         'Select workspaces for recherche') " size="30">
+#.                                                                Choose workspaces</button>
+#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
+#.                                                                         'Select folder for recherche') " size="30">
+#.                                                                        Choose sections</button>
+#: from ../skins/cps_default/contentbox_edit_form.pt
+#, fuzzy
+msgid "label_choose_section"
 msgstr "Escoger"
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
@@ -3145,9 +3171,6 @@ msgstr "Seleccionar"
 msgid "button_create"
 msgstr "Crear"
 
-msgid "button_update"
-msgstr "Actualizar"
-
 msgid "button_deselect_all"
 msgstr "Deseleccionar todo"
 
@@ -3357,6 +3380,14 @@ msgstr "Caja de contenido"
 msgid "portal_type_InternalLinksBox_description"
 msgstr "Muestra el contenido de una carpeta o el resultado de una búsqueda"
 
+#, fuzzy
+msgid "portal_type_DocRenderBox_title"
+msgstr "Caja de contenido"
+
+#, fuzzy
+msgid "portal_type_DocRenderBox_description"
+msgstr "Muestra el contenido de una carpeta o el resultado de una búsqueda"
+
 msgid "description_nuxeo_basebox_default"
 msgstr "Una caja vacía."
 
@@ -3454,6 +3485,10 @@ msgstr "Un mapa avanzado de espacios de trabajo"
 #, fuzzy
 msgid "description_nuxeo_internallinks_default"
 msgstr "La caja de contenido predefinida"
+
+#, fuzzy
+msgid "description_nuxeo_render_default"
+msgstr "La caja de navegación predefinida"
 
 msgid "psm_added_to_favorites"
 msgstr "Añadido a los favoritos."

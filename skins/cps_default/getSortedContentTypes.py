@@ -19,7 +19,7 @@ def l10n(s):
         return ret
 
 def cmp_type(a, b):
-    # we like workspaces and section
+    # Some types are favored so they show up at the top of the list
     if a.getId() in ('Workspace', 'Section'):
         return -1
     if b.getId() in ('Workspace', 'Section'):

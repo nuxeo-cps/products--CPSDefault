@@ -48,35 +48,14 @@
 <body>
 <!-- HEADER =================================== -->
 <div>
-  <!-- display left boxes -->
+  <!-- display TOP boxes -->
+  <div class="top">
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />
   <tal:block repeat="box python:btool.filterBoxes(boxes, slot='top');">
   <metal:block use-macro="python:path(box['macro'])" />
   </tal:block>
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_stop')" />
-
-  <!-- top bar -->
-  <div class="top">
-    <div metal:use-macro="here/generic_lib/macros/searchbox" />
-    <div metal:use-macro="here/generic_lib/macros/logo" />
   </div>
-
-  <hr size="" class="netscape4" />
-
-  <!-- section bar -->
-  <div metal:use-macro="here/generic_lib/macros/sections">
-    sections
-  </div>
-
-  <hr size="" class="netscape4" />
-
-  <!-- breadcrumbs -->
-  <div metal:use-macro="here/generic_lib/macros/breadcrumbs">
-    breadcrumbs
-  </div>
-
-  <hr size="" class="netscape4" />
-
 </div>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -85,7 +64,6 @@
     <!-- BAR LEFT ================================= -->
     <td class="left" width="150" tal:define="blockclass string:even">
 
-      <tal:block replace="structure here/Localizer/changeLanguageForm" />
       <!-- display left boxes -->
       <b tal:replace="python:CPSD_bmt_mark('LEFT_boxes_start')" />
       <tal:block repeat="box python:btool.filterBoxes(boxes, slot='left');">
@@ -133,7 +111,7 @@
           <metal:block use-macro="python:path(box['macro'])" />
         </tal:block>
       <b tal:replace="python:CPSD_bmt_mark('CENTER_BOTTOM_boxes_stop')" />
-      
+
     </td>
 
     <!-- BAR RIGHT ================================ -->
@@ -171,10 +149,6 @@
 <metal:block use-macro="python:path(box['macro'])" />
 </tal:block>
 <b tal:replace="python:CPSD_bmt_mark('BOTTOM_boxes_stop')" />
-
-<div metal:use-macro="here/generic_lib/macros/footer">
-  the footer
-</div>
 
  <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 

@@ -86,6 +86,18 @@ def manage_addCPSDefaultSite(dispatcher, id,
         if (bla and zlog):
             LOG('addCPSDefaultSite:', INFO, bla)
 
+    id = id.strip()
+    title = title.strip()
+    description = description.strip()
+    manager_id = manager_id.strip()
+    manager_email = manager_email.strip()
+    manager_givenName = manager_givenName.strip()
+    manager_sn = manager_sn.strip()
+
+    if not id:
+        raise ValueError, "You have to provide an id for the portal!"
+    if not manager_id:
+        raise ValueError, "You have to provide an id for the CPS Administrator!"
     if not manager_email:
         raise ValueError, "You have to provide an email address for the CPS Administrator!"
     if not manager_password:
@@ -93,13 +105,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
     if manager_password != manager_password_confirmation:
         raise ValueError, "Password confirmation does not match password!"
 
-    id = id.strip()
-    title = title.strip()
-    description = description.strip()
-    manager_givenName = manager_givenName.strip()
-    manager_sn = manager_sn.strip()
-    email_from_name = '%s %s' % (manager_givenName, manager_sn)
-    manager_email = manager_email.strip()
+    email_from_name = ('%s %s' % (manager_givenName, manager_sn)).strip()
 
     pr('Adding a CPSDefault Site')
     gen = CPSPortalGenerator()

@@ -10,6 +10,8 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
 
+from zLOG import LOG, DEBUG
+
 factory_type_information = (
     {'id': 'Tree Box',
      'title': '_portal_type_Tree Box',
@@ -69,8 +71,9 @@ class TreeBox(BaseBox):
         if not root:
             portal_url = getToolByName(self, 'portal_url')
             root = portal_url.getRelativeUrl(context)
-        portal_trees = getToolByName(self, 'portal_trees')
+        LOG('TreeBox', DEBUG, 'Starting in root ' + root)
         path = filter(None, root.split('/'))
+        portal_trees = getToolByName(self, 'portal_trees')
         if not hasattr(portal_trees, path[0]):
             raise Exception('no tree for %s' % path[0])
         prefix = '/'.join(path)

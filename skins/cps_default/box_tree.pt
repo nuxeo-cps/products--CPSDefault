@@ -1,12 +1,12 @@
 <metal:block define-macro="box_tree">
   <metal:block use-macro="here/box_lib/macros/box">
     <metal:block fill-slot="box_title" i18n:translate=""
-      tal:content="box/title">
+      tal:content="box/box/title">
        box text title
     </metal:block>
-    <metal:block tal:condition="not:settings/minimized" fill-slot="box_body">
+    <metal:block tal:condition="not:box/settings/minimized" fill-slot="box_body">
       <div class="content odd">
-        <span tal:repeat="item python:box.getTree(here)">
+        <span tal:repeat="item python:box['box'].getTree(here)">
           <span tal:replace="structure python:'.'*4*item['depth']">&nbsp;</span>
           <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="item/id">id</span></a><br/>
         </span>

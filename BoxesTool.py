@@ -42,6 +42,12 @@ class BoxesTool(UniqueObject, SimpleItem):
     #
     # Public API
     #
+    #security.declarePublic('getBoxes')
+    #def getBoxes(self, context, xpos=None):
+    #    boxesinfo = self.getBoxesInfo(context, xpos)
+    #    return [info['box'] for info in boxesinfo]
+
+
     security.declarePublic('getBoxes')
     def getBoxes(self, context, xpos=None):
         """Return a sorted list of boxes

@@ -21,6 +21,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
 from Products.CMFCore.Expression import Expression
 from zLOG import LOG, DEBUG
+#from Traversal import RestrictedTRaverse
 
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
@@ -258,6 +259,16 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         if style is None:
             style = self.style
         return 'here/%s/macros/%s' % (template_name, style)
+
+    security.declareProtected(View, 'render')
+    def render(self, **kw):
+        """
+        Renders the box.
+        """
+        macro = self.getMacro()
+        render_method = self.restrictedTraverse(macro)
+        rendering = render_method(self)
+        return rendering.strip()
 
 
     security.declareProtected(View, 'edit_form')

@@ -56,16 +56,13 @@ want the special NS4 look - it will still work, just be plain text instead. -->
   <div class="searchBox">
     <form method="get" action="/search"
         tal:attributes="action string:${portal_url}/search_form">
-      &nbsp;<strong>Search</strong>
+      <a href="/search_form"
+         tal:attributes="href string:${portal_url}/advanced_search_form">
+        Advanced search</a>
       <br/>
       <input id="searchGadget" type="text" name="SearchableText" size="20"
              value="" tal:attributes="value request/SearchableText|nothing" />
       <input class="context searchButton" type="submit" value="OK" />
-      <br/>
-      <a href="/search_form"
-         tal:attributes="href string:${portal_url}/search_form">
-         Advanced search
-       </a>&nbsp;
     </form>
   </div>
 </metal:block>

@@ -2,108 +2,37 @@
 <!-- $Id$ -->
 
 <!-- ============================================================ -->
-<pre>macro master:</pre>
+<pre>a master macro used for content stuff:</pre>
 <metal:block define-macro="master">
 <metal:block use-macro="here/main_template/macros/master">
 
 <div metal:fill-slot="main">
-  <div class="Desktop"
-     tal:define="wtool here/portal_workflow;
-                 review_state python: wtool.getInfoFor(here, 'review_state');
-                 langrev here/getLanguageRevisions;
-                 lang python:langrev.keys()[0];
-                 rev python:langrev.values()[0];
-                 history here/getContentHistory;
-                 doc here/getContent;
-                 proxy here/this;">
+  <tal:block define="proxy here/this;
+                     doc here/getContent;
+                     info python:here.getContentInfo(here, level=3);">
+  <div class="Desktop">
+    <h1><metal:block define-slot="title">title</metal:block></h1>
 <tal:block replace="structure string:<!--
 cps debug and test information
 cps:path:${here/absolute_url}
-cps:proxy_id:${here/id}
+cps:proxy_id:${proxy/id}
 cps:doc_id:${doc/id}
-cps:rev:${rev}
-cps:lang:${lang}
-cps:review_state:${review_state}
+cps:info:${info}
 -->" />
-    <h1><metal:block define-slot="title">title</metal:block></h1>
+
     <em><metal:block define-slot="help">help</metal:block></em>
     <div metal:define-slot="main" i18n:domain="cmf_default">
        bla
     </div>
   </div>
+  </tal:block>
 </div>
 
 </metal:block>
 </metal:block>
 
-
 <!-- ============================================================ -->
-<pre>macro status:</pre>
-<metal:block define-macro="status">
-<tal:block condition="not:status_short_fmt|nothing">
-  <strong i18n:translate="">Status: </strong>
-  <span tal:replace="review_state">Work</span>
-  <strong i18n:translate="">Revision: </strong>
-  <span tal:replace="rev">1</span>
-  <strong i18n:translate="">Language: </strong>
-  <span tal:replace="lang">en</span>
-  <tal:block condition="status_time|nothing">
-    <strong i18n:translate="">Since: </strong>
-    <span tal:replace="python:status_time.aCommon()">10/12/2000 11:12</span>
-  </tal:block>
-</tal:block>
-<tal:block condition="status_short_fmt|nothing">
-  <tal:block condition="status_time|nothing">
-    <span tal:replace="python:status_time.aCommon()">10/12/2000 11:12</span>:
-  </tal:block>
-  v<span tal:replace="rev">1</span>-<span tal:replace="lang">en</span>
-  <span tal:replace="review_state">published</span>
-</tal:block>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<pre>macro states:</pre>
-<metal:block define-macro="states">
-<strong i18n:translate="">Publication states: </strong><br/>
-<span tal:repeat="item history/states">
-  <span tal:condition="python:item['review_state'] != 'work'">
-    <tal:block define="review_state item/review_state;
-                       rev item/rev;
-                       lang item/lang;
-                       status_time item/time;
-                       status_short_fmt not:nothing;">
-      <metal:block use-macro="here/content_lib/macros/status" />
-    </tal:block>
-    <span i18n:translate="">in section: </span>
-    <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/">
-      <span tal:replace="item/title">Section</span></a>
-    <br/>
-  </span>
-</span>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<pre>macro history:</pre>
-<metal:block define-macro="history">
-<strong i18n:translate="">Reviewing history:</strong><br/>
-<span tal:repeat="item history/history">
-  <span tal:replace="python: item['time'].aCommon()"></span>:
-  <span tal:omit-tag="" tal:content="item/action" i18n:translate=""></span>
-  <span tal:condition="item/effective_date|nothing" i18n:translate="">
-   (effective: <span tal:replace="python: item['effective_date'].aCommon()"
-                     i18n:name="eff_date"></span>)</span>
-  <span tal:omit-tag="" i18n:translate="">by
-    <span tal:replace="item/actor" i18n:name="actor">Actor</span></span>:
-    <span tal:replace="item/comments">Comments</span>
-    <br/>
-  </span>
-</metal:block>
-
-
-<!-- ============================================================ -->
-<pre>macro transition_form:</pre>
+<pre>form used for state transition:</pre>
 <metal:block define-macro="transition_form">
 <form method="post" action="content_status_modify"
   tal:attributes="action string:${proxy/absolute_url}/content_status_modify">
@@ -121,31 +50,150 @@ cps:review_state:${review_state}
 
 
 <!-- ============================================================ -->
-<pre>macro doc_info:</pre>
-<metal:block define-macro="doc_info">
-<table cellspacing="0" cellpadding="0"
-  tal:attributes="bgcolor python:review_state == 'pending' and 'red' or nothing">
+<!-- below macros require getContentInfo                          -->
+
+
+<!-- ============================================================ -->
+<pre>status of a content:</pre>
+<metal:block define-macro="status">
+<tal:block condition="not:status_short_fmt|nothing">
+  <strong i18n:translate="">Status: </strong>
+  <span tal:replace="info/review_state">Work</span>
+  <strong i18n:translate="">Revision: </strong>
+  <span tal:replace="info/rev">1</span>
+  <strong i18n:translate="">Language: </strong>
+  <span tal:replace="info/lang">en</span>
+  <tal:block condition="status_time|nothing">
+    <strong i18n:translate="">Since: </strong>
+    <span tal:replace="info/stime">May 6, 2003 5:28 pm</span>
+  </tal:block>
+</tal:block>
+<tal:block condition="status_short_fmt|nothing">
+  <tal:block condition="status_time|nothing">
+    <span tal:replace="info/stime">May 6, 2003 5:28 pm</span>:
+  </tal:block>
+  v<span tal:replace="info/rev">1</span>-<span tal:replace="info/lang">en</span>
+  <span tal:replace="info/review_state">published</span>
+</tal:block>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<!-- below macros require getContentInfo 1                        -->
+
+
+<!-- ============================================================ -->
+<pre>all doc information in a table:</pre>
+<metal:block define-macro="doc_info_detail">
+<table cellspacing="0" cellpadding="0" width="100%"
+  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td width="20">
    <img src="" border="0"
-     tal:attributes="src string:${here/portal_url}/${proxy/getIcon};
-                     title proxy/getPortalTypeName|nothing;"/>
+     tal:attributes="src string:${here/portal_url}/${info/icon};
+                     title info/type;"/>
   </td><td>
-   <a href="" tal:attributes="href string:${proxy/getId}/view;">
-   <strong><span tal:replace="proxy/title_or_id">ID</span></strong></a>
+   <a href="" tal:attributes="href string:${info/id}/view;">
+   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   </td></tr>
-  <tr><td colspan="2">
-  <a href="" tal:attributes="href string:${proxy/getId}/view;">
+  <tr><td colspan="2" nowrap>
+  <a href="" tal:attributes="href string:${info/id}/view;">
   <small>
-    <span tal:replace="string:id:${proxy/getId}">[id]</span>,
+    <span tal:replace="string:id:${info/id}">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
-                       status_time python:wtool.getInfoFor(proxy, 'time')">
+                       status_time not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>
   </small>
   </a>
   </td></tr>
-  <tr><td colspan="2">
-    <small><em><span tal:replace="doc/Description">Description</span></em></small>
+  <tr tal:condition="info/description"><td colspan="2">
+    <small><em><span tal:replace="info/description">Description</span></em></small>
   </td></tr>
 </table>
 </metal:block>
+
+<!-- ============================================================ -->
+<pre>iconic doc information in a table:</pre>
+<metal:block define-macro="doc_info_icon">
+<table cellspacing="0" cellpadding="0" width="100"
+  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
+  <tr><td align="center">
+   <img src="" border="0" width="30" length="40"
+     tal:attributes="src string:${here/portal_url}/${info/icon};
+                     title info/type;"/>
+  </td></tr>
+  <tr><td align="center">
+   <a href="" tal:attributes="href string:${info/id}/view;"
+      title="info/description">
+   <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
+  </td></tr>
+</table>
+</metal:block>
+
+<!-- ============================================================ -->
+<pre>short doc information in a table:</pre>
+<metal:block define-macro="doc_info_summary">
+<table cellspacing="0" cellpadding="0" width="100%"
+  tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
+  <tr><td width="20">
+   <img src="" border="0"
+     tal:attributes="src string:${here/portal_url}/${info/icon};
+                     title info/type;"/>
+  </td><td>
+   <a href="" tal:attributes="href string:${info/id}/view;
+                              title info/description">
+     <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
+   <small>
+    <span tal:replace="string:id:${info/id}">[id]</span>,
+    <tal:block define="status_short_fmt not:nothing;
+                       status_time not:nothing;">
+      <metal:block use-macro="here/content_lib/macros/status" />
+    </tal:block>
+   </small>
+  </td></tr>
+</table>
+</metal:block>
+
+
+
+<!-- ============================================================ -->
+<!-- below macros require getContentInfo 2                        -->
+
+
+<!-- ============================================================ -->
+<pre>display authorized proxies states for a document</pre>
+<metal:block define-macro="states">
+<strong i18n:translate="">Publication states: </strong><br/>
+<span tal:repeat="item info/states">
+  <span tal:condition="python:item['review_state'] != 'work'">
+    <tal:block define="info item;
+                       status_short_fmt not:nothing;">
+      <metal:block use-macro="here/content_lib/macros/status" />
+    </tal:block>
+    <span i18n:translate="">in section: </span>
+    <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/">
+      <span tal:replace="item/title">Section</span></a>
+    <br/>
+  </span>
+</span>
+</metal:block>
+
+
+<!-- ============================================================ -->
+<!-- below macros require getContentInfo 3                        -->
+
+
+<!-- ============================================================ -->
+<pre>display authorized history of a document</pre>
+<metal:block define-macro="history">
+<strong i18n:translate="">Reviewing history:</strong><br/>
+<span tal:repeat="item info/history">
+  <span tal:replace="item/stime">May 6, 2003 5:28 pm</span>:
+  <span tal:replace="item/action">publish</span>
+  <span tal:omit-tag="" i18n:translate="">by
+  <span tal:replace="item/actor" i18n:name="actor">bob</span>:</span>
+  <em tal:condition="item/comments"><span tal:replace="item/comments">Comments</span></em>
+  <br/>
+</span>
+</metal:block>
+

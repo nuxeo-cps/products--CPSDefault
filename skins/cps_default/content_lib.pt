@@ -166,28 +166,6 @@ format:</pre>
      ">
  <tal:block tal:condition="python: batch_info and batch_info['nb_pages'] > 1">
     <div class="batchLayout">
-      <tal:block tal:condition="filter">
-        <tal:block condition="no_form" tal:replace='structure string:
-        &lt;form action="${request/URL0}" method="get">' />
-          <span i18n:translate="label_display">Display:</span>
-          <select name="displayed:list"
-                 tal:define="displayed displayed|python:request.get('displayed',
-                                                                    [''])">
-            <option value=""
-                    tal:attributes="selected python:displayed != ['']"
-                    i18n:translate="label_all">All</option>
-            <option tal:repeat="type allowed|here/allowedContentTypes"
-                    tal:attributes="selected python:type.getId() in displayed;
-                                    value type/getId"
-                    tal:content="type/Title"
-                    i18n:translate="">Portal Type</option>
-          </select>
-          <input type="submit" value="button_ok" i18n:attributes="value"
-                 tal:attributes="name python:test(no_form, None,
-                                                  nav_action + ':method')" />
-        <tal:block condition="no_form" tal:replace='structure string:
-        &lt;/form>' />
-      </tal:block>
         <span i18n:translate="">
           Objects: <tal:block replace="batch_info/start"
           i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"

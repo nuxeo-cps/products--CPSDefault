@@ -25,10 +25,8 @@ from Products.CMFCalendar import CalendarTool
 
 from DateTime import DateTime
 import calendar
-#XXX: the following is interesting but should depend on the locale
-#so we cannot do it here
-#calendar.setfirstweekday(6) #start day  Mon(0)-Sun(6)
 
+from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
 
 from zLOG import LOG, DEBUG
@@ -100,6 +98,14 @@ def getCPSEventsForCalendar(self, month='1', year='2002'):
     {'day': #, 'url': None}
     """
 
+    #check locale in order to set 1st weekday correctly (not done at import time
+    #as in CMFCalendar as the locale depends on Localizer and can change at any
+    #point in time (it is not dependant on the system locale)
+    if getToolByName(self,'Localizer').get_selected_language().startswith('en'):
+        calendar.setfirstweekday(6)
+    else:
+        calendar.setfirstweekday(0)
+        
     year=int(year)
     month=int(month)
     # daysByWeek is a list of days inside a list of weeks, like so:
@@ -177,7 +183,17 @@ def getCPSEventsForThisDay(self, thisDay):
 
     return results
 
+security.declarePublic('getDayList')
+def getDayList(self,localizer):
+    """ Returns a list of days with the correct start day first """
+    if localizer.get_selected_language().startswith('en'):
+        return ['6','0','1','2','3','4','5']
+    else:
+        return ['0','1','2','3','4','5','6']
+
 #Adding methods to class CalendarTool
 CalendarTool.CalendarTool.getCPSEventsForCalendar = getCPSEventsForCalendar
 CalendarTool.CalendarTool.catalog_getcpsevents = catalog_getcpsevents
 CalendarTool.CalendarTool.getCPSEventsForThisDay = getCPSEventsForThisDay
+CalendarTool.CalendarTool.getDayList = getDayList
+

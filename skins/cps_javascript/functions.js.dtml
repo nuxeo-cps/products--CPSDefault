@@ -9,13 +9,13 @@ function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
 
     if (isSelected) {
 	for (i = 0; i < formElements.length; i++) {
-	    formElements[i].checked = false ;
+	    formElements[i].checked = false;
 	}
 	isSelected = false;
 	toggleSelectButton.value = selectAllText;
     } else {
 	for (i = 0; i < formElements.length; i++) {
-	    formElements[i].checked = true ;
+	    formElements[i].checked = true;
 	}
 	isSelected = true;
 	toggleSelectButton.value = deselectAllText;
@@ -67,8 +67,8 @@ function checkEmptySearch(formElem) {
     if (query != '') {
 	return true;
     }
-    formElem.SearchableText.value = query
-        formElem.SearchableText.focus();
+    formElem.SearchableText.value = query;
+    formElem.SearchableText.focus();
     return false;
 }
 

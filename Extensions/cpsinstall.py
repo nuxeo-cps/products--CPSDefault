@@ -970,7 +970,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                         'SectionManager', 'Manager'),
                                  WebDavUnlockItem: ('SectionReviewer',
                                         'SectionManager', 'Manager')},
-           },
+            },
             'published': {
                 'title': 'Public',
                 'transitions': ('unpublish', 'cut_copy_paste',
@@ -980,15 +980,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                 ModifyPortalContent: ('Manager',),
                                 WebDavLockItem: ('Manager',),
                                 WebDavUnlockItem: ('Manager',)},
-            },
-            'locked': {
-                'title': 'Locked',
-                'transitions':('unlock',),
-                'permissions': {View: ('Manager', 'WorkspaceManager',
-                                         'WorkspaceMember', 'WorkspaceReader'),
-                                ModifyPortalContent: (),
-                                WebDavLockItem: (),
-                                WebDavUnlockItem: ()},
             },
         }
 
@@ -1133,8 +1124,8 @@ except:
                 'description': 'Provides access to workflow history',
                 'default_expr': 'state_change/getHistory',
                 'props': {'guard_permissions': '',
-                          'guard_roles': 'Manager; WorkspaceManager; '
-                                         'WorkspaceMember; WorkspaceReader',
+                          'guard_roles': 'Manager; SectionManager; '
+                                         'SectionReviewer',
                           'guard_expr': ''}
             },
             'language_revs': {

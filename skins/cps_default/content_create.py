@@ -44,7 +44,8 @@ else:
         # CMF Compatibility.
         # type_name not necessarly and edit method
         # for CMF types is not aware about that.
-        del kw['type_name']
+        if kw.has_key('type_name'):
+            del kw['type_name']
         doc.edit(**kw)
 
 context.portal_eventservice.notifyEvent('modify_object', context, {})

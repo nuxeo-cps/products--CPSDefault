@@ -1599,6 +1599,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSSubscriptions')
         self.setupProduct('CPSNewsLetters')
         self.setupProduct('CPSPortlets')
+        self.setupProduct('CPSWiki')
         try:
             from elementtree.ElementTree import ElementTree
         except ImportError, e:

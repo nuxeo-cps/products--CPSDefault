@@ -68,8 +68,8 @@ class DocRenderBox(BaseBox):
         BaseBox.__init__(self, id, category=category, **kw)
         self.doc_url = doc_url
 
-    security.declarePublic('getContent')
-    def getContent(self, context=None):
+    security.declarePublic('getContents')
+    def getContents(self, context=None):
         """Get the content of an object
         """
         utool = getToolByName(self, 'portal_url')

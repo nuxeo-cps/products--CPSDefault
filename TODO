@@ -2,50 +2,26 @@
 # CPSDefault TODO
 
 # milestones -----------------------------------------------
-- [lennart] 05/26: join CPSDefault
-- [florent] 05/26 +8d: CPSDocuments
-- [] 06/18+3w: CPSDefault with portal_boxes/workflow/i18n/users
-- [alex] 06/19: Users integration completed
-- [] 06/24: CPSDemo with few services tbd ...
-
+- [08/30] CPSDefault first release
+   should contain all 'on work priority tasks'
 
 # on work priority tasks -----------------------------------
-- [lennart+ben] portal_boxes (known as portlets or portal tool)
-   o boxes attributes
-      o [lennart] display only in subfolder
-      x [ben] visible if empty ?
-         handle at macro level this attribute should be removed
+- [ben] portal_boxes (known as portlets or portal tool)
    o box types
       o ContentBox
-         x [] display folder contents
          o display search result (separate search box?)
          o attributes: sort, format, number of doc ...
          o need format like user and document ..?
-      o [] ActionBox
-         x [] with categories to be displayed
-         o make a specific render for user box with login box
-      o [] RSSBox, HelpBox, ImageBox, FlashBox, BookmarkBox ...
+      o ActionBox to be finished
    o box management
       o [ben] make cps ui to manage boxes
-         o manage cps_boxes container
-         o add a new box page
-         o box settings page
-      x [] box override should be handle using zmi ui
+         o manage cps_boxes container finish box_manage_form, add action
       o manage personal settings
          o remove all personal override
-         x [ben] minimize maximize
-         x [] close
-
    x [] override with personal boxes objects and settings in ~.cps_boxes
       o global settings for which settings that can be overridden to
         enable the site manager to prevent for example moving of boxes
         between slots
-   o problems
-      x [] getBoxes should return only boxes with Access Content Info and
-         View permission, this is needed for anonymous access
-         guard are not enought if the guard is ok and you don't have
-         view and access permission you will have an exception
-         o check if this is fixed now
 
 - [encolpe] search
    x [] make catalog search work with proxies
@@ -56,77 +32,36 @@
       with checkbox/action ?
    o try to use content_lib macros as much as possible
 
-- [julien] users
-   x [] add anonymous access
-      boxes should take care about guard and permission
-   x [] handle group in local roles management
-      x [] empty search should return list of groups
-   x [alex] local roles page should display aquisition roles
-      x [julien] display the folder where they are define will be cool
-        with a link to the folder local roles setting
-   x [julien] put member's folder into workspaces
-   x [julien] NuxMetaDirectories integration
-      x [] cpsupdate integration
-      x [] skins integration. 
-   x update user box title with the full name + link to directory
-
-- [herve] i18n usage
-   x [herve] audit plone tools
-      http://www.zug.cz/Members/Alekibango/Howtos/HowTo.i18n/document_view
-      installation failed
-   x [] write doc/HOWTO.i18n
-      o to be updated
-   o i18n skin
-      o actions
-      o boxes
-      o folder add an action localize ?
-   o make a cvsupdate loading and creating a message catologue
-      for each file xxxx-yy.po
-      xxxx:domain yy:locale
-      o test import / export diff ...
+- [] i18n usage
+   x [] audit i18n tools opental:i18n_xgettext/kbabel/msgmerge ...
+   x [] eval domain usage
+     one domain 'cps' one message catalogue
+   o [julien] write doc/HOWTO.i18n
+   o cvsupdate
+      load i18n folder in each products
    o have a full cpsdefault in fr/en
-   o toolz for .pot generation
+
 
 - workflow
-  x [flo] make a workflow history tool
-     using doc_id as pkey
-     x [] how to check permission, trying proxy access ?
-         for the moment display * history for doc_id
-  x [flo] have a consistant history merging translation between wf
-      with src and destination
-  x [flo] make accept transition working as un update
-      x [] if the document is already published in the section,
-          it should be updated
-      o it should show as an update in the history
-  x [flo] make reject transition working
-      by deleting the proxy using the wf
-  x [flo] make unpublish transition working
-      cf reject
-  o display list of pending document for a reviewer
+   o implement copy/paste workflow
+   o make an action to localize a document
+   o display list of pending document for a reviewer
       use a document box displaying the number of pending docs
       with a link to a search result
-  o how to notify reject or accept transition ?
+   o how to notify reject or accept transition ?
       add a submitter variable to the wf updated only on new/creation
       then notify submitter ?
-  o implement copy/paste workflow
 
 - misc
-   x [julien] find a way to override breadcrumb
-      CPS2 like : setting a variable "breadcrumb_set" in the REQUEST
-      to override the breadcrumb. (Cf. Directories or the search forms)
-      x [] use it in search form
-      x [] use it in directories
+   o sort object in folder use move_object_up/down in content_folder_view
+      action only when not sorted ?
    o broken object action on '/': metadata or folder content
      displaying portal tools
    o clean cmf actions stuff ? undo ? preference ? favorite ?
    o navigation
       how to stay in folder_content or folder_view mode ?
-   o sort object in folder use move_object_up/down in content_folder_view
-      action only when not sorted ?
    o actionify *
       make everything an action header_menu new print (copy/paste)?
-   o benching framework
-      need script to create big amount of docs
    o remove durty code
       o context_url and context_urlc
       o box attributes : macro/format/style macro vs portal_type ...
@@ -134,11 +69,22 @@
 # other tasks ----------------------------------------------
 - CPSDefault
    o users
-      o roles managment screen displaying all roles/folder for a user
       o how to remove roles for a user in a folder ?
          These are all closely related to the work lennart is doing
          (plugin user folder for SSL+LDAP+ZODB Users+Groups support)
          should talk to lennart first so we don't do anything double
+      x [] add anonymous access
+         boxes should take care about guard and permission
+      x [] handle group in local roles management
+         x [] empty search should return list of groups
+      x [alex] local roles page should display aquisition roles
+         x [julien] display the folder where they are define will be cool
+           with a link to the folder local roles setting
+      x [julien] put member's folder into workspaces
+      x [julien] NuxMetaDirectories integration
+         x [] cpsupdate integration
+         x [] skins integration.
+      x [] update user box title with the full name + link to directory
 
    o portal_boxes
       x [lennart+ben] designing
@@ -152,13 +98,24 @@
          x [] Remove the current need to have view permissions. Permissions
            should only be controlled by the guards.
       x [] boxes attributes
+         o [] display only in subfoldre
          x [] locked
          x [] available in sub folder
       x [] boxes types
          x [] TextBox display static text
          x [] TreeBox
+         x [] ActionBox
+         o images, flash
+         o calendar
+         o favorites
+         o RSS
       x [] make a ZMI interface for setting overrides
       x [] slots should be defined and managed in portal_boxes
+      x [] box management
+         x [] add a new box page
+         x [] box settings page
+         x [] box override should be handle using zmi ui
+         x [] minimize maximize close
 
    x [] workflow and docs
       x [] impl skin rejectimpl skin unpublish
@@ -167,15 +124,24 @@
       x [] add wf variables: transition, date, user
       x [] display history of a document = * proxies history
       x [] content_submit_form: add link from existing document to the document
-      o impl copy/cut/paste ...
+      x [flo] make a workflow history tool
+         using doc_id as pkey
+      x [] how to check permission, trying proxy access ?
+         for the moment display * history for doc_id
+      x [flo] have a consistant history merging translation between wf
+         with src and destination
+      x [flo] make accept transition working as un update
+      x [] if the document is already published in the section,
+      x [flo] make reject transition working
+      x [flo] make unpublish transition working
 
    o folder
-      o impl folder_factories_form
-        check perms for creating/display sub section/workspace action
+      o find a way to skin a folder ttw
       o add constraint on type of document for workspace/creation
         and sections/publication
       o quota folder
          o display size of contents and folders
+      o add icon/images attributes
       x [] display sections and workspaces tree
       x [] folder_contents with more info
         display proxy rev, lang, status
@@ -185,7 +151,6 @@
 
    o cmf integration
       x [] remove my stuff ? preference ? favorite ?
-         o idealy port CMFDefault ptype and make it work ....
 
    x [] element integration: infinite postpone
 
@@ -216,12 +181,17 @@
    o misc
       o finalize zmi CPSSite form creation
       o rewrite cpsinstaller
+       o benching framework
+            need script to create big amount of docs
       x [] split skin repository into: cps_devel, cps_css, ...
       x [] use macro library
       x [] add benching tools
       x [] refactoring cpssite suite
       x [] add rpath in the dbg info of master
-
+      x [julien] find a way to override breadcrumb
+          CPS2 like : setting a variable "breadcrumb_set" in the REQUEST
+          to override the breadcrumb. (Cf. Directories or the search forms)
+         x [] use it in search form, directories
 
 # bugs or blocking tasks -----------------------------------
 - Bug fix

@@ -61,6 +61,14 @@ class BaseInstaller:
         """
         return id in self.portal.objectIds()
 
+    def resetSkinCache(self):
+        """Ask the portal for rebuilding the skin cache.
+        Necessary after any skin manipulation.
+        """
+        self.log(" Resetting skin cache")
+        self.portal._v_skindata = None
+        self.portal.setupCurrentSkin()
+
     def setSkinsOnTop(self, skins):
         """Sets the given set of skins at the top of the skin layers, but
         just below the 'custom' layer.
@@ -80,6 +88,7 @@ class BaseInstaller:
             newPath = ', '.join(path)
             self.log("New layers = %s" % newPath)
             self.portal.portal_skins.addSkinSelection(skin_name, newPath)
+        self.resetSkinCache()
 
     def setupCpsDocumentDependantSkins(self, skins):
         """Installs or updates the given set of skins for products having a
@@ -145,9 +154,7 @@ class BaseInstaller:
                 npath = ', '.join(path)
                 self.portal.portal_skins.addSkinSelection(skin_name, npath)
                 self.log(" Fixup of skin %s" % skin_name)
-            self.log(" Resetting skin cache")
-            self.portal._v_skindata = None
-            self.portal.setupCurrentSkin()
+            self.resetSkinCache()
 
     def setupTranslations(self, default_lang=None):
         """Import .po files into the Localizer/default Message Catalog.

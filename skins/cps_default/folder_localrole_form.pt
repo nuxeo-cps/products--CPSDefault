@@ -133,12 +133,15 @@
 
 </div>
 
+
 <div tal:condition="python:searching and (search_param == 'groupname')"
   tal:define="search_param python: request.get( 'search_param', '' );
   search_term  python: request.get( 'search_term', '' );
   found python: (search_term and ['group:' +group for group in here.get_valid_groupids() if group.upper().find(search_term.upper()) > 0]) or here.get_valid_groupids() ;
  "
 >
+
+
 <!-- Assignment -->
 <h2>Assign local roles: Search Results</h2>
 
@@ -232,41 +235,46 @@
    <th style="text-align:left;">User/Group</th>
    <th style="text-align:left;">Role(s)</th>
  </tr>
-  
- <tal:block define="aq_roles python:here.portal_membership.getMergedLocalRoles(here);">
-   <tal:block repeat="aq_user python:aq_roles.keys()">
-     <tr tal:condition="python:aq_user not in [lrole[0] for lrole in lroles]" 
-         tal:define="liste python:aq_roles[aq_user]; 
-                     d python:{};
-                     unique_aq_roles python:[item for item in liste if not(d.has_key(item)) and d.setdefault(item,1)]" >
-       <td>&nbsp;</td>
-       <td><span tal:content="aq_user"/></td>
-       <td><i><span tal:content="python:modules['string'].join( unique_aq_roles, ', ' )"/></i></td>
-     </tr>
-   </tal:block>
- 
-   <tbody tal:repeat="role_tuple lroles">
-     <tr tal:define="user_name python: role_tuple[0];
-                 roles python: role_tuple[1];
-                 auth mtool/getAuthenticatedMember;
-                 auth_name auth/getUserName;
-                "
-     >
-       <td width="16">
-         <input type="checkbox" name="member_ids:list"
-           value="id"
-           tal:attributes="value user_name"
-           tal:condition="python: user_name != auth_name"
-       >
-         <br tal:condition="python: user_name == auth_name">
-       </td>
-       <td tal:content="python:user_name"> Username 1 </td>
-       <td tal:define="this_aq_roles python:[aq_role for aq_role in aq_roles[user_name] if aq_role not in roles]">
-         <tal:block content="python: modules['string'].join( roles, ', ' )"/><tal:block condition="python:len(this_aq_roles)" content="string:, "/>
-         <i tal:content="python:modules['string'].join(this_aq_roles, ', ')"></i>
-       </td>
-     </tr>
-   </tbody>
+
+ <tal:block define="cpslr python:here.getCPSLocalRoles(mtool=mtool);
+                    roles python:cpslr[0];
+                    editable_user python:cpslr[1];">
+   <tal:block repeat="user python:roles.keys()">
+     <tr tal:attributes="bgcolor python:repeat['user'].odd() and '#EEEEEE' or nothing">
+       <tal:block define="haslrhere python:user in editable_user">
+         <tal:block condition="haslrhere">
+           <td>
+             <input type="checkbox" 
+	            name="member_ids:list"
+		    value="id"
+		    tal:attributes="value user" />
+            </td>
+         </tal:block>
+       <tal:block condition="not:haslrhere">
+         <td>&nbsp;</td>   
+       </tal:block>
+     </tal:block>
+     <td>
+       <span tal:content="user" />
+     </td> 
+     <td>       
+       <tal:block repeat="item python:roles[user]">         
+         <tal:block repeat="roleElt python:item['roles']">
+           <tal:block define="ishere python:user in editable_user">
+             <tal:block condition="not:ishere">  
+               <a href tal:attributes="href string:${base_url}${item/url}/folder_localrole_form"
+                       tal:content="python:roleElt" /> in <i tal:content="item/url" />
+               <br /><br /> 
+             </tal:block>
+	     <tal:block condition="ishere">          
+	       <span tal:content="roleElt" /><br /><br />
+             </tal:block>
+           </tal:block> 
+          </tal:block>
+         </tal:block>
+        </td>     
+       </tr>  
+     </tal:block>
  </tal:block>
 
  <tr tal:condition="nothing">
@@ -297,7 +305,7 @@
 </table>
 </form>
 <br/>
-<i>Roles in italic</i> are set in parent folders
+<i>Roles in underlined </i> are set in parent folders. Follow the links to manage the local roles in these folders.
 </div>
 
 </body>

@@ -51,10 +51,10 @@
           tal:attributes="action string:${here/portal_url}/register">
 
     <dl class="form">
-      <dt><label for="field_focus"
+      <dt><label for="username"
                  i18n:translate="label_user_name">Login Name</label></dt>
       <dd>&#160;<input type="text" name="username" size="30" value=""
-                 id="field_focus"
+                 id="username"
                  tal:attributes="value request/username|nothing" /></dd>
       <dt><label for="email"
                  i18n:translate="label_email">Email Address</label></dt>
@@ -71,13 +71,13 @@
                    (confirm)</label></dt>
       <dd>&#160;<input type="password" id="confirm" name="confirm" size="30" value=""
                  tal:attributes="value request/confirm|nothing" /></dd>
-      <dt><label for="cb_mailme"
+      <dt><label for="mailme"
                  i18n:translate="label_password_mailed">Mail
                    Password?</label></dt>
       <dd>&#160;
-        <input type="checkbox" name="mail_me" size="30" id="cb_mailme"
+        <input type="checkbox" name="mail_me" size="30" id="mailme"
                tal:attributes="checked request/mail_me|nothing" />
-        <label for="cb_mailme"><em i18n:translate="help_password_message">
+        <label for="mailme"><em i18n:translate="help_password_message">
           Check this box to have your password mailed to you.
         </em></label>
       </dd>

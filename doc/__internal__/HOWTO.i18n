@@ -1,0 +1,106 @@
+$Id$
+
+CPS and i18n
+
+  This documents gives rules and hints for translating CPS 3 and third-party
+  products.
+
+  Status: *first draft*
+  
+  History:
+
+    - first draft
+
+Tools used
+
+  We use a combination of "Localizer":http://www.j-david.net/software/localizer
+  and "TranslationService":http://www.zope.org/Members/efge/TranslationService.
+  These products are shipped with CPS.
+
+  Messages are stored in MessageCatalog objects. They and instancied inside the
+  Localizer instance. Hence, the translation_service object hold paths to
+  MessageCatalog objects like "Localizer/default".
+
+  We use the "default" domain for CPSDefault with its associated catalog. You
+  must use another catalog and domain if your product is not designed to be
+  shipped with CPSDefault.
+
+  CPSDefault skins do not provide a 'i18n:domain' attribute or at least the
+  "default" if you must specify one (does it work or this name is kind of a
+  magic ?).
+
+  other skins must provide a i18n domain not to mix CPSDefault messages with
+  your own. Typically, you would use::
+
+    <html i18n:domain="productname">
+
+  and declare this domain and its associated catalog in the translation_service
+  object.
+
+What to translate and how
+
+  - For sentences:
+
+    We use a msgid, e.g. a short name like the one you would use for a variable.
+    For instance::
+    
+      <p i18n:translate="help_join">Becoming a member gives [...]</p>
+
+    Be sure to be specific, it would have been a mess to use "help_message" in
+    the former example.
+
+  - For the portal status message:
+
+    Typically, this sentence is sent as is by a redirect call. a
+    i18n:translate="" attribute is place in main_template so the entire sentence
+    is stored (no msgid).
+
+    As a consequence, do not use computed sentences like "5 items deleted." or
+    "please correct the following fields: [...]". Keep it simple as in
+    CMFDefault, use "Items deleted." and "Errors found.".
+
+  - For tags' attributes:
+
+    Form tags use a 'value' attribute. For now, we keep its content in plain
+    english and provide a i18n:attribute="value". I will inspect the new syntax
+    where i18n:attribute can work with a msgid.
+
+  - A note about proxies:
+
+    Proxies handle translation by themselves so don't place i18n:translate=""
+    around the title.
+
+  - For portal types' title:
+
+    Given the portal_type id, use 'portal_type_%s' % id as the title. For
+    instance, the portal type 'newsdocument' is given 'portal_type_newsdocument'
+    as the title.
+
+    Don't bother if other products you try to integrate have a title in plain
+    english, that's just the loss of an explicit msgid, nevermind.
+
+  - For portal types' actions:
+
+    Actions are typically named "View" or "Reply". Keep it in plain english (a
+    la CMF) so that any product will have its basic "View", "Edit", ... methods
+    already translated.
+
+Where to save translation files
+
+  We have to obtain a file named 'locate.pot' by parsing the source files. This
+  file will be, say, 75% in english and 25% with msgids that are to be
+  translated in this single file.
+  
+  This file 'locale.pot' is versionned using CVS and another file named
+  'i18n-history.txt' that keep track of new and obsolete msgids.
+
+  XXX We need scripts (in bash/python/whatever) to automate the production of
+  this file.
+
+  When you want to translate, copy this file to a file named 'xx.po' where 'xx'
+  is the 2-letter code of your language (e.g. fr or de) and fill in the msgstrs.
+  
+  All these files are to be placed in an 'i18n' directory.
+
+  We will see later how to import then with cpsinstall/cpsupdate external
+  methods.

@@ -632,6 +632,11 @@ def cpsupdate(self, langs_list=None):
     # CPS Folder
     pr("Verifying portal types")
     ttool = portal.portal_types
+    workspaceACT = list(ttool['Workspace'].allowed_content_types)
+    for ptype in ('Workspace', 'Dummy', 'Dummy2'):
+        if ptype not in  workspaceACT:
+            workspaceACT.append(ptype)
+    
     ptypes = {
         'CPSCore':('CPS Proxy Document',
                    'CPS Proxy Folder',
@@ -658,7 +663,7 @@ def cpsupdate(self, langs_list=None):
         }
     allowed_content_type = {
                             'Section' : ('Section',),
-                            'Workspace' : ('Workspace', 'Dummy', 'Dummy2'),
+                            'Workspace' : workspaceACT,
                             }
     
     ptypes_installed = ttool.objectIds()

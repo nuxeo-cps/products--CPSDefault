@@ -74,6 +74,8 @@ if not id:
     id = str(int(DateTime())) + str(randrange(1000, 10000))
 
 # Preventing word cuts
+# The following regexp split the given id into words separated by the following
+# separators: '-' '_' '.'
 words = re.split('-*_*\.*\s*', id)
 #LOG('computeId', DEBUG, 'words = %s' % words)
 # TODO: remove from words all the meaningless words according to a

@@ -1476,6 +1476,9 @@ except:
         self.runExternalUpdater('cpsml_installer',
                                 'CPSMailingLists Installer',
                                 'CPSMailingLists', 'install', 'install')
+        self.runExternalUpdater('cpssubscriptions_installer',
+                                'CPSSubscriptions Installer',
+                                'CPSSubscriptions', 'install', 'install')
 
 def cpsupdate(self, langs_list=None, is_creation=0):
     # helpers

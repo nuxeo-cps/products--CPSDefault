@@ -186,7 +186,7 @@ def cpsupdate(self, langs_list=None):
         portal['portal_actions'].addAction(
             id='boxes',
             name='action_boxes',
-            action='string: ${portal_url}/box_manage_form',
+            action='string: ${object/absolute_url}/box_manage_form',
             condition='python:not portal.portal_membership.isAnonymousUser()',
             permission = ('Manage Boxes',),
             category='global',

@@ -89,11 +89,13 @@ def manage_addSss3Site(dispatcher, id,
                               roles=('Manager', 'Member'), domains=None)
                                          
     # XXX TODO: remove this test user
-    pr('Creating a CPS Member for testing')
-    portal.acl_users._addUser(name='member',
-                              password='member',
-                              confirm='member',
-                              roles=('Member',), domains=None)
+    for i in ('1', '2', '3'):
+        user='user%s' % i
+        pr('Creating test user: %s' % user)
+        portal.acl_users._addUser(name=user,
+                                  password=user,
+                                  confirm=user,
+                                  roles=('Member', ), domains=None)
 
     pr('Done')
     if REQUEST is not None:

@@ -150,8 +150,10 @@ class ContentBox(BaseBox):
                                    direction=self.direction,
                                    hide_folder=1,
                                    folder_prefix=folder_prefix,
+                                   title_search=self.title,
+                                   search_within_results=1,
                                    **self._buildQuery())
-                    link_more = 'search_form?%s' % q
+                    link_more = './search_form?%s' % q
                 else:
                     link_more = utool.getRelativeUrl(folder)
 

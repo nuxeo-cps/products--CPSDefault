@@ -13,14 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-23 18:59default\n"
-"PO-Revision-Date: 2003-09-26 13:01+0200\n"
-"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
-"Language-Team: French <fr@li.org>\n"
+"POT-Creation-Date: 2003-09-26 15:37default\n"
+"PO-Revision-Date: 2003-09-26 15:41+0200\n"
+"Last-Translator: ben <ben@nuxeo.com>\n"
+"Language-Team: ben\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #.   <span>
 #.       ${history_time (tal content="item/stime")}:
@@ -47,6 +48,8 @@ msgstr "A test box"
 #.             Action
 #.           </option>
 #.   <a attributes="href action/url" content="action/name">Action</a>
+#.   <a attributes="href action/url;
+#.                                class python:test(selected, 'selected', default)" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
@@ -54,7 +57,7 @@ msgstr "Action"
 
 #.   <p>
 #.     Created by
-#.     ${item_creator (tal content="creator" attributes="href string:${home_url}/; title creator" omit-tag="not: home_url")}.
+#.     ${item_creator (tal content="creator" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
 #.     ${item_modification (tal content="python:doc.ModificationDate()")}.
 #.   </p>
@@ -120,6 +123,9 @@ msgstr "FAKE"
 msgid "Your query '${query}'"
 msgstr "Your query '${query}'"
 
+#.   <block fill-slot="box_title" content="box/box/title">
+#.         box text title
+#.       </block>
 #.   <block fill-slot="box_title" content="box/box/title">box text title</block>
 #.   <block fill-slot="box_title" content="box/box/title">
 #.          box text title
@@ -136,7 +142,6 @@ msgstr "Closed boxes :&nbsp;"
 
 #.   <span>Search:</span>
 #: from ../skins/cps_default/boxes_nuxeo.pt
-#, fuzzy
 msgid "box_search"
 msgstr "Search"
 
@@ -472,12 +477,25 @@ msgstr "Up to ${up_id}"
 msgid "description_visible_box_from ${context_url}"
 msgstr "Description box visible from ${context_url}"
 
+#.   <block content="string:label_language_${info/lang}">en</block>
+#: from ../skins/cps_default/content_lib.pt
+msgid "en"
+msgstr "en"
+
+#.   <p>TODO find the appropriate
+#.     message.</p>
+#: from ../skins/cps_default/error_lib.pt
+msgid "error_default_message"
+msgstr "hc fix it plz error_default_message"
+
 #.   <p>The resource you asked was not
 #.     found. If the document has moved you may find it using the search form
 #.     below.</p>
 #: from ../skins/cps_default/error_lib.pt
 msgid "error_not_found"
-msgstr "The resource you asked was not found. If the document has moved you may find it using the search form below."
+msgstr ""
+"The resource you asked was not found. If the document has moved you may find "
+"it using the search form below."
 
 #.   <span>
 #.           gave ${nb_results (tal content="items_length")}
@@ -656,6 +674,8 @@ msgstr ""
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "help_italic_vendor_boxes_types"
 msgstr ""
+"Box types in italic are predefined types. Some properties can not be changed "
+"from this interface. Use the default box to do so."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -1121,7 +1141,7 @@ msgid "label_language"
 msgstr "Language"
 
 #.   <block>label_language
-#.         ${status_language (tal content="info/lang")}
+#.         ${status_language}
 #.       </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
@@ -1716,7 +1736,7 @@ msgid "transition_comments"
 msgstr "Comments"
 
 #.   <span>
-#.         v${status_revision (tal replace="info/rev")}- ${status_language (tal replace="info/lang")}
+#.         v${status_revision (tal replace="info/rev")}-       ${status_language}
 #.       </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "v${status_revision}- ${status_language}"
@@ -1741,8 +1761,14 @@ msgstr "create"
 msgid "Contents"
 msgstr "Contents"
 
+msgid "differed"
+msgstr "differed to "
+
 msgid "Directories"
 msgstr "Directories"
+
+msgid "expired"
+msgstr "expired since "
 
 msgid "Join"
 msgstr "Join"
@@ -2010,9 +2036,6 @@ msgstr "A default box."
 msgid "description_nuxeo_actionbox_user"
 msgstr "A nuxeo user box."
 
-msgid "description_nuxeo_actionbox_menu"
-msgstr "A menu box with tabs."
-
 msgid "description_nuxeo_imagebox_default"
 msgstr "A sample image box."
 
@@ -2117,19 +2140,22 @@ msgstr "SectionReviewer"
 msgid "SectionReader"
 msgstr "SectionReader"
 
-## Batch ========================================================
+# # Batch ========================================================
 msgid "batch_previous"
 msgstr "Previous"
 
 msgid "batch_next"
 msgstr "Next"
 
-## Languages  ========================================================
+# # Languages  ========================================================
 msgid "label_language_en"
 msgstr "English"
 
 msgid "label_language_fr"
 msgstr "French"
+
+#~ msgid "description_nuxeo_actionbox_menu"
+#~ msgstr "A menu box with tabs."
 
 #~ msgid "label_sort_asc"
 #~ msgstr "Ascending"
@@ -2200,3 +2226,4 @@ msgstr "French"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
+

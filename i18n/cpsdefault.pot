@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2003-09-23 18:59default\n"
+"POT-Creation-Date: 2003-09-26 15:37default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -44,6 +44,8 @@ msgstr ""
 #.             Action
 #.           </option>
 #.   <a attributes="href action/url" content="action/name">Action</a>
+#.   <a attributes="href action/url;
+#.                                class python:test(selected, 'selected', default)" content="action/name">Action</a>
 #: from ../skins/cps_default/actionbox_edit_form.pt
 #: ../skins/cps_default/boxes_nuxeo.pt
 msgid "Action"
@@ -51,7 +53,7 @@ msgstr ""
 
 #.   <p>
 #.     Created by
-#.     ${item_creator (tal content="creator" attributes="href string:${home_url}/; title creator" omit-tag="not: home_url")}.
+#.     ${item_creator (tal content="creator" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" omit-tag="not:email")}.
 #.     Last modified
 #.     ${item_modification (tal content="python:doc.ModificationDate()")}.
 #.   </p>
@@ -117,6 +119,9 @@ msgstr ""
 msgid "Your query '${query}'"
 msgstr ""
 
+#.   <block fill-slot="box_title" content="box/box/title">
+#.         box text title
+#.       </block>
 #.   <block fill-slot="box_title" content="box/box/title">box text title</block>
 #.   <block fill-slot="box_title" content="box/box/title">
 #.          box text title
@@ -465,10 +470,15 @@ msgstr ""
 msgid "description_visible_box_from ${context_url}"
 msgstr ""
 
-#.   <p>This error means that the resource you
-#.     wanted to view tried to access an unknown parameter.</p>
+#.   <block content="string:label_language_${info/lang}">en</block>
+#: from ../skins/cps_default/content_lib.pt
+msgid "en"
+msgstr ""
+
+#.   <p>TODO find the appropriate
+#.     message.</p>
 #: from ../skins/cps_default/error_lib.pt
-msgid "error_key_or_name"
+msgid "error_default_message"
 msgstr ""
 
 #.   <p>The resource you asked was not
@@ -1090,7 +1100,7 @@ msgid "label_language"
 msgstr ""
 
 #.   <block>label_language
-#.         ${status_language (tal content="info/lang")}
+#.         ${status_language}
 #.       </block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "label_language ${status_language}"
@@ -1683,7 +1693,7 @@ msgid "transition_comments"
 msgstr ""
 
 #.   <span>
-#.         v${status_revision (tal replace="info/rev")}- ${status_language (tal replace="info/lang")}
+#.         v${status_revision (tal replace="info/rev")}-       ${status_language}
 #.       </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "v${status_revision}- ${status_language}"
@@ -1708,7 +1718,13 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
+msgid "differed"
+msgstr ""
+
 msgid "Directories"
+msgstr ""
+
+msgid "expired"
 msgstr ""
 
 msgid "Join"
@@ -2093,4 +2109,11 @@ msgid "batch_previous"
 msgstr ""
 
 msgid "batch_next"
+msgstr ""
+
+# # Languages  ========================================================
+msgid "label_language_en"
+msgstr ""
+
+msgid "label_language_fr"
 msgstr ""

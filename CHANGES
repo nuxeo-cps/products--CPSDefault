@@ -3,13 +3,17 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- In ContentBox, the link to more results now points to the advanced search form
+  prefilled with the box parameters.
 Bug fixes:
 ~~~~~~~~~~
 - Clean 'status_history' from portal_actions. See changes in getCPSDocuments and
   the closing commentary of bug #295 for what changed.
+- In ContentBox, fix named arguments usage when constructing the query to more
+  results.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- Replaced TABLESs and DIVs by DL/DT/DD in advanced search form; code much
+- Replaced TABLEs and DIVs by DL/DT/DD in advanced search form; code much
   cleaner and base tests for prefilling chosen values when redisplaying this
   form (TODO).
+- In ContentBox, use argument marshalling for allowing comparing dates.

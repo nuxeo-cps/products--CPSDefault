@@ -142,21 +142,23 @@ class ContentBox(BaseBox):
                                                  hide_folder=1,
                                                  displayed=displayed)
 
-
             if self.nb_items and len(items) > self.nb_items:
                 items = items[:self.nb_items]
                 if len(query):
-                    q = make_query(query=query,
-                                   sort_by=self.sort_by,
+                    if query.has_key('modified'):
+                        # Use argument marshalling
+                        query['modified:date'] = query['modified']
+                        del query['modified']
+                    q = make_query(sort_by=self.sort_by,
                                    direction=self.direction,
                                    hide_folder=1,
                                    folder_prefix=folder_prefix,
                                    title_search=self.title,
-                                   search_within_results=1)
-                    link_more = './search_form?%s' % q
+                                   search_within_results=1,
+                                   **query)
+                    link_more = './advanced_search_form?%s' % q
                 else:
                     link_more = utool.getRelativeUrl(folder)
-
 
         return (items, link_more)
 
@@ -215,11 +217,11 @@ class ContentBox(BaseBox):
             else:
                 today = DateTime()
                 if self.query_modified == 'time_yesterday':
-                    modified = (today-1).Date()
+                    modified = (today - 1).Date()
                 elif self.query_modified == 'time_last_week':
-                    modified = (today-7).Date()
+                    modified = (today - 7).Date()
                 elif self.query_modified == 'time_last_month':
-                    modified = (today-31).Date()
+                    modified = (today - 31).Date()
             if modified:
                 query['modified'] = modified
                 query['modified_usage'] = "range:min"

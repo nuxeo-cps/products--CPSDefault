@@ -890,7 +890,7 @@ def cpsupdate(self, langs_list=None):
               (boxes[box]['type'], box_container,
                box, None), {})
         ob = getattr(box_container, box)
-        ob.manage_changeProperties(boxes[box])
+        ob.manage_changeProperties(**boxes[box])
 
     # widgets
     pr("Verifiying widgets")

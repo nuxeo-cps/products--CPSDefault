@@ -70,7 +70,7 @@ class BaseInstaller:
                 dv = self.portal.portal_skins[skin]
                 oldpath = dv.getDirPath()
                 if oldpath == path:
-                    self.logok()
+                    self.logOK()
                 else:
                     self.log("  Correctly installed, correcting path")
                     dv.manage_properties(dirpath=path)

@@ -90,9 +90,21 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <metal:block define-macro="sections">
   <div class="tabs"
        tal:define="sections sections|ttool/sections;
-                   tree python:sections.getList(start_depth=0, stop_depth=1);">
+                   workspaces workspaces|ttool/workspaces;
+                   stree python:sections.getList(start_depth=0, stop_depth=1);
+                   wtree python:workspaces.getList(start_depth=0, stop_depth=0)">
+
     <a href="" class="plain"
-       tal:repeat="item tree"
+       tal:repeat="item wtree"
+       tal:attributes="href string:${base_url}${item/rpath}/;
+                       class python:context_url.endswith(item['rpath']) and 'selected' or default;
+                       title item/title"
+       tal:content="structure item/short_title">
+       section title
+    </a>
+
+    <a href="" class="plain"
+       tal:repeat="item stree"
        tal:attributes="href string:${base_url}${item/rpath}/;
                        class python:context_url.endswith(item['rpath']) and 'selected' or default;
                        title item/title"
@@ -128,26 +140,26 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 
 
 <!-- ============================================================ -->
-<metal:block define-macro="actionbox" tal:condition="actionblock">
-    <metal:block use-macro="here/generic_lib/macros/box">
-      <metal:block fill-slot="box_title" define-slot="box_title">
-        action box title
-      </metal:block>
-      <metal:block fill-slot="box_body">
-        <div tal:define="blockclass blockclass|string:even"
-             tal:attributes="class python:'content '+blockclass">
-          <ul>
-            <li tal:repeat="action actionblock">
-              <a tal:attributes="href action/url"
-                 tal:content="action/name"
-                 i18n:translate="">
-                 Action
-               </a>
-            </li>
-          </ul>
-        </div>
-      </metal:block>
+<metal:block define-macro="actionbox">
+  <metal:block use-macro="here/generic_lib/macros/box">
+    <metal:block fill-slot="box_title" tal:content="blocktitle">
+      action box title
     </metal:block>
+    <metal:block fill-slot="box_body">
+      <div class="content"
+           tal:define="blockclass blockclass|string:"
+           tal:attributes="class python:'content '+blockclass">
+        <ul>
+          <li tal:repeat="action actionblock">
+            <a tal:attributes="href action/url"
+               tal:content="action/name">
+               Action
+             </a>
+          </li>
+        </ul>
+      </div>
+    </metal:block>
+  </metal:block>
 </metal:block>
 
 

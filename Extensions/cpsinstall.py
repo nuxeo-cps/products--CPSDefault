@@ -126,6 +126,9 @@ def cpsupdate(self, langs_list=None):
         portal.manage_addProduct['NuxUserGroups'].addUserFolderWithGroups()
 
     # portal registration
+    if not hasattr(portal, 'enable_portal_joining'):
+        portal._setProperty('enable_portal_joining', 1, 'boolean')
+
     for action in portal['portal_registration'].listActions():
         if action.id == 'join':
             action.condition = Expression('python: portal.portal_properties.enable_portal_joining and not member')

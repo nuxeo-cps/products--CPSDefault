@@ -24,6 +24,9 @@ from Products.CMFDefault.Portal import CMFSite
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
 class CPSDefaultSite(CMFSite):
+    """This class is never instantiated and only serves for class registration"""
+    # XXX Note that whatever you will write here will never be used since
+    # manage_addCPSDefaultSite instantiates a CMFSite.
     meta_type = 'CPSDefault Site'
 
 Globals.InitializeClass(CPSDefaultSite)
@@ -67,7 +70,8 @@ def manage_addCPSDefaultSite(dispatcher, id,
                     create_userfolder=0)
     portal = getattr(container, id)
     portal.portal_type = 'Portal'
-
+    portal._setProperty('enable_portal_joining', enable_portal_joining,
+                        'boolean')
 
     pr('Creating cpsinstall External Method in CMF Site')
     cpsinstall = ExternalMethod('cpsinstall',
@@ -114,13 +118,6 @@ def manage_addCPSDefaultSite(dispatcher, id,
                                        'email_from_address': root_email,
                                        'smtp_server': 'localhost',
                                        })
-
-    propId = 'enable_portal_joining'
-    propValue = enable_portal_joining
-    if portal.hasProperty(propId):
-        portal.manage_changeProperties({propId: propValue})
-    else:
-        portal.manage_addProperty(propId, propValue, 'boolean')
 
     portal.manage_changeProperties(REQUEST=None,
                                    kw={

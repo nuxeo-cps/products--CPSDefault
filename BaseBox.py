@@ -109,12 +109,13 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         {'id': 'locked', 'type': 'boolean', 'mode': 'w', 'label': 'Locked box'},
         )
 
-    def __init__(self, id, minimized=0, closed=0,
-                 style='', slot=0, order=0,
+    def __init__(self, id, title='', minimized=0, closed=0,
+                 style='nuxeo', slot=0, order=0,
                  visible_if_empty= 0, display_in_subfolder=1,
                  locked=0, **kw):
         DefaultDublinCoreImpl.__init__(self)
         self.id = id
+        self.title = title
         self.style = style
         self.slot = int(slot)
         self.order = int(order)
@@ -131,9 +132,9 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
     security.declarePublic('manage_guardForm') # XXX protect
     manage_guardForm = DTMLFile('zmi/manage_guardForm', globals())
 
+    security.declareProtected('setGuardProperties', ModifyPortalContent)
     def setGuardProperties(self, REQUEST=None):
-        '''
-        '''
+        """ """
         g = Guard()
         if g.changeFromProperties(REQUEST):
             self.guard = g
@@ -157,6 +158,7 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
                 'style': self.style,
                 }
 
+    security.declarePublic('is_closed')
     def is_closed(self):
         """Returns 0 is it is closed, 1 otherwise
 
@@ -278,12 +280,12 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         if ti is None:
             raise Exception('No portal type found for box: %s' % self.getId())
 
-        template_name = ti.getActionById('render_box')
-        if not template_name:
-            raise Exception('No render template for box: %s' % self.getId())
+        macro_name = ti.getActionById('render_box')
+        if not macro_name:
+            raise Exception('No render macro for box: %s' % self.getId())
         if style is None:
             style = self.style
-        return 'here/%s/macros/%s' % (template_name, style)
+        return 'here/boxes_%s/macros/%s' % (style, macro_name)
 
     security.declarePublic('render')
     def render(self, **kw):

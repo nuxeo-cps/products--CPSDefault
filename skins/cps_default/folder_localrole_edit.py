@@ -1,7 +1,7 @@
 ## Script (Python) "folder_localrole_edit"
 ##parameters=change_type
 ##title=Set local roles
-##
+# $Id$
 pmtool = context.portal_membership
 ids = context.REQUEST.get('member_ids', ())
 

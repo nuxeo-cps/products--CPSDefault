@@ -19,7 +19,7 @@
                                       thisDay,
                                       location=location,
                                       event_types=event_types);
-	                 format string:detail;
+                         format string:detail;
                          no_form python:1;
                          mq nocall:modules/ZTUtils/make_query;
                         ">
@@ -27,7 +27,7 @@
           tal:content="python:request.response.redirect(items[0].absolute_url()+'?'+mq(request.form))" />
     <tal:block tal:condition="python:len(items)!=1">
       <h1><span tal:omit-tag="" 
-	        i18n:translate="label_calendar_event_list">
+            i18n:translate="label_calendar_event_list">
             Events for</span>
           <span tal:omit-tag="" tal:content="python:here.getDateStr(thisDay,'short')" />
       </h1>

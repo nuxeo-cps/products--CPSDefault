@@ -115,7 +115,8 @@
     </td>
   </tr>
   <tr tal:define="closed_box python:btool.filterBoxes(boxes, closed_only=1)"
-    tal:condition="closed_box"><td colspan="3" class="left">
+      tal:condition="python:not isAnon and closed_box"><td colspan="3"
+      class="left">
     <span i18n:translate="box_closed_boxes">Closed boxes :&nbsp;</span>
     <tal:block repeat="box closed_box"><metal:block
       use-macro="here/box_lib/macros/closed_box" /></tal:block>

@@ -13,6 +13,7 @@ del kw['box_type']
 
 box = context.restrictedTraverse(box_url)
 
+# handle box display
 disp = kw.get('display_box')
 if disp:
     del kw['display_box']
@@ -25,16 +26,28 @@ if disp:
         elif disp == 'maximized':
             kw['minimized'] = 0
 
+
 # handle checkbox
 for k in ('display_in_subfolder', 'display_only_in_subfolder',
           'children_only', 'contextual'):
     v = kw.get(k)
     kw[k] = not not v
 
+
+# handle center box slot
+# center box are use in folder_view to skin only one folder
+slot = kw.get('slot')
+if slot == 'center':
+    kw['display_only_in_subfolder'] = 0
+    kw['display_in_subfolder'] = 0
+
+
+# handle integer
 order = kw.get('order')
 if order:
     kw['order'] = int(order)
 
+# handle style format
 sf = kw.get('styleformat')
 if sf:
     kw['style']=sf.split('@')[0]

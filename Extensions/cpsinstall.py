@@ -261,7 +261,7 @@ def cpsupdate(self, langs_list=None):
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create sub workspace', actbox_category='workflow',
                     actbox_url='%(content_url)s/workspace_create_form',
-                    props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; Manager', 'guard_expr':''},
+                    props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; Manager; Owner', 'guard_expr':''},
                     )
 
     # WF workspace document
@@ -285,7 +285,7 @@ def cpsupdate(self, langs_list=None):
     s.setProperties(title='Work', 
                     transitions=('publish',))
     s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
-    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'))
 
     t = wf.transitions.get('creation')
     t.setProperties(title='Creation', new_state_id='work', 
@@ -302,12 +302,12 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Publish', actbox_category='workflow',
                     actbox_url='%(content_url)s/content_publish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager', 
+                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager; Owner', 
                            'guard_expr':''},
                     )
 
     # WF section
-    wfid = 'wf_section'
+    wfid = 'wf_section' # XXX TODO rename into section_wf
     pr(" Setup workflow %s" % wfid)
     if wfid in wfids:
         wftool.manage_delObjects([wfid])
@@ -337,7 +337,7 @@ def cpsupdate(self, langs_list=None):
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create sub section', actbox_category='workflow',
                     actbox_url='%(content_url)s/section_create_form',
-                    props={'guard_permissions':'', 'guard_roles':'SectionManager; Manager', 'guard_expr':''},
+                    props={'guard_permissions':'', 'guard_roles':'WorkspaceMember; WorkspaceManager; SectionReviewer; SectionManager; Manager; Owner', 'guard_expr':''},
                     )
 
     # WF section document
@@ -359,11 +359,11 @@ def cpsupdate(self, langs_list=None):
     s = wf.states.get('pending')
     s.setProperties(title='Waiting for reviewer', 
                     transitions=('publish',))
-    s.setPermission(ModifyPortalContent, 0, ('Manager', ))
+    s.setPermission(ModifyPortalContent, 0, ('SectionReviewer', 'SectionManager', 'Manager'))
     s.setPermission(View, 0, ('SectionReviewer', 'SectionManager', 'Manager'))
     s = wf.states.get('published')
     s.setProperties(title='Public', 
-                    transitions=('depublish',))
+                    transitions=('unpublish',))
     s.setPermission(ModifyPortalContent, 0, ('Manager', ))
     s.setPermission(View, 0, ('SectionReader', 'SectionReviewer', 'SectionManager', 'Manager'))
     
@@ -375,7 +375,7 @@ def cpsupdate(self, langs_list=None):
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager; Manager', 
+                           'guard_roles':'SectionReviewer; SectionManager; Manager; Owner', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('in_submit')
@@ -397,7 +397,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_publish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager, Manager', 
+                           'guard_roles':'SectionReviewer; SectionManager; Manager; Owner', 
                            'guard_expr':''},
                     )
     t = wf.transitions.get('unpublish')
@@ -408,7 +408,7 @@ def cpsupdate(self, langs_list=None):
                     actbox_name='Un Publish', actbox_category='workflow', 
                     actbox_url='%(content_url)s/content_unpublish_form',
                     props={'guard_permissions':'', 
-                           'guard_roles':'SectionReviewer; SectionManager, Manager', 'guard_expr':''},
+                           'guard_roles':'SectionReviewer; SectionManager; Manager; Owner', 'guard_expr':''},
                     )
    
         
@@ -494,7 +494,7 @@ def cpsupdate(self, langs_list=None):
     if not portalhas(workspaces_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
                                                 workspaces_id)
-        portal[workspaces_id].getContent().setTitle('Root') # XXX L10N        
+        portal[workspaces_id].getContent().setTitle('Root') # XXX L10N
         portal[workspaces_id].reindexObject()
         pr("  Adding %s Folder" % workspaces_id)
     if not portalhas(sections_id):
@@ -504,6 +504,39 @@ def cpsupdate(self, langs_list=None):
         portal[sections_id].reindexObject()
         pr("  Adding %s Folder" % sections_id)
 
+
+    pr("Verifying permissions")
+    sections_perm = {
+                     'Add portal content': ['Manager', 'Owner', 'SectionManager'],
+                     'Add portal folders': ['Manager', 'Owner', 'SectionManager'],
+                     'Change permissions': ['Manager', 'Owner', 'SectionManager'],
+                     'Delete objects': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer'],
+                     'List folder contents': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer', 'SectionReader'],
+                     'Modify portal content': ['Manager', 'Owner', 'SectionManager'],
+                     'View': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer', 'SectionReader'],
+                     'View management screens': ['Manager', 'Owner', 'SectionManager', 'SectionReviewer'],
+        }
+    workspaces_perm = {
+                       'Add portal content': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
+                       'Add portal folders': ['Manager', 'Owner', 'WorkspaceManager'],
+                       'Change permissions': ['Manager', 'Owner', 'WorkspaceManager'],
+                       'Delete objects': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
+                       'List folder contents': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
+                       'Modify portal content': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
+                       'View': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
+                       'View management screens': ['Manager', 'Owner', 'WorkspaceManager', 'WorkspaceMember'],
+        }
+    pr("Section")
+    for perm, roles in sections_perm.items():
+        portal[sections_id].manage_permission(perm, roles, 0)
+        pr("  Permission %s" % perm)
+    portal[sections_id].reindexObjectSecurity()
+
+    pr("Workspace")
+    for perm, roles in workspaces_perm.items():
+        portal[workspaces_id].manage_permission(perm, roles, 0)
+        pr("  Permission %s" % perm)
+    portal[workspaces_id].reindexObjectSecurity()
 
 
    
@@ -556,6 +589,13 @@ def cpsupdate(self, langs_list=None):
     else:
         prok()
 
+        
+    pr(" Reindexing catalog")
+    portal.portal_catalog.refreshCatalog(clear=1)
+
+        
+        
+        
     # remove cpsinstall external method
     # and fix cpsupdate permission
     if 'cpsinstall' in portal.objectIds():

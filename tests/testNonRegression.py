@@ -4,9 +4,8 @@ if __name__ == '__main__':
 
 import unittest
 from Testing import ZopeTestCase
+from AccessControl.SecurityManagement import newSecurityManager
 import CPSDefaultTestCase
-
-from pprint import pprint
 
 
 class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
@@ -48,6 +47,25 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     def testUpdater(self):
         # Test that installer can be also called as updater
         self.assert_(self.portal.cpsupdate())
+
+    def _testExportImport(self):
+        # Log in as Zope root manager
+        root = self.portal.aq_parent
+        uf = root.acl_users
+        user = uf.getUser('CPSTestCase').__of__(uf)
+        newSecurityManager(None, user)
+
+        # Export portal to temp file
+        import tempfile 
+        zexp = root.manage_exportObject('portal', download=1)
+        temp_file_name = tempfile.mktemp() + '.zexp'
+        fd = open(temp_file_name, 'w')
+        fd.write(zexp)
+        fd.close()
+
+        # Delete and try to reimport portal
+        root.manage_delObjects(['portal'])
+        root._importObjectFromFile(temp_file_name)
 
 
 def test_suite():

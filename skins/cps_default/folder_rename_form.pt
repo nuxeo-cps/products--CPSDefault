@@ -1,0 +1,65 @@
+<html metal:use-macro="here/main_template/macros/master">
+<body>
+<div metal:fill-slot="main">
+
+<div class="Desktop">
+
+<h3 i18n:translate="rename_items">Rename Items</h3>
+
+<div tal:condition="here/folder_rename_items" >
+
+<form action="folder_rename" method="post"
+      tal:attributes="action string:${here/absolute_url}/folder_rename">
+
+  <table class="FormLayout">
+
+    <tr tal:repeat="item here/folder_rename_items">
+
+      <td align="left" valign="top" width="8%">
+        <span tal:replace="structure item/iconHTML">Type Image</span>
+      </td>
+     
+      <td align="left" valign="top" width="20%" nowrap>
+        <span tal:replace="item/getId">ID</span>
+        <input type="hidden" name="ids:list" value=""
+               tal:attributes="value item/getId">
+      </td>
+
+      <td align="left" valign="top" width="5%">
+        <strong i18n:translate="rename_to">to</strong>
+      </td>
+
+      <td align="left" valign="top">
+        <input type="text" name="new_ids:list" value=""
+               tal:attributes="value item/getId" size="20">
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="4">
+        <input type="submit" value=" Ok " i18n:attributes="value">
+      </td>
+    </tr>
+
+  </table>
+
+</form>
+
+</div><!-- tal:condition="here/folder_rename_items" -->
+
+<div tal:condition="not: here/folder_rename_items">
+
+  <p i18n:translate="no_items_to_rename">
+    You must select one or more items to rename.
+  </p>
+  <input type="button" value=" Ok " onClick="history.back()"
+         i18n:attributes="value">
+
+</div>
+
+</div><!-- class="Desktop"-->
+
+</div><!-- metal:fill-slot="main" -->
+
+</body>
+</html>

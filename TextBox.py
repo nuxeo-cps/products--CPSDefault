@@ -11,8 +11,8 @@ from BaseBox import BaseBox
 
 factory_type_information = (
     {'id': 'Text Box',
-     'title': '_portal_type_Text Box',
-     'description': ('A Text Box contains simple text.'),
+     'title': 'portal_type_TextBox_title',
+     'description': 'portal_type_TextBox_description',
      'meta_type': 'Text Box',
      'icon': 'box.gif',
      'product': 'CPSDefault',

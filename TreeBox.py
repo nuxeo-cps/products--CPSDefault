@@ -14,8 +14,8 @@ from zLOG import LOG, DEBUG
 
 factory_type_information = (
     {'id': 'Tree Box',
-     'title': '_portal_type_Tree Box',
-     'description': ('A Tree Box contains navigation.'),
+     'title': 'portal_type_TreeBox_title',
+     'description': 'portal_type_TreeBox_description',
      'meta_type': 'Tree Box',
      'icon': 'box.gif',
      'product': 'CPSDefault',

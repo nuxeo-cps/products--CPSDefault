@@ -14,8 +14,8 @@ from zLOG import LOG, DEBUG
 
 factory_type_information = (
     {'id': 'Content Box',
-     'title': '_portal_type_Content Box',
-     'description': ('A Content Box display contents.'),
+     'title': 'portal_type_ContentBox_title',
+     'description': 'portal_type_ContentBox_description',
      'meta_type': 'Content Box',
      'icon': 'box.gif',
      'product': 'CPSDefault',

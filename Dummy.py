@@ -14,13 +14,13 @@ from Products.CPSCore.CPSBase import CPSBaseDocument, CPSBase_adder
 factory_type_information = (
                             {'id': 'Dummy',
                              'meta_type': 'Dummy',
-                             'description': 'A dummy documents',
+                             'title': 'portal_type_Dummy_title',
+                             'description': 'portal_type_Dummy_description',
                              'icon': 'dummy_icon.gif',
                              'product': 'CPSDefault',
                              'factory': 'addDummy',
                              'immediate_view': 'metadata_edit_form',
                              # CPS attr
-                             'title': 'Dummy title',
                              'actions': (
                                          {'id': 'view',
                                           'name': 'View',

@@ -55,6 +55,7 @@ class TextBox(BaseBox):
     """
     meta_type = 'Text Box'
     portal_type = 'Text Box'
+    i18n = 0
 
     security = ClassSecurityInfo()
 
@@ -63,7 +64,7 @@ class TextBox(BaseBox):
         {'id':'i18n', 'type':'boolean', 'mode':'w', 'label':'I18n'},
     )
 
-    def __init__(self, id, category='textbox', text='', i18n='0', **kw):
+    def __init__(self, id, category='textbox', text='', i18n=0, **kw):
         BaseBox.__init__(self, id, category=category, **kw)
         self.text = text
         self.i18n = i18n

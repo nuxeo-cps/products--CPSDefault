@@ -148,6 +148,14 @@ items = [
                 'desc': 'description_nuxeo_basebox_calendar'},
                ]
      },
+     {'category': 'internallinksbox',
+     'title': 'portal_type_InternalLinksBox_title',
+     'desc': 'portal_type_InternalLinksBox_description',
+     'types': [{'provider': 'nuxeo',
+                'id': 'default',
+                'desc': 'description_nuxeo_internallinks_default'},
+               ]
+     },
     ]
 
 citems = context.getCustomBoxTypes()

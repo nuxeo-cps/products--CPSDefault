@@ -65,21 +65,21 @@ class TreeBox(BaseBox):
 
     _properties = BaseBox._properties + (
         {'id': 'root', 'type': 'string', 'mode': 'w', 'label': 'Root'},
-        {'id': 'depth', 'type': 'int', 'mode': 'w', 
+        {'id': 'depth', 'type': 'int', 'mode': 'w',
          'label': 'depth of the tree'},
-        {'id': 'contextual', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'contextual', 'type': 'boolean', 'mode': 'w',
          'label': 'try to expand on current path'},
-        {'id': 'children_only', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'children_only', 'type': 'boolean', 'mode': 'w',
          'label': 'display children only'},
-        {'id': 'authorized_only', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'authorized_only', 'type': 'boolean', 'mode': 'w',
          'label': 'display authorized content only'},
-        {'id': 'display_managers', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'display_managers', 'type': 'boolean', 'mode': 'w',
          'label': 'display managers'},
-        {'id': 'display_description', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'display_description', 'type': 'boolean', 'mode': 'w',
          'label': 'display description'},
-        {'id': 'show_root', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'show_root', 'type': 'boolean', 'mode': 'w',
          'label': 'show tree root'},
-        {'id': 'display_icons', 'type': 'boolean', 'mode': 'w', 
+        {'id': 'display_icons', 'type': 'boolean', 'mode': 'w',
          'label': 'display icons in front of folders'},
         )
 
@@ -141,13 +141,13 @@ class TreeBox(BaseBox):
                     tmp_entry['depth'] = x['depth'] - delta
                     tmp_tree.append(tmp_entry)
             tree = tmp_tree
-            
+
         if self.depth and self.contextual:
             depth = self.depth - 1
             max_depth = len(current_path) + depth
 
             tfilter = []
-            # we want to display all the path to the object and his sons and 
+            # we want to display all the path to the object and his sons and
             # brothers
             for i in range(len(current_path)+1):
                 if i:

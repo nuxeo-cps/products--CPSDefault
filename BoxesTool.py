@@ -67,7 +67,6 @@ class BoxesTool(UniqueObject, SimpleItem):
             bmf = context
 
         # get boxes from root to current path
-        portal_url = getToolByName(self, 'portal_url')
         rpath = portal_url.getRelativeContentPath(bmf)
         obj = portal_url.getPortalObject()
         allboxes = []
@@ -218,11 +217,77 @@ class BoxContainer(PortalFolder):
     id = '.cps_boxes'
     meta_type = 'CPS Boxes Container'
     security = ClassSecurityInfo()
-
     #
     # ZMI
     #
     manage_boxOverridesForm = DTMLFile('zmi/manage_boxOverridesForm', globals())
+
+    def manage_boxOverrides(self, submit, new_path, overrides=[], selected=[], \
+                            REQUEST=None):
+        """Sets overrides"""
+        LOG('Box Container', DEBUG, 'manage_boxOverrides',
+            'submit: %s\nselected: %s\noverrides: %s\nnew_path: %s\n' % \
+            (submit, selected, str(overrides), new_path))
+        if not hasattr(aq_base(self), '_box_overrides'):
+            self._box_overrides = PersistentMapping()
+
+        if submit == " Delete ":
+            for each in selected:
+                del self._box_overrides[each]
+            message = 'Override(s) deleted.'
+        elif submit == " Add new override ":
+            target = self.unrestrictedTraverse(new_path, None)
+            if target is None:
+                message = 'Entered box could not be found'
+            else:
+                portal_url = getToolByName(self, 'portal_url')
+                boxpath = portal_url.getRelativeContentURL(target)
+                self._box_overrides[boxpath] = {}
+                message = 'Override added.'
+        elif submit == " Save Changes ":
+            # Kill the old settings
+            self._box_overrides = PersistentMapping()
+            for override in overrides:
+                settings = {}
+                # Filter out empty settings:
+                for key, item in override.items():
+                    if item:
+                        if key in ('order', 'minimized', 'closed'):
+                            item = int(item)
+                        if key == 'box_path':
+                            box_path = item
+                        else:
+                            settings[key] = item
+                LOG('Box Container', DEBUG, 'manage_boxOverrides',
+                    str(settings) + '\n')
+                self._box_overrides[box_path] = settings
+            message = 'Settings changed.'
+        else:
+            message='Nothing to do.'
+        if REQUEST is not None:
+            return self.manage_boxOverridesForm(REQUEST,
+                management_view='Overrides',
+                manage_tabs_message=message)
+
+
+    #
+    # Management interface support functions
+    #
+    # These are mainly here to support the management GUI.
+    # In typical usage the overrides would be set and retrieved through
+    # the portal_boxes tool.
+    security.declarePublic('getOverrides')
+    def getOverrides(self):
+        """Gets all the local overrides"""
+        result = []
+        overrides = getattr(aq_base(self), '_box_overrides', {})
+        for key, item in overrides.items():
+            override = {'box_path': key, 'slot': '', 'order': '', 'closed':'',
+                        'minimized': ''}
+            override.update(item)
+            result.append(override)
+        LOG('BoxContainer', DEBUG, 'getOverrides', str(result) + '\n' )
+        return result
 
 def addBoxContainer(self, REQUEST=None):
     """Add a Base Box."""

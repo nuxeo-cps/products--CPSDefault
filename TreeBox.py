@@ -82,10 +82,10 @@ class TreeBox(BaseBox):
         current_path = current_url.split('/')
         
         if not self.root:
-            root_tree = current_path[0]
+            root_path = current_path
         else:
-            root_tree = filter(None,self.root.split('/'))[0]
-        
+            root_path = filter(None,self.root.split('/'))
+        root_tree = root_path[0]
         if not hasattr(portal_trees, root_tree):
             raise Exception('no tree for %s' % root_tree)
 
@@ -116,8 +116,10 @@ class TreeBox(BaseBox):
             return items
 
         if self.depth:
-            d = self.depth
-            return [x for x in tree if (x['depth']<=d)]
+            d = self.depth + len(root_path) - 1
+            root_url = '/'.join(root_path)
+            return [x for x in tree if (x['depth']<=d and
+                                        x['rpath'].startswith(root_url))]
         
         return tree
 

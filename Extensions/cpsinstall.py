@@ -541,27 +541,7 @@ def cpsupdate(self, langs_list=None):
     script = scripts[script_name]
     script.write("""\
 ##parameters=state_change
-# Unlock the locked object before a draft is abandonned.
-wftool = context.portal_workflow
-object = state_change.object
-folder = object.aq_parent
-docid = object.getDocid()
-flr = object.getFromLanguageRevisions()
-locked_ob = None
-for ob in folder.objectValues():
-    try:
-        rs = wftool.getInfoFor(ob, 'review_state', None)
-        if (rs == 'locked' and
-            ob.getDocid() == docid and
-            ob.getLanguageRevisions() == flr):
-            locked_ob = ob
-            break
-    except:
-        from zLOG import LOG, DEBUG
-        LOG('unlock_locked_before_checkin', DEBUG, 'exception in folder=%s' % folder)
-        raise
-if locked_ob is not None:
-    wftool.doActionFor(locked_ob, 'unlock')
+return state_change.object.content_unlock_locked_before_abandon(state_change)
 """)
     #script._proxy_roles = ('Manager',)
     script._owner = None

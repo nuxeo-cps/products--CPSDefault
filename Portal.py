@@ -81,8 +81,13 @@ def manage_addSss3Site(dispatcher, id,
         }
     )
     
-    #pr('Creating CPS Administrator account for Sss3')
-
+    # TODO: use portal_metadirectories to store emails and other stuff
+    pr('Creating CPS Administrator account for Sss3')
+    portal.acl_users._addUser(name=root_id,
+                              password=root_password1,
+                              confirm=root_password2,
+                              roles=('Manager',), domains=None)
+                                         
     pr('Done')
     if REQUEST is not None:
         REQUEST.RESPONSE.setHeader('Content-Type', 'text/plain')

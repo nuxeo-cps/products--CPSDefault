@@ -65,7 +65,7 @@ class ContentBox(BaseBox):
 
     query_portal_type = []
     zoom = 0
-    search_type = 0
+    no_recurse = 0
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -93,14 +93,14 @@ class ContentBox(BaseBox):
          'label': 'Portal type criteria' },
         {'id': 'query_modified', 'type': 'string', 'mode': 'w',
          'label': 'Modified criteria' },
-	{'id': 'search_type', 'type': 'int', 'mode': 'w',
-	 'label': 'Searching criteria'}, 
+        {'id': 'no_recurse', 'type': 'boolean', 'mode': 'w',
+         'label': 'Non-recursive search'}, 
         )
 
     def __init__(self, id, category='contentbox', folder='', nb_items=0,
                  sort_by='', direction='', display='', query_title='',
                  query_description='', query_fulltext='', query_status='',
-                 query_portal_type=[], query_modified='', zoom=0,search_type = 0, **kw):
+                 query_portal_type=[], query_modified='', zoom=0, no_recurse = 0, **kw):
         BaseBox.__init__(self, id, category=category, **kw)
         self.folder = folder
         self.nb_items = nb_items
@@ -114,7 +114,7 @@ class ContentBox(BaseBox):
         self.query_title = query_title
         self.query_modified = query_modified
         self.zoom = zoom
-	self.search_type = search_type
+        self.no_recurse = no_recurse
 
 
     security.declarePublic('getContents')
@@ -215,7 +215,7 @@ class ContentBox(BaseBox):
         if self.query_status:
             query['review_state'] = self.query_status
 
-        if self.search_type == 1:
+        if self.no_recurse == 1:
             query['search_relative_path'] = 1
 
         if self.query_modified:

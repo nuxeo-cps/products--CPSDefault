@@ -30,7 +30,7 @@ class DataConfig:
     parser = None
     filename = ''
     sep = '|'
-    
+
     def __init__(self, filename):
         self.filename=filename
         fh = open(filename, 'r')
@@ -67,7 +67,7 @@ class DataConfig:
 
     def getPermission(self, folder='root'):
         return cfg.getList(folder, 'permission', '')
-    
+
 
 def makeId(title):
     id = title.lower()
@@ -78,11 +78,13 @@ def makeId(title):
     id = id.replace('ç', 'c')
     id = id.replace('è', 'e')
     id = id.replace('&', '-')
-    id = id.replace('\'', '_')    
+    id = id.replace('\'', '_')
+    id = id.replace('/', '_')
+    id = id.replace('\\', '_')
     return id.lower()
 
 
-def createContent(type, path, id, title, desc='', force=None, **kw):
+def createContent(type, path, id, force=None, **kw):
     if path:
         path = path[1:]
         pr('check %s/%s' % (path, id))
@@ -103,10 +105,10 @@ def createContent(type, path, id, title, desc='', force=None, **kw):
         pr('\t%s already created' % id)
         if not force:
             return
-        pr('\tforcing title %s desc:%s and %s' % (title, desc, str(kw)))
+        pr('\tforcing kw:%s' % str(kw))
     else:
-        pr('\tcreate %s id:%s title:%s desc:%s and %s' % (
-            type, id, title, desc, str(kw)))
+        pr('\tcreate %s id:%s kw:%s' % (
+            type, id, str(kw)))
         if proxy_type:
             parent.invokeFactory(type, id)
         elif proxy_type == 0:
@@ -126,20 +128,20 @@ def createContent(type, path, id, title, desc='', force=None, **kw):
             cmd = 'parent.manage_addProduct[\'%s\'].%s(id)' % (
                 ti['product'], meth_name)
             pr('executing %s' % cmd)
-            eval(cmd)                        
-            
+            eval(cmd)
+
     ob = getattr(parent, id)
     if proxy_type:
         doc = ob.getEditableContent()
-        doc.edit(title=title, description=desc, **kw)
+        doc.edit(**kw)
         portal_eventservice.notifyEvent('modify_object', parent, {})
         portal_eventservice.notifyEvent('modify_object', ob, {})
     else:
-        ob.manage_changeProperties(title=title, description=desc, **kw)
+        ob.manage_changeProperties(**kw)
         ob.reindexObject()
 
     return ob
-        
+
 
 
 def buildTree(cfg, parent='root', path='', parent_type=None):
@@ -149,14 +151,12 @@ def buildTree(cfg, parent='root', path='', parent_type=None):
     contents = cfg.getContents(parent)
     for content in contents:
         id = cfg.get(content, 'id', makeId(content))
-        title = cfg.get(content, 'title', content)
         type = cfg.get(content, 'type', parent_type)
-        desc = cfg.get(content, 'desc')
         force = cfg.get(content, 'force')
         kw = cfg.getKw(content,
-                       remove=('id', 'title', 'type',
-                               'desc', 'force', 'contents', 'permission'))
-        ob = createContent(type, path, id, title, desc, force, **kw)
+                       remove=('id', 'type', 'force',
+                               'contents', 'permission'))
+        ob = createContent(type, path, id, force, **kw)
         if ob:
             for perm in cfg.getPermission(content):
                 permission = cfg.get(perm, 'permission')
@@ -176,7 +176,7 @@ def main(self):
     global product_name, filename
     portal_url = getToolByName(self, 'portal_url')
     portal_workflow = getToolByName(self, 'portal_workflow')
-    portal_eventservice = getToolByName(self, 'portal_eventservice')    
+    portal_eventservice = getToolByName(self, 'portal_eventservice')
     portal = portal_url.getPortalObject()
     filename = 'data.ini'
     app=self.getPhysicalRoot()
@@ -187,4 +187,3 @@ def main(self):
     pr('INITIALIZING %s TREE with %s:' % (product_name, filename))
     buildTree(cfg)
     return pr('flush')
-

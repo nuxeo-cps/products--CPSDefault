@@ -35,7 +35,8 @@
           </th>
         </tr>
         <tal:block repeat="section stree">
-          <tr tal:condition="python:'submit' in section['publishing_transitions']">
+          <tr tal:condition="python:'submit' in section['publishing_transitions']"
+              tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
             <td nowrap>
               <input type="checkbox" name="" value="" class="noborder"
                      tal:attributes="value section/rpath; name string:submit">

@@ -9,7 +9,7 @@ membership_tool = getToolByName(context, 'portal_membership')
 result = membership_tool.resetPassword(username,
                                        request_emission_time, reset_token)
 
-if result:
+if result['reset_password_success'] and result['email_password_success']:
     REQUEST.RESPONSE.redirect("%s/?portal_status_message=%s" %
                               (context.absolute_url(),
                                "psm_reset_password_success"))

@@ -882,6 +882,22 @@
 </metal:block>
 
 
+
+<!-- =========================================================== -->
+<metal:block define-macro="docrenderbox_default"  
+	tal:define="doc_rendering python:box['box'].getContents()" tal:condition="doc_rendering">   
+
+    <metal:block use-macro="python:path(box['settings']['box_skin'])"> 
+    <metal:block fill-slot="box_title" i18n:translate=""
+      tal:content="box/box/title">box text title   </metal:block>
+  
+    <metal:block fill-slot="box_body"   tal:content="structure doc_rendering" >   
+    </metal:block>	      
+	
+  </metal:block> 
+  
+ </metal:block>
+ 
 <!-- ============================================================ -->
 <!--
 This macro is deprecated but kept here for backward compatibility.

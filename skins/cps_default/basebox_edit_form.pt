@@ -101,19 +101,32 @@ box: <tal:block replace="box_url" />
           <strong i18n:translate="" tal:content="category/title" /><br>
           <em i18n:translate="" tal:content="category/desc" />
         </td></tr>
-        <tal:block repeat="type category/types">
-        <tr><td width="30%" tal:define="sf string:${type/provider}@${type/id}">
-          <input type="radio" name="providertype" value="" class="noborder"
-                 tal:attributes="value sf; id sf;
-                       checked python:test(sf==providertype,'checked',nothing)">
-          <label for="" tal:attributes="for sf">
-            <i tal:omit-tag="python:type['id']=='default'">
-              <span tal:replace="string:${type/provider}-${type/id}" />
-            </i>
-          </label>
-          </td>
-          <td><em i18n:translate="" tal:content="type/desc" />
-        </td></tr>
+        <tal:block define="global boxtype_selected python:0">
+          <tal:block repeat="type category/types">
+          <tr><td width="30%" tal:define="sf string:${type/provider}@${type/id};
+                                          sfISpt python:test(sf==providertype,1,0)">
+            <input type="radio" name="providertype" value="" class="noborder"
+                   tal:attributes="value sf;
+                                   id sf;
+                                   checked
+                                     python:test(sfISpt,
+                                                 'checked',
+                                                 test(repeat['type'].end and
+                                                        not boxtype_selected,
+                                                      'checked',
+                                                      nothing))">
+            <label for="" tal:attributes="for sf">
+              <i tal:omit-tag="python:type['id']=='default'">
+                <span tal:replace="string:${type/provider}-${type/id}" />
+              </i>
+            </label>
+            <tal:block tal:define="global boxtype_selected
+                                     python:test(boxtype_selected or sfISpt,
+                                                 1,0)"/>
+            </td>
+            <td><em i18n:translate="" tal:content="type/desc" /></td>
+          </tr>
+          </tal:block>
         </tal:block>
       </table>
       <br>

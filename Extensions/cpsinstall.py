@@ -577,13 +577,17 @@ class DefaultInstaller(CPSInstaller):
             'draft': {
                 'title': 'Draft',
                 'transitions': ('checkin_draft', 'abandon_draft', 'unlock'),
-                'permissions': {View: ('Manager', 'WorkspaceManager', 'Owner'),
+                'permissions': {View: ('Manager', 'WorkspaceManager',
+                                       'WorkspaceMember', 'Owner'),
                                 ModifyPortalContent:
-                                    ('Manager', 'WorkspaceManager',),
+                                    ('Manager', 'WorkspaceManager',
+                                     'WorkspaceMember', 'Owner'),
                                 WebDavLockItem:
-                                    ('Manager', 'WorkspaceManager',),
+                                    ('Manager', 'WorkspaceManager',
+                                     'WorkspaceMember', 'Owner'),
                                 WebDavUnlockItem:
-                                    ('Manager', 'WorkspaceManager',)},
+                                    ('Manager', 'WorkspaceManager',
+                                     'WorkspaceMember', 'Owner')},
             },
             'locked': {
                 'title': 'Locked',
@@ -652,7 +656,8 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_checkin_draft_form',
                 'props': {'guard_permissions': '',
-                          'guard_roles': 'Manager; WorkspaceManager; Owner',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
                           'guard_expr': ''},
             },
             'abandon_draft': {
@@ -664,7 +669,8 @@ class DefaultInstaller(CPSInstaller):
                 'actbox_category': 'workflow',
                 'actbox_url': '%(content_url)s/content_abandon_draft_form',
                 'props': {'guard_permissions': '',
-                          'guard_roles': 'Manager; WorkspaceManager; Owner',
+                          'guard_roles': 'Manager; WorkspaceManager; '
+                                         'WorkspaceMember',
                           'guard_expr': ''},
             },
             'unlock': {

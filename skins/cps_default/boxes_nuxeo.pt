@@ -424,7 +424,6 @@
 		       tal:replace="structure string:</dd>" />
             <dt>
               <img tal:replace="structure python:here.getImgTag('folder_icon.gif', base_url=base_url)">
-               
               <a href="."
                  tal:attributes="href string:${base_url}${item/rpath}/;
                                  class python:test(context_url.endswith(
@@ -433,31 +432,32 @@
                   id
                 </tal:block>
               </a>
-            </dt>
-            <tal:block tal:replace="structure string:<dd>" />
-            <tal:block tal:condition="display_managers"> 
-              <tal:block tal:define="managers python:item['managers']"
-                         tal:condition="managers">
-                <tal:block tal:repeat="manager managers">
-                  <tal:block tal:condition="python:
-                       here.portal_metadirectories.members.getEntry(manager)">
-                    <a style="text-decoration:underline" href=""
-                       tal:content="
-                         python:
-                           here.portal_metadirectories.members.getEntry(manager).get(
-                                               'fullname',manager)"
-                       tal:attributes="href
-                         python:
-                           here.portal_url.getPortalPath() +
-                             '/directory_getentry?dirname=' +
-                             here.portal_metadirectories.members.id +
-                             '&entry_id='+manager">
-                    </a>
-                    <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
-                  </tal:block>
+              <tal:block tal:condition="display_managers">
+                <tal:block tal:define="managers python:item['managers']"
+                           tal:condition="managers">
+                  - [
+                  <tal:block tal:repeat="manager managers">
+                    <tal:block tal:condition="python:
+                         here.portal_metadirectories.members.getEntry(manager)">
+                      <a style="text-decoration:underline" href=""
+                         tal:content="
+                           python:
+                             here.portal_metadirectories.members.getEntry(manager).get(
+                                                 'fullname',manager)"
+                         tal:attributes="href
+                           python:
+                             here.portal_url.getPortalPath() +
+                               '/directory_getentry?dirname=' +
+                               here.portal_metadirectories.members.id +
+                               '&entry_id='+manager">
+                      </a>
+                      <tal:block tal:condition="not:repeat/manager/end">,</tal:block>
+                    </tal:block>
+                  </tal:block> ]
                 </tal:block>
               </tal:block>
-            </tal:block>
+            </dt>
+            <tal:block tal:replace="structure string:<dd>" />
             <tal:block tal:condition="python:getattr(box['box'],
                                                      'display_description',
                                                      0)">

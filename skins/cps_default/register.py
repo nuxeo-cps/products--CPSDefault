@@ -1,7 +1,6 @@
 ##parameters=password='password', confirm='confirm'
 
 from re import match
-from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
 
 request = context.REQUEST

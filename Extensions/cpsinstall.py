@@ -3,8 +3,6 @@
 """ here we go
 """
 
-import os
-import sys
 from AccessControl import getSecurityManager
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles

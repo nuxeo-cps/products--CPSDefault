@@ -22,10 +22,7 @@
 """
 
 from Globals import InitializeClass
-from AccessControl import getSecurityManager
-
 from Products.PageTemplates.Expressions import getEngine
-
 from Products.CMFCore.utils import getToolByName
 from Products.DCWorkflow.Guard import Guard
 

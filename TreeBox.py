@@ -130,7 +130,7 @@ class TreeBox(BaseBox):
         if self.children_only:
             #if option 'display subfolders only is checked'
             #remove objects that are not on the current path
-            tree = [x for x in tree if (x['rpath'].startswith(current_url))]
+            tree = [x for x in tree if ((x['rpath'] + '/').startswith(current_url+'/'))]
 
         if not self.show_root:
             delta = len(root_path)
@@ -159,11 +159,11 @@ class TreeBox(BaseBox):
                 d = item['depth']
                 if d > max_depth:
                     continue
-                rpath = item['rpath']
+                rpath = item['rpath'] + '/'
                 for f in tfilter:
                     if d > f['depth']:
                         continue
-                    if rpath.startswith(f['rpath']):
+                    if rpath.startswith(f['rpath'] + '/'):
                         items.append(item)
                         break
 
@@ -173,10 +173,10 @@ class TreeBox(BaseBox):
             if items:
                 local_depth = items[0]['depth']
                 items[0]['depth'] = 0
-                local_rpath = items[0]['rpath']
+                local_rpath = items[0]['rpath'] + '/'
                 for item in items[1:]:
-                    if not item['rpath'].startswith(local_rpath):
-                        local_rpath = item['rpath']
+                    if not (item['rpath'] + '/').startswith(local_rpath):
+                        local_rpath = item['rpath'] + '/'
                         local_depth = item['depth']
                         item['depth'] = 0
                     else:

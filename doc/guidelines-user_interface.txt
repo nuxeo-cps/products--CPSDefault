@@ -317,81 +317,88 @@ The main format to use is PNG.
 
 For all the products one will use images in the PNG format, because:
 
-* PNG is a libre, free and open standard format defined by the W3C
+* PNG is a libre, free and open standard format defined by the W3C.
 
-* PNG is to this day the most powerful format available for the web medium
+* PNG is, to this day, the most powerful format available for the web medium
+  (lossless compression, alpha channel, gamma correction).
 
-* PNG is not encumbered by any software patents
+* PNG is not encumbered by any software patents.
 
-* PNG is cool :-) , it is appreciated by techies and geeks
+* PNG is cool :-) It is much appreciated by techies and geeks alike, and is thus
+  a factor of adoption of our products.
 
-One should note that PNG is not the best suited image format, in terms of
-compression, for images of landscape and photo types. In this case one
-could use the JPEG format. But landscape and photo type images are usually
-seldom found in CSS and user interface skins. Landscape and photo type images
-are more often present as web site contents.
+When it comes to landscape and photo-like style of pictures, PNG is not the best
+suited image format, in terms of compression. In this case one could use the
+JPEG format. But landscape and photo-type images are usually seldom found in CSS
+and user interface skins. Landscape and photo-type images are more often present
+as web site contents.
+
 
 Tools
 -----
 
-Lorsque des habillages de sites web sont realises pour CPS, ces habillages sont
-la plupart du temps realises par des graphistes, ou mieux des graphistes web,
-independants. Ces derniers travaillent essentiellement avec Photoshop, sous Mac
-ou sous Microsoft Windows. Or, Photoshop, compresse assez mal le PNG. En effet,
-ce format possede plusieurs niveaux de compression, de 0 a 9 et Photoshop est
-bloque a 6 sans qu'il soit possible de changer ce parametre dans les options. La
-compression etant non destructive, le niveau 9 assure le meme rendu a l'image
-tout en etant bien plus leger. De meme, les images creees avec ce logiciel ne
-semblent pas prendre en compte la correction gamma correctement. Pour corriger
-ces problemes de Photoshop on conseillera aux graphistes d'utiliser des modules
-pour Photoshop ou des outils exterieurs pour produire des images PNG de bonne
-qualite :
+Web design and graphic customization done on top of CPS are often delegated to
+web designers and graphic designers who might not know well the PNG format. The
+main reason for this is that most of them use Adobe Photoshop, and that
+Photoshop as a poor PNG support. Photoshop doesn't compress PNG effectively and
+handles gamma correction weirdly. The PNG format has many compression levels
+(remember, lossless compression), from 0 to 9, but Photoshop only compresses up
+to 6.
 
-* SuperPNG, free of charge plugin for Photoshop (Mac, Windows)
+So web designers and graphic designers should be advised to either use the GIMP,
+use a Photoshop plugin or use external utilities:
+
+* **The GIMP**, the more widely available image manipulation program
+  (Linux, Mac OS X, Windows)
+
+  http://www.gimp.org/
+
+* **SuperPNG**, Adobe Photoshop plugin, free of charge (Mac, Windows)
+
   http://www.fnordware.com/superpng/
 
-* PngOptimizer, simple and efficient tool (Windows)
+* **PngOptimizer**, simple and efficient tool (Windows)
+
   http://www.psydk.org/PngOptimizer.php.
 
 
-Explanations
-------------
+PNG vs GIF
+----------
 
-Contrairement a ce qui est generalement admis, compte tenu des limitations de
-Microsoft Internet Explorer (MSIE) on peut tout a fait utiliser du PNG a la
-place du GIF. Petit rappel (simplifie) :
+All browsers supports PNG, except Microsoft Internet Explorer (MSIE) that only
+supports it partially. But contrary to the general belief concerning Microsoft
+Internet Explorer flaws, it is very possible to use PNG in place of GIF.
 
-* GIF permet de decrire des images avec un formalisme de 256 couleurs
-  indexees.
+Here is a why:
 
-* PNG permet de decrire des images soit avec le formalisme RGB/RVB 16
-  millions de couleurs + canal alpha, soit le formalisme de 256
-  couleurs indexees.
+* GIF describes images with a 256 indexed colors scheme.
 
-* MSIE sait gerer le GIF indexe, le PNG RGB sans canal alpha ou le PNG
-  indexe avec eventuellement une couleur de transparence (comme c'est
-  le cas pour le GIF).
+* PNG can describe images by using either an RGB 16 millions colors scheme +
+  alpha channel, or a 256 indexed colors scheme.
 
-=> Dans l'etat actuel de MSIE, on peut toujours avantageusement remplacer un GIF
-(meme avec de la transparence) par un PNG. Le seul cas ou le GIF n'est pas
-remplaçable sans se poser de questions est le cas ou on a affaire a du GIF
-anime. C'est un cas tres rare, qu'on ne trouve pas jusqu'a present dans CPS.
-Il y a bien un equivalent PNG, le MNG, mais peu de navigateurs savent le lire,
-par exemple Mozilla ne sait plus le lire en standard et Firefox n'a jamais su.
+* MSIE knows how to display GIF, RGB PNG without alpha channel or indexed PNG
+  with optionally a transparency color (just as for the GIF).
+
+=> So with the MSIE current state, it is possible to advantageously replace all
+the GIFs (even with transparency) by PNGs. The only situation where GIFs cannot be
+replaced systematically by PNGs, is when the GIFs are animated GIFs. This is not
+a so common situation. There is a PNG equivalent yet, the MNG, but very few
+browsers support it yet.
+
 
 Technical details: The alpha channel
 ------------------------------------
 
-On peut quand meme utiliser du PNG RGB + alpha avec MSIE si :
+It is still possible to use PNG RGB + alpha channel with MSIE if:
 
-* on utilise un MSIE behavior pour le PNG, c'est le cas
-  de CPS qui integre le behavior suivant :
+* One uses a specific *MSIE behavior* to enhance its native PNG support.
+  For example CPS and CPSSkins ships with the following PNG behavior
+  (but it is disabled by default):
   http://webfx.eae.net/dhtml/pngbehavior/pngbehavior.html
 
-* on prend la precaution de creer un calque de fond (le calque le plus bas de
-  la pile dans le GIMP) avec comme couleur de fond la couleur qui viendra
-  remplacer sous MSIE le canal alpha, en quelque sorte la couleur de fond
-  (bien preciser << enregistrer la couleur de fond >>).
+* One takes care to create with the GIMP the background layer of the image with
+  the same color as the background color of the web page the image will appear
+  in. Enable the "save the background color" option.
 
 
 

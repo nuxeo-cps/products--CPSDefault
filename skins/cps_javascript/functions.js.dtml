@@ -9,9 +9,12 @@
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
 
+
+var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
+
 //************************************************************
 // Folder content
-isSelected = false;
+var isSelected = false;
 
 function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
     formElements = toggleSelectButton.form.elements;
@@ -85,18 +88,23 @@ function checkEmptySearch(formElem) {
  * Examples:
  * <input type="text" id="username" name="__ac_name" class="focus"/>
  * <input type="text" id="searchableText" class="standalone giant focus"/>
+ *
+ * This function does not work on crappy MSIE5.0 and MSIE5.5.
  */
 function setFocus() {
-    elements = document.getElementsByTagName('input');
-    for (i = 0; i < elements.length; i++) {
-	attrClass = elements[i].getAttribute('class');
-	//alert("attrClass = " + attrClass);
-	if (attrClass) {
-	    classes = attrClass.split(' ');
-	    for (j = 0; j < classes.length; j++) {
+    if (msie5) {
+	return false;
+    }
+    var elements = document.getElementsByTagName('input');
+    for (var i = 0; i < elements.length; i++) {
+	var nodeClass = elements[i].getAttributeNode('class');
+	//alert("nodeClass = " + nodeClass);
+	if (nodeClass) {
+ 	    var classes = nodeClass.value.split(' ');
+	    for (var j = 0; j < classes.length; j++) {
 		if (classes[j] == 'focus') {
 		    elements[i].focus();
-		    break;
+		    return true;
 		}
 	    }
 	}

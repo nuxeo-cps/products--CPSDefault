@@ -25,6 +25,7 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
+from ZTUtils import make_query
 
 from zLOG import LOG, DEBUG
 
@@ -145,7 +146,6 @@ class ContentBox(BaseBox):
             if self.nb_items and len(items) > self.nb_items:
                 items = items[:self.nb_items]
                 if len(query):
-                    from ZTUtils import make_query
                     q = make_query(sort_by=self.sort_by,
                                    direction=self.direction,
                                    hide_folder=1,

@@ -9,10 +9,10 @@
   <tr valign="top">
     <th align="right" i18n:translate="label_folder">Folder</th>
     <td colspan="3"><input type="text" name="folder" value="" size="30"
-          tal:attributes="value box/box/folder" /></td>
+          tal:attributes="value box/box/folder"></td>
     <th align="right" i18n:translate="label_nb_items">Nb items</th>
     <td><input type="text" name="nb_items" value="" size="3"
-           tal:attributes="value box/box/nb_items" /></td>
+           tal:attributes="value box/box/nb_items"></td>
   </tr>
   <tr valign="top">
     <th></th>
@@ -21,23 +21,6 @@
                     direction box/box/direction;
                     format box/box/display">
       <metal:params use-macro="here/content_lib/macros/display_params_form" />
-    </td>
-    <th align="right" i18n:translate="label_display_format">format</th>
-    <td>
-      <select name="display">
-        <option value="None" i18n:translate="label_default"
-                tal:attributes="selected python:box['box'].display is None">
-          Default
-        </option>
-        <option value="icon" i18n:translate="label_display_icon"
-          tal:attributes="selected python:box['box'].display == 'icon'">icon</option>
-        <option value="compact"
-          i18n:translate="label_display_compact"
-          tal:attributes="selected python:box['box'].display == 'compact'">compact</option>
-        <option value="detail"
-          i18n:translate="label_display_detailed"
-          tal:attributes="selected python:box['box'].display == 'detail'">detailed</option>
-      </select>
     </td>
   </tr>
   <tr valign="top">

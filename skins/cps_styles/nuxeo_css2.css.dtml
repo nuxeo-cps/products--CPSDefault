@@ -226,24 +226,24 @@ span.legend {
  * MENU
  * http://alistapart.com/articles/slidingdoors2/
  */
-#menuSectionsAndWorkspaceRoot {
+.menuTabs {
   float: left;
   width: 100%;
   margin: 0;
   border-bottom: 1px solid <dtml-var mainTabBorderColorSelected>;
   padding: 0.5em 0 0 1em;
 }
-#menuSectionsAndWorkspaceRoot li {
+.menuTabs li {
   float: left;
   background: <dtml-var mainTabBackgroundNotSelected> url("opentab.png") no-repeat left top;
   margin: 0 1ex 0 0;
   padding: 0 0 0 3px;
   list-style: none;
 }
-#menuSectionsAndWorkspaceRoot li.workspace {
+.menuTabs li.workspace {
   background: <dtml-var workspaceBackground> url("opentab.png") no-repeat left top;
 }
-#menuSectionsAndWorkspaceRoot a {
+.menuTabs a {
   display: block;
   float: left;
   width: .1em;
@@ -254,26 +254,26 @@ span.legend {
   text-decoration: none;
   white-space: nowrap;
 }
-#menuSectionsAndWorkspaceRoot li > a {width:auto;}
+.menuTabs li > a {width:auto;}
 /* Commented Backslash Hack hides rule from IE5-Mac \*/
-#menuSectionsAndWorkspaceRoot a {float:none;}
+.menuTabs a {float:none;}
 /* End IE5-Mac hack */
-#menuSectionsAndWorkspaceRoot li.selected, #menuSectionsAndWorkspaceRoot li:hover {
+.menuTabs li.selected, .menuTabs li:hover {
   background: <dtml-var mainTabBackground> url("opentab.png") no-repeat left top;
 }
-#menuSectionsAndWorkspaceRoot li.selected a, #menuSectionsAndWorkspaceRoot li a:hover {
+.menuTabs li.selected a, .menuTabs li a:hover {
   color: <dtml-var mainTabFontColorSelected>;
   background: <dtml-var mainTabBackground> url('closetab.png') no-repeat right top;
 }
 /* Override for workspaces */
-#menuSectionsAndWorkspaceRoot li.workspace a {
+.menuTabs li.workspace a {
   color: #000;
   background: <dtml-var workspaceBackground> url("closetab.png") no-repeat right top;
 }
-#menuSectionsAndWorkspaceRoot li.workspace.selected, #menuSectionsAndWorkspaceRoot li.workspace:hover {
+.menuTabs li.workspace.selected, .menuTabs li.workspace:hover {
   background: <dtml-var workspaceBackgroundSelected> url("opentab.png") no-repeat left top;
 }
-#menuSectionsAndWorkspaceRoot li.workspace.selected a, #menuSectionsAndWorkspaceRoot li.workspace a:hover {
+.menuTabs li.workspace.selected a, .menuTabs li.workspace a:hover {
   color: #fff;
   background: <dtml-var workspaceBackgroundSelected> url('closetab.png') no-repeat right top;
 }

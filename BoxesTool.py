@@ -276,7 +276,8 @@ class BoxesTool(UniqueObject, PortalFolder):
 
     security.declarePublic('delPersonalBoxOverrides')
     def delPersonalBoxOverrides(self):
-        """Delete all personal boxes overrides"""
+        """Delete all personal boxes overrides
+        XXX TODO rename ? indead delete the personal boxcontainer"""
         # find the personal boxes container pbc
         home = getToolByName(self, 'portal_membership').getHomeFolder()
         utool = getToolByName(self, 'portal_url')
@@ -321,7 +322,7 @@ class BoxesTool(UniqueObject, PortalFolder):
     #
     # Private
     #
-    security.declarePrivate('_getFolderBoxes')
+    security.declarePrivate('_getFolderBoxesAndSettings')
     def _getFolderBoxesAndSettings(self, folder):
         """Load all boxes in a .cps_boxes folder
         load folder settings

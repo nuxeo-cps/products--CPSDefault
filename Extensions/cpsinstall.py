@@ -161,6 +161,29 @@ def cpsupdate(self, langs_list=None):
         portal.portal_skins.addSkinSelection(skin_name, npath)
         pr(" Fixup of skin %s" % skin_name)
 
+    pr(" Checking portal_catalog indexes")
+    indexes = {
+        'is_closed': 'FieldIndex',
+        'parent_path': 'FieldIndex',
+        'sort_order': 'FieldIndex',
+        'xpos': 'FieldIndex',
+        'ypos': 'FieldIndex',
+        }
+    metadata = [
+        'is_closed',
+        'parent_path',
+        'sort_order',
+        'xpos', 'ypos',
+        ]
+    catalog = portal.portal_catalog
+    for ix, typ in indexes.items():
+        if ix in catalog.Indexes.objectIds():
+            pr("  %s: ok" % ix)
+        else:
+            prod = catalog.Indexes.manage_addProduct['PluginIndexes']
+            constr = getattr(prod, 'manage_add%s' % typ)
+            constr(ix)
+            pr("  %s: added" % ix)
 
     # add tools (CPS Tools): CPS Event Service Tool, CPS Proxies Tool,
     # CPS Object Repository, Tree tools
@@ -188,6 +211,11 @@ def cpsupdate(self, langs_list=None):
     else:
         pr(" Creating (CPS Tools) CPS Trees Tool")
         portal.manage_addProduct["CPSCore"].manage_addTool('CPS Trees Tool')
+    if portalhas('portal_boxes'):
+        prok()
+    else:
+        pr(" Creating portal_boxes")
+        portal.manage_addProduct["CPSDefault"].manage_addTool('CPS Boxes Tool')
     
     # configure event service to hook the proxies, by adding a subscriber
     pr("Verifying Event service tool")    
@@ -518,6 +546,7 @@ def cpsupdate(self, langs_list=None):
                    ),
         'CPSDefault':('Folder',
                       'Dummy',
+                      'Text Box',
                       )
         }
     allowed_content_type = {

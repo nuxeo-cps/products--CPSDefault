@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-11 00:35default\n"
-"PO-Revision-Date: 2004-04-08 16:53+0200\n"
+"POT-Creation-Date: 2004-04-28 12:26default\n"
+"PO-Revision-Date: 2004-04-28 12:33+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,8 +61,7 @@ msgstr "Action"
 #.   </span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr ""
-"Créé par ${item_creator}. Dernière modification le ${item_modification}."
+msgstr "Créé par ${item_creator}. Dernière modification le ${item_modification}."
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -550,8 +549,8 @@ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
 msgid "description_reconfig_form"
 msgstr "Reconfigurer le portail"
 
-#.   <p> 
-#.      You have been registered as a member. 
+#.   <p>
+#.      You have been registered as a member.
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -575,6 +574,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr "Boîte visible depuis&nbsp;: ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
 #.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
@@ -876,11 +876,11 @@ msgstr ""
 "Devenir membre est totalement gratuit et votre mél et autres informations "
 "personnelles resteront privées."
 
-#.   <span>
-#.           You must submit a valid email address. This address will be used
-#.           to send you a randomly-generated password.  Once you have logged
-#.           in with this password, you may change it to anything you like.
-#.         </span>
+#.   <p condition="python: ptool.validate_email">
+#.         You must submit a valid email address. This address will be used
+#.         to send you a randomly-generated password.  Once you have logged
+#.         in with this password, you may change it to anything you like.
+#.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
@@ -943,8 +943,7 @@ msgstr "Votre mot de passe vous a été envoyé."
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr ""
-"Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
+msgstr "Il devrait arriver dans votre boîte aux lettres électronique dans un moment."
 
 #.   <span>No content type can be created.</span>
 #: from ../skins/cps_default/folder_factories.pt
@@ -962,9 +961,8 @@ msgid "help_no_items_to_rename"
 msgstr "Vous devez sélectionner un ou plusieurs objets à renommer."
 
 #.   <em>
-#.                   Check this box to have your password
-#.                   mailed to you.
-#.                 </em>
+#.             Check this box to have your password mailed to you.
+#.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr "Cochez cette case pour recevoir un mél contenant votre mot de passe."
@@ -1324,7 +1322,7 @@ msgstr "Afficher la racine de la hiérarchie"
 #.   <th style="text-align:left;">
 #.           Email address
 #.       </th>
-#.   <th> Email Address </th>
+#.   <label for="email">Email Address</label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
@@ -1559,18 +1557,19 @@ msgstr "Ordre"
 msgid "label_page"
 msgstr "Pages"
 
-#.   <th> Password </th>
-#.   <strong>Password</strong>
+#.   <label for="password">Password</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr "Mot de passe"
 
-#.   <th> Password (confirm) </th>
+#.   <label for="confirm">Password
+#.                      (confirm)</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
 msgstr "Mot de passe (confirmer)"
 
-#.   <th> Mail Password?  </th>
+#.   <label for="cb_mailme">Mail
+#.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr "Envoyer le mot de passe&nbsp;?"
@@ -1615,11 +1614,8 @@ msgstr "État de publication"
 msgid "label_published"
 msgstr "Publié"
 
-#.   <label for="cb_remember">
-#.             <em>
-#.               Remember my name.
-#.             </em>
-#.           </label>
+#.   <label for="cb_persistent">Remember my
+#.         name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr "Se rappeler de mon nom d'utilisateur"
@@ -1637,6 +1633,9 @@ msgstr "Historique de validation"
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="python:language_rev[1]")}
+#.         </block>
 #.   <block>label_revision
 #.           ${status_revision (tal content="rev")}
 #.         </block>
@@ -1836,8 +1835,8 @@ msgstr "Adresse de mél d'utilisateur"
 msgid "label_user_fullname"
 msgstr "Nom complet d'utilisateur"
 
-#.   <th> Login Name </th>
-#.   <strong>Name</strong>
+#.   <label for="field_focus">Login Name</label>
+#.   <label for="field_focus">Name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr "Nom d'utilisateur"
@@ -2084,6 +2083,19 @@ msgstr "Titre"
 msgid "listingheader_type"
 msgstr "Type"
 
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+msgid "psm_form_ok"
+msgstr ""
+
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+#, fuzzy
+msgid "psm_invalid_form"
+msgstr ""
+"Votre nom d'utilisateur est invalide. Veuillez le modifier ou en choisir un "
+"autre."
+
 #.   <span content="item/action">publish</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "publish"
@@ -2176,7 +2188,7 @@ msgid "Add to favorites"
 msgstr "Ajouter aux favoris"
 
 msgid "create"
-msgstr "Créé"
+msgstr "créé"
 
 msgid "Contents"
 msgstr "Contenu"
@@ -2227,7 +2239,10 @@ msgid "Reconfigure Portal"
 msgstr "Reconfigurer le portail"
 
 msgid "submit"
-msgstr "Soumis"
+msgstr "soumis"
+
+msgid "reject"
+msgstr "rejeté"
 
 msgid "Undo"
 msgstr "Annuler"
@@ -2575,8 +2590,7 @@ msgid "portal_type_ImageBox_title"
 msgstr "Boîte d'image"
 
 msgid "portal_type_ImageBox_description"
-msgstr ""
-"Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
+msgstr "Boîte générique avec une image&nbsp;: décoration, habillage de répertoire..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Boîte RSS"
@@ -2662,8 +2676,7 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La boîte d'actions sous forme de menu à onglets."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr ""
-"Une liste d'actions simple utilisée pour les actions en en-tête de la page."
+msgstr "Une liste d'actions simple utilisée pour les actions en en-tête de la page."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Une boîte avec une image."
@@ -3099,3 +3112,4 @@ msgstr "Abandon de la version"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
+

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
-"POT-Creation-Date: 2004-04-11 00:35default\n"
+"POT-Creation-Date: 2004-04-28 12:26default\n"
 "PO-Revision-Date: 2004-03-27 20:27+0100\n"
 "Last-Translator: Álvaro Tejero Cantero <alvaro@antalia.com>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -672,6 +672,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr "Caja visible desde: ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
 #.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
@@ -1006,11 +1007,11 @@ msgstr ""
 #            to send you a randomly-generated password.  Once you have logged
 #            in with this password, you may change it to anything you like.
 #          </span>
-#.   <span>
-#.           You must submit a valid email address. This address will be used
-#.           to send you a randomly-generated password.  Once you have logged
-#.           in with this password, you may change it to anything you like.
-#.         </span>
+#.   <p condition="python: ptool.validate_email">
+#.         You must submit a valid email address. This address will be used
+#.         to send you a randomly-generated password.  Once you have logged
+#.         in with this password, you may change it to anything you like.
+#.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
@@ -1104,9 +1105,8 @@ msgid "help_no_items_to_rename"
 msgstr "Debe seleccionar uno o varios objetos para renombrar."
 
 #.   <em>
-#.                   Check this box to have your password
-#.                   mailed to you.
-#.                 </em>
+#.             Check this box to have your password mailed to you.
+#.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr "Marque esta casilla para recibir un correo con su contraseña."
@@ -1518,7 +1518,7 @@ msgstr "Mostrar la raíz de la jerarquía"
 #.   <th style="text-align:left;">
 #.           Email address
 #.       </th>
-#.   <th> Email Address </th>
+#.   <label for="email">Email Address</label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
@@ -1761,19 +1761,20 @@ msgstr "Orden"
 msgid "label_page"
 msgstr "Páginas"
 
-#.   <th> Password </th>
-#.   <strong>Password</strong>
+#.   <label for="password">Password</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr "Contraseña"
 
-#.   <th> Password (confirm) </th>
+#.   <label for="confirm">Password
+#.                      (confirm)</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
 msgstr "Contraseña (confirmar)"
 
 #    <th> Mail Password?  </th>
-#.   <th> Mail Password?  </th>
+#.   <label for="cb_mailme">Mail
+#.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr "¿Enviar la contraseña?"
@@ -1818,11 +1819,8 @@ msgstr "Estado de publicación"
 msgid "label_published"
 msgstr "Publicado"
 
-#.   <label for="cb_remember">
-#.             <em>
-#.               Remember my name.
-#.             </em>
-#.           </label>
+#.   <label for="cb_persistent">Remember my
+#.         name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr "Recordar mi nombre de usuario"
@@ -1841,6 +1839,9 @@ msgstr "Histórico de validación"
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="python:language_rev[1]")}
+#.         </block>
 #.   <block>label_revision
 #.           ${status_revision (tal content="rev")}
 #.         </block>
@@ -2048,8 +2049,8 @@ msgstr "Correo-e"
 msgid "label_user_fullname"
 msgstr "Nombre de usuario"
 
-#.   <th> Login Name </th>
-#.   <strong>Name</strong>
+#.   <label for="field_focus">Login Name</label>
+#.   <label for="field_focus">Name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr "Nombre de usuario"
@@ -2333,6 +2334,17 @@ msgstr "Título"
 msgid "listingheader_type"
 msgstr "Tipo"
 
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+msgid "psm_form_ok"
+msgstr ""
+
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+#, fuzzy
+msgid "psm_invalid_form"
+msgstr "Su nombre de usuario no es válido. Por favor, escoja otro."
+
 #    <span content="item/action">publish</span>
 #.   <span content="item/action">publish</span>
 #: from ../skins/cps_default/content_lib.pt
@@ -2478,6 +2490,10 @@ msgstr "Reconfigurar"
 
 msgid "submit"
 msgstr "remitir"
+
+#, fuzzy
+msgid "reject"
+msgstr "Rechazar"
 
 msgid "Undo"
 msgstr "Deshacer"

@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-11 00:35default\n"
-"PO-Revision-Date: 2004-04-08 16:49+0200\n"
+"POT-Creation-Date: 2004-04-28 12:26default\n"
+"PO-Revision-Date: 2004-04-28 12:33+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -544,8 +544,8 @@ msgstr "You are logged in outside the portal.  You may need to"
 msgid "description_reconfig_form"
 msgstr "This form is used to set the portal configuration options."
 
-#.   <p> 
-#.      You have been registered as a member. 
+#.   <p>
+#.      You have been registered as a member.
 #.   </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registred"
@@ -569,6 +569,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr "Description box visible from ${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
 #.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
@@ -829,8 +830,7 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr ""
-"If you commit this version, it will replace the document currently locked."
+msgstr "If you commit this version, it will replace the document currently locked."
 
 #.   <span>
 #.       If you create a draft, you will be the only one able to work on the document.
@@ -870,11 +870,11 @@ msgstr ""
 "It does not cost any money to become a member and your email and other "
 "personal information will remain private."
 
-#.   <span>
-#.           You must submit a valid email address. This address will be used
-#.           to send you a randomly-generated password.  Once you have logged
-#.           in with this password, you may change it to anything you like.
-#.         </span>
+#.   <p condition="python: ptool.validate_email">
+#.         You must submit a valid email address. This address will be used
+#.         to send you a randomly-generated password.  Once you have logged
+#.         in with this password, you may change it to anything you like.
+#.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
@@ -895,8 +895,7 @@ msgstr "Don't forget to logout or exit your browser when you're done."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr ""
-"Having trouble logging in? Make sure to enable cookies in your web browser."
+msgstr "Having trouble logging in? Make sure to enable cookies in your web browser."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -948,9 +947,8 @@ msgid "help_no_items_to_rename"
 msgstr "You must select one or more items to rename."
 
 #.   <em>
-#.                   Check this box to have your password
-#.                   mailed to you.
-#.                 </em>
+#.             Check this box to have your password mailed to you.
+#.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr "Check this box to have your password mailed to you."
@@ -1306,7 +1304,7 @@ msgstr "Display hierarchy's root"
 #.   <th style="text-align:left;">
 #.           Email address
 #.       </th>
-#.   <th> Email Address </th>
+#.   <label for="email">Email Address</label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
@@ -1541,18 +1539,19 @@ msgstr "Order"
 msgid "label_page"
 msgstr "Pages"
 
-#.   <th> Password </th>
-#.   <strong>Password</strong>
+#.   <label for="password">Password</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr "Password"
 
-#.   <th> Password (confirm) </th>
+#.   <label for="confirm">Password
+#.                      (confirm)</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
 msgstr "Password (confirm) "
 
-#.   <th> Mail Password?  </th>
+#.   <label for="cb_mailme">Mail
+#.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr "Mail Password?"
@@ -1597,11 +1596,8 @@ msgstr "Publication states"
 msgid "label_published"
 msgstr "Published"
 
-#.   <label for="cb_remember">
-#.             <em>
-#.               Remember my name.
-#.             </em>
-#.           </label>
+#.   <label for="cb_persistent">Remember my
+#.         name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr "Remember my name."
@@ -1619,6 +1615,9 @@ msgstr "Reviewing history:"
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="python:language_rev[1]")}
+#.         </block>
 #.   <block>label_revision
 #.           ${status_revision (tal content="rev")}
 #.         </block>
@@ -1818,8 +1817,8 @@ msgstr "User email address"
 msgid "label_user_fullname"
 msgstr "User full name"
 
-#.   <th> Login Name </th>
-#.   <strong>Name</strong>
+#.   <label for="field_focus">Login Name</label>
+#.   <label for="field_focus">Name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr "User name"
@@ -2064,6 +2063,17 @@ msgstr "Title"
 msgid "listingheader_type"
 msgstr "Type"
 
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+msgid "psm_form_ok"
+msgstr ""
+
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+#, fuzzy
+msgid "psm_invalid_form"
+msgstr "The name you have chosen is invalid. Please change it or try another one."
+
 #.   <span content="item/action">publish</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "publish"
@@ -2156,7 +2166,7 @@ msgid "Add to favorites"
 msgstr "Add to favorites"
 
 msgid "create"
-msgstr "create"
+msgstr "created"
 
 msgid "Contents"
 msgstr "Contents"
@@ -2208,6 +2218,9 @@ msgstr "Reconfigure portal"
 
 msgid "submit"
 msgstr "submit"
+
+msgid "reject"
+msgstr "rejected"
 
 msgid "Undo"
 msgstr "Undo"
@@ -2722,8 +2735,7 @@ msgid "psm_join_password_mismatch"
 msgstr "Your password and your confirmation don't match."
 
 msgid "psm_join_invalid_name"
-msgstr ""
-"The name you have chosen is invalid. Please change it or try another one."
+msgstr "The name you have chosen is invalid. Please change it or try another one."
 
 msgid "psm_join_login_already_used"
 msgstr "The login you have chosen is already in use. Please try another one."
@@ -3064,3 +3076,4 @@ msgstr "Abandon version"
 
 #~ msgid "${history_time}: ${history_action}"
 #~ msgstr "${history_time}: ${history_action}"
+

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2004-04-11 00:35default\n"
+"POT-Creation-Date: 2004-04-28 12:26default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -541,6 +541,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr ""
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
 #.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
@@ -829,11 +830,11 @@ msgstr ""
 msgid "help_join_form_2"
 msgstr ""
 
-#.   <span>
-#.           You must submit a valid email address. This address will be used
-#.           to send you a randomly-generated password.  Once you have logged
-#.           in with this password, you may change it to anything you like.
-#.         </span>
+#.   <p condition="python: ptool.validate_email">
+#.         You must submit a valid email address. This address will be used
+#.         to send you a randomly-generated password.  Once you have logged
+#.         in with this password, you may change it to anything you like.
+#.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
@@ -897,9 +898,8 @@ msgid "help_no_items_to_rename"
 msgstr ""
 
 #.   <em>
-#.                   Check this box to have your password
-#.                   mailed to you.
-#.                 </em>
+#.             Check this box to have your password mailed to you.
+#.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr ""
@@ -1231,7 +1231,7 @@ msgstr ""
 #.   <th style="text-align:left;">
 #.           Email address
 #.       </th>
-#.   <th> Email Address </th>
+#.   <label for="email">Email Address</label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
@@ -1464,18 +1464,19 @@ msgstr ""
 msgid "label_page"
 msgstr ""
 
-#.   <th> Password </th>
-#.   <strong>Password</strong>
+#.   <label for="password">Password</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr ""
 
-#.   <th> Password (confirm) </th>
+#.   <label for="confirm">Password
+#.                      (confirm)</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
 msgstr ""
 
-#.   <th> Mail Password?  </th>
+#.   <label for="cb_mailme">Mail
+#.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr ""
@@ -1520,11 +1521,8 @@ msgstr ""
 msgid "label_published"
 msgstr ""
 
-#.   <label for="cb_remember">
-#.             <em>
-#.               Remember my name.
-#.             </em>
-#.           </label>
+#.   <label for="cb_persistent">Remember my
+#.         name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr ""
@@ -1542,6 +1540,9 @@ msgstr ""
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="python:language_rev[1]")}
+#.         </block>
 #.   <block>label_revision
 #.           ${status_revision (tal content="rev")}
 #.         </block>
@@ -1741,8 +1742,8 @@ msgstr ""
 msgid "label_user_fullname"
 msgstr ""
 
-#.   <th> Login Name </th>
-#.   <strong>Name</strong>
+#.   <label for="field_focus">Login Name</label>
+#.   <label for="field_focus">Name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr ""
@@ -1985,6 +1986,16 @@ msgstr ""
 msgid "listingheader_type"
 msgstr ""
 
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+msgid "psm_form_ok"
+msgstr ""
+
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+msgid "psm_invalid_form"
+msgstr ""
+
 #.   <span content="item/action">publish</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "publish"
@@ -2128,6 +2139,9 @@ msgid "Reconfigure Portal"
 msgstr ""
 
 msgid "submit"
+msgstr ""
+
+msgid "reject"
 msgstr ""
 
 msgid "Undo"

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
-"POT-Creation-Date: 2004-04-11 00:35default\n"
+"POT-Creation-Date: 2004-04-28 12:26default\n"
 "PO-Revision-Date: 2004-03-24 10:44+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -559,6 +559,7 @@ msgid "description_visible_box_from ${context_url}"
 msgstr "Box zichtbaar vanaf&nbsp;:&nbsp;${context_url}"
 
 #.   <block content="string:label_language_${info/lang}">en</block>
+#.   <block content="python:'label_language_%s' % language_rev[0]">en</block>
 #.   <block content="string:label_language_${item/lang}">en</block>
 #: from ../skins/cps_default/content_lib.pt
 msgid "en"
@@ -863,11 +864,11 @@ msgstr ""
 "Lid worden is volkomen gratis, en uw email en andere persoonlijke informatie "
 "zal niet worden vrijgegeven."
 
-#.   <span>
-#.           You must submit a valid email address. This address will be used
-#.           to send you a randomly-generated password.  Once you have logged
-#.           in with this password, you may change it to anything you like.
-#.         </span>
+#.   <p condition="python: ptool.validate_email">
+#.         You must submit a valid email address. This address will be used
+#.         to send you a randomly-generated password.  Once you have logged
+#.         in with this password, you may change it to anything you like.
+#.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
@@ -948,9 +949,8 @@ msgid "help_no_items_to_rename"
 msgstr "U moet één of meer items selecteren om ze een nieuwe naam te geven."
 
 #.   <em>
-#.                   Check this box to have your password
-#.                   mailed to you.
-#.                 </em>
+#.             Check this box to have your password mailed to you.
+#.           </em>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr "Dit vakje aankruisen om een email met uw wachtwoord te ontvangen."
@@ -1304,7 +1304,7 @@ msgstr "Basis van de hiërarchie tonen"
 #.   <th style="text-align:left;">
 #.           Email address
 #.       </th>
-#.   <th> Email Address </th>
+#.   <label for="email">Email Address</label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
@@ -1538,18 +1538,19 @@ msgstr "Volgorde"
 msgid "label_page"
 msgstr "Pagina"
 
-#.   <th> Password </th>
-#.   <strong>Password</strong>
+#.   <label for="password">Password</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
 msgstr "Wachtwoord"
 
-#.   <th> Password (confirm) </th>
+#.   <label for="confirm">Password
+#.                      (confirm)</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
 msgstr "Wachtwoord (bevestigen)"
 
-#.   <th> Mail Password?  </th>
+#.   <label for="cb_mailme">Mail
+#.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr "Wachtwoord verzenden&nbsp;?"
@@ -1595,11 +1596,8 @@ msgstr "Publicatie status"
 msgid "label_published"
 msgstr "Gepubliceerd"
 
-#.   <label for="cb_remember">
-#.             <em>
-#.               Remember my name.
-#.             </em>
-#.           </label>
+#.   <label for="cb_persistent">Remember my
+#.         name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
 msgstr "Gebruikersnaam onthouden"
@@ -1617,6 +1615,9 @@ msgstr "Overzicht van de uitgevoerde handelingen"
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
 #.       </block>
+#.   <block>label_revision
+#.           ${status_revision (tal content="python:language_rev[1]")}
+#.         </block>
 #.   <block>label_revision
 #.           ${status_revision (tal content="rev")}
 #.         </block>
@@ -1817,8 +1818,8 @@ msgstr "Email adres"
 msgid "label_user_fullname"
 msgstr "Gebruikersnaam"
 
-#.   <th> Login Name </th>
-#.   <strong>Name</strong>
+#.   <label for="field_focus">Login Name</label>
+#.   <label for="field_focus">Name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_user_name"
 msgstr "Gebruikersnaam"
@@ -2066,6 +2067,19 @@ msgstr "Titel"
 msgid "listingheader_type"
 msgstr "Type"
 
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+msgid "psm_form_ok"
+msgstr ""
+
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
+#: from ../skins/cps_devel/test_layout_form.pt
+#, fuzzy
+msgid "psm_invalid_form"
+msgstr ""
+"Uw gebruikersnaam is ongeldig. Gelieve deze te wijzigen of een andere in te "
+"voeren."
+
 #.   <span content="item/action">publish</span>
 #: from ../skins/cps_default/content_lib.pt
 msgid "publish"
@@ -2211,6 +2225,10 @@ msgstr "Reconfigureer het portaal"
 
 msgid "submit"
 msgstr "Indienen"
+
+#, fuzzy
+msgid "reject"
+msgstr "Weigeren"
 
 msgid "Undo"
 msgstr "Ongedaan maken"

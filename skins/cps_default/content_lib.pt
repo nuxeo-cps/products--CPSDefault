@@ -711,8 +711,7 @@ format:</pre>
 
   <div tal:repeat="item info/archived">
     <tal:block condition="item/is_frozen"
-               define="rev item/rev;
-                       query python:mq(request.form, rev=rev);">
+               define="rev item/rev">
       <span tal:replace="item/time_str">25/12/2003 11:45</span>:
       <tal:block i18n:translate="">label_revision
         <span tal:content="rev" i18n:name="status_revision">1</span>
@@ -725,7 +724,7 @@ format:</pre>
       </tal:block>
       <tal:block condition="python:checkPerm('View archived revisions', here)">
         <a href="."
-           tal:attributes="href string:${here_url}/cpsdocument_view?${query}"
+           tal:attributes="href string:${here_url}/archivedRevision/${rev}/view"
            i18n:translate="link_consult_this_revision">Consult</a>
         <tal:block condition="python:checkPerm('Modify portal content', here)">
           -

@@ -16,8 +16,9 @@ from Products.CMFCore.Expression import Expression
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 
 
-from Products.NuxCPS3.CPSWorkflow import TRANSITION_INITIAL_CREATE, \
-     TRANSITION_ALLOWSUB_CREATE, \
+from Products.NuxCPS3.CPSWorkflow import \
+     TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
+     TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING\
      TRANSITION_BEHAVIOR_PUBLISHING, TRANSITION_BEHAVIOR_FREEZE
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
@@ -317,7 +318,7 @@ def cpsupdate(self, langs_list=None):
                     )
     t = wf.transitions.get('create_subobject')
     t.setProperties(title='Create a sub object', new_state_id='', 
-                    transition_behavior=(TRANSITION_ALLOWSUB_CREATE, ), 
+                    transition_behavior=(TRANSITION_ALLOWSUB_PUBLISHING, TRANSITION_ALLOWSUB_CREATE, ), 
                     clone_allowed_transitions=None,
                     trigger_type=TRIGGER_USER_ACTION, 
                     actbox_name='Create sub section', actbox_category='workflow',
@@ -354,7 +355,9 @@ def cpsupdate(self, langs_list=None):
     
     t = wf.transitions.get('in_publish')
     t.setProperties(title='Member publishes directly', new_state_id='published', 
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, TRANSITION_BEHAVIOR_FREEZE,),
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, 
+                                         TRANSITION_INITIAL_PUBLISHING,
+                                         TRANSITION_BEHAVIOR_FREEZE,),
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions':'', 
@@ -363,7 +366,9 @@ def cpsupdate(self, langs_list=None):
                     )
     t = wf.transitions.get('in_submit')
     t.setProperties(title='Member requests publishing', new_state_id='pending', 
-                    transition_behavior=(TRANSITION_INITIAL_CREATE, TRANSITION_BEHAVIOR_FREEZE), 
+                    transition_behavior=(TRANSITION_INITIAL_CREATE, 
+                                         TRANSITION_INITIAL_PUBLISHING,
+                                         TRANSITION_BEHAVIOR_FREEZE), 
                     clone_allowed_transitions=None,
                     actbox_name='', actbox_category='', actbox_url='',
                     props={'guard_permissions': '', 
@@ -459,14 +464,14 @@ def cpsupdate(self, langs_list=None):
     if not portalhas(workspaces_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Workspace',
                                                 workspaces_id)
-        portal.workspaces.getContent().setTitle('Workspaces Root') # XXX L10N        
-        portal.workspaces.reindexObject()
+        portal[workspaces_id].getContent().setTitle('Root') # XXX L10N        
+        portal[workspaces_id].reindexObject()
         pr("  Adding %s Folder" % workspaces_id)
     if not portalhas(sections_id):
         portal.portal_workflow.invokeFactoryFor(portal.this(), 'Section',
                                                 sections_id)
-        portal.workspaces.getContent().setTitle('Sections Root') # XXX L10N        
-        portal.workspaces.reindexObject()
+        portal[sections_id].getContent().setTitle('Root') # XXX L10N        
+        portal[sections_id].reindexObject()
         pr("  Adding %s Folder" % sections_id)
 
 

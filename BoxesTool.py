@@ -76,10 +76,10 @@ class BoxesTool(UniqueObject, SimpleItem):
                     path, str(f_settings)))
 
             for box in f_boxes:
-                boxes.append(['%s%s'%(path, box.getId()),
-                              box.getSettings(),
-                              box.getMacro(),
-                              box])
+                boxes.append({'path': portal_url.getRelativeUrl(box),
+                              'settings': box.getSettings(),
+                              'macro': box.getMacro(),
+                              'box': box})
             self._updateSettings(settings, f_settings)
                                         
         # TODO: add get .cps_boxes for member
@@ -89,26 +89,22 @@ class BoxesTool(UniqueObject, SimpleItem):
 
         # final settings
         for box in boxes:
-            # box[0] box_id
-            # box[1] settings dict
-            # box[2] macro path
-            # box[3] box object
-            if not box[3].locked and settings.get(box[0]):
-                box[1].update(settings[box[0]])
-                box[2] = box[3].getMacro(box[1]['style'])
+            if not box['box'].locked and settings.get(box['path']):
+                box['settings'].update(settings[box['path']])
+                box[macr] = box[box].getMacro(box['settings']['style'])
 
         # TODO filter on display_in_subfolder
 
         # filtering on closed, xpos
-        boxes = [x for x in boxes if (not x[1]['closed'] and
-                                      (xpos is None or x[1]['xpos']==xpos))]
+        boxes = [x for x in boxes if (not x['settings']['closed'] and
+                                      (xpos is None or x['settings']['xpos']==xpos))]
 
         # TODO filter on guard_roles
 
         # sorting
         def cmpbox(a, b):
-            return (a[1]['xpos']*100 + a[1]['ypos']) - \
-                   (b[1]['xpos']*100 + b[1]['ypos'])
+            return (a['settings']['xpos']*100 + a['settings']['ypos']) - \
+                   (b['settings']['xpos']*100 + b['settings']['ypos'])
 
         boxes.sort(cmpbox)
 

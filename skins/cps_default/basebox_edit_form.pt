@@ -11,10 +11,10 @@
 box: <tal:block replace="box_url" />
 
 <tal:block repeat="box boxes">
-  <tal:block condition="python:box['path'] == box_url">
+  <tal:block condition="python:box['url'] == box_url">
    <br><br>
 
-<form action="content_edit" method="post"
+<form action="box_edit" method="post"
   tal:attributes="action string:${context_urlc}/box_edit"
   tal:define="box_type python:box['box'].macro">
 <input type="hidden" name="box_url" value=""
@@ -45,7 +45,9 @@ box: <tal:block replace="box_url" />
 	  tal:attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)">Minimized</option>
 	<option value="closed"
 	  tal:attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
-      </select>
+      </select><br>
+      <input type="checkbox" name="display_in_subfolder"
+      checked="" tal:attributes="checked python:test(box['box'].display_in_subfolder,'checked', nothing)"><label>visible in subfolder</label>
     </td>
   </tr>
   <tr valign="top">

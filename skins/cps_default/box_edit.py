@@ -32,6 +32,9 @@ if disp:
         elif disp == 'maximized':
             kw['minimized'] = 0
 
+disf = kw.get('display_in_subfolder')
+kw['display_in_subfolder'] = not not disf
+
 order = kw.get('order')
 if order:
     kw['order'] = int(order)

@@ -143,7 +143,7 @@ if level > 0:
         elif size:
             info['size'] = str(int(size)/1024)+' K'
 
-    if hasattr(doc, 'getAdditionalContentInfo'):
+    if hasattr(doc.aq_explicit, 'getAdditionalContentInfo'):
         add_info = doc.getAdditionalContentInfo()
         info.update(add_info)
 

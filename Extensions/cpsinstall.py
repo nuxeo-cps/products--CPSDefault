@@ -26,6 +26,9 @@ from Products.CPSInstaller.CPSInstaller import CPSInstaller
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
 
+WebDavLockItem = 'WebDAV Lock items'
+WebDavUnlockItem = 'WebDAV Unlock items'
+
 class DefaultInstaller(CPSInstaller):
 
     product_name = 'CPSDefault'
@@ -371,7 +374,9 @@ class DefaultInstaller(CPSInstaller):
     def setupWorkflow1(self):
         # workspace_folder_wf
         wfdef = {'wfid': 'workspace_folder_wf',
-                'permissions': (View, ModifyPortalContent)}
+                 'permissions': (View, ModifyPortalContent,
+                                 WebDavLockItem, WebDavUnlockItem,)
+                 }
 
         wfstates = {
             'work': {
@@ -429,12 +434,11 @@ class DefaultInstaller(CPSInstaller):
 
     def setupWorkflow2(self):
         # workspace_content_wf
-        wfdef = {
-            'wfid': 'workspace_content_wf',
-            'permissions': (View, ModifyPortalContent),
-            'state_var': 'review_state',
-        }
-
+        wfdef = {'wfid': 'workspace_content_wf',
+                 'permissions': (View, ModifyPortalContent,
+                                 WebDavLockItem, WebDavUnlockItem,),
+                 'state_var': 'review_state',
+                 }
 
         wfstates = {
             'work': {
@@ -444,6 +448,10 @@ class DefaultInstaller(CPSInstaller):
                  'permissions': {View: ('Manager', 'WorkspaceManager',
                                          'WorkspaceMember', 'WorkspaceReader'),
                                  ModifyPortalContent: ('Manager', 'Owner',
+                                    'WorkspaceManager', 'WorkspaceMember'),
+                                 WebDavLockItem: ('Manager', 'Owner',
+                                    'WorkspaceManager', 'WorkspaceMember'),
+                                 WebDavUnlockItem: ('Manager', 'Owner',
                                     'WorkspaceManager', 'WorkspaceMember')},
            },
             'draft': {
@@ -451,6 +459,10 @@ class DefaultInstaller(CPSInstaller):
                 'transitions': ('checkin_draft', 'abandon_draft', 'unlock'),
                 'permissions': {View: ('Manager', 'WorkspaceManager', 'Owner'),
                                 ModifyPortalContent:
+                                    ('Manager', 'WorkspaceManager',),
+                                WebDavLockItem:
+                                    ('Manager', 'WorkspaceManager',),
+                                WebDavUnlockItem:
                                     ('Manager', 'WorkspaceManager',)},
             },
             'locked': {
@@ -458,7 +470,9 @@ class DefaultInstaller(CPSInstaller):
                 'transitions':('unlock',),
                 'permissions': {View: ('Manager', 'WorkspaceManager',
                                          'WorkspaceMember', 'WorkspaceReader'),
-                                ModifyPortalContent: ()},
+                                ModifyPortalContent: (),
+                                WebDavLockItem: (),
+                                WebDavUnlockItem: ()},
             },
         }
 
@@ -490,7 +504,7 @@ class DefaultInstaller(CPSInstaller):
                                         'WorkspaceMember',
                           'guard_expr':''},
             },
-            'co py_submit': {
+            'copy_submit': {
                 'title': 'Copy content into a section for Publishing',
                 'new_state_id': '',
                 'transition_behavior': (TRANSITION_BEHAVIOR_PUBLISHING, ),
@@ -629,11 +643,11 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     def setupWorkflow3(self):
         # WF workspace folderish content
-        wfdef = {
-            'wfid': 'workspace_folderish_content_wf',
-            'permissions': (View, ModifyPortalContent),
-            'state_var': 'review_state',
-        }
+        wfdef = {'wfid': 'workspace_folderish_content_wf',
+                 'permissions': (View, ModifyPortalContent,
+                                 WebDavLockItem, WebDavUnlockItem,),
+                 'state_var': 'review_state',
+                 }
 
         wfstates = {
             'work': {
@@ -643,6 +657,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                  'permissions': {View: ('Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'WorkspaceReader'),
                                  ModifyPortalContent: ('Manager',
+                                        'WorkspaceManager', 'WorkspaceMember'),
+                                 WebDavLockItem: ('Manager',
+                                        'WorkspaceManager', 'WorkspaceMember'),
+                                 WebDavUnlockItem: ('Manager',
                                         'WorkspaceManager', 'WorkspaceMember')},
            },
         }
@@ -812,12 +830,11 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     def setupWorkflow5(self):
         # section_content_wf
-        wfdef = {
-            'wfid': 'section_content_wf',
-            'permissions': (View, ModifyPortalContent),
-            'state_var': 'review_state',
-        }
-
+        wfdef = {'wfid': 'section_content_wf',
+                 'permissions': (View, ModifyPortalContent,
+                                 WebDavLockItem, WebDavUnlockItem,),
+                 'state_var': 'review_state',
+                 }
 
         wfstates = {
             'pending': {
@@ -826,6 +843,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                  'permissions': {View: ('SectionReviewer', 'SectionManager',
                                         'Manager'),
                                  ModifyPortalContent: ('SectionReviewer',
+                                        'SectionManager', 'Manager'),
+                                 WebDavLockItem: ('SectionReviewer',
+                                        'SectionManager', 'Manager'),
+                                 WebDavUnlockItem: ('SectionReviewer',
                                         'SectionManager', 'Manager')},
            },
             'published': {
@@ -833,14 +854,18 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'transitions': ('unpublish', 'cut_copy_paste'),
                 'permissions': {View: ('SectionReader', 'SectionReviewer',
                                        'SectionManager', 'Manager'),
-                                ModifyPortalContent: ('Manager',)},
+                                ModifyPortalContent: ('Manager',),
+                                WebDavLockItem: ('Manager',),
+                                WebDavUnlockItem: ('Manager',)},
             },
             'locked': {
                 'title': 'Locked',
                 'transitions':('unlock',),
                 'permissions': {View: ('Manager', 'WorkspaceManager',
                                          'WorkspaceMember', 'WorkspaceReader'),
-                                ModifyPortalContent: ()},
+                                ModifyPortalContent: (),
+                                WebDavLockItem: (),
+                                WebDavUnlockItem: ()},
             },
         }
 

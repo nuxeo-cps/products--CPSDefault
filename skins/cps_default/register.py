@@ -1,16 +1,10 @@
 ##parameters=password='password', confirm='confirm'
 
 from re import match
-from Products.CMFCore.utils import getToolByName
-from AccessControl import Unauthorized
 
 request = context.REQUEST
 portal_properties = context.portal_properties
 portal_registration = context.portal_registration
-
-if not portal_properties.enable_portal_joining:
-    raise Unauthorized("Joining has been disabled at the portal level")
-
 
 # converts CMFDefault/RegistrationTool.py sentences into msgids
 conversion = {
@@ -26,16 +20,6 @@ conversion = {
     'You must enter a valid email address.':
         'psm_join_invalid_email',
 }
-
-# Does the corresponding homeFolder exists ? If it does the given login cannot
-# be used because it could be used to access someone else's home folder.
-mtool = getToolByName(context, 'portal_membership')
-if not mtool.isUserIdValid(request.form.get('username')):
-    failMessage = 'psm_join_login_already_used'
-    if failMessage and request is not None:
-        request.set('portal_status_message',
-                    conversion.get(failMessage, failMessage))
-        return context.join_form(context, request)
 
 # password checking
 if not portal_properties.validate_email:

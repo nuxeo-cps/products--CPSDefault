@@ -59,12 +59,19 @@ def manage_addCPSDefaultSite(dispatcher, id,
     portal._setObject('cpsinstall', cpsinstall)
     
     pr('Creating cpsupdate External Method in CMF Site')
-    CPSDefaultupdate = ExternalMethod('cpsupdate',
+    cpsupdate = ExternalMethod('cpsupdate',
                                'CPSDefault Updater',
                                'CPSDefault.cpsinstall',
                                'cpsupdate')
-    portal._setObject('cpsupdate', CPSDefaultupdate)
+    portal._setObject('cpsupdate', cpsupdate)
     
+    pr('Creating benchmark External Method')
+    benchmarktimer = ExternalMethod('BenchmarkTimer',
+                                    'BenchmarkTimer',
+                                    'CPSDefault.benchmarktimer',
+                                    'BenchmarkTimerInstance')
+    portal._setObject('Benchmarktimer', benchmarktimer)
+
     pr('Executing CPSDefault Installer')
     pr(portal.cpsinstall(), 0)
     

@@ -135,8 +135,6 @@ class DefaultInstaller(CPSInstaller):
                 , ('start', 'DateIndex', None)
                 , ('end', 'DateIndex', None)
                 , ('time', 'DateIndex', None) # time of the last transition
-                , ('container_path', 'FieldIndex', None)
-                , ('relative_path_depth', 'FieldIndex', None)
                )
 
     def catalogEnumerateMetadata( self ):
@@ -168,7 +166,6 @@ class DefaultInstaller(CPSInstaller):
                 , 'end'
                 , 'getRevision'
                 , 'time'                # time of the last transition
-                , 'relative_path'
                )
 
     def setupCatalog(self):

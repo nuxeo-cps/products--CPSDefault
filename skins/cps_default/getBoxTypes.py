@@ -74,6 +74,9 @@ items = [
                {'provider': 'nuxeo',
                 'id': 'sitemap',
                 'desc': 'description_nuxeo_treebox_sitemap'},
+               {'provider': 'nuxeo',
+                'id': 'restricted',
+                'desc': 'description_nuxeo_treebox_restricted'},
                ]
      },
     {'category': 'contentbox',

@@ -12,12 +12,13 @@
 # on work priority tasks -----------------------------------
 - [lennart+ben] portal_boxes (known as portlets or portal tool)
    o boxes attributes
+      o [lennart] display only in subfolder
       o [ben] visible if empty ?
    o box types
       o ContentBox
          x [] display folder contents
          o display search result (separate search box?)
-         o [lennart] attributes: sort, format, number of doc ...
+         o attributes: sort, format, number of doc ...
          o need format like user and document ..?
       o [] ActionBox  
          x [] with categories to be displayed
@@ -65,37 +66,43 @@
       should talk to lennart first so we don't do anything double
 
 - [herve] i18n usage
-   x [] audit plone tools
+   x [herve] audit plone tools
       http://www.zug.cz/Members/Alekibango/Howtos/HowTo.i18n/document_view
+      installation failed
    x [] write doc/HOWTO.i18n
       o to be updated
+   o i18n skin
+      o actions
+      o boxes
+      o folder add an action localize ?
    o make a cvsupdate loading and creating a message catologue
       for each file xxxx-yy.po
       xxxx:domain yy:locale
       o test import / export diff ...
    o have a full cpsdefault in fr/en
-   o i18n skin
-      o actions
-      o boxes
-      o folder add an action localize ?
    o toolz for .pot generation
  
-
 - workflow
   x [flo] make a workflow history tool
      using doc_id as pkey
      x [] how to check permission, trying proxy access ?
          for the moment display * history for doc_id
+  o [flo] have a consistant history merging translation between wf 
+      with src and destination
+  o [flo] make accept transition working as un update
+      if a previous revision of the document with the same locale
+      is present in the section it should be updated and mark as 
+      an update into the history
+  o [flo] make reject transition working
+      by deleting the proxy using the wf ?
+  o [flo] make unpublish transition working
+      cf reject
   o display list of pending document for a reviewer
       use a document box displaying the number of pending docs
       with a link to a search result
-  o add a comment on submit from copy_submit
-      o need to propagte args between transitions
-  o add wf_vars rpath src/dest + filter on review history copy_submit
   o how to notify reject or accept transition ?
       add a submitter variable to the wf updated only on new/creation
       then notify submitter ?
-  o reject delete implemented thrue a workflow transition ?
   o implement copy/paste workflow
 
 - misc

@@ -3,7 +3,6 @@ CSS 2.1 spec, for newer user agents, MSIE5.x, MSIE6, Mozilla, etc.
 $Id$
 </dtml-comment>
 
-/* DTML instructions to set caching headers. */
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
@@ -133,7 +132,10 @@ input.moveBottom {
   background: <dtml-var moveBottomButtonBackground>;
 }
 
-/* TABLEs ------------------------------ */
+<dtml-comment>
+TABLEs ------------------------------
+</dtml-comment>
+
 table.columns td.left {
   background: <dtml-var columnsLeftBackground>;
 }
@@ -142,7 +144,10 @@ table.columns td.right {
 }
 
 
-/* DIVs ------------------------------ */
+<dtml-comment>
+DIVs ------------------------------
+</dtml-comment>
+
 div.top {
   background: <dtml-var topBackground>;
   margin: <dtml-var topMargin>;
@@ -222,10 +227,10 @@ span.legend {
   padding: 0.7em 0.7em 0.7em 0.7em;
 }
 
-/*
- * MENU
- * http://alistapart.com/articles/slidingdoors2/
- */
+<dtml-comment>
+MENU, http://alistapart.com/articles/slidingdoors2/
+</dtml-comment>
+
 ul.menuTabs {
   float: left;
   width: 100%;
@@ -263,9 +268,10 @@ ul.menuTabs li.selected a, ul.menuTabs li a:hover {
   background: <dtml-var mainTabBackground> url('closetab.png') no-repeat right top;
 }
 
-/*
- * menuSectionsAndWorkspaceRoot is a menuTab with workpsaces items
- */
+<dtml-comment>
+menuSectionsAndWorkspaceRoot is a menuTab with workpsaces items
+</dtml-comment>
+
 #menuSectionsAndWorkspaceRoot li.workspace {
   background: <dtml-var workspaceBackground> url("opentab.png") no-repeat left top;
 }
@@ -281,9 +287,10 @@ ul.menuTabs li.selected a, ul.menuTabs li a:hover {
   background: <dtml-var workspaceBackgroundSelected> url('closetab.png') no-repeat right top;
 }
 
-/*
- * deprecated contentTabs, should use ul.menuTab
- */
+<dtml-comment>
+deprecated contentTabs, should use ul.menuTab
+</dtml-comment>
+
 div.contentTabs {
   background: <dtml-var contentTabBackdrop>;
   border-collapse: collapse;
@@ -340,7 +347,10 @@ div.contentTabs .closetabSelected {
   border-bottom: 1px solid <dtml-var contentTabBackground>;
 }
 
-/* BOX ---------------------------------------- */
+<dtml-comment>
+BOX ----------------------------------------
+</dtml-comment>
+
 table.box tr.odd ul, table.box tr.even ul {
   margin-left: 2em;
 }
@@ -517,7 +527,9 @@ table.history .action {
     font-weight: bold;
 }
 
-/* Hide stuff by id and make it available in source */
+<dtml-comment>
+Hide stuff by id and make it available in source
+</dtml-comment>
 
 #byline {
   clear: both;
@@ -539,7 +551,9 @@ div.rssExport a {
   text-decoration: none;
 }
 
-/* javascript use for block toggle */
+<dtml-comment>
+javascript use for block toggle
+</dtml-comment>
 
 div.hidden {
   visibility: hidden;

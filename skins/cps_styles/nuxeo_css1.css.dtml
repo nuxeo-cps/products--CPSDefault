@@ -3,7 +3,6 @@ CSS 1 spec, for all user agents NS4.77, MSIE, Mozilla, etc.
 $Id$
 </dtml-comment>
 
-/* DTML instructions to set caching headers. */
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
@@ -13,7 +12,9 @@ $Id$
 
 <dtml-with stylesheet_properties>
 
-/* BASIC ELEMENTS ------------------------------ */
+<dtml-comment>
+BASIC ELEMENTS ------------------------------
+</dtml-comment>
 
 body {
   font: <dtml-var mainFont>;
@@ -145,7 +146,7 @@ dl.form dt {
   text-align: right;
 }
 
-/* hack de commentaire avec un antislash pour ie5 mac \*/
+/* hack comment with backslash for ie5 mac \*/
 dl.form dt { clear: both; }
 /* end hack */
 
@@ -198,7 +199,9 @@ pre {
 }
 
 
-/* COLUMNS ------------------------------ */
+<dtml-comment>
+COLUMNS ------------------------------
+</dtml-comment>
 
 table.columns {
   width: 100%;
@@ -219,7 +222,10 @@ table.columns td.right {
 }
 
 
-/* . ------------------------------ */
+<dtml-comment>
+Classes ------------------------------
+</dtml-comment>
+
 #idioma p {
   margin-top: 0;
 }
@@ -294,7 +300,10 @@ button {
   vertical-align: middle;
 }
 
-/* DIVs ------------------------------ */
+<dtml-comment>
+DIVs ------------------------------
+</dtml-comment>
+
 div.batchLayout {
   text-align: right;
   background-color: <dtml-var boxEvenBackground>;
@@ -409,9 +418,12 @@ div.contentTabs a.selected {
 }
 
 
-/* BOX ---------------------------------------- */
+<dtml-comment>
+BOX ----------------------------------------
+</dtml-comment>
+
 table.box tr.title {
-  color: <dtml-var boxHeaderFontColor>; /* ! font color is hardcoded in box_lib */
+  color: <dtml-var boxHeaderFontColor>; <dtml-comment> font color is hardcoded in box_lib </dtml-comment>
   background-color: <dtml-var boxHeaderBackground>;
 }
 table.box tr.odd {
@@ -463,7 +475,9 @@ div.box a.selected {
   margin: 1em;
 }
 
-/* CMF Calendar */
+<dtml-comment>
+CMF Calendar
+</dtml-comment>
 
 .CalendarArrow {
   font-weight: bold;

@@ -70,8 +70,8 @@ def manage_addCPSDefaultSite(dispatcher, id,
                     create_userfolder=0)
     portal = getattr(container, id)
     portal.portal_type = 'Portal'
-    portal._setProperty('enable_portal_joining', enable_portal_joining,
-                        'boolean')
+    portal.manage_addProperty('enable_portal_joining', enable_portal_joining,
+                              'boolean')
 
     pr('Creating cpsinstall External Method in CMF Site')
     cpsinstall = ExternalMethod('cpsinstall',
@@ -113,18 +113,11 @@ def manage_addCPSDefaultSite(dispatcher, id,
     # to send properties :/
     portal.MailHost.smtp_host = 'localhost'
     portal.manage_changeProperties(REQUEST=None,
-                                   kw={
-                                       'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),
-                                       'email_from_address': root_email,
-                                       'smtp_server': 'localhost',
-                                       })
-
-    portal.manage_changeProperties(REQUEST=None,
-                                   kw={
-                                       'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),
-                                       'email_from_address': root_email,
-                                       'smtp_server': 'localhost',
-                                       })
+                                   email_from_name='%s %s' %
+                                       (root_givenName.strip(), root_sn.strip())
+                                   email_from_address=root_email.strip(),
+                                   smtp_server='localhost',
+    )
 
     # TODO: use portal_metadirectories to store emails and other stuff
     pr('Creating CPS Administrator account for CPSDefault')

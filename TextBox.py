@@ -1,38 +1,12 @@
-# (c) 2002 Nuxeo SARL <http://nuxeo.com>
-# (c) 2002 Florent Guillaume <mailto:fg@nuxeo.com>
-# (c) 2002 Julien Jalon <mailto:jj@nuxeo.com>
-# (c) 2002 Préfecture du Bas-Rhin, France
-# (c) 2002 CIRB, Belgique
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 2 as published
-# by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
-#
+# (c) 2003 Nuxeo SARL <http://nuxeo.com>
 # $Id$
-
 """
   TextBox
 """
-
-__version__='$Revision$'[11:-2]
-
-
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
-
-
 from BaseBox import BaseBox
 
 
@@ -50,7 +24,7 @@ factory_type_information = (
      'title': '_portal_type_Text Box',
      'description': ('A Text Box contains simple text.'),
      'meta_type': 'Text Box',
-     'content_icon': 'box_icon.gif',
+     'icon': 'box.gif',
      'product': 'CPSDefault',
      'factory': 'addTextBox',
      'immediate_view': 'textbox_edit_form',
@@ -63,16 +37,6 @@ factory_type_information = (
                   'name': 'Edit',
                   'action': 'textbox_edit_form',
                   'permissions': (ModifyPortalContent,)},
-                 {'id': 'render_title',
-                  'name': 'Render title',
-                  'action': 'basebox_render_title',
-                  'visible': 0,
-                  'permissions': ()},
-                 {'id': 'render_body',
-                  'name': 'Render body',
-                  'action': 'textbox_render_body',
-                  'visible': 0,
-                  'permissions': ()},
                  {'id': 'render_box',
                   'name': 'Render box',
                   'action': 'box_text',
@@ -93,9 +57,8 @@ class TextBox(BaseBox):
     A Text Box simply returns a text.
     """
     meta_type = 'Text Box'
-    # XXX Hack for CMF 1.3
     portal_type = 'Text Box'
-
+    
     security = ClassSecurityInfo()
 
     _properties = BaseBox._properties + (
@@ -104,9 +67,11 @@ class TextBox(BaseBox):
         )
 
     def __init__(self, id, title='', text='', **kw):
-        apply(BaseBox.__init__, (self, id), kw)
+        BaseBox.__init__(self, id, kw=kw)
         self.title = title
         self.text = text
+        self.style = 'box_text'
+
 
 
 

@@ -49,7 +49,13 @@ class BoxSlot(PropertyManager, SimpleItem):
         self.left = ''
         self.right = ''
 
+    security.declarePrivate('getDirections')
     def getDirections(self):
+        """Returns all slot ids, except self
+
+        This is to list all the slots a direction can have as target,
+        which is used for defining a slots relative position.
+        """
         bt = getToolByName(self, 'portal_boxes')
         slots = [slot.id for slot in bt.getSlots() if not slot.id == self.id]
         slots = ['',] + slots
@@ -76,11 +82,9 @@ class BoxesTool(UniqueObject, PortalFolder):
     id = 'portal_boxes'
     meta_type = 'CPS Boxes Tool'
     security = ClassSecurityInfo()
-
-    manage_options = (
-        ({'label': "Overview", 'action': 'manage_overview',},) +
-        PortalFolder.manage_options
-        )
+    manage_options = list(PortalFolder.manage_options)
+    # Replace the pointless 'View' with 'Overview'
+    manage_options[1] = {'label': "Overview", 'action': 'manage_overview',}
 
     #
     # ZMI
@@ -275,8 +279,13 @@ class BoxesTool(UniqueObject, PortalFolder):
         """Gets all the local overrides"""
         return getattr(aq_base(context), '_box_overrides', {})
 
+    security.declarePublic('getSlots')
     def getSlots(self):
         return self.objectValues(BoxSlot.meta_type)
+
+    security.declarePublic('getSlotIds')
+    def getSlotIds(self):
+        return [slot.id in self.getSlots()]
 
 InitializeClass(BoxesTool)
 

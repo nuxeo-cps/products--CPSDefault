@@ -838,6 +838,7 @@ def cpsupdate(self, langs_list=None):
         'nav_content' : {'type':'Content Box',
                          'title': 'Contents',
                          'slot':'folder_view',
+                         'format':'center',
                          'order':2,
                          },
         }

@@ -1,10 +1,11 @@
-##parameters=REQUEST=None, query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100
+##parameters=query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, allow_empty_search=0, sort_limit=100, REQUEST=None
 # $Id$
 """ return a list of proxy matching the query """
 
 from zLOG import LOG, DEBUG
 
 catalog = context.portal_catalog
+
 if REQUEST is not None:
     query.update(REQUEST.form)
 

@@ -99,9 +99,7 @@ class TreeBox(BaseBox):
 
     security.declarePublic('getTree')
     def getTree(self, context):
-        """Return the ptree from root
-
-        """
+        """Return the ptree from root."""
 
         portal_url = getToolByName(self, 'portal_url')
         portal_trees = getToolByName(self, 'portal_trees')
@@ -117,84 +115,76 @@ class TreeBox(BaseBox):
         if not self.root:
             root_path = current_path
         else:
-            root_path = filter(None,self.root.split('/'))
+            root_path = filter(None, self.root.split('/'))
 
         root_tree = root_path[0]
 
         if not hasattr(aq_base(portal_trees), root_tree):
+            # no tree for root_tree
             return []
-            #raise Exception('no tree for %s' % root_tree)
 
         tree = portal_trees[root_tree].getList(filter=self.authorized_only)
 
         if self.children_only:
-            #if option 'display subfolders only is checked'
-            #remove objects that are not on the current path
-            tree = [x for x in tree if ((x['rpath'] + '/').startswith(current_url+'/'))]
+            # if option 'display subfolders only is checked'
+            # remove objects that are not on the current path
+            tree = [x for x in tree if (
+                (x['rpath'] + '/').startswith(current_url+'/'))]
 
+        root_depth = len(root_path)
         if not self.show_root:
-            delta = len(root_path)
-            tmp_tree = []
-            for x in tree:
-                if x['depth'] >= delta:
-                    tmp_entry = x.copy()
-                    tmp_entry['depth'] = x['depth'] - delta
-                    tmp_tree.append(tmp_entry)
-            tree = tmp_tree
+            # removing the root
+            tree = [x for x in tree if x['depth'] >= root_depth]
 
-        if self.depth and self.contextual:
-            depth = self.depth - 1
-            max_depth = len(current_path) + depth
+        # compute relativ depth
+        # we need to copy items as we modify depth
+        items = deepcopy(tree)
+        if items:
+            local_depth = items[0]['depth']
+            items[0]['depth'] = 0
+            local_rpath = items[0]['rpath'] + '/'
+            for item in items[1:]:
+                if not (item['rpath'] + '/').startswith(local_rpath):
+                    local_rpath = item['rpath'] + '/'
+                    local_depth = item['depth']
+                    item['depth'] = 0
+                else:
+                    item['depth'] = item['depth'] - local_depth
+        tree = items
 
-            tfilter = []
-            # we want to display all the path to the object and his sons and
-            # brothers
+        if self.depth and not self.contextual:
+            tree = [x for x in tree if (x['depth'] <= self.depth)]
+        elif self.depth and self.contextual:
+            # contextual means displaying current path as well as
+            # its childrens and brothers
+            parents_url = []
+            parents_len = []
             for i in range(len(current_path)+1):
                 if i:
-                    tfilter.append({'rpath': '/'.join(current_path[:i]),
-                                    'depth': i + depth})
+                    url = '/'.join(current_path[:i])+'/'
+                    parents_url.append(url)
+                    parents_len.append(len(url.split('/'))+1)
 
+            rpath_len_max = len(current_path) + 2
+            current_url += '/'
             items = []
             for item in tree:
-                d = item['depth']
-                if d > max_depth:
-                    continue
                 rpath = item['rpath'] + '/'
-                for f in tfilter:
-                    if d > f['depth']:
-                        continue
-                    if rpath.startswith(f['rpath'] + '/'):
+                if item['depth'] < self.depth or rpath in parents_url:
+                    items.append(item)
+                    continue
+
+                rpath_len = len(rpath.split('/'))
+
+                for i in range(len(parents_url)):
+                    if rpath.startswith(parents_url[i]) and \
+                           rpath_len == parents_len[i]:
                         items.append(item)
                         break
 
-            # post treatment to fix display depth
-            # we need a copy to modify items' data without modify portal_trees
-            items = deepcopy(items)
-            if items:
-                local_depth = items[0]['depth']
-                items[0]['depth'] = 0
-                local_rpath = items[0]['rpath'] + '/'
-                for item in items[1:]:
-                    if not (item['rpath'] + '/').startswith(local_rpath):
-                        local_rpath = item['rpath'] + '/'
-                        local_depth = item['depth']
-                        item['depth'] = 0
-                    else:
-                        item['depth'] = item['depth'] - local_depth
+            tree = items
 
-            return items
-
-        if self.depth:
-            d = self.depth + len(root_path) - 1
-            if not self.show_root:
-                #take into account the fact that root is hidden
-                d = d - 1
-            root_url = '/'.join(root_path)
-            res = [x for x in tree if (x['depth']<=d and
-                                      x['rpath'].startswith(root_url))]
-            return res
-
-        return tree
+        return items
 
     security.declarePublic('getTreeObject')
     def getTreeObject(self, context):

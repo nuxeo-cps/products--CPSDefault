@@ -1180,9 +1180,7 @@ except:
         id='status_history',
         name='action_status_history',
         action='string: ${object/absolute_url}/content_status_history',
-        condition="python:test(getattr(object,'portal_type'), " \
-            "test(object.portal_type in ['Section', 'Workspace', 'Portal'], " \
-            "0, 1), 0)",
+        condition="python:hasattr(object, 'portal_type') and object.portal_type in ('Section', 'Workspace', 'Portal')",
         permission='View',
         category='workflow')
     pr(" Added")

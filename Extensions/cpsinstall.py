@@ -1076,11 +1076,12 @@ def cpsupdate(self, langs_list=None):
             id='translation_service'
         )
         pr("  translation_service tool added")
-    translation_service = portal.translation_service
+        translation_service = portal.translation_service
 
-    # translation domains
-    translation_service.manage_setDomainInfo(path_0='Localizer/default')
-    pr("   default domain set to Localizer/default")
+        # translation domains
+    
+        translation_service.manage_setDomainInfo(path_0='Localizer/default')
+        pr("   default domain set to Localizer/default")
     
         
     pr(" Reindexing catalog")

@@ -45,7 +45,7 @@
   <div tal:condition="not:creation|nothing"
     style="clear:both; text-align:right; border-top: solid 1px; margin-top: 2em;">
     <small>
-      <div metal:use-macro="here/content_lib/macros/byline">By Me</div>
+      <span metal:use-macro="here/content_lib/macros/byline">By Me</span>
     </small>
   </div>
 </metal:block>
@@ -66,7 +66,7 @@
 
 <!-- ============================================================ -->
 <pre>a header for a document or folder:</pre>
-<div metal:define-macro="byline"
+<span metal:define-macro="byline"
   tal:define="dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
               cname dname/fullname|doc/Creator;
               email dname/email|nothing;"
@@ -78,7 +78,7 @@
   Last modified
   <tal:block content="python:here.getDateStr(doc.modification_date, 'medium')"
     i18n:name="item_modification" />.
-</div>
+</span>
 
 
 <!-- ============================================================ -->

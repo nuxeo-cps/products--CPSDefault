@@ -230,7 +230,7 @@ class BoxesTool(UniqueObject, PortalFolder):
         idbc = self.getBoxContainerId(home)
 
         if hasattr(aq_base(home), idbc):
-            home.manage_delObject([idbc])
+            home.manage_delObjects([idbc])
             LOG('portal_boxes', INFO, 'delPersonalBoxOverrides',
                 'Delete all personal boxes settings: %s/%s\n' % (
                 home.absolute_url(), idbc))

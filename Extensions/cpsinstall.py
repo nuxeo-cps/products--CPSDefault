@@ -369,18 +369,6 @@ class DefaultInstaller(CPSInstaller):
             'category': 'global_header',
             'visible': 1,
           },
-          { 'tool': 'portal_actions',
-            'id': 'status_history',
-            'name': 'action_status_history',
-            'action': 'string:${object/absolute_url}/content_status_history',
-            'permission': (View, ),
-            # XXX: this is messy.
-            'condition': "python:getattr(object, 'portal_type', None) not in "
-                "('Section', 'Workspace', 'Portal', 'Calendar', 'Event')",
-            'category': 'workflow',
-            'visible': 1,
-          },
-
         )
 
         if 'Link' in self.portal['portal_types'].objectIds():
@@ -412,6 +400,12 @@ class DefaultInstaller(CPSInstaller):
                      "Favorites will not be available")
 
         self.verifyActions(actions)
+
+        # Clean old CPS habit.
+        if self.hasAction('portal_actions', 'status_history'):
+            self.deleteActions({'portal_actions': ('status_history',)})
+            self.log("Deleted old 'status_history' action from portal_actions")
+
 
     def setupSkins(self):
         self.deleteSkins(('calendar', 'zpt_calendar'))
@@ -1457,8 +1451,8 @@ except:
                                 'CPSDocument Installer',
                                 'CPSDocument', 'install', 'install')
         self.runExternalUpdater('cpsmailboxer_installer',
-			        'CPSMailBoxer Installer',
-				'CPSMailBoxer', 'install', 'install')
+                                'CPSMailBoxer Installer',
+                                'CPSMailBoxer', 'install', 'install')
         self.runExternalUpdater('cpsrss_installer',
                                 'CPSRSS Installer',
                                 'CPSRSS', 'install', 'install')
@@ -1480,6 +1474,7 @@ except:
         self.runExternalUpdater('cpssubscriptions_installer',
                                 'CPSSubscriptions Installer',
                                 'CPSSubscriptions', 'install', 'install')
+
 
 def cpsupdate(self, langs_list=None, is_creation=0):
     # helpers

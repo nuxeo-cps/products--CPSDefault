@@ -459,7 +459,6 @@
             <tal:block tal:condition="python:getattr(box['box'],
                                                      'display_description',
                                                      0)">
-              <br tal:condition="python:item['managers'] and item['description']">
               <tal:block tal:replace="item/description" />
             </tal:block>
             <tal:block tal:define="global last_depth python:item['depth']" />

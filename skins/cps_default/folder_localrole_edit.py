@@ -18,7 +18,7 @@ if change_type == 'add':
 
 elif change_type == 'delete':
     pmtool.deleteLocalRoles(context, member_ids, reindex=0)
-    pmtool.deleteLocalGroupRoles(context, group_ids, 'dummy', reindex=0)
+    pmtool.deleteLocalGroupRoles(context, group_ids, reindex=0)
     context.reindexObjectSecurity()
 
 elif change_type == 'block':
@@ -38,7 +38,7 @@ elif change_type == 'block':
         pmtool.setLocalGroupRoles(context, ('role:Anonymous',), '-',
                                   reindex=0)
     elif lr_unblock is not None:
-        pmtool.deleteLocalGroupRoles(context, ('role:Anonymous',), 'dummy',
+        pmtool.deleteLocalGroupRoles(context, ('role:Anonymous',), '-',
                                      reindex=0)
     context.reindexObjectSecurity()
 

@@ -112,18 +112,29 @@ def manage_addCPSDefaultSite(dispatcher, id,
     # editProperties do not work with ZTC due to usage of REQUEST
     # to send properties :/
     portal.MailHost.smtp_host = 'localhost'
+    root_givenName = root_givenName.strip()
+    root_sn = root_sn.strip()
+    root_email = root_email.strip()
     portal.manage_changeProperties(REQUEST=None,
                                    email_from_name='%s %s' %
-                                       (root_givenName.strip(), root_sn.strip())
-                                   email_from_address=root_email.strip(),
+                                       (root_givenName, root_sn),
+                                   email_from_address=root_email,
                                    smtp_server='localhost',
     )
 
     # TODO: use portal_metadirectories to store emails and other stuff
     pr('Creating CPS Administrator account for CPSDefault')
-    portal.acl_users.userFolderAddUser(name=root_id,
-                                       password=root_password1,
-                                       roles=('Manager', 'Member'), domains=[])
+    mdir = portal.portal_directories.members
+    entry = {
+        'id': root_id,
+        'password': root_password1,
+        'roles': ['Manager', 'Member'],
+        'email': root_email,
+        'givenName': root_givenName,
+        'sn': root_sn,
+    }
+    mdir.createEntry(entry)
+    mdir.editEntry(entry)
 
     pr('Done')
     if REQUEST is not None:

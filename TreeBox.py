@@ -112,6 +112,7 @@ class TreeBox(BaseBox):
             obj = aq_parent(aq_inner(obj))
         current_url = portal_url.getRelativeUrl(obj)
         current_path = current_url.split('/')
+        current_path_length = len(current_path)
 
         if not self.root:
             root_path = current_path
@@ -146,10 +147,14 @@ class TreeBox(BaseBox):
             max_depth = len(current_path) + depth
 
             tfilter = []
-            for i in range(len(current_path)+1):
-                if i:
-                    tfilter.append({'url': '/'.join(current_path[:i]),
-                                    'depth': i + depth})
+            # make a comment to says in what the commented block is useful
+##            for i in range(len(current_path)+1):
+##                if i:
+##                    tfilter.append({'url': '/'.join(current_path[:i]),
+##                                    'depth': i + depth})
+            tfilter.append({'url': current_url,
+                            'depth': current_path_length})
+            
             items = []
             for item in tree:
                 d = item['depth']
@@ -160,6 +165,7 @@ class TreeBox(BaseBox):
                     if d > f['depth']:
                         continue
                     if url.startswith(f['url']):
+                        item['depth'] = d - current_path_length + 1
                         items.append(item)
                         break
 

@@ -49,6 +49,14 @@ if end_date and not query.has_key('end'):
     query['end'] = {'query': end_date,
                     'range': 'max'}
 
+
+depth_min = len(folder_prefix.split('/')) + 1
+
+
+if query.has_key('search_relative_path'):
+    query['relative_path_depth'] = { 'query' : (depth_min,depth_min),
+                                     'range' : 'min:max'
+                                    }
 # sorting
 if sort_by and not query.has_key('sort-on'):
     if sort_by in ('title', 'date'):

@@ -10,7 +10,7 @@
   </h1>
   <div metal:fill-slot="main">
     <form action="content_create" method="POST"
-          tal:attributes="action string:${here/absolute_url}/content_create">
+          tal:attributes="action string:${here_url}/content_create">
       <table width="100%" border="0" cellpadding="1" cellspacing="1"
              tal:repeat="item python:here.portal_types[here.getPortalTypeName()].allowed_content_types">
         <tbody tal:define="pt python:here.portal_types[item]">

@@ -517,7 +517,7 @@
             define="selected python:request['URL'].startswith(action['url'])
                                     or (action['id']=='view'
                                         and
-                                       (request['URL'] == here.absolute_url() or
+                                       (request['URL'] == here_url or
                                         request['URL'].endswith('/view')))">
           <span class="opentab" tal:attributes="class python:test(selected, 'opentabSelected', default)"> </span><a i18n:translate=""
              tal:attributes="href action/url;

@@ -14,26 +14,26 @@
   <!-- Basic crude style for Netscape4.x - This can be removed if you don't
 want the special NS4 look - it will still work, just be plain text instead. -->
   <link rel="Stylesheet" type="text/css" href=""
-        tal:attributes="href string:${portal_url}/ploneNS4.css" />
+        tal:attributes="href string:${base_url}ploneNS4.css" />
 
   <!-- Main style sheets for CSS2 capable browsers -->
   <style type="text/css" media="all"
-         tal:content="string:@import url(${portal_url}/plone.css);">
+         tal:content="string:@import url(${base_url}plone.css);">
   </style>
 
   <!-- Custom style sheet if available -->
   <style type="text/css" media="all"
          tal:condition="exists: here/ploneCustom.css"
-         tal:content="string:@import url(${portal_url}/ploneCustom.css);">
+         tal:content="string:@import url(${base_url}ploneCustom.css);">
   </style>
 
   <!-- Style sheet used for printing -->
   <link rel="stylesheet" type="text/css" media="print" href=""
-        tal:attributes="href string:${portal_url}/plonePrint.css" />
+        tal:attributes="href string:${base_url}plonePrint.css" />
 
   <!-- not supported by IE -->
   <link rel="icon" href="" type="image/png" tal:attributes="href
-        string:${portal_url}/favicon.png" />
+        string:${base_url}favicon.png" />
 
   <!-- Disable IE6 image toolbar -->
   <meta http-equiv="imagetoolbar" content="no" />
@@ -43,10 +43,10 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <!-- ============================================================ -->
 <metal:block define-macro="logo">
   <a href="http://www.nuxeo.com/"
-     tal:attributes="href string:${portal_url}/">
+     tal:attributes="href string:${base_url}">
     <img height="43" width="173" border="0" src="logo_nuxeo.gif" class="logo"
          alt="Nuxeo Logo" title="Nuxeo Web Site"
-         tal:attributes="src string:${portal_url}/logo_nuxeo.gif" />
+         tal:attributes="src string:${base_url}logo_nuxeo.gif" />
   </a>
 </metal:block>
 
@@ -89,12 +89,11 @@ want the special NS4 look - it will still work, just be plain text instead. -->
 <!-- ============================================================ -->
 <metal:block define-macro="sections">
   <div class="tabs"
-       tal:define="tree python:sections.getList(start_depth=0, stop_depth=1);
-                   here_url python:'/' + here.absolute_url(relative=1)">
+       tal:define="tree python:sections.getList(start_depth=0, stop_depth=1);">
     <a href="" class="plain"
        tal:repeat="item tree"
-       tal:attributes="href string:${item/path}/;
-                       class python:item['path'] == here_url and 'selected' or default;
+       tal:attributes="href string:${base_url}${item/rpath}/;
+                       class python:portal_url.endswith(item['rpath']) and 'selected' or default;
                        title item/title"
        tal:content="structure item/short_title">
        section title

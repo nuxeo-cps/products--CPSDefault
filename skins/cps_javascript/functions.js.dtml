@@ -67,12 +67,10 @@ function showElement(show, id) {
     //window.alert(element.tagName)
     if (show) {
       element.style.visibility = 'visible';
-      if (element.tagName == 'DIV') {
+      if (element.tagName in ['DIV', 'P']) {
         element.style.display = 'block';
-      } else if (element.tagName == 'SPAN') {
-        element.style.display = 'inline';
       } else {
-        element.style.display = 'block';
+        element.style.display = 'inline';
       }
     } else {
       element.style.visibility = 'hidden';

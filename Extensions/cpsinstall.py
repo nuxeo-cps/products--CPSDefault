@@ -1180,7 +1180,8 @@ except:
         id='status_history',
         name='action_status_history',
         action='string: ${object/absolute_url}/content_status_history',
-        condition="python:hasattr(object, 'portal_type') and object.portal_type not in ('Section', 'Workspace', 'Portal')",
+        # XXX: this is messy.
+        condition="python:getattr(object, 'portal_type', None) not in ('Section', 'Workspace', 'Portal', 'Calendar', 'Event')",
         permission='View',
         category='workflow')
     pr(" Added")

@@ -11,3 +11,20 @@
   </div>
 </div>
 </metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="breadcrumbs">
+  <tal:block i18n:translate="label_you_are_here">You are
+  here:&nbsp;</tal:block><tal:block repeat="bc
+  python:here.getBreadCrumbs(url=context_url, breadcrumb_set=getattr(request,
+  'breadcrumb_set', None))">
+    <a href="/cps/id"
+       tal:omit-tag="not:bc/url"
+       tal:attributes="href bc/url;
+                       title bc/longtitle"
+       tal:content="bc/title">
+       Title
+    </a><strong
+    tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong></tal:block>
+</metal:block>

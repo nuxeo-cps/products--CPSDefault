@@ -26,7 +26,6 @@ visitors do not use MSIE 5.5 or when MSIE 5.5 becomes history.
     tal:attributes="href string:${base_url}msie.css" /><tal:block
     replace="structure string:&lt;![endif]--&gt;" />
 
-
 <metal:block define-macro="header" tal:define="charset string:ISO-8859-15">
   <tal:block define="dummy python:request.RESPONSE.setHeader('Content-Type',
     'text/html;; charset=%s' % charset)" />

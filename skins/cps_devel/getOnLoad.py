@@ -11,4 +11,4 @@ if request.has_key('URL'):
         (URL.endswith('search_form') or URL.endswith('advanced_search_form')):
         return 'highlightSearchTerm();'
 
-return 'setfocus();'
+return 'setFocus();'

@@ -113,7 +113,7 @@ def compute_states(no_history=0):
 
 # basic information level 0
 info={}
-info['rpath']=proxy.absolute_url(relative=1)
+info['rpath']=utool.getRelativeUrl(proxy)
 info['title_or_id']=proxy.title_or_id()
 info['title']=proxy.Title()
 info['id']=proxy.id

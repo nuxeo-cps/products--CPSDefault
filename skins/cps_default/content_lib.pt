@@ -342,10 +342,10 @@ format:</pre>
   </div>
   <tal:block replace="structure python:here.getImgTag(info['icon'],
    base_url=base_url, title=info['type'])" />
-   <a href="" tal:attributes="href string:/${info/rpath}/${action};">
+   <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
    <b><span tal:replace="info/title_or_id">ID</span></b></a>
   <br>
-  <a href="" tal:attributes="href string:/${info/rpath}/${action}">
+  <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}">
   <small>
     <span tal:replace="string:id:${info/id}">[id]</span>,
     <tal:block define="status_short_fmt not:nothing;
@@ -369,7 +369,7 @@ format:</pre>
 <div width="100%" align="center"
   tal:define="action python:test(info['type'] in ('Section','Workspace'),
                                  'folder_contents', 'view')">
- <a href="" tal:attributes="href string:/${info/rpath}/${action};
+ <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
    title info/description;">
   <tal:block condition="not:info/preview|nothing"
    replace="structure python:here.getImgTag(info['icon'],
@@ -388,7 +388,7 @@ format:</pre>
 <div width="100%" tal:define="action
   python:test(info['type'] in ('Section','Workspace'), 'folder_contents', 'view')">
  <tal:block replace="structure python:path('here/'+ info['icon'])" />
- <a href="" tal:attributes="href string:/${info/rpath}/${action};
+ <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};
    title info/description">
  <b><span tal:replace="info/title_or_id">ID</span></b></a><br>
  <small>
@@ -410,12 +410,12 @@ format:</pre>
   <h2>
     <tal:block replace="structure python:here.getImgTag(info['icon'],
        base_url=base_url, title=info['type'])" />
-    <a href="" tal:attributes="href string:/${info/rpath}/${action};">
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action};">
     <b tal:content="info/title_or_id">ID</b></a>
   </h2>
   <div tal:condition="info/preview|nothing"
     STYLE="float: left;margin: 1em; width:140; height:140;">
-    <a href="" tal:attributes="href string:/${info/rpath}/${action}"
+    <a href="" tal:attributes="href string:${base_url}${info/rpath}/${action}"
       tal:content="structure python:here.getImgTag(info['preview'],
       base_url='', width='128', height='128')" />
   </div>

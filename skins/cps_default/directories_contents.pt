@@ -24,11 +24,27 @@
             Choose a directory
           </metal:block>
           <metal:block fill-slot="content">
-            <ul>
-              <li tal:repeat="directory directories">
-                <a href="." tal:attributes="href string:${directory/search_template}?dirname=${directory/id}" tal:content="python:mcat(directory.title_or_id())">Directory</a><tal:block condition="directory/description"> (<tal:block replace="directory/description">Description</tal:block>)</tal:block>
-              </li>
-            </ul>
+            <table>
+              <tr tal:repeat="directory directories">
+                <tal:block define="href string:directory_editentry_form?dirname=${directory/id}&create=1">
+                    <td class="compact">
+                        <a href="." tal:attributes="href string:directory_editentry_form?dirname=${directory/id}&create=1" 
+                          tal:content="python:mcat(directory.title_or_id())">Directory</a><tal:block condition="directory/description"> 
+                            (<tal:block replace="directory/description">Description</tal:block>)</tal:block>
+                    </td>
+                    <td>
+                      <a tal:attributes="href string:${directory/search_template}?dirname=${directory/id}">
+                       Chercher
+                      </a>
+                    </td>
+                    <td>
+                      <a tal:attributes="href href">
+                       Ajouter
+                      </a>
+                    </td>
+                </tal:block>
+              </tr>
+            </table>
           </metal:block>
         </metal:block>
       </tal:block>

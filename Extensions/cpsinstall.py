@@ -1329,6 +1329,13 @@ except:
                     'order': 10,
                     },
 
+            'conformance_statement': {'type': 'Base Box',
+                    'title': 'Conformance statement',
+                    'btype': 'conformance_statement',
+                    'slot': 'bottom',
+                    'order': 20,
+                    },
+
             'l10n_select': {'type':'Base Box',
                             'title': 'Locale selector',
                             'btype': 'l10n_select',

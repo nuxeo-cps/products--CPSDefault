@@ -83,7 +83,6 @@ def manage_addSss3Site(dispatcher, id,
     
     #pr('Creating CPS Administrator account for Sss3')
 
-
     pr('Done')
     if REQUEST is not None:
         REQUEST.RESPONSE.setHeader('Content-Type', 'text/plain')

@@ -85,6 +85,7 @@ class InternalLinksBox(BaseBox):
         item_path item_title|item_desc
         """
         utool = getToolByName(self, 'portal_url')
+        mtool = getToolByName(self, 'portal_membership')
         items = []
         for item in self.links:
             if not item:
@@ -94,6 +95,8 @@ class InternalLinksBox(BaseBox):
             try:
                 obj = utool.restrictedTraverse(url)
             except KeyError:
+                continue
+            if not mtool.checkPermission('View', obj):
                 continue
             title_set = ''
             desc_set = ''

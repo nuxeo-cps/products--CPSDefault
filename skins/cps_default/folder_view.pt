@@ -1,0 +1,69 @@
+<metal:block use-macro="here/content_lib/macros/master">
+<div metal:fill-slot="main"
+     tal:define="m_tool here/portal_membership;
+                 checkPerm nocall: m_tool/checkPermission;
+                 list_here python:checkPerm('List folder contents', here);
+                 list_parent python:checkPerm( 'List folder contents', here
+                                             , 'aq_parent' );
+                "
+     i18n:domain="cmf_default"
+>
+<div tal:condition="not: list_here"
+      tal:define="response request/RESPONSE;
+                  url here/absolute_url;
+                 "
+ >
+  <span tal:define="redirect python: response.redirect( url )"></span>
+</div>
+
+<!-- This is the desktop area -->
+<div class="Desktop">
+
+ <table class="FormLayout">
+  <tr>
+   <td valign="top">
+    <table class="ContentsList">
+     <tbody tal:condition="list_parent">
+      <tr valign="top"
+          tal:define="upNav python: hasattr(here.aq_parent, 'portal_url');
+                      upID python: here.aq_parent.getId()">
+        <td colspan="3" align="left">
+         <span tal:condition="upNav | nothing">
+          <a href="../folder_contents"
+          ><img src="" alt="[Link]" border="0"
+                tal:attributes="src string:${here/portal_url}/UpFolder_icon.gif"
+          /></a>
+         </span>&nbsp;&nbsp;
+         <span tal:condition="upNav">
+          <span tal:omit-tag="" i18n:translate="">Up to</span>
+          <a href="../folder_contents"
+                   tal:content="upID">Up ID</a>
+         </span>
+         <span tal:condition="python: not(upNav)">
+           <span class="mild" i18n:translate="">Root</span>
+         </span>
+        </td>
+      </tr>
+     </tbody>
+
+    </table>
+
+    <tal:block define="
+                  no_form python:1;
+                  items python:here.getFolderContents(sort_by='status');
+                  format string:compact;
+                  columns python:2;
+                  items_per_page python:15">
+      <metal:block use-macro="here/content_lib/macros/display_contents" />
+    </tal:block>
+    
+    <table border="0" cellspacing="0" cellpadding="2">
+
+   </td>
+  </tr>
+ </table>
+
+</div>
+</div>
+
+</metal:block>

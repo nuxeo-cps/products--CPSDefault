@@ -728,7 +728,7 @@ def cpsupdate(self, langs_list=None):
     sections_perm = {
         'Request review':['Manager', 'WorkspaceManager', 'WorkspaceMember', 'SectionReviewer', 'SectionManager'],
         'Review portal content':['Manager', 'SectionReviewer', 'SectionManager'],
-        'Add Box Container': ['Manager'],
+        'Add Box Container': ['Manager', 'SectionManager'],
         'Add portal content': ['Manager', 'SectionManager'],
         'Add portal folders': ['Manager', 'SectionManager'],
         'Change permissions': ['Manager', 'SectionManager'],
@@ -740,13 +740,14 @@ def cpsupdate(self, langs_list=None):
         }
     workspaces_perm = {
         'Add portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
-        'Add portal folders': ['Manager', 'WorkspaceManager'],
+        'Add portal folders': ['Manager', 'WorkspaceManager'],        
         'Change permissions': ['Manager', 'WorkspaceManager'],
         'Delete objects': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
         'List folder contents': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'Modify portal content': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
         'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader'],
         'View management screens': ['Manager', 'WorkspaceManager', 'WorkspaceMember'],
+        'Add Box Container': ['Manager', 'WorkspaceManager'],        
         }
     pr("Section")
     for perm, roles in sections_perm.items():

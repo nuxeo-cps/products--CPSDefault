@@ -52,6 +52,11 @@ def date_sortkey(a):
            str(wtool.getInfoFor(a,'time','x')) + \
            a.getId()
 
+def author_sortkey(a):
+    return str(not a.isPrincipiaFolderish) + \
+           str(wtool.getInfoFor(a,'actor','')) + \
+           a.getId()
+
 def cmp_desc(x, y):
     return -cmp(x, y)
 
@@ -62,6 +67,8 @@ elif sort_by == 'date':
     make_sortkey = date_sortkey
 elif sort_by == 'title':
     make_sortkey = title_sortkey
+elif sort_by == 'author':
+    make_sortkey = author_sortkey
 
 objects = [ ( make_sortkey(x), x ) for x in filtered_items ]
 

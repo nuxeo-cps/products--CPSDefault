@@ -43,6 +43,7 @@ from Products.CMFCore.PortalContent import PortalContent
 from Products.CMFCore.utils import getToolByName
 
 from Products.CMFDefault.DublinCore import DefaultDublinCoreImpl
+from Products.CMFCore.Expression import Expression
 
 def addBaseBox(dispatcher, id, REQUEST=None):
     """Add a Base Box."""
@@ -59,7 +60,7 @@ factory_type_information = (
      'description': ('A Base Box is the most basic box.'),
      'meta_type': 'Base Box',
      'content_icon': 'box_icon.gif',
-     'product': 'CPSBoxes',
+     'product': 'CPSDefault',
      'factory': 'addBaseBox',
      'immediate_view': 'basebox_edit_form',
      'filter_content_types': 0,
@@ -81,6 +82,11 @@ factory_type_information = (
                   'action': '',
                   'visible': 0,
                   'permissions': (View,)},
+                 {'id': 'render_box',
+                  'name': 'Render box',
+                  'action': '',
+                  'visible': 0,
+                  'permissions': (View,)},                 
                  {'id': 'isportalbox',
                   'name': 'isportalbox',
                   'action': 'isportalbox',
@@ -241,30 +247,43 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
             'Cannot find %s action for "%s"' %
             (actionid, self.absolute_url(relative=1)))
 
+
     security.declareProtected(View, 'render')
     def render(self, **kw):
         """
         Renders the box.
         """
-        template = self.style.strip()
-        if not template:
-            template = 'box_std_template'
-        render_method = getattr(self, template)
-
         ti = self.getTypeInfo()
-        if ti is not None:
-            actions = ti.getActions()
-        else:
-            actions = ()
+        if ti is None:
+            raise Exception('No portal type found for box: %s' % self.getId())
+        
+        template_name = ti.getActionById('render_box')
+        if not template_name:
+            raise Exception('No action to render template for box: %s' % self.getId())
+        try:
+            macro = self.restrictedTraverse(template_name).macros.get(self.style)
+        except AttributeError:
+            raise Exception('Page template \'%s\' not found for box: %s' %
+                            (template_name, self.getId()))
+        if not macro:
+            raise Exception('No render macro for box: %s' % self.getId())
+        return self.render_macro(macro=macro)
 
-        getslot = SlotRender(box=self, actions=actions,
-                             kw=kw.copy(), verif=_verifyActionPermissions)
 
-        if getattr(aq_base(render_method), 'isDocTemp', 0):
-            rendering = render_method(self, self.REQUEST, getslot=getslot)
-        else:
-            rendering = render_method(getslot=getslot)
-        return rendering.strip()
+    security.declareProtected(View, 'getMacro')
+    def getMacro(self, **kw):
+        """
+        GetMacros to render the box.
+        """
+        ti = self.getTypeInfo()
+        if ti is None:
+            raise Exception('No portal type found for box: %s' % self.getId())
+        
+        template_name = ti.getActionById('render_box')
+        if not template_name:
+            raise Exception('No render template for box: %s' % self.getId())
+
+        return 'here/%s/macros/%s' % (template_name, self.style)
 
 
     security.declareProtected(View, 'edit_form')
@@ -304,45 +323,3 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
         BaseBox.inheritedAttribute('manage_afterAdd')(self, item, container)
 
 InitializeClass(BaseBox)
-
-
-class SlotRender:
-    """
-    Encapsulate a call to get the rendering of a slot.
-    """
-    security = ClassSecurityInfo()
-    security.setDefaultAccess('allow')
-
-    def __init__(self, box, actions, kw, verif):
-        self.box = box
-        self.actions = actions
-        self.kw = kw
-        self.verif = verif
-
-    def __getitem__(self, name):
-        if hasattr(self, name) and not name.startswith('_'):
-            return getattr(self, name)
-        if self.kw.has_key(name):
-            return self.kw[name]
-
-        actionid = 'render_' + name
-        for action in self.actions:
-            if action.get("id", None) == actionid:
-                if self.verif(self.box, action):
-                    # Found an action matching the render_name; do that action
-                    method = self.box.restrictedTraverse(action['action'])
-                    if getattr(aq_base(method), 'isDocTemp', 0):
-                        result = method(box, box.REQUEST, getslot=self, \
-                                        **self.kw)
-                    else:
-                        result = method(getslot=self, **self.kw)
-                    setattr(self, actionid, result) # Why this? /regebro
-                    return result
-
-        # Found nothing
-        #return None # Never returns an error. This feels wrong.../ regebro
-        raise KeyError, name # This feels better.
-
-
-InitializeClass(SlotRender)
-

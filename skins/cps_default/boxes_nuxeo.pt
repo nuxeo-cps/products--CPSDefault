@@ -27,7 +27,7 @@
                 stree python:sections.getList(stop_depth=1);
                 workspaces workspaces|ttool/workspaces;
                 wtree python:workspaces.getList(stop_depth=2)[:1]"
-    tal:condition="python:stree and wtree">
+    tal:condition="python:stree or wtree">
   <li tal:repeat="item stree"
       tal:omit-tag="item/hidden_folder|nothing"
       tal:attributes="class python:context_url.endswith(item['rpath']) and (

@@ -1,6 +1,7 @@
 <metal:html use-macro="here/content_lib/macros/master">
 
-<div tal:define="display_change python:request.get('change_display', '0')" metal:fill-slot="header">
+<div tal:define="display_change python:request.get('change_display', '0')"
+     metal:fill-slot="header">
 <div class="documentActions">
   <a
      href="./folder_contents?change_display=1" i18n:translate="link_change_display"
@@ -22,7 +23,6 @@
   </div>
 </div>
 
-
 <div metal:fill-slot="main"
      tal:define="list_here python:checkPerm('List folder contents', here);
                  list_parent python:checkPerm('List folder contents', here, 'aq_parent')">
@@ -42,6 +42,7 @@
                   sort_by params/sort_by;
                   direction params/direction;
                   format params/format;">
+
     <strong i18n:translate="label_sort_by">sort by</strong>
        <select name="display_order">
             <option i18n:translate="label_title" value="title" selected
@@ -80,6 +81,14 @@
           </select>
 
           <select name="display_direction">
+	    <option i18n:translate="label_default"  value="default" selected
+                    tal:condition="python:direction == 'default'">
+                    Asc
+            </option>
+	    <option i18n:translate="label_default"  value="default"
+                    tal:condition="python:direction != 'default'">
+                    Asc
+            </option>
 	    <option i18n:translate="label_sort_asc"  value="asc" selected
                     tal:condition="python:direction == 'asc'">
                     Asc
@@ -133,10 +142,13 @@
                      Default
 	     </option>
            </select>
+      <input type="hidden" name="default" value="0" />
       <input type="hidden" name="change_display"
         tal:attributes="value python:request.get('change_display', 0)" />
       <input type="submit" value="button_change" i18n:attributes="value"
         tal:attributes="name string:changeDisplayParams:method" />
+      <input type="submit" value="button_default" i18n:attributes="value"
+          tal:attributes="name string:removeDisplayParams:method" />
      </form>
     </metal:block>
   </metal:block>
@@ -181,6 +193,17 @@
                i18n:attributes="value">
         <input type="submit" name="folder_delete:method" value="button_delete"
                i18n:attributes="value">
+        <tal:block tal:define="params here/getDisplayParams;
+                               sort_by params/sort_by;
+                               direction params/direction;
+                               format params/format;
+			       change_display python:request.get('change_display', None);"
+                   condition="python:change_display is None">
+	  <input type="submit" value="button_move_up" i18n:attributes="value"
+                 name="moveItemsUp:method" />
+	  <input type="submit" value="button_move_down" i18n:attributes="value"
+                 name="moveItemsDown:method" />
+	</tal:block>
       </span>
       </td>
      </tr>

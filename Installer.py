@@ -42,6 +42,7 @@ class BaseInstaller:
         self.sections = self.portal[self.SECTIONS_ID]
         self.boxtool = self.portal.portal_boxes
         self.treetool = self.portal.portal_trees
+        self.typetool = self.portal.portal_types
 
 
     def log(self, bla, zlog=1):

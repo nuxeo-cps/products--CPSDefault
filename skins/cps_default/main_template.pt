@@ -55,6 +55,7 @@
   <span tal:replace="CPSD_bmt_stop" /><span tal:replace="structure CPSD_bmt_elapsed" /><span tal:replace="structure request/other/bench_mark_profiler|nothing" />
 </body>
 <body OnLoad="setFocus()" tal:condition="not:emptybody">
+<metal:block use-macro="here/generic_lib/macros/accessibility" />
 <div class="top">
 <!-- BEGIN TOP Slot =============================== -->
   <b tal:replace="python:CPSD_bmt_mark('TOP_boxes_start')" />

@@ -5,7 +5,7 @@
 """
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_parent, aq_inner
+from Acquisition import aq_base
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
@@ -67,7 +67,12 @@ class ContentBox(BaseBox):
     def getFolderObject(self, context):
         """Return the self.folder object or the context object if any"""
         if self.folder:
-            return self.restrictedTraverse(self.folder)
+            if self.folder[0]=='/':
+                return self.restrictedTraverse(self.folder)
+            else: #rpath
+                if hasattr(aq_base(context), self.folder):
+                    folder = context.absolute_url(relative=1) + self.folder
+                    return self.restrictedTraverse(folder)
         return context
 
     security.declarePublic('getFolderContents')

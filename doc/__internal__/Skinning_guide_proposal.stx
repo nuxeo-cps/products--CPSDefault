@@ -1,0 +1,101 @@
+=================================
+= Coding-guide de skinning CPS3 =
+=================================
+
+Abstract
+
+ Ce document présente des règles d'écriture de skins pour les produits CPS3. 
+ Ces  règles de skinning doivent permettre d'accélerer encore les développements
+ en réutilisant les vues unitaires des produits (plus -jamais- de cut'n'paste)
+
+
+1. Introduction
+
+ Les skins des produits CP2 ont tendance a devenir de plus en plus inutilisables
+ au cours du refactoring, parce qu'elles se polluent de divers besoins clients
+ en rapport indirect avec le produit.
+
+ On se propose de remédier a cela en séparant definitivement ce qui relève 
+ - de la présentation finale cliente, ou
+ - des services de visualisation dont est capable le produit
+ 
+
+2. Rationnalisons le rendu des pages
+
+ Le rendu d'une page est souvent conçu comme une unité monolithique où
+ l'on insère tout-ce-dont-on-a-besoin-à-l-arrache. Cependant, cette composition
+ peut être rendue modulaire. 
+
+
+ Prenons par exemple un rendu d'historique de publication : il contient :
+ - Un alinéa d'information sur l'état courant du document
+ - La table chronologique des précédents états de publication
+ - Un titre, une description.
+
+ La méthode actuelle de skinning (il y en a une ?) consiste a remplir les trous
+ jusqu'a ce que la page contienne les bons alignements de pixels (cut'n'paste).
+ De ce fait, on duplique le code de présentation de l'état courant d'un document.
+
+ Que faire lorsque le client veut colorer ses états de publication en rouge
+ pendant la 1ère semaine du mois ?
+ > Challenge actuel : reprendre la maitrise des "visualisations HTML" sur la
+   totalité du site.
+
+
+ En utilisant la méthode par composition de macros, on écrira successivement
+ - La vue unitaire qui rend un état de publication documentaire
+ - Les vues unitaires "titre", "description"
+ - Enfin, la vue composite "Les états de publication"
+   qui utilise notre 1ère vue unitaire
+
+ Que faire lorsque le client veut colorer ses états de publication en rouge
+ pendant la 1ère semaine du mois ?
+ > Modification a un seul endroit : la macro est unique pour un 
+   état de visualisation
+
+
+3. La preuve par l'exemple
+
+ Un exemple est construit dans CPSDefault 
+ http://cvs.in.nuxeo.com/cgi-bin/viewcvs.cgi/CPSDefault/skins/content_lib.pt
+
+ Les pages de soumission et d'acceptation des documents pour publication sont
+ composées par les "macros unitaires" :
+ - status,   Une ligne d'état
+ - history,  Plusieurs lignes d'état précédents de publication
+ - states,   Plusieurs lignes d'état courant de publication,
+             (différentes version dans différentes rubriques)
+ - master,   Composition du tout
+
+
+4. Avantages / Inconvénients
+
+ Avantages 
+
+    - Généricité & Réutilisation
+    - Maîtrise des paramètres nécessaires à la macro
+    - Documentation dans la skin (Commentaires autour des macros)
+    - Pousse à la compatibilité ascendante
+    - Adapté aux élements
+    - Écriture unique 
+
+ Inconvénients
+
+    - Grossi relativement le code écrit, dans le cas de petits blocs
+      (macro unitaire de rendu d'un titre par exemple)
+
+    - Fastidieux dans le passage de paramètres
+      (méthode probante, mais l'outil (macros) est-il adapté ?)
+
+5. Conclusion
+
+ Voila une méthode qui permets d'arréter d'écrire des skins jetables. Elle
+ ne modifie pas les habitudes d'écriture de l'HTML, mais cantonne cette écriture
+ dans des fichiers identifiés en respectant le sens du développement du produit.
+
+ Le besoin client peut continuer à s'adapter en cours de projet
+ *sans toucher aux skins unitaires du produit*. Une réflexion (à l'utilisation)
+ doit être menée pour minimiser la quantité de tal/metal écrite.
+ 
+ben, sm, hc
+

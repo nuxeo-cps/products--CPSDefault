@@ -147,8 +147,7 @@
                      year python:yearmonth[0];
                      month python:yearmonth[1];
                      weeks python:here.portal_calendar.getCPSEventsForCalendar(
-                           month=month, year=year);
-                     mcat python:here.Localizer.default;">
+                           month=month, year=year);">
 
       <table cellpadding="0" cellspacing="0" border="0">
       <tr><td>
@@ -163,7 +162,7 @@
             </th>
             <th colspan="5" tal:define="date string:$month/1/$year">
               <span tal:replace="
-                  python:mcat('calendar_month_%s' % month)"/>
+                  python:cpsmcat('calendar_month_%s' % month)"/>
               <span tal:replace="python:DateTime(date).year()"/>
             </th>
             <th>
@@ -176,7 +175,7 @@
           </tr>
           <tr tal:define="weekdays here/portal_calendar/getDays">
             <tal:weekday tal:repeat="weekday weekdays">
-              <td class="weekdays" tal:content="python:mcat('calendar_day_%s' % weekday)">Su</td>
+              <td class="weekdays" tal:content="python:cpsmcat('calendar_day_%s' % weekday)">Su</td>
             </tal:weekday>
           </tr>
           <tr tal:repeat="week weeks">

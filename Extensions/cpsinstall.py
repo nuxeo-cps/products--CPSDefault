@@ -61,6 +61,11 @@ class DefaultInstaller(CPSInstaller):
     CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s: s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
     CPS_FILTER_LEAVES_SET = 'leaves'
     CPS_FILTER_LEAVES_EXPR = """getattr(o, 'portal_type', None) not in ('Section', 'Workspace')"""
+    # this following filter matches all proxies in their default languages,
+    # this is usefull to remove all translations of a same proxy
+    # match also all non proxy objects and should be used with searchable set
+    CPS_FILTER_DEFAULT_LANGUAGES_SET = 'default_languages'
+    CPS_FILTER_DEFAULT_LANGUAGES_EXPR = "not hasattr(o, 'isDefaultLanguage') or o.isDefaultLanguage()"
 
 
     WFS_ADD_LANGUAGE_TO_PROXY = {
@@ -102,6 +107,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
+        self.setupForms()
         self.restoreEventSubscriber('portal_subscriptions')
 
         self.log("Verifying private area creation flag")
@@ -169,10 +175,13 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                    (Struct(id=self.CPS_FILTER_SEARCHABLE_SET,
                            expr=self.CPS_FILTER_SEARCHABLE_EXPR),
                     Struct(id=self.CPS_FILTER_LEAVES_SET,
-                           expr=self.CPS_FILTER_LEAVES_EXPR),))
+                           expr=self.CPS_FILTER_LEAVES_EXPR),
+                    Struct(id=self.CPS_FILTER_DEFAULT_LANGUAGES_SET,
+                           expr=self.CPS_FILTER_DEFAULT_LANGUAGES_EXPR),))
                 , ('start', 'DateIndex', None)
                 , ('end', 'DateIndex', None)
                 , ('time', 'DateIndex', None) # time of the last transition
+                , ('Language', 'FieldIndex', None)
                )
 
     def catalogEnumerateMetadata( self ):
@@ -491,6 +500,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'cps_default': 'Products/CPSDefault/skins/cps_default',
             'cps_boxes'  : 'Products/CPSBoxes/skins/cps_boxes',
             'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
+            'cps_default_installer': 'Products/CPSDefault/skins/cps_default_installer',
             'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
             'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
         }
@@ -1689,6 +1699,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         else:
             self.setupProduct('CPSOOo')
 
+    def setupForms(self):
+        """Setup Widget/Schema/Layout/Vocabulary used in forms."""
+        return cpsdefault_update_forms(self.portal, self)
 
 def cpsupdate(self, langs_list=None, is_creation=0):
     # helpers
@@ -1711,3 +1724,21 @@ def cps_i18n_update(self, langs_list=None):
     installer.setupTranslations(product_name='CPSDefault')
     installer.log("CPSDefault i18n update Finished")
     return installer.logResult()
+
+
+def cpsdefault_update_forms(self, installer=None):
+    """Update widget/schemas/layout/vocabularies defined inCPSDefaultForm.
+
+    This method can be define as an external method."""
+    return_log = 0
+    if installer is None:
+        return_log = 1
+        installer = CPSInstaller(self, 'CPSDefault Form updater')
+    installer.log("CPSDefault update forms start.")
+    installer.verifyWidgets(self.getCPSDefaultFormWidgets())
+    installer.verifySchemas(self.getCPSDefaultFormSchemas())
+    installer.verifyLayouts(self.getCPSDefaultFormLayouts())
+    installer.verifyVocabularies(self.getCPSDefaultFormVocabularies())
+    installer.log("CPSDefault update forms done.")
+    if return_log:
+        return installer.logResult()

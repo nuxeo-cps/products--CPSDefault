@@ -75,14 +75,8 @@
                                    id python: 'cb_' + item.getId()" />
          </td>
          <td>
-	   <span tal:condition="not:item/isPrincipiaFolderish"
-	     tal:define="info python:here.getContentInfo(item, level=1);">
+	   <span tal:define="info python:here.getContentInfo(item, level=1);">
 	     <metal:block use-macro="here/content_lib/macros/info_detail" />
-	   </span>
-
-	   <span tal:condition="item/isPrincipiaFolderish">
-	     <a href="." tal:attributes="href string:${item/getId}/folder_contents;">
-	       <strong><span tal:replace="item/title_or_id">ID</span></strong></a>
 	   </span>
          </td>
         </tr>

@@ -45,8 +45,7 @@
     <span tal:define="redirect python: response.redirect(url)"></span>
   </div>
 
-  <div class="group">
-  <form action="" method="post"
+  <form action="" method="post" class="group"
         tal:attributes="action here_url"
         tal:define="no_form python:not checkPerm('Delete objects', here);
                     nav_action string:folder_contents;
@@ -106,7 +105,6 @@
       </tr>
     </table>
   </form>
-  </div>
 </metal:main>
 </metal:body>
 </metal:html>

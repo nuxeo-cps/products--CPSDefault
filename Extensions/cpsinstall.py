@@ -1283,9 +1283,6 @@ def cps_i18n_update(self, langs_list=None):
                 pr(" cpsmetadirecties domain set to Localizer/cpsmetadirecties")
         except:
             pass
-
-        pr(" Reindexing catalog")
-        portal.portal_catalog.refreshCatalog(clear=1)
     else:
         raise str('DependanceError'), 'translation_service'
 

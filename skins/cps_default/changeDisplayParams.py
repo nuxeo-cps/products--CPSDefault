@@ -4,8 +4,8 @@
 
 context_url = REQUEST.get("context_url", context.getContextUrl())
 
-# cps cookie checking
-cps_cookie = REQUEST.SESSION.get('cps_display_params', {})
+# Retrieve display preference from session
+display_params = REQUEST.SESSION.get('cps_display_params', {})
 
 form = REQUEST.form
 
@@ -18,18 +18,18 @@ if form is not None:
     else:
         sort_by, direction = display_order.split('_')
 
-    cps_cookie['sort_by'] = sort_by
-    cps_cookie['direction'] = direction
+    display_params['sort_by'] = sort_by
+    display_params['direction'] = direction
 
     # Style
     format = form.get("display_style")
     if format == 'None':
         format = None
 
-    cps_cookie['format'] = format
+    display_params['format'] = format
 
-    # Update cookie
-    REQUEST.SESSION['cps_display_params'] = cps_cookie
+    # Update session
+    REQUEST.SESSION['cps_display_params'] = display_params
 
 redirection_url = context_url + "/folder_contents"
 REQUEST.RESPONSE.redirect(redirection_url)

@@ -1,42 +1,15 @@
 <html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
-<head>
-
+<head tal:define="base_url python:here.getBaseUrl();">
+  <base href="" tal:attributes="href string:${here/absolute_url}/">
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <title>CPS Portal: </title>
 
-<!--
-  cps test / debug information:
-  cps:path:http://devnull:9380/workspaces/members/root
-  cps:rpath:/workspaces/members/root
-  cps:proxy_id:root
-  cps:id:1105889370__0001
--->
-
-  <link rel="Stylesheet" type="text/css"
-        href="/nuxeo_css1.css">
-  <style type="text/css" media="all">@import url(/nuxeo_css2.css);</style>
-<!--
+  <link rel="Stylesheet" type="text/css" href=""
+    tal:attributes="href string:${base_url}nuxeo_css1.css">
   <style type="text/css" media="all"
-    tal:condition="exists: here/ploneCustom.css"
-    tal:content="string:@import url(${base_url}ploneCustom.css);"></style>
-  <link rel="stylesheet" type="text/css" media="print" href=""
-    tal:attributes="href string:${base_url}plonePrint.css">
-  <link rel="icon" href="" type="image/png" tal:attributes="href
-    string:${base_url}favicon.png">
-  <meta http-equiv="imagetoolbar" content="no"> -->
-
-
-
-    <script language="JavaScript">
-    function setFocus() {
-       field = document.getElementById('field_focus')
-       if (field) {
-          field.focus();
-       }
-    }
-    </script>
+    tal:content="string:@import url(${base_url}nuxeo_css2.css);"></style>
 
 
 </head>
@@ -64,7 +37,7 @@
 <a href="/">
 
   <img height="43" width="173" border="0"
-       src="/logo_nuxeo.gif" class="logo"
+       src="logo_nuxeo.gif" class="logo"
        alt="Nuxeo Logo" title="Nuxeo Web Site" />
 </a><br class="netscape4">
 <br class="netscape4"><br class="netscape4">
@@ -165,9 +138,9 @@
 <div class="box">
   <div class="title">
     <a href="/.cps_boxes_root/action_portal/close?goto=/workspaces/members/root"
-       class="close"><img src="/close.gif" /></a>
+       class="close"><img src="close.gif" /></a>
     <a href="/.cps_boxes_root/action_portal/minimize?goto=/workspaces/members/root"
-       class="close"><img src="/minimize.gif" /></a>
+       class="close"><img src="minimize.gif" /></a>
 
 
 
@@ -204,9 +177,9 @@
 <div class="box">
   <div class="title">
     <a href="/.cps_boxes_root/navigation/close?goto=/workspaces/members/root"
-       class="close"><img src="/close.gif" /></a>
+       class="close"><img src="close.gif" /></a>
     <a href="/.cps_boxes_root/navigation/minimize?goto=/workspaces/members/root"
-       class="close"><img src="/minimize.gif" /></a>
+       class="close"><img src="minimize.gif" /></a>
 
     Navigation
   </div>
@@ -435,7 +408,7 @@ in 2 lines</pre>
 
 
      <a href="../folder_contents">
-     <img src="/UpFolder_icon.gif" alt="[Link]"
+     <img src="UpFolder_icon.gif" alt="[Link]"
           border="0">
        <span>Up to <b>members</b></span></a><br><br>
 
@@ -491,7 +464,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
   </td><td>
 
    <a href="/workspaces/members/root/my_dummy/view">
@@ -539,7 +512,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
   </td><td>
    <a href="/workspaces/members/root/my_dummy9295/view">
    <strong>my_dummy9295</strong></a>
@@ -584,7 +557,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
   </td><td>
    <a href="/workspaces/members/root/trululu1/view">
    <strong>trululu1</strong></a>
@@ -629,7 +602,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
   </td><td>
    <a href="/workspaces/members/root/blabla%20bal/view">
    <strong>blabla bal</strong></a>
@@ -672,7 +645,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
   </td><td>
    <a href="/workspaces/members/root/my_dummy8061/view">
 
@@ -717,7 +690,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
 
   </td><td>
    <a href="/workspaces/members/root/my_dummy1035/view">
@@ -762,7 +735,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
 
   </td><td>
    <a href="/workspaces/members/root/my_dummy9396/view">
@@ -807,7 +780,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/dummy_icon.gif" border="0" title="Dummy" />
+   <img src="dummy_icon.gif" border="0" title="Dummy" />
 
   </td><td>
    <a href="/workspaces/members/root/my_dummy7918/view">
@@ -852,7 +825,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/folder_icon.gif" border="0"
+   <img src="folder_icon.gif" border="0"
         title="Workspace" />
 
   </td><td>
@@ -899,7 +872,7 @@ in 2 lines</pre>
 
 <table cellspacing="0" cellpadding="0" width="100%">
   <tr><td width="20">
-   <img src="/folder_icon.gif" border="0"
+   <img src="folder_icon.gif" border="0"
         title="Workspace" />
   </td><td>
 
@@ -1033,10 +1006,10 @@ in 2 lines</pre>
 <div class="box">
   <div class="title">
     <a href="/.cps_boxes_root/action_object/close?goto=/workspaces/members/root"
-       class="close"><img src="/close.gif" /></a>
+       class="close"><img src="close.gif" /></a>
 
     <a href="/.cps_boxes_root/action_object/minimize?goto=/workspaces/members/root"
-       class="close"><img src="/minimize.gif" /></a>
+       class="close"><img src="minimize.gif" /></a>
 
 
         Object actions
@@ -1083,7 +1056,7 @@ in 2 lines</pre>
 
 <a href="/workspaces/members/root/.cps_boxes/my_action_box/maximize?goto=/workspaces/members/root">
 
-  <img src="/maximize.gif" />
+  <img src="maximize.gif" />
   &nbsp;
 </a>
 

@@ -13,6 +13,12 @@ from App.Extensions import getPath
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.ActionInformation import ActionInformation
 from Products.CMFCore.Expression import Expression
+from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
+
+
+from Products.NuxCPS3.CPSWorkflow import TRANSITION_BEHAVIOR_SUBCREATE, \
+     TRANSITION_BEHAVIOR_CLONE, TRANSITION_BEHAVIOR_FREEZE, TRIGGER_CREATION
+from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 
 zexpdir = os.path.join('Products', 'NuxCPS3')
 
@@ -77,7 +83,13 @@ def cpsupdate(self, langs_list=None):
     # setting roles
     pr("Verifying roles")
     already = portal.valid_roles()
-    for role in ('Reader', 'Reviewer', 'Worker', 'SectionManager'):
+    for role in ('WorkspaceManager', # manage: sub object, user right, document, ask for publication
+                 'WorkspaceMember',  # manage: document, ask for publication
+                 'WorkspaceReader',  # only view documents
+                 'SectionManager',   # manage sub object, accept publication
+                 'SectionReviewer',  # accept/reject publication
+                 'SectionReader',    # only view published document
+                 ):
         if role not in already:
             portal._addRole(role)
             pr(" Add role %s" % role)
@@ -184,38 +196,215 @@ def cpsupdate(self, langs_list=None):
         portal.manage_addProduct["NuxCPS3"].manage_addTool('CPS Workflow Tool')
 
 
-    # import the 4 standard workflow
+    # create workflow
     pr("Setup workflow shemas")
     wftool = portal.portal_workflow
     wfids = wftool.objectIds()
-    for wfid in ('cps_section_document_workflow',
-                 'cps_section_workflow',
-                 'cps_workspace_document_workflow',
-                 'cps_workspace_workflow'):
-        if wfid in wfids:
-            wftool.manage_delObjects([wfid])
-        tryimport(wftool, wfid, pr=pr)
 
-    #pr("Verifying new actions")
-    #actionadd = {
-                 #'portal_actions':[
-                                   #ActionInformation(id='print',
-                                                     #title='_action_print_',
-                                                     #action=Expression(
-                                                                       #text='string:${object_url}/view?pp=1'),
-                                                      #text='string:${portal_url}/Members/'),
-                                    #permissions=('Manage users',),
-                                    #category='global',
-                                    #visible=1),
-                 #],
-    #}
-    #for tool, newactions in actionadd.items():
-        #actions = list(portal[tool]._actions)
-        #for action in newactions:
-            #if action.id not in [ac.id for ac in actions]:
-                #actions.append(action)
-                #pr(" Add %s: %s" % (tool, action.id))
-        #portal[tool]._actions = actions
+    # WF workspace
+    wfid = 'wf_workspace'
+    pr(" Setup workflow %s" % wfid)
+    if wfid in wfids:
+        wftool.manage_delObjects([wfid])
+    wftool.manage_addWorkflow(id=wfid,
+                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
+    wf = wftool[wfid]
+    
+    for s in ('work', ):
+        wf.states.addState(s)
+    for t in ('creation', 'create_subobject'):
+        wf.transitions.addTransition(t)
+
+    # wf.states.setInitialState('work')
+    s = wf.states.get('work')
+    s.setProperties(title='Work', 
+                    transitions=('create_subobject',))
+    t = wf.transitions.get('creation')
+    t.setProperties(title='Creation', new_state_id='work', 
+                    transition_behavior=None, 
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_CREATION, 
+                    actbox_name='', actbox_category='workflow', actbox_url='',
+                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    )
+    t = wf.transitions.get('create_subobject')
+    t.setProperties(title='Create a sub object', new_state_id='', 
+                    transition_behavior=(TRANSITION_BEHAVIOR_SUBCREATE, ), 
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_USER_ACTION, 
+                    actbox_name='Create sub workspace', actbox_category='workflow',
+                    actbox_url='%(content_url)s/workspace_create_form',
+                    props={'guard_permissions':'', 'guard_roles':'WorkspaceManager; Manager', 'guard_expr':''},
+                    )
+
+    # WF workspace document
+    wfid = 'wf_workspace_document'
+    pr(" Setup workflow %s" % wfid)
+    if wfid in wfids:
+        wftool.manage_delObjects([wfid])
+    wftool.manage_addWorkflow(id=wfid,
+                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
+    wf = wftool[wfid]
+    
+    for s in ('work', ):
+        wf.states.addState(s)
+    for t in ('creation', 'publish', ):
+        wf.transitions.addTransition(t)
+    for p in (View, ModifyPortalContent, ):
+        wf.addManagedPermission(p)
+        
+    # wf.states.setInitialState('work')
+    s = wf.states.get('work')
+    s.setProperties(title='Work', 
+                    transitions=('publish',))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+    s.setPermission(View, 0, ('Manager', 'WorkspaceManager', 'WorkspaceMember'))
+
+    t = wf.transitions.get('creation')
+    t.setProperties(title='Creation', new_state_id='work', 
+                    transition_behavior=None,
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None,
+                    trigger_type=TRIGGER_CREATION,
+                    actbox_name='', actbox_category='workflow', actbox_url='',
+                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    )
+    t = wf.transitions.get('publish')
+    t.setProperties(title='Publish', new_state_id='', 
+                    transition_behavior=(TRANSITION_BEHAVIOR_CLONE, ), 
+                    clone_allowed_transitions=('in_submit', 'in_publish'),
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_USER_ACTION, 
+                    actbox_name='Publish', actbox_category='workflow',
+                    actbox_url='%(content_url)s/content_publish_form',
+                    props={'guard_permissions':'', 
+                           'guard_roles':'WorkspaceMember; WorkspaceManager; Manager', 
+                           'guard_expr':''},
+                    )
+
+    # WF section
+    wfid = 'wf_section'
+    pr(" Setup workflow %s" % wfid)
+    if wfid in wfids:
+        wftool.manage_delObjects([wfid])
+    wftool.manage_addWorkflow(id=wfid,
+                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
+    wf = wftool[wfid]
+    
+    for s in ('work', ):
+        wf.states.addState(s)
+    for t in ('creation', 'create_subobject'):
+        wf.transitions.addTransition(t)
+
+    s = wf.states.get('work')
+    s.setProperties(title='Work', 
+                    transitions=('create_subobject',))
+    t = wf.transitions.get('creation')
+    t.setProperties(title='Creation', new_state_id='work', 
+                    transition_behavior=None, 
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_CREATION, 
+                    actbox_name='', actbox_category='workflow', actbox_url='',
+                    props={'guard_permissions':'', 'guard_roles':'', 'guard_expr':''},
+                    )
+    t = wf.transitions.get('create_subobject')
+    t.setProperties(title='Create a sub object', new_state_id='', 
+                    transition_behavior=(TRANSITION_BEHAVIOR_SUBCREATE,), 
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_USER_ACTION, 
+                    actbox_name='Create sub section', actbox_category='workflow',
+                    actbox_url='%(content_url)s/section_create_form',
+                    props={'guard_permissions':'', 'guard_roles':'SectionManager; Manager', 'guard_expr':''},
+                    )
+
+    # WF section document
+    wfid = 'wf_section_document'
+    pr(" Setup workflow %s" % wfid)
+    if wfid in wfids:
+        wftool.manage_delObjects([wfid])
+    wftool.manage_addWorkflow(id=wfid,
+                              workflow_type='cps_workflow (Web-configurable workflow for CPS)')
+    wf = wftool[wfid]
+    
+    for s in ('pending', 'published' ):
+        wf.states.addState(s)
+    for t in ('in_publish', 'in_submit', 'publish', 'unpublish', ):
+        wf.transitions.addTransition(t)
+    for p in (View, ModifyPortalContent, ):
+        wf.addManagedPermission(p)
+        
+    s = wf.states.get('pending')
+    s.setProperties(title='Waiting for reviewer', 
+                    transitions=('publish',))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', ))
+    s.setPermission(View, 0, ('SectionReviewer', 'SectionManager', 'Manager'))
+    s = wf.states.get('published')
+    s.setProperties(title='Public', 
+                    transitions=('depublish',))
+    s.setPermission(ModifyPortalContent, 0, ('Manager', ))
+    s.setPermission(View, 0, ('SectionReader', 'SectionReviewer', 'SectionManager', 'Manager'))
+    
+    t = wf.transitions.get('in_publish')
+    t.setProperties(title='Member publishes directly', new_state_id='published', 
+                    transition_behavior=(TRANSITION_BEHAVIOR_FREEZE,),
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None,
+                    trigger_type=TRIGGER_CREATION,
+                    actbox_name='', actbox_category='', actbox_url='',
+                    props={'guard_permissions':'', 
+                           'guard_roles':'SectionReviewer; SectionManager; Manager', 
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('in_submit')
+    t.setProperties(title='Member requests publishing', new_state_id='pending', 
+                    transition_behavior=(TRANSITION_BEHAVIOR_FREEZE,), 
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_CREATION, 
+                    actbox_name='', actbox_category='', actbox_url='',
+                    props={'guard_permissions': '', 
+                           'guard_roles': '', 
+                           'guard_expr': ''},
+                    )
+    t = wf.transitions.get('publish')
+    t.setProperties(title='Member requests publishing', new_state_id='published', 
+                    transition_behavior=None,
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_USER_ACTION, 
+                    actbox_name='Publish', actbox_category='workflow', 
+                    actbox_url='%(content_url)s/content_publish_form',
+                    props={'guard_permissions':'', 
+                           'guard_roles':'SectionReviewer; SectionManager, Manager', 
+                           'guard_expr':''},
+                    )
+    t = wf.transitions.get('unpublish')
+    t.setProperties(title='remove the doc from publication', new_state_id='pending', 
+                    transition_behavior=None,
+                    clone_allowed_transitions=None,
+                    checkout_original_transition_id=None, 
+                    trigger_type=TRIGGER_USER_ACTION, 
+                    actbox_name='Un Publish', actbox_category='workflow', 
+                    actbox_url='%(content_url)s/content_unpublish_form',
+                    props={'guard_permissions':'', 
+                           'guard_roles':'SectionReviewer; SectionManager, Manager', 'guard_expr':''},
+                    )
+   
+    # import the 4 standard workflow
+    #pr("Setup workflow shemas")
+    #wftool = portal.portal_workflow
+    #wfids = wftool.objectIds()
+    #for wfid in ('cps_section_document_workflow',
+                 #'cps_section_workflow',
+                 #'cps_workspace_document_workflow',
+                 #'cps_workspace_workflow'):
+        #if wfid in wfids:
+            #wftool.manage_delObjects([wfid])
+        #tryimport(wftool, wfid, pr=pr)
         
         
     # setup portal_type: CPS Proxy Document, CPS Proxy Folder, 
@@ -269,8 +458,8 @@ def cpsupdate(self, langs_list=None):
     # check workflow association
     pr("Verifying workflow schemas")
     wfs = {
-        'Section': 'cps_section_workflow',
-        'Workspace': 'cps_workspace_workflow',
+        'Section': 'wf_section',
+        'Workspace': 'wf_workspace',
         }
     wftool = portal.portal_workflow
     pr("Installing workflow schemas")
@@ -297,11 +486,11 @@ def cpsupdate(self, langs_list=None):
         portal[workspaces_id].manage_addProduct['NuxCPS3'].addCPSWorkflowConfiguration()
         wfc = getattr(portal[workspaces_id], '.cps_workflow_configuration')
         wfc.manage_addChain(portal_type='Workspace',
-                            chain='cps_workspace_workflow')
+                            chain='wf_workspace')
         wfc.manage_addChain(portal_type='Section',
                             chain='')
         wfc.manage_addChain(portal_type='Dummy',
-                            chain='cps_workspace_document_workflow',
+                            chain='wf_workspace_document',
                             under_sub_add=1)
         
     if not '.cps_workflow_configuration' in portal[sections_id].objectIds():
@@ -311,9 +500,9 @@ def cpsupdate(self, langs_list=None):
         wfc.manage_addChain(portal_type='Workspace',
                             chain='')
         wfc.manage_addChain(portal_type='Section',
-                            chain='cps_section_workflow')
+                            chain='wf_section')
         wfc.manage_addChain(portal_type='Dummy',
-                            chain='cps_section_document_workflow',
+                            chain='wf_section_document',
                             under_sub_add=1)
     # init Tree Tool
     trtool = portal.portal_trees

@@ -1,8 +1,8 @@
-##parameters=proxy=None, doc=None, level=0
+##parameters=proxy=None, doc=None, level=0, cpsmcat=None
 # $Id$
 """ Return information about a content item (ie a proxy)
 level: 0 (default cost 1)
-  id, title, title_or_id, review_state, icon, rev, lang,
+  id, title, title_or_id, review_state, icon, rev, lang, type
   time_str, creator
 level: 1 (cost 1.3)
   level 0 + descr, size + doc + additional information from obj
@@ -15,7 +15,10 @@ level: 4 (cost ???)
 """
 
 # how many characters for the description
-max_description = 150
+DESCRIPTION_MAX_LENGTH = 150
+
+if cpsmcat is None:
+    cpsmcat = context.Localizer.default
 
 if not proxy:
     proxy = context
@@ -138,6 +141,7 @@ except AttributeError:
                                                         info['rpath'])
 info['icon'] = proxy.getIcon(relative_to_portal=1)
 info['type'] = proxy.getPortalTypeName()
+info['type_l10n'] = cpsmcat(proxy.getTypeInfo().Title())
 info['review_state'] = wtool.getInfoFor(proxy, 'review_state', '')
 try:
     langrev = proxy.getLanguageRevisions()
@@ -158,8 +162,8 @@ if level > 0:
         doc = proxy.getContent()
     info['doc'] = doc
     description = doc.Description() or ''
-    if len(description) > max_description:
-        description = description[:max_description] + '...'
+    if len(description) > DESCRIPTION_MAX_LENGTH:
+        description = description[:DESCRIPTION_MAX_LENGTH] + '...'
     info['description'] = description
     if hasattr(doc.aq_explicit, 'get_size'):
         try:

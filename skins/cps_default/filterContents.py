@@ -30,6 +30,8 @@ for item in items:
                                                      'cps_display_as_document_in_listing',
                                                      None)
             display_cache[portal_type] = display_as_document_in_listing
+    else:
+        display_as_document_in_listing = 0
 
     if hide_folder and (item.isPrincipiaFolderish and not display_as_document_in_listing):
        continue

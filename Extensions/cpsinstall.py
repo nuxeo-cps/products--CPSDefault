@@ -82,8 +82,6 @@ class DefaultInstaller(CPSInstaller):
         self.log(" Reindexing %s" % SECTIONS_ID)
         self.portal[SECTIONS_ID].reindexObject()
 
-        self.flagCatalogForReindex()
-
         # remove cpsinstall external method
         # and fix cpsupdate permission
         if 'cpsinstall' in self.portal.objectIds():
@@ -146,6 +144,7 @@ class DefaultInstaller(CPSInstaller):
                 , ('end', 'DateIndex', None)
                 , ('time', 'DateIndex', None) # time of the last transition
                 , ('container_path', 'FieldIndex', None)
+                , ('relative_path_depth', 'FieldIndex', None)
                )
 
     def catalogEnumerateMetadata( self ):
@@ -177,6 +176,7 @@ class DefaultInstaller(CPSInstaller):
                 , 'end'
                 , 'getRevision'
                 , 'time'                # time of the last transition
+                , 'relative_path'
                )
 
     def setupCatalog(self):

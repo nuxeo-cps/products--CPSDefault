@@ -6,6 +6,7 @@ import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
+from AccessControl import Unauthorized
 from Products.CMFCore.WorkflowCore import WorkflowException
 
 
@@ -16,6 +17,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         members = self.portal.portal_directories.members
         members.createEntry({'id': 'member', 'roles': ['Member']})
         members.createEntry({'id': 'reviewer', 'roles': ['Member']})
+
         self.member_ws = self.portal.workspaces.members.member
 
         pmtool = self.portal.portal_membership
@@ -30,6 +32,20 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def beforeTearDown(self):
         self.logout()
+
+    def testAccessForMember(self):
+        self.login('member')
+        assert self.member_ws.folder_contents()
+        assert self.member_ws.folder_view()
+        #self.assertRaises(
+        #    Unauthorized, self.portal.portal_repository.folder_view, ())
+
+    def testAccessForReviewer(self):
+        self.login('reviewer')
+        assert self.portal.sections.folder_contents()
+        assert self.portal.sections.folder_view()
+        #self.assertRaises(
+        #    Unauthorized, self.portal.portal_repository.folder_view, ())
 
     def testSubmit(self):
         self.login('member')
@@ -74,6 +90,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
         published_proxy = self.portal.sections.news
         published_proxy.content_status_modify(workflow_action='unpublish')
+
         info = published_proxy.getContentInfo(level=3)
         #self.assertEquals(info['review_state'], 'pending')
 

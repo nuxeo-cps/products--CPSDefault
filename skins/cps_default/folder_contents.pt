@@ -70,11 +70,9 @@
         <input type="submit" name="folder_factories:method" value="New..."
                i18n:attributes="value" />
       </span>
-      <span tal:condition="python: checkPerm('View management screens', here)">
+      <span tal:condition="python: checkPerm('Delete objects', here)">
         <input type="submit" name="folder_rename_form:method" value="Rename"
                i18n:attributes="value" />
-      </span>
-      <span tal:condition="python: checkPerm('Delete objects', here)">
         <input type="submit" name="folder_delete:method" value="Delete"
                i18n:attributes="value" />
       </span>

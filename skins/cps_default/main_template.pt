@@ -21,8 +21,8 @@
                   bmt_mark nocall:BMT/setMarker;
                   bmt_elapsed nocall:BMT/getProfiling;
                   ">
+<span tal:replace="bmt_start" />
 <head metal:use-macro="here/generic_lib/macros/header">
-  <span tal:replace="bmt_start" />
   <metal:block fill-slot="base">
     <metal:block define-slot="base" tal:replace="nothing">
       <!-- Additional head elements -->
@@ -37,7 +37,7 @@
 </head>
 
 <body>
-
+<!-- HEADER =================================== -->
 <div>
 
   <div class="top">
@@ -64,6 +64,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0"
        align="center" valign="top" class="columns">
   <tr>
+<!-- BAR LEFT ================================= -->
     <td class="left" width="15%">
       <!-- global actions box -->
       <tal:block define="actionsblocks python:here.getGlobalActions(actions=actions)"
@@ -80,7 +81,24 @@
           </metal:block>
         </metal:block>
       </tal:block>
+
+      <!-- display portal_trees -->
+      <metal:block use-macro="here/generic_lib/macros/box">
+      <metal:block fill-slot="box_title">Navigation</metal:block>
+      <metal:block fill-slot="box_body">
+      <div class="content" tal:repeat="tree python:here.portal_trees.objectValues();"
+      tal:attributes="class python:'content ' + ('even','odd')[path('repeat/tree/odd')]">
+
+        <span tal:repeat="item tree/getList">
+          <span tal:replace="structure python:'.'*4*item['depth']">&nbsp;</span>
+          <a href="." tal:attributes="href string:${portal_url}/${item/rpath}/"><span tal:replace="item/id">id</span></a><br/>
+        </span>
+      </div>
+      </metal:block>
+      </metal:block>
     </td>
+
+<!-- MAIN ===================================== -->    
     <td class="main" width="75%">
       
       <div class="document">
@@ -92,17 +110,17 @@
               Status message.
             </strong>
           </div>
-
+          <b tal:replace="python:bmt_mark('main_start')" />
           <metal:block define-slot="header" />
 
           <metal:block define-slot="main" />
-
+          <b tal:replace="python:bmt_mark('main_stop')" />
         </div>
 
       </div>
-      <b tal:replace="python:bmt_mark('main_stop')" />
-
     </td>
+    
+<!-- BAR RIGHT ================================ -->
     <td class="right" width="15%" tal:condition="showthirdcol">
       <!-- document actions box -->
       <tal:block define="actionsblocks python:here.getDocumentActions(actions=actions)"
@@ -127,6 +145,7 @@
   </tr>
 </table>
 
+<!-- FOOTER =================================== -->
 <hr size="" class="netscape4" />
 
 <div metal:use-macro="here/generic_lib/macros/footer">

@@ -2,6 +2,7 @@
 # CPSTestCase
 #
 
+import os, tempfile
 from Testing import ZopeTestCase
 
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
@@ -113,6 +114,15 @@ LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
 
 class CPSTestCase(ZopeTestCase.PortalTestCase):
+
+    def isValidXML(self, xml):
+        filename = tempfile.mktemp()
+        fd = open(filename, "wc")
+        fd.write(xml)
+        fd.close()
+        status = os.system("xmllint --noout %s" % filename)
+        os.unlink(filename)
+        return status == 0
 
     # XXX: unfortunately, the W3C checker sometime fails for no apparent
     # reason.

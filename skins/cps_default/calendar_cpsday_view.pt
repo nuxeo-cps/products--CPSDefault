@@ -24,7 +24,7 @@
                          mq nocall:modules/ZTUtils/make_query;
                         ">
     <span tal:condition="python:len(items)==1" 
-          tal:content="python:request.response.redirect(items[0].absolute_url()+'?'+mq(request.form))" />
+          tal:content="python:request.response.redirect(items[0].getURL()+'?'+mq(request.form))" />
     <tal:block tal:condition="python:len(items)!=1">
       <h1><span tal:omit-tag="" 
             i18n:translate="label_calendar_event_list">

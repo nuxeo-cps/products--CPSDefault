@@ -62,7 +62,7 @@ factory_type_information = (
                  {'id': 'localroles',
                   'name': 'Local roles management',
                   'action': 'folder_localrole_form',
-                  'permissions': (ModifyPortalContent,)},
+                  'permissions': ('Change permissions',)},
                  )
      },
     )

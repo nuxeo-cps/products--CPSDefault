@@ -166,7 +166,7 @@ def cpsupdate(self, langs_list=None):
             id='directories',
             name='Directories',
             action='string: ${portal_url}/directories',
-            condition='python:not portal.portal_membership.isAnonymousUser()',
+            condition='member',
             permission=('View',),
             category='global',
             visible=1)
@@ -183,8 +183,8 @@ def cpsupdate(self, langs_list=None):
         portal['portal_actions'].addAction(
             id='action_my_preferences',
             name='action_my_preferences',
-            action="python:portal_url+'/directory_getentry?dirname=members&entry_id='+portal.portal_membership.getAuthenticatedMember().getMemberId()",
-            condition='python:not portal.portal_membership.isAnonymousUser()',
+            action="string:${portal_url}/directory_getentry?dirname=members&entry_id=${member}",
+            condition='member',
             permission=('View',),
             category='user',
             visible=1)

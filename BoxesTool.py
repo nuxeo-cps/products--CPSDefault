@@ -87,7 +87,10 @@ class BoxesTool(UniqueObject, SimpleItem):
             allboxes.extend(f_boxes)
             self._updateSettings(settings, f_settings)
 
-        homepath = portal_url.getRelativeContentPath(home)
+        if home:
+            homepath = portal_url.getRelativeContentPath(home)
+        else:
+            homepath = None
         LOG('portal_boxes: home path', DEBUG, homepath)
         boxes = []
         for box in allboxes:
@@ -103,11 +106,11 @@ class BoxesTool(UniqueObject, SimpleItem):
             if box.display_in_subfolder or \
                not rpath or \
                elem == rpath[-1] or \
-               boxpath[:len(homepath)] == homepath:
+               (homepath and boxpath[:len(homepath)] == homepath):
                 newbox = {'path': portal_url.getRelativeUrl(box),
-                            'settings': box.getSettings(),
-                            'macro': box.getMacro(),
-                            'box': box}
+                          'settings': box.getSettings(),
+                          'macro': box.getMacro(),
+                          'box': box}
                 # Override any box settings with the local settings
                 # If the box isn't locked and there are overrides
                 if not newbox['box'].locked and settings.get(newbox['path']):

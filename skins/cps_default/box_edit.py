@@ -13,13 +13,6 @@ del kw['box_type']
 
 box = context.restrictedTraverse(box_url)
 
-sf = kw.get('styleformat')
-if sf:
-    styles = context.getBoxesStyles(type=box_type)
-    kw['style']=sf.split('@')[0]
-    kw['format']=sf.split('@')[1]
-    del kw['styleformat']
-
 disp = kw.get('display_box')
 if disp:
     del kw['display_box']
@@ -40,6 +33,23 @@ for k in ('display_in_subfolder', 'children_only', 'contextual'):
 order = kw.get('order')
 if order:
     kw['order'] = int(order)
+
+sf = kw.get('styleformat')
+if sf:
+    kw['style']=sf.split('@')[0]
+    kw['format']=sf.split('@')[1]
+    # override with hard coded configuration
+    bs = context.getBoxesStyles(type=box_type)
+    if bs:
+        config = {}
+        fmt = bs['fmt']
+        for f in fmt:
+            if f['style'] == kw['style'] and f['format'] == kw['format']:
+                config = f.get('config', {})
+                break
+        kw.update(config)
+
+    del kw['styleformat']
 
 box.edit(**kw)
 

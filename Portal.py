@@ -23,7 +23,7 @@ def manage_addSss3Site(dispatcher, id,
                       root_id='root',
                       root_sn='CPS',
                       root_givenName='Root',
-                      root_email='root@cps',
+                      root_email='root@localhost',
                       root_password1='root',  # XXX TODO: remove this
                       root_password2='root',  # XXX TODO: remove this
                       REQUEST=None):
@@ -73,13 +73,15 @@ def manage_addSss3Site(dispatcher, id,
     pr(portal.cpsupdate(langs_list=langs_list), 0)
     
     pr('Configuring Sss3 Portal')
-    portal.portal_properties.editProperties(
-        {
-            'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),
-            'email_from_address': root_email,
-            'smtp_server': 'localhost',
-        }
-    )
+    # editProperties do not work with ZTC due to usage of REQUEST to send properties :/
+    portal.MailHost.smtp_host = 'localhost'
+    portal.manage_changeProperties(REQUEST=None, 
+                                   kw={
+                                       'email_from_name': ('%s %s' % (root_givenName, root_sn)).strip(),
+                                       'email_from_address': root_email,
+                                       'smtp_server': 'localhost',
+                                       }
+                                   )
     
     # TODO: use portal_metadirectories to store emails and other stuff
     pr('Creating CPS Administrator account for Sss3')

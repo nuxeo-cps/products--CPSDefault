@@ -15,6 +15,7 @@
 </metal:block>
 
 <div metal:fill-slot="main">
+  <tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
   <br/>
   <metal:block use-macro="here/content_lib/macros/status" /><br/><br/>
 

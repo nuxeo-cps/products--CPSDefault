@@ -9,15 +9,14 @@
 <div metal:fill-slot="main">
   <tal:block define="proxy here/this;
                      doc here/getContent;
-                     info python:here.getContentInfo(here, level=3);">
+                     ">
   <div class="Desktop">
     <h1><metal:block define-slot="title">title</metal:block></h1>
 <tal:block replace="structure string:<!--
 cps debug and test information
 cps:path:${here/absolute_url}
 cps:proxy_id:${proxy/id}
-cps:doc_id:${doc/id}
-cps:info:${info}
+cps:id:${doc/id}
 -->" />
 
     <em><metal:block define-slot="help">help</metal:block></em>
@@ -84,7 +83,7 @@ cps:info:${info}
 
 <!-- ============================================================ -->
 <pre>all doc information in a table:</pre>
-<metal:block define-macro="doc_info_detail">
+<metal:block define-macro="info_detail">
 <table cellspacing="0" cellpadding="0" width="100%"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td width="20">
@@ -114,7 +113,7 @@ cps:info:${info}
 
 <!-- ============================================================ -->
 <pre>iconic doc information in a table:</pre>
-<metal:block define-macro="doc_info_icon">
+<metal:block define-macro="info_icon">
 <table cellspacing="0" cellpadding="0" width="100"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td align="center">
@@ -132,7 +131,7 @@ cps:info:${info}
 
 <!-- ============================================================ -->
 <pre>short doc information in a table:</pre>
-<metal:block define-macro="doc_info_summary">
+<metal:block define-macro="info_summary">
 <table cellspacing="0" cellpadding="0" width="100%"
   tal:attributes="bgcolor python:info['review_state'] == 'pending' and '#EEEEEE' or nothing">
   <tr><td width="20">
@@ -167,6 +166,7 @@ cps:info:${info}
 <span tal:repeat="item info/states">
   <span tal:condition="python:item['review_state'] != 'work'">
     <tal:block define="info item;
+                       status_time not:nothing;
                        status_short_fmt not:nothing;">
       <metal:block use-macro="here/content_lib/macros/status" />
     </tal:block>

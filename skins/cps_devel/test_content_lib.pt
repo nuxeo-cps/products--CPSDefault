@@ -5,43 +5,61 @@
 i18n:name="objectid">Item</span></h1>
 <p i18n:translate=""></p>
 
-
-<pre>macro status:</pre>
-<metal:block use-macro="here/content_lib/macros/status" />
-<hr/>
-
-
-<pre>macro status with status_time:</pre>
-<tal:block define="status_time python:wtool.getInfoFor(here, 'time')">
-  <metal:block use-macro="here/content_lib/macros/status" />
-</tal:block>
-<hr/>
-
-
-<pre>macro status with status_time and status_short_fmt:</pre>
-<tal:block define="status_time python:wtool.getInfoFor(here, 'time');
-                   status_short_fmt not:nothing;">
-  <metal:block use-macro="here/content_lib/macros/status" />
-</tal:block>
-<hr/>
-
-
-<pre>macro states:</pre>
-<metal:block use-macro="here/content_lib/macros/states" />
-<hr/>
-
-
-<pre>macro history:</pre>
-<metal:block use-macro="here/content_lib/macros/history" />
-<hr/>
+<tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
 
 <pre>macro transition_form:</pre>
 <metal:block use-macro="here/content_lib/macros/transition_form" />
 <hr/>
 
-<pre>macro doc_info:</pre>
-<metal:block use-macro="here/content_lib/macros/doc_info" />
+
+<pre>macro info_icon:</pre>
+<metal:block use-macro="here/content_lib/macros/info_icon" />
 <hr/>
+
+<pre>macro info_summary:</pre>
+<metal:block use-macro="here/content_lib/macros/info_summary" />
+<hr/>
+
+<pre>macro info_detail:</pre>
+<metal:block use-macro="here/content_lib/macros/info_detail" />
+<hr/>
+
+
+<pre>macro status:</pre>
+<metal:block use-macro="here/content_lib/macros/status" />
+<hr/>
+
+<pre>macro status with status_time:</pre>
+<tal:block define="status_time not:nothing;">
+  <metal:block use-macro="here/content_lib/macros/status" />
+</tal:block>
+<hr/>
+
+<pre>macro status status_short_fmt:</pre>
+<tal:block define="status_short_fmt not:nothing;">
+  <metal:block use-macro="here/content_lib/macros/status" />
+</tal:block>
+<hr/>
+
+<pre>macro status with status_time and status_short_fmt:</pre>
+<tal:block define="status_time not:nothing;
+                   status_short_fmt not:nothing;">
+  <metal:block use-macro="here/content_lib/macros/status" />
+</tal:block>
+<hr/>
+
+<tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
+
+<pre>macro states:</pre>
+<metal:block use-macro="here/content_lib/macros/states" />
+<hr/>
+
+<tal:block define="global info python:proxy.getContentInfo(proxy, doc=doc, level=3)" />
+
+<pre>macro history:</pre>
+<metal:block use-macro="here/content_lib/macros/history" />
+<hr/>
+
 
 
 </div>

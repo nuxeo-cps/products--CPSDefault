@@ -25,6 +25,7 @@ from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_base
+from copy import deepcopy
 
 from zLOG import LOG, DEBUG
 
@@ -166,6 +167,21 @@ class TreeBox(BaseBox):
                     if rpath.startswith(f['rpath']):
                         items.append(item)
                         break
+
+            # post treatment to fix display depth
+            # we need a copy to modify items' data without modify portal_trees
+            items = deepcopy(items)
+            if items:
+                items[0]['depth'] = 0
+                local_rpath = items[0]['rpath']
+                local_depth = 0
+                for item in items[1:]:
+                    if not item['rpath'].startswith(local_rpath):
+                        local_rpath = item['rpath']
+                        local_depth = item['depth']
+                        item['depth'] = 0
+                    else:
+                        item['depth'] = item['depth'] - local_depth
 
             return items
 

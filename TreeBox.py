@@ -9,6 +9,7 @@ from Acquisition import aq_parent, aq_inner
 from Products.CMFCore.CMFCorePermissions import View, ModifyPortalContent
 from BaseBox import BaseBox
 from Products.CMFCore.utils import getToolByName
+from Acquisition import aq_base
 
 from zLOG import LOG, DEBUG
 
@@ -82,7 +83,7 @@ class TreeBox(BaseBox):
         else:
             root_path = filter(None,self.root.split('/'))
         root_tree = root_path[0]
-        if not hasattr(portal_trees, root_tree):
+        if not hasattr(aq_base(portal_trees), root_tree):
             return []
             #raise Exception('no tree for %s' % root_tree)
 

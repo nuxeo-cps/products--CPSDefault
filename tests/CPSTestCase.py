@@ -4,25 +4,25 @@
 
 from Testing import ZopeTestCase
 
-ZopeTestCase.installProduct('BTreeFolder2')
-ZopeTestCase.installProduct('CMFCalendar')
-ZopeTestCase.installProduct('CMFCore')
-ZopeTestCase.installProduct('CMFDefault')
-ZopeTestCase.installProduct('CMFTopic')
-ZopeTestCase.installProduct('DCWorkflow')
-ZopeTestCase.installProduct('Localizer')
+ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
+ZopeTestCase.installProduct('CMFCalendar', quiet=1)
+ZopeTestCase.installProduct('CMFCore', quiet=1)
+ZopeTestCase.installProduct('CMFDefault', quiet=1)
+ZopeTestCase.installProduct('CMFTopic', quiet=1)
+ZopeTestCase.installProduct('DCWorkflow', quiet=1)
+ZopeTestCase.installProduct('Localizer', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
-ZopeTestCase.installProduct('CPSCore')
-ZopeTestCase.installProduct('CPSDefault')
-ZopeTestCase.installProduct('NuxMetaDirectories')
-ZopeTestCase.installProduct('NuxUserGroups')
-ZopeTestCase.installProduct('TranslationService')
+ZopeTestCase.installProduct('CPSCore', quiet=1)
+ZopeTestCase.installProduct('CPSDefault', quiet=1)
+ZopeTestCase.installProduct('NuxMetaDirectories', quiet=1)
+ZopeTestCase.installProduct('NuxUserGroups', quiet=1)
+ZopeTestCase.installProduct('TranslationService', quiet=1)
 #
-ZopeTestCase.installProduct('CPSForum')
-ZopeTestCase.installProduct('CPSSchemas')
-ZopeTestCase.installProduct('CPSDocument')
-ZopeTestCase.installProduct('PortalTransforms')
-ZopeTestCase.installProduct('Epoz')
+ZopeTestCase.installProduct('CPSForum', quiet=1)
+ZopeTestCase.installProduct('CPSSchemas', quiet=1)
+ZopeTestCase.installProduct('CPSDocument', quiet=1)
+ZopeTestCase.installProduct('PortalTransforms', quiet=1)
+ZopeTestCase.installProduct('Epoz', quiet=1)
 
 from AccessControl.SecurityManagement \
     import newSecurityManager, noSecurityManager

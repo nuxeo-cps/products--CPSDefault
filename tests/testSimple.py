@@ -79,6 +79,9 @@ class TestSimpleAsRoot(TestSimple):
             box.maximize()
             # XXX: I should be able to test if the box is maximized now
 
+            # XXX: raises an error, something is fishy here
+            #box.render()
+
 
 class TestSimpleAsAnonymous(TestSimple):
     login_id = ''

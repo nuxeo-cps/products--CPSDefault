@@ -126,6 +126,9 @@ class BaseBox(PortalContent, DefaultDublinCoreImpl, PropertyManager):
 
     parent_path = ComputedAttribute(getPhysicalParentPath, 1)
 
+    def sort_order(self):
+        return ('/'.join(self.getPhysicalParentPath()), self.xpos)
+
     def is_closed(self):
         """Returns 0 is it is closed, 1 otherwise
 

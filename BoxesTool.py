@@ -121,10 +121,10 @@ class PortalBoxesTool(ActionProviderBase, UniqueObject, SimpleItem):
 
         query = { 'portal_type': all_box_types,
                   'parent_path': paths,
+                  'sort_on': 'sort_order',
                 }
         if xpos is not None:
             query['xpos'] = xpos
-            query['sort_on'] = 'ypos'
 
         if not alsoclosed:
             query['is_closed'] = 0

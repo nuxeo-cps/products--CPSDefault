@@ -37,7 +37,7 @@
          tal:content="structure item/short_title">
          section title
       </a><span class="closetab" tal:attributes="class python:test(selected, 'closetabSelected', default)"> </span>
-  </tal:block>
+    </tal:block>
   </tal:block>
   <tal:block repeat="item wtree">
     <tal:block define="selected python:context_url.endswith(item['rpath'])">
@@ -238,7 +238,7 @@
        <tal:block define="
           no_form not:nothing;
           format box/box/display;
-          columns python:2;
+          columns python:1;
           items_per_page box/box/nb_items|python:10;
           nav_action string:folder_view;
           zoom box/box/zoom;">

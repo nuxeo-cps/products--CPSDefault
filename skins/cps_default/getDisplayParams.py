@@ -45,7 +45,7 @@ else:
     elif fmt == 'detail':
         col = 1
     else:
-        col = 2
+        col = 1
     params['columns'] = col
 
 if items_per_page:

@@ -29,8 +29,16 @@ def cmp_type(a, b):
         return -1
     if b.getId() in ('Workspace', 'Section'):
         return 1
-    aa = l10n(a.Title()).lower()
-    bb = l10n(b.Title()).lower()
+
+    if l10n(a.Title()) is not None:
+        aa = l10n(a.Title()).lower()
+    else:
+        aa = a.Title().lower()
+
+    if l10n(b.Title()) is not None:
+        bb = l10n(b.Title()).lower()
+    else:
+        bb = b.Title().lower()
     return cmp(aa, bb)
 
 items.sort(cmp_type)

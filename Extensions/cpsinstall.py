@@ -81,9 +81,13 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         }
 
 
-    def install(self, langs_list=None, is_creation=0):
+    def install(self, langs_list=None, is_creation=0, interface='portlets'):
+        """Main installer
+        """
+        self._interface = interface
         self.langs_list = langs_list
         self.is_creation = is_creation
+
         self.log("Starting CPS update")
         self.log("")
         installername = getSecurityManager().getUser().getUserName()
@@ -107,7 +111,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
-        if is_creation:
+        if self.is_creation and self._interface == 'portlets':
             self.setupPortlets()
         self.setupForms()
         self.restoreEventSubscriber('portal_subscriptions')
@@ -1794,14 +1798,17 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         else:
             self.setupProduct('CPSOOo')
 
+        if self.is_creation and self._interface == 'portlets':
+            self.setupProduct('CPSSkins')
+
     def setupForms(self):
         """Setup Widget/Schema/Layout/Vocabulary used in forms."""
         return cpsdefault_update_forms(self.portal, self)
 
-def cpsupdate(self, langs_list=None, is_creation=0):
+def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # helpers
     installer = DefaultInstaller(self)
-    installer.install(langs_list, is_creation)
+    installer.install(langs_list, is_creation, interface=interface)
     installer.finalize()
     return installer.logResult()
 

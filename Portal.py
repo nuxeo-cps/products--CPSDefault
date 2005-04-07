@@ -75,6 +75,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
                              manager_email='',
                              manager_password='',
                              manager_password_confirmation='',
+                             interface='portlets',
                              REQUEST=None):
     """Add a CPSDefault Site."""
 
@@ -145,7 +146,8 @@ def manage_addCPSDefaultSite(dispatcher, id,
     portal._setObject('i18n Updater', i18n_updater)
 
     pr('Executing CPSDefault Installer')
-    pr(portal.cpsupdate(langs_list=langs_list, is_creation=1 ), 0)
+    pr(portal.cpsupdate(langs_list=langs_list, is_creation=1,
+                        interface=interface ), 0)
 
     pr('Configuring CPSDefault Portal')
     # editProperties do not work with ZTC due to usage of REQUEST

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-06 17:37default\n"
+"POT-Creation-Date: 2005-04-07 12:41default\n"
 "PO-Revision-Date: 2004-05-21 18:32+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -108,6 +108,9 @@ msgstr "Mensaje de estado traducido"
 msgid "Work"
 msgstr "Trabajo"
 
+#.   <p condition="python:res['items_count'] > 1">
+#.           Your query gave ${nb_results (tal content="res/items_count")} results.
+#.         </p>
 #.   <p condition="python:items_length > 1">
 #.           Your query gave ${nb_results (tal content="items_length")} results.
 #.         </p>
@@ -115,6 +118,7 @@ msgstr "Trabajo"
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Su búsqueda ha devuelto ${nb_results} resultados."
@@ -513,13 +517,15 @@ msgstr "Registrarme"
 msgid "button_revert_revision"
 msgstr "Volver a la versión archivada"
 
+#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
@@ -738,6 +744,7 @@ msgstr "Aceptar la publicación de ${item_id}"
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Búsqueda avanzada"
 
@@ -2483,6 +2490,9 @@ msgstr "Rol a delegar:"
 
 #    <span>
 #              gave no result.</span>
+#.   <p condition="not:res/items_count">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
@@ -2490,10 +2500,14 @@ msgstr "Rol a delegar:"
 #.         Your query gave no result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Su búsqueda no ha devuelto ningún documento"
 
+#.   <p condition="python:res['items_count'] == 1">
+#.           Your query gave 1 result.
+#.         </p>
 #.   <p condition="python:items_length == 1">
 #.           Your query gave 1 result.
 #.         </p>
@@ -2501,6 +2515,7 @@ msgstr "Su búsqueda no ha devuelto ningún documento"
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Su búsqueda ha devuelto un documento"
@@ -3552,6 +3567,14 @@ msgstr ""
 
 msgid "ChatGuest"
 msgstr ""
+
+#, fuzzy
+msgid "label_searchadv_full_text"
+msgstr "Texto completo"
+
+#, fuzzy
+msgid "label_searchadv_updated"
+msgstr "Título"
 
 # # Languages  ========================================================
 msgid "label_language_en"

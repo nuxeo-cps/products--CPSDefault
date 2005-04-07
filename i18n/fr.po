@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-06 17:37default\n"
+"POT-Creation-Date: 2005-04-07 12:41default\n"
 "PO-Revision-Date: 2005-02-09 10:17+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -108,6 +108,9 @@ msgstr "FAKE"
 msgid "Work"
 msgstr "FAKE"
 
+#.   <p condition="python:res['items_count'] > 1">
+#.           Your query gave ${nb_results (tal content="res/items_count")} results.
+#.         </p>
 #.   <p condition="python:items_length > 1">
 #.           Your query gave ${nb_results (tal content="items_length")} results.
 #.         </p>
@@ -115,6 +118,7 @@ msgstr "FAKE"
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Votre recherche a retourné ${nb_results} résultats."
@@ -438,13 +442,15 @@ msgstr "Réinitialiser mon mot de passe"
 msgid "button_revert_revision"
 msgstr "Revenir à la version archivée"
 
+#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
@@ -626,6 +632,7 @@ msgstr "Accepter la publication de ${item_id}"
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Recherche avancée"
 
@@ -2202,6 +2209,9 @@ msgstr ""
 "L'héritage des rôles locaux est <strong>bloqué</strong>. Vous pouvez "
 "débloquer l'héritage :"
 
+#.   <p condition="not:res/items_count">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
@@ -2209,10 +2219,14 @@ msgstr ""
 #.         Your query gave no result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Votre recherche n'a retourné aucun document."
 
+#.   <p condition="python:res['items_count'] == 1">
+#.           Your query gave 1 result.
+#.         </p>
 #.   <p condition="python:items_length == 1">
 #.           Your query gave 1 result.
 #.         </p>
@@ -2220,6 +2234,7 @@ msgstr "Votre recherche n'a retourné aucun document."
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Votre recherche a retourné un document."
@@ -3226,6 +3241,12 @@ msgstr "Posteur sur Chat"
 
 msgid "ChatGuest"
 msgstr "Invité de Chat"
+
+msgid "label_searchadv_full_text"
+msgstr "Afficher les résultats avec"
+
+msgid "label_searchadv_updated"
+msgstr "Mise à jour"
 
 # # Languages  ========================================================
 msgid "label_language_en"

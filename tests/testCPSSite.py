@@ -94,6 +94,8 @@ class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEquals(ttool.objectIds(), ['sections', 'workspaces'])
         for tree_id in ('sections', 'workspaces'):
             tree = ttool[tree_id]
+            # FIXME why do I need to rebuild here with portlets ?
+            tree.rebuild()
             l = tree.getList(filter=0)
             self.assert_(len(l) > 0)
         

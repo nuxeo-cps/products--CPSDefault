@@ -1512,7 +1512,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 type_names=('Section',),
                 meta_types=('CPS Proxy Folder',
                             'CPS Proxy Document',
-                            'CPS Proxy Folderish Document',),
+                            'CPS Proxy Folderish Document',
+                            'CPS Proxy BTree Folder',
+                            'CPS Proxy BTree Folderish Folder',
+	                    ),
                 info_method='getFolderInfo')
             self.flagRebuildTreeCache(SECTIONS_ID)
 
@@ -1525,7 +1528,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 type_names=('Workspace',),
                 meta_types=('CPS Proxy Folder',
                             'CPS Proxy Document',
-                            'CPS Proxy Folderish Document',),
+                            'CPS Proxy Folderish Document',
+                            'CPS Proxy BTree Folder',
+                            'CPS Proxy BTree Folderish Folder',
+                            ),
                 info_method='getFolderInfo')
             self.flagRebuildTreeCache(WORKSPACES_ID)
 

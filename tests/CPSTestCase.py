@@ -13,31 +13,35 @@ ZopeTestCase.installProduct('CMFDefault', quiet=1)
 ZopeTestCase.installProduct('CMFTopic', quiet=1)
 ZopeTestCase.installProduct('DCWorkflow', quiet=1)
 ZopeTestCase.installProduct('Localizer', quiet=1)
-ZopeTestCase.installProduct('MailHost', quiet=1)
 ZopeTestCase.installProduct('CPSBoxes', quiet=0)
+ZopeTestCase.installProduct('CPSPortlets', quiet=0)
+ZopeTestCase.installProduct('CPSNavigation', quiet=0)
+ZopeTestCase.installProduct('CPSRSS', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
 ZopeTestCase.installProduct('CPSWorkflow', quiet=1)
 ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSDirectory', quiet=1)
 ZopeTestCase.installProduct('CPSUserFolder', quiet=1)
+ZopeTestCase.installProduct('CPSForum', quiet=1)
+ZopeTestCase.installProduct('CPSSchemas', quiet=1)
+ZopeTestCase.installProduct('CPSDocument', quiet=1)
+ZopeTestCase.installProduct('Epoz', quiet=1)
+ZopeTestCase.installProduct('CPSSkins', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
+ZopeTestCase.installProduct('MailHost', quiet=1)
 
 # XXX: these products should (and used to be) be optional, but they aren't
 # right now.
-ZopeTestCase.installProduct('CPSForum', quiet=1)
 ZopeTestCase.installProduct('CPSSubscriptions', quiet=1)
 ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
-ZopeTestCase.installProduct('CPSSchemas', quiet=1)
-ZopeTestCase.installProduct('CPSDocument', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
-ZopeTestCase.installProduct('Epoz', quiet=1)
-ZopeTestCase.installProduct('CPSSkins', quiet=1)
+
 
 # Optional products
-for product in ('CPSRSS', 'CPSChat', 'CPSCalendar', 'CPSCollector',
-        'CPSMailBoxer', 'CPSNavigation', 'CPSPortlets'):
+for product in ('CPSChat', 'CPSCalendar', 'CPSCollector',
+        'CPSMailBoxer'):
     try:
         ZopeTestCase.installProduct(product, quiet=1)
     except:

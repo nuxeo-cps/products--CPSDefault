@@ -35,12 +35,12 @@ from Products.CPSWorkflow.transitions import \
      TRANSITION_ALLOWSUB_MOVE, TRANSITION_ALLOWSUB_COPY
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 from Products.CPSInstaller.CPSInstaller import CPSInstaller
+from Products.CPSDefault.MembershipTool import MembershipTool
 try:
     from Products.ExternalEditor.ExternalEditor import ExternalEditorPermission
     external_editor_present = 1
 except ImportError:
     external_editor_present = 0
-
 
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
@@ -370,6 +370,18 @@ state_change.object.addLanguageToProxy(lang, from_lang)
     def setupMembership(self):
         self.log('Setting up portal membership support,')
         portal = self.portal
+
+        # Previous versions of CPS were directly installing a MembershipTool
+        # from CPSCore while newer versions install the MembershipTool from
+        # CPSDefault which provides additional services.
+        membership_tool_id = 'portal_membership'
+        membership_tool = self.getTool(membership_tool_id, None)
+        if (membership_tool is not None
+            and type(membership_tool) != type(MembershipTool)):
+            self.log("Deleting the previously installed CPSMembershipTool from CPSCore")
+            self.portal.manage_delObjects([membership_tool_id])
+            self.verifyTool(membership_tool_id, 'CPSDefault',
+                            MembershipTool.meta_type)
 
         # Adding properties that previous versions of CPS portal didn't have.
         # All this code is complicated because in the past some values were not

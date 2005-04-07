@@ -27,11 +27,11 @@ try:
 except ImportError:
     has_profile_registry = False
 
+import MembershipTool
 import CMFCalendarToolPatch
 
 # Making sure that the ModuleSecurityInfo info statements of the utils
 # module is taken into account.
-
 import utils
 import Portal
 import Folder
@@ -68,6 +68,7 @@ contentClasses = (
     )
 
 contentConstructors = (
+    MembershipTool.addMembershipTool,
     Folder.addFolder,
     Dummy.addDummy,
 
@@ -104,7 +105,8 @@ fti = (Folder.factory_type_information +
 registerDirectory('skins', globals())
 
 tools = (
-    BoxesTool.BoxesTool,  
+    MembershipTool.MembershipTool,
+    BoxesTool.BoxesTool,
     )
 
 def initialize(context):
@@ -112,16 +114,16 @@ def initialize(context):
     # XXX Compatibility alias (c.f : CPSBoxes)
     ToolInit(
         'CPS Default Tool',
-        tools = tools,
-        product_name = 'CPSDefault',
-        icon = 'tool.png',
+        tools=tools,
+        product_name='CPSDefault',
+        icon='tool.png',
         ).initialize(context)
 
     ContentInit('CPSDefault Documents',
-                content_types = contentClasses,
-                permission = AddPortalContent,
-                extra_constructors = contentConstructors,
-                fti = fti,
+                content_types=contentClasses,
+                permission=AddPortalContent,
+                extra_constructors=contentConstructors,
+                fti=fti,
                 ).initialize(context)
 
     context.registerClass(Portal.CPSDefaultSite,

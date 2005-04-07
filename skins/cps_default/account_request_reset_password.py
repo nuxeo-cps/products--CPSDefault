@@ -1,7 +1,8 @@
 ##parameters=username, REQUEST
 # $Id$
 """
-FIXME: add docstring
+Send a password request to the membership tool and display a message telling if
+everything went fine or not.
 """
 
 from Products.CMFCore.utils import getToolByName

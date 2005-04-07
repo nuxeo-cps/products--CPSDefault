@@ -9,7 +9,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['SearchableText', 'Title', 'Description'],
                 'is_i18n': 1,
-                'label_edit': 'label_search_resutls_with',
+                'label_edit': 'label_searchadv_full_text',
                 },
             },
         'Subject': {
@@ -28,7 +28,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['portal_type'],
                 'is_i18n': 1,
-                'label_edit': 'label_portal_type',
+                'label_edit': 'label_search_portal_type',
                 'vocabulary': 'search_portal_type_voc',
                 'size': 4,
                 },
@@ -38,7 +38,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['review_state'],
                 'is_i18n': 1,
-                'label_edit': 'label_review_state',
+                'label_edit': 'label_search_status',
                 'vocabulary': 'search_review_state_voc',
                 'translated': 0,
                 },
@@ -48,7 +48,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['modified'],
                 'is_i18n': 1,
-                'label_edit': 'label_search_udpated',
+                'label_edit': 'label_searchadv_updated',
                 },
             },
         'Language': {
@@ -56,7 +56,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['Language'],
                 'is_i18n': 1,
-                'label_edit': 'label_search_language',
+                'label_edit': 'label_language',
                 },
             },
         'path': {
@@ -64,7 +64,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['path'],
                 'is_i18n': 1,
-                'label_edit': 'label_search_path',
+                'label_edit': 'label_search_location',
                 },
             },
         },

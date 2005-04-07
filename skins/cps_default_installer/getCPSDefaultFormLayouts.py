@@ -19,19 +19,28 @@ cpsdefault_search_layout = {
                 'is_i18n': 1,
                 'label_edit': 'label_subject',
                 'vocabulary': 'subject_voc',
-                'size': 3,
+                'size': 4,
+                'translated': 1,
+                },
+            },
+        'portal_type': {
+            'type': 'MultiSelect Widget',
+            'data': {
+                'fields': ['portal_type'],
+                'is_i18n': 1,
+                'label_edit': 'label_portal_type',
+                'vocabulary': 'search_portal_type_voc',
+                'size': 4,
                 },
             },
         'review_state': {
-            'type': 'Generic MultiSelect Widget',
+            'type': 'Select Widget',
             'data': {
                 'fields': ['review_state'],
                 'is_i18n': 1,
                 'label_edit': 'label_review_state',
-                'vocabulary': 'review_state_voc',
-                'render_format': 'checkbox',
-                'translated': 1,
-                'size': 3,
+                'vocabulary': 'search_review_state_voc',
+                'translated': 0,
                 },
             },
         'modified': {
@@ -50,12 +59,21 @@ cpsdefault_search_layout = {
                 'label_edit': 'label_search_language',
                 },
             },
+        'path': {
+            'type': 'Search Location Widget',
+            'data': {
+                'fields': ['path'],
+                'is_i18n': 1,
+                'label_edit': 'label_search_path',
+                },
+            },
         },
     'layout': {
         'style_prefix': 'layout_default_',
         'rows': [[{'widget_id': 'ZCText'}, ],
-                 [{'widget_id': 'Subject'}, {'widget_id': 'review_state'}],
-                 [{'widget_id': 'modified'}, ],
+                 [{'widget_id': 'Subject'}, {'widget_id': 'portal_type'}],
+                 [{'widget_id': 'modified'}, {'widget_id': 'review_state'}],
+                 [{'widget_id': 'path'}, ],
                  [{'widget_id': 'Language'}, ],
                 ],
         }

@@ -111,7 +111,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
-        if self.is_creation and self._interface == 'portlets':
+        if (self.is_creation and
+            self._interface == 'portlets'):
             self.setupPortlets()
         self.setupForms()
         self.restoreEventSubscriber('portal_subscriptions')
@@ -1787,7 +1788,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSNavigation')
         self.setupProduct('CPSSubscriptions')
         self.setupProduct('CPSNewsLetters')
-        self.setupProduct('CPSPortlets')
         self.setupProduct('CPSWiki')
         try:
             from elementtree.ElementTree import ElementTree
@@ -1798,7 +1798,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         else:
             self.setupProduct('CPSOOo')
 
-        if self.is_creation and self._interface == 'portlets':
+        if ((self.is_creation and
+             self._interface == 'portlets') or
+            'portal_cpsportlets' in self.portal.objectIds()):
+            self.setupProduct('CPSPortlets')
             self.setupProduct('CPSSkins')
 
     def setupForms(self):

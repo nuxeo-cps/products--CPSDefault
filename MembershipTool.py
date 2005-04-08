@@ -149,12 +149,9 @@ Mime-Version: 1.0
         This methods returns a dictionary containing
         1. the new randomly generated password
         2. a boolean telling if the password resetting has been successful
-        3. a boolean telling if the email notification of the new password has
-        been successful.
         """
         result = {'new_password': None,
                   'reset_password_success': False,
-                  'email_password_success': False,
                   }
         if not self.isPasswordResetRequestValid(username,
                                                 emission_time, reset_token):
@@ -172,42 +169,6 @@ Mime-Version: 1.0
                                      user.getRoles(), user.getDomains())
         result['new_password'] = new_password
         result['reset_password_success'] = True
-        try:
-            mail_from_address = getattr(self.portal_properties,
-                                        'email_from_address')
-        except (AttributeError):
-            LOG('CPSCore.CPSMembershipTool', PROBLEM,
-                "Your portal has no \"email_from_address\" defined. \
-                Reseting password will not be performed because the users have \
-                to trust who send them this reset password email.")
-            return result
-        mail_to_address = email_address
-        subject = "Password reset: new password"
-        visit_url = ("%s/login_form" % self.portal_url())
-        content = """\
-From: %s
-To: %s
-Subject: %s
-Content-Type: text/plain; charset=iso-8859-15
-Mime-Version: 1.0
-
-%s
-"""
-        content = content % (
-            mail_from_address, email_address, subject,
-            "Your new password is: %s\n\nWith it, you can now login into the portal: %s"
-            % (new_password, visit_url))
-
-        try:
-            self.MailHost.send(content,
-                               mto=mail_to_address, mfrom=mail_from_address,
-                               subject=subject, encode='8bit')
-        except (socket.error, SMTPException, MailHostError):
-            LOG('CPSCore.CPSMembershipTool', PROBLEM,
-                "Error while sending reset token email")
-            return result
-
-        result['email_password_success'] = True
         return result
 
 

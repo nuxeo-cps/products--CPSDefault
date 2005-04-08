@@ -1,7 +1,9 @@
 ##parameters=username, d, t, REQUEST
 # $Id$
 """
-FIXME: add docstring
+Make the membership tool reset the password for the given user and display her
+new password as a portal status message or a message telling that something went
+wrong.
 """
 
 from Products.CMFCore.utils import getToolByName

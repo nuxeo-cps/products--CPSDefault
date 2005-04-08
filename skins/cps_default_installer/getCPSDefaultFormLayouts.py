@@ -46,7 +46,7 @@ cpsdefault_search_layout = {
         'modified': {
             'type': 'Search Modified Widget',
             'data': {
-                'fields': ['modified'],
+                'fields': ['modified', 'modified_usage'],
                 'is_i18n': 1,
                 'label_edit': 'label_searchadv_updated',
                 },
@@ -67,6 +67,15 @@ cpsdefault_search_layout = {
                 'label_edit': 'label_search_location',
                 },
             },
+        'sort_by': {
+            'type': 'Search Sort Widget',
+            'data': {
+                'fields': ['sort-on', 'sort-order', 'sort-limit'],
+                'is_i18n': 1,
+                'label_edit': 'label_search_sort_by',
+                'sort_limit': 100,
+                },
+            },
         },
     'layout': {
         'style_prefix': 'layout_default_',
@@ -75,6 +84,7 @@ cpsdefault_search_layout = {
                  [{'widget_id': 'modified'}, {'widget_id': 'review_state'}],
                  [{'widget_id': 'path'}, ],
                  [{'widget_id': 'Language'}, ],
+                 [{'widget_id': 'sort_by'}, ],
                 ],
         }
     }

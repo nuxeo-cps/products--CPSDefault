@@ -1596,7 +1596,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'order': 0,
                 },
                {'type': 'Custom Portlet',
-                'slot': 'bottom',
+                'slot': 'bottom2',
                 'custom_cache_params': [],
                 'order': 10,
                 'render_method': 'portlet_conformance_statement',

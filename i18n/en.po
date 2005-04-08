@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 16:33default\n"
+"POT-Creation-Date: 2005-04-08 16:52default\n"
 "PO-Revision-Date: 2005-02-09 10:17+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -63,14 +63,14 @@ msgstr "Language"
 msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 
-#.   <label for="" content="item/Description" attributes="for choice_id">
+#.   <label content="item/Description" attributes="for choice_id" for="">
 #.                   Portal type's description
 #.                 </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
 msgstr "Portal type's description"
 
-#.   <label for="" content="item/Title" attributes="for choice_id">
+#.   <label content="item/Title" attributes="for choice_id" for="">
 #.                   Portal type's title
 #.                 </label>
 #: from ../skins/cps_default/folder_factories.pt
@@ -85,8 +85,8 @@ msgstr "Portal type's title"
 msgid "Role1"
 msgstr "Role1"
 
-#.   <option value="slot" content="string:label_${slot}" attributes="value slot;
-#.             selected python:test(slot==selected_slot,'selected', nothing);">Slot</option>
+#.   <option content="string:label_${slot}" attributes="value slot;
+#.             selected python:test(slot==selected_slot,'selected', nothing);" value="slot">Slot</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "Slot"
 msgstr "slot"
@@ -113,7 +113,7 @@ msgstr "FAKE"
 msgid "Your query gave ${nb_results} results."
 msgstr "Your query gave ${nb_results} results"
 
-#.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
+#.   <a attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address" accesskey="9">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_contact_link"
 msgstr "Contact"
@@ -133,7 +133,7 @@ msgstr ""
 "worked on with the <a href=\"http://www.wave.webaim.org/\">WAVE Web "
 "Accessibility Tool</a>."
 
-#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
+#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Got to to the homepage"
@@ -143,12 +143,12 @@ msgstr "Got to to the homepage"
 msgid "accessibility_menu_link"
 msgstr "Go to the menu"
 
-#.   <a accesskey="0" attributes="href string:${base_url}accessibility">Accessibility</a>
+#.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_page_link"
 msgstr "Accessibility"
 
-#.   <a accesskey="4" attributes="href string:${base_url}advanced_search_form">Go to search engine</a>
+#.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_search_link"
 msgstr "Go to search engine"
@@ -254,12 +254,12 @@ msgstr "Apply"
 msgid "button_assign_roles"
 msgstr "Assign roles"
 
-#.   <input name="back" type="submit" class="context" value="button_back" />
+#.   <input type="submit" name="back" value="button_back" class="context" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "button_back"
 msgstr "Back"
 
-#.   <input onclick="history.back()" type="button" class="context" value="button_cancel" />
+#.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
@@ -271,9 +271,9 @@ msgstr "Back"
 msgid "button_cancel"
 msgstr "Cancel"
 
-#.   <input name="change" type="submit" class="standalone" value="button_change" condition="python:checkPerm('Manage Boxes', box['box'])" />
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" type="submit" name="change" value="button_change" class="standalone" />
 #.   <input type="submit" class="standalone" value="button_change" />
-#.   <input name="change" type="submit" class="standalone" value="button_change" />
+#.   <input type="submit" name="change" value="button_change" class="standalone" />
 #.   <button type="submit">Change</button>
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
@@ -283,8 +283,9 @@ msgstr "Cancel"
 msgid "button_change"
 msgstr "Save Changes"
 
-#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" condition="python:checkPerm('Manage Boxes', box['box'])" />
-#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" />
+#.   <input condition="python:checkPerm('Manage Boxes', box['box'])" type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" />
+#.   <input type="submit" class="standalone" value="button_change_and_edit" name="change_and_edit" />
+#.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" />
 #: from ../skins/cps_default/basebox_edit_form.pt
 #: ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
@@ -292,7 +293,8 @@ msgstr "Save Changes"
 msgid "button_change_and_edit"
 msgstr "Save Changes & Edit"
 
-#.   <input name="change_and_view" type="submit" class="standalone" value="button_change_and_view" />
+#.   <input type="submit" class="standalone" value="button_change_and_view" name="change_and_view" />
+#.   <input type="submit" name="change_and_view" value="button_change_and_view" class="standalone" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -311,22 +313,21 @@ msgstr "Checkout revision"
 
 #.   <button onclick="window.close()">Fermer</button>
 #: from ../skins/cps_default/popup-singleselect.pt
-#, fuzzy
 msgid "button_close"
-msgstr "Copy"
+msgstr "Close"
 
-#.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
+#.   <input type="submit" name="folder_copy:method" value="button_copy" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr "Copy"
 
-#.   <input name="folder_cut:method" type="submit" class="context" value="button_cut" condition="can_del" />
+#.   <input condition="can_del" type="submit" name="folder_cut:method" value="button_cut" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr "Cut"
 
-#.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
-#.                 (cpsmcat('description_confirm_delete'), )" />
+#.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" class="destructive" value="button_delete" />
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
@@ -340,38 +341,38 @@ msgstr "Delete"
 msgid "button_delete_archive"
 msgstr "Delete this archive"
 
-#.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
+#.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_block"
 msgstr "Block"
 
-#.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
+#.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_local_roles_unblock"
 msgstr "Unblock"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_login" />
+#.   <input type="submit" class="standalone" value="button_login" name="submit" />
 #.   <input type="submit" value="button_login" />
 #: from ../skins/cps_default/login_form.pt ../skins/cps_default/registered.pt
 msgid "button_login"
 msgstr "Login"
 
-#.   <input name="moveItemsBottom:method" type="submit" class="context moveBottom" value="button_move_bottom" />
+#.   <input type="submit" class="context moveBottom" value="button_move_bottom" name="moveItemsBottom:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Move bottom"
 
-#.   <input name="moveItemsDown:method" type="submit" class="context moveDown" value="button_move_down" />
+#.   <input type="submit" class="context moveDown" value="button_move_down" name="moveItemsDown:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Move down"
 
-#.   <input name="moveItemsTop:method" type="submit" class="context moveTop" value="button_move_top" />
+#.   <input type="submit" class="context moveTop" value="button_move_top" name="moveItemsTop:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Move top"
 
-#.   <input name="moveItemsUp:method" type="submit" class="context moveUp" value="button_move_up" />
+#.   <input type="submit" class="context moveUp" value="button_move_up" name="moveItemsUp:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr "Move up"
@@ -383,7 +384,7 @@ msgstr "Move up"
 msgid "button_ok"
 msgstr "OK"
 
-#.   <input name="folder_paste:method" type="submit" class="context" value="button_paste" />
+#.   <input type="submit" name="folder_paste:method" value="button_paste" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr "Paste"
@@ -395,7 +396,7 @@ msgstr "Paste"
 msgid "button_publish"
 msgstr "Publish"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_register" />
+#.   <input type="submit" class="standalone" value="button_register" name="submit" />
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr "Register"
@@ -405,7 +406,7 @@ msgstr "Register"
 msgid "button_reject_publication"
 msgstr "Reject publication"
 
-#.   <input name="folder_rename_form:method" type="submit" class="context" value="button_rename" />
+#.   <input type="submit" name="folder_rename_form:method" value="button_rename" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Change object id"
@@ -415,7 +416,7 @@ msgstr "Change object id"
 msgid "button_request_reset_password"
 msgstr "Request password resetting"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
+#.   <input type="submit" class="standalone" value="button_reset_password" name="submit" />
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "button_reset_password"
 msgstr "Reset password"
@@ -425,11 +426,11 @@ msgstr "Reset password"
 msgid "button_revert_revision"
 msgstr "Revert to the archived revision"
 
-#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
-#.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
+#.   <input type="submit" name="search_submit" value="button_search" class="standalone" />
+#.   <input type="submit" name="role_submit" value="button_search" class="standalone" />
 #.   <input type="submit" class="standalone" value="button_search" />
-#.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
-#.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
+#.   <input type="button" name="search_item" value="button_search" onclick="open_search_dialog()" />
+#.   <input type="button" name="search_doc" value="button_search" onclick="open_dialog_render_box()">
 #.     
 #.         </input>
 #: from ../skins/cps_default/advanced_search_form.pt
@@ -445,8 +446,8 @@ msgstr "Search"
 msgid "button_select"
 msgstr "Select"
 
-#.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
-#.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
+#.   <input attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
+#.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" type="button" class="context" value="button_select_all" onclick="someJavaScriptFunctionThatWillBeReplaced" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
 msgstr "Select all"
@@ -467,10 +468,10 @@ msgstr "Send me a password reminder"
 msgid "button_submit_document"
 msgstr "Submit document"
 
-#.   <button type="button" attributes="
+#.   <button attributes="
 #.           style string:visibility: visible;
 #.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
-#.           ">Layout</button>
+#.           " type="button">Layout</button>
 #: from ../skins/cps_default/textbox_edit_form.pt
 msgid "button_text_editor_popup"
 msgstr "Text Editor..."
@@ -485,7 +486,7 @@ msgstr "Create a revision for translation"
 msgid "button_unpublish_document"
 msgstr "Unpublish document"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
+#.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
@@ -877,14 +878,14 @@ msgstr ""
 "If you create a revision, you will be the only one able to work on the "
 "document."
 
-#.   <div style="visibility: hidden;" onclick="showElement(false, 'no_recurse_help')" class="tooltipArea" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
+#.   <div style="visibility: hidden;" class="tooltipArea" onclick="showElement(false, 'no_recurse_help')" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "help_contentbox_no_recurse"
 msgstr ""
 "Check this if you want the search to be restrained to the chosen folder, "
 "whithout recursing into subfolders."
 
-#.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
+#.   <div style="visibility: hidden;" class="tooltipArea" onclick="showElement(false, 'sort_help')" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "help_contentbox_sort"
 msgstr ""
@@ -1187,16 +1188,16 @@ msgstr "Administrator Email"
 msgid "label_admin_name"
 msgstr "Administrator Name"
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img attributes="src string:${base_url}cps-minibanner.png" src="cps-minibanner.png" alt="label_advertisement_use_cps" title="label_advertisement_use_cps" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr "Use CPS"
 
 #.   <option value="">All</option>
-#.   <option value="" attributes="selected python:notempty==[] or selbox==[]">All</option>
+#.   <option attributes="selected python:notempty==[] or selbox==[]" value="">All</option>
 #.   <option attributes="selected not:review_state" value="">All</option>
 #.   <option attributes="selected not:portal_type" value="">All</option>
-#.   <option value="" attributes="selected not:Subject">All</option>
+#.   <option attributes="selected not:Subject" value="">All</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_all"
@@ -1217,16 +1218,16 @@ msgstr "ATOM"
 msgid "label_author"
 msgstr "Author"
 
-#.   <option value="author_asc" attributes="selected
-#.                                python:sort_by == 'author' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
 #.               Author ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_author_asc"
 msgstr "Author"
 
-#.   <option value="author_desc" attributes="selected
-#.                                python:sort_by == 'author' and direction =='desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'author' and direction =='desc'" value="author_desc">
 #.               Author descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1276,7 +1277,7 @@ msgstr "Categories"
 msgid "label_children_only"
 msgstr "Display subfolders only"
 
-#.   <option value="" attributes="selected not:box/box/query_modified">Choose</option>
+#.   <option attributes="selected not:box/box/query_modified" value="">Choose</option>
 #.   <option attributes="value default;
 #.                                   selected python:request.get('modified',
 #.                                     default) == default or nothing">Choose</option>
@@ -1289,19 +1290,17 @@ msgstr "Choose"
 #.                                                                         'Select folder for recherche') " size="30">
 #.                                                                Choose sections</button>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
 msgid "label_choose_section"
-msgstr "Choose"
+msgstr "Choose sections"
 
 #.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
 #.                                                                         'Select workspaces for recherche') " size="30">
 #.                                                                Choose workspaces</button>
 #: from ../skins/cps_default/contentbox_edit_form.pt
-#, fuzzy
 msgid "label_choose_workspace"
-msgstr "Choose"
+msgstr "Choose workspaces"
 
-#.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
+#.   <option attributes="selected python:test(box['settings']['closed'], 'selected', nothing)" value="closed">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_closed"
 msgstr "Close"
@@ -1311,24 +1310,24 @@ msgstr "Close"
 msgid "label_comments"
 msgstr "Comments"
 
-#.   <option value="compact" attributes="selected python:format == 'compact'">
+#.   <option attributes="selected python:format == 'compact'" value="compact">
 #.               Compact
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_compact"
 msgstr "Compact"
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
+#.   <img attributes="src string:${base_url}valid-css.png" src="valid-css.png" alt="Valid CSS" title="label_conformance_valid_css" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "Site conceived using valid CSS style sheets"
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
+#.   <img attributes="src string:${base_url}valid-xhtml10.png" src="valid-xhtml10.png" alt="Valid XHTML 1.0" title="label_conformance_valid_xhtml" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "Site conceived in valid XHTML"
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
+#.   <img attributes="src string:${base_url}wcag1A.png" src="wcag1A.png" alt="W3C Web Content Accessibility Level A conformance" title="label_conformance_wai_1a" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr "W3C Web Content Accessibility Level A conformance"
@@ -1370,39 +1369,39 @@ msgstr "Current status of the document"
 msgid "label_date"
 msgstr "Date"
 
-#.   <option value="effective_asc" attributes="selected
-#.                                 python:sort_by == 'effective' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                 python:sort_by == 'effective' and direction == 'asc'" value="effective_asc">
 #.               Effective date ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_effective_asc"
 msgstr "Effective date"
 
-#.   <option value="effective_desc" attributes="selected
-#.                                python:sort_by == 'effective' and direction == 'desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'effective' and direction == 'desc'" value="effective_desc">
 #.               Effective date descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_effective_desc"
 msgstr "Effective date desc."
 
-#.   <option value="date_asc" attributes="selected
-#.                                 python:sort_by == 'date' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                 python:sort_by == 'date' and direction == 'asc'" value="date_asc">
 #.               Modification date ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_modification_asc"
 msgstr "Modification date"
 
-#.   <option value="date_desc" attributes="selected
-#.                                python:sort_by == 'date' and direction == 'desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'date' and direction == 'desc'" value="date_desc">
 #.               Modification date descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_modification_desc"
 msgstr "Modification date desc."
 
-#.   <option value="None" attributes="selected not:format">
+#.   <option attributes="selected not:format" value="None">
 #.               Default
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1433,14 +1432,14 @@ msgstr "Description"
 msgid "label_destruction"
 msgstr "Destruction"
 
-#.   <option value="detail" attributes="selected python:format == 'detail'">
+#.   <option attributes="selected python:format == 'detail'" value="detail">
 #.               Detail
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_detailed"
 msgstr "Detail"
 
-#.   <option value="detail_tab" attributes="selected python:format == 'detail_tab'">
+#.   <option attributes="selected python:format == 'detail_tab'" value="detail_tab">
 #.               Detail Tab
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1453,7 +1452,7 @@ msgstr "Table"
 msgid "label_discussion"
 msgstr "Discussion"
 
-#.   <option value="None" attributes="selected python: val == None">
+#.   <option attributes="selected python: val == None" value="None">
 #.             Default
 #.           </option>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1461,7 +1460,7 @@ msgstr "Discussion"
 msgid "label_discussion_default"
 msgstr "Default"
 
-#.   <option value="0" attributes="selected python: val == 0">
+#.   <option attributes="selected python: val == 0" value="0">
 #.             Off
 #.           </option>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1469,7 +1468,7 @@ msgstr "Default"
 msgid "label_discussion_off"
 msgstr "Off"
 
-#.   <option value="1" attributes="selected python: val == 1">
+#.   <option attributes="selected python: val == 1" value="1">
 #.             On
 #.           </option>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1606,7 +1605,7 @@ msgstr "Group name"
 msgid "label_i18n"
 msgstr "Translation"
 
-#.   <option value="icon" attributes="selected python:format == 'icon'">
+#.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1630,37 +1629,37 @@ msgstr "Image link"
 msgid "label_in"
 msgstr "in"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_author"
 msgstr "Author"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_date"
 msgstr "Date"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_size"
 msgstr "Size"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_status"
 msgstr "Status"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_title"
 msgstr "Title"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_type"
 msgstr "Type"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_version"
 msgstr "Version"
@@ -1702,12 +1701,12 @@ msgstr "Search by"
 msgid "label_local_roles_search_term"
 msgstr "Search Term"
 
-#.   <option value="maximized" attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');">Maximized</option>
+#.   <option attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');" value="maximized">Maximized</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_maximized"
 msgstr "Maximized"
 
-#.   <option value="minimized" attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)">Minimized</option>
+#.   <option attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)" value="minimized">Minimized</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
 msgid "label_minimized"
 msgstr "Minimized"
@@ -1717,7 +1716,7 @@ msgstr "Minimized"
 msgid "label_nb_items"
 msgstr "Nb Items"
 
-#.   <option value="None" attributes="selected not:sort_by">
+#.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1751,7 +1750,7 @@ msgstr "Password (confirm) "
 msgid "label_password_mailed"
 msgstr "Mail Password?"
 
-#.   <option value="pending" attributes="selected python:box['box'].query_status == 'pending'">Pending</option>
+#.   <option attributes="selected python:box['box'].query_status == 'pending'" value="pending">Pending</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_pending"
 msgstr "Pending"
@@ -1801,7 +1800,7 @@ msgstr "Publication location"
 msgid "label_publication_states"
 msgstr "Publication states"
 
-#.   <option value="published" attributes="selected python:box['box'].query_status == 'published'">Published</option>
+#.   <option attributes="selected python:box['box'].query_status == 'published'" value="published">Published</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_published"
 msgstr "Published"
@@ -1979,16 +1978,16 @@ msgstr "Start Date (DD/MM/YYYY)"
 msgid "label_status"
 msgstr "Status"
 
-#.   <option value="status_asc" attributes="selected
-#.                                python:sort_by == 'status' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'status' and direction == 'asc'" value="status_asc">
 #.               Status ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_status_asc"
 msgstr "Status"
 
-#.   <option value="status_desc" attributes="selected
-#.                                python:sort_by == 'status' and direction =='desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'status' and direction =='desc'" value="status_desc">
 #.               Status descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -2027,16 +2026,16 @@ msgstr "Text to search"
 msgid "label_title"
 msgstr "Title"
 
-#.   <option value="title_asc" attributes="selected
-#.                                 python:sort_by == 'title' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                 python:sort_by == 'title' and direction == 'asc'" value="title_asc">
 #.               Title ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_title_asc"
 msgstr "Title"
 
-#.   <option value="title_desc" attributes="selected
-#.                                python:sort_by == 'title' and direction == 'desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'title' and direction == 'desc'" value="title_desc">
 #.               Title descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -2096,7 +2095,7 @@ msgstr "Visible in subfolder"
 msgid "label_visible_only_in_subfolder"
 msgstr "Visible ONLY in subfolder"
 
-#.   <option value="work" attributes="selected python:box['box'].query_status == 'work'">Work</option>
+#.   <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 msgid "label_work"
 msgstr "Work"
@@ -2231,7 +2230,7 @@ msgstr "Your query gave one result."
 msgid "link_advanced_search"
 msgstr "Advanced search"
 
-#.   <a href="full_metadata_edit_form" attributes="href string:${here_url}/full_metadata_edit_form">Edit all metadata</a>
+#.   <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
 msgstr "Edit all metadata"
@@ -2241,18 +2240,18 @@ msgstr "Edit all metadata"
 msgid "link_atom_export"
 msgstr "To the associated ATOM export"
 
-#.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
+#.   <a attributes="href string:${context_url}/archivedRevision/${item/rev}/view" href=".">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
 msgstr "Consult this revision"
 
-#.   <a href="mailto:admin@here.com" attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
-#.                            title p_props/email_from_address">Contact the administrator</a>
+#.   <a attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
+#.                            title p_props/email_from_address" href="mailto:admin@here.com">Contact the administrator</a>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "link_contact_admin"
 msgstr "Contact the administrator"
 
-#.   <a href="." attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}">Purge this revision</a>
+#.   <a attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}" href=".">Purge this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_delete_this_revision"
 msgstr "Delete this revision"
@@ -2300,7 +2299,7 @@ msgstr "You can now log directly into the site:"
 msgid "link_registered_return_home_page"
 msgstr "Return to homepage"
 
-#.   <a href="." attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}">Revert to this revision</a>
+#.   <a attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}" href=".">Revert to this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_revert_to_this_revision"
 msgstr "Revert to this revision"
@@ -2324,12 +2323,12 @@ msgstr "Existing revision of the same document"
 msgid "listingheader_sections"
 msgstr "Section"
 
-#.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
 msgid "psm_form_ok"
 msgstr "Valid form"
 
-#.   <div class="message" condition="python: res['status'] == 'invalid'">Invalid form, plz correct error</div>
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
 #: from ../skins/cps_devel/test_layout_form.pt
 msgid "psm_invalid_form"
 msgstr "Invalid form"
@@ -2341,7 +2340,7 @@ msgid "publish"
 msgstr "Publishing"
 
 #.   <span content="item/action" class="action">published</span>
-#.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
+#.   <td content="info/review_state" attributes="class info/review_state" condition="status_in_tabs" align="center">published</td>
 #: from ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "published"
@@ -2362,7 +2361,7 @@ msgstr "Effective Date"
 msgid "time_expiration_date"
 msgstr "Expiration Date"
 
-#.   <option value="time_last_login" attributes="selected python:box['box'].query_modified == 'time_last_login'">time_last_login</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_last_login'" value="time_last_login">time_last_login</option>
 #.   <option attributes="value lastLogin;
 #.                                   selected python:modified == lastLogin or None" condition="not:isAnon">Last login</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -2375,7 +2374,7 @@ msgstr "Last login"
 msgid "time_last_modified"
 msgstr "Last modified date"
 
-#.   <option value="time_last_month" attributes="selected python:box['box'].query_modified == 'time_last_month'">time_last_month</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_last_month'" value="time_last_month">time_last_month</option>
 #.   <option attributes="value lastMonth;
 #.                                   selected python:modified == lastMonth or None">Last month</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -2383,7 +2382,7 @@ msgstr "Last modified date"
 msgid "time_last_month"
 msgstr "Last month"
 
-#.   <option value="time_last_week" attributes="selected python:box['box'].query_modified == 'time_last_week'">time_last_week</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_last_week'" value="time_last_week">time_last_week</option>
 #.   <option attributes="value lastWeek;
 #.                                   selected python:modified == lastWeek or None">Last week</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -2391,7 +2390,7 @@ msgstr "Last month"
 msgid "time_last_week"
 msgstr "Last week"
 
-#.   <option value="time_yesterday" attributes="selected python:box['box'].query_modified == 'time_yesterday'">time_yesterday</option>
+#.   <option attributes="selected python:box['box'].query_modified == 'time_yesterday'" value="time_yesterday">time_yesterday</option>
 #.   <option attributes="value yesterday;
 #.                                   selected python:modified == yesterday or None">Yesterday</option>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -2440,15 +2439,6 @@ msgstr "Contents"
 
 msgid "Directories"
 msgstr "Directories"
-
-msgid "Folder actions"
-msgstr "Folder actions"
-
-msgid "Object actions"
-msgstr "Object actions"
-
-msgid "Portal actions"
-msgstr "Portal actions"
 
 msgid "Preferences"
 msgstr "Preferences"
@@ -3316,6 +3306,27 @@ msgstr "Su"
 
 msgid "_blank"
 msgstr " "
+
+#
+# Default portlets (or Boxes) titles
+#
+msgid "Navigation"
+msgstr "Navigation"
+
+msgid "User actions"
+msgstr "User actions"
+
+msgid "Language selector"
+msgstr "Language selector"
+
+msgid "Folder actions"
+msgstr "Folder actions"
+
+msgid "Object actions"
+msgstr "Object actions"
+
+msgid "Portal actions"
+msgstr "Portal actions"
 
 #~ msgid "Translated status message."
 #~ msgstr "Translated status message."

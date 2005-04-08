@@ -5,7 +5,7 @@ Get Merged Local Roles filtering non CPS roles.
 
 Returns a complicated structure in the form of a tuple that contains:
   * A very complicated dictionary of role definitions
-  * A list of editable users (XXX: What is it?)
+  * A list of editable users: users who have non-inherited local roles
   * The CPS roles available in this context
   * If there the local roles acquisition is blocked in this context
   * A dictionary of usernames and user real life names

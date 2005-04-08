@@ -17,38 +17,27 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA.
 #
-#
-# Replace MonkeyPatch of Membershiptool by real object use
-#
 # $Id$
 
 import sys
 import socket
 import random
 import sha
+
+from urllib import urlencode
 from time import time
 from smtplib import SMTPException
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-from AccessControl import Unauthorized
-from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import setSecurityManager
-from AccessControl.User import nobody
-from AccessControl.User import UnrestrictedUser
-from AccessControl.Permissions import manage_users as ManageUsers
-from Acquisition import aq_base, aq_parent, aq_inner
+from zLOG import LOG, DEBUG, PROBLEM, ERROR
 
 from Products.MailHost.MailHost import MailHostError
-from Products.CMFCore.permissions import View, ManagePortal
-from Products.CMFCore.permissions import ListPortalMembers
-from Products.CMFCore.ActionsTool import ActionInformation as AI
-from Products.CMFCore.Expression import Expression
 from Products.CMFCore.utils import getToolByName
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
 from zLOG import LOG, INFO, DEBUG, PROBLEM, ERROR
 
+log_key = 'CPSDefault.MembershipTool'
 
 class MembershipTool(CPSMembershipTool):
     """A MembershipTool with additional functionnalities over
@@ -56,47 +45,76 @@ class MembershipTool(CPSMembershipTool):
     """
     meta_type = 'CPS Membership Tool'
 
-    # The number of seconds that a reset password request is considered valid
+    _properties = (
+        {'id': 'reset_password_request_validity', 'type': 'int', 'mode': 'w',
+         'label': 'Number of seconds a reset password request is considered valid'},
+        )
     reset_password_request_validity = 3600 * 12
 
     security = ClassSecurityInfo()
 
 
     security.declarePublic('requestPasswordReset')
-    def requestPasswordReset(self, username):
+    def requestPasswordReset(self, username_or_email):
         """Generate a reset token for a password reset and send an email with
         the reset token for confirmation.
+
+        This method can be called with both a username or an email address.
         """
+        LOG(log_key, DEBUG, "username_or_email = %s" % username_or_email)
         # XXX: Here we should setup a mean to prevent potential spam.
         # For example all requests should be stored in a dictionary (to assert
         # their uniqueness) and only be processed every hour so if someone is
         # spammed she will received only 12 password reset confirmation messages
         # a day.
-        member = self.getMemberById(username)
-        if member is None:
-            raise ValueError("The username cannot be found.")
-        email_address = member.getProperty('email')
+        username = None
+        email = None
+        member = self.getMemberById(username_or_email)
+        if member is not None:
+            LOG(log_key, DEBUG, "member is not None")
+            username = username_or_email
+            email = member.getProperty('email')
+        elif username_or_email.find('@'):
+            LOG(log_key, DEBUG, "username_or_email is an email")
+            members_directory = self.portal_directories.members
+            LOG(log_key, DEBUG, "members_directory = %s" % members_directory)
+            # Here we use the _searchEntries() method instead of the
+            # searchEntries() method that only returns entries the current user
+            # is allowed to consult.
+            user_ids = members_directory._searchEntries(email=username_or_email)
+            LOG(log_key, DEBUG, "user_ids %s" % user_ids)
+            if user_ids != []:
+                email = username_or_email
+        LOG(log_key, DEBUG, "username = %s" % username)
+        LOG(log_key, DEBUG, "email = %s" % email)
+        if username is None and email is None:
+            raise ValueError("The user you have specified cannot be found.")
+
+        # Generating a token based either on the email address
         request_emission_time = str(int(time()))
         hash_object = sha.new()
-        hash_object.update(username)
+        hash_object.update(email)
         hash_object.update(request_emission_time)
         hash_object.update(self.getNonce())
         reset_token = hash_object.hexdigest()
+
         try:
             mail_from_address = getattr(self.portal_properties,
                                         'email_from_address')
         except (AttributeError):
-            LOG('CPSCore.CPSMembershipTool', PROBLEM,
+            LOG(log_key, PROBLEM,
                 "Your portal has no \"email_from_address\" defined. \
                 Reseting password will not be performed because the users have \
                 to trust who send them this reset password email.")
-        mail_to_address = email_address
-        subject = "Password reset confirmation"
+        mail_to_address = email
+        subject = "[%s] Password reset confirmation" % self.portal_url()
         # d:  the date of the request emission
         # t:  the token
-        visit_url = ("%s/account_reset_password_form?username=%s&d=%s&t=%s"
-                     % (self.portal_url(),
-                        username, request_emission_time, reset_token))
+        args = {'email': email, 'd': request_emission_time, 't': reset_token}
+        if username is not None:
+            args.update({'username': username})
+        visit_url = ("%s/account_reset_password_form?%s"
+                     % (self.portal_url(), urlencode(args)))
         # TODO: i18n
         content = """\
 From: %s
@@ -108,16 +126,15 @@ Mime-Version: 1.0
 %s
 """
         content = content % (
-            mail_from_address, email_address, subject,
+            mail_from_address, mail_to_address, subject,
             "You can reset your password at the page %s"
             % visit_url)
-
         try:
             self.MailHost.send(content,
                                mto=mail_to_address, mfrom=mail_from_address,
                                subject=subject, encode='8bit')
         except (socket.error, SMTPException, MailHostError):
-            LOG('CPSCore.CPSMembershipTool', PROBLEM,
+            LOG(log_key, PROBLEM,
                 "Error while sending reset token email")
         result = {'reset_token': reset_token,
                   'emission_time': request_emission_time,
@@ -126,13 +143,10 @@ Mime-Version: 1.0
 
 
     security.declarePublic('isPasswordResetRequestValid')
-    def isPasswordResetRequestValid(self, username, emission_time, reset_token):
+    def isPasswordResetRequestValid(self, email, emission_time, reset_token):
         """Return wether a request for a password reset is valid or not."""
-        member = self.getMemberById(username)
-        if member is None:
-            raise ValueError("The username cannot be found.")
         hash_object = sha.new()
-        hash_object.update(username)
+        hash_object.update(email)
         hash_object.update(emission_time)
         hash_object.update(self.getNonce())
         result = hash_object.hexdigest()
@@ -143,33 +157,58 @@ Mime-Version: 1.0
         return False
 
 
+    security.declarePublic('getUsernamesFromEmail')
+    def getUsernamesFromEmail(self, email, emission_time, reset_token):
+        """Return all the usernames, ie the accounts, that corresponds to the
+        given email address.
+
+        This method ensures that a user can only do such a request on from her
+        email.
+        """
+        if not self.isPasswordResetRequestValid(email,
+                                                emission_time, reset_token):
+            LOG(log_key, INFO, "Method getUsernamesFromEmail is used with a "
+                "wrong email address (the one of the reset token).")
+
+        members_directory = self.portal_directories.members
+        # Here we use the _searchEntries() method instead of the
+        # searchEntries() method that only returns entries the current user
+        # is allowed to consult.
+        user_ids = members_directory._searchEntries(email=email)
+        return user_ids
+
+
     security.declarePublic('resetPassword')
-    def resetPassword(self, username, emission_time, reset_token):
-        """Reset a user's password
+    def resetPassword(self, usernames, email, emission_time, reset_token):
+        """Reset the password of the users having the given usernames.
+
+        The users must all have the same email address.
+        Usually this script is called with only one username but resetPassword
+        works for many users as well.
 
         This methods returns a dictionary containing
         1. the new randomly generated password
         2. a boolean telling if the password resetting has been successful
         """
         result = {'new_password': None,
-                  'reset_password_success': False,
+                  'reset_password_success': True,
                   }
-        if not self.isPasswordResetRequestValid(username,
+        if not self.isPasswordResetRequestValid(email,
                                                 emission_time, reset_token):
-            LOG('CPSCore.CPSMembershipTool', INFO,
+            LOG(log_key, INFO,
                 "An invalid password reset request has been received.")
             return result
-        member = self.getMemberById(username)
-        if member is None:
-            raise ValueError("The username cannot be found.")
-        email_address = member.getProperty('email')
         random.seed()
         new_password = generatePassword()
-        user = member.getUser()
-        self.acl_users._doChangeUser(username, new_password,
-                                     user.getRoles(), user.getDomains())
+        for username in usernames:
+            member = self.getMemberById(username)
+            if member is None:
+                LOG(log_key, PROBLEM, "The user %s cannot be found." % username)
+                result['reset_password_success'] = False
+            user = member.getUser()
+            self.acl_users._doChangeUser(username, new_password,
+                                         user.getRoles(), user.getDomains())
         result['new_password'] = new_password
-        result['reset_password_success'] = True
         return result
 
 

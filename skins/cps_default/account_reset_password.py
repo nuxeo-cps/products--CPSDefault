@@ -1,9 +1,12 @@
-##parameters=username, d, t, REQUEST
+##parameters=usernames, email, d, t, REQUEST
 # $Id$
 """
-Make the membership tool reset the password for the given user and display her
-new password as a portal status message or a message telling that something went
-wrong.
+Make the membership tool reset the password for the given usernames and display
+their new (identic) password as a portal status message or a message telling
+that something went wrong.
+
+Usually this script is called with only one username but resetPassword works for
+many users as well.
 """
 
 from Products.CMFCore.utils import getToolByName
@@ -12,7 +15,7 @@ request_emission_time = d
 reset_token = t
 
 membership_tool = getToolByName(context, 'portal_membership')
-result = membership_tool.resetPassword(username,
+result = membership_tool.resetPassword(usernames, email,
                                        request_emission_time, reset_token)
 
 if result['reset_password_success']:

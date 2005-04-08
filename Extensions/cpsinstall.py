@@ -1484,8 +1484,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             workspaces = self.portal[WORKSPACES_ID]
             # XXX This should work if workspaces were a true CPSDocument.
             # What is the problem?
-            #workspaces.getEditableContent().edit(Title="Root of Workspaces")
-            workspaces.getEditableContent().setTitle("Root of Workspaces")
+            #workspaces.getEditableContent().edit(Title="Workspaces")
+            workspaces.getEditableContent().setTitle("Workspaces")
             # XXX Make L10N more generic
             workspaces.addLanguageToProxy('fr')
             workspaces.getEditableContent('fr').setTitle("Espaces de travail")
@@ -1506,7 +1506,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             self.portal.portal_workflow.invokeFactoryFor(
                 self.portal.this(), 'Section', SECTIONS_ID)
             sections = self.portal[SECTIONS_ID]
-            sections.getEditableContent().setTitle("Root of Sections")
+            sections.getEditableContent().setTitle("Sections")
             # XXX Make L10N more generic
             sections.addLanguageToProxy('fr')
             sections.getEditableContent('fr').setTitle("Espaces de publication")

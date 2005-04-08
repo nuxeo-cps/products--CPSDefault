@@ -1554,8 +1554,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         portlets = (
                {'type': 'Navigation Portlet',
                 'slot': 'toptabs',
-                'display': 'navigation_tree',
-                'Title': 'Navigation',
+                'end_depth': 3,
+                'display': 'site_map',
+                'Title': 'Navigation tabs',
                },
                {'type': 'Breadcrumbs Portlet',
                 'slot': 'top',

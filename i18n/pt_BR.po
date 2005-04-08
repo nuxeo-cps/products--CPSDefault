@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pt-BR\n"
-"POT-Creation-Date: 2005-04-08 10:43default\n"
+"POT-Creation-Date: 2005-04-08 12:15default\n"
 "PO-Revision-Date: 2004-09-08 15:46-0300\n"
 "Last-Translator: Mario Olimpio de Menezes <mario@curiango.ipen.br>\n"
 "Language-Team: Portugues do Brasil <pt@li.org>\n"
@@ -90,15 +90,6 @@ msgstr "Papel1"
 msgid "Slot"
 msgstr "Encaixe"
 
-#.   <div class="message" content="portal_status_message" condition="portal_status_message" define="portal_status_message portal_status_message |
-#.                                          request/portal_status_message |
-#.                                          nothing">
-#.     Translated status message.
-#.   </div>
-#: from ../skins/cps_default/generic_lib_portal_message.pt
-msgid "Translated status message."
-msgstr "Mensagem de Estado Traduzida"
-
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib_byline.pt
@@ -106,6 +97,9 @@ msgstr "Mensagem de Estado Traduzida"
 msgid "Work"
 msgstr "Trabalho"
 
+#.   <p condition="python:res['items_count'] > 1">
+#.           Your query gave ${nb_results (tal content="res/items_count")} results.
+#.         </p>
 #.   <p condition="python:items_length > 1">
 #.           Your query gave ${nb_results (tal content="items_length")} results.
 #.         </p>
@@ -113,6 +107,7 @@ msgstr "Trabalho"
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Sua pesquisa deu ${nb_results} resultados."
@@ -428,13 +423,15 @@ msgstr "Registrar"
 msgid "button_revert_revision"
 msgstr "Reverter Revisão"
 
+#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
@@ -619,6 +616,7 @@ msgstr "Aceita publicação de ${item_id}"
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Busca Avançada"
 
@@ -2217,6 +2215,9 @@ msgstr ""
 "Aquisição de papéis locais está <strong>bloqueada</strong>. Para desbloquear "
 "a aquisição clique aqui:"
 
+#.   <p condition="not:res/items_count">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
@@ -2224,10 +2225,14 @@ msgstr ""
 #.         Your query gave no result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Não teve resultados."
 
+#.   <p condition="python:res['items_count'] == 1">
+#.           Your query gave 1 result.
+#.         </p>
 #.   <p condition="python:items_length == 1">
 #.           Your query gave 1 result.
 #.         </p>
@@ -2235,6 +2240,7 @@ msgstr "Não teve resultados."
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Sua busca deu 1 resultado"
@@ -3164,8 +3170,8 @@ msgstr ""
 #, fuzzy
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"Your password has been successfully reinitialized. "
-"Your new password is: ${new_password}"
+"Your password has been successfully reinitialized. Your new password is: "
+"${new_password}"
 
 msgid "psm_reset_password_problem"
 msgstr ""
@@ -3268,6 +3274,10 @@ msgstr "Texto completo"
 msgid "label_searchadv_updated"
 msgstr "Título"
 
+#, fuzzy
+msgid "label_searchadv_sort_by"
+msgstr "Tipo do Portal"
+
 # # Languages  ========================================================
 msgid "label_language_en"
 msgstr "Inglês"
@@ -3362,6 +3372,9 @@ msgstr "Dom"
 
 msgid "_blank"
 msgstr "_blank"
+
+#~ msgid "Translated status message."
+#~ msgstr "Mensagem de Estado Traduzida"
 
 #~ msgid "Title"
 #~ msgstr "Título"

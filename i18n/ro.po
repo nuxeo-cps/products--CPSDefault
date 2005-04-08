@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
-"POT-Creation-Date: 2005-04-08 10:43default\n"
+"POT-Creation-Date: 2005-04-08 12:15default\n"
 "PO-Revision-Date: 2005-04-04 17:31+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -101,15 +101,6 @@ msgstr "Rol1"
 msgid "Slot"
 msgstr "Slot"
 
-#.   <div class="message" content="portal_status_message" condition="portal_status_message" define="portal_status_message portal_status_message |
-#.                                          request/portal_status_message |
-#.                                          nothing">
-#.     Translated status message.
-#.   </div>
-#: from ../skins/cps_default/generic_lib_portal_message.pt
-msgid "Translated status message."
-msgstr "Mesaj de stare tradus"
-
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib_byline.pt
@@ -117,6 +108,9 @@ msgstr "Mesaj de stare tradus"
 msgid "Work"
 msgstr "In lucru"
 
+#.   <p condition="python:res['items_count'] > 1">
+#.           Your query gave ${nb_results (tal content="res/items_count")} results.
+#.         </p>
 #.   <p condition="python:items_length > 1">
 #.           Your query gave ${nb_results (tal content="items_length")} results.
 #.         </p>
@@ -124,6 +118,7 @@ msgstr "In lucru"
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Cererea ta a intors ${nb_results} rezultate."
@@ -434,13 +429,15 @@ msgstr "Trimite-mi o instiintare cu parola mea"
 msgid "button_revert_revision"
 msgstr "Revino la revizia arhivata"
 
+#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
@@ -620,6 +617,7 @@ msgstr "Accepta publicarea ${item_id}"
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Cautare avansata"
 
@@ -2191,6 +2189,9 @@ msgstr ""
 "Mostenirea rolurilor locale este <strong>blocata</strong>. Puteti debloca "
 "mostenirea :"
 
+#.   <p condition="not:res/items_count">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
@@ -2198,10 +2199,14 @@ msgstr ""
 #.         Your query gave no result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Cererea ta nu a intors nici un rezultat."
 
+#.   <p condition="python:res['items_count'] == 1">
+#.           Your query gave 1 result.
+#.         </p>
 #.   <p condition="python:items_length == 1">
 #.           Your query gave 1 result.
 #.         </p>
@@ -2209,6 +2214,7 @@ msgstr "Cererea ta nu a intors nici un rezultat."
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Cererea ta a intors un document."
@@ -3149,8 +3155,8 @@ msgstr ""
 #, fuzzy
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"Your password has been successfully reinitialized. "
-"Your new password is: ${new_password}"
+"Your password has been successfully reinitialized. Your new password is: "
+"${new_password}"
 
 msgid "psm_reset_password_problem"
 msgstr "Resetarea parolei tale a esuat."
@@ -3252,6 +3258,10 @@ msgstr "Textul intreg"
 msgid "label_searchadv_updated"
 msgstr "Titlu"
 
+#, fuzzy
+msgid "label_searchadv_sort_by"
+msgstr "Tip de document"
+
 # Languages
 # ##########
 msgid "label_language_en"
@@ -3345,6 +3355,9 @@ msgstr "Du"
 
 msgid "_blank"
 msgstr " "
+
+#~ msgid "Translated status message."
+#~ msgstr "Mesaj de stare tradus"
 
 #~ msgid "Title"
 #~ msgstr "Titlu"

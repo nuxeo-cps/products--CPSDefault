@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 10:43default\n"
+"POT-Creation-Date: 2005-04-08 12:15default\n"
 "PO-Revision-Date: 2005-02-09 10:17+0100\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -92,15 +92,6 @@ msgstr "Role1"
 msgid "Slot"
 msgstr "Emplacement"
 
-#.   <div class="message" content="portal_status_message" condition="portal_status_message" define="portal_status_message portal_status_message |
-#.                                          request/portal_status_message |
-#.                                          nothing">
-#.     Translated status message.
-#.   </div>
-#: from ../skins/cps_default/generic_lib_portal_message.pt
-msgid "Translated status message."
-msgstr "FAKE"
-
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib_byline.pt
@@ -108,6 +99,9 @@ msgstr "FAKE"
 msgid "Work"
 msgstr "FAKE"
 
+#.   <p condition="python:res['items_count'] > 1">
+#.           Your query gave ${nb_results (tal content="res/items_count")} results.
+#.         </p>
 #.   <p condition="python:items_length > 1">
 #.           Your query gave ${nb_results (tal content="items_length")} results.
 #.         </p>
@@ -115,6 +109,7 @@ msgstr "FAKE"
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Votre recherche a retourné ${nb_results} résultats."
@@ -438,13 +433,15 @@ msgstr "Réinitialiser mon mot de passe"
 msgid "button_revert_revision"
 msgstr "Revenir à la version archivée"
 
+#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
@@ -626,6 +623,7 @@ msgstr "Accepter la publication de ${item_id}"
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Recherche avancée"
 
@@ -2202,6 +2200,9 @@ msgstr ""
 "L'héritage des rôles locaux est <strong>bloqué</strong>. Vous pouvez "
 "débloquer l'héritage :"
 
+#.   <p condition="not:res/items_count">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
@@ -2209,10 +2210,14 @@ msgstr ""
 #.         Your query gave no result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Votre recherche n'a retourné aucun document."
 
+#.   <p condition="python:res['items_count'] == 1">
+#.           Your query gave 1 result.
+#.         </p>
 #.   <p condition="python:items_length == 1">
 #.           Your query gave 1 result.
 #.         </p>
@@ -2220,6 +2225,7 @@ msgstr "Votre recherche n'a retourné aucun document."
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Votre recherche a retourné un document."
@@ -3140,8 +3146,8 @@ msgstr ""
 
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"Votre mot de passe a bien été réinitialisé. "
-"Votre nouveau mot de passe est : ${new_password}"
+"Votre mot de passe a bien été réinitialisé. Votre nouveau mot de passe est : "
+"${new_password}"
 
 msgid "psm_reset_password_problem"
 msgstr "La réinitialisation de votre mot de passe a échoué."
@@ -3232,6 +3238,9 @@ msgstr "Afficher les résultats avec"
 
 msgid "label_searchadv_updated"
 msgstr "Mise à jour"
+
+msgid "label_searchadv_sort_by"
+msgstr "Trier par"
 
 # # Languages  ========================================================
 msgid "label_language_en"
@@ -3324,6 +3333,9 @@ msgstr "Di"
 
 msgid "_blank"
 msgstr " "
+
+#~ msgid "Translated status message."
+#~ msgstr "FAKE"
 
 #~ msgid "Title"
 #~ msgstr "Title"

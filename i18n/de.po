@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault CPS-3.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 10:43default\n"
+"POT-Creation-Date: 2005-04-08 12:15default\n"
 "PO-Revision-Date: 2005-03-14 08:50+0100\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: de <rheinland@dzug.org>\n"
@@ -86,15 +86,6 @@ msgstr "Rolle1"
 msgid "Slot"
 msgstr "slot"
 
-#.   <div class="message" content="portal_status_message" condition="portal_status_message" define="portal_status_message portal_status_message |
-#.                                          request/portal_status_message |
-#.                                          nothing">
-#.     Translated status message.
-#.   </div>
-#: from ../skins/cps_default/generic_lib_portal_message.pt
-msgid "Translated status message."
-msgstr "Übersetzte Status Nachricht."
-
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib_byline.pt
@@ -102,6 +93,9 @@ msgstr "Übersetzte Status Nachricht."
 msgid "Work"
 msgstr "FAKE"
 
+#.   <p condition="python:res['items_count'] > 1">
+#.           Your query gave ${nb_results (tal content="res/items_count")} results.
+#.         </p>
 #.   <p condition="python:items_length > 1">
 #.           Your query gave ${nb_results (tal content="items_length")} results.
 #.         </p>
@@ -109,6 +103,7 @@ msgstr "FAKE"
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Ihre Anfrage ergab ${nb_results} Ergebnisse"
@@ -426,13 +421,15 @@ msgstr "Anmelden"
 msgid "button_revert_revision"
 msgstr "Wechseln zur archivierten Version"
 
+#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
 #.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
 #.     
 #.         </input>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/internallinksbox_edit_form.pt
 #: ../skins/cps_default/renderbox_edit_form.pt
@@ -618,6 +615,7 @@ msgstr "Akzeptiere Publikation von "
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Erweitertes Suchformular"
 
@@ -2201,6 +2199,9 @@ msgstr "Wähle Teilnehmer und eine Rolle aus:"
 msgid "legend_local_roles_unblock"
 msgstr "zugewiesene Rollen:"
 
+#.   <p condition="not:res/items_count">
+#.           Your query gave no result.
+#.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
@@ -2208,10 +2209,14 @@ msgstr "zugewiesene Rollen:"
 #.         Your query gave no result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Ihre Suche führte zu keinem Ergebnis."
 
+#.   <p condition="python:res['items_count'] == 1">
+#.           Your query gave 1 result.
+#.         </p>
 #.   <p condition="python:items_length == 1">
 #.           Your query gave 1 result.
 #.         </p>
@@ -2219,6 +2224,7 @@ msgstr "Ihre Suche führte zu keinem Ergebnis."
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
+#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Ihre Frage ergab ein Ergebnis."
@@ -3142,8 +3148,8 @@ msgstr ""
 #, fuzzy
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"Your password has been successfully reinitialized. "
-"Your new password is: ${new_password}"
+"Your password has been successfully reinitialized. Your new password is: "
+"${new_password}"
 
 msgid "psm_reset_password_problem"
 msgstr ""
@@ -3241,6 +3247,10 @@ msgstr "Voll Text"
 msgid "label_searchadv_updated"
 msgstr "Titel"
 
+#, fuzzy
+msgid "label_searchadv_sort_by"
+msgstr "Dokument Typ"
+
 msgid "label_language_en"
 msgstr "Englisch"
 
@@ -3333,6 +3343,9 @@ msgstr "So"
 
 msgid "_blank"
 msgstr "Blank"
+
+#~ msgid "Translated status message."
+#~ msgstr "Übersetzte Status Nachricht."
 
 #~ msgid "Title"
 #~ msgstr "Titel"

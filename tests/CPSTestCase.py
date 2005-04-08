@@ -274,10 +274,13 @@ class FakeErrorLog:
 # Because of the indexation which is done at the end of the transaction
 # We don't want to deal with transactions within the tests ;)
 #
+# XXX That's a hack, tests should switch to synchronous mode
+# using get_indexation_manager().setSynchonous(True) when needed.
+#
 
-from Products.CPSCore.ProxyBase import ProxyBase
-ProxyBase.reindexObject = ProxyBase._reindexObject
-ProxyBase.reindexObjectSecurity = ProxyBase._reindexObjectSecurity
+from Products.CPSCore.IndexationManager import IndexationManager
+IndexationManager.DEFAULT_SYNC = True
+
 
 ##############################################################
 ##############################################################

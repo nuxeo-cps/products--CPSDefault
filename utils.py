@@ -24,6 +24,7 @@
 from AccessControl import allow_type, allow_class
 from AccessControl import ModuleSecurityInfo
 from zLOG import LOG, INFO, DEBUG
+from types import ListType
 import re
 
 # This regexp is for path of the following forms :
@@ -45,8 +46,8 @@ def getNonArchivedVersionContextUrl(content_url):
     return content_url
 
 
-ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic(
-    'manageCPSLanguage')
+# FIXME: LocalyzerGeddon
+ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('manageCPSLanguage')
 def manageCPSLanguage(context, action, default_language, languages):
     """Manage available a languages in a CPS portal with Localizer"""
 

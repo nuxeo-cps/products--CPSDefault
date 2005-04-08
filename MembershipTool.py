@@ -47,7 +47,7 @@ from Products.CMFCore.Expression import Expression
 from Products.CMFCore.utils import getToolByName
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
-from zLOG import LOG, DEBUG, PROBLEM, ERROR
+from zLOG import LOG, INFO, DEBUG, PROBLEM, ERROR
 
 
 class MembershipTool(CPSMembershipTool):
@@ -97,6 +97,7 @@ class MembershipTool(CPSMembershipTool):
         visit_url = ("%s/account_reset_password_form?username=%s&d=%s&t=%s"
                      % (self.portal_url(),
                         username, request_emission_time, reset_token))
+        # TODO: i18n
         content = """\
 From: %s
 To: %s
@@ -144,7 +145,7 @@ Mime-Version: 1.0
 
     security.declarePublic('resetPassword')
     def resetPassword(self, username, emission_time, reset_token):
-        """Reset the password of a user.
+        """Reset a user's password
 
         This methods returns a dictionary containing
         1. the new randomly generated password

@@ -72,7 +72,7 @@ cpsdefault_search_layout = {
             'data': {
                 'fields': ['sort-on', 'sort-order', 'sort-limit'],
                 'is_i18n': 1,
-                'label_edit': 'label_search_sort_by',
+                'label_edit': 'label_searchadv_sort_by',
                 'sort_limit': 100,
                 },
             },

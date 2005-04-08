@@ -371,17 +371,11 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.log('Setting up portal membership support,')
         portal = self.portal
 
-        # Previous versions of CPS were directly installing a MembershipTool
-        # from CPSCore while newer versions install the MembershipTool from
-        # CPSDefault which provides additional services.
-        membership_tool_id = 'portal_membership'
-        membership_tool = self.getTool(membership_tool_id, None)
-        if (membership_tool is not None
-            and type(membership_tool) != type(MembershipTool)):
-            self.log("Deleting the previously installed CPSMembershipTool from CPSCore")
-            self.portal.manage_delObjects([membership_tool_id])
-            self.verifyTool(membership_tool_id, 'CPSDefault',
-                            MembershipTool.meta_type)
+        # Previous versions of CPS were installing a MembershipTool from CPSCore
+        # while newer versions install the MembershipTool from CPSDefault which
+        # provides additional services.
+        self.verifyTool('portal_membership', 'CPSDefault',
+                        MembershipTool.meta_type, type(MembershipTool))
 
         # Adding properties that previous versions of CPS portal didn't have.
         # All this code is complicated because in the past some values were not

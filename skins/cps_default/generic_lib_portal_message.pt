@@ -5,10 +5,14 @@
 <div class="message"
      tal:define="portal_status_message portal_status_message |
                                        request/portal_status_message |
-                                       nothing"
+                                       nothing;
+     portal_status_message_mappings python:request.get('portal_status_message_mappings',
+                                                       {});
+     cpsmcat nocall:here/translation_service
+     "
      tal:condition="portal_status_message"
-     tal:content="portal_status_message"
-     i18n:translate="">
+     tal:content="python:cpsmcat(portal_status_message, portal_status_message_mappings)"
+     >
   Translated status message.
 </div>
 </metal:block>

@@ -1,52 +1,58 @@
-<html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="here/main_template/macros/master">
-  <body>
-  <metal:block metal:fill-slot="main">
+<tal:block tal:define="res python:here.processSearchForm(REQUEST=request);
+    items python:res['items'];
+    nav_action string:advanced_search_form;
+    no_form python:1;
+    site_wide python:1;
+    format string:detail;
+    filter python:0;
+    title_search request/title_search|nothing;
+    portal_status_message res/psm;
+    swr request/search_within_results|nothing;">
+<metal:block use-macro="here/main_template/macros/master">
+
+  <metal:block fill-slot="header">
     <h1 i18n:translate="heading_advanced_search">
       Advanced search
     </h1>
-    <div class="group"
-         tal:define="sort_by python:request.get('sort_by', '');
-                     direction python:request.get('direction', '');
-                     folder_prefix python:request.get('folder_prefix', '');
-                     items python:here.search(query=request.form,
-                                              sort_by=sort_by,
-                                              direction=direction,
-                                              folder_prefix=folder_prefix);
-                     nav_action string:advanced_search_form;
-                     no_form python:1;
-                     site_wide python:1;
-                     items_length python:len(items);
-                     format string:detail;
-                     filter python:0;
-                     title_search request/title_search|nothing;
-                     swr request/search_within_results|nothing;
-                    "
-         tal:condition="request/form">
-      <p tal:condition="not:items_length"
+  </metal:block>
+
+  <metal:block metal:fill-slot="main">
+    <tal:block condition="res/valid_form">
+      <p tal:condition="not:res/items_count"
          i18n:translate="legend_no_search_result">
         Your query gave no result.
       </p>
-      <p tal:condition="python:items_length == 1"
+      <p tal:condition="python:res['items_count'] == 1"
          i18n:translate="legend_one_search_result">
         Your query gave 1 result.
       </p>
-      <p tal:condition="python:items_length > 1"
+      <p tal:condition="python:res['items_count'] > 1"
          i18n:translate="">
         Your query gave <span class="emphasis"
-                              tal:content="items_length"
+                              tal:content="res/items_count"
                               i18n:name="nb_results">n</span> results.
       </p>
       <div id="searchResults">
         <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
       </div>
-    </div>
+    </tal:block>
     <metal:block define-macro="search_form">
-      <form method="post" action="advanced_search_form">
-        <metal:block use-macro="here/generic_lib_search_form/macros/search_form" />
+      <form method="post" action="advanced_search_form"
+            class="group" id="advancedSearchForm">
+        <p style="text-align: right">
+          <input type="submit" name="search_submit"
+                 class="standalone" value="button_search"
+                 i18n:attributes="value" />
+        </p>
+        <tal:block content="structure res/rendered_form" />
+        <p style="text-align: right">
+          <input type="submit" name="search_submit"
+                 class="standalone" value="button_search"
+                 i18n:attributes="value" />
+        </p>
       </form>
     </metal:block>
   </metal:block>
-  </body>
-</html>
+
+</metal:block>
+</tal:block>

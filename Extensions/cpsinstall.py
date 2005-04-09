@@ -408,7 +408,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                     'portal_properties.enable_portal_joining and not member')
                 break
 
-        self.verifyTool('portal_membership', 'CPSCore', 'CPS Membership Tool')
         self.verifyAction('portal_actions',
                 id='action_my_preferences',
                 name='action_my_preferences',

@@ -77,7 +77,6 @@ class MembershipTool(CPSMembershipTool):
         elif username_or_email.find('@'):
             LOG(log_key, DEBUG, "username_or_email is an email")
             members_directory = self.portal_directories.members
-            LOG(log_key, DEBUG, "members_directory = %s" % members_directory)
             # Here we use the _searchEntries() method instead of the
             # searchEntries() method that only returns entries the current user
             # is allowed to consult.

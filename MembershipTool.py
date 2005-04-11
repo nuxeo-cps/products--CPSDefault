@@ -106,7 +106,8 @@ class MembershipTool(CPSMembershipTool):
                 Reseting password will not be performed because the users have \
                 to trust who send them this reset password email.")
         mail_to_address = email
-        subject = "[%s] Password reset confirmation" % self.portal_url()
+        subject = ("[%s] Password reset confirmation for %s"
+                   % (self.portal_url(), email))
         # d:  the date of the request emission
         # t:  the token
         args = {'email': email, 'd': request_emission_time, 't': reset_token}
@@ -121,13 +122,30 @@ To: %s
 Subject: %s
 Content-Type: text/plain; charset=iso-8859-15
 Mime-Version: 1.0
-
 %s
 """
         content = content % (
             mail_from_address, mail_to_address, subject,
-            "You can reset your password at the page %s"
-            % visit_url)
+            """\
+Dear user,
+
+You (or someone) have requested to reset the password for the account(s) having
+%s as email address. Most probably the reason for this reset request is that the
+password for this/those account(s) has been lost.
+
+If you have not requested this reset, please do ignore this message.
+
+You can reset your password by simply visiting the following page:
+%s
+
+Thank you, and we look forward to seeing you back at %s soon!
+
+Sincerely,
+
+-- 
+The %s administration team
+"""
+            % (email, visit_url, self.portal_url(), self.portal_url()))
         try:
             self.MailHost.send(content,
                                mto=mail_to_address, mfrom=mail_from_address,

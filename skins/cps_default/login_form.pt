@@ -2,7 +2,8 @@
 
 <metal:body use-macro="here/main_template/macros/master">
 
-<metal:main fill-slot="main">
+<metal:main fill-slot="main"
+      tal:define="username request/username | request/__ac_name | nothing">
 
   <form action="" method="post"
         tal:attributes="action string:${base_url}logged_in">
@@ -14,7 +15,7 @@
                i18n:translate="label_user_name">User name</label></dt>
     <dd><input type="text" id="username" name="__ac_name"
                class="focus" size="20" value=""
-               tal:attributes="value python:request.get('__ac_name', '')" /></dd>
+               tal:attributes="value username" /></dd>
     <dt><label for="password"
                i18n:translate="label_password">Password</label></dt>
     <dd><input type="password" id="password" name="__ac_password" size="20"

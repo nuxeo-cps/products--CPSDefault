@@ -23,6 +23,7 @@ if result['reset_password_success']:
     # password and we don't want the new password to appear in the URL.
     REQUEST.form['portal_status_message'] = 'psm_reset_password_success_and_new_password_is'
     REQUEST.form['portal_status_message_mappings'] = {'new_password': result['new_password']}
+    REQUEST.form['username'] = usernames[0]
     return context.login_form()
 else:
     REQUEST.RESPONSE.redirect("%saccount_lost_password_form/?portal_status_message=%s" %

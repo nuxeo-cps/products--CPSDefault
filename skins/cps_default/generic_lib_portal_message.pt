@@ -8,10 +8,11 @@
                                        nothing;
      portal_status_message_mappings python:request.get('portal_status_message_mappings',
                                                        {});
-     cpsmcat nocall:here/translation_service
+     cpsmcat nocall:here/translation_service;
+     translated python:cpsmcat(portal_status_message, portal_status_message_mappings);
      "
      tal:condition="portal_status_message"
-     tal:content="python:cpsmcat(portal_status_message, portal_status_message_mappings)"
+     tal:content="python:translated or portal_status_message"
      >
   Translated status message.
 </div>

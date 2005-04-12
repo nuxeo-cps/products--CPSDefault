@@ -1,4 +1,4 @@
-##parameters=REQUEST
+##parameters=REQUEST=None
 # $Id$
 """Return the rendered search form and do the search on submit."""
 
@@ -11,9 +11,12 @@ res = {'rendered_form': '',
        }
 
 # manage form action
-form = REQUEST.form
-if form.has_key('search_submit'):
-    mapping = form
+if REQUEST is not None:
+    form = REQUEST.form
+    if form.has_key('search_submit'):
+        mapping = form
+    else:
+        mapping = None
 else:
     mapping = None
 

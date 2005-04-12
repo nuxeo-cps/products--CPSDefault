@@ -44,7 +44,8 @@
                  class="standalone" value="button_search"
                  i18n:attributes="value" />
         </p>
-        <tal:block content="structure res/rendered_form" />
+        <tal:block define="res res|here/processSearchForm"
+                   content="structure res/rendered_form" />
         <p style="text-align: right">
           <input type="submit" name="search_submit"
                  class="standalone" value="button_search"

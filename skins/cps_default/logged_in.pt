@@ -29,6 +29,11 @@
         tal:attributes="href string:mailto:${p_props/email_from_address}"
       tal:content="p_props/email_from_address">Email Admin</a>.
     </p>
+    <p i18n:translate="">
+      help_password_forgotten
+      <tal:block i18n:name="link_password_forgotten"
+                 replace="string:${base_url}account_lost_password_form"/>
+    </p>
   </tal:block><!-- isAnon -->
 
   <tal:block condition="not: isAnon"

@@ -3,16 +3,15 @@
 
 <metal:block define-macro="portal_message">
 <div class="message"
-     tal:define="portal_status_message portal_status_message |
-                                       request/portal_status_message |
-                                       nothing;
-     portal_status_message_mappings python:request.get('portal_status_message_mappings',
-                                                       {});
+     tal:define="psm portal_status_message |
+                     request/portal_status_message |
+                     nothing;
+     psm_mappings python:request.get('portal_status_message_mappings', {});
      cpsmcat nocall:here/translation_service;
-     translated python:cpsmcat(portal_status_message, portal_status_message_mappings);
+     translated_psm python:psm and cpsmcat(psm, psm_mappings) or nothing;
      "
-     tal:condition="portal_status_message"
-     tal:content="python:translated or portal_status_message"
+     tal:condition="psm"
+     tal:content="python:translated_psm or psm"
      >
   Translated status message.
 </div>

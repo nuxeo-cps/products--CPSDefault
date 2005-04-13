@@ -24,7 +24,6 @@
 from AccessControl import allow_type, allow_class
 from AccessControl import ModuleSecurityInfo
 from zLOG import LOG, INFO, DEBUG
-from types import ListType
 import re
 
 # This regexp is for path of the following forms :
@@ -55,10 +54,12 @@ def manageCPSLanguage(context, action, default_language, languages):
     catalogs.append(context.Localizer)
     portal = context.portal_url.getPortalObject()
 
-    if not isinstance(languages, ListType):
+    if languages is None:
+        languages = []
+    elif not isinstance(languages, list):
         languages = [languages]
 
-    if languages is None and action in ('add', 'delete'):
+    if not languages and action in ('add', 'delete'):
         psm = 'psm_language_error_select_at_least_one_item'
 
     elif action == 'add':

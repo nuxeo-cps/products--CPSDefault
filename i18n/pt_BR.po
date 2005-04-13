@@ -5,10 +5,12 @@
 # Gettext Message File for default.
 # Your Name <your@email>, Year
 # Mario Olimpio de Menezes <mario@curiango.ipen.br>, 2004.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: pt-BR\n"
-"POT-Creation-Date: 2005-04-12 16:53default\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-13 17:36default\n"
 "PO-Revision-Date: 2004-09-08 15:46-0300\n"
 "Last-Translator: Mario Olimpio de Menezes <mario@curiango.ipen.br>\n"
 "Language-Team: Portugues do Brasil <pt@li.org>\n"
@@ -53,7 +55,7 @@ msgstr "Idioma"
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "Language..."
-msgstr "Idioma"
+msgstr "Language"
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -97,9 +99,11 @@ msgstr "Encaixe"
 msgid "Work"
 msgstr "Trabalho"
 
-#.   <span>You are currently logged in as</span>
+#.   <span>You are currently logged in as
+#.         ${member (tal content="mtool/getAuthenticatedMember")}
+#.       </span>
 #: from ../skins/cps_default/portlet_session_info.pt
-msgid "You are currently logged in as"
+msgid "You are currently logged in as ${member}"
 msgstr ""
 
 #.   <p condition="python:res['items_count'] > 1">
@@ -314,7 +318,7 @@ msgstr "Retirar Rascunho"
 #: from ../skins/cps_default/popup-singleselect.pt
 #, fuzzy
 msgid "button_close"
-msgstr "Copiar"
+msgstr "Close"
 
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -415,13 +419,13 @@ msgstr "Renomear"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "button_request_reset_password"
-msgstr "Reverter Revisão"
+msgstr "Request password resetting"
 
 #.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
 #: from ../skins/cps_default/account_reset_password_form.pt
 #, fuzzy
 msgid "button_reset_password"
-msgstr "Registrar"
+msgstr "Reset password"
 
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
@@ -464,7 +468,7 @@ msgstr "Enviar"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "button_send_password_reminder"
-msgstr "Envia senha por email?"
+msgstr "Send me a password reminder"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -479,13 +483,13 @@ msgstr "Submeter Documento"
 #: from ../skins/cps_default/textbox_edit_form.pt
 #, fuzzy
 msgid "button_text_editor_popup"
-msgstr "Mover para o Topo"
+msgstr "Text Editor..."
 
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "button_translate_document"
-msgstr "Submeter Documento"
+msgstr "Create a revision for translation"
 
 #.   <input type="submit" class="standalone" value="button_unpublish_document" />
 #: from ../skins/cps_default/content_unpublish_form.pt
@@ -519,7 +523,8 @@ msgstr "para mudar suas informações de membresia."
 #, fuzzy
 msgid "description_languages_form"
 msgstr ""
-"Este formulário é utilizado para definir as opções de configuração do portal."
+"This page gives you the opportunity to manage languages available on the "
+"portal."
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -568,8 +573,7 @@ msgstr ""
 #: from ../skins/cps_default/registered.pt
 #, fuzzy
 msgid "description_registered"
-msgstr ""
-"Este formulário é utilizado para definir as opções de configuração do portal."
+msgstr "You have been registered as a member."
 
 #.   <p>
 #.                 The account below is the one on which the password reset on will be done.
@@ -711,7 +715,7 @@ msgstr "Torne-se um membro"
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "heading_language_manage_form"
-msgstr "Administrar Caixas"
+msgstr "Manage languages"
 
 #.   <h1>
 #.    Assign local roles: Search Members
@@ -746,7 +750,7 @@ msgstr "Sucesso de Login"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "heading_lost_password"
-msgstr "Não tenha medo!"
+msgstr "You have lost your password"
 
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
@@ -762,13 +766,13 @@ msgstr "Senha enviada!"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "heading_password_reminder"
-msgstr "Senha enviada!"
+msgstr "Password reminder"
 
 #.   <h2>Password reset</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "heading_password_reset"
-msgstr "Senha enviada!"
+msgstr "Password reset"
 
 #.   <title fill-slot="title">
 #.     heading_publish_of
@@ -789,7 +793,7 @@ msgstr "Configurar Portal"
 #: from ../skins/cps_default/registered.pt
 #, fuzzy
 msgid "heading_registered_title"
-msgstr "Renomear Itens"
+msgstr "Success!"
 
 #.   <title fill-slot="title">
 #.     heading_reject_publication_of
@@ -852,7 +856,7 @@ msgstr "Submeter ${item_id}"
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "heading_translation_of ${item_id}"
-msgstr "Publicação Rejeitada ${item_id}"
+msgstr "Translation of \"${item_id}\""
 
 #.   <title fill-slot="title">
 #.     heading_unpublish_of
@@ -867,7 +871,7 @@ msgstr "Despublicar ${item_id}"
 #: from ../skins/cps_default/account_reset_password_form.pt
 #, fuzzy
 msgid "heading_validate_password_resetting"
-msgstr "Senha enviada!"
+msgstr "Validate the resetting of your password"
 
 #.   <block>
 #.             If you abandon this draft, the original document will be unlocked.
@@ -907,9 +911,8 @@ msgstr ""
 #, fuzzy
 msgid "help_contentbox_no_recurse"
 msgstr ""
-"\n"
-"Para ser eficiente, a ordenação dos resultados de uma busca será realizada e "
-"retornará apenas os cem primeiros documentos"
+"Check this if you want the search to be restrained to the chosen folder, "
+"whithout recursing into subfolders."
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -934,7 +937,7 @@ msgstr "Remover arquivo"
 #: from ../skins/cps_default/account_reset_password_form.pt
 #, fuzzy
 msgid "help_invalid_reset_password_request"
-msgstr "Sua senha foi enviada por email"
+msgstr "This request to reset this password is not valid."
 
 #.   <em>
 #.       Box types in italic are predefined types. You cannot change their
@@ -1006,9 +1009,10 @@ msgstr ""
 #, fuzzy
 msgid "help_lost_password"
 msgstr ""
-"Simplesmente entre seu nome de usuário, clique em <em>Enviar</em>, e sua "
-"senha será enviada por email para você se você forneceu um endereço de email "
-"válido quando você se cadastrou."
+"You came to this page because you have lost your password. Don't worry, it "
+"will soon be possible for you to login to the portal again. If you have "
+"problems using this form or if it doesn't work for you for any reason send "
+"an email to"
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1086,7 +1090,9 @@ msgstr "Selecione esta caixa para ter sua senha enviada por email para você."
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "help_password_reminder"
-msgstr "Envia senha por email?"
+msgstr ""
+"With this functionality you can ask to receive a reminder of your password "
+"through an email message."
 
 #.   <p>
 #.             With this functionality you can request your old password to be reset
@@ -1096,7 +1102,10 @@ msgstr "Envia senha por email?"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "help_password_reset"
-msgstr "Selecione esta caixa para ter sua senha enviada por email para você."
+msgstr ""
+"With this functionality you can request your old password to be reset and "
+"replaced by a new password automatically generated by the system.The new "
+"password will then be communicated to you."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1129,7 +1138,9 @@ msgstr ""
 #: from ../skins/cps_default/registered.pt
 #, fuzzy
 msgid "help_registered_mail"
-msgstr "Email do usuário"
+msgstr ""
+"You will receive an email shortly containing your password and instructions "
+"on how to activate your membership."
 
 #.   <span>
 #.       Reject publication of this item
@@ -1188,7 +1199,7 @@ msgstr ""
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "help_translate_revision"
-msgstr "Reverter para a revisão"
+msgstr "Create a translation of the document"
 
 #.   <block>
 #.     Unpublish published item</block>
@@ -1221,13 +1232,13 @@ msgstr "em ${history_dest}"
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_action"
-msgstr "Usuário"
+msgstr "Action"
 
 #.   <h2>Actions history</h2>
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_actions_history"
-msgstr "Usuário"
+msgstr "Actions history"
 
 #.   <label for="email_from_address">
 #.               Administrator Email
@@ -1272,7 +1283,7 @@ msgstr "ATOM"
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_author"
-msgstr "Crescente por Autor"
+msgstr "Author"
 
 #.   <option value="author_asc" attributes="selected
 #.                                python:sort_by == 'author' and direction == 'asc'">
@@ -1348,7 +1359,7 @@ msgstr "Escolha"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "label_choose_section"
-msgstr "Escolha"
+msgstr "Choose sections"
 
 #.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
 #.                                                                         'Select workspaces for recherche') " size="30">
@@ -1356,7 +1367,7 @@ msgstr "Escolha"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "label_choose_workspace"
-msgstr "Escolha"
+msgstr "Choose workspaces"
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1367,7 +1378,7 @@ msgstr "Fechado"
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_comments"
-msgstr "Ícones"
+msgstr "Comments"
 
 #.   <option value="compact" attributes="selected python:format == 'compact'">
 #.               Compact
@@ -1395,13 +1406,13 @@ msgstr "Site conforme o W3C Web Content Accessibility Level A"
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_consultation"
-msgstr "Localização dos Eventos"
+msgstr "Consultation"
 
 #.   <label for="cb_no_recurse">Do not recurse into subfolders </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "label_contentbox_no_recurse"
-msgstr "Zoom no conteúdo da caixa"
+msgstr "Do not recurse into subfolders"
 
 #.   <label for="cb_zoom">zoom</label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1422,7 +1433,7 @@ msgstr "Colaboradores"
 #: from ../skins/cps_default/content_status_history.pt
 #, fuzzy
 msgid "label_current_status"
-msgstr "Estado"
+msgstr "Current status of the document"
 
 #.   <td>Date</td>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -1430,7 +1441,7 @@ msgstr "Estado"
 #: ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_date"
-msgstr "Data final"
+msgstr "Date"
 
 #.   <option value="effective_asc" attributes="selected
 #.                                 python:sort_by == 'effective' and direction == 'asc'">
@@ -1439,7 +1450,7 @@ msgstr "Data final"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_effective_asc"
-msgstr "Crescente por título"
+msgstr "Effective date"
 
 #.   <option value="effective_desc" attributes="selected
 #.                                python:sort_by == 'effective' and direction == 'desc'">
@@ -1448,7 +1459,7 @@ msgstr "Crescente por título"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_effective_desc"
-msgstr "Decrescente por título"
+msgstr "Effective date desc."
 
 #.   <option value="date_asc" attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc'">
@@ -1457,7 +1468,7 @@ msgstr "Decrescente por título"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_modification_asc"
-msgstr "Usuário"
+msgstr "Modification date"
 
 #.   <option value="date_desc" attributes="selected
 #.                                python:sort_by == 'date' and direction == 'desc'">
@@ -1466,7 +1477,7 @@ msgstr "Usuário"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_modification_desc"
-msgstr "Objeto"
+msgstr "Modification date desc."
 
 #.   <option value="None" attributes="selected not:format">
 #.               Default
@@ -1498,7 +1509,7 @@ msgstr "Descrição"
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_destruction"
-msgstr "Descrição"
+msgstr "Destruction"
 
 #.   <option value="detail" attributes="selected python:format == 'detail'">
 #.               Detail
@@ -1670,7 +1681,7 @@ msgstr "Nome do Grupo"
 #: from ../skins/cps_default/textbox_edit_form.pt
 #, fuzzy
 msgid "label_i18n"
-msgstr "Em"
+msgstr "Translation"
 
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
@@ -1757,7 +1768,7 @@ msgstr "Idioma ${status_language}"
 #: from ../skins/cps_default/content_lib_byline.pt
 #, fuzzy
 msgid "label_last_modified"
-msgstr "Data da última modificação"
+msgstr "Last modified:"
 
 #.   <th>Search by</th>
 #: from ../skins/cps_default/folder_localrole_form.pt
@@ -1843,7 +1854,7 @@ msgstr "Habilita admissão no portal"
 #: from ../skins/cps_default/reconfig_form.pt
 #, fuzzy
 msgid "label_portal_enable_password_reminder"
-msgstr "Habilita admissão no portal"
+msgstr "Enable sending of password reminder"
 
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
@@ -1851,7 +1862,7 @@ msgstr "Habilita admissão no portal"
 #: from ../skins/cps_default/reconfig_form.pt
 #, fuzzy
 msgid "label_portal_enable_password_reset"
-msgstr "Habilita admissão no portal"
+msgstr "Enable password resetting"
 
 #.   <label for="portal_title">
 #.               Portal title
@@ -1864,7 +1875,7 @@ msgstr "Título do Portal"
 #: from ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_publication_location"
-msgstr "Estado da publicação"
+msgstr "Publication location"
 
 #.   <h2>label_publication_states</h2>
 #: from ../skins/cps_default/content_lib_states.pt
@@ -1896,7 +1907,7 @@ msgstr "Não pode ser publicado; requer aprovação."
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_reversion"
-msgstr "Localização dos Eventos"
+msgstr "Reversion"
 
 #.   <td>Version</td>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -1904,7 +1915,7 @@ msgstr "Localização dos Eventos"
 #: ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_revision"
-msgstr "Revisões Antigas"
+msgstr "Revision"
 
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
@@ -2083,7 +2094,7 @@ msgstr "Assunto"
 #: from ../skins/cps_default/search_form.pt
 #, fuzzy
 msgid "label_text_to_search"
-msgstr "Busca"
+msgstr "Text to search"
 
 #.   <label for="box_title">Title</label>
 #.   <div class="label">
@@ -2127,7 +2138,7 @@ msgstr "Para"
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "label_translation_select_language"
-msgstr "Idioma ${status_language}"
+msgstr "Choose the language you want to translate to:"
 
 #.   <th style="text-align:left;">
 #.           User
@@ -2159,7 +2170,7 @@ msgstr "Nome de login"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "label_user_name_or_email_address"
-msgstr "Email do usuário"
+msgstr "Username or user email address"
 
 #.   <label for="box_display_in_subfolder">visible in subfolder</label>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -2186,25 +2197,25 @@ msgstr "Você está aqui:&nbsp;"
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language"
-msgstr "Idioma"
+msgstr "Language"
 
 #.   <h2>Add languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language_add"
-msgstr "Idioma"
+msgstr "Make available new languages"
 
 #.   <h2>Delete languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language_delete"
-msgstr "Alemão"
+msgstr "Make unavailable languages"
 
 #.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language_set_default"
-msgstr "Padrão"
+msgstr "Set default portal language"
 
 #.   <h1>
 #.       Assigned local roles
@@ -2212,7 +2223,7 @@ msgstr "Padrão"
 #: from ../skins/cps_default/folder_localrole_form.pt
 #, fuzzy
 msgid "legend_local_roles_assigned"
-msgstr "Estes usuários têm atualmente papéis locais atribuídos nesta pasta:"
+msgstr "Assigned local roles"
 
 #.   <p>
 #.      These users currently have local roles assigned in this folder:
@@ -2320,7 +2331,7 @@ msgstr "Edite todos os Metadados."
 #: from ../skins/cps_default/xml_exports.pt
 #, fuzzy
 msgid "link_atom_export"
-msgstr "ATOM"
+msgstr "To the associated ATOM export"
 
 #.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -2390,7 +2401,7 @@ msgstr "Reverter"
 #: from ../skins/cps_default/xml_exports.pt
 #, fuzzy
 msgid "link_rss_export"
-msgstr "RSS"
+msgstr "To the associated RSS newsfeed"
 
 #.   <th>
 #.               Existing revision of the same document
@@ -2410,7 +2421,7 @@ msgstr "Seção"
 #: from ../skins/cps_default/portlet_session_info.pt
 #, fuzzy
 msgid "log out"
-msgstr "Sair"
+msgstr "log out"
 
 #.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -2595,12 +2606,15 @@ msgstr ""
 "Microsystems, Timothy O'Malley, Morten W.  Petersen, and other contributors. "
 "</p> "
 
+msgid "Session"
+msgstr ""
+
 msgid "create"
 msgstr "Criar"
 
 #, fuzzy
 msgid "modify"
-msgstr "Modificar"
+msgstr "Modification"
 
 msgid "translate"
 msgstr ""
@@ -2767,7 +2781,7 @@ msgstr "Agenda"
 
 #, fuzzy
 msgid "action_calendar_overview"
-msgstr "Visualizador de evento da agenda"
+msgstr "Calendar overview"
 
 msgid "action_view_stat"
 msgstr "Visualizar estado"
@@ -2810,11 +2824,11 @@ msgstr "Administrar vocabulários"
 
 #, fuzzy
 msgid "action_manage_languages"
-msgstr "Administrar vocabulários"
+msgstr "Manage languages"
 
 #, fuzzy
 msgid "action_translate"
-msgstr "Apagar dados"
+msgstr "Translate"
 
 msgid "button_create"
 msgstr "Criar"
@@ -2877,10 +2891,7 @@ msgstr "Tem certeza?"
 
 #, fuzzy
 msgid "description_field_required"
-msgstr ""
-"Você não está atualmente logado. Seu nome de usuário e/ou sua senha podem "
-"estar incorretos. O seu navegador web também pode não estar configurado para "
-"aceitar cookies HTTP. Se você precisar de ajuda, por favor contacte"
+msgstr "is empty while this field is required."
 
 msgid "description_box_skin_box"
 msgstr "Caixa simples"
@@ -3136,7 +3147,7 @@ msgstr "A caixa de conteúdo predefinido."
 
 #, fuzzy
 msgid "description_nuxeo_render_default"
-msgstr "A caixa de navegação predefinida"
+msgstr "A default render box."
 
 # ## psm ===================================================
 msgid "psm_added_to_favorites"
@@ -3234,24 +3245,24 @@ msgstr ""
 
 #, fuzzy
 msgid "psm_translation_added"
-msgstr "Operação não permitida."
+msgstr "Version for translation added"
 
 # # Languages  ========================================================
 #, fuzzy
 msgid "psm_default_language_set"
-msgstr "Inglês"
+msgstr "Portal default language set"
 
 #, fuzzy
 msgid "psm_language_added"
-msgstr "Alemão"
+msgstr "New language(s) available"
 
 #, fuzzy
 msgid "psm_language_deleted"
-msgstr "Objeto(s) removido(s)."
+msgstr "Language(s) made unavailable"
 
 #, fuzzy
 msgid "psm_language_error_select_at_least_one_item"
-msgstr "Selecione pelo menos um documento."
+msgstr "Select at least one language."
 
 msgid "collector_psm_erase_data_cancel"
 msgstr "Os dados não foram apagados."
@@ -3301,11 +3312,11 @@ msgstr "Leitor da Seção"
 
 #, fuzzy
 msgid "Contributor"
-msgstr "Colaboradores"
+msgstr "Contributor"
 
 #, fuzzy
 msgid "Reader"
-msgstr "Leitor da Seção"
+msgstr "Reader"
 
 msgid "ForumPoster"
 msgstr "Escritor de Fórum"
@@ -3324,15 +3335,15 @@ msgstr "Convidado de Bate-Papo"
 
 #, fuzzy
 msgid "label_searchadv_full_text"
-msgstr "Texto completo"
+msgstr "Show results with"
 
 #, fuzzy
 msgid "label_searchadv_updated"
-msgstr "Título"
+msgstr "Updated"
 
 #, fuzzy
 msgid "label_searchadv_sort_by"
-msgstr "Tipo do Portal"
+msgstr "Sort by"
 
 # # Languages  ========================================================
 msgid "label_language_en"
@@ -3358,15 +3369,15 @@ msgstr "Brasileiro"
 
 #, fuzzy
 msgid "label_language_mg"
-msgstr "Idioma"
+msgstr "Malagasy"
 
 #, fuzzy
 msgid "label_language_ro"
-msgstr "Francês"
+msgstr "Romanian"
 
 #, fuzzy
 msgid "label_language_eu"
-msgstr "Castelhano"
+msgstr "Basque"
 
 # # Dates
 msgid "calendar_month_1"
@@ -3437,11 +3448,11 @@ msgstr ""
 
 #, fuzzy
 msgid "User actions"
-msgstr "Ações da Pasta"
+msgstr "User actions"
 
 #, fuzzy
 msgid "Language selector"
-msgstr "Alemão"
+msgstr "Language selector"
 
 msgid "Folder actions"
 msgstr "Ações da Pasta"
@@ -3452,59 +3463,65 @@ msgstr "Ações do objeto"
 msgid "Portal actions"
 msgstr "Ações do Portal"
 
-#~ msgid "Translated status message."
-#~ msgstr "Mensagem de Estado Traduzida"
+msgid "Translated status message."
+msgstr "Mensagem de Estado Traduzida"
 
-#~ msgid "Title"
-#~ msgstr "Título"
+msgid "Title"
+msgstr "Título"
 
-#~ msgid "box text title"
-#~ msgstr "Texto do título da caixa"
+msgid "box text body"
+msgstr "box text title"
 
-#~ msgid "box_search"
-#~ msgstr "Busca"
+msgid "box text title"
+msgstr "Texto do título da caixa"
 
-#~ msgid "button_create_box"
-#~ msgstr "Criar Caixa"
+msgid "box_search"
+msgstr "Busca"
 
-#~ msgid "description_visible_box_from ${context_url}"
-#~ msgstr "Caixa visível a partir de ${context_url}"
+msgid "button_create_box"
+msgstr "Criar Caixa"
 
-#~ msgid "heading_box_create_form"
-#~ msgstr "Criar caixa"
+msgid "description_visible_box_from ${context_url}"
+msgstr "Caixa visível a partir de ${context_url}"
 
-#~ msgid "label_collaborative_folder"
-#~ msgstr "Pasta Colaborativa"
+msgid "heading_box_create_form"
+msgstr "Criar caixa"
 
-#~ msgid "label_folder_search"
-#~ msgstr "Busca na Pasta"
+msgid "heading_box_manage_form"
+msgstr "Manage boxes"
 
-#~ msgid "legend_folder_no_search_result"
-#~ msgstr "Nada"
+msgid "label_collaborative_folder"
+msgstr "Pasta Colaborativa"
 
-#~ msgid "link_box_delete"
-#~ msgstr "Remover"
+msgid "label_folder_search"
+msgstr "Busca na Pasta"
 
-#~ msgid "link_box_edit"
-#~ msgstr "Editar"
+msgid "legend_folder_no_search_result"
+msgstr "Nada"
 
-#~ msgid "link_box_view"
-#~ msgstr "Visualizar"
+msgid "link_box_delete"
+msgstr "Remover"
 
-#~ msgid "link_more"
-#~ msgstr "Mais ..."
+msgid "link_box_edit"
+msgstr "Editar"
 
-#~ msgid "listingheader_action"
-#~ msgstr "Ação"
+msgid "link_box_view"
+msgstr "Visualizar"
 
-#~ msgid "listingheader_location"
-#~ msgstr "Localização"
+msgid "link_more"
+msgstr "Mais ..."
 
-#~ msgid "listingheader_order"
-#~ msgstr "Ordem"
+msgid "listingheader_action"
+msgstr "Ação"
 
-#~ msgid "listingheader_title"
-#~ msgstr "Título"
+msgid "listingheader_location"
+msgstr "Localização"
 
-#~ msgid "listingheader_type"
-#~ msgstr "Tipo"
+msgid "listingheader_order"
+msgstr "Ordem"
+
+msgid "listingheader_title"
+msgstr "Título"
+
+msgid "listingheader_type"
+msgstr "Tipo"

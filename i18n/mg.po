@@ -1,10 +1,12 @@
 # translation of mg.po to 
 # translation of mg.po to
 # Julien Anguenot <ja@nuxeo.com>, 2004.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: mg\n"
-"POT-Creation-Date: 2005-04-12 16:53default\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-13 17:36default\n"
 "PO-Revision-Date: 2004-11-25 14:28+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -51,7 +53,7 @@ msgstr "Fiteny"
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "Language..."
-msgstr "Fiteny"
+msgstr "Langue"
 
 #.   <span>
 #.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
@@ -95,9 +97,11 @@ msgstr "Toerana"
 msgid "Work"
 msgstr "Asa"
 
-#.   <span>You are currently logged in as</span>
+#.   <span>You are currently logged in as
+#.         ${member (tal content="mtool/getAuthenticatedMember")}
+#.       </span>
 #: from ../skins/cps_default/portlet_session_info.pt
-msgid "You are currently logged in as"
+msgid "You are currently logged in as ${member}"
 msgstr ""
 
 #.   <p condition="python:res['items_count'] > 1">
@@ -323,7 +327,7 @@ msgstr "Manamboatra laharana(version)"
 #: from ../skins/cps_default/popup-singleselect.pt
 #, fuzzy
 msgid "button_close"
-msgstr "Adika"
+msgstr "Fermer"
 
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -424,13 +428,13 @@ msgstr "Ovaina ny id n'ny zavatra"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "button_request_reset_password"
-msgstr "Miverina amin'ny laharana voatahiry"
+msgstr "Demander la réinitialisation du mot de passe"
 
 #.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
 #: from ../skins/cps_default/account_reset_password_form.pt
 #, fuzzy
 msgid "button_reset_password"
-msgstr "Misoratra anarana"
+msgstr "Réinitialiser mon mot de passe"
 
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
@@ -472,7 +476,7 @@ msgstr "Alefaso"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "button_send_password_reminder"
-msgstr "Alefa ny môdepasy&nbsp;?"
+msgstr "Envoyez moi un rappel de mon mot de passe"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -487,13 +491,13 @@ msgstr "Apetraka mba haely"
 #: from ../skins/cps_default/textbox_edit_form.pt
 #, fuzzy
 msgid "button_text_editor_popup"
-msgstr "Mifindra ho any amin'ny fiatombohany"
+msgstr "Editeur de texte..."
 
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "button_translate_document"
-msgstr "Apetraka mba haely"
+msgstr "Créer une version pour la traduction"
 
 #.   <input type="submit" class="standalone" value="button_unpublish_document" />
 #: from ../skins/cps_default/content_unpublish_form.pt
@@ -526,7 +530,9 @@ msgstr "Raha tianao ovaina ny mombamomba anao."
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "description_languages_form"
-msgstr "Mandamina ny tranonkala"
+msgstr ""
+"Cette page vous permet de gérer les langues disponibles sur votre site en "
+"quelques clics."
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -576,7 +582,7 @@ msgstr "Mandamina ny tranonkala"
 #: from ../skins/cps_default/registered.pt
 #, fuzzy
 msgid "description_registered"
-msgstr "Mandamina ny tranonkala"
+msgstr "Vous voilà maintenant enregistré comme membre."
 
 #.   <p>
 #.                 The account below is the one on which the password reset on will be done.
@@ -721,7 +727,7 @@ msgstr "Miditra ho mpikambana"
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "heading_language_manage_form"
-msgstr "Fitantanana ireo boaty"
+msgstr "Gestion des langues"
 
 #.   <h1>
 #.    Assign local roles: Search Members
@@ -756,7 +762,7 @@ msgstr "Tafita ny fanamarinana"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "heading_lost_password"
-msgstr "Aza mikorapaka&nbsp;!"
+msgstr "Vous avez perdu votre mot de passe"
 
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
@@ -774,17 +780,13 @@ msgstr ""
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "heading_password_reminder"
-msgstr ""
-"Ny teny miafinao (môdepasy) dia lasa mailaka any amin'ilay adiresy mailaka "
-"nomenao."
+msgstr "Rappel de mot de passe"
 
 #.   <h2>Password reset</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "heading_password_reset"
-msgstr ""
-"Ny teny miafinao (môdepasy) dia lasa mailaka any amin'ilay adiresy mailaka "
-"nomenao."
+msgstr "Réinitialisation de mot de passe"
 
 #.   <title fill-slot="title">
 #.     heading_publish_of
@@ -805,7 +807,7 @@ msgstr "Amboarina ny tranonkala"
 #: from ../skins/cps_default/registered.pt
 #, fuzzy
 msgid "heading_registered_title"
-msgstr "Soloana ny identifiants n'ireo zavatra (objets)"
+msgstr "Réalisé avec succès&nbsp;!"
 
 #.   <title fill-slot="title">
 #.     heading_reject_publication_of
@@ -868,7 +870,7 @@ msgstr "Mametraka ${item_id}"
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "heading_translation_of ${item_id}"
-msgstr "Tsy ekena ny fampielezana ny ${item_id}"
+msgstr "Traduction de «${item_id}»"
 
 #.   <title fill-slot="title">
 #.     heading_unpublish_of
@@ -883,9 +885,7 @@ msgstr "Tsy aely ${item_id}"
 #: from ../skins/cps_default/account_reset_password_form.pt
 #, fuzzy
 msgid "heading_validate_password_resetting"
-msgstr ""
-"Ny teny miafinao (môdepasy) dia lasa mailaka any amin'ilay adiresy mailaka "
-"nomenao."
+msgstr "Validation de la réinitialisation du mot de passe"
 
 #.   <block>
 #.             If you abandon this draft, the original document will be unlocked.
@@ -923,8 +923,8 @@ msgstr "Raha mamorona laharana ianao dia ianao irery no afaka miasa aminy"
 #, fuzzy
 msgid "help_contentbox_no_recurse"
 msgstr ""
-"Noho ny antony hery sy tanjaka, Ny filaharan'ny vokatry ny fikarohana dia "
-"mametra ny isan'ny antotandahatsoratra ho anjatony"
+"Si la case est cochée, la recherche se limitera au répertoire choisi, sans "
+"prendre en compte les sous-répertoires."
 
 #.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -948,7 +948,7 @@ msgstr "Vonoina ny arsivy ${rev}"
 #: from ../skins/cps_default/account_reset_password_form.pt
 #, fuzzy
 msgid "help_invalid_reset_password_request"
-msgstr "Efa Nalefa any aminao ny teny miafinanao (môdepasy)"
+msgstr "Cette demande de réinitialisation de mot de passe n'est pas valide."
 
 #.   <em>
 #.       Box types in italic are predefined types. You cannot change their
@@ -1020,9 +1020,10 @@ msgstr ""
 #, fuzzy
 msgid "help_lost_password"
 msgstr ""
-"Soraty eo ambany ilay anarana ahafahanao miditra, tsindrio ny <em>Alefaso</"
-"em> dia ho voarainao ny teny miafinanao(môdepasy) raha nampiditra adiresy "
-"mailaka ianao tamin'ny fotaoana nidiranao ho mpikambana"
+"Vous êtes venu à cette page parce que vous avez oublié votre mot de passe. "
+"Ne soyez pas inquiet, vous allez bientôt pouvoir à nouveau vous connecter au "
+"portail. Si vous avez des problèmes pour utiliser ce formulaire ou si cela "
+"ne fonctionne pas pour quelque raison que ce soit envoyez un mél à"
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1108,7 +1109,9 @@ msgstr ""
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "help_password_reminder"
-msgstr "Alefa ny môdepasy&nbsp;?"
+msgstr ""
+"Avec cette fonctionnalité vous pouvez demander à recevoir un rappel de votre "
+"mot de passe par mél."
 
 #.   <p>
 #.             With this functionality you can request your old password to be reset
@@ -1119,8 +1122,9 @@ msgstr "Alefa ny môdepasy&nbsp;?"
 #, fuzzy
 msgid "help_password_reset"
 msgstr ""
-"Asio marika io faritra kely io mba handraisanao ny mailaka misy ny "
-"môdepasinao"
+"Avec cette fonctionnalité vous pouvez demander à ce que votre ancien mot de "
+"passe soit réinitialisé et remplacé par un nouveau mot de passe généré par "
+"le système.Le nouveau mot de passe vous sera ensuite communiqué."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1154,7 +1158,9 @@ msgstr ""
 #: from ../skins/cps_default/registered.pt
 #, fuzzy
 msgid "help_registered_mail"
-msgstr "Adiresy mailaky ny mpampiasa"
+msgstr ""
+"Vous recevrez sous peu un mél contenant votre mot de passe et les "
+"instructions pour activer votre compte."
 
 #.   <span>
 #.       Reject publication of this item
@@ -1217,7 +1223,7 @@ msgstr ""
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "help_translate_revision"
-msgstr "Miverina amin'ny laharan'ny antotan-dahatsoratra taloha"
+msgstr "Creation d'une traduction du document"
 
 #.   <block>
 #.     Unpublish published item</block>
@@ -1250,13 +1256,13 @@ msgstr "ao anaty ${history_dest}"
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_action"
-msgstr "mpampiasa"
+msgstr "Action"
 
 #.   <h2>Actions history</h2>
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_actions_history"
-msgstr "mpampiasa"
+msgstr "Historique des actions"
 
 #.   <label for="email_from_address">
 #.               Administrator Email
@@ -1276,7 +1282,7 @@ msgstr "Anaran'ny administratera"
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 #, fuzzy
 msgid "label_advertisement_use_cps"
-msgstr "mpampiasa"
+msgstr "Utilisez CPS"
 
 #.   <option value="">All</option>
 #.   <option value="" attributes="selected python:notempty==[] or selbox==[]">All</option>
@@ -1302,7 +1308,7 @@ msgstr "ATOM"
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_author"
-msgstr "Mpamorona"
+msgstr "Auteur"
 
 #.   <option value="author_asc" attributes="selected
 #.                                python:sort_by == 'author' and direction == 'asc'">
@@ -1378,7 +1384,7 @@ msgstr "Fidina"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "label_choose_section"
-msgstr "Fidina"
+msgstr "Choisir les rubriques"
 
 #.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
 #.                                                                         'Select workspaces for recherche') " size="30">
@@ -1386,7 +1392,7 @@ msgstr "Fidina"
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "label_choose_workspace"
-msgstr "Fidina"
+msgstr "Choisir les espaces de travail"
 
 #.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -1397,7 +1403,7 @@ msgstr "Hidina"
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_comments"
-msgstr "Icônes"
+msgstr "Commentaires"
 
 #.   <option value="compact" attributes="selected python:format == 'compact'">
 #.               Compact
@@ -1420,19 +1426,19 @@ msgstr ""
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 #, fuzzy
 msgid "label_conformance_wai_1a"
-msgstr "Format"
+msgstr "Conformité niveau A aux règles d'accessibilité du W3C"
 
 #.   <td>Consultation</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_consultation"
-msgstr "Karohina ireo zava-nitranga tao anatin'ny"
+msgstr "Consultation"
 
 #.   <label for="cb_no_recurse">Do not recurse into subfolders </label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
 #, fuzzy
 msgid "label_contentbox_no_recurse"
-msgstr "Fijery akaiky eo amain'ny antotandahatsoratra voalohany"
+msgstr "Ne pas rechercher dans tous les sous-répertoires"
 
 #.   <label for="cb_zoom">zoom</label>
 #: from ../skins/cps_default/contentbox_edit_form.pt
@@ -1453,7 +1459,7 @@ msgstr "Ireo mpandray anjara"
 #: from ../skins/cps_default/content_status_history.pt
 #, fuzzy
 msgid "label_current_status"
-msgstr "Statut"
+msgstr "Statut actuel du document"
 
 #.   <td>Date</td>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -1461,7 +1467,7 @@ msgstr "Statut"
 #: ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_date"
-msgstr "Daty fiafarana (JJ/MM/AAAA)"
+msgstr "Date"
 
 #.   <option value="effective_asc" attributes="selected
 #.                                 python:sort_by == 'effective' and direction == 'asc'">
@@ -1470,7 +1476,7 @@ msgstr "Daty fiafarana (JJ/MM/AAAA)"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_effective_asc"
-msgstr "Lohateny"
+msgstr "Date effective"
 
 #.   <option value="effective_desc" attributes="selected
 #.                                python:sort_by == 'effective' and direction == 'desc'">
@@ -1479,7 +1485,7 @@ msgstr "Lohateny"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_effective_desc"
-msgstr "Lohateny miv."
+msgstr "Date effective inv."
 
 #.   <option value="date_asc" attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc'">
@@ -1488,7 +1494,7 @@ msgstr "Lohateny miv."
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_modification_asc"
-msgstr "mpampiasa"
+msgstr "Date modification"
 
 #.   <option value="date_desc" attributes="selected
 #.                                python:sort_by == 'date' and direction == 'desc'">
@@ -1497,7 +1503,7 @@ msgstr "mpampiasa"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #, fuzzy
 msgid "label_date_modification_desc"
-msgstr "objet ankehitrny"
+msgstr "Date modification inv."
 
 #.   <option value="None" attributes="selected not:format">
 #.               Default
@@ -1529,7 +1535,7 @@ msgstr "Fanazavana"
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_destruction"
-msgstr "Fanazavana"
+msgstr "Destruction"
 
 #.   <option value="detail" attributes="selected python:format == 'detail'">
 #.               Detail
@@ -1703,7 +1709,7 @@ msgstr "Anaran'ny vondrona"
 #: from ../skins/cps_default/textbox_edit_form.pt
 #, fuzzy
 msgid "label_i18n"
-msgstr "ao anatin'ny"
+msgstr "Traduction"
 
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
@@ -1790,7 +1796,7 @@ msgstr "Fiteny ${status_language}"
 #: from ../skins/cps_default/content_lib_byline.pt
 #, fuzzy
 msgid "label_last_modified"
-msgstr "daty nanovana farany"
+msgstr "Dernière modification :"
 
 #.   <th>Search by</th>
 #: from ../skins/cps_default/folder_localrole_form.pt
@@ -1876,7 +1882,7 @@ msgstr "Omena alalana ny fisoratana anarana"
 #: from ../skins/cps_default/reconfig_form.pt
 #, fuzzy
 msgid "label_portal_enable_password_reminder"
-msgstr "Omena alalana ny fisoratana anarana"
+msgstr "Autoriser le rappel des mots de passe"
 
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
@@ -1884,7 +1890,7 @@ msgstr "Omena alalana ny fisoratana anarana"
 #: from ../skins/cps_default/reconfig_form.pt
 #, fuzzy
 msgid "label_portal_enable_password_reset"
-msgstr "Omena alalana ny fisoratana anarana"
+msgstr "Autoriser la mise à zéro des mots de passe"
 
 #.   <label for="portal_title">
 #.               Portal title
@@ -1897,7 +1903,7 @@ msgstr "Lohatenin'ny tranonkala"
 #: from ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_publication_location"
-msgstr "Toetran'ny fampielezana"
+msgstr "Emplacement de publication"
 
 #.   <h2>label_publication_states</h2>
 #: from ../skins/cps_default/content_lib_states.pt
@@ -1929,7 +1935,7 @@ msgstr "Mila fankatoavana"
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_reversion"
-msgstr "Karohina ireo zava-nitranga tao anatin'ny"
+msgstr "Retour"
 
 #.   <td>Version</td>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -1937,7 +1943,7 @@ msgstr "Karohina ireo zava-nitranga tao anatin'ny"
 #: ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_revision"
-msgstr "Laharana voatahiry"
+msgstr "Version"
 
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
@@ -2116,7 +2122,7 @@ msgstr "Lohahevitra"
 #: from ../skins/cps_default/search_form.pt
 #, fuzzy
 msgid "label_text_to_search"
-msgstr "Safidy manampy ny fikarohana"
+msgstr "Texte à rechercher"
 
 #.   <label for="box_title">Title</label>
 #.   <div class="label">
@@ -2160,7 +2166,7 @@ msgstr "ho an'ny"
 #: from ../skins/cps_default/content_translate_form.pt
 #, fuzzy
 msgid "label_translation_select_language"
-msgstr "Fiteny ${status_language}"
+msgstr "Choisissez la langue dans laquelle vous voulez traduire ce document : "
 
 #.   <th style="text-align:left;">
 #.           User
@@ -2192,7 +2198,7 @@ msgstr "Anaran'ny mpampiasa"
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
 msgid "label_user_name_or_email_address"
-msgstr "Adiresy mailaky ny mpampiasa"
+msgstr "Nom d'utilisateur ou adresse de mél d'utilisateur"
 
 #.   <label for="box_display_in_subfolder">visible in subfolder</label>
 #: from ../skins/cps_default/basebox_edit_form.pt
@@ -2219,25 +2225,25 @@ msgstr "Eto ianao&nbsp;:"
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language"
-msgstr "Fiteny"
+msgstr "Langue"
 
 #.   <h2>Add languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language_add"
-msgstr "Fiteny"
+msgstr "Rendre disponible de nouvelles langues"
 
 #.   <h2>Delete languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language_delete"
-msgstr "Alemanina"
+msgstr "Rendre indisponible certaines langues du portail"
 
 #.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 #, fuzzy
 msgid "language_set_default"
-msgstr "Endrika voalohany (défaut)"
+msgstr "Choisir la langue par défaut du portail"
 
 #.   <h1>
 #.       Assigned local roles
@@ -2245,9 +2251,7 @@ msgstr "Endrika voalohany (défaut)"
 #: from ../skins/cps_default/folder_localrole_form.pt
 #, fuzzy
 msgid "legend_local_roles_assigned"
-msgstr ""
-"Amin'izao fotoana izao dia mbola andraikitra anaty (locaux) no ananan'ireto "
-"mpampiasa ireto ao amin'io repertoara io&nbsp;:"
+msgstr "Rôles locaux délégués"
 
 #.   <p>
 #.      These users currently have local roles assigned in this folder:
@@ -2359,7 +2363,7 @@ msgstr "Manova ireo méta-données rehetra"
 #: from ../skins/cps_default/xml_exports.pt
 #, fuzzy
 msgid "link_atom_export"
-msgstr "ATOM"
+msgstr "Vers l'export ATOM associé"
 
 #.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -2430,7 +2434,7 @@ msgstr "Miverina amin'io laharana io"
 #: from ../skins/cps_default/xml_exports.pt
 #, fuzzy
 msgid "link_rss_export"
-msgstr "RSS"
+msgstr "Vers le fil de nouvelles RSS associé"
 
 #.   <th>
 #.               Existing revision of the same document
@@ -2450,7 +2454,7 @@ msgstr "Sehatra"
 #: from ../skins/cps_default/portlet_session_info.pt
 #, fuzzy
 msgid "log out"
-msgstr "Hiala ny tranonkala aho"
+msgstr "me déconnecter"
 
 #.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -2580,18 +2584,81 @@ msgstr ""
 
 #, fuzzy
 msgid "welcome_body"
-msgstr "Votoatin'ny antotan-dahatsoratra"
+msgstr ""
+"<h1>Bienvenue sur Nuxeo CPS</h1> <p>Cette page vise à vous fournir une "
+"introduction à <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
+"(Nuxeo Collaborative Portal Server) et à ce que vous pouvez réaliser avec. "
+"(<a href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Modifier ce "
+"texte</a>.)</p> <h2>À propos de CPS</h2> <p> <acronym title=\"Collaborative "
+"Portal Server\">CPS</acronym> est un système de gestion de contenu (CMS) Web "
+"collaboratif implémenté au-dessus de <a href=\"http://www.zope.org/\">Zope</"
+"a> et du <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, qui permet "
+"aux organisations d'implémenter facilement, rapidement et efficacement des "
+"portails collaboratifs (intranet, extranet ou internet) et des applications "
+"métier orientées workflow. </p> <p>CPS fournit, entre autres :</p> <ul>   "
+"<li><a href=\"workspaces\">Des espaces de travail collaboratif</a>    et <a "
+"href=\"sections\">des espaces de publication</a>   (il se peut que vous ayez "
+"besoin d'être authentifié avec des droits d'accès   suffisants pour accéder "
+"à ces URL)</li>   <li>Du suivi de version sur les documents, ce qui permet à "
+"un document d'être   publié pour une version et en cours d'édition pour une "
+"autre version   </li><li><a href=\"cpsdirectory_view\">Une gestion des "
+"utilisateurs</a> basée sur les groupes, et sous-tendue par un ou des "
+"annuaires</li>   <li>Une interface de type Portail <a href=\"box_manage_form"
+"\">configurable</a>,   avec une apparence par défaut qui respecte les "
+"standards du Web et les   normes d'accessibilité (vous devez être "
+"authentifié avec des droits d'accès   suffisant pour accéder à cette URL).</"
+"li>      <li>Des notifications pour de nombreux types d'événements "
+"susceptibles de   se produire dans le système.</li>   <li>Un éditeur WYSIWYG "
+"(optionnel) qui permet de modifier facilement   l'apparence du portail (il "
+"vous suffit d'installer <em>CPSSkins</em> dans   votre instance de CPS "
+"depuis la <a href=\"manage\">ZMI</a>)</li>   <li>De nombreux services "
+"utilisateurs, comme un webmail, des forums, des   calendriers partagés, des "
+"lettres d'informations, des listes de   discussion...</li>   <li>De nombreux "
+"et puissants services pour les développeurs et les   webmasters, comme la "
+"possibilité de créer facilement vos propres types de   documents, vos "
+"propres workflows, etc.</li> </ul>   <p>CPS a déjà été adopté par des grands "
+"comptes dans l'administration (ministères français de l'Intérieur, de la "
+"Culture, des Finances, de la Défense, de la Justice; CEA; Université de "
+"Chalmers...), dans le secteur privé (Groupe Suez, STMicroelectronics...) et "
+"par les principales SSII européennes (Capgemini, Unilog, Stéria...).</p> "
+"<p>Pour plus d'informations sur Zope et CPS, nous vous suggérons les sites "
+"suivants :</p> <ul>   <li><a href=\"http://www.cps-project.org/\">CPS-"
+"project.org</a> : le portail communautaire   pour les utilisateurs et les "
+"développeurs de CPS</li>   <li><a href=\"http://zope.org/Members/nuxeo/"
+"Products/CPS3\">CPS3 sur   Zope.org</a> (pour télécharger les dernières "
+"versions stables ou de   développement)</li>   <li><a href=\"http://lists."
+"nuxeo.com/\">Les listes de discussion sur   CPS</a></li>   <li><a href="
+"\"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\">   Les "
+"transparents des conférences sur CPS à EuroPython 2004</a> et ceux   du <a "
+"href=\"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/"
+"\">   sprint CPS/ERP5 à Paris (2004)</a></li>   <li><a href=\"http://www."
+"zope.org/\">Zope.org</a> : le portail de la    communauté Zope</li>   <li><a "
+"href=\"http://zope.org/Documentation/Books/ZopeBook/2_6Edition/\">Le   Zope "
+"Book</a></li> </ul> <h2>Contributeurs</h2> <p>Merci d'essayer ou d'utiliser "
+"CPS. CPS est développé par <a href=\"http://www.nuxeo.com/\">Nuxeo</a> et "
+"une <a href=\"http://www.cps-project.org/\">communauté de contributeurs</a>."
+"</p><p>CPS contient du code sous licence GPL, ZPL et d'autres licences "
+"libres/open source compatibles avec la GPL. Des portions du code de CPS sont "
+"copyright Nuxeo SARL, Zope Corporation and Contributors, Chalmers "
+"University, Jean-Marc Orliaguet, Capgemini, Unilog, Ministère de "
+"l'Intérieur, de la Sécurité Intérieure et des Libertés Locales, Préfecture "
+"du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh, Norman Walsh, Gareth Rees, Sun "
+"Microsystems, Timothy O'Malley, Morten W. Petersen, et d'autres "
+"contributeurs.</p> "
+
+msgid "Session"
+msgstr ""
 
 msgid "create"
 msgstr "niforona"
 
 #, fuzzy
 msgid "modify"
-msgstr "Ovana"
+msgstr "Modification"
 
 #, fuzzy
 msgid "translate"
-msgstr "Avadika fiteny"
+msgstr "Traduction"
 
 msgid "checkin_draft"
 msgstr "Fanekena ny laharana"
@@ -2754,7 +2821,7 @@ msgstr "Miverina any amin'ny diary"
 
 #, fuzzy
 msgid "action_calendar_overview"
-msgstr "Jerena ireo zava-nitranga"
+msgstr "Vue globale des agendas"
 
 msgid "action_view_stat"
 msgstr "Jerena ireo antotan'isa"
@@ -2797,7 +2864,7 @@ msgstr "Fandrindrana ny voambolana"
 
 #, fuzzy
 msgid "action_manage_languages"
-msgstr "Fandrindrana ny voambolana"
+msgstr "Gérer les langues"
 
 msgid "action_translate"
 msgstr "Avadika fiteny"
@@ -2861,12 +2928,7 @@ msgstr "Tena tapa-kevitra ve ianao ?"
 
 #, fuzzy
 msgid "description_field_required"
-msgstr ""
-"Tsy tafiditra tao anaty tranonkala aloha ianao izao. Mety diso angamba ny "
-"anarana sy ny teny miafina (môdepasy) nomenao. Na koa ny fitaovana entinao "
-"mijery ny tranonkalantsika (navigateur) no tsy voafetra hitana ny "
-"mombamomban'ny mpitsidika (cookies). Raha mila fanampiana ianao dia manorata "
-"any amin'ny:"
+msgstr "est vide alors que ce champs est requis."
 
 msgid "description_box_skin_box"
 msgstr "boaty tsotra"
@@ -2891,7 +2953,7 @@ msgstr "boaty tsy misy cadre sy tsy misy lohateny"
 
 #, fuzzy
 msgid "description_box_skin_wbox3"
-msgstr "boaty tsy misy sisiny"
+msgstr "boîte sans cadre sans titre, et sans style"
 
 msgid "portal_type_Dummy2_description"
 msgstr "&nbsp;"
@@ -3124,9 +3186,7 @@ msgstr "Ny boaty misy ny rohin' ny tranonkala par défaut."
 
 #, fuzzy
 msgid "description_nuxeo_render_default"
-msgstr ""
-"Ny endrika voalohany ny boaty maneho ny fandehandehanana eo anivon'ny "
-"tranonkala."
+msgstr "La boîte rendu d'un document par défaut."
 
 msgid "psm_added_to_favorites"
 msgstr "Ampio anisan'ireo tianao."
@@ -3215,7 +3275,7 @@ msgstr ""
 #, fuzzy
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"Your password has been successfully reinitialized. Your new password is: "
+"Votre mot de passe a bien été réinitialisé. Votre nouveau mot de passe est : "
 "${new_password}"
 
 msgid "psm_reset_password_problem"
@@ -3223,23 +3283,24 @@ msgstr ""
 
 #, fuzzy
 msgid "psm_translation_added"
-msgstr "Tsy azo atao."
+msgstr "Version de traduction créée"
 
+# # Languages  ========================================================
 #, fuzzy
 msgid "psm_default_language_set"
-msgstr "Anglisy"
+msgstr "Langue par défaut du site modifiée"
 
 #, fuzzy
 msgid "psm_language_added"
-msgstr "Alemanina"
+msgstr "Nouvelle(s) langue(s) disponible(s)"
 
 #, fuzzy
 msgid "psm_language_deleted"
-msgstr "Voafafa ny arisivy."
+msgstr "Langue(s) rendue(s) indisponible(s)"
 
 #, fuzzy
 msgid "psm_language_error_select_at_least_one_item"
-msgstr "Mifidiana antotandahatsoratra iray farafakeliny."
+msgstr "Sélectionnez au moins une langue."
 
 msgid "collector_psm_erase_data_cancel"
 msgstr "Ny zavatra voaangona dia tsy voafafa"
@@ -3285,11 +3346,11 @@ msgstr "Mpamaky ny sehatra."
 
 #, fuzzy
 msgid "Contributor"
-msgstr "Ireo mpandray anjara"
+msgstr "Contributeur"
 
 #, fuzzy
 msgid "Reader"
-msgstr "Mpamaky ny sehatra."
+msgstr "Lecteur"
 
 msgid "ForumPoster"
 msgstr "Mpamela hafatra amin'ny seraseran-dresaka (Forum)"
@@ -3308,15 +3369,15 @@ msgstr "Vahinin'ny seraseran-dresaka mivantana(Chat)"
 
 #, fuzzy
 msgid "label_searchadv_full_text"
-msgstr "Lahatsoratra feno"
+msgstr "Afficher les résultats avec"
 
 #, fuzzy
 msgid "label_searchadv_updated"
-msgstr "Lohateny"
+msgstr "Mise à jour"
 
 #, fuzzy
 msgid "label_searchadv_sort_by"
-msgstr "Karazana antotan-dahatsoratra"
+msgstr "Trier par"
 
 msgid "label_language_en"
 msgstr "Anglisy"
@@ -3344,11 +3405,11 @@ msgstr "Malagasy"
 
 #, fuzzy
 msgid "label_language_ro"
-msgstr "Frantsay"
+msgstr "Roumain"
 
 #, fuzzy
 msgid "label_language_eu"
-msgstr "Espagnola"
+msgstr "Basque"
 
 msgid "calendar_month_1"
 msgstr "Janoary"
@@ -3418,11 +3479,11 @@ msgstr ""
 
 #, fuzzy
 msgid "User actions"
-msgstr "Asan'ny repertoara"
+msgstr "Mes actions"
 
 #, fuzzy
 msgid "Language selector"
-msgstr "Alemanina"
+msgstr "Langue"
 
 msgid "Folder actions"
 msgstr "Asan'ny repertoara"
@@ -3433,59 +3494,65 @@ msgstr "Asan'ny objet"
 msgid "Portal actions"
 msgstr "Asan'ny tranonkala"
 
-#~ msgid "Translated status message."
-#~ msgstr "Dika"
+msgid "Translated status message."
+msgstr "Dika"
 
-#~ msgid "Title"
-#~ msgstr "Lohateny"
+msgid "Title"
+msgstr "Lohateny"
 
-#~ msgid "box text title"
-#~ msgstr "Lohatenin'ny boaty"
+msgid "box text body"
+msgstr "FAKE"
 
-#~ msgid "box_search"
-#~ msgstr "Karohina"
+msgid "box text title"
+msgstr "Lohatenin'ny boaty"
 
-#~ msgid "button_create_box"
-#~ msgstr "Manampy boaty"
+msgid "box_search"
+msgstr "Karohina"
 
-#~ msgid "description_visible_box_from ${context_url}"
-#~ msgstr "Boaty hita avy any amin'ny&nbsp;: ${context_url}"
+msgid "button_create_box"
+msgstr "Manampy boaty"
 
-#~ msgid "heading_box_create_form"
-#~ msgstr "Manampy boaty"
+msgid "description_visible_box_from ${context_url}"
+msgstr "Boaty hita avy any amin'ny&nbsp;: ${context_url}"
 
-#~ msgid "label_collaborative_folder"
-#~ msgstr "Ireo faritra fiasako"
+msgid "heading_box_create_form"
+msgstr "Manampy boaty"
 
-#~ msgid "label_folder_search"
-#~ msgstr "Mikaroka repertoara iray"
+msgid "heading_box_manage_form"
+msgstr "Gestion des boîtes"
 
-#~ msgid "legend_folder_no_search_result"
-#~ msgstr "Tsy nanome na dia repertoara iray aza ny fangatahanao."
+msgid "label_collaborative_folder"
+msgstr "Ireo faritra fiasako"
 
-#~ msgid "link_box_delete"
-#~ msgstr "Vonoina"
+msgid "label_folder_search"
+msgstr "Mikaroka repertoara iray"
 
-#~ msgid "link_box_edit"
-#~ msgstr "Ovana"
+msgid "legend_folder_no_search_result"
+msgstr "Tsy nanome na dia repertoara iray aza ny fangatahanao."
 
-#~ msgid "link_box_view"
-#~ msgstr "Jerena"
+msgid "link_box_delete"
+msgstr "Vonoina"
 
-#~ msgid "link_more"
-#~ msgstr "Ny tohiny..."
+msgid "link_box_edit"
+msgstr "Ovana"
 
-#~ msgid "listingheader_action"
-#~ msgstr "Asa"
+msgid "link_box_view"
+msgstr "Jerena"
 
-#~ msgid "listingheader_location"
-#~ msgstr "Toerana"
+msgid "link_more"
+msgstr "Ny tohiny..."
 
-#~ msgid "listingheader_order"
-#~ msgstr "Filaharana"
+msgid "listingheader_action"
+msgstr "Asa"
 
-#~ msgid "listingheader_title"
-#~ msgstr "Lohateny"
+msgid "listingheader_location"
+msgstr "Toerana"
 
-#~ msgid "listingheader_type"
-#~ msgstr "Karazana"
+msgid "listingheader_order"
+msgstr "Filaharana"
+
+msgid "listingheader_title"
+msgstr "Lohateny"
+
+msgid "listingheader_type"
+msgstr "Karazana"

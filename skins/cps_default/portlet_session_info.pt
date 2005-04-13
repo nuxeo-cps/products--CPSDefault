@@ -1,8 +1,10 @@
 <tal:block define="mtool here/portal_membership;
                    anonymous mtool/isAnonymousUser">
   <tal:block condition="not:anonymous">
-    <span i18n:translate="">You are currently logged in as</span>
-    <em tal:content="mtool/getAuthenticatedMember" />
+    <span i18n:translate="">You are currently logged in as
+      <em i18n:name="member"
+       tal:content="mtool/getAuthenticatedMember" />
+    </span>
     (<a href="" i18n:translate=""
     tal:attributes="href string:${here/portal_url}/logout">log out</a>)
   </tal:block>

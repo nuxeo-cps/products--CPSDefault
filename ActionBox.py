@@ -1,4 +1,6 @@
-# Copyright (c) 2003 Nuxeo SARL <http://nuxeo.com>
+# -*- coding: iso-8859-15 -*-
+# (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
+# Author: Julien Anguenot <ja@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -15,92 +17,17 @@
 # 02111-1307, USA.
 #
 # $Id$
+
+"""Backward compatibility;  see Products.CPSBoxes.ActionBox
 """
-  ActionBox
-"""
-from Globals import InitializeClass
-from AccessControl import ClassSecurityInfo
 
-from Products.CMFCore.permissions import View, ModifyPortalContent
-from BaseBox import BaseBox
-from Products.CMFCore.utils import getToolByName
+from Products.CPSBoxes.ActionBox import *
 
-factory_type_information = (
-    {'id': 'Action Box',
-     'title': 'portal_type_ActionBox_title',
-     'description': 'portal_type_ActionBox_description',
-     'meta_type': 'Action Box',
-     'icon': 'box.png',
-     'product': 'CPSDefault',
-     'factory': 'addActionBox',
-     'immediate_view': 'actionbox_edit_form',
-     'filter_content_types': 0,
-     'actions': ({'id': 'view',
-                  'name': 'action_view',
-                  'action': 'basebox_view',
-                  'permissions': (View,)},
-                 {'id': 'edit',
-                  'name': 'action_edit',
-                  'action': 'actionbox_edit_form',
-                  'permissions': (ModifyPortalContent,)},
-                 ),
-     # additionnal cps stuff
-     'cps_is_portalbox': 1,
-     },
-    )
+from warnings import warn
 
-
-class ActionBox(BaseBox):
-    """
-    An Action Box simply returns an action.
-    """
-    meta_type = 'Action Box'
-    portal_type = 'Action Box'
-
-    security = ClassSecurityInfo()
-
-    _properties = BaseBox._properties + (
-        {'id': 'categories', 'type': 'lines', 'mode': 'w', 
-            'label':'Categories of actions'},
-    )
-
-    def __init__(self, id, category='actionbox', categories=[], **kw):
-        BaseBox.__init__(self, id, category=category, **kw)
-        self.categories = categories
-
-    security.declarePublic('getActions')
-    def getActions(self, context, actions=None):
-        """Return actions that belong to self.categories"""
-        if not actions:
-            atool = getToolByName(self, 'portal_actions')
-            actions = atool.listFilteredActionsFor(context)
-
-        categories = all_categories = actions.keys()
-        if self.categories:
-            categories = self.categories
-
-        items = []
-        for cat in categories:
-            if cat in all_categories:
-                if len(actions[cat]):
-                    items.append(actions[cat])
-
-        if len(items) == 1 and len(items[0]) == 1 \
-           and items[0][0]['id'] == 'view':
-            items = []
-
-        return items
-
-
-InitializeClass(ActionBox)
-
-
-def addActionBox(dispatcher, id, REQUEST=None, **kw):
-    """Add a Action Box."""
-    ob = ActionBox(id, **kw)
-    dispatcher._setObject(id, ob)
-    ob = getattr(dispatcher, id)
-    ob.manage_permission(View, ('Anonymous',), 1)
-    if REQUEST is not None:
-        url = dispatcher.DestinationURL()
-        REQUEST.RESPONSE.redirect('%s/manage_main' % url)
+warn("The module, "
+     "'Products.CPSDefault.ActionBox' "
+     "is a deprecated compatiblity alias for "
+     "'Products.CPSBoxes.ActionBox'; "
+     "please use the new module instead.",
+     DeprecationWarning)

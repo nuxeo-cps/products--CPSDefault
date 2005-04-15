@@ -7,8 +7,9 @@ from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
-from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
-     KEYWORD_VIEW_LANGUAGE
+from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE
+from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
+from Products.CPSCore.utils import resetRequestLanguageSelection
 
 class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
     login_id = 'manager'
@@ -79,7 +80,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
             proxy_id, KEYWORD_VIEW_LANGUAGE, default_lang)))
 
         #print "checking switchLanguage  --------------------"
-        # note that this must be checked before viewLanguage
+        resetRequestLanguageSelection(self.portal.REQUEST)
         for lang in languages:
             proxy_tmp = self.portal.unrestrictedTraverse(
                 "/portal/workspaces/%s/%s/%s" % (proxy_id,
@@ -89,6 +90,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(doc.Language(), lang)
 
         #print "checking viewLanguage  --------------------"
+        resetRequestLanguageSelection(self.portal.REQUEST)
         for lang in languages:
             proxy_tmp = self.portal.unrestrictedTraverse(
                 "/portal/workspaces/%s/%s/%s" % (proxy_id,

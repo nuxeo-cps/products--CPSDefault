@@ -26,7 +26,7 @@ def bench():
 
     for i in range(iteration):
         obj(**kw)
-        
+
     bmt.setMarker('iteration  stop ')
     bmt.setMarker('last exec  start')
     ret = obj(**kw)

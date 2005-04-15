@@ -38,6 +38,10 @@ ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
 
+PORTAL_ID = 'portal'
+MANAGER_ID = 'manager'
+MANAGER_EMAIL = 'webmaster@localhost'
+MANAGER_PASSWORD = 'passwd'
 
 # Optional products
 for product in ('CPSChat', 'CPSCalendar', 'CPSCollector',
@@ -219,9 +223,10 @@ class CPSInstaller:
         factory = self.app.manage_addProduct['CPSDefault']
         factory.manage_addCPSDefaultSite(portal_id,
                                          langs_list=['en', 'fr', 'de'],
-                                         manager_email='webmaster@localhost',
-                                         manager_password='passwd',
-                                         manager_password_confirmation='passwd',
+                                         manager_id=MANAGER_ID,
+                                         manager_email=MANAGER_EMAIL,
+                                         manager_password=MANAGER_PASSWORD,
+                                         manager_password_confirmation=MANAGER_PASSWORD,
                                          )
 
     # Change translation_service to DummyTranslationService
@@ -290,11 +295,11 @@ def setupPortal(PortalInstaller=CPSInstaller):
     app = ZopeTestCase.app()
 
     # PortalTestCase expects object to be called "portal", not "cps"
-    if hasattr(app, 'portal'):
-        app.manage_delObjects(['portal'])
+    if hasattr(app, PORTAL_ID):
+        app.manage_delObjects([PORTAL_ID])
 
     # Add an error_log (used by CMFQuickInstaller)
     app.error_log = FakeErrorLog()
 
-    PortalInstaller(app).install('portal')
+    PortalInstaller(app).install(PORTAL_ID)
     ZopeTestCase.close(app)

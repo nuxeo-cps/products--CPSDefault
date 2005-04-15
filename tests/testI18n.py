@@ -86,7 +86,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
                                                  KEYWORD_SWITCH_LANGUAGE,
                                                  lang))
             doc = proxy.getContent()
-            self.assert_(doc.Language() == lang)
+            self.assertEquals(doc.Language(), lang)
 
         #print "checking viewLanguage  --------------------"
         for lang in languages:
@@ -94,7 +94,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
                 "/portal/workspaces/%s/%s/%s" % (proxy_id,
                                                  KEYWORD_VIEW_LANGUAGE,lang))
             doc = proxy.getContent()
-            self.assert_(doc.Language() == lang)
+            self.assertEquals(doc.Language(), lang)
 
         #print "checking priority of viewLanguage --------------------"
         proxy_v = self.portal.unrestrictedTraverse(
@@ -105,7 +105,7 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
                                              KEYWORD_SWITCH_LANGUAGE,
                                              default_lang))
         doc = proxy.getContent()
-        self.assert_(doc.Language() == new_lang)
+        self.assertEquals(doc.Language(), new_lang)
 
         ##print "deletion of a locale fr --------------------"
         ## XXX this does not work for the moment

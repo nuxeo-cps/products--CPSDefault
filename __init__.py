@@ -38,17 +38,17 @@ import Folder
 import Dummy
 
 # XXX Compatibility
-import BoxesTool
-import BaseBox
-import TextBox
-import TreeBox
-import ContentBox
-import ActionBox
-import ImageBox
-import FlashBox
-import EventCalendarBox
-import InternalLinksBox
-import DocRenderBox
+from Products.CPSBoxes import BoxesTool
+from Products.CPSBoxes import BaseBox
+from Products.CPSBoxes import TextBox
+from Products.CPSBoxes import TreeBox
+from Products.CPSBoxes import ContentBox
+from Products.CPSBoxes import ActionBox
+from Products.CPSBoxes import ImageBox
+from Products.CPSBoxes import FlashBox
+from Products.CPSBoxes import EventCalendarBox
+from Products.CPSBoxes import InternalLinksBox
+from Products.CPSBoxes import DocRenderBox
 
 contentClasses = (
     Folder.Folder,

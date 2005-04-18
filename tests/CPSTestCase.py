@@ -6,6 +6,7 @@ import os, tempfile
 from Testing import ZopeTestCase
 import Products
 
+ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
 ZopeTestCase.installProduct('CMFCalendar', quiet=1)
 ZopeTestCase.installProduct('CMFCore', quiet=1)

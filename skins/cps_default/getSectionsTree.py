@@ -1,4 +1,4 @@
-##parameters=root_id='sections'
+##parameters=root_id=None
 # $Id$
 """
 Get all sections info with allowed publishing transitions
@@ -6,10 +6,22 @@ Get all sections info with allowed publishing transitions
 You can specify root_id if the sections are located elsewhere
 """
 
+if root_id is not None:
+    sections_roots = [root_id]
+else:
+    sections_roots = context.getSectionsRoots()
+
 locale = context.Localizer.get_selected_language()
-sections = context.portal_trees[root_id].getList(
+ptree = context.portal_trees
+available_roots = ptree.objectIds()
+
+sections = []
+for root_uid in sections_roots:
+    if not root_uid in available_roots:
+        continue
+    sections.extend(ptree[root_uid].getList(
         locale_keys=('title', 'short_title'),
-        locale_lang=locale)
+        locale_lang=locale))
 
 wftool = context.portal_workflow
 getInitialTransitions = wftool.getInitialTransitions

@@ -6,6 +6,8 @@ Return an HTML img tag
 FIXME: need more explanation. What are the parameters?
 """
 
+from zLOG import LOG, DEBUG
+
 if not img_name:
     return ''
 if base_url is None:
@@ -16,51 +18,58 @@ img_url = base_url + img_name
 try:
     img = context.restrictedTraverse(img_name)
 except (KeyError, 'NotFound'):
-    return '<img src="%s" alt="%s" />' % (img_url, alt)
+    img = None
 
-# Fix the BMP bug (#305): Zope is unable to detect height and
-# width for BMP images and thus this properties are valued to the empty string
-# for BMP files
+if img is None:
+    tag = '<img src="%s" alt="%s" />' % (img_url, alt)
+else:
+    # Fix the BMP bug (#305): Zope is unable to detect height and width for BMP
+    # images and thus this properties are valued to the empty string for BMP
+    # files
 
-original_height = img.getProperty('height', '')
-if original_height == '':
     original_height = None
-else:
-    original_height = int(original_height)
+    try:
+        original_height = int(img.getProperty('height', ''))
+    except (AttributeError, ValueError):
+        pass
 
-original_width = img.getProperty('width', '')
-if original_width == '':
     original_width = None
-else:
-    original_width = int(original_width)
+    try:
+        original_width = int(img.getProperty('width', ''))
+    except (AttributeError, ValueError):
+        pass
 
-if ( height is None) and ( original_height is not None ):
-    height = int(zoom * original_height)
-if ( width is None ) and ( original_width is not None ):
-    width = int(zoom * original_width)
+    if height is None and original_height is not None:
+        height = int(zoom * original_height)
+    if width is None and original_width is not None:
+        width = int(zoom * original_width)
 
-if ( keep_ratio
-     and ( original_height is not None )
-     and ( original_width is not None ) ):
-    z_w = z_h = 1
-    h = original_height
-    w = original_width
-    if w and h:
-        if w > int(width):
-            z_w = int(width) / float(w)
-        if h > int(height):
-            z_h = int(height) / float(h)
-        zoom = min(z_w, z_h)
-        width = int(zoom * w)
-        height = int(zoom * h)
+    if (keep_ratio
+        and original_height is not None
+        and original_width is not None):
+        z_w = z_h = 1
+        h = original_height
+        w = original_width
+        if w and h:
+            if w > int(width):
+                z_w = int(width) / float(w)
+            if h > int(height):
+                z_h = int(height) / float(h)
+            zoom = min(z_w, z_h)
+            width = int(zoom * w)
+            height = int(zoom * h)
 
-if ( width is not None ) and ( height is not None ):
-    tag = '<img src="%s" width="%s" height="%s" alt="%s"' % (
-        img_url, str(width), str(height), alt)
-else:
-    tag = '<img src="%s" alt="%s"' % (img_url, alt)
-if not title:
-    title = getattr(img, 'title', None)
-if title:
-    tag += ' title="' + title + '"'
-return tag + ' />'
+    if width is not None and height is not None:
+        tag = '<img src="%s" width="%s" height="%s" alt="%s"' % (
+            img_url, str(width), str(height), alt)
+    else:
+        tag = '<img src="%s" alt="%s"' % (img_url, alt)
+
+    if not title:
+        title = getattr(img, 'title', None)
+    if title:
+        tag += ' title="' + title + '"'
+
+    tag += ' />'
+
+return tag

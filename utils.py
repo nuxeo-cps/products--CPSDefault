@@ -75,10 +75,19 @@ def manageCPSLanguage(context, action, default_language, languages):
         psm = 'psm_language_added'
 
     elif action == 'delete':
-        # Make unavailable languages in Localizer
-        for catalog in catalogs:
-            catalog.manage_delLanguages(languages)
-        psm = 'psm_language_deleted'
+        LOG("CPSDefault.utils languages to delete", DEBUG,
+            repr(languages))
+        LOG("CPSDefault.utils languages available", DEBUG,
+            repr(context.Localizer.get_languages_map()))
+        LOG("CPSDefault.utils do we delete all available languages ?", DEBUG,
+            repr(len(languages) == len(context.Localizer.get_languages_map())))
+        if len(languages) == len(context.Localizer.get_languages_map()):
+            psm = 'psm_language_error_let_at_least_one_language_to_portal'
+        else:
+            # Make unavailable languages in Localizer
+            for catalog in catalogs:
+                catalog.manage_delLanguages(languages)
+            psm = 'psm_language_deleted'
 
     elif action == 'chooseDefault':
         for catalog in catalogs:
@@ -86,6 +95,6 @@ def manageCPSLanguage(context, action, default_language, languages):
         psm = 'psm_default_language_set'
 
     else:
-        psm = ''
+        psm = 'psm_language_error_unknown_command'
 
     return psm

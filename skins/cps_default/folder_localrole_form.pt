@@ -92,15 +92,16 @@
 
    <tal:block repeat="member found">
    <tr tal:attributes="class python:test(repeat['member'].even(),'even','odd')">
-     <tal:block define="entry python:member[1];
-                        input_id python:member[1].get('id').replace('@', '_at_')">
+     <tal:block define="id python:member[0];
+                        entry python:member[1];
+                        input_id python:id.replace('@', '_at_')">
        <td width="16">
          <input type="checkbox" name="member_ids:list" value=""
-           class="noborder" tal:attributes="value string:user:${entry/id};
-           id input_id" />
+           class="noborder" tal:attributes="value string:user:${id};
+                                            id input_id" />
        </td>
        <td>
-         <label tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or entry['id']"
+         <label tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or id"
                 tal:attributes="for input_id">Username 1</label>
        </td>
        <td tal:condition="entry/email">

@@ -24,6 +24,7 @@ from Products.CMFCore.permissions import setDefaultRoles
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
+from Products.CMFCore.utils import getToolByName
 from Products.CPSWorkflow.transitions import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
@@ -98,8 +99,11 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTools()
         self.setupSkins()
         self.setupEventService()
-        # we get rid of portal subscriptions notification during installation
-        self.maskEventSubscriber('portal_subscriptions')
+
+        # Disable useless subscriber
+        self.disableEventSubscriber('portal_trees')
+        self.disableEventSubscriber('portal_subscriptions')
+
         self.setupTypes()
         self.setupActions()
         self.setupWorkflow()
@@ -115,7 +119,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             self._interface == 'portlets'):
             self.setupPortlets()
         self.setupForms()
-        self.restoreEventSubscriber('portal_subscriptions')
 
         self.log("Verifying private area creation flag")
         if not self.portal.portal_membership.getMemberareaCreationFlag():
@@ -135,7 +138,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTranslations()
         self.log("CPS update Finished")
         self.verifyVHM()
-
+        
+        # Disable useless subscriber
+        self.enableEventSubscriber('portal_trees')
+        self.enableEventSubscriber('portal_subscriptions')
 
     #
     # Catalog
@@ -1830,7 +1836,17 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # helpers
     installer = DefaultInstaller(self)
+
+    # Disable useless subscriber
+    installer.disableEventSubscriber('portal_trees')
+    installer.disableEventSubscriber('portal_subscriptions')
+
     installer.install(langs_list, is_creation, interface=interface)
+
+    # Enable useless subscriber
+    installer.enableEventSubscriber('portal_trees')
+    installer.enableEventSubscriber('portal_subscriptions')
+    
     installer.finalize()
     return installer.logResult()
 

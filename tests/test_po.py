@@ -17,13 +17,7 @@ from Testing import ZopeTestCase
 import unittest
 from glob import glob
 from gettext import GNUTranslations
-
-# FIXME : where is it coming from ?
-i18n_lib_here = True
-try:
-    from msgfmt import Msgfmt, PoSyntaxError
-except ImportError:
-    i18n_lib_here = False
+from msgfmt import Msgfmt, PoSyntaxError
 
 _TESTS_PATH = os.path.split(__file__)[0]
 if not _TESTS_PATH:
@@ -163,23 +157,21 @@ class TestMsg(ZopeTestCase.ZopeTestCase):
             self.fail(msg)
 
 tests=[]
-# FIXME : where is it coming from ?
-if i18n_lib_here:
-    for potFile in ['custom.pot', 'cpsdefault.pot']:
-        class TestOnePOT(TestPOT):
+for potFile in ['custom.pot', 'cpsdefault.pot']:
+    class TestOnePOT(TestPOT):
+        potFile = potFile
+    tests.append(TestOnePOT)
+
+    for poFile in getPoFiles():
+        class TestOneMsg(TestMsg):
+            poFile = poFile
             potFile = potFile
-        tests.append(TestOnePOT)
-    
-        for poFile in getPoFiles():
-            class TestOneMsg(TestMsg):
-                poFile = poFile
-                potFile = potFile
-            tests.append(TestOneMsg)
-    
-            class TestOnePoFile(TestPoFile):
-                poFile = poFile
-                potFile = potFile
-            tests.append(TestOnePoFile)
+        tests.append(TestOneMsg)
+
+        class TestOnePoFile(TestPoFile):
+            poFile = poFile
+            potFile = potFile
+        tests.append(TestOnePoFile)
 
 
 def test_suite():

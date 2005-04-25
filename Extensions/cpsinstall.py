@@ -214,7 +214,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 , 'modified'
                 , 'CreationDate'
                 , 'EffectiveDate'
-                , 'ExpiresDate'
+                , 'ExpirationDate'
                 , 'ModificationDate'
                 , 'id'
                 , 'getId'

@@ -160,6 +160,24 @@ class TestPoFile(ZopeTestCase.ZopeTestCase):
              expected: %s, got: %s' % \
              (poName, language, fileLang))
 
+        # i18n completeness chart generation mechanism relies on case sensitive
+        # Language-Code and Language-Name.
+        for meta_info in ['"Language-Code: ',
+                          '"Language-Name: ',
+                          '"Domain: ',
+                          ]:
+            cmd = """grep '%s' %s/../i18n/%s""" % (
+                meta_info, _TESTS_PATH, poName)
+            #print "cmd = %s" % cmd
+            statusoutput = commands.getstatusoutput(cmd)
+            #print "status = %s" % statusoutput[0]
+            #print "output = %s" % statusoutput[1]
+            self.assert_(statusoutput[0] == 0,
+                         "Wrong case used for metadata in file %s! "
+                         "Check that your metadata is "
+                         "Language-Code, Language-Name and Domain.\n\n%s"
+                         % (poName, statusoutput[1]))
+
 
 class TestMsg(ZopeTestCase.ZopeTestCase):
     poFile = None

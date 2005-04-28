@@ -218,8 +218,6 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])
 
-
-    # XXX: Error/failure message won't be very explicit
     def testSubmitAllDocumentTypes(self):
         all_document_types = self.portal.getDocumentTypes()
         del all_document_types['Workspace']
@@ -240,7 +238,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         wf_workspace_content.states.addState(state_id)
         state = wf_workspace_content.states.get(state_id)
         state.setProperties(title="Submitted",
-                            transitions=('modify',))
+                            transitions=('modify', 'copy_submit',))
         state.setPermission(ModifyPortalContent, 0,
                             ('Manager', 'WorkspaceManager', 'Owner'))
         state.setPermission(View, 0,

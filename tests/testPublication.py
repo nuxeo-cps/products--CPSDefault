@@ -9,15 +9,21 @@ import CPSDefaultTestCase
 
 from AccessControl import Unauthorized
 from Products.CMFCore.WorkflowCore import WorkflowException
+from Products.CMFCore.permissions import View, ModifyPortalContent
 
 from DateTime import DateTime
 
+ANOTHER_SECTION_ID = 'another-section'
 
 class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     # Test object creation and publication workflow
 
     def afterSetUp(self):
         self.login('manager')
+
+        # Creating an extra section to be used for publishing
+        self.portal.portal_workflow.invokeFactoryFor(
+            self.portal.sections, 'Section', ANOTHER_SECTION_ID)
 
         members = self.portal.portal_directories.members
         members.createEntry({'id': 'member', 'roles': ['Member']})
@@ -125,7 +131,8 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
         # Then submit it (using skin script)
         proxy.content_status_modify(
-            submit='sections', workflow_action='copy_submit')
+            submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
+            workflow_action='copy_submit')
 
         info = proxy.getContentInfo(level=3)
         self.assertEquals(info['review_state'], 'work')
@@ -161,6 +168,57 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])
 
+
+    def _testSubmitWithModifiedWorkflow(self, document_type):
+        self.login('member')
+
+        # Create some document
+        self.member_ws.invokeFactory(document_type, 'doc')
+        proxy = self.member_ws.doc
+
+        info = proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'work')
+
+        # Then submit it (using skin script)
+        proxy.content_status_modify(
+            submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
+            workflow_action='copy_submit')
+
+        info = proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'submitted')
+
+        self.login('reviewer')
+
+        published_proxy = self.portal.sections.doc
+        info = published_proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'pending')
+
+        # Now accept it
+        published_proxy.content_status_modify(workflow_action='accept')
+        info = published_proxy.getContentInfo(level=3)
+        self.assertEquals(info['review_state'], 'published')
+
+        self.login('member')
+
+        # Non-reviewer can't unpublish his own stuff
+        published_proxy = self.portal.sections.doc
+        self.assertRaises(WorkflowException,
+            published_proxy.content_status_modify, workflow_action='unpublish')
+
+        self.login('reviewer')
+
+        info = published_proxy.getContentInfo(level=3)
+        published_proxy = self.portal.sections.doc
+        published_proxy.content_status_modify(workflow_action='unpublish')
+
+        self.login('manager')
+
+        self.assert_(not 'doc' in self.portal.sections.objectIds())
+
+        # Cleanup
+        self.member_ws.manage_delObjects(['doc'])
+
+
     # XXX: Error/failure message won't be very explicit
     def testSubmitAllDocumentTypes(self):
         all_document_types = self.portal.getDocumentTypes()
@@ -169,6 +227,43 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         for document_type in all_document_types.keys():
 	    # print "submit document type %s" % document_type
             self._testSubmit(document_type)
+
+        # Now test publication with a modified workflow
+        wftool = self.portal.portal_workflow
+        wf_workspace_content_id = 'workspace_content_wf'
+        wf_workspace_content = getattr(wftool, wf_workspace_content_id, None)
+
+        # Adding the new state "submitted"
+        state_id = 'submitted'
+        if wf_workspace_content.states.get(state_id) is not None:
+            wf_workspace_content.states.manage_delObjects([state_id])
+        wf_workspace_content.states.addState(state_id)
+        state = wf_workspace_content.states.get(state_id)
+        state.setProperties(title="Submitted",
+                            transitions=('modify',))
+        state.setPermission(ModifyPortalContent, 0,
+                            ('Manager', 'WorkspaceManager', 'Owner'))
+        state.setPermission(View, 0,
+                            ('Manager', 'WorkspaceManager',
+                             'Owner', 'WorkspaceMember', 'WorkspaceReader'))
+
+        # Modifying the already existing transition modify so that this
+        # transition goes to the "work" state.
+        trans_id = 'modify'
+        if wf_workspace_content.transitions.get(trans_id):
+            wf_workspace_content.transitions.manage_delObjects([trans_id])
+        wf_workspace_content.transitions.addTransition(trans_id)
+        trans = wf_workspace_content.transitions.get(trans_id)
+        trans.new_state_id='work'
+
+        # Modifying the already existing state "work"
+        state_id = 'work'
+        state = wf_workspace_content.states.get(state_id)
+        trans_id = 'copy_submit'
+        trans = wf_workspace_content.transitions.get(trans_id)
+        trans.new_state_id = 'submitted'
+        self._testSubmitWithModifiedWorkflow('File')
+
 
     # Same as test as above, but here we know what document type causes
     # trouble

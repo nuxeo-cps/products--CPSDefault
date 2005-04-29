@@ -21,8 +21,9 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
         self.login('manager')
 
+        self.wftool = self.portal.portal_workflow
         # Creating an extra section to be used for publishing
-        self.portal.portal_workflow.invokeFactoryFor(
+        self.wftool.invokeFactoryFor(
             self.portal.sections, 'Section', ANOTHER_SECTION_ID)
 
         members = self.portal.portal_directories.members
@@ -126,39 +127,38 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.member_ws.invokeFactory(document_type, 'doc')
         proxy = self.member_ws.doc
 
-        info = proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'work')
+        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
+        self.assertEquals(review_state, 'work')
 
         # Then submit it (using skin script)
         proxy.content_status_modify(
             submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
             workflow_action='copy_submit')
 
-        info = proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'work')
+        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
+        self.assertEquals(review_state, 'work')
 
         self.login('reviewer')
 
         published_proxy = self.portal.sections.doc
-        info = published_proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'pending')
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'pending')
 
         # Now accept it
         published_proxy.content_status_modify(workflow_action='accept')
-        info = published_proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'published')
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'published')
 
         self.login('member')
 
         # Non-reviewer can't unpublish his own stuff
-        published_proxy = self.portal.sections.doc
         self.assertRaises(WorkflowException,
             published_proxy.content_status_modify, workflow_action='unpublish')
 
         self.login('reviewer')
 
-        info = published_proxy.getContentInfo(level=3)
-        published_proxy = self.portal.sections.doc
         published_proxy.content_status_modify(workflow_action='unpublish')
 
         self.login('manager')
@@ -176,39 +176,38 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.member_ws.invokeFactory(document_type, 'doc')
         proxy = self.member_ws.doc
 
-        info = proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'work')
+        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
+        self.assertEquals(review_state, 'work')
 
         # Then submit it (using skin script)
         proxy.content_status_modify(
             submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
             workflow_action='copy_submit')
 
-        info = proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'submitted')
+        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
+        self.assertEquals(review_state, 'submitted')
 
         self.login('reviewer')
 
         published_proxy = self.portal.sections.doc
-        info = published_proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'pending')
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'pending')
 
         # Now accept it
         published_proxy.content_status_modify(workflow_action='accept')
-        info = published_proxy.getContentInfo(level=3)
-        self.assertEquals(info['review_state'], 'published')
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'published')
 
         self.login('member')
 
         # Non-reviewer can't unpublish his own stuff
-        published_proxy = self.portal.sections.doc
         self.assertRaises(WorkflowException,
             published_proxy.content_status_modify, workflow_action='unpublish')
 
         self.login('reviewer')
 
-        info = published_proxy.getContentInfo(level=3)
-        published_proxy = self.portal.sections.doc
         published_proxy.content_status_modify(workflow_action='unpublish')
 
         self.login('manager')
@@ -227,9 +226,9 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self._testSubmit(document_type)
 
         # Now test publication with a modified workflow
-        wftool = self.portal.portal_workflow
         wf_workspace_content_id = 'workspace_content_wf'
-        wf_workspace_content = getattr(wftool, wf_workspace_content_id, None)
+        wf_workspace_content = getattr(self.wftool,
+                                       wf_workspace_content_id, None)
 
         # Adding the new state "submitted"
         state_id = 'submitted'

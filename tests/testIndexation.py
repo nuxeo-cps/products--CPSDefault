@@ -72,6 +72,30 @@ class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(has_path(self.catalog,
                               "/portal/workspaces/copy_of_%s"%id))
 
+    def test_indexation_cut_paste_synchronous(self):
+
+        workspaces = self.portal.workspaces
+        # Create an object with invokeFactoryFor
+        id = workspaces.computeId()
+        self.wftool.invokeFactoryFor(workspaces, 'File', id)
+        self.assert_(has_path(self.catalog, "/portal/workspaces/%s"%id))
+
+        # Create a folder for pasting
+        ws_id = workspaces.computeId()
+        self.wftool.invokeFactoryFor(workspaces, 'Workspace', ws_id)
+        new_ws = getattr(workspaces, ws_id)
+
+        # commit for being able to cut
+        get_transaction().commit(1)
+
+        # Paste it and see if it's indexed
+        cp = workspaces.manage_CPScutObjects([id])
+        new_ws.manage_CPSpasteObjects(cp)
+        self.assert_(not has_path(self.catalog, "/portal/workspaces/%s"%id))
+        self.assert_(id in new_ws.objectIds())
+        self.assert_(has_path(self.catalog,
+                              "/portal/workspaces/%s/%s"%(ws_id, id)))
+
 class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
 
     login_id = 'manager'
@@ -112,6 +136,32 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         get_transaction().commit()
         self.assert_(has_path(self.catalog,
                               "/portal/workspaces/copy_of_%s"%id))
+
+    def test_indexation_cut_paste_asynchronous(self):
+
+        workspaces = self.portal.workspaces
+        # Create an object with invokeFactoryFor
+        id = workspaces.computeId()
+        self.wftool.invokeFactoryFor(workspaces, 'File', id)
+        get_transaction().commit()
+        self.assert_(has_path(self.catalog, "/portal/workspaces/%s"%id))
+
+        # Create a folder for pasting
+        ws_id = workspaces.computeId()
+        self.wftool.invokeFactoryFor(workspaces, 'Workspace', ws_id)
+        new_ws = getattr(workspaces, ws_id)
+
+        # commit for being able to cut
+        get_transaction().commit(1)
+
+        # Paste it and see if it's indexed
+        cp = workspaces.manage_CPScutObjects([id])
+        new_ws.manage_CPSpasteObjects(cp)
+        get_transaction().commit()
+        self.assert_(not has_path(self.catalog, "/portal/workspaces/%s"%id))
+        self.assert_(id in new_ws.objectIds())
+        self.assert_(has_path(self.catalog,
+                              "/portal/workspaces/%s/%s"%(ws_id, id)))
 
 def test_suite():
     suite = unittest.TestSuite()

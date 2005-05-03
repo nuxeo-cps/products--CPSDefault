@@ -155,6 +155,11 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         get_transaction().commit(1)
 
         # Paste it and see if it's indexed
+
+        # Modify doc to be cut before so it gets in the queue too
+        doc = getattr(workspaces, id)
+        doc.getEditableContent().edit()
+
         cp = workspaces.manage_CPScutObjects([id])
         new_ws.manage_CPSpasteObjects(cp)
         get_transaction().commit()

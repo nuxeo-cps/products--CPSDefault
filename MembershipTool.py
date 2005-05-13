@@ -168,8 +168,9 @@ The %s administration team
         hash_object.update(self.getNonce())
         result = hash_object.hexdigest()
         if (reset_token == result
-            and int(emission_time) + self.reset_password_request_validity >=
-            int(time())):
+            and int(emission_time)
+            + self.getProperty('reset_password_request_validity')
+            >= int(time())):
             return True
         return False
 

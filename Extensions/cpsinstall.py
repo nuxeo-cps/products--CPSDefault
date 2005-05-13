@@ -45,6 +45,7 @@ except ImportError:
 
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
+MEMBERS_ID = 'members'
 
 WebDavLockItem = 'WebDAV Lock items'
 WebDavUnlockItem = 'WebDAV Unlock items'
@@ -115,6 +116,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupBoxes()
         self.setupi18n()
         self.setupCPSProducts()
+        # fixupRoots is a temporary hack to fix a CPSDocument bootstrap problem
+        self.fixupRoots()
         if (self.is_creation and
             self._interface == 'portlets'):
             self.setupPortlets()
@@ -138,7 +141,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTranslations()
         self.log("CPS update Finished")
         self.verifyVHM()
-        
+
         # Disable useless subscriber
         self.enableEventSubscriber('portal_trees')
         self.enableEventSubscriber('portal_subscriptions')
@@ -1472,8 +1475,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.allowContentTypes('Section', 'Section')
 
     def setupRoots(self):
-        # check site and workspaces proxies
-        members_id = 'members'
+        """Check site and workspaces needed proxies."""
 
         self.log("Verifying roots: %s and %s" % (SECTIONS_ID, WORKSPACES_ID))
         if not self.portalHas(WORKSPACES_ID):
@@ -1482,19 +1484,19 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 self.portal.this(), 'Workspace', WORKSPACES_ID)
             workspaces = self.portal[WORKSPACES_ID]
             # XXX This should work if workspaces were a true CPSDocument.
-            # What is the problem?
+            # read fixupRoots to understand the problem.
             #workspaces.getEditableContent().edit(Title="Workspaces")
             workspaces.getEditableContent().setTitle("Workspaces")
             # XXX Make L10N more generic
             workspaces.addLanguageToProxy('fr')
             workspaces.getEditableContent('fr').setTitle("Espaces de travail")
 
-        if getattr(self.portal[WORKSPACES_ID], members_id, None) is None:
-            self.log("  Adding %s Folder" % members_id)
+        if getattr(self.portal[WORKSPACES_ID], MEMBERS_ID, None) is None:
+            self.log("  Adding %s Folder" % MEMBERS_ID)
             workspaces = self.portal[WORKSPACES_ID]
             self.portal.portal_workflow.invokeFactoryFor(
-                workspaces,'Workspace', members_id)
-            member_areas = getattr(workspaces, members_id, None)
+                workspaces,'Workspace', MEMBERS_ID)
+            member_areas = getattr(workspaces, MEMBERS_ID, None)
             member_areas.getEditableContent().setTitle("Member Areas")
             # XXX Make L10N more generic
             member_areas.addLanguageToProxy('fr')
@@ -1509,6 +1511,20 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             # XXX Make L10N more generic
             sections.addLanguageToProxy('fr')
             sections.getEditableContent('fr').setTitle("Espaces de publication")
+
+    def fixupRoots(self):
+        """Commit the data model of those folders that were not created through
+        the CPSDocument framework due to bootstrap problems.
+        """
+        for proxy in (self.portal.workspaces,
+                      self.portal.workspaces.members,
+                      self.portal.sections):
+            for lang in ('en', 'fr'):
+                doc = proxy.getEditableContent(lang)
+                dm = doc.getTypeInfo().getDataModel(doc, proxy)
+                for k, v in dm.items():
+                    dm[k] = v
+                dm._commit(check_perms=0)
 
     def setupTreesTool(self):
         self.verifyTool('portal_trees', 'CPSCore', 'CPS Trees Tool')
@@ -1846,7 +1862,7 @@ def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # Enable useless subscriber
     installer.enableEventSubscriber('portal_trees')
     installer.enableEventSubscriber('portal_subscriptions')
-    
+
     installer.finalize()
     return installer.logResult()
 

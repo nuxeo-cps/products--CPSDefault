@@ -82,7 +82,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
     _log = []
     def pr(bla, zlog=1, _log=_log):
         if bla == 'flush':
-            return '\n'.join(_log)
+            return '<br/>\n'.join(_log)
         _log.append(bla)
         if (bla and zlog):
             LOG('addCPSDefaultSite:', INFO, bla)
@@ -171,7 +171,8 @@ def manage_addCPSDefaultSite(dispatcher, id,
     mdir.createEntry(entry)
 
     pr('Done')
+    pr('<script type="text/javascript">window.parent.update_menu();</script>')
     if REQUEST is not None:
-        REQUEST.RESPONSE.setHeader('Content-Type', 'text/plain')
+        REQUEST.RESPONSE.setHeader('Content-Type', 'text/html')
 
     return pr('flush')

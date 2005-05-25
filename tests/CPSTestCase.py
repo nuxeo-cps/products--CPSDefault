@@ -39,6 +39,10 @@ ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
 
+# Five is optional, but if it exists it must be installed for
+# the TranslationService to work properly.
+ZopeTestCase.installProduct('Five', quiet=1)
+
 PORTAL_ID = 'portal'
 MANAGER_ID = 'manager'
 MANAGER_EMAIL = 'webmaster@localhost'

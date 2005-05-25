@@ -53,6 +53,9 @@ class MembershipTool(CPSMembershipTool):
 
     security = ClassSecurityInfo()
 
+    #
+    # Members password handling
+    #
 
     security.declarePublic('requestPasswordReset')
     def requestPasswordReset(self, username_or_email):
@@ -229,6 +232,58 @@ The %s administration team
         result['new_password'] = new_password
         return result
 
+
+    #
+    # Member area creation
+    #
+
+    security.declarePrivate('_createMemberContentAsManager')
+    def _createMemberContentAsManager(self, member, member_id, member_folder):
+        """Create the content of the member area.
+
+        Executed with Manager privileges.
+
+        Additional actions done in CPSDefault:
+        - create personal calendar
+        """
+        # inherited method
+        CPSMembershipTool._createMemberContentAsManager(self, member,
+                                                        member_id, member_folder)
+        portal_cpscalendar = getToolByName(self, 'portal_cpscalendar', None)
+        if portal_cpscalendar:
+            create_calendar = getattr(portal_cpscalendar, 'create_member_calendar', 1)
+            if create_calendar:
+                try:
+                    portal_cpscalendar.createMemberCalendar(member_id)
+                # If the Calendar portal types has been removed, we will
+                # get a ValueError exception here.
+                except ValueError:
+                    pass
+
+    security.declarePrivate('_notifyMemberAreaCreated')
+    def _notifyMemberAreaCreated(self, member, member_id, member_folder):
+        """Perform special actions after member content has been created
+
+        Additional actions done in CPSDefault:
+        - set the member area title using the user's title
+        """
+        # inherited method
+        CPSMembershipTool._notifyMemberAreaCreated(self, member,
+                                                   member_id, member_folder)
+        # get the user's title
+        members_directory = self.portal_directories.members
+        member_entry = members_directory.getEntry(member_id)
+        member_title = member_entry.get(members_directory.title_field)
+        if not member_title:
+            member_title = member_id
+        # set the member area title, assuming user can edit it
+        doc = member_folder.getEditableContent()
+        doc.setTitle(member_title)
+
+
+    #
+    # Miscellaneous helper methods
+    #
 
     security.declarePrivate('getNonce')
     def getNonce(self):

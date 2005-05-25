@@ -19,6 +19,8 @@ Bug fixes:
   HTML the format, so that it's more user-friendly and especially so that we
   have a refresh of the ZMI menu on the left, so that users can see their newly
   created CPS site.
+- Member home folder did not have any title, it is now set to the member title
+  at creation time, or its login if no title is available.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - cosmit on testI18n
@@ -29,3 +31,5 @@ New internal features:
   portal_subcriptions during installation.
 - Made folder_localrole_search and folder_localrole_form work with
   any id_field for the members directory.
+- Membership tool now handles the personal calendar creation if portal_calendar
+  exists, instead of letting CPSCore do it.

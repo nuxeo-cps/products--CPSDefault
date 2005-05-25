@@ -154,10 +154,14 @@ def LocalizerStringIO_getvalue(self):
 LocalizerStringIO.write = LocalizerStringIO_write
 LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
+from Products.CPSCore.IndexationManager import get_indexation_manager
 
 class CPSTestCase(ZopeTestCase.PortalTestCase):
-    def setUp(self):
-        ZopeTestCase.PortalTestCase.setUp(self)
+
+    # Override _setup, setUp is not supposed to be overriden
+    def _setup(self):
+
+        ZopeTestCase.PortalTestCase._setup(self)
 
         # Some skins need sessions (not sure if it's a good thing).
         # Localizer too.
@@ -165,6 +169,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         SESSION = {}
         self.portal.REQUEST['SESSION'] = SESSION
         self.portal.REQUEST.SESSION = SESSION
+
+        # Because of the indexation which is done at the end of the transaction
+        # We don't want to deal with transactions within the tests ;)
+        get_indexation_manager().setSynchonous(True)
 
     def isValidXML(self, xml):
         filename = tempfile.mktemp()
@@ -279,18 +287,6 @@ optimize()
 class FakeErrorLog:
     def raising(self, *args):
         pass
-
-#
-# Because of the indexation which is done at the end of the transaction
-# We don't want to deal with transactions within the tests ;)
-#
-# XXX That's a hack, tests should switch to synchronous mode
-# using get_indexation_manager().setSynchonous(True) when needed.
-#
-
-from Products.CPSCore.IndexationManager import IndexationManager
-IndexationManager.DEFAULT_SYNC = True
-
 
 ##############################################################
 ##############################################################

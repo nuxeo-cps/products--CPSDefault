@@ -32,7 +32,7 @@ import CPSDefaultTestCase
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.tests.base.utils import has_path
 
-from Products.CPSCore.IndexationManager import IndexationManager
+from Products.CPSCore.IndexationManager import get_indexation_manager
 
 class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
 
@@ -41,13 +41,11 @@ class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
         if self.login_id:
             self.login(self.login_id)
-            self.portal.portal_membership.createMemberArea()
         self.wftool  = getToolByName(self.portal, 'portal_workflow')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
-        IndexationManager.DEFAULT_SYNC = True
+        get_indexation_manager().setSynchonous(True)
 
     def beforeTearDown(self):
-        IndexationManager.DEFAULT_SYNC = True
         self.logout()
 
     def test_indexation_invokeFactory_synchronous(self):
@@ -103,13 +101,14 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
         if self.login_id:
             self.login(self.login_id)
-            self.portal.portal_membership.createMemberArea()
+            # XXX This should be harmless but makes testMembershipTool fail
+            # because member area created still exists, dont know why
+            #self.portal.portal_membership.createMemberArea()
         self.wftool  = getToolByName(self.portal, 'portal_workflow')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
-        IndexationManager.DEFAULT_SYNC = False
+        get_indexation_manager().setSynchonous(False)
 
     def beforeTearDown(self):
-        IndexationManager.DEFAULT_SYNC = True
         self.logout()
 
     def test_indexation_invokeFactory_asynchronous(self):

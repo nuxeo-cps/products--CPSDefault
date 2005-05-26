@@ -1,3 +1,4 @@
+# -*- encoding: iso-8859-15 -*-
 # (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
 # Authors:
 # Anahide Tchertchian <at@nuxeo.com>
@@ -23,7 +24,6 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):

@@ -250,7 +250,7 @@ The %s administration team
         CPSMembershipTool._createMemberContentAsManager(self, member,
                                                         member_id, member_folder)
         portal_cpscalendar = getToolByName(self, 'portal_cpscalendar', None)
-        if portal_cpscalendar:
+        if portal_cpscalendar is not None:
             create_calendar = getattr(portal_cpscalendar, 'create_member_calendar', 1)
             if create_calendar:
                 try:

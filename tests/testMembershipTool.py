@@ -63,9 +63,16 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEqual(homefolder.get_local_roles(),
                          ((self.login_id, ('Owner', 'WorkspaceManager')),))
 
-        # check content created if portal_calendar is installed
-        if getattr(self.portal, 'portal_calendar', None) is not None:
+        # check content created if portal_cpscalendar is installed
+        portal_cpscalendar = getattr(self.portal, 'portal_cpscalendar', None)
+        if portal_cpscalendar is not None:
+            create_calendar = getattr(portal_cpscalendar, 'create_member_calendar', 1)
+        else:
+            create_calendar = 0
+        if create_calendar:
             self.assert_('calendar' in homefolder.objectIds())
+        else:
+            self.assertEqual(homefolder.objectIds(), [])
 
 def test_suite():
     suite = unittest.TestSuite()

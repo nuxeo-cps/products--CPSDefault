@@ -53,8 +53,9 @@ def getLanguageFromPath(path):
 
 
 def getPoPath():
+    product_name = __name__.split('.')[0]
     import Products
-    product_file = getattr(Products, 'CPSDefault').__file__
+    product_file = getattr(Products, product_name).__file__
     product_path = os.path.dirname(product_file)
     po_path = os.path.join(product_path, 'i18n')
     return po_path
@@ -101,7 +102,7 @@ class TestPoFile(ZopeTestCase.ZopeTestCase):
 
         # Checking that the .po file has a non-fuzzy header entry, so that it
         # cannot be deleted by error.
-        cmd = """grep -B 1 'msgid ""' %s/../i18n/%s|grep fuzzy""" % (
+        cmd = """grep -B 1 -A 1 '^msgid ""' %s/../i18n/%s|grep -B 2 '^msgstr ""'|grep fuzzy""" % (
             _TESTS_PATH, poName)
         #print "cmd = %s" % cmd
         statusoutput = commands.getstatusoutput(cmd)

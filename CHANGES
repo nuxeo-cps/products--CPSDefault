@@ -1,35 +1,12 @@
 Requires:
 ~~~~~~~~~
-- CPSCore > 3.26.0
-- CPSInstaller >= 0.18.0
+-
 New features:
 ~~~~~~~~~~~~~
 -
 Bug fixes:
 ~~~~~~~~~~
-- Advertised content_lib_states.pt as a more generic information provider
-  showing all the current revisions of the current document.
-- CMF bugfix: use ExpirationDate metadata instead of ExpiresDate.
-- Added a method fixupRoots() in cpsinstall.py to update the data model of the
-  sections, workspaces and members folders. This is a temporary fix until we
-  switch to CMFSetup.
-- Made it possible to use HTML in portal status messages.
-- Better messages for reset password for the "en" and "fr" locales.
-- Made the returned logs of the installation of a new CPSDefault Site be in the
-  HTML the format, so that it's more user-friendly and especially so that we
-  have a refresh of the ZMI menu on the left, so that users can see their newly
-  created CPS site.
-- Member home folder did not have any title, it is now set to the member title
-  at creation time, or its login if no title is available.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- cosmit on testI18n
-- Moved boxes skins to CPSBoxes
-- the list of roots of sections can be specified explicitly in
-  getSectionsRoots.py (default is ['sections']).
-- Installer uses the disableEventSubscriber() to disable portal_trees and
-  portal_subcriptions during installation.
-- Made folder_localrole_search and folder_localrole_form work with
-  any id_field for the members directory.
-- Membership tool now handles the personal calendar creation if portal_calendar
-  exists, instead of letting CPSCore do it.
+-

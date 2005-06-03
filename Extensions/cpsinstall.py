@@ -21,7 +21,6 @@
 from AccessControl import getSecurityManager
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.permissions import setDefaultRoles
-from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.utils import getToolByName
@@ -37,18 +36,47 @@ from Products.CPSWorkflow.transitions import \
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 from Products.CPSInstaller.CPSInstaller import CPSInstaller
 from Products.CPSDefault.MembershipTool import MembershipTool
+
+# Zope permissions
+AccessContentsInformation = 'Access contents information'
+ChangePermissions = 'Change permissions'
+DeleteObjects = 'Delete objects'
+ViewManagementScreens = 'View management screens'
+WebDavLockItem = 'WebDAV Lock items'
+WebDavUnlockItem = 'WebDAV Unlock items'
+
+# CMF permissions
+from Products.CMFCore.permissions import View
+from Products.CMFCore.permissions import ModifyPortalContent
+from Products.CMFCore.permissions import AddPortalContent
+from Products.CMFCore.permissions import RequestReview
+from Products.CMFCore.permissions import ReviewPortalContent
+from Products.CMFCore.permissions import AddPortalFolders
+from Products.CMFCore.permissions import ListFolderContents
+
+# ExternalEditor permissions
 try:
     from Products.ExternalEditor.ExternalEditor import ExternalEditorPermission
     external_editor_present = 1
 except ImportError:
     external_editor_present = 0
 
+# CPSCore permissions
+from Products.CPSCore.CPSCorePermissions import ViewArchivedRevisions
+from Products.CPSCore.CPSCorePermissions import ChangeSubobjectsOrder
+
+# CPSDefault permissions
+# XXX should be imported from somewhere
+ModifyFolderProperties = 'Modify Folder Properties'
+ManageBoxes = 'Manage Boxes'
+AddBoxContainer = 'Add Box Container'
+ManageBoxOverrides = 'Manage Box Overrides'
+
+
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
 MEMBERS_ID = 'members'
 
-WebDavLockItem = 'WebDAV Lock items'
-WebDavUnlockItem = 'WebDAV Unlock items'
 
 class DefaultInstaller(CPSInstaller):
 
@@ -301,8 +329,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         ))
 
         self.log("Verifying permissions")
-        ModifyFolderPoperties = 'Modify Folder Properties'
-        setDefaultRoles(ModifyFolderPoperties,
+        setDefaultRoles(ModifyFolderProperties,
             ('Manager', 'WorkspaceManager',))
 
         if external_editor_present:
@@ -311,57 +338,57 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 }
             self.setupPortalPermissions(portal_perms, self.portal)
         sections_perms = {
-            'Request review': ['Manager', 'WorkspaceManager',
+            RequestReview: ['Manager', 'WorkspaceManager',
                                'WorkspaceMember', 'Contributor',
                                'SectionReviewer', 'SectionManager'],
-            'Review portal content': ['Manager', 'SectionReviewer',
+            ReviewPortalContent: ['Manager', 'SectionReviewer',
                                       'SectionManager'],
-            'Add Box Container': ['Manager', 'SectionManager'],
-            'Manage Box Overrides': ['Manager','SectionManager'],
-            'Manage Boxes': ['Manager', 'SectionManager'],
-            'Add portal content': ['Manager', 'SectionManager', 'Contributor'],
-            'Add portal folders': ['Manager', 'SectionManager'],
-            'Change permissions': ['Manager', 'SectionManager'],
-            'Change subobjects order': ['Manager', 'SectionManager'],
-            'Delete objects': ['Manager', 'SectionManager', 'SectionReviewer'],
-            'List folder contents': ['Manager', 'SectionManager',
+            AddBoxContainer: ['Manager', 'SectionManager'],
+            ManageBoxOverrides: ['Manager','SectionManager'],
+            ManageBoxes: ['Manager', 'SectionManager'],
+            AddPortalContent: ['Manager', 'SectionManager', 'Contributor'],
+            AddPortalFolders: ['Manager', 'SectionManager'],
+            ChangePermissions: ['Manager', 'SectionManager'],
+            ChangeSubobjectsOrder: ['Manager', 'SectionManager'],
+            DeleteObjects: ['Manager', 'SectionManager', 'SectionReviewer'],
+            ListFolderContents: ['Manager', 'SectionManager',
                                      'SectionReviewer', 'SectionReader',
                                      'Contributor'],
-            'Modify portal content': ['Manager', 'SectionManager',
+            ModifyPortalContent: ['Manager', 'SectionManager',
                                       'Contributor'],
-            'Modify Folder Properties': ['Manager', 'SectionManager'],
-            'View': ['Manager', 'SectionManager', 'SectionReviewer',
+            ModifyFolderProperties: ['Manager', 'SectionManager'],
+            View: ['Manager', 'SectionManager', 'SectionReviewer',
                      'SectionReader', 'Contributor'],
-            'View management screens': ['Manager', 'SectionManager'],
-            'View archived revisions': ['Manager', 'SectionManager',
+            ViewManagementScreens: ['Manager', 'SectionManager'],
+            ViewArchivedRevisions: ['Manager', 'SectionManager',
                                         'SectionReviewer', 'Contributor'],
             WebDavLockItem: ['SectionManager', 'SectionReviewer'],
             WebDavUnlockItem: ['SectionManager', 'SectionReviewer'],
             }
         self.setupPortalPermissions(sections_perms, self.portal[SECTIONS_ID])
         workspaces_perms = {
-            'Add portal content': ['Manager', 'WorkspaceManager',
+            AddPortalContent: ['Manager', 'WorkspaceManager',
                                    'WorkspaceMember', 'Contributor'],
-            'Add portal folders': ['Manager', 'WorkspaceManager'],
-            'Change permissions': ['Manager', 'WorkspaceManager'],
-            'Change subobjects order': ['Manager', 'WorkspaceManager',
+            AddPortalFolders: ['Manager', 'WorkspaceManager'],
+            ChangePermissions: ['Manager', 'WorkspaceManager'],
+            ChangeSubobjectsOrder: ['Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'Contributor'],
-            'Delete objects': ['Manager', 'WorkspaceManager',
+            DeleteObjects: ['Manager', 'WorkspaceManager',
                                'WorkspaceMember', 'Contributor'],
-            'List folder contents': ['Manager', 'WorkspaceManager',
+            ListFolderContents: ['Manager', 'WorkspaceManager',
                                      'WorkspaceMember', 'Contributor', 'WorkspaceReader'],
-            'Modify portal content': ['Manager', 'WorkspaceManager',
+            ModifyPortalContent: ['Manager', 'WorkspaceManager',
                                       'WorkspaceMember', 'Contributor', 'Owner'],
-            'Modify Folder Properties': ['Manager', 'WorkspaceManager'],
-            'View': ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Contributor',
+            ModifyFolderProperties: ['Manager', 'WorkspaceManager'],
+            View: ['Manager', 'WorkspaceManager', 'WorkspaceMember', 'Contributor',
                      'WorkspaceReader'],
-            'View management screens': ['Manager', 'WorkspaceManager',
+            ViewManagementScreens: ['Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'Contributor'],
-            'Add Box Container': ['Manager', 'WorkspaceManager',
+            AddBoxContainer: ['Manager', 'WorkspaceManager',
                                   'SectionManager'],
-            'Manage Box Overrides': ['Manager','WorkspaceManager'],
-            'Manage Boxes': ['Manager', 'WorkspaceManager'],
-            'View archived revisions': ['Manager', 'WorkspaceManager',
+            ManageBoxOverrides: ['Manager','WorkspaceManager'],
+            ManageBoxes: ['Manager', 'WorkspaceManager'],
+            ViewArchivedRevisions: ['Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'Contributor'],
             WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Contributor', 'Owner'],
             WebDavUnlockItem: ['WorkspaceManager', 'WorkspaceMember', 'Owner'],
@@ -373,7 +400,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             self.portal.cpsupdate.manage_permission(
                 View, roles=['Manager'], acquire=0)
             self.portal.cpsupdate.manage_permission(
-                'Access contents information', roles=['Manager'], acquire=0)
+                AccessContentsInformation, roles=['Manager'], acquire=0)
 
     def setupRegistration(self):
         self.log("Setting up portal registration tool")
@@ -1379,7 +1406,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 actbox_category='workflow',
                 actbox_url='%(content_url)s/content_translate_form',
                 script_name='add_language_to_proxy',
-                props={'guard_permissions': 'Modify portal content',
+                props={'guard_permissions': ModifyPortalContent,
                        'guard_roles': '',
                        'guard_expr': ''})
             self.log("  Added translate")
@@ -1788,7 +1815,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             name='action_boxes_root',
             action='string:${portal_url}/box_manage_form',
             condition='python:folder is object',
-            permission=('Manage Boxes',),
+            permission=(ManageBoxes,),
             category='global',
             visible=1)
 

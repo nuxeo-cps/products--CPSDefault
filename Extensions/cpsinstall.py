@@ -624,8 +624,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
     def setupWorkflow1(self):
         # workspace_folder_wf
         wfdef = {'wfid': 'workspace_folder_wf',
-                 'permissions': (View, ModifyPortalContent,
-                                 WebDavLockItem, WebDavUnlockItem,),
+                 'permissions': (View,),
                  'state_var': 'review_state',
                  }
 

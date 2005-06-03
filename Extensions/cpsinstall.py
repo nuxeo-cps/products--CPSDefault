@@ -149,87 +149,91 @@ state_change.object.addLanguageToProxy(lang, from_lang)
     #
     # Catalog
     #
-    def catalogEnumerateIndexes( self ):
-        #   Return a list of ( index_name, type ) pairs for the initial
-        #   index set.
+    def catalogEnumerateIndexes(self):
+        """Return a list of (index_name, type) pairs for the initial
+        index set.
+        """
         class Struct:
             def __init__(self, **kw):
                 for k, v in kw.items():
                     setattr(self, k, v)
 
-        return (('Title', 'FieldIndex', None) # used for sorting
-                , ('ZCTitle', 'ZCTextIndex',  # used for searching
-                   Struct(doc_attr='Title',
-                          lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
-                          index_type='Okapi BM25 Rank'))
-                , ('Subject', 'KeywordIndex', None)
-                , ('Description', 'ZCTextIndex',
-                   Struct(doc_attr='Description',
-                          lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
-                          index_type='Okapi BM25 Rank'))
-                , ('Creator', 'FieldIndex', None)
-                , ('SearchableText', 'ZCTextIndex',
-                   Struct(doc_attr='SearchableText',
-                          lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
-                          index_type='Okapi BM25 Rank'))
-                , ('Date', 'DateIndex', None)
-                , ('Type', 'FieldIndex', None)
-                , ('created', 'DateIndex', None)
-                , ('effective', 'DateIndex', None)
-                , ('expires', 'DateIndex', None)
-                , ('modified', 'DateIndex', None)
-                , ('allowedRolesAndUsers', 'KeywordIndex', None)
-                , ('localUsersWithRoles', 'KeywordIndex', None)
-                , ('review_state', 'FieldIndex', None)
-                , ('in_reply_to', 'FieldIndex', None)
-                , ('meta_type', 'FieldIndex', None)
-                , ('id', 'FieldIndex', None)
-                , ('getId', 'FieldIndex', None)
-                , ('path', 'PathIndex', None)
-                , ('portal_type', 'FieldIndex', None)
-                , (self.CPS_FILTER_SETS_INDEX, 'TopicIndex',
-                   (Struct(id=self.CPS_FILTER_SEARCHABLE_SET,
-                           expr=self.CPS_FILTER_SEARCHABLE_EXPR),
-                    Struct(id=self.CPS_FILTER_LEAVES_SET,
-                           expr=self.CPS_FILTER_LEAVES_EXPR),
-                    Struct(id=self.CPS_FILTER_DEFAULT_LANGUAGES_SET,
-                           expr=self.CPS_FILTER_DEFAULT_LANGUAGES_EXPR),))
-                , ('start', 'DateIndex', None)
-                , ('end', 'DateIndex', None)
-                , ('time', 'DateIndex', None) # time of the last transition
-                , ('Language', 'FieldIndex', None)
-               )
+        return (('Title', 'FieldIndex', None), # used for sorting
+                ('ZCTitle', 'ZCTextIndex',  # used for searching
+                 Struct(doc_attr='Title',
+                        lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                        index_type='Okapi BM25 Rank')),
+                ('Subject', 'KeywordIndex', None),
+                ('Description', 'ZCTextIndex',
+                 Struct(doc_attr='Description',
+                        lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                        index_type='Okapi BM25 Rank')),
+                ('Creator', 'FieldIndex', None),
+                ('SearchableText', 'ZCTextIndex',
+                 Struct(doc_attr='SearchableText',
+                        lexicon_id=self.DEFAULT_CPS_LEXICON_ID,
+                        index_type='Okapi BM25 Rank')),
+                ('Date', 'DateIndex', None),
+                ('Type', 'FieldIndex', None),
+                ('created', 'DateIndex', None),
+                ('effective', 'DateIndex', None),
+                ('expires', 'DateIndex', None),
+                ('modified', 'DateIndex', None),
+                ('allowedRolesAndUsers', 'KeywordIndex', None),
+                ('localUsersWithRoles', 'KeywordIndex', None),
+                ('review_state', 'FieldIndex', None),
+                ('in_reply_to', 'FieldIndex', None),
+                ('meta_type', 'FieldIndex', None),
+                ('id', 'FieldIndex', None),
+                ('getId', 'FieldIndex', None),
+                ('path', 'PathIndex', None),
+                ('portal_type', 'FieldIndex', None),
+                (self.CPS_FILTER_SETS_INDEX, 'TopicIndex',
+                 (Struct(id=self.CPS_FILTER_SEARCHABLE_SET,
+                         expr=self.CPS_FILTER_SEARCHABLE_EXPR),
+                  Struct(id=self.CPS_FILTER_LEAVES_SET,
+                         expr=self.CPS_FILTER_LEAVES_EXPR),
+                  Struct(id=self.CPS_FILTER_DEFAULT_LANGUAGES_SET,
+                         expr=self.CPS_FILTER_DEFAULT_LANGUAGES_EXPR),)),
+                ('start', 'DateIndex', None),
+                ('end', 'DateIndex', None),
+                ('time', 'DateIndex', None), # time of the last transition
+                ('Language', 'FieldIndex', None),
+                )
 
-    def catalogEnumerateMetadata( self ):
-        #   Return a sequence of schema names to be cached (catalog metadata).
-        #   id is depricated and may go away, use getId!
-        return ('Subject'               # CMF metadata
-                , 'Title'
-                , 'Description'
-                , 'Type'
-                , 'review_state'
-                , 'Creator'
-                , 'Date'
-                , 'getIcon'
-                , 'created'
-                , 'effective'
-                , 'expires'
-                , 'modified'
-                , 'CreationDate'
-                , 'EffectiveDate'
-                , 'ExpirationDate'
-                , 'ModificationDate'
-                , 'id'
-                , 'getId'
-                , 'portal_type'
+    def catalogEnumerateMetadata(self):
+        """Return a sequence of schema names to be cached (catalog metadata).
+        """
+        # id is deprecated and may go away, use getId!
+        return (# CMF metadata
+                'Subject',
+                'Title',
+                'Description',
+                'Type',
+                'review_state',
+                'Creator',
+                'Date',
+                'getIcon',
+                'created',
+                'effective',
+                'expires',
+                'modified',
+                'CreationDate',
+                'EffectiveDate',
+                'ExpirationDate',
+                'ModificationDate',
+                'id',
+                'getId',
+                'portal_type',
                 # CPS metadata
-                , 'Contributors'
-                , 'Language'
-                , 'start'
-                , 'end'
-                , 'getRevision'
-                , 'time'                # time of the last transition
-               )
+                'Contributors',
+                'Language',
+                'start',
+                'end',
+                'getRevision',
+                # Time of the last transition
+                'time',
+                )
 
     def setupCatalog(self):
         # check default ZCTextIndex lexicon

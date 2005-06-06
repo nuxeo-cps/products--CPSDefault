@@ -87,17 +87,22 @@ class TestSimpleAsRoot(TestSimple):
             # XXX: I should be able to test if the box is maximized now
 
     def testLocalRoles(self):
-        # Change local roles using the skin script
+        # Change local roles using the skin scripts
         sections = self.portal.sections
 
-        sections.folder_localrole_edit(change_type='add', 
+        sections.folder_localrole_add(
             member_ids=['user:manager'], member_role='SectionReader')
         self.assertEquals(
             sections.__ac_local_roles__['manager'], ['SectionReader'])
 
-        sections.folder_localrole_edit(change_type='delete', 
-            member_ids=['user:manager'])
+        sections.folder_localrole_edit(edit_ids=['user:manager'],
+                                       role_user_manager=['SectionReviewer'],
+                                       edit_local_roles='ok')
+        self.assertEquals(
+            sections.__ac_local_roles__['manager'], ['SectionReviewer'])
+        sections.folder_localrole_edit(delete_ids=['user:manager'])
         self.assertEquals(sections.__ac_local_roles__.get('manager'), None)
+
 
     def testCopyPaste(self):
         ws = self.portal.workspaces

@@ -1,0 +1,34 @@
+<metal:block define-macro="search_results">
+  <tal:block condition="not:found">
+    <p i18n:translate="legend_local_roles_no_results_groups">
+      Sorry, no group matched your search
+    </p>
+  </tal:block>
+
+  <tal:block condition="found">
+    <table width="100%" summary="group listing">
+     <tr>
+      <th width="16"><br /></th>
+      <th style="text-align:left;">
+          <tal:block i18n:translate="label_group">Group</tal:block>
+      </th>
+     </tr>
+
+     <tal:block repeat="group found">
+     <tr tal:define="input_id python:group.replace('@', '_at_')"
+         tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
+       <td width="16">
+         <input type="checkbox" name="member_ids:list" value="" class="noborder"
+                tal:attributes="value string:group:${group};
+                                id input_id" />
+       </td>
+       <td>
+         <label tal:content="python:test(group.startswith('role:'),
+                                    cpsmcat(group), group)"
+                tal:attributes="for input_id">Group</label>
+       </td>
+     </tr>
+     </tal:block>
+    </table>
+  </tal:block>
+</metal:block>

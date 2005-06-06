@@ -1,0 +1,262 @@
+<tal:comment condition="nothing">
+Macro needs
+- cps_roles python:here.getCPSCandidateLocalRoles()
+</tal:comment>
+
+<metal:block define-macro="assigned" tal:define="
+  filtered_role python:request.get('filtered_role');
+  show_blocked_roles python:request.get('show_blocked_roles', 0);
+  cpslr python:here.getCPSLocalRolesRender(cps_roles, filtered_role,
+                                           show_blocked_roles=show_blocked_roles);
+  sorted_users python:cpslr[0];
+  users python:cpslr[1];
+  sorted_groups python:cpslr[2];
+  groups python:cpslr[3];
+  portal python:here.portal_url.getPortalObject();
+  has_local_roles_blocking portal/acl_users/hasLocalRolesBlocking|nothing;
+  local_roles_blocked python:cpslr[4];
+  ">
+
+<div class="group">
+
+<h2 i18n:translate="legend_local_roles_assigned">
+    Assigned local roles
+</h2>
+
+<div class="group" tal:condition="has_local_roles_blocking">
+  <form method="post" action="folder_localrole_block"
+        tal:attributes="action string:${here_url}/folder_localrole_block">
+    <div tal:condition="local_roles_blocked">
+      <tal:block i18n:translate="legend_local_roles_unblock">
+        Local roles acquisition is <strong>blocked</strong>.
+        You can unblock acquisition:</tal:block>
+      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_parameters"/>
+      <input type="submit" name="lr_unblock" value="button_local_roles_unblock"
+             i18n:attributes="value" class="standalone" />
+    </div>
+
+    <div tal:condition="not:local_roles_blocked">
+      <tal:block i18n:translate="legend_local_roles_block">
+        Local roles are acquired.
+        You can block acquisition:</tal:block>
+      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_parameters"/>
+      <input type="submit" name="lr_block" value="button_local_roles_block"
+             i18n:attributes="value" class="standalone" />
+    </div>
+  </form>
+
+  <form method="post" action="folder_localrole_form"
+    tal:condition="local_roles_blocked"
+    tal:attributes="action string:${here_url}/folder_localrole_form">
+    <div tal:condition="show_blocked_roles">
+      <tal:block i18n:translate="legend_local_roles_hide_blocked_roles">
+        You can hide blocked roles:
+      </tal:block>
+      <input type="hidden" name="show_blocked_roles:int" value="0" />
+      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_filtered_role" />
+      <input type="submit" name="show_blocked_roles_submit"
+        value="button_hide_blocked_roles"
+        i18n:attributes="value" class="standalone" />
+    </div>
+    <div tal:condition="not:show_blocked_roles">
+      <tal:block i18n:translate="legend_local_roles_show_blocked_roles">
+        You can show blocked roles:
+      </tal:block>
+      <input type="hidden" name="show_blocked_roles:int" value="1" />
+      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_filtered_role" />
+      <input type="submit" name="show_blocked_roles_submit"
+        value="button_show_blocked_roles"
+        i18n:attributes="value" class="standalone" />
+    </div>
+  </form>
+
+</div>
+
+<form method="post" action="folder_localrole_form"
+      tal:attributes="action string:${here_url}/folder_localrole_form"
+      tal:condition="python:len(cps_roles)>1">
+  <label for="filtered_role"
+         i18n:translate="legend_local_roles_filter_roles">
+    Filter local roles:
+  </label>
+  <select name="filtered_role" id="filtered_role">
+    <option value=""
+      tal:attributes="selected not:filtered_role"
+      i18n:translate="legend_local_roles_not_filtered_role">
+      No filter
+    </option>
+    <option tal:repeat="role cps_roles"
+      tal:content="role"
+      i18n:translate=""
+      tal:attributes="value role;
+                      selected python:role == filtered_role">
+      Role
+    </option>
+  </select>
+  <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_show_blocked_roles"/>
+  <input type="submit" value="button_apply"
+    name="filter_local_roles"
+    i18n:attributes="value" class="context" />
+</form>
+
+<p i18n:translate="legend_local_roles_no_roles_assigned"
+  tal:condition="python:not users and not groups">
+   There are no roles assigned in this folder
+</p>
+
+<tal:block condition="python:users or groups">
+  <form method="post" action="folder_localrole_edit"
+        tal:attributes="action string:${here_url}/folder_localrole_edit">
+    <tal:block condition="users">
+      <h3 i18n:translate="label_users_local_roles_assignment">
+        Users local roles assignment
+      </h3>
+      <tal:block define="sorted_members sorted_users;
+                         members users;">
+        <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table"/>
+      </tal:block>
+    </tal:block>
+
+    <tal:block condition="groups">
+      <h3 i18n:translate="label_groups_local_roles_assignment">
+        Groups local roles assignment
+      </h3>
+      <tal:block define="sorted_members sorted_groups;
+                         members groups;">
+        <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table"/>
+      </tal:block>
+    </tal:block>
+    <p>
+      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_parameters"/>
+      <input type="submit" value="button_apply"
+        name="edit_local_roles"
+        i18n:attributes="value" class="context" />
+      <input type="submit" value="button_delete"
+        name="delete_local_roles"
+        i18n:attributes="value" class="context" />
+    </p>
+  </form>
+</tal:block>
+
+<p tal:condition="not:local_roles_blocked">
+  <span class="inheritedRole"
+    i18n:translate="label_inherited_role">
+    Inherited role
+  </span> :
+  <tal:block i18n:translate="legend_local_roles_inherited_role">
+    this colour means that corresponding roles are set in parent
+    folders. Follow the links to manage the local roles in these folders.
+  </tal:block>
+</p>
+<p tal:condition="python:local_roles_blocked and show_blocked_roles">
+  <span class="inheritedBlockedRole"
+    i18n:translate="label_inherited_blocked_role">
+    Inherited blocked role
+  </span> :
+  <tal:block i18n:translate="legend_local_roles_inherited_blocked_role">
+    this colour means that corresponding roles are set in parent folders and
+    are blocked.
+  </tal:block>
+</p>
+
+</div>
+</metal:block>
+
+<metal:block define-macro="hidden_parameters">
+  <metal:block define-macro="hidden_show_blocked_roles">
+    <input type="hidden" name="show_blocked_roles:int"
+      tal:attributes="value show_blocked_roles" />
+  </metal:block>
+  <metal:block define-macro="hidden_filtered_role">
+    <input type="hidden" name="filtered_role"
+      tal:attributes="value filtered_role" />
+  </metal:block>
+</metal:block>
+
+<tal:comment condition="nothing">
+Assignment table needs:
+- sorted_members (list of ids sorted)
+- members (dict of members)
+- cps_roles
+- local_roles_blocked
+</tal:comment>
+<metal:block define-macro="assignment_table">
+  <table class="localRolesAssignment">
+    <tr>
+      <th width="16"><br /></th>
+      <th i18n:translate="label_name">
+        User or Group name
+      </th>
+      <th tal:repeat="role cps_roles"
+        tal:condition="python:len(cps_roles)>1"
+        tal:content="role"
+        i18n:translate="">
+        Role
+      </th>
+      <th i18n:translate="label_inherited_roles"
+        tal:condition="python:not local_roles_blocked or show_blocked_roles">
+        Inherited roles
+      </th>
+    </tr>
+    <tal:block repeat="member_id sorted_members">
+      <tal:block define="member_info python:members.get(member_id);
+                         has_local_roles member_info/has_local_roles;
+                        ">
+      <tr tal:attributes="class python:test(repeat['member_id'].even(), 'even', 'odd')"
+        tal:define="input_id python:member_id.replace('@', '_at_');
+                    here_roles member_info/here_roles;">
+        <td>
+          <input type="checkbox" name="delete_ids:list"
+                 tal:condition="has_local_roles"
+                 tal:attributes="value member_id;
+                                 id input_id;
+                                " />
+          <input type="hidden" name="edit_ids:list"
+                 tal:attributes="value member_id" />
+        </td>
+        <td>
+          <label tal:content="member_info/title"
+            i18n:translate=""
+            tal:attributes="for input_id">
+            User
+          </label>
+        </td>
+        <tal:block repeat="role cps_roles"
+                   condition="python:len(cps_roles)>1">
+          <td tal:define="here python:here_roles[role]['here'];
+                          inherited python:here_roles[role]['inherited'];"
+              tal:attributes="class python:test(inherited and not
+              local_roles_blocked, 'inheritedRole', test(inherited and
+              local_roles_blocked and show_blocked_roles,
+              'inheritedBlockedRole', 'assignedRole'));">
+            <input type="checkbox" name="member_id_roles:list"
+              tal:attributes="value role;
+                              name string:${member_info/role_input_name}:list;
+                              checked here;
+                             " />
+          </td>
+        </tal:block>
+        <td tal:condition="python:not local_roles_blocked or show_blocked_roles">
+          <tal:block define="inherited member_info/inherited_roles;
+                             roles inherited/keys">
+            <ul tal:condition="roles">
+              <li tal:repeat="role roles">
+                <tal:block i18n:translate="" tal:content="python:role" />
+                <tal:block i18n:translate="label_in">in</tal:block>
+                <tal:block repeat="url inherited/?role">
+
+                <tal:block replace="string:, "
+                    condition="not:repeat/url/start" />
+                  <a href="" tal:attributes="href string:${base_url}${url}/folder_localrole_form">
+                    <tal:block replace="url"/>
+                  </a>
+                </tal:block>
+              </li>
+            </ul>
+          </tal:block>
+        </td>
+      </tr>
+      </tal:block>
+    </tal:block>
+  </table>
+</metal:block>

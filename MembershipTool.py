@@ -45,7 +45,7 @@ class MembershipTool(CPSMembershipTool):
     """
     meta_type = 'CPS Membership Tool'
 
-    _properties = (
+    _properties = CPSMembershipTool._properties + (
         {'id': 'reset_password_request_validity', 'type': 'int', 'mode': 'w',
          'label': 'Number of seconds a reset password request is considered valid'},
         )

@@ -1,11 +1,10 @@
 # Dragos Ivan <div@nuxeo.com>, 2005.
-# Alin Voinea <avoinea@nuxeo.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-25 12:49default\n"
+"POT-Creation-Date: 2005-06-06 15:24default\n"
 "PO-Revision-Date: 2005-04-04 17:31+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -13,17 +12,16 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Preferred-encodings: utf-8 latin1\n"
-"X-Generator: KBabel 1.9.1\n"
 "Language-Code: ro\n"
-"Language-Name: Rumanian\n"
+"Language-Name: Romana\n"
+"Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
-
+"X-Generator: KBabel 1.9.1\n"
 
 #.   <block content="bs/title" fill-slot="box_title">A test box</block>
 #: from ../skins/cps_devel/test_box_lib.pt
 msgid "A test box"
-msgstr "O caseta de test"
+msgstr "Un box de test"
 
 #.   <span>
 #.       Created by
@@ -33,7 +31,7 @@ msgstr "O caseta de test"
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Creat de ${item_creator}. Ultima modificare ${item_modification}."
+msgstr "Creat de ${item_creator}. Modificat ultima oara ${item_modification}."
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
@@ -69,15 +67,30 @@ msgstr "Descriere tip document"
 #.                 </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
-msgstr "Titlul documentului"
+msgstr "Titlu document"
 
-#.   <option content="role" attributes="value role" repeat="role roles">
-#.            Role1
-#.         </option>
-#.   <option content="role" attributes="value role" repeat="role roles"> Role1 </option>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "Role1"
-msgstr "Rol1"
+#.   <option content="role" attributes="value role;
+#.                         selected python:role == filtered_role" repeat="role cps_roles">
+#.         Role
+#.       </option>
+#.   <th content="role" repeat="role cps_roles" condition="python:len(cps_roles)>1">
+#.           Role
+#.         </th>
+#.   <option content="role" attributes="value role" repeat="role cps_roles">
+#.               Role
+#.             </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#: ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "Role"
+msgstr "Rôle"
+
+#.   <label content="member_info/title" attributes="for input_id">
+#.               User
+#.             </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+msgid "User"
+msgstr ""
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
@@ -91,7 +104,7 @@ msgstr "In lucru"
 #.       </span>
 #: from ../skins/cps_default/portlet_session_info.pt
 msgid "You are currently logged in as ${member}"
-msgstr "Sunteti autentificat cu utilizatorul ${member}"
+msgstr ""
 
 #.   <p condition="python:res['items_count'] > 1">
 #.           Your query gave ${nb_results (tal content="res/items_count")} results.
@@ -116,7 +129,7 @@ msgstr "Contact"
 #.   <a accesskey="2" href="#content">Go to the content</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_content_link"
-msgstr "Continut"
+msgstr "Mergi la continut"
 
 #.   <p>
 #.   this site tries to use access-pour-tous
@@ -128,12 +141,12 @@ msgstr "Acest site a fost conceput pentru a fi accesibil tuturor."
 #.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
-msgstr "Prima pagina"
+msgstr "Mergi la prima pagina"
 
 #.   <a accesskey="3" href="#menu">Go to the menu</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_menu_link"
-msgstr "Meniu"
+msgstr "Mergi la meniu"
 
 #.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -143,7 +156,7 @@ msgstr "Accesibilitate"
 #.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_search_link"
-msgstr "Motorul de cautare"
+msgstr "Mergi la motorul de cautare"
 
 #.   <span>Accessibility information</span>
 #: from ../skins/cps_default/accessibility.pt
@@ -159,7 +172,7 @@ msgstr "Contact"
 #.     content</span>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_content"
-msgstr "Continut"
+msgstr "Mergi la continut"
 
 #.   <p>bla</p>
 #: from ../skins/cps_default/accessibility.pt
@@ -179,19 +192,19 @@ msgstr ""
 #.     homepage</span>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_homepage"
-msgstr "Pagina principala"
+msgstr "Mergi la pagina principala"
 
 #.   <span>Go to the
 #.     menu</span>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_menu"
-msgstr "Meniu"
+msgstr "Mergi la meniu"
 
 #.   <span>Go to the
 #.     internal search engine</span>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_search"
-msgstr "Motorul de cautare"
+msgstr "Mergi la motorul de cautare"
 
 #.   <h2>Keyboard shortcuts or
 #.   accesskeys</h2>
@@ -220,7 +233,7 @@ msgstr "Inapoi"
 #: from ../skins/cps_default/main_template.pt
 #: ../skins/cps_devel/main_template_debug.pt
 msgid "box_closed_boxes"
-msgstr "Casete inchise: "
+msgstr "Box-uri inchise: "
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
@@ -235,7 +248,10 @@ msgid "button_add"
 msgstr "Adauga"
 
 #.   <input type="submit" class="standalone" value="button_apply" />
+#.   <input type="submit" name="filter_local_roles" value="button_apply" class="context" />
+#.   <input type="submit" name="edit_local_roles" value="button_apply" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_apply"
 msgstr "Aplica"
 
@@ -309,10 +325,10 @@ msgstr "Taie"
 
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
-#.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
-#: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Sterge"
@@ -322,13 +338,19 @@ msgstr "Sterge"
 msgid "button_delete_archive"
 msgstr "Sterge aceasta arhiva"
 
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_hide_blocked_roles" class="standalone" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_hide_blocked_roles"
+msgstr "Cacher"
+
 #.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_block"
 msgstr "Blocheaza"
 
 #.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_unblock"
 msgstr "Deblocheaza"
 
@@ -375,7 +397,7 @@ msgstr "Lipeste"
 #: from ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_lib_transition_form.pt
 msgid "button_publish"
-msgstr "Publicare"
+msgstr "Publica"
 
 #.   <input type="submit" class="standalone" value="button_register" name="submit" />
 #: from ../skins/cps_default/join_form.pt
@@ -385,7 +407,7 @@ msgstr "Inregistreaza"
 #.   <input type="submit" class="standalone" value="button_reject_publication" />
 #: from ../skins/cps_default/content_reject_form.pt
 msgid "button_reject_publication"
-msgstr "Respinge publicarea documentului"
+msgstr "Respinge publicarea"
 
 #.   <input type="submit" name="folder_rename_form:method" value="button_rename" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -395,17 +417,17 @@ msgstr "Redenumeste"
 #.   <input type="submit" class="standalone" value="button_request_reset_password" />
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "button_request_reset_password"
-msgstr "Cere resetarea parolei"
+msgstr "Cerere de reinitializare a parolei"
 
 #.   <input type="submit" class="standalone" value="button_reset_password" name="submit" />
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "button_reset_password"
-msgstr "Resetare parola"
+msgstr "Trimite-mi o instiintare cu parola mea"
 
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
-msgstr "Revenire la revizia arhivata"
+msgstr "Revino la revizia arhivata"
 
 #.   <input type="submit" name="search_submit" value="button_search" class="standalone" />
 #.   <input type="submit" name="role_submit" value="button_search" class="standalone" />
@@ -439,11 +461,17 @@ msgstr "Trimite"
 msgid "button_send_password_reminder"
 msgstr "Trimite-mi o instiintare cu parola mea"
 
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_show_blocked_roles" class="standalone" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_show_blocked_roles"
+msgstr "Montrer"
+
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "button_submit_document"
-msgstr "Subscriere document"
+msgstr "Trimite document"
 
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
@@ -453,13 +481,13 @@ msgstr "Creeaza o versiune pentru traducere"
 #.   <input type="submit" class="standalone" value="button_unpublish_document" />
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
-msgstr "Retragere document"
+msgstr "Retrage document publicat"
 
 #.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
-msgstr "Actualizare"
+msgstr "Aducere la zi"
 
 #.   <span>
 #.           You are already a member. You may use the
@@ -480,7 +508,7 @@ msgstr "pentru a-ti schimba datele de inregistrare"
 #.     </p>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "description_languages_form"
-msgstr "Aceasta pagina iti da posibilitatea de a administra limbile din portal"
+msgstr "Aceasta pagina iti da oportunitatea de a administra limbile din portal"
 
 #.   <span>
 #.           You are not currently logged in. Your username and or password may be
@@ -491,15 +519,15 @@ msgstr "Aceasta pagina iti da posibilitatea de a administra limbile din portal"
 msgid "description_login_failure"
 msgstr ""
 "Nu ai fost autentificat. Numele de utilizator sau/si parola ar putea fi "
-"incorecte. Browser-ul tau s-ar putea sa nu fie configurat pentru a accepta cookie-"
-"uri HTTP. Daca ai nevoie de ajutor, conteaza"
+"incorecte. Browser-ul tau s-ar putea sa n fie configurat sa accepte cookie-"
+"uri HTTP. Daca ai nevoie de ajutor, contacteaza"
 
 #.   <p>
 #.            Welcome. You are currently logged in.
 #.         </p>
 #: from ../skins/cps_default/logged_in.pt
 msgid "description_login_success"
-msgstr "Bine ai venit. Ai fost autentificat cu succes."
+msgstr "Bine ai venit. Ai fost autentificat."
 
 #.   <p condition="isAnon">
 #.       You have been logged out.
@@ -534,7 +562,7 @@ msgstr "Ai fost inregistrat ca membru."
 #.               </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
-msgstr "Contul de mai jos este acela pentru care vom reseta parola."
+msgstr ""
 
 #.   <span>description_up_to
 #.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
@@ -547,7 +575,7 @@ msgstr "Pana la ${up_id}"
 #.               </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_which_accounts_will_you_reset_password"
-msgstr "Mentioneaza pentru ce cont doresti sa facem resetarea parolei."
+msgstr ""
 
 #.   <td content="string:label_language_${item/lang}">en</td>
 #.   <block content="string:label_language_${info/lang}">en</block>
@@ -638,7 +666,7 @@ msgstr "Sterge arhiva ${rev} a ${item_id}"
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 msgid "heading_edit ${item_id}"
-msgstr "Modifica ${item_id}"
+msgstr "Editeaza"
 
 #.   <h1>Not Found</h1>
 #: from ../skins/cps_default/error_lib_not_found.pt
@@ -648,7 +676,7 @@ msgstr "Resursa nu a fost gasita"
 #.   <h1>CPS encountered an error</h1>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "heading_error_other"
-msgstr "Eroare CPS"
+msgstr "Eroare CPS "
 
 #.   <h1 fill-slot="header">
 #.         Add Content
@@ -667,19 +695,19 @@ msgstr "Inregistreaza-te ca membru"
 msgid "heading_language_manage_form"
 msgstr "Administrare Limbi"
 
-#.   <h1>
+#.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_members"
-msgstr "Atribuie roluri locale: Cautare Membri"
+msgstr "Atribuie roluri locale: Cauta Membri"
 
-#.   <h1>
-#.       Assign local roles: Search Results
+#.   <h1 condition="searching">
+#.    Assign local roles: Search Results
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
-msgstr "Atribuie roluri locale: Rezultatele cautari"
+msgstr "Atribuie roluri locale: Cauta Rezultate"
 
 #.   <h1>Login failure</h1>
 #: from ../skins/cps_default/logged_in.pt
@@ -709,12 +737,12 @@ msgstr "Nu intra in panica!"
 #.   <h1>Password sent</h1>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "heading_mail_password_response"
-msgstr "Nu intra in panica!"
+msgstr "Parola trimisa"
 
 #.   <h2>Password reminder</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "heading_password_reminder"
-msgstr "Reaminitre parola"
+msgstr "Parola trimisa"
 
 #.   <h2>Password reset</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -752,12 +780,12 @@ msgstr "Respinge publicarea ${item_id}"
 #.   <h1>Rename Items</h1>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "heading_rename_items"
-msgstr "Schimba id-urile obiectelor"
+msgstr "Schimba id-ul obiectelor"
 
 #.   <h1>Resource Metadata</h1>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "heading_resource_metadata"
-msgstr "Elemente comune ale resursei"
+msgstr "Metadate resursa"
 
 #.   <title fill-slot="title">
 #.     heading_revert_to_old_revision_of
@@ -765,7 +793,7 @@ msgstr "Elemente comune ale resursei"
 #.   </title>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
-msgstr "Readucere la o versiune arhivata a ${item_id}"
+msgstr "Intoarce-te la o revizie arhivata a ${item_id}"
 
 #.   <h1 condition="not:title_search">Search Results</h1>
 #: from ../skins/cps_default/search_form.pt
@@ -777,7 +805,7 @@ msgstr "Rezultatele Cautarii"
 #.     </h1>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "heading_standard_resource_metadata"
-msgstr "Elementele comune standard ale resursei"
+msgstr "Metadatele standard ale resursei"
 
 #.   <title fill-slot="title">
 #.     heading_status_history_of
@@ -793,7 +821,7 @@ msgstr "Istoricul starilor ${item_id}"
 #.   </title>
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "heading_submit_of ${item_id}"
-msgstr "Propunere ${item_id}"
+msgstr "Trimitere ${item_id}"
 
 #.   <block fill-slot="title">
 #.         heading_translation_of
@@ -809,7 +837,7 @@ msgstr "Traducere \"${item_id}\""
 #.   </title>
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "heading_unpublish_of ${item_id}"
-msgstr "Retragere ${item_id}"
+msgstr "Retragere publicare ${item_id}"
 
 #.   <h1>
 #.           Validate the resetting of your password</h1>
@@ -822,7 +850,7 @@ msgstr "Valideaza resetarea parolei tale"
 #.           </block>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
-msgstr "Daca abandonezi aceasta revizie, documentul original va fi deblocat."
+msgstr "Daca abandonezi aceasta revizie, documentul original va fi descuiat. "
 
 #.   <span>Accept publication of this
 #.       item, this will make it available to section's readers</span>
@@ -838,7 +866,8 @@ msgstr ""
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
 msgstr ""
-"Daca accepti aceasta revizie, ea va inlocui documentul aflat in starea 'blocat'"
+"Daca trimiti aceasta revizie, ea va inlocui documentul care este incuiat "
+"deocamdata."
 
 #.   <block>
 #.             If you create a draft, you will be the only one able to work on the document.
@@ -846,7 +875,7 @@ msgstr ""
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
 msgstr ""
-"Daca creezi o revizie, vei fi singurul(a) care va putea sa lucreze la acest "
+"Daca creezi o versiune, esti singurul(a) care va putea sa lucreze in acest "
 "document."
 
 #.   <span>
@@ -863,7 +892,7 @@ msgstr "Sterge arhiva ${rev}"
 #.           </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "help_invalid_reset_password_request"
-msgstr "Aceasta cerere de modificare a parolei nu este valida."
+msgstr "Aceasta cerere de reinitializare a parolei nu este valida."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -894,7 +923,8 @@ msgid "help_join_form_3"
 msgstr ""
 "Trebuie sa introduci o adresa de email valida. Aceasta adresa va fi "
 "utilizata pentru a ti se trimite o parola generata la intamplare. O data ce "
-"te-ai logat cu aceasta parola, poti sa o schimbi cu o alta parola"
+"te-ai logat cu aceasta parola, poti sa o schimbi cu orice alta parola pe "
+"care o vrei."
 
 #.   <p>
 #.       Don't forget to logout or exit your browser when you're done.
@@ -912,7 +942,7 @@ msgstr ""
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
 msgstr ""
-"Ai probleme la conectare? Asigura-te ca ai activate cookie-urile in "
+"Ai probleme la conectare&nbsp;? Asigura-te ca ai activate cookie-urile in "
 "fereastra ta de navigare."
 
 #.   <block>
@@ -925,10 +955,9 @@ msgstr ""
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_lost_password"
 msgstr ""
-"Te afli aici deoarece ai uitat parola contului tau. Nu te inpacienta, "
-"autentificarea ta pe acest portal va fi posibila in cel mai scurt timp. "
-"Daca ai probleme in utilizarea acestui formular sau ceva este in neregula "
-"in folosirea lui te rugam trimite un mail la"
+"Introdu numele contului tau mai jos, apasa <em>Trimite</em>, si parola ta "
+"iti va fi trimisa daca ai dat o adresa de email valida in momentul in care "
+"te-ai inregistrat ca membru."
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -964,7 +993,7 @@ msgstr "Parola ti-a fost trimisa."
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr "Trebuie sa ajunga in casuta ta de e-mail-uri in scurt timp."
+msgstr "Trebuie sa ajunga in cutia ta de mesaje electronice in scurt timp."
 
 #.   <span>
 #.             No content type can be created.
@@ -1001,7 +1030,7 @@ msgstr "<a href='${link_password_forgotten}'>Am uitat parola!</a>"
 #: from ../skins/cps_default/join_form.pt
 msgid "help_password_message"
 msgstr ""
-"Completeaza casuta de mai jos pentru a primi un email care sa contina parola ta."
+"Selecteaza aceasta casuta pentru a primi un email care sa contina parola ta."
 
 #.   <p>
 #.             With this functionality you can ask to receive a reminder of your
@@ -1019,7 +1048,7 @@ msgstr "Trimite-mi o instiintare cu parola mea"
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_password_reset"
 msgstr ""
-"Completeaza casuta de mai jos pentru a primi un email care sa contina parola ta."
+"Selecteaza aceasta casuta pentru a primi un email care sa contina parola ta."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1104,7 +1133,7 @@ msgstr ""
 "lucru, poate fi editat de membrii aceluiasi spatiu de lucru si de catre "
 "responsabili. Doar obiectele care au statutul <strong>publicat</strong>pot "
 "fi accesibile cititorilor de sectiuni. Pentru a putea publica un obiect, "
-"acesta trebuie validat de catre un validator de sectiune. Poti cere ca un "
+"obiectul trebuie validat de catre un validator de sectiune.Poti cere ca un "
 "obiect sa fie validat prin schimbarea starii sale in <strong>in asteptare</"
 "strong>. Obtineti acest lucru  prin validarea documentului in aceasta "
 "rubrica."
@@ -1120,7 +1149,7 @@ msgstr "Creeaza o traducere pentru acest document"
 #.     Unpublish published item</block>
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "help_unpublish_publication"
-msgstr "Retrage acest document"
+msgstr "Scoate din starea 'publicat' acest document"
 
 #.   <p condition="not:info/archived">
 #.           There aren't any archived revisions of this document.
@@ -1177,12 +1206,12 @@ msgstr "Utilizeaza CPS"
 #.   <option attributes="selected not:Subject" value="">All</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_all"
-msgstr "Toate"
+msgstr "tot"
 
 #.   <h2>Archived revisions</h2>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
-msgstr "Revizii arhivate"
+msgstr "Versiuni arhivate"
 
 #.   <td>Author</td>
 #: from ../skins/cps_default/content_lib_history.pt
@@ -1250,7 +1279,7 @@ msgstr "Site conceput cu XHTML valid"
 #.   <img attributes="src string:${base_url}wcag1A.png" src="wcag1A.png" alt="W3C Web Content Accessibility Level A conformance" title="label_conformance_wai_1a" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
-msgstr "Conform W3C Web Content Accessibility"
+msgstr "Conformité niveau A aux règles d'accessibilité du W3C"
 
 #.   <td>Consultation</td>
 #: from ../skins/cps_default/content_lib_archived.pt
@@ -1260,13 +1289,13 @@ msgstr "Consultare"
 #.   <th align="right">Contributors</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
-msgstr "Colaboratori"
+msgstr "Colaborator"
 
 #.   <h2>Current revisions</h2>
 #: from ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_current_revisions"
-msgstr "Revizii existente"
+msgstr "Versions courantes"
 
 #.   <h2>Current status of the document</h2>
 #: from ../skins/cps_default/content_status_history.pt
@@ -1302,7 +1331,7 @@ msgstr "Data efectiva desc."
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_modification_asc"
-msgstr "Data modificari"
+msgstr "Data modificata"
 
 #.   <option attributes="selected
 #.                                python:sort_by == 'date' and direction == 'desc'" value="date_desc">
@@ -1387,11 +1416,11 @@ msgstr "activ"
 msgid "label_display"
 msgstr "Afiseaza"
 
-#.   <th style="text-align:left;">
-#.           Email address
-#.       </th>
+#.   <th>
+#.             Email address
+#.         </th>
 #.   <label for="email">Email Address</label>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
 msgstr "Adresa de email"
@@ -1428,30 +1457,37 @@ msgid "label_from"
 msgstr "De la"
 
 #.   <block>Group</block>
-#.   <block condition="python:type=='group'">Group</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
 msgid "label_group"
 msgstr "Grup"
 
-#.   <option value="groupname">Group name</option>
+#.   <option attributes="selected python:search_param == 'groupname'" value="groupname">Group name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
 msgstr "Numele grupului"
+
+#.   <h3>
+#.           Groups local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_groups_local_roles_assignment"
+msgstr "Rôles locaux délégués aux groupes"
 
 #.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_icons"
-msgstr "Pictograme"
+msgstr "Imagini"
 
 #.   <div class="label" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_image"
 msgstr "Imagine"
 
-#.   <span>in</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <block>in</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "label_in"
 msgstr "in"
 
@@ -1490,6 +1526,30 @@ msgstr "Tip"
 msgid "label_info_tab_version"
 msgstr "Versiune"
 
+#.   <span class="inheritedBlockedRole">
+#.       Inherited blocked role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_blocked_role"
+msgstr "Rôle hérité et bloqué"
+
+#.   <span class="inheritedRole">
+#.       Inherited role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_role"
+msgstr "Rôle hérité"
+
+#.   <th condition="python:not local_roles_blocked or show_blocked_roles">
+#.           Inherited roles
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_roles"
+msgstr "Rôles hérités"
+
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
@@ -1515,14 +1575,18 @@ msgstr "Limba ${status_language}"
 #.   <span>Last modified:</span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "label_last_modified"
-msgstr "Ultima modificare:"
+msgstr "Ultima modificare :"
 
-#.   <th>Search by</th>
+#.   <label for="search_param">
+#.         Search by
+#.       </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_by"
 msgstr "Cauta dupa"
 
-#.   <th>Search Term</th>
+#.   <label for="search_term">
+#.          Search Term
+#.        </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_term"
 msgstr "Cuvinte cheie pentru cautare"
@@ -1531,7 +1595,15 @@ msgstr "Cuvinte cheie pentru cautare"
 #: from ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_location"
-msgstr "Locatie"
+msgstr "Emplacement"
+
+#.   <th>
+#.           User or Group name
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_name"
+msgstr "Nom"
 
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
@@ -1560,7 +1632,7 @@ msgstr "Parola (confirmare) "
 #.                      Password?</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
-msgstr "Trimite parola?"
+msgstr "Trimite parola&nbsp;?"
 
 #.   <label for="portal_description">
 #.               Portal description
@@ -1574,7 +1646,7 @@ msgstr "Descrierea portalului"
 #.             </label>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_enable_join"
-msgstr "Autorizeaza inscrierea utilizatorilor noi la portal"
+msgstr "Autorizeaza inscrierea"
 
 #.   <label for="enable_password_reminder">
 #.               Enable sending of password reminder
@@ -1606,7 +1678,7 @@ msgstr "Tine minte numele meu"
 #.   <strong>to</strong>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "label_rename_to"
-msgstr "in"
+msgstr "la"
 
 #.   <em condition="not:can_publish">(requires approval)</em>
 #: from ../skins/cps_default/content_submit_form.pt
@@ -1623,7 +1695,7 @@ msgstr "Revenire"
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
 msgid "label_revision"
-msgstr "Revizie"
+msgstr "Versiune"
 
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
@@ -1635,17 +1707,12 @@ msgstr "Revizie"
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_status.pt
 msgid "label_revision ${status_revision}"
-msgstr "Revizia ${status_revision}"
+msgstr "Versiune ${status_revision}"
 
 #.   <th align="right">Rights</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_rights"
 msgstr "Drepturi"
-
-#.   <block>Role(s)</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_roles"
-msgstr "Rol(uri)"
 
 #.   <label attributes="for id2">all</label>
 #: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
@@ -1723,7 +1790,7 @@ msgstr "Server SMTP"
 #.   <label for="display_order">Sort by</label>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_sort_by"
-msgstr "Ordonare dupa"
+msgstr "Ordonat dupa"
 
 #.   <div class="label">Start Date (DD/MM/YYYY)</div>
 #: from ../skins/cps_default/dummy_edit_form.pt
@@ -1769,7 +1836,7 @@ msgstr "Subiect"
 #.             </label>
 #: from ../skins/cps_default/search_form.pt
 msgid "label_text_to_search"
-msgstr "Textul cautat"
+msgstr "Cauta textul"
 
 #.   <div class="label">
 #.           Title
@@ -1810,128 +1877,199 @@ msgstr "Catre"
 #.         </label>
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "label_translation_select_language"
-msgstr "Alege limba in care vrei sa traduci acest document:"
+msgstr "Alege limba in care vrei sa traduci acest document : "
 
-#.   <th style="text-align:left;">
-#.           User
-#.       </th>
-#.   <block condition="python:type=='user'">User</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <th>
+#.             User
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user"
 msgstr "Utilizator"
 
-#.   <option value="email">Email address</option>
+#.   <option attributes="selected python:search_param == 'email'" value="email">Email address</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
 msgstr "Adresa de email a utilizatorului"
 
-#.   <option value="fullname">Full name</option>
+#.   <option attributes="selected python:search_param == 'givenName'" value="givenName">User first name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_user_fullname"
-msgstr "Numele complet al utilizatorului"
+#, fuzzy
+msgid "label_user_givenName"
+msgstr "Prénom de l'utilisateur"
+
+#.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
+#.   <th>
+#.             User id (login)
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "label_user_id"
+msgstr "Identifiant utilisateur"
 
 #.   <label for="username">User name</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
-msgstr "Nume utilizator"
+msgstr "Utilizator"
 
 #.   <label for="username_or_email">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "label_user_name_or_email_address"
-msgstr "Numele utilizatorului sau adresa de email a acestuia"
+msgstr "Adresa de email a utilizatorului"
+
+#.   <option attributes="selected python:search_param == 'sn'" value="sn">User surname</option>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "label_user_surname"
+msgstr "Nom de l'utilisateur"
+
+#.   <h3>
+#.           Users local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_users_local_roles_assignment"
+msgstr "Rôles locaux délégués aux utilisateurs"
 
 #.   <block>You are
 #.     here:&nbsp;</block>
 #: from ../skins/cps_default/generic_lib_breadcrumbs.pt
 msgid "label_you_are_here"
-msgstr "Te afli aici:&nbsp;"
+msgstr "Te afli aici: "
 
 #.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language"
-msgstr "limba"
+msgstr "Limba"
 
 #.   <h2>Add languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_add"
-msgstr "Adauga limba"
+msgstr "Adauga Limba"
 
 #.   <h2>Delete languages</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_delete"
-msgstr "Sterge limba"
+msgstr "Sterge Limba"
 
 #.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "language_set_default"
-msgstr "Seteaza limba implicita a portalului"
+msgstr "Limba"
 
-#.   <h1>
+#.   <h2>
 #.       Assigned local roles
-#.   </h1>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   </h2>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_assigned"
 msgstr "Roluri locale delegate"
 
-#.   <p>
-#.      These users currently have local roles assigned in this folder:
-#.   </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_assigned_users"
-msgstr ""
-"Acesti utilizatori au pentru moment roluri locale in acest director:"
-
 #.   <block>
-#.         Local roles are acquired.
-#.         You can block acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           Local roles are acquired.
+#.           You can block acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_block"
 msgstr "Rolurile locale sunt mostenite. Poti bloca aceasta mostenire:"
 
-#.   <p>
-#.       Sorry, no groups matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_member"
-msgstr "Ne pare rau, nici un grup nu corespunde criterilor tale de cautare."
-
-#.   <p>
-#.       Sorry, no members matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_members"
-msgstr "Ne pare rau, nici un membru nu corespunde criterilor tale de cautare."
+#.   <label for="filtered_role">
+#.       Filter local roles:
+#.     </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_filter_roles"
+msgstr "N'afficher que le rôle"
 
 #.   <block>
-#.           Role to assign:</block>
-#.   <th colspan="2">
-#.           Role to assign:
-#.       </th>
+#.           You can hide blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_hide_blocked_roles"
+msgstr "Vous pouvez cacher les rôles bloqués :"
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent folders and
+#.       are blocked.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_blocked_role"
+msgstr ""
+"cette couleur signifie que les rôles correspondants sont hérités et bloqués."
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent
+#.       folders. Follow the links to manage the local roles in these folders.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_role"
+msgstr ""
+"cette couleur signifie que les rôles correspondants sont hérités depuis des "
+"répertoires parents. Cliquez sur les liens correspondants pour gérer "
+"l'assignation de rôles dans ces répertoires."
+
+#.   <p>
+#.         Sorry, no group matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_groups"
+msgstr "Désolé, aucun groupe ne correspond à votre recherche."
+
+#.   <p>
+#.         Sorry, no user matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_users"
+msgstr "Désolé, aucun utilisateur ne correspond à votre recherche."
+
+#.   <p condition="python:not users and not groups">
+#.      There are no roles assigned in this folder
+#.   </p>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_no_roles_assigned"
+msgstr "Il n'y a pas de rôle local"
+
+#.   <option attributes="selected not:filtered_role" value="">
+#.         No filter
+#.       </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_not_filtered_role"
+msgstr "Aucun filtre"
+
+#.   <label for="member_role">
+#.             Role to assign:
+#.           </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_role_to_assign"
-msgstr "Rol de incredintare:"
+msgstr "Rol de incredintare&nbsp;:"
 
 #.   <p>
-#.       Select Group(s) and a role to assign:
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_select_groups_and_roles"
-msgstr "Alege Grupul(Grupurile) si rolul care sa i se va(vor) incredinta:"
-
-#.   <p>
-#.       Select Member(s) and a role to assign:
-#.    </p>
+#.          Select Member(s) and a role to assign:
+#.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_select_members_and_roles"
-msgstr "Alege un membru(membri) si rolul care i se va(vor) incredinta:"
+msgstr "Alege un membru(membri) si rolul care i se va incredinta&nbsp;:"
 
 #.   <block>
-#.         Local roles acquisition is <strong>blocked</strong>.
-#.         You can unblock acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           You can show blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_show_blocked_roles"
+msgstr "Vous pouvez cacher les rôles bloqués :"
+
+#.   <block>
+#.           Local roles acquisition is <strong>blocked</strong>.
+#.           You can unblock acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_unblock"
 msgstr ""
 "Mostenirea rolurilor locale este <strong>blocata</strong>. Puteti debloca "
@@ -1965,7 +2103,7 @@ msgstr "Cererea ta nu a intors nici un rezultat."
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
-msgstr "Cererea ta a intors un singur rezultat."
+msgstr "Cererea ta a intors un document."
 
 #.   <span>
 #.                Advanced search
@@ -1977,12 +2115,12 @@ msgstr "Cautare avansata"
 #.   <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
-msgstr "Editeaza toate proprietatile comune."
+msgstr "Editeaza toate metadatele"
 
 #.   <a attributes="href string:${context_url}/archivedRevision/${item/rev}/view" href=".">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
-msgstr "Consulta aceasta revizie"
+msgstr "Consulta aceasta versiune"
 
 #.   <a attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
 #.                            title p_props/email_from_address" href="mailto:admin@here.com">Contact the administrator</a>
@@ -1993,7 +2131,7 @@ msgstr "Contacteaza administratorul"
 #.   <a attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}" href=".">Purge this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_delete_this_revision"
-msgstr "Sterge aceasta revizie"
+msgstr "Sterge aceasta versiune"
 
 #.   <span>
 #.             personalization form
@@ -2007,17 +2145,6 @@ msgstr "formular de personalizare"
 msgid "link_go_back"
 msgstr "Inapoi"
 
-#.   <block>
-#.     <em>Roles in underlined</em> are set in parent folders.
-#.     Follow the links to manage the local roles in these folders.
-#.   </block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "link_local_roles_underlined"
-msgstr ""
-"<em>Rolurile subliniate</em> sunt definite intr-unul dintre directoarele "
-"parinte. Urmariti legaturile pentru a administra drepturile in acest "
-"director."
-
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
 #.       </a>
@@ -2030,7 +2157,7 @@ msgstr "deconecteaza-te din interfata de gestiune a Zope (ZMI)"
 #.             </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registered_login"
-msgstr "Poti acum sa te conectezi direct la site:"
+msgstr "Poti acum sa te conectezi direct la site&nbsp;:"
 
 #.   <span>
 #.               Return to homepage
@@ -2062,7 +2189,7 @@ msgstr "Sectiune"
 #: from ../skins/cps_default/portlet_session_info.pt
 #, fuzzy
 msgid "log out"
-msgstr "iesire"
+msgstr "me déconnecter"
 
 #.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -2095,35 +2222,35 @@ msgstr "Data crearii"
 #.   <th align="right">Effective Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_effective_date"
-msgstr "Data publicarii"
+msgstr "Data efectiva"
 
 #.   <th align="right">Expiration Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_expiration_date"
-msgstr "Data expirari"
+msgstr "Data de expirare"
 
 #.   <option attributes="value lastLogin;
 #.                                   selected python:modified == lastLogin or None" condition="not:isAnon">Last login</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_login"
-msgstr "Ultima conectare"
+msgstr "Ultima conexiune"
 
 #.   <th align="right">Last Modified Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_last_modified"
-msgstr "Data ultimei modificari"
+msgstr "Ultima Data Modificata"
 
 #.   <option attributes="value lastMonth;
 #.                                   selected python:modified == lastMonth or None">Last month</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_month"
-msgstr "Luna trecuta"
+msgstr "Ultima luna"
 
 #.   <option attributes="value lastWeek;
 #.                                   selected python:modified == lastWeek or None">Last week</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_week"
-msgstr "Saptamana trecuta"
+msgstr "Ultima saptamana"
 
 #.   <option attributes="value yesterday;
 #.                                   selected python:modified == yesterday or None">Yesterday</option>
@@ -2141,8 +2268,10 @@ msgstr "Comentarii"
 #.       </span>
 #: from ../skins/cps_default/content_lib_status.pt
 msgid "v${status_revision}- ${status_language}"
-msgstr "Versiune ${status_revision} Limba ${status_language}"
+msgstr "Versiune ${status_revision} Limba ${status_language} Statut"
 
+# Misc
+# #####
 msgid "Login"
 msgstr "Autentificare"
 
@@ -2162,7 +2291,7 @@ msgid "Create my home calendar"
 msgstr "Creeaza agenda mea personala"
 
 msgid "Add to favorites"
-msgstr "Adauga la preferinte"
+msgstr "Adauga la preferate"
 
 msgid "Undo"
 msgstr "Anuleaza"
@@ -2180,7 +2309,7 @@ msgid "Reconfigure Portal"
 msgstr "Reconfigureaza portalul"
 
 msgid "words_meaningless"
-msgstr "un o acest acestea acestia acea si ori am ai are au avem aveti eu poate"
+msgstr "un une le la les l de des ces est sont a ont ou et je voici"
 
 msgid "welcome_body"
 msgstr ""
@@ -2190,8 +2319,8 @@ msgstr ""
 "\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Editeaza acest text</"
 "a>.) </p> <h2>Despre CPS</h2>   <p> <acronym title=\"Collaborative Portal "
 "Server\">CPS</acronym> este un sistem colaborativ extensiv pentru "
-"administrarea continutului pe Internet (CMS - Content Management System) "
-"implementat pe platforma <a href=\"http://www.zope.org/\">Zope</a> si <a href="
+"administrare de continut pe Internet (CMS - Content Management System) "
+"implementat deasupra <a href=\"http://www.zope.org/\">Zope</a> si <a href="
 "\"http://www.zope.org/Products/CMF/\">CMF</a>, care permite organizatiilor "
 "sa implementeze usor, rapid si eficient portal-uri colaborative (intranet, "
 "extranet sau internet) si aplicatii de business orientate pe fluxul de "
@@ -2243,25 +2372,27 @@ msgstr ""
 "contribuitori. </p> "
 
 msgid "Session"
-msgstr "Sesiune"
+msgstr ""
 
+# Workflow states and actions
+# ############################
 msgid "create"
-msgstr "Creare"
+msgstr "Creeaza"
 
 msgid "modify"
-msgstr "Modificare"
+msgstr "Modifica"
 
 msgid "translate"
 msgstr "Traducere"
 
 msgid "checkin_draft"
-msgstr "Validare revizie"
+msgstr "Validarea versiunii"
 
 msgid "checkout_draft"
-msgstr "Crearea unei revizii"
+msgstr "Crearea unei versiuni"
 
 msgid "abandon_draft"
-msgstr "Abandoneaza revizie"
+msgstr "Abandoneaza versiunea"
 
 msgid "submit"
 msgstr "Cerere de publicare"
@@ -2270,10 +2401,10 @@ msgid "accept"
 msgstr "Cerere de publicare acceptata"
 
 msgid "reject"
-msgstr "Refuzat"
+msgstr "Refuza"
 
 msgid "unpublish"
-msgstr "Retrage"
+msgstr "Nepublicat"
 
 msgid "work"
 msgstr "in lucru"
@@ -2282,7 +2413,7 @@ msgid "draft"
 msgstr "versiunea de lucru"
 
 msgid "locked"
-msgstr "blocat"
+msgstr "inchis"
 
 msgid "pending"
 msgstr "in asteptare"
@@ -2293,6 +2424,8 @@ msgstr "refuza "
 msgid "expired"
 msgstr "expirat din data "
 
+# Actions
+# ########
 msgid "action_accept"
 msgstr "Accepta"
 
@@ -2306,19 +2439,19 @@ msgid "action_view_favorites"
 msgstr "Favoritele mele"
 
 msgid "action_boxes"
-msgstr "Administrare casete"
+msgstr "Administreaza box-urile"
 
 msgid "action_boxes_root"
-msgstr "Administreaza casetele de pe prima pagina"
+msgstr "Administreaza box-urile de la radacina"
 
 msgid "action_checkout_draft"
-msgstr "Creeaza o revizie"
+msgstr "Creeaza o versiune"
 
 msgid "action_abandon_draft"
-msgstr "Abandoneaza aceasta revizie"
+msgstr "Abandoneaza aceasta versiune"
 
 msgid "action_checkin_draft"
-msgstr "Valideaza revizie"
+msgstr "Valideaza versiunea"
 
 msgid "action_edit"
 msgstr "Modifica"
@@ -2327,13 +2460,13 @@ msgid "action_folder_contents"
 msgstr "Continutul directorului"
 
 msgid "action_local_roles"
-msgstr "Administrare roluri locale"
+msgstr "Administreaza rolurile locale"
 
 msgid "action_metadata"
 msgstr "Metadata"
 
 msgid "action_manage_members"
-msgstr "Administrare abonati"
+msgstr "Administreaza abonatii"
 
 msgid "action_moderate_chat"
 msgstr "Modereaza chat-ul"
@@ -2366,13 +2499,13 @@ msgid "action_status_history"
 msgstr "Istoric"
 
 msgid "action_subscribe"
-msgstr "Subscrie"
+msgstr "Aboneaza-te"
 
 msgid "action_unsubscribe"
 msgstr "Dezaboneaza-te"
 
 msgid "action_un_publish"
-msgstr "Retrage"
+msgstr "Scoate din starea 'publicat'"
 
 msgid "action_view"
 msgstr "Vizualizeaza"
@@ -2390,7 +2523,7 @@ msgid "action_day_view"
 msgstr "Vizualizare zilnica"
 
 msgid "action_calendar_event_viewer"
-msgstr "Vizualizare eveniment"
+msgstr "Vizualizare evenimente"
 
 msgid "action_addevent"
 msgstr "Adauga un eveniment"
@@ -2417,7 +2550,7 @@ msgid "action_calendar_overview"
 msgstr "Vedere globala a agendelor"
 
 msgid "action_view_stat"
-msgstr "Vizualizare statistici"
+msgstr "Vizualizarea statisticilor"
 
 msgid "action_view_results"
 msgstr "Vizualizare rezultate"
@@ -2453,10 +2586,10 @@ msgid "action_archives_mail_center"
 msgstr "Arhive de email-uri"
 
 msgid "action_manage_vocabularies"
-msgstr "Administrare vocabulare"
+msgstr "Administreaza vocabularele"
 
 msgid "action_manage_languages"
-msgstr "Administrare limbi"
+msgstr "Administreaza limbile"
 
 msgid "action_translate"
 msgstr "Tradu"
@@ -2467,11 +2600,13 @@ msgstr "Creeaza"
 msgid "button_deselect_all"
 msgstr "Deselecteaza tot"
 
+# Labels
+# #######
 msgid "label_action_workflow"
-msgstr "workflow"
+msgstr "aducere la zi"
 
 msgid "label_action_user"
-msgstr "utilizator"
+msgstr "deselecteaza tot"
 
 msgid "label_action_object"
 msgstr "obiect"
@@ -2483,7 +2618,7 @@ msgid "label_action_global"
 msgstr "global"
 
 msgid "label_action_global_header"
-msgstr "antet global"
+msgstr "varf global"
 
 msgid "label_bottom"
 msgstr "In partea de jos a paginii"
@@ -2492,13 +2627,13 @@ msgid "label_center_bottom"
 msgstr "In partea de jos a documentului"
 
 msgid "label_center"
-msgstr "Infatisarea directorului curent"
+msgstr "Infatisarea directorului implicit"
 
 msgid "label_center_top"
 msgstr "In partea de sus a documentului"
 
 msgid "label_folder_view"
-msgstr "Infatisarea implicita pentru directoare"
+msgstr "Infatisarea directoarelor implicite"
 
 msgid "label_left"
 msgstr "Bara din stanga"
@@ -2515,36 +2650,40 @@ msgstr "Oaspete"
 msgid "label_creator"
 msgstr "Creatorul"
 
+# Descriptions
+# #############
 msgid "description_confirm_delete"
-msgstr "Esti sigur?"
+msgstr "Esti sigur ?"
 
 msgid "description_field_required"
-msgstr "este gol pe cand acest camp este obligatoriu."
+msgstr "este vid cat tim acest camp este obligatoriu."
 
 msgid "description_box_skin_box"
-msgstr "caseta simpla"
+msgstr "box simplu"
 
 msgid "description_box_skin_mmcbox"
-msgstr "caseta min/max/inchisa"
+msgstr "box min/max/inchis"
 
 msgid "description_box_skin_mmbox"
-msgstr "caseta min/max"
+msgstr "box min/max"
 
 msgid "description_box_skin_sbox"
-msgstr "caseta cu chienar"
+msgstr "box cu cadru"
 
 msgid "description_box_skin_sbox2"
-msgstr "caseta cu chienar si fara titlu"
+msgstr "box cu cadru si fara titlu"
 
 msgid "description_box_skin_wbox"
-msgstr "caseta fara chienar"
+msgstr "box fara cadru"
 
 msgid "description_box_skin_wbox2"
-msgstr "caseta fara chienar si fara titlu"
+msgstr "box fara cadru si fara titlu"
 
 msgid "description_box_skin_wbox3"
-msgstr "caseta fara chienar,fara titlu si fara stil"
+msgstr "box fara cadru,fara titlu si fara stil"
 
+# Portal_types
+# #############
 msgid "portal_type_Dummy2_description"
 msgstr "&nbsp;"
 
@@ -2576,7 +2715,7 @@ msgid "portal_type_Calendar_description"
 msgstr "Agenda care poate fi partajata cu ceilalti utilizatori"
 
 msgid "portal_type_Calendar_Event_title"
-msgstr "Eveniment in agenda partajata"
+msgstr "Eveniment din agenda partajat"
 
 msgid "portal_type_Calendar_Event_description"
 msgstr "Acesta poate fi un eveniment, o sedinta sau o intalnire"
@@ -2592,7 +2731,7 @@ msgid "portal_type_CollectorDocument_title"
 msgstr "Colector de informatii"
 
 msgid "portal_type_CollectorDocument_description"
-msgstr "Un formular cuprinzator"
+msgstr "Un formular cuprinzator "
 
 msgid "portal_type_QuizDocument_title"
 msgstr "Quiz"
@@ -2604,82 +2743,86 @@ msgid "portal_type_CPSChat_title"
 msgstr "Chat"
 
 msgid "portal_type_CPSChat_description"
-msgstr "Chat"
+msgstr "O sesiune de conversatie virtuala sau 'Chat'"
 
 msgid "portal_type_EventCalendarBox_title"
-msgstr "Caseta pentru agenda evenimentelor"
+msgstr "Agenda de evenimente de tip box"
 
 msgid "portal_type_EventCalendarBox_description"
 msgstr "Afiseaza o agenda continand legaturi catre evenimente"
 
 msgid "portal_type_NuxMailBoxer_title"
-msgstr "Caseta pentru Email-uri"
+msgstr "Box de Email-uri"
 
 msgid "portal_type_NuxMailBoxer_description"
 msgstr "Administreaza o lista de distributie"
 
+# Portal_type boxes
+# ##################
 msgid "portal_type_ActionBox_title"
-msgstr "Caseta pentru actiuni"
+msgstr "Box de actiuni"
 
 msgid "portal_type_ActionBox_description"
-msgstr "Lista actiunilor sortata pe categorii."
+msgstr "Lista de actiuni apartinand uneia sau mai multor categorii."
 
 msgid "portal_type_BaseBox_title"
-msgstr "Caseta generica"
+msgstr "Box generic"
 
 msgid "portal_type_BaseBox_description"
-msgstr "Caseta pentru elemente diverse: logo-uri, cautare..."
+msgstr "Elemente diverse&nbsp;: logo-uri, cautare..."
 
 msgid "portal_type_TextBox_title"
-msgstr "Caseta pentru text"
+msgstr "Box de text"
 
 msgid "portal_type_TextBox_description"
-msgstr "Caseta ce afiseaza un text simplu sau in format HTML."
+msgstr "Pentru afisarea unui text simplu sau HTML dintr-un box."
 
 msgid "portal_type_TreeBox_title"
-msgstr "Caseta pentru navigare"
+msgstr "Box de navigare"
 
 msgid "portal_type_TreeBox_description"
 msgstr "Ajutor in navigare : meniu si arborescenta."
 
 msgid "portal_type_ContentBox_title"
-msgstr "Caseta pentru continut"
+msgstr "Box de continut"
 
 msgid "portal_type_ContentBox_description"
-msgstr "Afiseaza continutul unui director sau rezultatele unei cautari."
+msgstr "Afiseaza continutul unui director sau rezultatul unei cautari."
 
 msgid "portal_type_ImageBox_title"
-msgstr "Caseta pentru imagini"
+msgstr "Box de imagini"
 
 msgid "portal_type_ImageBox_description"
-msgstr "Caseta generica cu o imagine, logo pentru un director..."
+msgstr "Box generic cu o imagine&nbsp;: decorare, pozitia directorului..."
 
 msgid "portal_type_RSSBox_title"
-msgstr "Caseta RSS"
+msgstr "Box RSS"
 
 msgid "portal_type_RSSBox_description"
 msgstr "Afiseaza un flux de informatii RSS"
 
 msgid "portal_type_FlashBox_title"
-msgstr "Caseta Flash&trade;"
+msgstr "Box Flash&trade;"
 
 msgid "portal_type_FlashBox_description"
-msgstr "Caseta care afiseaza animatii Macromedia&trade; Flash&trade;."
+msgstr "Box care afiseaza animatii Macromedia&trade; Flash&trade;."
 
 msgid "portal_type_InternalLinksBox_title"
-msgstr "Caseta de legaturi interne"
+msgstr "Box de legaturi interne"
 
 msgid "portal_type_InternalLinksBox_description"
 msgstr "Afiseaza o lista de documente alese manual"
 
 msgid "portal_type_DocRenderBox_title"
-msgstr "Caseta pentru redarea continutului unui document"
+msgstr "Box pentru redarea continutului unui document"
 
 msgid "portal_type_DocRenderBox_description"
 msgstr "Redarea continutului unui document"
 
+# Box format descriptions
+# ########################
 msgid "description_nuxeo_basebox_default"
-msgstr "O caseta goala."
+msgstr "Un box gol"
 
 msgid "description_nuxeo_basebox_hr_separator"
 msgstr "Linie de delimitare."
@@ -2691,7 +2834,7 @@ msgid "description_nuxeo_basebox_logo"
 msgstr "Logo-ul CPS"
 
 msgid "description_nuxeo_basebox_search"
-msgstr "Formular de cautare"
+msgstr "Formular de cautare aliniat la dreapta"
 
 msgid "description_nuxeo_basebox_menu"
 msgstr ""
@@ -2699,16 +2842,16 @@ msgstr ""
 "sectiunilor de pe primul nivel."
 
 msgid "description_nuxeo_basebox_breadcrumbs"
-msgstr "Linie de localizare, pozitia curenta in intoriorul site-ului."
+msgstr "Linie de localizare, pozitia curenta."
 
 msgid "description_nuxeo_basebox_l10n_select"
-msgstr "Caseta de selectare a limbii"
+msgstr "Box-ul de selectare a limbii"
 
 msgid "description_nuxeo_basebox_footer"
 msgstr "Partea de jos a paginii Nuxeo."
 
 msgid "description_nuxeo_basebox_conformance_statement"
-msgstr "Caseta de instiintare in conformitate cu standardele W3C"
+msgstr "Box de instiintare in conformitate cu standardele W3C"
 
 msgid "description_nuxeo_basebox_folder_header"
 msgstr "Titlul directorului."
@@ -2720,23 +2863,23 @@ msgid "description_nuxeo_basebox_calendar"
 msgstr "O agenda de evenimente."
 
 msgid "description_nuxeo_contentbox_default"
-msgstr "Caseta implicita de continut."
+msgstr "Box implicit de continut."
 
 msgid "description_nuxeo_contentbox_last_modified"
-msgstr "Caseta ce afiseaza ultimele documente publicate."
+msgstr "Box-ul afiseaza ultimele documente publicate."
 
 msgid "description_nuxeo_contentbox_simple"
-msgstr "Caseta ce afiseaza o lista a obiectelor."
+msgstr "Box de continut care afiseaza o lista simpla."
 
 msgid "description_nuxeo_contentbox_pending"
 msgstr ""
-"Caseta care afiseaza documentele in starea de asteptare."
+"Box de continut care afiseaza documentele in asteptare de a fi publicate."
 
 msgid "description_nuxeo_textbox_default"
-msgstr "Caseta implicita de text."
+msgstr "Box implicit de text."
 
 msgid "description_nuxeo_treebox_default"
-msgstr "Caseta implicita de navigare."
+msgstr "Box implicit de navigare."
 
 msgid "description_nuxeo_treebox_center"
 msgstr "Navigare contextuala care afiseaza doua nivele de sub-directoare."
@@ -2745,13 +2888,13 @@ msgid "description_nuxeo_treebox_sitemap"
 msgstr "Planul site-ului"
 
 msgid "description_nuxeo_actionbox_default"
-msgstr "Caseta implicita de actiuni."
+msgstr "Box implicit de actiuni."
 
 msgid "description_nuxeo_actionbox_user"
-msgstr "Caseta utilizator"
+msgstr "Box utilizator Nuxeo."
 
 msgid "description_nuxeo_actionbox_menu"
-msgstr "O caseta meniu cu butoane tabulare"
+msgstr "Un box de actiuni format din spatii."
 
 msgid "description_nuxeo_actionbox_header"
 msgstr ""
@@ -2759,66 +2902,68 @@ msgstr ""
 "paginii."
 
 msgid "description_nuxeo_imagebox_default"
-msgstr "Caseta model de imagini"
+msgstr "Un box cu o imagine"
 
 msgid "description_nuxeo_flashbox_default"
 msgstr ""
-"O caseta care afiseaza o animatie Flash&trade; fisier, cu latimea si inaltimea "
+"Une box care afiseaza o animatie Flash&trade;, cu latimea si inaltimea "
 "parametrizabile"
 
 msgid "description_nuxeo_treebox_sitemap_adv"
-msgstr "O harta avansata a spatiului de lucru"
+msgstr "Plan de spatii de lucru"
 
 msgid "description_nuxeo_internallinks_default"
-msgstr "Caseta implicita de legaturi interne."
+msgstr "Box implicit de legaturi interne."
 
 msgid "description_nuxeo_render_default"
-msgstr "Caseta implicita pentru redarea unui document."
+msgstr "Box implicit pentru redarea unui document."
 
+# Status messages (psm)
+# ######################
 msgid "psm_added_to_favorites"
 msgstr "Adauga la favorite"
 
 msgid "psm_box_created"
-msgstr "Caseta creata cu succes."
+msgstr "Box creat."
 
 msgid "psm_box_modified"
-msgstr "Caseta modificata cu succes."
+msgstr "Box modificat."
 
 msgid "psm_content_created"
-msgstr "Obiect creat cu succes."
+msgstr "Obiect creat."
 
 msgid "psm_content_changed"
-msgstr "Modificari efectuate cu succes."
+msgstr "Modificari efectuate."
 
 msgid "psm_content_error"
 msgstr "Intrare invalida, te rog corecteaza erorile."
 
 msgid "psm_box_deleted"
-msgstr "Caseta stearsa cu succes."
+msgstr "Box sters."
 
 msgid "psm_copy_or_cut_at_least_one_document"
 msgstr "Copiaza sau sterge cel putin un document."
 
 msgid "psm_entry_deleted"
-msgstr "Inregistrare stearsa cu succes."
+msgstr "Intrare stearsa."
 
 msgid "psm_entry_modified"
-msgstr "Inregistrare modificata cu succes."
+msgstr "Intrare modificata."
 
 msgid "psm_item(s)_copied"
-msgstr "Obiect(e) copiat(e) cu succes."
+msgstr "Obiect(e) copiat(e)."
 
 msgid "psm_item(s)_cut"
-msgstr "Obiect(e) taiat(e) cu succes."
+msgstr "Obiect(e) taiat(e)."
 
 msgid "psm_item(s)_pasted"
-msgstr "Obiect(e) copiat(e) cu succes."
+msgstr "Obiect(e) copiat(e)."
 
 msgid "psm_item(s)_deleted"
-msgstr "Obiect(e) sters(e) cu succes."
+msgstr "Obiect(e) sters(e)."
 
 msgid "psm_item(s)_renamed"
-msgstr "Obiect(e) redenumit(e) cu succes."
+msgstr "Obiect(e) redenumit(e)."
 
 msgid "psm_operation_not_allowed"
 msgstr "Operatie nepermisa."
@@ -2827,7 +2972,7 @@ msgid "psm_revision_reverted"
 msgstr "Vechea versiune recuperata."
 
 msgid "psm_archive_deleted"
-msgstr "Arhiva stearsa cu succes."
+msgstr "Arhiva stearsa."
 
 msgid "psm_select_at_least_one_document"
 msgstr "Selecteaza cel putin un document."
@@ -2840,6 +2985,21 @@ msgstr "Starea workflow-ului schimbata."
 
 msgid "psm_local_roles_changed"
 msgstr "Rolurile locale au fost modificate."
+
+#, fuzzy
+msgid "psm_local_roles_blocked"
+msgstr "Héritage des rôles locaux bloqué"
+
+#, fuzzy
+msgid "psm_local_roles_unblocked"
+msgstr "Héritage des rôles locaux débloqué"
+
+msgid "psm_local_roles_select_members"
+msgstr "Veuillez selectionner des membres"
+
+#, fuzzy
+msgid "psm_local_roles_no_editable_ids"
+msgstr "Pas de rôle local modifiable"
 
 msgid "psm_join_password_too_short"
 msgstr "Parola trebuie sa aiba cel putin 5 caractere."
@@ -2858,48 +3018,49 @@ msgstr "Adresa de email este invalida. Te rog sa o verifici."
 
 msgid "psm_reset_password_request_received"
 msgstr ""
-"Cererea de modificare a parolei a fost primita. Un email de confirmare "
+"Cererea de reinitializare a parolei a fost primita. Un email de confirmare "
 "ti-a fost trimis."
 
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"<p>Parola ta a fost modificata cu succes. Noua ta parola este: "
-"<strong>${new_password}</strong></p><p>Odata logat, ai posibilitatea"
-"sa modifici aceasta parola in: Actiuni ale utilizatorului -> Preferinte</p>"
+"Parola ta a fost reinitializata cu succes. Noua ta parola este: "
+"${new_password}"
 
 msgid "psm_reset_password_problem"
-msgstr "Resetarea parolei a esuat."
+msgstr "Resetarea parolei tale a esuat."
 
 msgid "psm_translation_added"
 msgstr "Versiunea pentru traducere a fost adaugata."
 
-# # Languages  ========================================================
+# Languages
+# ##########
 msgid "psm_default_language_set"
-msgstr "Limba implicita a fost setata"
+msgstr "Limba implicita setata in portal"
 
 msgid "psm_language_added"
 msgstr "Noi limbi disponibile"
 
 msgid "psm_language_deleted"
-msgstr "Aceasta limba nu mai este disponibila."
+msgstr "Aceasta Limba nu mai este disponibila."
 
 msgid "psm_language_error_select_at_least_one_item"
-msgstr "Selecteaza cel putin o limba."
+msgstr "Limba implicita a site-ului a fost modificata"
 
 #, fuzzy
 msgid "psm_language_error_let_at_least_one_language_to_portal"
-msgstr "Nu poti sterge toate limbile."
+msgstr "Laissez au moins une langue à CPS."
 
 msgid "psm_language_error_unknown_command"
-msgstr "Comanda necunoascuta"
+msgstr ""
 
 msgid "collector_psm_erase_data_cancel"
-msgstr "Datele colectate nu au fost sterse."
+msgstr "O noua limba(i) este(sunt) disponibila(e)"
 
 msgid "collector_psm_erased_data"
-msgstr "Toale datele colectate au fost sterse."
+msgstr "Datele colectate au fost distruse"
 
-# dates ===================================================
+# Dates
+# ######
 msgid "date_short"
 msgstr "%d/%m/%Y"
 
@@ -2909,10 +3070,14 @@ msgstr "%d/%m/%Y %H:%M"
 msgid "date_long"
 msgstr "%d/%m/%Y %H:%M:%S"
 
+# Links
+# ######
+# Used for the breadcrumb
 msgid "link_search"
-msgstr "Cautare"
+msgstr "Cauta"
 
-# # Roles ==================================================
+# Roles
+# ######
 msgid "role:Anonymous"
 msgstr "rol:Oaspete"
 
@@ -2920,7 +3085,7 @@ msgid "role:Authenticated"
 msgstr "rol:Autentificat"
 
 msgid "WorkspaceManager"
-msgstr "Administrator al spatiului de lucru"
+msgstr "Responsabil de spatiul de lucru"
 
 msgid "WorkspaceMember"
 msgstr "Membru al spatiului de lucru"
@@ -2929,10 +3094,10 @@ msgid "WorkspaceReader"
 msgstr "Cititor al spatiului de lucru"
 
 msgid "SectionManager"
-msgstr "Administrator al sectiunii"
+msgstr "Responsabil al sectiunii"
 
 msgid "SectionReviewer"
-msgstr "Cel care valideaza sectiunea"
+msgstr "Valideaza sectiunea"
 
 msgid "SectionReader"
 msgstr "Cititor al sectiunii"
@@ -2944,7 +3109,7 @@ msgid "Reader"
 msgstr "Cititor al sectiunii"
 
 msgid "ForumPoster"
-msgstr "Persoana care subscrie pe forum"
+msgstr "Posteaza pe forum"
 
 msgid "ForumModerator"
 msgstr "Moderatorul forumului"
@@ -2953,7 +3118,7 @@ msgid "ChatModerator"
 msgstr "Moderatorul Chat-ului"
 
 msgid "ChatPoster"
-msgstr "Persoana care subscrie pe Chat"
+msgstr "Persoana care Posteaza pe Forum"
 
 msgid "ChatGuest"
 msgstr "Invitat pe chat"
@@ -2962,12 +3127,13 @@ msgid "label_searchadv_full_text"
 msgstr "Textul intreg"
 
 msgid "label_searchadv_updated"
-msgstr "Actualizat"
+msgstr "Titlu"
 
 msgid "label_searchadv_sort_by"
-msgstr "Sortare dupa"
+msgstr "Tip de document"
 
-# # Languages  ========================================================
+# Languages
+# ##########
 msgid "label_language_en"
 msgstr "Engleza"
 
@@ -3064,251 +3230,277 @@ msgstr " "
 # Default portlets (or Boxes) titles
 #
 msgid "Navigation"
-msgstr "Navigare"
+msgstr ""
 
 #, fuzzy
 msgid "User actions"
-msgstr "Actiuni specifice utilizatorului"
+msgstr "Mes actions"
 
 #, fuzzy
 msgid "Language selector"
-msgstr "Selectare limba"
+msgstr "Langue"
 
 msgid "Folder actions"
-msgstr "Actiuni specifice acestui director"
+msgstr "Actiuni ale directorului"
 
 msgid "Object actions"
-msgstr "Actiuni specifice acestui obiect"
+msgstr "Actiuni ale obiectului"
 
 msgid "Portal actions"
-msgstr "Actiuni specifice portalului"
+msgstr "Actiuni ale portalului"
 
-#~ msgid "label_publication_location"
-#~ msgstr "Pozitia publicatiei"
+msgid "Role1"
+msgstr "Rol1"
 
-#~ msgid "label_publication_states"
-#~ msgstr "Starea publicatiei"
+msgid "label_publication_location"
+msgstr "Pozitia publicatiei"
 
-#~ msgid "Action"
-#~ msgstr "Actiune"
+msgid "label_publication_states"
+msgstr "Starea publicatiei"
 
-#~ msgid "Slot"
-#~ msgstr "Slot"
+msgid "Action"
+msgstr "Actiune"
 
-#~ msgid "button_back"
-#~ msgstr "Inapoi"
+msgid "Slot"
+msgstr "Slot"
 
-#~ msgid "button_text_editor_popup"
-#~ msgstr "Editor de text..."
+msgid "button_back"
+msgstr "Inapoi"
 
-#~ msgid "heading_box_edit_form"
-#~ msgstr "Editare boxuri"
+msgid "button_text_editor_popup"
+msgstr "Editor de text..."
 
-#~ msgid "help_contentbox_no_recurse"
+msgid "heading_box_edit_form"
+msgstr "Editare boxuri"
+
+msgid "help_contentbox_no_recurse"
+msgstr ""
+"Selecteaza daca vrei ca aceasta cautare sa se desfasoare doar in folderul "
+"ales, fara o cautare recursiva in subfoldere."
+
+msgid "help_contentbox_sort"
+msgstr ""
+"Pentru ratiuni de performanta, sortarea rezultatelor cautarii va returna "
+"doar primele 100 de documente. "
+
+msgid "help_italic_vendor_boxes_types"
+msgstr ""
+"* tip de box predefinit. Unele proprietati nu pot fi schimbate din aceasta "
+"interfata."
+
+msgid "label_atom_export"
+msgstr "ATOM"
+
+msgid "label_authorized_only"
+msgstr "Afiseaza doar dosarele accesibile"
+
+msgid "label_box_content"
+msgstr "Continut"
+
+msgid "label_box_skin"
+msgstr "Infatisarea box-ului"
+
+msgid "label_btype"
+msgstr "Tip"
+
+msgid "label_categories"
+msgstr "Categorii"
+
+msgid "label_children_only"
+msgstr "Afiseaza doar subdosarele"
+
+msgid "label_choose_section"
+msgstr "Alege sectiuni"
+
+msgid "label_choose_workspace"
+msgstr "Alege spatii de lucru"
+
+msgid "label_closed"
+msgstr "Inchide"
+
+msgid "label_contentbox_no_recurse"
+msgstr "Nu cauta recursiv in toate sub-dosarele."
+
+msgid "label_contentbox_zoom"
+msgstr "Mareste primul document"
+
+msgid "label_contextual"
+msgstr "Contextual"
+
+msgid "label_depth"
+msgstr "Adancime"
+
+msgid "label_display_description"
+msgstr "Afiseaza descrierea folderelor"
+
+msgid "label_display_icons"
+msgstr "Imagini"
+
+msgid "label_display_managers"
+msgstr "Afiseaza responsabilii dosarelor"
+
+msgid "label_display_root"
+msgstr "Afiseaza radacina ierarhiei"
+
+msgid "label_event_types"
+msgstr "Tipuri de documente de care se tine seama"
+
+msgid "label_event_types_help"
+msgstr ""
+"Nota: doar documentele dinainte de datele de debut si de sfarsit pot fi "
+"afisate in calendar"
+
+msgid "label_events_location"
+msgstr "Cauta evenimentele in"
+
+msgid "label_flash_file"
+msgstr "Fisier Flash&trade;"
+
+msgid "label_flash_height"
+msgstr "Inaltimea unui box Flash&trade;"
+
+msgid "label_flash_width"
+msgstr "Latimea unui box Flash&trade;"
+
+msgid "label_folder"
+msgstr "Dosar"
+
+msgid "label_i18n"
+msgstr "Traducere"
+
+msgid "label_image_link"
+msgstr "Legatura"
+
+msgid "label_maximized"
+msgstr "Maximizare"
+
+msgid "label_minimized"
+msgstr "Minimizare"
+
+msgid "label_nb_items"
+msgstr "Numar de articole"
+
+msgid "label_order"
+msgstr "Ordine"
+
+msgid "label_pending"
+msgstr "In asteptare"
+
+msgid "label_published"
+msgstr "Publicat"
+
+msgid "label_root"
+msgstr "Radacina"
+
+msgid "label_rss_export"
+msgstr "RSS"
+
+msgid "label_search"
+msgstr "Cauta"
+
+msgid "label_slot"
+msgstr "Pozitie"
+
+msgid "label_visible_in_subfolder"
+msgstr "vizibil in sub-subdirector"
+
+msgid "label_visible_only_in_subfolder"
+msgstr "vizibil doar in sub-directoare"
+
+msgid "label_work"
+msgstr "Lucru"
+
+msgid "link_atom_export"
+msgstr "ATOM"
+
+msgid "link_rss_export"
+msgstr "RSS"
+
+msgid "Translated status message."
+msgstr "Mesaj de stare tradus"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "box text body"
+msgstr "text pentru box"
+
+msgid "box text title"
+msgstr "titlu pentru box"
+
+msgid "box_search"
+msgstr "Cauta: "
+
+msgid "button_create_box"
+msgstr "Creeaza box"
+
+msgid "description_visible_box_from ${context_url}"
+msgstr "Box de descriere vizibil de la ${context_url}"
+
+msgid "heading_box_create_form"
+msgstr "Adauga un box"
+
+msgid "heading_box_manage_form"
+msgstr "Administrare box-uri"
+
+msgid "label_collaborative_folder"
+msgstr "Spatiile mele de lucru"
+
+msgid "label_folder_search"
+msgstr "Cauta un folder"
+
+msgid "legend_folder_no_search_result"
+msgstr "Cererea ta nu a returnat nici un rezultat."
+
+msgid "link_box_delete"
+msgstr "Sterge"
+
+msgid "link_box_edit"
+msgstr "Modifica"
+
+msgid "link_box_view"
+msgstr "Vizualizeaza"
+
+msgid "link_more"
+msgstr "Mai mult..."
+
+msgid "listingheader_action"
+msgstr "Actiune"
+
+msgid "listingheader_location"
+msgstr "Locatie"
+
+msgid "listingheader_order"
+msgstr "Ordonare"
+
+msgid "listingheader_title"
+msgstr "Titlu"
+
+msgid "listingheader_type"
+msgstr "Tip"
+
+#~ msgid "label_roles"
+#~ msgstr "Rôle(s)"
+
+#~ msgid "label_user_fullname"
+#~ msgstr "Numele complet al utilizatorului"
+
+#~ msgid "legend_local_roles_assigned_users"
 #~ msgstr ""
-#~ "Selecteaza daca vrei ca aceasta cautare sa se desfasoare doar in folderul "
-#~ "ales, fara o cautare recursiva in subfoldere."
+#~ "Ces utilisateurs ont pour le moment des rôles locaux dans ce "
+#~ "répertoire&nbsp;:"
 
-#~ msgid "help_contentbox_sort"
+#~ msgid "legend_local_roles_no_results_member"
+#~ msgstr "Imi pare rau, nici un grup nu corespunde cautarii tale."
+
+#~ msgid "legend_local_roles_select_groups_and_roles"
+#~ msgstr "Alege Grupul(Grupurile) si rolul care sa i se va incredinta:"
+
+#~ msgid "link_local_roles_underlined"
 #~ msgstr ""
-#~ "Pentru ratiuni de performanta, sortarea rezultatelor cautarii va returna "
-#~ "doar primele 100 de documente. "
-
-#~ msgid "help_italic_vendor_boxes_types"
-#~ msgstr ""
-#~ "* tip de box predefinit. Unele proprietati nu pot fi schimbate din aceasta "
-#~ "interfata."
-
-#~ msgid "label_atom_export"
-#~ msgstr "ATOM"
-
-#~ msgid "label_authorized_only"
-#~ msgstr "Afiseaza doar dosarele accesibile"
-
-#~ msgid "label_box_content"
-#~ msgstr "Continut"
-
-#~ msgid "label_box_skin"
-#~ msgstr "Infatisarea box-ului"
-
-#~ msgid "label_btype"
-#~ msgstr "Tip"
-
-#~ msgid "label_categories"
-#~ msgstr "Categorii"
-
-#~ msgid "label_children_only"
-#~ msgstr "Afiseaza doar subdosarele"
-
-#~ msgid "label_choose_section"
-#~ msgstr "Alege sectiuni"
-
-#~ msgid "label_choose_workspace"
-#~ msgstr "Alege spatii de lucru"
-
-#~ msgid "label_closed"
-#~ msgstr "Inchide"
-
-#~ msgid "label_contentbox_no_recurse"
-#~ msgstr "Nu cauta recursiv in toate sub-dosarele."
-
-#~ msgid "label_contentbox_zoom"
-#~ msgstr "Mareste primul document"
-
-#~ msgid "label_contextual"
-#~ msgstr "Contextual"
-
-#~ msgid "label_depth"
-#~ msgstr "Adancime"
-
-#~ msgid "label_display_description"
-#~ msgstr "Afiseaza descrierea folderelor"
-
-#~ msgid "label_display_icons"
-#~ msgstr "Imagini"
-
-#~ msgid "label_display_managers"
-#~ msgstr "Afiseaza responsabilii dosarelor"
-
-#~ msgid "label_display_root"
-#~ msgstr "Afiseaza radacina ierarhiei"
-
-#~ msgid "label_event_types"
-#~ msgstr "Tipuri de documente de care se tine seama"
-
-#~ msgid "label_event_types_help"
-#~ msgstr ""
-#~ "Nota: doar documentele dinainte de datele de debut si de sfarsit pot fi "
-#~ "afisate in calendar"
-
-#~ msgid "label_events_location"
-#~ msgstr "Cauta evenimentele in"
-
-#~ msgid "label_flash_file"
-#~ msgstr "Fisier Flash&trade;"
-
-#~ msgid "label_flash_height"
-#~ msgstr "Inaltimea unui box Flash&trade;"
-
-#~ msgid "label_flash_width"
-#~ msgstr "Latimea unui box Flash&trade;"
-
-#~ msgid "label_folder"
-#~ msgstr "Dosar"
-
-#~ msgid "label_i18n"
-#~ msgstr "Traducere"
-
-#~ msgid "label_image_link"
-#~ msgstr "Legatura"
-
-#~ msgid "label_maximized"
-#~ msgstr "Maximizare"
-
-#~ msgid "label_minimized"
-#~ msgstr "Minimizare"
-
-#~ msgid "label_nb_items"
-#~ msgstr "Numar de articole"
-
-#~ msgid "label_order"
-#~ msgstr "Ordine"
-
-#~ msgid "label_pending"
-#~ msgstr "In asteptare"
-
-#~ msgid "label_published"
-#~ msgstr "Publicat"
-
-#~ msgid "label_root"
-#~ msgstr "Radacina"
-
-#~ msgid "label_rss_export"
-#~ msgstr "RSS"
-
-#~ msgid "label_search"
-#~ msgstr "Cauta"
-
-#~ msgid "label_slot"
-#~ msgstr "Pozitie"
-
-#~ msgid "label_visible_in_subfolder"
-#~ msgstr "vizibil in sub-subdirector"
-
-#~ msgid "label_visible_only_in_subfolder"
-#~ msgstr "vizibil doar in sub-directoare"
-
-#~ msgid "label_work"
-#~ msgstr "Lucru"
-
-#~ msgid "link_atom_export"
-#~ msgstr "ATOM"
-
-#~ msgid "link_rss_export"
-#~ msgstr "RSS"
-
-#~ msgid "Translated status message."
-#~ msgstr "Mesaj de stare tradus"
-
-#~ msgid "Title"
-#~ msgstr "Titlu"
-
-#~ msgid "box text body"
-#~ msgstr "text pentru box"
-
-#~ msgid "box text title"
-#~ msgstr "titlu pentru box"
-
-#~ msgid "box_search"
-#~ msgstr "Cauta: "
-
-#~ msgid "button_create_box"
-#~ msgstr "Creeaza box"
-
-#~ msgid "description_visible_box_from ${context_url}"
-#~ msgstr "Box de descriere vizibil de la ${context_url}"
-
-#~ msgid "heading_box_create_form"
-#~ msgstr "Adauga un box"
-
-#~ msgid "heading_box_manage_form"
-#~ msgstr "Administrare box-uri"
-
-#~ msgid "label_collaborative_folder"
-#~ msgstr "Spatiile mele de lucru"
-
-#~ msgid "label_folder_search"
-#~ msgstr "Cauta un folder"
-
-#~ msgid "legend_folder_no_search_result"
-#~ msgstr "Cererea ta nu a returnat nici un rezultat."
-
-#~ msgid "link_box_delete"
-#~ msgstr "Sterge"
-
-#~ msgid "link_box_edit"
-#~ msgstr "Modifica"
-
-#~ msgid "link_box_view"
-#~ msgstr "Vizualizeaza"
-
-#~ msgid "link_more"
-#~ msgstr "Mai mult..."
-
-#~ msgid "listingheader_action"
-#~ msgstr "Actiune"
-
-#~ msgid "listingheader_location"
-#~ msgstr "Locatie"
-
-#~ msgid "listingheader_order"
-#~ msgstr "Ordonare"
-
-#~ msgid "listingheader_title"
-#~ msgstr "Titlu"
-
-#~ msgid "listingheader_type"
-#~ msgstr "Tip"
+#~ "<em>Rolurile subliniate</em> sunt definite intr-unul dintre directoarele "
+#~ "parinte. Urmariti legaturile pentru a administra drepturile in acest "
+#~ "director."
 
 #~ msgid "description_rss_rssbox_default"
 #~ msgstr "Box implicit RSS."

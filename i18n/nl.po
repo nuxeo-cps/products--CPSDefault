@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-25 12:49default\n"
+"POT-Creation-Date: 2005-06-06 15:24default\n"
 "PO-Revision-Date: 2004-05-21 18:33+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
 "Language-Code: nl\n"
 "Language-Name: Nederlands\n"
 "Domain: default\n"
-
+"X-Generator: KBabel 1.3.1\n"
 
 #.   <block content="bs/title" fill-slot="box_title">A test box</block>
 #: from ../skins/cps_devel/test_box_lib.pt
@@ -72,13 +71,28 @@ msgstr "Beschrijving document type"
 msgid "Portal type's title"
 msgstr "Titel document type"
 
-#.   <option content="role" attributes="value role" repeat="role roles">
-#.            Role1
-#.         </option>
-#.   <option content="role" attributes="value role" repeat="role roles"> Role1 </option>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "Role1"
-msgstr "Rol1"
+#.   <option content="role" attributes="value role;
+#.                         selected python:role == filtered_role" repeat="role cps_roles">
+#.         Role
+#.       </option>
+#.   <th content="role" repeat="role cps_roles" condition="python:len(cps_roles)>1">
+#.           Role
+#.         </th>
+#.   <option content="role" attributes="value role" repeat="role cps_roles">
+#.               Role
+#.             </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#: ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "Role"
+msgstr "Role"
+
+#.   <label content="member_info/title" attributes="for input_id">
+#.               User
+#.             </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+msgid "User"
+msgstr ""
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
@@ -247,7 +261,10 @@ msgid "button_add"
 msgstr "Toevoegen"
 
 #.   <input type="submit" class="standalone" value="button_apply" />
+#.   <input type="submit" name="filter_local_roles" value="button_apply" class="context" />
+#.   <input type="submit" name="edit_local_roles" value="button_apply" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_apply"
 msgstr "Toepassen"
 
@@ -322,10 +339,10 @@ msgstr "Knippen"
 
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
-#.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
-#: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Verwijderen"
@@ -336,14 +353,20 @@ msgstr "Verwijderen"
 msgid "button_delete_archive"
 msgstr "Delete this archive"
 
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_hide_blocked_roles" class="standalone" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_hide_blocked_roles"
+msgstr "Hide"
+
 #.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "button_local_roles_block"
 msgstr "Block"
 
 #.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "button_local_roles_unblock"
 msgstr "Unblock"
@@ -456,6 +479,12 @@ msgstr "Verzenden"
 #, fuzzy
 msgid "button_send_password_reminder"
 msgstr "Send me a password reminder"
+
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_show_blocked_roles" class="standalone" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_show_blocked_roles"
+msgstr "Show"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -694,15 +723,15 @@ msgstr "Wordt lid"
 msgid "heading_language_manage_form"
 msgstr "Manage languages"
 
-#.   <h1>
+#.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_members"
 msgstr "Lokale rollen toekennen&nbsp;:&nbsp;leden zoeken"
 
-#.   <h1>
-#.       Assign local roles: Search Results
+#.   <h1 condition="searching">
+#.    Assign local roles: Search Results
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
@@ -1442,11 +1471,11 @@ msgstr "Aan"
 msgid "label_display"
 msgstr "Weergeven"
 
-#.   <th style="text-align:left;">
-#.           Email address
-#.       </th>
+#.   <th>
+#.             Email address
+#.         </th>
 #.   <label for="email">Email Address</label>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
 msgstr "Email adres"
@@ -1483,15 +1512,22 @@ msgid "label_from"
 msgstr "Vanaf"
 
 #.   <block>Group</block>
-#.   <block condition="python:type=='group'">Group</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
 msgid "label_group"
 msgstr "Groep"
 
-#.   <option value="groupname">Group name</option>
+#.   <option attributes="selected python:search_param == 'groupname'" value="groupname">Group name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
 msgstr "Groepsnaam"
+
+#.   <h3>
+#.           Groups local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_groups_local_roles_assignment"
+msgstr "Groups local roles assignment"
 
 #.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
@@ -1505,8 +1541,8 @@ msgstr "Pictogram"
 msgid "label_image"
 msgstr "Afbeelding"
 
-#.   <span>in</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <block>in</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "label_in"
 msgstr "in"
 
@@ -1545,6 +1581,30 @@ msgstr "Type"
 msgid "label_info_tab_version"
 msgstr "Versie"
 
+#.   <span class="inheritedBlockedRole">
+#.       Inherited blocked role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_blocked_role"
+msgstr "Inherited and blocked role"
+
+#.   <span class="inheritedRole">
+#.       Inherited role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_role"
+msgstr "Inherited role"
+
+#.   <th condition="python:not local_roles_blocked or show_blocked_roles">
+#.           Inherited roles
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_roles"
+msgstr "Inherited roles"
+
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
@@ -1573,12 +1633,16 @@ msgstr "Taal ${status_language}"
 msgid "label_last_modified"
 msgstr "Last modified:"
 
-#.   <th>Search by</th>
+#.   <label for="search_param">
+#.         Search by
+#.       </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_by"
 msgstr "Zoeken volgens"
 
-#.   <th>Search Term</th>
+#.   <label for="search_term">
+#.          Search Term
+#.        </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_term"
 msgstr "Zoekterm"
@@ -1588,6 +1652,14 @@ msgstr "Zoekterm"
 #, fuzzy
 msgid "label_location"
 msgstr "Location"
+
+#.   <th>
+#.           User or Group name
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_name"
+msgstr "Name"
 
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
@@ -1702,11 +1774,6 @@ msgstr "Versie ${status_revision}"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_rights"
 msgstr "Rechten"
-
-#.   <block>Role(s)</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_roles"
-msgstr "Rollen"
 
 #.   <label attributes="for id2">all</label>
 #: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
@@ -1875,24 +1942,33 @@ msgstr "Tot"
 msgid "label_translation_select_language"
 msgstr "Choose the language you want to translate to:"
 
-#.   <th style="text-align:left;">
-#.           User
-#.       </th>
-#.   <block condition="python:type=='user'">User</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <th>
+#.             User
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user"
 msgstr "Gebruiker"
 
-#.   <option value="email">Email address</option>
+#.   <option attributes="selected python:search_param == 'email'" value="email">Email address</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
 msgstr "Email adres"
 
-#.   <option value="fullname">Full name</option>
+#.   <option attributes="selected python:search_param == 'givenName'" value="givenName">User first name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 #, fuzzy
-msgid "label_user_fullname"
-msgstr "User full name"
+msgid "label_user_givenName"
+msgstr "User first name"
+
+#.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
+#.   <th>
+#.             User id (login)
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "label_user_id"
+msgstr "User id"
 
 #.   <label for="username">User name</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -1907,6 +1983,20 @@ msgstr "Gebruikersnaam"
 #, fuzzy
 msgid "label_user_name_or_email_address"
 msgstr "Username or user email address"
+
+#.   <option attributes="selected python:search_param == 'sn'" value="sn">User surname</option>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "label_user_surname"
+msgstr "User surname"
+
+#.   <h3>
+#.           Users local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_users_local_roles_assignment"
+msgstr "Users local roles assignment"
 
 #.   <block>You are
 #.     here:&nbsp;</block>
@@ -1938,72 +2028,118 @@ msgstr "Make unavailable languages"
 msgid "language_set_default"
 msgstr "Set default portal language"
 
-#.   <h1>
+#.   <h2>
 #.       Assigned local roles
-#.   </h1>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   </h2>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "legend_local_roles_assigned"
 msgstr "Assigned local roles"
 
-#.   <p>
-#.      These users currently have local roles assigned in this folder:
-#.   </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_assigned_users"
-msgstr ""
-"Deze gebruikers hebben momenteel lokale rollen toegewezen gekregen in deze "
-"folder&nbsp;:"
-
 #.   <block>
-#.         Local roles are acquired.
-#.         You can block acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           Local roles are acquired.
+#.           You can block acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "legend_local_roles_block"
 msgstr "Local roles are acquired. You can block acquisition:"
 
-#.   <p>
-#.       Sorry, no groups matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_member"
-msgstr "Sorry, geen enkele groep beantwoordt aan uw zoekopdracht."
-
-#.   <p>
-#.       Sorry, no members matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_members"
-msgstr "Sorry, geen enkel lid beantwoordt aan uw zoekopdracht."
+#.   <label for="filtered_role">
+#.       Filter local roles:
+#.     </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_filter_roles"
+msgstr "Filter on role"
 
 #.   <block>
-#.           Role to assign:</block>
-#.   <th colspan="2">
-#.           Role to assign:
-#.       </th>
+#.           You can hide blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_hide_blocked_roles"
+msgstr "You can hide blocked roles:"
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent folders and
+#.       are blocked.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_blocked_role"
+msgstr ""
+"this colour means that corresponding roles are set in parent folders and are "
+"blocked."
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent
+#.       folders. Follow the links to manage the local roles in these folders.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_role"
+msgstr ""
+"this colour means that corresponding roles are set in parent folders. Follow "
+"the links to manage the local roles in these folders."
+
+#.   <p>
+#.         Sorry, no group matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_groups"
+msgstr "Sorry, no group matched your search."
+
+#.   <p>
+#.         Sorry, no user matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_users"
+msgstr "Sorry, no user matched your search."
+
+#.   <p condition="python:not users and not groups">
+#.      There are no roles assigned in this folder
+#.   </p>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_no_roles_assigned"
+msgstr "There are no roles assigned in this folder"
+
+#.   <option attributes="selected not:filtered_role" value="">
+#.         No filter
+#.       </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_not_filtered_role"
+msgstr "No filter"
+
+#.   <label for="member_role">
+#.             Role to assign:
+#.           </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_role_to_assign"
 msgstr "Toe te wijzen rol&nbsp;:"
 
 #.   <p>
-#.       Select Group(s) and a role to assign:
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_select_groups_and_roles"
-msgstr "Selecteer Groep(en) en de toe te wijzen rol&nbsp;:"
-
-#.   <p>
-#.       Select Member(s) and a role to assign:
-#.    </p>
+#.          Select Member(s) and a role to assign:
+#.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_select_members_and_roles"
 msgstr "Selecteer Lid/Leden en de toe te wijzen rol&nbsp;:"
 
 #.   <block>
-#.         Local roles acquisition is <strong>blocked</strong>.
-#.         You can unblock acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           You can show blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_show_blocked_roles"
+msgstr "You can show blocked roles:"
+
+#.   <block>
+#.           Local roles acquisition is <strong>blocked</strong>.
+#.           You can unblock acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "legend_local_roles_unblock"
 msgstr ""
@@ -2080,16 +2216,6 @@ msgstr "Formulier voor personalisatie"
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "link_go_back"
 msgstr "Teruggaan"
-
-#.   <block>
-#.     <em>Roles in underlined</em> are set in parent folders.
-#.     Follow the links to manage the local roles in these folders.
-#.   </block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "link_local_roles_underlined"
-msgstr ""
-"<em>De onderstreepte rollen</em> worden in parent folders vastgelegd. Volg "
-"de links om deze rollen in die folders te beheren."
 
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
@@ -2946,6 +3072,21 @@ msgstr "Status gewijzigd."
 msgid "psm_local_roles_changed"
 msgstr "Lokale rollen gewijzigd."
 
+#, fuzzy
+msgid "psm_local_roles_blocked"
+msgstr "Local roles acquisition blocked"
+
+#, fuzzy
+msgid "psm_local_roles_unblocked"
+msgstr "Local roles acquisition unblocked"
+
+msgid "psm_local_roles_select_members"
+msgstr "Please select members first"
+
+#, fuzzy
+msgid "psm_local_roles_no_editable_ids"
+msgstr "No editable local roles"
+
 msgid "psm_join_password_too_short"
 msgstr "Uw wachtwoord moet minstens 5 lettertekens bevatten."
 
@@ -3437,3 +3578,23 @@ msgstr "Titel"
 
 msgid "listingheader_type"
 msgstr "Type"
+
+#~ msgid "Role1"
+#~ msgstr "Rol1"
+
+#~ msgid "label_roles"
+#~ msgstr "Role(s)"
+
+#~ msgid "legend_local_roles_assigned_users"
+#~ msgstr "These users currently have local roles assigned in this folder:"
+
+#~ msgid "legend_local_roles_no_results_member"
+#~ msgstr "Sorry, geen enkele groep beantwoordt aan uw zoekopdracht."
+
+#~ msgid "legend_local_roles_select_groups_and_roles"
+#~ msgstr "Selecteer Groep(en) en de toe te wijzen rol&nbsp;:"
+
+#~ msgid "link_local_roles_underlined"
+#~ msgstr ""
+#~ "<em>De onderstreepte rollen</em> worden in parent folders vastgelegd. "
+#~ "Volg de links om deze rollen in die folders te beheren."

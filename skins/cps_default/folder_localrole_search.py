@@ -1,7 +1,13 @@
 ##parameters=search_param=None, search_term=None
 #$Id$
 """
-FIXME: add docstring.
+Query the members or groups directories to select users or groups to assign
+local roles.
+
+This script is used by:
+    - folder_localrole_form
+    - forum_localrole_form (to be replaced by folder_localrole_form)
+    - cps_chat_localroles_form (to be replaced by folder_localrole_form)
 """
 
 from AccessControl import Unauthorized
@@ -9,27 +15,26 @@ from AccessControl import Unauthorized
 if not context.portal_membership.checkPermission('Change permissions', context):
     raise Unauthorized
 
-if search_param in ('fullname', 'email'):
+# XXX backward compatibility: 'fullname' search is broken; use sn search instead
+# http://svn.nuxeo.org/trac/pub/ticket/627
+if search_param == 'fullname':
+    search_param = 'sn'
+
+results = []
+
+if search_param in ('id', 'givenName', 'sn', 'email'):
     mdir = context.portal_directories.members
     id_field = mdir.id_field
-    # first get portal member ids without externall call (e.g. LDAP)
     return_fields = (id_field, 'givenName', 'sn', 'email')
-    if search_param == 'fullname':
-        # XXX cannot search both parameters at the same time because we want a
-        # OR search, not AND.
-        from_ids = mdir.searchEntries(**{id_field: search_term,
-                                         'return_fields': return_fields})
-        from_fullnames = mdir.searchEntries(fullname=search_term,
-                                            return_fields=return_fields)
-        results = {}
-        for id, values in (from_ids + from_fullnames):
-            results[id] = values
-        results = results.items()
-    elif search_param == 'email':
-        results = mdir.searchEntries(email=search_term,
-                                     return_fields=return_fields)
+    if search_param == "id":
+        search_param = id_field
+    kwargs = {
+        search_param: search_term,
+        'return_fields': return_fields,
+        }
+    results = mdir.searchEntries(**kwargs)
     results.sort()
-    return results
+
 elif search_param == 'groupname':
     gdir  = context.portal_directories.groups
     # XXX hardcoded but not GroupsDirectory's job
@@ -38,5 +43,7 @@ elif search_param == 'groupname':
     for pseudo_group in pseudo_groups:
         if pseudo_group.lower().find(search_term) != -1:
             groups.append(pseudo_group)
-    groups.extend(gdir.searchEntries(group=search_term))
-    return groups
+    results = gdir.searchEntries(group=search_term)
+    results.extend(groups)
+
+return results

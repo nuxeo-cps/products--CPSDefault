@@ -1,55 +1,124 @@
-##parameters=change_type, member_ids=[], member_role='', lr_block=None, lr_unblock=None, REQUEST=None
+##parameters=delete_ids=[], edit_ids=[], filtered_role=None, show_blocked_roles=0, REQUEST=None, **kw
 # $Id$
+"""Edit local roles (delete/edit)
+
+Edition is done if request or additional kws have the 'edit_local_roles' key,
+otherwise deletion is done.
+
+delete_ids are the ids of users/groups that have to be deleted, prefixed by
+'user:' and 'group:'.
+
+edit_ids are the ids of users/groups that will be edited (e.g, all users and
+groups displayed on the page), prefixed by 'user:' and 'group:'.
+Local roles to be set for each of these ids are given in the additional
+keywords or in the request form. For instance, if user 'toto' has to have roles
+'WorkspaceManager' and 'WorkspaceReader', kw or request will hold a key
+'role_user_toto' with associated value ['WorkspaceManager',
+'WorkspaceReader']. The group 'tata' will have the associated key
+'role_group_tata'.
+
+filtered_role and show_blocked_roles parameters are only passed to be kept
+while editing.
 """
-FIXME: add docstring.
-"""
 
-pmtool = context.portal_membership
-ids = member_ids
-member = pmtool.getAuthenticatedMember()
-member_id = member.getUserName()
+# XXX AT: if user changes its own rights and loses the "change permissions",
+# all the roles will not be set correctly (they will be set until he/she loses
+# its rights in the algorythm)
 
-group_ids = [group[len('group:'):]
-             for group in ids if group.startswith('group:') ]
-member_ids = [user[len('user:'):]
-              for user in ids if user.startswith('user:') ]
+from zLOG import LOG, DEBUG
+from urllib import urlencode
+from Products.CMFCore.utils import getToolByName
 
-if change_type == 'add':
-    pmtool.setLocalRoles(context, member_ids, member_role, reindex=0)
-    pmtool.setLocalGroupRoles(context, group_ids, member_role, reindex=0)
-    context.reindexObjectSecurity()
-
-elif change_type == 'delete':
-    pmtool.deleteLocalRoles(context, member_ids, reindex=0)
-    pmtool.deleteLocalGroupRoles(context, group_ids, reindex=0)
-    context.reindexObjectSecurity()
-
-elif change_type == 'block':
-    if lr_block is not None:
-        # For security, before blocking everything, we readd the current user
-        # as a XyzManager of the current workspace/section.
-        for r in pmtool.getCPSCandidateLocalRoles(context):
-            if r == 'Manager':
-                continue
-            if not r.endswith('Manager'):
-                continue
-            if not member.has_role(r, context):
-                continue
-            from zLOG import LOG, DEBUG
-            pmtool.setLocalRoles(context, (member_id,), r, reindex=0)
-        # Block.
-        pmtool.setLocalGroupRoles(context, ('role:Anonymous',), '-',
-                                  reindex=0)
-    elif lr_unblock is not None:
-        pmtool.deleteLocalGroupRoles(context, ('role:Anonymous',), '-',
-                                     reindex=0)
-    context.reindexObjectSecurity()
-
-
-psm = 'psm_local_roles_changed'
+kwargs = {}
+reindex = 0
 
 if REQUEST is not None:
-    REQUEST.RESPONSE.redirect(
-        '%s/folder_localrole_form?portal_status_message=%s' %
-        (context.absolute_url(), psm))
+    kw.update(REQUEST.form)
 
+# decide whether we'are adding or deleting roles.
+edit = kw.has_key('edit_local_roles')
+
+mtool = getToolByName(context, 'portal_membership')
+
+if edit:
+    # Edit: consider edit_ids and other edit settings that will have to be
+    # 'guessed'
+    if not edit_ids:
+        kwargs['portal_status_message'] = 'psm_local_roles_no_editable_ids'
+    else:
+        user_ids = [user[len('user:'):] for user in edit_ids
+                    if user.startswith('user:')]
+        group_ids = [group[len('group:'):] for group in edit_ids
+                     if group.startswith('group:')]
+        cps_roles = context.getCPSCandidateLocalRoles()
+        # users
+        for user_id in user_ids:
+            # get associated roles to set
+            role_input_name = 'role_user_' + user_id
+            roles = kw.get(role_input_name)
+            if roles is None:
+                # no roles anymore, delete it
+                for role in cps_roles:
+                    mtool.deleteLocalRoles(context, [user_id],
+                                           reindex=0, recursive=0,
+                                           member_role=role)
+                    reindex = 1
+            else:
+                # only set roles accepted in context
+                roles = [x for x in roles if x in cps_roles]
+                roles_to_del = [x for x in cps_roles if x not in roles]
+                for role in roles:
+                    mtool.setLocalRoles(context, [user_id],
+                                        role, reindex=0)
+                    reindex = 1
+                for role in roles_to_del:
+                    mtool.deleteLocalRoles(context, [user_id],
+                                           reindex=0, recursive=0,
+                                           member_role=role)
+                    reindex = 1
+        # groups
+        for group_id in group_ids:
+            # get associated roles to set
+            # XXX AT: no ':' accepted, change it for role:Anonymous and
+            # role:Authenticated groups
+            role_input_name = 'role_group_' + group_id.replace(':', '_')
+            roles = kw.get(role_input_name, [])
+            # only set roles accepted in context
+            roles = [x for x in roles if x in cps_roles]
+            roles_to_del = [x for x in cps_roles if x not in roles]
+            for role in roles:
+                mtool.setLocalGroupRoles(context, [group_id],
+                                         role, reindex=0)
+                reindex = 1
+            for role in roles_to_del:
+                mtool.deleteLocalGroupRoles(context, [group_id],
+                                            role=role, reindex=0)
+                reindex = 1
+        kwargs['portal_status_message'] = 'psm_local_roles_changed'
+else:
+    # Delete: consider delete_ids
+    if not delete_ids:
+        kwargs['portal_status_message'] = 'psm_local_roles_select_members'
+    else:
+        user_ids = [user[len('user:'):] for user in delete_ids
+                    if user.startswith('user:')]
+        group_ids = [group[len('group:'):] for group in delete_ids
+                     if group.startswith('group:')]
+        cps_roles = context.getCPSCandidateLocalRoles()
+        for role in cps_roles:
+            mtool.deleteLocalRoles(context, user_ids,
+                                   reindex=0, recursive=0,
+                                   member_role=role)
+            mtool.deleteLocalGroupRoles(context, group_ids,
+                                        role=role, reindex=0)
+            reindex = 1
+        kwargs['portal_status_message'] = 'psm_local_roles_changed'
+
+if reindex == 1:
+    context.reindexObjectSecurity()
+
+if REQUEST is not None:
+    kwargs['filtered_role'] = filtered_role
+    kwargs['show_blocked_roles'] = show_blocked_roles
+    REQUEST.RESPONSE.redirect('%s/folder_localrole_form?%s'%(
+        context.absolute_url(), urlencode(kwargs)))

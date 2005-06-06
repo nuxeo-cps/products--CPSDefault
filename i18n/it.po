@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-25 12:49default\n"
+"POT-Creation-Date: 2005-06-06 15:24default\n"
 "PO-Revision-Date: 2004-10-01 08:36+0100\n"
 "Last-Translator: Fabio Nosari <fabnos@fastwebnet.it>\n"
 "Language-Team: Italia <fabnos@fastwebnet.it>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Preferred-encodings: latin9\n"
 "Language-Code: it\n"
-"Language-Name: Italian\n"
+"Language-Name: Italiano\n"
 "Domain: default\n"
 
 #.   <block content="bs/title" fill-slot="box_title">A test box</block>
@@ -67,13 +67,28 @@ msgstr "Descrizione del tipo di oggetto"
 msgid "Portal type's title"
 msgstr "Titolo del tipo di oggetto"
 
-#.   <option content="role" attributes="value role" repeat="role roles">
-#.            Role1
-#.         </option>
-#.   <option content="role" attributes="value role" repeat="role roles"> Role1 </option>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "Role1"
-msgstr "Ruolo 1"
+#.   <option content="role" attributes="value role;
+#.                         selected python:role == filtered_role" repeat="role cps_roles">
+#.         Role
+#.       </option>
+#.   <th content="role" repeat="role cps_roles" condition="python:len(cps_roles)>1">
+#.           Role
+#.         </th>
+#.   <option content="role" attributes="value role" repeat="role cps_roles">
+#.               Role
+#.             </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#: ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "Role"
+msgstr "Rôle"
+
+#.   <label content="member_info/title" attributes="for input_id">
+#.               User
+#.             </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+msgid "User"
+msgstr ""
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
@@ -236,7 +251,10 @@ msgid "button_add"
 msgstr "Aggiungi"
 
 #.   <input type="submit" class="standalone" value="button_apply" />
+#.   <input type="submit" name="filter_local_roles" value="button_apply" class="context" />
+#.   <input type="submit" name="edit_local_roles" value="button_apply" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_apply"
 msgstr "Applica"
 
@@ -311,10 +329,10 @@ msgstr "Taglia"
 
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
-#.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
-#: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Elimina"
@@ -324,13 +342,19 @@ msgstr "Elimina"
 msgid "button_delete_archive"
 msgstr "Elimina questa versione"
 
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_hide_blocked_roles" class="standalone" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_hide_blocked_roles"
+msgstr "Cacher"
+
 #.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_block"
 msgstr "Blocca"
 
 #.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_unblock"
 msgstr "Sblocca"
 
@@ -442,6 +466,12 @@ msgstr "Invia"
 #, fuzzy
 msgid "button_send_password_reminder"
 msgstr "Envoyez moi un rappel de mon mot de passe"
+
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_show_blocked_roles" class="standalone" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_show_blocked_roles"
+msgstr "Montrer"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -686,15 +716,15 @@ msgstr "Nuovo collaboratore?"
 msgid "heading_language_manage_form"
 msgstr "Gestion des langues"
 
-#.   <h1>
+#.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_members"
 msgstr "Configura ruoli locali: <br /> cerca collaboratori"
 
-#.   <h1>
-#.       Assign local roles: Search Results
+#.   <h1 condition="searching">
+#.    Assign local roles: Search Results
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
@@ -1448,11 +1478,11 @@ msgstr "Attiva"
 msgid "label_display"
 msgstr "Modalità di visualizzazione:"
 
-#.   <th style="text-align:left;">
-#.           Email address
-#.       </th>
+#.   <th>
+#.             Email address
+#.         </th>
 #.   <label for="email">Email Address</label>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
 msgstr "Indirizzo e-mail"
@@ -1489,15 +1519,22 @@ msgid "label_from"
 msgstr "Da:"
 
 #.   <block>Group</block>
-#.   <block condition="python:type=='group'">Group</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
 msgid "label_group"
 msgstr "Gruppo (i)"
 
-#.   <option value="groupname">Group name</option>
+#.   <option attributes="selected python:search_param == 'groupname'" value="groupname">Group name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
 msgstr "Nome del gruppo"
+
+#.   <h3>
+#.           Groups local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_groups_local_roles_assignment"
+msgstr "Rôles locaux délégués aux groupes"
 
 #.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
@@ -1511,8 +1548,8 @@ msgstr "Icone"
 msgid "label_image"
 msgstr "Immagine:"
 
-#.   <span>in</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <block>in</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "label_in"
 msgstr "in"
 
@@ -1551,6 +1588,30 @@ msgstr "Tipo"
 msgid "label_info_tab_version"
 msgstr "Versione"
 
+#.   <span class="inheritedBlockedRole">
+#.       Inherited blocked role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_blocked_role"
+msgstr "Rôle hérité et bloqué"
+
+#.   <span class="inheritedRole">
+#.       Inherited role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_role"
+msgstr "Rôle hérité"
+
+#.   <th condition="python:not local_roles_blocked or show_blocked_roles">
+#.           Inherited roles
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_roles"
+msgstr "Rôles hérités"
+
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
@@ -1579,12 +1640,16 @@ msgstr "Lingua: ${status_language}"
 msgid "label_last_modified"
 msgstr "Dernière modification :"
 
-#.   <th>Search by</th>
+#.   <label for="search_param">
+#.         Search by
+#.       </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_by"
 msgstr "Cerca con:"
 
-#.   <th>Search Term</th>
+#.   <label for="search_term">
+#.          Search Term
+#.        </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_term"
 msgstr "Inserisci un termine per la ricerca:"
@@ -1594,6 +1659,14 @@ msgstr "Inserisci un termine per la ricerca:"
 #, fuzzy
 msgid "label_location"
 msgstr "Emplacement"
+
+#.   <th>
+#.           User or Group name
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_name"
+msgstr "Nom"
 
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
@@ -1707,11 +1780,6 @@ msgstr "Versione: ${status_revision}"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_rights"
 msgstr "Diritti:"
-
-#.   <block>Role(s)</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_roles"
-msgstr "Ruolo (i)"
 
 #.   <label attributes="for id2">all</label>
 #: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
@@ -1879,23 +1947,33 @@ msgstr "Al"
 msgid "label_translation_select_language"
 msgstr "Choisissez la langue dans laquelle vous voulez traduire ce document : "
 
-#.   <th style="text-align:left;">
-#.           User
-#.       </th>
-#.   <block condition="python:type=='user'">User</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <th>
+#.             User
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user"
 msgstr "Collaboratore"
 
-#.   <option value="email">Email address</option>
+#.   <option attributes="selected python:search_param == 'email'" value="email">Email address</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
 msgstr "Indirizzo e-mail"
 
-#.   <option value="fullname">Full name</option>
+#.   <option attributes="selected python:search_param == 'givenName'" value="givenName">User first name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_user_fullname"
-msgstr "Nome di autenticazione"
+#, fuzzy
+msgid "label_user_givenName"
+msgstr "Prénom de l'utilisateur"
+
+#.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
+#.   <th>
+#.             User id (login)
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "label_user_id"
+msgstr "Identifiant utilisateur"
 
 #.   <label for="username">User name</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -1910,6 +1988,20 @@ msgstr "Nome di autenticazione"
 #, fuzzy
 msgid "label_user_name_or_email_address"
 msgstr "Nom d'utilisateur ou adresse de mél d'utilisateur"
+
+#.   <option attributes="selected python:search_param == 'sn'" value="sn">User surname</option>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "label_user_surname"
+msgstr "Nom de l'utilisateur"
+
+#.   <h3>
+#.           Users local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_users_local_roles_assignment"
+msgstr "Rôles locaux délégués aux utilisateurs"
 
 #.   <block>You are
 #.     here:&nbsp;</block>
@@ -1941,72 +2033,118 @@ msgstr "Rendre indisponible certaines langues du portail"
 msgid "language_set_default"
 msgstr "Choisir la langue par défaut du portail"
 
-#.   <h1>
+#.   <h2>
 #.       Assigned local roles
-#.   </h1>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   </h2>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_assigned"
 msgstr "Ruoli locali assegnati:"
 
-#.   <p>
-#.      These users currently have local roles assigned in this folder:
-#.   </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_assigned_users"
-msgstr ""
-"Attualmente, questi sono gli utenti che possiedono dei ruoli locali "
-"assegnati per questa cartella:"
-
 #.   <block>
-#.         Local roles are acquired.
-#.         You can block acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           Local roles are acquired.
+#.           You can block acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_block"
 msgstr ""
 "I ruoli locali sono acquisiti. <br />Per bloccare questo processo, utilizza "
 "questo pulsante:"
 
-#.   <p>
-#.       Sorry, no groups matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_member"
-msgstr "Ricerca negativa, nessun gruppo corrisponde alla tua ricerca."
-
-#.   <p>
-#.       Sorry, no members matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_members"
-msgstr "Ricerca negativa, nessun collaboratore corrisponde alla tua ricerca."
+#.   <label for="filtered_role">
+#.       Filter local roles:
+#.     </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_filter_roles"
+msgstr "N'afficher que le rôle"
 
 #.   <block>
-#.           Role to assign:</block>
-#.   <th colspan="2">
-#.           Role to assign:
-#.       </th>
+#.           You can hide blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_hide_blocked_roles"
+msgstr "Vous pouvez cacher les rôles bloqués :"
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent folders and
+#.       are blocked.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_blocked_role"
+msgstr ""
+"cette couleur signifie que les rôles correspondants sont hérités et bloqués."
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent
+#.       folders. Follow the links to manage the local roles in these folders.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_role"
+msgstr ""
+"cette couleur signifie que les rôles correspondants sont hérités depuis des "
+"répertoires parents. Cliquez sur les liens correspondants pour gérer "
+"l'assignation de rôles dans ces répertoires."
+
+#.   <p>
+#.         Sorry, no group matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_groups"
+msgstr "Désolé, aucun groupe ne correspond à votre recherche."
+
+#.   <p>
+#.         Sorry, no user matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_users"
+msgstr "Désolé, aucun utilisateur ne correspond à votre recherche."
+
+#.   <p condition="python:not users and not groups">
+#.      There are no roles assigned in this folder
+#.   </p>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_no_roles_assigned"
+msgstr "Il n'y a pas de rôle local"
+
+#.   <option attributes="selected not:filtered_role" value="">
+#.         No filter
+#.       </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_not_filtered_role"
+msgstr "Aucun filtre"
+
+#.   <label for="member_role">
+#.             Role to assign:
+#.           </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_role_to_assign"
 msgstr "Ruolo da assegnare:"
 
 #.   <p>
-#.       Select Group(s) and a role to assign:
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_select_groups_and_roles"
-msgstr "Seleziona un gruppo (i) ed il ruolo (i) da assegnare:"
-
-#.   <p>
-#.       Select Member(s) and a role to assign:
-#.    </p>
+#.          Select Member(s) and a role to assign:
+#.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_select_members_and_roles"
 msgstr "Seleziona un collaboratore (i) ed il ruolo (i) da assegnare:"
 
 #.   <block>
-#.         Local roles acquisition is <strong>blocked</strong>.
-#.         You can unblock acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           You can show blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_show_blocked_roles"
+msgstr "Vous pouvez cacher les rôles bloqués :"
+
+#.   <block>
+#.           Local roles acquisition is <strong>blocked</strong>.
+#.           You can unblock acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_unblock"
 msgstr ""
 "L'acquisizione dei ruoli locali risulta bloccata. <br />Per sbloccare questo "
@@ -2081,17 +2219,6 @@ msgstr "modulo di personalizzazione"
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "link_go_back"
 msgstr "ritorna alla schermata precedente"
-
-#.   <block>
-#.     <em>Roles in underlined</em> are set in parent folders.
-#.     Follow the links to manage the local roles in these folders.
-#.   </block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "link_local_roles_underlined"
-msgstr ""
-"<em>I ruoli sottolineati</em> sono stati impostati in una cartella "
-"superiore. <br />Segui il collegamento per amministrare i ruoli locali in "
-"queste cartelle."
 
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
@@ -2954,6 +3081,21 @@ msgstr "Lo stato del flusso di lavoro è stato modificato."
 msgid "psm_local_roles_changed"
 msgstr "I ruoli locali sono stati modificati."
 
+#, fuzzy
+msgid "psm_local_roles_blocked"
+msgstr "Héritage des rôles locaux bloqué"
+
+#, fuzzy
+msgid "psm_local_roles_unblocked"
+msgstr "Héritage des rôles locaux débloqué"
+
+msgid "psm_local_roles_select_members"
+msgstr "Veuillez selectionner des membres"
+
+#, fuzzy
+msgid "psm_local_roles_no_editable_ids"
+msgstr "Pas de rôle local modifiable"
+
 msgid "psm_join_password_too_short"
 msgstr ""
 "La password che hai inserito è troppo corta, deve essere composta da almeno "
@@ -3218,240 +3360,265 @@ msgstr "Oggetti:<br />elenco delle azioni<br /> consentite"
 msgid "Portal actions"
 msgstr "Portale:<br />elenco delle azioni<br /> consentite"
 
-#, fuzzy
-#~ msgid "label_publication_location"
-#~ msgstr "Emplacement de publication"
-
-#~ msgid "label_publication_states"
-#~ msgstr "Stati di pubblicazione:"
-
-#~ msgid "Action"
-#~ msgstr "Azione"
-
-#~ msgid "Slot"
-#~ msgstr "Alloggiamento"
-
-#~ msgid "button_back"
-#~ msgstr "Indietro"
+msgid "Role1"
+msgstr "Ruolo 1"
 
 #, fuzzy
-#~ msgid "button_text_editor_popup"
-#~ msgstr "Editeur de texte..."
+msgid "label_publication_location"
+msgstr "Emplacement de publication"
 
-#~ msgid "heading_box_edit_form"
-#~ msgstr "Modifica il contenitore:"
+msgid "label_publication_states"
+msgstr "Stati di pubblicazione:"
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Slot"
+msgstr "Alloggiamento"
+
+msgid "button_back"
+msgstr "Indietro"
 
 #, fuzzy
-#~ msgid "help_contentbox_no_recurse"
+msgid "button_text_editor_popup"
+msgstr "Editeur de texte..."
+
+msgid "heading_box_edit_form"
+msgstr "Modifica il contenitore:"
+
+#, fuzzy
+msgid "help_contentbox_no_recurse"
+msgstr ""
+"Si la case est cochée, la recherche se limitera au répertoire choisi, sans "
+"prendre en compte les sous-répertoires."
+
+msgid "help_contentbox_sort"
+msgstr ""
+"Per motivi di ottimizzazione, il risultato di una ricerca è limitato e "
+"visualizza solamente i primi cento oggetti."
+
+msgid "help_italic_vendor_boxes_types"
+msgstr ""
+"I contenitori presentati in italico sono di tipo predefinito. <br />Alcune "
+"proprietà  non possono essere modificate da questa interfaccia. <br />A "
+"questo scopo utilizza il contenitore che ti viene proposto come standard."
+
+msgid "label_atom_export"
+msgstr "ATOM"
+
+msgid "label_authorized_only"
+msgstr "Visualizza unicamente le cartelle accessibili:"
+
+msgid "label_box_content"
+msgstr "Contenuto:"
+
+msgid "label_box_skin"
+msgstr "Aspetto del contenitore:"
+
+msgid "label_btype"
+msgstr "Tipo:"
+
+msgid "label_categories"
+msgstr "Categorie:"
+
+msgid "label_children_only"
+msgstr "Visualizza solamente le sotto-cartelle:"
+
+#, fuzzy
+msgid "label_choose_section"
+msgstr "Choisir les rubriques"
+
+#, fuzzy
+msgid "label_choose_workspace"
+msgstr "Choisir les espaces de travail"
+
+msgid "label_closed"
+msgstr "Chiuso"
+
+#, fuzzy
+msgid "label_contentbox_no_recurse"
+msgstr "Ne pas rechercher dans tous les sous-répertoires"
+
+msgid "label_contentbox_zoom"
+msgstr "Ingrandisci il primo documento"
+
+msgid "label_contextual"
+msgstr "Contestuale:"
+
+msgid "label_depth"
+msgstr "Profondità di livello:"
+
+msgid "label_display_description"
+msgstr "Visualizza la descrizione delle cartelle:"
+
+msgid "label_display_icons"
+msgstr "Visualizza le icone:"
+
+msgid "label_display_managers"
+msgstr "Visualizza i responsabili delle cartelle:"
+
+msgid "label_display_root"
+msgstr "Visualizza l'origine:"
+
+msgid "label_event_types"
+msgstr "Tipi di oggetto da prendere in considerazione:"
+
+msgid "label_event_types_help"
+msgstr ""
+"Attenzione: solamente gli oggetti che possiedono le date di inizio e di "
+"scadenza possono essere inseriti nelle agende."
+
+msgid "label_events_location"
+msgstr "Cerca degli avvenimenti in:"
+
+msgid "label_flash_file"
+msgstr "File Flash:"
+
+msgid "label_flash_height"
+msgstr "Altezza dell'animazione Flash:"
+
+msgid "label_flash_width"
+msgstr "Larghezza dell'animazione Flash:"
+
+msgid "label_folder"
+msgstr "Cartella:"
+
+msgid "label_i18n"
+msgstr "Traduzione:"
+
+msgid "label_image_link"
+msgstr "Collegamento dell'immagine:"
+
+msgid "label_maximized"
+msgstr "Espanso"
+
+msgid "label_minimized"
+msgstr "Ridotto"
+
+msgid "label_nb_items"
+msgstr "Nb oggetti:"
+
+msgid "label_order"
+msgstr "Ordine:"
+
+msgid "label_pending"
+msgstr "In attesa di pubblicazione"
+
+msgid "label_published"
+msgstr "Pubblicato"
+
+msgid "label_root"
+msgstr "Origine:"
+
+msgid "label_rss_export"
+msgstr "RSS"
+
+msgid "label_search"
+msgstr "Ricerca:"
+
+msgid "label_slot"
+msgstr "Posizione"
+
+msgid "label_visible_in_subfolder"
+msgstr "Visibile nella sotto-cartella"
+
+msgid "label_visible_only_in_subfolder"
+msgstr "Visibile UNICAMENTE nella sotto-cartella"
+
+msgid "label_work"
+msgstr "In lavorazione"
+
+#, fuzzy
+msgid "link_atom_export"
+msgstr "Vers l'export ATOM associé"
+
+#, fuzzy
+msgid "link_rss_export"
+msgstr "Vers le fil de nouvelles RSS associé"
+
+msgid "Translated status message."
+msgstr "Stato dei messaggi tradotti:"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "box text body"
+msgstr "Corpo della casella di testo"
+
+msgid "box text title"
+msgstr "Titolo della casella di testo"
+
+msgid "box_search"
+msgstr "Ricerca"
+
+msgid "button_create_box"
+msgstr "Aggiungi un contenitore ..."
+
+msgid "description_visible_box_from ${context_url}"
+msgstr "descrizione dei contenitori visualizzabili da: ${context_url}"
+
+msgid "heading_box_create_form"
+msgstr "Aggiungi un contenitore di tipo:"
+
+msgid "heading_box_manage_form"
+msgstr "Gestion des boîtes"
+
+msgid "label_collaborative_folder"
+msgstr "Il mio ambiente di lavoro"
+
+msgid "label_folder_search"
+msgstr "Cerca in una cartella"
+
+msgid "legend_folder_no_search_result"
+msgstr ""
+"Ricerca negativa, la tua interrogazione non restituisce alcun risultato."
+
+msgid "link_box_delete"
+msgstr "elimina"
+
+msgid "link_box_edit"
+msgstr "modifica"
+
+msgid "link_box_view"
+msgstr "Visualizza le impostazioni"
+
+msgid "link_more"
+msgstr "Maggiori dettagli -->"
+
+msgid "listingheader_action"
+msgstr "Azione:"
+
+msgid "listingheader_location"
+msgstr "Percorso:"
+
+msgid "listingheader_order"
+msgstr "Ordine:"
+
+msgid "listingheader_title"
+msgstr "Titolo:"
+
+msgid "listingheader_type"
+msgstr "Tipo:"
+
+#~ msgid "label_roles"
+#~ msgstr "Rôle(s)"
+
+#~ msgid "label_user_fullname"
+#~ msgstr "Nome di autenticazione"
+
+#~ msgid "legend_local_roles_assigned_users"
 #~ msgstr ""
-#~ "Si la case est cochée, la recherche se limitera au répertoire choisi, "
-#~ "sans prendre en compte les sous-répertoires."
+#~ "Ces utilisateurs ont pour le moment des rôles locaux dans ce "
+#~ "répertoire&nbsp;:"
 
-#~ msgid "help_contentbox_sort"
+#~ msgid "legend_local_roles_no_results_member"
+#~ msgstr "Ricerca negativa, nessun gruppo corrisponde alla tua ricerca."
+
+#~ msgid "legend_local_roles_select_groups_and_roles"
+#~ msgstr "Seleziona un gruppo (i) ed il ruolo (i) da assegnare:"
+
+#~ msgid "link_local_roles_underlined"
 #~ msgstr ""
-#~ "Per motivi di ottimizzazione, il risultato di una ricerca è limitato e "
-#~ "visualizza solamente i primi cento oggetti."
-
-#~ msgid "help_italic_vendor_boxes_types"
-#~ msgstr ""
-#~ "I contenitori presentati in italico sono di tipo predefinito. <br /"
-#~ ">Alcune proprietà  non possono essere modificate da questa interfaccia. "
-#~ "<br />A questo scopo utilizza il contenitore che ti viene proposto come "
-#~ "standard."
-
-#~ msgid "label_atom_export"
-#~ msgstr "ATOM"
-
-#~ msgid "label_authorized_only"
-#~ msgstr "Visualizza unicamente le cartelle accessibili:"
-
-#~ msgid "label_box_content"
-#~ msgstr "Contenuto:"
-
-#~ msgid "label_box_skin"
-#~ msgstr "Aspetto del contenitore:"
-
-#~ msgid "label_btype"
-#~ msgstr "Tipo:"
-
-#~ msgid "label_categories"
-#~ msgstr "Categorie:"
-
-#~ msgid "label_children_only"
-#~ msgstr "Visualizza solamente le sotto-cartelle:"
-
-#, fuzzy
-#~ msgid "label_choose_section"
-#~ msgstr "Choisir les rubriques"
-
-#, fuzzy
-#~ msgid "label_choose_workspace"
-#~ msgstr "Choisir les espaces de travail"
-
-#~ msgid "label_closed"
-#~ msgstr "Chiuso"
-
-#, fuzzy
-#~ msgid "label_contentbox_no_recurse"
-#~ msgstr "Ne pas rechercher dans tous les sous-répertoires"
-
-#~ msgid "label_contentbox_zoom"
-#~ msgstr "Ingrandisci il primo documento"
-
-#~ msgid "label_contextual"
-#~ msgstr "Contestuale:"
-
-#~ msgid "label_depth"
-#~ msgstr "Profondità di livello:"
-
-#~ msgid "label_display_description"
-#~ msgstr "Visualizza la descrizione delle cartelle:"
-
-#~ msgid "label_display_icons"
-#~ msgstr "Visualizza le icone:"
-
-#~ msgid "label_display_managers"
-#~ msgstr "Visualizza i responsabili delle cartelle:"
-
-#~ msgid "label_display_root"
-#~ msgstr "Visualizza l'origine:"
-
-#~ msgid "label_event_types"
-#~ msgstr "Tipi di oggetto da prendere in considerazione:"
-
-#~ msgid "label_event_types_help"
-#~ msgstr ""
-#~ "Attenzione: solamente gli oggetti che possiedono le date di inizio e di "
-#~ "scadenza possono essere inseriti nelle agende."
-
-#~ msgid "label_events_location"
-#~ msgstr "Cerca degli avvenimenti in:"
-
-#~ msgid "label_flash_file"
-#~ msgstr "File Flash:"
-
-#~ msgid "label_flash_height"
-#~ msgstr "Altezza dell'animazione Flash:"
-
-#~ msgid "label_flash_width"
-#~ msgstr "Larghezza dell'animazione Flash:"
-
-#~ msgid "label_folder"
-#~ msgstr "Cartella:"
-
-#~ msgid "label_i18n"
-#~ msgstr "Traduzione:"
-
-#~ msgid "label_image_link"
-#~ msgstr "Collegamento dell'immagine:"
-
-#~ msgid "label_maximized"
-#~ msgstr "Espanso"
-
-#~ msgid "label_minimized"
-#~ msgstr "Ridotto"
-
-#~ msgid "label_nb_items"
-#~ msgstr "Nb oggetti:"
-
-#~ msgid "label_order"
-#~ msgstr "Ordine:"
-
-#~ msgid "label_pending"
-#~ msgstr "In attesa di pubblicazione"
-
-#~ msgid "label_published"
-#~ msgstr "Pubblicato"
-
-#~ msgid "label_root"
-#~ msgstr "Origine:"
-
-#~ msgid "label_rss_export"
-#~ msgstr "RSS"
-
-#~ msgid "label_search"
-#~ msgstr "Ricerca:"
-
-#~ msgid "label_slot"
-#~ msgstr "Posizione"
-
-#~ msgid "label_visible_in_subfolder"
-#~ msgstr "Visibile nella sotto-cartella"
-
-#~ msgid "label_visible_only_in_subfolder"
-#~ msgstr "Visibile UNICAMENTE nella sotto-cartella"
-
-#~ msgid "label_work"
-#~ msgstr "In lavorazione"
-
-#, fuzzy
-#~ msgid "link_atom_export"
-#~ msgstr "Vers l'export ATOM associé"
-
-#, fuzzy
-#~ msgid "link_rss_export"
-#~ msgstr "Vers le fil de nouvelles RSS associé"
-
-#~ msgid "Translated status message."
-#~ msgstr "Stato dei messaggi tradotti:"
-
-#~ msgid "Title"
-#~ msgstr "Titolo"
-
-#~ msgid "box text body"
-#~ msgstr "Corpo della casella di testo"
-
-#~ msgid "box text title"
-#~ msgstr "Titolo della casella di testo"
-
-#~ msgid "box_search"
-#~ msgstr "Ricerca"
-
-#~ msgid "button_create_box"
-#~ msgstr "Aggiungi un contenitore ..."
-
-#~ msgid "description_visible_box_from ${context_url}"
-#~ msgstr "descrizione dei contenitori visualizzabili da: ${context_url}"
-
-#~ msgid "heading_box_create_form"
-#~ msgstr "Aggiungi un contenitore di tipo:"
-
-#~ msgid "heading_box_manage_form"
-#~ msgstr "Gestion des boîtes"
-
-#~ msgid "label_collaborative_folder"
-#~ msgstr "Il mio ambiente di lavoro"
-
-#~ msgid "label_folder_search"
-#~ msgstr "Cerca in una cartella"
-
-#~ msgid "legend_folder_no_search_result"
-#~ msgstr ""
-#~ "Ricerca negativa, la tua interrogazione non restituisce alcun risultato."
-
-#~ msgid "link_box_delete"
-#~ msgstr "elimina"
-
-#~ msgid "link_box_edit"
-#~ msgstr "modifica"
-
-#~ msgid "link_box_view"
-#~ msgstr "Visualizza le impostazioni"
-
-#~ msgid "link_more"
-#~ msgstr "Maggiori dettagli -->"
-
-#~ msgid "listingheader_action"
-#~ msgstr "Azione:"
-
-#~ msgid "listingheader_location"
-#~ msgstr "Percorso:"
-
-#~ msgid "listingheader_order"
-#~ msgstr "Ordine:"
-
-#~ msgid "listingheader_title"
-#~ msgstr "Titolo:"
-
-#~ msgid "listingheader_type"
-#~ msgstr "Tipo:"
+#~ "<em>I ruoli sottolineati</em> sono stati impostati in una cartella "
+#~ "superiore. <br />Segui il collegamento per amministrare i ruoli locali in "
+#~ "queste cartelle."

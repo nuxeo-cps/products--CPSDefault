@@ -11,13 +11,14 @@
 <metal:main fill-slot="main"
      tal:define="search_param python:request.get('search_param', '');
                  search_term python:request.get('search_term', '');
+                 search_limit python:int(request.get('search_limit', 100));
                  searching search_param;
                  cps_roles python:here.getCPSCandidateLocalRoles();
                  found python:searching and here.folder_localrole_search(search_param, search_term);
                 ">
-<h1 i18n:translate="heading_local_roles_search_members"
+<h1 i18n:translate="heading_local_roles_search_members_and_groups"
   tal:condition="not:searching">
- Assign local roles: Search Members
+ Assign local roles: Search Members and groups
 </h1>
 <h1 i18n:translate="heading_local_roles_search_results"
   tal:condition="searching">
@@ -80,6 +81,7 @@
 <tal:block define="
   search_members python:search_param and search_param in ('id', 'givenName', 'sn', 'email');
   search_groups python:search_param and search_param == 'groupname';
+  search_limit_exceeded python:len(found)>search_limit;
   ">
   <div tal:condition="not:found">
     <tal:block condition="search_members">
@@ -89,9 +91,19 @@
       <metal:block use-macro="here/folder_localrole_groups_search_results/macros/search_results" />
     </tal:block>
   </div>
-  <div tal:condition="found" class="group">
-    <p i18n:translate="legend_local_roles_select_members_and_roles">
-       Select Member(s) and a role to assign:
+  <div tal:condition="python:found and search_limit_exceeded">
+    <p i18n:translate="legend_local_roles_search_limit_exceeded">
+      Sorry, your query gave too many results, please refine your search criteria
+    </p>
+  </div>
+  <div tal:condition="python:found and not search_limit_exceeded" class="group">
+    <p i18n:translate="legend_local_roles_select_members_and_role"
+       tal:condition="search_members">
+       Select member(s) and a role to assign:
+    </p>
+    <p i18n:translate="legend_local_roles_select_groups_and_role"
+       tal:condition="search_groups">
+       Select groups(s) and a role to assign:
     </p>
     <form method="post" action="folder_localrole_add"
          tal:attributes="action string:${here_url}/folder_localrole_add">

@@ -17,13 +17,17 @@ form = REQUEST.form
 container.portal_properties.manage_changeProperties(
     email_from_name=form.get('email_from_name'),
     email_from_address=form.get('email_from_address'),
-    smtp_server=form.get('smtp_server'),
     title=form.get('title'),
     description=form.get('description'),
     enable_password_reset=form.get('enable_password_reset'),
     enable_password_reminder=form.get('enable_password_reminder'),
     enable_portal_joining=form.get('enable_portal_joining'),
     )
+
+# Take care of updating the MailHost tool
+container.portal_properties.editProperties({
+    'smtp_server': form.get('smtp_server'),
+    })
 
 url = '%s/reconfig_form?portal_status_message=psm_portal_reconfigured'
 return REQUEST.RESPONSE.redirect(url % container.portal_url())

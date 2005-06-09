@@ -1,0 +1,110 @@
+========================================
+HOWTO use the search capabilities of CPS
+========================================
+
+*$Id$*
+
+
+
+What's inside
+=============
+
+* `The (different) search capabilities of CPS`_
+* `Search indexes`_
+* `Search query syntax`_
+* `Search in directories`_
+
+
+
+The (different) search capabilities of CPS
+==========================================
+
+There are 2 ways to search for documents in CPS:
+
+  * skim through all the documents and test the documents one by one
+  * query the indexes in the portal_catalog tool
+
+
+Search indexes
+===============
+
+There are as many indexes in the portal_catalog tool that there are fields we
+want to index in documents.
+
+There are many different types of indexes. One should use them according to the
+value of the document fields to index.
+
+For fields that hold text values there are 3 possible index types:
+
+  * TextIndex
+  * ZCTextIndex
+  * TextIndexNG
+
+
+
+Search query syntax
+===================
+
+The "Searching and Categorizing Content" chapter of the Zope Book is very
+helpful in explaining how to do searches through indexes:
+http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx
+
+Is it possible to do sub-string matching in queries?
+----------------------------------------------------
+
+It is possible to do both full-string and sub-string search, it all depends on
+the field index type.
+
+Only text-based string can be queried sub-string.
+
+Field index type of *FieldIndex* are queried full-string. This type is used for
+example for documents' titles.
+
+Field index type of *ZCTextIndex* are queried sub-string. This type is used for
+example for documents' descriptions.
+
+
+Is it possible to use quotes in queries?
+----------------------------------------
+
+TODO
+
+
+Is it possible to use jokers in queries (blabla*)?
+--------------------------------------------------
+
+TODO
+
+
+Where can the jokers be used in words in queries (*blabla vs blabla*)?
+----------------------------------------------------------------------
+
+TODO
+
+
+
+Advanced search topics
+----------------------
+
+With some indexes it is possible to use AND/OR/NOT/etc/ associations. It is possible
+to modify those associations, for example to use French associations:
+ET/OU/PAS/NON/etc. To do that, special query parsing should be added to the tool.
+
+It is also possible to drop left truncation feature.
+
+TODO: explain why it is interesting
+
+TODO: explain how
+
+
+
+Search in directories
+=====================
+
+Currently there are inconsistencies in the CPS user interface concerning
+wild-cards and empty queries. In those cases, the search results in directories
+are not the same than those in the local roles management forms and in the
+document search forms.
+
+This is a bit confusing but we will try to harmonize all the kinds of search as
+soon as possible.

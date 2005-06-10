@@ -10,6 +10,7 @@ What's inside
 =============
 
 * `The (different) search capabilities of CPS`_
+* `Search hooks/plugs in CPS`_
 * `Search indexes`_
 * `Search query syntax`_
 * `Search in directories`_
@@ -21,8 +22,41 @@ The (different) search capabilities of CPS
 
 There are 2 ways to search for documents in CPS:
 
-  * skim through all the documents and test the documents one by one
-  * query the indexes in the portal_catalog tool
+  1. skim through all the documents and test the documents one by one
+  2. query the indexes in the portal_catalog tool
+
+Of course the first method is the more trivial but it can only be used on a web
+site with a limited number of documents or inside a specific folder with a
+limited number of documents.
+
+The second method is an optimized method based on indexes. It is more complex to
+use/maintain/modify for a developer, but it is far superior in term of speed.
+
+The search capabilities of CPS are based on querying the indexes in the
+portal_catalog tool.
+
+
+
+Search hooks/plugs in CPS
+=========================
+
+There are 2 search hooks, or search plugs, in CPS:
+
+  * `CPSDefault/skins/cps_default/search_form.pt`_
+  * `CPSDefault/skins/cps_default/search.py`_
+
+.. _`CPSDefault/skins/cps_default/search_form.pt`: http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search_form.pt
+.. _`CPSDefault/skins/cps_default/search.py`: http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search.py
+
+Those search hooks are points in CPS where one can query for search results.
+
+The search_form.pt ZPT file can be directly called from a browser at such an URL:
+http://localhost:8080/cps/advanced_search_form
+
+Note that an "advanced_search_form" also exists but is just a user interface,
+you cannot pass arguments in the URL to directly display results:
+CPSDefault/skins/cps_default/advanced_search_form.pt
+
 
 
 Search indexes

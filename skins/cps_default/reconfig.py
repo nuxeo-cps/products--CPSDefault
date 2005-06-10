@@ -5,16 +5,12 @@ This script just saves the portal properties from the reconfig_form
 template.
 """
 
+portal = context.portal_url.getPortalObject()
 form = REQUEST.form
 
-# It is better here to avoid the following call, because if the REQUEST is
-# passed, manage_changeProperties will return an unneeded HTML form which is
-# overkill and in some cases has produced some undesirable effects.
-#
-#container.portal_properties.manage_changeProperties(REQUEST)
-#
-# So we call manage_changeProperties with explicit properties
-container.portal_properties.manage_changeProperties(
+# XXX The portal_properties API is dumb, so we change properties directly
+# on the portal object.
+portal.manage_changeProperties(
     email_from_name=form.get('email_from_name'),
     email_from_address=form.get('email_from_address'),
     title=form.get('title'),
@@ -25,9 +21,9 @@ container.portal_properties.manage_changeProperties(
     )
 
 # Take care of updating the MailHost tool
-container.portal_properties.editProperties({
+portal.portal_properties.editProperties({
     'smtp_server': form.get('smtp_server'),
     })
 
 url = '%s/reconfig_form?portal_status_message=psm_portal_reconfigured'
-return REQUEST.RESPONSE.redirect(url % container.portal_url())
+return REQUEST.RESPONSE.redirect(url % portal.portal_url())

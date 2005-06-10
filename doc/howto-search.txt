@@ -40,7 +40,8 @@ portal_catalog tool.
 Search hooks/plugs in CPS
 =========================
 
-There are 2 search hooks, or search plugs, in CPS:
+There are 2 search hooks, or search plugs, in CPS, that is points where
+one can query for search results:
 
   * `CPSDefault/skins/cps_default/search_form.pt`_
   * `CPSDefault/skins/cps_default/search.py`_
@@ -48,10 +49,9 @@ There are 2 search hooks, or search plugs, in CPS:
 .. _`CPSDefault/skins/cps_default/search_form.pt`: http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search_form.pt
 .. _`CPSDefault/skins/cps_default/search.py`: http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search.py
 
-Those search hooks are points in CPS where one can query for search results.
-
-The search_form.pt ZPT file can be directly called from a browser at such an URL:
-http://localhost:8080/cps/advanced_search_form
+One can call search.py in one's Python code (read doc directly in the source
+code of search.py), while one can redirect a user browser to an URL like:
+http://localhost:8080/cps/workspaces/search_form?portal_type=File&Title=myfile
 
 Note that an "advanced_search_form" also exists but is just a user interface,
 you cannot pass arguments in the URL to directly display results:
@@ -70,10 +70,11 @@ value of the document fields to index.
 
 For fields that hold text values there are 3 possible index types:
 
-  * TextIndex
   * ZCTextIndex
   * TextIndexNG
+  * TextIndex (deprecated)
 
+The TextIndex index type is a deprecated type. It should not be used anymore.
 
 
 Search query syntax
@@ -83,37 +84,56 @@ The "Searching and Categorizing Content" chapter of the Zope Book is very
 helpful in explaining how to do searches through indexes:
 http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx
 
-Is it possible to do sub-string matching in queries?
-----------------------------------------------------
 
-It is possible to do both full-string and sub-string search, it all depends on
-the field index type.
+Text index Query parser
+-----------------------
 
-Only text-based string can be queried sub-string.
+For ZCTextIndex one can read the doc in the source code of
+Zope-2.7/lib/python/Products/ZCTextIndex/QueryParser.py :
 
-Field index type of *FieldIndex* are queried full-string. This type is used for
-example for documents' titles.
+This particular parser recognizes the following syntax:
 
-Field index type of *ZCTextIndex* are queried sub-string. This type is used for
-example for documents' descriptions.
+Start = OrExpr
 
+OrExpr = AndExpr ('OR' AndExpr)*
 
-Is it possible to use quotes in queries?
-----------------------------------------
+AndExpr = Term ('AND' NotExpr)*
 
-TODO
+NotExpr = ['NOT'] Term
 
+Term = '(' OrExpr ')' | ATOM+
 
-Is it possible to use jokers in queries (blabla*)?
---------------------------------------------------
+The key words (AND, OR, NOT) are recognized in any mixture of case.
 
-TODO
+An ATOM is either:
 
++ A sequence of characters not containing whitespace or parentheses or
+  double quotes, and not equal (ignoring case) to one of the key words
+  'AND', 'OR', 'NOT'; or
 
-Where can the jokers be used in words in queries (*blabla vs blabla*)?
-----------------------------------------------------------------------
++ A non-empty string enclosed in double quotes.  The interior of the
+  string can contain whitespace, parentheses and key words, but not
+  quotes.
 
-TODO
++ A hyphen followed by one of the two forms above, meaning that it
+  must not be present.
+
+An unquoted ATOM may also contain globbing characters.  Globbing
+syntax is defined by the lexicon; for example "foo*" could mean any
+word starting with "foo".
+
+When multiple consecutive ATOMs are found at the leaf level, they are
+connected by an implied AND operator, and an unquoted leading hyphen
+is interpreted as a NOT operator.
+
+Summarizing the default operator rules:
+
+- a sequence of words without operators implies AND, e.g. << foo bar >>
+- double-quoted text implies phrase search, e.g. << "foo bar" >>
+- words connected by punctuation implies phrase search, e.g. << foo-bar >>
+- a leading hyphen implies NOT, e.g. << foo -bar >>
+- these can be combined, e.g. << foo -"foo bar" >> or << foo -foo-bar >>
+- `*` and ? are used for globbing (i.e. prefix search), e.g. << foo* >>
 
 
 

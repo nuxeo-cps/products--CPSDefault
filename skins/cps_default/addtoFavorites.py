@@ -25,7 +25,7 @@ favorites_id = 'Favorites'
 if favorites_id not in homeFolder.objectIds():
     # try to i18n the title using UI locale,
     # still better than just an english id
-    cpsmcat = context.Localizer.default
+    cpsmcat = context.translation_service
     title = cpsmcat('action_view_favorites').encode('iso-8859-15', 'ignore')
     homeFolder.invokeFactory('Workspace', favorites_id)
     targetFolder = getattr(homeFolder, favorites_id)

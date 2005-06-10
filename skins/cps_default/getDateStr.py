@@ -11,8 +11,7 @@ from DateTime.DateTime import DateTimeError
 if not dt:
     return ''
 
-Localizer = context.Localizer
-mcat = Localizer.default
+mcat = context.translation_service
 
 if fmt in ('short', 'medium', 'long'):
     # This string will be used to retrieve format in the right .po file

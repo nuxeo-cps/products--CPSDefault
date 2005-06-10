@@ -79,6 +79,7 @@ def get_selected_language(self):
     """ """
     return self._default_language
 
+
 from Products.Localizer.Localizer import Localizer
 Localizer.get_selected_language = get_selected_language
 
@@ -104,6 +105,9 @@ class DummyTranslationService(SimpleItem):
 
     def getSelectedLanguage(self):
         return 'en'
+
+    def getSupportedLanguages(self):
+        return ['en', 'fr', 'de']
 
 class DummyMessageCatalog(SimpleItem):
     security = ClassSecurityInfo()

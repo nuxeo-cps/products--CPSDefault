@@ -17,8 +17,8 @@
 </metal:block>
 
 <metal:block fill-slot="main"
-  tal:define="Localizer nocall:here/Localizer;
-              default_lang Localizer/get_selected_language;
+  tal:define="translation_service nocall:here/translation_service;
+              default_lang translation_service/getSelectedLanguage;
               language_voc here/portal_vocabularies/language_voc;
               languages python: [l for l in language_voc.keys() if l not in here.getProxyLanguages()];
              ">

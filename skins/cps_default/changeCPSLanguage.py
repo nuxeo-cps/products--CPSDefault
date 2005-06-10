@@ -9,4 +9,4 @@ from Products.CPSCore.utils import resetSessionLanguageSelection
 
 resetSessionLanguageSelection(context.REQUEST)
 
-return context.Localizer.changeLanguage(lang=lang)
+return context.translation_service.changeLanguage(lang=lang)

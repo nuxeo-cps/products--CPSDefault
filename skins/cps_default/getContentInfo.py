@@ -22,7 +22,7 @@ from zLOG import LOG, DEBUG
 DESCRIPTION_MAX_LENGTH = 150
 
 if cpsmcat is None:
-    cpsmcat = context.Localizer.default
+    cpsmcat = context.translation_service
 
 if proxy is None:
     proxy = context

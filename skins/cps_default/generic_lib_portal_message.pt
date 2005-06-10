@@ -7,7 +7,6 @@
                      request/portal_status_message |
                      nothing;
      psm_mappings python:request.get('portal_status_message_mappings', {});
-     cpsmcat nocall:here/translation_service;
      translated_psm python:psm and cpsmcat(psm, psm_mappings) or nothing;
      "
      tal:condition="psm"

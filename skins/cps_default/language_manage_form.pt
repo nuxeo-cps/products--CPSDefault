@@ -20,8 +20,8 @@
 <metal:main fill-slot="main"
             tal:define="language_voc here/portal_vocabularies/language_voc;
                         language_keys python: language_voc.keysSortedBy('i18n');
-                        languages python: [lang['id'] for lang in here.Localizer.get_languages_map()];
-                        default_language here/Localizer/get_default_language;">
+                        languages python: [lang['id'] for lang in here.translation_service.getLanguagesMap()];
+                        default_language here/translation_service/getDefaultLanguage;">
 
 <tal:block tal:condition="python:len(languages) > 0">
   <h2 i18n:translate="language_set_default">Set default portal language</h2>

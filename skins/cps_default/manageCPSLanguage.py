@@ -1,7 +1,7 @@
 ##parameters
 # $Id$
 """
-Make available a new language in a CPS portal with Localizer
+Make available a new language in a CPS portal with TranslationService
 """
 
 # FIXME: localizergeddon

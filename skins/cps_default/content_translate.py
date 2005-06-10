@@ -11,8 +11,9 @@ if not hasattr(proxy, 'addLanguageToProxy'):
     psm = 'psm_translation_not_supported'
     url = proxy.absolute_url()
 
-localizer = context.Localizer
-if not lang in localizer.get_supported_languages():
+translationservice = context.translation_service
+
+if not lang in translationservice.getSupportedLanguages():
     if REQUEST is None:
         raise ValueError("Language '%s' not supported" % lang)
     psm = 'psm_translation_lang_not_supported'

@@ -50,6 +50,7 @@ ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('manageCPSLanguage
 def manageCPSLanguage(context, action, default_language, languages):
     """Manage available a languages in a CPS portal with Localizer"""
 
+    #XXX: Replace with TranslationService
     catalogs = context.Localizer.objectValues()
     catalogs.append(context.Localizer)
     portal = context.portal_url.getPortalObject()

@@ -106,9 +106,9 @@ def getCPSEventsForCalendar(self, month='1', year='2002', location=None,
     """
 
     #check locale in order to set 1st weekday correctly (not done at import time
-    #as in CMFCalendar as the locale depends on Localizer and can change at any
+    #as in CMFCalendar as the locale depends on TranslationService and can change at any
     #point in time (it is not dependant on the system locale)
-    if getToolByName(self,'Localizer').get_selected_language().startswith('en'):
+    if getToolByName(self,'TranslationService').getSelectedLanguage().startswith('en'):
         calendar.setfirstweekday(6)
     else:
         calendar.setfirstweekday(0)

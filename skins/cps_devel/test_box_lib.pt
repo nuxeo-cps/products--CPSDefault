@@ -17,7 +17,7 @@
   wf_state python:wtool.getInfoFor(here,'review_state','');
   uname python: isAnon and 'Guest' or member.getUserName();
   checkPerm nocall: mtool/checkPermission;
-  cpsmcat nocall:here/Localizer/default;
+  cpsmcat nocall:here/translation_service;
   CPSD_BMT python:here.Benchmarktimer('main_template');
   CPSD_bmt_start nocall:CPSD_BMT/start;
   CPSD_bmt_stop nocall:CPSD_BMT/stop;

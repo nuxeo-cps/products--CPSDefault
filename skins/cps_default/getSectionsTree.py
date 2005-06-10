@@ -11,7 +11,7 @@ if root_id is not None:
 else:
     sections_roots = context.getSectionsRoots()
 
-locale = context.Localizer.get_selected_language()
+locale = context.translation_service.getSelectedLanguage()
 ptree = context.portal_trees
 available_roots = ptree.objectIds()
 

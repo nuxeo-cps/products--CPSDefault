@@ -7,8 +7,9 @@ Generate an id from a given string with no meaningless words inside.
 from Products.CPSUtil.id import generateId
 
 # Getting the meaningless words list according to the current locale
-message_catalog = context.Localizer.default
-meaningless_words = message_catalog.gettext('words_meaningless', lang).split()
+message_catalog = context.translation_service
+meaningless_words = message_catalog.translateDefault('words_meaningless',
+                                              target_language=lang).split()
 
 # Get the container in which we want the new object to be created
 if location is not None:

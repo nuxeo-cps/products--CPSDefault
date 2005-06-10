@@ -84,7 +84,7 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def testZopeExport(self):
         # These tests should catch an error that occur during XML export of
-        # a CPS instance. Unfortunately, the problem lies in Localizer, which
+        # a CPS instance. Unfortunately, the problem lies in TranslationService, which
         # isn't really instanciated during unit tests. They could catch other
         # problems in the future, though.
         zexp = self.portal.manage_exportObject(id='', download=1, toxml=0)

@@ -267,7 +267,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         # check default ZCTextIndex lexicon
         self.addZCTextIndexLexicon(self.DEFAULT_CPS_LEXICON_ID,
                                    self.DEFAULT_CPS_LEXICON_TITLE)
-        ct = self.portal.portal_catalog
         # check indexes
         for index_name, index_type, index_extra in \
                 self.catalogEnumerateIndexes():

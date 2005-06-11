@@ -91,6 +91,9 @@ class DummyTranslationService(SimpleItem):
     def translate(self, domain, msgid, *args, **kw):
         return msgid
 
+    def translateDefault(self, msgid, target_language, *args, **kw):
+        return msgid
+
     def __call__(self, *args, **kw):
         return self.translate('default', *args, **kw)
 

@@ -35,8 +35,9 @@ security = ClassSecurityInfo()
 
 security.declarePublic('catalog_getcpsevents')
 def catalog_getcpsevents(self, year, month, location=None, event_types=None):
-    """ given a year and month return a list of days that have events """
-    
+    """Given a year and month return a list of days that have events.
+    """
+
     last_day=calendar.monthrange(year, month)[1]
     nb_days=calendar.monthrange(year, month)[1]
     first_date = DateTime(str(month)+'/1/'+str(year)+ ' 12:00:00AM')
@@ -101,18 +102,19 @@ def catalog_getcpsevents(self, year, month, location=None, event_types=None):
 security.declarePublic('getCPSEventsForCalendar')
 def getCPSEventsForCalendar(self, month='1', year='2002', location=None,
                             event_types=None):
-    """ recreates a sequence of weeks, by days each day is a mapping.
+    """Recreates a sequence of weeks, by days each day is a mapping.
     {'day': #, 'url': None}
     """
 
     #check locale in order to set 1st weekday correctly (not done at import time
     #as in CMFCalendar as the locale depends on TranslationService and can change at any
     #point in time (it is not dependant on the system locale)
-    if getToolByName(self,'TranslationService').getSelectedLanguage().startswith('en'):
+    translation_service = getToolByName(self, 'translation_service')
+    if translation_service.getSelectedLanguage().startswith('en'):
         calendar.setfirstweekday(6)
     else:
         calendar.setfirstweekday(0)
-        
+
     year=int(year)
     month=int(month)
     # daysByWeek is a list of days inside a list of weeks, like so:
@@ -141,7 +143,7 @@ def getCPSEventsForCalendar(self, month='1', year='2002', location=None,
 
 security.declarePublic('getCPSEventsForThisDay')
 def getCPSEventsForThisDay(self, thisDay, location=None, event_types=None):
-    """ given an exact day return ALL events that:
+    """Given an exact day return ALL events that:
     A) Start on this day  OR
     B) End on this day  OR
     C) Start before this day  AND  end after this day"""
@@ -176,7 +178,7 @@ def getDayList(self,localizer):
     else:
         return ['0','1','2','3','4','5','6']
 
-#Adding methods to class CalendarTool
+# Adding methods to class CalendarTool
 CalendarTool.CalendarTool.getCPSEventsForCalendar = getCPSEventsForCalendar
 CalendarTool.CalendarTool.catalog_getcpsevents = catalog_getcpsevents
 CalendarTool.CalendarTool.getCPSEventsForThisDay = getCPSEventsForThisDay

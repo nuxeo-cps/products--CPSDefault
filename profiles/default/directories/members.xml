@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <directory kind="CPS Members Directory">
+  
   <property name="title">label_members</property>
   <property name="schema">members</property>
   <property name="schema_search">members_search</property>
@@ -11,7 +12,7 @@
   <property name="acl_entry_view_roles">Manager; Member</property>
   <property name="acl_entry_edit_roles">Manager; Owner</property>
   <property name="id_field">id</property>
-  <property name="title_field">id</property>
+  <property name="title_field">fullname</property>
   <property name="search_substring_fields">
    <element value="id" />
    <element value="sn" />
@@ -20,5 +21,4 @@
   <property name="password_field">password</property>
   <property name="roles_field">roles</property>
   <property name="groups_field">groups</property>
-  <entry-local-role role="Owner">python:entry_id == user_id</entry-local-role>
 </directory>

@@ -7,10 +7,29 @@
   
   
   
+  
+  
   Import actions tool's action providers and their actions.
  
  
   
+ 
+ 
+ </import-step>
+ <import-step id="directories" version="20050615-01"
+              handler="Products.CPSDirectory.setup.handlers.importDirectoryTool"
+              title="Directory Tool">
+  <dependency step="toolset"/>
+  
+  
+  
+  
+  
+  Import directory tool's directory configuration.
+ 
+ 
+  
+ 
  
  </import-step>
  <import-step id="properties" version="20041215-01"
@@ -19,21 +38,41 @@
   
   
   
+  
   Import site properties.
  
  
   
  
+ 
  </import-step>
  <import-step id="rolemap" version="20040523-01"
               handler="Products.CMFSetup.rolemap.importRolemap"
               title="Role / Permission Map">
+  
 
   
   
   
   Import custom roles and non-default role-permission mappings.
  
+ 
+ 
+ 
+ </import-step>
+ <import-step id="schemas" version="20050615-01"
+              handler="Products.CPSSchemas.setup.handlers.importSchemaTool"
+              title="Schema Tool">
+  <dependency step="toolset"/>
+  
+  
+  
+  
+  
+  Import schema tool's schemas and fields.
+ 
+ 
+  
  
  
  </import-step>
@@ -44,15 +83,19 @@
   
   
   
+  
+  
   Import skins tool's filesystem directory views and skin path definitions.
  
  
   
  
+ 
  </import-step>
  <import-step id="toolset" version="20040630-01"
               handler="Products.CMFSetup.tool.importToolset"
               title="Required tools">
+  
 
   
   
@@ -61,11 +104,14 @@
   forbidden ones.
  
  
+ 
  </import-step>
- <import-step id="typeinfo" version="20040630-01"
-              handler="Products.CMFSetup.typeinfo.importTypesTool"
+ <import-step id="typeinfo" version="20050610-01"
+              handler="Products.CPSDocument.setup.handlers.importTypesTool"
               title="Types Tool">
   <dependency step="toolset"/>
+  
+  
   
   
   
@@ -73,6 +119,7 @@
  
  
   
+ 
  
  </import-step>
  <import-step id="various" version="20041118-01"
@@ -82,10 +129,13 @@
   
   
   
+  
+  
   Import various settings from PortalGenerator.
  
  
   
+ 
  
  </import-step>
  <import-step id="workflow" version="20040630-01"
@@ -96,36 +146,14 @@
   
   
   
+  
+  
+  
   Import workflow tool's workflow definitions and supporting scripts.
  
  
   
  
- </import-step>
- <import-step id="directories" version="20050406-01"
-              handler="Products.CPSDirectory.setuphandlers.importDirectoryTool"
-              title="Directory Tool">
-  <dependency step="toolset"/>
-  
-  
-  
-  Import directory tool's directory configuration.
- 
- 
-  
- 
- </import-step>
- <import-step id="schemas" version="20050406-01"
-              handler="Products.CPSSchemas.setuphandlers.importSchemaTool"
-              title="Schema Tool">
-  <dependency step="toolset"/>
-  
-  
-  
-  Import schema tool's schemas and fields.
- 
- 
-  
  
  </import-step>
 </import-steps>

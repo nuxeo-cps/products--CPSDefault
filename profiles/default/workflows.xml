@@ -1,17 +1,46 @@
 <?xml version="1.0"?>
 <workflow-tool>
- <workflow workflow_id="default_workflow"
-           meta_type="Workflow"
-           filename="workflows/default_workflow/definition.xml"/>
+ <workflow workflow_id="workspace_folder_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="workspace_content_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="workspace_folderish_content_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="section_folder_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="section_content_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="forum_permissions_dummy_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="workspace_forum_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="section_forum_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="forum_post_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="chat_item_workspace_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="chat_item_section_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="chat_section_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="chat_workspace_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="null_wf" meta_type="CPS Workflow"/>
+ <workflow workflow_id="newsletter_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="workspace_wiki_wf"
+           meta_type="CPS Workflow"/>
+ <workflow workflow_id="section_wiki_wf"
+           meta_type="CPS Workflow"/>
  <bindings>
   <default>
-   <bound-workflow workflow_id="default_workflow"/>
   </default>
-  <type type_id="Folder">
-
+  <type type_id="Section">
+   <bound-workflow workflow_id="section_folder_wf"/>
   </type>
-  <type type_id="Topic">
-
+  <type type_id="Workspace">
+   <bound-workflow workflow_id="workspace_folder_wf"/>
   </type>
  </bindings>
 </workflow-tool>

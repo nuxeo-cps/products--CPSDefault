@@ -7,21 +7,9 @@
           category="user" visible="True">
    <permission>View</permission>
   </action>
-  <action action_id="preferences" title="Preferences"
-          condition_expr="member"
-          url_expr="string:${portal_url}/personalize_form"
-          category="user" visible="True">
-   <permission>View</permission>
-  </action>
   <action action_id="logout" title="Log out"
           condition_expr="member"
           url_expr="string:${portal_url}/logout"
-          category="user" visible="True">
-   <permission>View</permission>
-  </action>
-  <action action_id="addFavorite" title="Add to favorites"
-          condition_expr="portal/portal_membership/getHomeFolder"
-          url_expr="string:${object_url}/addtoFavorites"
           category="user" visible="True">
    <permission>View</permission>
   </action>
@@ -31,70 +19,121 @@
           category="user" visible="True">
    <permission>View</permission>
   </action>
-  <action action_id="favorites" title="My favorites"
-          condition_expr="python: member and hasattr(portal.portal_membership.getHomeFolder(), &quot;Favorites&quot;)"
-          url_expr="string:${portal/portal_membership/getHomeUrl}/Favorites/folder_contents"
+  <action action_id="mystuff" title="My stuff"
+          condition_expr="python: member and portal.portal_membership.getHomeFolder()"
+          url_expr="string:${portal/portal_membership/getHomeUrl}/folder_contents"
           category="user" visible="True">
-   <permission>View</permission>
-  </action>
-  <action action_id="manage_members" title="Manage members"
-          condition_expr=""
-          url_expr="string:${portal_url}/members_manage_form"
-          category="global" visible="True">
-   <permission>Manage users</permission>
-  </action>
-  <action action_id="logged_in" title="Logged in"
-          condition_expr=""
-          url_expr="string:${portal_url}/logged_in"
-          category="user" visible="False">
    <permission>View</permission>
   </action>
  </action-provider>
  <action-provider id="portal_actions">
-  <action action_id="folderContents" title="Folder contents"
-          condition_expr="python: folder is not object"
-          url_expr="string:${folder_url}/folder_contents"
+  <action action_id="action_my_preferences"
+          title="action_my_preferences"
+          condition_expr="member"
+          url_expr="string:${portal_url}/cpsdirectory_entry_view?dirname=members&amp;id=${member}"
+          category="user" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="accessibility"
+          title="action_accessibility" condition_expr=""
+          url_expr="string:${portal_url}/accessibility"
+          category="global_header" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="print" title="action_print"
+          condition_expr=""
+          url_expr="string:javascript:if%20(window.print)%20window.print();"
+          category="global_header" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="advanced_search"
+          title="action_advanced_search" condition_expr=""
+          url_expr="string:./advanced_search_form"
+          category="global_header" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="contact" title="action_contact"
+          condition_expr=""
+          url_expr="string:mailto:${portal/portal_properties/email_from_address}?subject=Info"
+          category="global_header" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="manage_vocabularies"
+          title="action_manage_vocabularies"
+          condition_expr=""
+          url_expr="string:${portal_url}/vocabularies_manage_form"
+          category="global" visible="True">
+   <permission>Modify portal content</permission>
+  </action>
+  <action action_id="manage_languages"
+          title="action_manage_languages" condition_expr=""
+          url_expr="string:${portal_url}/language_manage_form"
+          category="global" visible="True">
+   <permission>Modify portal content</permission>
+  </action>
+  <action action_id="add_favorites"
+          title="action_add_favorites"
+          condition_expr="python: member and portal.portal_membership.getHomeFolder()"
+          url_expr="string:${object/absolute_url}/addtoFavorites"
+          category="user" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="view_favorites"
+          title="action_view_favorites"
+          condition_expr="python: hasattr(portal.portal_membership.getHomeFolder(),&quot;Favorites&quot;)"
+          url_expr="string:${portal/portal_membership/getHomeUrl}/Favorites"
+          category="user" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="boxes" title="action_boxes_root"
+          condition_expr="python:folder is object"
+          url_expr="string:${portal_url}/box_manage_form"
+          category="global" visible="True">
+   <permission>Manage Boxes</permission>
+  </action>
+  <action action_id="my_calendar" title="My calendar"
+          condition_expr="portal/portal_cpscalendar/getHomeCalendarObject"
+          url_expr="string:${portal/portal_cpscalendar/getHomeCalendarUrl}"
+          category="user" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="create_my_calendar"
+          title="Create my home calendar"
+          condition_expr="python:portal.portal_membership.getHomeFolder() and                            not portal.portal_cpscalendar.getHomeCalendarObject() and                            getattr(portal.portal_cpscalendar,                                    'member_can_create_home_calendar', 1)"
+          url_expr="string:${portal_url}/create_member_home_calendar"
+          category="user" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="directories" title="Directories"
+          condition_expr="python:not portal.portal_membership.isAnonymousUser()"
+          url_expr="string:${portal_url}/cpsdirectory_view"
+          category="global" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="portlets" title="action_portlets"
+          condition_expr="member"
+          url_expr="string:${folder_url}/portlet_manage_form"
           category="folder" visible="True">
-   <permission>List folder contents</permission>
+   <permission>Manage Portlets</permission>
   </action>
  </action-provider>
  <action-provider id="portal_registration">
   <action action_id="join" title="Join"
-          condition_expr="not: member"
+          condition_expr="python:portal.portal_properties.enable_portal_joining and not member"
           url_expr="string:${portal_url}/join_form"
           category="user" visible="True">
    <permission>Add portal member</permission>
   </action>
  </action-provider>
  <action-provider id="portal_types">
-
  </action-provider>
  <action-provider id="portal_discussion">
-  <action action_id="reply" title="Reply"
-          condition_expr="python: object is not None and portal.portal_discussion.isDiscussionAllowedFor(object)"
-          url_expr="string:${object_url}/discussion_reply_form"
-          category="object" visible="True">
-   <permission>Reply to item</permission>
-  </action>
  </action-provider>
  <action-provider id="portal_undo">
-  <action action_id="undo" title="Undo"
-          condition_expr="member"
-          url_expr="string:${portal_url}/undo_form"
-          category="global" visible="True">
-   <permission>List undoable changes</permission>
-  </action>
  </action-provider>
  <action-provider id="portal_syndication">
-  <action action_id="syndication" title="Syndication"
-          condition_expr="python: folder is object"
-          url_expr="string:${folder_url}/synPropertiesForm"
-          category="object" visible="True">
-   <permission>Manage properties</permission>
-  </action>
  </action-provider>
  <action-provider id="portal_workflow">
-
  </action-provider>
  <action-provider id="portal_properties">
   <action action_id="configPortal"
@@ -103,5 +142,9 @@
           category="global" visible="True">
    <permission>Manage portal</permission>
   </action>
+ </action-provider>
+ <action-provider id="portal_subscriptions">
+ </action-provider>
+ <action-provider id="portal_themes">
  </action-provider>
 </actions-tool>

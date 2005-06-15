@@ -3,10 +3,24 @@
   <roles>
     <role name="Anonymous"/>
     <role name="Authenticated"/>
+    <role name="ChatGuest"/>
+    <role name="ChatModerator"/>
+    <role name="ChatPoster"/>
+    <role name="Contributor"/>
+    <role name="ForumModerator"/>
+    <role name="ForumPoster"/>
     <role name="Manager"/>
     <role name="Member"/>
     <role name="Owner"/>
+    <role name="Reader"/>
     <role name="Reviewer"/>
+    <role name="SectionManager"/>
+    <role name="SectionReader"/>
+    <role name="SectionReviewer"/>
+    <role name="ThemeManager"/>
+    <role name="WorkspaceManager"/>
+    <role name="WorkspaceMember"/>
+    <role name="WorkspaceReader"/>
   </roles>
   <permissions>
     <permission name="Access future portal content"
@@ -22,6 +36,28 @@
       <role name="Owner"/>
       <role name="Manager"/>
     </permission>
+    <permission name="Can subscribe" acquire="False">
+      <role name="Manager"/>
+    </permission>
+    <permission name="Chat Moderate" acquire="False">
+      <role name="Manager"/>
+      <role name="WorkspaceManager"/>
+      <role name="SectionManager"/>
+      <role name="ChatModerator"/>
+    </permission>
+    <permission name="Chat Post" acquire="False">
+      <role name="Manager"/>
+      <role name="WorkspaceManager"/>
+      <role name="SectionManager"/>
+      <role name="ChatPoster"/>
+    </permission>
+    <permission name="Chat Reply" acquire="False">
+      <role name="Manager"/>
+      <role name="WorkspaceManager"/>
+      <role name="SectionManager"/>
+      <role name="ChatModerator"/>
+      <role name="ChatGuest"/>
+    </permission>
     <permission name="Delete objects" acquire="True">
       <role name="Owner"/>
       <role name="Manager"/>
@@ -30,12 +66,46 @@
       <role name="Owner"/>
       <role name="Manager"/>
     </permission>
+    <permission name="Forum Moderate" acquire="False">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WorkspaceManager"/>
+      <role name="ForumModerator"/>
+      <role name="SectionManager"/>
+      <role name="SectionReviewer"/>
+    </permission>
+    <permission name="Forum Post" acquire="False">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="Member"/>
+      <role name="WorkspaceManager"/>
+      <role name="WorkspaceMember"/>
+      <role name="WorkspaceReader"/>
+      <role name="ForumPoster"/>
+      <role name="SectionManager"/>
+      <role name="SectionReviewer"/>
+      <role name="SectionReader"/>
+    </permission>
+    <permission name="Forum manage comments" acquire="False">
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WorkspaceManager"/>
+      <role name="SectionManager"/>
+      <role name="SectionReviewer"/>
+    </permission>
     <permission name="List portal members" acquire="True">
       <role name="Member"/>
       <role name="Manager"/>
     </permission>
     <permission name="List undoable changes" acquire="True">
       <role name="Member"/>
+      <role name="Manager"/>
+    </permission>
+    <permission name="Manage Portlets" acquire="False">
+      <role name="Manager"/>
+      <role name="Owner"/>
+    </permission>
+    <permission name="Manage Subscriptions" acquire="False">
       <role name="Manager"/>
     </permission>
     <permission name="Manage properties" acquire="True">
@@ -61,6 +131,14 @@
     <permission name="Undo changes" acquire="True">
       <role name="Owner"/>
       <role name="Manager"/>
+    </permission>
+    <permission name="Use external editor" acquire="False">
+      <role name="Manager"/>
+      <role name="Member"/>
+    </permission>
+    <permission name="View My Subscriptions" acquire="False">
+      <role name="Manager"/>
+      <role name="Member"/>
     </permission>
     <permission name="View management screens"
                 acquire="True">

@@ -21,10 +21,13 @@
 """Miscellaneous utility functions.
 """
 
-from AccessControl import allow_type, allow_class
-from AccessControl import ModuleSecurityInfo
-from zLOG import LOG, INFO, DEBUG
 import re
+from zLOG import LOG, INFO, DEBUG
+
+from Acquisition import aq_base
+from AccessControl import allow_type, allow_class
+from AccessControl import getSecurityManager
+from AccessControl import ModuleSecurityInfo
 
 # This regexp is for path of the following forms :
 # /cps/workspaces/cores/myDoc/view
@@ -33,8 +36,11 @@ import re
 archived_revision_url_regexp = re.compile('/archivedRevision/\d+')
 
 
+ThisModuleSecurity = ModuleSecurityInfo('Products.CPSDefault.utils')
+
+
 # Allowing the methods of this file to be imported in restricted code
-ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getNonArchivedVersionContextUrl')
+ThisModuleSecurity.declarePublic('getNonArchivedVersionContextUrl')
 def getNonArchivedVersionContextUrl(content_url):
     """
     getNonArchivedVersionContextUrl
@@ -46,7 +52,7 @@ def getNonArchivedVersionContextUrl(content_url):
 
 
 # FIXME: LocalyzerGeddon
-ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('manageCPSLanguage')
+ThisModuleSecurity.declarePublic('manageCPSLanguage')
 def manageCPSLanguage(context, action, default_language, languages):
     """Manage available a languages in a CPS portal with Localizer"""
 
@@ -99,3 +105,42 @@ def manageCPSLanguage(context, action, default_language, languages):
         psm = 'psm_language_error_unknown_command'
 
     return psm
+
+
+
+ThisModuleSecurity.declarePublic('computeContributors')
+def computeContributors(portal, contributors):
+    """Compute a new Contributors value.
+
+    Get the current users's full name, and add it to the list of
+    contributors if it's not already present.
+
+    Used by a write expression for the Contributors field of the
+    metadata schema.
+    """
+    contributors = list(contributors or ())
+
+    user = getSecurityManager().getUser()
+    user_id = user.getId()
+
+    # Find the user's title field in the appropriate directory
+    if getattr(aq_base(user), '_aclu', None) is not None:
+        # Special fast case for CPSUserFolder
+        title_field = user._aclu._getUsersDirectory().title_field
+        fullname = user.getProperty(title_field, None)
+    else:
+        # To get proper computed attributes, we need to ask the
+        # entry directly from the directory
+        try:
+            dir = portal.portal_directories.members
+            fullname = dir.getEntry(user_id)[dir.title_field]
+        except (AttributeError, KeyError):
+            fullname = None
+
+    if not fullname:
+        fullname = user_id
+
+    if fullname not in contributors:
+        contributors.append(fullname)
+
+    return contributors

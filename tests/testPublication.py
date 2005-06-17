@@ -7,6 +7,7 @@ from pprint import pprint
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
+from webdav.LockItem import LockItem
 from AccessControl import Unauthorized
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
@@ -30,6 +31,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         members.createEntry({'id': 'member', 'roles': ['Member']})
         members.createEntry({'id': 'reviewer', 'roles': ['Member']})
 
+        self.portal_membership = self.portal.portal_membership
         self.portal.portal_membership.createMemberArea('member')
         self.member_ws = self.portal.workspaces.members.member
 
@@ -39,8 +41,10 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         pmtool.setLocalRoles(obj=self.portal.sections,
             member_ids=['reviewer'], member_role='SectionReviewer')
 
+
     def beforeTearDown(self):
         self.logout()
+
 
     def testAccessForMember(self):
         self.login('member')
@@ -49,12 +53,14 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
+
     def testAccessForReviewer(self):
         self.login('reviewer')
         self.assert_(self.portal.sections.folder_contents())
         self.assert_(self.portal.sections.folder_view())
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
+
 
     def _checkGetContentInfo(self, info, level):
         self.assertEquals(info['icon'], 'newsitem_icon.png')
@@ -109,6 +115,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         if level >= 4:
             self.assertEquals(info['archived'], [])
 
+
     def testGetContentInfo(self):
         # Test the getContentInfo script
 
@@ -120,23 +127,39 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             info = proxy.getContentInfo(level=level)
             self._checkGetContentInfo(info, level)
 
+
     def _testSubmit(self, document_type):
         self.login('member')
 
-        # Create some document
+        # Create some documents with the second document having lock on it. This
+        # kind of lock is used for example for WebDAV.
         self.member_ws.invokeFactory(document_type, 'doc')
         proxy = self.member_ws.doc
+        self.member_ws.invokeFactory(document_type, 'doc2')
+        proxy2 = self.member_ws.doc2
+        member = self.portal_membership.getAuthenticatedMember()
+        user = member.getUser()
+        lock = LockItem(user, user)
+        lock_token = lock.getLockToken()
+        proxy2.wl_setLock(lock_token, lock)
 
         review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
         self.assertEquals(review_state, 'work')
+        review_state2 = self.wftool.getInfoFor(proxy2, 'review_state', None)
+        self.assertEquals(review_state2, 'work')
 
         # Then submit it (using skin script)
         proxy.content_status_modify(
             submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
             workflow_action='copy_submit')
+        proxy2.content_status_modify(
+            submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
+            workflow_action='copy_submit')
 
         review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
         self.assertEquals(review_state, 'work')
+        review_state2 = self.wftool.getInfoFor(proxy2, 'review_state', None)
+        self.assertEquals(review_state2, 'work')
 
         self.login('reviewer')
 
@@ -144,6 +167,14 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         review_state = self.wftool.getInfoFor(published_proxy,
                                               'review_state', None)
         self.assertEquals(review_state, 'pending')
+        published_proxy2 = self.portal.sections.doc2
+        review_state2 = self.wftool.getInfoFor(published_proxy2,
+                                               'review_state', None)
+        self.assertEquals(review_state2, 'pending')
+
+        self.assertEquals(published_proxy2.wl_isLocked(), False,
+                          "A locked document in the workspaces should not "
+                          "produce a locked document in the sections.")
 
         # Now accept it
         published_proxy.content_status_modify(workflow_action='accept')
@@ -167,6 +198,10 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])
+        # Remove the lock before deleting otherwise the lock would prevent the
+        # deletion.
+        proxy2.wl_delLock(lock_token)
+        self.member_ws.manage_delObjects(['doc2'])
 
 
     def _testSubmitWithModifiedWorkflow(self, document_type):
@@ -217,6 +252,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])
 
+
     def testSubmitAllDocumentTypes(self):
         all_document_types = self.portal.getDocumentTypes()
         del all_document_types['Workspace']
@@ -225,6 +261,8 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 	    # print "submit document type %s" % document_type
             self._testSubmit(document_type)
 
+
+    def testSubmitWithModifiedWorkflow(self):
         # Now test publication with a modified workflow
         wf_workspace_content_id = 'workspace_content_wf'
         wf_workspace_content = getattr(self.wftool,

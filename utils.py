@@ -36,11 +36,11 @@ from AccessControl import ModuleSecurityInfo
 archived_revision_url_regexp = re.compile('/archivedRevision/\d+')
 
 
-ThisModuleSecurity = ModuleSecurityInfo('Products.CPSDefault.utils')
+module_security = ModuleSecurityInfo('Products.CPSDefault.utils')
 
 
 # Allowing the methods of this file to be imported in restricted code
-ThisModuleSecurity.declarePublic('getNonArchivedVersionContextUrl')
+module_security.declarePublic('getNonArchivedVersionContextUrl')
 def getNonArchivedVersionContextUrl(content_url):
     """
     getNonArchivedVersionContextUrl
@@ -52,7 +52,7 @@ def getNonArchivedVersionContextUrl(content_url):
 
 
 # FIXME: LocalyzerGeddon
-ThisModuleSecurity.declarePublic('manageCPSLanguage')
+module_security.declarePublic('manageCPSLanguage')
 def manageCPSLanguage(context, action, default_language, languages):
     """Manage available a languages in a CPS portal with Localizer"""
 
@@ -108,7 +108,7 @@ def manageCPSLanguage(context, action, default_language, languages):
 
 
 
-ThisModuleSecurity.declarePublic('computeContributors')
+module_security.declarePublic('computeContributors')
 def computeContributors(portal, contributors):
     """Compute a new Contributors value.
 

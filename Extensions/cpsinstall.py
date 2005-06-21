@@ -705,8 +705,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                           'guard_expr': ''},
             },
             'modify': {
-                'title': 'Modification of content,'
-                         'provides a specific entry in status history',
+                'title': 'Content edition',
+                'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),
                 'clone_allowed_transitions': None,
@@ -863,8 +863,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                           'guard_expr': ''},
             },
             'modify': {
-                'title': 'Modification of content,'
-                         'provides a specific entry in status history',
+                'title': 'Content edition',
+                'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),
                 'clone_allowed_transitions': None,
@@ -1027,8 +1027,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_expr': ''},
             },
             'modify': {
-                'title': 'Modification of content,'
-                         'provides a specific entry in status history',
+                'title': 'Content edition',
+                'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),
                 'clone_allowed_transitions': None,
@@ -1349,20 +1349,19 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         wfs_to_upgrade = ('workspace_content_wf', 'workspace_folder_wf',
                           'workspace_folderish_content_wf')
         modify_transition_def = {
-            'modify': { 'title': 'Modification of content,'
-                                 'provides a specific entry in status history',
-                        'new_state_id': '',
-                        'transition_behavior': (),
-                        'clone_allowed_transitions': None,
-                        'trigger_type': TRIGGER_USER_ACTION,
-                        'actbox_category': 'workflow',
-                        'props': {'guard_permissions': '',
-                                  'guard_roles': 'Manager; Owner;'
-                                                 'WorkspaceManager; '
-                                                 'WorkspaceMember',
-                                  'guard_expr': ''},
-                      }
-                                }
+            'modify': {
+                'title': 'Content edition',
+                'description': 'This transition provides a specific entry in status history',
+                'new_state_id': '',
+                'transition_behavior': (),
+                'clone_allowed_transitions': None,
+                'trigger_type': TRIGGER_USER_ACTION,
+                'actbox_category': 'workflow',
+                'props': {
+                    'guard_roles': 'Manager; Owner; WorkspaceManager; WorkspaceMember',
+                    },
+                }
+            }
 
         for wf_id in wfs_to_upgrade:
             wf = wftool[wf_id]

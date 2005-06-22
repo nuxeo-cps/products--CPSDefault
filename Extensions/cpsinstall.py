@@ -705,7 +705,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                           'guard_expr': ''},
             },
             'modify': {
-                'title': 'Content edition',
+                'title': 'Edit content',
                 'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),
@@ -863,7 +863,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                           'guard_expr': ''},
             },
             'modify': {
-                'title': 'Content edition',
+                'title': 'Edit content',
                 'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),
@@ -1027,7 +1027,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'guard_expr': ''},
             },
             'modify': {
-                'title': 'Content edition',
+                'title': 'Edit content',
                 'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),
@@ -1350,7 +1350,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                           'workspace_folderish_content_wf')
         modify_transition_def = {
             'modify': {
-                'title': 'Content edition',
+                'title': 'Edit content',
                 'description': 'This transition provides a specific entry in status history',
                 'new_state_id': '',
                 'transition_behavior': (),

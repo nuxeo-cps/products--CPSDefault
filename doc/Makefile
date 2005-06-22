@@ -1,9 +1,10 @@
 HTMLDOCS := howto-virtual_hosts.html guidelines-user_interface.html howto-search.html
+RST2HTML=rst2html
 
 all: $(HTMLDOCS)
 
 %.html: %.txt
-	/usr/share/python-docutils/rst2html.py -t --stylesheet-path=nuxeo_doc.css $< $@
+	${RST2HTML} -t --stylesheet-path=nuxeo_doc.css $< $@
 
 
 %.toc: %.txt

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-13 17:36default\n"
+"POT-Creation-Date: 2005-06-23 17:26default\n"
 "PO-Revision-Date: 2005-05-28 13:44+0100\n"
 "Last-Translator: Jesús <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
@@ -26,14 +26,6 @@ msgstr ""
 msgid "A test box"
 msgstr "Una caja de prueba"
 
-#.   <option content="string:label_action_${cat}" attributes="value cat;
-#.                             selected python:cat in box['box'].categories" repeat="cat actions/keys">
-#.             Action
-#.           </option>
-#: from ../skins/cps_default/actionbox_edit_form.pt
-msgid "Action"
-msgstr "Acción"
-
 #.   <span>
 #.       Created by
 #.       ${item_creator (tal omit-tag="not:email" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" content="cname")}.
@@ -42,7 +34,8 @@ msgstr "Acción"
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Creado por ${item_creator}. Última modificación el ${item_modification}."
+msgstr ""
+"Creado por ${item_creator}. Última modificación el ${item_modification}."
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
@@ -80,19 +73,28 @@ msgstr "Descripción del tipo de documento"
 msgid "Portal type's title"
 msgstr "Título del tipo de documento"
 
-#.   <option content="role" attributes="value role" repeat="role roles">
-#.            Role1
-#.         </option>
-#.   <option content="role" attributes="value role" repeat="role roles"> Role1 </option>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "Role1"
-msgstr "Rol 1"
+#.   <option content="role" attributes="value role;
+#.                         selected python:role == filtered_role" repeat="role cps_roles">
+#.         Role
+#.       </option>
+#.   <th content="role" repeat="role cps_roles" condition="python:len(cps_roles)>1">
+#.           Role
+#.         </th>
+#.   <option content="role" attributes="value role" repeat="role cps_roles">
+#.               Role
+#.             </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#: ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "Role"
+msgstr "Role"
 
-#.   <option value="slot" content="string:label_${slot}" attributes="value slot;
-#.             selected python:test(slot==selected_slot,'selected', nothing);">Slot</option>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "Slot"
-msgstr "Ubicación"
+#.   <label content="member_info/title" attributes="for input_id">
+#.               User
+#.             </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+msgid "User"
+msgstr ""
 
 #    <span attributes="class
 #          info/review_state" content="info/review_state">Work</span>
@@ -144,7 +146,10 @@ msgstr "Ir al contenido"
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
-msgstr "Este sitio ha sido concebido para ser accesible, trabajando a partir de las reglas de navegación definidas en <a href=\"http://www.acces-pour-tous.net/\">accès pour tous</a>."
+msgstr ""
+"Este sitio ha sido concebido para ser accesible, trabajando a partir de las "
+"reglas de navegación definidas en <a href=\"http://www.acces-pour-tous.net/"
+"\">accès pour tous</a>."
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -190,13 +195,23 @@ msgstr "Ir al contenido"
 #.   <p>bla</p>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_description"
-msgstr "Los atajos de teclado disponibles para navegar este sitio son los siguientes: "
+msgstr ""
+"Los atajos de teclado disponibles para navegar este sitio son los "
+"siguientes: "
 
 #    <p>bla</p>
 #.   <p>bla</p>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_shortcut_description2"
-msgstr "<strong>Mozilla</strong>: Presione simultáneamente la tecla Alt, la tecla Mayúsc y una de las teclas del teclado (pero no el teclado numérico). Irá directamente al lugar deseado.Si utiliza letras, puede prescindir de presionar la tecla May.<br/><br>Con <strong>IE6</strong>: Presione simultáneamente la tecla Alt, la tecla Mays y una de las teclas del teclado (pero no el teclado numérico) y seguidamente presione la tecla \"Entrar\" para ir al lugar deseado.<br><br><strong>Opera</strong>: ¡no soporta las teclas de acceso!<br><br>"
+msgstr ""
+"<strong>Mozilla</strong>: Presione simultáneamente la tecla Alt, la tecla "
+"Mayúsc y una de las teclas del teclado (pero no el teclado numérico). Irá "
+"directamente al lugar deseado.Si utiliza letras, puede prescindir de "
+"presionar la tecla May.<br/><br>Con <strong>IE6</strong>: Presione "
+"simultáneamente la tecla Alt, la tecla Mays y una de las teclas del teclado "
+"(pero no el teclado numérico) y seguidamente presione la tecla \"Entrar\" "
+"para ir al lugar deseado.<br><br><strong>Opera</strong>: ¡no soporta las "
+"teclas de acceso!<br><br>"
 
 #.   <span>Go to the
 #.     homepage</span>
@@ -260,7 +275,10 @@ msgid "button_add"
 msgstr "Añadir"
 
 #.   <input type="submit" class="standalone" value="button_apply" />
+#.   <input name="filter_local_roles" type="submit" class="context" value="button_apply" />
+#.   <input name="edit_local_roles" type="submit" class="context" value="button_apply" />
 #: from ../skins/cps_default/folder_contents.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_apply"
 msgstr "Aplicar"
 
@@ -268,11 +286,6 @@ msgstr "Aplicar"
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
 msgstr "Delegar rol"
-
-#.   <input name="back" type="submit" class="context" value="button_back" />
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "button_back"
-msgstr "Atrás"
 
 #.   <input onclick="history.back()" type="button" class="context" value="button_cancel" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
@@ -300,12 +313,10 @@ msgstr "Cancelar"
 #    <input value="button_change" type="submit">
 #        <input onclick="history.back()" type="button" value="button_cancel">
 #      </input></input>
-#.   <input name="change" type="submit" class="standalone" value="button_change" condition="python:checkPerm('Manage Boxes', box['box'])" />
 #.   <input type="submit" class="standalone" value="button_change" />
 #.   <input name="change" type="submit" class="standalone" value="button_change" />
 #.   <button type="submit">Change</button>
-#: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 #: ../skins/cps_default/reconfig_form.pt
@@ -325,10 +336,8 @@ msgstr "Guardar cambios"
 #    <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
 #          <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
 #        </input></input>
-#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" condition="python:checkPerm('Manage Boxes', box['box'])" />
 #.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" />
-#: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_edit"
@@ -379,10 +388,10 @@ msgstr "Cortar"
 #       </input>
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" />
-#.   <input type="submit" class="destructive" value="button_delete" />
+#.   <input name="delete_local_roles" type="submit" class="context" value="button_delete" />
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #: from ../skins/cps_default/folder_contents.pt
-#: ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Borrar"
@@ -392,13 +401,19 @@ msgstr "Borrar"
 msgid "button_delete_archive"
 msgstr "borrar este archivo"
 
+#.   <input name="show_blocked_roles_submit" type="submit" class="standalone" value="button_hide_blocked_roles" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_hide_blocked_roles"
+msgstr "Hide"
+
 #.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_block"
 msgstr "Bloquear"
 
 #.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_unblock"
 msgstr "Desbloquear"
 
@@ -498,15 +513,9 @@ msgstr "Volver a la versión archivada"
 #.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
 #.   <input type="submit" class="standalone" value="button_search" />
-#.   <input name="search_item" onclick="open_search_dialog()" type="button" value="button_search" />
-#.   <input name="search_doc" onclick="open_dialog_render_box()" type="button" value="button_search">
-#.
-#.         </input>
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
-#: ../skins/cps_default/internallinksbox_edit_form.pt
-#: ../skins/cps_default/renderbox_edit_form.pt
 msgid "button_search"
 msgstr "Buscar"
 
@@ -531,19 +540,17 @@ msgstr "Enviar"
 msgid "button_send_password_reminder"
 msgstr "Enviar un recordatorio de mi contraseña"
 
+#.   <input name="show_blocked_roles_submit" type="submit" class="standalone" value="button_show_blocked_roles" />
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "button_show_blocked_roles"
+msgstr "Show"
+
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "button_submit_document"
 msgstr "Remitir para publicación"
-
-#.   <button type="button" attributes="
-#.           style string:visibility: visible;
-#.           onclick string:javascript:popup_rte('textbox_content', 'Texte')
-#.           ">Layout</button>
-#: from ../skins/cps_default/textbox_edit_form.pt
-msgid "button_text_editor_popup"
-msgstr "Editor de texto..."
 
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
@@ -555,7 +562,7 @@ msgstr "Crear una revisión para traducir"
 msgid "button_unpublish_document"
 msgstr "Retirar el documento"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update">
+#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
@@ -583,7 +590,9 @@ msgstr "para modificar sus datos personales."
 #.     </p>
 #: from ../skins/cps_default/language_manage_form.pt
 msgid "description_languages_form"
-msgstr "Esta página le ofrece la oportunidad de administrar los idiomas disponibles en el portal"
+msgstr ""
+"Esta página le ofrece la oportunidad de administrar los idiomas disponibles "
+"en el portal"
 
 #    <span>
 #            You are not currently logged in. Your username and or password may be
@@ -597,7 +606,10 @@ msgstr "Esta página le ofrece la oportunidad de administrar los idiomas disponib
 #.         </span>
 #: from ../skins/cps_default/logged_in.pt
 msgid "description_login_failure"
-msgstr "Usted no está actualmente conectado al portal. Es posible que su nombre de usuario y/o contraseña sea incorrecto. También es posible que su navegador no esté configurado para aceptar las cookies. Si necesita ayuda contacte con "
+msgstr ""
+"Usted no está actualmente conectado al portal. Es posible que su nombre de "
+"usuario y/o contraseña sea incorrecto. También es posible que su navegador "
+"no esté configurado para aceptar las cookies. Si necesita ayuda contacte con "
 
 #.   <p>
 #.            Welcome. You are currently logged in.
@@ -634,10 +646,11 @@ msgstr "Usted se ha desconectado del portal. Puede "
 #.     </p>
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "description_reconfig_form"
-msgstr "Este formulario sirve para fijar las opciones de configuración del portal."
+msgstr ""
+"Este formulario sirve para fijar las opciones de configuración del portal."
 
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -690,7 +703,10 @@ msgstr "Discúlpenos por las molestias ocasionadas."
 #.     below.</p>
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "error_not_found"
-msgstr "No se ha podido encontrar el recurso que ha solicitado. Si el documento ha cambiado de sitio podrá encontrarlo mediante el siguiente formulario de búsqueda."
+msgstr ""
+"No se ha podido encontrar el recurso que ha solicitado. Si el documento ha "
+"cambiado de sitio podrá encontrarlo mediante el siguiente formulario de "
+"búsqueda."
 
 #.   <title fill-slot="title">
 #.           heading_abandon_draft_of
@@ -715,12 +731,6 @@ msgstr "Aceptar la publicación de ${item_id}"
 #: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Búsqueda avanzada"
-
-#    <h2>Box edition</h2>
-#.   <h1>Box edition</h1>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "heading_box_edit_form"
-msgstr "Modificar la caja"
 
 #.   <title fill-slot="title">
 #.           heading_checkin_draft_of
@@ -790,21 +800,19 @@ msgstr "Hacerse usuario"
 msgid "heading_language_manage_form"
 msgstr "Administrar idiomas"
 
-#    <h2>
-#     Assign local roles: Search Members
-#    </h2>
-#.   <h1>
-#.    Assign local roles: Search Members
+#.   <h1 condition="not:searching">
+#.    Assign local roles: Search Members and groups
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
-msgid "heading_local_roles_search_members"
-msgstr "Delegar roles locales: búsqueda de usuarios"
+#, fuzzy
+msgid "heading_local_roles_search_members_and_groups"
+msgstr "Assign local roles: Search members and groups"
 
 #    <h2>
 #        Assign local roles: Search Results
 #    </h2>
-#.   <h1>
-#.       Assign local roles: Search Results
+#.   <h1 condition="searching">
+#.    Assign local roles: Search Results
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
@@ -962,7 +970,9 @@ msgstr "Si abandona la versión, el documento original será desbloqueado."
 #.       item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
-msgstr "La aceptación de la publicación de este documento hará que esté disponible para los lectores de la sección."
+msgstr ""
+"La aceptación de la publicación de este documento hará que esté disponible "
+"para los lectores de la sección."
 
 #    <span>
 #        If you commit this draft, it will replace the document currently locked.
@@ -974,7 +984,8 @@ msgstr "La aceptación de la publicación de este documento hará que esté disponib
 #.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr "Si incorpora esta versión, sustituirá el documento que ahora está bloqueado."
+msgstr ""
+"Si incorpora esta versión, sustituirá el documento que ahora está bloqueado."
 
 #    <span>
 #        If you create a draft, you will be the only one able to work on the document.
@@ -984,17 +995,8 @@ msgstr "Si incorpora esta versión, sustituirá el documento que ahora está bloque
 #.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
-msgstr "Si crea una versión, será el único que podrá trabajar sobre el documento."
-
-#.   <div style="visibility: hidden;" onclick="showElement(false, 'no_recurse_help')" class="tooltipArea" id="no_recurse_help"> Check this if you want the search to be restrained to the chosen folder, whithout recursing into subfolders.</div>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "help_contentbox_no_recurse"
-msgstr "Compruebe esto si quiere que la búsqueda quede restringida a la carpeta elegida sin buscar en las subcarpetas. "
-
-#.   <div style="visibility: hidden;" onclick="showElement(false, 'sort_help')" class="tooltipArea" id="sort_help">help help</div>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "help_contentbox_sort"
-msgstr "La búsqueda devolverá sólo los primeros cien documentos"
+msgstr ""
+"Si crea una versión, será el único que podrá trabajar sobre el documento."
 
 #.   <span>
 #.       Delete archive
@@ -1012,32 +1014,24 @@ msgstr "Borrar archivo"
 msgid "help_invalid_reset_password_request"
 msgstr "Su solicitud para cambiar de contraseña no es válida"
 
-#    <em>
-#            Box types in italic are predefined types. You cannot change their
-#            properties from this interface. Use the default box to do so.
-#          </em>
-#.   <em>
-#.       Box types in italic are predefined types. You cannot change their
-#.       properties from this interface. Use the default box to do so.
-#.     </em>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "help_italic_vendor_boxes_types"
-msgstr "Los tipos de caja en cursiva son tipos predefinidos, algunas de sus propiedades no se pueden cambiar desde aquí. Utilice la caja por defecto para hacerlo."
-
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
 #.         and participate in the community.
 #.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
-msgstr "Hacerse usuario le dará la posibilidad de personalizar el sitio y de participar en la comunidad."
+msgstr ""
+"Hacerse usuario le dará la posibilidad de personalizar el sitio y de "
+"participar en la comunidad."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
 #.         other personal information will remain private.</p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_2"
-msgstr "Hacerse usuario es totalmente gratuito; su correo electrónico y los otros datos personales seguirán siendo privados."
+msgstr ""
+"Hacerse usuario es totalmente gratuito; su correo electrónico y los otros "
+"datos personales seguirán siendo privados."
 
 #    <span>
 #            You must submit a valid email address. This address will be used
@@ -1051,7 +1045,11 @@ msgstr "Hacerse usuario es totalmente gratuito; su correo electrónico y los otro
 #.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
-msgstr "Debe usted indicar una dirección válida de correo electrónico. Será utilizada para hacerle llegar su contraseña generada aleatoriamente. Una vez que usted se haya autenticado con esta contraseña, podrá cambiarla a su gusto."
+msgstr ""
+"Debe usted indicar una dirección válida de correo electrónico. Será "
+"utilizada para hacerle llegar su contraseña generada aleatoriamente. Una vez "
+"que usted se haya autenticado con esta contraseña, podrá cambiarla a su "
+"gusto."
 
 #    <p>
 #        Don't forget to logout or exit your browser when you're done.
@@ -1069,7 +1067,9 @@ msgstr "No olvide desconectarse o salir de su navegador cuando haya terminado."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr "¿Tiene problemas para conectarse?. Asegúrese de haber activado las cookies en su navegador."
+msgstr ""
+"¿Tiene problemas para conectarse?. Asegúrese de haber activado las cookies "
+"en su navegador."
 
 #.   <block>
 #.             You came to this page because you have lost your password.
@@ -1080,7 +1080,10 @@ msgstr "¿Tiene problemas para conectarse?. Asegúrese de haber activado las cooki
 #.           </block>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_lost_password"
-msgstr "Ha llegado a esta página porque ha perdido su contraseña. No se preocupe, pronto le será posible conectarse al portal de nuevo. Si tiene problemas al usar este formulario o si no funciona en víe un e-mail a"
+msgstr ""
+"Ha llegado a esta página porque ha perdido su contraseña. No se preocupe, "
+"pronto le será posible conectarse al portal de nuevo. Si tiene problemas al "
+"usar este formulario o si no funciona en víe un e-mail a"
 
 #    <p>
 #        Just enter your username below, click <em>Send</em>, and your
@@ -1094,7 +1097,10 @@ msgstr "Ha llegado a esta página porque ha perdido su contraseña. No se preocupe
 #.     </p>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
-msgstr "Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su contraseña le será enviada si facilitó una dirección de correo-e correcta al registrarse como miembro."
+msgstr ""
+"Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su "
+"contraseña le será enviada si facilitó una dirección de correo-e correcta al "
+"registrarse como miembro."
 
 #    <span>
 #          If this will not work for you (for example, if you forget your member
@@ -1106,7 +1112,10 @@ msgstr "Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su contr
 #.       </span>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
-msgstr "Si esto no funciona en su caso (por ejemplo, si ha olvidado su nombre de usuario o no introdujo una dirección de correo-e válida al inscribirse) envíe un correo a "
+msgstr ""
+"Si esto no funciona en su caso (por ejemplo, si ha olvidado su nombre de "
+"usuario o no introdujo una dirección de correo-e válida al inscribirse) "
+"envíe un correo a "
 
 #    <p>
 #        Your password has been mailed.
@@ -1167,7 +1176,9 @@ msgstr "Marque esta casilla para recibir un correo con su contraseña."
 #.           </p>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_password_reminder"
-msgstr "Mediante esta función puede pedir que se le envíe un recordatorio de su contraseña a través del correo electrónico"
+msgstr ""
+"Mediante esta función puede pedir que se le envíe un recordatorio de su "
+"contraseña a través del correo electrónico"
 
 #.   <p>
 #.             With this functionality you can request your old password to be reset
@@ -1176,7 +1187,10 @@ msgstr "Mediante esta función puede pedir que se le envíe un recordatorio de su 
 #.           </p>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_password_reset"
-msgstr "Mediante esta función puede solicitar que se elimine su antigua contraseña y se sustituya por una nueva generada automáticamente por el sistema. La nueva contraseña se le comunicará después."
+msgstr ""
+"Mediante esta función puede solicitar que se elimine su antigua contraseña y "
+"se sustituya por una nueva generada automáticamente por el sistema. La nueva "
+"contraseña se le comunicará después."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1196,7 +1210,11 @@ msgstr "Mediante esta función puede solicitar que se elimine su antigua contrase
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
-msgstr "Puede publicar directamente este documento, sin pasar por una etapa de moderación, en las secciones que seleccione.<br/>Se creará una copia del documento en cada una de estas secciones con estado <strong>publicado</strong>. Entonces los lectores de estas secciones opdrán leerlo."
+msgstr ""
+"Puede publicar directamente este documento, sin pasar por una etapa de "
+"moderación, en las secciones que seleccione.<br/>Se creará una copia del "
+"documento en cada una de estas secciones con estado <strong>publicado</"
+"strong>. Entonces los lectores de estas secciones opdrán leerlo."
 
 #.   <span>
 #.             You will receive an email shortly containing
@@ -1204,7 +1222,9 @@ msgstr "Puede publicar directamente este documento, sin pasar por una etapa de m
 #.           </span>
 #: from ../skins/cps_default/registered.pt
 msgid "help_registered_mail"
-msgstr "Recibirá un e-mail en breve con su contraseña e instrucciones sobre cómo activar su registro."
+msgstr ""
+"Recibirá un e-mail en breve con su contraseña e instrucciones sobre cómo "
+"activar su registro."
 
 #.   <span>
 #.       Reject publication of this item
@@ -1225,7 +1245,11 @@ msgstr "Rechazar la publicación de este documento."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
-msgstr "Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie con su nombre de usuario y así cuando se conecte la próxima vez, el campo que contiene el nombre de usuario aparecerá rellenado automáticamente con el suyo."
+msgstr ""
+"Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie con "
+"su nombre de usuario y así cuando se conecte la próxima vez, el campo que "
+"contiene el nombre de usuario aparecerá rellenado automáticamente con el "
+"suyo."
 
 #    <div class="description">Changing the id of an object does not
 #    affect its title but changes the URL to access it. Links that point to the
@@ -1235,7 +1259,10 @@ msgstr "Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie
 #.   current id won't find it anymore.</div>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
-msgstr "Cambiar la id de un objeto no afecta a su título, pero sí a la URL (dirección) necesaria acceder a él. Atención a los enlaces hacia este objeto: si no son actualizados, ya no lo encontrarán."
+msgstr ""
+"Cambiar la id de un objeto no afecta a su título, pero sí a la URL "
+"(dirección) necesaria acceder a él. Atención a los enlaces hacia este "
+"objeto: si no son actualizados, ya no lo encontrarán."
 
 #.   <span>
 #.       Revert to revision
@@ -1258,7 +1285,17 @@ msgstr "Volver a una versión anterior de este documento."
 #.   </help>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
-msgstr "El estado de un documento (también llamado su estado de validación) determina quién está autorizado a verlo. Un documento en estado <strong>trabajo</strong> puede ser consultado por los lectores del espacio de trabajo y editado por sus miembros y por los responsables. Sólo los objetos en estado <strong>publicado</strong> serán accesibles a los lectores de las secciones. Para publicar un objeto, debe estar validado por un revisor de la sección. Puede solicitar que un objeto sea validado simplemente cambiado su estado a <strong>en espera</strong>. Ello se consigue remitiendo el documento para su validación en el interior de una sección."
+msgstr ""
+"El estado de un documento (también llamado su estado de validación) "
+"determina quién está autorizado a verlo. Un documento en estado "
+"<strong>trabajo</strong> puede ser consultado por los lectores del espacio "
+"de trabajo y editado por sus miembros y por los responsables. Sólo los "
+"objetos en estado <strong>publicado</strong> serán accesibles a los lectores "
+"de las secciones. Para publicar un objeto, debe estar validado por un "
+"revisor de la sección. Puede solicitar que un objeto sea validado "
+"simplemente cambiado su estado a <strong>en espera</strong>. Ello se "
+"consigue remitiendo el documento para su validación en el interior de una "
+"sección."
 
 #.   <span>
 #.           Create a new translation for this document.
@@ -1326,13 +1363,10 @@ msgstr "Nombre del administrador"
 msgid "label_advertisement_use_cps"
 msgstr "Utilizar CPS"
 
-#.   <option value="">All</option>
-#.   <option value="" attributes="selected python:notempty==[] or selbox==[]">All</option>
 #.   <option attributes="selected not:review_state" value="">All</option>
 #.   <option attributes="selected not:portal_type" value="">All</option>
 #.   <option value="" attributes="selected not:Subject">All</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_all"
 msgstr "Todos"
 
@@ -1340,12 +1374,6 @@ msgstr "Todos"
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
 msgstr "Versiones archivadas"
-
-#    <span>sort by</span>
-#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
-#: from ../skins/cps_default/xml_exports.pt
-msgid "label_atom_export"
-msgstr "ATOM"
 
 #.   <td>Author</td>
 #: from ../skins/cps_default/content_lib_history.pt
@@ -1368,11 +1396,6 @@ msgstr "Autor"
 msgid "label_author_desc"
 msgstr "Autor inv."
 
-#.   <th colspan="5" align="right">Authorized folders only</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_authorized_only"
-msgstr "Mostrar solamente las carpetas accesibles"
-
 #.   <div class="label">
 #.           Body
 #.         </div>
@@ -1380,66 +1403,18 @@ msgstr "Mostrar solamente las carpetas accesibles"
 msgid "label_body"
 msgstr "Cuerpo del documento"
 
-#    <th align="right">text</th>
-#.   <label for="textbox_content">Content</label>
-#: from ../skins/cps_default/textbox_edit_form.pt
-msgid "label_box_content"
-msgstr "Contenido"
-
-#    <th align="right">Box skin</th>
-#.   <label for="box_skin">Box skin</label>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_box_skin"
-msgstr "Vestidura de la caja"
-
-#.   <strong>Type</strong>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_btype"
-msgstr "Tipo"
-
 #.   <span omit-tag="">
 #.               Events for</span>
 #: from ../skins/cps_default/calendar_cpsday_view.pt
 msgid "label_calendar_event_list"
 msgstr "Eventos para el"
 
-#.   <th align="right">Categories</th>
-#: from ../skins/cps_default/actionbox_edit_form.pt
-msgid "label_categories"
-msgstr "Categorías"
-
-#.   <th colspan="5" align="right">Subfolders only</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_children_only"
-msgstr "Mostrar solamente las subcarpetas"
-
-#.   <option value="" attributes="selected not:box/box/query_modified">Choose</option>
 #.   <option attributes="value default;
 #.                                   selected python:request.get('modified',
 #.                                     default) == default or nothing">Choose</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
 msgstr "Escoger"
-
-#.   <button type="button" onclick="popup_nav_sc('divsubmitselection_sc',
-#.                                                                         'Select folder for recherche') " size="30">
-#.                                                                Choose sections</button>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_choose_section"
-msgstr "Seleccionar secciones"
-
-#.   <button type="button" onclick="popup_nav_ws('divsubmitselection_sc',
-#.                                                                         'Select workspaces for recherche') " size="30">
-#.                                                                Choose workspaces</button>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_choose_workspace"
-msgstr "Seleccionar espacios de trabajo"
-
-#.   <option value="closed" attributes="selected python:test(box['settings']['closed'], 'selected', nothing)">Closed</option>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_closed"
-msgstr "Cerrar"
 
 #.   <td>Comments</td>
 #: from ../skins/cps_default/content_lib_history.pt
@@ -1476,26 +1451,16 @@ msgstr "Accesibilidad al contenido de nivel A de la web W·C"
 msgid "label_consultation"
 msgstr "Consulta"
 
-#.   <label for="cb_no_recurse">Do not recurse into subfolders </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_contentbox_no_recurse"
-msgstr "No distribuir en subcarpetas"
-
-#    <label for="cb_zoom">zoom</label>
-#.   <label for="cb_zoom">zoom</label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_contentbox_zoom"
-msgstr "Ampliar el primer documento"
-
-#.   <th align="right">Contextual</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_contextual"
-msgstr "Contextual"
-
 #.   <th align="right">Contributors</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_contributors"
 msgstr "Contribuyentes"
+
+#.   <h2>Current revisions</h2>
+#: from ../skins/cps_default/content_lib_states.pt
+#, fuzzy
+msgid "label_current_revisions"
+msgstr "Current revisions"
 
 #.   <h2>Current status of the document</h2>
 #: from ../skins/cps_default/content_status_history.pt
@@ -1550,11 +1515,6 @@ msgstr "Fecha de modificación (descendente)"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_default"
 msgstr "Predefinido"
-
-#.   <th align="right">Depth</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_depth"
-msgstr "Profundidad"
 
 #.   <div class="label">
 #.           Description
@@ -1622,43 +1582,20 @@ msgstr "inactivo"
 msgid "label_discussion_on"
 msgstr "activo"
 
-#.   <label for="box_display">Display</label>
 #.   <label for="display_style">Display with</label>
-#: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/content_lib_display_params_form.pt
+#: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_display"
 msgstr "Mostrar"
-
-#.   <th colspan="5" align="right">Display description</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_display_description"
-msgstr "Mostrar la descripción de las carpetas"
-
-#.   <th colspan="5" align="right">Display icons</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_display_icons"
-msgstr "Icono"
-
-#.   <th colspan="5" align="right">Display managers</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_display_managers"
-msgstr "Mostrar los responsables de las carpetas"
-
-#    <th align="right" colspan="5">Show root</th>
-#.   <th colspan="5" align="right">Show root</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_display_root"
-msgstr "Mostrar la raíz de la jerarquía"
 
 #    <th style="text-align:left;">
 #            Email address
 #        </th>
 #    <th> Email Address </th>
-#.   <th style="text-align:left;">
-#.           Email address
-#.       </th>
+#.   <th>
+#.             Email address
+#.         </th>
 #.   <label for="email">Email Address</label>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
 msgstr "Correo-e"
@@ -1669,64 +1606,20 @@ msgstr "Correo-e"
 msgid "label_end_date"
 msgstr "Fecha final (DD/MM/AAAA)"
 
-#.   <label for="event_types">label_event_types</label>
-#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
-msgid "label_event_types"
-msgstr "Tipos de documento a tener en cuenta"
-
-#.   <em>label_event_types_help</em>
-#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
-msgid "label_event_types_help"
-msgstr "Nota: solamente pueden mostrarse en el calendario los documentos que tengan fecha de comienzo y de fin."
-
-#.   <label for="events_in">label_events_location</label>
-#: from ../skins/cps_default/eventcalendarbox_edit_form.pt
-msgid "label_events_location"
-msgstr "Buscar eventos en"
-
 #.   <label>label_file_change</label>
-#.   <label for="radio_change">label_file_change</label>
 #: from ../skins/cps_default/dummy_edit_form.pt
-#: ../skins/cps_default/flashbox_edit_form.pt
-#: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_file_change"
 msgstr "Cargar"
 
 #.   <label>label_file_delete</label>
-#.   <label for="radio_delete">label_file_delete</label>
 #: from ../skins/cps_default/dummy_edit_form.pt
-#: ../skins/cps_default/flashbox_edit_form.pt
-#: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_file_delete"
 msgstr "Borrar"
 
 #.   <label>label_file_keep</label>
-#.   <label for="radio_keep">label_file_keep</label>
 #: from ../skins/cps_default/dummy_edit_form.pt
-#: ../skins/cps_default/flashbox_edit_form.pt
-#: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_file_keep"
 msgstr "Guardar"
-
-#.   <th align="right">label_flash_file</th>
-#: from ../skins/cps_default/flashbox_edit_form.pt
-msgid "label_flash_file"
-msgstr "Archivo Flash"
-
-#.   <label for="flash_height">label_flash_height</label>
-#: from ../skins/cps_default/flashbox_edit_form.pt
-msgid "label_flash_height"
-msgstr "Altura de la caja Flash"
-
-#.   <label for="flash_width">label_flash_width</label>
-#: from ../skins/cps_default/flashbox_edit_form.pt
-msgid "label_flash_width"
-msgstr "Anchura de la caja Flash"
-
-#.   <th align="right">Folder</th>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_folder"
-msgstr "carpeta"
 
 #.   <th align="right">Format</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1741,20 +1634,22 @@ msgid "label_from"
 msgstr "Del"
 
 #.   <block>Group</block>
-#.   <block condition="python:type=='group'">Group</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
 msgid "label_group"
 msgstr "Grupo"
 
-#.   <option value="groupname">Group name</option>
+#.   <option attributes="selected python:search_param == 'groupname'" value="groupname">Group name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
 msgstr "Nombre del grupo"
 
-#.   <label for="textbox_i18n">Translation</label>
-#: from ../skins/cps_default/textbox_edit_form.pt
-msgid "label_i18n"
-msgstr "Traducción"
+#.   <h3>
+#.           Groups local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_groups_local_roles_assignment"
+msgstr "Groups local roles assignment"
 
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
@@ -1764,19 +1659,12 @@ msgid "label_icons"
 msgstr "Iconos"
 
 #.   <div class="label" />
-#.   <th align="right">label_image</th>
 #: from ../skins/cps_default/dummy_edit_form.pt
-#: ../skins/cps_default/imagebox_edit_form.pt
 msgid "label_image"
 msgstr "Imagen"
 
-#.   <th align="right">label_image_link</th>
-#: from ../skins/cps_default/imagebox_edit_form.pt
-msgid "label_image_link"
-msgstr "Enlace de la imagen"
-
-#.   <span>in</span>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <block>in</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "label_in"
 msgstr "en"
 
@@ -1815,6 +1703,29 @@ msgstr "Tipo"
 msgid "label_info_tab_version"
 msgstr "Versión"
 
+#.   <span class="inheritedBlockedRole">
+#.       Inherited blocked role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+msgid "label_inherited_blocked_role"
+msgstr ""
+
+#.   <span class="inheritedRole">
+#.       Inherited role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_role"
+msgstr "Inherited role"
+
+#.   <th condition="python:not local_roles_blocked or show_blocked_roles">
+#.           Inherited roles
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_inherited_roles"
+msgstr "Inherited roles"
+
 #.   <td>Langue</td>
 #.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
@@ -1842,30 +1753,33 @@ msgstr "Idioma ${status_language}"
 msgid "label_last_modified"
 msgstr "Modificado por última vez:"
 
-#.   <th>Search by</th>
+#.   <label for="search_param">
+#.         Search by
+#.       </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_by"
 msgstr "Buscar por"
 
-#.   <th>Search Term</th>
+#.   <label for="search_term">
+#.          Search Term
+#.        </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_local_roles_search_term"
 msgstr "Palabras clave de la búsqueda"
 
-#.   <option value="maximized" attributes="selected python:test(box['settings']['minimized'], nothing, 'selected');">Maximized</option>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_maximized"
-msgstr "Maximizar"
+#.   <td>Location</td>
+#: from ../skins/cps_default/content_lib_states.pt
+#, fuzzy
+msgid "label_location"
+msgstr "Location"
 
-#.   <option value="minimized" attributes="selected python:test(box['settings']['minimized'], 'selected', nothing)">Minimized</option>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_minimized"
-msgstr "Minimizar"
-
-#.   <th align="right">Nb items</th>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_nb_items"
-msgstr "Nº de objetos"
+#.   <th>
+#.           User or Group name
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_name"
+msgstr "Name"
 
 #    <option attributes="selected not:sort_by" value="None">
 #                No sort
@@ -1876,12 +1790,6 @@ msgstr "Nº de objetos"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_none"
 msgstr "Sin orden"
-
-#    <th align="right">Order</th>
-#.   <label for="box_order">Order</label>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_order"
-msgstr "Orden"
 
 #.   <span>Pages</span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
@@ -1905,11 +1813,6 @@ msgstr "Contraseña (confirmar)"
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_mailed"
 msgstr "¿Enviar la contraseña?"
-
-#.   <option value="pending" attributes="selected python:box['box'].query_status == 'pending'">Pending</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_pending"
-msgstr "En espera"
 
 #.   <label for="portal_description">
 #.               Portal description
@@ -1945,21 +1848,6 @@ msgstr "Permitir el cambio de contraseña"
 #: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_title"
 msgstr "Título del portal"
-
-#.   <td>Publication location</td>
-#: from ../skins/cps_default/content_lib_states.pt
-msgid "label_publication_location"
-msgstr "Situación de la publicación"
-
-#.   <h2>label_publication_states</h2>
-#: from ../skins/cps_default/content_lib_states.pt
-msgid "label_publication_states"
-msgstr "Estado de publicación"
-
-#.   <option value="published" attributes="selected python:box['box'].query_status == 'published'">Published</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_published"
-msgstr "Publicado"
 
 #.   <label for="remember">Remember my
 #.                  name</label>
@@ -2007,48 +1895,22 @@ msgstr "Versión ${status_revision}"
 msgid "label_rights"
 msgstr "Derechos"
 
-#.   <block>Role(s)</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_roles"
-msgstr "Rol(es)"
-
-#    <th align="right">Root</th>
-#.   <th align="right">Root</th>
-#: from ../skins/cps_default/treebox_edit_form.pt
-msgid "label_root"
-msgstr "Raíz"
-
-#    <span>sort by</span>
-#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
-#: from ../skins/cps_default/xml_exports.pt
-msgid "label_rss_export"
-msgstr "RSS"
-
-#.   <th align="right">search</th>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_search"
-msgstr "Opciones de búsqueda"
-
 #.   <label attributes="for id2">all</label>
 #: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
 msgid "label_search_all_site"
 msgstr "todo el sitio"
 
-#.   <span>Description</span>
 #.   <label for="description">
 #.           Description
 #.         </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_description"
 msgstr "Descripción"
 
-#.   <span>Full text</span>
 #.   <label for="advancedSearchFullText">
 #.           Full text
 #.         </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_full_text"
 msgstr "Texto completo"
 
@@ -2067,39 +1929,31 @@ msgstr "Buscar"
 
 #    <span>Modified since</span>
 #    <div class="label" />
-#.   <span>Modified since</span>
 #.   <label for="modified">
 #.           Modified since
 #.         </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_modified_since"
 msgstr "Modificado desde"
 
-#.   <span>Portal type</span>
 #.   <label for="portalType">
 #.           Document type
 #.         </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_portal_type"
 msgstr "Tipo de documento"
 
-#.   <span>Status</span>
 #.   <label for="state">
 #.           Status
 #.         </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_status"
 msgstr "Estado"
 
-#.   <span>Description</span>
 #.   <label for="field_focus">
 #.           Title
 #.         </label>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_title"
 msgstr "Título"
 
@@ -2109,11 +1963,6 @@ msgstr "Título"
 #: from ../skins/cps_default/content_lib_status.pt
 msgid "label_since ${status_time}"
 msgstr "desde ${status_time}"
-
-#.   <label for="box_slot">Slot</label>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_slot"
-msgstr "Ubicación"
 
 #.   <label for="smtp_server">
 #.               SMTP Server
@@ -2174,14 +2023,12 @@ msgstr "Tema"
 msgid "label_text_to_search"
 msgstr "Texto para buscar"
 
-#.   <label for="box_title">Title</label>
 #.   <div class="label">
 #.           Title
 #.         </div>
 #.   <th align="right">Title</th>
 #.   <strong>Title:</strong>
-#: from ../skins/cps_default/basebox_edit_form.pt
-#: ../skins/cps_default/dummy_edit_form.pt
+#: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
@@ -2218,24 +2065,34 @@ msgstr "A"
 msgid "label_translation_select_language"
 msgstr "Elija el idioma al que quiere traducir"
 
-#.   <th style="text-align:left;">
-#.           User
-#.       </th>
-#.   <block condition="python:type=='user'">User</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   <th>
+#.             User
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user"
 msgstr "Usuario"
 
 #    <option value="email">Email Address</option>
-#.   <option value="email">Email address</option>
+#.   <option attributes="selected python:search_param == 'email'" value="email">Email address</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
 msgstr "Correo-e"
 
-#.   <option value="fullname">Full name</option>
+#.   <option attributes="selected python:search_param == 'givenName'" value="givenName">User first name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_user_fullname"
-msgstr "Nombre completo del usuario"
+#, fuzzy
+msgid "label_user_givenName"
+msgstr "User first name"
+
+#.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
+#.   <th>
+#.             User id (login)
+#.         </th>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#: ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "label_user_id"
+msgstr "User id"
 
 #.   <label for="username">User name</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -2250,22 +2107,19 @@ msgstr "Nombre de usuario"
 msgid "label_user_name_or_email_address"
 msgstr "Nombre de usuario o dirección de correo electrónico"
 
-#.   <label for="box_display_in_subfolder">visible in subfolder</label>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_visible_in_subfolder"
-msgstr "visible en las subcarpetas"
+#.   <option attributes="selected python:search_param == 'sn'" value="sn">User surname</option>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "label_user_surname"
+msgstr "User surname"
 
-#.   <label for="box_display_only_in_subfolder">visible only in subfolder</label>
-#: from ../skins/cps_default/basebox_edit_form.pt
-msgid "label_visible_only_in_subfolder"
-msgstr "visible SOLAMENTE en las subcarpetas"
-
-#    <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
-#    <option value="work">Work</option>
-#.   <option value="work" attributes="selected python:box['box'].query_status == 'work'">Work</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-msgid "label_work"
-msgstr "Trabajo"
+#.   <h3>
+#.           Users local roles assignment
+#.         </h3>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "label_users_local_roles_assignment"
+msgstr "Users local roles assignment"
 
 #    <block>You are
 #      here:&nbsp;</block>
@@ -2296,79 +2150,140 @@ msgstr "Idiomas activados"
 msgid "language_set_default"
 msgstr "Idioma por defecto del portal"
 
-#.   <h1>
+#.   <h2>
 #.       Assigned local roles
-#.   </h1>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.   </h2>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_assigned"
 msgstr "Roles locales asignados"
 
-#    <p>
-#       These users currently have local roles assigned in this folder:
-#    </p>
-#.   <p>
-#.      These users currently have local roles assigned in this folder:
-#.   </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_assigned_users"
-msgstr "Los siguientes usuarios poseen actualmente roles locales en esta carpeta:"
-
 #.   <block>
-#.         Local roles are acquired.
-#.         You can block acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           Local roles are acquired.
+#.           You can block acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_block"
-msgstr "Los roles locales han sido adquiridos. Puede utilizar la opción \"bloquear\" para evitar cambios."
+msgstr ""
+"Los roles locales han sido adquiridos. Puede utilizar la opción \"bloquear\" "
+"para evitar cambios."
 
-#    <p>
-#        Sorry, no groups matched your search.
-#     </p>
-#.   <p>
-#.       Sorry, no groups matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_member"
-msgstr "Lo sentimos, ningún grupo se corresponde con su consulta"
-
-#    <p>
-#        Sorry, no members matched your search.
-#     </p>
-#.   <p>
-#.       Sorry, no members matched your search.
-#.    </p>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_no_results_members"
-msgstr "Lo sentimos, ningún usuario ha coincidido con su consulta"
+#.   <label for="filtered_role">
+#.       Filter local roles:
+#.     </label>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_filter_roles"
+msgstr "Filter on role"
 
 #.   <block>
-#.           Role to assign:</block>
-#.   <th colspan="2">
-#.           Role to assign:
-#.       </th>
+#.           You can hide blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_hide_blocked_roles"
+msgstr "You can hide blocked roles:"
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent folders and
+#.       are blocked.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_blocked_role"
+msgstr ""
+"this colour means that corresponding roles are set in parent folders and are "
+"blocked."
+
+#.   <block>
+#.       this colour means that corresponding roles are set in parent
+#.       folders. Follow the links to manage the local roles in these folders.
+#.     </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_inherited_role"
+msgstr ""
+"this colour means that corresponding roles are set in parent folders. Follow "
+"the links to manage the local roles in these folders."
+
+#.   <p>
+#.         Sorry, no group matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_groups_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_groups"
+msgstr "Sorry, no group matched your search."
+
+#.   <p>
+#.         Sorry, no user matched your search
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_members_search_results.pt
+#, fuzzy
+msgid "legend_local_roles_no_results_users"
+msgstr "Sorry, no user matched your search."
+
+#.   <p condition="python:not users and not groups">
+#.      There are no roles assigned in this folder
+#.   </p>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_no_roles_assigned"
+msgstr "There are no roles assigned in this folder"
+
+#.   <option value="" attributes="selected not:filtered_role">
+#.         No filter
+#.       </option>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_not_filtered_role"
+msgstr "No filter"
+
+#.   <label for="member_role">
+#.             Role to assign:
+#.           </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_role_to_assign"
 msgstr "Rol a delegar:"
 
 #.   <p>
-#.       Select Group(s) and a role to assign:
-#.    </p>
+#.         Sorry, your query gave too many results, please refine your search criteria
+#.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_select_groups_and_roles"
-msgstr "Escoja el/los grupo(s) y un rol para delegar:"
+#, fuzzy
+msgid "legend_local_roles_search_limit_exceeded"
+msgstr ""
+"Sorry, your query gave too many results, please refine your search criteria"
 
-#.   <p>
-#.       Select Member(s) and a role to assign:
-#.    </p>
+#.   <p condition="search_groups">
+#.          Select groups(s) and a role to assign:
+#.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-msgid "legend_local_roles_select_members_and_roles"
-msgstr "Escoja el/los usuario(s) y un rol para delegar:"
+#, fuzzy
+msgid "legend_local_roles_select_groups_and_role"
+msgstr "Select group(s) and a role to assign:"
+
+#.   <p condition="search_members">
+#.          Select member(s) and a role to assign:
+#.       </p>
+#: from ../skins/cps_default/folder_localrole_form.pt
+#, fuzzy
+msgid "legend_local_roles_select_members_and_role"
+msgstr "Select member(s) and a role to assign:"
 
 #.   <block>
-#.         Local roles acquisition is <strong>blocked</strong>.
-#.         You can unblock acquisition:</block>
-#: from ../skins/cps_default/folder_localrole_form.pt
+#.           You can show blocked roles:
+#.         </block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+#, fuzzy
+msgid "legend_local_roles_show_blocked_roles"
+msgstr "You can show blocked roles:"
+
+#.   <block>
+#.           Local roles acquisition is <strong>blocked</strong>.
+#.           You can unblock acquisition:</block>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_unblock"
-msgstr "la adquisición de roles locales está <strong>bloqueada</strong>. Puede desbloquearla"
+msgstr ""
+"la adquisición de roles locales está <strong>bloqueada</strong>. Puede "
+"desbloquearla"
 
 #    <span>
 #              gave no result.</span>
@@ -2415,11 +2330,6 @@ msgstr "Búsqueda avanzada"
 msgid "link_all_metadata"
 msgstr "Modificar metadatos"
 
-#.   <a attributes="href string:exportAtomContentBox?box_url=${box/url}" title="link_atom_export">ATOM</a>
-#: from ../skins/cps_default/xml_exports.pt
-msgid "link_atom_export"
-msgstr "Para la exportación al ATOM asociado"
-
 #.   <a href="." attributes="href string:${context_url}/archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
@@ -2448,18 +2358,6 @@ msgstr "Formulario de personalización"
 msgid "link_go_back"
 msgstr "Vuelta"
 
-#    <span>
-#      <em>Roles in underlined </em> are set in parent folders.
-#      Follow the links to manage the local roles in these folders.
-#    </span>
-#.   <block>
-#.     <em>Roles in underlined</em> are set in parent folders.
-#.     Follow the links to manage the local roles in these folders.
-#.   </block>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "link_local_roles_underlined"
-msgstr "<em>Los roles en cursiva</em> han sido definidos en uno de los directorios de la raíz. Siga los enlaces para gestionarlos en una de estas carpetas."
-
 #    <a href="/manage_zmi_logout">
 #          log out of the Zope management interface
 #        </a>
@@ -2468,7 +2366,8 @@ msgstr "<em>Los roles en cursiva</em> han sido definidos en uno de los directori
 #.       </a>
 #: from ../skins/cps_default/logged_out.pt
 msgid "link_logout_zmi"
-msgstr "necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
+msgstr ""
+"necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
 
 #.   <span>
 #.               You can now log into the site:
@@ -2488,11 +2387,6 @@ msgstr "Vuelta a la página principal"
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_revert_to_this_revision"
 msgstr "Volver a esta versión"
-
-#.   <a attributes="href string:exportRssContentBox?box_url=${box/url}" title="link_rss_export">RSS</a>
-#: from ../skins/cps_default/xml_exports.pt
-msgid "link_rss_export"
-msgstr "Al alimentador de noticias asociado RSS"
 
 #.   <th>
 #.               Existing revision of the same document
@@ -2553,11 +2447,9 @@ msgstr "Fecha efectiva"
 msgid "time_expiration_date"
 msgstr "Fecha de caducidad"
 
-#.   <option value="time_last_login" attributes="selected python:box['box'].query_modified == 'time_last_login'">time_last_login</option>
 #.   <option attributes="value lastLogin;
 #.                                   selected python:modified == lastLogin or None" condition="not:isAnon">Last login</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_login"
 msgstr "La última conexión"
 
@@ -2566,27 +2458,21 @@ msgstr "La última conexión"
 msgid "time_last_modified"
 msgstr "Fecha de última modificación"
 
-#.   <option value="time_last_month" attributes="selected python:box['box'].query_modified == 'time_last_month'">time_last_month</option>
 #.   <option attributes="value lastMonth;
 #.                                   selected python:modified == lastMonth or None">Last month</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_month"
 msgstr "El último mes"
 
-#.   <option value="time_last_week" attributes="selected python:box['box'].query_modified == 'time_last_week'">time_last_week</option>
 #.   <option attributes="value lastWeek;
 #.                                   selected python:modified == lastWeek or None">Last week</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_week"
 msgstr "La última semana"
 
-#.   <option value="time_yesterday" attributes="selected python:box['box'].query_modified == 'time_yesterday'">time_yesterday</option>
 #.   <option attributes="value yesterday;
 #.                                   selected python:modified == yesterday or None">Yesterday</option>
-#: from ../skins/cps_default/contentbox_edit_form.pt
-#: ../skins/cps_default/generic_lib_search_form.pt
+#: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_yesterday"
 msgstr "Ayer"
 
@@ -2642,7 +2528,61 @@ msgid "words_meaningless"
 msgstr "palabras sin significado"
 
 msgid "welcome_body"
-msgstr "<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an introduction to <acronym title=\"Collaborative Portal Server\">CPS</acronym> (Nuxeo Collaborative Portal Server) and to what you can now do with it. (<a href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Edit this text</a>.) </p> <h2>About CPS</h2>   <p> <acronym title=\"Collaborative Portal Server\">CPS</acronym> is an extensive collaborative Web content management system     (CMS) implemented on top of <a href=\"http://www.zope.org/\">Zope</a> and  the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, that  enables organizations to easily, quickly and efficiently implement     collaborative portals (intranet, extranet or internet) and    workflow- oriented business applications. </p> <p> CPS Provides, among other features: </p> <ul> <li> <a href=\"workspaces\">Collaborative work</a> and  <a href=\"sections\">publication</a> spaces (you may need to be authenticated with the right access level to access these URLs) </li> <li>Document versionning, that allows a document to be published in one version and still worked on in another one </li> <li>Group-based, directory-backed <a href=\"cpsdirectory_view\">user and roles management</a> </li> <li> A <a href=\"box_manage_form\">configurable</a> Portal interface, with  a web- and accessibility-standards compliant default look and feel  (you will need to be authenticated with the right access level to  access this URL) </li> <li> Notifications on many kinds of events happening on the system </li> <li> An (optional) WYSIWYG editor for portal look and feel (just install <em>CPSSkins</em> in your CPS instance using the <a href=\"manage\">ZMI</a>) </li> <li> Many user-level services, like a Webmail, Forums, shared Calendars, Newsletters and Mailing Lists, etc. </li> <li> Many powerful developers- and webmaster-level services, including support for creating your own document types, your own workflows, etc. </li> </ul> <p> CPS has already been adopted by major accounts in the Administration (French Ministries of Interior, of Culture, of Finances, of Defense, of Justice; French Atomic Energy Commission; Chalmers University...), in the private sector (Suez, STMicroelectronics...) and by the leading european IT consultancies  (Capgemini, Unilog, Steria...). </p> <p> For more information about Zope and CPS, we suggest you go to the following web sites: </p> <ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</a>: the  community portal for CPS users and developers </li> <li> <a href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 at Zope.org</a> (to download latest stable or development releases) </li> <li> <a href=\"http://lists.nuxeo.com/\">CPS mailing lists</a> </li> <li> <a href=\"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Slides for the CPS talks at EuroPython 2004</a> and for the  <a href=\"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 sprint in Paris (2004)</a> </li> <li> <a href=\"http://www.zope.org/\">Zope.org</a>: the community portal for Zope </li> <li> <a href=\"http://zope.org/Documentation/Books/ZopeBook/2_6Edition/\">The Zope Book</a> </li> </ul> <h2>Credits</h2>   <p> Thank you for trying or using CPS. CPS is developped by  <a href=\"http://www.nuxeo.com/en/\">Nuxeo</a> and a <a href=\"http://www.cps-project.org/\">community of contributors</a>. </p> <p> CPS contains code licensed under the GPL, the ZPL and other, GPL-compatible,  open source/free software licenses. Parts of CPS are copyright Nuxeo SARL,  Zope Corporation and Contributors, Chalmers University, Capgemini,  Unilog, Ministère de l'Intérieur, de la Sécurité Intérieure et des  Libertés Locales, Préfecture du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun Microsystems, Timothy O'Malley, Morten W.  Petersen, and other contributors. </p> "
+msgstr ""
+"<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
+"introduction to <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
+"(Nuxeo Collaborative Portal Server) and to what you can now do with it. (<a "
+"href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Edit this text</"
+"a>.) </p> <h2>About CPS</h2>   <p> <acronym title=\"Collaborative Portal "
+"Server\">CPS</acronym> is an extensive collaborative Web content management "
+"system     (CMS) implemented on top of <a href=\"http://www.zope.org/"
+"\">Zope</a> and  the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, "
+"that  enables organizations to easily, quickly and efficiently implement     "
+"collaborative portals (intranet, extranet or internet) and    workflow- "
+"oriented business applications. </p> <p> CPS Provides, among other features: "
+"</p> <ul> <li> <a href=\"workspaces\">Collaborative work</a> and  <a href="
+"\"sections\">publication</a> spaces (you may need to be authenticated with "
+"the right access level to access these URLs) </li> <li>Document versionning, "
+"that allows a document to be published in one version and still worked on in "
+"another one </li> <li>Group-based, directory-backed <a href="
+"\"cpsdirectory_view\">user and roles management</a> </li> <li> A <a href="
+"\"box_manage_form\">configurable</a> Portal interface, with  a web- and "
+"accessibility-standards compliant default look and feel  (you will need to "
+"be authenticated with the right access level to  access this URL) </li> <li> "
+"Notifications on many kinds of events happening on the system </li> <li> An "
+"(optional) WYSIWYG editor for portal look and feel (just install "
+"<em>CPSSkins</em> in your CPS instance using the <a href=\"manage\">ZMI</a>) "
+"</li> <li> Many user-level services, like a Webmail, Forums, shared "
+"Calendars, Newsletters and Mailing Lists, etc. </li> <li> Many powerful "
+"developers- and webmaster-level services, including support for creating "
+"your own document types, your own workflows, etc. </li> </ul> <p> CPS has "
+"already been adopted by major accounts in the Administration (French "
+"Ministries of Interior, of Culture, of Finances, of Defense, of Justice; "
+"French Atomic Energy Commission; Chalmers University...), in the private "
+"sector (Suez, STMicroelectronics...) and by the leading european IT "
+"consultancies  (Capgemini, Unilog, Steria...). </p> <p> For more information "
+"about Zope and CPS, we suggest you go to the following web sites: </p> "
+"<ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</a>: "
+"the  community portal for CPS users and developers </li> <li> <a href="
+"\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 at Zope.org</a> (to "
+"download latest stable or development releases) </li> <li> <a href=\"http://"
+"lists.nuxeo.com/\">CPS mailing lists</a> </li> <li> <a href=\"http://zope."
+"org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Slides for the CPS "
+"talks at EuroPython 2004</a> and for the  <a href=\"http://zope.org/Members/"
+"nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 sprint in Paris (2004)"
+"</a> </li> <li> <a href=\"http://www.zope.org/\">Zope.org</a>: the community "
+"portal for Zope </li> <li> <a href=\"http://zope.org/Documentation/Books/"
+"ZopeBook/2_6Edition/\">The Zope Book</a> </li> </ul> <h2>Credits</h2>   <p> "
+"Thank you for trying or using CPS. CPS is developped by  <a href=\"http://"
+"www.nuxeo.com/en/\">Nuxeo</a> and a <a href=\"http://www.cps-project.org/"
+"\">community of contributors</a>. </p> <p> CPS contains code licensed under "
+"the GPL, the ZPL and other, GPL-compatible,  open source/free software "
+"licenses. Parts of CPS are copyright Nuxeo SARL,  Zope Corporation and "
+"Contributors, Chalmers University, Capgemini,  Unilog, Ministère de "
+"l'Intérieur, de la Sécurité Intérieure et des  Libertés Locales, Préfecture "
+"du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun "
+"Microsystems, Timothy O'Malley, Morten W.  Petersen, and other contributors. "
+"</p> "
 
 msgid "Session"
 msgstr "sesión"
@@ -2966,7 +2906,8 @@ msgid "portal_type_Section_title"
 msgstr "Sección"
 
 msgid "portal_type_Workspace_description"
-msgstr "Una carpeta o espacio de trabajo para crear contenidos (archivos, enlaces...)"
+msgstr ""
+"Una carpeta o espacio de trabajo para crear contenidos (archivos, enlaces...)"
 
 msgid "portal_type_Workspace_title"
 msgstr "Carpeta - Espacio de trabajo"
@@ -2999,7 +2940,9 @@ msgid "portal_type_QuizDocument_title"
 msgstr "Quiz"
 
 msgid "portal_type_QuizDocument_description"
-msgstr "Se trata de un formulario para la recogida de información útil. Por ejemplo, para efectuar encuestas, sondeos, etc."
+msgstr ""
+"Se trata de un formulario para la recogida de información útil. Por ejemplo, "
+"para efectuar encuestas, sondeos, etc."
 
 msgid "portal_type_CPSChat_title"
 msgstr "Chat"
@@ -3053,7 +2996,9 @@ msgid "portal_type_ImageBox_title"
 msgstr "Caja de imagen"
 
 msgid "portal_type_ImageBox_description"
-msgstr "Una caja genérica con una imagen, encabezamiento de una carpeta con un logo..."
+msgstr ""
+"Una caja genérica con una imagen, encabezamiento de una carpeta con un "
+"logo..."
 
 msgid "portal_type_RSSBox_title"
 msgstr "Caja RSS"
@@ -3095,7 +3040,9 @@ msgid "description_nuxeo_basebox_search"
 msgstr "El formulario de búsqueda alineado a la derecha."
 
 msgid "description_nuxeo_basebox_menu"
-msgstr "El menú de Nuxeo. Muestra la raíz de los espacios de trabajo, la de las secciones y las secciones de primer nivel."
+msgstr ""
+"El menú de Nuxeo. Muestra la raíz de los espacios de trabajo, la de las "
+"secciones y las secciones de primer nivel."
 
 msgid "description_nuxeo_basebox_breadcrumbs"
 msgstr "Línea de localización: camino hasta su posición actual."
@@ -3152,13 +3099,17 @@ msgid "description_nuxeo_actionbox_menu"
 msgstr "La caja de acciones en forma de menú con pestañas."
 
 msgid "description_nuxeo_actionbox_header"
-msgstr "Una lista de acciones sencilla utilizada para las acciones en el encabezado de la página."
+msgstr ""
+"Una lista de acciones sencilla utilizada para las acciones en el encabezado "
+"de la página."
 
 msgid "description_nuxeo_imagebox_default"
 msgstr "Una caja con una imagen."
 
 msgid "description_nuxeo_flashbox_default"
-msgstr "Una caja que muestra una animación Flash&trade;, con anchura y altura configurables."
+msgstr ""
+"Una caja que muestra una animación Flash&trade;, con anchura y altura "
+"configurables."
 
 msgid "description_nuxeo_treebox_sitemap_adv"
 msgstr "Un mapa avanzado del espacio de trabajo"
@@ -3235,6 +3186,22 @@ msgstr "Estado modificado (en el flujo de trabajo)."
 msgid "psm_local_roles_changed"
 msgstr "Roles locales modificados."
 
+#, fuzzy
+msgid "psm_local_roles_blocked"
+msgstr "Local roles acquisition blocked"
+
+#, fuzzy
+msgid "psm_local_roles_unblocked"
+msgstr "Local roles acquisition unblocked"
+
+#, fuzzy
+msgid "psm_local_roles_select_members"
+msgstr "Please select members first"
+
+#, fuzzy
+msgid "psm_local_roles_no_editable_ids"
+msgstr "No editable local roles"
+
 msgid "psm_join_password_too_short"
 msgstr "Su contraseña debe tener al menos 5 caracteres."
 
@@ -3254,7 +3221,9 @@ msgid "psm_reset_password_request_received"
 msgstr "recibida contraseña"
 
 msgid "psm_reset_password_success_and_new_password_is"
-msgstr "Su contraseña se ha restaurado con éxito. Su nueva contraseña es: ${new_password}"
+msgstr ""
+"Su contraseña se ha restaurado con éxito. Su nueva contraseña es: "
+"${new_password}"
 
 msgid "psm_reset_password_problem"
 msgstr "problema con la contraseña"
@@ -3274,6 +3243,13 @@ msgstr "Idioma(s) no disponibles"
 
 msgid "psm_language_error_select_at_least_one_item"
 msgstr "Seleccione al menos un idioma"
+
+#, fuzzy
+msgid "psm_language_error_let_at_least_one_language_to_portal"
+msgstr "Let at least one language to CPS."
+
+msgid "psm_language_error_unknown_command"
+msgstr ""
 
 msgid "collector_psm_erase_data_cancel"
 msgstr "Los datos recogidos no han sido eliminados."
@@ -3462,6 +3438,184 @@ msgstr "Acciones con objetos"
 msgid "Portal actions"
 msgstr "Acciones del portal"
 
+msgid "label_publication_location"
+msgstr "Situación de la publicación"
+
+msgid "label_publication_states"
+msgstr "Estado de publicación"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Slot"
+msgstr "Ubicación"
+
+msgid "button_back"
+msgstr "Atrás"
+
+msgid "button_text_editor_popup"
+msgstr "Editor de texto..."
+
+#    <h2>Box edition</h2>
+msgid "heading_box_edit_form"
+msgstr "Modificar la caja"
+
+msgid "help_contentbox_no_recurse"
+msgstr ""
+"Compruebe esto si quiere que la búsqueda quede restringida a la carpeta "
+"elegida sin buscar en las subcarpetas. "
+
+msgid "help_contentbox_sort"
+msgstr "La búsqueda devolverá sólo los primeros cien documentos"
+
+#    <em>
+#            Box types in italic are predefined types. You cannot change their
+#            properties from this interface. Use the default box to do so.
+#          </em>
+msgid "help_italic_vendor_boxes_types"
+msgstr ""
+"Los tipos de caja en cursiva son tipos predefinidos, algunas de sus "
+"propiedades no se pueden cambiar desde aquí. Utilice la caja por defecto "
+"para hacerlo."
+
+#    <span>sort by</span>
+msgid "label_atom_export"
+msgstr "ATOM"
+
+msgid "label_authorized_only"
+msgstr "Display authorized folders only"
+
+#    <th align="right">text</th>
+msgid "label_box_content"
+msgstr "Contenido"
+
+#    <th align="right">Box skin</th>
+msgid "label_box_skin"
+msgstr "Vestidura de la caja"
+
+msgid "label_btype"
+msgstr "Tipo"
+
+msgid "label_categories"
+msgstr "Categorías"
+
+msgid "label_children_only"
+msgstr "Mostrar solamente las subcarpetas"
+
+msgid "label_choose_section"
+msgstr "Seleccionar secciones"
+
+msgid "label_choose_workspace"
+msgstr "Seleccionar espacios de trabajo"
+
+msgid "label_closed"
+msgstr "Cerrar"
+
+msgid "label_contentbox_no_recurse"
+msgstr "No distribuir en subcarpetas"
+
+#    <label for="cb_zoom">zoom</label>
+msgid "label_contentbox_zoom"
+msgstr "Ampliar el primer documento"
+
+msgid "label_contextual"
+msgstr "Contextual"
+
+msgid "label_depth"
+msgstr "Profundidad"
+
+msgid "label_display_description"
+msgstr "Mostrar la descripción de las carpetas"
+
+msgid "label_display_icons"
+msgstr "Icono"
+
+msgid "label_display_managers"
+msgstr "Mostrar los responsables de las carpetas"
+
+#    <th align="right" colspan="5">Show root</th>
+msgid "label_display_root"
+msgstr "Mostrar la raíz de la jerarquía"
+
+msgid "label_event_types"
+msgstr "Tipos de documento a tener en cuenta"
+
+msgid "label_event_types_help"
+msgstr ""
+"Nota: solamente pueden mostrarse en el calendario los documentos que tengan "
+"fecha de comienzo y de fin."
+
+msgid "label_events_location"
+msgstr "Buscar eventos en"
+
+msgid "label_flash_file"
+msgstr "Archivo Flash"
+
+msgid "label_flash_height"
+msgstr "Altura de la caja Flash"
+
+msgid "label_flash_width"
+msgstr "Anchura de la caja Flash"
+
+msgid "label_folder"
+msgstr "carpeta"
+
+msgid "label_i18n"
+msgstr "Traducción"
+
+msgid "label_image_link"
+msgstr "Enlace de la imagen"
+
+msgid "label_maximized"
+msgstr "Maximizar"
+
+msgid "label_minimized"
+msgstr "Minimizar"
+
+msgid "label_nb_items"
+msgstr "Nº de objetos"
+
+#    <th align="right">Order</th>
+msgid "label_order"
+msgstr "Orden"
+
+msgid "label_pending"
+msgstr "En espera"
+
+msgid "label_published"
+msgstr "Publicado"
+
+#    <th align="right">Root</th>
+msgid "label_root"
+msgstr "Raíz"
+
+#    <span>sort by</span>
+msgid "label_rss_export"
+msgstr "RSS"
+
+msgid "label_search"
+msgstr "Opciones de búsqueda"
+
+msgid "label_slot"
+msgstr "Ubicación"
+
+msgid "label_visible_in_subfolder"
+msgstr "visible en las subcarpetas"
+
+msgid "label_visible_only_in_subfolder"
+msgstr "visible SOLAMENTE en las subcarpetas"
+
+#    <option attributes="selected python:box['box'].query_status == 'work'" value="work">Work</option>
+#    <option value="work">Work</option>
+msgid "label_work"
+msgstr "Trabajo"
+
+msgid "link_atom_export"
+msgstr "Para la exportación al ATOM asociado"
+
+msgid "link_rss_export"
+msgstr "Al alimentador de noticias asociado RSS"
+
 msgid "Translated status message."
 msgstr "Mensaje de estado traducido"
 
@@ -3553,3 +3707,22 @@ msgstr "Título"
 msgid "listingheader_type"
 msgstr "Tipo"
 
+#~ msgid "label_user_fullname"
+#~ msgstr "Nombre completo del usuario"
+
+#    <p>
+#       These users currently have local roles assigned in this folder:
+#    </p>
+#~ msgid "legend_local_roles_assigned_users"
+#~ msgstr ""
+#~ "Los siguientes usuarios poseen actualmente roles locales en esta carpeta:"
+
+#    <span>
+#      <em>Roles in underlined </em> are set in parent folders.
+#      Follow the links to manage the local roles in these folders.
+#    </span>
+#~ msgid "link_local_roles_underlined"
+#~ msgstr ""
+#~ "<em>Los roles en cursiva</em> han sido definidos en uno de los "
+#~ "directorios de la raíz. Siga los enlaces para gestionarlos en una de "
+#~ "estas carpetas."

@@ -1,7 +1,14 @@
-HTMLDOCS := howto-virtual_hosts.html guidelines-user_interface.html howto-search.html
-RST2HTML=rst2html
+.PHONY: clean
 
-all: $(HTMLDOCS)
+SRC_DOCS := $(shell ls *.txt)
+
+# Uncomment this line to produce HTML doc from all the available text files in
+# this directory.
+#HTML_DOCS = $(subst .txt,.html,${SRC_DOCS})
+HTML_DOCS := howto-virtual_hosts.html guidelines-user_interface.html howto-search.html
+RST2HTML := rst2html
+
+all: ${HTML_DOCS}
 
 %.html: %.txt
 	${RST2HTML} -t --stylesheet-path=nuxeo_doc.css $< $@
@@ -13,5 +20,4 @@ all: $(HTMLDOCS)
 
 clean:
 	rm -f *~
-	rm -f $(HTMLDOCS)
-
+	rm -f ${HTML_DOCS}

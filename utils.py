@@ -140,7 +140,7 @@ def computeContributors(portal, contributors):
     if not fullname:
         fullname = user_id
 
-    if fullname not in contributors:
+    if fullname is not None and fullname not in contributors:
         contributors.append(fullname)
 
     return contributors

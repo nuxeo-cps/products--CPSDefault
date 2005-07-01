@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<type-info id="CPSForum"
+           kind="CPS Flexible Type Information">
+  <property name="title">portal_type_CPSForum_title</property>
+  <property name="description">portal_type_CPSForum_description</property>
+  <property name="content_icon">forum_icon.png</property>
+  <property name="content_meta_type">CPS Document</property>
+  <property name="product">CPSForum</property>
+  <property name="factory">addCPSForum</property>
+  <property name="immediate_view">forum_view</property>
+  <property name="global_allow">True</property>
+  <property name="filter_content_types">1</property>
+  <property name="allowed_content_types">
+   <element value="ForumPost" /></property>
+  <property name="allow_discussion">1</property>
+  <property name="cps_is_searchable">1</property>
+  <property name="cps_proxy_type">folder</property>
+  <property name="cps_display_as_document_in_listing">1</property>
+  <property name="cps_is_portalbox">0</property>
+  <property name="schemas">
+   <element value="metadata" />
+   <element value="forum" /></property>
+  <property name="layouts">
+   <element value="common" />
+   <element value="forum" /></property>
+  <property name="layout_clusters"></property>
+  <property name="flexible_layouts"></property>
+  <property name="storage_methods"></property>
+  <property name="cps_is_portlet">0</property>
+  <aliases>
+   <alias from="(Default)" to="forum_view"/>
+   <alias from="view" to="forum_view"/>
+  </aliases>
+  <action action_id="view" title="action_view"
+          condition_expr=""
+          url_expr="string:${object_url}/forum_view"
+          category="object" visible="True">
+   <permission>View</permission>
+  </action>
+  <action action_id="new_content" title="action_new_content"
+          condition_expr=""
+          url_expr="string:${object_url}/folder_factories"
+          category="object" visible="False">
+   <permission>Forum Post</permission>
+  </action>
+  <action action_id="contents"
+          title="action_folder_contents" condition_expr=""
+          url_expr="string:${object_url}/folder_contents"
+          category="object" visible="False">
+   <permission>Forum Moderate</permission>
+  </action>
+  <action action_id="edit" title="action_modify"
+          condition_expr=""
+          url_expr="string:${object_url}/cpsdocument_edit_form"
+          category="object" visible="True">
+   <permission>Modify Folder Properties</permission>
+  </action>
+  <action action_id="localroles" title="action_local_roles"
+          condition_expr=""
+          url_expr="string:${object_url}/forum_localrole_form"
+          category="object" visible="True">
+   <permission>Change permissions</permission>
+  </action>
+  <action action_id="status_history"
+          title="action_status_history"
+          condition_expr="not:portal/portal_membership/isAnonymousUser"
+          url_expr="string:${object_url}/content_status_history"
+          category="workflow" visible="True">
+   <permission>View</permission>
+  </action>
+</type-info>

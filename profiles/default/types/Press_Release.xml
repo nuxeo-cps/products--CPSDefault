@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
-<type-info id="Link" kind="CPS Flexible Type Information">
-  <property name="title">portal_type_Link_title</property>
-  <property name="description">portal_type_Link_description</property>
-  <property name="content_icon">link_icon.png</property>
+<type-info id="Press Release"
+           kind="CPS Flexible Type Information">
+  <property name="title">portal_type_PressRelease_title</property>
+  <property name="description">portal_type_PressRelease_description</property>
+  <property name="content_icon">pressrelease_icon.png</property>
   <property name="content_meta_type">CPS Document</property>
   <property name="product">CPSDocument</property>
   <property name="factory">addCPSDocument</property>
@@ -17,12 +18,18 @@
   <property name="cps_is_portalbox">0</property>
   <property name="schemas">
    <element value="metadata" />
-   <element value="common" /></property>
+   <element value="common" />
+   <element value="newsitem" />
+   <element value="flexible_content" /></property>
   <property name="layouts">
-   <element value="link" /></property>
+   <element value="common" />
+   <element value="newsitem_start" />
+   <element value="newsitem_flexible" />
+   <element value="newsitem_end" /></property>
   <property name="layout_clusters">
    <element value="metadata:metadata" /></property>
-  <property name="flexible_layouts"></property>
+  <property name="flexible_layouts">
+   <element value="newsitem_flexible:flexible_content" /></property>
   <property name="storage_methods"></property>
   <property name="cps_is_portlet">0</property>
   <aliases>

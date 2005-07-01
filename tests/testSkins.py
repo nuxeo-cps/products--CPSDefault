@@ -33,8 +33,7 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(self.portal.stylesheet_properties.mainBackground)
 
     def testCSS(self):
-        SKIN_NAMES = ['nuxeo_css1.css', 'nuxeo_css2.css', 'nuxeo_print_css.css',
-            'nuxeo_print_css.css']
+        SKIN_NAMES = ['default.css', 'nuxeo_print_css.css']
 
         # These are DTML -> need to call them.
         request = self.portal.REQUEST

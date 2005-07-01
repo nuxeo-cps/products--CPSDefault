@@ -1,5 +1,6 @@
 <dtml-comment>
-CSS 2.1 spec, for newer user agents, MSIE5.x, MSIE6, Mozilla, etc.
+CSS directives conforming to the CSS 2.1 spec.
+Those CSS directives are suppported by user agents such as Mozilla/Firefox, MSIE6, MSIE5.x, etc.
 $Id$
 </dtml-comment>
 
@@ -11,6 +12,560 @@ $Id$
 </dtml-let>
 
 <dtml-with stylesheet_properties>
+
+<dtml-comment>
+BASIC ELEMENTS ------------------------------
+</dtml-comment>
+
+body {
+  font: <dtml-var mainFont>;
+  background: <dtml-var mainBackground>;
+  color: <dtml-var mainFontColor>;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: <dtml-var mainLinkColor>;
+  background-color: transparent;
+}
+
+a.strong {
+  font-weight: bold;
+}
+
+img {
+  border: 0;
+}
+
+p {
+  margin: 0.5em 0 1em 0;
+  line-height: 1.2em;
+}
+p a {
+  text-decoration: underline;
+}
+p a:visited {
+  color: <dtml-var contentLinkVisitedColor>;
+  background-color: transparent;
+}
+p a:active {
+  color: <dtml-var contentLinkActiveColor>;
+  background-color: transparent;
+}
+a:hover {
+  text-decoration: none;
+}
+p img {
+  border: <dtml-var contentImageBorder>;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: <dtml-var headingFontColor>;
+  background-color: transparent;
+  font: <dtml-var headingFont>;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 0.5em;
+}
+h1 {
+  font-size: <dtml-var headingSize1>;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+h2 {
+  font-size: <dtml-var headingSize2>;
+  margin-bottom: 1em;
+}
+h3 {
+  font-size: <dtml-var headingSize3>;
+}
+h4 {
+  font-size: <dtml-var headingSize4>;
+}
+h5 {
+  font-size: <dtml-var headingSize5>;
+}
+h6 {
+  font-size: <dtml-var headingSize6>;
+}
+
+ol, ul {
+  padding: 0;
+  margin: 0;
+  line-height: 1.2em;
+}
+ul a, ol a {
+  text-decoration: underline;
+}
+
+dt {
+  font-weight: bold;
+}
+dt a {
+  text-decoration: none;
+}
+
+dd {
+  line-height: 1.2em;
+  margin-bottom: 1em;
+}
+
+legend {
+  background: <dtml-var mainBackground>;
+  padding: 0.5em;
+}
+
+form {
+  margin: 0;
+}
+
+form.workflow dl {
+  font-weight: bold;
+}
+
+form.workflow dd {
+  margin-left: 0;
+}
+
+/* Form layout taken from http://pompage.net/pompe/listesdefinitions/
+WARNING: do not change since old versions of IE are highly sensitive to
+slight modifications.
+*/
+dl.form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 41.1em;
+  padding: 0;
+}
+
+dl.form dt {
+  width: 15em;
+  float: left;
+  margin: 0;
+  padding: .5em;
+  text-align: right;
+}
+
+/* hack comment with backslash for ie5 mac \*/
+dl.form dt { clear: both; }
+/* end hack */
+
+dl.form dd {
+  float: left;
+  width: 24em;
+  margin: 0;
+  padding: .5em;
+}
+
+form p.buttonArea {
+  text-align: center;
+  clear: both;
+}
+/* End of Warning */
+
+textarea {
+  color: <dtml-var mainFontColor>;
+  background-color: white;
+  font: <dtml-var inputFont>;
+}
+input {
+  font: <dtml-var inputFont>;
+  color: <dtml-var mainFontColor>;
+  background-color: white;
+  vertical-align: middle;
+}
+select {
+  font: <dtml-var inputFont>;
+  vertical-align: top;
+}
+abbr, acronym, .explain {
+  color: <dtml-var mainFontColor>;
+  background-color: transparent;
+}
+q, blockquote {
+  font-style: italic;
+  font-size: 120%;
+}
+code {
+  font-size: 120%;
+  color: <dtml-var mainFontColor>;
+  background-color: <dtml-var preBackground>;
+}
+pre {
+  font-size: 100%;
+  padding: 1em;
+  border: <dtml-var preBorder>;
+  color: <dtml-var mainFontColor>;
+  background-color: <dtml-var preBackground>;
+  overflow: auto;
+}
+
+<dtml-comment>
+COLUMNS ------------------------------
+</dtml-comment>
+
+table.columns {
+  width: 100%;
+}
+table.columns td.left {
+  vertical-align: top;
+  padding-top: 1em;
+  background: <dtml-var columnsLeftBackgroundNS4>;
+}
+table.columns td.main {
+  vertical-align: top;
+  padding-top: 1em;
+}
+table.columns td.right {
+  vertical-align: top;
+  padding-top: 1em;
+  background: <dtml-var columnsRightBackgroundNS4>;
+}
+
+<dtml-comment>
+Classes ------------------------------
+</dtml-comment>
+
+#idioma p {
+  margin-top: 0;
+}
+
+.logo {
+  margin: <dtml-var logoMargin>;
+  padding: <dtml-var logoPadding>;
+}
+
+.note {
+  font-size: smaller;
+}
+
+.even {
+  background-color: <dtml-var boxEvenBackground>;
+}
+
+.odd {
+  background-color: <dtml-var boxOddBackground>;
+}
+
+.pending {
+  font-weight: bold;
+  color: #ffa500;
+}
+
+.work {
+  font-weight: bold;
+  color: blue;
+}
+
+.draft {
+  font-weight: bold;
+  color: #5555ff;
+}
+
+.published {
+  font-weight: bold;
+  color: #22a522;
+}
+
+.deferred {
+  font-weight: bold;
+  color: #ff6600;
+}
+
+.expired {
+  font-weight: bold;
+  color: #ff0033;
+}
+
+.locked {
+  border: 1px solid #ff6600;
+  color: #ff6600;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+
+.url {
+  color: <dtml-var urlFontColor>
+}
+
+input.standalone {
+  background: <dtml-var standaloneButtonBackground>;
+  background-image: none;
+  color: <dtml-var standaloneButtonFontColor>;
+}
+
+input.context {
+  background: <dtml-var contextButtonBackground>;
+  background-image: none;
+  color: <dtml-var contextButtonFontColor>;
+}
+
+input.destructive {
+  background: <dtml-var destructiveButtonBackground>;
+  background-image: none;
+  color: <dtml-var destructiveButtonFontColor>;
+}
+
+button {
+  font: <dtml-var inputFont>;
+  background: <dtml-var standaloneButtonBackground>;
+  color: <dtml-var standaloneButtonFontColor>;
+  background-image: none;
+  vertical-align: middle;
+}
+
+<dtml-comment>
+DIVs ------------------------------
+</dtml-comment>
+
+div.batchLayout {
+  text-align: right;
+  background-color: <dtml-var boxEvenBackground>;
+}
+
+div.pageNavigationLayout {
+  text-align: center;
+  background-color: <dtml-var boxEvenBackground>;
+}
+
+.contact {
+  text-align: center;
+  margin: 0;
+  padding: 1px 0 1px 0;
+}
+
+div.message {
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
+  font: <dtml-var messageFont>;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  vertical-align: middle;
+}
+
+div.message a {
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
+  text-decoration: underline;
+}
+
+div.description {
+  font: <dtml-var descriptionFont>;
+  display: block;
+  margin-bottom: 0.5em;
+  line-height: 1.2em;
+}
+
+div.documentActions {
+  float: right;
+  margin-top: 1em;
+}
+
+div.documentActions li {
+  display: inline;
+}
+
+div.searchBox {
+  float: right;
+  text-align: right;
+  padding: <dtml-var searchPadding>;
+  margin: <dtml-var searchMargin>;
+  clear: right;
+}
+
+div.headerActions {
+  float: right;
+  text-align: right;
+  margin-top: 1em;
+  margin-right: 1em;
+  margin-bottom: 4px;
+}
+
+div.headerActions li {
+  display: inline;
+}
+
+div.pathBar {
+  padding: 1px 1em 1px 1em;
+  text-transform: <dtml-var textTransform>;
+}
+
+div.row {
+  clear: both;
+}
+
+div.label {
+  font-weight: bold;
+}
+
+div.field {
+  padding: 0 0 0 0;
+  text-align: left;
+}
+
+span.legend {
+  font-weight: bold;
+}
+
+div.popupImg {
+  padding: 10px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.hiddenItem {
+  background-color: <dtml-var boxEvenBackground>;
+}
+
+div.contentTabs {
+  padding: 0 0 0 1em;
+  margin: 0;
+}
+div.contentTabs a {
+  background-color: <dtml-var contentTabBackgroundNotSelected>;
+  color: <dtml-var contentTabFontColor>;
+  font-weight: <dtml-var contentTabFontWeight>;
+}
+div.contentTabs a.selected {
+  background-color: <dtml-var mainTabBackground>;
+  color: <dtml-var contentTabFontColorSelected>;
+  font-weight: <dtml-var contentTabFontWeight>;
+}
+
+<dtml-comment>
+BOX ----------------------------------------
+</dtml-comment>
+
+span.selectedLang {
+  background: #003a6b;
+  color: #ffffff;
+  font-weight: bold;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+a.availableLang {
+  text-decoration: underline;
+}
+a.availableLang:hover {
+  text-decoration: none;
+}
+
+table.box tr.title {
+  color: <dtml-var boxHeaderFontColor>; <dtml-comment> font color is hardcoded in box_lib </dtml-comment>
+  background-color: <dtml-var boxHeaderBackground>;
+}
+table.box tr.odd {
+  background: <dtml-var boxOddBackground>;
+}
+table.box tr.even {
+  background: <dtml-var boxEvenBackground>;
+}
+
+
+div.box {
+  margin: 0 0 1em 0;
+}
+div.box .title {
+  font-weight: bold;
+  text-transform: <dtml-var textTransform>;
+}
+div.box .title2 {
+  font-size: 120%;
+  font-weight: bold;
+}
+div.box a.close {
+  border: 0;
+}
+div.box .content {
+  padding: 0.7em;
+}
+div.box ul {
+  margin-left: -1em;
+  padding: 0;
+}
+div.box a.selected {
+  background: <dtml-var messageBackground>;
+}
+
+.workspace {
+  background: <dtml-var workspaceBackground>;
+}
+
+.conformanceStatement {
+  text-align: center;
+}
+
+.conformanceStatement li {
+  display: inline;
+}
+
+.conformanceStatement img {
+  margin: 1em;
+}
+
+<dtml-comment>
+CMF Calendar
+</dtml-comment>
+
+.CalendarArrow {
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+}
+
+.CalendarTitle {
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  color: #000000;
+}
+
+p.help {
+  font-style: italic;
+}
+
+table.calendar td {
+  white-space: nowrap;
+  background-color: white;
+  width: 1.5em;
+}
+
+table.calendar a {
+  text-decoration: none;
+  color: black;
+}
+
+table.calendar td.event {
+  background-color: <dtml-var boxEvenBackground>;
+  text-decoration: none;
+}
+
+table.calendar td.todayevent {
+  background-color: <dtml-var boxEvenBackground>;
+}
+
+table.calendar td.weekdays {
+  background-color: <dtml-var boxEvenBackground>;
+}
+
+table.calendar th {
+  background-color: <dtml-var boxEvenBackground>;
+  white-space: nowrap;
+}
+
+table.localRoleForm th {
+  text-align: left;
+}
+
+span.highlightedSearchTerm {
+  background-color: yellow;
+}
 
 /* hack for IE6 bugs */
 /* Hides from IE5-mac \*/

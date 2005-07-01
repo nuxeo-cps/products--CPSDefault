@@ -50,9 +50,8 @@ html_header = """
 <html>
 <head>
   <title>Tidy result</title>
-  <link rel="Stylesheet" type="text/css"
-        href="nuxeo_css1.css">
-  <style type="text/css" media="all">@import url(nuxeo_css2.css);</style>
+  <link rel="stylesheet" type="text/css" media="all"
+        href="default.css"/>
 </head>
 <body>
 <div class="document">

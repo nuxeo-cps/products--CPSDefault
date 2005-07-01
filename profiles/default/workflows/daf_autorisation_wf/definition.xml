@@ -1,0 +1,975 @@
+<?xml version="1.0"?>
+<cps-workflow workflow_id="daf_autorisation_wf"
+              title="CPS Workflow Definition"
+              state_variable="review_state"
+              meta_type="CPS Workflow">
+ <permission>View</permission>
+ <permission>Modify portal content</permission>
+ <state state_id="attente_reponse_ayant_droits"
+        title="Attente de la réponse de l'ayant-droit">
+  <exit-transition transition_id="signaler_reponse_recue"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+ </state>
+ <state state_id="demande_en_attente"
+        title="Demande en attente">
+  <exit-transition transition_id="affecter"/>
+  <exit-transition transition_id="invalider"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <exit-transition transition_id="dupliquer_demande"/>
+  <exit-transition transition_id="retourner_en_creation"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <state-behavior behavior_id="STATE_BEHAVIOR_PUSH_DELEGATEES"/>
+  <push-on-workflow-variable variable_id="Pilots"/>
+ </state>
+ <state state_id="demande_en_cours_d_affectation"
+        title="Demande en cours d'affectation">
+  <exit-transition transition_id="associer"/>
+  <exit-transition transition_id="valider_demande"/>
+  <exit-transition transition_id="invalider"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <exit-transition transition_id="descendre_affectation_pilote"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <exit-transition transition_id="dupliquer_demande"/>
+  <exit-transition transition_id="retourner_en_creation"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <state-behavior behavior_id="STATE_BEHAVIOR_PUSH_DELEGATEES"/>
+  <state-behavior behavior_id="STATE_BEHAVIOR_POP_DELEGATEES"/>
+  <state-behavior behavior_id="STATE_BEHAVIOR_WORKFLOW_DOWN"/>
+  <push-on-workflow-variable variable_id="Pilots"/>
+  <push-on-workflow-variable variable_id="Associates"/>
+  <push-on-workflow-variable variable_id="Observers"/>
+  <pop-on-workflow-variable variable_id="Pilots"/>
+  <pop-on-workflow-variable variable_id="Associates"/>
+  <pop-on-workflow-variable variable_id="Observers"/>
+  <workflow-down-on-workflow-variable variable_id="Pilots"/>
+ </state>
+ <state state_id="demande_en_creation"
+        title="Demande en création">
+  <exit-transition transition_id="soumettre_demande"/>
+  <exit-transition transition_id="creer_document_sollicite"/>
+  <exit-transition transition_id="gerer_documents_sollicites"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <exit-transition transition_id="abandonner_demande"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="demande_invalidee"
+        title="Demande invalidée">
+  <exit-transition transition_id="clore"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+ </state>
+ <state state_id="demande_validee" title="Demande validée">
+  <exit-transition transition_id="voir_documents_a_completer"/>
+  <exit-transition transition_id="solliciter_ayant_droits"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+ </state>
+ <state state_id="dossier_clos" title="Dossier clos">
+  <exit-transition transition_id="gerer_documents"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+ </state>
+ <state state_id="reponse_en_preparation"
+        title="Réponse en préparation">
+  <exit-transition transition_id="valider"/>
+  <exit-transition transition_id="imprimer"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <exit-transition transition_id="ajouter_reponse"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <state-behavior behavior_id="STATE_BEHAVIOR_WORKFLOW_UP"/>
+  <workflow-up-on-workflow-variable variable_id="Pilots"/>
+ </state>
+ <state state_id="reponse_signature_chef_centre"
+        title="Réponse à la signature du chef de centre">
+  <exit-transition transition_id="clore_envoyer_reponse"/>
+  <exit-transition transition_id="voir_affectations"/>
+  <exit-transition transition_id="ajouter_reponse"/>
+  <exit-transition transition_id="gerer_documents"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+  <stack-definition stackdef_id="Observers"
+                    variable_id="Observers"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <managed-roles>
+    <managed-role name="WorkspaceReader"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Pilots"
+                    variable_id="Pilots"
+                    meta_type="DAF Hierarchical Stack Definition"
+                    stack_type="DAF Hierarchical Stack">
+   <manager-stack-id stack_id="Associates"/>
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceManager"
+                  expression="python:level &lt;= stack.getCurrentLevel() and 1 or nothing"/>
+    <managed-role name="WorkspaceMember"
+                  expression="python:level &gt; stack.getCurrentLevel() and 1 or nothing"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+    <guard-role>Manager</guard-role>
+    <guard-role>WorkspaceManager</guard-role>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+  <stack-definition stackdef_id="Associates"
+                    variable_id="Associates"
+                    meta_type="Simple Stack Definition"
+                    stack_type="DAF Simple Stack">
+   <manager-stack-id stack_id="Observers"/>
+   <managed-roles>
+    <managed-role name="WorkspaceMember"
+                  expression="python:1"/>
+   </managed-roles>
+   <empty-stack-manage-guard>
+   </empty-stack-manage-guard>
+   <edit-stack-element-guard>
+   </edit-stack-element-guard>
+   <view-stack-element-guard>
+   </view-stack-element-guard>
+  </stack-definition>
+ </state>
+ <transition transition_id="abandonner_demande"
+             title="Abandonner la demande" new_state=""
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_abandonner_demande_form"
+          category="daf_autorisation_wf">abandonner_demande</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_DELETE"/>
+ </transition>
+ <transition transition_id="affecter" title="Affecter"
+             new_state="demande_en_cours_d_affectation"
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_affecter_form"
+          category="daf_autorisation_wf">affecter</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_PUSH_DELEGATEES"/>
+  <push-on-workflow-variable variable_id="Pilots"/>
+ </transition>
+ <transition transition_id="ajouter_reponse"
+             title="Ajouter une réponse" new_state=""
+             trigger="USER" before_script="" after_script="">
+  <action url="cpsdocument_create_form?type_name=daf_reponse_flexible"
+          category="daf_autorisation_wf">ajouter_reponse</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+   <guard-expression>python:not here.getDAFDocumentContents(type_names=['daf_reponse_flexible'])</guard-expression>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+ </transition>
+ <transition transition_id="associer"
+             title="Affecter/Associer" new_state=""
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_associer_form"
+          category="daf_autorisation_wf">associer</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_PUSH_DELEGATEES"/>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_POP_DELEGATEES"/>
+  <push-on-workflow-variable variable_id="Pilots"/>
+  <push-on-workflow-variable variable_id="Associates"/>
+  <push-on-workflow-variable variable_id="Observers"/>
+  <pop-on-workflow-variable variable_id="Pilots"/>
+  <pop-on-workflow-variable variable_id="Associates"/>
+  <pop-on-workflow-variable variable_id="Observers"/>
+ </transition>
+ <transition transition_id="clore" title="Clore la demande"
+             new_state="dossier_clos" trigger="USER"
+             before_script="" after_script="wf_daf_clore">
+  <action url="wf_autorisation_clore_form"
+          category="daf_autorisation_wf">clore</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="clore_envoyer_reponse"
+             title="Clore la demande et envoyer la réponse"
+             new_state="dossier_clos" trigger="USER"
+             before_script=""
+             after_script="wf_daf_clore_et_publier_reponse">
+  <action url="wf_autorisation_clore_envoyer_reponse_form"
+          category="daf_autorisation_wf">clore_envoyer_reponse</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-expression>python:here.getDAFDocumentContents(type_names=['daf_reponse_flexible'])</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="creer_demande"
+             title="Créer la demande"
+             new_state="demande_en_creation" trigger="USER"
+             before_script="" after_script="">
+  <action url="" category="daf_autorisation_wf">creer_demande</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>Authenticated</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+ </transition>
+ <transition transition_id="creer_document_sollicite"
+             title="Ajouter un document sollicité"
+             new_state="demande_en_creation" trigger="USER"
+             before_script="" after_script="">
+  <action url="cpsdocument_create_form?type_name=daf_autorisation_document_sollicite"
+          category="daf_autorisation_wf">creer_document_sollicite</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
+ </transition>
+ <transition transition_id="descendre_affectation_pilote"
+             title="Descendre l'affectation du responsable"
+             new_state="" trigger="USER" before_script=""
+             after_script="">
+  <action url="wf_autorisation_descendre_affectation_pilote_form"
+          category="daf_autorisation_wf">descendre_affectation_pilote</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_WORKFLOW_DOWN"/>
+  <workflow-down-on-workflow-variable variable_id="Pilots"/>
+ </transition>
+ <transition transition_id="dupliquer_demande"
+             title="Dupliquer la demande" new_state=""
+             trigger="USER" before_script=""
+             after_script="wf_daf_dupliquer_demande">
+  <action url="wf_autorisation_dupliquer_demande_form"
+          category="daf_autorisation_wf">dupliquer_demande</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="gerer_documents"
+             title="Ajouter un document flexible"
+             new_state="" trigger="USER" before_script=""
+             after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>Owner</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
+ </transition>
+ <transition transition_id="gerer_documents_sollicites"
+             title="Gérer le(s) document(s) sollicité(s)"
+             new_state="demande_en_creation" trigger="USER"
+             before_script="" after_script="">
+  <action url="folder_contents"
+          category="daf_autorisation_wf">gerer_documents_sollicites</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>Owner</guard-role>
+   <guard-expression>python:here.getDAFDocumentContents(type_names=['daf_autorisation_document_sollicite']) != []</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="imprimer" title="Imprimer"
+             new_state="reponse_signature_chef_centre"
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_imprimer_form"
+          category="daf_autorisation_wf">imprimer</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-expression>python:here.getDAFDocumentContents(type_names=['daf_reponse_flexible'])</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="invalider"
+             title="Invalider la demande"
+             new_state="demande_invalidee" trigger="USER"
+             before_script=""
+             after_script="alerte_demande_invalidee">
+  <action url="wf_autorisation_invalider_form"
+          category="daf_autorisation_wf">invalider</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="retourner_en_creation"
+             title="Retourner en état de création"
+             new_state="demande_en_creation" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_WORKFLOW_RESET"/>
+  <workflow-reset-on-workflow-variable variable_id="Pilots"/>
+  <workflow-reset-on-workflow-variable
+    variable_id="Associates"/>
+  <workflow-reset-on-workflow-variable
+    variable_id="Observers"/>
+ </transition>
+ <transition transition_id="signaler_reponse_recue"
+             title="Initier la réponse"
+             new_state="reponse_en_preparation"
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_signaler_reponse_recue_form"
+          category="daf_autorisation_wf">signaler_reponse_recue</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="solliciter_ayant_droits"
+             title="Solliciter l'ayant-droit"
+             new_state="attente_reponse_ayant_droits"
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_solliciter_ayant_droits_form"
+          category="daf_autorisation_wf">solliciter_ayant_droits</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-expression>python:here.getAutorisationDocumentsACompleter() == []</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="soumettre_demande"
+             title="Soumettre la demande"
+             new_state="demande_en_attente" trigger="USER"
+             before_script=""
+             after_script="wf_daf_soumettre_demande_after">
+  <action url="wf_autorisation_soumettre_demande_form"
+          category="daf_autorisation_wf">soumettre_demande</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>Owner</guard-role>
+   <guard-expression>python:here.getDAFDocumentContents(type_names=['daf_autorisation_document_sollicite']) != []</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="valider" title="Valider"
+             new_state="reponse_en_preparation"
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_valider_form"
+          category="daf_autorisation_wf">valider</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_WORKFLOW_UP"/>
+  <workflow-up-on-workflow-variable variable_id="Pilots"/>
+ </transition>
+ <transition transition_id="valider_demande"
+             title="Valider la demande"
+             new_state="demande_validee" trigger="USER"
+             before_script=""
+             after_script="alerte_demande_validee">
+  <action url="wf_autorisation_valider_demande_form"
+          category="daf_autorisation_wf">valider_demande</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="voir_affectations"
+             title="Voir les affectations" new_state=""
+             trigger="USER" before_script="" after_script="">
+  <action url="wf_autorisation_voir_affectations_form"
+          category="object">voir_affectations</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>WorkspaceReader</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="voir_documents_a_completer"
+             title="Voir les documents à compléter"
+             new_state="" trigger="USER" before_script=""
+             after_script="">
+  <action url="wf_autorisation_voir_documents_a_completer_form"
+          category="daf_autorisation_wf">voir_documents_a_completer</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-expression>python:here.getAutorisationDocumentsACompleter() != []</guard-expression>
+  </guard>
+ </transition>
+ <variable variable_id="Associates" for_catalog="False"
+           for_status="True" update_always="False">
+  <description>Variable holding a stack</description>
+  <default>
+   
+   <expression>python:state_change.getStackFor(var_id='Associates')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="Observers" for_catalog="False"
+           for_status="True" update_always="False">
+  <description>Variable holding a stack</description>
+  <default>
+   
+   <expression>python:state_change.getStackFor(var_id='Observers')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="Pilots" for_catalog="False"
+           for_status="True" update_always="False">
+  <description>Variable holding a stack</description>
+  <default>
+   
+   <expression>python:state_change.getStackFor(var_id='Pilots')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="action" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The last transition</description>
+  <default>
+   
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The ID of the user who performed the last transition</description>
+  <default>
+   
+   <expression>user/getId</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Comments about the last transition</description>
+  <default>
+   
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="dest_container" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Destination container for the last paste/publish</description>
+  <default>
+   
+   <expression>python:state_change.kwargs.get('dest_container', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False"
+           for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+   
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+   <guard-role>WorkspaceReader</guard-role>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Time of the last transition</description>
+  <default>
+   
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <script script_id="alerte_demande_invalidee"
+         type="Script (Python)"
+         filename="workflows/daf_autorisation_wf/alerte_demande_invalidee.py"/>
+ <script script_id="alerte_demande_validee"
+         type="Script (Python)"
+         filename="workflows/daf_autorisation_wf/alerte_demande_validee.py"/>
+ <script script_id="wf_daf_clore" type="Script (Python)"
+         filename="workflows/daf_autorisation_wf/wf_daf_clore.py"/>
+ <script script_id="wf_daf_clore_et_publier_reponse"
+         type="Script (Python)"
+         filename="workflows/daf_autorisation_wf/wf_daf_clore_et_publier_reponse.py"/>
+ <script script_id="wf_daf_dupliquer_demande"
+         type="Script (Python)"
+         filename="workflows/daf_autorisation_wf/wf_daf_dupliquer_demande.py"/>
+ <script script_id="wf_daf_soumettre_demande_after"
+         type="Script (Python)"
+         filename="workflows/daf_autorisation_wf/wf_daf_soumettre_demande_after.py"/>
+</cps-workflow>

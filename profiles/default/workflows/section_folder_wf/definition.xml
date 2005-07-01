@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<cps-workflow workflow_id="section_folder_wf"
+              title="CPS Workflow Definition"
+              state_variable="review_state"
+              meta_type="CPS Workflow">
+ <permission>View</permission>
+ <state state_id="work" title="Work">
+  <exit-transition transition_id="create_content"/>
+  <exit-transition transition_id="cut_copy_paste"/>
+  <exit-transition transition_id="translate"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>SectionManager</permission-role>
+   <permission-role>SectionReviewer</permission-role>
+   <permission-role>SectionReader</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="create" title="Initial creation"
+             new_state="work" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>SectionManager</guard-role>
+   <guard-role></guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+ </transition>
+ <transition transition_id="create_content"
+             title="Create content" new_state="work"
+             trigger="USER" before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>SectionManager</guard-role>
+   <guard-role>SectionReviewer</guard-role>
+   <guard-role>SectionReader</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_PUBLISHING"/>
+ </transition>
+ <transition transition_id="cut_copy_paste"
+             title="Cut/Copy/Paste" new_state=""
+             trigger="USER" before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>SectionManager</guard-role>
+   <guard-role>SectionReviewer</guard-role>
+   <guard-role>SectionReader</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+ </transition>
+ <transition transition_id="translate"
+             title="Add translation" new_state=""
+             trigger="USER"
+             before_script="add_language_to_proxy"
+             after_script="">
+  <action url="%(content_url)s/content_translate_form"
+          category="workflow">action_translate</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+ <script script_id="add_language_to_proxy"
+         type="Script (Python)"
+         filename="workflows/section_folder_wf/add_language_to_proxy.py"/>
+</cps-workflow>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<cps-workflow workflow_id="null_wf"
+              title="CPS Workflow Definition"
+              state_variable="review_state"
+              meta_type="CPS Workflow">
+ <permission>View</permission>
+ <permission>Modify portal content</permission>
+ <permission>WebDAV Lock items</permission>
+ <permission>WebDAV Unlock items</permission>
+ <state state_id="work" title="Work">
+  <exit-transition transition_id="subobject_actions"/>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>WorkspaceManager</permission-role>
+   <permission-role>WorkspaceMember</permission-role>
+   <permission-role>WorkspaceReader</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="create" title="Initial creation"
+             new_state="work" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+ </transition>
+ <transition transition_id="subobject_actions"
+             title="Initial creation" new_state="work"
+             trigger="USER" before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WorkspaceManager</guard-role>
+   <guard-role>WorkspaceMember</guard-role>
+  </guard>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
+  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+ </transition>
+</cps-workflow>

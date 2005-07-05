@@ -22,7 +22,7 @@
     <tr valign="top" tal:repeat="item batch_items">
     <tal:block tal:define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);
                             review_state python:info['review_state'];
-                            proxy_creator python:item.Creator()">
+                            proxy_creator item/Creator|info/creator">
     <tal:block tal:condition="python:review_state!='draft' or (review_state=='draft' and proxy_creator == member_id) or 'Manager' in member_roles">
       <td tal:condition="not:no_form" align="left" valign="top" width="5">
     <input type="" name="" value="" id="" class="noborder"

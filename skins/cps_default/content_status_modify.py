@@ -17,6 +17,9 @@ url = None
 
 if workflow_action != 'copy_submit':
     # accept, reject, ...
+    if comments:
+        del kw['comments']
+    kw['comment'] = comments
     res = wftool.doActionFor(context, workflow_action, **kw)
     if same_type(res, ()):
         if res[0] == 'ObjectMoved':

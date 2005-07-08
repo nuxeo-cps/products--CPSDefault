@@ -68,7 +68,6 @@ gdir_title_field= gdir.title_field
 #    "filtered_role=%s, show_blocked_roles=%s"%(
 #    filtered_role, show_blocked_roles))
 
-mtool = getToolByName(context, 'portal_membership')
 base_url = context.getBaseUrl()
 context_url = context.getContextUrl()
 

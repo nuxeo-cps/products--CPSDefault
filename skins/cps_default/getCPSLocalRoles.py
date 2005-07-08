@@ -1,4 +1,4 @@
-##parameters=cps_roles
+##parameters=cps_roles=None
 # $Id$
 """
 Get local roles dictionnary filtered using relevant roles in context and
@@ -27,6 +27,9 @@ dict_roles = {
 
 from zLOG import LOG, DEBUG
 from Products.CMFCore.utils import getToolByName
+
+if cps_roles is None:
+    cps_roles = context.getCPSCandidateLocalRoles()
 
 # Get local roles settings from the membership tool
 mtool = getToolByName(context, 'portal_membership')

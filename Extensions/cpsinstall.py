@@ -395,6 +395,16 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             }
         self.setupPortalPermissions(workspaces_perms, self.portal[WORKSPACES_ID])
 
+        # Protect repository, no access allowed
+        repo_perms = {
+            AccessContentsInformation: ['Manager'],
+            ListFolderContents: ['Manager'],
+            ModifyPortalContent: ['Manager'],
+            View: ['Manager'],
+            }
+        self.setupPortalPermissions(repo_perms,
+                                    self.portal.portal_repository)
+
         if 'cpsupdate' in self.portal.objectIds():
             self.log("Protecting cpsupdate")
             self.portal.cpsupdate.manage_permission(

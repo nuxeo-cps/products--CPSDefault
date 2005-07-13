@@ -99,3 +99,11 @@ def upgradeWorkflows(self):
             nchanged += 1
     LOG(log_key, DEBUG, "%s objects upgraded" % nchanged)
     return '%s objects upgraded' % nchanged
+
+
+################################################## 3.3.5
+
+def upgrade_334_335(self):
+    """Upgrades for CPS 3.3.5"""
+    from Products.CPSCore.upgrade import upgrade_334_335_repository
+    return upgrade_334_335_repository(self)

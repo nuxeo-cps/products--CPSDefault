@@ -67,9 +67,8 @@
   <table width="100%" cellspacing="0" cellpadding="0"
     summary="content layout column"
     tal:condition="batches">
-    <tr tal:define="col_width python:str(100 / columns)+'%'">
+    <tr>
       <td align="left" valign="top"
-          tal:attributes="width col_width"
           tal:repeat="batch_items batches">
         <tal:block condition="batch_items">
           <metal:block

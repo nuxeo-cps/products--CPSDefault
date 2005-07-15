@@ -1179,7 +1179,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'title': 'Waiting for reviewer',
                 'transitions': ('accept', 'reject'),
                 'permissions': {View: ('SectionReviewer', 'SectionManager',
-                                       'Manager'),
+                                       'Manager', 'Owner'),
                                 ModifyPortalContent: ('SectionReviewer',
                                        'SectionManager', 'Manager'),
                                 WebDavLockItem: ('SectionReviewer',

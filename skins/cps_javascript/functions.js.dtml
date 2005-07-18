@@ -188,6 +188,24 @@ function getSelectedRadioId(buttonGroup) {
   }
 }
 
+/**
+ * Return the label content corresponding to a radio selection
+ */
+function getSelectedRadioLabel(buttonGroup) {
+  var id = getSelectedRadioId(buttonGroup);
+  if (id == "") {
+    return "";
+  } else {
+    for (var i=0; i<document.getElementsByTagName("label").length; i++) {
+      var element_label = document.getElementsByTagName("label")[i];
+      if (element_label.htmlFor == id) {
+        return element_label.firstChild.nodeValue;
+      }
+    }
+  }
+}
+
+
 //************************************************************
 /*
     Used to highlight search terms

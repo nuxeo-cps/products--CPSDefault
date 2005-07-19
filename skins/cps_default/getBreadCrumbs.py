@@ -1,65 +1,44 @@
 ##parameters=url=None, parent=0, breadcrumb_set=None
 # $Id$
 """
-FIXME: add docstring.
+Return breadcrumbs for the given context
+
+url is the url of the object we want breadcrumbs for.
+if parent is set to 1, the object itself is not in the breadcrumbs list.
+
+if breadcrumbs_set is not None, the real path is faked by setting a variable
+'breadcrumb_set' in the REQUEST and then returning it without computing
+(Cf. Directories Templates)
+
+XXX AT: this is now a method of portal_url, this script is here only for
+compatibility reasons.
 """
+
+from zLOG import LOG, DEBUG
+from Products.CMFCore.utils import getToolByName
+from Products.CPSUtil.text import truncateText
 
 ml = 20
 
-def format_title(title):
-    l = len(title)
-    if l > ml:
-        short_title = title[:ml-6]+ '...' + title[l-3:]
+breadcrumbs = []
+if breadcrumb_set is not None:
+    breadcrumbs = breadcrumb_set
+else:
+    utool = getToolByName(context, 'portal_url')
+    if url is None:
+        content = utool.getPortalObject()
     else:
-        short_title = title
-    return short_title
+        # url in vh environment has to be changed...
+        real_base_url = utool.getVirtualRootPhysicalPath()
 
-#
-# Faking the real path by setting
-# a variable "breadcrumb_set" in the REQUEST
-# and then returning it without computing
-# Cf. Directories Templates
-#
+        base_url = utool.getBaseUrl()
+        if real_base_url is not None:
+            new_url = real_base_url + '/' + url[len(base_url):]
+        else:
+            new_url = base_url
+        content = utool.restrictedTraverse(new_url)
 
-if breadcrumb_set != None:
-    return breadcrumb_set
+    breadcrumbs = utool.getBreadCrumbsDict(context=content,
+                                           only_parents=1)
 
-if url is None:
-    url = context.getBaseUrl()
-
-path = url.split('/')
-path = filter(None, path)
-if parent:
-    path = path[:-1]
-
-portal = context.portal_url.getPortalObject()
-portal_id = portal.getId()
-checkPermission = context.portal_membership.checkPermission
-items = []
-
-for i in range(len(path)):
-    ipath = path[:i+1]
-    obj = portal.restrictedTraverse(ipath)
-    if not checkPermission('View', obj):
-        continue
-    title = obj.title_or_id()
-    try:
-        is_archived = obj.isProxyArchived()
-    except AttributeError:
-        is_archived = 0
-    if is_archived:
-        # XXX i18n
-        title = 'v%s (%s)' % (obj.getRevision(), title)
-    rpath = '/'.join(ipath)
-    url = '/%s/' % rpath
-    # all containers but portal should be accessed by their 'view' action
-    if ipath[-1] != portal_id:
-        url = url + 'view'
-    items.append({'id': ipath[-1],
-                  'title': format_title(title),
-                  'longtitle': title,
-                  'url': url,
-                  'rpath': rpath,
-                 })
-
-return items
+return breadcrumbs

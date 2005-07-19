@@ -7,7 +7,7 @@ from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
-
+from Products.CMFCore.utils import getToolByName
 
 class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
@@ -129,6 +129,9 @@ class TestSimpleAsRoot(TestSimple):
         self.assert_(has_path(catalog, "/portal/workspaces/copy_of_ws1"))
         self.assert_(not has_path(catalog, "/portal/workspaces/ws1"))
 
+    def testToolsPresence(self):
+        urltool = getToolByName(self.portal, 'portal_url')
+        self.assertEquals(urltool.meta_type, 'CPS URL Tool')
 
 class TestSimpleAsAnonymous(TestSimple):
     login_id = ''

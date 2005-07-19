@@ -23,7 +23,6 @@ from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.permissions import setDefaultRoles
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
-from Products.CMFCore.utils import getToolByName
 from Products.CPSWorkflow.transitions import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
@@ -36,6 +35,7 @@ from Products.CPSWorkflow.transitions import \
 from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 from Products.CPSInstaller.CPSInstaller import CPSInstaller
 from Products.CPSDefault.MembershipTool import MembershipTool
+from Products.CPSCore.URLTool import URLTool
 
 # Zope permissions
 AccessContentsInformation = 'Access contents information'
@@ -603,6 +603,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         # CPS Object Repository, Tree tools
         self.verifyTool('portal_proxies', 'CPSCore', 'CPS Proxies Tool')
         self.verifyTool('portal_repository', 'CPSCore', 'CPS Repository Tool')
+
+        # replace CMF URLTool by specific CPS one
+        self.verifyTool('portal_url', 'CPSCore',
+                        URLTool.meta_type, type(URLTool))
 
     def setupEventService(self):
         # configure event service to hook the proxies, by adding a subscriber

@@ -252,7 +252,7 @@ function climb(node, word){
     for (i=0;i<node.childNodes.length;i++) {
       climb(node.childNodes[i],word);
     }
-    if (node.nodeType == 3){
+    if (node.nodeType == 3) {
       checkforhighlight(node, word);
       // check all textnodes. Feels inefficient, but works
     }
@@ -278,25 +278,24 @@ function checkforhighlight(node,word) {
 }
 
 /************************************************************
-  searchLanguage widget functions
-  used to auto select languages checkbox/radio
-  cf CPSSchemas/skins/cps_schemas/widget_searchlanguage_render.pt
-*/
+/**
+ * searchLanguage widget functions
+ * used to auto select languages checkbox/radio
+ * cf CPSSchemas/skins/cps_schemas/widget_searchlanguage_render.pt
+ */
 function searchLanguageCheckSelected(languages, no_language, language) {
   var count=0;
-  for(var i=0;i<languages.length;i++){
-    if(languages[i].checked){
+  for (var i=0; i<languages.length; i++) {
+    if (languages[i].checked) {
       count++;
     }
   }
-  no_language.checked=(count<=0);
-  language.checked=(count>0);
+  no_language.checked = (count <= 0);
+  language.checked = (count > 0);
 }
 
 function searchLanguageClearSelected(languages) {
-  for(i=0;i<languages.length;i++) {
-    languages[i].checked=0;
+  for (i=0; i<languages.length; i++) {
+    languages[i].checked = 0;
   }
 }
-
-

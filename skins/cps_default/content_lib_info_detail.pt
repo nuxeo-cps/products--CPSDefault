@@ -7,8 +7,11 @@
 
 <metal:block define-macro="info_detail">
 <div
-  tal:define="action python:test(info['type'] in ('Section','Workspace'),
-                                 '/folder_contents', '')"
+  tal:define="nav_action nav_action|nothing;
+              nav_action python:test(nav_action=='folder_contents',
+                                 '/folder_contents', '');
+              action python:test(info['type'] in ('Section','Workspace'),
+                                 nav_action, '')"
   tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)">
   <div tal:condition="info/preview|nothing" style="float: right">
     <img tal:condition="info/preview|nothing"

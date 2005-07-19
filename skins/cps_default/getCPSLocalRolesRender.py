@@ -68,14 +68,13 @@ gdir_title_field= gdir.title_field
 #    "filtered_role=%s, show_blocked_roles=%s"%(
 #    filtered_role, show_blocked_roles))
 
-base_url = context.getBaseUrl()
-context_url = context.getContextUrl()
-
 dict_roles, local_roles_blocked = context.getCPSLocalRoles(cps_roles)
 
 #LOG("getCPSLocalRolesRender", DEBUG,
 #    "dict_roles=%s, local_roles_blocked=%s"%(dict_roles, local_roles_blocked))
 
+utool = getToolByName(context, 'portal_url')
+relative_url = utool.getRelativeContentURL(context)
 # fill members and groups dictionnaries
 members = {}
 groups = {}
@@ -93,7 +92,7 @@ for item, role_infos in dict_roles.items():
             }
     for role_info in role_infos:
         role_url = role_info['url']
-        if base_url + role_url == context_url:
+        if role_url == relative_url:
             here = 1
         else:
             here = 0

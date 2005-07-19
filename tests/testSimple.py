@@ -36,7 +36,7 @@ class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
 
     # XXX: disabled for now because W3C CSS checker is bogus
     def _testCSS(self):
-        ALL_CSS = ['default.css', 'nuxeo_print_css.css']
+        ALL_CSS = ['default.css', 'default_print.css']
         for css_name in ALL_CSS:
             css_body = self.portal[css_name](self.portal)
             self.assert_(

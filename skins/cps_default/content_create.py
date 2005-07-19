@@ -47,7 +47,7 @@ except AttributeError:
     doc = ob
 else:
     try:
-        doc.edit(**kw)
+        doc.edit(proxy=ob, **kw)
     except:
         # CMF Compatibility.
         # type_name not necessarly and edit method

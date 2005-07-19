@@ -182,8 +182,8 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         # Paste it and see if it's indexed
 
         # Modify doc to be cut before so it gets in the queue too
-        doc = getattr(workspaces, id)
-        doc.getEditableContent().edit()
+        proxy = getattr(workspaces, id)
+        proxy.getEditableContent().edit(proxy=proxy)
 
         cp = workspaces.manage_CPScutObjects([id])
         new_ws.manage_CPSpasteObjects(cp)

@@ -213,7 +213,11 @@ function getSelectedRadioLabel(buttonGroup) {
 
  */
 function highlightSearchTerm() {
-  query = document.getElementById('searchGadget').value
+  var query_elem = document.getElementById('searchGadget')
+  if (! query_elem){
+    return false
+  }
+  var query = query_elem.value
   // _robert_ ie 5 does not have decodeURI
   if (typeof decodeURI != 'undefined'){
     query = unescape(decodeURI(query)) // thanks, Casper
@@ -273,11 +277,26 @@ function checkforhighlight(node,word) {
   }
 }
 
-<dtml-comment>
-// Local Variables:
-// mode: java
-// ispell-local-dictionary: "american"
-// End:
-//
-// vim: set tw=80 filetype=javascript:
-</dtml-comment>
+/************************************************************
+  searchLanguage widget functions
+  used to auto select languages checkbox/radio
+  cf CPSSchemas/skins/cps_schemas/widget_searchlanguage_render.pt
+*/
+function searchLanguageCheckSelected(languages, no_language, language) {
+  var count=0;
+  for(var i=0;i<languages.length;i++){
+    if(languages[i].checked){
+      count++;
+    }
+  }
+  no_language.checked=(count<=0);
+  language.checked=(count>0);
+}
+
+function searchLanguageClearSelected(languages) {
+  for(i=0;i<languages.length;i++) {
+    languages[i].checked=0;
+  }
+}
+
+

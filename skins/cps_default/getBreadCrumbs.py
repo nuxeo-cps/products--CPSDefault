@@ -28,6 +28,7 @@ else:
         content = utool.getPortalObject()
     else:
         # XXX may break in virtual hosting environment
+        # FIXME new_url is used before its declaration
         content = utool.restrictedTraverse(new_url, None)
         if content is None:
             content = context

@@ -100,6 +100,30 @@ def upgradeWorkflows(self):
     LOG(log_key, DEBUG, "%s objects upgraded" % nchanged)
     return '%s objects upgraded' % nchanged
 
+def upgradeURLTool(self):
+    """Upgrade portal_url
+
+    The CMF URLTool is replaced by the CPS URLTool thta extends it by adding
+    methods to deal with virtual hosting
+    """
+    from Products.CPSCore.URLTool import URLTool
+    utool_id = URLTool.id
+    portal = self.portal_url.getPortalObject()
+    utool = getToolByName(portal, utool_id, None)
+    add_it = 0
+    if utool is None:
+        add_it = 1
+    else:
+        if utool.meta_type != URLTool.meta_type:
+            add_it = 1
+            portal.manage_delObjects([utool_id])
+    if add_it:
+        portal.manage_addProduct['CPSCore'].manage_addTool(URLTool.meta_type)
+        log = "portal_url upgraded"
+    else:
+        log = "portal_url did not need to be upgraded"
+    return log
+
 
 ################################################## 3.3.5
 
@@ -110,21 +134,6 @@ def upgrade_334_335(self):
     log = upgrade_334_335_repository(self)
 
     # upgrade portal_url
-    from Products.CPSCore.URLTool import URLTool
-    utool_id = URLTool.id
-    portal = self.portal_url.getPortalObject()
-    utool = getToolByName(portal, utool_id, None)
-    add_it = 0
-    if utool is None:
-        add_it = 1
-    else:
-        if (utool.meta_type != URLTool.meta_type
-            or type(utool) != type(URLTool)):
-            add_it = 1
-            portal.manage_delObjects([utool_id])
-    if add_it:
-        portal.manage_addProduct['CPSCore'].manage_addTool(URLTool.meta_type)
-        log += "\n\nportal_url upgraded"
-    else:
-        log += "\n\nportal_url did not need to be upgraded"
+    log += "\n\n" + upgradeURLTool(self)
+
     return log

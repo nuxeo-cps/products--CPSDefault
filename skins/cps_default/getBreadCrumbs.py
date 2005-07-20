@@ -27,17 +27,12 @@ else:
     if url is None:
         content = utool.getPortalObject()
     else:
-        # url in vh environment has to be changed...
-        real_base_url = utool.getVirtualRootPhysicalPath()
+        # XXX may break in virtual hosting environment
+        content = utool.restrictedTraverse(new_url, None)
+        if content is None:
+            content = context
 
-        base_url = utool.getBaseUrl()
-        if real_base_url is not None:
-            new_url = real_base_url + '/' + url[len(base_url):]
-        else:
-            new_url = base_url
-        content = utool.restrictedTraverse(new_url)
-
-    breadcrumbs = utool.getBreadCrumbsDict(context=content,
+    breadcrumbs = utool.getBreadCrumbsInfo(context=content,
                                            only_parents=1)
 
 return breadcrumbs

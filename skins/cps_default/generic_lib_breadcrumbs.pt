@@ -2,19 +2,21 @@
 <!-- $Id$ -->
 
 <metal:block define-macro="breadcrumbs">
-  <tal:block i18n:translate="label_you_are_here">You are
-  here:&nbsp;</tal:block><tal:block repeat="bc
-  python:here.getBreadCrumbs(url=context_url, breadcrumb_set=getattr(request,
-  'breadcrumb_set', None))">
-    <a href="/cps/id"
-       tal:omit-tag="not:bc/url"
-       tal:attributes="href bc/url;
-                       title bc/longtitle|nothing;
-                       accesskey python:test(repeat['bc'].end, nothing, 'U')"
-       tal:content="bc/title">
-       Title
-    </a><strong
-    tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
+  <tal:block i18n:translate="label_you_are_here">
+    You are here:&nbsp;</tal:block>
+  <tal:block define="breadcrumbs python:getattr(request, 'breadcrumb_set',
+                       None) or utool.getBreadCrumbsInfo(context)">
+    <tal:block repeat="bc breadcrumbs">
+      <a href="/cps/id"
+         tal:omit-tag="not:bc/url"
+         tal:attributes="href bc/url;
+                         title bc/longtitle|nothing;
+                         accesskey python:test(repeat['bc'].end, nothing, 'U')"
+         tal:content="bc/title">
+         Title
+      </a><strong
+      tal:condition="not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
+    </tal:block>
   </tal:block>
   <tal:block content="breadcrumb_additional_info|nothing"/>
 </metal:block>

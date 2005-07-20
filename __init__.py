@@ -115,7 +115,6 @@ def initialize(context):
     ToolInit(
         'CPS Default Tool',
         tools=tools,
-        product_name='CPSDefault',
         icon='tool.png',
         ).initialize(context)
 

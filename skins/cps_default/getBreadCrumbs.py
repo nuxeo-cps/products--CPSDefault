@@ -16,7 +16,6 @@ compatibility reasons.
 
 from zLOG import LOG, DEBUG
 from Products.CMFCore.utils import getToolByName
-from Products.CPSUtil.text import truncateText
 
 ml = 20
 

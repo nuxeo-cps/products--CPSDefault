@@ -1,6 +1,13 @@
 ##parameters=url=None, parent=0, breadcrumb_set=None
 # $Id$
 """
+DO NOT USE THIS DEPRECATED SCRIPT, QUERY URL TOOL INSTEAD: this script may
+break with some virtual hosting configurations.
+If breadcrumb_set is not None, then no need to query the url tool.
+Exemple of query:
+context.portal_url.getBreadCrumbsInfo(context, parent, title_size)
+
+
 Return breadcrumbs for the given context
 
 url is the url of the object we want breadcrumbs for.
@@ -9,9 +16,6 @@ if parent is set to 1, the object itself is not in the breadcrumbs list.
 if breadcrumbs_set is not None, the real path is faked by setting a variable
 'breadcrumb_set' in the REQUEST and then returning it without computing
 (Cf. Directories Templates)
-
-XXX AT: this is now a method of portal_url, this script is here only for
-compatibility reasons.
 """
 
 from zLOG import LOG, DEBUG
@@ -33,6 +37,6 @@ else:
             content = context
 
     breadcrumbs = utool.getBreadCrumbsInfo(context=content,
-                                           only_parents=1)
+                                           only_parents=parent)
 
 return breadcrumbs

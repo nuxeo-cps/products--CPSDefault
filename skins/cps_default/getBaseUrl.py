@@ -1,11 +1,12 @@
 ##parameters=utool=None
 # $Id$
 """
+DO NOT USE THIS DEPRECATED SCRIPT, QUERY URL TOOL INSTEAD:
+context.portal_url.getBaseURL()
+
+
 Return the base url of the cps server, ex: /cps/ or /
 Deal with virtual hosting
-
-XXX AT: this is now a method of portal_url, this script is here only for
-compatibility reasons.
 """
 
 from zLOG import LOG, DEBUG

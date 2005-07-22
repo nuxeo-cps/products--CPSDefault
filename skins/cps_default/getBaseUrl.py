@@ -2,7 +2,7 @@
 # $Id$
 """
 DO NOT USE THIS DEPRECATED SCRIPT, QUERY URL TOOL INSTEAD:
-context.portal_url.getBaseURL()
+context.portal_url.getBaseUrl()
 
 
 Return the base url of the cps server, ex: /cps/ or /
@@ -15,6 +15,6 @@ from Products.CMFCore.utils import getToolByName
 if utool is None:
     utool = getToolByName(context, 'portal_url')
 
-base_url = utool.getBaseURL()
+base_url = utool.getBaseUrl()
 
 return base_url

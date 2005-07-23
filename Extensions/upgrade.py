@@ -125,6 +125,32 @@ def upgradeURLTool(self):
     return log
 
 
+def upgrade_334_335_cache_parameters(context):
+    """Upgrades cache parameters.
+
+    - 'no-cache:(contextual)' is added to the Content Portlet
+       cache parameters.
+    """
+    PORTLET_ID = 'Content Portlet'
+    NEW_PARAMETER = 'no-cache:(contextual)'
+
+    logger = []
+    log = logger.append
+
+    log("Updating portlet cache parameters...")
+    # get the current parameters
+    ptltool = getToolByName(context, 'portal_cpsportlets')
+    params = ptltool.getCacheParametersFor(PORTLET_ID)
+
+    # update the parameters
+    if NEW_PARAMETER in params:
+        log("  '%s' already set for '%s'." % (NEW_PARAMETER, PORTLET_ID))
+    else:
+        params.insert(0, NEW_PARAMETER)
+        ptltool.updateCacheParameters({PORTLET_ID:params})
+        log("  '%s' added to '%s'." % (NEW_PARAMETER, PORTLET_ID))
+    return "\n".join(logger)
+
 ################################################## 3.3.5
 
 def upgrade_334_335(self):
@@ -135,5 +161,8 @@ def upgrade_334_335(self):
 
     # upgrade portal_url
     log += "\n\n" + upgradeURLTool(self)
+
+    # upgrade portlet cache parameters
+    log += "\n\n" + upgrade_334_335_cache_parameters(self)
 
     return log

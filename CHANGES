@@ -56,10 +56,9 @@ Bug fixes:
   CMF one) to have methods dealing with virtual hosting: now able to get the base
   url (portal absolute url path), get an object absolute url from its relative
   url, and get its breadcrumbs without objects hidden with the virtual
-  hosting. Work to incorrect code in a virtual hosting environment is still in
-  progress.
-- fix #846: Added backward compatibility code to make the getBaseUrl script
-  work as expected just before the portal_url update.
+  hosting. Fixes #436.
+- fix #846: Added backward compatibility code to avoid recursion on the
+  getBaseUrl script just before the portal_url update.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - Don't use strings for permission names in the installer.

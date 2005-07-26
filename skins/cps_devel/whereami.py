@@ -27,7 +27,7 @@ print 'container proxy.aq_inner.aq_parent:', proxy.aq_inner.aq_parent.id
 print
 print 'CPSDefault info ----------'
 print 'here_url = proxy.absolute_url: ', proxy.absolute_url()
-print 'base_url = proxy.getBaseUrl: ', proxy.getBaseUrl()
+print 'base_url = utool.getBaseUrl: ', utool.getBaseUrl()
 print 'context_url = proxy.getContextUrl: ', proxy.getContextUrl()
 print 'in_ws = proxy.isInWorkspace: ', proxy.isInWorkspace()
 print

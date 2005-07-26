@@ -1,5 +1,6 @@
-<ul tal:define="base_url here/getBaseUrl"
- class="conformanceStatement doNotPrint">
+<ul tal:define="utool nocall:here/portal_url;
+                base_url python:utool.getBaseUrl()"
+  class="conformanceStatement doNotPrint">
   <li>
     <a href="http://www.cps-project.org/">
       <img src="cps-minibanner.png"
@@ -9,7 +10,7 @@
         tal:attributes="src string:${base_url}cps-minibanner.png"
         i18n:attributes="alt; title"/></a>
   </li>
-  <li>  
+  <li>
     <a href="http://validator.w3.org/check/referer">
       <img src="valid-xhtml10.png"
         width="80" height="15"

@@ -7,11 +7,13 @@ FIXME: need more explanation. What are the parameters?
 """
 
 from zLOG import LOG, DEBUG
+from Products.CMFCore.utils import getToolByName
 
 if not img_name:
     return ''
 if base_url is None:
-    base_url = context.getBaseUrl()
+    utool = getToolByName(context, 'portal_url')
+    base_url = utool.getBaseUrl()
 elif base_url == '':
     pass # image name is a full path
 img_url = base_url + img_name

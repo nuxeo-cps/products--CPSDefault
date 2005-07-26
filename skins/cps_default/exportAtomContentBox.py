@@ -10,6 +10,8 @@ from cgi import escape
 SUMMARY_MAX_LENGTH = 200
 
 try:
+    # XXX AT: see if box_url has to be changed to be correct in virtual hosting
+    # environments
     box = context.restrictedTraverse(box_url)
 except KeyError:
     return "ERROR: Box not found"
@@ -76,7 +78,7 @@ for item in items:
     info = context.getContentInfo(item, level=1)
     doc = info['doc']
     entry_title = info.get('title', '')
-    entry_link = base_url + info.get('rpath')
+    entry_link = info.get('url')
     # XXX: issued == doc.created()? or issued it's time when it was published?
     entry_issued = context.getDateStr(doc.created(), fmt='iso8601_long')
     entry_modified = context.getDateStr(info.get('time'), fmt='iso8601_long')
@@ -110,7 +112,7 @@ for item in items:
 
 info = context.getContentInfo(context, level=1)
 feed_title = info.get('title', '')
-feed_link = base_url + info.get('rpath')
+feed_link = info.get('url')
 feed_id = construct_id(feed_link, context.created())
 feed_modified = context.getDateStr(context.created(), fmt='iso8601_long')
 generator_url = 'http://nuxeo.com'

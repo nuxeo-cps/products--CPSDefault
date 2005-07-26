@@ -44,20 +44,20 @@
               <tal:block condition="python:checkPerm('View archived revisions', here)">
                 <td>
                   <a href="."
-                    tal:attributes="href string:${context_url}/archivedRevision/${item/rev}/view"
+                    tal:attributes="href string:${context_url}archivedRevision/${item/rev}/view"
                     i18n:translate="link_consult_this_revision">Consult this revision</a>
                 </td>
 
                 <tal:block condition="python:checkPerm('Modify portal content', here)">
                   <td>
                     <a href="."
-                      tal:attributes="href string:${context_url}/content_revert_form?rev:int=${item/rev}"
+                      tal:attributes="href string:${context_url}content_revert_form?rev:int=${item/rev}"
                       i18n:translate="link_revert_to_this_revision">Revert to this revision</a>
                   </td>
                   <td>
                     <tal:block condition="item/is_archived">
                       <a href="."
-                        tal:attributes="href string:${context_url}/content_delete_archive_form?rev:int=${item/rev}"
+                        tal:attributes="href string:${context_url}content_delete_archive_form?rev:int=${item/rev}"
                         i18n:translate="link_delete_this_revision">Purge this revision</a>
                     </tal:block>
                   </td>

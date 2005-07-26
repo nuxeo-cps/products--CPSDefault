@@ -5,7 +5,7 @@ Return information about a content item (ie a proxy)
 
 level: 0 (default cost 1)
   id, title, title_or_id, review_state, icon, rev, lang, type
-  time_str, creator
+  time_str, creator, rpath, url
 level: 1 (cost 1.3)
   level 0 + descr, size + doc + additional information from obj
 level: 2 (cost 4.6)
@@ -27,13 +27,18 @@ if cpsmcat is None:
 if proxy is None:
     proxy = context
 
+wtool = context.portal_workflow
+utool = context.portal_url
+ptool = context.portal_proxies
+ttool = context.portal_trees
+
 rpath = None
 if hasattr(proxy.aq_explicit, 'getRID'):
     # this is a brain
     # rpath is build with catalog path that include languageView selection
 
     # FIXME: something is broken here when using virtual host monsters
-    rpath = proxy.getPath()[len(context.getBaseUrl()):]
+    rpath = utool.getRpathFromPath(proxy.getPath())
 
     # change view to switch to have a sticky behaviour
     from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE, \
@@ -43,11 +48,6 @@ if hasattr(proxy.aq_explicit, 'getRID'):
 
 bmt = context.Benchmarktimer('getContentInfo for ' + proxy.getId(), level=-3)
 bmt.setMarker('start')
-
-wtool = context.portal_workflow
-utool = context.portal_url
-ptool = context.portal_proxies
-ttool = context.portal_trees
 
 def compute_states(no_history=0):
     folders_info = {}
@@ -64,7 +64,7 @@ def compute_states(no_history=0):
     else:
         # Not a proxy
         ob_info = {
-            'rpath': utool.getRelativeUrl(proxy),
+            'rpath': utool.getRpath(proxy),
             'language_revs': {'en': 0},
             }
         for var in wf_vars:
@@ -156,9 +156,11 @@ def compute_archived():
 # basic information level 0
 info = {}
 if rpath is None:
-    info['rpath'] = utool.getRelativeUrl(proxy)
+    info['rpath'] = utool.getRpath(proxy)
 else:
     info['rpath'] = rpath
+
+info['url'] = utool.getUrlFromRpath(info['rpath'])
 
 info['title_or_id'] = proxy.title_or_id()
 info['id'] = proxy.getId()

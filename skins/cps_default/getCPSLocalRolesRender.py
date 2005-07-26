@@ -74,7 +74,7 @@ dict_roles, local_roles_blocked = context.getCPSLocalRoles(cps_roles)
 #    "dict_roles=%s, local_roles_blocked=%s"%(dict_roles, local_roles_blocked))
 
 utool = getToolByName(context, 'portal_url')
-relative_url = utool.getRelativeContentURL(context)
+rpath = utool.getRpath(context)
 # fill members and groups dictionnaries
 members = {}
 groups = {}
@@ -92,7 +92,7 @@ for item, role_infos in dict_roles.items():
             }
     for role_info in role_infos:
         role_url = role_info['url']
-        if role_url == relative_url:
+        if role_url == rpath:
             here = 1
         else:
             here = 0

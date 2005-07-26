@@ -7,6 +7,8 @@ Create a rss 1.0 feed from a Content Box content
 from cgi import escape
 
 try:
+    # XXX AT: see if box_url has to be changed to be correct in virtual hosting
+    # environments
     box = context.restrictedTraverse(box_url)
 except KeyError:
     return "ERROR: Box not found"
@@ -73,7 +75,7 @@ channel_description = "RSS 1.0 export of the CPS Box named '%s' from the folder 
 header_text = body_text = ''
 for item in items:
     info = context.getContentInfo(item, level=1)
-    url = base_url + info.get('rpath')
+    url = info.get('url')
     header_text += rss_item_li % {'item_id': url}
     item_date = context.getDateStr(info.get('time'), fmt='iso8601')
     dc_text = ''

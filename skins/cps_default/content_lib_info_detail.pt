@@ -22,10 +22,10 @@
   <img tal:replace="structure python:here.getImgTag(info['icon'],
     base_url=base_url, title='%s, id:%s' % (info['type_l10n'], info['id']))" />
   </a>
-   <a href="" tal:attributes="href string:${base_url}${info/rpath}${action};">
+   <a href="" tal:attributes="href string:${info/url}/${action};">
    <strong><span tal:replace="info/title_or_id">ID</span></strong></a>
   <br />
-  <a href="" tal:attributes="href string:${base_url}${info/rpath}${action}">
+  <a href="" tal:attributes="href string:${info/url}/${action}">
   <small>
     <tal:block define="status_short_fmt not:nothing;
                        status_time not:nothing;">
@@ -49,7 +49,7 @@
   </tal:block>
   <tal:block condition="site_wide|nothing">
    <br /><small class="url"
-           tal:define="url python: here.truncURL(base_url + info['rpath'])"
+           tal:define="url python:here.truncURL(info['url'])"
            tal:content="url">URL</small>
   </tal:block>
 

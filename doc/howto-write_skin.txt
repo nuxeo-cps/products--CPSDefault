@@ -90,24 +90,21 @@ main_template defines
   you should use this for images or css url like:
   <img ... tal:attributes="src string:${base_url}foo.png" .../>
 
-CVS
+SVN
 ===
-- use the alias 'needs' as much as possible
-  needs is a 'cvs -qnz6 up'
-  this tell you what cvs will do if you run 'cvs up' without doing anything
-  before working on a product you should run needs and check that
-  you are uptodate
+- use "svn status" to see what is changed in your sandbox
+- use "svn update" and run tests before committing
 - do not use mass commit
 - commiting a file:
   1/ TEST IT
-  2/ cvs diff file
+  2/ svn diff file
       because you will know exactly what to put in the comment
       and it gives you a last chance to remove some stupid code
       REMOVE unused code or commented code
   3/ if you have changed something goto 1/
   4/ commit with a valid comment
-      cvs commit -m"mandatory comment in ENGLISH" foo.py
-- remove unused file or code, cvs will keep it for you
+      svn ci -m "mandatory comment in ENGLISH" foo.py
+- remove unused file or code, svn will keep it for you
 
 
 Macros

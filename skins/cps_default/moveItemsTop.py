@@ -16,7 +16,7 @@ if not same_type(ids, []):
 ids.sort(cmp_desc)
 
 for id in ids:
-    context.move_object_to_top(id)
+    context.moveObjectsToTop(id)
 
 # Keeping the choosen ids while redisplaying the list
 context.REQUEST.SESSION['choosen_ids'] = ids

@@ -12,7 +12,7 @@ if not same_type(ids, []):
     ids = [ids]
 
 for id in ids:
-    context.move_object_to_bottom(id)
+    context.moveObjectsToBottom(id)
 
 # Keeping the choosen ids while redisplaying the list
 context.REQUEST.SESSION['choosen_ids'] = ids

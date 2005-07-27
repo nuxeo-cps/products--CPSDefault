@@ -80,21 +80,15 @@ hosting.
 
 main_template defines
 - context_url:
-  this is the minimal url to your context like /cps/foo
+  this is the minimal url to your context, with a trailing slash like /cps/foo/
   ex: url: http://server/cps/foo/bar/foo/bar/cps/foo/bar/bar/bar
-      context_url = /cps/foo/bar
+      context_url = /cps/foo/bar/
 
 - base_url:
   this is the base url taking into account the apache redirection
   it return / or /cps/ or /name_of_the_cps/
   you should use this for images or css url like:
   <img ... tal:attributes="src string:${base_url}foo.png" .../>
-
-note: replace all portal_url by context_url in you zpt
-for python script you can call
-  context.getContextUrl()
-  or context.getBaseUrl()
-
 
 CVS
 ===

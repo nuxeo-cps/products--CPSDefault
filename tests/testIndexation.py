@@ -33,6 +33,12 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.tests.base.utils import has_path
 
 from Products.CPSCore.IndexationManager import get_indexation_manager
+try:
+    import transaction
+except ImportError:
+    # BBB: for Zope 2.7
+    from Products.CMFCore.utils import transaction
+
 
 class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
 
@@ -84,7 +90,7 @@ class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         new_ws = getattr(workspaces, ws_id)
 
         # commit for being able to cut
-        get_transaction().commit(1)
+        transaction.commit(1)
 
         # Paste it and see if it's indexed
         cp = workspaces.manage_CPScutObjects([id])
@@ -107,6 +113,8 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         self.wftool  = getToolByName(self.portal, 'portal_workflow')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
         get_indexation_manager().setSynchonous(False)
+        # XXX that's for the current transaction, but as soon
+        # as we commit/abort there'll be another one...
 
     def beforeTearDown(self):
         self.logout()
@@ -116,7 +124,7 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         workspaces = self.portal.workspaces
         id = workspaces.computeId()
         self.wftool.invokeFactoryFor(self.portal.workspaces, 'File', id)
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(has_path(self.catalog, "/portal/workspaces/%s"%id))
 
     def test_indexation_copy_paste_asynchronous(self):
@@ -125,14 +133,16 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         # Create an object with invokeFactoryFor
         id = workspaces.computeId()
         self.wftool.invokeFactoryFor(workspaces, 'File', id)
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(has_path(self.catalog, "/portal/workspaces/%s"%id))
 
         # Paste it and see if it's indexed
+        # XXX here the commit() made us revert to default state,
+        # which is synchronous in tests.
         cp = workspaces.manage_CPScopyObjects([id])
         workspaces.manage_CPSpasteObjects(cp)
         self.assert_('copy_of_%s'%id in workspaces.objectIds())
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(has_path(self.catalog,
                               "/portal/workspaces/copy_of_%s"%id))
 
@@ -142,7 +152,7 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         # Create an object with invokeFactoryFor
         id = workspaces.computeId()
         self.wftool.invokeFactoryFor(workspaces, 'File', id)
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(has_path(self.catalog, "/portal/workspaces/%s"%id))
 
         # Create a folder for pasting
@@ -151,12 +161,12 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         new_ws = getattr(workspaces, ws_id)
 
         # commit for being able to cut
-        get_transaction().commit(1)
+        transaction.commit(1)
 
         # Paste it and see if it's indexed
         cp = workspaces.manage_CPScutObjects([id])
         new_ws.manage_CPSpasteObjects(cp)
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(not has_path(self.catalog, "/portal/workspaces/%s"%id))
         self.assert_(id in new_ws.objectIds())
         self.assert_(has_path(self.catalog,
@@ -168,7 +178,7 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         # Create an object with invokeFactoryFor
         id = workspaces.computeId()
         self.wftool.invokeFactoryFor(workspaces, 'File', id)
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(has_path(self.catalog, "/portal/workspaces/%s"%id))
 
         # Create a folder for pasting
@@ -177,7 +187,7 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         new_ws = getattr(workspaces, ws_id)
 
         # commit for being able to cut
-        get_transaction().commit(1)
+        transaction.commit(1)
 
         # Paste it and see if it's indexed
 
@@ -187,7 +197,7 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
 
         cp = workspaces.manage_CPScutObjects([id])
         new_ws.manage_CPSpasteObjects(cp)
-        get_transaction().commit()
+        transaction.commit()
         self.assert_(not has_path(self.catalog, "/portal/workspaces/%s"%id))
         self.assert_(id in new_ws.objectIds())
         self.assert_(has_path(self.catalog,

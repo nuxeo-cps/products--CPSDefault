@@ -45,6 +45,14 @@ ZopeTestCase.installProduct('CPSWiki', quiet=1)
 # the TranslationService to work properly.
 ZopeTestCase.installProduct('Five', quiet=1)
 
+try:
+    import transaction
+except ImportError:
+    # BBB: for Zope 2.7
+    from Products.CMFCore.utils import transaction
+
+
+
 PORTAL_ID = 'portal'
 MANAGER_ID = 'manager'
 MANAGER_EMAIL = 'webmaster@localhost'
@@ -169,8 +177,6 @@ def LocalizerStringIO_getvalue(self):
 LocalizerStringIO.write = LocalizerStringIO_write
 LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
-from Products.CPSCore.IndexationManager import get_indexation_manager
-
 class CPSTestCase(ZopeTestCase.PortalTestCase):
 
     # Override _setup, setUp is not supposed to be overriden
@@ -184,10 +190,6 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         SESSION = {}
         self.portal.REQUEST['SESSION'] = SESSION
         self.portal.REQUEST.SESSION = SESSION
-
-        # Because of the indexation which is done at the end of the transaction
-        # We don't want to deal with transactions within the tests ;)
-        get_indexation_manager().setSynchonous(True)
 
     def isValidXML(self, xml):
         filename = tempfile.mktemp()
@@ -230,6 +232,12 @@ class CPSInstaller:
         self._quiet = quiet
 
     def install(self, portal_id):
+        # During setup and tests we want synchronous indexing.
+        from Products.CPSCore.IndexationManager import get_indexation_manager
+        from Products.CPSCore.IndexationManager import IndexationManager
+        IndexationManager.DEFAULT_SYNC = True # Monkey patch
+        get_indexation_manager().setSynchonous(True) # Current transaction
+
         self.addUser()
         self.login()
         self.addPortal(portal_id)
@@ -277,7 +285,7 @@ class CPSInstaller:
 
     def logout(self):
         noSecurityManager()
-        get_transaction().commit()
+        transaction.commit()
         if not self._quiet:
             ZopeTestCase._print('done (%.3fs)\n'
                 % (time.time() - self._start,))

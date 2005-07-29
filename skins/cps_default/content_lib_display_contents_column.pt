@@ -15,7 +15,8 @@
                      input_name python: test(use_radio, 'ids', 'ids:list');
                      member here/portal_membership/getAuthenticatedMember;
                      member_id member/id;
-                     member_roles member/getRoles;
+                     is_local_manager python:member.has_role(
+                                     ('Manager', 'WorkspaceManager'), here);
 ">
   <table tal:condition="python: not no_table and batch_items" width="100%" cellspacing="0"
     cellpadding="5" summary="content column layout">
@@ -25,13 +26,13 @@
                          proxy_creator item/Creator|info/creator"
                  condition="python:review_state != 'draft'
                                    or (review_state == 'draft' and proxy_creator == member_id)
-                                   or 'Manager' in member_roles">
+                                   or is_local_manager">
       <tr valign="top">
         <td tal:condition="not:no_form" align="left" valign="top" width="5">
         <input type="" name="" value="" id="" class="noborder"
            tal:define="id item/getId"
            tal:condition="python:review_state not in ('locked', 'draft')
-                                 or 'Manager' in member_roles"
+                                 or is_local_manager"
            tal:attributes="value
              python:site_wide and item.getContextUrl(utool=utool) or id;
              id python:'cb_' + id;
@@ -54,7 +55,7 @@
                         proxy_creator python:item.Creator();
                         start repeat/item/start|nothing;
                         end repeat/item/end|nothing">
-      <tal:block tal:condition="python:review_state!='draft' or (review_state=='draft' and proxy_creator == member_id) or 'Manager' in member_roles">
+      <tal:block tal:condition="python:review_state!='draft' or (review_state=='draft' and proxy_creator == member_id) or is_local_manager">
       <metal:block use-macro="here/content_lib_info_detail_tab/macros/info_detail_tab" />
       </tal:block>
     </tal:block>

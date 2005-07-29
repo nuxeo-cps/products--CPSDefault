@@ -9,11 +9,16 @@ context_url = context.REQUEST.get("context_url", context.getContextUrl())
 if not same_type(ids, []):
     ids = [ids]
 
-for id in ids:
-    context.moveObjectsDown(id)
+if ids:
+    for id in ids:
+        context.moveObjectsDown(id)
+    message = 'psm_item(s)_moved_down'
+else:
+    message = 'psm_select_at_least_one_document'
 
 # Keeping the choosen ids while redisplaying the list
 context.REQUEST.SESSION['choosen_ids'] = ids
 
-redirection_url = context_url + "/folder_contents"
-context.REQUEST.RESPONSE.redirect(redirection_url)
+ret_url = context_url + "folder_contents"
+context.REQUEST.RESPONSE.redirect(
+    ret_url + '?portal_status_message=%s' % message)

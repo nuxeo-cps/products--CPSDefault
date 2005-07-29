@@ -15,11 +15,16 @@ if not same_type(ids, []):
 # To respect the relative position of the choosen objects
 ids.sort(cmp_desc)
 
-for id in ids:
-    context.moveObjectsToTop(id)
+if ids:
+    for id in ids:
+        context.moveObjectsToTop(id)
+    message = 'psm_item(s)_moved_to_top'
+else:
+    message = 'psm_select_at_least_one_document'
 
 # Keeping the choosen ids while redisplaying the list
 context.REQUEST.SESSION['choosen_ids'] = ids
 
-redirection_url = context_url + "/folder_contents"
-context.REQUEST.RESPONSE.redirect(redirection_url)
+ret_url = context_url + "folder_contents"
+context.REQUEST.RESPONSE.redirect(
+    ret_url + '?portal_status_message=%s' % message)

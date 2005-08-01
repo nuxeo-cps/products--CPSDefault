@@ -9,6 +9,8 @@ import CPSDefaultTestCase
 
 from webdav.LockItem import LockItem
 from AccessControl import Unauthorized
+
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
@@ -22,7 +24,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     def afterSetUp(self):
         self.login('manager')
 
-        self.wftool = self.portal.portal_workflow
+        self.wftool = getToolByName(self.portal, 'portal_workflow')
         # Creating an extra section to be used for publishing
         self.wftool.invokeFactoryFor(
             self.portal.sections, 'Section', ANOTHER_SECTION_ID)
@@ -305,6 +307,30 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     def testSubmitImageGallery(self):
         self._testSubmit("ImageGallery")
 
+    # Test the renamming of a published object
+    # Trac(#793)
+    def testSubmitAndRename(self):
+        type_name = 'File'
+        id_file = 'file'
+        ws = self.portal.workspaces
+        
+        # Create a new File
+        self.wftool.invokeFactoryFor(ws, type_name, id_file)
+        proxy = getattr(ws, id_file)
+
+        # Publish it
+        proxy.content_status_modify(
+            submit=['sections',],
+            workflow_action='copy_submit')
+
+        # Renamme
+        sc = self.portal.sections
+        new_id = 'id2'
+        sc.manage_renameObjects([id_file], [new_id])
+
+        # Check this
+        self.assert_(new_id in sc.objectIds())
+        self.assert_(id_file not in sc.objectIds())
 
 def test_suite():
     suite = unittest.TestSuite()

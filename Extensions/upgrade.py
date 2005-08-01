@@ -165,4 +165,8 @@ def upgrade_334_335(self):
     # upgrade portlet cache parameters
     log += "\n\n" + upgrade_334_335_cache_parameters(self)
 
+    # Upgrade CPSDocument
+    from Products.CPSDocument.upgrade import upgrade_334_335_allowct_sections
+    log += "\n\n" + upgrade_334_335_allowct_sections(self)
+    
     return log

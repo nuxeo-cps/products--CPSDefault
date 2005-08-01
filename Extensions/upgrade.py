@@ -155,6 +155,7 @@ def upgrade_334_335_cache_parameters(context):
 
 def upgrade_334_335(self):
     """Upgrades for CPS 3.3.5"""
+
     # upgrade repository
     from Products.CPSCore.upgrade import upgrade_334_335_repository
     log = upgrade_334_335_repository(self)
@@ -168,5 +169,15 @@ def upgrade_334_335(self):
     # Upgrade CPSDocument
     from Products.CPSDocument.upgrade import upgrade_334_335_allowct_sections
     log += "\n\n" + upgrade_334_335_allowct_sections(self)
-    
+
+    # Upgrade CPSNewsLetters
+    try:
+        from Products.CPSNewsLetters.upgrade import \
+             upgrade_334_335_allowct_sections
+    except ImportError, e:
+        if str(e) != 'No module named CPSNewsLetters.upgrade':
+            raise
+    else:
+        log += "\n\n" + upgrade_334_335_allowct_sections(self)
+
     return log

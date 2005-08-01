@@ -1441,25 +1441,26 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
         t = 'typeinfo_name'
         amt = 'add_meta_type'
+        FTI = 'Factory-based Type Information'
         type_dict = {
             'CPS Proxy Document': {
                 t: 'CPSCore: CPS Proxy Document (CPS Proxy Document)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'CPS Proxy Folder': {
                 t: 'CPSCore: CPS Proxy Folder (CPS Proxy Folder)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'CPS Proxy Folderish Document': {
                 t: 'CPSCore: CPS Proxy Folderish Document (CPS Proxy Folderish Document)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'CPS Proxy BTree Folder': {
                 t: 'CPSCore: CPS Proxy BTree Folder (CPS Proxy BTree Folder)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'CPS Proxy BTree Folderish Document': {
                 t: 'CPSCore: CPS Proxy BTree Folderish Document (CPS Proxy BTree Folderish Document)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Section': {
                 t: 'CPSDefault: Folder (Folder)',
-                amt: 'Factory-based Type Information',
+                amt: FTI,
                 'properties': {
                     'title': 'portal_type_Section_title',
                     'description': 'portal_type_Section_description',
@@ -1467,7 +1468,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     'filter_content_types': True},},
             'Workspace': {
                 t: 'CPSDefault: Folder (Folder)',
-                amt: 'Factory-based Type Information',
+                amt: FTI,
                 'properties': {
                     'title': 'portal_type_Workspace_title',
                     'description': 'portal_type_Workspace_description',
@@ -1475,40 +1476,40 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     'filter_content_types': True},},
             'Folder': {
                 t: 'CPSDefault: Folder (Folder)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             }
 
         boxes_dict =  {
             'Base Box': {
                 t: 'CPSBoxes: Base Box (Base Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Text Box': {
                t: 'CPSBoxes: Text Box (Text Box)',
-               amt: 'Factory-based Type Information',},
+               amt: FTI,},
             'Tree Box': {
                 t: 'CPSBoxes: Tree Box (Tree Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Content Box': {
                 t: 'CPSBoxes: Content Box (Content Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Action Box': {
                 t: 'CPSBoxes: Action Box (Action Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Image Box': {
                 t: 'CPSBoxes: Image Box (Image Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Flash Box': {
                 t: 'CPSBoxes: Flash Box (Flash Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Event Calendar Box': {
                 t: 'CPSBoxes: Event Calendar Box (Event Calendar Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'InternalLinks Box': {
                 t: 'CPSBoxes: InternalLinks Box (InternalLinks Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
             'Doc Render Box':{
                 t: 'CPSBoxes: Doc Render Box (Doc Render Box)',
-                amt: 'Factory-based Type Information',},
+                amt: FTI,},
         }
 
         self.verifyContentTypes(type_dict)

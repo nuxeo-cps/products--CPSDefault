@@ -1439,76 +1439,76 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             ttool = self.getTool('portal_types')
             ttool.manage_delObjects(['Folder',])
 
+        t = 'typeinfo_name'
+        amt = 'add_meta_type'
         type_dict = {
             'CPS Proxy Document': {
-                       'typeinfo_name': 'CPSCore: CPS Proxy Document',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSCore: CPS Proxy Document (CPS Proxy Document)',
+                amt: 'Factory-based Type Information',},
             'CPS Proxy Folder': {
-                       'typeinfo_name': 'CPSCore: CPS Proxy Folder',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSCore: CPS Proxy Folder (CPS Proxy Folder)',
+                amt: 'Factory-based Type Information',},
             'CPS Proxy Folderish Document': {
-                       'typeinfo_name': 'CPSCore: CPS Proxy Folderish Document',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSCore: CPS Proxy Folderish Document (CPS Proxy Folderish Document)',
+                amt: 'Factory-based Type Information',},
             'CPS Proxy BTree Folder': {
-                       'typeinfo_name': 'CPSCore: CPS Proxy BTree Folder',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSCore: CPS Proxy BTree Folder (CPS Proxy BTree Folder)',
+                amt: 'Factory-based Type Information',},
             'CPS Proxy BTree Folderish Document': {
-                       'typeinfo_name': 'CPSCore: CPS Proxy BTree Folderish Document',
-                       'add_meta_type': 'Factory-based Type Information',},
-
+                t: 'CPSCore: CPS Proxy BTree Folderish Document (CPS Proxy BTree Folderish Document)',
+                amt: 'Factory-based Type Information',},
             'Section': {
-                       'typeinfo_name': 'CPSDefault: Folder',
-                       'add_meta_type': 'Factory-based Type Information',
-                       'properties': {
-                            'title': 'portal_type_Section_title',
-                            'description': 'portal_type_Section_description',
-                            'content_meta_type': 'Section',
-                            'filter_content_types': 1},},
+                t: 'CPSDefault: Folder (Folder)',
+                amt: 'Factory-based Type Information',
+                'properties': {
+                    'title': 'portal_type_Section_title',
+                    'description': 'portal_type_Section_description',
+                    'content_meta_type': 'Section',
+                    'filter_content_types': True},},
             'Workspace': {
-                       'typeinfo_name': 'CPSDefault: Folder',
-                       'add_meta_type': 'Factory-based Type Information',
-                       'properties': {
-                            'title': 'portal_type_Workspace_title',
-                            'description': 'portal_type_Workspace_description',
-                            'content_meta_type': 'Workspace',
-                            'filter_content_types': 1},},
+                t: 'CPSDefault: Folder (Folder)',
+                amt: 'Factory-based Type Information',
+                'properties': {
+                    'title': 'portal_type_Workspace_title',
+                    'description': 'portal_type_Workspace_description',
+                    'content_meta_type': 'Workspace',
+                    'filter_content_types': True},},
             'Folder': {
-                       'typeinfo_name': 'CPSDefault: Folder',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSDefault: Folder (Folder)',
+                amt: 'Factory-based Type Information',},
             }
 
         boxes_dict =  {
-
             'Base Box': {
-                       'typeinfo_name': 'CPSBoxes: Base Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Base Box (Base Box)',
+                amt: 'Factory-based Type Information',},
             'Text Box': {
-                       'typeinfo_name': 'CPSBoxes: Text Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+               t: 'CPSBoxes: Text Box (Text Box)',
+               amt: 'Factory-based Type Information',},
             'Tree Box': {
-                       'typeinfo_name': 'CPSBoxes: Tree Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Tree Box (Tree Box)',
+                amt: 'Factory-based Type Information',},
             'Content Box': {
-                       'typeinfo_name': 'CPSBoxes: Content Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Content Box (Content Box)',
+                amt: 'Factory-based Type Information',},
             'Action Box': {
-                       'typeinfo_name': 'CPSBoxes: Action Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Action Box (Action Box)',
+                amt: 'Factory-based Type Information',},
             'Image Box': {
-                       'typeinfo_name': 'CPSBoxes: Image Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Image Box (Image Box)',
+                amt: 'Factory-based Type Information',},
             'Flash Box': {
-                       'typeinfo_name': 'CPSBoxes: Flash Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Flash Box (Flash Box)',
+                amt: 'Factory-based Type Information',},
             'Event Calendar Box': {
-                       'typeinfo_name': 'CPSBoxes: Event Calendar Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Event Calendar Box (Event Calendar Box)',
+                amt: 'Factory-based Type Information',},
             'InternalLinks Box': {
-                       'typeinfo_name': 'CPSBoxes: InternalLinks Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: InternalLinks Box (InternalLinks Box)',
+                amt: 'Factory-based Type Information',},
             'Doc Render Box':{
-                       'typeinfo_name': 'CPSBoxes: Doc Render Box',
-                       'add_meta_type': 'Factory-based Type Information',},
+                t: 'CPSBoxes: Doc Render Box (Doc Render Box)',
+                amt: 'Factory-based Type Information',},
         }
 
         self.verifyContentTypes(type_dict)

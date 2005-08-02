@@ -28,7 +28,7 @@ if breadcrumb_set is not None:
     breadcrumbs = breadcrumb_set
 else:
     utool = getToolByName(context, 'portal_url')
-    if url is None:
+    if not url:
         content = utool.getPortalObject()
     else:
         # XXX may break in virtual hosting environment

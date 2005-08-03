@@ -73,6 +73,11 @@ cd OpenTAL
 ../python setup.py build
 ../python setup.py install
 cd ..
+## Troubleshooter: OpenTAL does not install ok using python2.4, but there's
+## a workaround to make it work: just change the evaluateText method
+## parameters (OpenTAL/Context.py, l.191 in version 0.5) from "def
+## evaluateText(self, expr, None=None):" to "def evaluateText(self, expr):",
+## as python2.4 does not allow assignments to None.
 
 rm -rf ./pax ./OpenTAL
 

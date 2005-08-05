@@ -136,16 +136,16 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTypes()
         self.setupActions()
         self.setupWorkflow()
+        # XXX: setup i18n before default roots because default language will
+        # then be set (instead of defaulting to 'en')
+        self.setupi18n()
         self.setupRoots()
         self.setupAccessControl()
         self.setupLocalWorkflow()
         self.upgradeWorkflowStatus()
         self.setupTreesTool()
         self.setupBoxes()
-        self.setupi18n()
         self.setupCPSProducts()
-        # fixupRoots is a temporary hack to fix a CPSDocument bootstrap problem
-        self.fixupRoots()
         if (self.is_creation and
             self._interface == 'portlets'):
             self.setupPortlets()
@@ -167,6 +167,11 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             self.portal._delObject('cpsinstall')
 
         self.setupTranslations()
+        # setup roots translated titles after message catalog and translations
+        # have been installed
+        self.setupRootsi18n()
+        # fixupRoots is a temporary hack to fix a CPSDocument bootstrap problem
+        self.fixupRoots()
         self.log("CPS update Finished")
         self.verifyVHM()
 
@@ -1526,44 +1531,59 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             self.log("  Adding %s Folder" % WORKSPACES_ID)
             self.portal.portal_workflow.invokeFactoryFor(
                 self.portal.this(), 'Workspace', WORKSPACES_ID)
-            workspaces = self.portal[WORKSPACES_ID]
-            # XXX This should work if workspaces were a true CPSDocument.
-            # read fixupRoots to understand the problem.
-            #workspaces.getEditableContent().edit(Title="Workspaces")
-            workspaces.getEditableContent().setTitle("Workspaces")
-            # XXX Make L10N more generic
-            workspaces.addLanguageToProxy('fr')
-            workspaces.getEditableContent('fr').setTitle("Espaces de travail")
 
+        workspaces = self.portal[WORKSPACES_ID]
         if getattr(self.portal[WORKSPACES_ID], MEMBERS_ID, None) is None:
             self.log("  Adding %s Folder" % MEMBERS_ID)
-            workspaces = self.portal[WORKSPACES_ID]
             self.portal.portal_workflow.invokeFactoryFor(
                 workspaces,'Workspace', MEMBERS_ID)
-            member_areas = getattr(workspaces, MEMBERS_ID, None)
-            member_areas.getEditableContent().setTitle("Member Areas")
-            # XXX Make L10N more generic
-            member_areas.addLanguageToProxy('fr')
-            member_areas.getEditableContent('fr').setTitle("Espaces des membres")
 
         if not self.portalHas(SECTIONS_ID):
             self.log("  Adding %s Folder" % SECTIONS_ID)
             self.portal.portal_workflow.invokeFactoryFor(
                 self.portal.this(), 'Section', SECTIONS_ID)
-            sections = self.portal[SECTIONS_ID]
-            sections.getEditableContent().setTitle("Sections")
-            # XXX Make L10N more generic
-            sections.addLanguageToProxy('fr')
-            sections.getEditableContent('fr').setTitle("Espaces de publication")
+
+    def setupRootsi18n(self):
+        """Creating the appropriate language revisions for default roots
+
+        Has to be called after roots setup, and after message catalog,
+        translation service and translations setup.
+        """
+        # XXX should probably use the use_mcat property on proxies, see #867
+        mcat = self.portal.Localizer['default']
+        avail_langs = mcat.get_languages()
+        translation_service = self.portal.translation_service
+
+        workspaces = self.portal[WORKSPACES_ID]
+        root_titles = [
+            (workspaces, WORKSPACES_ID + '_root_title'),
+            (workspaces[MEMBERS_ID], MEMBERS_ID + '_root_title'),
+            (self.portal[SECTIONS_ID], SECTIONS_ID + '_root_title'),
+            ]
+        for proxy, title in root_titles:
+            existing_lang_revs = proxy.getLanguageRevisions().keys()
+            self.log("existing_lang_revs=%s"%(existing_lang_revs,))
+            self.log("avail_langs=%s"%(avail_langs,))
+            for lang in avail_langs:
+                if lang not in existing_lang_revs:
+                    proxy.addLanguageToProxy(lang)
+                if self.is_creation or lang not in existing_lang_revs:
+                    doc = proxy.getEditableContent(lang)
+                    translated_title = translation_service(msgid=title,
+                                                           target_language=lang,
+                                                           default=title)
+                    doc.setTitle(translated_title)
 
     def fixupRoots(self):
         """Commit the data model of those folders that were not created through
         the CPSDocument framework due to bootstrap problems.
         """
-        for proxy in (self.portal.workspaces,
-                      self.portal.workspaces.members,
-                      self.portal.sections):
-            for lang in ('en', 'fr'):
+        workspaces = self.portal[WORKSPACES_ID]
+        for proxy in (workspaces,
+                      workspaces[MEMBERS_ID],
+                      self.portal[SECTIONS_ID]):
+            existing_lang_revs = proxy.getLanguageRevisions().keys()
+            for lang in existing_lang_revs:
                 doc = proxy.getEditableContent(lang)
                 dm = doc.getTypeInfo().getDataModel(doc, proxy)
                 for k, v in dm.items():

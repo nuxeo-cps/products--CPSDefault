@@ -1562,8 +1562,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             ]
         for proxy, title in root_titles:
             existing_lang_revs = proxy.getLanguageRevisions().keys()
-            self.log("existing_lang_revs=%s"%(existing_lang_revs,))
-            self.log("avail_langs=%s"%(avail_langs,))
             for lang in avail_langs:
                 if lang not in existing_lang_revs:
                     proxy.addLanguageToProxy(lang)

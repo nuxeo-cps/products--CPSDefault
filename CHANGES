@@ -1,80 +1,12 @@
 Requires:
 ~~~~~~~~~
-- CPSCore > 0.27.0 for the new URL tool: cpsupdate has to be run again to set
-  up the new tool correctly.
+-
 New features:
 ~~~~~~~~~~~~~
-- Revisited the localroles management UI.
-- Added the beginning of a document on
-  "HOWTO use the search capabilities of CPS".
-- Folder content UI now filters elements:
-    + draft elements are visible just by managers and draft creator
-    + locked and draft documents cannot be suppressed
-  Notice that this is just UI level and that deletion will soon
-  be implemented at workflow level see ticket #228
-- Added focus on the title of new documents to create in the "folder_factories"
-  form.
+-
 Bug fixes:
 ~~~~~~~~~~
-- Improved coding style in cpsinstall.py.
-- #699: Fixed workflow of workspaces so that they only manage 'View'.
-- #388: better fr/en translations for virtual groups labels (role:Anonymous and
-  role:Authenticated)
-- #307: Local roles management empty user searching ; there was no search limit
-  when searching for members/groups
-- #492: Removing local roles to role:Anonymous unblocked roles acquisition
-- removed the textarea width set to 100% in nuxeo_css1.css.dtml (this causes a
-  layout bug in firefox when displaying tooltips)
-- Fixed the way CMFCalendarToolPatch.py was getting the translation_service
-  tool. This has the effect to fix CPSSkins unit tests.
-- Taking advantage of the new centralized CPSI18n.tests.translations module.
-- Fixed translation files through the CPSI18n/bin/fix_pos script.
-- Fixed the URL displayed in exportRssContentBox (was exportRSSContentBox
-  instead of exportRssContentBox)
-- Fixed the computeContributors() method to work properly with anonymous
-  contributors, previously it was crashing.
-- Merged the files nuxeo_css1.css.dtml and nuxeo_css2.css.dtml into one
-  default.css.dtml file. This is a step for the fix of bug #770.
-- Renamed "nuxeo_print_css.css" into "default_print.css". This fixes the last
-  point of #473 (Reorganizing /skins/cps_styles/).
-- Added a declaration for the stylesheet of CPSBoxes. This is a step for the fix
-  of bug #770.
-- Modified some ZPT files so that they are valid XHTML 1.0 Strict. This is a
-  work in progress to fix #773 "Using XHTML 1.0 Strict by default for CPS
-  sites".
-- #816: comments for !copy_submit(accept, reject, unpublish...) missing on
-  publication history of a document.
-- Gave to the SectionReviewer role the ChangeSubobjectsOrder permission in the
-  sections. This is more logical. One who can accept/reject contents in sections
-  should also be allowed to order them.
-- Gave to the Owner of a document the permission to view his/her submitted
-  document.
-- fix #535: Redesign the advanced search form (completed)
-- #838 use folder_contents as nav action only when explicitly requested in
-  content_lib/info_detail
-- Replaced portal_url with the new URLTool defined in CPSCore (extending the
-  CMF one) to have methods dealing with virtual hosting: now able to get the base
-  url (portal absolute url path), get an object absolute url from its relative
-  url, and get its breadcrumbs without objects hidden with the virtual
-  hosting. Fixes #436.
-- fix #845: Added backward compatibility code to avoid recursion on the
-  getBaseUrl script just before the portal_url update.
-- Replaced incorrect code producing broken urls using virtual hosting.
-- Changed the old orderedFoldered method names to the new OrderedSupport names,
-  such as "move_object_up" to "moveObjectsUp", et al.
-- fix #846: Language selector does not work for cps with boxes.
-- fix #794 Missing translations in advanced search form
-- Portal status message and check if there were items selected were missing
-  for move up/down/top/bottom action in folder contents management page.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- Don't use strings for permission names in the installer.
-- Added an example display method for formatting Gestalt's content items.
-- Replaced Localizer by TranslationService.
-- Moved computeContributors from CPSDocument to the utils module.
-- Made the modify transition title more readable
-- Roles relevant in context is now an optional argument to the script that
-  returns assigned local roles.
-- New javascript function getSelectedRadioLabel
-- Do not use getBaseUrl and getContextUrl scripts to see if a role is set
-  locally, but simply the object relative url.
+-

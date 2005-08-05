@@ -43,7 +43,7 @@ elif search_param == 'groupname':
     for pseudo_group in pseudo_groups:
         if pseudo_group.lower().find(search_term) != -1:
             groups.append(pseudo_group)
-    results = gdir.searchEntries(group=search_term)
+    results = gdir.searchEntries(**{gdir.id_field: search_term})
     results.extend(groups)
 
 return results

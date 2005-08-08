@@ -12,7 +12,7 @@ Adapting those examples to your needs
 The port 9673 is the Zope default port on Debian, you might have to change it to
 8080 depending on your configuration.
 
-Note that in all the following examples "demo1.localdomain" can be replaced by
+Note that in all the following examples "machine.localdomain" can be replaced by
 "localhost" if your Zope server runs on the same machine as your Apache httpd
 server is.
 
@@ -52,31 +52,31 @@ configuration but it is easy to setup and understand.
 Example::
 
   <VirtualHost 192.168.2.20:80>
-  ServerName mysite.net
+  ServerName www.mysite.net
   
   RewriteEngine on
   
   RewriteCond %{HTTP:Authorization}  ^(.*)
-  RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
   
-  CustomLog /var/log/apache-ssl/mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
   </VirtualHost>
   
   <VirtualHost 192.168.2.20:443>
-  ServerName mysite.net
+  ServerName www.mysite.net
   
   SSLEnable
-  SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
-  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/www.mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/www.mysite.net.key
   
   RewriteEngine on
   
   RewriteCond %{HTTP:Authorization}  ^(.*)
-  RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
+  RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
   
-  CustomLog /var/log/apache-ssl/mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
   </VirtualHost>
 
 
@@ -96,9 +96,9 @@ This is a secure configuration because:
 
 Example::
 
-  # Main HTTP access to http://mysite.net/ for anonymous users
+  # Main HTTP access to http://www.mysite.net/ for anonymous users
   <VirtualHost 192.168.2.20:80>
-  ServerName mysite.net
+  ServerName www.mysite.net
   
   RewriteEngine on
   
@@ -107,52 +107,52 @@ Example::
   RewriteCond %{REQUEST_URI} ^(.*)/login(.*) [OR]
   RewriteCond %{REQUEST_URI} ^(.*)/account_(.*) [OR]
   RewriteCond %{REQUEST_URI} ^(.*)/join_form$
-  RewriteRule ^/(.*) https://mysite.net/$1 [R=permanent,L]
+  RewriteRule ^/(.*) https://www.mysite.net/$1 [R=permanent,L]
   
   RewriteCond %{HTTP:Authorization}  ^(.*)
-  RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
   
-  CustomLog /var/log/apache-ssl/mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
   </VirtualHost>
   
-  # Main HTTPS access to https://mysite.net/ for authenticated users
+  # Main HTTPS access to https://www.mysite.net/ for authenticated users
   <VirtualHost 192.168.2.20:443>
-  ServerName mysite.net
+  ServerName www.mysite.net
   
   SSLEnable
-  SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
-  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/www.mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/www.mysite.net.key
   
   RewriteEngine on
   
   RewriteCond %{HTTP:Authorization}  ^(.*)
-  RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
+  RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
   
-  CustomLog /var/log/apache-ssl/mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
   </VirtualHost>
   
   
-  # HTTPS access to https://mysite.net:453/ for administrators.
+  # HTTPS access to https://www.mysite.net:453/ for administrators.
   # This is the access to use to administer Zope through the ZMI.
   <VirtualHost 192.168.2.20:453>
-  ServerName mysite.net
+  ServerName www.mysite.net
   
   SSLEnable
-  SSLCertificateFile /etc/apache-ssl/ssl.crt/mysite.net.cert
-  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/mysite.net.key
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/www.mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/www.mysite.net.key
   
   RewriteEngine on
   
   RewriteCond %{HTTP:Authorization}  ^(.*)
-  RewriteRule ^/(.*)  http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}/VirtualHostRoot/$1 [P,L]
+  RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}/VirtualHostRoot/$1 [P,L]
   # Note that the line below with "%{HTTP_HOST}:453" will not work. The working
   # rule above has been crafted through the reading of the Z2.log file.
-  #RewriteRule ^/(.*) http://demo1.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:453/VirtualHostRoot/$1 [P,L]
+  #RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:453/VirtualHostRoot/$1 [P,L]
   
-  CustomLog /var/log/apache-ssl/mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/mysite.net-error.log
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
   </VirtualHost>
 
 
@@ -160,14 +160,7 @@ Example::
 Using Apache2
 =============
 
-XXX: we are waiting for someone to contribute the corresponding apache2 virtual
-hosts configuration.
-
-
-Related information
-===================
-
-* bug #436
-  "getBaseUrl.py doesn't work as expected behind Apache virtual hosts"
-  http://bugs.nuxeo.com/bugzilla/show_bug.cgi?id=436
+Using Apache2 is recommanded over using Apache + mod_ssl or apache-ssl.
+The configuration for Apache2 is almost the same. This documentation will soon
+be updated to present a working configuration for Apache2.
 

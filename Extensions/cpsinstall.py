@@ -1567,10 +1567,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                     proxy.addLanguageToProxy(lang)
                 if self.is_creation or lang not in existing_lang_revs:
                     doc = proxy.getEditableContent(lang)
-                    translated_title = translation_service(msgid=title,
-                                                           target_language=lang,
-                                                           default=title)
-                    doc.setTitle(translated_title)
+                    title = translation_service(msgid=title,
+                                                target_language=lang,
+                                                default=title)
+                    if isinstance(title, unicode):
+                        title = title.encode('ISO-8859-15', 'ignore')
+                    doc.setTitle(title)
 
     def fixupRoots(self):
         """Commit the data model of those folders that were not created through

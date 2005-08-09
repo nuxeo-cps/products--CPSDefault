@@ -1550,9 +1550,8 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         translation service and translations setup.
         """
         # XXX should probably use the use_mcat property on proxies, see #867
-        mcat = self.portal.Localizer['default']
-        avail_langs = mcat.get_languages()
         translation_service = self.portal.translation_service
+        avail_langs = translation_service.getSupportedLanguages()
 
         workspaces = self.portal[WORKSPACES_ID]
         root_titles = [

@@ -1559,16 +1559,16 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             (workspaces[MEMBERS_ID], MEMBERS_ID + '_root_title'),
             (self.portal[SECTIONS_ID], SECTIONS_ID + '_root_title'),
             ]
-        for proxy, title in root_titles:
+        for proxy, title_msgid in root_titles:
             existing_lang_revs = proxy.getLanguageRevisions().keys()
             for lang in avail_langs:
                 if lang not in existing_lang_revs:
                     proxy.addLanguageToProxy(lang)
                 if self.is_creation or lang not in existing_lang_revs:
                     doc = proxy.getEditableContent(lang)
-                    title = translation_service(msgid=title,
+                    title = translation_service(msgid=title_msgid,
                                                 target_language=lang,
-                                                default=title)
+                                                default=title_msgid)
                     if isinstance(title, unicode):
                         title = title.encode('ISO-8859-15', 'ignore')
                     doc.setTitle(title)

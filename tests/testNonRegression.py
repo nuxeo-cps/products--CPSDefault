@@ -15,9 +15,6 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
     def beforeTearDown(self):
         self.logout()
 
-    #
-    #
-    #
     def testIdCollision(self):
         workspaces = self.portal.workspaces
         sections = self.portal.sections
@@ -35,8 +32,10 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(new_id.startswith('icon'))
         # TODO: need to check if the portal is functional "live"
 
-        # Test that we can create a subobject with same id as its
-        # container
+        # Test that we can create an object with id 'index_html', 'sections'
+        # or 'workspaces'.
+        # But note that a subobject with same id as its container is not
+        # possible in other case. This is a case where acquisition is a pain.
         # WARNING content_create is not used for a CPSDocument
         new_id = sections.content_create('Section', title='sections')
         self.assertEquals(new_id, 'sections')
@@ -66,7 +65,7 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         newSecurityManager(None, user)
 
         # Export portal to temp file
-        import tempfile 
+        import tempfile
         zexp = root.manage_exportObject('portal', download=1)
         temp_file_name = tempfile.mktemp() + '.zexp'
         fd = open(temp_file_name, 'w')
@@ -89,8 +88,8 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         # problems in the future, though.
         zexp = self.portal.manage_exportObject(id='', download=1, toxml=0)
         self.assert_(zexp)
-        
-        # XXX This is currently broken in Zope ! 
+
+        # XXX This is currently broken in Zope !
         # (http://collector.zope.org/Zope/1219)
         #xml = self.portal.manage_exportObject(id='', download=1, toxml=1)
         #assert xml
@@ -116,4 +115,3 @@ def test_suite():
 
 if __name__ == '__main__':
     framework(descriptions=1, verbosity=2)
-

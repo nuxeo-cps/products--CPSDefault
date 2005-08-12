@@ -7,7 +7,7 @@ if __name__ == '__main__':
 import unittest
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
-
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.tests.base.utils import has_path
 #ZopeTestCase.installProduct('VerboseSecurity', quiet=1)
 
@@ -15,6 +15,16 @@ from Products.CMFCore.tests.base.utils import has_path
 # Testing some skins methods and templates anonymously.
 
 class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
+
+    login_id = 'manager'
+
+    def afterSetUp(self):
+        if self.login_id:
+            self.login(self.login_id)
+        self.wftool  = getToolByName(self.portal, 'portal_workflow')
+
+    def beforeTearDown(self):
+        self.logout()
 
     def testTemplates(self):
         self.assert_(self.portal.index_html())
@@ -48,6 +58,15 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(getattr(self.portal, 'msie.css'))
 
     def testComputeId(self):
+        # Testing that computeId generates different IDs if the ID is already
+        # used in the same container.
+        s = 'Special ID that we want to be unique'
+        workspaces = self.portal.workspaces
+        id1 = workspaces.computeId(s)
+        self.wftool.invokeFactoryFor(workspaces, 'File', id1)
+        id2 = workspaces.computeId(s)
+        self.assertNotEquals(id1, id2)
+
         # URLs are computed differently and intelligently depending on the
         # specified locale, because meaningless words are removed.
         id = "Voilà l'été"
@@ -59,20 +78,6 @@ class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertNotEquals(self.portal.computeId(id, lang='fr'),
                              "message-from-president")
 
-    def testComputeId_1(self):
-        # should keep meaningless word if their is only one !
-        for id in ('a', 'the'):
-            self.assertEquals(self.portal.computeId(id, lang='en'), id)
-
-    def testComputeId_2(self):
-        # should keep something if the title is meaningless
-        self.assertEquals(self.portal.computeId("the the", lang='en'),
-                          "the-the")
-
-    def testComputeId_3(self):
-        # stupid id should return random number
-        for id in ('-', ' ', '.'):
-            self.assert_(self.portal.computeId(id), id)
 
     def testTruncURL(self):
         url = 'http://youpilala.com/il/fait/beau/et/chaud/ajourd/hui'

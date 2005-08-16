@@ -181,3 +181,16 @@ def upgrade_334_335(self):
         log += "\n\n" + upgrade_334_335_allowct_sections(self)
 
     return log
+
+def upgrade_z2_8(self):
+    """Upgrade script from Zope-2.7.x to Zope-2.8.x
+    """
+
+    log = ""
+    # Convert catalog indexes
+    catalog = getToolByName(self, 'portal_catalog')
+    log += "\n\n" + "Zope-2.8.x Indexes migration............[START]"
+    catalog.manage_convertIndexes()
+    log += "\n\n" + "Zope-2.8.x Indexes migration............[DONE]"
+
+    return log

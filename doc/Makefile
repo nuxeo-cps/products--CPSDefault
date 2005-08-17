@@ -6,12 +6,12 @@ SRC_DOCS := $(shell ls *.txt)
 # this directory.
 #HTML_DOCS := $(subst .txt,.html,${SRC_DOCS})
 HTML_DOCS := howto-virtual_hosts.html guidelines-user_interface.html howto-search.html
-RST2HTML := rst2html
+RST2HTML := rst2html -t --stylesheet-path=nuxeo_doc.css 
 
 all: ${HTML_DOCS}
 
 %.html: %.txt
-	${RST2HTML} -t --stylesheet-path=nuxeo_doc.css $< $@
+	${RST2HTML} $< $@
 
 
 %.toc: %.txt

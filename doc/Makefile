@@ -6,6 +6,11 @@ SRC_DOCS := $(shell ls *.txt)
 # this directory.
 #HTML_DOCS := $(subst .txt,.html,${SRC_DOCS})
 HTML_DOCS := howto-virtual_hosts.html guidelines-user_interface.html howto-search.html
+
+# In order to generate HTML docs, you will need to install
+# Docutils (http://docutils.sourceforge.net/).
+# For example on a Debian system:
+# $ sudo apt-get install python-docutils
 RST2HTML := rst2html -t --stylesheet-path=nuxeo_doc.css 
 
 all: ${HTML_DOCS}

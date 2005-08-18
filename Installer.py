@@ -195,6 +195,7 @@ class BaseInstaller:
 
         default_lang can be for example 'en', 'fr' or 'nl'.
         """
+        # FIXME: LocalizerGeddon
         mcat = self.portal.Localizer.default
         self.log(" Checking available languages")
         podir = os.path.join('Products', self.product_name)

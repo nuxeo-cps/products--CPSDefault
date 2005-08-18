@@ -25,7 +25,6 @@ import re
 from zLOG import LOG, INFO, DEBUG
 
 from Acquisition import aq_base
-from AccessControl import allow_type, allow_class
 from AccessControl import getSecurityManager
 from AccessControl import ModuleSecurityInfo
 
@@ -51,7 +50,7 @@ def getNonArchivedVersionContextUrl(content_url):
     return content_url
 
 
-# FIXME: LocalyzerGeddon
+# FIXME: LocalizerGeddon
 module_security.declarePublic('manageCPSLanguage')
 def manageCPSLanguage(context, action, default_language, languages):
     """Manage available a languages in a CPS portal with Localizer"""

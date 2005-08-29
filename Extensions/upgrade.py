@@ -182,6 +182,16 @@ def upgrade_334_335(self):
 
     return log
 
+def upgrade_335_336(self):
+    """Upgrades for CPS 3.3.6"""
+
+    # Upgrade CPSDocument
+    from Products.CPSDocument.upgrade import upgrade_335_336_fix_broken_flexible
+    log = upgrade_335_336_fix_broken_flexible(self)
+
+    return log
+
+
 def upgrade_z2_8(self):
     """Upgrade script from Zope-2.7.x to Zope-2.8.x
     """

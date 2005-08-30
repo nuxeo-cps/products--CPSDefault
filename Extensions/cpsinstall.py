@@ -1893,12 +1893,15 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSSubscriptions')
         self.setupProduct('CPSNewsLetters')
         self.setupProduct('CPSWiki')
+
+	# FIXME: I don't like this code because it makes things hard to test
         try:
-            from elementtree.ElementTree import ElementTree
-        except ImportError, e:
-            if str(e) != 'No module named elementtree.ElementTree':
-                raise
-            self.log("Cannot install CPSOOo: missing elementtree module")
+	    try:
+            	from elementtree.ElementTree import ElementTree
+            except ImportError:
+	        from lxml.etree import ElementTree
+        except ImportError:
+            self.log("Cannot install CPSOOo: missing elementtree or lxml module")
         else:
             self.setupProduct('CPSOOo')
 

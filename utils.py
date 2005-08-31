@@ -132,7 +132,7 @@ def computeContributors(portal, contributors):
         # entry directly from the directory
         try:
             dir = portal.portal_directories.members
-            fullname = dir.getEntry(user_id)[dir.title_field]
+            fullname = dir._getEntry(user_id)[dir.title_field]
         except (AttributeError, KeyError):
             fullname = None
 

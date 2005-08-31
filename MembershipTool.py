@@ -272,7 +272,9 @@ The %s administration team
                                                    member_id, member_folder)
         # get the user's title
         members_directory = self.portal_directories.members
-        member_entry = members_directory.getEntry(member_id)
+        member_entry = members_directory._getEntry(member_id, default=None)
+        if member_entry is None:
+            return
         member_title = member_entry.get(members_directory.title_field)
         if not member_title:
             member_title = member_id

@@ -27,6 +27,7 @@ from time import time
 import sha
 import unittest
 import CPSDefaultTestCase
+from Testing.ZopeTestCase import user_name
 
 class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
     login_id = 'manager'
@@ -77,6 +78,8 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEqual(homefolder.objectIds(), [])
 
     def test_getEmail(self):
+        # This test is more useful if you are not logged in a manager:
+        self.login(user_name)
         members = self.portal.portal_directories.members
         email = 'test@test.no'
         emission_time = str(int(time()))

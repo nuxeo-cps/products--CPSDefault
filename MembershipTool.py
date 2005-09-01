@@ -207,10 +207,9 @@ The %s administration team
     def getEmailFromUsername(self, username):
         """Looks up an email address via the members directory"""
         members = getToolByName(self, 'portal_directories', None).members
-        emailfield = getattr(members, 'email_field', 'email')
         member = members.getEntry(username, default=None)
         if member:
-            return member.get(emailfield)
+            return member.get(self.email_field)
         return None        
 
     security.declarePublic('resetPassword')

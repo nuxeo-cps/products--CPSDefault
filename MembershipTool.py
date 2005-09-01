@@ -48,8 +48,12 @@ class MembershipTool(CPSMembershipTool):
     _properties = CPSMembershipTool._properties + (
         {'id': 'reset_password_request_validity', 'type': 'int', 'mode': 'w',
          'label': 'Number of seconds a reset password request is considered valid'},
+        {'id': 'email_field', 'type': 'string', 'mode': 'w',
+         'label': 'Field for email address'},
         )
+
     reset_password_request_validity = 3600 * 12
+    email_field = 'email'
 
     security = ClassSecurityInfo()
 
@@ -76,14 +80,15 @@ class MembershipTool(CPSMembershipTool):
         if member is not None:
             LOG(log_key, DEBUG, "member is not None")
             username = username_or_email
-            email = member.getProperty('email')
+            email = member.getProperty(self.email_field)
         elif username_or_email.find('@'):
             LOG(log_key, DEBUG, "username_or_email is an email")
             members_directory = self.portal_directories.members
             # Here we use the _searchEntries() method instead of the
             # searchEntries() method that only returns entries the current user
             # is allowed to consult.
-            user_ids = members_directory._searchEntries(email=username_or_email)
+            user_ids = members_directory._searchEntries(
+                **{self.email_field: username_or_email})
             LOG(log_key, DEBUG, "user_ids %s" % user_ids)
             if user_ids != []:
                 email = username_or_email
@@ -195,9 +200,18 @@ The %s administration team
         # Here we use the _searchEntries() method instead of the
         # searchEntries() method that only returns entries the current user
         # is allowed to consult.
-        user_ids = members_directory._searchEntries(email=email)
+        user_ids = members_directory._searchEntries(**{self.email_field: email})
         return user_ids
 
+    security.declarePublic('getEmailfromUserName')
+    def getEmailFromUsername(self, username):
+        """Looks up an email address via the members directory"""
+        members = getToolByName(self, 'portal_directories', None).members
+        emailfield = getattr(members, 'email_field', 'email')
+        member = members.getEntry(username, default=None)
+        if member:
+            return member.get(emailfield)
+        return None        
 
     security.declarePublic('resetPassword')
     def resetPassword(self, usernames, email, emission_time, reset_token):

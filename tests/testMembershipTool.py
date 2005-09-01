@@ -23,6 +23,8 @@ import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
+from time import time
+import sha
 import unittest
 import CPSDefaultTestCase
 
@@ -74,6 +76,31 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         else:
             self.assertEqual(homefolder.objectIds(), [])
 
+    def test_getEmail(self):
+        members = self.portal.portal_directories.members
+        email = 'test@test.no'
+        emission_time = str(int(time()))
+        
+        entry = members._getEntry(self.login_id)
+        entry['email'] = email
+        members._editEntry(entry)
+        email = self.pmtool.getEmailFromUsername(self.login_id)
+        self.assertEqual(email, email)
+        
+        # Do it backwards!
+        hash_object = sha.new()
+        hash_object.update(email)
+        hash_object.update(emission_time)
+        hash_object.update(self.pmtool.getNonce())
+        reset_token = hash_object.hexdigest()
+        users = self.pmtool.getUsernamesFromEmail(email, emission_time, 
+                                                  reset_token)
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0], self.login_id)
+        
+
+        
+        
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestMembershipTool))

@@ -88,7 +88,7 @@ class MembershipTool(CPSMembershipTool):
             # searchEntries() method that only returns entries the current user
             # is allowed to consult.
             user_ids = members_directory._searchEntries(
-                **{self.email_field: username_or_email})
+                **{self.email_field: [username_or_email]})
             LOG(log_key, DEBUG, "user_ids %s" % user_ids)
             if user_ids != []:
                 email = username_or_email
@@ -200,7 +200,7 @@ The %s administration team
         # Here we use the _searchEntries() method instead of the
         # searchEntries() method that only returns entries the current user
         # is allowed to consult.
-        user_ids = members_directory._searchEntries(**{self.email_field: email})
+        user_ids = members_directory._searchEntries(**{self.email_field: [email]})
         return user_ids
 
     security.declarePublic('getEmailfromUserName')

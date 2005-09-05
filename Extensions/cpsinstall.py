@@ -129,7 +129,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupSkins()
         self.setupEventService()
 
-        # Disable useless subscriber
+        # Disable useless subscribers during installation
         self.disableEventSubscriber('portal_trees')
         self.disableEventSubscriber('portal_subscriptions')
 
@@ -175,7 +175,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.log("CPS update Finished")
         self.verifyVHM()
 
-        # Disable useless subscriber
+        # Re-enable subscribers
         self.enableEventSubscriber('portal_trees')
         self.enableEventSubscriber('portal_subscriptions')
 
@@ -1919,13 +1919,13 @@ def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # helpers
     installer = DefaultInstaller(self)
 
-    # Disable useless subscriber
+    # Disable useless subscribers during installation
     installer.disableEventSubscriber('portal_trees')
     installer.disableEventSubscriber('portal_subscriptions')
 
     installer.install(langs_list, is_creation, interface=interface)
 
-    # Enable useless subscriber
+    # Re-enable subscribers
     installer.enableEventSubscriber('portal_trees')
     installer.enableEventSubscriber('portal_subscriptions')
 

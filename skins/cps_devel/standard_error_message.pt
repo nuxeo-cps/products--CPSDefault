@@ -36,10 +36,6 @@
       </tr>
     </table>
     <hr />
-    <tal:block condition="python:request.has_key('cpsskins_cmfactions')">
-      <tal:block define="dummy python:request.set('cpsskins_cmfactions',
-                                                  '...skipped...')" />
-    </tal:block>
     <pre tal:content="structure request" />
     <hr />
     <a href="" tal:condition="python:error_log_url"

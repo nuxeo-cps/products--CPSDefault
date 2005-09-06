@@ -62,8 +62,8 @@ except ImportError:
     external_editor_present = 0
 
 # CPSCore permissions
-from Products.CPSCore.CPSCorePermissions import ViewArchivedRevisions
-from Products.CPSCore.CPSCorePermissions import ChangeSubobjectsOrder
+from Products.CPSCore.permissions import ViewArchivedRevisions
+from Products.CPSCore.permissions import ChangeSubobjectsOrder
 
 # CPSDefault permissions
 # XXX should be imported from somewhere

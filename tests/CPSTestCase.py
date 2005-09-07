@@ -237,7 +237,7 @@ class CPSInstaller:
         from Products.CPSCore.IndexationManager import get_indexation_manager
         from Products.CPSCore.IndexationManager import IndexationManager
         IndexationManager.DEFAULT_SYNC = True # Monkey patch
-        get_indexation_manager().setSynchonous(True) # Current transaction
+        get_indexation_manager().setSynchronous(True) # Current transaction
 
         # During setup and tests we want synchronous tree cache updates
         from Products.CPSCore.TreeCacheManager import get_treecache_manager

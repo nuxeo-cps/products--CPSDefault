@@ -49,7 +49,7 @@ class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
             self.login(self.login_id)
         self.wftool  = getToolByName(self.portal, 'portal_workflow')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
-        get_indexation_manager().setSynchonous(True)
+        get_indexation_manager().setSynchronous(True)
 
     def beforeTearDown(self):
         self.logout()
@@ -112,7 +112,7 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
             #self.portal.portal_membership.createMemberArea()
         self.wftool  = getToolByName(self.portal, 'portal_workflow')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
-        get_indexation_manager().setSynchonous(False)
+        get_indexation_manager().setSynchronous(False)
         # XXX that's for the current transaction, but as soon
         # as we commit/abort there'll be another one...
 

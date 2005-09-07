@@ -150,7 +150,7 @@ Thank you, and we look forward to seeing you back at %s soon!
 
 Sincerely,
 
--- 
+--
 The %s administration team
 """
             % (email, visit_url, self.portal_url(), self.portal_url()))
@@ -203,14 +203,14 @@ The %s administration team
         user_ids = members_directory._searchEntries(**{self.email_field: [email]})
         return user_ids
 
-    security.declarePublic('getEmailfromUserName')
+    security.declarePublic('getEmailFromUsername')
     def getEmailFromUsername(self, username):
         """Looks up an email address via the members directory"""
         members = getToolByName(self, 'portal_directories', None).members
         member = members._getEntry(username, default=None)
         if member:
             return member.get(self.email_field)
-        return None        
+        return None
 
     security.declarePublic('resetPassword')
     def resetPassword(self, usernames, email, emission_time, reset_token):

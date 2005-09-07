@@ -232,11 +232,18 @@ class CPSInstaller:
         self._quiet = quiet
 
     def install(self, portal_id):
+
         # During setup and tests we want synchronous indexing.
         from Products.CPSCore.IndexationManager import get_indexation_manager
         from Products.CPSCore.IndexationManager import IndexationManager
         IndexationManager.DEFAULT_SYNC = True # Monkey patch
         get_indexation_manager().setSynchonous(True) # Current transaction
+
+        # During setup and tests we want synchronous tree cache updates
+        from Products.CPSCore.TreeCacheManager import get_treecache_manager
+        from Products.CPSCore.TreeCacheManager import TreeCacheManager
+        TreeCacheManager.DEFAULT_SYNC = True # Monkey patch
+        get_treecache_manager().setSynchronous(True) # current transaction
 
         self.addUser()
         self.login()

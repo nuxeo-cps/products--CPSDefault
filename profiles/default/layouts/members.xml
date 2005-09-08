@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<layout>
+  <widget id="confirm" kind="CPS Password Widget">
+    <property name="description">Password confirmation when editing</property>
+    <property name="display_width">20</property>
+    <property name="fields">
+     <element value="confirm" /></property>
+    <property name="hidden_empty">1</property>
+    <property name="hidden_layout_modes">
+     <element value="view" />
+     <element value="search" /></property>
+    <property name="hidden_readonly_layout_modes">
+     <element value="edit" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_password_confirm</property>
+    <property name="label_edit">label_password_confirm</property>
+    <property name="password_widget">password</property>
+    <property name="size_max">0</property>
+  </widget>
+  <widget id="email" kind="CPS Email Widget">
+    <property name="description">Member email</property>
+    <property name="display_width">30</property>
+    <property name="fields">
+     <element value="email" /></property>
+    <property name="is_i18n">1</property>
+    <property name="is_required">1</property>
+    <property name="label">label_email</property>
+    <property name="label_edit">label_email</property>
+    <property name="size_max">0</property>
+  </widget>
+  <widget id="fullname" kind="CPS String Widget">
+    <property name="description">Member full name</property>
+    <property name="display_width">30</property>
+    <property name="fields">
+     <element value="fullname" /></property>
+    <property name="hidden_layout_modes">
+     <element value="create" />
+     <element value="edit" />
+     <element value="search" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_full_name</property>
+    <property name="label_edit">label_full_name</property>
+  </widget>
+  <widget id="givenName" kind="CPS String Widget">
+    <property name="description">Member first name</property>
+    <property name="fields">
+     <element value="givenName" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_first_name</property>
+    <property name="label_edit">label_first_name</property>
+  </widget>
+  <widget id="groups" kind="CPS MultiSelect Widget">
+    <property name="description">Member groups</property>
+    <property name="fields">
+     <element value="groups" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_groups</property>
+    <property name="label_edit">label_groups</property>
+    <property name="size">7</property>
+    <property name="vocabulary">groups</property>
+  </widget>
+  <widget id="homeless" kind="CPS Boolean Widget">
+    <property name="description">Homeless ?</property>
+    <property name="fields">
+     <element value="homeless" /></property>
+    <property name="help">cpsdir_help_homeless</property>
+    <property name="is_i18n">1</property>
+    <property name="label">cpsdir_label_homeless</property>
+    <property name="label_edit">cpsdir_label_homeless</property>
+    <property name="label_false">cpsschemas_label_true</property>
+    <property name="label_true">cpsschemas_label_false</property>
+  </widget>
+  <widget id="id" kind="CPS User Identifier Widget">
+    <property name="description">Member login</property>
+    <property name="fields">
+     <element value="id" /></property>
+    <property name="is_i18n">1</property>
+    <property name="is_required">1</property>
+    <property name="label">label_user_name</property>
+    <property name="label_edit">label_user_name</property>
+    <property name="readonly_layout_modes">
+     <element value="edit" /></property>
+  </widget>
+  <widget id="password" kind="CPS Password Widget">
+    <property name="description">Member password</property>
+    <property name="display_width">20</property>
+    <property name="fields">
+     <element value="password" /></property>
+    <property name="hidden_empty">1</property>
+    <property name="hidden_layout_modes">
+     <element value="view" />
+     <element value="search" /></property>
+    <property name="hidden_readonly_layout_modes">
+     <element value="edit" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_password</property>
+    <property name="label_edit">label_password</property>
+    <property name="size_max">0</property>
+  </widget>
+  <widget id="roles" kind="CPS Generic MultiSelect Widget">
+    <property name="description">Member roles</property>
+    <property name="fields">
+     <element value="roles" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_roles</property>
+    <property name="label_edit">label_roles</property>
+    <property name="render_format">checkbox</property>
+    <property name="translated">1</property>
+    <property name="vocabulary">global_roles</property>
+  </widget>
+  <widget id="sn" kind="CPS String Widget">
+    <property name="description">Member last name</property>
+    <property name="fields">
+     <element value="sn" /></property>
+    <property name="is_i18n">1</property>
+    <property name="is_required">1</property>
+    <property name="label">label_last_name</property>
+    <property name="label_edit">label_last_name</property>
+  </widget>
+  <table>
+    <row>
+      <cell id="id" ncols="2"/>
+    </row>
+    <row>
+      <cell id="password" ncols="2"/>
+    </row>
+    <row>
+      <cell id="confirm" ncols="2"/>
+    </row>
+    <row>
+      <cell id="givenName"/>
+      <cell id="sn"/>
+    </row>
+    <row>
+      <cell id="fullname" ncols="2"/>
+    </row>
+    <row>
+      <cell id="email" ncols="2"/>
+    </row>
+    <row>
+      <cell id="roles"/>
+      <cell id="groups"/>
+    </row>
+    <row>
+      <cell id="homeless" ncols="2"/>
+    </row>
+  </table>
+  <property name="style_prefix">layout_dir_</property>
+  <property name="layout_create_method"></property>
+  <property name="layout_edit_method"></property>
+  <property name="layout_view_method"></property>
+  <property name="flexible_widgets"></property>
+  <property name="validate_values_expr"></property>
+</layout>

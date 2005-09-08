@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<layout>
+  <widget id="content" kind="CPS Text Widget">
+    <property name="configurable">format</property>
+    <property name="css_class">dcontent</property>
+    <property name="fields">
+     <element value="content" />
+     <element value="content_position" />
+     <element value="content_format" /></property>
+    <property name="file_uploader">1</property>
+    <property name="height">20</property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">cpsdoc_flex_content_label_edit</property>
+    <property name="render_format">html</property>
+    <property name="width">72</property>
+  </widget>
+  <widget id="photo" kind="CPS Photo Widget">
+    <property name="configurable">position</property>
+    <property name="display_height">200</property>
+    <property name="display_width">320</property>
+    <property name="fields">
+     <element value="photo" />
+     <element value="photo_subtitle" />
+     <element value="photo_position" />
+     <element value="photo_original" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">cpsdoc_flex_photo_label_edit</property>
+    <property name="size_max">2097152</property>
+    <property name="title">cpsdoc_flex_photo_title</property>
+  </widget>
+  <widget id="textimage" kind="CPS Compound Widget">
+    <property name="is_i18n">1</property>
+    <property name="label_edit">cpsdoc_flex_textimage_label_edit</property>
+    <property name="title">cpsdoc_flex_textimage_title</property>
+    <property name="widget_ids">
+     <element value="photo" />
+     <element value="content" /></property>
+    <property name="widget_type">Text Image Widget</property>
+  </widget>
+  <table>
+    <row>
+      <cell id="textimage"/>
+    </row>
+  </table>
+  <property name="style_prefix">layout_default_</property>
+  <property name="layout_create_method"></property>
+  <property name="layout_edit_method"></property>
+  <property name="layout_view_method"></property>
+  <property name="flexible_widgets"></property>
+  <property name="validate_values_expr"></property>
+</layout>

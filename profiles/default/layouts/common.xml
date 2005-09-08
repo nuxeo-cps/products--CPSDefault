@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<layout>
+  <widget id="Description" kind="CPS Text Widget">
+    <property name="css_class">ddescription</property>
+    <property name="fields">
+     <element value="Description" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">cpsdoc_description_label_edit</property>
+    <property name="width">72</property>
+  </widget>
+  <widget id="LanguageSelector"
+          kind="CPS Document Language Select Widget">
+    <property name="fields">
+     <element value="Language" /></property>
+  </widget>
+  <widget id="LanguageSelectorCreation"
+          kind="CPS Select Widget">
+    <property name="fields">
+     <element value="Language" /></property>
+    <property name="hidden_layout_modes">
+     <element value="edit" />
+     <element value="view" /></property>
+    <property name="hidden_readonly_layout_modes"></property>
+    <property name="is_i18n">1</property>
+    <property name="label">label_language</property>
+    <property name="label_edit">label_language</property>
+    <property name="readonly_layout_modes"></property>
+    <property name="title">Language</property>
+    <property name="vocabulary">language_voc</property>
+  </widget>
+  <widget id="Title" kind="CPS Heading Widget">
+    <property name="fields">
+     <element value="Title" /></property>
+    <property name="is_i18n">1</property>
+    <property name="is_required">1</property>
+    <property name="label_edit">cpsdoc_title_label_edit</property>
+    <property name="level">1</property>
+    <property name="size_max">200</property>
+  </widget>
+  <table>
+    <row>
+      <cell id="LanguageSelector"/>
+    </row>
+    <row>
+      <cell id="Title"/>
+    </row>
+    <row>
+      <cell id="Description"/>
+    </row>
+    <row>
+      <cell id="LanguageSelectorCreation"/>
+    </row>
+  </table>
+  <property name="style_prefix">layout_default_</property>
+  <property name="layout_create_method"></property>
+  <property name="layout_edit_method"></property>
+  <property name="layout_view_method"></property>
+  <property name="flexible_widgets"></property>
+  <property name="validate_values_expr"></property>
+</layout>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<layout>
+  <widget id="SearchableText" kind="CPS String Widget">
+    <property name="display_width">25</property>
+    <property name="fields">
+     <element value="SearchableText" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">label_search_full_text</property>
+    <property name="size_max">100</property>
+  </widget>
+  <widget id="Subject" kind="CPS MultiSelect Widget">
+    <property name="fields">
+     <element value="Subject" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">label_subject</property>
+    <property name="size">3</property>
+    <property name="vocabulary">subject_voc</property>
+  </widget>
+  <widget id="Title" kind="CPS String Widget">
+    <property name="display_width">25</property>
+    <property name="fields">
+     <element value="Title" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">label_title</property>
+    <property name="size_max">250</property>
+  </widget>
+  <widget id="modified" kind="CPS DateTime Widget">
+    <property name="fields">
+     <element value="modified" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">label_search_modified_since</property>
+    <property name="time_hour_default">00</property>
+    <property name="time_setting">0</property>
+  </widget>
+  <widget id="scope" kind="CPS Boolean Widget">
+    <property name="fields">
+     <element value="scope" /></property>
+    <property name="is_i18n">1</property>
+    <property name="label_edit">cpsnav_search_scope</property>
+    <property name="label_false">cpsnav_search_scope_current_location</property>
+    <property name="label_true">cpsnav_search_scope_entire_site</property>
+  </widget>
+  <table>
+    <row>
+      <cell id="SearchableText"/>
+    </row>
+    <row>
+      <cell id="Title"/>
+    </row>
+    <row>
+      <cell id="Subject"/>
+    </row>
+    <row>
+      <cell id="modified"/>
+    </row>
+    <row>
+      <cell id="scope"/>
+    </row>
+  </table>
+  <property name="style_prefix">layout_default_</property>
+  <property name="layout_create_method"></property>
+  <property name="layout_edit_method"></property>
+  <property name="layout_view_method"></property>
+  <property name="flexible_widgets"></property>
+  <property name="validate_values_expr"></property>
+</layout>

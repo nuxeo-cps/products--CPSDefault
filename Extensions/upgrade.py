@@ -189,6 +189,11 @@ def upgrade_335_336(self):
     from Products.CPSDocument.upgrade import upgrade_335_336_fix_broken_flexible
     log = upgrade_335_336_fix_broken_flexible(self)
 
+    # Upgrade CPSPortlets
+    from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
+    log += '\n\n '
+    log += upgrade_335_336_portlets(self)
+
     return log
 
 

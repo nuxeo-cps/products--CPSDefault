@@ -19,6 +19,8 @@
 #
 # $Id$
 
+from zLOG import LOG, INFO, DEBUG, PROBLEM, ERROR
+
 import sys
 import socket
 import random
@@ -27,15 +29,15 @@ import sha
 from urllib import urlencode
 from time import time
 from smtplib import SMTPException
+
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-from zLOG import LOG, DEBUG, PROBLEM, ERROR
+from AccessControl import Unauthorized
 
 from Products.MailHost.MailHost import MailHostError
 from Products.CMFCore.utils import getToolByName
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
-from zLOG import LOG, INFO, DEBUG, PROBLEM, ERROR
 
 log_key = 'CPSDefault.MembershipTool'
 
@@ -211,6 +213,25 @@ The %s administration team
         if member:
             return member.get(self.email_field)
         return None
+
+    security.declarePublic('getFullNameFromId')
+    def getFullnameFromId(self, user_id, REQUEST=None):
+        """Return the member full name from id
+        """
+
+        # We don't wanna user to be able to call this from restricted
+        # code
+        if REQUEST is not None:
+            raise Unauthorized(
+                "You cannot call this method from restricted code")
+        try:
+            utool = getToolByName(self, 'portal_url')
+            portal = utool.getPortalObject()
+            dir = portal.portal_directories.members
+            fullname = dir._getEntry(user_id)[dir.title_field]
+        except (AttributeError, KeyError):
+            fullname = user_id
+        return fullname
 
     security.declarePublic('resetPassword')
     def resetPassword(self, usernames, email, emission_time, reset_token):

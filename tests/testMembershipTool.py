@@ -26,6 +26,9 @@ if __name__ == '__main__':
 from time import time
 import sha
 import unittest
+
+from AccessControl import Unauthorized
+
 import CPSDefaultTestCase
 from Testing.ZopeTestCase import user_name
 
@@ -37,7 +40,8 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.pmtool = self.portal.portal_membership
 
         members = self.portal.portal_directories.members
-        members.createEntry({'id': 'member', 'roles': ['Member']})
+        members.createEntry({'id': 'member', 'givenName' : 'Foo',
+                             'sn': 'Bar', 'roles': ['Member']})
         members.createEntry({'id': 'wsmanager', 'roles': ['Member']})
         members.createEntry({'id': 'semanager', 'roles': ['Member']})
 
@@ -190,6 +194,31 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
             self.pmtool.canMemberChangeLocalRoles(
             self.portal.workspaces.members.wsmanager))
         self.logout()
+
+    def test_getFullnameFromIdRestricted(self):
+
+        # Should fail because called from restricted code.
+        self.assertRaises(Unauthorized, self.pmtool.getFullnameFromId,
+                          'manager', REQUEST={})
+
+
+    def test_getFullnameFromId(self):
+
+        # test env
+
+        members = self.portal.portal_directories.members
+        fullname = members._getEntry('member')[members.title_field]
+        self.assertEqual(fullname, 'Foo Bar')
+
+        # Found it
+        self.assertEqual(self.pmtool.getFullnameFromId('member'), 'Foo Bar')
+
+        # Found it but no fullname so its the user id
+        self.assertEqual(self.pmtool.getFullnameFromId('semanager'),
+                         'semanager')
+
+        # Use doesn't exsist -> return the id given as parameter
+        self.assertEqual(self.pmtool.getFullnameFromId('fakeone'), 'fakeone')
         
 def test_suite():
     suite = unittest.TestSuite()

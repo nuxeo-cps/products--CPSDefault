@@ -47,7 +47,6 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     def beforeTearDown(self):
         self.logout()
 
-
     def testAccessForMember(self):
         self.login('member')
         self.assert_(self.member_ws.folder_contents())
@@ -80,7 +79,9 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEquals(info['type_l10n'], 'portal_type_NewsItem_title')
 
         if level >= 1:
-            self.assertEquals(info['contributor'], 'member')
+            mtool = self.portal.portal_membership
+            self.assertEquals(info['contributor'],
+                              mtool.getFullnameFromId('member'))
             self.assertEquals(info['coverage'], '')
             # FIXME: disabled because it doesn't behave properly during
             # unit tests - it is OK in the real life, though

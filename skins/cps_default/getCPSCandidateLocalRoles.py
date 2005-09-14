@@ -34,6 +34,7 @@ ptype_role_prefix = {'Section': ('Section',),
                      'Calendar': ('Workspace',),
                      'CPSForum': ('Forum',),
                      'Chat': ('Chat',),
+                     'CPS Calendar': ('Attendee',),
                      }
 ptype = context.portal_type
 if ptype in ptype_role_prefix.keys():

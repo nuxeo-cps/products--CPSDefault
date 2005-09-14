@@ -1605,7 +1605,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                             'CPS Proxy Folderish Document',
                             'CPS Proxy BTree Folder',
                             'CPS Proxy BTree Folderish Folder',
-	                    ),
+                            ),
                 info_method='getFolderInfo')
             self.flagRebuildTreeCache(SECTIONS_ID)
 
@@ -1894,12 +1894,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSNewsLetters')
         self.setupProduct('CPSWiki')
 
-	# FIXME: I don't like this code because it makes things hard to test
+        # FIXME: I don't like this code because it makes things hard to test
         try:
-	    try:
-            	from elementtree.ElementTree import ElementTree
+            try:
+                    from elementtree.ElementTree import ElementTree
             except ImportError:
-	        from lxml.etree import ElementTree
+                from lxml.etree import ElementTree
         except ImportError:
             self.log("Cannot install CPSOOo: missing elementtree or lxml module")
         else:

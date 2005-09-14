@@ -194,6 +194,10 @@ def upgrade_335_336(self):
     log += '\n\n '
     log += upgrade_335_336_portlets(self)
 
+    from Products.CPSPortlets.upgrade import upgrade_335_336_skins
+    log += '\n\n '
+    log += upgrade_335_336_skins(self)
+
     return log
 
 

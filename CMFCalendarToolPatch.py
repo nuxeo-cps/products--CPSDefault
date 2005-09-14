@@ -171,9 +171,9 @@ def getCPSEventsForThisDay(self, thisDay, location=None, event_types=None):
     return results
 
 security.declarePublic('getDayList')
-def getDayList(self,localizer):
+def getDayList(self, localizer):
     """ Returns a list of days with the correct start day first """
-    if localizer.get_selected_language().startswith('en'):
+    if localizer.getSelectedLanguage().startswith('en'):
         return ['6','0','1','2','3','4','5']
     else:
         return ['0','1','2','3','4','5','6']

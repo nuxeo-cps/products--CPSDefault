@@ -36,6 +36,33 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.login(self.login_id)
         self.pmtool = self.portal.portal_membership
 
+        members = self.portal.portal_directories.members
+        members.createEntry({'id': 'member', 'roles': ['Member']})
+        members.createEntry({'id': 'wsmanager', 'roles': ['Member']})
+        members.createEntry({'id': 'semanager', 'roles': ['Member']})
+
+        self.pmtool.createMemberArea('member')
+        self.pmtool.createMemberArea('wsmanager')
+        self.pmtool.createMemberArea('semanager')
+        
+        self.member_ws = self.portal.workspaces.members.member
+
+        self.pmtool.setLocalRoles(
+            obj=self.portal.sections,
+            member_ids=['member'], member_role='SectionReader')
+
+        self.pmtool.setLocalRoles(
+            obj=self.portal.workspaces,
+            member_ids=['member'], member_role='WorkspaceReader')
+
+        self.pmtool.setLocalRoles(
+            obj=self.portal.workspaces,
+            member_ids=['wsmanager'], member_role='WorkspaceManager')
+
+        self.pmtool.setLocalRoles(
+            obj=self.portal.sections,
+            member_ids=['semanager'], member_role='SectionManager')
+
     def beforeTearDown(self):
         self.logout()
 
@@ -101,9 +128,69 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEqual(len(users), 1)
         self.assertEqual(users[0], self.login_id)
 
+    def test_ManagerCanMemberChangeLocalRoles(self):
 
+        # Manager can change them everywhere
 
+        self.login('manager')
+        self.assert_(
+            self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
+        self.assert_(
+            self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.member))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.wsmanager))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.semanager))
+        self.logout()
 
+    def test_MemberCanMemberChangeLocalRoles(self):
+
+        # member can change them only in its hom folder
+        
+        self.login('member')
+        self.assert_(not
+            self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
+        self.assert_(not
+            self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.member))
+        self.logout()
+
+    def test_WSManagerCanMemberChangeLocalRoles(self):
+
+        # ws manager can change them in the workspace areas and in
+        # its home folder
+        
+        self.login('wsmanager')
+        self.assert_(
+            self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
+        self.assert_(not
+            self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.wsmanager))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.semanager))
+        self.logout()
+
+    def test_SEManagerCanMemberChangeLocalRoles(self):
+        
+        # se manager can change them in the section areas and in
+        # its home folder
+        
+        self.login('semanager')
+        self.assert_(not
+            self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
+        self.assert_(
+            self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
+        self.assert_(self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.semanager))
+        self.assert_(not
+            self.pmtool.canMemberChangeLocalRoles(
+            self.portal.workspaces.members.wsmanager))
+        self.logout()
+        
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestMembershipTool))

@@ -12,7 +12,7 @@ This script is used by:
 
 from AccessControl import Unauthorized
 
-if not context.portal_membership.checkPermission('Change permissions', context):
+if not context.portal_membership.canMemberChangeLocalRoles(context):
     raise Unauthorized
 
 # XXX backward compatibility: 'fullname' search is broken; use sn search instead

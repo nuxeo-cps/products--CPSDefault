@@ -1890,7 +1890,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSDirectory')
         self.setupProduct('CPSNavigation')
         self.setupProduct('CPSSubscriptions')
-        self.setupProduct('CPSSharedCalendar')
+        #self.setupProduct('CPSSharedCalendar')
         self.setupProduct('CPSNewsLetters')
         self.setupProduct('CPSWiki')
 

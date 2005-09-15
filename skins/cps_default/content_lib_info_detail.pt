@@ -20,7 +20,7 @@
   </div>
   <div tal:condition="info/download_url|nothing" style="float: right"
     tal:define="mimetype info/download_mimetype|nothing">
-    <a tal:attributes="href string:${base_url}${info/rpath}${info/download_url}"
+    <a tal:attributes="href string:${info/download_url}"
       tal:condition="mimetype">
     <img tal:replace="structure python:here.getImgTag(mimetype.icon_path,
       title=mimetype.name())" />

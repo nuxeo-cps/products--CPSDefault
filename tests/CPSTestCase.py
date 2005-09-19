@@ -43,6 +43,7 @@ ZopeTestCase.installProduct('CPSWiki', quiet=1)
 
 # Five is optional, but if it exists it must be installed for
 # the TranslationService to work properly.
+ZopeTestCase.installProduct('CMFonFive', quiet=1)
 ZopeTestCase.installProduct('Five', quiet=1)
 
 try:

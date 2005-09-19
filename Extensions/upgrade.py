@@ -182,24 +182,39 @@ def upgrade_334_335(self):
 
     return log
 
+################################################## 3.3.6
+
 def upgrade_335_336(self):
     """Upgrades for CPS 3.3.6"""
+    log = []
+    dolog = log.append
+
+    # Upgrade catalog indexes and broken objects with unicode
+    from Products.CPSCore.upgrade import upgrade_335_336_catalog
+    dolog(upgrade_335_336_catalog(self))
 
     # Upgrade CPSDocument
     from Products.CPSDocument.upgrade import upgrade_335_336_fix_broken_flexible
-    log = upgrade_335_336_fix_broken_flexible(self)
+    dolog(upgrade_335_336_fix_broken_flexible(self))
 
     # Upgrade CPSPortlets
     from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
-    log += '\n\n '
-    log += upgrade_335_336_portlets(self)
+    dolog(upgrade_335_336_portlets(self))
 
     from Products.CPSPortlets.upgrade import upgrade_335_336_skins
-    log += '\n\n '
-    log += upgrade_335_336_skins(self)
+    dolog(upgrade_335_336_skins(self))
 
-    return log
+    return '\n'.join(log)
 
+
+#########
+
+AUTOMATIC_UPGRADES = (
+    ('3.3.4', '3.3.5', upgrade_334_335),
+    ('3.3.5', '3.3.6', upgrade_335_336),
+    )
+
+########## Zope 2.8
 
 def upgrade_z2_8(self):
     """Upgrade script from Zope-2.7.x to Zope-2.8.x

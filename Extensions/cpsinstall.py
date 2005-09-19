@@ -37,6 +37,12 @@ from Products.CPSInstaller.CPSInstaller import CPSInstaller
 from Products.CPSDefault.MembershipTool import MembershipTool
 from Products.CPSCore.URLTool import URLTool
 
+try:
+    import transaction
+except ImportError: # BBB: for Zope 2.7
+    from Products.CMFCore.utils import transaction
+
+
 # Zope permissions
 AccessContentsInformation = 'Access contents information'
 ChangePermissions = 'Change permissions'
@@ -178,6 +184,9 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         # Re-enable subscribers
         self.enableEventSubscriber('portal_trees')
         self.enableEventSubscriber('portal_subscriptions')
+
+        # Automatic upgrades
+        self.doUpgrades()
 
     #
     # Catalog
@@ -435,6 +444,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         # Adding properties that previous versions of CPS portal didn't have.
         # All this code is complicated because in the past some values were not
         # stored in a good manner (as properties) in the portal.
+        # XXX the joining preferences should be on the membership tool
         properties = [['enable_password_reset', True, 'boolean'],
                       ['enable_password_reminder', False, 'boolean'],
                       ['enable_portal_joining', False, 'boolean'],
@@ -1914,6 +1924,33 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
     def setupForms(self):
         """Setup Widget/Schema/Layout/Vocabulary used in forms."""
         return cpsdefault_update_forms(self.portal, self)
+
+    def doUpgrades(self):
+        """Do automatic upgrades."""
+        from Products.CPSDefault.Extensions import upgrade
+
+        DEFAULT = '3.3.5' # If we've never upgraded, start there
+
+        self.log("Checking for upgrades")
+        portal = self.portal
+        propid = 'last_upgraded_version'
+        if not portal.hasProperty(propid):
+            # Manually add a property to the instance
+            portal._properties += tuple([p for p in portal.__class__._properties
+                                         if p['id'] == propid])
+            portal.last_upgraded_version = ''
+        if not portal.last_upgraded_version:
+            portal.last_upgraded_version = DEFAULT
+
+        for prev, next, method in upgrade.AUTOMATIC_UPGRADES:
+            if portal.last_upgraded_version != prev:
+                continue
+            self.log(" Upgrading from %s to %s" % (prev, next))
+            res = method(portal)
+            self.log(res)
+            portal.last_upgraded_version = next
+            transaction.commit()
+
 
 def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # helpers

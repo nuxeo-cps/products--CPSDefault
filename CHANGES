@@ -9,6 +9,8 @@ New features:
 - A new method, getEmailFromUsername was added.
 - CPSSharedCalendar is now installed by default, instead of CPSCalendar.
 - added direct link to download attached file in content_lib_info_detail.pt
+- Upgrades are automatically done by cpsinstall. The last upgraded version
+  is stored in portal property 'last_upgraded_version'.
 Bug fixes:
 ~~~~~~~~~~
 - Removed extremely long line from traceback in New.
@@ -23,6 +25,7 @@ Bug fixes:
 - #241: disallow call of CMF's personalize_form which isn't applicable to CPS.
 - CPSSharedCalendars local roles are now filtered.
 - Fix CMFCalendarToolPatch bug thanks to Pierre Maris
+- #872: automatic upgrade of catalog.
 CPS internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - CPSTestCase set the new TreeCacheManager to sync for the tests

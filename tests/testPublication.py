@@ -18,6 +18,10 @@ from DateTime import DateTime
 
 ANOTHER_SECTION_ID = 'another-section'
 
+import traceback
+from zExceptions.ExceptionFormatter import format_exception
+traceback.format_exception = format_exception
+
 class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
     # Test object creation and publication workflow
 

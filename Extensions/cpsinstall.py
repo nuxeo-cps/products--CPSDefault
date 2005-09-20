@@ -1929,7 +1929,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         """Do automatic upgrades."""
         from Products.CPSDefault.Extensions import upgrade
 
-        DEFAULT = '3.3.5' # If we've never upgraded, start there
+        DEFAULT = '3.3.4' # If we've never upgraded, start there
 
         self.log("Checking for upgrades")
         portal = self.portal

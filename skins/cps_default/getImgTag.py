@@ -19,7 +19,7 @@ elif base_url == '':
 img_url = base_url + img_name
 try:
     img = context.restrictedTraverse(img_name)
-except (KeyError, 'NotFound'):
+except (KeyError, AttributeError, 'NotFound'):
     img = None
 
 if img is None:

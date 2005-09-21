@@ -1,4 +1,45 @@
 *******************************************
+** CPSDefault V3.36.0 [R1 build 2005/09/21-14:56 by fguillaume]
+** SVN URL: https://svn.nuxeo.org/pub/CPSDefault/trunk Revision: 27306
+Requires:
+~~~~~~~~~
+- CPSCore > 3.28.1
+New features:
+~~~~~~~~~~~~~
+- Add upgrade.upgrade_z2_8() to migrate indexes for Zope-2.8.x
+    email_field = 'email'
+- Membership tool now has a property to set the field for email address.
+- A new method, getEmailFromUsername was added.
+- CPSSharedCalendar is now installed by default, instead of CPSCalendar.
+- added direct link to download attached file in content_lib_info_detail.pt
+- Upgrades are automatically done by cpsinstall. The last upgraded version
+  is stored in portal property 'last_upgraded_version'.
+Bug fixes:
+~~~~~~~~~~
+- Removed extremely long line from traceback in New.
+- #872: default section/workspaces were created with unicode titles.
+- Call translation_service instead of directly Localizer in installer.
+- #889: added upgrade function to fix broken flexible fields
+- Fixed MembershipTool to call _getEntry instead of getEntry to get
+  a user's full name.
+- Fixed utils.computeContributors to use _getEntry.
+- Fixed typo in security declaration for MembershipTool.getEmailFromUsername
+- Fixed typo in 'content_lib_info_simple.pt'
+- #241: disallow call of CMF's personalize_form which isn't applicable to CPS.
+- CPSSharedCalendars local roles are now filtered.
+- Fix CMFCalendarToolPatch bug thanks to Pierre Maris
+- #872: automatic upgrade of catalog.
+- The getImgTag.py script now handles AttributeErrors as well.
+CPS internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- CPSTestCase set the new TreeCacheManager to sync for the tests
+- tests the new mtool.canMemberChangeLocalRoles() API
+- change the checkPerms within the local roles management skins and
+use the new mtool API canMemberChangeLocalRoles()
+- API : mtool.getFullnameFromId()
+- add a doctype slot within the main_template
+
+*******************************************
 ** CPSDefault V3.35.2 [R1 build 2005/08/05-16:48 by fguillaume]
 ** SVN URL: https://svn.nuxeo.org/pub/CPSDefault/trunk Revision: 25620
 Requires:

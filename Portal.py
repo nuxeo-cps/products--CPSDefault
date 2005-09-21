@@ -31,7 +31,7 @@ class CPSDefaultSite(CMFSite):
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
 
-    cps_version = ('CPS', 3, 3, 5)
+    cps_version = ('CPS', 3, 3, 6)
 
     # Override default OrderSupport behavior for ZMI convenience
     _default_sort_key = 'id'

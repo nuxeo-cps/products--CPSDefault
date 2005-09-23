@@ -131,6 +131,10 @@ def upgrade_334_335_cache_parameters(context):
     - 'no-cache:(contextual)' is added to the Content Portlet
        cache parameters.
     """
+    ptltool = getToolByName(context, 'portal_cpsportlets', None)
+    if ptltool is None:
+        return "This site don't use CPSSkins/CPSPortlets"
+
     PORTLET_ID = 'Content Portlet'
     NEW_PARAMETER = 'no-cache:(contextual)'
 
@@ -139,7 +143,6 @@ def upgrade_334_335_cache_parameters(context):
 
     log("Updating portlet cache parameters...")
     # get the current parameters
-    ptltool = getToolByName(context, 'portal_cpsportlets')
     params = ptltool.getCacheParametersFor(PORTLET_ID)
 
     # update the parameters
@@ -198,11 +201,12 @@ def upgrade_335_336(self):
     dolog(upgrade_335_336_fix_broken_flexible(self))
 
     # Upgrade CPSPortlets
-    from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
-    dolog(upgrade_335_336_portlets(self))
+    if getToolByName(self, 'portal_cpsportlets', None) is not None:
+        from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
+        dolog(upgrade_335_336_portlets(self))
 
-    from Products.CPSPortlets.upgrade import upgrade_335_336_skins
-    dolog(upgrade_335_336_skins(self))
+        from Products.CPSPortlets.upgrade import upgrade_335_336_skins
+        dolog(upgrade_335_336_skins(self))
 
     return '\n'.join(log)
 

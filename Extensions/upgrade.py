@@ -222,32 +222,30 @@ AUTOMATIC_UPGRADES = (
 def upgrade_catalog_Z28(self):
     """Upgrade portal_catalog because of zcatalog changes
     """
-    catalog = getToolByName(self, 'portal_catalog')
 
-    # This upgrades transparently the _catalog._length attr
-    len(catalog)
+    for catalog in (getToolByName(self, 'portal_catalog'),
+	            getToolByName(self, 'portal_cpsportlets_catalog', None)):
 
-    # Upgrade manually the indexes now
-    reindex_ids = []
-    for idx in catalog.Indexes.objectValues():
-        bases = [str(name) for name in idx.__class__.__bases__]
-        found = False
-    
-        # No need to upgrade
-	if hasattr(idx, '_length'):
-	   continue
+	if catalog is None:
+	    continue
 
-        if idx.meta_type  == 'PathIndex':
-            found = True
-        else:
-            for base in bases:
-                if 'UnIndex' in base:
-                    found = True
-                    break
-    
-        if found:
-	    if not hasattr(idx, '_length'):
-	        from BTrees.Length import Length
-	        idx._length = Length(0)
-	    reindex_ids.append(idx.getId())
-    return reindex_ids	    
+        # This upgrades transparently the _catalog._length attr
+        len(catalog)
+        
+        # Upgrade manually the indexes now
+        for idx in catalog.Indexes.objectValues():
+            bases = [str(name) for name in idx.__class__.__bases__]
+            found = False
+        
+            if idx.meta_type  == 'PathIndex':
+                found = True
+            else:
+                for base in bases:
+                    if 'UnIndex' in base:
+                        found = True
+                        break
+        
+            if found:
+	        if not hasattr(idx, '_length'):
+        	    idx._length = idx.__len__
+                    delattr(idx, '__len__')

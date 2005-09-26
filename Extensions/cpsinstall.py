@@ -129,6 +129,9 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         installername = getSecurityManager().getUser().getUserName()
         self.log("Current user: %s" % installername)
 
+	# Prepare upgarde
+	self.doPrepareUpgrade()
+
         self.setupRegistration()
         self.setupMembership()
         self.setupTools()
@@ -150,7 +153,10 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupLocalWorkflow()
         self.upgradeWorkflowStatus()
         self.setupTreesTool()
-        self.setupBoxes()
+
+        # Don't update if no dedicated boxes instance
+        if self._interface != 'portlets':
+            self.setupBoxes()
         self.setupCPSProducts()
         if (self.is_creation and
             self._interface == 'portlets'):
@@ -1951,6 +1957,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             portal.last_upgraded_version = next
             transaction.commit()
 
+    def doPrepareUpgrade(self):
+        """Do automatic pre-upgrade
+	"""
+	from Products.CPSDefault.Extensions.upgrade import upgrade_catalog_Z28
+        self.log("Preparing for upgrade")
+	upgrade_catalog_Z28(self.portal)
 
 def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # helpers

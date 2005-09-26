@@ -200,13 +200,12 @@ def upgrade_335_336(self):
     from Products.CPSDocument.upgrade import upgrade_335_336_fix_broken_flexible
     dolog(upgrade_335_336_fix_broken_flexible(self))
 
-    # Upgrade CPSPortlets
-    if getToolByName(self, 'portal_cpsportlets', None) is not None:
-        from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
-        dolog(upgrade_335_336_portlets(self))
+    # Upgrade CPSPortlet
+    from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
+    dolog(upgrade_335_336_portlets(self))
 
-        from Products.CPSPortlets.upgrade import upgrade_335_336_skins
-        dolog(upgrade_335_336_skins(self))
+    from Products.CPSPortlets.upgrade import upgrade_335_336_skins
+    dolog(upgrade_335_336_skins(self))
 
     return '\n'.join(log)
 
@@ -220,15 +219,35 @@ AUTOMATIC_UPGRADES = (
 
 ########## Zope 2.8
 
-def upgrade_z2_8(self):
-    """Upgrade script from Zope-2.7.x to Zope-2.8.x
+def upgrade_catalog_Z28(self):
+    """Upgrade portal_catalog because of zcatalog changes
     """
-
-    log = ""
-    # Convert catalog indexes
     catalog = getToolByName(self, 'portal_catalog')
-    log += "\n\n" + "Zope-2.8.x Indexes migration............[START]"
-    catalog.manage_convertIndexes()
-    log += "\n\n" + "Zope-2.8.x Indexes migration............[DONE]"
 
-    return log
+    # This upgrades transparently the _catalog._length attr
+    len(catalog)
+
+    # Upgrade manually the indexes now
+    reindex_ids = []
+    for idx in catalog.Indexes.objectValues():
+        bases = [str(name) for name in idx.__class__.__bases__]
+        found = False
+    
+        # No need to upgrade
+	if hasattr(idx, '_length'):
+	   continue
+
+        if idx.meta_type  == 'PathIndex':
+            found = True
+        else:
+            for base in bases:
+                if 'UnIndex' in base:
+                    found = True
+                    break
+    
+        if found:
+	    if not hasattr(idx, '_length'):
+	        from BTrees.Length import Length
+	        idx._length = Length(0)
+	    reindex_ids.append(idx.getId())
+    return reindex_ids	    

@@ -231,12 +231,12 @@ def upgrade_catalog_Z28(self):
 
         # This upgrades transparently the _catalog._length attr
         len(catalog)
-        
+
         # Upgrade manually the indexes now
         for idx in catalog.Indexes.objectValues():
             bases = [str(name) for name in idx.__class__.__bases__]
             found = False
-        
+
             if idx.meta_type  == 'PathIndex':
                 found = True
             else:
@@ -244,7 +244,7 @@ def upgrade_catalog_Z28(self):
                     if 'UnIndex' in base:
                         found = True
                         break
-        
+
             if found:
 	        if not hasattr(idx, '_length'):
         	    idx._length = idx.__len__

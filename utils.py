@@ -1,3 +1,4 @@
+
 # -*- coding: iso-8859-15 -*-
 # (C) Copyright 2003-2005 Nuxeo SARL <http://nuxeo.com>
 # Authors:
@@ -27,6 +28,23 @@ from zLOG import LOG, INFO, DEBUG
 from Acquisition import aq_base
 from AccessControl import getSecurityManager
 from AccessControl import ModuleSecurityInfo
+
+# BBB (remove this in CPS-3.6)
+from Products.CPSUtil.html import getHtmlBody
+
+##from warnings import warn
+##
+##warn("The function, "
+##     "'Products.CPSDefault.utils.getHtmlBody' "
+##     "is a deprecated compatiblity alias for "
+##     "'Products.CPSUtil.html.getHtmlBody'; "
+##     "please use the new function instead.",
+##     DeprecationWarning)
+
+ModuleSecurityInfo('Products.CPSDefault.utils').declarePublic('getHtmlBody')
+# END BBB
+
+
 
 # This regexp is for path of the following forms :
 # /cps/workspaces/cores/myDoc/view

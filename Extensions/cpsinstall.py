@@ -155,7 +155,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTreesTool()
 
         # Don't update if no dedicated boxes instance
-        if self._interface != 'portlets':
+        if self.is_creation:
             self.setupBoxes()
         self.setupCPSProducts()
         if (self.is_creation and

@@ -201,11 +201,13 @@ def upgrade_335_336(self):
     dolog(upgrade_335_336_fix_broken_flexible(self))
 
     # Upgrade CPSPortlet
-    from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
-    dolog(upgrade_335_336_portlets(self))
-
-    from Products.CPSPortlets.upgrade import upgrade_335_336_skins
-    dolog(upgrade_335_336_skins(self))
+    # If within a CPSDefault with portlet interface
+    portal = self.portal_url.getPortalObject()
+    if getToolByName(portal, 'portal_cpsportlets', None) is not None:
+        from Products.CPSPortlets.upgrade import upgrade_335_336_portlets
+        from Products.CPSPortlets.upgrade import upgrade_335_336_skins
+        dolog(upgrade_335_336_portlets(self))
+        dolog(upgrade_335_336_skins(self))
 
     return '\n'.join(log)
 

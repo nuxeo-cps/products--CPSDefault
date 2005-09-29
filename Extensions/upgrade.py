@@ -154,6 +154,25 @@ def upgrade_334_335_cache_parameters(context):
         log("  '%s' added to '%s'." % (NEW_PARAMETER, PORTLET_ID))
     return "\n".join(logger)
 
+
+def upgrade_334_335_clean_catalog(self):
+    """Remove None objects out of the catalog
+
+    On some instances between 3.3.4 and 3.3.5, None objects appeared in the
+    catalog causing the search result page to crash
+    """
+    log = "Checking and cleaning cataloged None objects...\n"
+    catalog = getToolByName(self, 'portal_catalog')
+    docs2unindex = []
+    for brain in catalog.search({}):
+        if brain.getObject() is None:
+            id = brain.getPath()
+            docs2unindex.append(id)
+    for id in docs2unindex:
+        catalog.uncatalog_object(id)
+    log += "Uncataloged %d None objects" % len(docs2unindex)
+    return log
+
 ################################################## 3.2.0
 
 def upgrade_320_334(self):
@@ -175,6 +194,9 @@ def upgrade_334_335(self):
     # upgrade repository
     from Products.CPSCore.upgrade import upgrade_334_335_repository
     log = upgrade_334_335_repository(self)
+
+    # cleaning the catalog if needed
+    log += "\n\n" + upgrade_334_335_clean_catalog(self)
 
     # upgrade portal_url
     log += "\n\n" + upgradeURLTool(self)
@@ -240,10 +262,10 @@ def upgrade_catalog_Z28(self):
     """
 
     for catalog in (getToolByName(self, 'portal_catalog'),
-	            getToolByName(self, 'portal_cpsportlets_catalog', None)):
+                    getToolByName(self, 'portal_cpsportlets_catalog', None)):
 
-	if catalog is None:
-	    continue
+        if catalog is None:
+            continue
 
         # This upgrades transparently the _catalog._length attr
         len(catalog)
@@ -262,6 +284,6 @@ def upgrade_catalog_Z28(self):
                         break
 
             if found:
-	        if not hasattr(idx, '_length'):
-        	    idx._length = idx.__len__
+                if not hasattr(idx, '_length'):
+                    idx._length = idx.__len__
                     delattr(idx, '__len__')

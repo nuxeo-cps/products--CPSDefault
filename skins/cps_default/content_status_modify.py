@@ -15,6 +15,13 @@ folder = context.aq_parent
 id = context.getId()
 url = None
 
+psm = 'psm_status_changed'
+
+# No section has been specified
+# XXX We should get a list in here
+if len(REQUEST.form) < 3:
+    psm = 'psm_you_must_select_sections_for_publishing'
+
 if workflow_action != 'copy_submit':
     # accept, reject, ...
     if comments:
@@ -50,5 +57,9 @@ if REQUEST is not None:
         else:
             url = folder.absolute_url()
 
-    redirect_url = '%s/?%s' % (url, 'portal_status_message=psm_status_changed')
+    if psm == 'psm_you_must_select_sections_for_publishing':
+        redirect_url = '%s/content_submit_form?%s' % (
+            url, 'portal_status_message=%s'%psm)
+    else:
+        redirect_url = '%s/?%s' % (url, 'portal_status_message=%s'%psm)
     REQUEST.RESPONSE.redirect(redirect_url)

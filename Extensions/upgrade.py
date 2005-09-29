@@ -154,6 +154,19 @@ def upgrade_334_335_cache_parameters(context):
         log("  '%s' added to '%s'." % (NEW_PARAMETER, PORTLET_ID))
     return "\n".join(logger)
 
+################################################## 3.2.0
+
+def upgrade_320_334(self):
+    """Upgrades from 3.2.0"""
+    log = []
+    dolog = log.append
+
+    from Products.CPSDocument.Extensions.upgrade import upgradeDocuments
+    dolog("Upgrading document types")
+    upgradeDocuments(self)
+
+    return '\n'.join(log)
+
 ################################################## 3.3.5
 
 def upgrade_334_335(self):
@@ -215,6 +228,7 @@ def upgrade_335_336(self):
 #########
 
 AUTOMATIC_UPGRADES = (
+    ('3.2.0', '3.3.4', upgrade_320_334),
     ('3.3.4', '3.3.5', upgrade_334_335),
     ('3.3.5', '3.3.6', upgrade_335_336),
     )

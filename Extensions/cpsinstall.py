@@ -1935,7 +1935,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         """Do automatic upgrades."""
         from Products.CPSDefault.Extensions import upgrade
 
-        DEFAULT = '3.3.4' # If we've never upgraded, start there
+        DEFAULT = '3.2.0' # If we've never upgraded, start there
 
         self.log("Checking for upgrades")
         portal = self.portal
@@ -1955,7 +1955,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             res = method(portal)
             self.log(res)
             portal.last_upgraded_version = next
-            transaction.commit()
+            #transaction.commit()
 
     def doPrepareUpgrade(self):
         """Do automatic pre-upgrade

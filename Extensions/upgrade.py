@@ -165,10 +165,15 @@ def upgrade_334_335_clean_catalog(self):
     catalog = getToolByName(self, 'portal_catalog')
     docs2unindex = []
     for brain in catalog.search({}):
-        if brain.getObject() is None:
+        try:
+            ob = brain.getObject()                
+        except AttributeError:
+            ob = None
+        if ob is None:
             id = brain.getPath()
             docs2unindex.append(id)
     for id in docs2unindex:
+        LOG('CPSDefault.Extensions.upgrade', INFO, 'Uncataloging: %s' % id)
         catalog.uncatalog_object(id)
     log += "Uncataloged %d None objects" % len(docs2unindex)
     return log

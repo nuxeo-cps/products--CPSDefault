@@ -129,8 +129,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         installername = getSecurityManager().getUser().getUserName()
         self.log("Current user: %s" % installername)
 
-	# Prepare upgarde
-	self.doPrepareUpgrade()
+        # Prepare upgrade
+        self.doPrepareUpgrade()
 
         self.setupRegistration()
         self.setupMembership()

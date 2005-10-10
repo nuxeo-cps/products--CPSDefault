@@ -12,6 +12,11 @@ you have to add the following line in your zope server start script:
 BENCHMARKTIMER_LEVEL=-2
 export BENCHMARKTIMER_LEVEL
 
+under zope 2.8 the previous export should be set in your ./bin/zopectl or
+you can test it using runzope:
+
+BENCHMARKTIMER_LEVEL=-2 ./bin/runzope
+
 
 To profile a zpt:
 =================
@@ -34,12 +39,12 @@ To profile a zpt:
 </tal:block>
 
 note that during the dev of cps the default main_template.pt define
-a default benchmark environment 
+a default benchmark environment
 
 
 To profile a python script:
 ==========================
-add this 
+add this
 
 bmt = context.Benchmarktimer('foo', level=-3)
 bmt.start()

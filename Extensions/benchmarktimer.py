@@ -1,7 +1,16 @@
 # $Id$
 # benchmarker from zopelabs'cookbook submited by zopedan
-""" Benchmark tools are available if
- BENCHMARCKTIMER_LEVEL is defined in environment
+"""Benchmark tools are available if BENCHMARCKTIMER_LEVEL is defined
+   in your environment.
+
+Under zope 2.8 you should add this export to your ./bin/zopectl
+
+BENCHMARKTIMER_LEVEL=-2
+export BENCHMARKTIMER_LEVEL
+
+Or you can test it using runzope:
+
+BENCHMARKTIMER_LEVEL=-2 ./bin/runzope
 """
 
 from AccessControl import ClassSecurityInfo

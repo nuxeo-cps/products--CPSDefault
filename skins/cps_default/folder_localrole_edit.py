@@ -30,7 +30,7 @@ from urllib import urlencode
 from Products.CMFCore.utils import getToolByName
 
 kwargs = {}
-reindex = 0
+reindex = False
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
@@ -62,7 +62,8 @@ if edit:
                     mtool.deleteLocalRoles(context, [user_id],
                                            reindex=0, recursive=0,
                                            member_role=role)
-                    reindex = 1
+                if cps_roles:
+                    reindex = True
             else:
                 # only set roles accepted in context
                 roles = [x for x in roles if x in cps_roles]
@@ -70,12 +71,12 @@ if edit:
                 for role in roles:
                     mtool.setLocalRoles(context, [user_id],
                                         role, reindex=0)
-                    reindex = 1
                 for role in roles_to_del:
                     mtool.deleteLocalRoles(context, [user_id],
                                            reindex=0, recursive=0,
                                            member_role=role)
-                    reindex = 1
+                if roles or roles_to_del:
+                    reindex = True
         # groups
         for group_id in group_ids:
             # get associated roles to set
@@ -89,11 +90,11 @@ if edit:
             for role in roles:
                 mtool.setLocalGroupRoles(context, [group_id],
                                          role, reindex=0)
-                reindex = 1
             for role in roles_to_del:
                 mtool.deleteLocalGroupRoles(context, [group_id],
                                             role=role, reindex=0)
-                reindex = 1
+            if not reindex and (roles or roles_to_del):
+                reindex = True
         kwargs['portal_status_message'] = 'psm_local_roles_changed'
 else:
     # Delete: consider delete_ids
@@ -111,10 +112,11 @@ else:
                                    member_role=role)
             mtool.deleteLocalGroupRoles(context, group_ids,
                                         role=role, reindex=0)
-            reindex = 1
+        if cps_roles:
+            reindex = True
         kwargs['portal_status_message'] = 'psm_local_roles_changed'
 
-if reindex == 1:
+if reindex:
     context.reindexObjectSecurity()
 
 if REQUEST is not None:

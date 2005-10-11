@@ -18,7 +18,7 @@ elif base_url == '':
     pass # image name is a full path
 img_url = base_url + img_name
 try:
-    img = context.restrictedTraverse(img_url)
+    img = context.restrictedTraverse(img_name)
 except (KeyError, AttributeError, 'NotFound'):
     img = None
 

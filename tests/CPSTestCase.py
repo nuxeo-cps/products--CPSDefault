@@ -3,6 +3,7 @@
 #
 
 import os, tempfile
+import zLOG
 from Testing import ZopeTestCase
 import Products
 
@@ -192,6 +193,18 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         SESSION = {}
         self.portal.REQUEST['SESSION'] = SESSION
         self.portal.REQUEST.SESSION = SESSION
+
+    def printLogErrors(self, min_severity=zLOG.INFO):
+        """Print out the log output on the console.
+        """
+        if hasattr(zLOG, 'old_log_write'):
+            return
+        def log_write(subsystem, severity, summary, detail, error,
+                      PROBLEM=zLOG.PROBLEM, min_severity=min_severity):
+            if severity >= min_severity:
+                print "%s(%s): %s %s" % (subsystem, severity, summary, detail)
+        zLOG.old_log_write = zLOG.log_write
+        zLOG.log_write = log_write
 
     def isValidXML(self, xml):
         filename = tempfile.mktemp()

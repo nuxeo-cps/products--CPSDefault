@@ -1959,10 +1959,10 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
     def doPrepareUpgrade(self):
         """Do automatic pre-upgrade
-	"""
-	from Products.CPSDefault.Extensions.upgrade import upgrade_catalog_Z28
+        """
+        from Products.CPSDefault.Extensions.upgrade import upgrade_catalog_Z28
         self.log("Preparing for upgrade")
-	upgrade_catalog_Z28(self.portal)
+        upgrade_catalog_Z28(self.portal)
 
 def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     # helpers

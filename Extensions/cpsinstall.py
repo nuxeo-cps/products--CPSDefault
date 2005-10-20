@@ -1909,6 +1909,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSSharedCalendar')
         self.setupProduct('CPSNewsLetters')
         self.setupProduct('CPSWiki')
+        self.setupProduct('CPSBoxes')
 
         # FIXME: I don't like this code because it makes things hard to test
         try:

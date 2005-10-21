@@ -304,7 +304,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
 
         # let's block local roles on workspaces.members
         # then append anonymous as worspace manager
-        self.pmtool.folderLocalRoleBLock(obj=self.portal.workspaces.members,
+        self.pmtool.folderLocalRoleBlock(obj=self.portal.workspaces.members,
                                          lr_block='yup')
         self.pmtool.setLocalRoles(obj=self.portal.workspaces.members,
                                   member_ids=['user:Anonymous'],
@@ -325,7 +325,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         # let's unblock roles there, again, and add members
         current_folder = self.portal.workspaces.members.wsmanager
 
-        self.pmtool.folderLocalRoleBLock(obj=current_folder,
+        self.pmtool.folderLocalRoleBlock(obj=current_folder,
                                          lr_unblock='yup')
 
         self.pmtool.setLocalRoles(obj=current_folder,
@@ -358,7 +358,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         # let's block roles there, now, again, and add members
         current_folder = self.portal.workspaces.members.wsmanager
 
-        self.pmtool.folderLocalRoleBLock(obj=current_folder,
+        self.pmtool.folderLocalRoleBlock(obj=current_folder,
                                          lr_block='yup')
 
         self.pmtool.setLocalRoles(obj=current_folder,

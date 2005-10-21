@@ -6,5 +6,5 @@ XXX content moved into portal_membership
 from Products.CMFCore.utils import getToolByName
 mtool = getToolByName(context, 'portal_membership')
 
-mtool.folderLocalRoleBLock(context, lr_block, lr_unblock,
+mtool.folderLocalRoleBlock(context, lr_block, lr_unblock,
                            filtered_role, show_blocked_roles, REQUEST)

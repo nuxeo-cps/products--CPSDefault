@@ -519,8 +519,8 @@ The %s administration team
         sorted_groups = [x[1] for x in sort]
         return sorted_members, members, sorted_groups, groups, local_roles_blocked
 
-    security.declarePublic('folderLocalRoleBLock')
-    def folderLocalRoleBLock(self, obj, lr_block=None, lr_unblock=None,
+    security.declarePublic('folderLocalRoleBlock')
+    def folderLocalRoleBlock(self, obj, lr_block=None, lr_unblock=None,
                              filtered_role=None, show_blocked_roles=0,
                              REQUEST=None):
         """

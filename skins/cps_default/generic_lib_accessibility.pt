@@ -2,7 +2,9 @@
 <!-- $Id$ -->
 
 <metal:block define-macro="accessibility">
-<ul class="hidden">
+  <ul class="hidden" tal:define="
+    utool nocall:here/portal_url;
+    base_url base_url|utool/getBaseUrl">
   <li>
     <a accesskey="0" tal:attributes="href string:${base_url}accessibility"
       i18n:translate="accessibility_page_link">Accessibility</a>

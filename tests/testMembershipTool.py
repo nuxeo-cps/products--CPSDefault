@@ -48,7 +48,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.pmtool.createMemberArea('member')
         self.pmtool.createMemberArea('wsmanager')
         self.pmtool.createMemberArea('semanager')
-        
+
         self.member_ws = self.portal.workspaces.members.member
 
         self.pmtool.setLocalRoles(
@@ -152,7 +152,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
     def test_MemberCanMemberChangeLocalRoles(self):
 
         # member can change them only in its hom folder
-        
+
         self.login('member')
         self.assert_(not
             self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
@@ -166,7 +166,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
 
         # ws manager can change them in the workspace areas and in
         # its home folder
-        
+
         self.login('wsmanager')
         self.assert_(
             self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
@@ -179,10 +179,10 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.logout()
 
     def test_SEManagerCanMemberChangeLocalRoles(self):
-        
+
         # se manager can change them in the section areas and in
         # its home folder
-        
+
         self.login('semanager')
         self.assert_(not
             self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
@@ -219,7 +219,177 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
 
         # Use doesn't exsist -> return the id given as parameter
         self.assertEqual(self.pmtool.getFullnameFromId('fakeone'), 'fakeone')
-        
+
+    def test_getCPSLocalRoles(self):
+
+        # what are the local roles in sections ?
+        roles = self.pmtool.getCPSLocalRoles(self.portal.sections)
+        wanted = ({'user:member': [{'url': 'sections',
+                                    'roles': ['SectionReader']
+                                   }],
+                   'user:semanager': [{'url': 'sections',
+                                       'roles': ['SectionManager']
+                                       }]}, 0)
+
+        self.assertEquals(roles, wanted)
+
+        # what are the local roles in workspaces ?
+        roles = self.pmtool.getCPSLocalRoles(self.portal.workspaces)
+        wanted = ({'user:member': [{'url': 'workspaces',
+                                    'roles': ['WorkspaceReader']
+                                    }],
+                   'user:wsmanager': [{'url': 'workspaces',
+                                       'roles': ['WorkspaceManager']
+                                       }]}, 0)
+
+        self.assertEquals(roles, wanted)
+
+        # XXX need to add all relevant use cases here
+
+    def test_getCPSCandidateLocalRoles(self):
+
+        # what are the local roles in sections ?
+        roles = self.pmtool.getCPSCandidateLocalRoles(self.portal.sections)
+        roles.sort()
+        wanted = ['SectionManager', 'SectionReader', 'SectionReviewer']
+        self.assertEquals(roles, wanted)
+
+        # what are the local roles in workspaces ?
+        roles = self.pmtool.getCPSCandidateLocalRoles(self.portal.workspaces)
+        roles.sort()
+        wanted = ['WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader']
+        self.assertEquals(roles, wanted)
+
+        # XXX need to add all relevant use cases here
+
+    def test_getCPSLocalRolesRender(self):
+
+        # what are the local roles in sections ?
+        roles = self.pmtool.getCPSLocalRolesRender(self.portal.sections,
+                                                   ['SectionManager'])
+        wanted = (['user:semanager'],
+                  {'user:semanager': {'role_input_name':
+                  'role_user_semanager', 'inherited_roles': {},
+                  'has_local_roles': 1, 'here_roles': {'SectionManager':
+                  {'here': 1, 'inherited': 0}}, 'title': 'semanager'}},
+                  [], {}, 0)
+
+        self.assertEquals(roles, wanted)
+
+        # what are the local roles in workspaces ?
+        roles = self.pmtool.getCPSLocalRolesRender(self.portal.workspaces,
+                                                   ['WorkspaceReader'])
+        wanted = (['user:member'], {'user:member': {'role_input_name':
+                  'role_user_member', 'inherited_roles': {},
+                  'has_local_roles': 1, 'here_roles': {'WorkspaceReader':
+                  {'here': 1, 'inherited': 0}}, 'title': 'Foo Bar'}}, [],
+                  {}, 0)
+
+        self.assertEquals(roles, wanted)
+
+        # XXX need to add all relevant use cases here
+
+
+    def test_getLocalRolesTwoBlockedLevels(self):
+
+        # let's check the ws root
+        roles = self.pmtool.getCPSLocalRoles(self.portal.workspaces)
+
+        wanted = ({'user:member': [{'url': 'workspaces',
+                  'roles': ['WorkspaceReader']}], 'user:wsmanager':
+                  [{'url': 'workspaces', 'roles':
+                  ['WorkspaceManager']}]}, 0)
+
+        self.assertEquals(roles, wanted)
+
+        # let's block local roles on workspaces.members
+        # then append anonymous as worspace manager
+        self.pmtool.folderLocalRoleBLock(obj=self.portal.workspaces.members,
+                                         lr_block='yup')
+        self.pmtool.setLocalRoles(obj=self.portal.workspaces.members,
+                                  member_ids=['user:Anonymous'],
+                                  member_role='WorkspaceManager')
+
+        # let's check if it worked
+        roles = self.pmtool.getCPSLocalRoles(self.portal.workspaces.members)
+
+        wanted = ({'user:member': [{'url': 'workspaces', 'roles':
+                  ['WorkspaceReader']}], 'user:user:Anonymous':
+                  [{'url': 'workspaces/members', 'roles': ['WorkspaceManager']}],
+                  'user:wsmanager': [{'url': 'workspaces',
+                  'roles': ['WorkspaceManager']}]}, 1)
+
+        self.assertEquals(roles, wanted)
+
+        # now let's see what we have in workspaces.members.wsmanager
+        # let's unblock roles there, again, and add members
+        current_folder = self.portal.workspaces.members.wsmanager
+
+        self.pmtool.folderLocalRoleBLock(obj=current_folder,
+                                         lr_unblock='yup')
+
+        self.pmtool.setLocalRoles(obj=current_folder,
+                                  member_ids=['user:member'],
+                                  member_role='WorkspaceManager')
+
+        roles = self.pmtool.getCPSLocalRoles(current_folder)
+
+        wanted = ({'user:user:member': [{'url': 'workspaces/members/wsmanager',
+                 'roles': ['WorkspaceManager']}], 'user:member': [{'url':
+                 'workspaces', 'roles': ['WorkspaceReader']}], 'user:wsmanager':
+                 [{'url': 'workspaces/members/wsmanager', 'roles':
+                 ['WorkspaceManager']}, {'url': 'workspaces', 'roles':
+                 ['WorkspaceManager']}], 'user:user:Anonymous': [{'url':
+                 'workspaces/members', 'roles': ['WorkspaceManager']}]}, 0)
+
+        self.assertEquals(roles, wanted)
+
+        # the upper folder should'nt change
+        roles = self.pmtool.getCPSLocalRoles(self.portal.workspaces.members)
+
+        wanted = ({'user:member': [{'url': 'workspaces', 'roles':
+                  ['WorkspaceReader']}], 'user:user:Anonymous':
+                  [{'url': 'workspaces/members', 'roles': ['WorkspaceManager']}],
+                  'user:wsmanager': [{'url': 'workspaces',
+                  'roles': ['WorkspaceManager']}]}, 1)
+
+        self.assertEquals(roles, wanted)
+
+        # let's block roles there, now, again, and add members
+        current_folder = self.portal.workspaces.members.wsmanager
+
+        self.pmtool.folderLocalRoleBLock(obj=current_folder,
+                                         lr_block='yup')
+
+        self.pmtool.setLocalRoles(obj=current_folder,
+                                  member_ids=['user:member'],
+                                  member_role='WorkspaceManager')
+
+        roles = self.pmtool.getCPSLocalRoles(current_folder)
+
+        wanted = ({'user:user:member': [{'url': 'workspaces/members/wsmanager',
+                  'roles': ['WorkspaceManager']}], 'user:member': [{'url':
+                  'workspaces', 'roles': ['WorkspaceReader']}], 'user:wsmanager':
+                  [{'url': 'workspaces/members/wsmanager', 'roles':
+                   ['WorkspaceManager']}, {'url': 'workspaces', 'roles':
+                   ['WorkspaceManager']}], 'user:user:Anonymous':
+                   [{'url': 'workspaces/members', 'roles': ['WorkspaceManager']}]}, 1)
+
+        self.assertEquals(roles, wanted)
+
+        # the upper folder should'nt change
+        roles = self.pmtool.getCPSLocalRoles(self.portal.workspaces.members)
+
+        wanted = ({'user:member': [{'url': 'workspaces', 'roles':
+                  ['WorkspaceReader']}], 'user:user:Anonymous':
+                  [{'url': 'workspaces/members', 'roles': ['WorkspaceManager']}],
+                  'user:wsmanager': [{'url': 'workspaces',
+                  'roles': ['WorkspaceManager']}]}, 1)
+
+        self.assertEquals(roles, wanted)
+
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestMembershipTool))

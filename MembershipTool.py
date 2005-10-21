@@ -338,6 +338,241 @@ The %s administration team
             nonce = self._nonce
         return nonce
 
+    #
+    # local roles utilities
+    #
+    security.declarePublic('getCPSLocalRoles')
+    def getCPSLocalRoles(self, obj, cps_roles=None):
+        """ Get local roles dictionnary filtered using relevant roles in
+        context and tell if local roles are blocked using this dictionnary
+        """
+        if cps_roles is None:
+            cps_roles = self.getCPSCandidateLocalRoles(obj)
+
+        # Get local roles settings from the membership tool
+        dict_roles = self.getMergedLocalRolesWithPath(obj)
+        local_roles_blocked = 0
+
+        url_tool = getToolByName(self, 'portal_url')
+        local_url = url_tool.getRelativeContentURL(obj)
+
+        # Filter special roles, and only take local roles
+        for item, role_infos in dict_roles.items():
+            for role_info in role_infos:
+
+                roles = role_info['roles']
+                if (item == "group:role:Anonymous" and "-" in roles and
+                    role_info['url'] == local_url):
+                    local_roles_blocked = 1
+
+                # filter with roles in context
+                role_info['roles'] = [r for r in roles if r in cps_roles]
+            dict_roles[item] = [x for x in dict_roles[item] if x['roles']]
+
+            # delete items that do not have any role to display
+            if not dict_roles[item]:
+                del dict_roles[item]
+
+        return dict_roles, local_roles_blocked
+
+    security.declarePublic('getCPSCandidateLocalRoles')
+    def getCPSCandidateLocalRoles(self, obj):
+        """ Get relevant local roles according to the context.
+
+        Roles are already filtered using the base method  getCPSCandidateLocalRoles
+        method, now filter them according to the context.
+        """
+        # List local roles according to the context
+        cps_roles = CPSMembershipTool.getCPSCandidateLocalRoles(self, obj)
+        cps_roles.reverse()
+
+        # XXX a better way of doing is that is necessarly
+        # Filter them for CPS
+        cps_roles = [x for x in cps_roles if x not in ('Owner', 'Member',
+                                                       'Reviewer', 'Manager',
+                                                       'Authenticated')]
+        # filter roles by portal type using prefix
+        # XXX TODO relevant roles should be store in the portal_types tool
+        ptype_role_prefix = {'Section': ('Section',),
+                            'Workspace': ('Workspace'),
+                            'Wiki': ('Contributor', 'Reader'),
+                            'Calendar': ('Workspace',),
+                            'CPSForum': ('Forum',),
+                            'Chat': ('Chat',),
+                            'CPS Calendar': ('Attendee',),
+                            }
+        ptype = obj.portal_type
+        if ptype in ptype_role_prefix.keys():
+            contextual_roles = []
+            for role_prefix in ptype_role_prefix[ptype]:
+                for cps_role in cps_roles:
+                    if cps_role.startswith(role_prefix):
+                        contextual_roles.append(cps_role)
+            cps_roles = contextual_roles
+
+        return cps_roles
+
+    security.declarePublic('getCPSLocalRolesRender')
+    def getCPSLocalRolesRender(self, obj, cps_roles, filtered_role=None,
+                               show_blocked_roles=0):
+        """ Get dictionnaries that will be used by the template
+        presenting local roles.
+
+        Return 2 lists and 2 dictionnaries: sorted members, members dictionnary
+        with member ids as keys and a dictionnary describing their roles as
+        values, and the same for groups.
+
+        Also return information about local roles blocking.
+
+        filtered_role and show_blocked_roles parameters are only passed to be kept or
+        changed while displaying roles.
+        """
+        # XXX need to be broken in sub methods
+
+        # directories, used for users/groups rendering
+        dirtool = getToolByName(self, 'portal_directories')
+        mdir = dirtool.members
+        mdir_title_field = mdir.title_field
+        gdir = dirtool.groups
+        gdir_title_field= gdir.title_field
+        dict_roles, local_roles_blocked = self.getCPSLocalRoles(obj, cps_roles)
+        utool = getToolByName(self, 'portal_url')
+        rpath = utool.getRpath(obj)
+
+        # fill members and groups dictionnaries
+        members = {}
+        groups = {}
+        for item, role_infos in dict_roles.items():
+            # fill info about each role for given item
+            here_roles = {}
+            inherited_roles = {}
+            has_roles = 0
+            has_local_roles = 0
+            # default info for each role to be presented
+            for role in cps_roles:
+                here_roles[role] = {
+                    'here': 0,
+                    'inherited': 0,
+                    }
+            for role_info in role_infos:
+                role_url = role_info['url']
+                if role_url == rpath:
+                    here = 1
+                else:
+                    here = 0
+                # maybe skip inherited blocked roles
+                if here or not local_roles_blocked or show_blocked_roles:
+                    for role in role_info['roles']:
+                        # take filtering on roles into account
+                        if not filtered_role or role == filtered_role:
+                            has_roles = 1
+                        # fill info even if role is filtered
+                        if here:
+                            here_roles[role]['here'] = 1
+                            has_local_roles = 1
+                        else:
+                            here_roles[role]['inherited'] = 1
+                            if inherited_roles.get(role) is None:
+                                inherited_roles[role] = [role_url]
+                            else:
+                                inherited_roles[role].append(role_url)
+            # skip if all roles have been filtered
+            if not has_roles:
+                continue
+            # fill members and groups rendering info (title, input name) + computed
+            # roles info
+            if item.startswith('user:'):
+                member_id = item[len('user:'):]
+                member_title = ''
+                entry = mdir.getEntry(member_id, None)
+                if entry is not None:
+                    member_title = entry.get(mdir_title_field)
+                members[item] = {
+                    'title': member_title or member_id,
+                    'role_input_name': 'role_user_' + member_id,
+                    'here_roles': here_roles,
+                    'inherited_roles': inherited_roles,
+                    'has_local_roles': has_local_roles,
+                    }
+            elif item.startswith('group:'):
+                group_id = item[len('group:'):]
+                group_title = ''
+                entry = gdir.getEntry(group_id, None)
+                if entry is not None:
+                    group_title = entry.get(gdir_title_field)
+                groups[item] = {
+                    'title': group_title or group_id,
+                    # XXX AT: no ':' accepted, change it for role:Anonymous and
+                    # role:Authenticated groups
+                    'role_input_name': 'role_group_' + group_id.replace(':', '_'),
+                    'here_roles': here_roles,
+                    'inherited_roles': inherited_roles,
+                    'has_local_roles': has_local_roles,
+                    }
+
+        # sort members and groups on title
+        sort = [(v.get(mdir_title_field), k) for k, v in members.items()]
+        sort.sort()
+        sorted_members = [x[1] for x in sort]
+        sort = [(v.get(gdir_title_field), k) for k, v in groups.items()]
+        sort.sort()
+        sorted_groups = [x[1] for x in sort]
+        return sorted_members, members, sorted_groups, groups, local_roles_blocked
+
+    security.declarePublic('folderLocalRoleBLock')
+    def folderLocalRoleBLock(self, obj, lr_block=None, lr_unblock=None,
+                             filtered_role=None, show_blocked_roles=0,
+                             REQUEST=None):
+        """
+        Block/unblock local roles acquisition
+
+        If lr_block is not None, block acquisition, else if lr_unblock is not None,
+        unblock acquisition.
+
+        Acquisition blocking is made adding/deleting the '-' role to the group of
+        anonymous users.
+
+        filtered_role and show_blocked_roles parameters are only passed to be kept
+        while blocking/unblocking.
+        """
+        member = self.getAuthenticatedMember()
+        member_id = member.getUserName()
+
+        reindex = 0
+        kwargs = {}
+
+        if lr_block is not None:
+            # For security, before blocking everything, we readd the current user
+            # as a XyzManager of the current workspace/section.
+            for r in self.getCPSCandidateLocalRoles(obj):
+                if r == 'Manager':
+                    continue
+                if not r.endswith('Manager'):
+                    continue
+                if not member.has_role(r, obj):
+                    continue
+                self.setLocalRoles(obj, (member_id,), r, reindex=0)
+            # Block.
+            self.setLocalGroupRoles(obj, ('role:Anonymous',), '-',
+                                    reindex=0)
+            reindex = 1
+            kwargs['portal_status_message'] = 'psm_local_roles_blocked'
+        elif lr_unblock is not None:
+            self.deleteLocalGroupRoles(obj, ('role:Anonymous',), '-',
+                                       reindex=0)
+            reindex = 1
+            kwargs['portal_status_message'] = 'psm_local_roles_unblocked'
+
+        if reindex == 1:
+            obj.reindexObjectSecurity()
+
+        if REQUEST is not None:
+            kwargs['filtered_role'] = filtered_role
+            kwargs['show_blocked_roles'] = show_blocked_roles
+            REQUEST.RESPONSE.redirect('%s/folder_localrole_form?%s'%(
+                obj.absolute_url(), urlencode(kwargs)))
+
+
 InitializeClass(MembershipTool)
 
 

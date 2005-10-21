@@ -1911,14 +1911,18 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         self.setupProduct('CPSWiki')
         self.setupProduct('CPSBoxes')
 
-        # FIXME: I don't like this code because it makes things hard to test
+        # FIXME: This code makes things hard to test
         try:
+            # Trying all the specific imports on which CPSOOo relies
+            import xml.dom.minidom
+            import xml.dom.ext
             try:
-                    from elementtree.ElementTree import ElementTree
+                from elementtree.ElementTree import ElementTree
             except ImportError:
                 from lxml.etree import ElementTree
-        except ImportError:
-            self.log("Cannot install CPSOOo: missing elementtree or lxml module")
+        except ImportError, err:
+            self.log("CPSOOo cannot be loaded because there are some "
+                     "dependencies missing: %s" % str(err))
         else:
             self.setupProduct('CPSOOo')
 

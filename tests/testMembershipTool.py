@@ -315,9 +315,9 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
 
         self.assertEquals(roles, wanted)
 
-    # XXX AT: deactivated, I dont get what's tested (see comments below) + need
-    # to check that tests in testMembershipToolLocalRoles reproduce the use
-    # case
+    # XXX AT: test deactivated because it's hiding bugs and I dont get what's
+    # tested (see comments below). Need to check that tests in
+    # testMembershipToolLocalRoles reproduce the use case.
     def XXXtest_getLocalRolesTwoBlockedLevels(self):
 
         # let's check the ws root
@@ -370,8 +370,8 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         roles = self.pmtool.getCPSLocalRoles(current_folder)
 
         # XXX AT: roles are set for 'user:user:member', 'user:member' and
-        # 'user:user:Anonymous'... 'user:member' and 'group:role:Anonymous'
-        # should be tested instead (?)
+        # 'user:user:Anonymous'. Shouldn't 'user:member' and
+        # 'group:role:Anonymous' be tested instead (?)
         wanted = ({'user:user:member': [{'url': 'workspaces/members/wsmanager',
                  'roles': ['WorkspaceManager']}], 'user:member': [{'url':
                  'workspaces', 'roles': ['WorkspaceReader']}], 'user:wsmanager':

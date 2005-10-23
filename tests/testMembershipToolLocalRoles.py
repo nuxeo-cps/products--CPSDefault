@@ -71,10 +71,6 @@ class FakeFolder(Folder):
     def reindexObjectSecurity(self):
         pass
 
-class FakeRequest:
-
-    def __init__(self):
-        self._auth = 'clcert '
 
 class TestMembershipToolLocalRoles(ZopeTestCase):
 
@@ -121,7 +117,6 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.login('manager')
 
     def afterSetUp(self):
-        self.request = FakeRequest()
         # create mtool and utool
         portal = self.portal
         portal._setObject(URLTool.id, URLTool())
@@ -215,19 +210,20 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         root = self.root
         fold = root.fold
         ob = fold.ob
+        uf = self.portal.acl_users
 
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(root, withgroups=1),
+            uf.mergedLocalRoles(root, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceManager'],
              'group:somegroup': ['WorkspaceReader']})
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(fold, withgroups=1),
+            uf.mergedLocalRoles(fold, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceMember', 'WorkspaceManager'],
              'group:somegroup': ['WorkspaceReader']})
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(ob, withgroups=1),
+            uf.mergedLocalRoles(ob, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceMember', 'WorkspaceManager'],
              'group:somegroup': ['WorkspaceManager', 'WorkspaceReader']})
@@ -236,15 +232,15 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         mtool.folderLocalRoleBlock(fold, lr_block='yep')
 
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(root, withgroups=1),
+            uf.mergedLocalRoles(root, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceManager'],
              'group:somegroup': ['WorkspaceReader']})
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(fold, withgroups=1),
+            uf.mergedLocalRoles(fold, withgroups=1),
             {'user:someuser': ['WorkspaceMember']})
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(ob, withgroups=1),
+            uf.mergedLocalRoles(ob, withgroups=1),
             {'user:someuser': ['WorkspaceMember'],
              'group:somegroup': ['WorkspaceManager']})
 
@@ -253,17 +249,17 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
 
         # back to where we started?
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(root, withgroups=1),
+            uf.mergedLocalRoles(root, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceManager'],
              'group:somegroup': ['WorkspaceReader']})
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(fold, withgroups=1),
+            uf.mergedLocalRoles(fold, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceMember', 'WorkspaceManager'],
              'group:somegroup': ['WorkspaceReader']})
         self.assertEquals(
-            self.portal.acl_users.mergedLocalRoles(ob, withgroups=1),
+            uf.mergedLocalRoles(ob, withgroups=1),
             {'user:manager': ['Owner'],
              'user:someuser': ['WorkspaceMember', 'WorkspaceManager'],
              'group:somegroup': ['WorkspaceManager', 'WorkspaceReader']})

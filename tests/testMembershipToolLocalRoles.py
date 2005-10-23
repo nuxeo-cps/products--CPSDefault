@@ -128,7 +128,6 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
     def beforeTearDown(self):
         del self.portal
         del self.roles
-        del self.request
         del self.mtool
         del self.root
         del self.default_roles

@@ -52,22 +52,15 @@ class FakeDirectory(Folder):
         new = deepcopy(self.blank)
         new.update(entry)
         self.entries[entry[self.id_field]] = new
-    def editEntry(self, entry):
-        self.entries[entry[self.id_field]].update(entry)
-    def deleteEntry(self, id):
-        del self.entries[id]
-    def hasEntry(self, id):
-        return self.entries.has_key(id)
     def listEntryIds(self):
         return self.entries.keys()
 
 class FakeFolder(Folder):
-    # folder with Workspace portal type so that relevant roles are found and no
-    # reindexing is done
+    # give it a portal type so that relevant local roles are found
     def __init__(self, id):
         Folder.__init__(self, id)
         self.portal_type = 'Workspace'
-
+    # avoid reindexation
     def reindexObjectSecurity(self):
         pass
 
@@ -76,7 +69,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
 
     # fixture
     def _setup(self):
-        # portal, use 'foler' id cause 'portal' is used in other tests and
+        # portal, use 'folder' id because 'portal' is used in other tests and
         # conflicts...
         self.app._setObject('folder', Folder('folder'))
         portal = self.portal = getattr(self.app, 'folder')
@@ -101,7 +94,10 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
              'title': '',
              })
         dirtool.groups = FakeDirectory(
-            'groups', 'group', 'title', {'members': ()})
+            'groups', 'group', 'title',
+            {'members': (),
+             'group': '',
+             })
         uf = portal.acl_users
         uf.manage_changeProperties(
             users_dir='members',
@@ -112,7 +108,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         resetAllCaches()
         # manager
         uf.userFolderAddUser('manager', 'secret', ['Manager'], [])
-        # login needs self.folder
+        # login method needs self.folder
         self.folder = portal
         self.login('manager')
 
@@ -147,6 +143,13 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         root = self.root
         fold = root.fold
         ob = fold.ob
+
+        # add entries to directories
+        dtool = self.portal.portal_directories
+        dtool.members.createEntry({'uid':'someuser', 'title':'Some User'})
+        dtool.groups.createEntry({'group':'somegroup', 'title':'Some Group'})
+
+        # set local roles
         mtool.setLocalRoles(root, ['someuser'], 'WorkspaceManager')
         mtool.setLocalGroupRoles(root, ['somegroup'], 'WorkspaceReader')
         mtool.setLocalRoles(fold, ['someuser'], 'WorkspaceMember')
@@ -365,7 +368,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
-                'title': 'someuser',
+                'title': 'Some User',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -384,7 +387,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
-                'title': 'somegroup',
+                'title': 'Some Group',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -407,7 +410,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
-                'title': 'someuser',
+                'title': 'Some User',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {'WorkspaceManager': ['root']},
                 'has_local_roles': 1,
@@ -425,7 +428,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
-                'title': 'somegroup',
+                'title': 'Some Group',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {'WorkspaceReader': ['root']},
                 'has_local_roles': 0,
@@ -448,7 +451,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
-                'title': 'someuser',
+                'title': 'Some User',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {
                     'WorkspaceManager': ['root'],
@@ -469,7 +472,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
-                'title': 'somegroup',
+                'title': 'Some Group',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {'WorkspaceReader': ['root']},
                 'has_local_roles': 1,
@@ -516,7 +519,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
-                'title': 'someuser',
+                'title': 'Some User',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -535,7 +538,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
-                'title': 'somegroup',
+                'title': 'Some Group',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -558,7 +561,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
-                'title': 'someuser',
+                'title': 'Some User',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -584,7 +587,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
-                'title': 'someuser',
+                'title': 'Some User',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {
                     'WorkspaceMember': ['root/fold'],
@@ -604,7 +607,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
-                'title': 'somegroup',
+                'title': 'Some Group',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,

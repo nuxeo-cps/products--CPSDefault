@@ -5,9 +5,7 @@ Macro needs
 
 <metal:block define-macro="assigned" tal:define="
   filtered_role python:request.get('filtered_role');
-  show_blocked_roles python:request.get('show_blocked_roles', 0);
-  cpslr python:here.getCPSLocalRolesRender(cps_roles, filtered_role,
-                                           show_blocked_roles=show_blocked_roles);
+  cpslr python:here.getCPSLocalRolesRender(cps_roles, filtered_role);
   sorted_users python:cpslr[0];
   users python:cpslr[1];
   sorted_groups python:cpslr[2];
@@ -46,31 +44,6 @@ Macro needs
     </div>
   </form>
 
-  <form method="post" action="folder_localrole_form"
-    tal:condition="local_roles_blocked"
-    tal:attributes="action string:${here_url}/folder_localrole_form">
-    <div tal:condition="show_blocked_roles">
-      <tal:block i18n:translate="legend_local_roles_hide_blocked_roles">
-        You can hide blocked roles:
-      </tal:block>
-      <input type="hidden" name="show_blocked_roles:int" value="0" />
-      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_filtered_role" />
-      <input type="submit" name="show_blocked_roles_submit"
-        value="button_hide_blocked_roles"
-        i18n:attributes="value" class="standalone" />
-    </div>
-    <div tal:condition="not:show_blocked_roles">
-      <tal:block i18n:translate="legend_local_roles_show_blocked_roles">
-        You can show blocked roles:
-      </tal:block>
-      <input type="hidden" name="show_blocked_roles:int" value="1" />
-      <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_filtered_role" />
-      <input type="submit" name="show_blocked_roles_submit"
-        value="button_show_blocked_roles"
-        i18n:attributes="value" class="standalone" />
-    </div>
-  </form>
-
 </div>
 
 <form method="post" action="folder_localrole_form"
@@ -94,7 +67,6 @@ Macro needs
       Role
     </option>
   </select>
-  <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_show_blocked_roles"/>
   <input type="submit" value="button_apply"
     name="filter_local_roles"
     i18n:attributes="value" class="context" />
@@ -149,25 +121,11 @@ Macro needs
     folders. Follow the links to manage the local roles in these folders.
   </tal:block>
 </p>
-<p tal:condition="python:local_roles_blocked and show_blocked_roles">
-  <span class="inheritedBlockedRole"
-    i18n:translate="label_inherited_blocked_role">
-    Inherited blocked role
-  </span> :
-  <tal:block i18n:translate="legend_local_roles_inherited_blocked_role">
-    this colour means that corresponding roles are set in parent folders and
-    are blocked.
-  </tal:block>
-</p>
 
 </div>
 </metal:block>
 
 <metal:block define-macro="hidden_parameters">
-  <metal:block define-macro="hidden_show_blocked_roles">
-    <input type="hidden" name="show_blocked_roles:int"
-      tal:attributes="value show_blocked_roles" />
-  </metal:block>
   <metal:block define-macro="hidden_filtered_role">
     <input type="hidden" name="filtered_role"
       tal:attributes="value filtered_role" />
@@ -195,7 +153,7 @@ Assignment table needs:
         Role
       </th>
       <th i18n:translate="label_inherited_roles"
-        tal:condition="python:not local_roles_blocked or show_blocked_roles">
+        tal:condition="python:not local_roles_blocked">
         Inherited roles
       </th>
     </tr>
@@ -227,9 +185,7 @@ Assignment table needs:
           <td tal:define="here python:here_roles[role]['here'];
                           inherited python:here_roles[role]['inherited'];"
               tal:attributes="class python:test(inherited and not
-              local_roles_blocked, 'inheritedRole', test(inherited and
-              local_roles_blocked and show_blocked_roles,
-              'inheritedBlockedRole', 'assignedRole'));">
+              local_roles_blocked, 'inheritedRole', 'assignedRole');">
             <input type="checkbox" name="member_id_roles:list"
               tal:attributes="value role;
                               name string:${member_info/role_input_name}:list;
@@ -237,7 +193,7 @@ Assignment table needs:
                              " />
           </td>
         </tal:block>
-        <td tal:condition="python:not local_roles_blocked or show_blocked_roles">
+        <td tal:condition="python:not local_roles_blocked">
           <tal:block define="inherited member_info/inherited_roles;
                              roles inherited/keys">
             <ul tal:condition="roles">

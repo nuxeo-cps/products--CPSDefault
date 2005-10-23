@@ -346,27 +346,45 @@ The %s administration team
         """ Get local roles dictionnary filtered using relevant roles in
         context and tell if local roles are blocked using this dictionnary
         """
-        if cps_roles is None:
-            cps_roles = self.getCPSCandidateLocalRoles(obj)
-
-        # Get local roles settings from the membership tool
         dict_roles = self.getMergedLocalRolesWithPath(obj)
         local_roles_blocked = 0
 
-        url_tool = getToolByName(self, 'portal_url')
-        local_url = url_tool.getRelativeContentURL(obj)
+        # get info about role blockings
+        anon_infos = dict_roles.get('group:role:Anonymous')
+        blocked_rpaths = []
+        if anon_infos is not None:
+            for role_info in anon_infos:
+                if '-' in role_info['roles']:
+                    rpath = role_info['url']
+                    blocked_rpaths.append(rpath)
 
-        # Filter special roles, and only take local roles
+        blocked_rpath = ''
+        if blocked_rpaths:
+            # consider latest blocking
+            blocked_rpaths.sort()
+            blocked_rpath = blocked_rpaths[-1]
+            # check if roles are blocked at current level
+            url_tool = getToolByName(self, 'portal_url')
+            local_rpath = url_tool.getRpath(obj)
+            if blocked_rpath == local_rpath:
+                local_roles_blocked = 1
+
+        # filter blocked roles and roles not relevant in context
+        if cps_roles is None:
+            cps_roles = self.getCPSCandidateLocalRoles(obj)
         for item, role_infos in dict_roles.items():
             for role_info in role_infos:
-
+                if blocked_rpath:
+                    rpath = role_info['url']
+                    # skip roles set STRICTLY above blocking ; roles set at the
+                    # blocking_rpath level have to be kept
+                    if rpath.find(blocked_rpath) == -1:
+                        role_info['roles'] = []
+                        continue
                 roles = role_info['roles']
-                if (item == "group:role:Anonymous" and "-" in roles and
-                    role_info['url'] == local_url):
-                    local_roles_blocked = 1
-
-                # filter with roles in context
                 role_info['roles'] = [r for r in roles if r in cps_roles]
+
+            # delete role info if no roles are left
             dict_roles[item] = [x for x in dict_roles[item] if x['roles']]
 
             # delete items that do not have any role to display
@@ -413,8 +431,7 @@ The %s administration team
         return cps_roles
 
     security.declarePublic('getCPSLocalRolesRender')
-    def getCPSLocalRolesRender(self, obj, cps_roles, filtered_role=None,
-                               show_blocked_roles=0):
+    def getCPSLocalRolesRender(self, obj, cps_roles, filtered_role=None):
         """ Get dictionnaries that will be used by the template
         presenting local roles.
 
@@ -424,8 +441,9 @@ The %s administration team
 
         Also return information about local roles blocking.
 
-        filtered_role and show_blocked_roles parameters are only passed to be kept or
-        changed while displaying roles.
+        If filtered_role is set to one of the relevant local roles, only
+        display users with given role (inherited or not), and their other roles
+        if they have some.
         """
         # XXX need to be broken in sub methods
 
@@ -461,7 +479,7 @@ The %s administration team
                 else:
                     here = 0
                 # maybe skip inherited blocked roles
-                if here or not local_roles_blocked or show_blocked_roles:
+                if here or not local_roles_blocked:
                     for role in role_info['roles']:
                         # take filtering on roles into account
                         if not filtered_role or role == filtered_role:
@@ -521,8 +539,7 @@ The %s administration team
 
     security.declarePublic('folderLocalRoleBlock')
     def folderLocalRoleBlock(self, obj, lr_block=None, lr_unblock=None,
-                             filtered_role=None, show_blocked_roles=0,
-                             REQUEST=None):
+                             filtered_role=None, REQUEST=None):
         """
         Block/unblock local roles acquisition
 
@@ -532,18 +549,21 @@ The %s administration team
         Acquisition blocking is made adding/deleting the '-' role to the group of
         anonymous users.
 
-        filtered_role and show_blocked_roles parameters are only passed to be kept
-        while blocking/unblocking.
+        filtered_role parameter is only passed to be kept while
+        blocking/unblocking.
         """
-        member = self.getAuthenticatedMember()
-        member_id = member.getUserName()
-
         reindex = 0
         kwargs = {}
 
         if lr_block is not None:
-            # For security, before blocking everything, we readd the current user
-            # as a XyzManager of the current workspace/section.
+            # Prevent user from losing local roles management rights: readd the
+            # current user as a XyzManager of the current workspace/section
+            # before blocking.
+            member = self.getAuthenticatedMember()
+            member_id = member.getUserName()
+            # XXX AT: why not use self.roles_managing_local_roles and
+            # getCPSCandidateLocalRoles to get the good role(s) to add, and
+            # skip if user is a Manager?
             for r in self.getCPSCandidateLocalRoles(obj):
                 if r == 'Manager':
                     continue
@@ -568,7 +588,6 @@ The %s administration team
 
         if REQUEST is not None:
             kwargs['filtered_role'] = filtered_role
-            kwargs['show_blocked_roles'] = show_blocked_roles
             REQUEST.RESPONSE.redirect('%s/folder_localrole_form?%s'%(
                 obj.absolute_url(), urlencode(kwargs)))
 

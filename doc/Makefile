@@ -11,7 +11,10 @@ HTML_DOCS := howto-virtual_hosts.html guidelines-user_interface.html howto-searc
 # Docutils (http://docutils.sourceforge.net/).
 # For example on a Debian system:
 # $ sudo apt-get install python-docutils
-RST2HTML := rst2html -t --stylesheet-path=nuxeo_doc.css 
+RST2HTML := rst2html \
+-t --stylesheet-path=nuxeo_doc.css \
+--input-encoding=iso-8859-15 \
+--output-encoding=iso-8859-15
 
 all: ${HTML_DOCS}
 

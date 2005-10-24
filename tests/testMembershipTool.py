@@ -315,33 +315,6 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
 
         self.assertEquals(roles, wanted)
 
-    def test_isPortalMember(self):
-        from AccessControl.User import SpecialUser
-        from AccessControl import Unauthorized
-        from AccessControl.SecurityManagement import newSecurityManager
-
-        # trying as manager
-        self.login('manager')
-        membership_tool = self.portal.portal_membership
-        self.assert_(membership_tool.isPortalMember('manager'))
-        self.assert_(membership_tool.isPortalMember())
-        self.logout()
-
-        # trying as anonymous
-        self.assertRaises(Unauthorized, membership_tool.isPortalMember, 'manager')
-
-        # trying as member
-        self.login(user_name)
-        self.assertRaises(Unauthorized, membership_tool.isPortalMember, 'manager')
-        self.assert_(membership_tool.isPortalMember())
-        self.logout()
-
-        # try as outside zope admin
-        tmp_user = SpecialUser('zope_admin', '', ['Manager'], '')
-        newSecurityManager(None, tmp_user)
-        self.assert_(not membership_tool.isPortalMember('zope_admin'))
-        self.assert_(not membership_tool.isPortalMember())
-
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestMembershipTool))

@@ -33,9 +33,10 @@ from smtplib import SMTPException
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
+from AccessControl.Permissions import manage_users as ManageUsers
 
 from Products.MailHost.MailHost import MailHostError
-from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolByName, _checkPermission
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
 
@@ -337,6 +338,35 @@ The %s administration team
                                                   random.randint(10, 15)))
             nonce = self._nonce
         return nonce
+
+    security.declarePublic('isPortalMember')
+    def isPortalMember(self, user=None):
+        """ Tells if the user belong to the portal
+
+        i.e. has the CMF 'Member' role
+        """
+        def _checkManageUsersPermission(user):
+            if not _checkPermission(ManageUsers, user):
+                raise Unauthorized("You need the 'Manage users' "
+                                   "permission to get this information.")
+
+        current_user = self.getAuthenticatedMember()
+
+        if user is not None:
+            user_object = self.acl_users.getUserById(user, None)
+            if user_object is None:
+                # the user is not part of the portal
+                # returns false, if the connected user
+                # has the right
+                _checkManageUsersPermission(current_user)
+                return False
+            # need to check that the user has the rights
+            # to see other users infos
+            if user_object.getId() != current_user.getId():
+                _checkManageUsersPermission(current_user)
+        else:
+            user_object = current_user
+        return user_object.has_role('Member')
 
     #
     # local roles utilities

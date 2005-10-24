@@ -484,7 +484,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 name='action_my_preferences',
                 action="string:${portal_url}/cpsdirectory_entry_view?"
                        "dirname=members&id=${member}",
-                condition='member',
+                condition='python:portal.portal_membership.isPortalMember()',
                 permission=(View,),
                 category='user',
                 visible=1)

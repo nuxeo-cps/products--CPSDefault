@@ -340,11 +340,52 @@ The %s administration team
         return nonce
 
     #
-    # local roles utilities
+    # Local roles management utilities
     #
+
+    # XXX This has to be made more flexible using registries
+    security.declarePublic('getCPSCandidateLocalRoles')
+    def getCPSCandidateLocalRoles(self, obj):
+        """ Get relevant local roles according to the context.
+
+        Roles are already filtered using the base method  getCPSCandidateLocalRoles
+        method, now filter them according to the context.
+        """
+        # List local roles according to the context
+        cps_roles = CPSMembershipTool.getCPSCandidateLocalRoles(self, obj)
+        cps_roles.reverse()
+
+        # XXX a better way of doing is that is necessarly
+        # Filter them for CPS
+        cps_roles = [x for x in cps_roles if x not in ('Owner', 'Member',
+                                                       'Reviewer', 'Manager',
+                                                       'Authenticated')]
+        # filter roles by portal type using prefix
+        # XXX TODO relevant roles should be store in the portal_types tool
+        ptype_role_prefix = {'Section': ('Section',),
+                             'Workspace': ('Workspace'),
+                             'Wiki': ('Contributor', 'Reader'),
+                             'Calendar': ('Workspace',),
+                             'CPSForum': ('Forum',),
+                             'Chat': ('Chat',),
+                             'CPS Calendar': ('Attendee',),
+                             'Blog': ('BlogManager', 'BlogPoster'),
+                             }
+        ptype = obj.portal_type
+        if ptype in ptype_role_prefix.keys():
+            contextual_roles = []
+            for role_prefix in ptype_role_prefix[ptype]:
+                for cps_role in cps_roles:
+                    if cps_role.startswith(role_prefix):
+                        contextual_roles.append(cps_role)
+            cps_roles = contextual_roles
+
+        return cps_roles
+
+
     security.declarePublic('getCPSLocalRoles')
     def getCPSLocalRoles(self, obj, cps_roles=None):
-        """ Get local roles dictionnary filtered using relevant roles in
+        """Get local roles dictionnary filtered using relevant roles in
         context and tell if local roles are blocked using this dictionnary
         """
         dict_roles = self.getMergedLocalRolesWithPath(obj)
@@ -394,48 +435,11 @@ The %s administration team
 
         return dict_roles, local_roles_blocked
 
-    security.declarePublic('getCPSCandidateLocalRoles')
-    def getCPSCandidateLocalRoles(self, obj):
-        """ Get relevant local roles according to the context.
-
-        Roles are already filtered using the base method  getCPSCandidateLocalRoles
-        method, now filter them according to the context.
-        """
-        # List local roles according to the context
-        cps_roles = CPSMembershipTool.getCPSCandidateLocalRoles(self, obj)
-        cps_roles.reverse()
-
-        # XXX a better way of doing is that is necessarly
-        # Filter them for CPS
-        cps_roles = [x for x in cps_roles if x not in ('Owner', 'Member',
-                                                       'Reviewer', 'Manager',
-                                                       'Authenticated')]
-        # filter roles by portal type using prefix
-        # XXX TODO relevant roles should be store in the portal_types tool
-        ptype_role_prefix = {'Section': ('Section',),
-                             'Workspace': ('Workspace'),
-                             'Wiki': ('Contributor', 'Reader'),
-                             'Calendar': ('Workspace',),
-                             'CPSForum': ('Forum',),
-                             'Chat': ('Chat',),
-                             'CPS Calendar': ('Attendee',),
-                             'Blog': ('BlogManager', 'BlogPoster'),
-                             }
-        ptype = obj.portal_type
-        if ptype in ptype_role_prefix.keys():
-            contextual_roles = []
-            for role_prefix in ptype_role_prefix[ptype]:
-                for cps_role in cps_roles:
-                    if cps_role.startswith(role_prefix):
-                        contextual_roles.append(cps_role)
-            cps_roles = contextual_roles
-
-        return cps_roles
 
     security.declarePublic('getCPSLocalRolesRender')
     def getCPSLocalRolesRender(self, obj, cps_roles, filtered_role=None):
-        """ Get dictionnaries that will be used by the template
-        presenting local roles.
+        """Get dictionnaries that will be used by the template presenting local
+        roles.
 
         Return 2 lists and 2 dictionnaries: sorted members, members dictionnary
         with member ids as keys and a dictionnary describing their roles as
@@ -539,11 +543,11 @@ The %s administration team
         sorted_groups = [x[1] for x in sort]
         return sorted_members, members, sorted_groups, groups, local_roles_blocked
 
+
     security.declarePublic('folderLocalRoleBlock')
     def folderLocalRoleBlock(self, obj, lr_block=None, lr_unblock=None,
                              filtered_role=None, REQUEST=None):
-        """
-        Block/unblock local roles acquisition
+        """Block/unblock local roles acquisition
 
         If lr_block is not None, block acquisition, else if lr_unblock is not None,
         unblock acquisition.

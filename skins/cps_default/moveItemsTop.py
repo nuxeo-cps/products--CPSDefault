@@ -1,7 +1,7 @@
 ##parameters=ids=[]
 # $Id$
 """
-Move the selected objects on the top within the directory
+Move selected objects at the top of the folder
 """
 
 def cmp_desc(x, y):

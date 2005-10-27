@@ -1,9 +1,7 @@
 ##parameters=ids=[]
 # $Id$
 """
-Move the selected objects up within the directory
-
-FIXME: docstring doesn't match method name.
+Move selected objects at the bottom of the folder
 """
 
 def cmp_desc(x, y):

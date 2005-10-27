@@ -413,13 +413,14 @@ The %s administration team
         # filter roles by portal type using prefix
         # XXX TODO relevant roles should be store in the portal_types tool
         ptype_role_prefix = {'Section': ('Section',),
-                            'Workspace': ('Workspace'),
-                            'Wiki': ('Contributor', 'Reader'),
-                            'Calendar': ('Workspace',),
-                            'CPSForum': ('Forum',),
-                            'Chat': ('Chat',),
-                            'CPS Calendar': ('Attendee',),
-                            }
+                             'Workspace': ('Workspace'),
+                             'Wiki': ('Contributor', 'Reader'),
+                             'Calendar': ('Workspace',),
+                             'CPSForum': ('Forum',),
+                             'Chat': ('Chat',),
+                             'CPS Calendar': ('Attendee',),
+                             'Blog': ('BlogManager', 'BlogPoster'),
+                             }
         ptype = obj.portal_type
         if ptype in ptype_role_prefix.keys():
             contextual_roles = []

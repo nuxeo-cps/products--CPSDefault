@@ -1,14 +1,16 @@
-##parameters=
-"""Prepare use login
+##parameters=came_from=None
+"""Prepare user login
 
 $Id$
 """
 
 utool = context.portal_url
 mtool = context.portal_membership
-p_props = context.portal_properties
 
-base_url = utool.getBaseUrl()
+redirect_url = came_from
+if not redirect_url:
+    redirect_url = utool.getBaseUrl()
+    
 is_anon = mtool.isAnonymousUser()
 member = mtool.getAuthenticatedMember()
 
@@ -32,6 +34,4 @@ if first_time:
     mtool.createMemberArea()
     now = context.ZopeTime()
     member.setProperties(last_login_time=now, login_time=now)
-RESPONSE.redirect(base_url)
-
-
+RESPONSE.redirect(redirect_url)

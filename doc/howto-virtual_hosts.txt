@@ -5,9 +5,37 @@ HOWTO to setup CPS with Apache httpd VirtualHost directives
 *$Id$*
 
 
+Introduction
+============
 
-Adapting those examples to your needs
-=====================================
+This HOWTO explains how to setup CPS behind the Apache httpd server. This kind
+of configuration is the prefered way to deploy CPS web sites because:
+
+* Apache httpd is very fast and can handle cache
+
+* Apache httpd allows to have parts of CPS web sites protected through HTTPS
+
+* Apache httpd allows to combine many web sites and many technologies together
+  (CPS, PHP, CGI, Perl, Java, etc.) together behind a same domain name
+
+The Apache httpd server comes in different series (the 1.3.x and the 2.x series)
+and also in different versions (the standard httpd version and the Apache-SSL flavor).
+
+In this document we will only document the use of the following versions:
+
+* Apache httpd 2.x
+
+* Apache-ssl
+
+Using Apache 2 is the preferred option because it is the more up-to-date version
+and the version on which development is done. Apache-ssl was only
+handy before Apache 2. But now that Apache 2 ships with mod_ssl by default, there
+isnt' any reason to stay with Apache-SSL anymore.
+
+Adapting the examples to your needs
+-----------------------------------
+
+This howto presents configurations for a Debian system.
 
 The port 9673 is the Zope default port on Debian, you might have to change it to
 8080 depending on your configuration.
@@ -15,6 +43,163 @@ The port 9673 is the Zope default port on Debian, you might have to change it to
 Note that in all the following examples "machine.localdomain" can be replaced by
 "localhost" if your Zope server runs on the same machine as your Apache httpd
 server is.
+
+
+
+Using Apache 2
+==============
+
+Here are some configuration examples using Apache httpd VirtualHost directives
+as it can be setup on a Debian Sarge machine with the "apache2" package.
+
+What you need:
+
+* apt-get install apache2
+
+* Enable the following modules: proxy, rewrite, ssl
+
+  On a Debian system it is done by calling the commands:
+
+  * a2enmod proxy
+
+  * a2enmod rewrite
+
+  * a2enmod ssl
+
+* Open the needed ports in /etc/apache2/ports.conf::
+
+    Listen 80
+    Listen 443
+    Listen 453
+
+* Authorize proxy requests in /etc/apache2/mods-enabled/proxy.conf otherwise
+  you could end up with an unreachable CPS web site and messages like
+  "client denied by server configuration: proxy:http://localhost"
+  in your log files::
+
+    <Proxy *>
+      Order deny,allow
+      Deny from all
+    </Proxy>
+
+    <Proxy http://localhost:9673>
+      Order deny,allow
+      Deny from all
+      Allow from all
+    </Proxy>
+
+
+* You should generate a private key and certificate files for your web server.
+
+
+Simple HTTP + HTTPS configuration
+---------------------------------
+
+This configuration is what most people would need. This is not a secure
+configuration but it is easy to setup and understand.
+
+Example::
+
+  <VirtualHost 192.168.2.20:80>
+  ServerName www.mysite.net
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  </VirtualHost>
+  
+  <VirtualHost 192.168.2.20:443>
+  ServerName www.mysite.net
+  
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/www.mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/www.mysite.net.key
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  </VirtualHost>
+
+
+Secure HTTP + HTTPS configuration
+---------------------------------
+
+This is a secure configuration because:
+
+* it forces the use of HTTPS for administering Zope in the ZMI
+
+* it forces the use of HTTPS for authenticated users (because for logged users
+  cookies containing vulnerable login/password information is sent with each
+  request)
+
+* it forces the use of HTTPS for users who wish to join the portal (because
+  login information is provided in the join form)
+
+Example::
+
+  # Main HTTP access to http://www.mysite.net/ for anonymous users
+  <VirtualHost 192.168.2.20:80>
+  ServerName www.mysite.net
+  
+  RewriteEngine on
+  
+  # Using OR instead of the implicit AND between conditions
+  RewriteCond %{REQUEST_URI} ^(.*)/manage(.*) [OR]
+  RewriteCond %{REQUEST_URI} ^(.*)/login(.*) [OR]
+  RewriteCond %{REQUEST_URI} ^(.*)/account_(.*) [OR]
+  RewriteCond %{REQUEST_URI} ^(.*)/join_form$
+  RewriteRule ^/(.*) https://www.mysite.net/$1 [R=permanent,L]
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  </VirtualHost>
+  
+  # Main HTTPS access to https://www.mysite.net/ for authenticated users
+  <VirtualHost 192.168.2.20:443>
+  ServerName www.mysite.net
+  
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/www.mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/www.mysite.net.key
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  </VirtualHost>
+  
+  
+  # HTTPS access to https://www.mysite.net:453/ for administrators.
+  # This is the access to use to administer Zope through the ZMI.
+  <VirtualHost 192.168.2.20:453>
+  ServerName www.mysite.net
+  
+  SSLCertificateFile /etc/apache-ssl/ssl.crt/www.mysite.net.cert
+  SSLCertificateKeyFile /etc/apache-ssl/ssl.key/www.mysite.net.key
+  
+  RewriteEngine on
+  
+  RewriteCond %{HTTP:Authorization}  ^(.*)
+  RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}/VirtualHostRoot/$1 [P,L]
+  # Note that the line below with "%{HTTP_HOST}:453" will not work. The working
+  # rule above has been crafted through the reading of the Z2.log file.
+  #RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:453/VirtualHostRoot/$1 [P,L]
+  
+  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
+  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  </VirtualHost>
 
 
 
@@ -155,14 +340,6 @@ Example::
   ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
   </VirtualHost>
 
-
-
-Using Apache2
-=============
-
-Using Apache2 is recommanded over using Apache + mod_ssl or apache-ssl.
-The configuration for Apache2 is almost the same. This documentation will soon
-be updated to present a working configuration for Apache2.
 
 
 Developer information

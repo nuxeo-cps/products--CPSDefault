@@ -234,7 +234,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
             'user:wsmanager': ['WorkspaceManager'],
             })
 
-        mtool.folderLocalRoleBlock(ws, lr_block='yes')
+        mtool.blockLocalRoles(ws)
         # add a local role for anonymous users
         mtool.setLocalGroupRoles(ws, ('role:Anonymous',), 'WorkspaceMember')
 

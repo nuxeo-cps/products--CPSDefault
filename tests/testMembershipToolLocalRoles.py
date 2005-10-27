@@ -207,7 +207,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(roles, self.default_roles['ob'])
         self.assertEquals(blocked, 0)
 
-    def test_folderLocalRoleBlock(self):
+    def test_block_unblockLocalRoles(self):
         mtool = self.mtool
         root = self.root
         fold = root.fold
@@ -231,7 +231,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
              'group:somegroup': ['WorkspaceManager', 'WorkspaceReader']})
 
         # block roles on fold
-        mtool.folderLocalRoleBlock(fold, lr_block='yep')
+        mtool.blockLocalRoles(fold)
 
         self.assertEquals(
             uf.mergedLocalRoles(root, withgroups=1),
@@ -247,7 +247,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
              'group:somegroup': ['WorkspaceManager']})
 
         # unblock roles on fold
-        mtool.folderLocalRoleBlock(fold, lr_unblock='yep')
+        mtool.unblockLocalRoles(fold)
 
         # back to where we started?
         self.assertEquals(
@@ -274,7 +274,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         ob = fold.ob
 
         # block roles on fold
-        mtool.folderLocalRoleBlock(fold, lr_block='yes')
+        mtool.blockLocalRoles(fold)
 
         roles, blocked = mtool.getCPSLocalRoles(root)
         self.assertEquals(roles, self.default_roles['root'])
@@ -305,8 +305,8 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         ob = fold.ob
 
         # block roles on fold and ob
-        mtool.folderLocalRoleBlock(fold, lr_block='yes')
-        mtool.folderLocalRoleBlock(ob, lr_block='yes')
+        mtool.blockLocalRoles(fold)
+        mtool.blockLocalRoles(ob)
 
         roles, blocked = mtool.getCPSLocalRoles(root)
         self.assertEquals(roles, self.default_roles['root'])
@@ -328,8 +328,8 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
 
         # unblock roles on ob and block it on lower level
         subob = ob.subob
-        mtool.folderLocalRoleBlock(ob, lr_unblock='yes')
-        mtool.folderLocalRoleBlock(subob, lr_block='yes')
+        mtool.unblockLocalRoles(ob)
+        mtool.blockLocalRoles(subob)
 
         roles, blocked = mtool.getCPSLocalRoles(root)
         self.assertEquals(roles, self.default_roles['root'])
@@ -511,7 +511,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         ob = fold.ob
 
         # block local roles
-        mtool.folderLocalRoleBlock(fold, lr_block='yes')
+        mtool.blockLocalRoles(fold)
 
         res = mtool.getCPSLocalRolesRender(root, self.roles)
         sorted_members = ['user:someuser']

@@ -33,10 +33,9 @@ from smtplib import SMTPException
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
-from AccessControl.Permissions import manage_users as ManageUsers
 
 from Products.MailHost.MailHost import MailHostError
-from Products.CMFCore.utils import getToolByName, _checkPermission
+from Products.CMFCore.utils import getToolByName
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
 
@@ -458,7 +457,7 @@ The %s administration team
         mdir = dirtool.members
         mdir_title_field = mdir.title_field
         gdir = dirtool.groups
-        gdir_title_field= gdir.title_field
+        gdir_title_field = gdir.title_field
         dict_roles, local_roles_blocked = self.getCPSLocalRoles(obj, cps_roles)
         utool = getToolByName(self, 'portal_url')
         rpath = utool.getRpath(obj)
@@ -544,58 +543,37 @@ The %s administration team
         return sorted_members, members, sorted_groups, groups, local_roles_blocked
 
 
-    security.declarePublic('folderLocalRoleBlock')
-    def folderLocalRoleBlock(self, obj, lr_block=None, lr_unblock=None,
-                             filtered_role=None, REQUEST=None):
-        """Block/unblock local roles acquisition
+    security.declarePublic('blockLocalRoles')
+    def blockLocalRoles(self, obj):
+        """Block local roles acquisition on given object
 
-        If lr_block is not None, block acquisition, else if lr_unblock is not None,
-        unblock acquisition.
-
-        Acquisition blocking is made adding/deleting the '-' role to the group of
+        Acquisition blocking is made adding the '-' role to the group of
         anonymous users.
-
-        filtered_role parameter is only passed to be kept while
-        blocking/unblocking.
         """
-        reindex = 0
-        kwargs = {}
-
-        if lr_block is not None:
+        member = self.getAuthenticatedMember()
+        if not member.has_role('Manager'):
             # Prevent user from losing local roles management rights: readd the
             # current user as a XyzManager of the current workspace/section
             # before blocking.
-            member = self.getAuthenticatedMember()
             member_id = member.getUserName()
-            # XXX AT: why not use self.roles_managing_local_roles and
-            # getCPSCandidateLocalRoles to get the good role(s) to add, and
-            # skip if user is a Manager?
-            for r in self.getCPSCandidateLocalRoles(obj):
-                if r == 'Manager':
-                    continue
-                if not r.endswith('Manager'):
-                    continue
-                if not member.has_role(r, obj):
-                    continue
+            candidate_roles = self.getCPSCandidateLocalRoles(obj)
+            local_manager_roles = [x for x in candidate_roles
+                                   if x in self.roles_managing_local_roles
+                                   and x != 'Manager']
+            for r in local_manager_roles:
                 self.setLocalRoles(obj, (member_id,), r, reindex=0)
-            # Block.
-            self.setLocalGroupRoles(obj, ('role:Anonymous',), '-',
-                                    reindex=0)
-            reindex = 1
-            kwargs['portal_status_message'] = 'psm_local_roles_blocked'
-        elif lr_unblock is not None:
-            self.deleteLocalGroupRoles(obj, ('role:Anonymous',), '-',
-                                       reindex=0)
-            reindex = 1
-            kwargs['portal_status_message'] = 'psm_local_roles_unblocked'
+        # Block and reindex
+        self.setLocalGroupRoles(obj, ('role:Anonymous',), '-')
 
-        if reindex == 1:
-            obj.reindexObjectSecurity()
 
-        if REQUEST is not None:
-            kwargs['filtered_role'] = filtered_role
-            REQUEST.RESPONSE.redirect('%s/folder_localrole_form?%s'%(
-                obj.absolute_url(), urlencode(kwargs)))
+    security.declarePublic('unblockLocalRoles')
+    def unblockLocalRoles(self, obj):
+        """Block local roles acquisition on given object
+
+        Acquisition blocking is made deleting the '-' role to the group of
+        anonymous users.
+        """
+        self.deleteLocalGroupRoles(obj, ('role:Anonymous',), '-')
 
 
 InitializeClass(MembershipTool)

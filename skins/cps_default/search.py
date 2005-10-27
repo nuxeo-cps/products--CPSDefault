@@ -45,6 +45,14 @@ brains = portal.search(query={'path': '/cps/workspaces/folder1'},
 """
 
 from zLOG import LOG, DEBUG, INFO
+from Products.ZCTextIndex.ParseTree import ParseError
+ParseErrors = (ParseError,)
+try:
+    from Products.TextIndexNG2.BaseParser import QueryParserError
+    ParseErrors += (QueryParserError,)
+except ImportError:
+    pass
+
 
 catalog = context.portal_catalog
 
@@ -122,7 +130,7 @@ LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
 bmt.setMarker('start')
 try:
     brains = catalog(**query)
-except: # XXX catch only ParseError
+except ParseErrors:
     LOG('CPSDefault.search', INFO, 'got an exception during search %s' % query)
     return []
 bmt.setMarker('stop')

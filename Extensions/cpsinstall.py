@@ -1939,7 +1939,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             except ImportError:
                 from lxml.etree import ElementTree
         except ImportError, err:
-            self.log("CPSOOo cannot be loaded because there are some "
+            self.log("CPSOOo cannot be installed because there are some "
                      "dependencies missing: %s" % str(err))
         else:
             self.setupProduct('CPSOOo')

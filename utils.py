@@ -70,7 +70,7 @@ def getNonArchivedVersionContextUrl(content_url):
 
 # FIXME: LocalizerGeddon
 module_security.declarePublic('manageCPSLanguage')
-def manageCPSLanguage(context, action, default_language, languages):
+def manageCPSLanguage(context, action, default_language, languages=None):
     """Manage available a languages in a CPS portal with Localizer"""
 
     #XXX: Replace with TranslationService

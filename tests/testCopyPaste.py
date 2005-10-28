@@ -23,6 +23,8 @@
 import unittest
 import CPSDefaultTestCase
 
+from OFS.CopySupport import CopyError
+
 class TestCopyPasteBase(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def afterSetUp(self):
@@ -128,24 +130,24 @@ class TestCopyPasteManager(TestCopyPasteBase):
         # Copy paste a folder from workspace to section and check the
         # status of the pasted objects
 
-        id_ = self._createObject(self._ws, 'Workspace')
+        id_ = self._createObject(self._ws, 'CPSForum')
         cp = self._ws.manage_CPScopyObjects([id_])
 
         # Add a sub-object
-        sub_id_ = self._createObject(getattr(self._ws, id_), 'File')
+        sub_id_ = self._createObject(getattr(self._ws, id_), 'ForumPost')
 
         self._sc.manage_CPSpasteObjects(cp)
 
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
-        self.assertEqual(review_state, 'published')
+        self.assertEqual(review_state, 'work')
 
         sub_ob = getattr(sc_ob, sub_id_)
         review_state = self._wftool.getInfoFor(sub_ob, 'review_state')
 
         # This is not a folderish document so the children are not
         # gonna be workflowed
-        self.assertEqual(review_state, None)
+        self.assertEqual(review_state, 'published')
 
     def test_workspaces_2_sections_folderish(self):
 
@@ -191,7 +193,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'pending')
-        
+
         # Copy and paste it within the same section
         cp = self._sc.manage_CPScopyObjects([id_])
         self._sc.manage_CPSpasteObjects(cp)
@@ -210,7 +212,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'work')
-        
+
         # Copy and paste it within the same section
         cp = self._sc.manage_CPScopyObjects([id_])
         self._sc.manage_CPSpasteObjects(cp)
@@ -247,7 +249,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
         self.assertEqual('pending',
                          self._wftool.getInfoFor(
             getattr(sc_ob_, sub_id_), 'review_state'))
-                         
+
 
         cp = self._sc.manage_CPScopyObjects([id_])
         self._sc.manage_CPSpasteObjects(cp)
@@ -280,7 +282,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'pending')
-        
+
         # Copy and paste it within a workspace
         cp = self._sc.manage_CPScopyObjects([id_])
         self._ws.manage_CPSpasteObjects(cp)
@@ -295,11 +297,11 @@ class TestCopyPasteManager(TestCopyPasteBase):
         # status of the pasted objects
 
         # First create one within the workspace and publish it
-        id_ = self._createObject(self._sc, 'Section')
+        id_ = self._createObject(self._sc, 'CPSForum')
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'work')
-        
+
         # Copy and paste it within the same section
         cp = self._sc.manage_CPScopyObjects([id_])
         self._ws.manage_CPSpasteObjects(cp)
@@ -336,7 +338,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
         self.assertEqual('pending',
                          self._wftool.getInfoFor(
             getattr(sc_ob_, sub_id_), 'review_state'))
-                         
+
 
         cp = self._sc.manage_CPScopyObjects([id_])
         self._ws.manage_CPSpasteObjects(cp)
@@ -458,24 +460,25 @@ class TestCopyPasteMember(TestCopyPasteBase):
         # Copy paste a folder from workspace to section and check the
         # status of the pasted objects
 
-        id_ = self._createObject(self._ws_member, 'Workspace')
+        id_ = self._createObject(self._ws_member, 'CPSForum')
         cp = self._ws_member.manage_CPScopyObjects([id_])
 
         # Add a sub-object
-        sub_id_ = self._createObject(getattr(self._ws_member, id_), 'File')
+        sub_id_ = self._createObject(
+            getattr(self._ws_member, id_), 'ForumPost')
 
         self._sc.manage_CPSpasteObjects(cp)
 
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
-        self.assertEqual(review_state, 'published')
+        self.assertEqual(review_state, 'work')
 
         sub_ob = getattr(sc_ob, sub_id_)
         review_state = self._wftool.getInfoFor(sub_ob, 'review_state')
 
         # This is not a folderish document so the children are not
         # gonna be workflowed
-        self.assertEqual(review_state, None)
+        self.assertEqual(review_state, 'published')
 
     def test_workspaces_2_sections_folderish(self):
 
@@ -521,7 +524,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'pending')
-        
+
         # Copy and paste it within the same section
         cp = self._sc.manage_CPScopyObjects([id_])
         self._sc.manage_CPSpasteObjects(cp)
@@ -540,7 +543,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'work')
-        
+
         # Copy and paste it within the same section
         cp = self._sc.manage_CPScopyObjects([id_])
         self._sc.manage_CPSpasteObjects(cp)
@@ -577,7 +580,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
         self.assertEqual('pending',
                          self._wftool.getInfoFor(
             getattr(sc_ob_, sub_id_), 'review_state'))
-                         
+
 
         cp = self._sc.manage_CPScopyObjects([id_])
         self._sc.manage_CPSpasteObjects(cp)
@@ -610,7 +613,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'pending')
-        
+
         # Copy and paste it within a workspace
         cp = self._sc.manage_CPScopyObjects([id_])
         self._ws_member.manage_CPSpasteObjects(cp)
@@ -625,11 +628,11 @@ class TestCopyPasteMember(TestCopyPasteBase):
         # status of the pasted objects
 
         # First create one within the workspace and publish it
-        id_ = self._createObject(self._sc, 'Section')
+        id_ = self._createObject(self._sc, 'CPSForum')
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'work')
-        
+
         # Copy and paste it within the same section
         cp = self._sc.manage_CPScopyObjects([id_])
         self._ws_member.manage_CPSpasteObjects(cp)
@@ -666,7 +669,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
         self.assertEqual('pending',
                          self._wftool.getInfoFor(
             getattr(sc_ob_, sub_id_), 'review_state'))
-                         
+
 
         cp = self._sc.manage_CPScopyObjects([id_])
         self._ws_member.manage_CPSpasteObjects(cp)
@@ -679,10 +682,35 @@ class TestCopyPasteMember(TestCopyPasteBase):
         review_state = self._wftool.getInfoFor(sub_ob, 'review_state')
         self.assertEqual(review_state, 'work')
 
+class TestCopyPasteForbidden(TestCopyPasteBase):
+
+    # Test forbidden behaviors
+
+    login_id = 'manager'
+
+    def afterSetUp(self):
+        self.login(self.login_id)
+        TestCopyPasteBase.afterSetUp(self)
+
+    def test_workspaces_2_sections_Workspace_type(self):
+
+        id_ = self._createObject(self._ws, 'Workspace')
+        cp = self._ws.manage_CPScopyObjects([id_])
+        self.assertRaises(
+            CopyError, self._sc.manage_CPSpasteObjects, cp)
+
+    def test_section_2_workspace_Section_type(self):
+
+        id_ = self._createObject(self._sc, 'Section')
+        cp = self._sc.manage_CPScopyObjects([id_])
+        self.assertRaises(
+            CopyError, self._ws.manage_CPSpasteObjects, cp)
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestCopyPasteManager))
     suite.addTest(unittest.makeSuite(TestCopyPasteMember))
+    suite.addTest(unittest.makeSuite(TestCopyPasteForbidden))
     return suite
 
 if __name__ == '__main__':

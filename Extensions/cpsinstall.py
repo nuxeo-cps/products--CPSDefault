@@ -1,4 +1,7 @@
 # (C) Copyright 2003-2005 Nuxeo SARL <http://nuxeo.com>
+# Authors:
+# Benoit Delbosc <ben@nuxeo.com>
+# M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -20,9 +23,12 @@
 
 from AccessControl import getSecurityManager
 from zLOG import LOG, INFO, DEBUG
+
 from Products.CMFCore.permissions import setDefaultRoles
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from Products.CMFCore.Expression import Expression
+from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
+
 from Products.CPSWorkflow.transitions import \
      TRANSITION_INITIAL_PUBLISHING, TRANSITION_INITIAL_CREATE, \
      TRANSITION_ALLOWSUB_CREATE, TRANSITION_ALLOWSUB_PUBLISHING, \
@@ -32,16 +38,19 @@ from Products.CPSWorkflow.transitions import \
      TRANSITION_BEHAVIOR_CHECKOUT, TRANSITION_ALLOW_CHECKIN, \
      TRANSITION_BEHAVIOR_CHECKIN, TRANSITION_ALLOWSUB_DELETE, \
      TRANSITION_ALLOWSUB_MOVE, TRANSITION_ALLOWSUB_COPY
-from Products.DCWorkflow.Transitions import TRIGGER_USER_ACTION
 from Products.CPSInstaller.CPSInstaller import CPSInstaller
-from Products.CPSDefault.MembershipTool import MembershipTool
 from Products.CPSCore.URLTool import URLTool
+
+from Products.CPSDefault.MembershipTool import MembershipTool
+from Products.CPSDefault.document.schemas import getSchemas
+from Products.CPSDefault.document.widgets import getWidgets
+from Products.CPSDefault.document.layouts import getLayouts
+from Products.CPSDefault.document.vocabularies import getVocabularies
 
 try:
     import transaction
 except ImportError: # BBB: for Zope 2.7
     from Products.CMFCore.utils import transaction
-
 
 # Zope permissions
 AccessContentsInformation = 'Access contents information'
@@ -161,7 +170,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         if (self.is_creation and
             self._interface == 'portlets'):
             self.setupPortlets()
-        self.setupForms()
+        self.setupCustomDocuments()
 
         self.log("Verifying private area creation flag")
         if not self.portal.portal_membership.getMemberareaCreationFlag():
@@ -605,7 +614,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'cps_default': 'Products/CPSDefault/skins/cps_default',
             'cps_boxes'  : 'Products/CPSBoxes/skins/cps_boxes',
             'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
-            'cps_default_installer': 'Products/CPSDefault/skins/cps_default_installer',
             'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
             'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
         }
@@ -1950,9 +1958,29 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             self.setupProduct('CPSPortlets')
             self.setupProduct('CPSSkins')
 
-    def setupForms(self):
-        """Setup Widget/Schema/Layout/Vocabulary used in forms."""
-        return cpsdefault_update_forms(self.portal, self)
+    def setupCustomDocuments(self):
+        """Setup custom widgets/schemas/layouts/vocabularies.
+
+        Setup the needed components for the advanced search form.
+        """
+        self.log("Installing custom schemas")
+        custom_schemas = getSchemas()
+        #self.log("custom schemas = %s" % str(custom_schemas))
+        self.verifySchemas(custom_schemas)
+
+        self.log("Installing custom widgets")
+        custom_widgets = getWidgets()
+        self.verifyWidgets(custom_widgets)
+
+        self.log("Installing custom layouts")
+        custom_layouts = getLayouts()
+        self.verifyLayouts(custom_layouts)
+
+        self.log("Installing custom vocabularies")
+        custom_vocabularies = getVocabularies()
+        self.log("custom vocabularies = %s" % str(custom_vocabularies))
+        self.verifyVocabularies(custom_vocabularies)
+        self.log("CPSDefault update forms done.")
 
     def doUpgrades(self):
         """Do automatic upgrades."""
@@ -2018,21 +2046,3 @@ def cps_i18n_update(self, langs_list=None):
     installer.setupTranslations(product_name='CPSDefault')
     installer.log("CPSDefault i18n update Finished")
     return installer.logResult()
-
-
-def cpsdefault_update_forms(self, installer=None):
-    """Update widget/schemas/layout/vocabularies defined inCPSDefaultForm.
-
-    This method can be define as an external method."""
-    return_log = 0
-    if installer is None:
-        return_log = 1
-        installer = CPSInstaller(self, 'CPSDefault Form updater')
-    installer.log("CPSDefault update forms start.")
-    installer.verifyWidgets(self.getCPSDefaultFormWidgets())
-    installer.verifySchemas(self.getCPSDefaultFormSchemas())
-    installer.verifyLayouts(self.getCPSDefaultFormLayouts())
-    installer.verifyVocabularies(self.getCPSDefaultFormVocabularies())
-    installer.log("CPSDefault update forms done.")
-    if return_log:
-        return installer.logResult()

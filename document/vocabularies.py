@@ -32,10 +32,25 @@ search_portal_type_voc = {
              },
     }
 
+accesskeys_voc = {
+    'type': 'CPS Vocabulary',
+    'data': {'tuples':
+             (('0', "To accessibility information",
+               'label_accesskey_accessibility_information'),
+              ('1', "To homepage", 'label_accesskey_homepage'),
+              ('2', "To content", 'label_accesskey_content'),
+              ('3', "To menu", 'label_accesskey_menu'),
+              ('4', "To search engine", 'label_accesskey_search'),
+              ('9', "To contact", 'label_accesskey_contact'),
+              )
+             },
+    }
+
 
 def getVocabularies():
     vocabularies = {
         'search_review_state_voc': search_review_state_voc,
         'search_portal_type_voc': search_portal_type_voc,
+        'accesskeys': accesskeys_voc,
         }
     return vocabularies

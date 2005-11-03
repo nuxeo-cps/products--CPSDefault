@@ -1965,7 +1965,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         """
         self.log("Installing custom schemas")
         custom_schemas = getSchemas()
-        #self.log("custom schemas = %s" % str(custom_schemas))
         self.verifySchemas(custom_schemas)
 
         self.log("Installing custom widgets")
@@ -1978,9 +1977,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
         self.log("Installing custom vocabularies")
         custom_vocabularies = getVocabularies()
-        self.log("custom vocabularies = %s" % str(custom_vocabularies))
         self.verifyVocabularies(custom_vocabularies)
-        self.log("CPSDefault update forms done.")
 
     def doUpgrades(self):
         """Do automatic upgrades."""

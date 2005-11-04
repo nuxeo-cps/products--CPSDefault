@@ -106,7 +106,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(state['rpath'], 'workspaces/members/member')
             self.assert_(isinstance(state['time'], DateTime))
             self.assertEquals(state['time_str'], 'date_medium')
-            self.assertEquals(state['title'], '')
+            self.assertEquals(state['title'], 'member')
         if level >= 3:
             self.assertEquals(len(info['history']), 1)
             history = info['history'][0]
@@ -129,6 +129,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.login('member')
         self.member_ws.invokeFactory('News Item', 'news')
         proxy = self.member_ws.news
+        self.portal.portal_trees.flushEvents()
 
         for level in range(0, 5):
             info = proxy.getContentInfo(level=level)

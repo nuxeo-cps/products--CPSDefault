@@ -35,12 +35,12 @@ search_portal_type_voc = {
 accesskeys_voc = {
     'type': 'CPS Vocabulary',
     'data': {'tuples':
-             (('0', 'accessibility', 'label_accesskey_accessibility_information'),
-              ('1', '', 'label_accesskey_homepage'),
+             (('0', '/accessibility', 'label_accesskey_accessibility_information'),
+              ('1', '/', 'label_accesskey_homepage'),
               ('2', '#content', 'label_accesskey_content'),
               ('3', '#menu', 'label_accesskey_menu'),
-              ('4', 'advanced_search_form', 'label_accesskey_search'),
-              ('9', '', 'label_accesskey_contact'),
+              ('4', '/advanced_search_form', 'label_accesskey_search'),
+              ('9', '/', 'label_accesskey_contact'),
               )
              },
     }

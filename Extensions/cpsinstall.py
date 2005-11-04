@@ -42,6 +42,7 @@ from Products.CPSInstaller.CPSInstaller import CPSInstaller
 from Products.CPSCore.URLTool import URLTool
 
 from Products.CPSDefault.MembershipTool import MembershipTool
+from Products.CPSDefault import document
 from Products.CPSDefault.document.schemas import getSchemas
 from Products.CPSDefault.document.widgets import getWidgets
 from Products.CPSDefault.document.layouts import getLayouts
@@ -1963,6 +1964,9 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
         Setup the needed components for the advanced search form.
         """
+        # Reloading the document module to have the latest definitions present
+        # on the file system without having to restart Zope.
+        reload(document)
         self.log("Installing custom schemas")
         custom_schemas = getSchemas()
         self.verifySchemas(custom_schemas)

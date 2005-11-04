@@ -48,8 +48,8 @@ accesskeys_voc = {
 
 def getVocabularies():
     vocabularies = {
-        'search_review_state_voc': search_review_state_voc,
-        'search_portal_type_voc': search_portal_type_voc,
+        'search_review_state': search_review_state_voc,
+        'search_portal_type': search_portal_type_voc,
         'accesskeys': accesskeys_voc,
         }
     return vocabularies

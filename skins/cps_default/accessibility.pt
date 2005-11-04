@@ -10,33 +10,35 @@
    ]);" />
 </metal:block>
 
-
 <metal:block fill-slot="main">
 <h1 i18n:translate="accessibility_title">Accessibility</h1>
 <div class="description">
 <p i18n:translate="accessibility_description">
-this site tries to use access-pour-tous
+This site has been designed to be accessible.
+It respects the <a href="http://www.w3.org/">W3C</a> standards
+and its accessibility has been worked on with the
+<a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 </p></div>
 
-<h2 i18n:translate="accessibility_shortcut_title">Keyboard shortcuts or
-accesskeys</h2>
+<h2 i18n:translate="accessibility_accesskeys_title">Accesskeys
+or keyboard shortcuts</h2>
+<p i18n:translate="accessibility_shortcut_description">
+The following access keys are available:
+</p>
+<tal:block define="accesskeys_voc here/portal_vocabularies/accesskeys"
+           condition="accesskeys_voc">
+  <ul tal:define="accesskeys python:accesskeys_voc.keys()"
+      tal:repeat="accesskey accesskeys">
+    <li><strong tal:content="accesskey">accesskey</strong>:
+      <span tal:content="python:accesskeys_voc.getMsgid(accesskey)"
+            i18n:translate="">accesskey explanation</span>
+    </li>
+  </ul>
+</tal:block>
 
-<p i18n:translate="accessibility_shortcut_description">bla</p>
-
-<ul>
-  <li><strong>0</strong>: <span i18n:translate="accessibility_shortcut_accessibility">Accessibility information</span></li>
-  <li><strong>1</strong>: <span i18n:translate="accessibility_shortcut_homepage">Go to the
-  homepage</span></li>
-  <li><strong>2</strong>: <span i18n:translate="accessibility_shortcut_content">Go to the
-  content</span></li>
-  <li><strong>3</strong>: <span i18n:translate="accessibility_shortcut_menu">Go to the
-  menu</span></li>
-  <li><strong>4</strong>: <span i18n:translate="accessibility_shortcut_search">Go to the
-  internal search engine</span></li>
-  <li><strong>9</strong>: <span i18n:translate="accessibility_shortcut_contact">Contact</span></li>
-</ul>
-
-<p i18n:translate="accessibility_shortcut_description2">bla</p>
+<p i18n:translate="accessibility_accesskeys_usage">
+Explanations on how to use the accesskeys on the different web browsers.
+</p>
 
 </metal:block>
 

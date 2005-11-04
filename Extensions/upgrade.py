@@ -166,7 +166,7 @@ def upgrade_334_335_clean_catalog(self):
     docs2unindex = []
     for brain in catalog.search({}):
         try:
-            ob = brain.getObject()                
+            ob = brain.getObject()
         except AttributeError:
             ob = None
         if ob is None:
@@ -251,6 +251,19 @@ def upgrade_335_336(self):
 
     return '\n'.join(log)
 
+################################################## 3.3.6
+
+def upgrade_336_337(self):
+    """Upgrades for CPS 3.3.7"""
+    log = []
+    dolog = log.append
+
+    # upgrade Flash Animations
+    # Upgrade CPSDocument
+    from Products.CPSDocument.upgrade import upgrade_336_337_anim_flash
+    dolog(upgrade_336_337_anim_flash(self))
+
+    return '\n'.join(log)
 
 #########
 
@@ -258,6 +271,7 @@ AUTOMATIC_UPGRADES = (
     ('3.2.0', '3.3.4', upgrade_320_334),
     ('3.3.4', '3.3.5', upgrade_334_335),
     ('3.3.5', '3.3.6', upgrade_335_336),
+    ('3.3.6', '3.3.7', upgrade_336_337),
     )
 
 ########## Zope 2.8

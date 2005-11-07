@@ -1655,13 +1655,6 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                         'CPSPortlets', 'CPS Portlets Tool')
         self.log("Adding cps default portlets")
         portlets = (
-               {'type': 'Custom Portlet',
-                'slot': 'toptabs',
-                'custom_cache_params': [],
-                'order': 0,
-                'render_method': 'generic_lib_accessibility',
-                'Title': 'Hidden access keys',
-                },
                {'type': 'Navigation Portlet',
                 'slot': 'toptabs',
                 'end_depth': 3,

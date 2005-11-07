@@ -8,10 +8,30 @@ Accesskeys in CPS
 Introduction
 ============
 
+Accesskeys are used to improve CPS accessibility. This is a required feature to
+be W3C WAI compliant.
+
+
+Implementation
+==============
+
 The accesskeys in CPS are defined dynamically in a vocabulary.
 
 If you want to change them just modify/edit the portal_vocabularies/accesskeys
 vocabulary.
+
+The "accesskeys" vocabulary is a kind of dictionary, or hash table, that has the
+accesskeys as keys and paths as values. For each key there is matching
+i18n label (msgid) that is used to display the meaning of the accesskey on the
+dynamically generated page http://www.mysite.net/accessibility
+
+The path for an accesskey in the vocabulary can start with a "/" and in this
+case the generated URL in the web page for this key will be the concatenation of
+the portal URL and this path.
+
+If the path for an accesskey in the vocabulary does not start with a "/", the
+generated URL in the web page will be the path unchanged. This allows to have
+links such as "mailto:webmaster@mysite.net".
 
 
 Example
@@ -25,4 +45,10 @@ http://www.mysite.net/sections/contact :
 2. Publish this document in the "sections" folder.
 
 3. Modify the value for the "7" key to be "/sections/contact".
+
+4. Visit the page http://www.mysite.net/accessibility to check that your key is
+   described here and read the source of the web page to check that the link
+   http://www.mysite.net/sections/contact is rightly associated with the "7"
+   accesskey.
+
 

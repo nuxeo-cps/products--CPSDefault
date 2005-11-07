@@ -3,48 +3,10 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
-- updated Brazilian Portuguese translations (Thanks to Mario Olimpio de Menezes
-  <mario [at] curiango.ipen.br>)
+-
 Bug fixes:
 ~~~~~~~~~~
-- fix: impossible to create or upgrade a site using CPSBoxes
-- fix : update Zope-2.7.x -> Zope-2.8.x
-- fix : bug in getImgTag()
-- BBB : CPSDefault.utils.getHtmlBody
-- #852 : make logged_in more customizable
-- Fix for 3.2 migration
-- #914 : Existing instances of 'News' document type are broken.
-- #685 : when publishing a content, a warning should be raised if no section is chosen
-- revert [27616]
-- Made CPSOOo installation in cpsinstall.py not hide the import error by
-  displaying the exact import error message. This partly fixes #1037.
-- #966: The Favorites folders title was stored as unicode.
-- #983: adding new custom portlet for (hidden) accesskeys
-- #923: Local role blocking is propagated to children ; fixing this bug led
-  to remove possibility to view inherited blocked roles.
-- #1069: Fixed moving of several items down.
-- #802: Use explicit try/except construct to catch query parsing errors in
-  search.py
-- #429 : copy_submit leaves pasted objects without any associated workflows
-  (tests)
-- #1005 forbid mix workspace and sections.
-- Added missing http cache headers to msie.css.
-- Made the advanced search form custom widgets/schemas/layouts/vocabularies be
-  declared in clean modules instead of having them as skin scripts.
-- Renamed vocabularies for the advanced search. This is a part of the fix for
-  #700.
-- Made the accesskeys be configurable and use a vocabulary. This fixes #983.
-- Fixed the custom portlets rendering method portlet_contact_info.pt and
-  portlet_conformance_statement.pt that where not using working absolute links.
-  In some cases of virtual hosting they were breaking.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- Small refactoring of folder_localrole_edit.py to move setting `reindex` out
-  of loop.
-- Added the printLogErrors method to CPSTestCase to be able to get ZLOG logs
-  when running unit tests.
-- Added specific roles to be filtered for Blog portal type to
-  'getCPSCandidateLocalRoles' method in MemberShip tool untill we have flexible
-  solution for such use cases.
-- Cleaner API for local roles blocking/unblocking.
-- Added an access keys vocabulary. This is a part of the fix for #983.
+-

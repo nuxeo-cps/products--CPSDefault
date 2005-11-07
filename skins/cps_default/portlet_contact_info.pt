@@ -1,12 +1,10 @@
-<ul tal:define="utool nocall:here/portal_url;
-                base_url python:utool.getBaseUrl()"
-  class="contactInfo doNotPrint">
+<ul class="contactInfo doNotPrint">
   <li>
     <a i18n:translate="" tal:attributes="href
       string:mailto:${here/portal_properties/email_from_address}?subject=Info">action_contact</a>
   </li>
   <li>
-    <a tal:attributes="href string:${base_url}accessibility"
+    <a tal:attributes="href string:${here/portal_url}/accessibility"
       i18n:translate="">action_accessibility</a>
   </li>
 </ul>

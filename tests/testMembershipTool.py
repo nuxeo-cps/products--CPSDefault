@@ -132,6 +132,19 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEqual(len(users), 1)
         self.assertEqual(users[0], self.login_id)
 
+        # in case the user is a SpecialUser (not in the portal)
+        def getEntry(*args, **kw):
+            raise KeyError
+
+        members = self.portal.portal_directories.members
+        old_getEntry = members._getEntry
+        members._getEntry = getEntry
+        try:
+            email = self.pmtool.getEmailFromUsername('ok')
+            self.assertEquals(email, None)
+        finally:
+            members._getEntry = old_getEntry
+
     def test_ManagerCanMemberChangeLocalRoles(self):
 
         # Manager can change them everywhere

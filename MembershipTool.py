@@ -209,7 +209,10 @@ The %s administration team
     def getEmailFromUsername(self, username):
         """Looks up an email address via the members directory"""
         members = getToolByName(self, 'portal_directories', None).members
-        member = members._getEntry(username, default=None)
+        try:
+            member = members._getEntry(username, default=None)
+        except KeyError:
+            return None
         if member:
             return member.get(self.email_field)
         return None

@@ -42,11 +42,10 @@ from Products.CPSInstaller.CPSInstaller import CPSInstaller
 from Products.CPSCore.URLTool import URLTool
 
 from Products.CPSDefault.MembershipTool import MembershipTool
-from Products.CPSDefault import document
-from Products.CPSDefault.document.schemas import getSchemas
-from Products.CPSDefault.document.widgets import getWidgets
-from Products.CPSDefault.document.layouts import getLayouts
-from Products.CPSDefault.document.vocabularies import getVocabularies
+from Products.CPSDefault.document import schemas
+from Products.CPSDefault.document import widgets
+from Products.CPSDefault.document import layouts
+from Products.CPSDefault.document import vocabularies
 
 try:
     import transaction
@@ -1957,23 +1956,27 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
 
         Setup the needed components for the advanced search form.
         """
-        # Reloading the document module to have the latest definitions present
+        # Reloading the modules to have the latest definitions present
         # on the file system without having to restart Zope.
-        reload(document)
+        reload(schemas)
+        reload(widgets)
+        reload(layouts)
+        reload(vocabularies)
+
         self.log("Installing custom schemas")
-        custom_schemas = getSchemas()
+        custom_schemas = schemas.getSchemas()
         self.verifySchemas(custom_schemas)
 
         self.log("Installing custom widgets")
-        custom_widgets = getWidgets()
+        custom_widgets = widgets.getWidgets()
         self.verifyWidgets(custom_widgets)
 
         self.log("Installing custom layouts")
-        custom_layouts = getLayouts()
+        custom_layouts = layouts.getLayouts()
         self.verifyLayouts(custom_layouts)
 
         self.log("Installing custom vocabularies")
-        custom_vocabularies = getVocabularies()
+        custom_vocabularies = vocabularies.getVocabularies()
         self.verifyVocabularies(custom_vocabularies)
 
     def doUpgrades(self):

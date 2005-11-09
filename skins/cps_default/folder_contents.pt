@@ -47,7 +47,8 @@
 
   <form action="" method="post" class="group"
         tal:attributes="action here_url"
-        tal:define="no_form python:not checkPerm('Delete objects', here);
+        tal:define="no_form python:not checkPerm('Modify portal content', here);
+
                     nav_action string:folder_contents;
                     items python:here.getFolderContents(displayed=displayed);">
 

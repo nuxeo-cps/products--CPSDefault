@@ -1723,7 +1723,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 },
                {'type': 'Custom Portlet',
                 'slot': 'bottom',
-                'custom_cache_params': [],
+                'custom_cache_params': ['baseurl'],
                 'order': 10,
                 'render_method': 'portlet_contact_info',
                 'Title': 'Contact Info',

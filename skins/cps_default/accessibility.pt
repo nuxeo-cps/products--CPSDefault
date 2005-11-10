@@ -25,8 +25,9 @@ or keyboard shortcuts</h2>
 <p i18n:translate="accessibility_accesskeys_description">
 The following access keys are available:
 </p>
-<tal:block define="accesskeys_voc here/portal_vocabularies/accesskeys"
-           condition="accesskeys_voc">
+<div class="accesskeys"
+     tal:define="accesskeys_voc here/portal_vocabularies/accesskeys"
+     tal:condition="accesskeys_voc">
   <ul tal:define="accesskeys python:accesskeys_voc.keys()"
       tal:repeat="accesskey accesskeys">
     <li><strong tal:content="accesskey">accesskey</strong>:
@@ -34,7 +35,7 @@ The following access keys are available:
             i18n:translate="">accesskey explanation</span>
     </li>
   </ul>
-</tal:block>
+</div>
 
 <tal:block i18n:translate="accessibility_accesskeys_usage">
 Explanations on how to use the accesskeys on the different web browsers.

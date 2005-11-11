@@ -17,11 +17,6 @@ url = None
 
 psm = 'psm_status_changed'
 
-# No section has been specified
-# XXX We should get a list in here
-if REQUEST and len(REQUEST.form) < 3:
-    psm = 'psm_you_must_select_sections_for_publishing'
-
 if workflow_action != 'copy_submit':
     # accept, reject, ...
     if comments:
@@ -36,6 +31,11 @@ if workflow_action != 'copy_submit':
                 url += '/'
             url += rpath
 else:
+    # No section has been specified
+    # XXX We should get a list in here
+    if REQUEST and len(REQUEST.form) < 3:
+        psm = 'psm_you_must_select_sections_for_publishing'
+
     # publishing: copy and initalize proxy into one or more sections
     allowed_transitions = wftool.getAllowedPublishingTransitions(context)
     for transition in allowed_transitions:

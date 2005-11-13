@@ -43,7 +43,6 @@ from Products.CPSCore.URLTool import URLTool
 
 from Products.CPSDefault.MembershipTool import MembershipTool
 from Products.CPSDefault.document import schemas
-from Products.CPSDefault.document import widgets
 from Products.CPSDefault.document import layouts
 from Products.CPSDefault.document import vocabularies
 
@@ -1959,17 +1958,12 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         # Reloading the modules to have the latest definitions present
         # on the file system without having to restart Zope.
         reload(schemas)
-        reload(widgets)
         reload(layouts)
         reload(vocabularies)
 
         self.log("Installing custom schemas")
         custom_schemas = schemas.getSchemas()
         self.verifySchemas(custom_schemas)
-
-        self.log("Installing custom widgets")
-        custom_widgets = widgets.getWidgets()
-        self.verifyWidgets(custom_widgets)
 
         self.log("Installing custom layouts")
         custom_layouts = layouts.getLayouts()

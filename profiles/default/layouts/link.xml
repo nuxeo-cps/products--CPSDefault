@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <layout>
-  <widget id="Description" kind="CPS TextArea Widget">
+  <widget id="Description" type="TextArea Widget">
     <property name="fields">
      <element value="Description" /></property>
     <property name="height">3</property>
@@ -8,7 +8,7 @@
     <property name="label_edit">cpsschemas_label_link_title</property>
     <property name="width">60</property>
   </widget>
-  <widget id="Relation" kind="CPS URL Widget">
+  <widget id="Relation" type="URL Widget">
     <property name="display_width">60</property>
     <property name="fields">
      <element value="Relation" /></property>
@@ -16,7 +16,7 @@
     <property name="is_required">1</property>
     <property name="label_edit">cpsschemas_label_link_href</property>
   </widget>
-  <widget id="Title" kind="CPS String Widget">
+  <widget id="Title" type="String Widget">
     <property name="display_width">60</property>
     <property name="fields">
      <element value="Title" /></property>
@@ -24,25 +24,27 @@
     <property name="label_edit">cpsschemas_label_link_content</property>
     <property name="size_max">250</property>
   </widget>
-  <widget id="link" kind="CPS Compound Widget">
-    <property name="fields"></property>
+  <widget id="link" type="Link Widget">
+    <property name="fields">
+     <element value="Relation" />
+     <element value="Title" />
+     <element value="Description" /></property>
     <property name="is_i18n">1</property>
     <property name="label_edit">cpsdoc_Link_label_edit</property>
     <property name="widget_ids">
      <element value="Relation" />
      <element value="Title" />
      <element value="Description" /></property>
-    <property name="widget_type">Link Widget</property>
   </widget>
   <table>
     <row>
       <cell id="link"/>
     </row>
   </table>
-  <property name="style_prefix">layout_default_</property>
   <property name="layout_create_method"></property>
   <property name="layout_edit_method"></property>
   <property name="layout_view_method"></property>
+  <property name="style_prefix">layout_default_</property>
   <property name="flexible_widgets"></property>
   <property name="validate_values_expr"></property>
 </layout>

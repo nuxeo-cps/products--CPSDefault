@@ -1,14 +1,17 @@
 <?xml version="1.0"?>
 <layout>
-  <widget id="Contributors" kind="CPS Lines Widget">
+  <widget id="Contributors" type="Lines Widget">
     <property name="fields">
      <element value="Contributors" /></property>
     <property name="help">help_dc_contirbutors</property>
     <property name="is_i18n">1</property>
     <property name="label">label_contributors</property>
     <property name="label_edit">label_contributors</property>
+    <property name="readonly_layout_modes">
+     <element value="create" />
+     <element value="edit" /></property>
   </widget>
-  <widget id="Coverage" kind="CPS String Widget">
+  <widget id="Coverage" type="String Widget">
     <property name="display_width">30</property>
     <property name="fields">
      <element value="Coverage" /></property>
@@ -18,7 +21,7 @@
     <property name="label_edit">label_coverage</property>
     <property name="size_max">80</property>
   </widget>
-  <widget id="CreationDate" kind="CPS DateTime Widget">
+  <widget id="CreationDate" type="DateTime Widget">
     <property name="fields">
      <element value="CreationDate" /></property>
     <property name="hidden_layout_modes">
@@ -31,7 +34,7 @@
      <element value="edit" /></property>
     <property name="view_format">long</property>
   </widget>
-  <widget id="Creator" kind="CPS String Widget">
+  <widget id="Creator" type="String Widget">
     <property name="display_width">40</property>
     <property name="fields">
      <element value="Creator" /></property>
@@ -43,7 +46,7 @@
      <element value="edit" /></property>
     <property name="size_max">50</property>
   </widget>
-  <widget id="Description" kind="CPS Text Widget">
+  <widget id="Description" type="Text Widget">
     <property name="css_class">ddescription</property>
     <property name="fields">
      <element value="Description" /></property>
@@ -52,7 +55,7 @@
     <property name="label_edit">label_description</property>
     <property name="width">72</property>
   </widget>
-  <widget id="EffectiveDate" kind="CPS DateTime Widget">
+  <widget id="EffectiveDate" type="DateTime Widget">
     <property name="fields">
      <element value="EffectiveDate" /></property>
     <property name="is_i18n">1</property>
@@ -60,7 +63,7 @@
     <property name="label_edit">time_effective_date</property>
     <property name="view_format">long</property>
   </widget>
-  <widget id="ExpirationDate" kind="CPS DateTime Widget">
+  <widget id="ExpirationDate" type="DateTime Widget">
     <property name="fields">
      <element value="ExpirationDate" /></property>
     <property name="is_i18n">1</property>
@@ -69,7 +72,7 @@
     <property name="time_setting">0</property>
     <property name="view_format">long</property>
   </widget>
-  <widget id="Format" kind="CPS String Widget">
+  <widget id="Format" type="String Widget">
     <property name="display_width">30</property>
     <property name="fields">
      <element value="Format" /></property>
@@ -81,7 +84,7 @@
      <element value="edit" /></property>
     <property name="size_max">40</property>
   </widget>
-  <widget id="Language" kind="CPS String Widget">
+  <widget id="Language" type="String Widget">
     <property name="display_width">4</property>
     <property name="fields">
      <element value="Language" /></property>
@@ -93,7 +96,7 @@
      <element value="edit" /></property>
     <property name="size_max">4</property>
   </widget>
-  <widget id="ModificationDate" kind="CPS DateTime Widget">
+  <widget id="ModificationDate" type="DateTime Widget">
     <property name="fields">
      <element value="ModificationDate" /></property>
     <property name="hidden_layout_modes">
@@ -106,7 +109,7 @@
      <element value="edit" /></property>
     <property name="view_format">long</property>
   </widget>
-  <widget id="PortalType" kind="CPS Method Widget">
+  <widget id="PortalType" type="Method Widget">
     <property name="is_i18n">1</property>
     <property name="label">label_portal_type</property>
     <property name="label_edit">label_portal_type</property>
@@ -115,7 +118,7 @@
      <element value="edit" /></property>
     <property name="render_method">widget_portal_type</property>
   </widget>
-  <widget id="Relation" kind="CPS URL Widget">
+  <widget id="Relation" type="URL Widget">
     <property name="css_class"></property>
     <property name="fields">
      <element value="Relation" /></property>
@@ -124,7 +127,7 @@
     <property name="label">label_relation</property>
     <property name="label_edit">label_relation</property>
   </widget>
-  <widget id="Rights" kind="CPS String Widget">
+  <widget id="Rights" type="String Widget">
     <property name="display_width">30</property>
     <property name="fields">
      <element value="Rights" /></property>
@@ -133,7 +136,7 @@
     <property name="label_edit">label_rights</property>
     <property name="size_max">80</property>
   </widget>
-  <widget id="Source" kind="CPS String Widget">
+  <widget id="Source" type="String Widget">
     <property name="display_width">30</property>
     <property name="fields">
      <element value="Source" /></property>
@@ -143,7 +146,7 @@
     <property name="label_edit">label_source</property>
     <property name="size_max">80</property>
   </widget>
-  <widget id="Subject" kind="CPS Subject Widget">
+  <widget id="Subject" type="Subject Widget">
     <property name="fields">
      <element value="Subject" /></property>
     <property name="help">help_dc_subject</property>
@@ -154,7 +157,7 @@
     <property name="translated">1</property>
     <property name="vocabulary">subject_voc</property>
   </widget>
-  <widget id="Title" kind="CPS String Widget">
+  <widget id="Title" type="String Widget">
     <property name="display_width">72</property>
     <property name="fields">
      <element value="Title" /></property>
@@ -164,7 +167,7 @@
     <property name="label_edit">label_title</property>
     <property name="size_max">200</property>
   </widget>
-  <widget id="allow_discussion" kind="CPS Boolean Widget">
+  <widget id="allow_discussion" type="Boolean Widget">
     <property name="fields">
      <element value="allow_discussion" /></property>
     <property name="hidden_layout_modes">
@@ -172,7 +175,7 @@
     <property name="is_i18n">1</property>
     <property name="label_edit">cpsdoc_allow_discussion_label_edit</property>
   </widget>
-  <widget id="preview" kind="CPS Image Widget">
+  <widget id="preview" type="Image Widget">
     <property name="display_height">64</property>
     <property name="display_width">64</property>
     <property name="fields">
@@ -225,10 +228,10 @@
       <cell id="allow_discussion"/>
     </row>
   </table>
-  <property name="style_prefix">layout_metadata_</property>
   <property name="layout_create_method"></property>
   <property name="layout_edit_method"></property>
   <property name="layout_view_method"></property>
+  <property name="style_prefix">layout_metadata_</property>
   <property name="flexible_widgets"></property>
   <property name="validate_values_expr">python:portal.verifyMetaData(datastructure, layout)</property>
 </layout>

@@ -1239,7 +1239,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                                         TRANSITION_BEHAVIOR_FREEZE,
                                         TRANSITION_BEHAVIOR_MERGE),
                 'clone_allowed_transitions': None,
-                'after_script_name': '',
+                'after_script_name': 'fixup_after_publish',
                 'props': {'guard_permissions': '',
                           'guard_roles': 'Manager; SectionManager; '
                                          'SectionReviewer',
@@ -1280,7 +1280,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'new_state_id': 'published',
                 'transition_behavior': (TRANSITION_BEHAVIOR_MERGE,),
                 'clone_allowed_transitions': None,
-                'after_script_name': '',
+                'after_script_name': 'fixup_after_publish',
                 'trigger_type': TRIGGER_USER_ACTION,
                 'actbox_name': 'action_accept',
                 'actbox_category': 'workflow',
@@ -1332,6 +1332,14 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
         }
 
         wfscripts = {
+            'fixup_after_publish': {
+                '_owner': None,
+                'script': """\
+##parameters=state_change
+from Products.CPSWorkflow.util import updateEffectiveDate
+return updateEffectiveDate(state_change.object)
+"""
+            },
         }
 
         wfvariables = {

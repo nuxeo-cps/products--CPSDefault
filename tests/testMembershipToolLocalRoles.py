@@ -52,6 +52,7 @@ class FakeDirectory(Folder):
         new = deepcopy(self.blank)
         new.update(entry)
         self.entries[entry[self.id_field]] = new
+    _createEntry = createEntry
     def listEntryIds(self):
         return self.entries.keys()
 

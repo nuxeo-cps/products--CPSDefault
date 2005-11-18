@@ -124,6 +124,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             },
         }
 
+    # skins resources cached by default using the CMF Cache Policy Manager
+    DEFAULT_CACHED_META_TYPES = ('Filesystem Image',)
 
     def install(self, langs_list=None, is_creation=0, interface='portlets'):
         """Main installer
@@ -192,6 +194,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupRootsi18n()
         # fixupRoots is a temporary hack to fix a CPSDocument bootstrap problem
         self.fixupRoots()
+        self.setupCachingPolicyManager()
         self.log("CPS update Finished")
         self.verifyVHM()
 
@@ -1980,6 +1983,34 @@ return updateEffectiveDate(state_change.object)
         self.log("Installing custom vocabularies")
         custom_vocabularies = vocabularies.getVocabularies()
         self.verifyVocabularies(custom_vocabularies)
+
+    def setupCachingPolicyManager(self):
+        """Configure a default Caching Policy Manager to add HTTP headers on
+        images in skins
+        """
+        if getattr(self.portal, 'caching_policy_manager', None) is not None:
+            self.log('Keeping existing Caching Policy Manager')
+            return
+
+        self.log('Adding a new Caching Policy Manager with a default policy')
+        self.portal.manage_addProduct['CMFCore'
+                ].manage_addCachingPolicyManager()
+        cpm = self.portal.caching_policy_manager
+        predicate = "python:getattr(object, 'meta_type', '') in %s" % str(
+                self.DEFAULT_CACHED_META_TYPES)
+        cpm.addPolicy(
+                'cps_default_meta_types_policy', # Some id
+                predicate,         # predicate        TALES expr
+                'object/modified', # mtime_func       TALES expr
+                3600,              # max_age_secs     integer, seconds (def. 0)
+                0,                 # no_cache         boolean (def. 0)
+                0,                 # no_store         boolean (def. 0)
+                0,                 # must_revalidate  boolean (def. 0)
+                '',                # vary             string value
+                '',                # etag_func        TALES expr (def. '')
+                )
+
+
 
     def doUpgrades(self):
         """Do automatic upgrades."""

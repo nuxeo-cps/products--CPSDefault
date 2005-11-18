@@ -1999,16 +1999,16 @@ return updateEffectiveDate(state_change.object)
         predicate = "python:getattr(object, 'meta_type', '') in %s" % str(
                 self.DEFAULT_CACHED_META_TYPES)
         cpm.addPolicy(
-                'cps_default_meta_types_policy', # Some id
-                predicate,         # predicate        TALES expr
-                'object/modified', # mtime_func       TALES expr
-                3600,              # max_age_secs     integer, seconds (def. 0)
-                0,                 # no_cache         boolean (def. 0)
-                0,                 # no_store         boolean (def. 0)
-                0,                 # must_revalidate  boolean (def. 0)
-                '',                # vary             string value
-                '',                # etag_func        TALES expr (def. '')
-                )
+            'cps_default_meta_types_policy', # Some id
+            predicate,         # predicate        TALES expr
+            'object/modified', # mtime_func       TALES expr
+            3600,              # max_age_secs     integer, seconds (def. 0)
+            0,                 # no_cache         boolean (def. 0)
+            0,                 # no_store         boolean (def. 0)
+            0,                 # must_revalidate  boolean (def. 0)
+            '',                # vary             string value
+            '',                # etag_func        TALES expr (def. '')
+            )
 
 
 

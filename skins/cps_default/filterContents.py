@@ -11,7 +11,6 @@ wtool = context.portal_workflow
 ttool = context.portal_types
 
 from ZTUtils import LazyFilter
-from zLOG import LOG, DEBUG
 
 # filtering
 filtered_items = []
@@ -53,7 +52,10 @@ for item in items:
                 continue
 
     filtered_items.append(item)
-    
+
+if direction is None:
+    # no sorting
+    return filtered_items
 
 # sorting
 # XXX hardcoded status !
@@ -102,14 +104,11 @@ elif sort_by == 'author':
     make_sortkey = author_sortkey
 
 objects = [ (make_sortkey(x), x) for x in filtered_items ]
-
 if direction == 'desc':
     # XXX Using a sort method is slow, better reverse at the end.
     objects.sort(cmp_desc)
 elif direction == 'asc':
     objects.sort() # tuples compare "lexicographically"
-else:
-    pass
 
 filtered_items = [ x[1] for x in objects ]
 

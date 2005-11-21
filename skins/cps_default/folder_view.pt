@@ -2,9 +2,7 @@
 <metal:block use-macro="here/main_template/macros/master">
 <metal:block fill-slot="main"
   tal:define="list_here python:checkPerm('List folder contents', here);">
-<tal:block define="tmp python:btool.filterBoxes(boxes, slot='center');
-  boxes_view python:test(len(tmp), tmp, btool.filterBoxes(boxes,
-  slot='folder_view'));">
+<tal:block define="boxes_view python:btool.filterBoxes(boxes, slot='center') or btool.filterBoxes(boxes, slot='folder_view');">
 <a href="" accesskey="E"
    style="display:none"
    tal:attributes="href string:${context_url}/folder_contents"></a>

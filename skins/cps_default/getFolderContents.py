@@ -1,21 +1,16 @@
-##parameters=sort_by=None, direction=None, hide_folder=0, displayed=['']
+##parameters=sort_by=None, direction=None, hide_folder=False, displayed=None
 # $Id$
 """
 Get a sorted list of contents object
 """
-if not sort_by:
-    disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
-    sort_by = disp_params.get('sort_by', None);
-    direction = disp_params.get('direction', 'asc');
-elif not direction:
-    direction = 'asc'
+from Products.CPSDefault.utils import filterContents
 
-if sort_by == None:
-    return context.filterContents(items=context.objectValues(),
-                                  hide_folder=hide_folder,
-                                  displayed=displayed)
-else:
-    return context.filterContents(items=context.objectValues(),
-                                  sort_by=sort_by, direction=direction,
-                                  hide_folder=hide_folder,
-                                  displayed=displayed)
+if not sort_by:
+    # Get sort from the session display params
+    disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
+    sort_by = disp_params.get('sort_by', None)
+    direction = disp_params.get('direction', None)
+
+return filterContents(context, context.objectValues(),
+                      sort_on=sort_by, sort_order=direction,
+                      hide_folder=hide_folder, filter_ptypes=displayed)

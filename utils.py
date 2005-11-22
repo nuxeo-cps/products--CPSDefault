@@ -28,6 +28,11 @@ from zLOG import LOG, INFO, DEBUG
 from Acquisition import aq_base
 from AccessControl import getSecurityManager
 from AccessControl import ModuleSecurityInfo
+from DateTime import DateTime
+from Products.CPSUtil.timer import Timer
+from Products.CMFCore.utils import _checkPermission
+from Products.CMFCore.utils import getToolByName
+
 
 # BBB (remove this in CPS-3.6)
 from Products.CPSUtil.html import getHtmlBody
@@ -161,3 +166,118 @@ def computeContributors(portal, contributors):
         contributors.append(fullname)
 
     return contributors
+
+
+# ------------------------------------------------------------
+# Sorting key methods
+# XXX hardcoded cpsdefault status order !
+STATUS_SORT_ORDER = {'nostate': 0,
+                     'pending': 1,
+                     'published': 2,
+                     'work': 3,
+                     }
+def id_sortkey(obj):
+    """Sort by id."""
+    return obj.getId()
+
+def title_sortkey(obj):
+    """Sort by title or id."""
+    return obj.title_or_id().lower()
+
+def date_sortkey(obj):
+    """Sort by modified time."""
+    return (obj.modified(), obj.getId())
+
+def effective_sortkey(obj):
+    """Sort by effective date."""
+    return (obj.getContent().effective(), obj.getId())
+
+def author_sortkey(obj):
+    """Sort by creator name."""
+    return (obj.Creator(), obj.getId())
+
+
+module_security.declarePublic('filterContents')
+def filterContents(context, items, sort_on=None, sort_order=None,
+                   filter_ptypes=None, hide_folder=False):
+    """Filter and sort items.
+
+    Remove unauthorize or invalid contents, can filter on portal types and
+    folderish content.
+    """
+    t = Timer('filterContents', level=DEBUG)
+    wtool = getToolByName(context, 'portal_workflow')
+    ttool = getToolByName(context, 'portal_types')
+    now = DateTime()
+    if filter_ptypes is None:
+        # filter on valid portal types
+        filter_ptypes = ttool.objectIds()
+    result = []
+    display_cache = {}
+    t.mark('init')
+
+    for item in items:
+        # filter invalid content
+        if item.getId().startswith('.'):
+            continue
+        # filter invalid portal types
+        ptype = getattr(item, 'portal_type', None)
+        if not (ptype in filter_ptypes):
+            continue
+        # filter unauthorize contents
+        if not _checkPermission('View', item):
+            continue
+        # filter folderish document
+        if hide_folder and item.isPrincipiaFolderish:
+            # Using a cache to optimize the retrieval of the
+            # 'cps_display_as_document_in_listing' attribute.
+            if display_cache.has_key(ptype):
+                display_in_listing = display_cache[ptype]
+            else:
+                display_in_listing = getattr(
+                    ttool[ptype], 'cps_display_as_document_in_listing', False)
+                display_cache[ptype] = display_in_listing
+            if not display_in_listing:
+                continue
+        # filter non effective or expired published content
+        if not _checkPermission('Modify portal content', item):
+            review_state = wtool.getInfoFor(item, 'review_state', 'nostate')
+            if review_state == 'published':
+                doc = item.getContent()
+                if now < doc.effective() or now > doc.expires():
+                    continue
+        result.append(item)
+    t.mark('filtering')
+
+    if sort_on is None:
+        # no sorting
+        t.log()
+        return result
+
+    # sorting
+    def status_sortkey(obj):
+        """Sort by workflow status."""
+        global STATUS_SORT_ORDER
+        return (STATUS_SORT_ORDER.get(wtool.getInfoFor(obj, 'review_state',
+                                                       'nostate'), 9),
+                obj.title_or_id().lower())
+
+    make_sortkey = id_sortkey
+    if sort_on == 'status':
+        make_sortkey = status_sortkey
+    elif sort_on == 'date':
+        make_sortkey = date_sortkey
+    elif sort_on == 'effective':
+        make_sortkey = effective_sortkey
+    elif sort_on == 'title':
+        make_sortkey = title_sortkey
+    elif sort_on == 'author':
+        make_sortkey = author_sortkey
+
+    result = [(make_sortkey(x), x) for x in result]
+    result.sort()
+    result = [x[1] for x in result]
+    if sort_order.lower().startswith('desc'):
+        result.reverse()
+    t.log('sorting %s %s' % (sort_on, sort_order or 'asc'))
+    return result

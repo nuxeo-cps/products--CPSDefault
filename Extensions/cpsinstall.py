@@ -1927,6 +1927,7 @@ return updateEffectiveDate(state_change.object)
 
     def setupCPSProducts(self):
         self.setupProduct('CPSCollector')
+        self.setupProduct('FCKeditor')
         self.setupProduct('CPSDocument')
         self.setupProduct('CPSMailboxer')
         self.setupProduct('CPSRSS')

@@ -20,7 +20,8 @@
       </th>
      </tr>
 
-     <tal:block repeat="member found">
+     <tal:block define="checked python:len(found) is 1 and '1' or None"
+		repeat="member found">
      <tr tal:attributes="class python:test(repeat['member'].even(),'even','odd')">
        <tal:block define="id python:member[0];
                           entry python:member[1];
@@ -28,7 +29,9 @@
          <td width="16">
            <input type="checkbox" name="member_ids:list" value=""
              class="noborder" tal:attributes="value string:user:${id};
-                                              id input_id" />
+                                              id input_id;
+					      checked checked"
+	     />
          </td>
          <td>
            <label tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or id"

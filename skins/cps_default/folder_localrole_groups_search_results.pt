@@ -14,13 +14,15 @@
       </th>
      </tr>
 
-     <tal:block repeat="group found">
+     <tal:block define="checked python:len(found) is 1 and '1' or None" 
+		repeat="group found">
      <tr tal:define="input_id python:group.replace('@', '_at_')"
          tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
        <td width="16">
          <input type="checkbox" name="member_ids:list" value="" class="noborder"
                 tal:attributes="value string:group:${group};
-                                id input_id" />
+                                id input_id;
+				checked checked" />
        </td>
        <td>
          <label tal:content="python:test(group.startswith('role:'),

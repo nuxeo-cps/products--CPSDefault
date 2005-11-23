@@ -1709,6 +1709,18 @@ return updateEffectiveDate(state_change.object)
                     'guard_expr': "python: published == 'folder_view'",
                     },
                },
+               # TODO replace the folder contents view with an
+               # "Extended folder contents" view to match the nav_content box
+               {'type': 'Custom Portlet',
+                'slot': 'content_well',
+                'order': 30,
+                'custom_cache_params': ['no-cache'],
+                'render_method': 'portlet_folder_contents',
+                'Title': 'Folder contents',
+                'guard': {
+                'guard_expr': "python: published == 'folder_view'",
+                    },
+               },
                # Right column
                {'type': 'Actions Portlet',
                 'slot': 'right',

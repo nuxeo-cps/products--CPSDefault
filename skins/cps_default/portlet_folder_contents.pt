@@ -1,0 +1,9 @@
+<tal:block define="cpsmcat nocall:here/translation_service;
+                   utool nocall:here/portal_url;
+                   base_url utool/getBaseUrl;
+                   context nocall:options/context_obj;
+                   items python: context.getFolderContents(hide_folder=1);
+                   no_form python:1;">
+  <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
+</tal:block>
+

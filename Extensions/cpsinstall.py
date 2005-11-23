@@ -82,10 +82,6 @@ from Products.CPSCore.permissions import ChangeSubobjectsOrder
 # CPSDefault permissions
 # XXX should be imported from somewhere
 ModifyFolderProperties = 'Modify Folder Properties'
-ManageBoxes = 'Manage Boxes'
-AddBoxContainer = 'Add Box Container'
-ManageBoxOverrides = 'Manage Box Overrides'
-
 
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
@@ -127,10 +123,9 @@ state_change.object.addLanguageToProxy(lang, from_lang)
     # skins resources cached by default using the CMF Cache Policy Manager
     DEFAULT_CACHED_META_TYPES = ('Filesystem Image',)
 
-    def install(self, langs_list=None, is_creation=0, interface='portlets'):
+    def install(self, langs_list=None, is_creation=0):
         """Main installer
         """
-        self._interface = interface
         self.langs_list = langs_list
         self.is_creation = is_creation
 
@@ -165,11 +160,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.setupTreesTool()
 
         # Don't update if no dedicated boxes instance
-        if self.is_creation:
-            self.setupBoxes()
         self.setupCPSProducts()
-        if (self.is_creation and
-            self._interface == 'portlets'):
+        if self.is_creation:
             self.setupPortlets()
         self.setupCustomDocuments()
 
@@ -373,9 +365,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                                'SectionReviewer', 'SectionManager'],
             ReviewPortalContent: ['Manager', 'SectionReviewer',
                                       'SectionManager'],
-            AddBoxContainer: ['Manager', 'SectionManager'],
-            ManageBoxOverrides: ['Manager','SectionManager'],
-            ManageBoxes: ['Manager', 'SectionManager'],
             AddPortalContent: ['Manager', 'SectionManager', 'Contributor'],
             AddPortalFolders: ['Manager', 'SectionManager'],
             ChangePermissions: ['Manager', 'SectionManager'],
@@ -415,10 +404,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                      'WorkspaceReader'],
             ViewManagementScreens: ['Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'Contributor'],
-            AddBoxContainer: ['Manager', 'WorkspaceManager',
-                                  'SectionManager'],
-            ManageBoxOverrides: ['Manager','WorkspaceManager'],
-            ManageBoxes: ['Manager', 'WorkspaceManager'],
             ViewArchivedRevisions: ['Manager', 'WorkspaceManager',
                                         'WorkspaceMember', 'Contributor'],
             WebDavLockItem: ['WorkspaceManager', 'WorkspaceMember', 'Contributor', 'Owner'],
@@ -614,7 +599,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'cps_images': 'Products/CPSDefault/skins/cps_images',
             'cps_devel': 'Products/CPSDefault/skins/cps_devel',
             'cps_default': 'Products/CPSDefault/skins/cps_default',
-            'cps_boxes'  : 'Products/CPSBoxes/skins/cps_boxes',
+            # 'cps_boxes'  : 'Products/CPSBoxes/skins/cps_boxes',
             'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
             'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
             'cmf_calendar': 'Products/CMFCalendar/skins/calendar',
@@ -1518,41 +1503,7 @@ return updateEffectiveDate(state_change.object)
                 amt: FTI,},
             }
 
-        boxes_dict =  {
-            'Base Box': {
-                t: 'CPSBoxes: Base Box (Base Box)',
-                amt: FTI,},
-            'Text Box': {
-               t: 'CPSBoxes: Text Box (Text Box)',
-               amt: FTI,},
-            'Tree Box': {
-                t: 'CPSBoxes: Tree Box (Tree Box)',
-                amt: FTI,},
-            'Content Box': {
-                t: 'CPSBoxes: Content Box (Content Box)',
-                amt: FTI,},
-            'Action Box': {
-                t: 'CPSBoxes: Action Box (Action Box)',
-                amt: FTI,},
-            'Image Box': {
-                t: 'CPSBoxes: Image Box (Image Box)',
-                amt: FTI,},
-            'Flash Box': {
-                t: 'CPSBoxes: Flash Box (Flash Box)',
-                amt: FTI,},
-            'Event Calendar Box': {
-                t: 'CPSBoxes: Event Calendar Box (Event Calendar Box)',
-                amt: FTI,},
-            'InternalLinks Box': {
-                t: 'CPSBoxes: InternalLinks Box (InternalLinks Box)',
-                amt: FTI,},
-            'Doc Render Box':{
-                t: 'CPSBoxes: Doc Render Box (Doc Render Box)',
-                amt: FTI,},
-        }
-
         self.verifyContentTypes(type_dict)
-        self.verifyContentTypes(boxes_dict)
 
         self.allowContentTypes('Workspace', 'Workspace')
         self.allowContentTypes('Section', 'Section')
@@ -1664,6 +1615,27 @@ return updateEffectiveDate(state_change.object)
                         'CPSPortlets', 'CPS Portlets Tool')
         self.log("Adding cps default portlets")
         portlets = (
+               # Front page
+               {'type': 'Text Portlet',
+                'slot': 'content_well',
+                'Title': 'Welcome message',
+                'text': 'welcome_body',
+                'text_format': 'normal',
+                'visibility_range': [0, 1],
+                'text_position': 'html',
+                'i18n': 1,
+                'guard': {
+                    'guard_expr': "python: published == 'index_html'",
+                    },
+               },
+               # top tabs
+               {'type': 'Custom Portlet',
+                'slot': 'toptabs',
+                'custom_cache_params': [],
+                'order': 0,
+                'render_method': 'generic_lib_accessibility',
+                'Title': 'Hidden access keys',
+                },
                {'type': 'Navigation Portlet',
                 'slot': 'toptabs',
                 'end_depth': 3,
@@ -1709,6 +1681,34 @@ return updateEffectiveDate(state_change.object)
                 'show_icons': 1,
                 'Title': 'Navigation',
                 },
+               # Main column
+               {'type': 'Navigation Portlet',
+                'slot': 'center_top',
+                'visibility_range': [1, 0],
+                'display': 'up_to_parent',
+                'order': 10,
+                'Title': 'Navigation Portlet',
+               },
+               {'type': 'Document Portlet',
+                'slot': 'content_well',
+                'visibility_range': [1, 0],
+                'order': 10,
+                'Title': 'Document Portlet',
+                'guard': {
+                    'guard_expr': "python: published != 'folder_contents'",
+                    },
+               },
+               {'type': 'Navigation Portlet',
+                'slot': 'content_well',
+                'Title': 'Subfolders',
+                'order': 20,
+                'visibility_range': [1, 0],
+                'display_hidden_folders': 1,
+                'display': 'subfolder_contents',
+                'guard': {
+                    'guard_expr': "python: published != 'folder_contents'",
+                    },
+               },
                # Right column
                {'type': 'Actions Portlet',
                 'slot': 'right',
@@ -1748,154 +1748,6 @@ return updateEffectiveDate(state_change.object)
 
         )
         self.verifyPortlets(portlets)
-
-    def setupBoxes(self):
-        self.verifyTool('portal_boxes', 'CPSBoxes', 'CPS Boxes Tool')
-        self.log("Adding cps default boxes")
-        boxes = {
-            'action_header': {'type': 'Action Box',
-                    'title': 'Header actions',
-                    'btype': 'header',
-                    'slot': 'top',
-                    'categories': 'global_header',
-                    'order': 5,
-                    },
-            'search': {'type': 'Base Box',
-                    'title': 'Search form',
-                    'btype': 'search',
-                    'slot': 'top',
-                    'order': 10,
-                    },
-            'logo': {'type': 'Base Box',
-                    'title': 'Portal logo',
-                    'btype': 'logo',
-                    'slot': 'top',
-                    'order': 20,
-                    },
-            'menu': {'type': 'Tree Box',
-                    'title': 'Tab menu',
-                    'btype': 'menu',
-                    'slot': 'top',
-                    'order': 30,
-                    },
-            'breadcrumbs': {'type': 'Base Box',
-                            'title': 'Navigation path',
-                            'btype': 'breadcrumbs',
-                            'slot': 'top',
-                            'order': 40,
-                            },
-
-            'contact': {'type': 'Text Box',
-                       'title': 'Contact',
-                       'btype': 'default',
-                       'box_skin': 'here/box_lib/macros/wbox2',
-                       'slot': 'bottom',
-                       'order': 10,
-                       'text': '<address class="contact">Nuxeo - 18-20, rue Soleillet, 75020 Paris France<br />Email : <a href="mailto:contact@nuxeo.com">contact@nuxeo.com</a> - Tel: +33 (0)1 40 33 79 87 - Fax: +33 (0)1 40 33 71 41</address>',
-                    },
-
-            'conformance_statement': {'type': 'Base Box',
-                    'title': 'Conformance statements',
-                    'btype': 'conformance_statement',
-                    'slot': 'bottom',
-                    'order': 20,
-                    },
-
-            'l10n_select': {'type': 'Base Box',
-                            'title': 'Locale selector',
-                            'btype': 'l10n_select',
-                            'slot': 'left',
-                            'order': 10,
-                            },
-
-            'action_user': {'type': 'Action Box',
-                            'title': 'User actions',
-                            'btype': 'user',
-                            'slot': 'left',
-                            'order': 20,
-                            'categories': 'user',
-                            'box_skin': 'here/box_lib/macros/sbox',
-                            },
-            'action_portal': {'type': 'Action Box',
-                            'title': 'Portal actions',
-                            'slot': 'left',
-                            'order': 30,
-                            'categories': 'global',
-                            'box_skin': 'here/box_lib/macros/sbox',
-                            },
-            'navigation': {'type': 'Tree Box',
-                        'title': 'Navigation tree menu',
-                        'depth': 1,
-                        'contextual': 1,
-                        'slot': 'left',
-                        'order': 40,
-                        'box_skin': 'here/box_lib/macros/mmbox',
-                        },
-
-            'action_object': {'type': 'Action Box',
-                            'title': 'Object actions',
-                            'slot': 'right',
-                            'order': 10,
-                            'categories': ('object', 'workflow'),
-                            'box_skin': 'here/box_lib/macros/sbox',
-                            },
-
-            'action_folder': {'type': 'Action Box',
-                            'title': 'Folder actions',
-                            'slot': 'right',
-                            'order': 20,
-                            'categories': 'folder',
-                            },
-
-            'welcome': {'type': 'Text Box',
-                        'title': 'Portal welcome message',
-                        'slot': 'center',
-                        'order': 10,
-                        'btype': 'default',
-                         # No frame, no title box, no class="box" cf. box_lib.pt
-                        'box_skin': 'here/box_lib/macros/wbox3',
-                        'display_in_subfolder': 0,
-                        'display_only_in_subfolder': 0,
-                        'text': 'welcome_body',
-                        'i18n': 1,
-                        },
-
-            'nav_header': {'type': 'Base Box',
-                            'title': 'Folder header',
-                            'slot': 'folder_view',
-                            'order': 0,
-                            'btype': 'folder_header',
-                            },
-
-            'nav_folder': {'type': 'Tree Box',
-                            'title': 'Sub folders',
-                            'slot': 'folder_view',
-                            'order': 10,
-                            'box_skin': 'here/box_lib/macros/wbox2',
-                            'btype': 'center',
-                            'contextual': 1,
-                            'depth': 2,
-                            'children_only': 1,
-                            },
-
-            'nav_content': {'type': 'Content Box',
-                            'title': 'Contents',
-                            'slot': 'folder_view',
-                            'btype': 'default',
-                            'box_skin': 'here/box_lib/macros/sbox2',
-                            'order': 20,
-                            },
-        }
-        self.verifyBoxes(boxes)
-        self.verifyAction(
-            tool='portal_actions',
-            id='boxes',
-            name='action_boxes_root',
-            action='string:${portal_url}/box_manage_form',
-            condition='python:folder is object',
-            permission=(ManageBoxes,),
-            category='global',
-            visible=1)
 
     def setupi18n(self):
         if not self.portalHas('Localizer'):
@@ -1939,7 +1791,9 @@ return updateEffectiveDate(state_change.object)
         self.setupProduct('CPSSharedCalendar')
         self.setupProduct('CPSNewsLetters')
         self.setupProduct('CPSWiki')
-        self.setupProduct('CPSBoxes')
+
+        self.setupProduct('CPSPortlets')
+        self.setupProduct('CPSSkins')
 
         # FIXME: This code makes things hard to test
         try:
@@ -1956,11 +1810,6 @@ return updateEffectiveDate(state_change.object)
         else:
             self.setupProduct('CPSOOo')
 
-        if ((self.is_creation and
-             self._interface == 'portlets') or
-            'portal_cpsportlets' in self.portal.objectIds()):
-            self.setupProduct('CPSPortlets')
-            self.setupProduct('CPSSkins')
 
     def setupCustomDocuments(self):
         """Setup custom widgets/schemas/layouts/vocabularies.
@@ -2046,7 +1895,7 @@ return updateEffectiveDate(state_change.object)
         self.log("Preparing for upgrade")
         upgrade_catalog_Z28(self.portal)
 
-def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
+def cpsupdate(self, langs_list=None, is_creation=0):
     # helpers
     installer = DefaultInstaller(self)
 
@@ -2054,7 +1903,7 @@ def cpsupdate(self, langs_list=None, is_creation=0, interface='portlets'):
     installer.disableEventSubscriber('portal_trees')
     installer.disableEventSubscriber('portal_subscriptions')
 
-    installer.install(langs_list, is_creation, interface=interface)
+    installer.install(langs_list, is_creation)
 
     # Re-enable subscribers
     installer.enableEventSubscriber('portal_trees')

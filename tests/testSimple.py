@@ -59,8 +59,6 @@ class TestSimpleAsRoot(TestSimple):
             self.assert_(self.portal.cpsdirectory_entry_search_form())
             self.assert_(self.portal.cpsdirectory_entry_create_form())
         # Boxes
-        self.assert_(self.portal.box_manage_form())
-        self.assert_(self.portal.box_create_form())
 
     def testAdminSkinsAtSectionsAndWorkspaces(self):
         for folder in (self.portal.workspaces, self.portal.sections):
@@ -71,20 +69,6 @@ class TestSimpleAsRoot(TestSimple):
             self.assert_(folder.metadata_edit_form())
             self.assert_(folder.full_metadata_edit_form())
             self.assert_(folder.folder_localrole_form())
-            self.assert_(folder.box_manage_form())
-
-    def testPlayWithBoxes(self):
-        btool = self.portal.portal_boxes
-        for box_name in ('action_user', 'action_portal'):
-            box = getattr(self.portal['.cps_boxes_root'], box_name)
-            box.minimize()
-            # XXX: I should be able to test if the box is minimized now
-            box.maximize()
-            # XXX: I should be able to test if the box is maximized now
-            box.close()
-            # XXX: I should be able to test if the box is closed now
-            box.maximize()
-            # XXX: I should be able to test if the box is maximized now
 
     def testLocalRoles(self):
         # Change local roles using the skin scripts

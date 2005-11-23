@@ -9,17 +9,6 @@
 <metal:body use-macro="here/content_lib_master/macros/master">
 
 <metal:header metal:fill-slot="header">
-  <tal:block condition="python:checkPerm('List folder contents', here, 'aq_parent')">
-    <a href="../xx"
-       tal:attributes="href
-        python:test(hasattr(here.aq_parent.aq_parent,
-          'portal_url'), '../folder_contents', '..')">
-    <img tal:replace="structure python:here.getImgTag('UpFolder_icon.png',
-      base_url=base_url)" />
-      <span i18n:translate="">description_up_to
-        <strong i18n:name="up_id" tal:content="python:here.aq_parent.title_or_id()">
-          Up ID</strong></span></a>
-  </tal:block>
   <h1 tal:content="here/title_or_id">Page Title</h1>
   <a href="" accesskey="V"
      style="display:none"

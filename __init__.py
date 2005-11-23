@@ -37,68 +37,19 @@ import Portal
 import Folder
 import Dummy
 
-# XXX Compatibility
-from Products.CPSBoxes import BoxesTool
-from Products.CPSBoxes import BaseBox
-from Products.CPSBoxes import TextBox
-from Products.CPSBoxes import TreeBox
-from Products.CPSBoxes import ContentBox
-from Products.CPSBoxes import ActionBox
-from Products.CPSBoxes import ImageBox
-from Products.CPSBoxes import FlashBox
-from Products.CPSBoxes import EventCalendarBox
-from Products.CPSBoxes import InternalLinksBox
-from Products.CPSBoxes import DocRenderBox
-
 contentClasses = (
     Folder.Folder,
     Dummy.Dummy,
-
-    # XXX compatibility
-    BaseBox.BaseBox,
-    TextBox.TextBox,
-    TreeBox.TreeBox,
-    ContentBox.ContentBox,
-    ActionBox.ActionBox,
-    ImageBox.ImageBox,
-    FlashBox.FlashBox,
-    EventCalendarBox.EventCalendarBox,
-    InternalLinksBox.InternalLinksBox,
-    DocRenderBox.DocRenderBox,
     )
 
 contentConstructors = (
     MembershipTool.addMembershipTool,
     Folder.addFolder,
     Dummy.addDummy,
-
-    # XXX compatibility
-    BaseBox.addBaseBox,
-    TextBox.addTextBox,
-    TreeBox.addTreeBox,
-    ContentBox.addContentBox,
-    ActionBox.addActionBox,
-    ImageBox.addImageBox,
-    FlashBox.addFlashBox,
-    EventCalendarBox.addEventCalendarBox,
-    InternalLinksBox.addInternalLinksBox,
-    DocRenderBox.addDocRenderBox,
     )
 
 fti = (Folder.factory_type_information +
        Dummy.factory_type_information +
-
-       # XXX compatibility
-       BaseBox.factory_type_information +
-       TextBox.factory_type_information +
-       TreeBox.factory_type_information +
-       ContentBox.factory_type_information +
-       ActionBox.factory_type_information +
-       ImageBox.factory_type_information +
-       FlashBox.factory_type_information +
-       EventCalendarBox.factory_type_information +
-       InternalLinksBox.factory_type_information +
-       DocRenderBox.factory_type_information +
        ()
        )
 
@@ -106,7 +57,6 @@ registerDirectory('skins', globals())
 
 tools = (
     MembershipTool.MembershipTool,
-    BoxesTool.BoxesTool,
     )
 
 def initialize(context):
@@ -128,11 +78,6 @@ def initialize(context):
     context.registerClass(Portal.CPSDefaultSite,
                           constructors=(Portal.manage_addCPSDefaultSiteForm,
                                         Portal.manage_addCPSDefaultSite,))
-
-    # XXX compatibility (c.f : CPSBoxes)
-    context.registerClass(BoxesTool.BoxContainer,
-                          permission='Add Box Container',
-                          constructors=(BoxesTool.addBoxContainer,))
 
     if has_profile_registry:
         profile_registry.registerProfile('default',

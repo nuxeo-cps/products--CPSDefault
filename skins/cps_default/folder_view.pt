@@ -1,20 +1,4 @@
 <metal:block define-macro="folder_view">
 <metal:block use-macro="here/main_template/macros/master">
-<metal:block fill-slot="main"
-  tal:define="list_here python:checkPerm('List folder contents', here);">
-<tal:block define="boxes_view python:btool.filterBoxes(boxes, slot='center') or btool.filterBoxes(boxes, slot='folder_view');">
-<a href="" accesskey="E"
-   style="display:none"
-   tal:attributes="href string:${context_url}/folder_contents"></a>
-<a href="" accesskey="N"
-   style="display:none"
-   tal:attributes="href string:${context_url}/folder_factories"></a>
-<!-- BEGIN FOLDER_VIEW Slot ======================= -->
-<tal:block repeat="box boxes_view">
-  <metal:block use-macro="python:path(box['macro'])" />
-</tal:block>
-<!-- END FOLDER_VIEW Slot ========================= -->
-</tal:block>
-</metal:block>
 </metal:block>
 </metal:block>

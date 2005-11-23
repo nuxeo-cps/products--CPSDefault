@@ -20,5 +20,11 @@ New internal features:
 - tune #1133: getSortedContentTypes.py is too slow
 - effective_date gets automatically updated at publish time (in
   section_content_wf) if no specific dates were set by the user
+- CPSDefault.utils provides a fast filterContents function that replace the one
+  in skins/cps_default/filterContents.py, the interface is changed a bit:
+  * you must supply the `context` as the first parameter
+  * `displayed` is renamed `filter_ptypes` and default is None instead of ['']
+  * `sort_by` is renamed into `sort_on` and default is None
+  * `direction` is renamed into `sort_order`
 - added deprecation information for CPSBoxes modules.
 - the "Edit this text" link on the welcome message goes to the portlet editor.

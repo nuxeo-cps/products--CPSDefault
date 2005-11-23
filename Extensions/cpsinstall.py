@@ -1695,7 +1695,7 @@ return updateEffectiveDate(state_change.object)
                 'order': 10,
                 'Title': 'Document Portlet',
                 'guard': {
-                    'guard_expr': "python: published != 'folder_contents'",
+                    'guard_expr': "python: published == 'folder_view'",
                     },
                },
                {'type': 'Navigation Portlet',
@@ -1706,7 +1706,7 @@ return updateEffectiveDate(state_change.object)
                 'display_hidden_folders': 1,
                 'display': 'subfolder_contents',
                 'guard': {
-                    'guard_expr': "python: published != 'folder_contents'",
+                    'guard_expr': "python: published == 'folder_view'",
                     },
                },
                # Right column

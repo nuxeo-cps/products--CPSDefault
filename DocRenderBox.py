@@ -29,5 +29,6 @@ warn("The module, "
      "'Products.CPSDefault.DocRenderBox' "
      "is a deprecated compatiblity alias for "
      "'Products.CPSBoxes.DocRenderBox'; "
-     "please use the new module instead.",
+     "please use the new module instead. "
+     "This module will be removed in CPS 3.5.",
      DeprecationWarning)

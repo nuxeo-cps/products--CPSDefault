@@ -19,7 +19,7 @@
 #
 # $Id$
 
-from zLOG import LOG, INFO, DEBUG, PROBLEM, ERROR
+from zLOG import LOG, INFO, DEBUG, WARNING, ERROR
 
 import sys
 import socket
@@ -49,12 +49,12 @@ class MembershipTool(CPSMembershipTool):
 
     _properties = CPSMembershipTool._properties + (
         {'id': 'reset_password_request_validity', 'type': 'int', 'mode': 'w',
-         'label': 'Number of seconds a reset password request is considered valid'},
+         'label': 'Validity of password reset request (seconds)'},
         {'id': 'email_field', 'type': 'string', 'mode': 'w',
          'label': 'Field for email address'},
         )
 
-    reset_password_request_validity = 3600 * 12
+    reset_password_request_validity = 30*60 # 30 min
     email_field = 'email'
 
     security = ClassSecurityInfo()
@@ -64,150 +64,166 @@ class MembershipTool(CPSMembershipTool):
     #
 
     security.declarePublic('requestPasswordReset')
-    def requestPasswordReset(self, username_or_email):
+    def requestPasswordReset(self, who, REQUEST=None):
         """Generate a reset token for a password reset and send an email with
         the reset token for confirmation.
 
-        This method can be called with both a username or an email address.
+        This method can be called with a username or an email address.
+
+        Returns True if a request has been sent.
+        Returns False if the username or email cannot be found, or the
+        mail cannot be sent.
+
+        Note that the return value shouldn't condition what is displayed
+        to a user, as it would leak information about what users exist.
         """
-        LOG(log_key, DEBUG, "username_or_email = %s" % username_or_email)
+        if REQUEST is not None:
+            raise Unauthorized("Not callable TTW")
+        LOG(log_key, DEBUG, "Request reset for %r" % who)
+
+        portal = getToolByName(self, 'portal_url').getPortalObject()
+        mail_from_address = portal.getProperty('email_from_address')
+        if mail_from_address is None:
+            LOG(log_key, WARNING,
+                "The portal has no 'email_from_address' defined. "
+                "Password reset will not be performed because the users "
+                "have to trust who sends them the reset email.")
+            return False
+        portal_url = portal.absolute_url()
+
         # XXX: Here we should setup a mean to prevent potential spam.
-        # For example all requests should be stored in a dictionary (to assert
-        # their uniqueness) and only be processed every hour so if someone is
-        # spammed she will received only 12 password reset confirmation messages
-        # a day.
-        username = None
-        email = None
-        member = self.getMemberById(username_or_email)
-        if member is not None:
-            LOG(log_key, DEBUG, "member is not None")
-            username = username_or_email
-            email = member.getProperty(self.email_field)
-        elif username_or_email.find('@'):
-            LOG(log_key, DEBUG, "username_or_email is an email")
-            members_directory = self.portal_directories.members
-            # Here we use the _searchEntries() method instead of the
-            # searchEntries() method that only returns entries the current user
-            # is allowed to consult.
-            user_ids = members_directory._searchEntries(
-                **{self.email_field: [username_or_email]})
-            LOG(log_key, DEBUG, "user_ids %s" % user_ids)
-            if user_ids != []:
-                email = username_or_email
-        LOG(log_key, DEBUG, "username = %s" % username)
-        LOG(log_key, DEBUG, "email = %s" % email)
-        if username is None and email is None:
-            raise ValueError("The user you have specified cannot be found.")
+        # For example all requests should be stored in a dictionary (to
+        # assert their uniqueness) and only be processed every hour so
+        # if someone is spammed she will received only 12 password reset
+        # confirmation messages a day.
 
-        # Generating a token based either on the email address
-        request_emission_time = str(int(time()))
-        hash_object = sha.new()
-        hash_object.update(email)
-        hash_object.update(request_emission_time)
-        hash_object.update(self.getNonce())
-        reset_token = hash_object.hexdigest()
+        usernames, email = self._getUsernamesAndEmailFor(who)
+        LOG(log_key, DEBUG, "usernames=%r, email=%r" % (usernames, email))
+        if email is None:
+            return False
 
-        try:
-            mail_from_address = getattr(self.portal_properties,
-                                        'email_from_address')
-        except (AttributeError):
-            LOG(log_key, PROBLEM,
-                "Your portal has no \"email_from_address\" defined. \
-                Reseting password will not be performed because the users have \
-                to trust who send them this reset password email.")
-        mail_to_address = email
+        client_addr = self.REQUEST.getClientAddr()
+        # XXX: i18n
         subject = ("[%s] Password reset confirmation for %s"
-                   % (self.portal_url(), email))
-        # d:  the date of the request emission
-        # t:  the token
-        args = {'email': email, 'd': request_emission_time, 't': reset_token}
-        if username is not None:
-            args.update({'username': username})
-        visit_url = ("%s/account_reset_password_form?%s"
-                     % (self.portal_url(), urlencode(args)))
-        # TODO: i18n
+                   % (portal_url, email))
+        now = str(int(time()))
+        args = {
+            'w': who,
+            'd': now,
+            't': self._makeToken(who, now),
+            }
+        visit_url = ('%s/account_reset_password_form?%s'
+                     % (portal_url, urlencode(args)))
         content = """\
 From: %s
 To: %s
 Subject: %s
 Content-Type: text/plain; charset=iso-8859-15
 Mime-Version: 1.0
-%s
-"""
-        content = content % (
-            mail_from_address, mail_to_address, subject,
-            """\
+
 Dear user,
 
-You (or someone) have requested to reset the password for the account(s) having
-%s as email address. Most probably the reason for this reset request is that the
-password for this/those account(s) has been lost.
+You (or someone else) have requested to reset the password for the
+account having email address "%s". Most probably the reason
+for this reset request is that the password for this account has been lost.
 
-If you have not requested this reset, please do ignore this message.
+If you have not requested this reset, please ignore this message.
 
 You can reset your password by simply visiting the following page:
 %s
 
-Thank you, and we look forward to seeing you back at %s soon!
+We look forward to seeing you back soon at %s
 
 Sincerely,
 
---
-The %s administration team
-"""
-            % (email, visit_url, self.portal_url(), self.portal_url()))
+    The portal administration team
+
+-- 
+Note: the password reset request was sent from IP %s
+""" % (mail_from_address, email, subject,
+       email, visit_url, portal_url, client_addr)
         try:
             self.MailHost.send(content,
-                               mto=mail_to_address, mfrom=mail_from_address,
-                               subject=subject, encode='8bit')
-        except (socket.error, SMTPException, MailHostError):
-            LOG(log_key, PROBLEM,
-                "Error while sending reset token email")
-        result = {'reset_token': reset_token,
-                  'emission_time': request_emission_time,
-            }
-        return result
+                               mfrom=mail_from_address,
+                               mto=email,
+                               subject=subject,
+                               encode='8bit')
+        except (socket.error, SMTPException, MailHostError), e:
+            LOG(log_key, WARNING, "Error while sending reset email "
+                "for %s (%s %s)" % (who, e.__class__.__name__,
+                                    str(e)))
+            return False
+        LOG(log_key, INFO, "Reset confirmation email sent to %s, "
+            "requesting IP was %s" % (email, client_addr))
+        return True
 
+    security.declarePrivate('_makeToken')
+    def _makeToken(self, who, time):
+        """Make a cryptographic token.
+        """
+        hash = sha.new()
+        hash.update(self.getNonce())
+        hash.update(who)
+        hash.update(time)
+        return hash.hexdigest()
 
     security.declarePublic('isPasswordResetRequestValid')
-    def isPasswordResetRequestValid(self, email, emission_time, reset_token):
-        """Return wether a request for a password reset is valid or not."""
-        hash_object = sha.new()
-        hash_object.update(email)
-        hash_object.update(emission_time)
-        hash_object.update(self.getNonce())
-        result = hash_object.hexdigest()
-        if (reset_token == result
-            and int(emission_time)
-            + self.getProperty('reset_password_request_validity')
-            >= int(time())):
-            return True
-        return False
+    def isPasswordResetRequestValid(self, who, time_, token, REQUEST=None):
+        """Return whether a request for a password reset is valid or not.
+        """
+        if REQUEST is not None:
+            raise Unauthorized("Not callable TTW")
+        result = self._makeToken(who, time_)
+        ok = (token == result
+              and int(time_)
+                  + self.getProperty('reset_password_request_validity')
+              >= int(time()))
+        if not ok:
+            LOG(log_key, WARNING, "Invalid password reset request for %r"
+                % who)
+        return ok
 
-
-    security.declarePublic('getUsernamesFromEmail')
-    def getUsernamesFromEmail(self, email, emission_time, reset_token):
+    security.declarePublic('getUsernamesAndEmailFor')
+    def getUsernamesAndEmailFor(self, who, time, token, REQUEST=None):
         """Return all the usernames, ie the accounts, that corresponds to the
-        given email address.
+        given username or email address.
 
         This method ensures that a user can only do such a request on from her
         email.
         """
-        if not self.isPasswordResetRequestValid(email,
-                                                emission_time, reset_token):
-            LOG(log_key, INFO, "Method getUsernamesFromEmail is used with a "
-                "wrong email address (the one of the reset token).")
+        if REQUEST is not None:
+            raise Unauthorized("Not callable TTW")
+        if not self.isPasswordResetRequestValid(who, time, token):
+            return ([], None)
+        usernames, email = self._getUsernamesAndEmailFor(who)
+        if not usernames:
+            LOG(log_key, INFO, "No usernames for %r" % who)
+        return (usernames, email)
 
-        members_directory = self.portal_directories.members
-        # Here we use the _searchEntries() method instead of the
-        # searchEntries() method that only returns entries the current user
-        # is allowed to consult.
-        user_ids = members_directory._searchEntries(**{self.email_field: [email]})
-        return user_ids
+    def _getUsernamesAndEmailFor(self, who):
+        member = self.getMemberById(who)
+        if member is not None:
+            usernames = [who]
+            email = member.getProperty(self.email_field)
+        elif '@' in who:
+            email = who
+            usernames = self._getUsernamesFromEmail(email)
+        else:
+            usernames = email = None
+        if not usernames or not email:
+            return ([], None)
+        return (usernames, email)
 
+    def _getUsernamesFromEmail(self, email):
+        dir = getToolByName(self, 'portal_directories').members
+        return dir._searchEntries(**{self.email_field: [email]})
+
+    # XXX shouldn't be public at all
     security.declarePublic('getEmailFromUsername')
-    def getEmailFromUsername(self, username):
+    def getEmailFromUsername(self, username, REQUEST=None):
         """Looks up an email address via the members directory"""
+        if REQUEST is not None:
+            raise Unauthorized("Not callable TTW")
         members = getToolByName(self, 'portal_directories', None).members
         try:
             member = members._getEntry(username, default=None)
@@ -221,12 +237,8 @@ The %s administration team
     def getFullnameFromId(self, user_id, REQUEST=None):
         """Return the member full name from id
         """
-
-        # We don't wanna user to be able to call this from restricted
-        # code
         if REQUEST is not None:
-            raise Unauthorized(
-                "You cannot call this method from restricted code")
+            raise Unauthorized("Not callable TTW")
         try:
             utool = getToolByName(self, 'portal_url')
             portal = utool.getPortalObject()
@@ -237,38 +249,41 @@ The %s administration team
         return fullname
 
     security.declarePublic('resetPassword')
-    def resetPassword(self, usernames, email, emission_time, reset_token):
+    def resetPassword(self, usernames, who, time, token, REQUEST=None):
         """Reset the password of the users having the given usernames.
 
-        The users must all have the same email address.
         Usually this script is called with only one username but resetPassword
         works for many users as well.
 
-        This methods returns a dictionary containing
-        1. the new randomly generated password
-        2. a boolean telling if the password resetting has been successful
+        This methods returns the new randomly generated password,
+        or None if there was a problem.
         """
-        result = {'new_password': None,
-                  'reset_password_success': True,
-                  }
-        if not self.isPasswordResetRequestValid(email,
-                                                emission_time, reset_token):
-            LOG(log_key, INFO,
-                "An invalid password reset request has been received.")
-            return result
+        if REQUEST is not None:
+            raise Unauthorized("Not callable TTW")
+        if not usernames:
+            return None
+        ok_usernames, email = self.getUsernamesAndEmailFor(who, time, token)
+        for username in usernames:
+            if username not in ok_usernames:
+                # Attempt to hack the usernames field
+                LOG(log_key, WARNING, "resetPassword: attempted to use %r "
+                    "for %r" % (usernames, who))
+                return None
+
+        LOG(log_key, INFO, "Resetting password for %r" % (usernames,))
         random.seed()
-        new_password = generatePassword()
+        password = generatePassword()
         for username in usernames:
             member = self.getMemberById(username)
             if member is None:
-                LOG(log_key, PROBLEM, "The user %s cannot be found." % username)
-                result['reset_password_success'] = False
+                LOG(log_key, ERROR, "resetPassword: user %r not found"
+                    % username)
+                continue
             user = member.getUser()
-            self.acl_users._doChangeUser(username, new_password,
-                                         user.getRoles(), user.getDomains())
-        result['new_password'] = new_password
-        return result
-
+            aclu = getToolByName(self, 'acl_users')
+            aclu._doChangeUser(username, password,
+                               user.getRoles(), user.getDomains())
+        return password
 
     #
     # Member area creation

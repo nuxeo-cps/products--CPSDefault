@@ -23,15 +23,18 @@
 """
 
 import re
-from zLOG import LOG, INFO, DEBUG
+from zLOG import LOG, INFO, DEBUG, WARNING
 
 from Acquisition import aq_base
 from AccessControl import getSecurityManager
 from AccessControl import ModuleSecurityInfo
 from DateTime import DateTime
-from Products.CPSUtil.timer import Timer
-from Products.CMFCore.utils import _checkPermission
+from Products.ZCatalog.ZCatalog import ZCatalog
+from Products.CMFCore.utils import _checkPermission, _getAuthenticatedUser
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.permissions import AccessInactivePortalContent
+from Products.CMFCore.permissions import View, ModifyPortalContent
+from Products.CPSUtil.timer import Timer
 
 
 # BBB (remove this in CPS-3.6)
@@ -176,25 +179,25 @@ STATUS_SORT_ORDER = {'nostate': 0,
                      'published': 2,
                      'work': 3,
                      }
-def id_sortkey(obj):
+def id_sortkey(ob):
     """Sort by id."""
-    return obj.getId()
+    return ob.getId()
 
-def title_sortkey(obj):
+def title_sortkey(ob):
     """Sort by title or id."""
-    return obj.title_or_id().lower()
+    return ob.title_or_id().lower()
 
-def date_sortkey(obj):
+def date_sortkey(ob):
     """Sort by modified time."""
-    return (obj.modified(), obj.getId())
+    return (ob.modified(), ob.getId())
 
-def effective_sortkey(obj):
+def effective_sortkey(ob):
     """Sort by effective date."""
-    return (obj.getContent().effective(), obj.getId())
+    return (ob.getContent().effective(), ob.getId())
 
-def author_sortkey(obj):
+def author_sortkey(ob):
     """Sort by creator name."""
-    return (obj.Creator(), obj.getId())
+    return (ob.Creator(), ob.getId())
 
 
 module_security.declarePublic('filterContents')
@@ -225,7 +228,7 @@ def filterContents(context, items, sort_on=None, sort_order=None,
         if not (ptype in filter_ptypes):
             continue
         # filter unauthorize contents
-        if not _checkPermission('View', item):
+        if not _checkPermission(View, item):
             continue
         # filter folderish document
         if hide_folder and item.isPrincipiaFolderish:
@@ -240,7 +243,7 @@ def filterContents(context, items, sort_on=None, sort_order=None,
             if not display_in_listing:
                 continue
         # filter non effective or expired published content
-        if not _checkPermission('Modify portal content', item):
+        if not _checkPermission(ModifyPortalContent, item):
             review_state = wtool.getInfoFor(item, 'review_state', 'nostate')
             if review_state == 'published':
                 doc = item.getContent()
@@ -255,12 +258,12 @@ def filterContents(context, items, sort_on=None, sort_order=None,
         return result
 
     # sorting
-    def status_sortkey(obj):
+    def status_sortkey(ob):
         """Sort by workflow status."""
         global STATUS_SORT_ORDER
-        return (STATUS_SORT_ORDER.get(wtool.getInfoFor(obj, 'review_state',
+        return (STATUS_SORT_ORDER.get(wtool.getInfoFor(ob, 'review_state',
                                                        'nostate'), 9),
-                obj.title_or_id().lower())
+                ob.title_or_id().lower())
 
     make_sortkey = id_sortkey
     if sort_on == 'status':
@@ -277,7 +280,115 @@ def filterContents(context, items, sort_on=None, sort_order=None,
     result = [(make_sortkey(x), x) for x in result]
     result.sort()
     result = [x[1] for x in result]
-    if sort_order.lower().startswith('desc'):
+    if sort_order in ('desc', 'reverse'):
         result.reverse()
     t.log('sorting %s %s' % (sort_on, sort_order or 'asc'))
     return result
+
+
+module_security.declarePublic('getFolderContents')
+def getFolderContents(container, sort_on=None, sort_order=None,
+                      filter_ptypes=None, hide_folder=False):
+    """Get a filtered and sorted container's contents objects."""
+    t = Timer('getFolderContents', level=DEBUG)
+    ret = filterContents(container, container.objectValues(),
+                         sort_on, sort_order, filter_ptypes, hide_folder)
+    t.log('end')
+    return ret
+
+
+module_security.declarePublic('getCatalogFolderContents')
+def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
+                             sort_on=None, sort_order=None,
+                             sort_limit=None):
+    """Get a filtered and sorted container's contents objects."""
+    t = Timer('getCatalogFolderContents', level=DEBUG)
+    ctool = getToolByName(container, 'portal_catalog')
+    container_path = '/'.join(container.getPhysicalPath())
+    translation_service = getToolByName(container, 'translation_service', None)
+    match_languages = 'en'
+    if translation_service is not None:
+        match_languages = translation_service.getSelectedLanguage()
+        if not match_languages:
+            if container.isUsePortalDefaultLang():
+                match_languages = translation_service.getDefaultLanguage()
+    t.mark('init')
+
+    # build query
+    query = {'container_path': container_path,
+             'cps_filter_sets': 'searchable',
+             'match_languages': match_languages}
+    if filter_ptypes is not None:
+        query['portal_type'] = filter_ptypes
+
+    if hide_folder:
+        query['cps_filter_sets'] = {'query': ('searchable', 'leaves'),
+                                    'operator': 'and'}
+    user = _getAuthenticatedUser(container)
+    query['allowedRolesAndUsers'] = ctool._listAllowedRolesAndUsers(user)
+    if 'Manager' in query['allowedRolesAndUsers']:
+        # manager powa
+        del query['allowedRolesAndUsers']
+    if not _checkPermission(AccessInactivePortalContent, container):
+        now = DateTime()
+        query['effective_range'] = now
+
+    if sort_on is not None:
+        # compatibility
+        if sort_on in ('title', 'date'):
+            sort_on = sort_on.capitalize()
+        elif sort_on == 'status':
+            sort_on = 'review_state'
+        elif sort_on == 'author':
+            sort_on = 'Creator'
+        query['sort-on'] = sort_on
+        if sort_order in ('desc', 'reverse'):
+            query['sort-order'] = 'reverse'
+        if sort_limit is not None:
+            query['sort-limit'] = sort_limit
+
+    t.mark('build query: %s' % str(query))
+    brains = ZCatalog.searchResults(ctool, None, **query)
+    t.log('search result: %s docs' % len(brains))
+    return brains
+
+
+module_security.declarePublic('reindexFolderContentPositions')
+def reindexFolderContentPositions(container):
+    """Reindex when content order is changed."""
+    t = Timer('reindexFolderContentPositions', level=INFO)
+    if not _checkPermission(ModifyPortalContent, container):
+        LOG('reindexPositions', WARNING,
+            'Unauthorized call on %s' % container.getPhysicalPath())
+        return
+    if not hasattr(aq_base(container), 'getObjectPosition'):
+        # no positioning
+        return
+    # reindex position of the 100 hundred first docs
+    # this is fine as ordering by hand more than 100 hundred docs is not human
+    brains = getCatalogFolderContents(container,
+                                      sort_on='position_in_container',
+                                      sort_limit=100)
+    t.mark('fetch %s brains' % len(brains))
+    ctool = getToolByName(container, 'portal_catalog')
+    reindex_count = 0
+    for brain in brains:
+        if not brain.has_key('getId'):
+            continue
+        if not brain.has_key('position_in_container'):
+            continue
+        ob_id = brain['getId']
+        new_position = container.getObjectPosition(ob_id)
+        current_position = brain['position_in_container']
+        if current_position != new_position:
+            # only access and reindex objects that have changed their position
+            ob = brain.getObject()
+            if ob is not None:
+                # need to update the metadata to save position_in_container
+                ctool.reindexObject(ob, ['position_in_container'],
+                                    update_metadata=1)
+                reindex_count += 1
+            else:
+                LOG('reindexPositions', WARNING,
+                    'invalid catalog entry: %s' % brain.getPath())
+    t.log('reindex %i objects' % reindex_count)

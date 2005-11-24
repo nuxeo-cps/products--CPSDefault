@@ -153,6 +153,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         # XXX: setup i18n before default roots because default language will
         # then be set (instead of defaulting to 'en')
         self.setupi18n()
+        self.setupCatalog()
         self.setupRoots()
         self.setupAccessControl()
         self.setupLocalWorkflow()
@@ -171,8 +172,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             self.portal.portal_membership.setMemberareaCreationFlag()
         else:
             self.logOK()
-
-        self.setupCatalog()
 
         # remove cpsinstall external method
         # and fix cpsupdate permission

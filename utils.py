@@ -301,8 +301,11 @@ module_security.declarePublic('getCatalogFolderContents')
 def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
                              sort_on=None, sort_order=None,
                              sort_limit=None):
-    """Get a filtered and sorted container's contents objects."""
-    t = Timer('getCatalogFolderContents', level=DEBUG)
+    """Get a filtered and sorted container's contents using the catalog.
+
+    Return catalog brains.
+    """
+    t = Timer('getCatalogFolderContents', level=INFO)
     ctool = getToolByName(container, 'portal_catalog')
     container_path = '/'.join(container.getPhysicalPath())
     translation_service = getToolByName(container, 'translation_service', None)
@@ -375,12 +378,13 @@ def reindexFolderContentPositions(container):
     for brain in brains:
         if not brain.has_key('getId'):
             continue
-        if not brain.has_key('position_in_container'):
-            continue
         ob_id = brain['getId']
         new_position = container.getObjectPosition(ob_id)
-        current_position = brain['position_in_container']
-        if current_position != new_position:
+        if brain.has_key('position_in_container'):
+            old_position = brain['position_in_container']
+        else:
+            old_position = 0
+        if old_position != new_position:
             # only access and reindex objects that have changed their position
             ob = brain.getObject()
             if ob is not None:

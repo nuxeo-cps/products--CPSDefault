@@ -598,7 +598,6 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             'cps_images': 'Products/CPSDefault/skins/cps_images',
             'cps_devel': 'Products/CPSDefault/skins/cps_devel',
             'cps_default': 'Products/CPSDefault/skins/cps_default',
-            # 'cps_boxes'  : 'Products/CPSBoxes/skins/cps_boxes',
             'cps_javascript': 'Products/CPSDefault/skins/cps_javascript',
             'cmf_zpt_calendar': 'Products/CMFCalendar/skins/zpt_calendar',
             'cmf_calendar': 'Products/CMFCalendar/skins/calendar',

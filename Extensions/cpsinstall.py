@@ -99,8 +99,10 @@ class DefaultInstaller(CPSInstaller):
     # ie anything except document in portal_repository
     CPS_FILTER_SEARCHABLE_SET = 'searchable'
     CPS_FILTER_SEARCHABLE_EXPR = """not filter(lambda s: s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"""
+    CPS_FILTER_NODES_SET = 'nodes'
+    CPS_FILTER_NODES_EXPR = """o.isCPSFolderish()"""
     CPS_FILTER_LEAVES_SET = 'leaves'
-    CPS_FILTER_LEAVES_EXPR = """getattr(o, 'portal_type', None) not in ('Section', 'Workspace')"""
+    CPS_FILTER_LEAVES_EXPR = """not o.isCPSFolderish()"""
     # this following filter matches all proxies in their default languages,
     # this is usefull to remove all translations of a same proxy
     # match also all non proxy objects and should be used with searchable set
@@ -243,12 +245,16 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                          expr=self.CPS_FILTER_SEARCHABLE_EXPR),
                   Struct(id=self.CPS_FILTER_LEAVES_SET,
                          expr=self.CPS_FILTER_LEAVES_EXPR),
+                  Struct(id=self.CPS_FILTER_NODES_SET,
+                         expr=self.CPS_FILTER_NODES_EXPR),
                   Struct(id=self.CPS_FILTER_DEFAULT_LANGUAGES_SET,
                          expr=self.CPS_FILTER_DEFAULT_LANGUAGES_EXPR),)),
                 ('start', 'DateIndex', None),
                 ('end', 'DateIndex', None),
                 ('time', 'DateIndex', None), # time of the last transition
                 ('Language', 'FieldIndex', None),
+                ('container_path', 'FieldIndex', None),
+                ('position_in_container', 'FieldIndex', None),
                 )
 
     def catalogEnumerateMetadata(self):
@@ -283,6 +289,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                 'getRevision',
                 # Time of the last transition
                 'time',
+                'position_in_container',
                 )
 
     def setupCatalog(self):

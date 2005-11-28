@@ -6,6 +6,7 @@ $Id$
 
 utool = context.portal_url
 mtool = context.portal_membership
+dtool = context.portal_directories
 
 redirect_url = came_from
 if not redirect_url or redirect_url.endswith('/logged_out'):
@@ -30,7 +31,7 @@ if is_anon:
 login_time = member.getProperty('login_time', '2000/01/01')
 first_time = (str(login_time) == '2000/01/01')
 
-if first_time:
+if first_time and dtool.members.hasEntry(member.getId()):
     mtool.createMemberArea()
     now = context.ZopeTime()
     member.setProperties(last_login_time=now, login_time=now)

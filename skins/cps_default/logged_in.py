@@ -8,9 +8,9 @@ utool = context.portal_url
 mtool = context.portal_membership
 
 redirect_url = came_from
-if not redirect_url:
+if not redirect_url or redirect_url.endswith('/logged_out'):
     redirect_url = utool.getBaseUrl()
-    
+
 is_anon = mtool.isAnonymousUser()
 member = mtool.getAuthenticatedMember()
 
@@ -27,7 +27,7 @@ if is_anon:
     RESPONSE.expireCookie('__ac', path='/')
     return context.user_logged_in_failed()
 
-login_time = member.getProperty('login_time', None)
+login_time = member.getProperty('login_time', '2000/01/01')
 first_time = (str(login_time) == '2000/01/01')
 
 if first_time:

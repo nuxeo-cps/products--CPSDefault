@@ -29,8 +29,14 @@ New internal features:
   * `displayed` is renamed `filter_ptypes` and default is None instead of ['']
   * `sort_by` is renamed into `sort_on` and default is None
   * `direction` is renamed into `sort_order`
+- CPSDefault.utils provides getFolderContents and getCatalogFolderContents.
+- New indexes: container_path, position_in_container and nodes set.
+- Adding a boolean property 'use_catalog_for_folder_contents' to a folder will
+  makes the skins/cps_default/getFolderContents.py (and thus folder_contents
+  and folder_view) uses the catalog to get the folder contents.
+  This is faster especially on huge folder.
 - added deprecation information for CPSBoxes modules.
 - the "Edit this text" link on the welcome message goes to the portlet editor.
 - added a temporary "folder contents" portlet in the main part of the screen
   until there is a more extended view for it (cf. #573)
-- New indexes: container_path, position_in_container and nodes set.
+

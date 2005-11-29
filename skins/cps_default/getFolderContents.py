@@ -1,16 +1,25 @@
-##parameters=sort_by=None, direction=None, hide_folder=False, displayed=None
+##parameters=sort_by=None, direction=None, hide_folder=False, displayed=None, use_catalog=False
 # $Id$
 """
 Get a sorted list of contents object
 """
-from Products.CPSDefault.utils import filterContents
 
 if not sort_by:
     # Get sort from the session display params
     disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
-    sort_by = disp_params.get('sort_by', None)
-    direction = disp_params.get('direction', None)
+    sort_by = disp_params.get('sort_by')
+    direction = disp_params.get('direction')
 
-return filterContents(context, context.objectValues(),
-                      sort_on=sort_by, sort_order=direction,
-                      hide_folder=hide_folder, filter_ptypes=displayed)
+if not use_catalog:
+    # Fetch contents with an context.objectValues()
+    from Products.CPSDefault.utils import getFolderContents
+else:
+    # Use the catalog to get the folder contents
+    from Products.CPSDefault.utils import getCatalogFolderContents as getFolderContents
+    if sort_by is None:
+        sort_by = 'position_in_container'
+
+return getFolderContents(context, sort_on=sort_by,
+                         sort_order=direction,
+                         hide_folder=hide_folder,
+                         filter_ptypes=displayed)

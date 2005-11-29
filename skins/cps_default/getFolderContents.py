@@ -1,4 +1,4 @@
-##parameters=sort_by=None, direction=None, hide_folder=False, displayed=None, use_catalog=False
+##parameters=sort_by=None, direction=None, hide_folder=False, displayed=None, use_catalog=None
 # $Id$
 """
 Get a sorted list of contents object
@@ -9,6 +9,10 @@ if not sort_by:
     disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
     sort_by = disp_params.get('sort_by')
     direction = disp_params.get('direction')
+
+if use_catalog is None:
+    # check container configuration with acquisition
+    use_catalog = getattr(context, 'use_catalog_for_folder_contents', False)
 
 if not use_catalog:
     # Fetch contents with an context.objectValues()

@@ -1,4 +1,4 @@
-##parameters=direction, ids=[]
+##parameters=direction, ids=[], use_catalog=None
 # $Id$
 """Move selected objects to the direction."""
 
@@ -19,6 +19,15 @@ else:
         context.moveObjectsToBottom(ids)
     else:
         message = 'invalid_direction'
+    if use_catalog is None:
+        # check container configuration with acquisition
+        use_catalog = getattr(context, 'use_catalog_for_folder_contents',
+                              False)
+    if use_catalog:
+        # folder contents is displayed using the catalog
+        # we need to reindex the position_in_container index and metadata
+        from Products.CPSDefault.utils import reindexFolderContentPositions
+        reindexFolderContentPositions(context)
 
 # Keeping the choosen ids while redisplaying the list
 context.REQUEST.SESSION['choosen_ids'] = ids

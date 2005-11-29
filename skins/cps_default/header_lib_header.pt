@@ -20,8 +20,8 @@ XXX this should referenced and documented in CPSDefault/doc/
   <link rel="stylesheet" type="text/css" media="all"
     title="CPSDefault styles"
     tal:attributes="href string:${base_url}default.css" />
-  <link rel="stylesheet" type="text/css" media="all"
-    tal:attributes="href string:${base_url}boxes.css" />
+  <link tal:condition="btool|nothing" rel="stylesheet" type="text/css"
+    media="all" tal:attributes="href string:${base_url}boxes.css" />
   <tal:block replace="structure string:&lt;!--[if IE]&gt;" /><link
     rel="stylesheet" type="text/css"
     tal:attributes="href string:${base_url}msie.css" /><tal:block

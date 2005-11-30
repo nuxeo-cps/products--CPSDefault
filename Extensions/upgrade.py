@@ -288,22 +288,7 @@ def upgrade_338_340(self):
 
     return '\n'.join(log)
 
-
-#########
-
-
-AUTOMATIC_UPGRADES = (
-    # from, to, upgrade method, execute before or after cpsupdate
-    ('*',  'zope 2.8', upgrade_catalog_Z28, 'before'),
-    ('3.2.0', '3.3.4', upgrade_320_334, 'after'),
-    ('3.3.4', '3.3.5', upgrade_334_335, 'after'),
-    ('3.3.5', '3.3.6', upgrade_335_336, 'after'),
-    ('3.3.6', '3.3.7', upgrade_336_337, 'after'),
-    ('3.3.8', '3.3.8_upgrading', upgrade_before_338_340, 'before'),
-    ('3.3.8_upgrading', '3.4.0', upgrade_338_340, 'after'),
-    )
-
-########## Zope 2.8
+################################################## Zope 2.8
 
 def upgrade_catalog_Z28(self):
     """Upgrade portal_catalog because of zcatalog changes
@@ -339,3 +324,18 @@ def upgrade_catalog_Z28(self):
                     delattr(idx, '__len__')
 
     return '\n'.join(log)
+
+
+##################
+
+AUTOMATIC_UPGRADES = (
+    # from, to, upgrade method, execute before or after cpsupdate
+    ('*',  'zope 2.8', upgrade_catalog_Z28, 'before'),
+    ('3.2.0', '3.3.4', upgrade_320_334, 'after'),
+    ('3.3.4', '3.3.5', upgrade_334_335, 'after'),
+    ('3.3.5', '3.3.6', upgrade_335_336, 'after'),
+    ('3.3.6', '3.3.7', upgrade_336_337, 'after'),
+    ('3.3.8', '3.3.8_upgrading', upgrade_before_338_340, 'before'),
+    ('3.3.8_upgrading', '3.4.0', upgrade_338_340, 'after'),
+    )
+

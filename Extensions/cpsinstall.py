@@ -481,8 +481,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
                     'portal_properties.enable_portal_joining and not member')
                 break
 
-        self.verifyAction('portal_actions',
-                id='action_my_preferences',
+        self.verifyAction('portal_membership',
+                id='preferences',
                 name='action_my_preferences',
                 action="string:${portal_url}/cpsdirectory_entry_view?"
                        "dirname=members&id=${member}",
@@ -591,10 +591,13 @@ state_change.object.addLanguageToProxy(lang, from_lang)
 
         self.verifyActions(actions)
 
-        # Clean old CPS habit.
+        # Clean old CPS actions.
         if self.hasAction('portal_actions', 'status_history'):
             self.deleteActions({'portal_actions': ('status_history',)})
             self.log("Deleted old 'status_history' action from portal_actions")
+        # This one was changed back to the standard CMF 'preferences' id
+        if self.hasAction('portal_actions', 'action_my_preferences'):
+            self.deleteActions({'portal_actions': ('action_my_preferences',)})
 
 
     def setupSkins(self):

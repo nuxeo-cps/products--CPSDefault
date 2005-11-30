@@ -265,7 +265,6 @@ def upgrade_336_337(self):
 
     return '\n'.join(log)
 
-
 ################################################## 3.3.8
 
 def upgrade_before_338_340(self):
@@ -286,6 +285,16 @@ def upgrade_338_340(self):
     log = []
     dolog = log.append
 
+    # Upgrade CPSPortlet / CPSSkins to a boxless setup
+    portal = self.portal_url.getPortalObject()
+    if getToolByName(portal, 'portal_cpsportlets', None) is None:
+        # TODO: install CPSPortlets ?
+        pass
+
+    from Products.CPSPortlets.upgrade import upgrade_338_340_themes
+    from Products.CPSPortlets.upgrade import upgrade_338_340_portlets
+    dolog(upgrade_338_340_themes(self))
+    dolog(upgrade_338_340_portlets(self))
     return '\n'.join(log)
 
 ################################################## Zope 2.8

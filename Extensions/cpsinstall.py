@@ -1882,7 +1882,7 @@ return updateEffectiveDate(state_change.object)
     def doUpgrades(self, post_update=True):
         """Do automatic upgrades."""
         from Products.CPSDefault.Extensions import upgrade
-
+        reload(upgrade)
         DEFAULT = '3.2.0' # If we've never upgraded, start there
 
         self.log("Checking for upgrades")

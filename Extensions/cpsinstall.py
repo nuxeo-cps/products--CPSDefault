@@ -136,8 +136,8 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         installername = getSecurityManager().getUser().getUserName()
         self.log("Current user: %s" % installername)
 
-        # Prepare upgrade
-        self.doPrepareUpgrade()
+        # Automatic upgrades
+        self.doUpgrades(post_update=False)
 
         self.setupRegistration()
         self.setupMembership()
@@ -196,7 +196,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
         self.enableEventSubscriber('portal_subscriptions')
 
         # Automatic upgrades
-        self.doUpgrades()
+        self.doUpgrades(post_update=True)
 
     #
     # Catalog
@@ -1879,7 +1879,7 @@ return updateEffectiveDate(state_change.object)
 
 
 
-    def doUpgrades(self):
+    def doUpgrades(self, post_update=True):
         """Do automatic upgrades."""
         from Products.CPSDefault.Extensions import upgrade
 
@@ -1896,21 +1896,20 @@ return updateEffectiveDate(state_change.object)
         if not portal.last_upgraded_version:
             portal.last_upgraded_version = DEFAULT
 
-        for prev, next, method in upgrade.AUTOMATIC_UPGRADES:
-            if portal.last_upgraded_version != prev:
+        for prev, next, method, when in upgrade.AUTOMATIC_UPGRADES:
+            if prev != '*' and portal.last_upgraded_version != prev:
+                continue
+            if when.startswith('before') and post_update:
+                continue
+            if when.startswith('after') and not post_update:
                 continue
             self.log(" Upgrading from %s to %s" % (prev, next))
             res = method(portal)
             self.log(res)
-            portal.last_upgraded_version = next
+            if prev != '*':
+                portal.last_upgraded_version = next
             #transaction.commit()
 
-    def doPrepareUpgrade(self):
-        """Do automatic pre-upgrade
-        """
-        from Products.CPSDefault.Extensions.upgrade import upgrade_catalog_Z28
-        self.log("Preparing for upgrade")
-        upgrade_catalog_Z28(self.portal)
 
 def cpsupdate(self, langs_list=None, is_creation=0):
     # helpers

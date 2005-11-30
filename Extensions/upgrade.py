@@ -265,13 +265,42 @@ def upgrade_336_337(self):
 
     return '\n'.join(log)
 
+
+################################################## 3.3.8
+
+def upgrade_before_338_340(self):
+    """Upgrades for CPS 3.3.8 before cpsupdate"""
+    log = []
+    dolog = log.append
+
+    ctool = getToolByName(self, 'portal_catalog')
+    indexes = ctool.indexes()
+    if 'cps_filter_sets' in indexes:
+        dolog('Reset cps_filter_sets')
+        ctool.delIndex('cps_filter_sets')
+
+    return '\n'.join(log)
+
+def upgrade_338_340(self):
+    """Upgrades for CPS 3.3.8 after cpsupdate"""
+    log = []
+    dolog = log.append
+
+    return '\n'.join(log)
+
+
 #########
 
+
 AUTOMATIC_UPGRADES = (
-    ('3.2.0', '3.3.4', upgrade_320_334),
-    ('3.3.4', '3.3.5', upgrade_334_335),
-    ('3.3.5', '3.3.6', upgrade_335_336),
-    ('3.3.6', '3.3.7', upgrade_336_337),
+    # from, to, upgrade method, execute before or after cpsupdate
+    ('*',  'zope 2.8', upgrade_catalog_Z28, 'before'),
+    ('3.2.0', '3.3.4', upgrade_320_334, 'after'),
+    ('3.3.4', '3.3.5', upgrade_334_335, 'after'),
+    ('3.3.5', '3.3.6', upgrade_335_336, 'after'),
+    ('3.3.6', '3.3.7', upgrade_336_337, 'after'),
+    ('3.3.8', '3.3.8_upgrading', upgrade_before_338_340, 'before'),
+    ('3.3.8_upgrading', '3.4.0', upgrade_338_340, 'after'),
     )
 
 ########## Zope 2.8
@@ -279,7 +308,8 @@ AUTOMATIC_UPGRADES = (
 def upgrade_catalog_Z28(self):
     """Upgrade portal_catalog because of zcatalog changes
     """
-
+    log = []
+    dolog = log.append
     for catalog in (getToolByName(self, 'portal_catalog'),
                     getToolByName(self, 'portal_cpsportlets_catalog', None)):
 
@@ -304,5 +334,8 @@ def upgrade_catalog_Z28(self):
 
             if found:
                 if not hasattr(idx, '_length'):
+                    dolog('ugrade zope 2.7 catalog index')
                     idx._length = idx.__len__
                     delattr(idx, '__len__')
+
+    return '\n'.join(log)

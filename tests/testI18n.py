@@ -109,25 +109,18 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         doc = proxy.getContent()
         self.assertEquals(doc.Language(), new_lang)
 
-        ##print "deletion of a locale fr --------------------"
-        ## XXX this does not work for the moment
-        ## catalog keep viewLanguage/xx path
-
-
-        #proxy.delLanguageFromProxy(lang='fr')
-        #proxy.reindexObject()
-
-        #languages = proxy.getProxyLanguages()
-        #self.assert_('en' in languages)
-        #self.assert_(len(languages) == 1)
-        #self.assert_(has_path(catalog, "/portal/workspaces/a_workspace"))
-        # YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY failed
-        #self.assert_(
-        #    not has_path(catalog,
-        #                 "/portal/workspaces/a_workspace/viewLanguage/fr"))
-        #self.assert_(
-        #    not has_path(catalog,
-        #                 "/portal/workspaces/a_workspace/viewLanguage/en"))
+        #print "deletion of the fr locale --------------------"
+        self.portal.content_delete_translation(proxy=proxy, lang='fr')
+        languages = proxy.getProxyLanguages()
+        self.assert_('en' in languages)
+        self.assert_(len(languages) == 1)
+        self.assert_(has_path(catalog, "/portal/workspaces/a_workspace"))
+        self.assert_(
+            not has_path(catalog,
+                         "/portal/workspaces/a_workspace/viewLanguage/fr"))
+        self.assert_(
+            not has_path(catalog,
+                         "/portal/workspaces/a_workspace/viewLanguage/en"))
 
         #print "deletion of the proxy --------------------"
         self.portal.portal_eventservice.notifyEvent('workflow_delete',

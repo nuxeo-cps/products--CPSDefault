@@ -1,6 +1,5 @@
 # (C) Copyright 2003-2005 Nuxeo SARL <http://nuxeo.com>
 # Authors:
-# Benoit Delbosc <ben@nuxeo.com>
 # M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -110,7 +109,7 @@ class DefaultInstaller(CPSInstaller):
     CPS_FILTER_DEFAULT_LANGUAGES_EXPR = "not hasattr(o, 'isDefaultLanguage') or o.isDefaultLanguage()"
 
 
-    WFS_ADD_LANGUAGE_TO_PROXY = {
+    WFS_MANAGE_PROXY_LANGUAGES = {
         'add_language_to_proxy': {
             '_owner': None,
             'script': """\
@@ -118,6 +117,14 @@ class DefaultInstaller(CPSInstaller):
 lang=state_change.kwargs.get('lang')
 from_lang=state_change.kwargs.get('from_lang')
 state_change.object.addLanguageToProxy(lang, from_lang)
+"""
+            },
+        'delete_language_from_proxy': {
+            '_owner': None,
+            'script': """\
+##parameters=state_change
+lang=state_change.kwargs.get('lang')
+state_change.object.delLanguageFromProxy(lang)
 """
             },
         }
@@ -759,7 +766,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
             },
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
-                            self.WFS_ADD_LANGUAGE_TO_PROXY, {})
+                            self.WFS_MANAGE_PROXY_LANGUAGES, {})
 
 
     def setupWorkflow2(self):
@@ -926,7 +933,7 @@ state_change.object.addLanguageToProxy(lang, from_lang)
 return state_change.object.content_unlock_locked_before_abandon(state_change)
 """
             },}
-        wfscripts.update(self.WFS_ADD_LANGUAGE_TO_PROXY)
+        wfscripts.update(self.WFS_MANAGE_PROXY_LANGUAGES)
 
         wfvariables = {
             'action': {
@@ -1192,7 +1199,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
             },
         }
         self.verifyWorkflow(wfdef, wfstates, wftransitions,
-                            self.WFS_ADD_LANGUAGE_TO_PROXY, {})
+                            self.WFS_MANAGE_PROXY_LANGUAGES, {})
 
     def setupWorkflow5(self):
         # section_content_wf
@@ -1439,6 +1446,7 @@ return updateEffectiveDate(state_change.object)
                    wftool.workspace_content_wf):
             self.log(" Checking wf %s" % wf.getId())
             transitions = wf.transitions
+
             if hasattr(transitions, 'translate'):
                 self.log("  Removing old translate")
                 transitions.manage_delObjects('translate')
@@ -1461,6 +1469,30 @@ return updateEffectiveDate(state_change.object)
                 # XXX seems nothing is available for just adding a transition
                 work_state.transitions = transitions + ('translate',)
                 self.log("  translate activated for %s" % wf.getId())
+
+            transitions = wf.transitions
+            if hasattr(transitions, 'delete_translation'):
+                self.log("  Removing old delete_translation")
+                transitions.manage_delObjects('delete_translation')
+            transitions.addTransition('delete_translation')
+            translate = transitions.get('delete_translation')
+            translate.setProperties(
+                title="Delete a translation",
+                new_state_id='',
+                actbox_name='action_delete_translation',
+                actbox_category='workflow',
+                actbox_url='%(content_url)s/content_delete_translation',
+                script_name='delete_language_from_proxy',
+                props={'guard_permissions': ModifyPortalContent,
+                       'guard_roles': '',
+                       'guard_expr': 'python:not state_change.object.isDefaultLanguage()'})
+            self.log("  Added delete_translation")
+            work_state = wf.states['work']
+            transitions = work_state.transitions
+            if not 'delete_translation' in transitions:
+                # XXX seems nothing is available for just adding a transition
+                work_state.transitions = transitions + ('delete_translation',)
+                self.log("  delete_translation activated for %s" % wf.getId())
 
 
     def setupTypes(self):

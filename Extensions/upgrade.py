@@ -352,5 +352,6 @@ AUTOMATIC_UPGRADES = (
     ('3.3.6', '3.3.7', upgrade_336_337, 'after'),
     ('3.3.7', '3.3.8', None           , 'after'),
     ('3.3.8', '3.4.0', upgrade_338_340, 'after'),
+    ('3.3.8.1', '3.4.0', upgrade_338_340, 'after'),
     )
 

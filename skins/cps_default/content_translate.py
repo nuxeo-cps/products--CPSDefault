@@ -10,6 +10,10 @@ if not hasattr(proxy, 'addLanguageToProxy'):
         raise ValueError("Not a proxy")
     psm = 'psm_translation_not_supported'
     url = proxy.absolute_url()
+    action = proxy.getTypeInfo().getActionById('view')
+    REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' % (
+        url, action, psm))
+    return
 
 translationservice = context.translation_service
 

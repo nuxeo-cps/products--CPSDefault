@@ -1939,8 +1939,9 @@ return updateEffectiveDate(state_change.object)
             if when.startswith('after') and not post_update:
                 continue
             self.log(" Upgrading from %s to %s" % (prev, next))
-            res = method(portal)
-            self.log(res)
+            if method is not None:
+                res = method(portal)
+                self.log(res)
             if prev != '*':
                 portal.last_upgraded_version = next
             #transaction.commit()

@@ -267,16 +267,18 @@ def upgrade_336_337(self):
 
 ################################################## 3.3.8
 
-def upgrade_before_338_340(self):
-    """Upgrades for CPS 3.3.8 before cpsupdate"""
+def upgrade_before_340(self):
+    """Upgrades to run before cpsupdate on a 3.4.0"""
     log = []
     dolog = log.append
 
     ctool = getToolByName(self, 'portal_catalog')
     indexes = ctool.indexes()
     if 'cps_filter_sets' in indexes:
-        dolog('Reset cps_filter_sets')
-        ctool.delIndex('cps_filter_sets')
+        index = ctool._catalog.getIndex('cps_filter_sets')
+        if not index.filteredSets.has_key('nodes'):
+            dolog('Reset cps_filter_sets')
+            ctool.delIndex('cps_filter_sets')
 
     return '\n'.join(log)
 
@@ -338,13 +340,17 @@ def upgrade_catalog_Z28(self):
 ##################
 
 AUTOMATIC_UPGRADES = (
-    # from, to, upgrade method, execute before or after cpsupdate
-    ('*',  'zope 2.8', upgrade_catalog_Z28, 'before'),
+    # format is the following:
+    # from, to, upgrade method, do it 'before' or 'after' cpsupdate
+    # if `from` is a star (*) the portal version is not changed
+    # the list from/to must be contiguous.
+    ('*',  'check zope 2.8', upgrade_catalog_Z28, 'before'),
+    ('*', 'prepare to 3.4.0', upgrade_before_340, 'before'),
     ('3.2.0', '3.3.4', upgrade_320_334, 'after'),
     ('3.3.4', '3.3.5', upgrade_334_335, 'after'),
     ('3.3.5', '3.3.6', upgrade_335_336, 'after'),
     ('3.3.6', '3.3.7', upgrade_336_337, 'after'),
-    ('3.3.8', '3.3.8_upgrading', upgrade_before_338_340, 'before'),
-    ('3.3.8_upgrading', '3.4.0', upgrade_338_340, 'after'),
+    ('3.3.7', '3.3.8', None           , 'after'),
+    ('3.3.8', '3.4.0', upgrade_338_340, 'after'),
     )
 

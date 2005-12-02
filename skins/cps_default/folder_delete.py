@@ -11,7 +11,9 @@ if ids:
         # XXX has to be called from here since the workflow doesn't handle the
         # deletion yet
         ob = getattr(context, id)
-        context.portal_eventservice.notifyEvent('workflow_delete', ob, {})
+        from Products.CPSCore.EventServiceTool import getPublicEventService
+        evtool = getPublicEventService(context)
+        evtool.notifyEvent('workflow_delete', ob, {})
     context.manage_delObjects(ids)
     message = 'portal_status_message=psm_item(s)_deleted'
 else:

@@ -10,6 +10,7 @@ from Products.CMFCore.tests.base.utils import has_path
 from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
 from Products.CPSCore.utils import resetRequestLanguageSelection
+from Products.CPSCore.EventServiceTool import getEventService
 
 class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
     login_id = 'manager'
@@ -43,9 +44,8 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(has_path(catalog, "/portal/workspaces/"+proxy_id))
 
         #print "xxxx deletion"
-        self.portal.portal_eventservice.notifyEvent('workflow_delete',
-                                                    proxy,
-                                                    {})
+        evtool = getEventService(self.portal)
+        evtool.notifyEvent('workflow_delete', proxy, {})
         ws.manage_delObjects(proxy_id)
 
         self.assert_(proxy_id not in ws.objectIds())
@@ -123,9 +123,8 @@ class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
                          "/portal/workspaces/a_workspace/viewLanguage/en"))
 
         #print "deletion of the proxy --------------------"
-        self.portal.portal_eventservice.notifyEvent('workflow_delete',
-                                                    proxy,
-                                                    {})
+        evtool = getEventService(self.portal)
+        evtool.notifyEvent('workflow_delete', proxy, {})
         ws.manage_delObjects(proxy_id)
 
         self.assert_(proxy_id not in ws.objectIds())

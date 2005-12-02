@@ -11,6 +11,7 @@ from ConfigParser import ConfigParser, NoOptionError, NoSectionError
 from zLOG import LOG, INFO, DEBUG
 from Products.CMFCore.utils import getToolByName
 from Products.CPSCore.utils import makeId
+from Products.CPSCore.EventServiceTool import getEventService
 
 def pr(bla):
     if (bla):
@@ -66,7 +67,7 @@ def createContent(portal, type, path, id, force=None, **kw):
         path = path[1:]
         pr('check %s/%s' % (path, id))
 
-    portal_eventservice = getToolByName(portal, 'portal_eventservice')
+    evtool = getEventService(portal)
     portal_types = getToolByName(portal, 'portal_types')
 
     parent = portal.unrestrictedTraverse(path)
@@ -114,8 +115,8 @@ def createContent(portal, type, path, id, force=None, **kw):
     if is_proxy:
         doc = ob.getEditableContent()
         doc.edit(**kw)
-        portal_eventservice.notifyEvent('modify_object', parent, {})
-        portal_eventservice.notifyEvent('modify_object', ob, {})
+        evtool.notifyEvent('modify_object', parent, {})
+        evtool.notifyEvent('modify_object', ob, {})
     else:
         ob.manage_changeProperties(**kw)
         ob.reindexObject()

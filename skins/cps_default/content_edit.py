@@ -45,10 +45,11 @@ try:
 
     # setting properties, edit will notify the doc itself with a 'modify_object'
     doc.edit(**kw)
-#    context.portal_eventservice.notifyEvent('modify_object', doc, {})
 
     # notifying the proxy
-    context.portal_eventservice.notifyEvent('modify_object', context, {})
+    from Products.CPSCore.EventServiceTool import getPublicEventService
+    evtool = getPublicEventService(context)
+    evtool.notifyEvent('modify_object', context, {})
 
     psm = 'psm_content_changed'
 except Exception, msg:

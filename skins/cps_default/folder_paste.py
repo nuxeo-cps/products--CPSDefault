@@ -16,9 +16,9 @@ try:
         result = context.manage_CPSpasteObjects(REQUEST['__cp'])
         for id in [ob['new_id'] for ob in result]:
             ob = getattr(context, id)
-            context.portal_eventservice.notifyEvent('workflow_cut_copy_paste',
-                                                    ob,
-                                                    {})
+            from Products.CPSCore.EventServiceTool import getPublicEventService
+            evtool = getPublicEventService(context)
+            evtool.notifyEvent('workflow_cut_copy_paste', ob, {})
         message = 'psm_item(s)_pasted'
     else:
         message = 'psm_copy_or_cut_at_least_one_document'

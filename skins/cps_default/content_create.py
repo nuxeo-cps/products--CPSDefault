@@ -56,8 +56,10 @@ else:
             del kw['type_name']
         doc.edit(**kw)
 
-context.portal_eventservice.notifyEvent('modify_object', context, {})
-context.portal_eventservice.notifyEvent('modify_object', ob, {})
+from Products.CPSCore.EventServiceTool import getPublicEventService
+evtool = getPublicEventService(context)
+evtool.notifyEvent('modify_object', context, {})
+evtool.notifyEvent('modify_object', ob, {})
 
 
 if REQUEST is not None:

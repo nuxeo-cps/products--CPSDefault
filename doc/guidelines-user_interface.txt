@@ -1,14 +1,14 @@
 =========================
 User Interface Guidelines
 =========================
-$Id$
+
+*$Id$*
 
 
 What's inside
 =============
 
-* `Ergonomics/usability`_
-* `Accessibility`_
+* `Ergonomics/Usability/Accessibility`_
 * `XHTML`_
 * `CSS`_
 * `JavaScript`_
@@ -17,23 +17,22 @@ What's inside
 
 
 
-Ergonomics/usability
-====================
+Ergonomics/Usability/Accessibility
+==================================
 
-The product should be fully and securely usable as soon as it is installed.
+Ergonomics/Usability
+--------------------
 
 The default behavior of CPS should be what most of the users and clients are
 expecting from this kind of product.
 
-
-
 Accessibility
-=============
+-------------
 
-General
--------
+.. _CPS Accessibility task list: http://svn.nuxeo.org/trac/pub/report/11
 
-Accessibility is about making content usable or more usable by:
+Accessibility is about making content usable. Accessibility benefits to everyone
+and in particular to:
 
 * other devices such as personal assistant, web-phones, news readers, etc.
 
@@ -49,9 +48,11 @@ Accessibility is about making content usable or more usable by:
 One should read http://diveintoaccessibility.org/ to have a precise idea about
 what accessibility and interoperability are. "Dive into accessibility" is
 available in many languages: http://diveintoaccessibility.org/translations.html
-
 The site http://openweb.eu.org/ [fr] is also a must read, but only available in
 French.
+
+If you want to follow the improvements of CPS accessibility you can read and
+participate to the `CPS Accessibility task list`_.
 
 Laws
 ----
@@ -61,7 +62,7 @@ are accessible.
 
 In Europe:
 
-XXX
+XXX: Provide text of the European law
 
 
 In France:
@@ -77,14 +78,84 @@ handicapées".
 
 In the USA:
 
-XXX
+XXX: Provide text of the USA law
+
+WAI Conformance
+---------------
+
+.. _Web Content Accessibility Guidelines 1.0: http://www.w3.org/TR/WAI-WEBCONTENT/
+
+CPS accessibility is rated against the `Web Content Accessibility Guidelines 1.0`_
+because this is the international recognized standard regarding accessibility.
+The `Web Content Accessibility Guidelines 1.0`_ define 3 levels of accessibility:
+
+1. Conformance Level "A"
+
+2. Conformance Level "Double-A"
+
+3. Conformance Level "Triple-A"
 
 
-Conformance
------------
+CPS WAI conformance in general is difficult to rate because CPS is composed of
+so many products, many being optional and some with a not so good accessibility.
 
-CPS is WAI-A compliant and this compliance should not be broken. WAI-AA
-compliance might be possible, but an audit is required.
+Some products are not accessible at all because some customers still sometimes
+explicitly ask for non-accessible functionalities.
+
+So we will state what sets of CPS products and configurations should be used to
+respectively achieve WAI-A, WAI-AA and WAI-AAA conformance.
+
+Conformance Level "A"
+---------------------
+
+.. _CPS-3-base: http://svn.nuxeo.org/trac/pub/file/bundles/CPS-3-base/bundle.conf
+.. _CPSOOo: http://svn.nuxeo.org/trac/pub/file/CPSOOo/trunk
+.. _CPSWiki: http://svn.nuxeo.org/trac/pub/file/CPSWiki/trunk
+.. _CPSBlog: http://svn.nuxeo.org/trac/pub/file/CPSBlog/trunk
+
+CPS is WAI-A compliant when composed of the following products:
+
+* `CPS-3-base`_
+
+* `CPSOOo`_
+
+* `CPSWiki`_
+
+* `CPSBlog`_
+
+Note that at the bottom of a stock CPS there is a blue icon stating the WAI-A
+conformance.
+
+**New developments to CPS must not break the WAI-A compliance of CPS**.
+
+Conformance Level "Double-A"
+----------------------------
+
+CPS could easily be made WAI-AA compliant when composed of the following products:
+
+* `CPS-3-base`_
+
+* `CPSOOo`_
+
+* `CPSWiki`_
+
+* `CPSBlog`_
+
+But it is necessary to:
+
+* set the *tableless* option to the pages defined in the CPSSkins themes
+
+  (Portal Themes -> Go to the used theme -> Go to the used pages ->
+  Edit on the page tab-> General -> Select Tableless)
+
+* fix the Ticket #495: `Document HTML view page should contain HTML metadata`_
+
+.. _Document HTML view page should contain HTML metadata: http://svn.nuxeo.org/trac/pub/ticket/495
+
+Conformance Level "Triple-A"
+----------------------------
+
+CPS can be made WAI-AAA compliant but at this time this requires some specific work.
 
 
 

@@ -1,115 +1,122 @@
-# $Id$
-# Zope 2.7.3
-make_zs
+==================
+How To Install CPS
+==================
 
-cd Products
-# CMF 1.4.4
-tar xzvf /home/zopes/_packages/CMF-1.4.7.tar.gz
-mv CMF-1.4.7/CMF* .
-mv CMF-1.4.7/DCWorkflow .
-rm -rf CMF-1.4.7
+:Revision: $Id$
 
-# Products
-tar xzvf /home/zopes/_packages/BTreeFolder2-1.0.1.tar.gz
-tar xzvf /home/zopes/_packages/TranslationService-0.6.0-1.tgz
+::
 
-# Packages for dev
-tar xzvf /home/zopes/_packages/VerboseSecurity-0.5.tar.gz
-# For po generation (Parsing the ZPT's)
-#OpenPTi18n a little bit modified by Julien for convenience.
-tar xzvf  /home/zopes/_packages/OpenPTi18n-nuxeo.tgz
+    # Zope 2.7.3
+    make_zs
 
-# if you want to browse src from the zmi
-tar xzvf /home/zopes/_packages/DocFinderEverywhere-0.4.1.tar.gz
+    cd Products
+    # CMF 1.4.4
+    tar xzvf /home/zopes/_packages/CMF-1.4.7.tar.gz
+    mv CMF-1.4.7/CMF* .
+    mv CMF-1.4.7/DCWorkflow .
+    rm -rf CMF-1.4.7
 
-cd ../lib/python/Testing
-tar xzvf /home/zopes/_packages/ZopeTestCase-0.9.6.tar.gz
-apt-get install python2.3-profiler
-cd -
+    # Products
+    tar xzvf /home/zopes/_packages/BTreeFolder2-1.0.1.tar.gz
+    tar xzvf /home/zopes/_packages/TranslationService-0.6.0-1.tgz
 
+    # Packages for dev
+    tar xzvf /home/zopes/_packages/VerboseSecurity-0.5.tar.gz
+    # For po generation (Parsing the ZPT's)
+    #OpenPTi18n a little bit modified by Julien for convenience.
+    tar xzvf  /home/zopes/_packages/OpenPTi18n-nuxeo.tgz
 
-## CPS 3 packaged replace x.x by the latest version available
-# tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
-# mv CPSCore-3.x.x CPSCore
-# tar xzvf /home/zopes/_packages/CPSDefault-3.x.x.tgz
-# mv CPSDefault-3.x.x CPSDefault
+    # if you want to browse src from the zmi
+    tar xzvf /home/zopes/_packages/DocFinderEverywhere-0.4.1.tar.gz
 
-## or CPS3 dev
-cvs co CPSInstaller
-cvs co CPSCore
-cvs co CPSWorkflow
-cvs co CPSSchemas
-cvs co CPSDocument
-cvs co CPSUserFolder
-cvs co CPSDirectory
-cvs co CPSSubscriptions
-cvs co CPSDefault
-cvs co CPSForum
-cvs co Localizer
-cvs co PortalTransforms
-
-# You might check http://cvs.nuxeo.org/CPS3/ for additional packages you may
-# install on your CPS site
-
-# To use CPSDocument
-#
-# Epoz is mandatory for CPSDocument otherwise CPSDocument cannot even be
-# installed.
-tar xvzf /home/zopes/_packages/Epoz-0.8.1.tar.gz
-cvs co CPSDocument
-
-## For po utilities (DEV)
-## note that this will add an error in the stupid log
-## 2003-07-21T10:47:17 ERROR(200) Zope Couldn't install OpenPTi18n ...
-cd ../bin
-tar xvf /home/zopes/_packages/pax-1.0a3.tar
-cd pax
-../python setup.py build
-../python setup.py install
-
-cd ..
-tar xvf /home/zopes/_packages/OpenTAL-0.5.tar
-cd OpenTAL
-../python setup.py build
-../python setup.py install
-cd ..
-## Troubleshooter: OpenTAL does not install ok using python2.4, but there's
-## a workaround to make it work: just change the evaluateText method
-## parameters (OpenTAL/Context.py, l.191 in version 0.5) from "def
-## evaluateText(self, expr, None=None):" to "def evaluateText(self, expr):",
-## as python2.4 does not allow assignments to None.
-
-rm -rf ./pax ./OpenTAL
-
-# Recommended product for CPSDocument PIL Image Library
-# in the ZS/bin folder:
-# Note that this version of Imaging lib include a patch in setup.py to
-# work properly if you have FreeType lib without TKinter
-# this should be fixed in Imaging 1.1.5
-tar xzvf /home/zopes/_packages/Imaging-1.1.4-nuxeo.tar.gz
-cd Imaging-1.1.4/libImaging/
-./configure
-make
-cd ..
-../python setup.py build
-../python setup.py install
-cd ..
-rm -rf ./Imaging-1.1.4
+    cd ../lib/python/Testing
+    tar xzvf /home/zopes/_packages/ZopeTestCase-0.9.6.tar.gz
+    apt-get install python2.3-profiler
+    cd -
 
 
-# for VerboseSecurity add in the start script (before the exec line)
-ZOPE_SECURITY_POLICY=PYTHON
-export ZOPE_SECURITY_POLICY
+    ## CPS 3 packaged replace x.x by the latest version available
+    # tar xzvf /home/zopes/_packages/CPSCore-3.x.x.tgz
+    # mv CPSCore-3.x.x CPSCore
+    # tar xzvf /home/zopes/_packages/CPSDefault-3.x.x.tgz
+    # mv CPSDefault-3.x.x CPSDefault
+
+    ## or CPS3 dev
+    cvs co CPSInstaller
+    cvs co CPSCore
+    cvs co CPSWorkflow
+    cvs co CPSSchemas
+    cvs co CPSDocument
+    cvs co CPSUserFolder
+    cvs co CPSDirectory
+    cvs co CPSSubscriptions
+    cvs co CPSDefault
+    cvs co CPSForum
+    cvs co Localizer
+    cvs co PortalTransforms
+
+    # You might check http://cvs.nuxeo.org/CPS3/ for additional packages you may
+    # install on your CPS site
+
+    # To use CPSDocument
+    #
+    # Epoz is mandatory for CPSDocument otherwise CPSDocument cannot even be
+    # installed.
+    tar xvzf /home/zopes/_packages/Epoz-0.8.1.tar.gz
+    cvs co CPSDocument
+
+    ## For po utilities (DEV)
+    ## note that this will add an error in the stupid log
+    ## 2003-07-21T10:47:17 ERROR(200) Zope Couldn't install OpenPTi18n ...
+    cd ../bin
+    tar xvf /home/zopes/_packages/pax-1.0a3.tar
+    cd pax
+    ../python setup.py build
+    ../python setup.py install
+
+    cd ..
+    tar xvf /home/zopes/_packages/OpenTAL-0.5.tar
+    cd OpenTAL
+    ../python setup.py build
+    ../python setup.py install
+    cd ..
+    ## Troubleshooter: OpenTAL does not install ok using python2.4, but there's
+    ## a workaround to make it work: just change the evaluateText method
+    ## parameters (OpenTAL/Context.py, l.191 in version 0.5) from "def
+    ## evaluateText(self, expr, None=None):" to "def evaluateText(self, expr):",
+    ## as python2.4 does not allow assignments to None.
+
+    rm -rf ./pax ./OpenTAL
+
+    # Recommended product for CPSDocument PIL Image Library
+    # in the ZS/bin folder:
+    # Note that this version of Imaging lib include a patch in setup.py to
+    # work properly if you have FreeType lib without TKinter
+    # this should be fixed in Imaging 1.1.5
+    tar xzvf /home/zopes/_packages/Imaging-1.1.4-nuxeo.tar.gz
+    cd Imaging-1.1.4/libImaging/
+    ./configure
+    make
+    cd ..
+    ../python setup.py build
+    ../python setup.py install
+    cd ..
+    rm -rf ./Imaging-1.1.4
 
 
-# running unit test to check the installation
-# note that test log are located in $ZS/lib/python/Testing/var/stupid.log
-cd Products/CPSDefault/
-_ut -vv
+    # for VerboseSecurity add in the start script (before the exec line)
+    ZOPE_SECURITY_POLICY=PYTHON
+    export ZOPE_SECURITY_POLICY
 
-# start zs
-_start
 
-## ZMI
-# add a Virtual Host Monster
-# add a CPSDefault Site ...
+    # running unit test to check the installation
+    # note that test log are located in $ZS/lib/python/Testing/var/stupid.log
+    cd Products/CPSDefault/
+    _ut -vv
+
+    # start zs
+    _start
+
+    ## ZMI
+    # add a Virtual Host Monster
+    # add a CPSDefault Site ...

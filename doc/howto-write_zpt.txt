@@ -1,110 +1,154 @@
+========================================
 How to write ZPT to render correct XHTML
 ========================================
 
-$Id$
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
 
 
-I/ Do XHTML Transitional 1.0 or die
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do XHTML Transitional 1.0 or die
+================================
 
-1/ Check empty TAG:
-- <meta ...> into <meta ... />
-- <link ...> into <link ... />
-- <br> into <br />
-- <hr> into <hr />
-- <input ...> into <input ... />
-- <img ...> into <img ... />
+1. Check empty tags.  Change:
 
-2/ Check unvalued attributes:
-- <... nowrap> into <... nowrap="nowrap">
-- <... selected> into <... selected="selected">
-- <... checked> into <... checked="checked">
-! <... nowrap="1"> is not valid, this must be <... nowrap="nowrap">
+   - <meta ...> into <meta ... />
 
-3/ Use lowercase tag name and attributes:
-- <form method="POST" ...> into <form method="post" ...>
-- <form method="GET" ...> into <form method="get" ...>
-- All your tag should be in lowercase (this is good for compression)
+   - <link ...> into <link ... />
 
-4/ Name must be a single token:
-- <... name="foo bar"> into <... name="foo_bar">
+   - <br> into <br />
 
-5/ Make http://validator.w3.org/ your homepage and use it
+   - <hr> into <hr />
 
-6/ LIMITATION:
-Some attributes are not available in xhtml:
-- colspan
-- onclick
-- ?
+   - <input ...> into <input ... />
+
+   - <img ...> into <img ... />
+
+2. Check unvalued attributes:
+
+   - <... nowrap> into <... nowrap="nowrap">
+
+   - <... selected> into <... selected="selected">
+
+   - <... checked> into <... checked="checked">
+
+   - **But** <... nowrap="1"> is not valid; this must be
+     <... nowrap="nowrap">.
+
+3. Use lowercase tag name and attributes.  Change:
+
+   - <form method="POST" ...> into <form method="post" ...>
+
+   - <form method="GET" ...> into <form method="get" ...>
+
+   - All your tags should be in lowercase (this is good for
+     compression).
+
+4. Names must be a single token.  Change:
+
+   - <... name="foo bar"> into <... name="foo_bar">
+
+5. Make http://validator.w3.org/ your homepage and use it.
+
+6. Limitation: Some attributes are not available in XHTML:
+
+   - colspan
+
+   - onclick
+
+   - ?
+
 We keep them for the moment until we know how to remove them.
 
 
-II / XHMTL and nuxeo CSS
-~~~~~~~~~~~~~~~~~~~~~~~~
+XHTML and nuxeo CSS
+===================
 
-1/ Give up the following attributes:
-- color=
-- bgcolor=
-- font=
-even style="" is a problem you should think to add a new css class
+1. Give up the following attributes:
 
-2/ Any form should be like this:
-All input should be grouped using class="group"
-Use row/label and field class for the layout
+   - color=
 
-<form method="post">
-<div class="group">
+   - bgcolor=
 
-  <div class="row">
-    <div class="label">foo</div>
-    <div class="field"><input type="text" ... /></div>
-  </div>
-...
-  <div class="row">
-    <div class="field">
-       <input type="submit" class="context">
-    </div>
-  </div>
+   - font=
 
-</div>
-</form>
+   Even style="" is a problem.  You should think of adding a new CSS
+   class.
 
-3/ Inputs:
-- Radio, checkbox should always use class="noborder"
+2. Any form should be like the following:
 
-4/ Buttons:
-- Submit can be:
-- The main action of the form should be class="standalone"
-- Sub action should be class="context"
-- A delete action should be class="destructive" with a js confirm window
-  Example:
+   All input should be grouped using class="group". Use row/label and
+   field classes for the layout.  Example::
 
-<input type="submit" value="button_delete"
-  class="destructive" i18n:attributes="value"
-  tal:attributes="onclick python:'return window.confirm(\'%s\')' %
-                 (cpsmcat('description_confirm_delete'), )" />
+       <form method="post">
+       <div class="group">
 
-5/ Heading:
-- The title of the page must be in <h1>
-- Do not jump to <h3> without using <H2>
+         <div class="row">
+           <div class="label">foo</div>
+           <div class="field"><input type="text" ... /></div>
+         </div>
+       ...
+         <div class="row">
+           <div class="field">
+              <input type="submit" class="context">
+           </div>
+         </div>
 
-6/ Table:
-- Always add a summary attributes saying if it is a layout
-  or a listing table (shame on you if it is a layout)
-  <table summary="3 col layout">
+       </div>
+       </form>
 
-- If you have headers use <th>
+3. Inputs:
 
-7/ To display a list of properties in 2 columns, like:
+   - Radio, checkbox should always use class="noborder".
 
-  name: ...
-  firstname: ...
+4. Buttons:
 
-think of using <dd> and <dt>, hope to have an example in cps soon
+   - Submit can be:
 
-8/ Copy stuff
-- Take example of what was done in CPSDefault/Document/Schema/Directory
+   - The main action of the form should be class="standalone"
 
-9/ XXX
-- For all other questions ask our local experts: Marc-Aurèle and Emmanuel
+   - Sub action should be class="context"
+
+   - A delete action should be class="destructive" with a js
+     confirm window Example::
+
+       <input type="submit" value="button_delete"
+         class="destructive" i18n:attributes="value"
+         tal:attributes="onclick python:'return window.confirm(\'%s\')' %
+                        (cpsmcat('description_confirm_delete'), )" />
+
+5. Heading:
+
+   - The title of the page must be in <h1>.
+
+   - Do not jump to <h3> without using <H2>.
+
+6. Table:
+
+   - Always add a summary attribute saying if it is a layout or a
+     listing table (shame on you if it is a layout).  Example::
+
+         <table summary="3 col layout">
+
+   - If you have headers, use <th>.
+
+7. To display a list of properties in 2 columns, use something
+   like::
+
+       name: ...
+       firstname: ...
+
+   Think of using <dd> and <dt>, hope to have an example in CPS
+   soon.
+
+8. Copy stuff:
+
+   - For an example, take a look at what was done in
+     ``CPSDefault/Document/Schema/Directory``.
+
+9. Miscellaneous:
+
+   - For all other questions ask our local experts: Marc-Aurèle
+     and Emmanuel.
 

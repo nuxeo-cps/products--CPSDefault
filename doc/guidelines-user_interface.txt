@@ -2,7 +2,8 @@
 User Interface Guidelines
 =========================
 
-*$Id$*
+:Author: Marc-Aurèle DARCHE
+:Revision: $Id$
 
 
 What's inside
@@ -23,42 +24,43 @@ Ergonomics/Usability/Accessibility
 Ergonomics/Usability
 --------------------
 
-The default behavior of CPS should be what most of the users and clients are
-expecting from this kind of product.
+The default behavior of CPS should be what most users and clients
+expect from this kind of product.
 
 Accessibility
 -------------
 
 .. _CPS Accessibility task list: http://svn.nuxeo.org/trac/pub/report/11
 
-Accessibility is about making content usable. Accessibility benefits to everyone
-and in particular to:
+Accessibility is about making content usable. Accessibility
+benefits everyone and in particular has benefits for:
 
-* other devices such as personal assistant, web-phones, news readers, etc.
+- other devices such as personal assistant, web-phones, news
+  readers, etc.
 
-* blind people
+- blind people
 
-* old people
+- old people
 
-* people with any kind of disabilities
+- people with any kind of disabilities
 
-* people who don't have any disabilities, yet
+- people who don't have any disabilities, yet
 
+One should read http://diveintoaccessibility.org/ to have a
+precise idea about what accessibility and interoperability are.
+"Dive into accessibility" is available in many languages:
+http://diveintoaccessibility.org/translations.html The site
+http://openweb.eu.org/ [fr] is also a must read, but only
+available in French.
 
-One should read http://diveintoaccessibility.org/ to have a precise idea about
-what accessibility and interoperability are. "Dive into accessibility" is
-available in many languages: http://diveintoaccessibility.org/translations.html
-The site http://openweb.eu.org/ [fr] is also a must read, but only available in
-French.
-
-If you want to follow the improvements of CPS accessibility you can read and
-participate to the `CPS Accessibility task list`_.
+If you want to follow the improvements of CPS accessibility, you
+can read and participate in the `CPS Accessibility task list`_.
 
 Laws
 ----
 
-Laws in Europe (including France) and the USA require that government web sites
-are accessible.
+Laws in Europe (including France) and the USA require that
+government web sites are accessible.
 
 In Europe:
 
@@ -67,27 +69,32 @@ XXX: Provide text of the European law
 
 In France:
 
-La `loi n°2005-102`_ pour "l'égalité des droits et des chances, la participation
-et la citoyenneté des personnes handicapées" a été adoptée en France le 11
-février 2005. L'article 47 stipule : "Les services de communication publique
-en ligne des services de l'Etat, des collectivités territoriales et des
-établissements publics qui en dépendent doivent être accessibles aux personnes
-handicapées".
+    La `loi n°2005-102`_ pour "l'égalité des droits et des
+    chances, la participation et la citoyenneté des personnes
+    handicapées" a été adoptée en France le 11 février 2005.
+    L'article 47 stipule : "Les services de communication publique
+    en ligne des services de l'Etat, des collectivités
+    territoriales et des établissements publics qui en dépendent
+    doivent être accessibles aux personnes handicapées".
 
-.. _loi n°2005-102: http://www.legifrance.gouv.fr/WAspad/UnTexteDeJorf?numjo=SANX0300217L
+.. _loi n°2005-102:
+    http://www.legifrance.gouv.fr/WAspad/UnTexteDeJorf?numjo=SANX0300217L
 
 In the USA:
 
 XXX: Provide text of the USA law
 
+
 WAI Conformance
 ---------------
 
-.. _Web Content Accessibility Guidelines 1.0: http://www.w3.org/TR/WAI-WEBCONTENT/
+.. _Web Content Accessibility Guidelines 1.0:
+    http://www.w3.org/TR/WAI-WEBCONTENT/
 
-CPS accessibility is rated against the `Web Content Accessibility Guidelines 1.0`_
-because this is the international recognized standard regarding accessibility.
-The `Web Content Accessibility Guidelines 1.0`_ define 3 levels of accessibility:
+CPS accessibility is evaluated against the `Web Content
+Accessibility Guidelines 1.0`_ because this is the internationally
+recognized standard regarding accessibility. The `Web Content
+Accessibility Guidelines 1.0`_ defines 3 levels of accessibility:
 
 1. Conformance Level "A"
 
@@ -95,15 +102,17 @@ The `Web Content Accessibility Guidelines 1.0`_ define 3 levels of accessibility
 
 3. Conformance Level "Triple-A"
 
+CPS WAI conformance in general is difficult to evaluate because
+CPS is composed of so many products, many being optional and some
+with not so good accessibility.
 
-CPS WAI conformance in general is difficult to rate because CPS is composed of
-so many products, many being optional and some with a not so good accessibility.
+Some products are not accessible at all because some customers
+still at times explicitly ask for non-accessible functionalities.
 
-Some products are not accessible at all because some customers still sometimes
-explicitly ask for non-accessible functionalities.
+So, we will state what sets of CPS products and configurations
+should be used to achieve WAI-A, WAI-AA and WAI-AAA conformance
+respectively.
 
-So we will state what sets of CPS products and configurations should be used to
-respectively achieve WAI-A, WAI-AA and WAI-AAA conformance.
 
 Conformance Level "A"
 ---------------------
@@ -115,48 +124,54 @@ Conformance Level "A"
 
 CPS is WAI-A compliant when composed of the following products:
 
-* `CPS-3-base`_
+- `CPS-3-base`_
 
-* `CPSOOo`_
+- `CPSOOo`_
 
-* `CPSWiki`_
+- `CPSWiki`_
 
-* `CPSBlog`_
+- `CPSBlog`_
 
-Note that at the bottom of a stock CPS there is a blue icon stating the WAI-A
-conformance.
+Note that at the bottom of the page of a stock CPS there is a blue
+icon stating the WAI-A conformance.
 
 **New developments to CPS must not break the WAI-A compliance of CPS**.
+
 
 Conformance Level "Double-A"
 ----------------------------
 
-CPS could easily be made WAI-AA compliant when composed of the following products:
+CPS could easily be made WAI-AA compliant when composed of the
+following products:
 
-* `CPS-3-base`_
+- `CPS-3-base`_
 
-* `CPSOOo`_
+- `CPSOOo`_
 
-* `CPSWiki`_
+- `CPSWiki`_
 
-* `CPSBlog`_
+- `CPSBlog`_
 
-But it is necessary to:
+But it will be necessary to:
 
-* set the *tableless* option to the pages defined in the CPSSkins themes
+- Set the *tableless* option to the pages defined in the CPSSkins
+  themes.
 
   (Portal Themes -> Go to the used theme -> Go to the used pages ->
   Edit on the page tab-> General -> Select Tableless)
 
-* fix the Ticket #495: `Document HTML view page should contain HTML metadata`_
+- Fix Ticket #495: `Document HTML view page should contain
+  HTML metadata`_.
 
-.. _Document HTML view page should contain HTML metadata: http://svn.nuxeo.org/trac/pub/ticket/495
+.. _Document HTML view page should contain HTML metadata:
+    http://svn.nuxeo.org/trac/pub/ticket/495
+
 
 Conformance Level "Triple-A"
 ----------------------------
 
-CPS can be made WAI-AAA compliant but at this time this requires some specific work.
-
+CPS can be made WAI-AAA compliant, but at this time do so requires
+some specific work.
 
 
 XHTML
@@ -170,83 +185,90 @@ CPS follows the DTD *XHTML 1.0 Strict*::
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-Developers and web designers should code and use CPS according to this
-definition.
+Developers and web designers should code and use CPS according to
+this definition.
 
 
 Checkpoints
 -----------
 
-* Check your XHTML pages against the W3C validator: http://validator.w3.org/
+- Check your XHTML pages against the W3C validator:
+  http://validator.w3.org/.
 
-  One can check one's HTML pages even if one's website is not reachable from the
-  outside::
+  One can check HTML pages even if the website is not reachable
+  from the outside::
 
     $ curl --user yourlogin:yourpassword
            --location "http://localhost:8080/cps/workspaces/my_doc/cpsdocument_import_zip_form"
            > out.html
 
-  And then upload your file to http://validator.w3.org/
+  And then upload your file to http://validator.w3.org/.
+
+- Unneeded markup shouldn't clutter the HTML output.
+
+  Check that your templates don't produce useless ``<div>`` and
+  ``<span>`` elements. Also, do not over-use the ``<div>``
+  elements to position "class" attributes everywhere.
+
+  Finally do not use ``<div>`` elements where you should have
+  semantically used ``<p>`` elements.
 
 
-* Unneeded markup shouldn't clutter the HTML output.
-
-  Check that your templates don't produce useless <div> and <span> elements.
-  Also do not over-use the <div> elements to position "class" attributes
-  everywhere.
-  Finally do not use <div> elements where you should have semantically used <p>
-  elements.
-
-
-* <img> element should have an "alt" attribute::
+- ``<img>`` element should have an "alt" attribute::
 
     <img src="logo_cps.png" alt="CPS logo"/>
 
 
-* Try to avoid using inline CSS properties:
+- Try to avoid using inline CSS properties:
 
-  Avoid to use the "style" attribute for lazy-styling your HTML elements. This
-  makes it difficult to customize your macros, templates and pages later on.
+  Avoid to use the "style" attribute for lazy-styling your HTML
+  elements. This makes it difficult to customize your macros,
+  templates and pages later on.
 
-  In conjunction with JavaScript the use of such markup might be legitimate::
+  In conjunction with JavaScript, the use of such markup might be
+  legitimate::
 
     <div class="tooltipArea" style="visibility: hidden;">
     </div>
 
 
-* All web pages should have a <h1> element.
+- All web pages should have a ``<h1>`` element.
 
-  A web page cannot have a <h2> element without first having a <h1> element.
-  A web page cannot have a <h3> element without first having a <h2> element, etc.
-
-
-* Don't use presentational elements and attributes in your code such as <b>,
-  <i>, <center>, border="0". CSS properties take care of that.
-
-
-* <table> is *good* for tabular data, matrix-like data and some kind of
-  listings. Try to specify column names.
+  A web page cannot have a ``<h2>`` element without first having a
+  ``<h1>`` element.
+  
+  A web page cannot have a ``<h3>`` element without first having a
+  ``<h2>`` element, etc.
 
 
-* Avoid as much as possible the <table> markup for layout purpose.
-
-  In a complicated layout case, table layout may be bad but the only solution,
-  so one cannot totally exclude the use of tables for layout purpose at this
-  time.
-
-  But one can always use tables *without* any align, valign, border
-  kind of information. All those can be safely and cleanly specified through
-  CSS.
+- Don't use presentational elements and attributes in your code
+  such as ``<b>``, ``<i>``, ``<center>``, ``border="0"``. CSS
+  properties take care of that.
 
 
-* Specify the "summary" attribute for your <table> ::
+- ``<table>`` is *good* for tabular data, matrix-like data and
+  some kind of listings. Try to specify column names.
+
+
+- Avoid as much as possible the use of ``<table>`` markup for
+  layout purposes.
+
+  In a complicated layout case, table layout may be bad, but the
+  only solution, so one cannot totally exclude the use of tables
+  for layout purpose at this time.
+
+  But, one can always use tables *without* any ``align``,
+  ``valign``, or ``border`` kind of information. All those can be
+  safely and cleanly specified through CSS.
+
+- Specify the "summary" attribute for your ``<table>``::
 
     <table class="listing" summary="A table listing the available events and their notifications in this context">
 
+- Include ``<input>`` elements and ``<form>`` content inside ``<p>``.
 
-* Include <input> elements and <form> content into <p>
-
-  As we are aiming for XHTML Strict, we should use a stricter markup::
+  As we are aiming for XHTML Strict, we should use a stricter
+  markup::
 
     <form method="get">
       <p>
@@ -258,29 +280,27 @@ Checkpoints
       </p>
     </form>
 
+- Associate labels explicitly with their controls.
 
-* Associate labels explicitly with their controls
-
-  In other words it means: use <label> along with your <input type="text"/>,
-  your <input type="checkbox"/> and your <input type="radio"/> elements.
-  Using labels makes it possible to use the pointer on the label
-  (clicking on the label) to active the input, so that it is easier to select a
-  text input, a check box or a radio box, just like it is in heavy client
-  applications such as Firefox.
+  In other words use ``<label>`` along with your ``<input
+  type="text"/>``, your ``<input type="checkbox"/>`` and your
+  ``<input type="radio"/>`` elements. Using labels makes it
+  possible to use the mouse pointer on the label (clicking on the
+  label) to active the input element, so that it is easier to
+  select a text input, a check box or a radio box, just like it is
+  in heavy client applications such as Firefox.
 
   Example::
 
     <label for="firstName">First name:</label>
     <input type="text" name="firstname" id="firstName"/>
 
-  cf. "Labeling form controls"
-  http://www.w3.org/TR/WCAG10-HTML-TECHS/#forms-labels
+  Cf. "Labeling form controls":
+  http://www.w3.org/TR/WCAG10-HTML-TECHS/#forms-labels.
 
-
-* Use the "id" attribute to provide relative location URL instead of
-  the old <a name="xxx"/> markup.
-  This is needed to do the transition to XHTML1.1.
-  Example::
+- Use the "id" attribute to provide a relative location URL instead
+  of the old ``<a name="xxx"/>`` markup. This is needed to do the
+  transition to XHTML1.1. Example::
 
     <p>
       Check the <a href="#subject">subject headings</a>.
@@ -291,9 +311,8 @@ Checkpoints
       Blah blah.
     </p>
 
-
-* Structure your text into paragraphs using <p>.
-  To create paragraphs do not use <br/><br/>.
+- Structure your text into paragraphs using ``<p>``. To create
+  paragraphs do not use ``<br/><br/>``.
 
   Example::
 
@@ -309,24 +328,27 @@ Checkpoints
       <input type="checkbox" name="item3" id="item3" value="zzz"/><label for="item3">Item3</label><br/>
     </p>
 
+- Do not put spaces in strings -- Write::
 
-* Do not put spaces in strings:
-  Write
-  action="string:foo" (without space)
-  NOT
-  action="string: foo"
-  that produces a link <a href=" foo"> which is a malformed URI.
+      action="string:foo" (without space)
+
+  NOT::
+
+      action="string: foo"
+
+  which produces a link ``<a href=" foo">`` which is a malformed URI.
 
   Example::
 
-    action="string:foo"
+      action="string:foo"
 
-
-* Use the <button> element instead of the <input type="submit"> or <input
-  type="button"> markup. The <button> markup is more semantic and cleanly
-  separates the value of the button from its label. This is very clean and
-  practical, especially for localized user interfaces. Separating the value from
-  the label is not possible when using the <input> markup.
+- Use the ``<button>`` element instead of the ``<input
+  type="submit">`` or ``<input type="button">`` markup. The
+  ``<button>`` markup is more semantic and cleanly separates the
+  value of the button from its label. This is very clean and
+  practical, especially for localized user interfaces. Separating
+  the value from the label is not possible when using the
+  ``<input>`` markup.
 
   Example::
 
@@ -339,8 +361,8 @@ Checkpoints
               i18n:translate="button_copy">Copy</button>
     </form>
 
-
-* Form attribute method's value must be written with lower case letters::
+- The value of the ``method`` attribute of the ``form`` element
+  must be lower case.  Examples::
 
     <form method="get">
       <p>
@@ -352,13 +374,15 @@ Checkpoints
       </p>
     </form>
 
+- Avoid the ``target`` attribute, as it conveys layout
+  information. But, if you do use this attribute anyway, its value
+  must be a single token.  For example, use::
 
-* Avoid the "target" attribute, as it conveys layout information.
-  But if you do use this attribute anyway, its value must be a single token:
-  <a target="external_link">
-  NOT
-  <a target="external link">
+    <a target="external_link">
 
+  NOT::
+
+    <a target="external link">
 
 
 CSS
@@ -381,31 +405,34 @@ Sample CSS code::
     z-index: 1000;
   }
 
-Here are the main aims in those CSS guidelines:
+Here are the main aims in these CSS guidelines:
 
-1. everybody follows the same convention, so the code is clean and easy to read
+1. Everybody follows the same conventions, so the code is clean and
+   easy to read.
 
-2. there is not too much lost space
+2. There is not too much lost space.
 
-3. diffs should be rare and easy to read
+3. Diffs should be rare and easy to read
 
-4. sizes are proportional so that the defined layout is "elastic" (scalable),
-   diffs which is essential for accessibility
+4. Sizes are proportional so that the defined layout is "elastic"
+   (scalable), diffs which is essential for accessibility
 
-Basically those guidelines are what can be found in the CSS specs of the W3C,
-though they put everything on the same line if there is only one property that
-is used, but this is not practical if we want to diminish the occurrence of
-diffs.
+Basically those guidelines are what can be found in the CSS specs
+of the W3C, though they put everything on the same line if there
+is only one property that is used, but this is not practical if we
+want to diminish the occurrence of diffs.
 
 
 Checkpoints
 -----------
 
-* Check your CSS files against the W3C validator:
+Follow these guidelines:
+
+- Check your CSS files against the W3C validator:
   http://jigsaw.w3.org/css-validator/
 
-  One can check one's CSS files even if one's website is not reachable from the
-  outside::
+  One can check one's CSS files even if one's website is not
+  reachable from the outside::
 
     $ curl --user yourlogin:yourpassword
       --location "http://meteore.in.nuxeo.com:9090/cps/default.css"
@@ -413,42 +440,44 @@ Checkpoints
 
   And then upload your file to http://jigsaw.w3.org/css-validator/
 
+- Indentation width of 2 characters inside parentheses.
 
-* Indentation width of 2 characters inside parentheses
+- No space before the ":" character and 1 space after.
 
-* No space before the ":" character and 1 space after
+- One property definition per line.
 
-* 1 property definition per line
-
-* The names of the Ids and classes should be written in mixedCase,
+- The names of the Ids and classes should be written in mixed case,
   for example "div.contentTabs", "div.bookPageHeader", "#idioma",
   "#byline", etc.
 
-* The names to use for the selectors, that is the attributes "id" and "class" of
-  the HTML elements, *should not* contain any "_" character.
-  (the first CSS standards were not allowing the "_" character so old browsers
-  like Netscape 4.x choke on them)
+- The names used for selectors, that is the values of ``id`` and
+  ``class`` attributes of the HTML elements, *should not* contain
+  any "_" characters. (the first CSS standards did not allow
+  the "_" character so old browsers like Netscape 4.x choke on
+  them).
 
-* Use the "em" unit instead of the "px" and "pt" units every time it's possible.
-  The "em" unit is a proportional unit that scales according to the font size,
-  so all the sizes specified in "em" will grown or shrink as the user asks her
-  browser to increase or decrease the size of the text.
-  This is essential for accessibility.
+- Use the "em" unit instead of the "px" and "pt" units whenever
+  possible. The "em" unit is a proportional unit that scales
+  according to the font size, so all the sizes specified in "em"
+  will grown or shrink as the user asks her browser to increase or
+  decrease the size of the text. This is essential for
+  accessibility.
 
-* Write the color codes in lowercase and in their full 6 digits hexa notation:
-  #ffffff, #98a2b9, etc.
+- Write the color codes in lowercase and in their full 6 digits
+  hex notation. Examples: ``#ffffff``, ``#98a2b9``, etc.
 
-* It is possible and valid to specify more than one class for an HTML element::
+- It is possible and valid to specify more than one class for an
+  HTML element.  Example::
 
     <table class="history listing" summary="Action history list">
       <thead>
      ...
 
-
-* for CSS code generated through DTML, for example using
-  <dtml-with stylesheet_properties>, the variable substitutions should be done
-  by using <dtml-var color> and not &dtml-color; because HTML escaping is not to
-  be done in CSS files.
+- For CSS code generated through DTML, for example using
+  ``<dtml-with stylesheet_properties>``, the variable
+  substitutions should be done by using ``<dtml-var color>`` and
+  not ``&dtml-color``; because HTML escaping is not to be done in
+  CSS files.
 
   Sample CSS code using DTML variables::
 
@@ -462,19 +491,22 @@ Checkpoints
 User feedback and web links
 ---------------------------
 
-One should provide as much user feedback in the user interface as possible.
-A good way to provide user feedback is to use the *hover* state: when an item is
-hovered it should change its decoration.
+One should provide as much user feedback in the user interface as
+possible. A good way to provide user feedback is to use the
+*hover* state: when the mouse cursor hovers over an item, it
+should change its decoration.
 
-Web links should be underlined because this is the default canonical way to
-represent links. Exception can be made for links in action box or control panels
-were it is clear that all items in the container are links.
+Web links should be underlined because this is the default
+canonical way to represent links.  An exception can be made for
+links in action box or control panels where it is clear that all
+items in the container are links.
 
-Web links with no underline when not hovered and underline when hovered should
-be avoided since this behavior is the exact opposite of the default canonical
-web link behavior.
+Web links with no underline when not hovered and underline when
+hovered should be avoided since this behavior is the exact
+opposite of the default canonical web link behavior.
 
-Hovered links can loose their underline and/or have different background.
+Hovered links can loose their underline and/or have different
+background.
 
 Hovered buttons can change their background.
 
@@ -482,16 +514,18 @@ Hovered buttons can change their background.
 CSS dirty hacks
 ---------------
 
-All the main and default CSS files should only contain valid and clean CSS
-properties and directives. The main and default CSS files shouldn't contain any
-CSS dirty hacks. That is for example hacks to counter the buggy Microsoft
-Internet Explorer (MSIE) box model, the MSIE hover bugs, the MSIE 6 peekaboo
-bug, etc.
+All the main and default CSS files should only contain valid and
+clean CSS properties and directives. The main and default CSS
+files should not contain any CSS dirty hacks. That is, for
+example, hacks to counter the buggy Microsoft Internet Explorer
+(MSIE) box model, the MSIE hover bugs, the MSIE 6 peekaboo bug,
+etc.
 
-All tricks to circumvent MSIE specific bugs should go into *dedicated files*. To
-achieve this one uses the *MSIE Conditional Comments*. MSIE Conditional Comments
-are proprietary instructions that do not interfere with W3C standards and that
-make it possible to avoid the many bugs of MSIE.
+All tricks to circumvent MSIE specific bugs should go into
+*dedicated files*. To achieve this use the *MSIE Conditional
+Comments*.  MSIE Conditional Comments are proprietary instructions
+that do not interfere with W3C standards and that make it possible
+to avoid the many bugs of MSIE.
 
 Examples::
 
@@ -503,42 +537,43 @@ Examples::
   <link rel="stylesheet" type="text/css" href="msie-6.0.css" media="screen" />
   <![endif]-->
 
-So our CSS are kept clean and when MSIE bugs are fixed, or more probably when
-nobody will use MSIE anymore, those msie.x.y.css files can simply be removed
-from our products.
+So our CSS are kept clean and when MSIE bugs are fixed, or more
+probably when nobody uses MSIE anymore, those msie.x.y.css files
+can simply be removed from our products.
 
-Note that MSIE 5.0 and MSIE for Mac are not to be supported. Rationale: nobody
-uses MSIE 5.0 anymore or they should update it to a newer version for the sake
-of security updates anyway. As for Mac users they would be stupid to use MSIE
-while they have Safari, Mozilla and Firefox available for their platform.
+Note that MSIE 5.0 and MSIE for Mac are not to be supported.
+Rationale: nobody uses MSIE 5.0 anymore or they should update it
+to a newer version for the sake of security updates anyway. As for
+Mac users they would be stupid to use MSIE while they have Safari,
+Mozilla and Firefox available for their platform.
 
-Every hack should be well commented, and an URL referencing the source of the
-hack should be provided.
-
+Every hack should be well commented, and a URL referencing the
+source of the hack should be provided.
 
 
 JavaScript
 ==========
 
-JavaScript should provide usability enhancements and can also be used to
-decrease some server-side processing. But JavaScript should not be required on
-the client-side to have a functional web site and usable functionalities.
+JavaScript can provide usability enhancements and can also be
+used to decrease some server-side processing. But JavaScript
+should not be required on the client-side to have a functional web
+site and usable functionalities.
 
 A too heavy use of JavaScript clearly conflicts with accessibility.
 
-It should be possible to visit, search, create/modify documents and navigate
-through the web site using a browser without JavaScript support or with
-JavaScript disabled.
+It should be possible to visit, search, create/modify documents,
+and navigate through the web site using a browser without
+JavaScript support or with JavaScript disabled.
 
-Accessibility is of a prime concern for the front-office, since most of the
-visitors and users of a web site use the front-office. Accessibility for the
-back-office is something less important, but is still something developers
-should care about.
+Accessibility is of a prime concern for the front-office, since
+most of the visitors and users of a web site use the front-office.
+Accessibility for the back-office is less important, but is still
+something developers should care about.
 
-Back-office management such as graphic decoration, color choosing, layout
-setting, are already very visual concepts, and thus are not very accessible by
-their very nature. Using JavaScript for such a back-office use is allowed. This
-is what CPSSkins does.
+Back-office management such as graphic decoration, color choosing,
+layout setting, are already very visual concepts, and thus are not
+very accessible by their very nature. Using JavaScript for such a
+back-office use is allowed. This is what CPSSkins does.
 
 
 Image formats
@@ -546,49 +581,56 @@ Image formats
 
 The main format to use is PNG.
 
-For all the products one will use images in the PNG format, because:
+For all the products one should use images in the PNG format,
+because:
 
-* PNG is a libre, free and open standard format defined by the W3C.
+- PNG is a libre, free and open standard format defined by the
+  W3C.
 
-* PNG is, to this day, the most powerful format available for the web medium
-  (lossless compression, alpha channel, gamma correction).
+- PNG is, to this day, the most powerful format available for the
+  web medium (lossless compression, alpha channel, gamma
+  correction).
 
-* PNG is not encumbered by any software patents.
+- PNG is not encumbered by any software patents.
 
-* PNG is cool :-) It is much appreciated by techies and geeks alike, and is thus
-  a factor of adoption of our products.
+- PNG is cool :-) It is much appreciated by techies and geeks
+  alike, and is thus a consideration for the adoption of our
+  products.
 
-When it comes to landscape and photo-like style of pictures, PNG is not the best
-suited image format, in terms of compression. In this case one could use the
-JPEG format. But landscape and photo-type images are usually seldom found in CSS
-and user interface skins. Landscape and photo-type images are more often present
-as web site contents.
+When it comes to landscape and photo-like style of pictures, PNG
+is not the best suited image format, in terms of compression. In
+this case one could use the JPEG format. But landscape and
+photo-type images are usually seldom found in CSS and user
+interface skins. Landscape and photo-type images are more often
+present as web site contents.
 
 
 Tools
 -----
 
-Web design and graphic customization done on top of CPS are often delegated to
-web designers and graphic designers who might not know well the PNG format. The
-main reason for this is that most of them use Adobe Photoshop, and that
-Photoshop as a poor PNG support. Photoshop doesn't compress PNG effectively and
-handles gamma correction weirdly. The PNG format has many compression levels
-(remember, lossless compression), from 0 to 9, but Photoshop only compresses up
-to 6.
+Web design and graphic customization done on top of CPS are often
+delegated to web designers and graphic designers who might not
+know well the PNG format. The main reason for this is that most of
+them use Adobe Photoshop, and that Photoshop has poor PNG support.
+Photoshop doesn't compress PNG effectively and handles gamma
+correction weirdly. The PNG format has many compression levels
+(remember, lossless compression), from 0 to 9, but Photoshop only
+compresses up to 6.
 
-So web designers and graphic designers should be advised to either use the GIMP,
-use a Photoshop plugin or use external utilities:
+So web designers and graphic designers should be advised to either
+use the GIMP, use a Photoshop plugin or use external utilities:
 
-* **The GIMP**, the more widely available image manipulation program
-  (Linux, Mac OS X, Windows)
+- **The GIMP** -- the most widely available image manipulation
+  program (Linux, Mac OS X, Windows):
 
   http://www.gimp.org/
 
-* **SuperPNG**, Adobe Photoshop plugin, free of charge (Mac, Windows)
+- **SuperPNG** -- Adobe Photoshop plugin, free of charge (Mac,
+  Windows):
 
   http://www.fnordware.com/superpng/
 
-* **PngOptimizer**, simple and efficient tool (Windows)
+- **PngOptimizer** -- simple and efficient tool (Windows):
 
   http://www.psydk.org/PngOptimizer.php.
 
@@ -596,25 +638,28 @@ use a Photoshop plugin or use external utilities:
 PNG vs GIF
 ----------
 
-All browsers supports PNG, except Microsoft Internet Explorer (MSIE) that only
-supports it partially. But contrary to the general belief concerning Microsoft
-Internet Explorer flaws, it is very possible to use PNG in place of GIF.
+All browsers supports PNG, except Microsoft Internet Explorer
+(MSIE) that only supports it partially. But contrary to the
+general belief concerning Microsoft Internet Explorer flaws, it is
+very possible to use PNG in place of GIF.
 
 Here is a why:
 
-* GIF describes images with a 256 indexed colors scheme.
+- GIF describes images with a 256 indexed colors scheme.
 
-* PNG can describe images by using either an RGB 16 millions colors scheme +
-  alpha channel, or a 256 indexed colors scheme.
+- PNG can describe images by using either an RGB 16 million
+  colors scheme + alpha channel, or a 256 indexed colors scheme.
 
-* MSIE knows how to display GIF, RGB PNG without alpha channel or indexed PNG
-  with optionally a transparency color (just as for the GIF).
+- MSIE knows how to display GIF, RGB PNG without alpha channel or
+  indexed PNG with optionally a transparency color (just as for
+  the GIF).
 
-=> So with the MSIE current state, it is possible to advantageously replace all
-the GIFs (even with transparency) by PNGs. The only situation where GIFs cannot be
-replaced systematically by PNGs, is when the GIFs are animated GIFs. This is not
-a so common situation. There is a PNG equivalent yet, the MNG, but very few
-browsers support it yet.
+So with the current state of MSIE, it is possible to
+advantageously replace all the GIFs (even with transparency) by
+PNGs. The only situation where GIFs cannot be replaced
+systematically by PNGs, is when the GIFs are animated GIFs. This
+is not a common situation.  There is a PNG equivalent, the MNG,
+but very few browsers support it yet.
 
 
 Technical details: The alpha channel
@@ -622,15 +667,15 @@ Technical details: The alpha channel
 
 It is still possible to use PNG RGB + alpha channel with MSIE if:
 
-* One uses a specific *MSIE behavior* to enhance its native PNG support.
-  For example CPS and CPSSkins ships with the following PNG behavior
-  (but it is disabled by default):
+- One uses a specific *MSIE behavior* to enhance its native PNG
+  support. For example CPS and CPSSkins ships with the following
+  PNG behavior (but it is disabled by default):
   http://webfx.eae.net/dhtml/pngbehavior/pngbehavior.html
 
-* One takes care to create with the GIMP the background layer of the image with
-  the same color as the background color of the web page the image will appear
-  in. Enable the "save the background color" option.
-
+- One takes care to create with the GIMP the background layer of
+  the image with the same color as the background color of the web
+  page the image will appear in. Enable the "save the background
+  color" option.
 
 
 Translation recommendations
@@ -639,7 +684,8 @@ Translation recommendations
 Checkpoints
 -----------
 
-* Use <tal:block> or <label> for translation strings, not span
+- Use ``<tal:block>`` or ``<label>`` for translation strings, not
+  span.
 
   Use::
 
@@ -649,60 +695,70 @@ Checkpoints
 
     <label i18n:translate="msgid">A meaningful translation</label>
 
-  and NOT
-  <span i18n:translate="msgid">blah</span>
-  because it produces:
-  <span>msgstr</span>
-  with useless <span> elements that needlessly encumber the HTML output.
+  and NOT::
 
+    <span i18n:translate="msgid">blah</span>
+  
+  because it produces::
 
-* Beware of empty <label>
+    <span>msgstr</span>
 
-  <label i18n:translate="msgid" />
-  produces:
-  <label />msgstr
+  with useless ``<span>`` elements that needlessly encumber the HTML
+  output.
+
+- Beware of empty ``<label>``::
+
+    <label i18n:translate="msgid" />
+
+  produces::
+
+    <label />msgstr
 
   To produce <label>msgstr</label> one must write::
 
     <label i18n:translate="msgid">A meaningful translation</label>
 
-
-* Provide a meaningful translation message example in the template
+- Provide a meaningful translation message example in the template.
 
   Example::
 
     <tal:block i18n:translate="msgid">A meaningful translation</tal:block>
 
-  and NOT
-  <tal:block i18n:translate="msgid"/>
+  and NOT::
+
+    <tal:block i18n:translate="msgid"/>
+
   because a meaningful translation will help translators later on.
 
 
 Recommendations for .po translations
 ------------------------------------
 
-* About using HTML in translation files
+Guidelines:
 
-  One tries to not put HTML in translations and thus in .po translation
-  files. There are exceptions though, for example for the "welcome_body"
-  msgstr. But one should never ever put color information or any other layout
-  information in .po files. Having something like "<h1><font color=#ff0000>" is
-  wrong.
+- About using HTML in translation files:
 
-  Translators, please note that CPS uses XHTML and thus this is on purpose that
-  the HTML markup in the .po files is lower case.
+  Attempt to not put HTML in translations and thus in .po
+  translation files. There are exceptions though, for example for
+  the "welcome_body" msgstr. But do not put color information or
+  any other layout information in .po files. Having something like
+  ``<h1><font color=#ff0000>`` is wrong.
 
+  Translators, please note that CPS uses XHTML and thus it is
+  intentional that the HTML markup in the .po files is lower case.
 
-Respect language specific punctuation.
+- Respect language specific punctuation.
 
-Ex: ":" should be preceded by an unbreakable space in French, but not in English.
+  Example: ":" should be preceded by an unbreakable space in
+  French, but not in English.
 
-Use proper capitalization.
+- Use proper capitalization.
 
-Ex: Only the first word of each sentence is capitalized in French. In
-English too, except for newspaper headlines (I believe). Anyway, choose
-a consistent style and used is consistently.
+  Example: Only the first word of each sentence is capitalized in
+  French. In English too, except for newspaper headlines (I
+  believe). Anyway, choose a consistent style and use it
+  consistently.
 
-Be consistent in the use of ":"
+- Be consistent in the use of ":".
 
-Group msgids by area.
+- Group msgids by area.

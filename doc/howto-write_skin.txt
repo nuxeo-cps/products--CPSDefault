@@ -1,140 +1,217 @@
-$Id$
+============================
+Writing a skin in CPSDefault
+============================
 
-Writing skin in CPSDefault
-==========================
-skin directories:
+:Revision: $Id$
 
-skins:
-  |-- cps_default    all needed skin for CPSDefault
-  |-- cps_devel      skin for benchmarking or debuging
-  |-- cps_images     images only no icons
-  `-- cps_styles     a plone_styles folder
-      `-- nuxeo      a customization of the plone.css
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+skin directories::
+
+    skins:
+      |-- cps_default    all needed skin for CPSDefault
+      |-- cps_devel      skin for benchmarking or debuging
+      |-- cps_images     images only no icons
+      `-- cps_styles     a plone_styles folder
+          `-- nuxeo      a customization of the plone.css
 
 skin order:
-(cps_devel), cps_styles/nuxeo, cps_styles, cps_images, cps_default
+
+1. (cps_devel)
+
+2. cps_styles/nuxeo
+
+3. cps_styles
+
+4. cps_images
+
+5. cps_default
 
 
 File naming
 ===========
-we try to use same file naming as CMF,
-for any new file follow this rules:
 
-For a page template or a python script that return an html page:
-  object_action.p[ty]
-if the page is an form
-  object_action_form.p[ty]
-ex:
-  content_submit_form.pt
-  content_create.py       # use request and redirect to html page
-  dummy_view.pt
+We try to use the same file naming as CMF.
 
-Python script:
-  getSomething.py
-  doSomething.py
-ex:
-  getContentInfo.py
-  getFolderContents.py
+For any new file follow these rules:
 
-it is very usefull to make python script working with default value
-so that you can call them with a browser and you can bench it easily
-(cf doc HOWTO.BENCHMARK)
+1. For a page template or a python script that return an HTML page::
 
-macro library:
-  object_lib.pt
+       object_action.p[ty]
+
+   If the page is a form: object_action_form.p[ty].
+
+   Examples::
+
+       content_submit_form.pt
+       content_create.py       # use request and redirect to html page
+       dummy_view.pt
+
+2. Python script::
+
+       getSomething.py
+       doSomething.py
+
+   Examples::
+
+       getContentInfo.py
+       getFolderContents.py
+
+   Note: It is very useful to make each python script work with a
+   default value so that you can call them with a browser and you
+   can bench mark it easily (cf. doc HOWTO.BENCHMARK).
+
+3. macro library::
+
+       object_lib.pt
 
 
 Generic names
 =============
-Folder:  a folderish object
-Content: what is inside a folder
-items:   a list of objects
-proxy:   the cps proxy object
-doc:     a cps document in the portal_repository
-info:    a dictionary of information about an object
-..path:  a list of item that represent a path like physical path
-..url:   a /string/like/this that resolve
 
+folder:
+    a folderish object
+
+content:
+    what is inside a folder
+
+items:
+    a list of objects
+
+proxy:   
+    the cps proxy object
+
+doc:     
+    a cps document in the portal_repository
+
+info:    
+    a dictionary of information about an object
+
+..path:  
+    a list of item that represent a path like physical path
+
+..url:   
+    a /string/like/this that resolve
+
+ 
 Python Script
 =============
-mandatory header:
 
-##parameters=only_ids=0
-# $Id$
-""" A description of what the script does, param and return if
-it is not obvious """
+mandatory header::
 
-Do not use context.REQUEST in a python script !
-You should pass it through the parameters line like:
-##parameters=REQUEST
+    ##parameters=only_ids=0
+    # $Id$
+    """ A description of what the script does, param and return if
+    it is not obvious """
 
-or REQUEST=None
+Do not use context.REQUEST in a python script!
+You should pass it through the parameter line.  Examples::
+
+    ##parameters=REQUEST
+
+or::
+
+    REQUEST=None``.
 
 
 Path and URL
 ============
 
-Follow CPSCore/doc/virtual-hosting.txt documentation to see all the ways to
-get url/path information about an object that will not break using virtual
-hosting.
+Follow CPSCore/doc/virtual-hosting.txt documentation to see all
+the ways to get url/path information about an object that will not
+break using virtual hosting.
 
-main_template defines
-- context_url:
-  this is the minimal url to your context, with a trailing slash like /cps/foo/
-  ex: url: http://server/cps/foo/bar/foo/bar/cps/foo/bar/bar/bar
-      context_url = /cps/foo/bar/
+main_template defines:
 
-- base_url:
-  this is the base url taking into account the apache redirection
-  it return / or /cps/ or /name_of_the_cps/
-  you should use this for images or css url like:
-  <img ... tal:attributes="src string:${base_url}foo.png" .../>
+- context_url -- This is the minimal url to your context, with a
+  trailing slash like ``/cps/foo/``.  Example::
+
+      url: http://server/cps/foo/bar/foo/bar/cps/foo/bar/bar/bar
+          context_url = /cps/foo/bar/
+
+- base_url -- This is the base url taking into account the apache
+  redirection.  It returns ``/`` or ``/cps/`` or
+  ``/name_of_the_cps/``.  You should use this for images or CSS
+  URL::
+
+      <img ... tal:attributes="src string:${base_url}foo.png" .../>
+
 
 SVN
 ===
-- use "svn status" to see what is changed in your sandbox
-- use "svn update" and run tests before committing
-- do not use mass commit
-- commiting a file:
-  1/ TEST IT
-  2/ svn diff file
-      because you will know exactly what to put in the comment
-      and it gives you a last chance to remove some stupid code
-      REMOVE unused code or commented code
-  3/ if you have changed something goto 1/
-  4/ commit with a valid comment
+
+Follow these guidelines:
+
+- Use "svn status" to see what is changed in your sandbox.
+
+- Use "svn update" and run tests before committing.
+
+- Do not use mass commit.
+
+- Committing a file:
+
+  1. TEST IT
+
+  2. Perform a comparison -- ``svn diff file``.  Because you will
+     know exactly what to put in the comment and it gives you a
+     last chance to remove some stupid code.  REMOVE unused code
+     or commented code.
+
+  3. If you have changed something, goto Step 1.
+
+  4. Commit with a valid comment::
+
       svn ci -m "mandatory comment in ENGLISH" foo.py
-- remove unused file or code, svn will keep it for you
+
+- Remove unused files or code.  SVN will keep it for you.
+
+The following section of the SVN manual is helpful:
+http://svnbook.red-bean.com/en/1.1/svn-book.html#svn-ch-3-sect-5.
 
 
 Macros
 ======
-we try to use macros for any thing that appear twice,
-or that need to be easily customized.
-Macros are define in *_lib.pt file like content_lib or generic_lib
-you should provide a test suite for each library
-they are located in cps_devel like test_content_lib or test_generic_lib
-each time you add a macro you should add a test
+
+We try to use macros for any thing that appears twice or that
+needs to be easily customized.  Macros are defined in a
+``*_lib.pt`` file, for example ``content_lib`` or ``generic_lib``.
+You should provide a test suite for each library.  These are
+located in cps_devel like test_content_lib or test_generic_lib.
+Each time you add a macro you should add a test.
 
 
-About CSS XXX deprecated
+About CSS
 =========
-- we are using the plone css definition
-- we provide a customization nuxeo/ploneCustom.css and a new ploneNS4.css
-- we can use any plone customization
-- plone can use our nuxeo css customization
+
+XXX deprecated
+
+- We are using the plone css definition.
+
+- We provide a customization nuxeo/ploneCustom.css and a new
+  ploneNS4.css.
+
+- We can use any plone customization.
+
+- Plone can use our nuxeo css customization.
 
 
 Customization
 =============
-We should be able to make light customization by adding custom css
-We should be able to make eavy customization by rewriting *_lib files
- and maybe main_template, the goal is to keep all other files unchanged
+
+We should be able to make light customization by adding custom CSS.
+We should be able to make heavy customization by rewriting
+``*_lib`` files and maybe ``main_template``.  The goal is to keep
+all other files unchanged.
 
 
 Translation and caveats
 =======================
-See HOWTO.i18n for internationalisation and translation rules.
 
-A SKIN IS FINISH ONLY WHEN IT IS FULLY I18N AND L10N IN en AND fr !!!
+See ``howto-i18n.txt|html`` for internationalization and
+translation rules.
+
+**A skin is finished only when it is fully i18n and l10n in en and
+fr!**
 

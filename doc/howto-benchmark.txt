@@ -1,78 +1,104 @@
-# $Id$
+================
+Benchmark How-to
+================
 
-Setup benchmarking
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+Setup Benchmarking
 ==================
-cpsinstall setup an external method named Benchmarktimer into your cps folder:
+
+cpsinstall setup an external method named Benchmarktimer into your
+cps folder::
+
 	id:BenchmarkTimer
 	Title:BenchmarkTimer
 	module name:CPSDefault.benchmarktimer
 	function name:BenchmarkTimerInstance
 
-you have to add the following line in your zope server start script:
-BENCHMARKTIMER_LEVEL=-2
-export BENCHMARKTIMER_LEVEL
+You have to add the following line in your Zope server start
+script::
 
-under zope 2.8 the previous export should be set in your ./bin/zopectl or
-you can test it using runzope:
+    BENCHMARKTIMER_LEVEL=-2
+    export BENCHMARKTIMER_LEVEL
 
-BENCHMARKTIMER_LEVEL=-2 ./bin/runzope
+Under Zope 2.8 the previous export should be set in your ./bin/zopectl or
+you can test it using runzope::
+
+    BENCHMARKTIMER_LEVEL=-2 ./bin/runzope
 
 
-To profile a zpt:
+To Profile a ZPT
 =================
-<tal:block define="BMT python:here.Benchmarktimer('my_zpt');">
 
-<span tal:replace="BMT/start" />
-...
-<span tal:replace="python:BMT.setMarker('mark1')" />
-...
-<span tal:replace="python:BMT.setMarker('mark2')" />
-...
-<span tal:replace="BMT/stop" />
+::
 
-#display the above BMT profiling result
-<span tal:replace="structure BMT/getProfiling" />
+    <tal:block define="BMT python:here.Benchmarktimer('my_zpt');">
 
-#if you want to display other profiler result comming from python script:
-<span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+    <span tal:replace="BMT/start" />
+    ...
+    <span tal:replace="python:BMT.setMarker('mark1')" />
+    ...
+    <span tal:replace="python:BMT.setMarker('mark2')" />
+    ...
+    <span tal:replace="BMT/stop" />
 
-</tal:block>
+Display the above BMT profiling result::
 
-note that during the dev of cps the default main_template.pt define
-a default benchmark environment
+    <span tal:replace="structure BMT/getProfiling" />
+
+If you want to display other profiler result coming from python
+script::
+
+    <span tal:replace="structure request/other/bench_mark_profiler|nothing" />
+
+    </tal:block>
+
+Note that during the development of CPS the default
+main_template.pt defines a default benchmark environment.
 
 
-To profile a python script:
+To Profile a Python Script
 ==========================
-add this
 
-bmt = context.Benchmarktimer('foo', level=-3)
-bmt.start()
+Add this::
 
-# do something
+    bmt = context.Benchmarktimer('foo', level=-3)
+    bmt.start()
 
-bmt.stop()
-bmt.saveProfile(context.REQUEST) # the result will be displayed in
-	                         # the main template
+Do something::
 
-or
-return bmt.getProfiling() # return the result
+    bmt.stop()
+    bmt.saveProfile(context.REQUEST) # the result will be displayed in
+                                     # the main template
 
+or::
 
-Benching:
-========
-benching here is just running many time the result of an url
-
-to bench:
-http://server/foo/bar
-
-use
-http://server/bench?foo/bar
-
-note that 'bar' can be a zpt a py script or an object
+    return bmt.getProfiling() # return the result
 
 
-Recommandation:
-===============
-always use bmt or BMT when using benchmartimer
-it will be easier to remove this tool when swithing to production
+Bench Marking
+=============
+
+Bench marking here is just running many times the result of a URL.
+
+To benchmark::
+
+    http://server/foo/bar
+
+Use::
+
+    http://server/bench?foo/bar
+
+Note that 'bar' can be a ZPT, a Python script, or an object.
+
+
+Recommendation
+==============
+
+Always use bmt or BMT when using BenchmarkTimer. It will be easier
+to remove this tool when switching to production.
+

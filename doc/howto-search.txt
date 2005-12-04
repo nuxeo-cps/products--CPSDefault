@@ -2,86 +2,88 @@
 HOWTO use the search capabilities of CPS
 ========================================
 
-*$Id$*
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
 
 
 
-What's inside
-=============
-
-* `The (different) search capabilities of CPS`_
-* `Search hooks/plugs in CPS`_
-* `Search indexes`_
-* `Search query syntax`_
-* `Search in directories`_
-
-
-
-The (different) search capabilities of CPS
+The (different) Search Capabilities of CPS
 ==========================================
 
 There are 2 ways to search for documents in CPS:
 
-  1. skim through all the documents and test the documents one by one
-  2. query the indexes in the portal_catalog tool
+1. Skim through all the documents and test the documents one by
+   one.
 
-Of course the first method is the more trivial but it can only be used on a web
-site with a limited number of documents or inside a specific folder with a
-limited number of documents.
+2. Query the indexes in the portal_catalog tool.
 
-The second method is an optimized method based on indexes. It is more complex to
-use/maintain/modify for a developer, but it is far superior in term of speed.
+Of course, the first method is the more trivial but it can only be
+used on a web site with a limited number of documents or inside a
+specific folder with a limited number of documents.
 
-The search capabilities of CPS are based on querying the indexes in the
-portal_catalog tool.
+The second method is an optimized method based on indexes. It is
+more complex to use/maintain/modify for a developer, but it is far
+superior in term of speed.
+
+The search capabilities of CPS are based on querying the indexes
+in the portal_catalog tool.
 
 
-
-Search hooks/plugs in CPS
+Search Hooks/Plugs in CPS
 =========================
 
-There are 2 search hooks, or search plugs, in CPS, that is points where
-one can query for search results:
+There are 2 search hooks, or search plugs, in CPS, that is points
+where one can query for search results:
 
-  * `CPSDefault/skins/cps_default/search_form.pt`_
-  * `CPSDefault/skins/cps_default/search.py`_
+- `CPSDefault/skins/cps_default/search_form.pt`_
 
-.. _`CPSDefault/skins/cps_default/search_form.pt`: http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search_form.pt
-.. _`CPSDefault/skins/cps_default/search.py`: http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search.py
+- `CPSDefault/skins/cps_default/search.py`_
 
-One can call search.py in one's Python code (read doc directly in the source
-code of search.py), while one can redirect a user browser to an URL like:
+.. _`CPSDefault/skins/cps_default/search_form.pt`:
+    http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search_form.pt
+
+.. _`CPSDefault/skins/cps_default/search.py`:
+    http://svn.nuxeo.org/trac/pub/file/CPSDefault/trunk/skins/cps_default/search.py
+
+One can call search.py in one's Python code (read doc directly in
+the source code of search.py), while one can redirect a user
+browser to an URL like:
 http://localhost:8080/cps/workspaces/search_form?portal_type=File&Title=myfile
 
-Note that an "advanced_search_form" also exists but is just a user interface,
-you cannot pass arguments in the URL to directly display results:
+Note that an "advanced_search_form" also exists but is just a user
+interface, you cannot pass arguments in the URL to directly
+display results:
 CPSDefault/skins/cps_default/advanced_search_form.pt
 
 
-
-Search indexes
+Search Indexes
 ===============
 
-There are as many indexes in the portal_catalog tool that there are fields we
-want to index in documents.
+There are as many indexes in the portal_catalog tool as there
+are fields we want to index in documents.
 
-There are many different types of indexes. One should use them according to the
-value of the document fields to index.
+There are many different types of indexes. One should use them
+according to the value of the document fields to index.
 
-For fields that hold text values there are 3 possible index types:
+For fields that hold text values, there are 3 possible index types:
 
-  * ZCTextIndex
-  * TextIndexNG
-  * TextIndex (deprecated)
+- ZCTextIndex
 
-The TextIndex index type is a deprecated type. It should not be used anymore.
+- TextIndexNG
+
+- TextIndex (deprecated)
+
+The TextIndex index type is a deprecated type. It should not be
+used anymore.
 
 
-Search query syntax
+Search Query Syntax
 ===================
 
-The "Searching and Categorizing Content" chapter of the Zope Book is very
-helpful in explaining how to do searches through indexes:
+The "Searching and Categorizing Content" chapter of the Zope Book
+is very helpful in explaining how to do searches through indexes:
 http://www.zope.org/Documentation/Books/ZopeBook/2_6Edition/SearchingZCatalog.stx
 
 
@@ -91,58 +93,67 @@ Text index Query parser
 For ZCTextIndex one can read the doc in the source code of
 Zope-2.7/lib/python/Products/ZCTextIndex/QueryParser.py :
 
-This particular parser recognizes the following syntax:
+This particular parser recognizes the following syntax::
 
-Start = OrExpr
+    Start = OrExpr
 
-OrExpr = AndExpr ('OR' AndExpr)*
+    OrExpr = AndExpr ('OR' AndExpr)*
 
-AndExpr = Term ('AND' NotExpr)*
+    AndExpr = Term ('AND' NotExpr)*
 
-NotExpr = ['NOT'] Term
+    NotExpr = ['NOT'] Term
 
-Term = '(' OrExpr ')' | ATOM+
+    Term = '(' OrExpr ')' | ATOM+
 
 The key words (AND, OR, NOT) are recognized in any mixture of case.
 
-An ATOM is either:
+An ATOM is one of the following:
 
-+ A sequence of characters not containing whitespace or parentheses or
-  double quotes, and not equal (ignoring case) to one of the key words
-  'AND', 'OR', 'NOT'; or
+- A sequence of characters not containing whitespace or
+  parentheses or double quotes, and not equal (ignoring case) to
+  one of the key words 'AND', 'OR', 'NOT'; or
 
-+ A non-empty string enclosed in double quotes.  The interior of the
-  string can contain whitespace, parentheses and key words, but not
-  quotes.
+- A non-empty string enclosed in double quotes.  The interior of
+  the string can contain whitespace, parentheses and key words,
+  but not quotes.
 
-+ A hyphen followed by one of the two forms above, meaning that it
+- A hyphen followed by one of the two forms above, meaning that it
   must not be present.
 
 An unquoted ATOM may also contain globbing characters.  Globbing
-syntax is defined by the lexicon; for example "foo*" could mean any
-word starting with "foo".
+syntax is defined by the lexicon; for example "foo*" could mean
+any word starting with "foo".
 
-When multiple consecutive ATOMs are found at the leaf level, they are
-connected by an implied AND operator, and an unquoted leading hyphen
-is interpreted as a NOT operator.
+When multiple consecutive ATOMs are found at the leaf level, they
+are connected by an implied AND operator, and an unquoted leading
+hyphen is interpreted as a NOT operator.
 
 Summarizing the default operator rules:
 
-- a sequence of words without operators implies AND, e.g. << foo bar >>
-- double-quoted text implies phrase search, e.g. << "foo bar" >>
-- words connected by punctuation implies phrase search, e.g. << foo-bar >>
-- a leading hyphen implies NOT, e.g. << foo -bar >>
-- these can be combined, e.g. << foo -"foo bar" >> or << foo -foo-bar >>
-- `*` and ? are used for globbing (i.e. prefix search), e.g. << foo* >>
+- a sequence of words without operators implies AND, e.g. ``foo
+  bar``.
 
+- double-quoted text implies phrase search, e.g. ``"foo bar"``.
+
+- words connected by punctuation implies phrase search, e.g.
+  ``foo-bar``.
+
+- a leading hyphen implies NOT, e.g. ``foo -bar``.
+
+- these can be combined, e.g. ``foo -"foo bar"`` or ``foo
+  -foo-bar``.
+
+- "*" and "?" are used for globbing (i.e. prefix search), e.g.
+  ``foo*``.
 
 
 Advanced search topics
 ----------------------
 
-With some indexes it is possible to use AND/OR/NOT/etc/ associations. It is possible
-to modify those associations, for example to use French associations:
-ET/OU/PAS/NON/etc. To do that, special query parsing should be added to the tool.
+With some indexes it is possible to use AND/OR/NOT/etc/
+associations. It is possible to modify those associations, for
+example to use French associations: ET/OU/PAS/NON/etc. To do that,
+special query parsing should be added to the tool.
 
 It is also possible to drop left truncation feature.
 
@@ -151,14 +162,13 @@ TODO: explain why it is interesting
 TODO: explain how
 
 
-
-Search in directories
+Search in Directories
 =====================
 
-Currently there are inconsistencies in the CPS user interface concerning
-wild-cards and empty queries. In those cases, the search results in directories
-are not the same than those in the local roles management forms and in the
-document search forms.
+Currently there are inconsistencies in the CPS user interface
+concerning wild-cards and empty queries. In those cases, the
+search results in directories are not the same as those in the
+local roles management forms and in the document search forms.
 
-This is a bit confusing but we will try to harmonize all the kinds of search as
-soon as possible.
+This is a bit confusing but we will try to harmonize all the kinds
+of search as soon as possible.

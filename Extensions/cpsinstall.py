@@ -1785,7 +1785,7 @@ return updateEffectiveDate(state_change.object)
                 },
                {'type': 'Custom Portlet',
                 'slot': 'bottom',
-                'custom_cache_params': ['baseurl'],
+                'custom_cache_params': ['baseurl', 'protocol'],
                 'order': 10,
                 'render_method': 'portlet_contact_info',
                 'Title': 'Contact Info',

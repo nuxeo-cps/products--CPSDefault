@@ -41,6 +41,7 @@ a.strong {
 
 img {
   border: 0;
+  vertical-align: middle;
 }
 
 p {
@@ -208,28 +209,6 @@ pre {
 }
 
 <dtml-comment>
-COLUMNS ------------------------------
-</dtml-comment>
-
-table.columns {
-  width: 100%;
-}
-table.columns td.left {
-  vertical-align: top;
-  padding-top: 1em;
-  background: <dtml-var columnsLeftBackgroundNS4>;
-}
-table.columns td.main {
-  vertical-align: top;
-  padding-top: 1em;
-}
-table.columns td.right {
-  vertical-align: top;
-  padding-top: 1em;
-  background: <dtml-var columnsRightBackgroundNS4>;
-}
-
-<dtml-comment>
 Classes ------------------------------
 </dtml-comment>
 
@@ -378,6 +357,10 @@ div.searchBox {
   padding: <dtml-var searchPadding>;
   margin: <dtml-var searchMargin>;
   clear: right;
+  background-color: transparent;
+  color: <dtml-var searchFontColor>;
+  text-transform: <dtml-var textTransform>;
+  width: 40%;
 }
 
 div.headerActions {
@@ -427,23 +410,8 @@ div.popupImg {
   background-color: <dtml-var boxEvenBackground>;
 }
 
-div.contentTabs {
-  padding: 0 0 0 1em;
-  margin: 0;
-}
-div.contentTabs a {
-  background-color: <dtml-var contentTabBackgroundNotSelected>;
-  color: <dtml-var contentTabFontColor>;
-  font-weight: <dtml-var contentTabFontWeight>;
-}
-div.contentTabs a.selected {
-  background-color: <dtml-var mainTabBackground>;
-  color: <dtml-var contentTabFontColorSelected>;
-  font-weight: <dtml-var contentTabFontWeight>;
-}
-
 <dtml-comment>
-BOX ----------------------------------------
+Documents language selection
 </dtml-comment>
 
 span.selectedLang {
@@ -460,45 +428,13 @@ a.availableLang:hover {
   text-decoration: none;
 }
 
-table.box tr.title {
-  color: <dtml-var boxHeaderFontColor>; <dtml-comment> font color is hardcoded in box_lib </dtml-comment>
-  background-color: <dtml-var boxHeaderBackground>;
-}
-table.box tr.odd {
-  background: <dtml-var boxOddBackground>;
-}
-table.box tr.even {
-  background: <dtml-var boxEvenBackground>;
-}
+<dtml-comment>
+Contact info and conformance statement
+</dtml-comment>
 
-
-div.box {
-  margin: 0 0 1em 0;
-}
-div.box .title {
-  font-weight: bold;
-  text-transform: <dtml-var textTransform>;
-}
-div.box .title2 {
-  font-size: 120%;
-  font-weight: bold;
-}
-div.box a.close {
-  border: 0;
-}
-div.box .content {
-  padding: 0.7em;
-}
-div.box ul {
-  margin-left: -1em;
-  padding: 0;
-}
-div.box a.selected {
-  background: <dtml-var messageBackground>;
-}
-
-.workspace {
-  background: <dtml-var workspaceBackground>;
+.contactInfo li {
+  display: inline;
+  margin: 1em;
 }
 
 .conformanceStatement {
@@ -510,11 +446,6 @@ div.box a.selected {
 }
 
 .conformanceStatement img {
-  margin: 1em;
-}
-
-.contactInfo li {
-  display: inline;
   margin: 1em;
 }
 
@@ -586,10 +517,6 @@ span.highlightedSearchTerm {
 
 .netscape4 {
   display: none;
-}
-
-img {
-  vertical-align: middle;
 }
 
 table {
@@ -828,14 +755,6 @@ div.message {
   border: <dtml-var messageBorder>;
 }
 
-
-div.searchBox {
-  background-color: transparent;
-  color: <dtml-var searchFontColor>;
-  text-transform: <dtml-var textTransform>;
-  width: 40%;
-}
-
 div.pathBar {
   border-bottom-color: <dtml-var mainTabBorderColorSelected>;
   border-bottom-style: solid;
@@ -886,177 +805,6 @@ The "group" class is used to group together the HTML fields of a form.
   padding: 0.7em 0.7em 0.7em 0.7em;
 }
 
-<dtml-comment>
-MENU, http://alistapart.com/articles/slidingdoors2/
-</dtml-comment>
-
-ul.menuTabs {
-  float: left;
-  width: 100%;
-  margin: 0;
-  border-bottom: 1px solid <dtml-var mainTabBorderColorSelected>;
-  padding: 0.5em 0 0 0;
-}
-ul.menuTabs li {
-  float: left;
-  background: <dtml-var mainTabBackgroundNotSelected> url("opentab.png") no-repeat left top;
-  margin: 0 0 0 0.5em;
-  padding: 0 0 0 3px;
-  list-style: none;
-}
-ul.menuTabs a {
-  display: block;
-  float: left;
-  width: 0.1em;
-  padding: 0 10px 0 7px;
-  color: <dtml-var mainTabFontColor>;
-  background: <dtml-var mainTabBackgroundNotSelected> url("closetab.png") no-repeat right top;
-  font-weight: <dtml-var mainTabFontWeight>;
-  text-decoration: none;
-  white-space: nowrap;
-}
-ul.menuTabs li > a {width:auto;}
-/* Commented Backslash Hack hides rule from IE5-Mac \*/
-ul.menuTabs a {float:none;}
-/* End IE5-Mac hack */
-ul.menuTabs li.selected, ul.menuTabs li:hover {
-  background: <dtml-var mainTabBackground> url("opentab.png") no-repeat left top;
-}
-ul.menuTabs li.selected a, ul.menuTabs li a:hover {
-  color: <dtml-var mainTabFontColorSelected>;
-  background: <dtml-var mainTabBackground> url('closetab.png') no-repeat right top;
-}
-
-<dtml-comment>
-menuSectionsAndWorkspaceRoot is a menuTab with workpsaces items
-</dtml-comment>
-
-#menuSectionsAndWorkspaceRoot li.workspace {
-  background: <dtml-var workspaceBackground> url("opentab.png") no-repeat left top;
-}
-#menuSectionsAndWorkspaceRoot li.workspace a {
-  color: #000;
-  background: <dtml-var workspaceBackground> url("closetab.png") no-repeat right top;
-}
-#menuSectionsAndWorkspaceRoot li.workspace.selected, #menuSectionsAndWorkspaceRoot li.workspace:hover {
-  background: <dtml-var workspaceBackgroundSelected> url("opentab.png") no-repeat left top;
-}
-#menuSectionsAndWorkspaceRoot li.workspace.selected a, #menuSectionsAndWorkspaceRoot li.workspace a:hover {
-  color: #fff;
-  background: <dtml-var workspaceBackgroundSelected> url('closetab.png') no-repeat right top;
-}
-
-<dtml-comment>
-deprecated contentTabs, should use ul.menuTab
-</dtml-comment>
-
-div.contentTabs {
-  background: <dtml-var contentTabBackdrop>;
-  border-collapse: collapse;
-  border-bottom-color: <dtml-var mainTabBorderColorSelected>;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  padding: 0.5em 0 0 2em;
-  white-space: nowrap;
-}
-
-div.contentTabs a {
-  background: <dtml-var contentTabBackgroundNotSelected>;
-  border-color: <dtml-var mainTabBorderColor>;
-  border-width: 1px;
-  border-style: solid none none none;
-  color: <dtml-var contentTabFontColor>;
-  font-weight: <dtml-var contentTabFontWeight>;
-  height: 1.2em;
-  margin-right: 0;
-  padding: 0 0.5em;
-  text-transform: <dtml-var textTransform>;
-}
-
-div.contentTabs a.selected {
-  background: <dtml-var contentTabBackground>;
-  border-top: 1px solid <dtml-var mainTabBorderColorSelected>;
-  border-bottom: 1px solid <dtml-var contentTabBackground>;
-  color: <dtml-var contentTabFontColorSelected>;
-  font-weight: <dtml-var contentTabFontWeight>;
-}
-
-div.contentTabs a:hover {
-  background: <dtml-var contentTabBackground>;
-  border-color: <dtml-var mainTabBorderColorSelected>;
-  border-bottom-color: <dtml-var contentTabBackground>;
-  color: <dtml-var contentTabFontColorSelected>;
-}
-
-div.contentTabs .opentab {
-  background: <dtml-var contentTabBackgroundNotSelected> url('opentab.png') no-repeat top left;
-}
-
-div.contentTabs .closetab {
-  background: <dtml-var contentTabBackgroundNotSelected> url('closetab.png') no-repeat top right;
-}
-
-div.contentTabs .opentabSelected {
-  background: <dtml-var contentTabBackground> url('opentab.png') no-repeat top left;
-  border-bottom: 1px solid <dtml-var contentTabBackground>;
-}
-
-div.contentTabs .closetabSelected {
-  background: <dtml-var contentTabBackground> url('closetab.png') no-repeat top right;
-  border-bottom: 1px solid <dtml-var contentTabBackground>;
-}
-
-<dtml-comment>
-BOX ----------------------------------------
-</dtml-comment>
-
-table.box tr.odd ul, table.box tr.even ul {
-  margin-left: 2em;
-}
-
-div.box {
-  border: none;
-}
-div.box .title {
-  color: <dtml-var boxHeaderFontColor>;
-  background-color: <dtml-var boxHeaderBackground>;
-  border: <dtml-var boxBorder>;
-  border-style: solid solid none solid;
-  padding: 0.2em 0.2em 0.2em 1em;
-}
-div.box .title2 {
-  border: 1px solid <dtml-var mainTabBorderColor>;
-  border-style: none none solid none;
-  padding: 0;
-  margin-bottom: 1em;
-}
-div.box .title a {
-  background-color: <dtml-var boxHeaderBackground>;
-  color: <dtml-var boxHeaderFontColor>;
-}
-div.box .body {
-  border: <dtml-var boxBorder>;
-}
-div.box ul {
-  list-style-image: url("bullet.png");
-  margin-left: 1em;
-}
-div.box a.close {
-  background-color: transparent;
-  float: right;
-  text-transform: none;
-  margin-top: -2px;
-}
-div.box .even {
-  background-color: <dtml-var boxEvenBackground>;
-}
-div.box .odd {
-  background-color: <dtml-var boxOddBackground>;
-}
-div.box .highlight {
-  border: <dtml-var boxHighlight>;
-}
-
 table.calendar {
   border: <dtml-var boxBorder>;
   text-align: right;
@@ -1096,6 +844,10 @@ table.calendar td.todaynoevent {
   border: <dtml-var boxHighlight>;
 }
 
+<dtml-comment>
+Tooltips
+</dtml-comment>
+
 .tooltipControl {
   color: #000000;
   background: #ffffe1;
@@ -1127,6 +879,10 @@ table.calendar td.todaynoevent {
   z-index: 1000;
 }
 
+<dtml-comment>
+XXX: CPSMailBoxer definitions that should not be here but in a dedicated file
+</dtml-comment>
+
 div.mailboxerNoArchive {
   border-top: solid;
   border-width: 1px;
@@ -1136,6 +892,10 @@ td.mailboxerMonth {
   background-color: <dtml-var boxEvenBackground>;
   text-align: center;
 }
+
+<dtml-comment>
+Books
+</dtml-comment>
 
 div.bookSummary {
   width: 100%;
@@ -1175,28 +935,6 @@ Hide stuff by id and make it available in source
   margin-top: 2em;
 }
 
-div.xmlExports {
-  text-align: right;
-}
-
-span.rssExport a, span.rssExport a:visited, span.rssExport a:hover {
-  border: <dtml-var rssBorder>;
-  background: <dtml-var rssBackground>;
-  color: <dtml-var rssColor>;
-  padding: 0 0.3em 0 0.3em;
-  font: <dtml-var rssFont>;
-  text-decoration: none;
-}
-
-span.atomExport a, span.atomExport a:visited, span.atomExport a:hover {
-  border: <dtml-var atomBorder>;
-  background: <dtml-var atomBackground>;
-  color: <dtml-var atomColor>;
-  padding: 0 0.3em 0 0.3em;
-  font: <dtml-var atomFont>;
-  text-decoration: none;
-}
-
 <dtml-comment>
 javascript use for block toggle
 </dtml-comment>
@@ -1210,6 +948,10 @@ div.visible {
   visibility: visible;
   display: block;
 }
+
+<dtml-comment>
+Advanced search form
+</dtml-comment>
 
 #advancedSearchForm {
   font-size: 90%;

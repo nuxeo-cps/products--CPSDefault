@@ -282,6 +282,83 @@ def upgrade_before_340(self):
 
     return '\n'.join(log)
 
+def upgrade_338_340_portlets(self):
+    """Attempts to update portlets to support the boxless setup
+
+    see: http://svn.nuxeo.org/trac/pub/ticket/1161
+    """
+    logger = []
+    log = logger.append
+    log('CPSDefault: migrating to the boxless setup: upgrading portlets.')
+
+    from Products.CPSInstaller.CPSInstaller import CPSInstaller
+    utool = getToolByName(self, 'portal_url')
+    ptltool = getToolByName(self, 'portal_cpsportlets', None)
+
+    portal = utool.getPortalObject()
+    installer = CPSInstaller(portal, 'Installer')
+
+    content_well_portlets = (
+        {'type': 'Text Portlet',
+         'slot': 'content_well',
+         'Title': 'Welcome message',
+         'text': 'welcome_body',
+         'text_format': 'normal',
+         'visibility_range': [0, 1],
+         'text_position': 'html',
+         'i18n': 1,
+         'guard': {
+             'guard_expr': "python: published == 'index_html'",
+             },
+        },
+        {'type': 'Document Portlet',
+         'slot': 'content_well',
+         'visibility_range': [1, 0],
+         'order': 10,
+         'Title': 'Document Portlet',
+         'guard': {
+             'guard_expr': "python: published == 'folder_view'",
+             },
+        },
+        {'type': 'Navigation Portlet',
+         'slot': 'content_well',
+         'Title': 'Subfolders',
+         'order': 20,
+         'visibility_range': [1, 0],
+         'display_hidden_folders': False,
+         'display': 'subfolder_contents',
+         'guard': {
+             'guard_expr': "python: published == 'folder_view'",
+             },
+        },
+        # TODO replace the folder contents view with an
+        # "Extended folder contents" view to match the nav_content box
+        {'type': 'Custom Portlet',
+         'slot': 'content_well',
+         'order': 30,
+         'custom_cache_params': ['no-cache'],
+         'render_method': 'portlet_folder_contents',
+         'Title': 'Folder contents',
+             'guard': {
+             'guard_expr': "python: published == 'folder_view'",
+             },
+        },
+    )
+
+    if ptltool is None:
+        log("CPSDefault: portlet tool not found. Migration aborted.")
+
+    if ptltool.getPortlets(slot='content_well', override=0, visibility_check=0,
+                           guard_check=0):
+        log("CPSDefault: portlets have been found in the 'content_well' slot. "
+            "Migration aborted")
+
+    installer.verifyPortlets(portlets=content_well_portlets, object=portal)
+    log("CPSDefault: portlets replacing boxes have been added to the "
+        "'content_well' slot")
+
+    return '\n'.join(logger)
+
 def upgrade_338_340(self):
     """Upgrades for CPS 3.3.8 after cpsupdate"""
     log = []
@@ -294,7 +371,6 @@ def upgrade_338_340(self):
         pass
 
     from Products.CPSPortlets.upgrade import upgrade_338_340_themes
-    from Products.CPSPortlets.upgrade import upgrade_338_340_portlets
     dolog(upgrade_338_340_themes(self))
     dolog(upgrade_338_340_portlets(self))
     return '\n'.join(log)

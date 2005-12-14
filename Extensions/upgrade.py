@@ -325,7 +325,7 @@ def upgrade_338_340_portlets(self):
          'Title': 'Subfolders',
          'order': 20,
          'visibility_range': [1, 0],
-         'display_hidden_folders': False,
+         'display_hidden_folders': 0,
          'display': 'subfolder_contents',
          'guard': {
              'guard_expr': "python: published == 'folder_view'",

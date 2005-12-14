@@ -1743,7 +1743,7 @@ return updateEffectiveDate(state_change.object)
                 'Title': 'Subfolders',
                 'order': 20,
                 'visibility_range': [1, 0],
-                'display_hidden_folders': 1,
+                'display_hidden_folders': False,
                 'display': 'subfolder_contents',
                 'guard': {
                     'guard_expr': "python: published == 'folder_view'",

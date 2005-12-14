@@ -1830,6 +1830,7 @@ return updateEffectiveDate(state_change.object)
             self.portal._setObject('i18n Updater', i18n_updater)
 
     def setupCPSProducts(self):
+        self.setupProduct('CPSUtil')
         self.setupProduct('CPSCollector')
         self.setupProduct('FCKeditor')
         self.setupProduct('CPSDocument')

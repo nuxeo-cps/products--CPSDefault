@@ -144,7 +144,8 @@ state_change.object.delLanguageFromProxy(lang)
         self.log("Current user: %s" % installername)
 
         # Automatic upgrades
-        self.doUpgrades(post_update=False)
+        if not is_creation:
+            self.doUpgrades(post_update=False)
 
         self.setupRegistration()
         self.setupMembership()
@@ -203,7 +204,8 @@ state_change.object.delLanguageFromProxy(lang)
         self.enableEventSubscriber('portal_subscriptions')
 
         # Automatic upgrades
-        self.doUpgrades(post_update=True)
+        if not is_creation:
+            self.doUpgrades(post_update=True)
 
     #
     # Catalog

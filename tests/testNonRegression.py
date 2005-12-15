@@ -52,6 +52,15 @@ class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertNotEquals(new_id, 'workspaces')
         self.assert_(new_id.startswith('workspaces'))
 
+    def testDuplicatePortlets(self):
+        portlets = getattr(self.portal, '.cps_portlets')
+        count = 0
+        for portlet in portlets.objectValues():
+            if portlet.portal_type == 'Text Portlet' and \
+              portlet.text == 'welcome_body':
+                count += 1
+        self.assertEquals(count, 1)      
+
     def testUpdater(self):
         # Test that installer can be also called as updater
         self.assert_(self.portal.cpsupdate())

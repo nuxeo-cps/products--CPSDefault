@@ -81,7 +81,13 @@ class MembershipTool(CPSMembershipTool):
             raise Unauthorized("Not callable TTW")
         LOG(log_key, DEBUG, "Request reset for %r" % who)
 
+        translation_service = getToolByName(self, 'translation_service', None)
+        if translation_service is None:
+            LOG(log_key, ERROR,
+                "translation_service tool not found, could not proceed.")
+
         portal = getToolByName(self, 'portal_url').getPortalObject()
+        portal_encoding = 'ISO-8859-15'
         mail_from_address = portal.getProperty('email_from_address')
         if mail_from_address is None:
             LOG(log_key, WARNING,
@@ -102,10 +108,15 @@ class MembershipTool(CPSMembershipTool):
         if email is None:
             return False
 
-        client_addr = self.REQUEST.getClientAddr()
-        # XXX: i18n
-        subject = ("[%s] Password reset confirmation for %s"
-                   % (portal_url, email))
+        client_address = self.REQUEST.getClientAddr()
+        var_mappings = {'portal_url': portal_url,
+                        'email': email,
+                        }
+        # The translation is done using the language currently selected by the
+        # user on the portal.
+        subject = translation_service.translateDefault(
+            'email_password_reset_confirmation_subject',
+            mapping=var_mappings).encode(portal_encoding)
         now = str(int(time()))
         args = {
             'w': who,
@@ -114,36 +125,20 @@ class MembershipTool(CPSMembershipTool):
             }
         visit_url = ('%s/account_reset_password_form?%s'
                      % (portal_url, urlencode(args)))
-        content = """\
-From: %s
-To: %s
-Subject: %s
-Content-Type: text/plain; charset=iso-8859-15
-Mime-Version: 1.0
-
-Dear user,
-
-You (or someone else) have requested to reset the password for the
-account having email address "%s". Most probably the reason
-for this reset request is that the password for this account has been lost.
-
-If you have not requested this reset, please ignore this message.
-
-You can reset your password by simply visiting the following page:
-%s
-
-We look forward to seeing you back soon at %s
-
-Sincerely,
-
-    The portal administration team
-
--- 
-Note: the password reset request was sent from IP %s
-""" % (mail_from_address, email, subject,
-       email, visit_url, portal_url, client_addr)
+        var_mappings = {'mail_from_address': mail_from_address,
+                        'email': email,
+                        'subject': subject,
+                        'visit_url': visit_url,
+                        'portal_url': portal_url,
+                        'client_address': client_address,
+                        }
+        # The translation is done using the language currently selected by the
+        # user on the portal.
+        body = translation_service.translateDefault(
+            'email_password_reset_confirmation_body',
+            mapping=var_mappings).encode(portal_encoding)
         try:
-            self.MailHost.send(content,
+            self.MailHost.send(body,
                                mfrom=mail_from_address,
                                mto=email,
                                subject=subject,
@@ -154,7 +149,7 @@ Note: the password reset request was sent from IP %s
                                     str(e)))
             return False
         LOG(log_key, INFO, "Reset confirmation email sent to %s, "
-            "requesting IP was %s" % (email, client_addr))
+            "requesting IP was %s" % (email, client_address))
         return True
 
     security.declarePrivate('_makeToken')

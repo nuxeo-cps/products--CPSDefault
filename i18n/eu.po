@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-04 17:20default\n"
+"POT-Creation-Date: 2005-12-16 15:48default\n"
 "PO-Revision-Date: 2004-10-04 17:20+0100\n"
 "Last-Translator:  <>\n"
 "Language-Team: Euskara <eu@li.org>\n"
@@ -15,11 +15,6 @@ msgstr ""
 "Language-Code: eu\n"
 "Language-Name: Basque\n"
 "Domain: default\n"
-
-#.   <block content="bs/title" fill-slot="box_title">A test box</block>
-#: from ../skins/cps_devel/test_box_lib.pt
-msgid "A test box"
-msgstr "Testu kutxa"
 
 #.   <span>
 #.       Created by
@@ -138,9 +133,9 @@ msgid "accessibility_accesskeys_title"
 msgstr "Accesskeys or keyboard shortcuts"
 
 #    <p>bla</p>
-#.   <block>
+#.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
-#.   </block>
+#.   </div>
 #: from ../skins/cps_default/accessibility.pt
 #, fuzzy
 msgid "accessibility_accesskeys_usage"
@@ -153,6 +148,14 @@ msgstr ""
 "(pero no el teclado numérico) y seguidamente presione la tecla \"Entrar\" "
 "para ir al lugar deseado.<br><br><strong>Opera</strong>: ¡no soporta las "
 "teclas de acceso!<br><br>"
+
+#.   <p>
+#.   Accesskeys usage is different from one web browser to another.
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_accesskeys_usage_description"
+msgstr "Here is below how to use accesskeys on some common web browsers:"
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -211,7 +214,7 @@ msgstr "Irisgarritasunaz"
 msgid "accesskey explanation"
 msgstr ""
 
-#.   <a attributes="href string:${base_url}accessibility">action_accessibility</a>
+#.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
 #: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Irisgarritasuna"
@@ -234,12 +237,6 @@ msgstr "Hurrengoa"
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
 msgstr "Aurrekoa"
-
-#.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_default/main_template.pt
-#: ../skins/cps_devel/main_template_debug.pt
-msgid "box_closed_boxes"
-msgstr "Itxitako kutxak:"
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
@@ -565,18 +562,6 @@ msgstr "Está registrado como usuario"
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
 msgstr ""
-
-#    <span>description_up_to
-#        ${up_id (tal content="python:here.aq_parent.title_or_id()")}
-#      </span>
-#    <span>description_up_to
-#             ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#.   <span>description_up_to
-#.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from ../skins/cps_default/folder_contents.pt
-#, fuzzy
-msgid "description_up_to ${up_id}"
-msgstr "Hacia ${up_id}"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
@@ -1237,7 +1222,7 @@ msgstr "Kudeatzailearen e-posta"
 msgid "label_admin_name"
 msgstr "Kudeatzailearen Izena"
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 #, fuzzy
 msgid "label_advertisement_use_cps"
@@ -1310,17 +1295,17 @@ msgstr "Comentarios"
 msgid "label_compact"
 msgstr "Trinkoa"
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
+#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "Site conceived using valid CSS style sheets"
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
+#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "Site conceived in valid XHTML"
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
+#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 #, fuzzy
 msgid "label_conformance_wai_1a"
@@ -1981,7 +1966,7 @@ msgstr "User id"
 msgid "label_user_name"
 msgstr "Erabiltzaile-izena"
 
-#.   <label for="username_or_email">
+#.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
@@ -2334,7 +2319,7 @@ msgstr "Azken astean"
 msgid "time_yesterday"
 msgstr "Atzo"
 
-#.   <label class="required" for="comments">Comments</label>
+#.   <label for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Komentarioak"
@@ -2392,18 +2377,18 @@ msgstr ""
 "<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
 "introduction to <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
 "(Nuxeo Collaborative Portal Server) and to what you can now do with it. (<a "
-"href=\"portlet_manage_form\">Edit this text</"
-"a>.) </p> <h2>About CPS</h2>   <p> <acronym title=\"Collaborative Portal "
-"Server\">CPS</acronym> is an extensive collaborative Web content management "
-"system     (CMS) implemented on top of <a href=\"http://www.zope.org/"
-"\">Zope</a> and  the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, "
-"that  enables organizations to easily, quickly and efficiently implement     "
-"collaborative portals (intranet, extranet or internet) and    workflow- "
-"oriented business applications. </p> <p> CPS Provides, among other features: "
-"</p> <ul> <li> <a href=\"workspaces\">Collaborative work</a> and  <a href="
-"\"sections\">publication</a> spaces (you may need to be authenticated with "
-"the right access level to access these URLs) </li> <li>Document versionning, "
-"that allows a document to be published in one version and still worked on in "
+"href=\"portlet_manage_form\">Edit this text</a>.) </p> <h2>About CPS</h2>   "
+"<p> <acronym title=\"Collaborative Portal Server\">CPS</acronym> is an "
+"extensive collaborative Web content management system     (CMS) implemented "
+"on top of <a href=\"http://www.zope.org/\">Zope</a> and  the <a href="
+"\"http://www.zope.org/Products/CMF/\">CMF</a>, that  enables organizations "
+"to easily, quickly and efficiently implement     collaborative portals "
+"(intranet, extranet or internet) and    workflow- oriented business "
+"applications. </p> <p> CPS Provides, among other features: </p> <ul> <li> <a "
+"href=\"workspaces\">Collaborative work</a> and  <a href=\"sections"
+"\">publication</a> spaces (you may need to be authenticated with the right "
+"access level to access these URLs) </li> <li>Document versionning, that "
+"allows a document to be published in one version and still worked on in "
 "another one </li> <li>Group-based, directory-backed <a href="
 "\"cpsdirectory_view\">user and roles management</a> </li> <li> A <a href="
 "\"box_manage_form\">configurable</a> Portal interface, with  a web- and "
@@ -2469,6 +2454,10 @@ msgstr "Modificación"
 
 msgid "translate"
 msgstr ""
+
+#, fuzzy
+msgid "delete_translation"
+msgstr "Translation deleted"
 
 #, fuzzy
 msgid "checkin_draft"
@@ -2685,6 +2674,10 @@ msgstr "administrar idiomas"
 #, fuzzy
 msgid "action_translate"
 msgstr "Traducir"
+
+#, fuzzy
+msgid "action_delete_translation"
+msgstr "Delete this translation"
 
 msgid "button_create"
 msgstr "Sortu"
@@ -3187,6 +3180,10 @@ msgstr ""
 msgid "psm_translation_added"
 msgstr "versión para traducción añadida"
 
+#, fuzzy
+msgid "psm_translation_deleted"
+msgstr "Translation deleted"
+
 # # Languages  ========================================================
 #, fuzzy
 msgid "psm_default_language_set"
@@ -3433,6 +3430,21 @@ msgstr "Mensaje de estado traducido"
 
 msgid "Title"
 msgstr "Izenburua"
+
+msgid "A test box"
+msgstr "Testu kutxa"
+
+msgid "box_closed_boxes"
+msgstr "Itxitako kutxak:"
+
+#    <span>description_up_to
+#        ${up_id (tal content="python:here.aq_parent.title_or_id()")}
+#      </span>
+#    <span>description_up_to
+#             ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
+#, fuzzy
+msgid "description_up_to ${up_id}"
+msgstr "Hacia ${up_id}"
 
 #, fuzzy
 msgid "label_accesskey_title"

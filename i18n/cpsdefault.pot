@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2005-11-04 17:20default\n"
+"POT-Creation-Date: 2005-12-16 15:48default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -15,11 +15,6 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-encodings: latin9 utf-8\n"
 "Domain: default\n"
-
-#.   <block content="bs/title" fill-slot="box_title">A test box</block>
-#: from ../skins/cps_devel/test_box_lib.pt
-msgid "A test box"
-msgstr ""
 
 #.   <span>
 #.       Created by
@@ -131,11 +126,18 @@ msgstr ""
 msgid "accessibility_accesskeys_title"
 msgstr ""
 
-#.   <block>
+#.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
-#.   </block>
+#.   </div>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_accesskeys_usage"
+msgstr ""
+
+#.   <p>
+#.   Accesskeys usage is different from one web browser to another.
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_accesskeys_usage_description"
 msgstr ""
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
@@ -188,7 +190,7 @@ msgstr ""
 msgid "accesskey explanation"
 msgstr ""
 
-#.   <a attributes="href string:${base_url}accessibility">action_accessibility</a>
+#.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
 #: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr ""
@@ -209,12 +211,6 @@ msgstr ""
 #.                                               mq(request.form, b_start=previous))" condition="python:previous is not None" define="previous batch_info/previous">Previous</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
-msgstr ""
-
-#.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_default/main_template.pt
-#: ../skins/cps_devel/main_template_debug.pt
-msgid "box_closed_boxes"
 msgstr ""
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
@@ -518,12 +514,6 @@ msgstr ""
 #.               </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
-msgstr ""
-
-#.   <span>description_up_to
-#.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "description_up_to ${up_id}"
 msgstr ""
 
 #.   <p>
@@ -1093,7 +1083,7 @@ msgstr ""
 msgid "label_admin_name"
 msgstr ""
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr ""
@@ -1163,17 +1153,17 @@ msgstr ""
 msgid "label_compact"
 msgstr ""
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
+#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr ""
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
+#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr ""
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
+#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr ""
@@ -1800,7 +1790,7 @@ msgstr ""
 msgid "label_user_name"
 msgstr ""
 
-#.   <label for="username_or_email">
+#.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "label_user_name_or_email_address"
@@ -2118,7 +2108,7 @@ msgstr ""
 msgid "time_yesterday"
 msgstr ""
 
-#.   <label class="required" for="comments">Comments</label>
+#.   <label for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr ""
@@ -2197,6 +2187,9 @@ msgid "modify"
 msgstr ""
 
 msgid "translate"
+msgstr ""
+
+msgid "delete_translation"
 msgstr ""
 
 msgid "checkin_draft"
@@ -2400,6 +2393,9 @@ msgid "action_manage_languages"
 msgstr ""
 
 msgid "action_translate"
+msgstr ""
+
+msgid "action_delete_translation"
 msgstr ""
 
 msgid "button_create"
@@ -2844,6 +2840,9 @@ msgid "psm_reset_password_problem"
 msgstr ""
 
 msgid "psm_translation_added"
+msgstr ""
+
+msgid "psm_translation_deleted"
 msgstr ""
 
 msgid "psm_default_language_set"

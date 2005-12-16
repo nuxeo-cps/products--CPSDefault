@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-04 17:11default\n"
+"POT-Creation-Date: 2005-12-16 15:47default\n"
 "PO-Revision-Date: 2005-03-14 08:50+0100\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: de <rheinland@dzug.org>\n"
@@ -13,11 +13,6 @@ msgstr ""
 "Language-Code: de\n"
 "Language-Name: German\n"
 "Domain: default\n"
-
-#.   <block content="bs/title" fill-slot="box_title">A test box</block>
-#: from ../skins/cps_devel/test_box_lib.pt
-msgid "A test box"
-msgstr "Eine Test Box"
 
 #.   <span>
 #.       Created by
@@ -136,9 +131,9 @@ msgstr ""
 msgid "accessibility_accesskeys_title"
 msgstr "Accesskeys or keyboard shortcuts"
 
-#.   <p>
+#.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
-#.   </p>
+#.   </div>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_accesskeys_usage"
 msgstr ""
@@ -146,6 +141,14 @@ msgstr ""
 "Adresse zu springen<br /><br /> <strong>IE</strong>: Drücke ALT + Nummer "
 "(nicht im Numerischen Block) und <strong>Return</strong> oder <strong>Enter</"
 "strong> um diesen Link aufzurufen.<br /><br />"
+
+#.   <p>
+#.   Accesskeys usage is different from one web browser to another.
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_accesskeys_usage_description"
+msgstr "Here is below how to use accesskeys on some common web browsers:"
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -199,7 +202,7 @@ msgstr "Zugangs Informationen"
 msgid "accesskey explanation"
 msgstr ""
 
-#.   <a attributes="href string:${base_url}accessibility">action_accessibility</a>
+#.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
 #: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Zugang"
@@ -221,12 +224,6 @@ msgstr "Weiter"
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
 msgstr "Zurück"
-
-#.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_default/main_template.pt
-#: ../skins/cps_devel/main_template_debug.pt
-msgid "box_closed_boxes"
-msgstr "Geschlossene Boxen: "
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
@@ -544,12 +541,6 @@ msgstr "Sie haben sich am Portal als Teilnehmer erfolgreich angemeldet."
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
 msgstr ""
-
-#.   <span>description_up_to
-#.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "description_up_to ${up_id}"
-msgstr "Zurück zu ${up_id}"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
@@ -1186,7 +1177,7 @@ msgstr "Administrator Email"
 msgid "label_admin_name"
 msgstr "Administrator Name"
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr "Nimm CPS"
@@ -1256,17 +1247,17 @@ msgstr "Kommentare"
 msgid "label_compact"
 msgstr "Kompakt"
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
+#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "Format"
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
+#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "Format"
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
+#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr "Format"
@@ -1905,7 +1896,7 @@ msgstr "User id"
 msgid "label_user_name"
 msgstr "Login Name"
 
-#.   <label for="username_or_email">
+#.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 #, fuzzy
@@ -2245,7 +2236,7 @@ msgstr "Letzte Woche"
 msgid "time_yesterday"
 msgstr "Gestern"
 
-#.   <label class="required" for="comments">Comments</label>
+#.   <label for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Kommentar"
@@ -2301,31 +2292,31 @@ msgstr ""
 "<h1>Willkommen bei Nuxeo CPS</h1> <p> Diese Seite gibt Ihnen eine Übersicht "
 "über den <acronym title=\"Collaborative Portal Server\">CPS</acronym> (Nuxeo "
 "Collaborative Portal Server) und was Sie alles damit machen können. (<a href="
-"\"portlet_manage_form\">Editieren dieses "
-"Textes</a>.) </p> <h2>About CPS</h2>   <p> <acronym title=\"Collaborative "
-"Portal Server\">CPS</acronym> ist ein erweiterbares Web Content Management "
-"und Kollaborations System (CMS) das auf <a href=\"http://www.zope.org/"
-"\">Zope</a> und <a href=\"http://www.zope.org/Products/CMF/\">CMF</a> "
-"basiert, und das Organisationen in die Lage versetzt, leicht, schnell und "
-"effizient kollaborative Portale zu implementieren (intranet, extranet or "
-"internet), gemeinsam mit Workflow- orientierten Geschäftsanwendungen. </p> "
-"<p> CPS unterstützt, neben anderen Dingen: </p> <ul> <li> <a href="
-"\"workspaces\">Kollaboratives Arbeiten</a> und  <a href=\"sections"
-"\">Publikations</a> Räume (sie müssen sich dazu angemeldet und die "
-"notwendigen Rechte für diese URLs haben) </li> <li>Dokument Versionen, damit "
-"ist es möglich ein Dokument in einer Version zu veröffentlichen und an einer "
-"neuen Version weiterzuarbeiten</li> <li>Gruppen- und verzeichnisbasiertes <a "
-"href=\"cpsdirectory_view\">Benutzer und Rollen Management</a> </li> <li> "
-"Eine <a href=\"box_manage_form\">konfigurierbare</a> Portal Oberfläche, mit "
-"Web- und Behindertengerechten Standards und einheitlichem 'Look and "
-"Feel' (sie müssen dazu angemeldet sein und die notwendigen Rechte für diese "
-"URLs haben) </li> <li> Benachrichtigungen über viele Arten von Ereignissen "
-"die im Portal auftreten </li> <li> Ein (optionaler) WYSIWYG Editor für das "
-"Portal Look and Feel (installieren Sie einfach <em>CPSSkins</em> in Ihrer "
-"CPS Instance unter Verwendung des  <a href=\"manage\">ZMI</a>) </li> <li> "
-"Viele Benutzer Services, wie Webmail, Webforen, gemeinsam genutzte Kalender, "
-"Newsletter, Mailing Listen, usw. </li> <li> Viele leistungsstarke Werkzeuge "
-"für Entwickler- und Webmaster, mit Support zur Erstellung eigener Dokument "
+"\"portlet_manage_form\">Editieren dieses Textes</a>.) </p> <h2>About CPS</"
+"h2>   <p> <acronym title=\"Collaborative Portal Server\">CPS</acronym> ist "
+"ein erweiterbares Web Content Management und Kollaborations System (CMS) das "
+"auf <a href=\"http://www.zope.org/\">Zope</a> und <a href=\"http://www.zope."
+"org/Products/CMF/\">CMF</a> basiert, und das Organisationen in die Lage "
+"versetzt, leicht, schnell und effizient kollaborative Portale zu "
+"implementieren (intranet, extranet or internet), gemeinsam mit Workflow- "
+"orientierten Geschäftsanwendungen. </p> <p> CPS unterstützt, neben anderen "
+"Dingen: </p> <ul> <li> <a href=\"workspaces\">Kollaboratives Arbeiten</a> "
+"und  <a href=\"sections\">Publikations</a> Räume (sie müssen sich dazu "
+"angemeldet und die notwendigen Rechte für diese URLs haben) </li> "
+"<li>Dokument Versionen, damit ist es möglich ein Dokument in einer Version "
+"zu veröffentlichen und an einer neuen Version weiterzuarbeiten</li> "
+"<li>Gruppen- und verzeichnisbasiertes <a href=\"cpsdirectory_view\">Benutzer "
+"und Rollen Management</a> </li> <li> Eine <a href=\"box_manage_form"
+"\">konfigurierbare</a> Portal Oberfläche, mit Web- und Behindertengerechten "
+"Standards und einheitlichem 'Look and Feel' (sie müssen dazu angemeldet sein "
+"und die notwendigen Rechte für diese URLs haben) </li> <li> "
+"Benachrichtigungen über viele Arten von Ereignissen die im Portal auftreten "
+"</li> <li> Ein (optionaler) WYSIWYG Editor für das Portal Look and Feel "
+"(installieren Sie einfach <em>CPSSkins</em> in Ihrer CPS Instance unter "
+"Verwendung des  <a href=\"manage\">ZMI</a>) </li> <li> Viele Benutzer "
+"Services, wie Webmail, Webforen, gemeinsam genutzte Kalender, Newsletter, "
+"Mailing Listen, usw. </li> <li> Viele leistungsstarke Werkzeuge für "
+"Entwickler- und Webmaster, mit Support zur Erstellung eigener Dokument "
 "Typen, eigener Workflows, usw. </li> </ul> <p> CPS wurde bereits von "
 "zahlreichen grossen Behörden und Organisationen eingesetzt (Französische "
 "Ministerien des Innern, der Kultur, der Finanzen, der Verteidigung, der "
@@ -2380,6 +2371,10 @@ msgstr "Modification"
 
 msgid "translate"
 msgstr ""
+
+#, fuzzy
+msgid "delete_translation"
+msgstr "Translation deleted"
 
 msgid "checkin_draft"
 msgstr "Einchecken Version"
@@ -2584,6 +2579,10 @@ msgstr "Manage languages"
 #, fuzzy
 msgid "action_translate"
 msgstr "Translate"
+
+#, fuzzy
+msgid "action_delete_translation"
+msgstr "Delete this translation"
 
 msgid "button_create"
 msgstr "Erstellen"
@@ -3040,6 +3039,10 @@ msgstr ""
 msgid "psm_translation_added"
 msgstr "Version for translation added"
 
+#, fuzzy
+msgid "psm_translation_deleted"
+msgstr "Translation deleted"
+
 # # Languages  ========================================================
 #, fuzzy
 msgid "psm_default_language_set"
@@ -3283,6 +3286,15 @@ msgstr "Übersetzte Status Nachricht."
 
 msgid "Title"
 msgstr "Titel"
+
+msgid "A test box"
+msgstr "Eine Test Box"
+
+msgid "box_closed_boxes"
+msgstr "Geschlossene Boxen: "
+
+msgid "description_up_to ${up_id}"
+msgstr "Zurück zu ${up_id}"
 
 msgid "label_accesskey_title"
 msgstr "Tasten-Kombinationen (Keyboard shortcuts)"

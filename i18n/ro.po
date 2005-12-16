@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-04 17:20default\n"
+"POT-Creation-Date: 2005-12-16 15:48default\n"
 "PO-Revision-Date: 2005-04-04 17:31+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -17,11 +17,6 @@ msgstr ""
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: default\n"
 "X-Generator: KBabel 1.9.1\n"
-
-#.   <block content="bs/title" fill-slot="box_title">A test box</block>
-#: from ../skins/cps_devel/test_box_lib.pt
-msgid "A test box"
-msgstr "O casuta de test"
 
 #.   <span>
 #.       Created by
@@ -129,7 +124,7 @@ msgstr "Cererea ta a intors ${nb_results} rezultate."
 msgid "accessibility_accesskeys_description"
 msgstr ""
 "Les touches d'accès ou raccourcis clavier disponibles pour naviguer sur ce "
-"site sont les suivants : "
+"site sont les suivants&nbsp;:"
 
 #.   <h2>Accesskeys
 #.   or keyboard shortcuts</h2>
@@ -138,9 +133,9 @@ msgstr ""
 msgid "accessibility_accesskeys_title"
 msgstr "Touches d'accès ou raccourcis clavier"
 
-#.   <block>
+#.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
-#.   </block>
+#.   </div>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_accesskeys_usage"
 msgstr ""
@@ -148,6 +143,16 @@ msgstr ""
 "ul respectiv <br /><br /> <strong>IE</strong>: Apasa ALT + numarul (nu din "
 "keypad-ul numeric), apoi apasa Enter pentru a sari la link-ul respectiv.<br /"
 "><br />"
+
+#.   <p>
+#.   Accesskeys usage is different from one web browser to another.
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_accesskeys_usage_description"
+msgstr ""
+"Voici comment utiliser les touches d'accès sur certains des navigateurs web "
+"les plus utilisés&nbsp;:"
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -199,7 +204,7 @@ msgstr "Informatii despre accesibilitate"
 msgid "accesskey explanation"
 msgstr ""
 
-#.   <a attributes="href string:${base_url}accessibility">action_accessibility</a>
+#.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
 #: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Accesibilitate"
@@ -221,12 +226,6 @@ msgstr "Inainte"
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
 msgstr "Inapoi"
-
-#.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_default/main_template.pt
-#: ../skins/cps_devel/main_template_debug.pt
-msgid "box_closed_boxes"
-msgstr "Box-uri inchise: "
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
@@ -535,12 +534,6 @@ msgstr "Ai fost inregistrat ca membru."
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
 msgstr ""
-
-#.   <span>description_up_to
-#.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "description_up_to ${up_id}"
-msgstr "Pana la ${up_id}"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
@@ -1162,7 +1155,7 @@ msgstr "Adresa de email a administratorului"
 msgid "label_admin_name"
 msgstr "Numele administratorului"
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr "Utilizeaza CPS"
@@ -1232,17 +1225,17 @@ msgstr "Comentarii"
 msgid "label_compact"
 msgstr "Compact"
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
+#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "Site conceput folosind stiluri CSS valide"
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
+#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "Site conceput cu XHTML valid"
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
+#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr "In conformitate cu nivelul A pentru rolurile de accesibilitate ale W3C"
@@ -1872,7 +1865,7 @@ msgstr "ID-ul utilizatorului"
 msgid "label_user_name"
 msgstr "Utilizator"
 
-#.   <label for="username_or_email">
+#.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "label_user_name_or_email_address"
@@ -2196,7 +2189,7 @@ msgstr "Ultima saptamana"
 msgid "time_yesterday"
 msgstr "Ieri"
 
-#.   <label class="required" for="comments">Comments</label>
+#.   <label for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentarii"
@@ -2254,41 +2247,40 @@ msgstr ""
 "<h1>Bine ai venit la Nuxeo CPS</h1> <p> Aceasta pagina este destinata sa va "
 "prezinte pe scurt <acronym title=\"Collaborative Portal Server\">CPS</"
 "acronym> (Portal Colaborativ Nuxeo) si ceea ce se poate face cu el. (<a href="
-"\"portlet_manage_form\">Editeaza acest text</"
-"a>.) </p> <h2>Despre CPS</h2>   <p> <acronym title=\"Collaborative Portal "
-"Server\">CPS</acronym> este un sistem colaborativ extensiv pentru "
-"administrarea continutului pe Internet (CMS - Content Management System) "
-"implementat pe platforma <a href=\"http://www.zope.org/\">Zope</a> si pe <a "
-"href=\"http://www.zope.org/Products/CMF/\">CMF</a>, care permite "
-"organizatiilor sa implementeze usor, rapid si eficient portal-uri "
-"colaborative (intranet, extranet sau internet) si aplicatii de business "
-"orientate pe fluxul de documente  </p> <p> CPS permite, printre altele: </p> "
-"<ul> <li> <a href=\"workspaces\">Lucrul colaborativ</a> si <a href=\"sections"
-"\">spatii</a> de publicare (s-ar putea sa fie nevoie sa fii autentificat si "
-"sa detii drepturi pentru a putea accesa aceste link-uri) </li> <li>Versiuni "
-"ale documentelor, care permit unui document sa fie publicat intr-o versiune "
-"si in acelasi timp sa se lucreze la el in alta versiune </li> "
-"<li>Administrare utilizatori si roluri <a href=\"cpsdirectory_view\">bazata "
-"pe grupuri si directoare</a> </li> <li> O interfata a portalului <a href="
-"\"box_manage_form\">configurabila</a>, cu un comportament compatibil cu "
-"standardele web (s-ar putea sa fie nevoie sa fii autentificat si sa detii "
-"drepturi pentru a putea accesa aceste link-uri) </li> <li> Notificari la "
-"diverse tipuri de evenimente care au loc in sistem</li> <li> Un editor "
-"WYSIWYG (optional) pentru aspectul si comportamentul portalului (e nevoie "
-"doar de instalarea <em>CPSSkins</em> in instanta CPS folosind <a href="
-"\"manage\">ZMI</a>) </li> <li> Numeroase servicii pentru utilizatori, cum ar "
-"fi Webmail, Forum-uri, Calendare comune, Newslettere si Liste de Discutii, "
-"etc. </li> <li> Numeroase servicii puternice pentru dezvoltatori si "
-"webmasteri, incluzand suport pentru crearea propriilor tipuri de documente "
-"si a propriilor fluxuri de date etc. </li> </ul> <p> CPS a fost deja adoptat "
-"de importante institutii din Administratia de Stat(Ministerele franceze de "
-"Interne, Cultura, Finante, Aparare, Justitie, Comisia Franceza de Energie "
-"Atomica, Universitatea Chalmers...), de sectorul privat (Suez, "
-"STMicroelectronics...) si de catre firme europene de renume de consultanta "
-"IT (Capgemini, Unilog, Steria...). </p> <p> Pentru mai multe informatii "
-"despre Zope si CPS, iti sugeram sa vizitezi urmatoarele site-uri: </p> "
-"<ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</a>: "
-"portalul comunitatii utilizatorilor si dezvoltatorilor CPS </li> <li> <a "
+"\"portlet_manage_form\">Editeaza acest text</a>.) </p> <h2>Despre CPS</h2>   "
+"<p> <acronym title=\"Collaborative Portal Server\">CPS</acronym> este un "
+"sistem colaborativ extensiv pentru administrarea continutului pe Internet "
+"(CMS - Content Management System) implementat pe platforma <a href=\"http://"
+"www.zope.org/\">Zope</a> si pe <a href=\"http://www.zope.org/Products/CMF/"
+"\">CMF</a>, care permite organizatiilor sa implementeze usor, rapid si "
+"eficient portal-uri colaborative (intranet, extranet sau internet) si "
+"aplicatii de business orientate pe fluxul de documente  </p> <p> CPS "
+"permite, printre altele: </p> <ul> <li> <a href=\"workspaces\">Lucrul "
+"colaborativ</a> si <a href=\"sections\">spatii</a> de publicare (s-ar putea "
+"sa fie nevoie sa fii autentificat si sa detii drepturi pentru a putea accesa "
+"aceste link-uri) </li> <li>Versiuni ale documentelor, care permit unui "
+"document sa fie publicat intr-o versiune si in acelasi timp sa se lucreze la "
+"el in alta versiune </li> <li>Administrare utilizatori si roluri <a href="
+"\"cpsdirectory_view\">bazata pe grupuri si directoare</a> </li> <li> O "
+"interfata a portalului <a href=\"box_manage_form\">configurabila</a>, cu un "
+"comportament compatibil cu standardele web (s-ar putea sa fie nevoie sa fii "
+"autentificat si sa detii drepturi pentru a putea accesa aceste link-uri) </"
+"li> <li> Notificari la diverse tipuri de evenimente care au loc in sistem</"
+"li> <li> Un editor WYSIWYG (optional) pentru aspectul si comportamentul "
+"portalului (e nevoie doar de instalarea <em>CPSSkins</em> in instanta CPS "
+"folosind <a href=\"manage\">ZMI</a>) </li> <li> Numeroase servicii pentru "
+"utilizatori, cum ar fi Webmail, Forum-uri, Calendare comune, Newslettere si "
+"Liste de Discutii, etc. </li> <li> Numeroase servicii puternice pentru "
+"dezvoltatori si webmasteri, incluzand suport pentru crearea propriilor "
+"tipuri de documente si a propriilor fluxuri de date etc. </li> </ul> <p> CPS "
+"a fost deja adoptat de importante institutii din Administratia de Stat"
+"(Ministerele franceze de Interne, Cultura, Finante, Aparare, Justitie, "
+"Comisia Franceza de Energie Atomica, Universitatea Chalmers...), de sectorul "
+"privat (Suez, STMicroelectronics...) si de catre firme europene de renume de "
+"consultanta IT (Capgemini, Unilog, Steria...). </p> <p> Pentru mai multe "
+"informatii despre Zope si CPS, iti sugeram sa vizitezi urmatoarele site-uri: "
+"</p> <ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</"
+"a>: portalul comunitatii utilizatorilor si dezvoltatorilor CPS </li> <li> <a "
 "href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 la Zope.org</a> "
 "(pentru a descarca ultimele versiuni stabile sau in dezvoltare) </li> <li> "
 "<a href=\"http://lists.nuxeo.com/\">Listele de discutie CPS</a> </li> <li> "
@@ -2333,6 +2325,10 @@ msgstr "Modifica"
 
 msgid "translate"
 msgstr "Traducere"
+
+#, fuzzy
+msgid "delete_translation"
+msgstr "Suppression d'une traduction"
 
 msgid "checkin_draft"
 msgstr "Validarea versiunii"
@@ -2536,6 +2532,10 @@ msgstr "Administreaza limbile"
 
 msgid "action_translate"
 msgstr "Tradu"
+
+#, fuzzy
+msgid "action_delete_translation"
+msgstr "Supprimer la traduction"
 
 msgid "button_create"
 msgstr "Creeaza"
@@ -2993,6 +2993,10 @@ msgstr "Resetarea parolei tale a esuat."
 msgid "psm_translation_added"
 msgstr "Versiunea pentru traducere a fost adaugata."
 
+#, fuzzy
+msgid "psm_translation_deleted"
+msgstr "Traduction effacée"
+
 # Languages
 # ##########
 msgid "psm_default_language_set"
@@ -3233,6 +3237,15 @@ msgstr "Mesaj de stare tradus"
 
 msgid "Title"
 msgstr "Titlu"
+
+msgid "A test box"
+msgstr "O casuta de test"
+
+msgid "box_closed_boxes"
+msgstr "Box-uri inchise: "
+
+msgid "description_up_to ${up_id}"
+msgstr "Pana la ${up_id}"
 
 msgid "label_accesskey_title"
 msgstr "Taste rapide"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt-BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-04 17:20default\n"
+"POT-Creation-Date: 2005-12-16 15:48default\n"
 "PO-Revision-Date: 2005-09-29 11:33-0300\n"
 "Last-Translator: Mario Olimpio de Menezes <mario@ipen.br>\n"
 "Language-Team: Portugues do Brasil <pt@li.org>\n"
@@ -12,11 +12,6 @@ msgstr ""
 "Language-Code: pt_BR\n"
 "Language-Name: Portuguese Brazilian\n"
 "Domain: default\n"
-
-#.   <block content="bs/title" fill-slot="box_title">A test box</block>
-#: from ../skins/cps_devel/test_box_lib.pt
-msgid "A test box"
-msgstr "Uma caixa de teste"
 
 #.   <span>
 #.       Created by
@@ -132,9 +127,9 @@ msgstr ""
 msgid "accessibility_accesskeys_title"
 msgstr "Accesskeys or keyboard shortcuts"
 
-#.   <block>
+#.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
-#.   </block>
+#.   </div>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_accesskeys_usage"
 msgstr ""
@@ -142,6 +137,14 @@ msgstr ""
 "para aquele link </p><p></p><p><strong>IE</strong>: Pressione ALT + o número "
 "(não utilize o teclado numérico) então pressione Enter para seguir aquele "
 "link.</p> <p></p> <p><strong>Opera</strong>: Não suporta atalhos ainda! </p>"
+
+#.   <p>
+#.   Accesskeys usage is different from one web browser to another.
+#.   </p>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_accesskeys_usage_description"
+msgstr "Here is below how to use accesskeys on some common web browsers:"
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -193,7 +196,7 @@ msgstr "Acessibilidade"
 msgid "accesskey explanation"
 msgstr ""
 
-#.   <a attributes="href string:${base_url}accessibility">action_accessibility</a>
+#.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
 #: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Acessibilidade"
@@ -215,12 +218,6 @@ msgstr "Próximo"
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
 msgstr "Anterior"
-
-#.   <span>Closed boxes :&nbsp;</span>
-#: from ../skins/cps_default/main_template.pt
-#: ../skins/cps_devel/main_template_debug.pt
-msgid "box_closed_boxes"
-msgstr "Caixas fechadas"
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
@@ -529,12 +526,6 @@ msgstr "Você foi registrado como um membro."
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
 msgstr "A conta abaixo é aquela na qual a senha será redefinida."
-
-#.   <span>description_up_to
-#.           ${up_id (tal content="python:here.aq_parent.title_or_id()")}</span>
-#: from ../skins/cps_default/folder_contents.pt
-msgid "description_up_to ${up_id}"
-msgstr "Subir para ${up_id}"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
@@ -1152,7 +1143,7 @@ msgstr "Email do Administrador"
 msgid "label_admin_name"
 msgstr "Nome do Administrador"
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${base_url}cps-minibanner.png" />
+#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr "Use CPS"
@@ -1222,17 +1213,17 @@ msgstr "Comentários"
 msgid "label_compact"
 msgstr "Compactar"
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${base_url}valid-css.png" />
+#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "Site concebido utilizando-se Folhas de Estilo em Cascata (CSS) válidas"
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${base_url}valid-xhtml10.png" />
+#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "Site concebido com XHTML válido."
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${base_url}wcag1A.png" />
+#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr "Site conforme o W3C Web Content Accessibility Level A"
@@ -1859,7 +1850,7 @@ msgstr "ID do Usuário"
 msgid "label_user_name"
 msgstr "Nome de login"
 
-#.   <label for="username_or_email">
+#.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "label_user_name_or_email_address"
@@ -2183,7 +2174,7 @@ msgstr "Última Semana"
 msgid "time_yesterday"
 msgstr "Ontem"
 
-#.   <label class="required" for="comments">Comments</label>
+#.   <label for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentários"
@@ -2239,32 +2230,31 @@ msgstr ""
 "<h1>Benvindo ao CPS CRPq</h1> <p> Esta página pretende dar-lhe uma "
 "introdução ao <acronym title=\"Servidor de Portal Colaborativo\">CPS</"
 "acronym> (Portal Colaborativo do CPRq) e ao que você pode fazer com ele. (<a "
-"href=\"portlet_manage_form\">Edite este texto</"
-"a>.) </p> <h2>Sobre o CPS</h2>   <p> <acronym title=\"Servidor de Portal "
-"Colaborativo\">CPS</acronym> é um sistema extensivo e colaborativo de "
-"administração de conteúdo via Web (CMS) implementado sobre  <a href=\"http://"
-"www.zope.org/\">Zope</a> e <a href=\"http://www.zope.org/Products/CMF/"
-"\">CMF</a>, quer permite a organizações implementarem fácil, rapida e "
-"eficientemente portais colaborativos (intranet, extranet ou internet) e "
-"aplicações de negócios orientadas por workflows. </p> <p> CPS provê, entre "
-"outras coisas: </p> <ul> <li> <a href=\"workspaces\">Trabalho Colaborativo</"
-"a> e  Espaço de <a href=\"sections\">Publicação</a> (você pode precisar "
-"estar autenticado com nível de acesso correto para acessar estas URLs) </li> "
-"<li>Versões de Documentos, que permite que um documento seja publiado em uma "
-"versão e ainda trabalhado em outra </li> <li> <a href=\"cpsdirectory_view"
-"\">Administração de papéis e usuários baseada em grupos</a>, através de "
-"diretórios. </li> <li> Uma interface do Portal <a href=\"box_manage_form"
-"\">configurável</a>, com aparência padrão compatível com os padrões web e de "
-"acessibilidade (você pode precisar estar autenticado com nível de acesso "
-"correto para acessar esta URL) </li> <li> Notificações para vários tipos de "
-"eventos acontecendo no sistema </li> <li> Um editor (opcional) WYSIWYG para "
-"a aparência do portal (simplesmente instale <em>CPSSkins</em> na sua "
-"instância do CPS utilizando a <a href=\"manage\">ZMI</a>) </li> <li> Muitos "
-"serviços a nível de usuário, como um Webmail, Fórums, Agendas "
-"Compartilhadas, Boletins de Notícias e Listas de discussão, etc. </li> <li> "
-"Muitos serviços poderosos para desenvolvedores e webmasters, incluindo "
-"suporte para a criação de seus próprios tipos de documentos, seus próprios "
-"workflows, etc. </li> </ul> \n"
+"href=\"portlet_manage_form\">Edite este texto</a>.) </p> <h2>Sobre o CPS</"
+"h2>   <p> <acronym title=\"Servidor de Portal Colaborativo\">CPS</acronym> é "
+"um sistema extensivo e colaborativo de administração de conteúdo via Web "
+"(CMS) implementado sobre  <a href=\"http://www.zope.org/\">Zope</a> e <a "
+"href=\"http://www.zope.org/Products/CMF/\">CMF</a>, quer permite a "
+"organizações implementarem fácil, rapida e eficientemente portais "
+"colaborativos (intranet, extranet ou internet) e aplicações de negócios "
+"orientadas por workflows. </p> <p> CPS provê, entre outras coisas: </p> <ul> "
+"<li> <a href=\"workspaces\">Trabalho Colaborativo</a> e  Espaço de <a href="
+"\"sections\">Publicação</a> (você pode precisar estar autenticado com nível "
+"de acesso correto para acessar estas URLs) </li> <li>Versões de Documentos, "
+"que permite que um documento seja publiado em uma versão e ainda trabalhado "
+"em outra </li> <li> <a href=\"cpsdirectory_view\">Administração de papéis e "
+"usuários baseada em grupos</a>, através de diretórios. </li> <li> Uma "
+"interface do Portal <a href=\"box_manage_form\">configurável</a>, com "
+"aparência padrão compatível com os padrões web e de acessibilidade (você "
+"pode precisar estar autenticado com nível de acesso correto para acessar "
+"esta URL) </li> <li> Notificações para vários tipos de eventos acontecendo "
+"no sistema </li> <li> Um editor (opcional) WYSIWYG para a aparência do "
+"portal (simplesmente instale <em>CPSSkins</em> na sua instância do CPS "
+"utilizando a <a href=\"manage\">ZMI</a>) </li> <li> Muitos serviços a nível "
+"de usuário, como um Webmail, Fórums, Agendas Compartilhadas, Boletins de "
+"Notícias e Listas de discussão, etc. </li> <li> Muitos serviços poderosos "
+"para desenvolvedores e webmasters, incluindo suporte para a criação de seus "
+"próprios tipos de documentos, seus próprios workflows, etc. </li> </ul> \n"
 
 msgid "Session"
 msgstr "Sessão"
@@ -2288,6 +2278,10 @@ msgstr "Modificação"
 
 msgid "translate"
 msgstr "traduzir"
+
+#, fuzzy
+msgid "delete_translation"
+msgstr "Translation deleted"
 
 msgid "checkin_draft"
 msgstr "Registro de rascunho"
@@ -2490,6 +2484,10 @@ msgstr "Administrar Idiomas"
 
 msgid "action_translate"
 msgstr "Traduzir"
+
+#, fuzzy
+msgid "action_delete_translation"
+msgstr "Delete this translation"
 
 msgid "button_create"
 msgstr "Criar"
@@ -2936,6 +2934,10 @@ msgstr "Problema ao redefinir a senha"
 msgid "psm_translation_added"
 msgstr "Versão para tradução adicionada"
 
+#, fuzzy
+msgid "psm_translation_deleted"
+msgstr "Translation deleted"
+
 # # Languages  ========================================================
 msgid "psm_default_language_set"
 msgstr "Idioma padrão do portal definido"
@@ -3170,6 +3172,15 @@ msgstr ""
 
 msgid "Title"
 msgstr ""
+
+msgid "A test box"
+msgstr "Uma caixa de teste"
+
+msgid "box_closed_boxes"
+msgstr "Caixas fechadas"
+
+msgid "description_up_to ${up_id}"
+msgstr "Subir para ${up_id}"
 
 msgid "label_accesskey_title"
 msgstr "Atalhos de teclado ou teclas de acesso"

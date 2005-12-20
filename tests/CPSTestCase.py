@@ -352,8 +352,9 @@ def setupPortal(PortalInstaller=CPSInstaller):
     # Add an error_log (used by CMFQuickInstaller)
     app.error_log = FakeErrorLog()
 
-    # Initialize component architecture and events
-    eventSetUp()
+    # Initialize component architecture and load all ZCML
+    from Products.CPSCore.tests.setup import fullFiveSetup
+    fullFiveSetup()
 
     PortalInstaller(app).install(PORTAL_ID)
     ZopeTestCase.close(app)

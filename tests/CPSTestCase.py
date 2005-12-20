@@ -5,6 +5,7 @@
 import os, tempfile
 import zLOG
 from Testing import ZopeTestCase
+from Products.CPSCore.tests.setup import EventTest, eventSetUp
 import Products
 
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
@@ -181,7 +182,16 @@ def LocalizerStringIO_getvalue(self):
 LocalizerStringIO.write = LocalizerStringIO_write
 LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
-class CPSTestCase(ZopeTestCase.PortalTestCase):
+
+class CPSTestCase(ZopeTestCase.PortalTestCase, EventTest):
+
+    def setUp(self):
+        EventTest.setUp(self)
+        ZopeTestCase.PortalTestCase.setUp(self)
+
+    def tearDown(self):
+        ZopeTestCase.PortalTestCase.tearDown(self)
+        EventTest.tearDown(self)
 
     # Override _setup, setUp is not supposed to be overriden
     def _setup(self):
@@ -341,6 +351,9 @@ def setupPortal(PortalInstaller=CPSInstaller):
 
     # Add an error_log (used by CMFQuickInstaller)
     app.error_log = FakeErrorLog()
+
+    # Initialize component architecture and events
+    eventSetUp()
 
     PortalInstaller(app).install(PORTAL_ID)
     ZopeTestCase.close(app)

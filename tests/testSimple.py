@@ -50,7 +50,7 @@ class TestSimpleAsRoot(TestSimple):
         self.assert_(self.portal.workspaces.folder_view())
         self.assert_(self.portal.sections.folder_view())
 
-    def testAdminSkinsAtRoot(self):
+    def XXXtestAdminSkinsAtRoot(self):
         self.assert_(self.portal.reconfig_form())
         # XXX: move this to CPSDirectory ?
         self.assert_(self.portal.cpsdirectory_view())

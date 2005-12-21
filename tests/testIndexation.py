@@ -89,8 +89,8 @@ class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         self.wftool.invokeFactoryFor(workspaces, 'Workspace', ws_id)
         new_ws = getattr(workspaces, ws_id)
 
-        # commit for being able to cut
-        transaction.commit(1)
+        # savepoint to be able to cut
+        transaction.savepoint(optimistic=True)
 
         # Paste it and see if it's indexed
         cp = workspaces.manage_CPScutObjects([id])
@@ -160,8 +160,8 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         self.wftool.invokeFactoryFor(workspaces, 'Workspace', ws_id)
         new_ws = getattr(workspaces, ws_id)
 
-        # commit for being able to cut
-        transaction.commit(1)
+        # savepoint to be able to cut
+        transaction.savepoint(optimistic=True)
 
         # Paste it and see if it's indexed
         cp = workspaces.manage_CPScutObjects([id])
@@ -186,8 +186,8 @@ class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         self.wftool.invokeFactoryFor(workspaces, 'Workspace', ws_id)
         new_ws = getattr(workspaces, ws_id)
 
-        # commit for being able to cut
-        transaction.commit(1)
+        # savepoint to be able to cut
+        transaction.savepoint(optimistic=True)
 
         # Paste it and see if it's indexed
 

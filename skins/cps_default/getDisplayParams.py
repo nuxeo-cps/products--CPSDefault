@@ -3,8 +3,9 @@
 """Return params for display_content macro
 """
 
-cps_pref = context.REQUEST.SESSION.get('cps_display_params', {})
+from Products.CPSUtil.session import sessionGet
 
+cps_pref = sessionGet(context.REQUEST, 'cps_display_params', {})
 def_params = context.getCustomDisplayParams()
 
 params = def_params

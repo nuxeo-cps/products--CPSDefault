@@ -4,9 +4,15 @@
 Get a sorted list of contents object
 """
 
+from Products.CPSUtil.session import sessionHasKey
+
 if not sort_by:
     # Get sort from the session display params
-    disp_params = context.REQUEST.SESSION.get('cps_display_params', {})
+    request = context.REQUEST
+    if sessionHasKey(request, 'cps_display_params'):
+        disp_params = request.SESSION['cps_display_params']
+    else:
+        disp_params = {}
     sort_by = disp_params.get('sort_by')
     direction = disp_params.get('direction')
 

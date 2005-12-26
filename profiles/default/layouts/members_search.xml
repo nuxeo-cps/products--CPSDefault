@@ -1,68 +1,73 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="email" type="String Widget">
-    <property name="description">Member email</property>
-    <property name="display_width">30</property>
-    <property name="fields">
-     <element value="email" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">label_email</property>
-    <property name="label_edit">label_email</property>
-  </widget>
-  <widget id="givenName" type="String Widget">
-    <property name="description">Member first name</property>
-    <property name="fields">
-     <element value="givenName" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">label_first_name</property>
-    <property name="label_edit">label_first_name</property>
-  </widget>
-  <widget id="groups" type="MultiSelect Widget">
-    <property name="description">Member groups</property>
-    <property name="fields">
-     <element value="groups" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">label_groups</property>
-    <property name="label_edit">label_groups</property>
-    <property name="size">7</property>
-    <property name="vocabulary">groups</property>
-  </widget>
-  <widget id="id" type="String Widget">
-    <property name="description">Member login</property>
-    <property name="display_width">30</property>
-    <property name="fields">
-     <element value="id" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">label_user_name</property>
-    <property name="label_edit">label_user_name</property>
-  </widget>
-  <widget id="sn" type="String Widget">
-    <property name="description">Member last name</property>
-    <property name="fields">
-     <element value="sn" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">label_last_name</property>
-    <property name="label_edit">label_last_name</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="id" ncols="2"/>
-    </row>
-    <row>
-      <cell id="givenName"/>
-      <cell id="sn"/>
-    </row>
-    <row>
-      <cell id="email" ncols="2"/>
-    </row>
-    <row>
-      <cell id="groups" ncols="2"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_dir_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="members_search" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_dir_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="email" meta_type="String Widget">
+  <property name="fields">
+   <element value="email"/>
+  </property>
+  <property name="label">label_email</property>
+  <property name="label_edit">label_email</property>
+  <property name="description">Member email</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">30</property>
+ </widget>
+ <widget name="givenName" meta_type="String Widget">
+  <property name="fields">
+   <element value="givenName"/>
+  </property>
+  <property name="label">label_first_name</property>
+  <property name="label_edit">label_first_name</property>
+  <property name="description">Member first name</property>
+  <property name="is_i18n">True</property>
+ </widget>
+ <widget name="groups" meta_type="MultiSelect Widget">
+  <property name="fields">
+   <element value="groups"/>
+  </property>
+  <property name="label">label_groups</property>
+  <property name="label_edit">label_groups</property>
+  <property name="description">Member groups</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">groups</property>
+  <property name="size">7</property>
+ </widget>
+ <widget name="id" meta_type="String Widget">
+  <property name="fields">
+   <element value="id"/>
+  </property>
+  <property name="label">label_user_name</property>
+  <property name="label_edit">label_user_name</property>
+  <property name="description">Member login</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">30</property>
+ </widget>
+ <widget name="sn" meta_type="String Widget">
+  <property name="fields">
+   <element value="sn"/>
+  </property>
+  <property name="label">label_last_name</property>
+  <property name="label_edit">label_last_name</property>
+  <property name="description">Member last name</property>
+  <property name="is_i18n">True</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="id" ncols="2"/>
+  </row>
+  <row>
+   <cell name="givenName"/>
+   <cell name="sn"/>
+  </row>
+  <row>
+   <cell name="email" ncols="2"/>
+  </row>
+  <row>
+   <cell name="groups" ncols="2"/>
+  </row>
+ </table>
+</object>

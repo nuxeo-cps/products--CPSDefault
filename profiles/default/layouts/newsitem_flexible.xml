@@ -1,58 +1,64 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="attachedFile" type="AttachedFile Widget">
-    <property name="css_class">ddefault</property>
-    <property name="fields">
-     <element value="?" /></property>
-    <property name="hidden_empty">1</property>
-    <property name="is_i18n">1</property>
-    <property name="label">cpsdoc_flex_attachedFile_label</property>
-    <property name="label_edit">cpsdoc_flex_attachedFile_label_edit</property>
-    <property name="title">cpsdoc_flex_attachedFile_title</property>
-  </widget>
-  <widget id="link" type="Link Widget">
-    <property name="css_class">ddefault</property>
-    <property name="fields">
-     <element value="?" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsdoc_Link_label_edit</property>
-    <property name="title">cpsdoc_flex_link_title</property>
-    <property name="widget_ids">
-     <element value="link_href" />
-     <element value="link_title" />
-     <element value="link_description" /></property>
-  </widget>
-  <widget id="link_description" type="TextArea Widget">
-    <property name="fields">
-     <element value="?" /></property>
-    <property name="height">3</property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsschemas_label_link_title</property>
-    <property name="width">60</property>
-  </widget>
-  <widget id="link_href" type="URL Widget">
-    <property name="display_width">60</property>
-    <property name="fields">
-     <element value="?" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsschemas_label_link_href</property>
-  </widget>
-  <widget id="link_title" type="String Widget">
-    <property name="display_width">60</property>
-    <property name="fields">
-     <element value="?" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsschemas_label_link_content</property>
-    <property name="size_max">100</property>
-  </widget>
-  <table>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_default_</property>
-  <property name="flexible_widgets">
-   <element value="link" />
-   <element value="attachedFile" /></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="newsitem_flexible" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_default_</property>
+ <property name="flexible_widgets">
+  <element value="link"/>
+  <element value="attachedFile"/>
+ </property>
+ <property name="validate_values_expr"></property>
+ <widget name="attachedFile" meta_type="AttachedFile Widget">
+  <property name="title">cpsdoc_flex_attachedFile_title</property>
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label">cpsdoc_flex_attachedFile_label</property>
+  <property name="label_edit">cpsdoc_flex_attachedFile_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_empty">True</property>
+  <property name="css_class">ddefault</property>
+ </widget>
+ <widget name="link" meta_type="Link Widget">
+  <property name="title">cpsdoc_flex_link_title</property>
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="widget_ids">
+   <element value="link_href"/>
+   <element value="link_title"/>
+   <element value="link_description"/>
+  </property>
+  <property name="label_edit">cpsdoc_Link_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="css_class">ddefault</property>
+ </widget>
+ <widget name="link_description" meta_type="TextArea Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsschemas_label_link_title</property>
+  <property name="is_i18n">True</property>
+  <property name="width">60</property>
+  <property name="height">3</property>
+ </widget>
+ <widget name="link_href" meta_type="URL Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsschemas_label_link_href</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">60</property>
+ </widget>
+ <widget name="link_title" meta_type="String Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsschemas_label_link_content</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">60</property>
+  <property name="size_max">100</property>
+ </widget>
+ <table/>
+</object>

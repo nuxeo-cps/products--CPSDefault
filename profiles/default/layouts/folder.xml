@@ -1,23 +1,25 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="hidden_folder" type="Boolean Widget">
-    <property name="fields">
-     <element value="hidden_folder" /></property>
-    <property name="help">cpsdoc_hidden_folder_help</property>
-    <property name="hidden_layout_modes">
-     <element value="view" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsdoc_hidden_folder</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="hidden_folder"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_default_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="folder" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_default_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="hidden_folder" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="hidden_folder"/>
+  </property>
+  <property name="label_edit">cpsdoc_hidden_folder</property>
+  <property name="help">cpsdoc_hidden_folder_help</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+ </widget>
+ <table>
+  <row>
+   <cell name="hidden_folder"/>
+  </row>
+ </table>
+</object>

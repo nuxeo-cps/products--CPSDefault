@@ -1,37 +1,40 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="members" type="MultiSelect Widget">
-    <property name="fields">
-     <element value="members" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">label_members</property>
-    <property name="label_edit">label_members</property>
-    <property name="size">7</property>
-    <property name="vocabulary">members</property>
-  </widget>
-  <widget id="role" type="Identifier Widget">
-    <property name="display_width">20</property>
-    <property name="fields">
-     <element value="role" /></property>
-    <property name="is_i18n">1</property>
-    <property name="is_required">1</property>
-    <property name="label">label_roles</property>
-    <property name="label_edit">label_roles</property>
-    <property name="readonly_layout_modes">
-     <element value="edit" /></property>
-  </widget>
-  <table>
-    <row>
-      <cell id="role"/>
-    </row>
-    <row>
-      <cell id="members"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_dir_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="roles" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_dir_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="members" meta_type="MultiSelect Widget">
+  <property name="fields">
+   <element value="members"/>
+  </property>
+  <property name="label">label_members</property>
+  <property name="label_edit">label_members</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">members</property>
+  <property name="size">7</property>
+ </widget>
+ <widget name="role" meta_type="Identifier Widget">
+  <property name="fields">
+   <element value="role"/>
+  </property>
+  <property name="is_required">True</property>
+  <property name="label">label_roles</property>
+  <property name="label_edit">label_roles</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes">
+   <element value="edit"/>
+  </property>
+  <property name="display_width">20</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="role"/>
+  </row>
+  <row>
+   <cell name="members"/>
+  </row>
+ </table>
+</object>

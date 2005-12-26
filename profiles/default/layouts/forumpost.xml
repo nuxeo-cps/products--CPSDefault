@@ -1,63 +1,69 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="Description" type="Rich Text Editor Widget">
-    <property name="css_class">ddescription</property>
-    <property name="fields">
-     <element value="Description" /></property>
-    <property name="height">10</property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">forum_label_message</property>
-    <property name="width">72</property>
-  </widget>
-  <widget id="Title" type="Heading Widget">
-    <property name="fields">
-     <element value="Title" /></property>
-    <property name="is_i18n">1</property>
-    <property name="is_required">1</property>
-    <property name="label_edit">forum_label_subject</property>
-    <property name="level">1</property>
-    <property name="size_max">250</property>
-  </widget>
-  <widget id="author" type="String Widget">
-    <property name="display_width">40</property>
-    <property name="fields">
-     <element value="author" /></property>
-    <property name="hidden_layout_modes">
-     <element value="create" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">forum_label_postedby</property>
-    <property name="label_edit">forum_label_postedby</property>
-    <property name="readonly_layout_modes">
-     <element value="create" />
-     <element value="edit" /></property>
-    <property name="size_max">50</property>
-  </widget>
-  <widget id="links" type="InternalLinks Widget">
-    <property name="fields">
-     <element value="links" /></property>
-    <property name="hidden_empty">1</property>
-    <property name="is_i18n">1</property>
-    <property name="label">forum_label_attachedFiles</property>
-    <property name="label_edit">forum_label_attachedFiles</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="Title"/>
-    </row>
-    <row>
-      <cell id="author"/>
-    </row>
-    <row>
-      <cell id="Description"/>
-    </row>
-    <row>
-      <cell id="links"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_default_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="forumpost" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_default_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="Description" meta_type="Rich Text Editor Widget">
+  <property name="fields">
+   <element value="Description"/>
+  </property>
+  <property name="label_edit">forum_label_message</property>
+  <property name="is_i18n">True</property>
+  <property name="css_class">ddescription</property>
+  <property name="width">72</property>
+  <property name="height">10</property>
+ </widget>
+ <widget name="Title" meta_type="Heading Widget">
+  <property name="fields">
+   <element value="Title"/>
+  </property>
+  <property name="is_required">True</property>
+  <property name="label_edit">forum_label_subject</property>
+  <property name="is_i18n">True</property>
+  <property name="size_max">250</property>
+  <property name="level">1</property>
+ </widget>
+ <widget name="author" meta_type="String Widget">
+  <property name="fields">
+   <element value="author"/>
+  </property>
+  <property name="label">forum_label_postedby</property>
+  <property name="label_edit">forum_label_postedby</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes">
+   <element value="create"/>
+   <element value="edit"/>
+  </property>
+  <property name="hidden_layout_modes">
+   <element value="create"/>
+  </property>
+  <property name="display_width">40</property>
+  <property name="size_max">50</property>
+ </widget>
+ <widget name="links" meta_type="InternalLinks Widget">
+  <property name="fields">
+   <element value="links"/>
+  </property>
+  <property name="label">forum_label_attachedFiles</property>
+  <property name="label_edit">forum_label_attachedFiles</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_empty">True</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="Title"/>
+  </row>
+  <row>
+   <cell name="author"/>
+  </row>
+  <row>
+   <cell name="Description"/>
+  </row>
+  <row>
+   <cell name="links"/>
+  </row>
+ </table>
+</object>

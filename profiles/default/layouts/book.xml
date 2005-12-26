@@ -1,48 +1,54 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="display_mode" type="Boolean Widget">
-    <property name="fields">
-     <element value="display_mode" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label">book_display</property>
-    <property name="label_edit">cpsdoc_book_display</property>
-    <property name="label_false">cpsdoc_book_display_pages</property>
-    <property name="label_true">cpsdoc_book_display_flat</property>
-  </widget>
-  <widget id="has_search_box" type="CheckBox Widget">
-    <property name="fields">
-     <element value="has_search_box" /></property>
-    <property name="hidden_layout_modes">
-     <element value="view" /></property>
-    <property name="is_i18n">True</property>
-    <property name="label_edit">cpsdoc_book_has_search_box_label_edit</property>
-  </widget>
-  <widget id="nb_items_per_summary_page" type="Int Widget">
-    <property name="fields">
-     <element value="nb_items_per_summary_page" /></property>
-    <property name="hidden_layout_modes">
-     <element value="view" /></property>
-    <property name="is_i18n">1</property>
-    <property name="is_limited">1</property>
-    <property name="is_required">1</property>
-    <property name="label_edit">cpsdoc_book_nb_summary_page_label_edit</property>
-    <property name="max_value">65536.0</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="nb_items_per_summary_page"/>
-    </row>
-    <row>
-      <cell id="has_search_box"/>
-    </row>
-    <row>
-      <cell id="display_mode"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_book_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="book" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_book_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="display_mode" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="display_mode"/>
+  </property>
+  <property name="label">book_display</property>
+  <property name="label_edit">cpsdoc_book_display</property>
+  <property name="is_i18n">True</property>
+  <property name="label_false">cpsdoc_book_display_pages</property>
+  <property name="label_true">cpsdoc_book_display_flat</property>
+ </widget>
+ <widget name="has_search_box" meta_type="CheckBox Widget">
+  <property name="fields">
+   <element value="has_search_box"/>
+  </property>
+  <property name="label_edit">cpsdoc_book_has_search_box_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+ </widget>
+ <widget name="nb_items_per_summary_page" meta_type="Int Widget">
+  <property name="fields">
+   <element value="nb_items_per_summary_page"/>
+  </property>
+  <property name="is_required">True</property>
+  <property
+     name="label_edit">cpsdoc_book_nb_summary_page_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="is_limited">True</property>
+  <property name="max_value">65536.0</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="nb_items_per_summary_page"/>
+  </row>
+  <row>
+   <cell name="has_search_box"/>
+  </row>
+  <row>
+   <cell name="display_mode"/>
+  </row>
+ </table>
+</object>

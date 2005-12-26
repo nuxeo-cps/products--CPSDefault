@@ -1,128 +1,139 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="batch_size" type="Int Widget">
-    <property name="fields">
-     <element value="batch_size" /></property>
-    <property name="is_i18n">1</property>
-    <property name="is_limited">1</property>
-    <property name="label_edit">cpsnav_option_batch_size</property>
-    <property name="max_value">100</property>
-    <property name="min_value">1</property>
-  </widget>
-  <widget id="current_uid" type="String Widget">
-    <property name="display_width">72</property>
-    <property name="fields">
-     <element value="current_uid" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_current_uid</property>
-    <property name="size_max">255</property>
-  </widget>
-  <widget id="display_mode" type="Select Widget">
-    <property name="fields">
-     <element value="display_mode" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_display_mode</property>
-    <property name="vocabulary">navigation_display_mode</property>
-  </widget>
-  <widget id="expand_all" type="Boolean Widget">
-    <property name="fields">
-     <element value="expand_all" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_search_expand_all</property>
-  </widget>
-  <widget id="filter_listing_ptypes"
-          type="MultiSelect Widget">
-    <property name="fields">
-     <element value="filter_listing_ptypes" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_filter_listing_ptypes</property>
-    <property name="size">10</property>
-    <property name="vocabulary">navigation_filter_listing_ptypes</property>
-  </widget>
-  <widget id="filter_tree_ptypes" type="MultiSelect Widget">
-    <property name="fields">
-     <element value="filter_tree_ptypes" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_filter_tree_ptypes</property>
-    <property name="size">10</property>
-    <property name="vocabulary">navigation_filter_tree_ptypes</property>
-  </widget>
-  <widget id="include_root" type="Boolean Widget">
-    <property name="fields">
-     <element value="include_root" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_include_root</property>
-  </widget>
-  <widget id="no_nodes" type="Boolean Widget">
-    <property name="fields">
-     <element value="no_nodes" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_no_node</property>
-  </widget>
-  <widget id="sort_listing_by" type="Select Widget">
-    <property name="fields">
-     <element value="sort_listing_by" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_sort_listing_by</property>
-    <property name="vocabulary">navigation_sort_listing_by</property>
-  </widget>
-  <widget id="sort_listing_direction" type="Select Widget">
-    <property name="fields">
-     <element value="sort_listing_direction" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_sort_listing_direction</property>
-    <property name="vocabulary">navigation_sort_direction</property>
-  </widget>
-  <widget id="sort_tree_by" type="Select Widget">
-    <property name="fields">
-     <element value="sort_tree_by" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_sort_tree_by</property>
-    <property name="vocabulary">navigation_sort_tree_by</property>
-  </widget>
-  <widget id="sort_tree_direction" type="Select Widget">
-    <property name="fields">
-     <element value="sort_tree_direction" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsnav_option_sort_tree_direction</property>
-    <property name="vocabulary">navigation_sort_direction</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="current_uid" ncols="2"/>
-    </row>
-    <row>
-      <cell id="display_mode" ncols="2"/>
-    </row>
-    <row>
-      <cell id="include_root" ncols="2"/>
-    </row>
-    <row>
-      <cell id="sort_tree_by"/>
-      <cell id="sort_tree_direction"/>
-    </row>
-    <row>
-      <cell id="expand_all" ncols="2"/>
-    </row>
-    <row>
-      <cell id="sort_listing_by"/>
-      <cell id="sort_listing_direction"/>
-    </row>
-    <row>
-      <cell id="batch_size" ncols="2"/>
-    </row>
-    <row>
-      <cell id="no_nodes" ncols="2"/>
-    </row>
-    <row>
-      <cell id="filter_tree_ptypes"/>
-      <cell id="filter_listing_ptypes"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_default_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="navigation_option" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_default_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="batch_size" meta_type="Int Widget">
+  <property name="fields">
+   <element value="batch_size"/>
+  </property>
+  <property name="label_edit">cpsnav_option_batch_size</property>
+  <property name="is_i18n">True</property>
+  <property name="is_limited">True</property>
+  <property name="min_value">1</property>
+  <property name="max_value">100</property>
+ </widget>
+ <widget name="current_uid" meta_type="String Widget">
+  <property name="fields">
+   <element value="current_uid"/>
+  </property>
+  <property name="label_edit">cpsnav_option_current_uid</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">72</property>
+  <property name="size_max">255</property>
+ </widget>
+ <widget name="display_mode" meta_type="Select Widget">
+  <property name="fields">
+   <element value="display_mode"/>
+  </property>
+  <property name="label_edit">cpsnav_option_display_mode</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_display_mode</property>
+ </widget>
+ <widget name="expand_all" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="expand_all"/>
+  </property>
+  <property name="label_edit">cpsnav_search_expand_all</property>
+  <property name="is_i18n">True</property>
+ </widget>
+ <widget name="filter_listing_ptypes" meta_type="MultiSelect Widget">
+  <property name="fields">
+   <element value="filter_listing_ptypes"/>
+  </property>
+  <property name="label_edit">cpsnav_option_filter_listing_ptypes</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_filter_listing_ptypes</property>
+  <property name="size">10</property>
+ </widget>
+ <widget name="filter_tree_ptypes" meta_type="MultiSelect Widget">
+  <property name="fields">
+   <element value="filter_tree_ptypes"/>
+  </property>
+  <property name="label_edit">cpsnav_option_filter_tree_ptypes</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_filter_tree_ptypes</property>
+  <property name="size">10</property>
+ </widget>
+ <widget name="include_root" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="include_root"/>
+  </property>
+  <property name="label_edit">cpsnav_option_include_root</property>
+  <property name="is_i18n">True</property>
+ </widget>
+ <widget name="no_nodes" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="no_nodes"/>
+  </property>
+  <property name="label_edit">cpsnav_option_no_node</property>
+  <property name="is_i18n">True</property>
+ </widget>
+ <widget name="sort_listing_by" meta_type="Select Widget">
+  <property name="fields">
+   <element value="sort_listing_by"/>
+  </property>
+  <property name="label_edit">cpsnav_option_sort_listing_by</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_sort_listing_by</property>
+ </widget>
+ <widget name="sort_listing_direction" meta_type="Select Widget">
+  <property name="fields">
+   <element value="sort_listing_direction"/>
+  </property>
+  <property name="label_edit">cpsnav_option_sort_listing_direction</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_sort_direction</property>
+ </widget>
+ <widget name="sort_tree_by" meta_type="Select Widget">
+  <property name="fields">
+   <element value="sort_tree_by"/>
+  </property>
+  <property name="label_edit">cpsnav_option_sort_tree_by</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_sort_tree_by</property>
+ </widget>
+ <widget name="sort_tree_direction" meta_type="Select Widget">
+  <property name="fields">
+   <element value="sort_tree_direction"/>
+  </property>
+  <property name="label_edit">cpsnav_option_sort_tree_direction</property>
+  <property name="is_i18n">True</property>
+  <property name="vocabulary">navigation_sort_direction</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="current_uid" ncols="2"/>
+  </row>
+  <row>
+   <cell name="display_mode" ncols="2"/>
+  </row>
+  <row>
+   <cell name="include_root" ncols="2"/>
+  </row>
+  <row>
+   <cell name="sort_tree_by"/>
+   <cell name="sort_tree_direction"/>
+  </row>
+  <row>
+   <cell name="expand_all" ncols="2"/>
+  </row>
+  <row>
+   <cell name="sort_listing_by"/>
+   <cell name="sort_listing_direction"/>
+  </row>
+  <row>
+   <cell name="batch_size" ncols="2"/>
+  </row>
+  <row>
+   <cell name="no_nodes" ncols="2"/>
+  </row>
+  <row>
+   <cell name="filter_tree_ptypes"/>
+   <cell name="filter_listing_ptypes"/>
+  </row>
+ </table>
+</object>

@@ -1,22 +1,24 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="display_all" type="Boolean Widget">
-    <property name="fields">
-     <element value="display_all" /></property>
-    <property name="hidden_layout_modes">
-     <element value="view" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsdoc_glossary_dispall_label_edit</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="display_all"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_glossary_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="glossary" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_glossary_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="display_all" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="display_all"/>
+  </property>
+  <property name="label_edit">cpsdoc_glossary_dispall_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+ </widget>
+ <table>
+  <row>
+   <cell name="display_all"/>
+  </row>
+ </table>
+</object>

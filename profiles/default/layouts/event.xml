@@ -1,75 +1,81 @@
 <?xml version="1.0"?>
-<layout>
-  <widget id="Coverage" type="String Widget">
-    <property name="display_width">30</property>
-    <property name="fields">
-     <element value="Coverage" /></property>
-    <property name="hidden_layout_modes">
-     <element value="view" /></property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">label_coverage</property>
-    <property name="size_max">80</property>
-  </widget>
-  <widget id="attachedFile" type="AttachedFile Widget">
-    <property name="description">cpsdoc_attachedFile_description</property>
-    <property name="fields">
-     <element value="attachedFile" />
-     <element value="attachedFile_text" />
-     <element value="attachedFile_html" /></property>
-    <property name="hidden_empty">1</property>
-    <property name="is_i18n">1</property>
-    <property name="label">cpsdoc_attachedFile_label</property>
-    <property name="label_edit">cpsdoc_attachedFile_label</property>
-    <property name="size_max">3145728</property>
-  </widget>
-  <widget id="content" type="Text Widget">
-    <property name="configurable">format</property>
-    <property name="css_class">dcontent</property>
-    <property name="description">cpsdoc_Event_content_description</property>
-    <property name="fields">
-     <element value="content" /></property>
-    <property name="height">15</property>
-    <property name="is_i18n">1</property>
-    <property name="label_edit">cpsdoc_Event_content_label_edit</property>
-    <property name="width">72</property>
-  </widget>
-  <widget id="end" type="DateTime Widget">
-    <property name="css_class">dbold dright</property>
-    <property name="fields">
-     <element value="end" /></property>
-    <property name="is_i18n">1</property>
-    <property name="is_required">1</property>
-    <property name="label">cpsdoc_Event_end_label</property>
-    <property name="label_edit">cpsdoc_Event_end_label_edit</property>
-  </widget>
-  <widget id="start" type="DateTime Widget">
-    <property name="css_class">dbold</property>
-    <property name="fields">
-     <element value="start" /></property>
-    <property name="is_i18n">1</property>
-    <property name="is_required">1</property>
-    <property name="label">cpsdoc_Event_start_label</property>
-    <property name="label_edit">cpsdoc_Event_start_label_edit</property>
-  </widget>
-  <table>
-    <row>
-      <cell id="start"/>
-      <cell id="end"/>
-    </row>
-    <row>
-      <cell id="Coverage" ncols="2"/>
-    </row>
-    <row>
-      <cell id="content" ncols="2"/>
-    </row>
-    <row>
-      <cell id="attachedFile" ncols="2"/>
-    </row>
-  </table>
-  <property name="layout_create_method"></property>
-  <property name="layout_edit_method"></property>
-  <property name="layout_view_method"></property>
-  <property name="style_prefix">layout_event_</property>
-  <property name="flexible_widgets"></property>
-  <property name="validate_values_expr"></property>
-</layout>
+<object name="event" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_event_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="Coverage" meta_type="String Widget">
+  <property name="fields">
+   <element value="Coverage"/>
+  </property>
+  <property name="label_edit">label_coverage</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="display_width">30</property>
+  <property name="size_max">80</property>
+ </widget>
+ <widget name="attachedFile" meta_type="AttachedFile Widget">
+  <property name="fields">
+   <element value="attachedFile"/>
+   <element value="attachedFile_text"/>
+   <element value="attachedFile_html"/>
+  </property>
+  <property name="label">cpsdoc_attachedFile_label</property>
+  <property name="label_edit">cpsdoc_attachedFile_label</property>
+  <property name="description">cpsdoc_attachedFile_description</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_empty">True</property>
+  <property name="size_max">3145728</property>
+ </widget>
+ <widget name="content" meta_type="Text Widget">
+  <property name="fields">
+   <element value="content"/>
+  </property>
+  <property name="label_edit">cpsdoc_Event_content_label_edit</property>
+  <property name="description">cpsdoc_Event_content_description</property>
+  <property name="is_i18n">True</property>
+  <property name="css_class">dcontent</property>
+  <property name="width">72</property>
+  <property name="height">15</property>
+  <property name="configurable">format</property>
+ </widget>
+ <widget name="end" meta_type="DateTime Widget">
+  <property name="fields">
+   <element value="end"/>
+  </property>
+  <property name="is_required">True</property>
+  <property name="label">cpsdoc_Event_end_label</property>
+  <property name="label_edit">cpsdoc_Event_end_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="css_class">dbold dright</property>
+ </widget>
+ <widget name="start" meta_type="DateTime Widget">
+  <property name="fields">
+   <element value="start"/>
+  </property>
+  <property name="is_required">True</property>
+  <property name="label">cpsdoc_Event_start_label</property>
+  <property name="label_edit">cpsdoc_Event_start_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="css_class">dbold</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="start"/>
+   <cell name="end"/>
+  </row>
+  <row>
+   <cell name="Coverage" ncols="2"/>
+  </row>
+  <row>
+   <cell name="content" ncols="2"/>
+  </row>
+  <row>
+   <cell name="attachedFile" ncols="2"/>
+  </row>
+ </table>
+</object>

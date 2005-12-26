@@ -1,78 +1,70 @@
 <?xml version="1.0"?>
-<type-info id="GlossaryItem"
-           kind="CPS Flexible Type Information">
-  <property name="title">portal_type_GlossaryItem_title</property>
-  <property name="description">portal_type_GlossaryItem_description</property>
-  <property name="content_icon">glossary_icon.png</property>
-  <property name="content_meta_type">CPS Document</property>
-  <property name="product">CPSDocument</property>
-  <property name="factory">addCPSDocument</property>
-  <property name="immediate_view">cpsdocument_view</property>
-  <property name="global_allow">1</property>
-  <property name="filter_content_types">1</property>
-  <property name="allowed_content_types"></property>
-  <property name="allow_discussion">0</property>
-  <property name="cps_is_searchable">1</property>
-  <property name="cps_proxy_type">document</property>
-  <property name="cps_display_as_document_in_listing">0</property>
-  <property name="cps_is_portalbox">0</property>
-  <property name="schemas">
-   <element value="metadata" />
-   <element value="common" /></property>
-  <property name="layouts">
-   <element value="common" />
-   <element value="glossaryitem" /></property>
-  <property name="layout_clusters">
-   <element value="metadata:metadata" /></property>
-  <property name="flexible_layouts"></property>
-  <property name="storage_methods"></property>
-  <property name="cps_is_portlet">0</property>
-  <aliases>
-   <alias from="(Default)" to="cpsdocument_view"/>
-   <alias from="view" to="cpsdocument_view"/>
-  </aliases>
-  <action action_id="view" title="action_view"
-          condition_expr=""
-          url_expr="string:${object_url}/cpsdocument_view"
-          category="object" visible="True">
-   <permission>View</permission>
-  </action>
-  <action action_id="new_content" title="action_new_content"
-          condition_expr="python:object.getTypeInfo().cps_proxy_type != 'document'"
-          url_expr="string:${object_url}/folder_factories"
-          category="object" visible="True">
-   <permission>Modify portal content</permission>
-  </action>
-  <action action_id="contents"
-          title="action_folder_contents"
-          condition_expr="python:object.getTypeInfo().cps_proxy_type != 'document'"
-          url_expr="string:${object_url}/folder_contents"
-          category="object" visible="True">
-   <permission>Modify portal content</permission>
-  </action>
-  <action action_id="edit" title="action_edit"
-          condition_expr=""
-          url_expr="string:${object_url}/cpsdocument_edit_form"
-          category="object" visible="True">
-   <permission>Modify portal content</permission>
-  </action>
-  <action action_id="metadata" title="action_metadata"
-          condition_expr="not:portal/portal_membership/isAnonymousUser"
-          url_expr="string:${object_url}/cpsdocument_metadata"
-          category="object" visible="True">
-   <permission>View</permission>
-  </action>
-  <action action_id="localroles" title="action_local_roles"
-          condition_expr="python:object.getTypeInfo().cps_proxy_type != 'document'"
-          url_expr="string:${object_url}/folder_localrole_form"
-          category="object" visible="True">
-   <permission>Change permissions</permission>
-  </action>
-  <action action_id="status_history"
-          title="action_status_history"
-          condition_expr="not:portal/portal_membership/isAnonymousUser"
-          url_expr="string:${object_url}/content_status_history"
-          category="workflow" visible="True">
-   <permission>View</permission>
-  </action>
-</type-info>
+<object name="GlossaryItem" meta_type="CPS Flexible Type Information"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title">portal_type_GlossaryItem_title</property>
+ <property name="description">portal_type_GlossaryItem_description</property>
+ <property name="content_icon">glossary_icon.png</property>
+ <property name="content_meta_type">CPS Document</property>
+ <property name="product">CPSDocument</property>
+ <property name="factory">addCPSDocument</property>
+ <property name="immediate_view">cpsdocument_view</property>
+ <property name="global_allow">True</property>
+ <property name="filter_content_types">True</property>
+ <property name="allowed_content_types"/>
+ <property name="allow_discussion">False</property>
+ <property name="cps_is_searchable">True</property>
+ <property name="cps_proxy_type">document</property>
+ <property name="cps_display_as_document_in_listing">False</property>
+ <property name="schemas">
+  <element value="metadata"/>
+  <element value="common"/>
+ </property>
+ <property name="layouts">
+  <element value="common"/>
+  <element value="glossaryitem"/>
+ </property>
+ <property name="layout_clusters">
+  <element value="metadata:metadata"/>
+ </property>
+ <property name="flexible_layouts"/>
+ <property name="storage_methods"/>
+ <property name="cps_is_portlet">False</property>
+ <alias from="(Default)" to="cpsdocument_view"/>
+ <alias from="view" to="cpsdocument_view"/>
+ <action title="action_view" action_id="view" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsdocument_view"
+    visible="True">
+  <permission value="View"/>
+ </action>
+ <action title="action_new_content" action_id="new_content" category="object"
+    condition_expr="python:object.getTypeInfo().cps_proxy_type != 'document'"
+    url_expr="string:${object_url}/folder_factories" visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+ <action title="action_folder_contents" action_id="contents" category="object"
+    condition_expr="python:object.getTypeInfo().cps_proxy_type != 'document'"
+    url_expr="string:${object_url}/folder_contents" visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+ <action title="action_edit" action_id="edit" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsdocument_edit_form"
+    visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+ <action title="action_metadata" action_id="metadata" category="object"
+    condition_expr="not:portal/portal_membership/isAnonymousUser"
+    url_expr="string:${object_url}/cpsdocument_metadata" visible="True">
+  <permission value="View"/>
+ </action>
+ <action title="action_local_roles" action_id="localroles" category="object"
+    condition_expr="python:object.getTypeInfo().cps_proxy_type != 'document'"
+    url_expr="string:${object_url}/folder_localrole_form" visible="True">
+  <permission value="Change permissions"/>
+ </action>
+ <action title="action_status_history" action_id="status_history"
+    category="workflow"
+    condition_expr="not:portal/portal_membership/isAnonymousUser"
+    url_expr="string:${object_url}/content_status_history" visible="True">
+  <permission value="View"/>
+ </action>
+</object>

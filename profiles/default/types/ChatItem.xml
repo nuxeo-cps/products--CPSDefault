@@ -1,36 +1,33 @@
 <?xml version="1.0"?>
-<type-info id="ChatItem"
-           kind="Factory-based Type Information">
-  <property name="title">portal_type_ChatItem_title</property>
-  <property name="description">portal_type_ChatItem_description</property>
-  <property name="content_icon">document_icon.gif</property>
-  <property name="content_meta_type">ChatItem</property>
-  <property name="product">CPSChat</property>
-  <property name="factory">addChatItem</property>
-  <property name="immediate_view">cps_chat_item_edit_form</property>
-  <property name="global_allow">True</property>
-  <property name="filter_content_types">0</property>
-  <property name="allowed_content_types">[]</property>
-  <property name="allow_discussion">0</property>
-  <property name="cps_is_searchable">0</property>
-  <property name="cps_proxy_type"></property>
-  <property name="cps_display_as_document_in_listing">0</property>
-  <property name="cps_is_portalbox">0</property>
-  <aliases>
-   <alias from="(Default)" to="(Default)"/>
-   <alias from="view" to="(Default)"/>
-  </aliases>
-  <action action_id="edit" title="action_edit"
-          condition_expr=""
-          url_expr="string:${object_url}/cps_chat_item_edit_form"
-          category="object" visible="True">
-   <permission>Chat Moderate</permission>
-  </action>
-  <action action_id="reply" title="action_chat_item_reply"
-          condition_expr=""
-          url_expr="string:${object_url}/cps_chat_item_reply_to_form"
-          category="object" visible="True">
-   <permission>Chat Moderate</permission>
-   <permission>Chat Reply</permission>
-  </action>
-</type-info>
+<object name="ChatItem" meta_type="Factory-based Type Information"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title">portal_type_ChatItem_title</property>
+ <property name="description">portal_type_ChatItem_description</property>
+ <property name="content_icon">document_icon.gif</property>
+ <property name="content_meta_type">ChatItem</property>
+ <property name="product">CPSChat</property>
+ <property name="factory">addChatItem</property>
+ <property name="immediate_view">cps_chat_item_edit_form</property>
+ <property name="global_allow">True</property>
+ <property name="filter_content_types">False</property>
+ <property name="allowed_content_types"/>
+ <property name="allow_discussion">False</property>
+ <property name="cps_is_searchable">False</property>
+ <property name="cps_proxy_type"></property>
+ <property name="cps_display_as_document_in_listing">False</property>
+ <property name="cps_is_portalbox">False</property>
+ <alias from="(Default)" to="(Default)"/>
+ <alias from="view" to="(Default)"/>
+ <action title="action_edit" action_id="edit" category="object"
+    condition_expr="" url_expr="string:${object_url}/cps_chat_item_edit_form"
+    visible="True">
+  <permission value="Chat Moderate"/>
+ </action>
+ <action title="action_chat_item_reply" action_id="reply" category="object"
+    condition_expr=""
+    url_expr="string:${object_url}/cps_chat_item_reply_to_form"
+    visible="True">
+  <permission value="Chat Moderate"/>
+  <permission value="Chat Reply"/>
+ </action>
+</object>

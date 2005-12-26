@@ -1,30 +1,27 @@
 <?xml version="1.0"?>
-<type-info id="Discussion Item"
-           kind="Factory-based Type Information">
-  <property name="title"></property>
-  <property name="description">Discussion Items are documents which reply to other content.
-They should *not* be addable through the standard 'folder_factories' interface.
-</property>
-  <property name="content_icon">discussionitem_icon.gif</property>
-  <property name="content_meta_type">Discussion Item</property>
-  <property name="product"></property>
-  <property name="factory"></property>
-  <property name="immediate_view"></property>
-  <property name="global_allow">True</property>
-  <property name="filter_content_types">True</property>
-  <property name="allowed_content_types"></property>
-  <property name="allow_discussion">False</property>
-  <property name="cps_is_searchable">0</property>
-  <property name="cps_proxy_type"></property>
-  <property name="cps_display_as_document_in_listing">0</property>
-  <property name="cps_is_portalbox">0</property>
-  <aliases>
-   <alias from="(Default)" to="discussionitem_view"/>
-   <alias from="view" to="discussionitem_view"/>
-  </aliases>
-  <action action_id="view" title="View" condition_expr=""
-          url_expr="string:${object_url}/discussionitem_view"
-          category="object" visible="True">
-   <permission>View</permission>
-  </action>
-</type-info>
+<object name="Discussion Item" meta_type="Factory-based Type Information"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title"></property>
+ <property
+    name="description">Discussion Items are documents which reply to other content.
+  They should *not* be addable through the standard 'folder_factories' interface.</property>
+ <property name="content_icon">discussionitem_icon.gif</property>
+ <property name="content_meta_type">Discussion Item</property>
+ <property name="product"></property>
+ <property name="factory"></property>
+ <property name="immediate_view"></property>
+ <property name="global_allow">True</property>
+ <property name="filter_content_types">True</property>
+ <property name="allowed_content_types"/>
+ <property name="allow_discussion">False</property>
+ <property name="cps_is_searchable">False</property>
+ <property name="cps_proxy_type"></property>
+ <property name="cps_display_as_document_in_listing">False</property>
+ <property name="cps_is_portalbox">False</property>
+ <alias from="(Default)" to="discussionitem_view"/>
+ <alias from="view" to="discussionitem_view"/>
+ <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/discussionitem_view" visible="True">
+  <permission value="View"/>
+ </action>
+</object>

@@ -1,27 +1,21 @@
 <?xml version="1.0"?>
-<schema>
-  <field id="allow_anon_posts" kind="CPS Int Field">
-    
-  </field>
-  <field id="allow_discussion" kind="CPS Int Field">
-    <property name="default_expr">python:1</property>
-  </field>
-  <field id="frozen_forum" kind="CPS Int Field">
-    
-  </field>
-  <field id="moderation_mode" kind="CPS Int Field">
-    <property name="default_expr">python:1</property>
-  </field>
-  <field id="preview" kind="CPS Image Field">
-    
-  </field>
-  <field id="threads_per_page" kind="CPS Int Field">
-    <property name="default_expr">python:30</property>
-  </field>
-  <field id="tree_display" kind="CPS String Field">
-    <property name="default_expr">string:title</property>
-  </field>
-  <field id="wf_display" kind="CPS String Field">
-    <property name="default_expr">string:wf_icon</property>
-  </field>
-</schema>
+<object name="forum" meta_type="CPS Schema">
+ <field name="allow_anon_posts" meta_type="CPS Int Field"/>
+ <field name="allow_discussion" meta_type="CPS Int Field">
+  <property name="default_expr">python:1</property>
+ </field>
+ <field name="frozen_forum" meta_type="CPS Int Field"/>
+ <field name="moderation_mode" meta_type="CPS Int Field">
+  <property name="default_expr">python:1</property>
+ </field>
+ <field name="preview" meta_type="CPS Image Field"/>
+ <field name="threads_per_page" meta_type="CPS Int Field">
+  <property name="default_expr">python:30</property>
+ </field>
+ <field name="tree_display" meta_type="CPS String Field">
+  <property name="default_expr">string:title</property>
+ </field>
+ <field name="wf_display" meta_type="CPS String Field">
+  <property name="default_expr">string:wf_icon</property>
+ </field>
+</object>

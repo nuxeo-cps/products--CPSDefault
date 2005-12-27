@@ -3,8 +3,8 @@
               title="CPS Workflow Definition"
               state_variable="review_state"
               meta_type="CPS Workflow">
- <permission>View</permission>
  <permission>Modify portal content</permission>
+ <permission>View</permission>
  <permission>WebDAV Lock items</permission>
  <permission>WebDAV Unlock items</permission>
  <state state_id="draft" title="Draft">
@@ -58,6 +58,7 @@
   <exit-transition transition_id="cut_copy_paste"/>
   <exit-transition transition_id="modify"/>
   <exit-transition transition_id="translate"/>
+  <exit-transition transition_id="delete_translation"/>
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
@@ -97,7 +98,7 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>Owner</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_DELETE"/>
+  <transition-behavior behavior_id="delete"/>
  </transition>
  <transition transition_id="checkin_draft"
              title="Checkin draft" new_state="locked"
@@ -109,8 +110,7 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>Owner</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_CHECKIN"/>
-  <checkin-allowed-transition transition_id="unlock"/>
+  <transition-behavior behavior_id="checkin"/>
  </transition>
  <transition transition_id="checkout_draft"
              title="Checkout content into a draft"
@@ -123,9 +123,7 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_CHECKOUT"/>
-  <checkout-allowed-initial-transition
-    transition_id="checkout_draft_in"/>
+  <transition-behavior behavior_id="checkout"/>
  </transition>
  <transition transition_id="checkout_draft_in"
              title="Draft is created" new_state="draft"
@@ -133,8 +131,8 @@
   
   <guard>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_CHECKOUT"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_FREEZE"/>
+  <transition-behavior behavior_id="initial-checkout"/>
+  <transition-behavior behavior_id="freeze"/>
  </transition>
  <transition transition_id="copy_submit"
              title="Copy content into a section for Publishing"
@@ -147,9 +145,7 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_PUBLISHING"/>
-  <clone-allowed-transition transition_id="submit"/>
-  <clone-allowed-transition transition_id="publish"/>
+  <transition-behavior behavior_id="clone"/>
  </transition>
  <transition transition_id="create" title="Initial creation"
              new_state="work" trigger="USER"
@@ -160,7 +156,7 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+  <transition-behavior behavior_id="initial-create"/>
  </transition>
  <transition transition_id="cut_copy_paste"
              title="Cut/Copy/Paste" new_state=""
@@ -171,9 +167,21 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-copy"/>
+ </transition>
+ <transition transition_id="delete_translation"
+             title="Delete a translation" new_state=""
+             trigger="USER"
+             before_script="delete_language_from_proxy"
+             after_script="">
+  <action url="%(content_url)s/content_delete_translation"
+          category="workflow">action_delete_translation</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+   <guard-expression>python:not state_change.object.isDefaultLanguage()</guard-expression>
+  </guard>
  </transition>
  <transition transition_id="modify" title="Edit content"
              new_state="" trigger="USER" before_script=""
@@ -205,7 +213,7 @@
   
   <guard>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOW_CHECKIN"/>
+  <transition-behavior behavior_id="allow-checkin"/>
  </transition>
  <variable variable_id="action" for_catalog="False"
            for_status="True" update_always="True">
@@ -284,6 +292,9 @@
  <script script_id="add_language_to_proxy"
          type="Script (Python)"
          filename="workflows/workspace_content_wf/scripts/add_language_to_proxy.py"/>
+ <script script_id="delete_language_from_proxy"
+         type="Script (Python)"
+         filename="workflows/workspace_content_wf/scripts/delete_language_from_proxy.py"/>
  <script script_id="unlock_locked_before_abandon"
          type="Script (Python)"
          filename="workflows/workspace_content_wf/scripts/unlock_locked_before_abandon.py"/>

@@ -9,6 +9,7 @@
   <exit-transition transition_id="cut_copy_paste"/>
   <exit-transition transition_id="modify"/>
   <exit-transition transition_id="translate"/>
+  <exit-transition transition_id="delete_translation"/>
   <permission-map name="View" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>WorkspaceManager</permission-role>
@@ -25,7 +26,7 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+  <transition-behavior behavior_id="initial-create"/>
  </transition>
  <transition transition_id="create_content"
              title="Create content" new_state="work"
@@ -36,8 +37,8 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CHECKOUT"/>
+  <transition-behavior behavior_id="allow-sub-create"/>
+  <transition-behavior behavior_id="allow-sub-checkout"/>
  </transition>
  <transition transition_id="cut_copy_paste"
              title="Cut/Copy/Paste" new_state=""
@@ -48,9 +49,21 @@
    <guard-role>WorkspaceManager</guard-role>
    <guard-role>WorkspaceMember</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-copy"/>
+ </transition>
+ <transition transition_id="delete_translation"
+             title="Delete a translation" new_state=""
+             trigger="USER"
+             before_script="delete_language_from_proxy"
+             after_script="">
+  <action url="%(content_url)s/content_delete_translation"
+          category="workflow">action_delete_translation</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+   <guard-expression>python:not state_change.object.isDefaultLanguage()</guard-expression>
+  </guard>
  </transition>
  <transition transition_id="modify" title="Edit content"
              new_state="" trigger="USER" before_script=""
@@ -78,4 +91,7 @@
  <script script_id="add_language_to_proxy"
          type="Script (Python)"
          filename="workflows/workspace_folder_wf/scripts/add_language_to_proxy.py"/>
+ <script script_id="delete_language_from_proxy"
+         type="Script (Python)"
+         filename="workflows/workspace_folder_wf/scripts/delete_language_from_proxy.py"/>
 </cps-workflow>

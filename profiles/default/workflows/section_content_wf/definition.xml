@@ -3,8 +3,8 @@
               title="CPS Workflow Definition"
               state_variable="review_state"
               meta_type="CPS Workflow">
- <permission>View</permission>
  <permission>Modify portal content</permission>
+ <permission>View</permission>
  <permission>WebDAV Lock items</permission>
  <permission>WebDAV Unlock items</permission>
  <state state_id="pending" title="Waiting for reviewer">
@@ -20,6 +20,7 @@
    <permission-role>SectionReviewer</permission-role>
    <permission-role>SectionManager</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="WebDAV Lock items" acquired="False">
    <permission-role>SectionReviewer</permission-role>
@@ -58,7 +59,8 @@
  <transition transition_id="accept"
              title="Reviewer accepts publishing"
              new_state="published" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="fixup_after_publish">
   <action url="%(content_url)s/content_accept_form"
           category="workflow">action_accept</action>
   <guard>
@@ -66,7 +68,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_MERGE"/>
+  <transition-behavior behavior_id="merge"/>
  </transition>
  <transition transition_id="cut_copy_paste"
              title="Cut/Copy/Paste" new_state=""
@@ -77,23 +79,24 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-copy"/>
  </transition>
  <transition transition_id="publish"
              title="Member publishes directly"
              new_state="published" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="fixup_after_publish">
   
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_PUBLISHING"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_FREEZE"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_MERGE"/>
+  <transition-behavior behavior_id="initial-clone"/>
+  <transition-behavior behavior_id="freeze"/>
+  <transition-behavior behavior_id="merge"/>
  </transition>
  <transition transition_id="reject"
              title="Reviewer rejects publishing"
@@ -106,7 +109,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_DELETE"/>
+  <transition-behavior behavior_id="delete"/>
  </transition>
  <transition transition_id="sub_publishing"
              title="Allow publishing of subdocuments"
@@ -119,7 +122,7 @@
    <guard-role>SectionReviewer</guard-role>
    <guard-role>SectionReader</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_PUBLISHING"/>
+  <transition-behavior behavior_id="allow-sub-publishing"/>
  </transition>
  <transition transition_id="submit"
              title="Member requests publishing"
@@ -130,8 +133,8 @@
    <guard-role>Manager</guard-role>
    <guard-role>Member</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_PUBLISHING"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_FREEZE"/>
+  <transition-behavior behavior_id="initial-clone"/>
+  <transition-behavior behavior_id="freeze"/>
  </transition>
  <transition transition_id="unpublish"
              title="Reviewer removes content from publication"
@@ -144,7 +147,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_DELETE"/>
+  <transition-behavior behavior_id="delete"/>
  </transition>
  <variable variable_id="action" for_catalog="False"
            for_status="True" update_always="True">
@@ -219,4 +222,7 @@
   <guard>
   </guard>
  </variable>
+ <script script_id="fixup_after_publish"
+         type="Script (Python)"
+         filename="workflows/section_content_wf/scripts/fixup_after_publish.py"/>
 </cps-workflow>

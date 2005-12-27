@@ -3,8 +3,8 @@
               title="CPS Workflow Definition"
               state_variable="review_state"
               meta_type="CPS Workflow">
- <permission>View</permission>
  <permission>Modify portal content</permission>
+ <permission>View</permission>
  <state state_id="work" title="Work">
   <exit-transition transition_id="create_content"/>
   <exit-transition transition_id="cut_copy_paste"/>
@@ -36,7 +36,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role></guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+  <transition-behavior behavior_id="initial-create"/>
  </transition>
  <transition transition_id="create_content"
              title="Create content" new_state="work"
@@ -45,8 +45,8 @@
   <guard>
    <guard-permission>Forum Post</guard-permission>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_PUBLISHING"/>
+  <transition-behavior behavior_id="allow-sub-create"/>
+  <transition-behavior behavior_id="allow-sub-publishing"/>
  </transition>
  <transition transition_id="cut_copy_paste"
              title="Cut/Copy/Paste" new_state=""
@@ -58,8 +58,8 @@
    <guard-role>SectionReviewer</guard-role>
    <guard-role>SectionReader</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-copy"/>
  </transition>
 </cps-workflow>

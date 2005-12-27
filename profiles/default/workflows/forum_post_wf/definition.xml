@@ -3,8 +3,8 @@
               title="CPS Workflow Definition"
               state_variable="review_state"
               meta_type="CPS Workflow">
- <permission>View</permission>
  <permission>Modify portal content</permission>
+ <permission>View</permission>
  <state state_id="created" title="Created">
   <exit-transition transition_id="auto_publish"/>
   <exit-transition transition_id="auto_moderate"/>
@@ -122,7 +122,7 @@
   <guard>
    <guard-permission>Forum Post</guard-permission>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+  <transition-behavior behavior_id="initial-create"/>
  </transition>
  <transition transition_id="publish" title="Publishing post"
              new_state="published" trigger="USER"

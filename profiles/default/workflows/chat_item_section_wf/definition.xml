@@ -4,11 +4,11 @@
               state_variable="review_state"
               initial_state="waiting"
               meta_type="CPS Workflow">
- <permission>View</permission>
- <permission>Modify portal content</permission>
  <permission>Chat Moderate</permission>
- <permission>Chat Reply</permission>
  <permission>Chat Post</permission>
+ <permission>Chat Reply</permission>
+ <permission>Modify portal content</permission>
+ <permission>View</permission>
  <state state_id="pending" title="Submitted to guest">
   <exit-transition transition_id="unsubmit"/>
   <exit-transition transition_id="publish_post"/>
@@ -93,7 +93,7 @@
    <guard-role>ChatPoster</guard-role>
    <guard-role>ChatGuest</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_CREATE"/>
+  <transition-behavior behavior_id="initial-create"/>
  </transition>
  <transition transition_id="create_content"
              title="Create content" new_state=""
@@ -108,8 +108,8 @@
    <guard-role>ChatModerator</guard-role>
    <guard-role>ChatGuest</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CREATE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_CHECKOUT"/>
+  <transition-behavior behavior_id="allow-sub-create"/>
+  <transition-behavior behavior_id="allow-sub-checkout"/>
  </transition>
  <transition transition_id="publish_post"
              title="Publish_post" new_state="published"

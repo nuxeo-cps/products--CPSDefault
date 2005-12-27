@@ -3,8 +3,8 @@
               title="CPS Workflow Definition"
               state_variable="review_state"
               meta_type="CPS Workflow">
- <permission>View</permission>
  <permission>Modify portal content</permission>
+ <permission>View</permission>
  <permission>WebDAV Lock items</permission>
  <permission>WebDAV Unlock items</permission>
  <state state_id="pending" title="Waiting for reviewer">
@@ -67,7 +67,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_MERGE"/>
+  <transition-behavior behavior_id="merge"/>
  </transition>
  <transition transition_id="cut_copy_paste"
              title="Cut/Copy/Paste" new_state=""
@@ -78,9 +78,9 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_DELETE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_MOVE"/>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_COPY"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-delete"/>
+  <transition-behavior behavior_id="allow-sub-copy"/>
  </transition>
  <transition transition_id="newsletter_sendmail"
              title="Silent transition" new_state=""
@@ -104,9 +104,9 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_PUBLISHING"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_FREEZE"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_MERGE"/>
+  <transition-behavior behavior_id="initial-clone"/>
+  <transition-behavior behavior_id="freeze"/>
+  <transition-behavior behavior_id="merge"/>
  </transition>
  <transition transition_id="reject"
              title="Reviewer rejects publishing"
@@ -119,7 +119,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_DELETE"/>
+  <transition-behavior behavior_id="delete"/>
  </transition>
  <transition transition_id="sub_publishing"
              title="Allow publishing of subdocuments"
@@ -132,7 +132,7 @@
    <guard-role>SectionReviewer</guard-role>
    <guard-role>SectionReader</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_ALLOWSUB_PUBLISHING"/>
+  <transition-behavior behavior_id="allow-sub-publishing"/>
  </transition>
  <transition transition_id="submit"
              title="Member requests publishing"
@@ -143,8 +143,8 @@
    <guard-role>Manager</guard-role>
    <guard-role>Member</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_INITIAL_PUBLISHING"/>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_FREEZE"/>
+  <transition-behavior behavior_id="initial-clone"/>
+  <transition-behavior behavior_id="freeze"/>
  </transition>
  <transition transition_id="unpublish"
              title="Reviewer removes content from publication"
@@ -157,7 +157,7 @@
    <guard-role>SectionManager</guard-role>
    <guard-role>SectionReviewer</guard-role>
   </guard>
-  <transition-behavior behavior_id="TRANSITION_BEHAVIOR_DELETE"/>
+  <transition-behavior behavior_id="delete"/>
  </transition>
  <variable variable_id="action" for_catalog="False"
            for_status="True" update_always="True">

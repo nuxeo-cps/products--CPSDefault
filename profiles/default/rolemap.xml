@@ -2,11 +2,16 @@
 <rolemap>
   <roles>
     <role name="Anonymous"/>
+    <role name="AttendeeManager"/>
+    <role name="AttendeeReader"/>
     <role name="Authenticated"/>
     <role name="ChatGuest"/>
     <role name="ChatModerator"/>
     <role name="ChatPoster"/>
     <role name="Contributor"/>
+    <role name="EventOrganizer"/>
+    <role name="EventParticipant"/>
+    <role name="EventReader"/>
     <role name="ForumModerator"/>
     <role name="ForumPoster"/>
     <role name="Manager"/>
@@ -58,9 +63,21 @@
       <role name="ChatModerator"/>
       <role name="ChatGuest"/>
     </permission>
+    <permission name="Create events" acquire="True">
+      <role name="AttendeeManager"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WorkspaceManager"/>
+    </permission>
     <permission name="Delete objects" acquire="True">
       <role name="Owner"/>
       <role name="Manager"/>
+    </permission>
+    <permission name="Edit calendar" acquire="True">
+      <role name="AttendeeManager"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WorkspaceManager"/>
     </permission>
     <permission name="FTP access" acquire="True">
       <role name="Owner"/>
@@ -93,6 +110,11 @@
       <role name="SectionManager"/>
       <role name="SectionReviewer"/>
     </permission>
+    <permission name="Invite attendees" acquire="True">
+      <role name="EventOrganizer"/>
+      <role name="EventParticipant"/>
+      <role name="Manager"/>
+    </permission>
     <permission name="List portal members" acquire="True">
       <role name="Member"/>
       <role name="Manager"/>
@@ -108,8 +130,19 @@
     <permission name="Manage Subscriptions" acquire="False">
       <role name="Manager"/>
     </permission>
+    <permission name="Manage participation status"
+                acquire="True">
+      <role name="AttendeeManager"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WorkspaceManager"/>
+    </permission>
     <permission name="Manage properties" acquire="True">
       <role name="Owner"/>
+      <role name="Manager"/>
+    </permission>
+    <permission name="Modify event" acquire="True">
+      <role name="EventOrganizer"/>
       <role name="Manager"/>
     </permission>
     <permission name="Reply to item" acquire="True">
@@ -139,6 +172,15 @@
     <permission name="View My Subscriptions" acquire="False">
       <role name="Manager"/>
       <role name="Member"/>
+    </permission>
+    <permission name="View calendar" acquire="True">
+      <role name="AttendeeManager"/>
+      <role name="AttendeeReader"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="WorkspaceManager"/>
+      <role name="WorkspaceMember"/>
+      <role name="WorkspaceReader"/>
     </permission>
     <permission name="View management screens"
                 acquire="True">

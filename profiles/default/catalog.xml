@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="CMF Catalog">
+ <property name="title"></property>
+ <object name="cps_defaut_lexicon" meta_type="ZCTextIndex Lexicon">
+  <element name="Whitespace splitter" group="Word Splitter"/>
+  <element name="Case Normalizer" group="Case Normalizer"/>
+ </object>
+ <object name="htmltext_lexicon" meta_type="ZCTextIndex Lexicon">
+  <element name="HTML aware splitter" group="Word Splitter"/>
+  <element name="Case Normalizer" group="Case Normalizer"/>
+  <element name="Remove listed stop words only" group="Stop Words"/>
+ </object>
+ <object name="plaintext_lexicon" meta_type="ZCTextIndex Lexicon">
+  <element name="Whitespace splitter" group="Word Splitter"/>
+  <element name="Case Normalizer" group="Case Normalizer"/>
+  <element name="Remove listed stop words only" group="Stop Words"/>
+ </object>
+ <index name="Creator" meta_type="FieldIndex">
+  <indexed_attr value="Creator"/>
+ </index>
+ <index name="Date" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="Description" meta_type="ZCTextIndex">
+  <indexed_attr value="Description"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="plaintext_lexicon"/>
+ </index>
+ <index name="Language" meta_type="FieldIndex">
+  <indexed_attr value="Language"/>
+ </index>
+ <index name="SearchableText" meta_type="ZCTextIndex">
+  <indexed_attr value="SearchableText"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="htmltext_lexicon"/>
+ </index>
+ <index name="Subject" meta_type="KeywordIndex">
+  <indexed_attr value="Subject"/>
+ </index>
+ <index name="Title" meta_type="FieldIndex">
+  <indexed_attr value="Title"/>
+ </index>
+ <index name="Type" meta_type="FieldIndex">
+  <indexed_attr value="Type"/>
+ </index>
+ <index name="ZCTitle" meta_type="ZCTextIndex">
+  <indexed_attr value="Title"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="cps_defaut_lexicon"/>
+ </index>
+ <index name="allowedRolesAndUsers" meta_type="KeywordIndex">
+  <indexed_attr value="allowedRolesAndUsers"/>
+ </index>
+ <index name="container_path" meta_type="FieldIndex">
+  <indexed_attr value="container_path"/>
+ </index>
+ <index name="cps_filter_sets" meta_type="TopicIndex">
+  <filtered_set name="default_languages" meta_type="PythonFilteredSet"
+     expression="not hasattr(o, 'isDefaultLanguage') or o.isDefaultLanguage()"/>
+  <filtered_set name="leaves" meta_type="PythonFilteredSet"
+     expression="not o.isCPSFolderish()"/>
+  <filtered_set name="nodes" meta_type="PythonFilteredSet"
+     expression="o.isCPSFolderish()"/>
+  <filtered_set name="searchable" meta_type="PythonFilteredSet"
+     expression="not filter(lambda s: s.startswith('portal_') or s and s[0] in ('.', '_'), o.getPhysicalPath())"/>
+ </index>
+ <index name="created" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="effective" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="end" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="expires" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="getId" meta_type="FieldIndex">
+  <indexed_attr value="getId"/>
+ </index>
+ <index name="id" meta_type="FieldIndex">
+  <indexed_attr value="id"/>
+ </index>
+ <index name="in_reply_to" meta_type="FieldIndex">
+  <indexed_attr value="in_reply_to"/>
+ </index>
+ <index name="listCreators" meta_type="KeywordIndex">
+  <indexed_attr value="listCreators"/>
+ </index>
+ <index name="localUsersWithRoles" meta_type="KeywordIndex">
+  <indexed_attr value="localUsersWithRoles"/>
+ </index>
+ <index name="meta_type" meta_type="FieldIndex">
+  <indexed_attr value="meta_type"/>
+ </index>
+ <index name="modified" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="path" meta_type="PathIndex"/>
+ <index name="portal_type" meta_type="FieldIndex">
+  <indexed_attr value="portal_type"/>
+ </index>
+ <index name="position_in_container" meta_type="FieldIndex">
+  <indexed_attr value="position_in_container"/>
+ </index>
+ <index name="relative_path" meta_type="FieldIndex">
+  <indexed_attr value="relative_path"/>
+ </index>
+ <index name="relative_path_depth" meta_type="FieldIndex">
+  <indexed_attr value="relative_path_depth"/>
+ </index>
+ <index name="review_state" meta_type="FieldIndex">
+  <indexed_attr value="review_state"/>
+ </index>
+ <index name="start" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <index name="time" meta_type="DateIndex">
+  <property name="index_naive_time_as_local">True</property>
+ </index>
+ <column value="Contributors"/>
+ <column value="CreationDate"/>
+ <column value="Creator"/>
+ <column value="Date"/>
+ <column value="Description"/>
+ <column value="EffectiveDate"/>
+ <column value="ExpirationDate"/>
+ <column value="Language"/>
+ <column value="ModificationDate"/>
+ <column value="Subject"/>
+ <column value="Title"/>
+ <column value="Type"/>
+ <column value="created"/>
+ <column value="effective"/>
+ <column value="end"/>
+ <column value="expires"/>
+ <column value="getIcon"/>
+ <column value="getId"/>
+ <column value="getRevision"/>
+ <column value="id"/>
+ <column value="listCreators"/>
+ <column value="modified"/>
+ <column value="portal_type"/>
+ <column value="position_in_container"/>
+ <column value="relative_path"/>
+ <column value="review_state"/>
+ <column value="start"/>
+ <column value="time"/>
+</object>

@@ -167,7 +167,7 @@ def upgrade_334_335_clean_catalog(self):
     for brain in catalog.search({}):
         try:
             ob = brain.getObject()
-        except AttributeError:
+        except (AttributeError, KeyError):
             ob = None
         if ob is None:
             id = brain.getPath()

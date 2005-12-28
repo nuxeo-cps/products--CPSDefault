@@ -21,11 +21,8 @@
 from Products.CMFCore.utils import ContentInit, ToolInit
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.permissions import AddPortalContent
-try:
-    from Products.CMFSetup import profile_registry
-    has_profile_registry = True
-except ImportError:
-    has_profile_registry = False
+from Products.GenericSetup import BASE
+from Products.GenericSetup import profile_registry
 
 import MembershipTool
 import CMFCalendarToolPatch
@@ -79,9 +76,9 @@ def initialize(context):
                           constructors=(Portal.manage_addCPSDefaultSiteForm,
                                         Portal.manage_addCPSDefaultSite,))
 
-    if has_profile_registry:
-        profile_registry.registerProfile('default',
-                                         'CPS Default Site',
-                                         'Profile for a default CPS site.',
-                                         'profiles/default',
-                                         'CPSDefault')
+    profile_registry.registerProfile('default',
+                                     'CPS Default Site',
+                                     "Profile for a default CPS site.",
+                                     'profiles/default',
+                                     'CPSDefault',
+                                     BASE)

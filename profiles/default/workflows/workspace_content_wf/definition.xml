@@ -111,6 +111,7 @@
    <guard-role>Owner</guard-role>
   </guard>
   <transition-behavior behavior_id="checkin"/>
+  <checkin-allowed-transition transition_id="unlock"/>
  </transition>
  <transition transition_id="checkout_draft"
              title="Checkout content into a draft"
@@ -124,6 +125,8 @@
    <guard-role>WorkspaceMember</guard-role>
   </guard>
   <transition-behavior behavior_id="checkout"/>
+  <checkout-allowed-initial-transition
+    transition_id="checkout_draft_in"/>
  </transition>
  <transition transition_id="checkout_draft_in"
              title="Draft is created" new_state="draft"
@@ -146,6 +149,8 @@
    <guard-role>WorkspaceMember</guard-role>
   </guard>
   <transition-behavior behavior_id="clone"/>
+  <clone-allowed-transition transition_id="submit"/>
+  <clone-allowed-transition transition_id="publish"/>
  </transition>
  <transition transition_id="create" title="Initial creation"
              new_state="work" trigger="USER"

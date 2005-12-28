@@ -69,6 +69,10 @@
       <role name="Owner"/>
       <role name="WorkspaceManager"/>
     </permission>
+    <permission name="Delete event" acquire="True">
+      <role name="EventOrganizer"/>
+      <role name="Manager"/>
+    </permission>
     <permission name="Delete objects" acquire="True">
       <role name="Owner"/>
       <role name="Manager"/>
@@ -110,6 +114,10 @@
       <role name="SectionManager"/>
       <role name="SectionReviewer"/>
     </permission>
+    <permission name="Invite attendee" acquire="True">
+      <role name="Authenticated"/>
+      <role name="Manager"/>
+    </permission>
     <permission name="Invite attendees" acquire="True">
       <role name="EventOrganizer"/>
       <role name="EventParticipant"/>
@@ -128,6 +136,10 @@
       <role name="Owner"/>
     </permission>
     <permission name="Manage Subscriptions" acquire="False">
+      <role name="Manager"/>
+    </permission>
+    <permission name="Manage attendees" acquire="True">
+      <role name="EventOrganizer"/>
       <role name="Manager"/>
     </permission>
     <permission name="Manage participation status"
@@ -186,6 +198,18 @@
                 acquire="True">
       <role name="Owner"/>
       <role name="Manager"/>
+    </permission>
+    <permission name="View private event" acquire="True">
+      <role name="EventParticipant"/>
+      <role name="Manager"/>
+    </permission>
+    <permission name="View public event" acquire="True">
+      <role name="AttendeeReader"/>
+      <role name="EventParticipant"/>
+      <role name="Manager"/>
+      <role name="WorkspaceManager"/>
+      <role name="WorkspaceMember"/>
+      <role name="WorkspaceReader"/>
     </permission>
   </permissions>
 </rolemap>

@@ -7,7 +7,7 @@
   <tal:block condition="not:isAnon"
     define="
       dname python:here.portal_directories.members.getEntry(doc.Creator(), default=None);
-      cname dname/fullname|doc/Creator;
+      cname dname/fullname|python:here.portal_membership.getFullnameFromId(doc.Creator());
       info python:(here_url != utool.getPortalObject().absolute_url())
       and here.getContentInfo(doc=doc, level=2) or None;
       email dname/email|nothing;">

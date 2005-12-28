@@ -54,9 +54,8 @@
               </tal:block>
             </td>
 
-            <td tal:define="entry python:here.portal_directories.members.getEntry(
-                            item['actor'], default=None);"
-                tal:content="entry/fullname|item/actor">Bob</td>
+            <td tal:content="python:
+                here.portal_membership.getFullnameFromId(item['actor'])">Bob</td>
 
             <td tal:content="item/comments|nothing">Comments</td>
 

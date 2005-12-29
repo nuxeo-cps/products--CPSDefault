@@ -46,14 +46,14 @@ class CPSDefaultSite(CMFSite):
 
     _properties = CMFSite._properties + (
         {'id': 'last_upgraded_version', 'type': 'string',
-         'label': 'Last upgraded version'},
+         'label': 'Last upgraded version', 'mode': 'w'},
         # XXX these should be in the portal_membership tool
         {'id': 'enable_password_reset', 'type': 'boolean',
-         'label': 'Enable password resetting'},
+         'label': 'Enable password resetting', 'mode': 'w'},
         {'id': 'enable_password_reminder', 'type': 'boolean',
-         'label': 'Enable sending password reminder'},
+         'label': 'Enable sending password reminder', 'mode': 'w'},
         {'id': 'enable_portal_joining', 'type': 'boolean',
-         'label': 'Enable portal joining'},
+         'label': 'Enable portal joining', 'mode': 'w'},
         )
     last_upgraded_version = '.'.join(map(str, cps_version[1:]))
     # XXX

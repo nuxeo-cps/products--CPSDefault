@@ -27,7 +27,7 @@ from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
 from Products.CMFCore.utils import getToolByName
 
-from Products.CPSCore.setup import CPSSetupTool
+from Products.CPSCore.setuptool import CPSSetupTool
 from Products.CPSDefault.Portal import CPSDefaultSite
 from Products.CPSDefault.interfaces import ICPSSite
 

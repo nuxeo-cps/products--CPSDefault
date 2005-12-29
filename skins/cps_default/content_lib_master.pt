@@ -8,13 +8,6 @@
   doc nocall:doc|python:here.getContent()">
 <metal:block use-macro="here/main_template/macros/master">
 <metal:block fill-slot="base">
-<tal:block replace="structure string:&lt;!--
-  cps test / debug information:
-  cps:path:${here_url}
-  cps:rpath:${context_url}
-  cps:proxy_id:${proxy/id}
-  cps:id:${doc/id}
--->"></tal:block>
 <metal:block define-slot="base">
   <base href="" tal:attributes="href python: here_url + '/'" />
 </metal:block>

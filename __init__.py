@@ -24,6 +24,9 @@ from Products.CMFCore.permissions import AddPortalContent
 from Products.GenericSetup import BASE
 from Products.GenericSetup import profile_registry
 
+from Products.CPSDefault.interface import ICPSSite
+
+
 import MembershipTool
 import CMFCalendarToolPatch
 
@@ -57,6 +60,7 @@ tools = (
     )
 
 def initialize(context):
+    from Products.CPSDefault import factory
 
     # XXX Compatibility alias (c.f : CPSBoxes)
     ToolInit(
@@ -73,6 +77,12 @@ def initialize(context):
                 ).initialize(context)
 
     context.registerClass(Portal.CPSDefaultSite,
+                          constructors=(factory.addConfiguredCPSSiteForm,
+                                        factory.addConfiguredCPSSite),
+                          icon='portal.png')
+
+    # old registration
+    context.registerClass(Portal.CPSDefaultSite,
                           constructors=(Portal.manage_addCPSDefaultSiteForm,
                                         Portal.manage_addCPSDefaultSite,))
 
@@ -81,4 +91,5 @@ def initialize(context):
                                      "Profile for a default CPS site.",
                                      'profiles/default',
                                      'CPSDefault',
-                                     BASE)
+                                     BASE,
+                                     for_=ICPSSite)

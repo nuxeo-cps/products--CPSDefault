@@ -26,8 +26,14 @@ from Products.CMFDefault.Portal import CMFSite, PortalGenerator
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 from AccessControl import ClassSecurityInfo
 
+from zope.interface import implements
+from Products.CPSDefault.interfaces import ICPSSite
+
 class CPSDefaultSite(CMFSite):
     """CPS variant of a CMF Portal."""
+
+    implements(ICPSSite)
+
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
 

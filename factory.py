@@ -56,3 +56,10 @@ def addConfiguredCPSSiteForm(dispatcher):
 
     return form(base_profiles=tuple(base_profiles),
                 extension_profiles=tuple(extension_profiles))
+
+
+def addConfiguredCPSSite(dispatcher):
+    """XXX: What should this method do?
+    """
+    print "XXX: What should this method do?"
+

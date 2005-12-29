@@ -24,7 +24,7 @@ from Products.CMFCore.permissions import AddPortalContent
 from Products.GenericSetup import BASE
 from Products.GenericSetup import profile_registry
 
-from Products.CPSDefault.interface import ICPSSite
+from Products.CPSDefault.interfaces import ICPSSite
 
 
 import MembershipTool

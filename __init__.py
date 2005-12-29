@@ -19,12 +19,15 @@
 """
 
 from Products.CMFCore.utils import ContentInit, ToolInit
+from Products.CMFCore.utils import registerIcon
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.permissions import AddPortalContent
 from Products.GenericSetup import BASE
 from Products.GenericSetup import profile_registry
 
+from Products.CPSDefault import factory
 from Products.CPSDefault.interfaces import ICPSSite
+from Products.CPSDefault.Portal import CPSDefaultSite
 
 
 import MembershipTool
@@ -60,8 +63,6 @@ tools = (
     )
 
 def initialize(context):
-    from Products.CPSDefault import factory
-
     # XXX Compatibility alias (c.f : CPSBoxes)
     ToolInit(
         'CPS Default Tool',
@@ -76,13 +77,15 @@ def initialize(context):
                 fti=fti,
                 ).initialize(context)
 
-    context.registerClass(Portal.CPSDefaultSite,
+    context.registerClass(CPSDefaultSite,
                           constructors=(factory.addConfiguredCPSSiteForm,
-                                        factory.addConfiguredCPSSite),
-                          icon='portal.png')
+                                        factory.addConfiguredCPSSite))
+
+    registerIcon(CPSDefaultSite, 'portal.png', globals())
 
     # old registration
-    context.registerClass(Portal.CPSDefaultSite,
+    context.registerClass(CPSDefaultSite,
+                          meta_type=CPSDefaultSite.meta_type+' (Old)',
                           constructors=(Portal.manage_addCPSDefaultSiteForm,
                                         Portal.manage_addCPSDefaultSite,))
 

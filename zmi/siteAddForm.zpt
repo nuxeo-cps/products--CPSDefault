@@ -6,7 +6,9 @@
   Please select ID and configuration for the new CPS site.
 </p>
 
-<form action="addConfiguredCPSSite" method="post">
+<form action="addConfiguredCPSSite" method="post"
+      tal:define="base_profiles options/base_profiles;
+                  several_profiles python:len(base_profiles) > 1">
 <table cellspacing="0" cellpadding="2" border="0">
  <tr valign="top">
   <td>
@@ -16,14 +18,14 @@
    <input type="text" name="site_id" />
   </td>
  </tr>
- <tr valign="top">
+ <tr valign="top" tal:condition="several_profiles">
   <td>
    <div class="form-label">Setup profile</div>
   </td>
   <td>
     <select name="profile_id">
       <option value="PROFILE_ID"
-              tal:repeat="info options/base_profiles"
+              tal:repeat="info base_profiles"
               tal:attributes="value info/id"
               tal:content="info/title">PROFILE TITLE</option>
     </select>
@@ -35,8 +37,9 @@
   </td>
   <td><tal:span tal:repeat="info options/extension_profiles">
    <input type="checkbox" name="extension_ids:list" value="PROFILE_ID"
-          tal:attributes="value info/id" />
-   <tal:span tal:content="info/title">PROFILE TITLE</tal:span><br /></tal:span>
+          checked="CHECKED"
+          tal:attributes="value info/id; checked info/checked" />
+   <tal:span tal:content="info/id">PROFILE TITLE</tal:span><br /></tal:span>
   </td>
  </tr>
  <tr>
@@ -44,7 +47,10 @@
    &nbsp;
   </td>
   <td>
-   <input class="form-element" type="submit" name="submit" value="Add" /> 
+   <input tal:condition="not:several_profiles" type="hidden"
+          name="profile_id" value="PROFILE_ID"
+          tal:attributes="value python:base_profiles[0]['id']" />
+   <input class="form-element" type="submit" name="submit" value="Add" />
   </td>
  </tr>
 </table>

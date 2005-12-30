@@ -77,19 +77,6 @@
      url_expr="string:${portal_url}/cpsdirectory_view" visible="True">
    <permission>View</permission>
   </action>
-  <action title="My calendar" action_id="my_calendar" category="user"
-     condition_expr="portal/portal_cpscalendar/getHomeCalendarObject"
-     url_expr="string:${portal/portal_cpscalendar/getHomeCalendarUrl}"
-     visible="True">
-   <permission>View</permission>
-  </action>
-  <action title="Create my home calendar" action_id="create_my_calendar"
-     category="user"
-     condition_expr="python:portal.portal_membership.getHomeFolder() and                    not portal.portal_cpscalendar.getHomeCalendarObject() and                    getattr(portal.portal_cpscalendar,                    'member_can_create_home_calendar', 1)"
-     url_expr="string:${portal_url}/portal_cpscalendar/createMemberCalendar"
-     visible="True">
-   <permission>View</permission>
-  </action>
   <action title="action_portlets" action_id="portlets" category="folder"
      condition_expr="member"
      url_expr="string:${folder_url}/portlet_manage_form" visible="True">

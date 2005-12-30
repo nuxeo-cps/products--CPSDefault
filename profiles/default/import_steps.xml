@@ -78,6 +78,12 @@
   Create required tools, replacing any of the wrong class, and remove
   forbidden ones.
  </import-step>
+ <import-step id="trees" version="20051230-01"
+              handler="Products.CPSCore.exportimport.importTreeTool"
+              title="Tree Tool">
+  <dependency step="toolset"/>
+  Import tree tool and tree caches.
+ </import-step>
  <import-step id="typeinfo" version="20040630-01"
               handler="Products.CMFCore.exportimport.typeinfo.importTypesTool"
               title="Types Tool">
@@ -87,6 +93,7 @@
  <import-step id="userfolder" version="20051226-01"
               handler="Products.CPSUserFolder.exportimport.importUserFolder"
               title="User Folder">
+  <dependency step="toolset"/>
   Import User Folder configuration.
  </import-step>
  <import-step id="various" version="20041118-01"

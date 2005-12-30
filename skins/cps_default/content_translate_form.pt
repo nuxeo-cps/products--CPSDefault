@@ -18,9 +18,10 @@
 
 <metal:block fill-slot="main"
   tal:define="translation_service nocall:here/translation_service;
-              default_lang translation_service/getSelectedLanguage;
-              language_voc here/portal_vocabularies/language_voc;
+              vocabularies nocall:here/portal_vocabularies;
+              language_voc python:vocabularies['language_voc'];
               languages python: [l for l in language_voc.keys() if l not in here.getProxyLanguages()];
+              default_lang translation_service/getSelectedLanguage;
              ">
   <form action="content_translate" method="post"
     tal:attributes="action string:${context_url}/content_translate"

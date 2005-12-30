@@ -44,11 +44,18 @@
   <dependency step="toolset"/>
   Import layout tool, layouts and widgets.
  </import-step>
+ <import-step id="localizer" version="20051230-01"
+              handler="Products.Localizer.exportimport.importLocalizer"
+              title="Localizer">
+  <dependency step="toolset"/>
+  <dependency step="properties"/>
+  Import localizer and message catalogs.
+ </import-step>
  <import-step id="mailhost" version="20050803-01"
               handler="Products.CMFCore.exportimport.mailhost.importMailHost"
               title="MailHost">
   <dependency step="toolset"/>
-  Import mailhost settings
+  Import mailhost settings.
  </import-step>
  <import-step id="properties" version="20041215-01"
               handler="Products.CMFCore.exportimport.properties.importSiteProperties"
@@ -96,11 +103,12 @@
   <dependency step="toolset"/>
   Import User Folder configuration.
  </import-step>
- <import-step id="various" version="20041118-01"
-              handler="Products.CMFDefault.setuphandlers.importVarious"
+ <import-step id="various" version="20051230-01"
+              handler="Products.CPSDefault.exportimport.importVarious"
               title="Various Settings">
   <dependency step="toolset"/>
-  Import various settings from PortalGenerator.
+  <dependency step="properties"/>
+  Import various non-exportable settings.
  </import-step>
  <import-step id="vocabularies" version="20051224-01"
               handler="Products.CPSSchemas.exportimport.vocabulary.importVocabularyTool"

@@ -36,19 +36,31 @@ class CPSSiteConfigurator(object):
     """Configurator for a CPS Site.
     """
 
-    default_extensions = (
+    mandatory_extensions = (
         'CPSSkins:cps3',
         'CPSPortlets:default',
         )
 
-    def addConfiguredCPSSiteForm(self, dispatcher):
+    languages = [
+        {'id': 'nl', 'title': 'Dutch'},
+        {'id': 'en', 'title': 'English', 'checked': True},
+        {'id': 'fr', 'title': 'French', 'checked': True},
+        {'id': 'de', 'title': 'German'},
+        {'id': 'it', 'title': 'Italian'},
+        {'id': 'pt_BR', 'title': 'Portugese (Brazilian)'},
+        {'id': 'es', 'title': 'Spanish'},
+        {'id': 'mg', 'title': 'Malagasy'},
+        {'id': 'ro', 'title': 'Romanian'},
+        {'id': 'eu', 'title': 'Euskara'},
+        ]
+
+    addForm = PageTemplateFile('zmi/siteAddForm', globals())
+
+    def addConfiguredSiteForm(self, dispatcher):
         """Form to add a CPS Site.
 
         Gets some info in context.
         """
-        form = PageTemplateFile('zmi/siteAddForm', globals())
-        form = form.__of__(dispatcher)
-
         # Collect CPS profiles
         base_profiles = []
         extension_profiles = []
@@ -56,19 +68,34 @@ class CPSSiteConfigurator(object):
             if info['for'] == None:
                 continue
             if info['type'] == EXTENSION:
-                info['checked'] = info['id'] in self.default_extensions
+                info['checked'] = info['id'] in self.mandatory_extensions
                 extension_profiles.append(info)
             else: # BASE
                 base_profiles.append(info)
 
-        return form(base_profiles=tuple(base_profiles),
-                    extension_profiles=tuple(extension_profiles))
+        form = self.addForm.__of__(dispatcher)
+        options = {
+            'base_profiles': tuple(base_profiles),
+            'extension_profiles': tuple(extension_profiles),
+            }
+        self.prepareOptions(options)
+        return form(**options)
 
-    def addConfiguredCPSSite(self, dispatcher, site_id, profile_id,
-                             snapshot=True, extension_ids=(),
-                             REQUEST=None, **kw):
+    def prepareOptions(self, options):
+        options['languages'] = self.languages
+
+    def addConfiguredSite(self, dispatcher, site_id, profile_id,
+                          extension_ids=(),
+                          snapshot=True,
+                          REQUEST=None, **kw):
         """Add a CPSSite according to profile and extensions.
         """
+        site_id = site_id.strip()
+        if not site_id:
+            raise ValueError("You have to provide an ID for the site!")
+
+        self.parseResults(just_check=True, **kw)
+
         self.dispatcher = dispatcher
         self.addSite(site_id)
         self.addSetupTool()
@@ -81,7 +108,7 @@ class CPSSiteConfigurator(object):
             setup_tool.runAllImportSteps()
         setup_tool.setImportContext('profile-%s' % profile_id)
 
-        # XXX more config here
+        self.parseResults(**kw)
 
         if snapshot is True:
             setup_tool.createSnapshot('initial_configuration')
@@ -93,6 +120,7 @@ class CPSSiteConfigurator(object):
             return self.site
 
     def addSite(self, site_id):
+        site_id = site_id.strip()
         site = CPSDefaultSite(site_id)
         self.dispatcher._setObject(site_id, site)
         self.site = self.dispatcher._getOb(site_id)
@@ -103,8 +131,32 @@ class CPSSiteConfigurator(object):
         self.site._setObject(id, setup_tool)
         self.setup_tool = getToolByName(self.site, id)
 
+    def parseResults(self, manager_id='', manager_email='',
+                     manager_name='', password='', password_confirm='',
+                     title='', description='', languages=(),
+                     just_check=False, **kw):
+        title = title.strip()
+        description = description.strip()
+        manager_id = manager_id.strip()
+        manager_email = manager_email.strip()
+        manager_name = manager_name.strip()
 
-_configurator = CPSSiteConfigurator()
+        if not manager_id:
+            raise ValueError("You have to provide a Login "
+                             "for the Administrator!")
+        if not password:
+            raise ValueError("You have to provide a password "
+                             "for the Administrator!")
+        if password != password_confirm:
+            raise ValueError("Password confirmation does not match password!")
+        if not manager_email:
+            raise ValueError("You have to provide an Email address "
+                             "for the Administrator!")
+
+        if just_check:
+            return
+
+_cpsconfigurator = CPSSiteConfigurator()
 
 
 # Do the following dance because bound methods don't play well with
@@ -113,15 +165,12 @@ _configurator = CPSSiteConfigurator()
 def addConfiguredCPSSiteForm(dispatcher):
     """Form to add a CPS Site from ZMI.
     """
-    return _configurator.addConfiguredCPSSiteForm(dispatcher)
+    return _cpsconfigurator.addConfiguredSiteForm(dispatcher)
 
-def addConfiguredCPSSite(dispatcher, site_id, profile_id, REQUEST=None, **kw):
+def addConfiguredCPSSite(dispatcher, REQUEST=None, **kw):
     """Add a CPSSite according to profile and extensions.
     """
     if REQUEST is not None:
         kw.update(REQUEST.form)
-        for name in ('dispatcher', 'site_id', 'profile_id'):
-            if name in kw:
-                del kw[name]
-    return _configurator.addConfiguredCPSSite(dispatcher, site_id, profile_id,
+    return _cpsconfigurator.addConfiguredSite(dispatcher,
                                               REQUEST=REQUEST, **kw)

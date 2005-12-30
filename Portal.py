@@ -47,6 +47,8 @@ class CPSDefaultSite(CMFSite):
     _properties = CMFSite._properties + (
         {'id': 'last_upgraded_version', 'type': 'string',
          'label': 'Last upgraded version', 'mode': 'w'},
+        {'id': 'available_languages', 'type': 'tokens',
+         'label': 'Available languages', 'mode': 'w'},
         # XXX these should be in the portal_membership tool
         {'id': 'enable_password_reset', 'type': 'boolean',
          'label': 'Enable password resetting', 'mode': 'w'},
@@ -56,6 +58,7 @@ class CPSDefaultSite(CMFSite):
          'label': 'Enable portal joining', 'mode': 'w'},
         )
     last_upgraded_version = '.'.join(map(str, cps_version[1:]))
+    available_languages = ('en', 'fr') # Use by Localizer config
     # XXX
     enable_password_reset = True
     enable_password_reminder = False

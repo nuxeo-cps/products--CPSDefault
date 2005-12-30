@@ -1,3 +1,6 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
 <h1 tal:replace="structure context/manage_page_header">PAGE HEADER</h1>
 <h2 tal:define="form_title string:Add CPS Site"
     tal:replace="structure context/manage_form_title">FORM TITLE</h2>
@@ -10,50 +13,134 @@
       tal:define="base_profiles options/base_profiles;
                   several_profiles python:len(base_profiles) > 1">
 <table cellspacing="0" cellpadding="2" border="0">
- <tr valign="top">
+<tr valign="top">
   <td>
-   <div class="form-label">Site ID</div>
+    <label class="form-label" for="site_id">Site ID</label>
   </td>
   <td>
-   <input type="text" name="site_id" />
+    <input type="text" size="30" name="site_id" id="site_id" value="cps" />
   </td>
- </tr>
- <tr valign="top" tal:condition="several_profiles">
+</tr>
+<tr valign="top">
   <td>
-   <div class="form-label">Setup profile</div>
+    <label class="form-label" for="title">Site Title</label>
   </td>
   <td>
-    <select name="profile_id">
+    <input type="text" size="50" name="title" id="title" value="CPS Site"/>
+  </td>
+</tr>
+<tr valign="top" tal:condition="several_profiles">
+  <td>
+    <label class="form-label">Setup profile</label>
+  </td>
+  <td>
+    <select name="profile_id" id="profile_id">
       <option value="PROFILE_ID"
               tal:repeat="info base_profiles"
               tal:attributes="value info/id"
               tal:content="info/title">PROFILE TITLE</option>
     </select>
   </td>
- </tr>
- <tr valign="top">
-  <td>
-   <div class="form-label">Optional Extensions</div>
-  </td>
-  <td><tal:span tal:repeat="info options/extension_profiles">
-   <input type="checkbox" name="extension_ids:list" value="PROFILE_ID"
-          checked="CHECKED"
-          tal:attributes="value info/id; checked info/checked" />
-   <tal:span tal:content="info/title">PROFILE TITLE</tal:span><br /></tal:span>
-  </td>
- </tr>
- <tr>
-  <td>
-   &nbsp;
+</tr>
+<tr valign="top">
+  <td align="right">
+    <label class="form-label" for="manager_id">Administrator Login</label>
   </td>
   <td>
-   <input tal:condition="not:several_profiles" type="hidden"
-          name="profile_id" value="PROFILE_ID"
-          tal:attributes="value python:base_profiles[0]['id']" />
-   <input class="form-element" type="submit" name="submit" value="Add" />
+    <input type="text" size="40" name="manager_id" id="manager_id"
+           value="manager" />
   </td>
- </tr>
+</tr>
+<tr valign="top">
+  <td align="right">
+    <label class="form-label" for="password">Password</label>
+  </td>
+  <td>
+    <input type="password" size="40" name="password" id="password" />
+  </td>
+</tr>
+<tr valign="top">
+  <td align="right">
+    <label class="form-label" for="password_confirm">(confirmation)</label>
+  </td>
+  <td>
+    <input type="password" size="40" name="password_confirm"
+           id="password_confirm" />
+  </td>
+</tr>
+<tr valign="top">
+  <td align="right">
+    <label class="form-label" for="manager_email">Email</label>
+  </td>
+  <td>
+    <input type="text" size="50" name="manager_email" id="manager_email" />
+  </td>
+</tr>
+<tr valign="top">
+  <td align="right">
+    <label class="form-label" for="manager_name">Name</label>
+  </td>
+  <td>
+    <input type="text" size="50" name="manager_name" id="manager_name"
+           value="CPS Manager" />
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label">Optional Extensions</label>
+  </td>
+  <td>
+    <ul style="margin: 0; padding: 0; list-style-type: none">
+      <li tal:repeat="info options/extension_profiles">
+        <input type="checkbox" name="extension_ids:list" value="PROFILE_ID"
+               id="ID" checked="CHECKED"
+               tal:attributes="value info/id;
+                               id info/id;
+                               checked info/checked" />
+        <label for="ID" tal:attributes="for info/id"
+               tal:content="info/title">PROFILE TITLE</label>
+      </li>
+    </ul>
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label" for="description">Site Description</label>
+  </td>
+  <td>
+    <textarea name="description" id="description"
+              cols="40" rows="4"></textarea>
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label">Site Languages</label>
+  </td>
+  <td>
+    <ul style="margin: 0; padding: 0; list-style-type: none">
+      <li tal:repeat="info options/languages">
+        <input type="checkbox" name="languages:list" id="LANG" value="LANG"
+               tal:attributes="id info/id;
+                               value info/id;
+                               checked info/checked|nothing" />
+        <label for="LANG" tal:attributes="for info/id"
+               tal:content="info/title">LANGUAGE</label>
+      </li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td>
+    <input style="margin-top: 1em" class="form-element"
+           type="submit" name="submit" value="Add" />
+    <input tal:condition="not:several_profiles"
+           type="hidden" name="profile_id" value="PROFILE_ID"
+           tal:attributes="value python:base_profiles[0]['id']" />
+  </td>
+</tr>
 </table>
 </form>
 
 <h1 tal:replace="structure context/manage_page_footer">PAGE FOOTER</h1>
+</html>

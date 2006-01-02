@@ -125,17 +125,21 @@ if sort_by and not query.has_key('sort-on'):
     if sort_limit and not query.has_key('sort-limit'):
         query['sort-limit'] = sort_limit
 
-bmt = context.Benchmarktimer('search chrono')
-LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
-bmt.setMarker('start')
+bmt = getattr(context.portal_url.getPortalObject(), 'Benchmarktimer', None)
+if bmt is not None:
+    bmt = bmt('search chrono')
+    LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
+    bmt.setMarker('start')
 try:
     brains = catalog(**query)
 except ParseErrors:
     LOG('CPSDefault.search', INFO, 'got an exception during search %s' % query)
     return []
-bmt.setMarker('stop')
-LOG('CPSDefault.search', DEBUG, 'found %s items in %7.3fs' % (
-    len(brains), bmt.timeElapsed('start', 'stop')))
+
+if bmt is not None:
+    bmt.setMarker('stop')
+    LOG('CPSDefault.search', DEBUG, 'found %s items in %7.3fs' % (
+        len(brains), bmt.timeElapsed('start', 'stop')))
 
 # no more need to use filterContents
 

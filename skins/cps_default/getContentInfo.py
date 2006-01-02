@@ -46,8 +46,10 @@ if hasattr(proxy.aq_explicit, 'getRID'):
     rpath = rpath.replace(KEYWORD_VIEW_LANGUAGE, KEYWORD_SWITCH_LANGUAGE)
     proxy = proxy.getObject()
 
-bmt = context.Benchmarktimer('getContentInfo for ' + proxy.getId(), level=-3)
-bmt.setMarker('start')
+bmt = getattr(utool.getPortalObject(), 'Benchmarktimer', None)
+if bmt is not None:
+    bmt = bmt('getContentInfo for ' + proxy.getId(), level=-3)
+    bmt.setMarker('start')
 
 def compute_states(no_history=0):
     folders_info = {}
@@ -288,7 +290,8 @@ else:
     info['time_str'] = ''
 
 
-bmt.setMarker('stop')
-bmt.saveProfile(context.REQUEST)
+if bmt is not None:
+    bmt.setMarker('stop')
+    bmt.saveProfile(context.REQUEST)
 
 return info

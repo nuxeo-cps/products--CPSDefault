@@ -19,7 +19,11 @@
 """CPS Default GenericSetup I/O.
 """
 
+from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
+from Products.GenericSetup.utils import XMLAdapterBase
+from Products.GenericSetup.utils import ImportConfiguratorBase
+from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 
 
 class VariousImporter(object):
@@ -32,27 +36,163 @@ class VariousImporter(object):
         #('RSSBox', 'cpsrss'),
         )
 
+    members_folder = 'members'
+
     def importVarious(self, context):
         """Import various non-exportable settings.
 
         Will go away when specific handlers are coded for these.
         """
+        self.context = context
         self.site = context.getSite()
-        self.configureTranslationService()
+        self.setupTranslationService()
+        self.setupRoots()
+        self.setupMembershipTool()
         return "Various settings imported."
 
-    def configureTranslationService(self):
+    def setupTranslationService(self):
         ts = getToolByName(self.site, 'translation_service')
-        ts.manage_setDomainInfo(path_0='Localizer/default')
+        ts._p_changed = 1
+        ts._domain_dict[None] = 'Localizer/default'
         present = [i[0] for i in ts.getDomainInfo()]
         for domain, catalog in self.catalogs:
             if domain in present:
                 continue
             ts.manage_addDomainInfo(domain, 'Localizer/%s' % catalog)
 
+    def setupRoots(self):
+        importer = RootsXMLAdapter(self.site, self.context)
+        filename = importer.name + importer.suffix
+        body = self.context.readDataFile(filename)
+        importer.filename = filename
+        importer.body = body
+
+    def setupMembershipTool(self):
+        mtool = getToolByName(self.site, 'portal_membership')
+        mtool.setMembersFolderById(self.members_folder)
+
 
 _variousImporter = VariousImporter()
 importVarious = _variousImporter.importVarious
+
+
+class RootsXMLAdapter(XMLAdapterBase):
+    _LOGGER_ID = 'roots'
+    name = 'roots'
+
+    def _importNode(self, node):
+        """Import the object from the DOM node.
+        """
+        if self.environ.shouldPurge():
+            self._purgeRoots()
+        self._initRoots(node)
+        self._logger.info("Roots imported.")
+
+    def _purgeRoots(self):
+        return
+
+    def _initRoots(self, node):
+        site = self.context
+        avail_langs = site.getProperty('available_languages')
+        translation_service = getToolByName(site, 'translation_service')
+        for child in node.childNodes:
+            if child.nodeName != 'root':
+                continue
+
+            id = str(child.getAttribute('name'))
+            portal_type = str(child.getAttribute('portal_type'))
+
+            if getattr(aq_base(site), id, None) is None:
+                wftool = getToolByName(site, 'portal_workflow')
+                wftool.invokeFactoryFor(site, portal_type, id)
+            proxy = site._getOb(id)
+
+            # Rolemap
+            rolemap_name = str(child.getAttribute('rolemap')) +  '.xml'
+            importObjectRolemap(proxy, rolemap_name, self.environ)
+
+            # I18n title
+            title_msgid = str(child.getAttribute('title_msgid'))
+            existing_langs = proxy.getLanguageRevisions().keys()
+            for lang in avail_langs:
+                if lang not in existing_langs:
+                    proxy.addLanguageToProxy(lang)
+                title = translation_service(msgid=title_msgid,
+                                            target_language=lang,
+                                            default=title_msgid)
+                title = title.encode('iso-8859-15', 'ignore')
+                print 'XXX translate', title_msgid, lang, '->', title
+                doc = proxy.getEditableContent(lang)
+                doc.edit(Title=title, proxy=proxy)
+
+
+# Old-style importer for rolemap, using explicit object/filename
+
+def importObjectRolemap(ob, filename, context):
+    """Import roles / permission map from an XML file.
+    """
+    logger = context.getLogger('rolemap')
+    path = '/'.join(ob.getPhysicalPath())
+
+    if context.shouldPurge():
+        items = ob.__dict__.items()
+        for k, v in items:
+            if k == '__ac_roles__':
+                delattr(ob, k)
+            if k.startswith('_') and k.endswith('_Permission'):
+                delattr(ob, k)
+
+    body = context.readDataFile(filename)
+    if body is None:
+        logger.info("No role/permission map for %s" % path)
+        return
+
+    rc = RolemapImportConfigurator(ob, context.getEncoding())
+    info = rc.parseXML(body)
+
+    # Roles
+    immediate_roles = list(getattr(ob, '__ac_roles__', []))
+    already = dict.fromkeys(ob.valid_roles(), True)
+    for role in info['roles']:
+        if role not in already:
+            immediate_roles.append(role)
+            already[role] = True
+    immediate_roles.sort()
+    ob.__ac_roles__ = tuple(immediate_roles)
+
+    # Permission map
+    for permission in info['permissions']:
+        ob.manage_permission(permission['name'],
+                             permission['roles'],
+                             permission['acquire'])
+
+    logger.info("Role/permission map for %s imported." % path)
+
+
+# Old-style configurator
+
+class RolemapImportConfigurator(ImportConfiguratorBase):
+    def _getImportMapping(self):
+        return {
+            'rolemap': {
+                'roles': {CONVERTER: self._convertToUnique, DEFAULT: ()},
+                'permissions': {CONVERTER: self._convertToUnique},
+                },
+            'roles': {
+                'role': {KEY: None, DEFAULT: ()},
+                },
+            'role': {
+                'name': {KEY: None},
+                },
+            'permissions': {
+                'permission': {KEY: None, DEFAULT: ()},
+                },
+            'permission': {
+                'name': {},
+                'role': {KEY: 'roles'},
+                'acquire': {CONVERTER: self._convertToBoolean},
+                },
+            }
 
 
 """

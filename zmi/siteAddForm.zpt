@@ -11,6 +11,7 @@
 
 <form action="addConfiguredCPSSite" method="post"
       tal:define="base_profiles options/base_profiles;
+                  extension_profiles options/extension_profiles;
                   several_profiles python:len(base_profiles) > 1">
 <table cellspacing="0" cellpadding="2" border="0">
 <tr valign="top">
@@ -85,13 +86,13 @@
            value="CPS Manager" />
   </td>
 </tr>
-<tr valign="top">
+<tr valign="top" tal:condition="extension_profiles">
   <td>
     <label class="form-label">Optional Extensions</label>
   </td>
   <td>
     <ul style="margin: 0; padding: 0; list-style-type: none">
-      <li tal:repeat="info options/extension_profiles">
+      <li tal:repeat="info extension_profiles">
         <input type="checkbox" name="extension_ids:list" value="PROFILE_ID"
                id="ID" checked="CHECKED"
                tal:attributes="value info/id;

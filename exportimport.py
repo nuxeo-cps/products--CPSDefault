@@ -22,36 +22,37 @@
 from Products.CMFCore.utils import getToolByName
 
 
-CATALOGS = [ # XXX hardcode for now
-    # domain, localizer catalog
-    ('cpsskins', 'cpsskins'),
-    #('cpscollector', 'cpscollector'),
-    #('RSSBox', 'cpsrss'),
-    ]
+class VariousImporter(object):
 
-TS_TOOL = 'translation_service'
+    catalogs = (
+        # domain, localizer catalog
+        ('default', 'default'),
+        ('cpsskins', 'cpsskins'),
+        #('cpscollector', 'cpscollector'),
+        #('RSSBox', 'cpsrss'),
+        )
 
-def importVarious(context):
-    """Import various non-exportable settings.
+    def importVarious(self, context):
+        """Import various non-exportable settings.
 
-    Will go away when full handlers are coded for these.
+        Will go away when specific handlers are coded for these.
+        """
+        self.site = context.getSite()
+        self.configureTranslationService()
+        return "Various settings imported."
 
-    - create translation_service config
-    """
-    site = context.getSite()
-
-    if getToolByName(site, TS_TOOL, None) is None:
-        addprod = site.manage_addProduct['TranslationService']
-        addprod.addPlacefulTranslationService(id=TS_TOOL)
-
-        ts = getToolByName(site, TS_TOOL)
+    def configureTranslationService(self):
+        ts = getToolByName(self.site, 'translation_service')
         ts.manage_setDomainInfo(path_0='Localizer/default')
-        ts.manage_addDomainInfo('default', 'Localizer/default')
-        for domain, catalog in CATALOGS:
+        present = [i[0] for i in ts.getDomainInfo()]
+        for domain, catalog in self.catalogs:
+            if domain in present:
+                continue
             ts.manage_addDomainInfo(domain, 'Localizer/%s' % catalog)
 
-    return "Various settings imported."
 
+_variousImporter = VariousImporter()
+importVarious = _variousImporter.importVarious
 
 
 """

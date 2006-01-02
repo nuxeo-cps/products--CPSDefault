@@ -36,12 +36,9 @@ class CPSSiteConfigurator(object):
     """Configurator for a CPS Site.
     """
 
-    mandatory_extensions = (
-        'CPSSkins:cps3',
-        'CPSPortlets:default',
-        )
+    mandatory_extensions = ()
 
-    languages = [
+    languages = (
         {'id': 'nl', 'title': 'Dutch'},
         {'id': 'en', 'title': 'English', 'checked': True},
         {'id': 'fr', 'title': 'French', 'checked': True},
@@ -52,7 +49,7 @@ class CPSSiteConfigurator(object):
         {'id': 'mg', 'title': 'Malagasy'},
         {'id': 'ro', 'title': 'Romanian'},
         {'id': 'eu', 'title': 'Euskara'},
-        ]
+        )
 
     addForm = PageTemplateFile('zmi/siteAddForm', globals())
 
@@ -66,6 +63,7 @@ class CPSSiteConfigurator(object):
         extension_profiles = []
         for info in profile_registry.listProfileInfo(for_=ICPSSite):
             if info['for'] == None:
+                # Only keep CPS-specific extensions
                 continue
             if info['type'] == EXTENSION:
                 info['checked'] = info['id'] in self.mandatory_extensions
@@ -85,8 +83,7 @@ class CPSSiteConfigurator(object):
         options['languages'] = self.languages
 
     def addConfiguredSite(self, dispatcher, site_id, profile_id,
-                          extension_ids=(),
-                          snapshot=True,
+                          extension_ids=(), snapshot=True,
                           REQUEST=None, **kw):
         """Add a CPSSite according to profile and extensions.
         """

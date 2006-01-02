@@ -83,7 +83,7 @@ class CPSSiteConfigurator(object):
         options['languages'] = self.languages
 
     def addConfiguredSite(self, dispatcher, site_id, profile_id,
-                          extension_ids=(), snapshot=True,
+                          extension_ids=(), snapshot=False,
                           REQUEST=None, **kw):
         """Add a CPSSite according to profile and extensions.
         """

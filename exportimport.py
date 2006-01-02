@@ -42,13 +42,15 @@ class VariousImporter(object):
 
     members_folder = 'members'
 
-    def importVarious(self, context):
+    def __init__(self, context):
+        self.context = context
+        self.site = context.getSite()
+
+    def importVarious(self):
         """Import various non-exportable settings.
 
         Will go away when specific handlers are coded for these.
         """
-        self.context = context
-        self.site = context.getSite()
         self.setupTranslationService()
         self.setupRoots()
         self.setupMembershipTool()
@@ -77,8 +79,10 @@ class VariousImporter(object):
         mtool.setMembersFolderById(self.members_folder)
 
 
-_variousImporter = VariousImporter()
-importVarious = _variousImporter.importVarious
+# Called according to import_steps.xml
+def importVarious(context):
+    importer = VariousImporter(context)
+    importer.importVarious()
 
 
 class RootsXMLAdapter(XMLAdapterBase):

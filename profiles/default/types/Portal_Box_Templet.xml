@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<object name="Portal Box Templet" meta_type="Factory-based Type Information"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title"></property>
+ <property name="description">_portalbox_templet_description_</property>
+ <property name="content_icon">portalbox_templet.png</property>
+ <property name="content_meta_type">Portal Box Templet</property>
+ <property name="product">CPSSkins</property>
+ <property name="factory">addPortalBox</property>
+ <property name="immediate_view">cpsskins_edit_form</property>
+ <property name="global_allow">False</property>
+ <property name="filter_content_types">False</property>
+ <property name="allowed_content_types"/>
+ <property name="allow_discussion">False</property>
+ <property name="cps_is_searchable">False</property>
+ <property name="cps_proxy_type"></property>
+ <property name="cps_display_as_document_in_listing">False</property>
+ <property name="cps_is_portalbox">False</property>
+ <alias from="(Default)" to="index_html"/>
+ <alias from="edit" to="cpsskins_edit_form"/>
+ <alias from="edit_form" to="cpsskins_edit_form"/>
+ <alias from="view" to="cpsskins_templet_view"/>
+ <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/cpsskins_templet_view" visible="True"/>
+ <action title="Edit" action_id="edit" category="object" condition_expr=""
+    url_expr="string:${object_url}/cpsskins_edit_form" visible="True">
+  <permission value="Manage Themes"/>
+ </action>
+ <action title="isportaltemplet" action_id="isportaltemplet" category="object"
+    condition_expr="" url_expr="string:${object_url}/isPortalTemplet"
+    visible="False"/>
+</object>

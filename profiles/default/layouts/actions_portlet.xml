@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<object name="actions_portlet" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_portlet_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="categories" meta_type="Lines Widget">
+  <property name="fields">
+   <element value="categories"/>
+  </property>
+  <property name="label_edit">cpsportlets_action_categories_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="width">30</property>
+ </widget>
+ <widget name="portlet" meta_type="Generic Portlet Widget">
+  <property name="fields">
+   <element value="portlet"/>
+  </property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="edit"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="render_method">widget_portlet_actions</property>
+ </widget>
+ <widget name="show_icons" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="show_icons"/>
+  </property>
+  <property name="label_edit">cpsportlets_actions_show_icons_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+ </widget>
+ <table>
+  <row>
+   <cell name="portlet"/>
+  </row>
+  <row>
+   <cell name="categories"/>
+  </row>
+  <row>
+   <cell name="show_icons"/>
+  </row>
+ </table>
+</object>

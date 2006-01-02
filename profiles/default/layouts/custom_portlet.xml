@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<object name="custom_portlet" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_portlet_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="custom_cache_params" meta_type="Lines Widget">
+  <property name="fields">
+   <element value="custom_cache_params"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_common_custom_cache_params_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+ </widget>
+ <widget name="js_render_method" meta_type="String Widget">
+  <property name="fields">
+   <element value="js_render_method"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_custom_js_render_method_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="display_width">36</property>
+ </widget>
+ <widget name="portlet" meta_type="CPS Portlet Custom Widget">
+  <property name="fields">
+   <element value="portlet"/>
+  </property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="edit"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+ </widget>
+ <widget name="render_method" meta_type="String Widget">
+  <property name="fields">
+   <element value="render_method"/>
+  </property>
+  <property name="is_required">True</property>
+  <property
+     name="label_edit">cpsportlets_custom_render_method_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="display_width">36</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="portlet" ncols="2"/>
+  </row>
+  <row>
+   <cell name="render_method"/>
+   <cell name="js_render_method"/>
+  </row>
+  <row>
+   <cell name="custom_cache_params" ncols="2"/>
+  </row>
+ </table>
+</object>

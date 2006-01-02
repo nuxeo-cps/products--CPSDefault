@@ -77,6 +77,11 @@
      url_expr="string:${portal_url}/cpsdirectory_view" visible="True">
    <permission>View</permission>
   </action>
+  <action title="action_portlets" action_id="portlets" category="folder"
+     condition_expr="member"
+     url_expr="string:${folder_url}/portlet_manage_form" visible="True">
+   <permission>Manage Portlets</permission>
+  </action>
  </action-provider>
  <action-provider name="portal_registration">
   <action title="Join" action_id="join" category="user"
@@ -145,6 +150,15 @@
      category="folder"
      condition_expr="python:hasattr(object, 'portal_type') and             object.portal_type in portal.portal_subscriptions.getSubscribablePortalTypes() and             hasattr(object, portal.portal_subscriptions.getSubscriptionContainerId()) and             getattr(object, portal.portal_subscriptions.getSubscriptionContainerId()).isSubscriptionAllowed()"
      url_expr="string:${object_url}/folder_subscribe_form" visible="True">
+   <permission>View</permission>
+  </action>
+ </action-provider>
+ <action-provider name="portal_themes">
+  <action title="_action_themes_reconfig_" action_id="configThemes"
+     category="global"
+     condition_expr="python: member and portal.portal_membership.checkPermission('Manage Themes', portal.portal_themes)"
+     url_expr="string:${portal_url}/cpsskins_themes_reconfig_form"
+     visible="True">
    <permission>View</permission>
   </action>
  </action-provider>

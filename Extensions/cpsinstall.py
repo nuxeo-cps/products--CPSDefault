@@ -79,8 +79,7 @@ from Products.CPSCore.permissions import ViewArchivedRevisions
 from Products.CPSCore.permissions import ChangeSubobjectsOrder
 
 # CPSDefault permissions
-# XXX should be imported from somewhere
-ModifyFolderProperties = 'Modify Folder Properties'
+from Products.CPSDefault.permissions import ModifyFolderProperties
 
 SECTIONS_ID = 'sections'
 WORKSPACES_ID = 'workspaces'
@@ -366,8 +365,6 @@ state_change.object.delLanguageFromProxy(lang)
         ))
 
         self.log("Verifying permissions")
-        setDefaultRoles(ModifyFolderProperties,
-            ('Manager', 'WorkspaceManager',))
 
         if external_editor_present:
             portal_perms = {

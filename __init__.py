@@ -36,6 +36,7 @@ import CMFCalendarToolPatch
 # Making sure that the ModuleSecurityInfo info statements of the utils
 # module is taken into account.
 import utils
+import permissions
 import Portal
 import Folder
 import Dummy

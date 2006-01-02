@@ -25,6 +25,10 @@ from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 
+from Products.CPSWorkflow.configuration import (
+    addConfiguration as addLocalWorkflowConfiguration)
+from Products.CPSWorkflow.exportimport import (
+    LocalWorkflowConfigurationXMLAdapter)
 
 class VariousImporter(object):
 
@@ -59,6 +63,7 @@ class VariousImporter(object):
             if domain in present:
                 continue
             ts.manage_addDomainInfo(domain, 'Localizer/%s' % catalog)
+        ts._resetCache()
 
     def setupRoots(self):
         importer = RootsXMLAdapter(self.site, self.context)
@@ -102,28 +107,56 @@ class RootsXMLAdapter(XMLAdapterBase):
             id = str(child.getAttribute('name'))
             portal_type = str(child.getAttribute('portal_type'))
 
+            # Create object
             if getattr(aq_base(site), id, None) is None:
                 wftool = getToolByName(site, 'portal_workflow')
                 wftool.invokeFactoryFor(site, portal_type, id)
             proxy = site._getOb(id)
 
             # Rolemap
-            rolemap_name = str(child.getAttribute('rolemap')) +  '.xml'
-            importObjectRolemap(proxy, rolemap_name, self.environ)
+            if child.hasAttribute('rolemap'):
+                rolemap_name = str(child.getAttribute('rolemap'))
+                rolemap_name += '.xml'
+                importObjectRolemap(proxy, rolemap_name, self.environ)
 
             # I18n title
-            title_msgid = str(child.getAttribute('title_msgid'))
-            existing_langs = proxy.getLanguageRevisions().keys()
-            for lang in avail_langs:
-                if lang not in existing_langs:
-                    proxy.addLanguageToProxy(lang)
-                title = translation_service(msgid=title_msgid,
-                                            target_language=lang,
-                                            default=title_msgid)
-                title = title.encode('iso-8859-15', 'ignore')
-                print 'XXX translate', title_msgid, lang, '->', title
-                doc = proxy.getEditableContent(lang)
-                doc.edit(Title=title, proxy=proxy)
+            if child.hasAttribute('title_msgid'):
+                title_msgid = str(child.getAttribute('title_msgid'))
+                existing_langs = proxy.getLanguageRevisions().keys()
+                for lang in avail_langs:
+                    if lang not in existing_langs:
+                        proxy.addLanguageToProxy(lang)
+                    title = translation_service(msgid=title_msgid,
+                                                target_language=lang,
+                                                default=title_msgid)
+                    title = title.encode('iso-8859-15', 'ignore')
+                    doc = proxy.getEditableContent(lang)
+                    doc.edit(Title=title, proxy=proxy)
+
+            # Workflow chains
+            if child.hasAttribute('local_workflows'):
+                localwf_name = str(child.getAttribute('local_workflows'))
+                localwf_name += '.xml'
+                importObjectLocalWorkflow(proxy, localwf_name, self.environ)
+
+
+def importObjectLocalWorkflow(ob, filename, context):
+    """Import local workflow chains from an XML file.
+    """
+    logger = context.getLogger('rolemap')
+    path = '/'.join(ob.getPhysicalPath())
+
+    body = context.readDataFile(filename)
+    if body is None:
+        logger.info("No local workflow map for %s" % path)
+        return
+
+    confob = addLocalWorkflowConfiguration(ob)
+    importer = LocalWorkflowConfigurationXMLAdapter(confob, context)
+    if importer is not None:
+        importer.body = body
+
+    logger.info("Local workflow map for %s imported." % path)
 
 
 # Old-style importer for rolemap, using explicit object/filename

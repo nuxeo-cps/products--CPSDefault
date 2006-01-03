@@ -38,6 +38,12 @@
   <dependency step="toolset"/>
   Import directory tool and directory configuration.
  </import-step>
+ <import-step id="eventservice" version="20060103-01"
+              handler="Products.CPSCore.exportimport.importEventServiceTool"
+              title="Event Service Tool">
+  <dependency step="toolset"/>
+  Import event service tool and event subscribers.
+ </import-step>
  <import-step id="layouts" version="20051226-01"
               handler="Products.CPSSchemas.exportimport.layout.importLayoutTool"
               title="Layout Tool">
@@ -124,6 +130,7 @@
   <dependency step="typeinfo"/>
   <dependency step="schemas"/>
   <dependency step="properties"/>
+  <dependency step="eventservice"/>
   Import various non-exportable settings.
  </import-step>
  <import-step id="vocabularies" version="20051224-01"

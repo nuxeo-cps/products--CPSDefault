@@ -5,7 +5,7 @@ CPS Translation HOWTO
 :Revision: $Id$
 
 :Abstract: This document gives some background information and tips
-    on translating CPS .po files. 
+    on translating CPS .po files.
 
 .. sectnum::    :depth: 4
 .. contents::   :depth: 4
@@ -36,15 +36,15 @@ one or more lines.
 
 Message String: msgstr is the keyword which introduces the
 translated string in PO file. It is followed by C-like string that
-spans on one or multiple lines. 
+spans on one or multiple lines.
 
 Fuzzy translation: This is a flag generated, in general, by
 msgmerge. It shows that a msgstr string might not be a correct
 translation. The translator must see and make modifications to the
 string if necessary and then remove the "fuzzy" flag from the
-message's comment. 
+message's comment.
 
-See: 
+See:
 
 - http://docs.kde.org/en/3.3/kdesdk/kbabel/glossary.html
 
@@ -78,7 +78,7 @@ Next, add your language in CPSDefault's custom.pot file. There's a
 Languages paragraph and the msgid will be like
 ``label_language_en_US``.
 
-Then add your language to the language vocabulary defined in 
+Then add your language to the language vocabulary defined in
 ``CPSDocument/skins/cps_document/getDocumentVocabularies.py``.
 There are three keys to add: the first one is the i18n label, the
 same that you used to name your po file; the second one is how you
@@ -138,7 +138,16 @@ Dictionary.com: http://www.dictionary.com/
 Good practices
 ==============
 
-First, never add a string outside custom.pot files. It would break
+First, be sure you use the most up-to-date .po files. That is, make sure that
+you are getting the .po files from the last CPS release source archive or,
+better, that you are using them from a fresh SVN checkout
+http://svn.nuxeo.org/trac/pub/browser/ . The rationale is that the files on
+which you are working have certainly been modified (and sometimes fixed) since
+they have been released or that you have downloaded them, even if you are an
+official translator for a given language. This is because we use an automatic
+updater on all .po files.
+
+Never add a string outside custom.pot files. It would break
 our updater, and consequently delay the addition of your po files.
 For the same reason, do not use Localizer to export your files.
 

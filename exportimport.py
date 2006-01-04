@@ -1,4 +1,4 @@
-# (C) Copyright 2005 Nuxeo SAS <http://nuxeo.com>
+# (C) Copyright 2005-2006 Nuxeo SAS <http://nuxeo.com>
 # Author: Florent Guillaume <fg@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -20,6 +20,8 @@
 """
 
 from Acquisition import aq_base
+from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
+     import AcceleratedHTTPCacheManager
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ImportConfiguratorBase
@@ -54,6 +56,7 @@ class VariousImporter(object):
         self.setupTranslationService()
         self.setupRoots()
         self.setupMembershipTool()
+        self.setupFCKeditorHttpCache()
         return "Various settings imported."
 
     def setupTranslationService(self):
@@ -77,6 +80,18 @@ class VariousImporter(object):
     def setupMembershipTool(self):
         mtool = getToolByName(self.site, 'portal_membership')
         mtool.setMembersFolderById(self.members_folder)
+
+    def setupFCKeditorHttpCache(self):
+        if 'FckHTTPCache' in self.site.objectIds():
+            return
+        self.site._setObject('FckHTTPCache',
+                             AcceleratedHTTPCacheManager('FckHTTPCache'))
+        cache_settings = {'anonymous_only' : 0,
+                          'notify_urls' : (),
+                          'interval' :1728000
+                          }
+        self.site.FckHTTPCache.manage_editProps('FCK Http Cache',
+                                                settings=cache_settings)
 
 
 # Called according to import_steps.xml

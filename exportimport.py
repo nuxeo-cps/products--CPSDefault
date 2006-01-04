@@ -27,12 +27,19 @@ from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 
+from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
 from Products.CPSWorkflow.configuration import (
     addConfiguration as addLocalWorkflowConfiguration)
 from Products.CPSWorkflow.exportimport import (
     LocalWorkflowConfigurationXMLAdapter)
 
 class VariousImporter(object):
+    """Class to import various steps.
+
+    For steps that have not yet been separated into their own
+    component. Note that this should be able to run as an extension
+    profile, without purge and with potentially missing files.
+    """
 
     catalogs = (
         # domain, localizer catalog
@@ -74,6 +81,8 @@ class VariousImporter(object):
         importer = RootsXMLAdapter(self.site, self.context)
         filename = importer.name + importer.suffix
         body = self.context.readDataFile(filename)
+        if body is None:
+            return
         importer.filename = filename
         importer.body = body
 
@@ -162,7 +171,7 @@ class RootsXMLAdapter(XMLAdapterBase):
 def importObjectLocalWorkflow(ob, filename, context):
     """Import local workflow chains from an XML file.
     """
-    logger = context.getLogger('rolemap')
+    logger = context.getLogger('workflow')
     path = '/'.join(ob.getPhysicalPath())
 
     body = context.readDataFile(filename)
@@ -170,7 +179,10 @@ def importObjectLocalWorkflow(ob, filename, context):
         logger.info("No local workflow map for %s" % path)
         return
 
-    confob = addLocalWorkflowConfiguration(ob)
+    if getattr(aq_base(ob), LOCAL_WORKFLOW_CONFIG_ID, None) is not None:
+        confob = ob._getOb(LOCAL_WORKFLOW_CONFIG_ID)
+    else:
+        confob = addLocalWorkflowConfiguration(ob)
     importer = LocalWorkflowConfigurationXMLAdapter(confob, context)
     if importer is not None:
         importer.body = body

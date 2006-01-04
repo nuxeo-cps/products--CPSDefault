@@ -171,7 +171,7 @@ class RootsXMLAdapter(XMLAdapterBase):
 def importObjectLocalWorkflow(ob, filename, context):
     """Import local workflow chains from an XML file.
     """
-    logger = context.getLogger('workflow')
+    logger = context.getLogger('cpsworkflow')
     path = '/'.join(ob.getPhysicalPath())
 
     body = context.readDataFile(filename)

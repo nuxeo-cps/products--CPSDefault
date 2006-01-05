@@ -133,12 +133,13 @@ class RootsXMLAdapter(XMLAdapterBase):
                 continue
 
             id = str(child.getAttribute('name'))
-            portal_type = str(child.getAttribute('portal_type'))
 
-            # Create object
+            # Create object if needed
             if getattr(aq_base(site), id, None) is None:
+                portal_type = str(child.getAttribute('portal_type'))
                 wftool = getToolByName(site, 'portal_workflow')
                 wftool.invokeFactoryFor(site, portal_type, id)
+
             proxy = site._getOb(id)
 
             # Rolemap

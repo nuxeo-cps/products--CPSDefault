@@ -64,7 +64,6 @@ class FolderishPublicationTestCase(FolderishTestCaseBase):
         FolderishTestCaseBase.afterSetUp(self)
 
     def test_several_publications(self):
-
         # https://svn.nuxeo.org/trac/pub/ticket/1139
         # Test the behavior of the folderish documents after several
         # publications. Especially, the workflow states should not be
@@ -175,6 +174,152 @@ class FolderishPublicationTestCase(FolderishTestCaseBase):
 
         pub_faq_item_2 = getattr(pub_faq, faq_item_id_2)
         self.assertEqual(pub_faq_item_2.portal_type, 'FAQitem')
+        self.assertEqual(self._getWorkflowState(pub_faq_item_2), 'published')
+        self.assertEqual(pub_faq_item_2.getRevision(), 1)
+
+
+    def test_several_embedded_publications(self):
+        # https://svn.nuxeo.org/trac/pub/ticket/1239: Folderish documents
+        # workflows are not enough recursive.
+        # Test the behavior of the folderish documents after several
+        # publications in a hierarchy of more than 1 level
+
+        # modify the FAQ content type so that FAQS are allowed inside FAQS
+        ttool = self.portal.portal_types
+        allowed = list(ttool['FAQ'].allowed_content_types)
+        ttool['FAQ'].allowed_content_types = allowed + ['FAQItem']
+
+        #
+        # Create a FAQ within workspaces
+        #
+
+        faq_id = self._createObject(self._ws, 'FAQ')
+        faq = getattr(self._ws, faq_id)
+
+        self.assertEqual(faq.portal_type, 'FAQ')
+        self.assertEqual(self._getWorkflowState(faq), 'work')
+        self.assertEqual(faq.getRevision(), 1)
+
+        #
+        # Create a sub FAQ
+        #
+
+        sub_faq_id = self._createObject(faq, 'FAQ')
+        self.assertEqual(faq.objectIds(), [sub_faq_id])
+
+        sub_faq = getattr(faq, sub_faq_id)
+        self.assertEqual(sub_faq.portal_type, 'FAQ')
+        self.assertEqual(self._getWorkflowState(sub_faq), 'work')
+        self.assertEqual(sub_faq.getRevision(), 1)
+
+        #
+        # Create a FAQ Item within sub FAQ
+        #
+
+        faq_item_id = self._createObject(sub_faq, 'FAQitem')
+        self.assertEqual(sub_faq.objectIds(), [faq_item_id])
+
+        faq_item = getattr(sub_faq, faq_item_id)
+        self.assertEqual(faq_item.portal_type, 'FAQitem')
+        self.assertEqual(self._getWorkflowState(faq_item), 'work')
+        self.assertEqual(faq_item.getRevision(), 1)
+
+        #
+        # Publish the whole FAQ
+        #
+
+        self._publishObject(faq, self._sc)
+
+        pub_faq = getattr(self._sc, faq_id)
+        self.assertEqual(self._getWorkflowState(pub_faq), 'published')
+        self.assertEqual(pub_faq.getRevision(), 1)
+        self.assertEqual(pub_faq.objectIds(), [sub_faq_id])
+
+        pub_sub_faq = getattr(pub_faq, sub_faq_id)
+        self.assertEqual(self._getWorkflowState(pub_sub_faq), 'published')
+        self.assertEqual(pub_sub_faq.getRevision(), 1)
+        self.assertEqual(pub_sub_faq.objectIds(), [faq_item_id])
+
+        pub_faq_item = getattr(pub_sub_faq, faq_item_id)
+        self.assertEqual(self._getWorkflowState(pub_faq_item), 'published')
+        self.assertEqual(pub_faq_item.getRevision(), 1)
+
+        #
+        # Modify the FAQ Item within the workspace.
+        #
+
+        self._createNewRevisionFor(faq_item)
+        self.assertEqual(self._getWorkflowState(faq_item), 'work')
+        self.assertEqual(faq_item.getRevision(), 2)
+
+        #
+        # Publish the whole FAQ back
+        #
+
+        self.assertEqual(self._sc.objectIds(),
+                         ['.cps_workflow_configuration', faq.getId()])
+
+        self._publishObject(faq, self._sc)
+
+        self.assertEqual(self._sc.objectIds(),
+                         ['.cps_workflow_configuration', faq.getId()])
+
+        pub_faq = getattr(self._sc, faq_id)
+        self.assertEqual(self._getWorkflowState(pub_faq), 'published')
+        self.assertEqual(pub_faq.getRevision(), 1)
+        self.assertEqual(pub_faq.objectIds(), [sub_faq_id])
+
+        pub_sub_faq = getattr(pub_faq, sub_faq_id)
+        self.assertEqual(self._getWorkflowState(pub_sub_faq), 'published')
+        self.assertEqual(pub_sub_faq.getRevision(), 1)
+        self.assertEqual(pub_sub_faq.objectIds(), [faq_item_id])
+
+        pub_faq_item = getattr(pub_sub_faq, faq_item_id)
+        self.assertEqual(self._getWorkflowState(pub_faq_item), 'published')
+        # revision has changed
+        self.assertEqual(pub_faq_item.getRevision(), 2)
+
+        #
+        # Add another item within the sub FAQ in workspace
+        #
+
+        faq_item_id_2 = self._createObject(sub_faq, 'FAQitem')
+        self.assertEqual(sub_faq.objectIds(), [faq_item_id, faq_item_id_2])
+
+        faq_item_2 = getattr(sub_faq, faq_item_id_2)
+        self.assertEqual(faq_item_2.portal_type, 'FAQitem')
+        self.assertEqual(self._getWorkflowState(faq_item_2), 'work')
+        self.assertEqual(faq_item_2.getRevision(), 1)
+
+        #
+        # Publish the whole FAQ back
+        #
+
+        self.assertEqual(self._sc.objectIds(),
+                         ['.cps_workflow_configuration', faq.getId()])
+
+        self._publishObject(faq, self._sc)
+
+        self.assertEqual(self._sc.objectIds(),
+                         ['.cps_workflow_configuration', faq.getId()])
+
+        pub_faq = getattr(self._sc, faq_id)
+        self.assertEqual(self._getWorkflowState(pub_faq), 'published')
+        self.assertEqual(pub_faq.getRevision(), 1)
+        self.assertEqual(pub_faq.objectIds(), [sub_faq_id])
+
+        pub_sub_faq = getattr(pub_faq, sub_faq_id)
+        self.assertEqual(self._getWorkflowState(pub_sub_faq), 'published')
+        self.assertEqual(pub_sub_faq.getRevision(), 1)
+        # second faq item has been added
+        self.assertEqual(pub_faq.objectIds(), [faq_item_id, faq_item_id_2])
+
+        pub_faq_item = getattr(pub_sub_faq, faq_item_id)
+        self.assertEqual(self._getWorkflowState(pub_faq_item), 'published')
+        # revision is still changed
+        self.assertEqual(pub_faq_item.getRevision(), 2)
+
+        pub_faq_item_2 = getattr(pub_sub_faq, faq_item_id_2)
         self.assertEqual(self._getWorkflowState(pub_faq_item_2), 'published')
         self.assertEqual(pub_faq_item_2.getRevision(), 1)
 

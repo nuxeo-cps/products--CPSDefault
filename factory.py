@@ -19,8 +19,6 @@
 """CPS Default Site Factory.
 """
 
-import os
-from Globals import package_home
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from Products.GenericSetup import EXTENSION

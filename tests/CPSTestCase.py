@@ -36,6 +36,7 @@ ZopeTestCase.installProduct('CPSSkins', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
+ZopeTestCase.installProduct('Five', quiet=1)
 
 # XXX: these products should (and used to be) be optional, but they aren't
 # right now.
@@ -43,12 +44,6 @@ ZopeTestCase.installProduct('CPSSubscriptions', quiet=1)
 ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
-
-# Five is optional, but if they exist they must be installed for tests
-# to run properly.
-ZopeTestCase.installProduct('Five', quiet=1)
-ZopeTestCase.installProduct('CMFonFive', quiet=1)
-ZopeTestCase.installProduct('CPSSharedCalendar', quiet=1)
 
 try:
     import transaction

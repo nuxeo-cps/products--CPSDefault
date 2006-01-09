@@ -5,27 +5,42 @@
 <metal:main fill-slot="main"
       tal:define="username request/username | request/__ac_name | nothing">
 
-  <form action="" method="post"
-        tal:attributes="action string:${base_url}logged_in">
-
   <h1 i18n:translate="heading_login_form">Log in</h1>
 
-  <dl class="form">
-    <dt><label for="username"
-               i18n:translate="label_user_name">User name</label></dt>
-    <dd><input type="text" id="username" name="__ac_name"
+  <form id="loginForm" action="" method="post"
+        tal:attributes="action string:${base_url}logged_in">
+
+  <table id="login" class="form"
+         summary="Table for entering login information">
+    <tbody>
+    <tr>
+    <th>
+        <label for="username"
+               i18n:translate="label_user_name">User name</label></th>
+    <td>
+        <input type="text" id="username" name="__ac_name"
                class="focus" size="20" value=""
-               tal:attributes="value username" /></dd>
-    <dt><label for="password"
-               i18n:translate="label_password">Password</label></dt>
-    <dd><input type="password" id="password" name="__ac_password" size="20"
-               value="" /></dd>
-    <dt><label for="remember"
+               tal:attributes="value username" /></td>
+    </tr>
+    <tr>
+    <th>
+        <label for="password"
+               i18n:translate="label_password">Password</label></th>
+    <td>
+        <input type="password" id="password" name="__ac_password" size="20"
+               value="" /></td>
+    </tr>
+    <tr>
+    <th>
+        <label for="remember"
                i18n:translate="label_remember_user_name">Remember my
-               name</label></dt>
-    <dd><input type="checkbox" name="__ac_persistent" checked="checked"
-               id="remember" class="noborder" /></dd>
-  </dl>
+               name</label></th>
+    <td>
+        <input type="checkbox" name="__ac_persistent" checked="checked"
+               id="remember" class="noborder" /></td>
+    </tr>
+    </tbody>
+  </table>
 
   <p class="buttonArea">
     <!-- ****** Enable the automatic redirect ***** -->

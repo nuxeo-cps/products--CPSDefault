@@ -123,54 +123,6 @@ legend {
   padding: 0.5em;
 }
 
-form {
-  margin: 0;
-}
-
-form.workflow dl {
-  font-weight: bold;
-}
-
-form.workflow dd {
-  margin-left: 0;
-}
-
-/* Form layout taken from http://pompage.net/pompe/listesdefinitions/
-WARNING: do not change since old versions of IE are highly sensitive to
-slight modifications.
-*/
-dl.form {
-  margin-left: auto;
-  margin-right: auto;
-  width: 41.1em;
-  padding: 0;
-}
-
-dl.form dt {
-  width: 15em;
-  float: left;
-  margin: 0;
-  padding: .5em;
-  text-align: right;
-}
-
-/* hack comment with backslash for ie5 mac \*/
-dl.form dt { clear: both; }
-/* end hack */
-
-dl.form dd {
-  float: left;
-  width: 24em;
-  margin: 0;
-  padding: .5em;
-}
-
-form p.buttonArea {
-  text-align: center;
-  clear: both;
-}
-/* End of Warning */
-
 textarea {
   color: <dtml-var mainFontColor>;
   background-color: white;
@@ -660,7 +612,23 @@ input.moveBottom {
 }
 
 <dtml-comment>
-TABLEs ------------------------------
+Forms ------------------------------
+</dtml-comment>
+
+form {
+  margin: 0;
+}
+
+form.workflow dl {
+  font-weight: bold;
+}
+
+form.workflow dd {
+  margin-left: 0;
+}
+
+<dtml-comment>
+Generic table definitions
 </dtml-comment>
 
 table.columns td.left {
@@ -668,6 +636,13 @@ table.columns td.left {
 }
 table.columns td.right {
   background: <dtml-var columnsRightBackground>;
+}
+
+table.form th {
+  font-weight: bold;
+  text-align: left;
+  background: <dtml-var mainBackground>;
+  color: <dtml-var mainFontColor>;
 }
 
 table.listing {
@@ -708,6 +683,19 @@ table.listing tbody tr.even td {
 table.listing .action {
   font-weight: bold;
   text-align: left;
+}
+
+<dtml-comment>
+Specific table definitions
+</dtml-comment>
+
+form#loginForm {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30em;
+}
+table#login td {
+  width: 12em;
 }
 
 table#subscriptions td {

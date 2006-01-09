@@ -17,8 +17,5 @@
 #
 # $Id$
 
-from zope.interface import Interface
-
-class ICPSSite(Interface):
-    """CPS Site.
-    """
+# BBB will go away in final release
+from Products.CPSCore.interfaces import ICPSSite

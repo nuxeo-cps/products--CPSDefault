@@ -28,10 +28,9 @@
   <form action="" method="post"
         tal:attributes="action string:${base_url}reconfig"
         tal:define="pprops here/portal_properties">
-    <table cellspacing="2" cellpadding="2"
-      summary="Portal properties form">
+    <table id="portalConfiguration" summary="Portal properties form">
       <tr>
-        <th align="right">
+        <th>
           <label for="email_from_name"
                  i18n:translate="label_admin_name">
             Administrator Name
@@ -43,7 +42,7 @@
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="email_from_address"
                  i18n:translate="label_admin_email">
             Administrator Email
@@ -55,7 +54,7 @@
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="smtp_server"
                  i18n:translate="label_smtp_server">
             SMTP Server
@@ -67,7 +66,7 @@
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="portal_title"
                  i18n:translate="label_portal_title">
             Portal title
@@ -79,7 +78,7 @@
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="portal_description"
                  i18n:translate="label_portal_description">
             Portal description
@@ -87,13 +86,13 @@
         </th>
         <td>
           <textarea name="description" id="portal_description"
-                cols="40" rows="6" style="width: 100%"
+                cols="40" rows="4" style="width: 100%"
                 tal:content="pprops/description">
           </textarea>
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="enable_password_reset"
                  i18n:translate="label_portal_enable_password_reset">
             Enable password resetting
@@ -106,7 +105,7 @@
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="enable_password_reminder"
                  i18n:translate="label_portal_enable_password_reminder">
             Enable sending of password reminder
@@ -119,7 +118,7 @@
         </td>
       </tr>
       <tr>
-        <th align="right">
+        <th>
           <label for="enable_portal_joining"
                  i18n:translate="label_portal_enable_join">
             Enable portal joining

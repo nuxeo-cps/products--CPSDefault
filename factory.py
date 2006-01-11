@@ -94,6 +94,17 @@ class CPSSiteConfigurator(object):
         self.afterImport()
         self.parseForm(**kw)
 
+        mdir = self.site.portal_directories.members
+        entry = {
+            'id': kw.get('manager_id'),
+            'password': kw.get('password'),
+            'roles': ['Manager', 'Member'],
+            'email': kw.get('manager_email'),
+            'givenName': kw.get('manager_lastname', ''),
+            'sn': kw.get('manager_firstname', ''),
+        }
+        mdir.createEntry(entry)
+
         if snapshot is True:
             setup_tool.createSnapshot('initial_configuration')
 
@@ -134,14 +145,15 @@ class CPSSiteConfigurator(object):
         self.parseForm(just_check=True, **kw)
 
     def parseForm(self, manager_id='', manager_email='',
-                  manager_name='', password='', password_confirm='',
-                  title='', description='', languages=(),
+                  manager_firstname='', manager_lastname='', password='', 
+                  password_confirm='', title='', description='', languages=(),
                   just_check=False, **kw):
         title = title.strip()
         description = description.strip()
         manager_id = manager_id.strip()
         manager_email = manager_email.strip()
-        manager_name = manager_name.strip()
+        manager_firstname = manager_firstname.strip()
+        manager_lastname = manager_lastname.strip()
 
         if not manager_id:
             raise ValueError("You have to provide a Login "

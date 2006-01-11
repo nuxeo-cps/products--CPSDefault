@@ -49,6 +49,8 @@ class VariousImporter(object):
         #('RSSBox', 'cpsrss'),
         )
 
+    default_roles = ('Manager', 'Member')
+
     members_folder = 'members'
 
     def __init__(self, context):
@@ -64,7 +66,15 @@ class VariousImporter(object):
         self.setupRoots()
         self.setupMembershipTool()
         self.setupFCKeditorHttpCache()
+        self.setupDefaultRoles()
         return "Various settings imported."
+
+    def setupDefaultRoles(self):
+        """Add the default roles to the roles directory
+        """
+        dtool = getToolByName(self.site, 'portal_directories')
+        for role in self.default_roles:
+            dtool['roles'].createEntry({'role': role, 'members': ''})
 
     def setupTranslationService(self):
         ts = getToolByName(self.site, 'translation_service')

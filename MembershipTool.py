@@ -36,8 +36,22 @@ from AccessControl import Unauthorized
 
 from Products.MailHost.MailHost import MailHostError
 from Products.CMFCore.utils import getToolByName
+from Products.CMFDefault.RegistrationTool import RegistrationTool
+
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
+
+#
+# Patching Products.CMFDefault.RegistrationTool.RegistrationTool.mailPassword to
+# redirect to this MembershipTool.mailPassword in order to get additional
+# features while preserving API compatibility
+#
+
+def mailPassword(self, forgotten_userid, REQUEST=None):
+    mtool = getToolByName(self, 'portal_membership')
+    return mtool.mailPassword(forgotten_userid, REQUEST)
+
+RegistrationTool.mailPassword = mailPassword
 
 log_key = 'CPSDefault.MembershipTool'
 
@@ -63,6 +77,40 @@ class MembershipTool(CPSMembershipTool):
     # Members password handling
     #
 
+    security.declarePublic( 'mailPassword' )
+    def mailPassword(self, who, REQUEST=None):
+        """Email a forgotten password to a member.
+
+        o Raise an exception if user ID is not found.
+        """
+        utool = getToolByName(self, 'portal_url')
+        portal = utool.getPortalObject()
+        if not getattr(portal, 'enable_password_reminder', False):
+            raise Unauthorized('Password reminder disabled')
+
+        usernames, email = self._getUsernamesAndEmailFor(who)
+        LOG(log_key, DEBUG, "usernames=%r, email=%r" % (usernames, email))
+
+        if email is None or not usernames:
+            raise ValueError('The username you entered could not be found.')
+
+        members = [{'login': id,
+                    'password':self.getMemberById(id).getPassword()}
+                   for id in usernames]
+
+        # Rather than have the template try to use the mailhost, we will
+        # render the message ourselves and send it from here (where we
+        # don't need to worry about 'UseMailHost' permissions).
+        mail_text = self.mail_password_template(self, REQUEST,
+                                                email=email,
+                                                members=members)
+
+        host = self.MailHost
+        host.send(mail_text)
+
+        return self.mail_password_response(self, REQUEST)
+
+
     security.declarePublic('requestPasswordReset')
     def requestPasswordReset(self, who, REQUEST=None):
         """Generate a reset token for a password reset and send an email with
@@ -87,6 +135,7 @@ class MembershipTool(CPSMembershipTool):
                 "translation_service tool not found, could not proceed.")
 
         portal = getToolByName(self, 'portal_url').getPortalObject()
+
         portal_encoding = 'ISO-8859-15'
         mail_from_address = portal.getProperty('email_from_address')
         if mail_from_address is None:

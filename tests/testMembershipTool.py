@@ -20,8 +20,6 @@
 # $Id$
 
 import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
 
 from time import time
 import sha
@@ -31,6 +29,9 @@ from AccessControl import Unauthorized
 
 import CPSDefaultTestCase
 from Testing.ZopeTestCase import user_name
+
+class FakeMailHost(list):
+    send = list.append
 
 class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
     login_id = 'manager'
@@ -66,6 +67,8 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.pmtool.setLocalRoles(
             obj=self.portal.sections,
             member_ids=['semanager'], member_role='SectionManager')
+
+        self.portal.MailHost = FakeMailHost()
 
     def beforeTearDown(self):
         self.logout()
@@ -143,6 +146,70 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(email, None)
         finally:
             members._getEntry = old_getEntry
+
+    def test_mailPassword(self):
+        # Test the password reminder feature
+        pmtool = self.pmtool
+        sent_emails = self.portal.MailHost
+        mdir = self.portal.portal_directories.members
+
+        mdir._createEntry({'id': 'toto', 'email': 'to.to@example.com'})
+
+        # tata and tata2 share the same email adress
+        mdir._createEntry({'id': 'tata', 'email': 'ta.ta@example.com'})
+        mdir._createEntry({'id': 'tata2', 'email': 'ta.ta@example.com'})
+
+        # Anonymous users request a password reminder
+        self.logout()
+
+        # by default the password reminder feature is disabled
+        self.assertRaises(Unauthorized, pmtool.mailPassword,
+                          'to.to@example.com')
+        self.assertEquals(len(sent_emails), 0)
+
+        # let's enable it
+        self.portal.enable_password_reminder = True
+
+        # requesting a non existing email sends nothing and raises ValueError
+        self.assertRaises(ValueError, pmtool.mailPassword,
+                          'unexisting@example.com')
+        self.assertEquals(len(sent_emails), 0)
+
+        # toto requests a reminder by providing his email address
+        pmtool.mailPassword('to.to@example.com')
+        self.assertEquals(len(sent_emails), 1)
+        self.assert_('toto' in sent_emails[0],
+                     msg='toto not in %r' % sent_emails[0])
+        self.assert_('to.to@example.com' in sent_emails[0])
+
+        # toto requests a reminder by providing his uid
+        pmtool.mailPassword('toto')
+        self.assertEquals(len(sent_emails), 2)
+        self.assert_('toto' in sent_emails[1])
+        self.assert_('to.to@example.com' in sent_emails[1])
+
+        # tata requests a reminder by providing her uid
+        pmtool.mailPassword('tata')
+        self.assertEquals(len(sent_emails), 3)
+        self.assert_('tata' in sent_emails[2])
+        self.assert_('tata2' not in sent_emails[2])
+        self.assert_('ta.ta@example.com' in sent_emails[2])
+
+        # tata requests a reminder by providing her email address
+        pmtool.mailPassword('ta.ta@example.com')
+        self.assertEquals(len(sent_emails), 4)
+        self.assert_('tata' in sent_emails[3])
+        self.assert_('tata2' in sent_emails[3])
+        self.assert_('ta.ta@example.com' in sent_emails[3])
+
+        # CMFDefault registration_tool is patched to ensure backward
+        # compatibility
+        rtool = self.portal.portal_registration
+        rtool.mailPassword('to.to@example.com')
+        self.assertEquals(len(sent_emails), 5)
+        self.assert_('toto' in sent_emails[4])
+        self.assert_('to.to@example.com' in sent_emails[4])
+
 
     def test_ManagerCanMemberChangeLocalRoles(self):
 
@@ -332,5 +399,3 @@ def test_suite():
     suite.addTest(unittest.makeSuite(TestMembershipTool))
     return suite
 
-if __name__ == '__main__':
-    framework(descriptions=1, verbosity=2)

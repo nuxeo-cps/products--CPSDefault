@@ -24,10 +24,6 @@
  </field>
  <field name="groups" meta_type="CPS String List Field">
   <property name="acl_write_roles">Manager</property>
-  <property
-       name="read_process_expr">python:util.dirCrossGetList('groups', 'members', data.get('id'))</property>
-  <property
-       name="write_process_expr">python:util.dirCrossSetList('groups', 'members', data.get('id'), data[field.getFieldId()])</property>
  </field>
  <field name="homeless" meta_type="CPS Int Field">
   <property name="default_expr">python: 0</property>
@@ -39,10 +35,6 @@
  </field>
  <field name="roles" meta_type="CPS String List Field">
   <property name="acl_write_roles">Manager</property>
-  <property
-       name="read_process_expr">python:util.dirCrossGetList('roles', 'members', data.get('id'))</property>
-  <property
-       name="write_process_expr">python:util.dirCrossSetList('roles', 'members', data.get('id'), data[field.getFieldId()])</property>
  </field>
  <field name="sn" meta_type="CPS String Field">
   <property name="acl_write_roles">Manager; Owner</property>

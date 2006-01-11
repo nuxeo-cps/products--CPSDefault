@@ -3,6 +3,12 @@
  <field name="group" meta_type="CPS String Field"/>
  <field name="members" meta_type="CPS String List Field">
   <property name="acl_write_roles">Manager</property>
+  <property name="write_ignore_storage">True</property>
+  <property
+       name="write_process_expr">python:util.dirCrossSetList('members', 'groups', data.get('group'), data[field.getFieldId()])</property>
+  <property name="read_ignore_storage">True</property>
+  <property
+       name="read_process_expr">python:util.dirCrossGetList('members', 'groups', data.get('group'))</property>
  </field>
  <field name="subgroups" meta_type="CPS String List Field"/>
 </object>

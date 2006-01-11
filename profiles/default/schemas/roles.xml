@@ -2,6 +2,12 @@
 <object name="roles" meta_type="CPS Schema">
  <field name="members" meta_type="CPS String List Field">
   <property name="acl_write_roles">Manager</property>
+  <property name="write_ignore_storage">True</property>
+  <property
+       name="write_process_expr">python:util.dirCrossSetList('members', 'roles', data.get('role'), data[field.getFieldId()])</property>
+  <property name="read_ignore_storage">True</property>
+  <property
+       name="read_process_expr">python:util.dirCrossGetList('members', 'roles', data.get('role'))</property>
  </field>
  <field name="role" meta_type="CPS String Field"/>
 </object>

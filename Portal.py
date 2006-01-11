@@ -20,35 +20,24 @@
 """ Default portal for CPS
 """
 
-import Globals
 from zLOG import LOG, INFO, DEBUG
-from Products.CMFDefault.Portal import CMFSite, PortalGenerator
-from Products.ExternalMethod.ExternalMethod import ExternalMethod
+from Globals import HTMLFile
+from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
+from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
-from zope.interface import implements
-from Products.CPSDefault.interfaces import ICPSSite
+from Products.CMFDefault.Portal import PortalGenerator
+from Products.CPSCore.portal import CPSSite
 
-class CPSDefaultSite(CMFSite):
+class CPSDefaultSite(CPSSite):
     """CPS variant of a CMF Portal."""
-
-    implements(ICPSSite)
 
     meta_type = 'CPSDefault Site'
     portal_type = 'Portal'
 
-    cps_version = ('CPS', 3, 3, 8)
-
-    # Override default OrderSupport behavior for ZMI convenience
-    _default_sort_key = 'id'
-
     security = ClassSecurityInfo()
 
-    _properties = CMFSite._properties + (
-        {'id': 'last_upgraded_version', 'type': 'string',
-         'label': 'Last upgraded version', 'mode': 'w'},
-        {'id': 'available_languages', 'type': 'tokens',
-         'label': 'Available languages', 'mode': 'w'},
+    _properties = CPSSite._properties + (
         # XXX these should be in the portal_membership tool
         {'id': 'enable_password_reset', 'type': 'boolean',
          'label': 'Enable password resetting', 'mode': 'w'},
@@ -57,27 +46,18 @@ class CPSDefaultSite(CMFSite):
         {'id': 'enable_portal_joining', 'type': 'boolean',
          'label': 'Enable portal joining', 'mode': 'w'},
         )
-    last_upgraded_version = '.'.join(map(str, cps_version[1:]))
-    available_languages = ('en', 'fr') # Use by Localizer config
     # XXX
     enable_password_reset = True
     enable_password_reminder = False
     enable_portal_joining = False
 
-    security.declarePublic('getCPSVersion')
-    def getCPSVersion(self):
-        """ returns cps version
-        """
-        return self.cps_version
-
-Globals.InitializeClass(CPSDefaultSite)
+InitializeClass(CPSDefaultSite)
 
 class CPSPortalGenerator(PortalGenerator):
     """Set up a CPS Portal."""
     klass = CPSDefaultSite
 
-manage_addCPSDefaultSiteForm = Globals.HTMLFile('zmi/manage_addCPSSiteForm',
-                                                globals())
+manage_addCPSDefaultSiteForm = HTMLFile('zmi/manage_addCPSSiteForm', globals())
 
 def manage_addCPSDefaultSite(dispatcher, id,
                              title='CPSDefault Portal',

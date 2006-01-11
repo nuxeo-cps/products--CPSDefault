@@ -85,25 +85,14 @@ class CPSSiteConfigurator(object):
                           REQUEST=None, **kw):
         """Add a CPSSite according to profile and extensions.
         """
-        site_id = site_id.strip()
-        if not site_id:
-            raise ValueError("You have to provide an ID for the site!")
-
-        self.parseResults(just_check=True, **kw)
-
         self.dispatcher = dispatcher
+
+        self.checkForm(site_id, **kw)
         self.addSite(site_id)
         self.addSetupTool()
-
-        setup_tool = self.setup_tool
-        setup_tool.setImportContext('profile-%s' % profile_id)
-        setup_tool.runAllImportSteps()
-        for extension_id in extension_ids:
-            setup_tool.setImportContext('profile-%s' % extension_id)
-            setup_tool.runAllImportSteps()
-        setup_tool.setImportContext('profile-%s' % profile_id)
-
-        self.parseResults(**kw)
+        self.importProfiles(profile_id, extension_ids)
+        self.afterImport()
+        self.parseForm(**kw)
 
         if snapshot is True:
             setup_tool.createSnapshot('initial_configuration')
@@ -126,10 +115,28 @@ class CPSSiteConfigurator(object):
         self.site._setObject(id, setup_tool)
         self.setup_tool = getToolByName(self.site, id)
 
-    def parseResults(self, manager_id='', manager_email='',
-                     manager_name='', password='', password_confirm='',
-                     title='', description='', languages=(),
-                     just_check=False, **kw):
+    def importProfiles(self, profile_id, extension_ids):
+        setup_tool = self.setup_tool
+        setup_tool.setImportContext('profile-%s' % profile_id)
+        setup_tool.runAllImportSteps()
+        for extension_id in extension_ids:
+            setup_tool.setImportContext('profile-%s' % extension_id)
+            setup_tool.runAllImportSteps()
+        setup_tool.setImportContext('profile-%s' % profile_id)
+
+    def afterImport(self):
+        self.site._setDefaultUpgradedVersion()
+
+    def checkForm(self, site_id, **kw):
+        site_id = site_id.strip()
+        if not site_id:
+            raise ValueError("You have to provide an ID for the site!")
+        self.parseForm(just_check=True, **kw)
+
+    def parseForm(self, manager_id='', manager_email='',
+                  manager_name='', password='', password_confirm='',
+                  title='', description='', languages=(),
+                  just_check=False, **kw):
         title = title.strip()
         description = description.strip()
         manager_id = manager_id.strip()

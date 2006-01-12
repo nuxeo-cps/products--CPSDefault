@@ -27,13 +27,14 @@
     <tal:block tal:repeat="item batch_items">
       <tal:block define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);
                          review_state python:info['review_state'];
+                         item_id item/getId|string:noid,
                          proxy_creator item/Creator|info/creator"
                  condition="python:review_state != 'draft'
                                    or (review_state == 'draft' and proxy_creator == member_id)
                                    or is_local_manager">
       <tr valign="top" class="ajaxtd">
         <td align="left" valign="top">
-          <div tal:attributes="id python:'draggable'+item.getId();
+          <div tal:attributes="id python:'draggable'+str(item_id);
                                class python:test(not no_form, 'draggable droppable', '');
                                onmouseover python:test(not no_form, 'setCursor(this, \'move\')', '')">
             <table summary="content">

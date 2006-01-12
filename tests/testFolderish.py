@@ -69,6 +69,7 @@ class FolderishPublicationTestCase(FolderishTestCaseBase):
         # publications. Especially, the workflow states should not be
         # lost
 
+
         #
         # Create a FAQ within workspaces
         #
@@ -177,19 +178,15 @@ class FolderishPublicationTestCase(FolderishTestCaseBase):
         self.assertEqual(self._getWorkflowState(pub_faq_item_2), 'published')
         self.assertEqual(pub_faq_item_2.getRevision(), 1)
 
-
-    # XXX AT: disabled, need time to fix the bug
-    def XXXtest_several_embedded_publications(self):
+    def test_several_embedded_publications(self):
         # https://svn.nuxeo.org/trac/pub/ticket/1239: Folderish documents
         # workflows are not enough recursive.
         # Test the behavior of the folderish documents after several
         # publications in a hierarchy of more than 1 level
 
-        # modify the FAQ content type so that FAQS are allowed inside FAQS
-        ttool = self.portal.portal_types
-        allowed = list(ttool['FAQ'].allowed_content_types)
-        ttool['FAQ'].allowed_content_types = allowed + ['FAQItem']
-
+        from Products.CPSCore.TreeCacheManager import get_treecache_manager
+        get_treecache_manager().disable()
+        
         #
         # Create a FAQ within workspaces
         #
@@ -313,7 +310,7 @@ class FolderishPublicationTestCase(FolderishTestCaseBase):
         self.assertEqual(self._getWorkflowState(pub_sub_faq), 'published')
         self.assertEqual(pub_sub_faq.getRevision(), 1)
         # second faq item has been added
-        self.assertEqual(pub_faq.objectIds(), [faq_item_id, faq_item_id_2])
+        self.assertEqual(pub_sub_faq.objectIds(), [faq_item_id, faq_item_id_2])
 
         pub_faq_item = getattr(pub_sub_faq, faq_item_id)
         self.assertEqual(self._getWorkflowState(pub_faq_item), 'published')

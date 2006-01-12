@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_cpsportlets_catalog"
    meta_type="CPS Portlets Catalog Tool">
- <property name="title"></property>
  <object name="htmltext_lexicon" meta_type="ZCTextIndex Lexicon">
   <element name="HTML aware splitter" group="Word Splitter"/>
   <element name="Case Normalizer" group="Case Normalizer"/>
@@ -12,6 +11,7 @@
   <element name="Case Normalizer" group="Case Normalizer"/>
   <element name="Remove listed stop words only" group="Stop Words"/>
  </object>
+ <property name="title"></property>
  <index name="Creator" meta_type="FieldIndex">
   <indexed_attr value="Creator"/>
  </index>
@@ -45,20 +45,11 @@
  <index name="created" meta_type="DateIndex">
   <property name="index_naive_time_as_local">True</property>
  </index>
- <index name="effective" meta_type="DateIndex">
-  <property name="index_naive_time_as_local">True</property>
- </index>
  <index name="eventIds" meta_type="KeywordIndex">
   <indexed_attr value="eventIds"/>
  </index>
- <index name="expires" meta_type="DateIndex">
-  <property name="index_naive_time_as_local">True</property>
- </index>
  <index name="getId" meta_type="FieldIndex">
   <indexed_attr value="getId"/>
- </index>
- <index name="in_reply_to" meta_type="FieldIndex">
-  <indexed_attr value="in_reply_to"/>
  </index>
  <index name="listCreators" meta_type="KeywordIndex">
   <indexed_attr value="listCreators"/>
@@ -80,16 +71,12 @@
  <column value="Creator"/>
  <column value="Date"/>
  <column value="Description"/>
- <column value="EffectiveDate"/>
- <column value="ExpirationDate"/>
  <column value="ModificationDate"/>
  <column value="Subject"/>
  <column value="Title"/>
  <column value="Type"/>
  <column value="created"/>
- <column value="effective"/>
  <column value="eventIds"/>
- <column value="expires"/>
  <column value="getIcon"/>
  <column value="getId"/>
  <column value="listCreators"/>

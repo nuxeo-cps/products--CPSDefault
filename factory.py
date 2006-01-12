@@ -34,9 +34,10 @@ class CPSSiteConfigurator(object):
     """Configurator for a CPS Site.
     """
 
+    prechecked_extensions = ()
     mandatory_extensions = ()
 
-    languages = (
+    available_languages = (
         {'id': 'nl', 'title': 'Dutch'},
         {'id': 'en', 'title': 'English', 'checked': True},
         {'id': 'fr', 'title': 'French', 'checked': True},
@@ -64,7 +65,7 @@ class CPSSiteConfigurator(object):
                 # Only keep CPS-specific extensions
                 continue
             if info['type'] == EXTENSION:
-                info['checked'] = info['id'] in self.mandatory_extensions
+                info['checked'] = info['id'] in self.prechecked_extensions
                 extension_profiles.append(info)
             else: # BASE
                 base_profiles.append(info)
@@ -78,7 +79,7 @@ class CPSSiteConfigurator(object):
         return form(**options)
 
     def prepareOptions(self, options):
-        options['languages'] = self.languages
+        options['languages'] = self.available_languages
 
     def addConfiguredSite(self, dispatcher, site_id, profile_id,
                           extension_ids=(), snapshot=False,
@@ -90,21 +91,9 @@ class CPSSiteConfigurator(object):
         self.checkForm(site_id, **kw)
         self.addSite(site_id)
         self.addSetupTool()
+        self.beforeImport(**kw)
         self.importProfiles(profile_id, extension_ids)
-        self.afterImport()
-        self.parseForm(**kw)
-        self.addLanguages(**kw)
-
-        mdir = self.site.portal_directories.members
-        entry = {
-            'id': kw.get('manager_id'),
-            'password': kw.get('password'),
-            'roles': ['Manager', 'Member'],
-            'email': kw.get('manager_email'),
-            'givenName': kw.get('manager_lastname', ''),
-            'sn': kw.get('manager_firstname', ''),
-        }
-        mdir.createEntry(entry)
+        self.afterImport(**kw)
 
         if snapshot is True:
             setup_tool.createSnapshot('initial_configuration')
@@ -127,7 +116,24 @@ class CPSSiteConfigurator(object):
         self.site._setObject(id, setup_tool)
         self.setup_tool = getToolByName(self.site, id)
 
+    def beforeImport(self, **kw):
+        self.addLanguages(**kw)
+
+    def addLanguages(self, languages=(), **kw):
+        """Add to the portal the languages selected in the install form.
+
+        This is done before the actual profile import. The Localizer importer
+        uses the portal's available_languages.
+        """
+        if not languages:
+            languages = ('en',)
+        self.site.available_languages = tuple(languages)
+
     def importProfiles(self, profile_id, extension_ids):
+        extension_ids = tuple(extension_ids)
+        for id in self.mandatory_extensions:
+            if id not in extension_ids:
+                extension_ids = extension_ids + (id,)
         setup_tool = self.setup_tool
         setup_tool.setImportContext('profile-%s' % profile_id)
         setup_tool.runAllImportSteps()
@@ -136,7 +142,11 @@ class CPSSiteConfigurator(object):
             setup_tool.runAllImportSteps()
         setup_tool.setImportContext('profile-%s' % profile_id)
 
-    def afterImport(self):
+    def afterImport(self, **kw):
+        self.setDefaultUpgradedVersion()
+        self.parseForm(**kw)
+
+    def setDefaultUpgradedVersion(self):
         self.site._setDefaultUpgradedVersion()
 
     def checkForm(self, site_id, **kw):
@@ -145,24 +155,9 @@ class CPSSiteConfigurator(object):
             raise ValueError("You have to provide an ID for the site!")
         self.parseForm(just_check=True, **kw)
 
-    def addLanguages(self, languages=(), **kw):
-        """add to the portal the languages selected in the CPS Site install form
-        """
-        defined_languages = self.site.Localizer.get_languages()
-        # add new languages
-        for language in languages:
-            if language not in defined_languages:
-                self.site.Localizer.manage_addLanguage(language)
-        # delete languages that are already added to the Localizer but have not
-        # been selected in the install form
-        languages_to_delete = [language for language in defined_languages 
-                               if language not in languages]
-        if languages_to_delete:
-            self.site.Localizer.manage_delLanguages(languages_to_delete)
-
     def parseForm(self, manager_id='', manager_email='',
-                  manager_firstname='', manager_lastname='', password='', 
-                  password_confirm='', title='', description='', languages=(),
+                  manager_firstname='', manager_lastname='', password='',
+                  password_confirm='', title='', description='',
                   just_check=False, **kw):
         title = title.strip()
         description = description.strip()
@@ -185,6 +180,26 @@ class CPSSiteConfigurator(object):
 
         if just_check:
             return
+
+        self.site.title = title
+        self.site.description = description
+        self.createAdministrator(manager_id, password, manager_email,
+                                 manager_firstname, manager_lastname)
+
+    def createAdministrator(self, manager_id, password, manager_email,
+                            manager_firstname, manager_lastname):
+        mdir = getToolByName(self.site, 'portal_directories').members
+        entry = {
+            'id': manager_id,
+            'password': password,
+            'roles': ('Manager', 'Member'),
+            'email': manager_email,
+            'givenName': manager_lastname,
+            'sn': manager_firstname,
+        }
+        mdir.createEntry(entry)
+
+
 
 _cpsconfigurator = CPSSiteConfigurator()
 

@@ -1,0 +1,189 @@
+/*
+<dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/javascript' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
+<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
+</dtml-let>
+*/
+/*
+# (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
+# Author: Tarek Ziadé <tz@nuxeo.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+#
+# $Id:$
+
+CPSDefault javascript layer
+*/
+
+var CPSContainerEditor = Class.create();
+
+CPSContainerEditor.prototype = {
+  initialize: function(working_text, folder_content, ajax_psm) {
+    this.working_text = working_text;
+    this.ajax_psm = ajax_psm;
+    this.folder_content = folder_content;
+    this.hookElements();
+  },
+
+  hookElements: function() {
+    this.draggables = document.getElementsByClassName('draggable');
+    this.droppables = document.getElementsByClassName('droppable');
+    this.draggable_objects = [];
+
+    // draggables
+    for (var i = 0; i < this.draggables.length; i++) {
+      var draggable = this.draggables[i];
+      var options = {handle: draggable.id,
+                     revert: true};
+      this.draggable_objects.push(new Draggable(draggable.id, options));
+    }
+
+    // droppables
+    var onDropElementBn = this.onDropElement.bind(this);
+
+    for (var i = 0; i < this.droppables.length; i++) {
+      var droppable = this.droppables[i];
+      var options = {accept: 'draggable', hoverclass: 'drophover',
+                     onDrop: onDropElementBn};
+
+      Droppables.add(droppable.id, options);
+    }
+  },
+
+  unHookElements: function() {
+    for (var i = 0; i < this.droppables.length; i++) {
+      var droppable = this.droppables[i];
+      Droppables.remove(droppable);
+    }
+
+    for (var i = 0; i < this.draggable_objects; i++) {
+      var draggable_object = this.draggable_objects[i];
+      draggable_object.destroy();
+      Droppables.remove(draggable_object);
+    }
+
+  },
+
+  arrayPosition: function(array, element) {
+    for (var i=0, length=array.length; i<length; i++) {
+      if (array[i] == element) {
+        return i;
+      }
+    }
+    return -1;
+  },
+
+  rowCompare: function(a, b) {
+    var aVal = a.value;
+    var bVal = b.value;
+    return (aVal == bVal ? 0 : (aVal > bVal ? 1 : -1));
+  },
+
+  dropElementCompleted: function(originalRequest) {
+    // getting new positions from the server
+    document.title = originalRequest.responseText;
+    if (originalRequest.responseText == '')
+      return;
+
+    new_positions = originalRequest.responseText.split(":");
+    for (var i=0, length=new_positions.length; i<length; i++) {
+      new_positions[i] = 'draggable' + new_positions[i];
+    }
+
+    // getting table lines
+    var table = document.getElementById(this.folder_content);
+    var tbody = table.getElementsByTagName('tbody')[0];
+
+    var rows = document.getElementsByClassName('ajaxtd');
+
+    var rowArray = new Array();
+
+    for (var i=0, length=rows.length; i<length; i++) {
+        current_id = this.draggables[i].id;
+        rowArray[i] = new Object;
+        rowArray[i].oldIndex = i;
+        rowArray[i].value = this.arrayPosition(new_positions, current_id);
+    }
+
+    // sorting
+    rowCompareBn = this.rowCompare.bind(this);
+    rowArray.sort(rowCompareBn);
+
+    // recreating the tbody tree
+    var newTbody = document.createElement('tbody');
+
+    for (var i=0, length=rowArray.length; i<length; i++) {
+        new_node = rows[rowArray[i].oldIndex].cloneNode(true)
+        new_node.childNodes[1].childNodes[1].style.top = 0;
+        new_node.childNodes[1].childNodes[1].style.left = 0;
+        newTbody.appendChild(new_node);
+    }
+
+    table.replaceChild(newTbody, tbody);
+    this.unHookElements();
+    this.hookElements();
+    this.onComplete();
+  },
+
+  onDropElement: function(element, droppableElement) {
+    var from_id = element.id;
+    var to_id = droppableElement.id;
+
+    if (from_id == to_id.replace('droppable', 'draggable'))
+      return;
+
+    var params = 'from_id=' + from_id + '&to_id=' + to_id;
+    url = 'ajaxMoveElement';
+    var dropElementCompletedBn = this.dropElementCompleted.bind(this);
+    var options = {parameters: params, onComplete: dropElementCompletedBn};
+
+    this.last_from_id = from_id;
+    this.last_to_id = to_id.replace('droppable', 'draggable');
+    this.onCreate();
+    var sender = new Ajax.Request(url, options);
+  },
+
+  onCreate: function() {
+    if ($(this.ajax_psm)) {
+      var elt = $(this.ajax_psm);
+      elt.innerHTML = this.working_text;
+      Effect.Appear(this.ajax_psm, {duration:0.5, queue:'end'});
+    }
+  },
+
+  onComplete: function() {
+    if ($(this.ajax_psm)) {
+      Effect.Fade(this.ajax_psm, {duration:1.5, queue:'end'});
+    }
+  },
+}
+
+
+/* helpers */
+
+function setCursor(obj, cursor)
+{
+  if (!cursor || cursor=="hand" || cursor=="pointer") {
+    if (navigator.appName == "Microsoft Internet Explorer")
+      isIE = true;
+    else
+      isIE = false;
+    cursor = isIE ? "hand" : "pointer";
+  }
+
+  obj.style.cursor = cursor;
+}

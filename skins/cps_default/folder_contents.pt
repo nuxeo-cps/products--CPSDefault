@@ -26,6 +26,17 @@
   </div>
 </metal:header>
 
+<metal:main fill-slot="javascript_head_slot">
+    <script type="text/javascript" src="prototype.js"
+      tal:attributes="src string:${base_url}prototype.js"></script>
+    <script type="text/javascript" src="effects.js"
+      tal:attributes="src string:${base_url}effects.js"></script>
+    <script type="text/javascript" src="dragdrop.js"
+      tal:attributes="src string:${base_url}dragdrop.js"></script>
+    <script type="text/javascript" src="cpsdefault.js"
+      tal:attributes="src string:${base_url}cpsdefault.js"></script>
+</metal:main>
+
 <metal:main fill-slot="main"
   tal:define="list_here python:checkPerm('List folder contents', here);">
 

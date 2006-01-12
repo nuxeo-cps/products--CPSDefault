@@ -18,8 +18,12 @@
                      is_local_manager python:member.has_role(
                                      ('Manager', 'WorkspaceManager'), here);
 ">
+  <div id="ajax_psm" style="display:none" tal:condition="python:not no_form">
+      ajax feedback
+  </div>
   <table tal:condition="python: not no_table and batch_items" width="100%" cellspacing="0"
-    cellpadding="5" summary="content column layout">
+    cellpadding="5" summary="content column layout" id="folder_content">
+    <tbody id="folder_content_tbody">
     <tal:block tal:repeat="item batch_items">
       <tal:block define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);
                          review_state python:info['review_state'];
@@ -27,27 +31,45 @@
                  condition="python:review_state != 'draft'
                                    or (review_state == 'draft' and proxy_creator == member_id)
                                    or is_local_manager">
-      <tr valign="top">
-        <td tal:condition="not:no_form" align="left" valign="top" width="5">
-        <input type="" name="" value="" id="" class="noborder"
-           tal:define="id item/getId"
-           tal:condition="python:review_state not in ('locked', 'draft')
-                                 or is_local_manager"
-           tal:attributes="value
-             python:site_wide and item.getContextUrl(utool=utool) or id;
-             id python:'cb_' + id;
-             checked python:id in choosen_ids;
-             type python:input_type;
-             name python:input_name;
-           " />
-        </td>
+      <tr valign="top" class="ajaxtd">
         <td align="left" valign="top">
-          <metal:block use-macro="python:path('here/content_lib_info_%s/macros/info_%s'%(format,format))" />
+          <div tal:attributes="id python:'draggable'+item.getId();
+                               class python:test(not no_form, 'draggable droppable', '');
+                               onmouseover python:test(not no_form, 'setCursor(this, \'move\')', '')">
+            <table summary="content">
+              <tr>
+                <td align="left" valign="top" width="5">
+                  <input type="" name="" value="" id="" class="noborder"
+                         tal:define="id item/getId"
+                         tal:condition="python:(review_state not in ('locked', 'draft')
+                                              or is_local_manager) and not no_form"
+                         tal:attributes="value
+                          python:site_wide and item.getContextUrl(utool=utool) or id;
+                          id python:'cb_' + id;
+                          checked python:id in choosen_ids;
+                          type python:input_type;
+                          name python:input_name;" />
+                </td>
+                <td>
+                  <metal:block
+                    use-macro="python:path('here/content_lib_info_%s/macros/info_%s'%(format,format))" />
+                </td>
+              </tr>
+            </table>
+          </div>
         </td>
       </tr>
       </tal:block>
     </tal:block>
+   </tbody>
   </table>
+  <tal:block tal:condition="python:not no_form"
+               tal:define="ajax_working_msg python:cpsmcat('ajax_working')">
+        <script langage="javascript" tal:content="structure string:
+                var editor = new CPSContainerEditor('${ajax_working_msg}',
+                                                    'folder_content', 'ajax_psm');">
+        </script>
+  </tal:block>
   <tal:block condition="no_table">
     <tal:block repeat="item batch_items">
     <tal:block define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);

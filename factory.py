@@ -93,6 +93,7 @@ class CPSSiteConfigurator(object):
         self.importProfiles(profile_id, extension_ids)
         self.afterImport()
         self.parseForm(**kw)
+        self.addLanguages(**kw)
 
         mdir = self.site.portal_directories.members
         entry = {
@@ -143,6 +144,21 @@ class CPSSiteConfigurator(object):
         if not site_id:
             raise ValueError("You have to provide an ID for the site!")
         self.parseForm(just_check=True, **kw)
+
+    def addLanguages(self, languages=(), **kw):
+        """add to the portal the languages selected in the CPS Site install form
+        """
+        defined_languages = self.site.Localizer.get_languages()
+        # add new languages
+        for language in languages:
+            if language not in defined_languages:
+                self.site.Localizer.manage_addLanguage(language)
+        # delete languages that are already added to the Localizer but have not
+        # been selected in the install form
+        languages_to_delete = [language for language in defined_languages 
+                               if language not in languages]
+        if languages_to_delete:
+            self.site.Localizer.manage_delLanguages(languages_to_delete)
 
     def parseForm(self, manager_id='', manager_email='',
                   manager_firstname='', manager_lastname='', password='', 

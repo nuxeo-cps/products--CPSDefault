@@ -74,7 +74,8 @@ class VariousImporter(object):
         """
         dtool = getToolByName(self.site, 'portal_directories')
         for role in self.default_roles:
-            dtool['roles'].createEntry({'role': role, 'members': []})
+            if not dtool['roles'].hasEntry(role):
+                dtool['roles'].createEntry({'role': role, 'members': []})
 
     def setupTranslationService(self):
         ts = getToolByName(self.site, 'translation_service')

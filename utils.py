@@ -99,11 +99,6 @@ def manageCPSLanguage(context, action, default_language, languages=None):
         for lang in languages:
             for catalog in catalogs:
                 catalog.manage_addLanguage(lang)
-
-        # XXX needs a tools to register po files for domains
-        # Update Localizer/default only !
-        #i18n_method = getattr(portal,'i18n Updater')
-        #i18n_method()
         psm = 'psm_language_added'
 
     elif action == 'delete':

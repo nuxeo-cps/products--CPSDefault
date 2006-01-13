@@ -19,14 +19,14 @@
         <table class="history listing" summary="archived revisions list">
           <thead>
             <tr>
-              <td i18n:translate="label_date">Date</td>
-              <td i18n:translate="label_revision">Version</td>
-              <td i18n:translate="label_language">Langue</td>
+              <th i18n:translate="label_date">Date</th>
+              <th i18n:translate="label_revision">Version</th>
+              <th i18n:translate="label_language">Langue</th>
               <tal:block condition="python:checkPerm('View archived revisions', here)">
-                <td i18n:translate="label_consultation">Consultation</td>
+                <th i18n:translate="label_consultation">Consultation</th>
                 <tal:block condition="python:checkPerm('Modify portal content', here)">
-                  <td i18n:translate="label_reversion">Reversion</td>
-                  <td i18n:translate="label_destruction">Destruction</td>
+                  <th i18n:translate="label_reversion">Reversion</th>
+                  <th i18n:translate="label_destruction">Destruction</th>
                 </tal:block>
               </tal:block>
             </tr>

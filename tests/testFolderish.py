@@ -184,6 +184,10 @@ class FolderishPublicationTestCase(FolderishTestCaseBase):
         # Test the behavior of the folderish documents after several
         # publications in a hierarchy of more than 1 level
 
+        # Disable the tree cache manager since the operations that
+        # will follow in this test produce invalid tree cache
+        # operations after multiple publications.
+
         from Products.CPSCore.TreeCacheManager import get_treecache_manager
         get_treecache_manager().disable()
         

@@ -1,3 +1,4 @@
+<tal:block condition="nothing">$Id$</tal:block>
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns="http://www.w3.org/1999/xhtml"
@@ -7,24 +8,23 @@
 <metal:block fill-slot="head_slot">
  <tal:block define="dummy python:request.set('breadcrumb_set',
     [{
-      'id': 'reconfig_form',
-      'url': '%sreconfig_form' % base_url,
+      'id': 'config_form',
+      'url': '%sconfig_form' % base_url,
       'title': cpsmcat('heading_reconfig_portal'),
     },
    ]);" />
 </metal:block>
 
-<metal:header fill-slot="header">
-  <h1 i18n:translate="heading_reconfig_portal">
-    Configure Portal
-  </h1>
-  <p class="description" i18n:translate="description_reconfig_form">
-    This form is used to set the portal configuration options.
-  </p>
+<metal:header fill-slot="header"
+              tal:define="mtool here/portal_membership;
+                          checkPerm nocall:mtool/checkPermission;">
+  <h1 i18n:translate="heading_reconfig_portal">Configure Portal</h1>
+  <tal:block condition="python:not checkPerm('Manage Portlets', here)">
+    <tal:block define="dummy request/RESPONSE/unauthorized" />
+  </tal:block>
 </metal:header>
 
 <metal:main fill-slot="main">
-
   <form action="" method="post"
         tal:attributes="action string:${base_url}reconfig"
         tal:define="pprops here/portal_properties">
@@ -137,6 +137,83 @@
               i18n:translate="button_cancel">Cancel</button>
     </p>
   </form>
+
+
+<tal:block tal:define="language_voc here/portal_vocabularies/language_voc;
+                       language_keys python:language_voc.keysSortedBy('i18n');
+                       languages python:[lang['id'] for lang in here.translation_service.getLanguagesMap()];
+                       default_language here/translation_service/getDefaultLanguage;">
+
+<tal:block tal:condition="python:len(languages) > 0">
+  <h2 i18n:translate="language_set_default">Set default portal language</h2>
+  <form tal:attributes="action here/portal_url" method="post">
+    <p>
+    <label for="defaultLanguageChooser"
+           i18n:translate="label_language">Language</label>
+    <select name="default_language" id="defaultLanguageChooser">
+      <tal:language repeat="language language_keys">
+        <option tal:condition="python:language in languages"
+                tal:attributes="value language;
+                                label language;
+                                selected python:test(language==default_language,'selected', nothing);"
+                tal:content="python:language_voc.getMsgid(language)"
+                i18n:translate="">Language</option>
+      </tal:language>
+    </select><br/>
+    <input type="hidden" name="action" value="chooseDefault"/>
+    <button type="submit" name="manageCPSLanguage:method"
+            i18n:translate="button_select">Select</button>
+    </p>
+  </form>
+</tal:block>
+
+<tal:block tal:condition="python:len(language_keys) > len(languages)">
+  <h2 i18n:translate="language_add">Add languages</h2>
+  <form tal:attributes="action here/portal_url" method="post">
+    <p>
+    <tal:block repeat="language language_keys">
+      <tal:block condition="python:language not in languages">
+        <input type="checkbox" name="languages" value="en"
+               tal:attributes="value language;id language;"/>
+        <label tal:content="python:language_voc.getMsgid(language)"
+               tal:attributes="for language;"
+               i18n:translate="">language</label><br/>
+      </tal:block>
+    </tal:block>
+    </p>
+    <p>
+      <input type="hidden" name="action" value="add"/>
+      <button type="submit" name="manageCPSLanguage:method"
+              i18n:translate="button_add">Add</button>
+    </p>
+  </form>
+</tal:block>
+
+<tal:block tal:condition="python:len(languages) > 0">
+  <h2 i18n:translate="language_delete">Delete languages</h2>
+  <form tal:attributes="action here/portal_url" method="post">
+    <p>
+    <tal:block repeat="language language_keys">
+      <tal:block condition="python:language in languages">
+        <input type="checkbox" name="languages" value="en"
+               tal:attributes="value language;id language;"/>
+        <label tal:content="python:language_voc.getMsgid(language)"
+               tal:attributes="for language;"
+               i18n:translate="">language</label><br/>
+      </tal:block>
+    </tal:block>
+    </p>
+    <p>
+      <input type="hidden" name="action" value="delete"/>
+      <button type="submit" name="manageCPSLanguage:method"
+              i18n:translate="button_delete">Delete</button>
+    </p>
+  </form>
+</tal:block>
+
+</tal:block>
+
+
 </metal:main>
 </body>
 </html>

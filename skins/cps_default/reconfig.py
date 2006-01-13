@@ -25,5 +25,5 @@ portal.portal_properties.editProperties({
     'smtp_server': form.get('smtp_server'),
     })
 
-url = '%s/reconfig_form?portal_status_message=psm_portal_reconfigured'
+url = '%s/config_form?portal_status_message=psm_portal_reconfigured'
 return REQUEST.RESPONSE.redirect(url % portal.portal_url())

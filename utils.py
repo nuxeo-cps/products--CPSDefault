@@ -102,8 +102,8 @@ def manageCPSLanguage(context, action, default_language, languages=None):
 
         # XXX needs a tools to register po files for domains
         # Update Localizer/default only !
-        i18n_method = getattr(portal,'i18n Updater')
-        i18n_method()
+        #i18n_method = getattr(portal,'i18n Updater')
+        #i18n_method()
         psm = 'psm_language_added'
 
     elif action == 'delete':

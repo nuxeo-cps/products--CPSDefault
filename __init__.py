@@ -25,8 +25,8 @@ from Products.CMFCore.permissions import AddPortalContent
 from Products.GenericSetup import BASE
 from Products.GenericSetup import profile_registry
 
+from Products.CPSCore.interfaces import ICPSSite
 from Products.CPSDefault import factory
-from Products.CPSDefault.interfaces import ICPSSite
 from Products.CPSDefault.Portal import CPSDefaultSite
 
 

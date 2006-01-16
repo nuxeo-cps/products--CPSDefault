@@ -36,6 +36,8 @@ ZopeTestCase.installProduct('CPSSkins', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
+ZopeTestCase.installProduct('ExternalEditor', quiet=1)
+ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
 ZopeTestCase.installProduct('Five', quiet=1)
 
 # XXX: these products should (and used to be) be optional, but they aren't
@@ -191,6 +193,12 @@ class CPSTestCase(ZopeTestCase.PortalTestCase, EventTest):
     # Override _setup, setUp is not supposed to be overriden
     def _setup(self):
 
+        # FIXME: ugly hack, fixing something that is broken elsewhere
+        members_directory = self.app.portal.portal_directories.members
+        entries = members_directory._searchEntries()
+        if 'test_user_1_' in entries:
+            members_directory._delObject('test_user_1_')
+
         ZopeTestCase.PortalTestCase._setup(self)
 
         # Some skins need sessions (not sure if it's a good thing).
@@ -278,14 +286,28 @@ class CPSInstaller:
         newSecurityManager(None, user)
 
     def addPortal(self, portal_id):
-        factory = self.app.manage_addProduct['CPSDefault']
-        factory.manage_addCPSDefaultSite(portal_id,
-                                         langs_list=['en', 'fr', 'de'],
-                                         manager_id=MANAGER_ID,
-                                         manager_email=MANAGER_EMAIL,
-                                         manager_password=MANAGER_PASSWORD,
-                                         manager_password_confirmation=MANAGER_PASSWORD,
-                                         )
+        from Products.CPSDefault import factory
+
+        factory.addConfiguredCPSSite(self.app,
+                                     profile_id='CPSDefault:default',
+                                     site_id=portal_id,
+                                     languages=['en', 'fr', 'de'],
+                                     manager_id=MANAGER_ID,
+                                     manager_email=MANAGER_EMAIL,
+                                     password=MANAGER_PASSWORD,
+                                     password_confirm=MANAGER_PASSWORD,
+                                     )
+
+        assert getattr(self.app, portal_id)
+
+        #factory = self.app.manage_addProduct['CPSDefault']
+        #factory.manage_addCPSDefaultSite(portal_id,
+        #                                 langs_list=['en', 'fr', 'de'],
+        #                                 manager_id=MANAGER_ID,
+        #                                 manager_email=MANAGER_EMAIL,
+        #                                 manager_password=MANAGER_PASSWORD,
+        #                                 manager_password_confirmation=MANAGER_PASSWORD,
+        #                                 )
 
     # Change translation_service to DummyTranslationService
     def fixupTranslationServices(self, portal_id):

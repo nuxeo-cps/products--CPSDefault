@@ -28,6 +28,7 @@ from AccessControl.SecurityManagement import noSecurityManager
 #from Products.CPSDefault.tests.CPSTestCase import PORTAL_ID
 #from Products.CPSDefault.tests.CPSTestCase import CPSInstaller
 
+PROFILE_ID = 'CPSDefault:default'
 PORTAL_ID = 'portal'
 MANAGER_ID = 'manager'
 MANAGER_EMAIL = 'webmaster@localhost'
@@ -95,7 +96,7 @@ class CPSDefaultLayerClass(object):
     def addPortal(self):
         from Products.CPSDefault.factory import addConfiguredCPSSite
         addConfiguredCPSSite(self.app,
-                             profile_id='CPSDefault:default',
+                             profile_id=PROFILE_ID,
                              snapshot=False,
                              site_id=PORTAL_ID,
                              title='CPSDefault Portal',
@@ -111,3 +112,26 @@ class CPSDefaultLayerClass(object):
 
 
 CPSDefaultLayer = CPSDefaultLayerClass(__name__, 'CPSDefaultLayer')
+
+
+class ExtensionProfileLayerClass(object):
+
+    __bases__ = (CPSDefaultLayer,)
+
+    extension_ids = ()
+
+    def __init__(self, module, name):
+        self.__module__ = module
+        self.__name__ = name
+
+    def setUp(self):
+        app = ZopeTestCase.app()
+        tool = getattr(app, PORTAL_ID).portal_setup
+        for extension_id in self.extension_ids:
+            tool.setImportContext('profile-%s' % extension_id)
+            tool.runAllImportSteps()
+        tool.setImportContext('profile-%s' % PROFILE_ID)
+        transaction.commit()
+
+    def tearDown(self):
+        pass

@@ -291,6 +291,8 @@ class CPSInstaller:
         factory.addConfiguredCPSSite(self.app,
                                      profile_id='CPSDefault:default',
                                      site_id=portal_id,
+                                     # Old default string
+                                     title='CPSDefault Portal',
                                      languages=['en', 'fr', 'de'],
                                      manager_id=MANAGER_ID,
                                      manager_email=MANAGER_EMAIL,
@@ -300,14 +302,6 @@ class CPSInstaller:
 
         assert getattr(self.app, portal_id)
 
-        #factory = self.app.manage_addProduct['CPSDefault']
-        #factory.manage_addCPSDefaultSite(portal_id,
-        #                                 langs_list=['en', 'fr', 'de'],
-        #                                 manager_id=MANAGER_ID,
-        #                                 manager_email=MANAGER_EMAIL,
-        #                                 manager_password=MANAGER_PASSWORD,
-        #                                 manager_password_confirmation=MANAGER_PASSWORD,
-        #                                 )
 
     # Change translation_service to DummyTranslationService
     def fixupTranslationServices(self, portal_id):

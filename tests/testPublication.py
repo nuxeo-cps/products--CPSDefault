@@ -3,7 +3,6 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from pprint import pprint
 from Testing import ZopeTestCase
 import CPSDefaultTestCase
 
@@ -77,7 +76,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEquals(info['level'], level)
         self.assertEquals(info['rev'], '1')
         self.assertEquals(info['review_state'], 'work')
-        self.assertEquals(info['rpath'], 'workspaces/members/member/news')
+        self.assertEquals(info['rpath'], 'members/member/news')
         self.assert_(isinstance(info['time'], DateTime))
         self.assertEquals(info['time_str'], 'date_medium')
         self.assertEquals(info['title'], '')
@@ -106,7 +105,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(state['language'], 'en')
             self.assertEquals(state['rev'], '1')
             self.assertEquals(state['review_state'], 'work')
-            self.assertEquals(state['rpath'], 'workspaces/members/member')
+            self.assertEquals(state['rpath'], 'members/member')
             self.assert_(isinstance(state['time'], DateTime))
             self.assertEquals(state['time_str'], 'date_medium')
             self.assertEquals(state['title'], 'member')
@@ -117,8 +116,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(history['actor'], 'member')
             self.assertEquals(history['dest_container'], '')
             self.assertEquals(history['review_state'], 'work')
-            self.assertEquals(history['rpath'],
-                              'workspaces/members/member/news')
+            self.assertEquals(history['rpath'], 'members/member/news')
             self.assert_(isinstance(history['time'], DateTime))
             self.assertEquals(history['time_str'], 'date_medium')
             self.assertEquals(history['workflow_id'], 'workspace_content_wf')
@@ -269,7 +267,6 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         del all_document_types['Workspace']
         del all_document_types['Section']
         for document_type in all_document_types.keys():
-	    # print "submit document type %s" % document_type
             self._testSubmit(document_type)
 
 

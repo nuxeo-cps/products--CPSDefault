@@ -2,8 +2,15 @@
 # CPSTestCase
 #
 
+import os
+import time
+import transaction
 from Testing import ZopeTestCase
-import Products
+from zope.app.testing.functional import ZCMLLayer
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import noSecurityManager
+
+#import Products
 
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
@@ -77,9 +84,124 @@ LocalizerStringIO.write = LocalizerStringIO_write
 LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
 
+PROFILE_ID = 'CPSDefault:default'
+PORTAL_ID = 'portal'
+MANAGER_ID = 'manager'
+MANAGER_EMAIL = 'webmaster@localhost'
+MANAGER_PASSWORD = 'passwd'
+
+##################################################
+# Layers
+
+config_file = 'cpsdefaultlayer.zcml'
+config_file = os.path.join(os.path.dirname(__file__), config_file)
+
+CPSZCMLLayer = ZCMLLayer(config_file, __name__, 'CPSZCMLLayer')
+
+
+class CPSDefaultLayerClass(object):
+    """Layer to test CPS.
+
+    The goal of a testrunner layer is to isolate initializations common
+    to a lot of testcases. The setUp of the layer is run only once, then
+    all tests for the testcases belonging to the layer are run.
+    """
+
+    # The setUp of bases is called autmatically first
+    __bases__ = (CPSZCMLLayer,)
+
+    def __init__(self, module, name):
+        self.__module__ = module
+        self.__name__ = name
+
+    def setUp(self):
+        self.setSynchronous()
+        self.app = ZopeTestCase.app()
+        self.install()
+
+    def tearDown(self):
+        self.unSetSynchronous()
+
+    def setSynchronous(self):
+        # During setup and tests we want synchronous indexing.
+        from Products.CPSCore.IndexationManager import get_indexation_manager
+        from Products.CPSCore.IndexationManager import IndexationManager
+        IndexationManager.DEFAULT_SYNC = True # Monkey patch
+        get_indexation_manager().setSynchronous(True) # Current transaction
+
+    def unSetSynchronous(self):
+        from Products.CPSCore.IndexationManager import IndexationManager
+        IndexationManager.DEFAULT_SYNC = False # Monkey patch
+
+    def install(self):
+        self.addRootUser()
+        self.login()
+        self.addPortal()
+        #self.fixupTranslationServices(portal_id)
+        #self.setupCPSSkins(portal_id)
+        self.logout()
+        transaction.commit()
+
+    def addRootUser(self):
+        aclu = self.app.acl_users
+        aclu._doAddUser('CPSTestCase', '', ['Manager'], [])
+
+    def login(self):
+        aclu = self.app.acl_users
+        user = aclu.getUserById('CPSTestCase').__of__(aclu)
+        newSecurityManager(None, user)
+
+    def addPortal(self):
+        from Products.CPSDefault.factory import addConfiguredCPSSite
+        addConfiguredCPSSite(self.app,
+                             profile_id=PROFILE_ID,
+                             snapshot=False,
+                             site_id=PORTAL_ID,
+                             title='CPSDefault Portal',
+                             languages=['en', 'fr', 'de'],
+                             manager_id=MANAGER_ID,
+                             manager_email=MANAGER_EMAIL,
+                             password=MANAGER_PASSWORD,
+                             password_confirm=MANAGER_PASSWORD,
+                             )
+
+    def logout(self):
+        noSecurityManager()
+
+
+CPSDefaultLayer = CPSDefaultLayerClass(__name__, 'CPSDefaultLayer')
+
+
+class ExtensionProfileLayerClass(object):
+
+    __bases__ = (CPSDefaultLayer,)
+
+    extension_ids = ()
+
+    def __init__(self, module, name):
+        self.__module__ = module
+        self.__name__ = name
+
+    def setUp(self):
+        app = ZopeTestCase.app()
+        tool = getattr(app, PORTAL_ID).portal_setup
+        for extension_id in self.extension_ids:
+            tool.setImportContext('profile-%s' % extension_id)
+            tool.runAllImportSteps()
+        tool.setImportContext('profile-%s' % PROFILE_ID)
+        transaction.commit()
+
+    def tearDown(self):
+        pass
+
+
+##################################################
+# TestCase
+
+
 class CPSTestCase(ZopeTestCase.PortalTestCase):
 
-    layer = 'Products.CPSDefault.tests.CPSDefaultLayer.CPSDefaultLayer'
+    layer = CPSDefaultLayer
 
     # Override _setup, setUp is not supposed to be overriden
     def _setup(self):
@@ -157,8 +279,3 @@ def setupPortal(*args, **kw):
 
 class CPSInstaller(object):
     pass
-
-from Products.CPSDefault.tests.CPSDefaultLayer import PORTAL_ID
-from Products.CPSDefault.tests.CPSDefaultLayer import MANAGER_ID
-from Products.CPSDefault.tests.CPSDefaultLayer import MANAGER_EMAIL
-from Products.CPSDefault.tests.CPSDefaultLayer import MANAGER_PASSWORD

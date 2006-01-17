@@ -2,10 +2,7 @@
 # CPSTestCase
 #
 
-import os, tempfile
-import zLOG
 from Testing import ZopeTestCase
-from Products.CPSCore.tests.setup import EventTest, eventSetUp
 import Products
 
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
@@ -17,9 +14,9 @@ ZopeTestCase.installProduct('CMFTopic', quiet=1)
 ZopeTestCase.installProduct('CMFSetup', quiet=1)
 ZopeTestCase.installProduct('DCWorkflow', quiet=1)
 ZopeTestCase.installProduct('Localizer', quiet=1)
-ZopeTestCase.installProduct('CPSBoxes', quiet=0)
-ZopeTestCase.installProduct('CPSPortlets', quiet=0)
-ZopeTestCase.installProduct('CPSNavigation', quiet=0)
+ZopeTestCase.installProduct('CPSBoxes', quiet=1)
+ZopeTestCase.installProduct('CPSPortlets', quiet=1)
+ZopeTestCase.installProduct('CPSNavigation', quiet=1)
 ZopeTestCase.installProduct('CPSRSS', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
 ZopeTestCase.installProduct('CPSWorkflow', quiet=1)
@@ -47,41 +44,6 @@ ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
 
-try:
-    import transaction
-except ImportError:
-    # BBB: for Zope 2.7
-    from Products.CMFCore.utils import transaction
-
-
-
-PORTAL_ID = 'portal'
-MANAGER_ID = 'manager'
-MANAGER_EMAIL = 'webmaster@localhost'
-MANAGER_PASSWORD = 'passwd'
-
-# Optional products
-for product in ('CPSChat', 'CPSCalendar', 'CPSCollector',
-        'CPSMailBoxer'):
-    try:
-        ZopeTestCase.installProduct(product, quiet=1)
-    except:
-        pass
-
-test_cpsskins = (os.environ.get('CPSSKINS_TARGET', '') == 'CPS3')
-if test_cpsskins:
-    try:
-        ZopeTestCase.installProduct('CPSSkins', quiet=1)
-        import Products.CPSSkins
-    except ImportError:
-        test_cpsskins = False
-
-from AccessControl.SecurityManagement \
-    import newSecurityManager, noSecurityManager
-from AccessControl import ClassSecurityInfo
-from Globals import InitializeClass
-
-import time
 
 # The folowing are patches needed because Localizer doesn't work
 # well within ZTC
@@ -91,73 +53,8 @@ def get_selected_language(self):
     """ """
     return self._default_language
 
-
 from Products.Localizer.Localizer import Localizer
 Localizer.get_selected_language = get_selected_language
-
-from OFS.SimpleItem import SimpleItem
-class DummyTranslationService(SimpleItem):
-    meta_type = 'Translation Service'
-    id = 'translation_service'
-
-    def translate(self, domain, msgid, *args, **kw):
-        return msgid
-
-    def translateDefault(self, msgid, target_language, *args, **kw):
-        if msgid == 'words_meaningless' and target_language == 'en':
-            msgstr = "a the this these those of am is are has have or and i maybe perhaps"
-        elif msgid == 'words_meaningless' and target_language == 'fr':
-            msgstr = "et ou un une le la les l de des ces que qui est sont a ont je voici"
-        else:
-            msgstr = msgid
-        return msgstr
-
-    def __call__(self, *args, **kw):
-        return self.translate('default', *args, **kw)
-
-    def getDomainInfo(self):
-        return [(None, 'Localizer/default')]
-
-    def manage_addDomainInfo(self, domain, path, REQUEST=None, **kw):
-        pass
-
-    def getDefaultLanguage(self):
-        return 'en'
-
-    def getSelectedLanguage(self):
-        return 'en'
-
-    def getSupportedLanguages(self):
-        return ['en', 'fr', 'de']
-
-class DummyMessageCatalog(SimpleItem):
-    security = ClassSecurityInfo()
-    def __call__(self, message, *args, **kw):
-        #return self.gettext(self, message, lang, args, kw)
-        return message
-
-    security.declarePublic('gettext')
-    def gettext(self, message, lang=None, *args, **kw):
-        if message == 'words_meaningless' and lang == 'en':
-            message = "a the this these those of am is are has have or and i maybe perhaps"
-        elif message == 'words_meaningless' and lang == 'fr':
-            message = "un une le la les l de des ces est sont a ont ou et je voici"
-        return message
-
-    def get_selected_language(self):
-        "xxx"
-        return 'fr'
-
-    def get_languages(self):
-        return ['en', 'fr', 'de']
-
-    def manage_import(self, *args, **kw):
-        pass
-
-    def wl_isLocked(self):
-        return None # = False
-
-InitializeClass(DummyMessageCatalog)
 
 
 from StringIO import StringIO
@@ -180,15 +77,9 @@ LocalizerStringIO.write = LocalizerStringIO_write
 LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 
 
-class CPSTestCase(ZopeTestCase.PortalTestCase, EventTest):
+class CPSTestCase(ZopeTestCase.PortalTestCase):
 
-    def setUp(self):
-        EventTest.setUp(self)
-        ZopeTestCase.PortalTestCase.setUp(self)
-
-    def tearDown(self):
-        ZopeTestCase.PortalTestCase.tearDown(self)
-        EventTest.tearDown(self)
+    layer = 'Products.CPSDefault.tests.CPSDefaultLayer.CPSDefaultLayer'
 
     # Override _setup, setUp is not supposed to be overriden
     def _setup(self):
@@ -208,9 +99,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase, EventTest):
         self.portal.REQUEST['SESSION'] = SESSION
         self.portal.REQUEST.SESSION = SESSION
 
-    def printLogErrors(self, min_severity=zLOG.INFO):
+    def printLogErrors(self, min_severity=0):
         """Print out the log output on the console.
         """
+        import zLOG
         if hasattr(zLOG, 'old_log_write'):
             return
         def log_write(subsystem, severity, summary, detail, error,
@@ -221,6 +113,8 @@ class CPSTestCase(ZopeTestCase.PortalTestCase, EventTest):
         zLOG.log_write = log_write
 
     def isValidXML(self, xml):
+        import os
+        import tempfile
         filename = tempfile.mktemp()
         fd = open(filename, "wc")
         fd.write(xml)
@@ -252,120 +146,19 @@ class CPSTestCase(ZopeTestCase.PortalTestCase, EventTest):
         return is_valid
 
 
-class CPSInstaller:
-    def __init__(self, app, quiet=0):
-        if not quiet:
-            ZopeTestCase._print('Adding Portal Site ... ')
-        self.app = app
-        self._start = time.time()
-        self._quiet = quiet
+##################################################
 
-    def install(self, portal_id):
+# The following BBB are for old code still importing these names.
 
-        # During setup and tests we want synchronous indexing.
-        from Products.CPSCore.IndexationManager import get_indexation_manager
-        from Products.CPSCore.IndexationManager import IndexationManager
-        IndexationManager.DEFAULT_SYNC = True # Monkey patch
-        get_indexation_manager().setSynchronous(True) # Current transaction
+def setupPortal(*args, **kw):
+    import warnings
+    warnings.warn("setupPortal shouldn't be used anymore.",
+                  DeprecationWarning, stacklevel=2)
 
-        self.addUser()
-        self.login()
-        self.addPortal(portal_id)
-        self.fixupTranslationServices(portal_id)
-        if test_cpsskins:
-            self.setupCPSSkins(portal_id)
-        self.logout()
+class CPSInstaller(object):
+    pass
 
-    def addUser(self):
-        uf = self.app.acl_users
-        uf._doAddUser('CPSTestCase', '', ['Manager'], [])
-
-    def login(self):
-        uf = self.app.acl_users
-        user = uf.getUserById('CPSTestCase').__of__(uf)
-        newSecurityManager(None, user)
-
-    def addPortal(self, portal_id):
-        from Products.CPSDefault import factory
-
-        factory.addConfiguredCPSSite(self.app,
-                                     profile_id='CPSDefault:default',
-                                     site_id=portal_id,
-                                     # Old default string
-                                     title='CPSDefault Portal',
-                                     languages=['en', 'fr', 'de'],
-                                     manager_id=MANAGER_ID,
-                                     manager_email=MANAGER_EMAIL,
-                                     password=MANAGER_PASSWORD,
-                                     password_confirm=MANAGER_PASSWORD,
-                                     )
-
-        assert getattr(self.app, portal_id)
-
-
-    # Change translation_service to DummyTranslationService
-    def fixupTranslationServices(self, portal_id):
-        portal = getattr(self.app, portal_id)
-        # XXX don't know why we use a fake translation service
-        # we only need to add getSelectedLanguage and getLanguage methods
-        # to TranslationService.Domain.DummyDomain to use the real one
-        portal.translation_service = DummyTranslationService()
-        localizer = portal.Localizer
-        for domain in localizer.objectIds():
-            setattr(localizer, domain, DummyMessageCatalog())
-
-    # This will go away when CPSSkins will get integrated in CPSDefault
-    def setupCPSSkins(self, portal_id):
-        portal = getattr(self.app, portal_id)
-        factory = portal.manage_addProduct['CPSSkins']
-        factory.manage_addCPSSkins(portal_id, SourceSkin='Basic',
-             Target='CPS3', ReinstallDefaultThemes=1)
-
-    def logout(self):
-        noSecurityManager()
-        transaction.commit()
-        if not self._quiet:
-            ZopeTestCase._print('done (%.3fs)\n'
-                % (time.time() - self._start,))
-
-
-def optimize():
-    '''Significantly reduces portal creation time.'''
-    def __init__(self, text):
-        # Don't compile expressions on creation
-        self.text = text
-    from Products.CMFCore.Expression import Expression
-    Expression.__init__ = __init__
-
-    def _cloneActions(self):
-        # Don't clone actions but convert to list only
-        return list(self._actions)
-    from Products.CMFCore.ActionProviderBase import ActionProviderBase
-    ActionProviderBase._cloneActions = _cloneActions
-
-optimize()
-
-class FakeErrorLog:
-    def raising(self, *args):
-        pass
-
-##############################################################
-##############################################################
-
-def setupPortal(PortalInstaller=CPSInstaller):
-    # Create a CPS site in the test (demo-) storage
-    app = ZopeTestCase.app()
-
-    # PortalTestCase expects object to be called "portal", not "cps"
-    if hasattr(app, PORTAL_ID):
-        app.manage_delObjects([PORTAL_ID])
-
-    # Add an error_log (used by CMFQuickInstaller)
-    app.error_log = FakeErrorLog()
-
-    # Initialize component architecture and load all ZCML
-    from Products.CPSCore.tests.setup import fullFiveSetup
-    fullFiveSetup()
-
-    PortalInstaller(app).install(PORTAL_ID)
-    ZopeTestCase.close(app)
+from Products.CPSDefault.tests.CPSDefaultLayer import PORTAL_ID
+from Products.CPSDefault.tests.CPSDefaultLayer import MANAGER_ID
+from Products.CPSDefault.tests.CPSDefaultLayer import MANAGER_EMAIL
+from Products.CPSDefault.tests.CPSDefaultLayer import MANAGER_PASSWORD

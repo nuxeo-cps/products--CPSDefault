@@ -8,7 +8,7 @@
 */
 /*
 # (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
-# Author: Tarek Ziadé <tz@nuxeo.com>
+# Author: Tarek ZiadÃ© <tz@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -32,16 +32,18 @@ CPSDefault javascript layer
 var CPSContainerEditor = Class.create();
 
 CPSContainerEditor.prototype = {
-  initialize: function(working_text, folder_content, ajax_psm) {
+  initialize: function(draggable_class, droppable_class, working_text, folder_content, ajax_psm) {
     this.working_text = working_text;
     this.ajax_psm = ajax_psm;
     this.folder_content = folder_content;
+    this.draggable_class = draggable_class;
+    this.droppable_class = droppable_class;
     this.hookElements();
   },
 
   hookElements: function() {
-    this.draggables = document.getElementsByClassName('draggable');
-    this.droppables = document.getElementsByClassName('droppable');
+    this.draggables = document.getElementsByClassName(this.draggable_class);
+    this.droppables = document.getElementsByClassName(this.droppable_class);
     this.draggable_objects = [];
 
     // draggables
@@ -96,23 +98,32 @@ CPSContainerEditor.prototype = {
   dropElementCompleted: function(originalRequest) {
     // getting new positions from the server
     document.title = originalRequest.responseText;
+
     if (originalRequest.responseText == '')
       return;
 
-    new_positions = originalRequest.responseText.split(":");
+    var new_positions = originalRequest.responseText.split(":");
     for (var i=0, length=new_positions.length; i<length; i++) {
       new_positions[i] = 'draggable' + new_positions[i];
     }
 
+    // checking if elements where moved in some other place
+    var new_draggables = new Array();
+    for (var i=0, length=this.draggables.length; i<length; i++) {
+      element_id = this.draggables[i].id;
+      if (this.arrayPosition(new_positions, element_id) != -1) {
+        new_draggables.push(this.draggables[i]);
+      }
+    }
+    this.draggables = new_draggables;
+
     // getting table lines
     var table = document.getElementById(this.folder_content);
     var tbody = table.getElementsByTagName('tbody')[0];
-
     var rows = document.getElementsByClassName('ajaxtd');
-
     var rowArray = new Array();
 
-    for (var i=0, length=rows.length; i<length; i++) {
+    for (var i=0, length=this.draggables.length; i<length; i++) {
         current_id = this.draggables[i].id;
         rowArray[i] = new Object;
         rowArray[i].oldIndex = i;
@@ -125,7 +136,6 @@ CPSContainerEditor.prototype = {
 
     // recreating the tbody tree
     var newTbody = document.createElement('tbody');
-
     for (var i=0, length=rowArray.length; i<length; i++) {
         new_node = rows[rowArray[i].oldIndex].cloneNode(true)
         new_node.childNodes[1].childNodes[1].style.top = 0;

@@ -43,7 +43,7 @@ class AjaxFolderView(BrowserView):
         except Unauthorized:
             return False
 
-        # 1/ not reflective
+        # 2/ not reflective
         if to_folder is proxy_folder:
             return False
 
@@ -59,7 +59,12 @@ class AjaxFolderView(BrowserView):
         if element_type not in allowed_types:
             return False
 
-        # 4/ XXX ugly hack
+        # 5/ TODO: when the user moves documents
+        # from workspaces to sections and on the other way
+        # we need to change their state here, like what's done
+        # in regular copy-cut-paste operations
+
+        # 6/ XXX ugly hack
         # the element is not a member folder or
         # the members folders itself
         url = proxy_folder[from_id].absolute_url().lower()

@@ -67,7 +67,8 @@
   <tal:block tal:condition="python:not no_form"
                tal:define="ajax_working_msg python:cpsmcat('ajax_working')">
         <script langage="javascript" tal:content="structure string:
-                var editor = new CPSContainerEditor('${ajax_working_msg}',
+                var editor = new CPSContainerEditor('draggable', 'droppable',
+                                                    '${ajax_working_msg}',
                                                     'folder_content', 'ajax_psm');">
         </script>
   </tal:block>

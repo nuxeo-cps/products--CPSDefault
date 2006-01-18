@@ -24,6 +24,18 @@ Let's create a fake folder for our tests and plug the view::
     ...
     ...     def objectIds(self):
     ...         return self.items
+    ...
+    ...     def restrictedTraverse(self, url):
+    ...         return FakeFolder()
+    ...
+    ...     def manage_cutObjects(self, ids):
+    ...         for id in ids:
+    ...             if id in self.items:
+    ...                 del self.items[self.items.index(id)]
+    ...
+    ...     def manage_pasteObjects(self, cb):
+    ...         pass
+    ...
     >>> MyFolder = FakeFolder()
 
 Now let's try to move elements::
@@ -36,4 +48,10 @@ Now let's try to move elements::
     >>> MyFolder.items
     ['c', 'b', 'a']
 
+AjaxFolderView also know how to move an element in another container::
 
+    >>> MyView = AjaxFolderView(MyFolder, None)
+    >>> MyView.moveElement('draggablea', 'better/here')
+    'c:b'
+    >>> MyFolder.items
+    ['c', 'b']

@@ -31,18 +31,27 @@ class AjaxFolderView(BrowserView):
                 element = element[len(header):]
         return element
 
+    def _isUrl(self, id):
+        return id.find('/') != -1
+
     def moveElement(self, from_id, to_id):
         """ moving elements from a dragdrop action """
         headers = ('draggable', 'droppable')
         from_id = self._removingHeaders(from_id, headers)
-        to_id = self._removingHeaders(to_id, headers)
-
-        if from_id == to_id:
-            return ''
-
         proxy_folder = self.context
-        to_position = proxy_folder.getObjectPosition(to_id)
-        proxy_folder.moveObjectToPosition(from_id, to_position)
+
+        if self._isUrl(to_id):
+            # moving object to another container
+            to_folder = proxy_folder.restrictedTraverse(to_id)
+            cb_data = proxy_folder.manage_cutObjects([from_id])
+            to_folder.manage_pasteObjects(cb_data)
+        else:
+            # moving object's position
+            to_id = self._removingHeaders(to_id, headers)
+            if from_id == to_id:
+                return ''
+            to_position = proxy_folder.getObjectPosition(to_id)
+            proxy_folder.moveObjectToPosition(from_id, to_position)
 
         return ':'.join([id for id in proxy_folder.objectIds()
                          if not id.startswith('.')])

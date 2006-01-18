@@ -21,6 +21,7 @@
     View that knows how to deal with ajax requests
     on folder
 """
+from AccessControl import Unauthorized
 from Products.Five import BrowserView
 
 class AjaxFolderView(BrowserView):
@@ -35,19 +36,48 @@ class AjaxFolderView(BrowserView):
         return id.find('/') != -1
 
     def _checkElementMove(self, from_id, to_place):
-        # XXX check here if :
-        # 1/ the target container can hold the object
-        # 2/ the user has all rights
+        proxy_folder = self.context
+        # 1/ the user has all rights
+        try:
+            to_folder = proxy_folder.restrictedTraverse(to_place)
+        except Unauthorized:
+            return False
+
+        # 1/ not reflective
+        if to_folder is proxy_folder:
+            return False
+
         # 3/ the target container is not the current one
-        # 4/ the element is not a folder (might enable it later)
-        return True
+        # or doesn't have already an object with the same id
+        if from_id in to_folder.objectIds():
+            return False
+
+        # 4/ the target container can hold the object
+        element_type = proxy_folder[from_id].getContent().portal_type
+        allowed_types = [factory.content_meta_type
+                         for factory in to_folder.allowedContentTypes()]
+        if element_type not in allowed_types:
+            return False
+
+        # 4/ XXX ugly hack
+        # the element is not a member folder or
+        # the members folders itself
+        url = proxy_folder[from_id].absolute_url().lower()
+        if url.endswith('workspaces/members'):
+            return False
+
+        url = url.split('/')
+        if len(url) > 2:
+            return url[-2] != 'members' and url[-3] != 'workspaces'
+        else:
+            return True
 
     def _checkPositionChange(self, from_id, to_id):
         return from_id != to_id
 
     def moveElement(self, from_id, to_id):
         """ moving elements from a dragdrop action """
-        headers = ('draggable', 'droppable')
+        headers = ('draggable', 'droppable', 'droppable-in')
         from_id = self._removingHeaders(from_id, headers)
         proxy_folder = self.context
 

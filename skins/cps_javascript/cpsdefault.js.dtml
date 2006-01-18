@@ -32,18 +32,21 @@ CPSDefault javascript layer
 var CPSContainerEditor = Class.create();
 
 CPSContainerEditor.prototype = {
-  initialize: function(draggable_class, droppable_class, working_text, folder_content, ajax_psm) {
+  initialize: function(draggable_class, droppable_class, droppable_in_class,
+                       working_text, folder_content, ajax_psm) {
     this.working_text = working_text;
     this.ajax_psm = ajax_psm;
     this.folder_content = folder_content;
     this.draggable_class = draggable_class;
     this.droppable_class = droppable_class;
+    this.droppable_in_class = droppable_in_class;
     this.hookElements();
   },
 
   hookElements: function() {
     this.draggables = document.getElementsByClassName(this.draggable_class);
     this.droppables = document.getElementsByClassName(this.droppable_class);
+    this.droppables_in = document.getElementsByClassName(this.droppable_in_class);
     this.draggable_objects = [];
 
     // draggables
@@ -64,11 +67,24 @@ CPSContainerEditor.prototype = {
 
       Droppables.add(droppable.id, options);
     }
+
+    for (var i = 0; i < this.droppables_in.length; i++) {
+      var droppable = this.droppables_in[i];
+      var options = {accept: 'draggable', hoverclass: 'drophover-in',
+                     onDrop: onDropElementBn};
+
+      Droppables.add(droppable.id, options);
+    }
   },
 
   unHookElements: function() {
     for (var i = 0; i < this.droppables.length; i++) {
       var droppable = this.droppables[i];
+      Droppables.remove(droppable);
+    }
+
+    for (var i = 0; i < this.droppables_in.length; i++) {
+      var droppable = this.droppables_in[i];
       Droppables.remove(droppable);
     }
 
@@ -153,7 +169,8 @@ CPSContainerEditor.prototype = {
     var from_id = element.id;
     var to_id = droppableElement.id;
 
-    if (from_id == to_id.replace('droppable', 'draggable'))
+    if (from_id == to_id.replace('droppable', 'draggable')||
+        from_id == to_id.replace('droppable-in', 'draggable'))
       return;
 
     var params = 'from_id=' + from_id + '&to_id=' + to_id;
@@ -162,6 +179,7 @@ CPSContainerEditor.prototype = {
     var options = {parameters: params, onComplete: dropElementCompletedBn};
 
     this.last_from_id = from_id;
+    this.last_to_id = to_id.replace('droppable-in', 'draggable');
     this.last_to_id = to_id.replace('droppable', 'draggable');
     this.onCreate();
     var sender = new Ajax.Request(url, options);

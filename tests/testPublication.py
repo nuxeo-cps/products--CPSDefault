@@ -148,7 +148,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         proxy2 = self.member_ws.doc2
         member = self.portal_membership.getAuthenticatedMember()
         user = member.getUser()
-        lock = LockItem(user, user)
+        lock = LockItem(user)
         lock_token = lock.getLockToken()
         proxy2.wl_setLock(lock_token, lock)
 

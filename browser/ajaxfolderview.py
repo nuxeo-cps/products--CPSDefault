@@ -34,6 +34,17 @@ class AjaxFolderView(BrowserView):
     def _isUrl(self, id):
         return id.find('/') != -1
 
+    def _checkElementMove(self, from_id, to_place):
+        # XXX check here if :
+        # 1/ the target container can hold the object
+        # 2/ the user has all rights
+        # 3/ the target container is not the current one
+        # 4/ the element is not a folder (might enable it later)
+        return True
+
+    def _checkPositionChange(self, from_id, to_id):
+        return from_id != to_id
+
     def moveElement(self, from_id, to_id):
         """ moving elements from a dragdrop action """
         headers = ('draggable', 'droppable')
@@ -41,15 +52,21 @@ class AjaxFolderView(BrowserView):
         proxy_folder = self.context
 
         if self._isUrl(to_id):
+            # checking if all conditions are met
+            if not self._checkElementMove(from_id, to_id):
+                return ''
+
             # moving object to another container
             to_folder = proxy_folder.restrictedTraverse(to_id)
             cb_data = proxy_folder.manage_cutObjects([from_id])
             to_folder.manage_pasteObjects(cb_data)
         else:
+            # checking if all conditions are met
+            if not self._checkPositionChange(from_id, to_id):
+                return ''
+
             # moving object's position
             to_id = self._removingHeaders(to_id, headers)
-            if from_id == to_id:
-                return ''
             to_position = proxy_folder.getObjectPosition(to_id)
             proxy_folder.moveObjectToPosition(from_id, to_position)
 

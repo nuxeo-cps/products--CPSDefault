@@ -86,33 +86,6 @@
   </action>
  </action-provider>
  <action-provider name="portal_types"/>
- <action-provider name="portal_discussion">
-  <action title="action_activate_comments" action_id="activate_comments"
-     category="object"
-     condition_expr="python:getattr(object.getTypeInfo(),'cps_proxy_type','') in ('document', 'folderishdocument') and getattr(object.getContent(), 'allow_discussion', None) == 0"
-     url_expr="string:${object/absolute_url}/set_comment_mode?mode=1"
-     visible="True">
-   <permission>Forum manage comments</permission>
-  </action>
-  <action title="action_deactivate_comments" action_id="deactivate_comments"
-     category="object"
-     condition_expr="python:getattr(object.getTypeInfo(),'cps_proxy_type','') in ('document', 'folderishdocument') and getattr(object.getContent(), 'allow_discussion', None) == 1"
-     url_expr="string:${object/absolute_url}/set_comment_mode?mode=0"
-     visible="True">
-   <permission>Forum manage comments</permission>
-  </action>
-  <action title="action_manage_comments" action_id="manage_comments"
-     category="object"
-     condition_expr="python:getattr(object.getTypeInfo(),'cps_proxy_type','') in ('document', 'folderishdocument') and getattr(object.getContent(), 'allow_discussion', None) == 1"
-     url_expr="string:${object/absolute_url}/manage_comments" visible="True">
-   <permission>Forum manage comments</permission>
-  </action>
-  <action title="action_comment" action_id="comment" category="object"
-     condition_expr="python:object.hasCommentAction()"
-     url_expr="string:${object/absolute_url}/post_comment" visible="True">
-   <permission>View</permission>
-  </action>
- </action-provider>
  <action-provider name="portal_syndication"/>
  <action-provider name="portal_workflow"/>
  <action-provider name="portal_properties">

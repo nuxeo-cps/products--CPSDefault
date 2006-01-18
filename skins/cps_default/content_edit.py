@@ -4,6 +4,8 @@
 FIXME: add docstring.
 """
 
+from Products.CMFCore.utils import getToolByName
+
 def tuplify( value ):
     if not same_type( value, () ):
         value = tuple( value )
@@ -39,7 +41,9 @@ try:
         doc.setRights(kw['rights'])
         del kw['rights']
 
-    if kw.get('allowDiscussion'):
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+
+    if kw.get('allowDiscussion') and hasattr(portal, 'portal_discussion'):
         doc.portal_discussion.overrideDiscussionFor(doc, kw['allowDiscussion'])
 
 

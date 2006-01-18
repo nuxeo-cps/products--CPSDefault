@@ -113,10 +113,10 @@ CPSContainerEditor.prototype = {
 
   dropElementCompleted: function(originalRequest) {
     // getting new positions from the server
-    document.title = originalRequest.responseText;
-
-    if (originalRequest.responseText == '')
+    if (originalRequest.responseText == '') {
+      this.onComplete();
       return;
+    }
 
     var new_positions = originalRequest.responseText.split(":");
     for (var i=0, length=new_positions.length; i<length; i++) {

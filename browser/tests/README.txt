@@ -11,7 +11,7 @@ from `IOrderedContainer` interface.
 Let's create a fake folder for our tests and plug the view::
 
     >>> class FakeFactory:
-    ...     content_meta_type = 'Link'
+    ...     id = 'Link'
     ...
     >>> class FakeFolder:
     ...     items = []

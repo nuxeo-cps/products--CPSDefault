@@ -54,7 +54,7 @@ class AjaxFolderView(BrowserView):
 
         # 4/ the target container can hold the object
         element_type = proxy_folder[from_id].getContent().portal_type
-        allowed_types = [factory.content_meta_type
+        allowed_types = [factory.id
                          for factory in to_folder.allowedContentTypes()]
         if element_type not in allowed_types:
             return False

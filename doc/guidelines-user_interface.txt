@@ -238,11 +238,10 @@ Checkpoints
   properties take care of that.
 
 
-- ``<table>`` is *good* for tabular data, matrix-like data and
-  some kind of listings. Try to specify column names.
+- ``<table>`` is *good* for tabular data, matrix-like data, forms and some kind
+  of listings.
 
-
-- Avoid as much as possible the use of ``<table>`` markup for
+  Avoid as much as possible the use of ``<table>`` markup for
   layout purposes.
 
   In a complicated layout case, table layout may be bad, but the
@@ -253,9 +252,121 @@ Checkpoints
   ``valign``, or ``border`` kind of information. All those can be
   safely and cleanly specified through CSS.
 
-- Specify the "summary" attribute for your ``<table>``::
+- Make your ``<table>`` semantic.
 
-    <table class="listing" summary="A table listing the available events and their notifications in this context">
+  + Specify the *summary* attribute for your ``<table>``::
+
+    <table summary="A table listing the available events and their notifications in this context">
+
+  + Use ``<thead>``, ``<tbody>`` and ``<th>`` elements whenever possible.
+
+  + Specify column names whenever possible.
+
+  + Example of a table used for a form
+    (note the use of the ``<th>`` and ``<td>`` elements and that the button is
+    not enclosed in the ``<table>``)::
+
+      <form id="loginForm" action="/logged_in" method="post">
+
+        <table id="login" class="form" summary="Table for entering login information">
+          <tbody>
+          <tr>
+            <th>
+                <label for="username">User name</label>
+            </th>
+            <td>
+                <input id="username" name="__ac_name" class="focus" size="20" value="manager" type="text"/>
+            </td>
+          </tr>
+          <tr>
+            <th>
+                <label for="password">Password</label>
+            </th>
+            <td>
+                <input id="password" name="__ac_password" size="20" value="" type="password"/>
+            </td>
+          </tr>
+          <tr>
+            <th>
+                <label for="remember">Remember my name</label>
+            </th>
+            <td>
+                <input name="__ac_persistent" checked="checked" id="remember" class="noborder" type="checkbox"/>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <p class="buttonArea">
+          <button type="submit">Login</button>
+        </p>
+
+      </form>
+
+  + Example of a table used for tabular or matrix-like data
+    (note the use of the ``<thead>`` and ``<th>`` elements)::
+
+      <table class="history listing" summary="Action history list">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Action</th>
+            <th>Revision</th>
+            <th>Author</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="even">
+            <td>01/19/2006 11:23 AM</td>
+            <td>
+              Modification
+            </td>
+            <td>
+              Revision 2
+              Language English
+            </td>
+            <td>CPS Manager Manager</td>
+            <td></td>
+          </tr>
+          <tr class="odd">
+            <td>01/19/2006 11:23 AM</td>
+            <td>
+              Commit of this revision
+            </td>
+            <td>
+              Revision 2
+              Language English
+            </td>
+            <td>CPS Manager Manager</td>
+            <td>Validating the revision.</td>
+          </tr>
+          <tr class="even">
+            <td>01/19/2006 11:22 AM</td>
+            <td>
+              Creation of a revision
+            </td>
+            <td>
+              Revision 1
+              Language English
+            </td>
+            <td>CPS Manager Manager</td>
+            <td>A new revision of this document.</td>
+          </tr>
+          <tr class="odd">
+            <td>01/19/2006 11:22 AM</td>
+            <td>
+              Creation
+            </td>
+            <td>
+              Revision 1
+              Language English
+            </td>
+            <td>CPS Manager Manager</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
 
 - Include ``<input>`` elements and ``<form>`` content inside ``<p>``.
 

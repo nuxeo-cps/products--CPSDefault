@@ -228,7 +228,7 @@ Checkpoints
 
   A web page cannot have a ``<h2>`` element without first having a
   ``<h1>`` element.
-  
+
   A web page cannot have a ``<h3>`` element without first having a
   ``<h2>`` element, etc.
 
@@ -550,7 +550,43 @@ used to decrease some server-side processing. But JavaScript
 should not be required on the client-side to have a functional web
 site and usable functionalities.
 
+Use available frameworks and libs
+---------------------------------
+
+CPS ships with the *Prototype* framework and the *script.aculo.us*
+library :
+
+- `Prototype`_: features an easy-to-use toolkit for class-driven development a a nice Ajax library
+
+- `script.aculo.us`_: is based on Prototype
+
+Every JavaScript code in CPS should use the higher level API that those
+shipped frameworks and libs provide. This results in code easier to understand
+and maintain.
+
+.. _Prototype: http://prototype.conio.net/
+.. _script.aculo.us: http://script.aculo.us/
+
+For details on how CPS is AJAX-ified read:
+
+1. `CPS ajaxification round #1
+<http://blogs.nuxeo.com/sections/blogs/tarek_ziade/2005_12_16_cps-ajaxification-round>`_
+
+2. `CPS ajaxification round #2
+<http://blogs.nuxeo.com/sections/blogs/tarek_ziade/2006_01_05_cps-ajaxification-round>`_
+
+3. `CPS ajaxification round #3
+<http://blogs.nuxeo.com/sections/blogs/tarek_ziade/2006_01_06_cps-ajaxification-round>`_
+
+4. `CPS ajaxification round #4
+<http://blogs.nuxeo.com/sections/blogs/tarek_ziade/2006_01_11_cps-ajaxification-round>`_
+
+Accessibility
+-------------
+
 A too heavy use of JavaScript clearly conflicts with accessibility.
+A too heavy use of JavaScript also clearly produces code harder to maintain and
+debug.
 
 It should be possible to visit, search, create/modify documents,
 and navigate through the web site using a browser without
@@ -689,7 +725,7 @@ Checkpoints
   and NOT::
 
     <span i18n:translate="msgid">blah</span>
-  
+
   because it produces::
 
     <span>msgstr</span>

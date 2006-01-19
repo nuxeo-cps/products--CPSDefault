@@ -42,13 +42,13 @@ Let's create a fake folder for our tests and plug the view::
     ...     def restrictedTraverse(self, url):
     ...         return FakeFolder()
     ...
-    ...     def manage_cutObjects(self, ids):
+    ...     def manage_CPScutObjects(self, ids):
     ...         for id in ids:
     ...             position = self.getObjectPosition(id)
     ...             if position != -1:
     ...                 del self.items[position]
     ...
-    ...     def manage_pasteObjects(self, cb):
+    ...     def manage_CPSpasteObjects(self, cb):
     ...         pass
     ...
     ...     def __getitem__(self, id):

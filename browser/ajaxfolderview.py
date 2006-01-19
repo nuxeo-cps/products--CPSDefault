@@ -22,6 +22,7 @@
     on folder
 """
 from AccessControl import Unauthorized
+from OFS.CopySupport import CopyError
 from Products.Five import BrowserView
 
 class AjaxFolderView(BrowserView):
@@ -59,12 +60,7 @@ class AjaxFolderView(BrowserView):
         if element_type not in allowed_types:
             return False
 
-        # 5/ TODO: when the user moves documents
-        # from workspaces to sections and on the other way
-        # we need to change their state here, like what's done
-        # in regular copy-cut-paste operations
-
-        # 6/ XXX ugly hack
+        # 5/ XXX ugly hack
         # the element is not a member folder or
         # the members folders itself
         url = proxy_folder[from_id].absolute_url().lower()
@@ -93,8 +89,11 @@ class AjaxFolderView(BrowserView):
 
             # moving object to another container
             to_folder = proxy_folder.restrictedTraverse(to_id)
-            cb_data = proxy_folder.manage_cutObjects([from_id])
-            to_folder.manage_pasteObjects(cb_data)
+            try:
+                cb_data = proxy_folder.manage_CPScutObjects([from_id])
+                to_folder.manage_CPSpasteObjects(cb_data)
+            except CopyError:
+                return ''
         else:
             # checking if all conditions are met
             if not self._checkPositionChange(from_id, to_id):

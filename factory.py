@@ -27,7 +27,8 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.CPSCore.setuptool import CPSSetupTool
 from Products.CPSDefault.Portal import CPSDefaultSite
-from Products.CPSDefault.interfaces import ICPSSite
+
+from Products.CPSCore.interfaces import ICPSSite
 
 
 class CPSSiteConfigurator(object):

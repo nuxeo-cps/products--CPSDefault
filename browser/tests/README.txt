@@ -27,8 +27,8 @@ Let's create a fake folder for our tests and plug the view::
     ...     def moveObjectToPosition(self, id, newpos):
     ...         oldpos = self.getObjectPosition(id)
     ...         temp = self.items[oldpos]
-    ...         self.items[oldpos] = self.items[newpos]
-    ...         self.items[newpos] = temp
+    ...         del self.items[oldpos]
+    ...         self.items.insert(newpos, temp)
     ...
     ...     def objectIds(self):
     ...         ids = []
@@ -63,15 +63,25 @@ Let's create a fake folder for our tests and plug the view::
     ...         return (FakeFactory(),)
     >>> MyFolder = FakeFolder()
 
-Now let's try to move elements::
+Now let's try to move elements, dropping `a` on `c` moves `a` after `c`::
 
     >>> from Products.CPSDefault.browser.ajaxfolderview import AjaxFolderView
     >>> MyView = AjaxFolderView(MyFolder, None)
     >>> MyFolder.items = ['a', 'b', 'c']
     >>> MyView.moveElement('draggablea', 'droppablec')
-    'c:b:a'
+    'b:c:a'
     >>> MyFolder.items
-    ['c', 'b', 'a']
+    ['b', 'c', 'a']
+
+The dragged element is always placed **after** the dropped element,
+dropping `c` on `a` moves `c` after `a`::
+
+    >>> MyView = AjaxFolderView(MyFolder, None)
+    >>> MyFolder.items = ['a', 'b', 'c']
+    >>> MyView.moveElement('draggablec', 'droppablea')
+    'a:c:b'
+    >>> MyFolder.items
+    ['a', 'c', 'b']
 
 AjaxFolderView also know how to move an element in another container::
 

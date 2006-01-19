@@ -61,17 +61,15 @@ class AjaxFolderView(BrowserView):
             return False
 
         # 5/ XXX ugly hack
-        # the element is not a member folder or
-        # the members folders itself
-        url = proxy_folder[from_id].absolute_url().lower()
-        if url.endswith('workspaces/members'):
-            return False
+        # at this time we don't want to let the user
+        # mess around with folders in the workspace
+        # member area, it's too easy to do and dangerous
+        if element_type == 'Workspace':
+            url = proxy_folder[from_id].absolute_url().lower()
+            if url.find('workspaces/members') != -1:
+                return False
 
-        url = url.split('/')
-        if len(url) > 2:
-            return url[-2] != 'members' and url[-3] != 'workspaces'
-        else:
-            return True
+        return True
 
     def _checkPositionChange(self, from_id, to_id):
         return from_id != to_id
@@ -99,9 +97,19 @@ class AjaxFolderView(BrowserView):
             if not self._checkPositionChange(from_id, to_id):
                 return ''
 
-            # moving object's position
+            # changing indexes in order to always
+            # position the dragged element *after*
+            # the dropped one
             to_id = self._removingHeaders(to_id, headers)
             to_position = proxy_folder.getObjectPosition(to_id)
+            from_position = proxy_folder.getObjectPosition(from_id)
+
+            if from_position > to_position:
+                to_position += 1
+            if from_position == to_position:
+                return ''
+
+            # moving object's position
             proxy_folder.moveObjectToPosition(from_id, to_position)
 
         return ':'.join([id for id in proxy_folder.objectIds()

@@ -65,12 +65,17 @@
    </tbody>
   </table>
   <tal:block tal:condition="python:not no_form"
-               tal:define="ajax_working_msg python:cpsmcat('ajax_working')">
+               tal:define="ajax_working_msg python:cpsmcat('ajax_working');
+                           ajax_working_msg python:ajax_working_msg.replace('\'', '\\\'');
+                           ajax_failing_msg python:cpsmcat('ajax_failing');
+                           ajax_failing_msg python:ajax_failing_msg.replace('\'', '\\\'')">
+
         <script langage="javascript" tal:content="structure string:
                 var editor = new CPSContainerEditor('draggable', 'droppable',
                                                     'droppable-in',
                                                     '${ajax_working_msg}',
-                                                    'folder_content', 'ajax_psm');">
+                                                    'folder_content', 'ajax_psm',
+                                                    '${ajax_failing_msg}');">
         </script>
   </tal:block>
   <tal:block condition="no_table">

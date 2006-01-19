@@ -33,13 +33,15 @@ var CPSContainerEditor = Class.create();
 
 CPSContainerEditor.prototype = {
   initialize: function(draggable_class, droppable_class, droppable_in_class,
-                       working_text, folder_content, ajax_psm) {
+                       working_text, folder_content, ajax_psm,
+                       generic_error_msg) {
     this.working_text = working_text;
     this.ajax_psm = ajax_psm;
     this.folder_content = folder_content;
     this.draggable_class = draggable_class;
     this.droppable_class = droppable_class;
     this.droppable_in_class = droppable_in_class;
+    this.generic_error_msg = generic_error_msg;
     this.hookElements();
   },
 
@@ -113,24 +115,30 @@ CPSContainerEditor.prototype = {
 
   dropElementCompleted: function(originalRequest) {
     // getting new positions from the server
-    if (originalRequest.responseText == '') {
-      this.onComplete();
+    result = originalRequest.responseText;
+    if (result == '') {
+      this.onFail();
       return;
     }
 
-    var new_positions = originalRequest.responseText.split(":");
+    var new_positions = result.split(":");
     for (var i=0, length=new_positions.length; i<length; i++) {
       new_positions[i] = 'draggable' + new_positions[i];
     }
 
     // checking if elements where moved in some other place
+    // and saving old positions
     var new_draggables = new Array();
+    var old_positions = new Array();
+
     for (var i=0, length=this.draggables.length; i<length; i++) {
       element_id = this.draggables[i].id;
       if (this.arrayPosition(new_positions, element_id) != -1) {
         new_draggables.push(this.draggables[i]);
       }
+      old_positions.push(element_id);
     }
+
     this.draggables = new_draggables;
 
     // getting table lines
@@ -142,7 +150,7 @@ CPSContainerEditor.prototype = {
     for (var i=0, length=this.draggables.length; i<length; i++) {
         current_id = this.draggables[i].id;
         rowArray[i] = new Object;
-        rowArray[i].oldIndex = i;
+        rowArray[i].oldIndex = this.arrayPosition(old_positions, current_id);
         rowArray[i].value = this.arrayPosition(new_positions, current_id);
     }
 
@@ -154,8 +162,9 @@ CPSContainerEditor.prototype = {
     var newTbody = document.createElement('tbody');
     for (var i=0, length=rowArray.length; i<length; i++) {
         new_node = rows[rowArray[i].oldIndex].cloneNode(true)
-        new_node.childNodes[1].childNodes[1].style.top = 0;
-        new_node.childNodes[1].childNodes[1].style.left = 0;
+        node_core = new_node.childNodes[1].childNodes[1];
+        node_core.style.top = 0;
+        node_core.style.left = 0;
         newTbody.appendChild(new_node);
     }
 
@@ -188,6 +197,7 @@ CPSContainerEditor.prototype = {
   onCreate: function() {
     if ($(this.ajax_psm)) {
       var elt = $(this.ajax_psm);
+      elt.style.background = '';
       elt.innerHTML = this.working_text;
       Effect.Appear(this.ajax_psm, {duration:0.5, queue:'end'});
     }
@@ -195,6 +205,16 @@ CPSContainerEditor.prototype = {
 
   onComplete: function() {
     if ($(this.ajax_psm)) {
+      Effect.Fade(this.ajax_psm, {duration:1.5, queue:'end'});
+    }
+  },
+
+  onFail: function(message) {
+    if ($(this.ajax_psm)) {
+      var elt = $(this.ajax_psm);
+      elt.innerHTML = this.generic_error_msg;
+      elt.style.background = 'red';
+      Effect.Pulsate(this.ajax_psm, {duration:1.5, queue:'end'});
       Effect.Fade(this.ajax_psm, {duration:1.5, queue:'end'});
     }
   },

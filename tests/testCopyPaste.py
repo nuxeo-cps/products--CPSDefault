@@ -31,9 +31,62 @@ class TestCopyPasteBase(CPSDefaultTestCase.CPSDefaultTestCase):
         self._ws = self.portal.workspaces
         self._sc = self.portal.sections
         self._wftool = self.portal.portal_workflow
+        self._ttool = self.portal.portal_types
+
+        # Add a fake document type with folder type workflow
+        self._addFakeType()
 
     def beforeTearDown(self):
         self.logout()
+
+    def _addFakeType(self):
+        ti = self._ttool.addFlexibleTypeInformation(id='fakeFolder')
+        properties = {
+            'content_meta_type': 'CPS Document',
+            'product': 'CPSDocument',
+            'factory': 'addCPSDocument',
+            'immediate_view': 'cpsdocument_view',
+            'allowed_content_types': ('fakeFolderItem',),
+            'cps_proxy_type': 'folderishdocument',
+            'schemas': ['metadata', 'common'],
+            'layouts': ['common',],
+            'cps_workspace_wf': 'workspace_folder_wf',
+            }
+        ti.manage_changeProperties(**properties)
+        
+        ti = self._ttool.addFlexibleTypeInformation(id='fakeFolderItem')
+        properties = {
+            'content_meta_type': 'CPS Document',
+            'product': 'CPSDocument',
+            'factory': 'addCPSDocument',
+            'immediate_view': 'cpsdocument_view',
+            'allowed_content_types': (),
+            'cps_proxy_type': 'document',
+            'schemas': ['metadata', 'common'],
+            'layouts': ['common',],
+            'cps_workspace_wf': 'workspace_content_wf',
+            }
+        ti.manage_changeProperties(**properties)
+
+        # add the document's workflow to sections and workspaces
+        wfc = getattr(self._sc, '.cps_workflow_configuration')
+        wfc.setChain('fakeFolder', ('section_folder_wf',))
+        wfc.setChain('fakeFolderItem', ('section_folder_wf',))
+        
+        wfc = getattr(self._ws, '.cps_workflow_configuration')
+        wfc.setChain('fakeFolder', ('workspace_folder_wf',))
+        wfc.setChain('fakeFolderItem', ('workspace_folder_wf',))
+
+        # add the document type to the section/workspace allowed content types
+        sectionACT = list(self._ttool.Section.allowed_content_types)
+        sectionACT.append('fakeFolder')
+        sectionACT.append('fakeFolderItem')
+        self._ttool.Section.allowed_content_types = sectionACT
+
+        workspaceACT = list(self._ttool.Workspace.allowed_content_types)
+        workspaceACT.append('fakeFolder')
+        workspaceACT.append('fakeFolderItem')
+        self._ttool.Workspace.allowed_content_types = workspaceACT
 
     def _createObject(self, where, type_name):
         id_ = where.computeId()
@@ -47,7 +100,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
     def afterSetUp(self):
         self.login(self.login_id)
         TestCopyPasteBase.afterSetUp(self)
-
+        
     #
     # Workspaces -> Workspaces
     #
@@ -124,17 +177,16 @@ class TestCopyPasteManager(TestCopyPasteBase):
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'published')
 
-
     def test_workspaces_2_sections_folder(self):
 
         # Copy paste a folder from workspace to section and check the
         # status of the pasted objects
 
-        id_ = self._createObject(self._ws, 'CPSForum')
+        id_ = self._createObject(self._ws, 'fakeFolder')
         cp = self._ws.manage_CPScopyObjects([id_])
 
         # Add a sub-object
-        sub_id_ = self._createObject(getattr(self._ws, id_), 'ForumPost')
+        sub_id_ = self._createObject(getattr(self._ws, id_), 'fakeFolderItem')
 
         self._sc.manage_CPSpasteObjects(cp)
 
@@ -147,7 +199,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
 
         # This is not a folderish document so the children are not
         # gonna be workflowed
-        self.assertEqual(review_state, 'published')
+        self.assertEqual(review_state, 'work')
 
     def test_workspaces_2_sections_folderish(self):
 
@@ -297,7 +349,7 @@ class TestCopyPasteManager(TestCopyPasteBase):
         # status of the pasted objects
 
         # First create one within the workspace and publish it
-        id_ = self._createObject(self._sc, 'CPSForum')
+        id_ = self._createObject(self._sc, 'fakeFolder')
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'work')
@@ -369,10 +421,15 @@ class TestCopyPasteMember(TestCopyPasteBase):
             obj=self.portal.sections,
             member_ids=['member'], member_role='SectionManager')
         self.pmtool.setLocalRoles(
-            obj=self.portal.workspaces.members.member,
+            obj=self.portal.members.member,
             member_ids=['member'], member_role='WorkspaceMember')
 
-        self._ws_member = self.portal.workspaces.members.member
+        self._ws_member = self.portal.members.member
+        
+        wfc = getattr(self._ws_member, '.cps_workflow_configuration')
+        wfc.setChain('fakeFolder', ('workspace_folder_wf',))
+        wfc.setChain('fakeFolderItem', ('workspace_folder_wf',))
+
         # Login as Member and here we go for the tests.
         self.login(self.login_id)
         TestCopyPasteBase.afterSetUp(self)
@@ -460,12 +517,12 @@ class TestCopyPasteMember(TestCopyPasteBase):
         # Copy paste a folder from workspace to section and check the
         # status of the pasted objects
 
-        id_ = self._createObject(self._ws_member, 'CPSForum')
+        id_ = self._createObject(self._ws_member, 'fakeFolder')
         cp = self._ws_member.manage_CPScopyObjects([id_])
 
         # Add a sub-object
         sub_id_ = self._createObject(
-            getattr(self._ws_member, id_), 'ForumPost')
+            getattr(self._ws_member, id_), 'fakeFolderItem')
 
         self._sc.manage_CPSpasteObjects(cp)
 
@@ -478,7 +535,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
 
         # This is not a folderish document so the children are not
         # gonna be workflowed
-        self.assertEqual(review_state, 'published')
+        self.assertEqual(review_state, 'work')
 
     def test_workspaces_2_sections_folderish(self):
 
@@ -628,7 +685,7 @@ class TestCopyPasteMember(TestCopyPasteBase):
         # status of the pasted objects
 
         # First create one within the workspace and publish it
-        id_ = self._createObject(self._sc, 'CPSForum')
+        id_ = self._createObject(self._sc, 'fakeFolder')
         sc_ob = getattr(self._sc, id_)
         review_state = self._wftool.getInfoFor(sc_ob, 'review_state')
         self.assertEqual(review_state, 'work')

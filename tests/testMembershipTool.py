@@ -50,7 +50,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.pmtool.createMemberArea('wsmanager')
         self.pmtool.createMemberArea('semanager')
 
-        self.member_ws = self.portal.workspaces.members.member
+        self.member_ws = self.portal.members.member
 
         self.pmtool.setLocalRoles(
             obj=self.portal.sections,
@@ -221,11 +221,11 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(
             self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.member))
+            self.portal.members.member))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.wsmanager))
+            self.portal.members.wsmanager))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.semanager))
+            self.portal.members.semanager))
         self.logout()
 
     def test_MemberCanMemberChangeLocalRoles(self):
@@ -238,7 +238,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(not
             self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.member))
+            self.portal.members.member))
         self.logout()
 
     def test_WSManagerCanMemberChangeLocalRoles(self):
@@ -252,9 +252,9 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(not
             self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.wsmanager))
+            self.portal.members.wsmanager))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.semanager))
+            self.portal.members.semanager))
         self.logout()
 
     def test_SEManagerCanMemberChangeLocalRoles(self):
@@ -268,10 +268,10 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(
             self.pmtool.canMemberChangeLocalRoles(self.portal.sections))
         self.assert_(self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.semanager))
+            self.portal.members.semanager))
         self.assert_(not
             self.pmtool.canMemberChangeLocalRoles(
-            self.portal.workspaces.members.wsmanager))
+            self.portal.members.wsmanager))
         self.logout()
 
     def test_getFullnameFromIdRestricted(self):
@@ -302,7 +302,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
     # non regression test for #492
     def test_anonymousGroupRoles(self):
         mtool = self.pmtool
-        ws = self.portal.workspaces.members
+        ws = self.portal.members
         uf = self.portal.acl_users
 
         # test local roles before changes
@@ -330,7 +330,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEquals(uf.mergedLocalRoles(ws, withgroups=1), {
             'user:CPSTestCase': ['Owner'],
             })
-
+    
     def test_getCPSLocalRoles(self):
 
         # what are the local roles in sections ?

@@ -38,7 +38,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
 
         self.portal_membership = self.portal.portal_membership
         self.portal.portal_membership.createMemberArea('member')
-        self.member_ws = self.portal.workspaces.members.member
+        self.member_ws = self.portal.members.member
 
         pmtool = self.portal.portal_membership
         pmtool.setLocalRoles(obj=self.portal.sections,

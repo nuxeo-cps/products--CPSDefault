@@ -75,7 +75,10 @@ class AjaxFolderView(BrowserView):
         return from_id != to_id
 
     def moveElement(self, from_id, to_id):
-        """ moving elements from a dragdrop action """
+        """ moving elements from a dragdrop action
+
+        XXX Next version will send json friendly results
+        """
         headers = ('draggable', 'droppable', 'droppable-in')
         from_id = self._removingHeaders(from_id, headers)
         proxy_folder = self.context
@@ -95,7 +98,7 @@ class AjaxFolderView(BrowserView):
         else:
             # checking if all conditions are met
             if not self._checkPositionChange(from_id, to_id):
-                return ''
+                return '_'
 
             # changing indexes in order to always
             # position the dragged element *after*
@@ -107,7 +110,7 @@ class AjaxFolderView(BrowserView):
             if from_position > to_position:
                 to_position += 1
             if from_position == to_position:
-                return ''
+                return '_'
 
             # moving object's position
             proxy_folder.moveObjectToPosition(from_id, to_position)

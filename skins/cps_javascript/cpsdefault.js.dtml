@@ -68,6 +68,7 @@ CPSContainerEditor.prototype = {
       var options = {handle: draggable.id,
                      revert: true};
       this.draggable_objects.push(new Draggable(draggable.id, options));
+
       // when the mouse is over the blockers
       // we disable dragging so the user does not
       // drag and click in the same time
@@ -141,8 +142,12 @@ CPSContainerEditor.prototype = {
   dropElementCompleted: function(originalRequest) {
     // getting new positions from the server
     result = originalRequest.responseText;
-    if (result == '') {
-      this.onFail();
+    if (result == '' || result == '_') {
+      if (result == '')
+        this.onFail();
+      else
+        // no error popping on reordering failures
+        this.onComplete();
       return;
     }
 

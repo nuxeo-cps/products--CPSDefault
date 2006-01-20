@@ -35,6 +35,7 @@ CPSContainerEditor.prototype = {
   initialize: function(draggable_class, droppable_class, droppable_in_class,
                        working_text, folder_content, ajax_psm,
                        generic_error_msg) {
+    this.hooked = false;
     this.working_text = working_text;
     this.ajax_psm = ajax_psm;
     this.folder_content = folder_content;
@@ -45,7 +46,17 @@ CPSContainerEditor.prototype = {
     this.hookElements();
   },
 
+  onLeaveBlocker: function(event) {
+    // XXX will enable dragging here
+  },
+
+  onEnterBlocker: function(event) {
+    // XXX will disable dragging here
+  },
+
   hookElements: function() {
+    if (this.hooked)
+      return;
     this.draggables = document.getElementsByClassName(this.draggable_class);
     this.droppables = document.getElementsByClassName(this.droppable_class);
     this.droppables_in = document.getElementsByClassName(this.droppable_in_class);
@@ -57,6 +68,17 @@ CPSContainerEditor.prototype = {
       var options = {handle: draggable.id,
                      revert: true};
       this.draggable_objects.push(new Draggable(draggable.id, options));
+      // when the mouse is over the blockers
+      // we disable dragging so the user does not
+      // drag and click in the same time
+      var onEnterBlockerBn = this.onEnterBlocker.bind(this);
+      var onLeaveBlockerBn = this.onLeaveBlocker.bind(this);
+      var blockers = draggable.getElementsByTagName('a');
+      for (var i = 0; i < blockers.length; i++) {
+        var blocker = blockers[i];
+        blocker.onmouseover = onEnterBlockerBn;
+        blocker.onmouseleave = onLeaveBlockerBn;
+      }
     }
 
     // droppables
@@ -77,9 +99,12 @@ CPSContainerEditor.prototype = {
 
       Droppables.add(droppable.id, options);
     }
+    this.hooked = true;
   },
 
   unHookElements: function() {
+    if (!this.hooked)
+      return;
     for (var i = 0; i < this.droppables.length; i++) {
       var droppable = this.droppables[i];
       Droppables.remove(droppable);
@@ -95,7 +120,7 @@ CPSContainerEditor.prototype = {
       draggable_object.destroy();
       Droppables.remove(draggable_object);
     }
-
+    this.hooked = false;
   },
 
   arrayPosition: function(array, element) {

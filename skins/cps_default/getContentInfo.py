@@ -17,6 +17,8 @@ level: 4 (cost ???)
 """
 
 from zLOG import LOG, DEBUG
+from Products.CMFCore.utils import getToolByName
+from AccessControl import Unauthorized
 
 # how many characters for the description
 DESCRIPTION_MAX_LENGTH = 150
@@ -27,10 +29,11 @@ if cpsmcat is None:
 if proxy is None:
     proxy = context
 
-wtool = context.portal_workflow
-utool = context.portal_url
-ptool = context.portal_proxies
-ttool = context.portal_trees
+wtool = getToolByName(context, 'portal_workflow')
+utool = getToolByName(context, 'portal_url')
+ptool = getToolByName(context, 'portal_proxies')
+mtool = getToolByName(context, 'portal_membership')
+portal = utool.getPortalObject()
 
 rpath = None
 if hasattr(proxy.aq_explicit, 'getRID'):
@@ -46,18 +49,23 @@ if hasattr(proxy.aq_explicit, 'getRID'):
     rpath = rpath.replace(KEYWORD_VIEW_LANGUAGE, KEYWORD_SWITCH_LANGUAGE)
     proxy = proxy.getObject()
 
-bmt = getattr(utool.getPortalObject(), 'Benchmarktimer', None)
+bmt = getattr(portal, 'Benchmarktimer', None)
 if bmt is not None:
     bmt = bmt('getContentInfo for ' + proxy.getId(), level=-3)
     bmt.setMarker('start')
 
+def getRpathTitle(rpath):
+    """Get object's title, or None if Unauthorized or nonexisting."""
+    try:
+        ob = portal.restrictedTraverse(rpath, None)
+        if ob is None:
+            return None
+        return ob.Title()
+    except Unauthorized:
+        return None
+
+
 def compute_states(no_history=0):
-    folders_info = {}
-
-    for tree in ttool.objectValues():
-        for folder in tree.getList(filter=0):
-            folders_info[folder['rpath']] = folder
-
     wf_vars = ['review_state', 'time']
     docid = proxy.getDocid()
     if docid:
@@ -68,6 +76,7 @@ def compute_states(no_history=0):
         ob_info = {
             'rpath': utool.getRpath(proxy),
             'language_revs': {'en': 0},
+            'visible': mtool.checkPermission('View', proxy),
             }
         for var in wf_vars:
             ob_info[var] = wtool.getInfoFor(proxy, var, None)
@@ -75,16 +84,19 @@ def compute_states(no_history=0):
     states = []
     for proxy_info in proxies_info:
         # take in account only accessible proxies
-        folder_rpath = '/'.join(proxy_info['rpath'].split('/')[:-1])
-        if not folders_info.has_key(folder_rpath):
-            continue
-        if not folders_info[folder_rpath]['visible']:
+        if not proxy_info['visible']:
             continue
 
-        folder_id = proxy_info['rpath'].split('/')[-2]
-        folder_title = folders_info.get(folder_rpath,
-                                        {'title': folder_id}).get('title',
-                                                                  folder_id)
+        lrpath = proxy_info['rpath'].split('/')
+        folder_rpath = '/'.join(lrpath[:-1])
+        folder_title = getRpathTitle(folder_rpath)
+        if not folder_title:
+            # Unauthorized
+            if len(lrpath) > 1:
+                folder_title = lrpath[-2]
+            else:
+                folder_title = '?'
+
         proxy_info_proxy = None
         portal_type = None
         if proxy_info.has_key('object'):
@@ -128,10 +140,12 @@ def compute_states(no_history=0):
             # Transitions involving a destination container.
             if action in ('submit', 'copy_submit'):
                 d['has_dest'] = 1
-                dest_container = d.get('dest_container', '')
+                dest_container = d.get('dest_container') or '?'
                 d['dest_container'] = dest_container
-                dest_title = folders_info.get(dest_container, {}).get(
-                    'title', '?')
+                dest_title = getRpathTitle(dest_container)
+                if not dest_title:
+                    # Unauthorized
+                    dest_title = dest_container.split('/')[-1]
                 d['dest_title'] = dest_title
             d['time_str'] = context.getDateStr(d['time'])
             history.append(d)

@@ -78,20 +78,18 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assertEquals(info['review_state'], 'work')
         self.assertEquals(info['rpath'], 'members/member/news')
         self.assert_(isinstance(info['time'], DateTime))
-        self.assertEquals(info['time_str'], 'date_medium')
         self.assertEquals(info['title'], '')
         self.assertEquals(info['title_or_id'], 'news')
         self.assertEquals(info['type'], 'News Item')
-        self.assertEquals(info['type_l10n'], 'portal_type_NewsItem_title')
+        self.assertNotEquals(info['time_str'], 'date_medium') # i18ned
+        self.assertNotEquals(info['type_l10n'], 'portal_type_NewsItem_title')
 
         if level >= 1:
             mtool = self.portal.portal_membership
             self.assertEquals(info['contributor'],
                               mtool.getFullnameFromId('member'))
             self.assertEquals(info['coverage'], '')
-            # FIXME: disabled because it doesn't behave properly during
-            # unit tests - it is OK in the real life, though
-            #self.assertEquals(info['creator'], 'member')
+            self.assertEquals(info['creator'], 'member')
             self.assertEquals(info['description'], '')
             self.assertEquals(info['hidden'], 0)
             self.assertEquals(info['icon'], 'newsitem_icon.png')
@@ -107,7 +105,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(state['review_state'], 'work')
             self.assertEquals(state['rpath'], 'members/member')
             self.assert_(isinstance(state['time'], DateTime))
-            self.assertEquals(state['time_str'], 'date_medium')
+            self.assertNotEquals(state['time_str'], 'date_medium') # i18ned
             self.assertEquals(state['title'], 'member')
         if level >= 3:
             self.assertEquals(len(info['history']), 1)
@@ -118,7 +116,7 @@ class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
             self.assertEquals(history['review_state'], 'work')
             self.assertEquals(history['rpath'], 'members/member/news')
             self.assert_(isinstance(history['time'], DateTime))
-            self.assertEquals(history['time_str'], 'date_medium')
+            self.assertNotEquals(history['time_str'], 'date_medium') # i18ned
             self.assertEquals(history['workflow_id'], 'workspace_content_wf')
         if level >= 4:
             self.assertEquals(info['archived'], [])

@@ -137,8 +137,8 @@ class CPSDefaultLayerClass(object):
         self.addRootUser()
         self.login()
         self.addPortal()
-        self.setupCPSSkins(portal_id)
-        self.fixupTranslationServices(portal_id)
+        #self.setupCPSSkins(portal_id)
+        #self.fixupTranslationServices(portal_id)
         self.logout()
         transaction.commit()
 

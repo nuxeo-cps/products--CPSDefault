@@ -17,12 +17,10 @@ except ImportError:
     pass
 else:
 
-
     # This one is needed by ProxyTool.
     def get_selected_language(self):
         """ """
         return self._default_language
-
 
     # Localizer is present
     Localizer.get_selected_language = get_selected_language

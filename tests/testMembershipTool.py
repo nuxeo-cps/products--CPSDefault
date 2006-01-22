@@ -50,23 +50,27 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
         self.pmtool.createMemberArea('wsmanager')
         self.pmtool.createMemberArea('semanager')
 
-        self.member_ws = self.portal.members.member
+        # portal
+        self.portal.manage_delLocalRoles(['CPSTestCase'])
 
+        # sections
         self.pmtool.setLocalRoles(
-            obj=self.portal.sections,
-            member_ids=['member'], member_role='SectionReader')
+            self.portal.sections, ['member'], 'SectionReader')
+        self.pmtool.setLocalRoles(
+            self.portal.sections, ['semanager'], 'SectionManager')
 
+        # workspaces
         self.pmtool.setLocalRoles(
-            obj=self.portal.workspaces,
-            member_ids=['member'], member_role='WorkspaceReader')
+            self.portal.workspaces, ['member'], 'WorkspaceReader')
+        self.pmtool.setLocalRoles(
+            self.portal.workspaces, ['wsmanager'], 'WorkspaceManager')
 
+        # members
+        self.portal.members.manage_delLocalRoles(['CPSTestCase'])
         self.pmtool.setLocalRoles(
-            obj=self.portal.workspaces,
-            member_ids=['wsmanager'], member_role='WorkspaceManager')
-
+            self.portal.members, ['member'], 'WorkspaceReader')
         self.pmtool.setLocalRoles(
-            obj=self.portal.sections,
-            member_ids=['semanager'], member_role='SectionManager')
+            self.portal.members, ['wsmanager'], 'WorkspaceManager')
 
         self.portal.MailHost = FakeMailHost()
 
@@ -302,35 +306,35 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
     # non regression test for #492
     def test_anonymousGroupRoles(self):
         mtool = self.pmtool
-        ws = self.portal.members
+        ws = self.portal.members.member
         uf = self.portal.acl_users
 
         # test local roles before changes
         self.assertEquals(uf.mergedLocalRoles(ws, withgroups=1), {
-            # duplicated role -> bug in CPSUserFolder ?
-            'user:CPSTestCase': ['Owner', 'Owner', 'Owner'],
-            'user:member': ['WorkspaceReader'],
+            'user:member': ['Owner', 'WorkspaceManager', 'WorkspaceReader'],
             'user:wsmanager': ['WorkspaceManager'],
             })
 
+        # block roles
         mtool.blockLocalRoles(ws)
+        self.assertEquals(uf.mergedLocalRoles(ws, withgroups=1), {
+            'user:member': ['Owner', 'WorkspaceManager'],
+            })
+
         # add a local role for anonymous users
         mtool.setLocalGroupRoles(ws, ('role:Anonymous',), 'WorkspaceMember')
-
-        # check changes were effective
         self.assertEquals(uf.mergedLocalRoles(ws, withgroups=1), {
-            'user:CPSTestCase': ['Owner'],
+            'user:member': ['Owner', 'WorkspaceManager'],
             'group:role:Anonymous': ['WorkspaceMember'],
             })
 
         # remove local role set to anonymous users
         ws.folder_localrole_edit(delete_ids=['group:role:Anonymous'])
-
         # check local roles are still blocked
         self.assertEquals(uf.mergedLocalRoles(ws, withgroups=1), {
-            'user:CPSTestCase': ['Owner'],
+            'user:member': ['Owner', 'WorkspaceManager'],
             })
-    
+
     def test_getCPSLocalRoles(self):
 
         # what are the local roles in sections ?

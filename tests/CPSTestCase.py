@@ -138,20 +138,14 @@ class CPSDefaultLayerClass(object):
         self.addRootUser()
         self.login()
         self.addPortal()
+
         # XXX: setupCPSSkins is not needed here, right ?
         #self.setupCPSSkins(portal_id)
-        assert self.app.portal.portal_themes
+        assert self.portal.portal_themes
+
         self.setupDummyTranslationService()
         self.logout()
         transaction.commit()
-
-    # Change translation_service to DummyTranslationService
-    def setupDummyTranslationService(self):
-        portal = getattr(self.app, PORTAL_ID)
-        portal.translation_service = DummyTranslationService()
-        localizer = portal.Localizer
-        for domain in localizer.objectIds():
-            setattr(localizer, domain, DummyMessageCatalog())
 
     def addRootUser(self):
         aclu = self.app.acl_users
@@ -161,6 +155,9 @@ class CPSDefaultLayerClass(object):
         aclu = self.app.acl_users
         user = aclu.getUserById('CPSTestCase').__of__(aclu)
         newSecurityManager(None, user)
+
+    def logout(self):
+        noSecurityManager()
 
     def addPortal(self):
         from Products.CPSDefault.factory import addConfiguredCPSSite
@@ -175,9 +172,14 @@ class CPSDefaultLayerClass(object):
                              password=MANAGER_PASSWORD,
                              password_confirm=MANAGER_PASSWORD,
                              )
+        self.portal = getattr(self.app, PORTAL_ID)
 
-    def logout(self):
-        noSecurityManager()
+    # Change translation_service to DummyTranslationService
+    def setupDummyTranslationService(self):
+        self.portal.translation_service = DummyTranslationService()
+        localizer = self.portal.Localizer
+        for domain in localizer.objectIds():
+            setattr(localizer, domain, DummyMessageCatalog())
 
 
 CPSDefaultLayer = CPSDefaultLayerClass(__name__, 'CPSDefaultLayer')
@@ -195,16 +197,22 @@ class ExtensionProfileLayerClass(object):
 
     def setUp(self):
         app = ZopeTestCase.app()
-        tool = getattr(app, PORTAL_ID).portal_setup
+        portal = getattr(app, PORTAL_ID)
+        tool = portal.portal_setup
         for extension_id in self.extension_ids:
             tool.setImportContext('profile-%s' % extension_id)
             tool.runAllImportSteps()
         tool.setImportContext('profile-%s' % PROFILE_ID)
+
+        # XXX: seems I need to do this here. 
+        portal.translation_service = DummyTranslationService()
+        localizer = portal.Localizer
+        for domain in localizer.objectIds():
+            setattr(localizer, domain, DummyMessageCatalog())
         transaction.commit()
 
     def tearDown(self):
         pass
-
 
 ##################################################
 # TestCase
@@ -218,7 +226,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
     def _setup(self):
 
         # FIXME: ugly hack, fixing something that is broken elsewhere
-        members_directory = self.app.portal.portal_directories.members
+        members_directory = self.portal.portal_directories.members
         entries = members_directory._searchEntries()
         if 'test_user_1_' in entries:
             members_directory._delObject('test_user_1_')

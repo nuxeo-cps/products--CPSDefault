@@ -9,6 +9,7 @@ from Testing import ZopeTestCase
 from zope.app.testing.functional import ZCMLLayer
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
+from dummies import DummyMessageCatalog, DummyTranslationService
 
 #import Products
 
@@ -137,10 +138,20 @@ class CPSDefaultLayerClass(object):
         self.addRootUser()
         self.login()
         self.addPortal()
+        # XXX: setupCPSSkins is not needed here, right ?
         #self.setupCPSSkins(portal_id)
-        #self.fixupTranslationServices(portal_id)
+        assert self.app.portal.portal_themes
+        self.setupDummyTranslationService()
         self.logout()
         transaction.commit()
+
+    # Change translation_service to DummyTranslationService
+    def setupDummyTranslationService(self):
+        portal = getattr(self.app, PORTAL_ID)
+        portal.translation_service = DummyTranslationService()
+        localizer = portal.Localizer
+        for domain in localizer.objectIds():
+            setattr(localizer, domain, DummyMessageCatalog())
 
     def addRootUser(self):
         aclu = self.app.acl_users

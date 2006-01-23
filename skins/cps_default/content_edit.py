@@ -41,11 +41,9 @@ try:
         doc.setRights(kw['rights'])
         del kw['rights']
 
-    portal = getToolByName(context, 'portal_url').getPortalObject()
-
-    if kw.get('allowDiscussion') and hasattr(portal, 'portal_discussion'):
-        doc.portal_discussion.overrideDiscussionFor(doc, kw['allowDiscussion'])
-
+    dtool = getToolByName(context, 'portal_discussion', None)
+    if dtool is not None and kw.get('allowDiscussion'):
+        dtool.overrideDiscussionFor(doc, kw['allowDiscussion'])
 
     # setting properties, edit will notify the doc itself with a 'modify_object'
     doc.edit(**kw)

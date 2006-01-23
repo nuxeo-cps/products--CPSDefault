@@ -1,82 +1,12 @@
 Requires:
 ~~~~~~~~~
-- Zope 2.9b1
-- CPSCore >= 2005-12-20
+-
 New features:
 ~~~~~~~~~~~~~
-- cpsinstall creates a CMF caching_policy_manager instance with a
-  default policy that caches objects of type 'Filesystem Image' for one
-  hour (HTTP headers)
-- i18n of the password reminder feature
-- password reminder now accepts email as input
-- ajax drag'n'drop features:
-  - ability to move elements within the same folder in order to change
-    the order
-  - ability to drop an element to another place through a tree portlet
-    that is 'droppable-enabled' with a simple html id.
+-
 Bug fixes:
 ~~~~~~~~~~
-- Fixed the cache of the portlet_contact_info custom portlet so that the
-  portlet provide a correct accessibility link for each virtual hosts.
-- Fixed security hole in forgotten password reset processing.
-- the document portlet and the subfolders in the main content area were
-  displayed along with the portal forms.
-- #1073: made getImgTag more robust.
-- Fixed #628: Need an action to remove a translation.
-- Fixed #1205: Faulty logged_in redirect with a HTTPS secured site.
-- #1161: Added a migration script to the "boxless" setup.
-- Fixed #770: Remove in cpsdefault.css.dtml all the CSS directives
-  pertaining to CPSBoxes and put them in a cpsboxes.css.dtml file.
-- Fixed #1152: Reset password email should be i18ned.
-- Made the history of documents display the full name of the users instead of
-  the usernames.
-- Updated the default profile so that portlets have their default guard set as
-  previously.
-- Fixed the login form so that it renders well on MSIE too.
-- Test for #1239 Folderish documents workflows are not enough
-  recursivefolderish document is republished
-- Usability: Merged the portal configuration form and the language configuration
-  form.
-- #1258: the portlet's cache cleanup date is a float
-- Removed dependency to CPSBoxes property cps_is_portalbox in profile
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- Less restrictive permission check to allow
-  a user to use the form in folder_contents
-  was: 'Delete Folder', now is: 'Modify Portal Content'
-  because the form button now handles correctly
-  each perm.
-- Removed obsolete widget types registration.
-- tune #1133: getSortedContentTypes.py is too slow
-- effective_date gets automatically updated at publish time (in
-  section_content_wf) if no specific dates were set by the user
-- CPSDefault.utils provides a fast filterContents function that replace the one
-  in skins/cps_default/filterContents.py, the interface is changed a bit:
-  * you must supply the `context` as the first parameter
-  * `displayed` is renamed `filter_ptypes` and default is None instead of ['']
-  * `sort_by` is renamed into `sort_on` and default is None
-  * `direction` is renamed into `sort_order`
-- CPSDefault.utils provides getFolderContents and getCatalogFolderContents.
-- New indexes: container_path, position_in_container and nodes set.
-- Adding a boolean property 'use_catalog_for_folder_contents' to a folder will
-  makes the skins/cps_default/getFolderContents.py (and thus folder_contents
-  and folder_view) uses the catalog to get the folder contents.
-  This is faster especially on huge folder.
-- added deprecation information for CPSBoxes modules.
-- the "Edit this text" link on the welcome message goes to the portlet editor.
-- added a temporary "folder contents" portlet in the main part of the screen
-  until there is a more extended view for it (cf. #573)
-- The "My preferences" action has now the standard CMF 'preferences' id and
-  depends on membership tool like in CMF.
-- Use the EventTest test setup code from CPSCore requiring Zope 2.9.
-- CPS css_slot was renamed style_slot to comply with later CMF/Zope 3 standard.
-- The CPSDefaultTestCase no longer installs and create CPSSharedCalendars
-  unless you explicitly install CPSSharedCalendar with installProduct in your
-  test.
-- Change the default profile to use a CPS User Folder and CPS ZODB Directories
-- Add default roles in the VariousImporter class
-- Create the default manager from the CPS site add form
-- add a RAM Cache Manager for the default directories in default profile
-- The CPSTestCase testing framework now uses a testrunner layer.
-- custom folder contents portlet: the folder contents display format is set to
-  "compact"
+-

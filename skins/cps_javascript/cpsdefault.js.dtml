@@ -47,11 +47,15 @@ CPSContainerEditor.prototype = {
   },
 
   onLeaveBlocker: function(event) {
-    // XXX will enable dragging here
+    for (var i = 0; i < this.draggables.length; i++) {
+      this.draggable_objects[i].enabled = true;
+    }
   },
 
   onEnterBlocker: function(event) {
-    // XXX will disable dragging here
+    for (var i = 0; i < this.draggable_objects.length; i++) {
+      this.draggable_objects[i].enabled = false;
+    }
   },
 
   hookElements: function() {
@@ -72,16 +76,15 @@ CPSContainerEditor.prototype = {
       // when the mouse is over the blockers
       // we disable dragging so the user does not
       // drag and click in the same time
-      /*
-      var onEnterBlockerBn = this.onEnterBlocker.bind(this);
-      var onLeaveBlockerBn = this.onLeaveBlocker.bind(this);
+      var onEnterBlockerListener = this.onEnterBlocker.bindAsEventListener(this);
+      var onLeaveBlockerListener = this.onLeaveBlocker.bindAsEventListener(this);
       var blockers = draggable.getElementsByTagName('a');
-      for (var i = 0; i < blockers.length; i++) {
-        var blocker = blockers[i];
-        blocker.onmouseover = onEnterBlockerBn;
-        blocker.onmouseleave = onLeaveBlockerBn;
+      for (var y = 0; y < blockers.length; y++) {
+        var blocker = blockers[y];
+        Event.observe(blocker, 'mouseover', onEnterBlockerListener);
+        Event.observe(blocker, 'mouseout', onLeaveBlockerListener);
       }
-      */
+
     }
 
     // droppables

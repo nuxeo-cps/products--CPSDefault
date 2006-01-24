@@ -53,17 +53,6 @@ class CPSSiteConfigurator(object):
 
     addForm = PageTemplateFile('zmi/siteAddForm', globals())
 
-    dispatcher = None
-    site = None
-    setup_tool = None
-
-    def __init__(self, site=None, setup_tool=None):
-        """Initialize site configurator
-        """
-        if site is not None:
-            self.site = site
-            self.setup_tool = getToolByName(self.site, CPSSetupTool.id, None)
-
     def addConfiguredSiteForm(self, dispatcher):
         """Form to add a CPS Site.
 

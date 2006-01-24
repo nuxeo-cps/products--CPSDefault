@@ -28,12 +28,13 @@ import unittest
 from AccessControl import Unauthorized
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
+from Products.CPSDefault.tests.CPSTestCase import MANAGER_ID, MANAGER_EMAIL
 
 class FakeMailHost(list):
     send = list.append
 
 class TestMembershipTool(CPSTestCase):
-    login_id = 'manager'
+    login_id = MANAGER_ID
 
     def afterSetUp(self):
         self.login(self.login_id)
@@ -119,12 +120,10 @@ class TestMembershipTool(CPSTestCase):
         self.login('member')
         pmtool = self.pmtool
         members = self.portal.portal_directories.members
-        email = 'test@test.no'
+        email = MANAGER_EMAIL
         emission_time = str(int(time()))
 
         entry = members._getEntry(self.login_id)
-        entry['email'] = email
-        members._editEntry(entry)
         email = pmtool.getEmailFromUsername(self.login_id)
         self.assertEqual(email, email)
 
@@ -218,7 +217,7 @@ class TestMembershipTool(CPSTestCase):
 
         # Manager can change them everywhere
 
-        self.login('manager')
+        self.login(MANAGER_ID)
         self.assert_(
             self.pmtool.canMemberChangeLocalRoles(self.portal.workspaces))
         self.assert_(

@@ -9,83 +9,48 @@ from Testing import ZopeTestCase
 from zope.app.testing.functional import ZCMLLayer
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
-from dummies import DummyMessageCatalog, DummyTranslationService
-
-#import Products
 
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
+ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
+ZopeTestCase.installProduct('Five', quiet=1)
+ZopeTestCase.installProduct('SiteAccess', quiet=1)
+ZopeTestCase.installProduct('MailHost', quiet=1)
+# CMF
 ZopeTestCase.installProduct('CMFCalendar', quiet=1)
 ZopeTestCase.installProduct('CMFCore', quiet=1)
 ZopeTestCase.installProduct('CMFDefault', quiet=1)
 ZopeTestCase.installProduct('CMFTopic', quiet=1)
 ZopeTestCase.installProduct('CMFSetup', quiet=1)
 ZopeTestCase.installProduct('DCWorkflow', quiet=1)
-ZopeTestCase.installProduct('Localizer', quiet=1)
-ZopeTestCase.installProduct('CPSPortlets', quiet=1)
-ZopeTestCase.installProduct('CPSNavigation', quiet=1)
+# CPS
+ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
 ZopeTestCase.installProduct('CPSWorkflow', quiet=1)
-ZopeTestCase.installProduct('CPSDefault', quiet=1)
-ZopeTestCase.installProduct('CPSDirectory', quiet=1)
-ZopeTestCase.installProduct('CPSUserFolder', quiet=1)
 ZopeTestCase.installProduct('CPSSchemas', quiet=1)
+ZopeTestCase.installProduct('CPSDirectory', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
+ZopeTestCase.installProduct('CPSUserFolder', quiet=1)
+ZopeTestCase.installProduct('Localizer', quiet=1)
+ZopeTestCase.installProduct('TranslationService', quiet=1)
+ZopeTestCase.installProduct('CPSSkins', quiet=1)
+ZopeTestCase.installProduct('CPSPortlets', quiet=1)
+
+# XXX AT: these products should be optional (dependencies remain to be checked)
+ZopeTestCase.installProduct('CPSNavigation', quiet=1)
 ZopeTestCase.installProduct('FCKeditor', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
-ZopeTestCase.installProduct('CPSSkins', quiet=1)
-ZopeTestCase.installProduct('TranslationService', quiet=1)
-ZopeTestCase.installProduct('SiteAccess', quiet=1)
-ZopeTestCase.installProduct('MailHost', quiet=1)
-ZopeTestCase.installProduct('ExternalEditor', quiet=1)
-ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
-ZopeTestCase.installProduct('Five', quiet=1)
-
-# XXX: these products should (and used to be) be optional, but they aren't
-# right now.
-
 ZopeTestCase.installProduct('CPSSubscriptions', quiet=1)
 ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
-
-# XXX AT: these products should be optional (dependencies remain to be checked)
 ZopeTestCase.installProduct('CPSBoxes', quiet=1)
 ZopeTestCase.installProduct('CPSRSS', quiet=1)
 ZopeTestCase.installProduct('CPSForum', quiet=1)
 ZopeTestCase.installProduct('CPSOOo', quiet=1)
+ZopeTestCase.installProduct('ExternalEditor', quiet=1)
 
-# The folowing are patches needed because Localizer doesn't work
-# well within ZTC
-
-# This one is needed by ProxyTool.
-def get_selected_language(self):
-    """ """
-    return self._default_language
-
-from Products.Localizer.Localizer import Localizer
-Localizer.get_selected_language = get_selected_language
-
-
-from StringIO import StringIO
-from Products.Localizer import LocalizerStringIO
-from types import UnicodeType
-# Un-patch LocalizerStringIO
-def LocalizerStringIO_write(self, s):
-    StringIO.write(self, s)
-# Hack around Unicode problem
-def LocalizerStringIO_getvalue(self):
-    if self.buflist:
-        for buf in self.buflist:
-            if type(buf) == UnicodeType:
-                self.buf += buf.encode('latin-1')
-            else:
-                self.buf += buf
-        self.buflist = []
-    return self.buf
-LocalizerStringIO.write = LocalizerStringIO_write
-LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
-
+import PatchLocalizer
 
 PROFILE_ID = 'CPSDefault:default'
 PORTAL_ID = 'portal'
@@ -101,23 +66,7 @@ config_file = os.path.join(os.path.dirname(__file__), config_file)
 
 CPSZCMLLayer = ZCMLLayer(config_file, __name__, 'CPSZCMLLayer')
 
-class CPSTestLayerClass(object):
-    """Base class for test layers
-    """
-
-    def __init__(self, module, name):
-        self.__module__ = module
-        self.__name__ = name
-
-    # Change translation_service to DummyTranslationService
-    def setupDummyTranslationService(self):
-        self.portal.translation_service = DummyTranslationService()
-        localizer = self.portal.Localizer
-        for domain in localizer.objectIds():
-            setattr(localizer, domain, DummyMessageCatalog())
-
-
-class CPSDefaultLayerClass(CPSTestLayerClass):
+class CPSDefaultLayerClass(object):
     """Layer to test CPS.
 
     The goal of a testrunner layer is to isolate initializations common
@@ -127,6 +76,10 @@ class CPSDefaultLayerClass(CPSTestLayerClass):
 
     # The setUp of bases is called autmatically first
     __bases__ = (CPSZCMLLayer,)
+
+    def __init__(self, module, name):
+        self.__module__ = module
+        self.__name__ = name
 
     def setUp(self):
         self.setSynchronous()
@@ -155,8 +108,6 @@ class CPSDefaultLayerClass(CPSTestLayerClass):
         # XXX: setupCPSSkins is not needed here, right ?
         #self.setupCPSSkins(portal_id)
         assert self.portal.portal_themes
-
-        self.setupDummyTranslationService()
         self.logout()
         transaction.commit()
 
@@ -164,11 +115,9 @@ class CPSDefaultLayerClass(CPSTestLayerClass):
         aclu = self.app.acl_users
         aclu._doAddUser('CPSTestCase', '', ['Manager'], [])
 
-    def login(self, login_id=None):
+    def login(self):
         aclu = self.app.acl_users
-        if login_id is None:
-            login_id = 'CPSTestCase'
-        user = aclu.getUserById(login_id).__of__(aclu)
+        user = aclu.getUserById('CPSTestCase').__of__(aclu)
         newSecurityManager(None, user)
 
     def logout(self):
@@ -195,11 +144,15 @@ class CPSDefaultLayerClass(CPSTestLayerClass):
 CPSDefaultLayer = CPSDefaultLayerClass(__name__, 'CPSDefaultLayer')
 
 
-class ExtensionProfileLayerClass(CPSTestLayerClass):
+class ExtensionProfileLayerClass(object):
 
     __bases__ = (CPSDefaultLayer,)
 
     extension_ids = ()
+
+    def __init__(self, module, name):
+        self.__module__ = module
+        self.__name__ = name
 
     def setUp(self):
         app = ZopeTestCase.app()
@@ -209,9 +162,6 @@ class ExtensionProfileLayerClass(CPSTestLayerClass):
             tool.setImportContext('profile-%s' % extension_id)
             tool.runAllImportSteps()
         tool.setImportContext('profile-%s' % PROFILE_ID)
-
-        # Seems dummy translation service needs to be setup again
-        self.setupDummyTranslationService()
         transaction.commit()
 
     def tearDown(self):
@@ -237,7 +187,6 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         SESSION = {}
         self.app.REQUEST['SESSION'] = SESSION
         self.app.REQUEST.SESSION = SESSION
-
 
     def printLogErrors(self, min_severity=0):
         """Print out the log output on the console.

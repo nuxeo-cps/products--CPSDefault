@@ -11,43 +11,7 @@ from OFS.SimpleItem import SimpleItem
 target = os.environ.get('CPSSKINS_TARGET', 'CMF')
 
 ##########################################
-try:
-    from Products.Localizer.Localizer import Localizer
-except ImportError:
-    pass
-else:
 
-    # This one is needed by ProxyTool.
-    def get_selected_language(self):
-        """ """
-        return self._default_language
-
-    # Localizer is present
-    Localizer.get_selected_language = get_selected_language
-
-    # LocalizerStringIO
-    from StringIO import StringIO
-    from Products.Localizer import LocalizerStringIO
-    from types import UnicodeType
-
-    # Un-patch LocalizerStringIO
-    def LocalizerStringIO_write(self, s):
-        StringIO.write(self, s)
-
-    # Hack around Unicode problem
-    def LocalizerStringIO_getvalue(self):
-        if self.buflist:
-            for buf in self.buflist:
-                if type(buf) == UnicodeType:
-                    self.buf += buf.encode('latin-1')
-                else:
-                    self.buf += buf
-            self.buflist = []
-        return self.buf
-    LocalizerStringIO.write = LocalizerStringIO_write
-    LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
-
-##########################################
 class DummyTranslationService(SimpleItem):
     meta_type = 'Translation Service'
     id = 'translation_service'
@@ -82,7 +46,9 @@ class DummyTranslationService(SimpleItem):
     def getSupportedLanguages(self):
         return ['en', 'fr', 'de']
 
+
 ##########################################
+
 class DummyMessageCatalog(SimpleItem):
     security = ClassSecurityInfo()
     def __call__(self, message, *args, **kw):
@@ -113,6 +79,9 @@ class DummyMessageCatalog(SimpleItem):
 InitializeClass(DummyMessageCatalog)
 
 ##########################################
+
+# AT: these are patches, I dont get what they're doing here.
+
 from Products.CPSSkins.PortalThemesTool import PortalThemesTool
 
 # session management

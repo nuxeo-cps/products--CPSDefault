@@ -114,10 +114,11 @@
     <ul style="margin: 0; padding: 0; list-style-type: none">
       <li tal:repeat="info extension_profiles">
         <input type="checkbox" name="extension_ids:list" value="PROFILE_ID"
-               id="ID" checked="CHECKED"
+               id="ID" checked="CHECKED" disabled="DISABLED"
                tal:attributes="value info/id;
                                id info/id;
-                               checked info/checked" />
+                               checked info/checked;
+                               disabled info/disabled" />
         <label for="ID" tal:attributes="for info/id"
                tal:content="info/title">PROFILE TITLE</label>
       </li>

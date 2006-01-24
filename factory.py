@@ -78,6 +78,7 @@ class CPSSiteConfigurator(object):
                 continue
             if info['type'] == EXTENSION:
                 info['checked'] = info['id'] in self.prechecked_extensions
+                info['disabled'] = info['id'] in self.mandatory_extensions
                 extension_profiles.append(info)
             else: # BASE
                 base_profiles.append(info)

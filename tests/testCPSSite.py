@@ -7,11 +7,9 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
-import CPSDefaultTestCase
-
 from AccessControl.Permissions import access_contents_information, view
 from Products.CMFCore.utils import getToolByName
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
 _folder_name          = 'testFolder_1_'
 _user_name            = 'testUser_1_'
@@ -24,7 +22,7 @@ _sections             = 'sections'
 _workspaces           = 'workspaces'
 _doc_name             = 'testCPSDoc'
 
-class TestCPSDefault(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestCPSDefault(CPSTestCase):
 
     def afterSetUp(self):
         self.wftool = getToolByName(self.portal, 'portal_workflow')

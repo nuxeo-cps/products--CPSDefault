@@ -22,19 +22,15 @@ ZopeTestCase.installProduct('CMFTopic', quiet=1)
 ZopeTestCase.installProduct('CMFSetup', quiet=1)
 ZopeTestCase.installProduct('DCWorkflow', quiet=1)
 ZopeTestCase.installProduct('Localizer', quiet=1)
-ZopeTestCase.installProduct('CPSBoxes', quiet=1)
 ZopeTestCase.installProduct('CPSPortlets', quiet=1)
 ZopeTestCase.installProduct('CPSNavigation', quiet=1)
-ZopeTestCase.installProduct('CPSRSS', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
 ZopeTestCase.installProduct('CPSWorkflow', quiet=1)
 ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSDirectory', quiet=1)
 ZopeTestCase.installProduct('CPSUserFolder', quiet=1)
-ZopeTestCase.installProduct('CPSForum', quiet=1)
 ZopeTestCase.installProduct('CPSSchemas', quiet=1)
 ZopeTestCase.installProduct('CPSDocument', quiet=1)
-ZopeTestCase.installProduct('CPSOOo', quiet=1)
 ZopeTestCase.installProduct('FCKeditor', quiet=1)
 ZopeTestCase.installProduct('Epoz', quiet=1)
 ZopeTestCase.installProduct('CPSSkins', quiet=1)
@@ -47,11 +43,17 @@ ZopeTestCase.installProduct('Five', quiet=1)
 
 # XXX: these products should (and used to be) be optional, but they aren't
 # right now.
+
 ZopeTestCase.installProduct('CPSSubscriptions', quiet=1)
 ZopeTestCase.installProduct('CPSNewsLetters', quiet=1)
 ZopeTestCase.installProduct('PortalTransforms', quiet=1)
 ZopeTestCase.installProduct('CPSWiki', quiet=1)
 
+# XXX AT: these products should be optional (dependencies remain to be checked)
+ZopeTestCase.installProduct('CPSBoxes', quiet=1)
+ZopeTestCase.installProduct('CPSRSS', quiet=1)
+ZopeTestCase.installProduct('CPSForum', quiet=1)
+ZopeTestCase.installProduct('CPSOOo', quiet=1)
 
 # The folowing are patches needed because Localizer doesn't work
 # well within ZTC
@@ -99,8 +101,23 @@ config_file = os.path.join(os.path.dirname(__file__), config_file)
 
 CPSZCMLLayer = ZCMLLayer(config_file, __name__, 'CPSZCMLLayer')
 
+class CPSTestLayerClass(object):
+    """Base class for test layers
+    """
 
-class CPSDefaultLayerClass(object):
+    def __init__(self, module, name):
+        self.__module__ = module
+        self.__name__ = name
+
+    # Change translation_service to DummyTranslationService
+    def setupDummyTranslationService(self):
+        self.portal.translation_service = DummyTranslationService()
+        localizer = self.portal.Localizer
+        for domain in localizer.objectIds():
+            setattr(localizer, domain, DummyMessageCatalog())
+
+
+class CPSDefaultLayerClass(CPSTestLayerClass):
     """Layer to test CPS.
 
     The goal of a testrunner layer is to isolate initializations common
@@ -110,10 +127,6 @@ class CPSDefaultLayerClass(object):
 
     # The setUp of bases is called autmatically first
     __bases__ = (CPSZCMLLayer,)
-
-    def __init__(self, module, name):
-        self.__module__ = module
-        self.__name__ = name
 
     def setUp(self):
         self.setSynchronous()
@@ -151,9 +164,11 @@ class CPSDefaultLayerClass(object):
         aclu = self.app.acl_users
         aclu._doAddUser('CPSTestCase', '', ['Manager'], [])
 
-    def login(self):
+    def login(self, login_id=None):
         aclu = self.app.acl_users
-        user = aclu.getUserById('CPSTestCase').__of__(aclu)
+        if login_id is None:
+            login_id = 'CPSTestCase'
+        user = aclu.getUserById(login_id).__of__(aclu)
         newSecurityManager(None, user)
 
     def logout(self):
@@ -171,44 +186,32 @@ class CPSDefaultLayerClass(object):
                              manager_email=MANAGER_EMAIL,
                              password=MANAGER_PASSWORD,
                              password_confirm=MANAGER_PASSWORD,
+                             manager_firstname="CPS",
+                             manager_lastname="Manager",
                              )
         self.portal = getattr(self.app, PORTAL_ID)
-
-    # Change translation_service to DummyTranslationService
-    def setupDummyTranslationService(self):
-        self.portal.translation_service = DummyTranslationService()
-        localizer = self.portal.Localizer
-        for domain in localizer.objectIds():
-            setattr(localizer, domain, DummyMessageCatalog())
 
 
 CPSDefaultLayer = CPSDefaultLayerClass(__name__, 'CPSDefaultLayer')
 
 
-class ExtensionProfileLayerClass(object):
+class ExtensionProfileLayerClass(CPSTestLayerClass):
 
     __bases__ = (CPSDefaultLayer,)
 
     extension_ids = ()
 
-    def __init__(self, module, name):
-        self.__module__ = module
-        self.__name__ = name
-
     def setUp(self):
         app = ZopeTestCase.app()
-        portal = getattr(app, PORTAL_ID)
-        tool = portal.portal_setup
+        self.portal = getattr(app, PORTAL_ID)
+        tool = self.portal.portal_setup
         for extension_id in self.extension_ids:
             tool.setImportContext('profile-%s' % extension_id)
             tool.runAllImportSteps()
         tool.setImportContext('profile-%s' % PROFILE_ID)
 
-        # XXX: seems I need to do this here. 
-        portal.translation_service = DummyTranslationService()
-        localizer = portal.Localizer
-        for domain in localizer.objectIds():
-            setattr(localizer, domain, DummyMessageCatalog())
+        # Seems dummy translation service needs to be setup again
+        self.setupDummyTranslationService()
         transaction.commit()
 
     def tearDown(self):
@@ -222,23 +225,19 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
 
     layer = CPSDefaultLayer
 
-    # Override _setup, setUp is not supposed to be overriden
+    # configuration is already done in the layer
+    _configure_portal = 0
+
     def _setup(self):
-
-        # FIXME: ugly hack, fixing something that is broken elsewhere
-        members_directory = self.portal.portal_directories.members
-        entries = members_directory._searchEntries()
-        if 'test_user_1_' in entries:
-            members_directory._delObject('test_user_1_')
-
         ZopeTestCase.PortalTestCase._setup(self)
 
         # Some skins need sessions (not sure if it's a good thing).
         # Localizer too.
         # Both lines below are needed.
         SESSION = {}
-        self.portal.REQUEST['SESSION'] = SESSION
-        self.portal.REQUEST.SESSION = SESSION
+        self.app.REQUEST['SESSION'] = SESSION
+        self.app.REQUEST.SESSION = SESSION
+
 
     def printLogErrors(self, min_severity=0):
         """Print out the log output on the console.

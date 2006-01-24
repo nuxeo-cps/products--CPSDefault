@@ -26,21 +26,15 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
-import CPSDefaultTestCase
+import transaction
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.tests.base.utils import has_path
 
 from Products.CPSCore.IndexationManager import get_indexation_manager
-try:
-    import transaction
-except ImportError:
-    # BBB: for Zope 2.7
-    from Products.CMFCore.utils import transaction
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
-
-class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestSynchronousIndexation(CPSTestCase):
 
     login_id = 'manager'
 
@@ -100,7 +94,7 @@ class TestSynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
         self.assert_(has_path(self.catalog,
                               "/portal/workspaces/%s/%s"%(ws_id, id)))
 
-class TestAsynchronousIndexation(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestAsynchronousIndexation(CPSTestCase):
 
     login_id = 'manager'
 

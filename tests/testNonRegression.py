@@ -5,10 +5,9 @@ if __name__ == '__main__':
 import unittest
 from Testing import ZopeTestCase
 from AccessControl.SecurityManagement import newSecurityManager
-import CPSDefaultTestCase
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
-
-class TestNonRegression(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestNonRegression(CPSTestCase):
     def afterSetUp(self):
         self.login('manager')
 

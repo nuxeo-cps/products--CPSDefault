@@ -5,16 +5,12 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
-import CPSDefaultTestCase
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.tests.base.utils import has_path
-#ZopeTestCase.installProduct('VerboseSecurity', quiet=1)
-
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
 # Testing some skins methods and templates anonymously.
 
-class TestSkins(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestSkins(CPSTestCase):
 
     login_id = 'manager'
 

@@ -21,11 +21,11 @@
 """
 
 import unittest
-import CPSDefaultTestCase
 
 from OFS.CopySupport import CopyError
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
-class TestCopyPasteBase(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestCopyPasteBase(CPSTestCase):
 
     def afterSetUp(self):
         self._ws = self.portal.workspaces

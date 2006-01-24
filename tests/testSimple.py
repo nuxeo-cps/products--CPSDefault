@@ -3,13 +3,13 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
-import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
 from Products.CMFCore.utils import getToolByName
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
-class TestSimple(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestSimple(CPSTestCase):
+
     def afterSetUp(self):
         if self.login_id:
             self.login(self.login_id)

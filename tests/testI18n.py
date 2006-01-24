@@ -1,19 +1,39 @@
+# (C) Copyright 2006 Nuxeo SAS <http://nuxeo.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+#
+# $Id$
+
 import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
-import CPSDefaultTestCase
 
 from Products.CMFCore.tests.base.utils import has_path
+
 from Products.CPSCore.utils import KEYWORD_SWITCH_LANGUAGE
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
 from Products.CPSCore.utils import resetRequestLanguageSelection
 from Products.CPSCore.EventServiceTool import getEventService
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
-class TestI18n(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestI18n(CPSTestCase):
+
     login_id = 'manager'
+
     def afterSetUp(self):
         if self.login_id:
             self.login(self.login_id)

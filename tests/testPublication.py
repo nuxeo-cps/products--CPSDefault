@@ -1,10 +1,32 @@
+# (C) Copyright 2006 Nuxeo SAS <http://nuxeo.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+#
+# $Id$
+
 import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
-from Testing import ZopeTestCase
-import CPSDefaultTestCase
+
+import traceback
+from zExceptions.ExceptionFormatter import format_exception
+traceback.format_exception = format_exception
+
+from DateTime import DateTime
 
 from webdav.LockItem import LockItem
 from AccessControl import Unauthorized
@@ -13,15 +35,12 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
-from DateTime import DateTime
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
 ANOTHER_SECTION_ID = 'another-section'
 
-import traceback
-from zExceptions.ExceptionFormatter import format_exception
-traceback.format_exception = format_exception
 
-class TestPublication(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestPublication(CPSTestCase):
     # Test object creation and publication workflow
 
     def afterSetUp(self):

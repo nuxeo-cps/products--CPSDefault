@@ -27,13 +27,12 @@ import unittest
 
 from AccessControl import Unauthorized
 
-import CPSDefaultTestCase
-from Testing.ZopeTestCase import user_name
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
 class FakeMailHost(list):
     send = list.append
 
-class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
+class TestMembershipTool(CPSTestCase):
     login_id = 'manager'
 
     def afterSetUp(self):
@@ -117,7 +116,7 @@ class TestMembershipTool(CPSDefaultTestCase.CPSDefaultTestCase):
 
     def test_getEmail(self):
         # This test is more useful if you are not logged in a manager:
-        self.login(user_name)
+        self.login('member')
         pmtool = self.pmtool
         members = self.portal.portal_directories.members
         email = 'test@test.no'

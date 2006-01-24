@@ -21,9 +21,9 @@
 """
 
 import unittest
-import CPSDefaultTestCase
+from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
-class VersionningTestCaseBase(CPSDefaultTestCase.CPSDefaultTestCase):
+class VersionningTestCaseBase(CPSTestCase):
 
     def afterSetUp(self):
         self._ws = self.portal.workspaces

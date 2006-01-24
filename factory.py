@@ -77,7 +77,8 @@ class CPSSiteConfigurator(object):
                 # Only keep CPS-specific extensions
                 continue
             if info['type'] == EXTENSION:
-                info['checked'] = info['id'] in self.prechecked_extensions
+                info['checked'] = info['id'] in self.prechecked_extensions or \
+                                  info['id'] in self.mandatory_extensions
                 info['disabled'] = info['id'] in self.mandatory_extensions
                 extension_profiles.append(info)
             else: # BASE

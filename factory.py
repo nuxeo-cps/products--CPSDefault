@@ -36,7 +36,7 @@ class CPSSiteConfigurator(object):
     """
 
     prechecked_extensions = ()
-    mandatory_extensions = ()
+    mandatory_extensions = ('CPSPortlets:default',)
 
     available_languages = (
         {'id': 'nl', 'title': 'Dutch'},

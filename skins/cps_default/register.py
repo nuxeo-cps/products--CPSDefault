@@ -4,6 +4,11 @@
 FIXME: docstring?
 """
 
+# FIXME AT: to refactor, this script is prehistoric and buggy
+# - REQUEST must be clearly set as script parameter, required or not
+# - ever heard of layouts and widgets to control data validity?
+
+
 from re import match
 from AccessControl import Unauthorized
 
@@ -64,7 +69,7 @@ if not match(r'^(\w(\.|\-)?)+@(\w(\.|\-)?)+\.[A-Za-z]{2,4}$', email):
 password = request.get('password') or portal_registration.generatePassword()
 username = request['username']
 try:
-    portal_registration.addMember(username, password, properties=request)
+    portal_registration.addMember(username, password, properties=request.form)
 except ValueError:
     request.set('portal_status_message',
                 conversion.get(failMessage, failMessage))

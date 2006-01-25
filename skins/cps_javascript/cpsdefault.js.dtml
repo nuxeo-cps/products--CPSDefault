@@ -33,7 +33,7 @@ var CPSContainerEditor = Class.create();
 
 CPSContainerEditor.prototype = {
   initialize: function(draggable_class, droppable_class, droppable_in_class,
-                       working_text, folder_content, ajax_psm,
+                       display_format, working_text, folder_content, ajax_psm,
                        generic_error_msg) {
     this.hooked = false;
     this.working_text = working_text;
@@ -43,6 +43,7 @@ CPSContainerEditor.prototype = {
     this.droppable_class = droppable_class;
     this.droppable_in_class = droppable_in_class;
     this.generic_error_msg = generic_error_msg;
+    this.display_format = display_format;
     this.hookElements();
   },
 
@@ -176,34 +177,47 @@ CPSContainerEditor.prototype = {
 
     this.draggables = new_draggables;
 
-    // getting table lines
-    var table = document.getElementById(this.folder_content);
-    var tbody = table.getElementsByTagName('tbody')[0];
-    var rows = document.getElementsByClassName('ajaxtd');
-    var rowArray = new Array();
+    switch (this.display_format) {
+      case 'detail':
+      case 'detail_tab':
+        // getting table lines
+        var table = document.getElementById(this.folder_content);
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var rows = document.getElementsByClassName('ajaxtd');
+        var rowArray = new Array();
 
-    for (var i=0, length=this.draggables.length; i<length; i++) {
-        current_id = this.draggables[i].id;
-        rowArray[i] = new Object;
-        rowArray[i].oldIndex = this.arrayPosition(old_positions, current_id);
-        rowArray[i].value = this.arrayPosition(new_positions, current_id);
+        for (var i=0, length=this.draggables.length; i<length; i++) {
+            current_id = this.draggables[i].id;
+            rowArray[i] = new Object;
+            rowArray[i].oldIndex = this.arrayPosition(old_positions, current_id);
+            rowArray[i].value = this.arrayPosition(new_positions, current_id);
+        }
+
+        // sorting
+        rowCompareBn = this.rowCompare.bind(this);
+        rowArray.sort(rowCompareBn);
+
+        // recreating the tbody tree
+        var newTbody = document.createElement('tbody');
+        for (var i=0, length=rowArray.length; i<length; i++) {
+            new_node = rows[rowArray[i].oldIndex].cloneNode(true)
+            node_core = new_node.childNodes[1].childNodes[1];
+            node_core.style.top = 0;
+            node_core.style.left = 0;
+            newTbody.appendChild(new_node);
+        }
+        table.replaceChild(newTbody, tbody);
+        break;
+
+      case 'icon':
+        // change the icon view
+        break;
+      case 'compact':
+        // change the icon view
+        break;
     }
 
-    // sorting
-    rowCompareBn = this.rowCompare.bind(this);
-    rowArray.sort(rowCompareBn);
 
-    // recreating the tbody tree
-    var newTbody = document.createElement('tbody');
-    for (var i=0, length=rowArray.length; i<length; i++) {
-        new_node = rows[rowArray[i].oldIndex].cloneNode(true)
-        node_core = new_node.childNodes[1].childNodes[1];
-        node_core.style.top = 0;
-        node_core.style.left = 0;
-        newTbody.appendChild(new_node);
-    }
-
-    table.replaceChild(newTbody, tbody);
     this.unHookElements();
     this.hookElements();
     this.onComplete();

@@ -1,0 +1,21 @@
+<!-- a content_lib macro -->
+<!-- $Id$ -->
+
+<!-- One column doc information -->
+
+<metal:block define-macro="info_one_column">
+<div
+  tal:define="action python:test(info['type'] in ('Section', 'Workspace'), '/folder_contents', '')"
+  tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)">
+ <tal:block replace="structure python:path('here/'+ info['icon'])" />
+ <a href="" tal:attributes="href string:${info/url}/${action};
+                            title info/description">
+ <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br />
+   <tal:block define="status_short_fmt not:nothing;
+                      status_time not:nothing;
+                      description python:info['doc'].description">
+    <span tal:content="python:here.getDateStr(info['time'],'short')" />.
+    <span tal:content="description" />
+   </tal:block>
+</div>
+</metal:block>

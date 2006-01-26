@@ -6,6 +6,16 @@ $Id$
 
 from urllib import unquote
 
+def checkRedirect(portal, mtool):
+    to_member_home = False
+    to_workspaces = False
+    has_home = mtool.getHomeFolder()
+    if has_home:
+        to_member_home = True
+    if not has_home and mtool.checkPermission('View', portal.workspaces):
+        to_workspaces = True
+    return to_member_home, to_workspaces
+
 utool = context.portal_url
 mtool = context.portal_membership
 dtool = context.portal_directories
@@ -14,9 +24,17 @@ portal_absolute_url = portal.absolute_url()
 
 redirect_url = came_from
 redirect_to_portal = False
+to_member_home = False
+to_workspaces = False
+
+is_anon = mtool.isAnonymousUser()
+member = mtool.getAuthenticatedMember()
 
 if not redirect_url or redirect_url.endswith('/logged_out'):
-    redirect_to_portal = True
+    if not is_anon:
+        to_member_home, to_workspaces = checkRedirect(portal, mtool)
+    if (not to_member_home) and (not to_workspaces):
+        redirect_to_portal = True
 else:
     redirect_url = unquote(redirect_url)
     # One can be redirected from an http page while the login is done from an
@@ -24,13 +42,17 @@ else:
     # A better option here would be to replace the previous portal_absolute_url
     # prefix in the redirect_url by the current portal absolute URL.
     if not redirect_url.startswith(portal_absolute_url):
-        redirect_to_portal = True
+        if not is_anon:
+            to_member_home, to_workspaces = checkRedirect(portal, mtool)
+        if (not to_member_home) and (not to_workspaces):
+            redirect_to_portal = True
 
 if redirect_to_portal:
     redirect_url = portal_absolute_url
-
-is_anon = mtool.isAnonymousUser()
-member = mtool.getAuthenticatedMember()
+if to_workspaces:
+    redirect_url = portal.workspaces.absolute_url()
+if to_member_home:
+    redirect_url = mtool.getHomeFolder().absolute_url()
 
 REQUEST = context.REQUEST
 RESPONSE = REQUEST.RESPONSE

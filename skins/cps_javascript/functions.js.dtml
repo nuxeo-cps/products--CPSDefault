@@ -299,3 +299,12 @@ function searchLanguageClearSelected(languages) {
     languages[i].checked = 0;
   }
 }
+
+function toggleLayers(more_block, more_items) {
+  var objMoreBlock = document.getElementById(more_block).style;
+  var objMoreItems = document.getElementById(more_items).style;
+  if(objMoreBlock.display == "block")
+    objMoreBlock.display = "none";
+  if(objMoreItems.display == "none")
+    objMoreItems.display = "block";
+}

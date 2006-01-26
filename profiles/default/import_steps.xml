@@ -85,6 +85,18 @@
   <dependency step="toolset"/>
   Import skins tool's filesystem directory views and skin path definitions.
  </import-step>
+ <import-step id="action-icons" version="20051015-01"
+              handler="Products.CMFActionIcons.exportimport.importActionIconsTool"
+              title="Action Icons">
+  <dependency step="toolset"/>
+  Import action icon definitions
+ </import-step>
+ <import-step id="themes" version="20051130-01"
+              handler="Products.CPSSkins.exportimport.importThemeTool"
+              title="Theme tool">
+  <dependency step="toolset"/>
+  Import theme tool and themes.
+ </import-step>
  <import-step id="toolset" version="20040630-01"
               handler="Products.GenericSetup.tool.importToolset"
               title="Required tools">

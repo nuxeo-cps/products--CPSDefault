@@ -22,7 +22,10 @@
 
 <metal:block fill-slot="header">
 <metal:block define-slot="header">
-  <h1 tal:content="here/title_or_id">Page Title</h1>
+  <h1 tal:content="here/title_or_id" tal:attributes="style 
+    python:'background:url(%s) no-repeat 0px 0px' % here.getIcon(1)">
+    Page Title
+  </h1>
   <div class="description" tal:content="doc/Description"
     tal:condition="doc/Description">
     Document Description goes here.

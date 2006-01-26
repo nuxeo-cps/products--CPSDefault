@@ -62,8 +62,18 @@ CPSContainerEditor.prototype = {
   hookElements: function() {
     if (this.hooked)
       return;
+
     this.draggables = document.getElementsByClassName(this.draggable_class);
+    if (this.draggables.length==0) {
+      // nothing to drag
+      return;
+    }
+
     this.droppables = document.getElementsByClassName(this.droppable_class);
+    if (this.droppables.length==0) {
+      // nowhere to drop
+      return;
+    }
     this.droppables_in = document.getElementsByClassName(this.droppable_in_class);
     this.draggable_objects = [];
 
@@ -266,7 +276,7 @@ CPSContainerEditor.prototype = {
       Effect.Pulsate(this.ajax_psm, {duration:1.5, queue:'end'});
       Effect.Fade(this.ajax_psm, {duration:1.5, queue:'end'});
     }
-  },
+  }
 }
 
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 15:41default\n"
+"POT-Creation-Date: 2006-01-25 18:50default\n"
 "PO-Revision-Date: 2004-10-04 17:20+0100\n"
 "Last-Translator:  <>\n"
 "Language-Team: Euskara <eu@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Sortzailea: ${item_creator}. Azken eguneraketa: ${item_modification}."
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
 #.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "Language"
 msgstr "Hizkuntza"
 
@@ -54,16 +54,22 @@ msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr ""
 
 #.   <label content="item/Description" attributes="for choice_id" for="">
-#.                   Portal type's description
-#.                 </label>
+#.                     Portal type's description
+#.                   </label>
+#.   <label content="item/Description" attributes="for choice_id" for="">
+#.                         Portal type's description
+#.                       </label>
 #: from ../skins/cps_default/folder_factories.pt
 #, fuzzy
 msgid "Portal type's description"
 msgstr "Descripción del tipo de documento"
 
 #.   <label content="item/Title" attributes="for choice_id" for="">
-#.                   Portal type's title
-#.                 </label>
+#.                     Portal type's title
+#.                   </label>
+#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                         Portal type's title
+#.                       </label>
 #: from ../skins/cps_default/folder_factories.pt
 #, fuzzy
 msgid "Portal type's title"
@@ -263,10 +269,10 @@ msgstr "Aurrekoa"
 msgid "button_abandon_draft"
 msgstr "Bertsioa askatu"
 
-#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/language_manage_form.pt
+#.   <input type="submit" class="standalone searchButton" value="button_add" />
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Gehitu"
 
@@ -283,25 +289,26 @@ msgstr "Ekin"
 msgid "button_assign_roles"
 msgstr "Rolak esleitu"
 
+#.   <button type="button" onclick="history.back()">Cancel</button>
 #.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
-#: from ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_delete_archive_form.pt
 #: ../skins/cps_default/content_publish_form.pt
-#: ../skins/cps_default/content_reject_form.pt
-#: ../skins/cps_default/content_revert_form.pt 4 more references
+#: ../skins/cps_default/content_reject_form.pt 4 more references
 msgid "button_cancel"
 msgstr "Utzi"
 
+#.   <button type="submit">Change</button>
 #.   <input type="submit" class="standalone" value="button_change" />
 #.   <input type="submit" name="change" value="button_change" class="standalone" />
-#.   <button type="submit">Change</button>
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
-#: ../skins/cps_default/reconfig_form.pt
 msgid "button_change"
 msgstr "Aldaketak Gorde"
 
@@ -347,13 +354,13 @@ msgstr "Kopiatu"
 msgid "button_cut"
 msgstr "Ebaki"
 
+#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
-#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#: from ../skins/cps_default/folder_contents.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
-#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Ezabatu"
 
@@ -460,7 +467,7 @@ msgid "button_search"
 msgstr "Bilatu"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Select</button>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "button_select"
 msgstr "Aukeratu"
 
@@ -518,16 +525,6 @@ msgstr "Dagoeneko erregistratuta zaude. Zure datuak aldatzeko"
 msgid "description_join_form_already_member_2"
 msgstr "erabili dezakezu."
 
-#.   <p>
-#.       This page give you the opportunity to manage languages available on the portal.
-#.     </p>
-#: from ../skins/cps_default/language_manage_form.pt
-#, fuzzy
-msgid "description_languages_form"
-msgstr ""
-"Esta página le ofrece la oportunidad de administrar los idiomas disponibles "
-"en el portal"
-
 #.   <span>
 #.   	You are not currently logged in. Your username and or password may be
 #.   	incorrect. Your browser may also not be configured to accept HTTP
@@ -557,18 +554,6 @@ msgstr "Saioa amaitu duzu."
 #, fuzzy
 msgid "description_logout_zmi_warning"
 msgstr "Usted se ha desconectado del portal. Puede "
-
-#    <div class="description">
-#        This form is used to set the portal configuration options.
-#      </div>
-#.   <p class="description">
-#.       This form is used to set the portal configuration options.
-#.     </p>
-#: from ../skins/cps_default/reconfig_form.pt
-#, fuzzy
-msgid "description_reconfig_form"
-msgstr ""
-"Este formulario sirve para fijar las opciones de configuración del portal."
 
 #.   <p> 
 #.           You have been registered as a member. 
@@ -709,12 +694,6 @@ msgstr "Edukia gehitu"
 msgid "heading_join_form"
 msgstr "Izena eman"
 
-#.   <h1>Manage languages</h1>
-#: from ../skins/cps_default/language_manage_form.pt
-#, fuzzy
-msgid "heading_language_manage_form"
-msgstr "Administrar idiomas"
-
 #.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members and groups
 #.   </h1>
@@ -777,10 +756,8 @@ msgstr "Cambiar contraseña"
 msgid "heading_publish_of ${item_id}"
 msgstr "Publicar ${item_id}"
 
-#.   <h1>
-#.       Configure Portal
-#.     </h1>
-#: from ../skins/cps_default/reconfig_form.pt
+#.   <h1>Configure Portal</h1>
+#: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Ataria konfiguratu"
 
@@ -1218,7 +1195,7 @@ msgstr ""
 msgid "into ${history_dest}"
 msgstr ""
 
-#.   <td>Action</td>
+#.   <th>Action</th>
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_action"
@@ -1233,14 +1210,14 @@ msgstr "Historial de acciones"
 #.   <label for="email_from_address">
 #.               Administrator Email
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_admin_email"
 msgstr "Kudeatzailearen e-posta"
 
 #.   <label for="email_from_name">
 #.               Administrator Name
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_admin_name"
 msgstr "Kudeatzailearen Izena"
 
@@ -1262,7 +1239,7 @@ msgstr "Dena"
 msgid "label_archived_revisions"
 msgstr "Berrikuspena"
 
-#.   <td>Author</td>
+#.   <th>Author</th>
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_author"
@@ -1304,7 +1281,7 @@ msgstr "Data honetako ebentuak: "
 msgid "label_choose"
 msgstr "Aukeratu"
 
-#.   <td>Comments</td>
+#.   <th>Comments</th>
 #: from ../skins/cps_default/content_lib_history.pt
 #, fuzzy
 msgid "label_comments"
@@ -1333,7 +1310,7 @@ msgstr "Site conceived in valid XHTML"
 msgid "label_conformance_wai_1a"
 msgstr "Accesibilidad al contenido de nivel A de la web W·C"
 
-#.   <td>Consultation</td>
+#.   <th>Consultation</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_consultation"
@@ -1357,7 +1334,7 @@ msgstr "Current revisions"
 msgid "label_current_status"
 msgstr "Estado actual del documento"
 
-#.   <td>Date</td>
+#.   <th>Date</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1422,7 +1399,7 @@ msgstr "Lehenetsitakoa"
 msgid "label_description"
 msgstr "Azalpena"
 
-#.   <td>Destruction</td>
+#.   <th>Destruction</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_destruction"
@@ -1612,13 +1589,13 @@ msgstr "Inherited role"
 msgid "label_inherited_roles"
 msgstr "Inherited roles"
 
-#.   <td>Langue</td>
-#.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
-#: from ../skins/cps_default/content_lib_archived.pt
+#.   <th>Langue</th>
+#.   <th align="right">Language</th>
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
-#: ../skins/cps_default/language_manage_form.pt
 msgid "label_language"
 msgstr "Hizkuntza"
 
@@ -1654,7 +1631,7 @@ msgstr "Honen arabera bilatu"
 msgid "label_local_roles_search_term"
 msgstr "Bilatutakoa"
 
-#.   <td>Location</td>
+#.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
 #, fuzzy
 msgid "label_location"
@@ -1702,21 +1679,21 @@ msgstr "¿Enviar la contraseña?"
 #.   <label for="portal_description">
 #.               Portal description
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_description"
 msgstr "Atariaren deskribapena"
 
 #.   <label for="enable_portal_joining">
 #.               Enable portal joining
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_join"
 msgstr "Atarira sartzen utzi"
 
 #.   <label for="enable_password_reminder">
 #.               Enable sending of password reminder
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 #, fuzzy
 msgid "label_portal_enable_password_reminder"
 msgstr "Permitir el envío del recordatorio de la contraseña"
@@ -1724,7 +1701,7 @@ msgstr "Permitir el envío del recordatorio de la contraseña"
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 #, fuzzy
 msgid "label_portal_enable_password_reset"
 msgstr "Permitir el cambio de contraseña"
@@ -1732,7 +1709,7 @@ msgstr "Permitir el cambio de contraseña"
 #.   <label for="portal_title">
 #.               Portal title
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_title"
 msgstr "Atariaren izena"
 
@@ -1754,13 +1731,13 @@ msgstr " a "
 msgid "label_requires_approval"
 msgstr "Onarpena behar du"
 
-#.   <td>Reversion</td>
+#.   <th>Reversion</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #, fuzzy
 msgid "label_reversion"
 msgstr "Reversión"
 
-#.   <td>Version</td>
+#.   <th>Version</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1855,7 +1832,7 @@ msgstr "desde ${status_time}"
 #.   <label for="smtp_server">
 #.               SMTP Server
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_smtp_server"
 msgstr "SMTP Zerbitzaria"
 
@@ -1870,7 +1847,7 @@ msgid "label_start_date"
 msgstr "Hasiera eguna (DD/MM/YYYY)"
 
 #.   <span>Label Status</span>
-#.   <td>Status</td>
+#.   <th>Status</th>
 #: from ../skins/cps_default/content_lib_byline.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/content_lib_status.pt
@@ -1982,12 +1959,13 @@ msgid "label_user_id"
 msgstr "User id"
 
 #.   <label for="username">User name</label>
-#: from ../skins/cps_default/account_lost_password_form.pt
-#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr "Erabiltzaile-izena"
 
+#.   <label for="username">
+#.                   User name or email address</label>
 #.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -2016,25 +1994,25 @@ msgid "label_you_are_here"
 msgstr "Hemen zaude:&nbsp;"
 
 #.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 #, fuzzy
 msgid "language"
 msgstr "Idioma"
 
 #.   <h2>Add languages</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 #, fuzzy
 msgid "language_add"
 msgstr "Idiomas disponibles que no están activados"
 
 #.   <h2>Delete languages</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 #, fuzzy
 msgid "language_delete"
 msgstr "Idiomas activados"
 
 #.   <h2>Set default portal language</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 #, fuzzy
 msgid "language_set_default"
 msgstr "Idioma por defecto del portal"
@@ -2269,6 +2247,15 @@ msgstr "Atala"
 #, fuzzy
 msgid "log out"
 msgstr "salir"
+
+#.   <a attributes="
+#.                    href string:javascript:toggleLayers('more_block', 'more_items')">
+#.                    more choices
+#.                 </a>
+#: from ../skins/cps_default/folder_factories.pt
+#, fuzzy
+msgid "more_choices_folder_factories"
+msgstr "Add content"
 
 #.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -3255,6 +3242,30 @@ msgstr "Mensaje de estado traducido"
 
 msgid "Title"
 msgstr "Izenburua"
+
+msgid "ajax_working"
+msgstr ""
+
+msgid "ajax_failing"
+msgstr ""
+
+#, fuzzy
+msgid "description_languages_form"
+msgstr ""
+"Esta página le ofrece la oportunidad de administrar los idiomas disponibles "
+"en el portal"
+
+#    <div class="description">
+#        This form is used to set the portal configuration options.
+#      </div>
+#, fuzzy
+msgid "description_reconfig_form"
+msgstr ""
+"Este formulario sirve para fijar las opciones de configuración del portal."
+
+#, fuzzy
+msgid "heading_language_manage_form"
+msgstr "Administrar idiomas"
 
 #~ msgid "action_boxes"
 #~ msgstr "Kutxen Kudeaketa"

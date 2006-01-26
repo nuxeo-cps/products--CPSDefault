@@ -9,7 +9,11 @@
 <metal:body use-macro="here/content_lib_master/macros/master">
 
 <metal:header metal:fill-slot="header">
-  <h1 tal:content="here/title_or_id">Page Title</h1>
+  <h1 tal:content="here/title_or_id" 
+    tal:attributes="style 
+      python:'background:url(%s) no-repeat 0px 0px' % here.getIcon(1)">
+    Page Title
+  </h1>
   <a href="" accesskey="V"
      style="display:none"
      tal:attributes="href string:${context_url}/"></a>
@@ -19,9 +23,16 @@
   <div align="right">
     <form action="" method="post" name="formf"
           tal:attributes="action string:${here_url}/changeDisplayParams">
-      <metal:params use-macro="here/content_lib_display_params_form/macros/display_params_form" />
-      <input type="submit" value="button_apply" class="standalone"
+      <tal:block condition="python:not here.isInWorkspace()">
+        <metal:params use-macro="here/content_lib_display_params_form/macros/display_params_form" />
+        <input type="submit" value="button_apply" class="standalone"
              i18n:attributes="value" />
+      </tal:block>
+      <tal:block condition="python:here.isInWorkspace() and sort_by">
+        <input type="hidden" name="display_order" value="None" />
+        <input type="submit" value="label_none" class="standalone"
+             i18n:attributes="value" />
+      </tal:block>
     </form>
   </div>
 </metal:header>
@@ -50,7 +61,8 @@
         tal:define="no_form python:not checkPerm('Modify portal content', here);
 
                     nav_action string:folder_contents;
-                    items python:here.getFolderContents(displayed=displayed);">
+                    items python:here.getFolderContents(displayed=displayed);
+                    items_per_page python:50;">
 
     <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 15:41default\n"
+"POT-Creation-Date: 2006-01-25 18:50default\n"
 "PO-Revision-Date: 2005-04-04 17:31+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -36,7 +36,7 @@ msgstr "Creat de ${item_creator}. Modificat ultima oara ${item_modification}."
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
 #.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "Language"
 msgstr "Limba"
 
@@ -56,15 +56,21 @@ msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Obiecte: ${batch_start} - ${batch_limit} din ${batch_length}"
 
 #.   <label content="item/Description" attributes="for choice_id" for="">
-#.                   Portal type's description
-#.                 </label>
+#.                     Portal type's description
+#.                   </label>
+#.   <label content="item/Description" attributes="for choice_id" for="">
+#.                         Portal type's description
+#.                       </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
 msgstr "Descriere tip document"
 
 #.   <label content="item/Title" attributes="for choice_id" for="">
-#.                   Portal type's title
-#.                 </label>
+#.                     Portal type's title
+#.                   </label>
+#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                         Portal type's title
+#.                       </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr "Titlu document"
@@ -252,10 +258,10 @@ msgstr "Inapoi"
 msgid "button_abandon_draft"
 msgstr "Abandoneaza revizia"
 
-#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/language_manage_form.pt
+#.   <input type="submit" class="standalone searchButton" value="button_add" />
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Adauga"
 
@@ -272,25 +278,26 @@ msgstr "Aplica"
 msgid "button_assign_roles"
 msgstr "Atribuie roluri"
 
+#.   <button type="button" onclick="history.back()">Cancel</button>
 #.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
-#: from ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_delete_archive_form.pt
 #: ../skins/cps_default/content_publish_form.pt
-#: ../skins/cps_default/content_reject_form.pt
-#: ../skins/cps_default/content_revert_form.pt 4 more references
+#: ../skins/cps_default/content_reject_form.pt 4 more references
 msgid "button_cancel"
 msgstr "Renunta"
 
+#.   <button type="submit">Change</button>
 #.   <input type="submit" class="standalone" value="button_change" />
 #.   <input type="submit" name="change" value="button_change" class="standalone" />
-#.   <button type="submit">Change</button>
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
-#: ../skins/cps_default/reconfig_form.pt
 msgid "button_change"
 msgstr "Schimba"
 
@@ -335,13 +342,13 @@ msgstr "Copiaza"
 msgid "button_cut"
 msgstr "Taie"
 
+#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
-#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#: from ../skins/cps_default/folder_contents.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
-#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Sterge"
 
@@ -447,7 +454,7 @@ msgstr "Cauta"
 # Buttons
 # ########
 #.   <button type="submit" name="manageCPSLanguage:method">Select</button>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "button_select"
 msgstr "Selecteaza"
 
@@ -503,13 +510,6 @@ msgstr "Esti deja membru inregistrat. Poti folosi"
 msgid "description_join_form_already_member_2"
 msgstr "pentru a-ti schimba datele de inregistrare"
 
-#.   <p>
-#.       This page give you the opportunity to manage languages available on the portal.
-#.     </p>
-#: from ../skins/cps_default/language_manage_form.pt
-msgid "description_languages_form"
-msgstr "In aceasta pagina administrezi limbile din portal"
-
 #.   <span>
 #.   	You are not currently logged in. Your username and or password may be
 #.   	incorrect. Your browser may also not be configured to accept HTTP
@@ -535,13 +535,6 @@ msgstr "Te-ai delogat."
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_zmi_warning"
 msgstr "Esti autentificat din afara portalului. S-ar putea sa fie nevoie sa"
-
-#.   <p class="description">
-#.       This form is used to set the portal configuration options.
-#.     </p>
-#: from ../skins/cps_default/reconfig_form.pt
-msgid "description_reconfig_form"
-msgstr "Acest formular este folosit pentru a configura optiunile portalului"
 
 #.   <p> 
 #.           You have been registered as a member. 
@@ -677,11 +670,6 @@ msgstr "Adauga continut"
 msgid "heading_join_form"
 msgstr "Inregistreaza-te ca membru"
 
-#.   <h1>Manage languages</h1>
-#: from ../skins/cps_default/language_manage_form.pt
-msgid "heading_language_manage_form"
-msgstr "Administrare Limbi"
-
 #.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members and groups
 #.   </h1>
@@ -740,10 +728,8 @@ msgstr "Parola resetata"
 msgid "heading_publish_of ${item_id}"
 msgstr "Publicare a ${item_id}"
 
-#.   <h1>
-#.       Configure Portal
-#.     </h1>
-#: from ../skins/cps_default/reconfig_form.pt
+#.   <h1>Configure Portal</h1>
+#: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configureaza portalul"
 
@@ -1153,7 +1139,7 @@ msgstr "Nu exista nici o versiune publicata a acestui document."
 msgid "into ${history_dest}"
 msgstr "in ${history_dest}"
 
-#.   <td>Action</td>
+#.   <th>Action</th>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_action"
 msgstr "Actiune"
@@ -1166,14 +1152,14 @@ msgstr "Istoricul actiunilor"
 #.   <label for="email_from_address">
 #.               Administrator Email
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_admin_email"
 msgstr "Adresa de email a administratorului"
 
 #.   <label for="email_from_name">
 #.               Administrator Name
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_admin_name"
 msgstr "Numele administratorului"
 
@@ -1194,7 +1180,7 @@ msgstr "tot"
 msgid "label_archived_revisions"
 msgstr "Versiuni arhivate"
 
-#.   <td>Author</td>
+#.   <th>Author</th>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_author"
 msgstr "Autor"
@@ -1235,7 +1221,7 @@ msgstr "Evenimente care se intampla la"
 msgid "label_choose"
 msgstr "Alege"
 
-#.   <td>Comments</td>
+#.   <th>Comments</th>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_comments"
 msgstr "Comentarii"
@@ -1262,7 +1248,7 @@ msgstr "Site conceput cu XHTML valid"
 msgid "label_conformance_wai_1a"
 msgstr "In conformitate cu nivelul A pentru rolurile de accesibilitate ale W3C"
 
-#.   <td>Consultation</td>
+#.   <th>Consultation</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_consultation"
 msgstr "Consultare"
@@ -1283,7 +1269,7 @@ msgstr "Versions courantes"
 msgid "label_current_status"
 msgstr "Statutul curent al documentului"
 
-#.   <td>Date</td>
+#.   <th>Date</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1343,7 +1329,7 @@ msgstr "Implicit"
 msgid "label_description"
 msgstr "Descriere"
 
-#.   <td>Destruction</td>
+#.   <th>Destruction</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_destruction"
 msgstr "Distruge"
@@ -1527,13 +1513,13 @@ msgstr "Rol mostenit"
 msgid "label_inherited_roles"
 msgstr "Rol mostenit"
 
-#.   <td>Langue</td>
-#.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
-#: from ../skins/cps_default/content_lib_archived.pt
+#.   <th>Langue</th>
+#.   <th align="right">Language</th>
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
-#: ../skins/cps_default/language_manage_form.pt
 msgid "label_language"
 msgstr "Limba"
 
@@ -1568,7 +1554,7 @@ msgstr "Cauta dupa"
 msgid "label_local_roles_search_term"
 msgstr "Cuvinte cheie pentru cautare"
 
-#.   <td>Location</td>
+#.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
 msgid "label_location"
 msgstr "Locatie"
@@ -1612,35 +1598,35 @@ msgstr "Trimite parola&nbsp;?"
 #.   <label for="portal_description">
 #.               Portal description
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_description"
 msgstr "Descrierea portalului"
 
 #.   <label for="enable_portal_joining">
 #.               Enable portal joining
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_join"
 msgstr "Autorizeaza inscrierea"
 
 #.   <label for="enable_password_reminder">
 #.               Enable sending of password reminder
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_password_reminder"
 msgstr "Autorizeaza trimiterea unui memento cu parola"
 
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_password_reset"
 msgstr "Autorizeaza resetarea parolei"
 
 #.   <label for="portal_title">
 #.               Portal title
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_title"
 msgstr "Titlul portalului"
 
@@ -1660,12 +1646,12 @@ msgstr "la"
 msgid "label_requires_approval"
 msgstr "Necesita aprobare"
 
-#.   <td>Reversion</td>
+#.   <th>Reversion</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_reversion"
 msgstr "Revenire"
 
-#.   <td>Version</td>
+#.   <th>Version</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1758,7 +1744,7 @@ msgstr "Din ${status_time}"
 #.   <label for="smtp_server">
 #.               SMTP Server
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_smtp_server"
 msgstr "Server SMTP"
 
@@ -1773,7 +1759,7 @@ msgid "label_start_date"
 msgstr "Data de inceput (ZZ/LL/AAAA)"
 
 #.   <span>Label Status</span>
-#.   <td>Status</td>
+#.   <th>Status</th>
 #: from ../skins/cps_default/content_lib_byline.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/content_lib_status.pt
@@ -1881,12 +1867,13 @@ msgid "label_user_id"
 msgstr "ID-ul utilizatorului"
 
 #.   <label for="username">User name</label>
-#: from ../skins/cps_default/account_lost_password_form.pt
-#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr "Utilizator"
 
+#.   <label for="username">
+#.                   User name or email address</label>
 #.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -1912,22 +1899,22 @@ msgid "label_you_are_here"
 msgstr "Te afli aici: "
 
 #.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language"
 msgstr "Limba"
 
 #.   <h2>Add languages</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language_add"
 msgstr "Adauga Limba"
 
 #.   <h2>Delete languages</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language_delete"
 msgstr "Sterge Limba"
 
 #.   <h2>Set default portal language</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language_set_default"
 msgstr "Limba"
 
@@ -2143,6 +2130,15 @@ msgstr "Sectiune"
 #: from ../skins/cps_default/portlet_session_info.pt
 msgid "log out"
 msgstr "delogare"
+
+#.   <a attributes="
+#.                    href string:javascript:toggleLayers('more_block', 'more_items')">
+#.                    more choices
+#.                 </a>
+#: from ../skins/cps_default/folder_factories.pt
+#, fuzzy
+msgid "more_choices_folder_factories"
+msgstr "Ajouter du contenu"
 
 #.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -3091,3 +3087,18 @@ msgstr "Mesaj de stare tradus"
 
 msgid "Title"
 msgstr "Titlu"
+
+msgid "ajax_working"
+msgstr ""
+
+msgid "ajax_failing"
+msgstr ""
+
+msgid "description_languages_form"
+msgstr "In aceasta pagina administrezi limbile din portal"
+
+msgid "description_reconfig_form"
+msgstr "Acest formular este folosit pentru a configura optiunile portalului"
+
+msgid "heading_language_manage_form"
+msgstr "Administrare Limbi"

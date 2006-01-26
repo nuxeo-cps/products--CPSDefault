@@ -9,13 +9,12 @@
     <table summary="result list" width="100%">
      <tr>
       <th width="16"><br /></th>
-      <th i18n:translate="label_user">
+      <th i18n:translate="label_user" width="30%"
+        class="header_roles">
           User
       </th>
-      <th i18n:translate="label_user_id">
-          User id (login)
-      </th>
-      <th i18n:translate="label_email">
+      <th i18n:translate="label_email"
+        class="header_roles">
           Email address
       </th>
      </tr>
@@ -33,13 +32,9 @@
 					      checked checked"
 	     />
          </td>
-         <td>
+         <td width="30%">
            <label tal:content="python:(entry.get('givenName', '') + ' ' + entry.get('sn', '')).strip() or id"
                   tal:attributes="for input_id">Username 1</label>
-         </td>
-         <td>
-           <label tal:content="id"
-                  tal:attributes="for input_id">Id 1</label>
          </td>
          <td tal:condition="entry/email">
            <label tal:content="entry/email"

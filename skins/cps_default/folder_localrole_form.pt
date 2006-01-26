@@ -26,17 +26,12 @@
  Assign local roles: Search Results
 </h1>
 
-<div class="group">
+<div class="user_roles">
 <form method="post" action="folder_localrole_form"
       tal:attributes="action string:${here_url}/folder_localrole_form">
 
  <table summary="search layout">
  <tr>
-  <th>
-    <label for="search_param" i18n:translate="label_local_roles_search_by">
-      Search by
-    </label>
-  </th>
   <td>
     <select name="search_param" id ="search_param">
       <option i18n:translate="label_user_surname"
@@ -56,14 +51,6 @@
         value="groupname" >Group name</option>
     </select>
   </td>
- </tr>
- <tr>
-   <th>
-     <label for="search_term"
-       i18n:translate="label_local_roles_search_term">
-       Search Term
-     </label>
-   </th>
    <td>
      <input type="text" name="search_term" id="search_term" size="30"
        tal:attributes="value search_term" />
@@ -97,7 +84,7 @@
       Sorry, your query gave too many results, please refine your search criteria
     </p>
   </div>
-  <div tal:condition="python:found and not search_limit_exceeded" class="group">
+  <div tal:condition="python:found and not search_limit_exceeded" class="user_roles">
     <p i18n:translate="legend_local_roles_select_members_and_role"
        tal:condition="search_members">
        Select member(s) and a role to assign:
@@ -115,7 +102,8 @@
         <metal:block use-macro="here/folder_localrole_groups_search_results/macros/search_results" />
       </tal:block>
 
-      <tal:block condition="cps_roles">
+      <div tal:condition="cps_roles"
+        class="assign_roles">
         <label for="member_role"
                i18n:translate="legend_local_roles_role_to_assign">
           Role to assign:
@@ -134,7 +122,7 @@
           tal:attributes="value search_term" />
         <input i18n:attributes="value" class="standalone"
           type="submit" value="button_assign_roles" />
-      </tal:block>
+      </div>
     </form>
   </div>
 </tal:block>

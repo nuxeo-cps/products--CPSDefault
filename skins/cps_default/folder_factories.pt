@@ -9,57 +9,84 @@
       Add Content
     </h1>
 
-    <form action="content_create" method="post" class="group"
+    <div class="group"
           metal:fill-slot="main"
-          tal:define="creatableItems here/getSortedContentTypes"
+          tal:define="creatableItems python:here.getSortedContentTypes(custom_order=True);
+            showFirst python:5"
           tal:attributes="action string:${here_url}/content_create">
 
       <dl tal:condition="creatableItems">
-        <tal:block repeat="item creatableItems">
-          <tal:block define="choice_id string:choice_${repeat/item/number}">
-            <dt>
-              <input type="radio" name="type_name" value="" id=""
-                class="noborder"
-                tal:attributes="value item/getId;
-                checked repeat/item/start;
-                id string:choice_${repeat/item/number}" />
-              <label for=""
-                tal:attributes="for string:choice_${repeat/item/number}">
-                <img tal:replace="structure python:here.getImgTag(item.getIcon(),
-                  base_url=base_url)" />
-              </label>
-              <label for="" tal:attributes="for choice_id"
-                tal:content="item/Title"
-                i18n:translate="">
-                Portal type's title
-              </label>
-            </dt>
-            <dd>
-              <label for="" tal:content="item/Description" i18n:translate=""
-                tal:attributes="for choice_id">
-                Portal type's description
-              </label>
-            </dd>
+        <tal:block tal:define="creatableItems1 python:creatableItems[:showFirst];
+          creatableItems2 python:creatableItems[showFirst:]">
+          <tal:block repeat="item creatableItems1">
+            <tal:block define="choice_id string:choice_${repeat/item/number}">
+              <dt>
+                <label for=""
+                  tal:attributes="for string:choice_${repeat/item/number}">
+                  <img tal:replace="structure python:here.getImgTag(item.getIcon(),
+                    base_url=base_url)" />
+                </label>
+                <a tal:attributes="
+                  href string:${here_url}/cpsdocument_create_form?type_name=${item/getId}"
+                  tal:content="item/Title"
+                  i18n:translate="">
+                  Portal type's title
+                </a>
+              </dt>
+              <dd>
+                <label for="" tal:content="item/Description" i18n:translate=""
+                  tal:attributes="for choice_id">
+                  Portal type's description
+                </label>
+              </dd>
+            </tal:block>
+          </tal:block>
+          <tal:block condition="creatableItems2">
+            <div id="more_block" class="more_block"
+              style="display:block">
+              <a tal:attributes="
+                 href string:javascript:toggleLayers('more_block', 'more_items')"
+                 i18n:translate="more_choices_folder_factories">
+                 more choices
+              </a>
+            </div>
+            <div style="display:none" id="more_items">
+              <tal:block repeat="item creatableItems2"
+                define="value python:'ceva'">
+                <tal:block define="choice_id string:choice_${repeat/item/number}">
+                  <dt>
+                    <label for=""
+                      tal:attributes="for string:choice_${repeat/item/number}">
+                      <img tal:replace="structure python:here.getImgTag(item.getIcon(),
+                        base_url=base_url)" />
+                    </label>
+                    <a tal:attributes="
+                      href string:${here_url}/cpsdocument_create_form?type_name=${item/getId}"
+                      tal:content="item/Title"
+                      i18n:translate="">
+                      Portal type's title
+                    </a>
+                  </dt>
+                  <dd>
+                    <label for="" tal:content="item/Description" i18n:translate=""
+                      tal:attributes="for choice_id">
+                      Portal type's description
+                    </label>
+                  </dd>
+                </tal:block>
+              </tal:block>
+            </div>
           </tal:block>
         </tal:block>
       </dl>
 
-      <p tal:condition="creatableItems">
-        <label for="objectTitle">
-          <strong i18n:translate="label_title">Title:</strong>
-        </label>
-        <input id="objectTitle" type="text" name="title"
-               class="focus" size="40" />
-        <input type="submit" class="standalone searchButton"
-               value="button_add" i18n:attributes="value" />
-      </p>
       <p tal:condition="not:creatableItems">
         <span i18n:translate="help_no_content_type_can_be_created">
           No content type can be created.
         </span>
       </p>
 
-    </form>
+    </div>
 
   </body>
 </html>

@@ -39,7 +39,8 @@
                             tal:content="items_length"
                             i18n:name="nb_results">n</span> results.
     </p>
-    <div id="searchResults">
+    <div id="searchResults;"
+      tal:define="items_per_page python:20;">
       <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
     </div>
 

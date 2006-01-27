@@ -201,6 +201,21 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         zLOG.old_log_write = zLOG.log_write
         zLOG.log_write = log_write
 
+    def assertWellFormedXML(self, xml, page_id=None):
+        import popen2, tempfile
+        filename = tempfile.mktemp()
+        fd = open(filename, "wc")
+        fd.write(xml)
+        fd.close()
+        cmd = "xmllint --noout %s" % filename
+        stdout, stdin, stderr = popen2.popen3(cmd)
+        result = stderr.read()
+        if not result.strip() == '':
+            if page_id:
+                raise AssertionError("%s is not well-formed XML" % page_id)
+            else:
+                raise AssertionError("not well-formed XML")
+            
     def isWellFormedXML(self, xml):
         import os, tempfile
         filename = tempfile.mktemp()

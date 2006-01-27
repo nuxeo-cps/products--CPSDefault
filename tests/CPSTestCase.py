@@ -215,10 +215,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not well-formed XML:\n%s" 
+                raise AssertionError("%s is not well-formed XML:\n\n%s" 
                     % (page_id, result))
             else:
-                raise AssertionError("not well-formed XML:\n%s" % result)
+                raise AssertionError("not well-formed XML:\n\n%s" % result)
             
     def isWellFormedXML(self, xml):
         import os, tempfile
@@ -241,10 +241,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not valid HTML:\n%s" 
+                raise AssertionError("%s is not valid HTML:\n\n%s" 
                     % (page_id, result))
             else:
-                raise AssertionError("not is not valid HTML:\n%s" % result)
+                raise AssertionError("not is not valid HTML:\n\n%s" % result)
             
     def assertValidXHTML(self, html, page_id=None):
         import popen2, tempfile
@@ -257,10 +257,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not valid XHTML:\n%s" 
+                raise AssertionError("%s is not valid XHTML:\n\n%s" 
                     % (page_id, result))
             else:
-                raise AssertionError("not is not valid XHTML:\n%s" % result)
+                raise AssertionError("not is not valid XHTML:\n\n%s" % result)
             
     # XXX: unfortunately, the W3C checker sometime fails for no apparent
     # reason.

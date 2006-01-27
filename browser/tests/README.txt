@@ -96,7 +96,7 @@ AjaxFolderView also know how to move an element in another container::
     ...
     >>> MyView = AjaxFolderView(MyFolder, None)
     >>> MyFolder.items = [FakeElement('a'), FakeElement('b'), FakeElement('c')]
-    >>> MyView.moveElement('draggablea', 'better/here')
+    >>> MyView.moveElement('draggablea', 'url:better.here')
     'b:c'
     >>> [item.id for item in MyFolder.items]
     ['b', 'c']

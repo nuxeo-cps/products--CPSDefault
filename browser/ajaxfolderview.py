@@ -34,7 +34,7 @@ class AjaxFolderView(BrowserView):
         return element
 
     def _isUrl(self, id):
-        return id.find('/') != -1
+        return id.startswith('url:')
 
     def _checkElementMove(self, from_id, to_place):
         proxy_folder = self.context
@@ -85,6 +85,8 @@ class AjaxFolderView(BrowserView):
 
         if self._isUrl(to_id):
             # checking if all conditions are met
+            to_id = to_id[4:].replace('.', '/')
+
             if not self._checkElementMove(from_id, to_id):
                 return ''
 

@@ -47,12 +47,12 @@ else:
         if (not to_member_home) and (not to_workspaces):
             redirect_to_portal = True
 
-if redirect_to_portal:
-    redirect_url = portal_absolute_url
-if to_workspaces:
-    redirect_url = portal.workspaces.absolute_url()
 if to_member_home:
     redirect_url = mtool.getHomeFolder().absolute_url()
+elif to_workspaces:
+    redirect_url = portal.workspaces.absolute_url()
+elif redirect_to_portal:
+    redirect_url = portal_absolute_url
 
 REQUEST = context.REQUEST
 RESPONSE = REQUEST.RESPONSE

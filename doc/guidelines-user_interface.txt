@@ -184,17 +184,19 @@ this definition.
 Checkpoints
 -----------
 
-- Check your XHTML pages against the W3C validator:
-  http://validator.w3.org/.
+.. _webdeveloper toolbar: http://chrispederick.com/work/webdeveloper/
 
-  One can check HTML pages even if the website is not reachable
-  from the outside::
+- Check the validity of your XHTML pages
 
-    $ curl --user yourlogin:yourpassword
-           --location "http://localhost:8080/cps/workspaces/my_doc/cpsdocument_import_zip_form"
-           > out.html
+  1. You can check directly against the W3C HTML validator
+     http://validator.w3.org/.
 
-  And then upload your file to http://validator.w3.org/.
+  2. You can use the `webdeveloper toolbar`_ (version 1.0.1 or up) for Firefox::
+
+       Tools -> Validate Local HTML
+
+     This is particularly interesting if your page is not readable from the
+     outside (for example because of a firewall).
 
 - Unneeded markup shouldn't clutter the HTML output.
 
@@ -528,19 +530,17 @@ want to diminish the occurrence of diffs.
 Checkpoints
 -----------
 
-Follow these guidelines:
+- Check the validity of your CSS stylesheets
 
-- Check your CSS files against the W3C validator:
-  http://jigsaw.w3.org/css-validator/
+  1. You can check directly against the W3C CSS validator
+     http://jigsaw.w3.org/css-validator/.
 
-  One can check one's CSS files even if one's website is not
-  reachable from the outside::
+  2. You can use the `webdeveloper toolbar`_ (version 1.0.1 or up) for Firefox::
 
-    $ curl --user yourlogin:yourpassword
-      --location "http://meteore.in.nuxeo.com:9090/cps/default.css"
-      > out.css
+       Tools -> Validate Local CSS
 
-  And then upload your file to http://jigsaw.w3.org/css-validator/
+     This is particularly interesting if your site is not readable from the
+     outside (for example because of a firewall).
 
 - Indentation width of 2 characters inside parentheses.
 

@@ -28,10 +28,13 @@ class TestSimple(CPSTestCase):
         self.assert_(self.portal.workspaces)
 
     def testAnonymousSkins(self):
-        self.assert_(self.portal.index_html())
-        self.assert_(self.portal.login_form())
-        self.assert_(self.portal.join_form())
-        self.assert_(self.portal.search_form())
+        self.assertValidHTML(self.portal.index_html(), "index_html")
+        self.assertValidHTML(self.portal.login_form(), "login_form")
+        self.assertValidHTML(self.portal.join_form(), "join_form")
+        self.assertValidHTML(self.portal.search_form(), "search_form")
+        
+        # FIXME: not valid yet
+        #self.assertValidHTML(self.portal.advanced_search_form(), "advanced_search_form")
         self.assert_(self.portal.advanced_search_form())
 
     # XXX: disabled for now because W3C CSS checker is bogus

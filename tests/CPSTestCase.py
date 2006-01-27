@@ -201,9 +201,8 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         zLOG.old_log_write = zLOG.log_write
         zLOG.log_write = log_write
 
-    def isValidXML(self, xml):
-        import os
-        import tempfile
+    def isWellFormedXML(self, xml):
+        import os, tempfile
         filename = tempfile.mktemp()
         fd = open(filename, "wc")
         fd.write(xml)
@@ -212,6 +211,21 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         os.unlink(filename)
         return status == 0
 
+    def assertValidHTML(self, html, page_id=None):
+        import popen2, tempfile
+        filename = tempfile.mktemp()
+        fd = open(filename, "wc")
+        fd.write(html)
+        fd.close()
+        cmd = "xmllint --valid --html --noout %s" % filename
+        stdout, stdin, stderr = popen2.popen3(cmd)
+        result = stderr.read()
+        if not result.strip() == '':
+            if page_id:
+                raise AssertionError("%s is not valid HTML" % page_id)
+            else:
+                raise AssertionError("not valid HTML")
+            
     # XXX: unfortunately, the W3C checker sometime fails for no apparent
     # reason.
     def isValidCSS(self, css):

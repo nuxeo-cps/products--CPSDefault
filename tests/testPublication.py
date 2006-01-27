@@ -70,6 +70,13 @@ class TestPublication(CPSTestCase):
         self.logout()
 
 
+    def testAccessForManager(self):
+        self.login('manager')
+        self.assert_(self.member_ws.folder_contents())
+        self.assert_(self.member_ws.folder_view())
+        self.assert_(self.portal.portal_repository.folder_view())
+
+
     def testAccessForMember(self):
         self.login('member')
         self.assert_(self.member_ws.folder_contents())

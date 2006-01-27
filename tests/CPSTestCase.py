@@ -205,7 +205,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
     # TODO: duplication -> refactor
     #
     def assertWellFormedXML(self, xml, page_id=None):
-        import popen2, tempfile
+        import os, popen2, tempfile
         filename = tempfile.mktemp()
         fd = open(filename, "wc")
         fd.write(xml)
@@ -219,6 +219,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                     % (page_id, result))
             else:
                 raise AssertionError("not well-formed XML:\n\n%s" % result)
+        os.unlink(filename)
             
     def isWellFormedXML(self, xml):
         import os, tempfile
@@ -231,7 +232,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         return status == 0
 
     def assertValidHTML(self, html, page_id=None):
-        import popen2, tempfile
+        import os, popen2, tempfile
         filename = tempfile.mktemp()
         fd = open(filename, "wc")
         fd.write(html)
@@ -245,9 +246,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                     % (page_id, result))
             else:
                 raise AssertionError("not is not valid HTML:\n\n%s" % result)
+        os.unlink(filename)
             
     def assertValidXHTML(self, html, page_id=None):
-        import popen2, tempfile
+        import os, popen2, tempfile
         filename = tempfile.mktemp()
         fd = open(filename, "wc")
         fd.write(html)
@@ -261,6 +263,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                     % (page_id, result))
             else:
                 raise AssertionError("not is not valid XHTML:\n\n%s" % result)
+        os.unlink(filename)
             
     # XXX: unfortunately, the W3C checker sometime fails for no apparent
     # reason.

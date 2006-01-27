@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-de CPS-3.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-25 18:50default\n"
+"POT-Creation-Date: 2006-01-27 18:41default\n"
 "PO-Revision-Date: 2005-10-12 23:43+0200\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: de <rheinland@dzug.org>\n"
@@ -62,12 +62,14 @@ msgstr "Objekte: ${batch_start} - ${batch_limit} von ${batch_length}"
 msgid "Portal type's description"
 msgstr "Portal Typ Beschreibung"
 
-#.   <label content="item/Title" attributes="for choice_id" for="">
+#.   <a content="item/Title" attributes="
+#.                     href string:${here_url}/content_create?type_name=${item/getId}">
 #.                     Portal type's title
-#.                   </label>
-#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                   </a>
+#.   <a content="item/Title" attributes="
+#.                         href string:${here_url}/content_create?type_name=${item/getId}">
 #.                         Portal type's title
-#.                       </label>
+#.                       </a>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr "Portal Typ Titel"
@@ -169,8 +171,8 @@ msgstr ""
 "&nbsp;;</li> <li>Opera 7 Windows,&nbsp;Macintosh, Linux : <kbd>Esc</kbd> + "
 "<kbd>Shift</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>MSIE "
 "Macintosh&nbsp;: <kbd>Ctrl</kbd> and [<kbd>accesskey</kbd>], then "
-"<kbd>Enter</kbd>&nbsp;;</li> <li>Safari 1.2 Macintosh&nbsp;: <kbd>Ctrl</"
-"kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>Mozilla, Netscape "
+"<kbd>Enter</kbd>&nbsp;;</li> <li>Safari 1.2 Macintosh&nbsp;: <kbd>Ctrl</kbd> "
+"and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>Mozilla, Netscape "
 "Macintosh&nbsp;: <kbd>Ctrl</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> "
 "<li>Galeon/Mozilla/FireFox Linux&nbsp;: <kbd>Alt</kbd> and [<kbd>accesskey</"
 "kbd>]&nbsp;;</li> <li>Konqueror&nbsp;3.3+&nbsp;: <kbd>Ctrl</kbd>, then "
@@ -268,9 +270,7 @@ msgid "button_abandon_draft"
 msgstr "Version aufgeben"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Anlegen"
 
@@ -1403,7 +1403,7 @@ msgstr "Anzeigen mit"
 msgid "label_download"
 msgstr "[download]"
 
-#.   <th>
+#.   <th class="header_roles">
 #.             Email address
 #.         </th>
 #.   <label for="email">Email Address</label>
@@ -1553,20 +1553,6 @@ msgstr "label_language ${status_language}"
 msgid "label_last_modified"
 msgstr "Zuletzt geändert:"
 
-#.   <label for="search_param">
-#.         Search by
-#.       </label>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_local_roles_search_by"
-msgstr "Suche nach"
-
-#.   <label for="search_term">
-#.          Search Term
-#.        </label>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_local_roles_search_term"
-msgstr "Suchbegriff"
-
 #.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
 msgid "label_location"
@@ -1582,7 +1568,9 @@ msgstr "Name "
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
 #.       </option>
+#.   <input type="submit" class="standalone" value="label_none" />
 #: from ../skins/cps_default/content_lib_display_params_form.pt
+#: ../skins/cps_default/folder_contents.pt
 msgid "label_none"
 msgstr "nicht sortiert"
 
@@ -1816,10 +1804,8 @@ msgstr "Suchen"
 #.           Title
 #.         </div>
 #.   <th align="right">Title</th>
-#.   <strong>Title:</strong>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
-#: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -1853,7 +1839,7 @@ msgstr "An"
 msgid "label_translation_select_language"
 msgstr "Wählen Sie eine Sprache in die Sie übersetzen wollen:"
 
-#.   <th>
+#.   <th width="30%" class="header_roles">
 #.             User
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
@@ -1871,11 +1857,7 @@ msgid "label_user_givenName"
 msgstr "Vorname"
 
 #.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
-#.   <th>
-#.             User id (login)
-#.         </th>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#: ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user_id"
 msgstr "Login Name"
 
@@ -2033,9 +2015,9 @@ msgstr "Blockierung aufheben:"
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
-#.   <p condition="python:items_length == 0">
-#.         Your query gave no result.
-#.       </p>
+#.   <block>
+#.           Your query gave no result.
+#.         </block>
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
@@ -2056,6 +2038,14 @@ msgstr "Ihre Suche verlief ohne Ergebnis."
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Ihre Suche ergab ein Ergebnis."
+
+#.   <block>
+#.           You searched for:
+#.         </block>
+#: from ../skins/cps_default/search_form.pt
+#, fuzzy
+msgid "legend_search_for"
+msgstr "You searched for"
 
 #.   <span>
 #.                Advanced search
@@ -3083,6 +3073,12 @@ msgstr ""
 
 msgid "ajax_failing"
 msgstr ""
+
+msgid "label_local_roles_search_by"
+msgstr "Suche nach"
+
+msgid "label_local_roles_search_term"
+msgstr "Suchbegriff"
 
 msgid "description_languages_form"
 msgstr ""

@@ -25,9 +25,14 @@
     <h1 tal:condition="title_search"
       tal:content="title_search">Title for search results</h1>
 
-    <p tal:condition="python:items_length == 0"
-       i18n:translate="legend_no_search_result">
-      Your query gave no result.
+    <p tal:condition="python:items_length == 0">
+      <tal:block i18n:translate="legend_no_search_result">
+        Your query gave no result.
+      </tal:block>
+      <tal:block i18n:translate="legend_search_for">
+        You searched for
+      </tal:block>
+      <span class="searchFor" tal:content="SearchableText">SearchableText</span>.
     </p>
     <p tal:condition="python:items_length == 1"
        i18n:translate="legend_one_search_result">

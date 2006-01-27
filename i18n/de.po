@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-de CPS-3.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 15:41default\n"
+"POT-Creation-Date: 2006-01-25 18:50default\n"
 "PO-Revision-Date: 2005-10-12 23:43+0200\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: de <rheinland@dzug.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
 #.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "Language"
 msgstr "Sprache"
 
@@ -53,15 +53,21 @@ msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
 msgstr "Objekte: ${batch_start} - ${batch_limit} von ${batch_length}"
 
 #.   <label content="item/Description" attributes="for choice_id" for="">
-#.                   Portal type's description
-#.                 </label>
+#.                     Portal type's description
+#.                   </label>
+#.   <label content="item/Description" attributes="for choice_id" for="">
+#.                         Portal type's description
+#.                       </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
 msgstr "Portal Typ Beschreibung"
 
 #.   <label content="item/Title" attributes="for choice_id" for="">
-#.                   Portal type's title
-#.                 </label>
+#.                     Portal type's title
+#.                   </label>
+#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                         Portal type's title
+#.                       </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr "Portal Typ Titel"
@@ -261,10 +267,10 @@ msgstr "Zurück"
 msgid "button_abandon_draft"
 msgstr "Version aufgeben"
 
-#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#: from ../skins/cps_default/folder_factories.pt
-#: ../skins/cps_default/language_manage_form.pt
+#.   <input type="submit" class="standalone searchButton" value="button_add" />
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Anlegen"
 
@@ -281,25 +287,26 @@ msgstr "Ausführen"
 msgid "button_assign_roles"
 msgstr "Rollen zuweisen"
 
+#.   <button type="button" onclick="history.back()">Cancel</button>
 #.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
-#: from ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_delete_archive_form.pt
 #: ../skins/cps_default/content_publish_form.pt
-#: ../skins/cps_default/content_reject_form.pt
-#: ../skins/cps_default/content_revert_form.pt 4 more references
+#: ../skins/cps_default/content_reject_form.pt 4 more references
 msgid "button_cancel"
 msgstr "Abbrechen"
 
+#.   <button type="submit">Change</button>
 #.   <input type="submit" class="standalone" value="button_change" />
 #.   <input type="submit" name="change" value="button_change" class="standalone" />
-#.   <button type="submit">Change</button>
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
-#: ../skins/cps_default/reconfig_form.pt
 msgid "button_change"
 msgstr "Änderungen sichern"
 
@@ -344,13 +351,13 @@ msgstr "Kopieren"
 msgid "button_cut"
 msgstr "Ausschneiden"
 
+#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
-#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#: from ../skins/cps_default/folder_contents.pt
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
-#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Löschen"
 
@@ -454,7 +461,7 @@ msgid "button_search"
 msgstr "Suchen"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Select</button>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "button_select"
 msgstr "Auswählen"
 
@@ -490,7 +497,7 @@ msgstr "Erstellen einer Version zur Übersetzung"
 msgid "button_unpublish_document"
 msgstr "Publikation zurücknehmen"
 
-#.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();">
+#.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
@@ -509,15 +516,6 @@ msgstr "Sie sind bereits angemeldet. Sie können "
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
 msgstr "benutzen um ihre Teilnehmer Einstellungen zu ändern."
-
-#.   <p>
-#.       This page give you the opportunity to manage languages available on the portal.
-#.     </p>
-#: from ../skins/cps_default/language_manage_form.pt
-msgid "description_languages_form"
-msgstr ""
-"Auf dieser Seite können Sie alle verfügbaren Sprachen dieses Portals "
-"verwalten"
 
 #.   <span>
 #.   	You are not currently logged in. Your username and or password may be
@@ -547,16 +545,8 @@ msgstr ""
 "Sie sind noch ausserhalb des Portals eingeloggt. Eventuell müssen Sie sich "
 "noch vom Zope Management Interface "
 
-#.   <p class="description">
-#.       This form is used to set the portal configuration options.
-#.     </p>
-#: from ../skins/cps_default/reconfig_form.pt
-msgid "description_reconfig_form"
-msgstr ""
-"In diesem Formular können Portal Konfigurations-Optionen eingestellt werden."
-
-#.   <p>
-#.           You have been registered as a member.
+#.   <p> 
+#.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -691,11 +681,6 @@ msgstr "Content hinzufügen"
 msgid "heading_join_form"
 msgstr "Anmelden und Mitmachen"
 
-#.   <h1>Manage languages</h1>
-#: from ../skins/cps_default/language_manage_form.pt
-msgid "heading_language_manage_form"
-msgstr "Sprachen verwalten"
-
 #.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members and groups
 #.   </h1>
@@ -753,10 +738,8 @@ msgstr "Password zurücksetzen"
 msgid "heading_publish_of ${item_id}"
 msgstr "Publikation von  ${item_id}"
 
-#.   <h1>
-#.       Configure Portal
-#.     </h1>
-#: from ../skins/cps_default/reconfig_form.pt
+#.   <h1>Configure Portal</h1>
+#: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Portal Konfiguration"
 
@@ -1171,7 +1154,7 @@ msgstr "Keine publizierten Versionen dieses Dokuments vorhanden"
 msgid "into ${history_dest}"
 msgstr "in ${history_dest}"
 
-#.   <td>Action</td>
+#.   <th>Action</th>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_action"
 msgstr "Aktion"
@@ -1184,14 +1167,14 @@ msgstr "Dokument Historie"
 #.   <label for="email_from_address">
 #.               Administrator Email
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_admin_email"
 msgstr "Administrator Email"
 
 #.   <label for="email_from_name">
 #.               Administrator Name
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_admin_name"
 msgstr "Administrator Name"
 
@@ -1212,7 +1195,7 @@ msgstr "Alle"
 msgid "label_archived_revisions"
 msgstr "Archivierte Versionen"
 
-#.   <td>Author</td>
+#.   <th>Author</th>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_author"
 msgstr "Autor"
@@ -1253,7 +1236,7 @@ msgstr "Events am"
 msgid "label_choose"
 msgstr "Wähle"
 
-#.   <td>Comments</td>
+#.   <th>Comments</th>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_comments"
 msgstr "Kommentare"
@@ -1280,7 +1263,7 @@ msgstr "xHTML Konformität "
 msgid "label_conformance_wai_1a"
 msgstr "W3C Konformität"
 
-#.   <td>Consultation</td>
+#.   <th>Consultation</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_consultation"
 msgstr "Aufrufen"
@@ -1300,7 +1283,7 @@ msgstr "Aktuelle Versionen"
 msgid "label_current_status"
 msgstr "Status"
 
-#.   <td>Date</td>
+#.   <th>Date</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1360,7 +1343,7 @@ msgstr "Standard"
 msgid "label_description"
 msgstr "Beschreibung"
 
-#.   <td>Destruction</td>
+#.   <th>Destruction</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_destruction"
 msgstr "Verwerfen"
@@ -1543,13 +1526,13 @@ msgstr "Vererbte Rolle"
 msgid "label_inherited_roles"
 msgstr "Vererbte Rollen"
 
-#.   <td>Langue</td>
-#.   <th align="right">Language</th>
 #.   <label for="defaultLanguageChooser">Language</label>
-#: from ../skins/cps_default/content_lib_archived.pt
+#.   <th>Langue</th>
+#.   <th align="right">Language</th>
+#: from ../skins/cps_default/config_form.pt
+#: ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
-#: ../skins/cps_default/language_manage_form.pt
 msgid "label_language"
 msgstr "Sprache"
 
@@ -1584,7 +1567,7 @@ msgstr "Suche nach"
 msgid "label_local_roles_search_term"
 msgstr "Suchbegriff"
 
-#.   <td>Location</td>
+#.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
 msgid "label_location"
 msgstr "Ort"
@@ -1628,35 +1611,35 @@ msgstr "Password senden?"
 #.   <label for="portal_description">
 #.               Portal description
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_description"
 msgstr "Portal Beschreibung"
 
 #.   <label for="enable_portal_joining">
 #.               Enable portal joining
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_join"
 msgstr "Registrierung am Portal freigeben"
 
 #.   <label for="enable_password_reminder">
 #.               Enable sending of password reminder
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_password_reminder"
 msgstr "Versenden der Passwort Erinnerung freigeben"
 
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_password_reset"
 msgstr "Passwort zurücksetzen freigeben"
 
 #.   <label for="portal_title">
 #.               Portal title
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_portal_title"
 msgstr "Portal Titel"
 
@@ -1676,12 +1659,12 @@ msgstr "zu"
 msgid "label_requires_approval"
 msgstr "Benötigt Freigabe"
 
-#.   <td>Reversion</td>
+#.   <th>Reversion</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_reversion"
 msgstr "Zurückgreifen"
 
-#.   <td>Version</td>
+#.   <th>Version</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1774,7 +1757,7 @@ msgstr "Seit ${status_time}"
 #.   <label for="smtp_server">
 #.               SMTP Server
 #.             </label>
-#: from ../skins/cps_default/reconfig_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "label_smtp_server"
 msgstr "SMTP Server"
 
@@ -1789,7 +1772,7 @@ msgid "label_start_date"
 msgstr "Start Datum (DD/MM/YYYY)"
 
 #.   <span>Label Status</span>
-#.   <td>Status</td>
+#.   <th>Status</th>
 #: from ../skins/cps_default/content_lib_byline.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/content_lib_status.pt
@@ -1897,12 +1880,13 @@ msgid "label_user_id"
 msgstr "Login Name"
 
 #.   <label for="username">User name</label>
-#: from ../skins/cps_default/account_lost_password_form.pt
-#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
 msgstr "Login Name"
 
+#.   <label for="username">
+#.                   User name or email address</label>
 #.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -1928,22 +1912,22 @@ msgid "label_you_are_here"
 msgstr "Sie sind hier:&nbsp;"
 
 #.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language"
 msgstr "Sprache"
 
 #.   <h2>Add languages</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language_add"
 msgstr "Sprachen auswählen"
 
 #.   <h2>Delete languages</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language_delete"
 msgstr "Sprachen abwählen"
 
 #.   <h2>Set default portal language</h2>
-#: from ../skins/cps_default/language_manage_form.pt
+#: from ../skins/cps_default/config_form.pt
 msgid "language_set_default"
 msgstr "Standard Sprache auswählen"
 
@@ -2157,6 +2141,15 @@ msgstr "Websektion"
 #: from ../skins/cps_default/portlet_session_info.pt
 msgid "log out"
 msgstr "log out "
+
+#.   <a attributes="
+#.                    href string:javascript:toggleLayers('more_block', 'more_items')">
+#.                    more choices
+#.                 </a>
+#: from ../skins/cps_default/folder_factories.pt
+#, fuzzy
+msgid "more_choices_folder_factories"
+msgstr "more choices"
 
 #.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -3090,3 +3083,15 @@ msgstr ""
 
 msgid "ajax_failing"
 msgstr ""
+
+msgid "description_languages_form"
+msgstr ""
+"Auf dieser Seite können Sie alle verfügbaren Sprachen dieses Portals "
+"verwalten"
+
+msgid "description_reconfig_form"
+msgstr ""
+"In diesem Formular können Portal Konfigurations-Optionen eingestellt werden."
+
+msgid "heading_language_manage_form"
+msgstr "Sprachen verwalten"

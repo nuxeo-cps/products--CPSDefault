@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2006-01-25 18:50default\n"
+"POT-Creation-Date: 2006-01-27 18:41default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -63,12 +63,14 @@ msgstr ""
 msgid "Portal type's description"
 msgstr ""
 
-#.   <label content="item/Title" attributes="for choice_id" for="">
+#.   <a content="item/Title" attributes="
+#.                     href string:${here_url}/content_create?type_name=${item/getId}">
 #.                     Portal type's title
-#.                   </label>
-#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                   </a>
+#.   <a content="item/Title" attributes="
+#.                         href string:${here_url}/content_create?type_name=${item/getId}">
 #.                         Portal type's title
-#.                       </label>
+#.                       </a>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr ""
@@ -245,9 +247,7 @@ msgid "button_abandon_draft"
 msgstr ""
 
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr ""
 
@@ -1315,7 +1315,7 @@ msgstr ""
 msgid "label_download"
 msgstr ""
 
-#.   <th>
+#.   <th class="header_roles">
 #.             Email address
 #.         </th>
 #.   <label for="email">Email Address</label>
@@ -1465,20 +1465,6 @@ msgstr ""
 msgid "label_last_modified"
 msgstr ""
 
-#.   <label for="search_param">
-#.         Search by
-#.       </label>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_local_roles_search_by"
-msgstr ""
-
-#.   <label for="search_term">
-#.          Search Term
-#.        </label>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_local_roles_search_term"
-msgstr ""
-
 #.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
 msgid "label_location"
@@ -1494,7 +1480,9 @@ msgstr ""
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
 #.       </option>
+#.   <input type="submit" class="standalone" value="label_none" />
 #: from ../skins/cps_default/content_lib_display_params_form.pt
+#: ../skins/cps_default/folder_contents.pt
 msgid "label_none"
 msgstr ""
 
@@ -1728,10 +1716,8 @@ msgstr ""
 #.           Title
 #.         </div>
 #.   <th align="right">Title</th>
-#.   <strong>Title:</strong>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
-#: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -1765,7 +1751,7 @@ msgstr ""
 msgid "label_translation_select_language"
 msgstr ""
 
-#.   <th>
+#.   <th width="30%" class="header_roles">
 #.             User
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
@@ -1783,11 +1769,7 @@ msgid "label_user_givenName"
 msgstr ""
 
 #.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
-#.   <th>
-#.             User id (login)
-#.         </th>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#: ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user_id"
 msgstr ""
 
@@ -1941,9 +1923,9 @@ msgstr ""
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
-#.   <p condition="python:items_length == 0">
-#.         Your query gave no result.
-#.       </p>
+#.   <block>
+#.           Your query gave no result.
+#.         </block>
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
@@ -1963,6 +1945,13 @@ msgstr ""
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
+msgstr ""
+
+#.   <block>
+#.           You searched for:
+#.         </block>
+#: from ../skins/cps_default/search_form.pt
+msgid "legend_search_for"
 msgstr ""
 
 #.   <span>

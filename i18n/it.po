@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault Italian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-25 18:50default\n"
+"POT-Creation-Date: 2006-01-27 18:41default\n"
 "PO-Revision-Date: 2005-11-10 09:08+0100\n"
 "Last-Translator: Stefano Schintu <schintu@gmail.com>\n"
 "Language-Team: CPS Italian <schintu@gmail.com>\n"
@@ -63,12 +63,14 @@ msgstr "Oggetti: ${batch_start} - ${batch_limit} di ${batch_length}"
 msgid "Portal type's description"
 msgstr "Descrizione del tipo di oggetto"
 
-#.   <label content="item/Title" attributes="for choice_id" for="">
+#.   <a content="item/Title" attributes="
+#.                     href string:${here_url}/content_create?type_name=${item/getId}">
 #.                     Portal type's title
-#.                   </label>
-#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                   </a>
+#.   <a content="item/Title" attributes="
+#.                         href string:${here_url}/content_create?type_name=${item/getId}">
 #.                         Portal type's title
-#.                       </label>
+#.                       </a>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr "Titolo del tipo di oggetto"
@@ -271,9 +273,7 @@ msgid "button_abandon_draft"
 msgstr "Abbandona"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/folder_factories.pt
 msgid "button_add"
 msgstr "Aggiungi"
 
@@ -1419,7 +1419,7 @@ msgstr "Modalità di visualizzazione:"
 msgid "label_download"
 msgstr "repertorio"
 
-#.   <th>
+#.   <th class="header_roles">
 #.             Email address
 #.         </th>
 #.   <label for="email">Email Address</label>
@@ -1569,20 +1569,6 @@ msgstr "Lingua: ${status_language}"
 msgid "label_last_modified"
 msgstr "Ultima modifica:"
 
-#.   <label for="search_param">
-#.         Search by
-#.       </label>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_local_roles_search_by"
-msgstr "Cerca con:"
-
-#.   <label for="search_term">
-#.          Search Term
-#.        </label>
-#: from ../skins/cps_default/folder_localrole_form.pt
-msgid "label_local_roles_search_term"
-msgstr "Inserisci un termine per la ricerca:"
-
 #.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
 msgid "label_location"
@@ -1598,7 +1584,9 @@ msgstr "Nome dell'utente o del gruppo"
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
 #.       </option>
+#.   <input type="submit" class="standalone" value="label_none" />
 #: from ../skins/cps_default/content_lib_display_params_form.pt
+#: ../skins/cps_default/folder_contents.pt
 msgid "label_none"
 msgstr "Non ordinato"
 
@@ -1832,10 +1820,8 @@ msgstr "Testo da ricercare"
 #.           Title
 #.         </div>
 #.   <th align="right">Title</th>
-#.   <strong>Title:</strong>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
-#: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -1869,7 +1855,7 @@ msgstr "Al"
 msgid "label_translation_select_language"
 msgstr "Scegli la lingua nella quale vuoi tradurre il documento: "
 
-#.   <th>
+#.   <th width="30%" class="header_roles">
 #.             User
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
@@ -1887,11 +1873,7 @@ msgid "label_user_givenName"
 msgstr "Nome dell'utente"
 
 #.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
-#.   <th>
-#.             User id (login)
-#.         </th>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#: ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user_id"
 msgstr "ID utente"
 
@@ -2056,9 +2038,9 @@ msgstr ""
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
-#.   <p condition="python:items_length == 0">
-#.         Your query gave no result.
-#.       </p>
+#.   <block>
+#.           Your query gave no result.
+#.         </block>
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
@@ -2079,6 +2061,14 @@ msgstr "La tua ricerca non ha restituito alcun risultato."
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "La tua ricerca ha restituito un risultato."
+
+#.   <block>
+#.           You searched for:
+#.         </block>
+#: from ../skins/cps_default/search_form.pt
+#, fuzzy
+msgid "legend_search_for"
+msgstr "Votre recherche n'a retourné aucun document."
 
 #.   <span>
 #.                Advanced search
@@ -2172,7 +2162,7 @@ msgstr "Esci"
 #: from ../skins/cps_default/folder_factories.pt
 #, fuzzy
 msgid "more_choices_folder_factories"
-msgstr "Ajouter du contenu"
+msgstr "+ de choix"
 
 #.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -3149,6 +3139,12 @@ msgstr ""
 
 msgid "ajax_failing"
 msgstr ""
+
+msgid "label_local_roles_search_by"
+msgstr "Cerca con:"
+
+msgid "label_local_roles_search_term"
+msgstr "Inserisci un termine per la ricerca:"
 
 msgid "description_languages_form"
 msgstr ""

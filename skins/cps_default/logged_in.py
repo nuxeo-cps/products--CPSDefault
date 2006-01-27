@@ -75,4 +75,6 @@ if first_time and dtool.members.hasEntry(member.getId()):
     now = context.ZopeTime()
     member.setProperties(last_login_time=now, login_time=now)
 
+if to_member_home or to_workspaces:
+    redirect_url = '%s/?%s' % (redirect_url, 'portal_status_message=psm_logged_in')
 RESPONSE.redirect(redirect_url)

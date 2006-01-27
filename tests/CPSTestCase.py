@@ -201,6 +201,9 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         zLOG.old_log_write = zLOG.log_write
         zLOG.log_write = log_write
 
+    #
+    # TODO: duplication -> refactor
+    #
     def assertWellFormedXML(self, xml, page_id=None):
         import popen2, tempfile
         filename = tempfile.mktemp()
@@ -212,9 +215,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not well-formed XML" % page_id)
+                raise AssertionError("%s is not well-formed XML:\n%s" 
+                    % (page_id, result))
             else:
-                raise AssertionError("not well-formed XML")
+                raise AssertionError("not well-formed XML:\n%s" % result)
             
     def isWellFormedXML(self, xml):
         import os, tempfile
@@ -237,9 +241,26 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not valid HTML" % page_id)
+                raise AssertionError("%s is not valid HTML:\n%s" 
+                    % (page_id, result))
             else:
-                raise AssertionError("not valid HTML")
+                raise AssertionError("not is not valid HTML:\n%s" % result)
+            
+    def assertValidXHTML(self, html, page_id=None):
+        import popen2, tempfile
+        filename = tempfile.mktemp()
+        fd = open(filename, "wc")
+        fd.write(html)
+        fd.close()
+        cmd = "xmllint --valid --noout %s" % filename
+        stdout, stdin, stderr = popen2.popen3(cmd)
+        result = stderr.read()
+        if not result.strip() == '':
+            if page_id:
+                raise AssertionError("%s is not valid XHTML:\n%s" 
+                    % (page_id, result))
+            else:
+                raise AssertionError("not is not valid XHTML:\n%s" % result)
             
     # XXX: unfortunately, the W3C checker sometime fails for no apparent
     # reason.

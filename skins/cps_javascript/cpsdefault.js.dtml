@@ -211,12 +211,38 @@ CPSContainerEditor.prototype = {
         var newTbody = document.createElement('tbody');
         for (var i=0, length=rowArray.length; i<length; i++) {
             new_node = rows[rowArray[i].oldIndex].cloneNode(true)
-            node_core = new_node.childNodes[1].childNodes[1];
-            node_core.style.top = 0;
-            node_core.style.left = 0;
+
+            // replacing odd-even order
+            if (this.display_format=='detail_tab') {
+              classname = new_node.className;
+              if (classname.indexOf('odd')!=-1) {
+                // am i really odd ?
+                if (i % 2 == 0) {
+                  // nope, changing
+                  new_node.className = new_node.className.replace('odd', 'even');
+                }
+              }
+              if (classname.indexOf('even')!=-1) {
+                // am i really even ?
+                if (i % 2 != 0) {
+                  // nope, changing
+                  new_node.className = new_node.className.replace('even', 'odd');
+                }
+              }
+            }
+
             newTbody.appendChild(new_node);
         }
         table.replaceChild(newTbody, tbody);
+
+        // replacing elements
+        objects = document.getElementsByClassName(this.draggable_class);
+        for (var i=0, length=objects.length; i<length; i++) {
+            object = objects[i];
+            object.style.top = 0;
+            object.style.left = 0;
+            object.style.transparency = 0;
+        }
         break;
 
       case 'icon':
@@ -226,7 +252,6 @@ CPSContainerEditor.prototype = {
         // change the icon view
         break;
     }
-
 
     this.unHookElements();
     this.hookElements();

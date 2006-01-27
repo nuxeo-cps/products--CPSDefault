@@ -20,11 +20,8 @@
           <tal:block repeat="item creatableItems1">
             <tal:block define="choice_id string:choice_${repeat/item/number}">
               <dt>
-                <label for=""
-                  tal:attributes="for string:choice_${repeat/item/number}">
-                  <img tal:replace="structure python:here.getImgTag(item.getIcon(),
-                    base_url=base_url)" />
-                </label>
+                <img tal:replace="structure python:here.getImgTag(item.getIcon(),
+                  base_url=base_url)" />
                 <a tal:attributes="
                   href string:${here_url}/content_create?type_name=${item/getId}"
                   tal:content="item/Title"
@@ -32,11 +29,8 @@
                   Portal type's title
                 </a>
               </dt>
-              <dd>
-                <label for="" tal:content="item/Description" i18n:translate=""
-                  tal:attributes="for choice_id">
-                  Portal type's description
-                </label>
+              <dd tal:content="item/Description" i18n:translate="">
+                Portal type's description
               </dd>
             </tal:block>
           </tal:block>
@@ -54,11 +48,8 @@
                 define="value python:'ceva'">
                 <tal:block define="choice_id string:choice_${repeat/item/number}">
                   <dt>
-                    <label for=""
-                      tal:attributes="for string:choice_${repeat/item/number}">
-                      <img tal:replace="structure python:here.getImgTag(item.getIcon(),
+                    <img tal:replace="structure python:here.getImgTag(item.getIcon(),
                         base_url=base_url)" />
-                    </label>
                     <a tal:attributes="
                       href string:${here_url}/content_create?type_name=${item/getId}"
                       tal:content="item/Title"
@@ -66,11 +57,8 @@
                       Portal type's title
                     </a>
                   </dt>
-                  <dd>
-                    <label for="" tal:content="item/Description" i18n:translate=""
-                      tal:attributes="for choice_id">
-                      Portal type's description
-                    </label>
+                  <dd tal:content="item/Description" i18n:translate="">
+                    Portal type's description
                   </dd>
                 </tal:block>
               </tal:block>

@@ -67,9 +67,9 @@ class TestSimpleAsRoot(TestSimple):
 
     def testAdminSkinsAtSectionsAndWorkspaces(self):
         # FIXME: 'folder_edit_form', 'metadata_edit_form', 'folder_factories',
-        # 'full_metadata_edit_form', 'folder_localrole_form' have validity
-        # problems
-        view_ids = ('folder_view', 'folder_contents',)
+        # 'full_metadata_edit_form', 'folder_localrole_form',
+        # 'folder_contents', have validity problems
+        view_ids = ('folder_view',)
         for folder_id in ('sections', 'workspaces', 'members'):
             folder = getattr(self.portal, folder_id)
             for view_id in view_ids:

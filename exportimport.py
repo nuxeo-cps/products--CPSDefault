@@ -24,6 +24,7 @@ from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
      import AcceleratedHTTPCacheManager
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import XMLAdapterBase
+from Products.GenericSetup.utils import ObjectManagerHelpers
 from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 
@@ -32,6 +33,9 @@ from Products.CPSWorkflow.configuration import (
     addConfiguration as addLocalWorkflowConfiguration)
 from Products.CPSWorkflow.exportimport import (
     LocalWorkflowConfigurationXMLAdapter)
+
+from Products.CPSDocument.exportimport import importCPSObjects
+
 
 class VariousImporter(object):
     """Class to import various steps.
@@ -137,10 +141,8 @@ class RootsXMLAdapter(XMLAdapterBase):
 
     def _initRoots(self, node):
         site = self.context
-        avail_langs = site.getProperty('available_languages')
-        translation_service = getToolByName(site, 'translation_service')
         for child in node.childNodes:
-            if child.nodeName != 'root':
+            if child.nodeName != 'object':
                 continue
 
             id = str(child.getAttribute('name'))
@@ -150,35 +152,82 @@ class RootsXMLAdapter(XMLAdapterBase):
                 portal_type = str(child.getAttribute('portal_type'))
                 wftool = getToolByName(site, 'portal_workflow')
                 wftool.invokeFactoryFor(site, portal_type, id)
-
             proxy = site._getOb(id)
 
-            # Rolemap
-            if child.hasAttribute('rolemap'):
-                rolemap_name = str(child.getAttribute('rolemap'))
-                rolemap_name += '.xml'
-                importObjectRolemap(proxy, rolemap_name, self.environ)
+            # Placeful configuration for one root (and creates subobjects)
+            path = self.name+'/'+id
+            filename = path+'.xml'
+            body = self.environ.readDataFile(filename)
+            if body is not None:
+                importer = RootXMLAdapter(proxy, self.environ)
+                importer.path = path # to load rolemap contextually
+                importer.filename = filename # for error reporting
+                importer.body = body
 
-            # I18n title
-            if child.hasAttribute('title_msgid'):
-                title_msgid = str(child.getAttribute('title_msgid'))
-                existing_langs = proxy.getLanguageRevisions().keys()
-                for lang in avail_langs:
-                    if lang not in existing_langs:
-                        proxy.addLanguageToProxy(lang)
-                    title = translation_service(msgid=title_msgid,
-                                                target_language=lang,
-                                                default=title_msgid)
-                    title = title.encode('iso-8859-15', 'ignore')
-                    doc = proxy.getEditableContent(lang)
-                    doc.edit(Title=title, proxy=proxy)
+            # Recurse into configuration objects
+            for subid, subob in proxy.objectItems():
+                if subid.startswith('.'):
+                    importCPSObjects(subob, path+'/', self.environ)
 
-            # Workflow chains
-            if child.hasAttribute('local_workflows'):
-                localwf_name = str(child.getAttribute('local_workflows'))
-                localwf_name += '.xml'
-                importObjectLocalWorkflow(proxy, localwf_name, self.environ)
 
+class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
+    """Import the subobjects of one root.
+    """
+    _LOGGER_ID = 'roots'
+    name = 'roots'
+
+    def _importNode(self, node):
+        """Import the object from the DOM node.
+        """
+        if self.environ.shouldPurge():
+            self._purgeRolemap()
+            self._purgeConfigurationObjects()
+        self._initRolemap(node)
+        self._initI18nTitles(node)
+        self._initObjects(node)
+        self._logger.info("%s imported." % self.context.getId())
+
+    def _exportNode(self):
+        raise NotImplementedError
+
+    def _purgeConfigurationObjects(self):
+        for id in self.context.objectIds():
+            if id.startswith('.'):
+                self.context._delObject(id)
+
+    def _purgeRolemap(self):
+        pass
+
+    def _initRolemap(self, node):
+        ob = self.context
+        for child in node.childNodes:
+            if child.nodeName != 'rolemap':
+                continue
+            file = str(child.getAttribute('file'))
+            filename = self.path+'/'+file # self.path added by caller
+            importObjectRolemap(ob, filename, self.environ)
+
+    def _initI18nTitles(self, node):
+        proxy = self.context
+        site = self.environ.getSite()
+        avail_langs = site.getProperty('available_languages')
+        translation_service = getToolByName(site, 'translation_service')
+        for child in node.childNodes:
+            if child.nodeName != 'property':
+                continue
+            if child.getAttribute('name') != 'title_msgid':
+                continue
+            title_msgid = self._getNodeText(child)
+            existing_langs = proxy.getLanguageRevisions().keys()
+            for lang in avail_langs:
+                if lang not in existing_langs:
+                    proxy.addLanguageToProxy(lang)
+                title = translation_service(msgid=title_msgid,
+                                            target_language=lang,
+                                            default=title_msgid)
+                title = title.encode('iso-8859-15', 'ignore')
+                doc = proxy.getEditableContent(lang)
+                doc.edit(Title=title, proxy=proxy)
 
 def importObjectLocalWorkflow(ob, filename, context):
     """Import local workflow chains from an XML file.
@@ -208,7 +257,6 @@ def importObjectRolemap(ob, filename, context):
     """Import roles / permission map from an XML file.
     """
     logger = context.getLogger('rolemap')
-    path = '/'.join(ob.getPhysicalPath())
 
     if context.shouldPurge():
         items = ob.__dict__.items()
@@ -220,7 +268,6 @@ def importObjectRolemap(ob, filename, context):
 
     body = context.readDataFile(filename)
     if body is None:
-        logger.info("No role/permission map for %s" % path)
         return
 
     rc = RolemapImportConfigurator(ob, context.getEncoding())
@@ -242,7 +289,7 @@ def importObjectRolemap(ob, filename, context):
                              permission['roles'],
                              permission['acquire'])
 
-    logger.info("Role/permission map for %s imported." % path)
+    logger.info("Role/permission map for %s imported." % ob.getId())
 
 
 # Old-style configurator

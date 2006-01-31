@@ -14,13 +14,18 @@
       python:'background:url(%s) no-repeat 0px 0px' % here.getIcon(1)">
     Page Title
   </h1>
+  <div tal:condition="not:creation|nothing" id="bylineFolder">
+    <small>
+      <span metal:use-macro="here/content_lib_byline/macros/byline">By Me</span>
+    </small>
+  </div>
   <a href="" accesskey="V"
      style="display:none"
      tal:attributes="href string:${context_url}/"></a>
   <a href="" accesskey="N"
      style="display:none"
      tal:attributes="href string:${context_url}/folder_factories"></a>
-  <div style="text-align: right">
+  <div style="text-align: right" tal:condition="python: not here.isInWorkspace() or (here.isInWorkspace() and sort_by)">
     <form action="" method="post"
           tal:attributes="action string:${here_url}/changeDisplayParams">
       <p>
@@ -121,5 +126,8 @@
     </table>
   </form>
 </metal:main>
+
+<metal:main fill-slot="sub"/>
+
 </metal:body>
 </metal:html>

@@ -143,6 +143,7 @@ class CPSSiteConfigurator(object):
         setup_tool = self.setup_tool
         setup_tool.setImportContext('profile-%s' % profile_id)
         setup_tool.runAllImportSteps()
+        # XXX AT: shouldn't mandatory extensions be imported first?
         for extension_id in extension_ids:
             setup_tool.setImportContext('profile-%s' % extension_id)
             setup_tool.runAllImportSteps()

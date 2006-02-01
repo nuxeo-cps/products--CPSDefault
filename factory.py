@@ -37,7 +37,7 @@ class CPSSiteConfigurator(object):
 
     prechecked_extensions = ()
     mandatory_extensions = (
-        'CPSSkins:cps3', 
+        'CPSSkins:cps3',       # first, it defines the default skin
         'CPSPortlets:default',
         )
 
@@ -69,9 +69,10 @@ class CPSSiteConfigurator(object):
                 # Only keep CPS-specific extensions
                 continue
             if info['type'] == EXTENSION:
-                info['checked'] = info['id'] in self.prechecked_extensions or \
-                                  info['id'] in self.mandatory_extensions
-                info['disabled'] = info['id'] in self.mandatory_extensions
+                id = info['id']
+                info['disabled'] = id in self.mandatory_extensions
+                info['checked'] = (id in self.prechecked_extensions
+                                   or info['disabled'])
                 extension_profiles.append(info)
             else: # BASE
                 base_profiles.append(info)
@@ -136,15 +137,13 @@ class CPSSiteConfigurator(object):
         self.site.available_languages = tuple(languages)
 
     def importProfiles(self, profile_id, extension_ids=()):
-        extension_ids = tuple(extension_ids)
-        for id in self.mandatory_extensions:
-            if id not in extension_ids:
-                extension_ids = extension_ids + (id,)
         setup_tool = self.setup_tool
         setup_tool.setImportContext('profile-%s' % profile_id)
         setup_tool.runAllImportSteps()
-        # XXX AT: shouldn't mandatory extensions be imported first?
-        for extension_id in extension_ids:
+        # Import mandatory extensions first
+        extension_ids = tuple([id for id in extension_ids
+                               if id not in self.mandatory_extensions])
+        for extension_id in self.mandatory_extensions + extension_ids:
             setup_tool.setImportContext('profile-%s' % extension_id)
             setup_tool.runAllImportSteps()
         setup_tool.setImportContext('profile-%s' % profile_id)

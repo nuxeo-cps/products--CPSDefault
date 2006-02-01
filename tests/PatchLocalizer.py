@@ -12,12 +12,12 @@ def get_selected_language(self):
 Localizer.get_selected_language = get_selected_language
 
 # LocalizerStringIO
-from StringIO import StringIO
+from TAL.TALInterpreter import FasterStringIO
 from Products.Localizer import LocalizerStringIO
 
 # Un-patch LocalizerStringIO
 def LocalizerStringIO_write(self, s):
-    StringIO.write(self, s)
+    FasterStringIO.write(self, s)
 LocalizerStringIO.write = LocalizerStringIO_write
 
 # Hack around Unicode problem

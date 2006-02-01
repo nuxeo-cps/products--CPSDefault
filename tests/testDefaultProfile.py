@@ -25,11 +25,15 @@ class TestDefaultProfile(CPSTestCase):
                       mandatory_extensions=MANDATORY_EXTENSIONS,
                       extension_ids=(), purge_old=True):
         setup_tool = getToolByName(self.portal, CPSSetupTool.id, None)
+        if purge_old:
+            # Reset toolset and steps
+            # XXX this will be moved to a GenericSetup API later
+            setup_tool.__init__()
         setup_tool.setImportContext('profile-%s' % profile_id)
         setup_tool.runAllImportSteps(purge_old=purge_old)
         for extension_id in mandatory_extensions + extension_ids:
             setup_tool.setImportContext('profile-%s' % extension_id)
-            setup_tool.runAllImportSteps(purge_old=purge_old)
+            setup_tool.runAllImportSteps(purge_old=False)
         setup_tool.setImportContext('profile-%s' % profile_id)
 
     def test_reimport_purging(self):

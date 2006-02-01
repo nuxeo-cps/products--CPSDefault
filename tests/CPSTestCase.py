@@ -52,6 +52,12 @@ ZopeTestCase.installProduct('ExternalEditor', quiet=1)
 
 import PatchLocalizer
 
+# Better tracebacks
+import traceback
+from zExceptions.ExceptionFormatter import format_exception
+traceback.format_exception = format_exception
+
+
 PROFILE_ID = 'CPSDefault:default'
 PORTAL_ID = 'portal'
 MANAGER_ID = 'manager'

@@ -57,14 +57,14 @@
   <action title="action_add_favorites" action_id="add_favorites"
      category="user"
      condition_expr="python: member and portal.portal_membership.getHomeFolder()"
-     url_expr="string:${object/absolute_url}/addtoFavorites" visible="True">
+     url_expr="string:${object/absolute_url}/addtoFavorites" visible="False">
    <permission>View</permission>
   </action>
   <action title="action_view_favorites" action_id="view_favorites"
      category="user"
      condition_expr="python: hasattr(portal.portal_membership.getHomeFolder(),&quot;Favorites&quot;)"
      url_expr="string:${portal/portal_membership/getHomeUrl}/Favorites"
-     visible="True">
+     visible="False">
    <permission>View</permission>
   </action>
   <action title="Directories" action_id="directories" category="global"

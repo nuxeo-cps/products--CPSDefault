@@ -58,8 +58,6 @@
              trigger="USER"
              before_script="delete_language_from_proxy"
              after_script="">
-  <action url="%(content_url)s/content_delete_translation"
-          category="workflow">action_delete_translation</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
    <guard-expression>python:not state_change.object.isDefaultLanguage()</guard-expression>
@@ -82,8 +80,6 @@
              trigger="USER"
              before_script="add_language_to_proxy"
              after_script="">
-  <action url="%(content_url)s/content_translate_form"
-          category="workflow">action_translate</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>

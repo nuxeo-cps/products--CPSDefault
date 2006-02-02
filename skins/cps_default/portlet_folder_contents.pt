@@ -3,7 +3,7 @@
                    base_url utool/getBaseUrl;
                    context nocall:options/context_obj;
                    format string:one_column;
-                   items python: context.getFolderContents(hide_folder=1);
+                   items python: context.getFolderContents(hide_folder=1, sort_by='last_published', direction='desc');
                    no_form python:1;">
   <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 </tal:block>

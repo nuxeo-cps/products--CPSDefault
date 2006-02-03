@@ -8,7 +8,7 @@
  <property name="acl_directory_view_roles">Manager; Member</property>
  <property name="acl_entry_create_roles">Manager</property>
  <property name="acl_entry_delete_roles">Manager</property>
- <property name="acl_entry_view_roles">Manager</property>
+ <property name="acl_entry_view_roles">Manager; GroupMember</property>
  <property name="acl_entry_edit_roles">Manager</property>
  <property name="id_field">group</property>
  <property name="title_field">group</property>
@@ -17,5 +17,8 @@
  </property>
  <property name="is_hierarchical">False</property>
  <property name="password_field"></property>
+  <entry-local-role
+    role="GroupMember">python:entry_id in getUserEntry().get('groups', [])</entry-local-role>
+
  <cache-manager name="dir_ramcache"/>
 </object>

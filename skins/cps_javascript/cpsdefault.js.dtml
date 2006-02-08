@@ -158,7 +158,8 @@ CPSContainerEditor.prototype = {
   dropElementCompleted: function(originalRequest) {
     // getting new positions from the server
     result = originalRequest.responseText;
-    if (result == '' || result == '_') {
+
+    if (result == '' || result == '_' || result.indexOf('<') != -1) {
       if (result == '')
         this.onFail();
       else

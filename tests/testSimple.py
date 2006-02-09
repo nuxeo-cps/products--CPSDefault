@@ -1,3 +1,23 @@
+# (C) Copyright 2006 Nuxeo SAS <http://nuxeo.com>
+# Authors:
+# Stefane Fermigier <sf@nuxeo.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+#
+# $Id$
+
 import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
@@ -36,7 +56,7 @@ class TestSimple(CPSTestCase):
         # FIXME: not valid XHTML yet.
         #self.assertValidXHTML(self.portal.search_form(), "search_form")
         self.assertValidHTML(self.portal.search_form(), "search_form")
-        
+
         # FIXME: not valid yet
         #self.assertValidHTML(self.portal.advanced_search_form(), "advanced_search_form")
         self.assert_(self.portal.advanced_search_form())
@@ -55,8 +75,9 @@ class TestSimple(CPSTestCase):
 class TestSimpleAsRoot(TestSimple):
     login_id = 'manager'
 
-    def XXXtestAdminSkinsAtRoot(self):
-        self.assert_(self.portal.config_form())
+    def testAdminSkinsAtRoot(self):
+        self.assertValidXHTML(self.portal.config_form(), "config_form")
+        return
         # XXX: move this to CPSDirectory ?
         self.assert_(self.portal.cpsdirectory_view())
         for dirname in ('members', 'groups', 'roles'):
@@ -93,7 +114,6 @@ class TestSimpleAsRoot(TestSimple):
         sections.folder_localrole_edit(delete_ids=['user:manager'])
         self.assertEquals(sections.__ac_local_roles__.get('manager'), None)
 
-
     def testCopyPaste(self):
         ws = self.portal.workspaces
         ws.invokeFactory('Workspace', 'ws1')
@@ -122,6 +142,7 @@ class TestSimpleAsRoot(TestSimple):
     def testToolsPresence(self):
         urltool = getToolByName(self.portal, 'portal_url')
         self.assertEquals(urltool.meta_type, 'CPS URL Tool')
+
 
 class TestSimpleAsAnonymous(TestSimple):
     login_id = ''

@@ -7,7 +7,8 @@
 <div
   tal:define="action python:test(info['type'] in ('Section', 'Workspace'), '/folder_contents', '')"
   tal:attributes="class python:test(info['hidden'], 'hiddenItem', nothing)">
- <tal:block replace="structure python:path('here/'+ info['icon'])" />
+ <tal:block replace="structure python:here.getImgTag(info['icon'],
+                        base_url=base_url, title=info['type'])" />
  <a href="" tal:attributes="href string:${info/url}/${action};
                             title info/description">
  <strong><span tal:replace="info/title_or_id">ID</span></strong></a><br />

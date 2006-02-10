@@ -68,8 +68,7 @@
         tal:define="no_form python:not checkPerm('Modify portal content', here);
 
                     nav_action string:folder_contents;
-                    items python:here.getFolderContents(displayed=displayed);
-                    items_per_page python:50;">
+                    items python:here.getFolderContents(displayed=displayed);">
 
     <metal:block use-macro="here/content_lib_display_contents/macros/display_contents" />
 

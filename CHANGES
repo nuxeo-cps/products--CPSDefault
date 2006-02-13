@@ -7,15 +7,19 @@ New features:
 Bug fixes:
 ~~~~~~~~~~
 - #1337: Refactoring of the roots import to allow better configuration.
+- Fixed skin issue after upgrading CPS3.3.8 instance and importing all
+  steps from CPSDefault profile: 'Upgrades' tab in portal_setup was
+  producing  (AttributeError: 'search'), somehow 'search' skin was not
+  found. In any case using tool methods is better way than skin scripts.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- moved CPSPortlets to an extension profile and make it mandatory at install 
+- moved CPSPortlets to an extension profile and make it mandatory at install
   time
 - moved CPSSkins to an extension profile and make it mandatory at install time
 - members root folder is now a Members Workspace (CPS Proxy BTree Folder)
 - added Flash Animation widget to the Web Document
 - move byline in folder_contents according to #1290
-- updated isInWorkspace script to take into account also the new Members 
+- updated isInWorkspace script to take into account also the new Members
   Workspace portal type
 - Favorites actions are disabled by default (#1248)
 - removed "translate" action from document's workflow (#1347)

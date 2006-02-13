@@ -212,7 +212,9 @@ def upgrade_320_334_document_types(portal, check=False):
 
 def _modifyPortalType(portal, old, new, check=False):
     log_key = 'modifyPortalType'
-    brains = portal.search(query={'portal_type': (old,)})
+    catalog = getToolByName(portal, 'portal_catalog')
+    brains = catalog.searchResults(portal_type=old)
+
     if check:
         return bool(len(brains))
     for brain in brains:
@@ -497,4 +499,3 @@ AUTOMATIC_UPGRADES = (
     ('3.3.8', '3.4.0', upgrade_338_340, 'after'),
     ('3.3.8.1', '3.4.0', upgrade_338_340, 'after'),
     )
-

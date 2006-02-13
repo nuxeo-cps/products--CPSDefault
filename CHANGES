@@ -11,6 +11,10 @@ Bug fixes:
   steps from CPSDefault profile: 'Upgrades' tab in portal_setup was
   producing  (AttributeError: 'search'), somehow 'search' skin was not
   found. In any case using tool methods is better way than skin scripts.
+- To allow successful import of all steps from CPSDefault profile when
+  upgrading CPS3.3.8 instance, code(upgrade step) was added to delete instance
+  _properties and CMFDefault "dynamic" properties attributes from portal
+  object.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - moved CPSPortlets to an extension profile and make it mandatory at install

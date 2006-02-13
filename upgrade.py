@@ -419,6 +419,31 @@ def upgrade_338_340_portlets(self):
 
     return '\n'.join(logger)
 
+
+def reset_338_340_props(self):
+    """Reset portal properties."""
+    log = []
+    dolog = log.append
+    portal = self.portal_url.getPortalObject()
+    portal = aq_base(portal)
+
+    dolog('CPSDefault: Resetting portal properties.')
+    try:
+        delattr(portal, '_properties')
+    except AttributeError:
+        pass
+    cmfdefault_props = ('email_from_address', 'email_from_name',
+                        'validate_email', 'default_charset',
+                        'enable_permalink')
+    for prop_id in cmfdefault_props:
+        try:
+            delattr(portal, prop_id)
+        except AttributeError:
+            pass
+
+    dolog('CPSDefault: Resetting portal properties finished.')
+    return '\n'.join(log)
+
 def upgrade_338_340(self):
     """Upgrades for CPS 3.3.8 after cpsupdate"""
     log = []
@@ -433,6 +458,7 @@ def upgrade_338_340(self):
     from Products.CPSPortlets.upgrade import upgrade_338_340_themes
     dolog(upgrade_338_340_themes(self))
     dolog(upgrade_338_340_portlets(self))
+    dolog(reset_338_340_props(self))
     return '\n'.join(log)
 
 ################################################## Zope 2.8

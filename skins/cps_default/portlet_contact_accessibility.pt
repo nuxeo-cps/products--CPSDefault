@@ -1,3 +1,9 @@
 <div style="text-align: center">
-<a tal:attributes="href string:${here/portal_url}/accessibility">Accessibility</a> / Contact / <a href="javascript:if (window.print) window.print();">Print</a>
+  <a i18n:translate="action_accessibility"
+    tal:attributes="href string:${here/portal_url}/accessibility">Accessibility</a> /
+  <a i18n:translate="action_contact" tal:attributes="href
+    string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+    Contact</a> /
+  <a i18n:translate="action_print"
+    href="javascript:if (window.print) window.print();">Print</a>
 </div>

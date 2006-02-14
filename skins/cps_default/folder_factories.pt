@@ -14,7 +14,14 @@
           tal:define="creatableItems python:here.getSortedContentTypes(custom_order=True);
             showFirst python:5">
 
-      <dl tal:condition="creatableItems">
+      <div tal:condition="python: len(creatableItems) == 1">
+        <span id="dummy_for_redirect"
+              tal:define="response request/RESPONSE;
+                          item python:creatableItems[0];
+                          rurl string:${here_url}/content_create?type_name=${item/getId};
+                          redirect python:response.redirect(rurl)"/>
+      </div>
+      <dl tal:condition="python:creatableItems and len(creatableItems)>1">
         <tal:block tal:define="creatableItems1 python:creatableItems[:showFirst];
           creatableItems2 python:creatableItems[showFirst:]">
           <tal:block repeat="item creatableItems1">

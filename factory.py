@@ -100,7 +100,7 @@ class CPSSiteConfigurator(object):
         self.afterImport(**kw)
 
         if snapshot is True:
-            setup_tool.createSnapshot('initial_configuration')
+            self.setup_tool.createSnapshot('initial_configuration')
 
         if REQUEST is not None:
             REQUEST.RESPONSE.redirect('%s/manage_main?update_menu=1'

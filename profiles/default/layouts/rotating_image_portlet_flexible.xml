@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<object name="rotating_image_portlet_flexible" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_portlet_js_</property>
+ <property name="flexible_widgets">
+  <element value="imagelink"/>
+ </property>
+ <property name="validate_values_expr"></property>
+ <widget name="caption" meta_type="String Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsportlets_image_caption_label</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">36</property>
+ </widget>
+ <widget name="image" meta_type="Image Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsportlets_image_image_label</property>
+  <property name="is_i18n">True</property>
+ </widget>
+ <widget name="imagelink" meta_type="Image Link Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="widget_ids">
+   <element value="image"/>
+   <element value="link"/>
+   <element value="caption"/>
+  </property>
+  <property name="css_class">hidden</property>
+ </widget>
+ <widget name="link" meta_type="String Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsportlets_image_link_label</property>
+  <property name="is_i18n">True</property>
+  <property name="display_width">36</property>
+ </widget>
+ <table/>
+</object>

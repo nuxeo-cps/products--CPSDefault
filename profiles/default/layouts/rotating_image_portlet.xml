@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<object name="rotating_image_portlet" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_portlet_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="nb_images" meta_type="Int Widget">
+  <property name="fields">
+   <element value="nb_images"/>
+  </property>
+  <property name="label_edit">cpsportlet_rot_image_nb_images_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="min_value">1</property>
+ </widget>
+ <widget name="portlet" meta_type="Generic Portlet Widget">
+  <property name="fields">
+   <element value="portlet"/>
+  </property>
+  <property name="hidden_layout_modes">
+   <element value="edit"/>
+  </property>
+  <property name="render_method">widget_portlet_rotating_image</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="portlet"/>
+  </row>
+  <row>
+   <cell name="nb_images"/>
+  </row>
+ </table>
+</object>

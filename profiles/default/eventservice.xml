@@ -1,5 +1,16 @@
 <?xml version="1.0"?>
 <object name="portal_eventservice" meta_type="CPS Event Service Tool">
+ <object name="subscriber_cpsportlets" meta_type="CPS Subscriber Definition">
+  <property name="subscriber">portal_cpsportlets</property>
+  <property name="action">event</property>
+  <property name="meta_type_">*</property>
+  <property name="event_type">
+   <element value="*"/>
+  </property>
+  <property name="notification_type">synchronous</property>
+  <property name="compressed">False</property>
+  <property name="activated">True</property>
+ </object>
  <object name="subscriber_proxies" meta_type="CPS Subscriber Definition">
   <property name="subscriber">portal_proxies</property>
   <property name="action">proxy</property>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<object name="Portal Theme" meta_type="Factory-based Type Information"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title"></property>
+ <property name="description">_portaltheme_description_</property>
+ <property name="content_icon">portaltheme.png</property>
+ <property name="content_meta_type">Portal Theme</property>
+ <property name="product">CPSSkins</property>
+ <property name="factory">addPortalTheme</property>
+ <property name="immediate_view">cpsskins_edit_form</property>
+ <property name="global_allow">False</property>
+ <property name="filter_content_types">False</property>
+ <property name="allowed_content_types">
+  <element value="Theme Page"/>
+  <element value="Theme Folder"/>
+ </property>
+ <property name="allow_discussion">False</property>
+ <property name="cps_is_searchable">False</property>
+ <property name="cps_proxy_type"></property>
+ <property name="cps_display_as_document_in_listing">False</property>
+ <alias from="(Default)" to="cpsskins_theme_view"/>
+ <alias from="edit" to="cpsskins_edit_form"/>
+ <alias from="edit_images" to="cpsskins_edit_images"/>
+ <alias from="edit_palettes" to="cpsskins_edit_palettes"/>
+ <alias from="edit_styles" to="cpsskins_edit_styles"/>
+ <alias from="manage_cache" to="cpsskins_cache_manager"/>
+ <alias from="manage_themes" to="cpsskins_themes_manager"/>
+ <alias from="view" to="cpsskins_theme_view"/>
+ <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/cpsskins_theme_view" visible="True"/>
+ <action title="_Edit_" action_id="edit" category="object" condition_expr=""
+    url_expr="string:${object_url}/cpsskins_edit_form" visible="False">
+  <permission value="Manage Themes"/>
+ </action>
+ <action title="_Edit styles_" action_id="edit_styles" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsskins_edit_styles"
+    visible="False">
+  <permission value="Manage Themes"/>
+ </action>
+ <action title="_Edit palettes_" action_id="edit_palettes" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsskins_edit_palettes"
+    visible="False">
+  <permission value="Manage Themes"/>
+ </action>
+ <action title="_Edit images_" action_id="edit_images" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsskins_edit_images"
+    visible="False">
+  <permission value="Manage Themes"/>
+ </action>
+ <action title="_Cache manager_" action_id="manage_cache" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsskins_cache_manager"
+    visible="False">
+  <permission value="Manage Themes"/>
+ </action>
+ <action title="_Themes manager_" action_id="manage_themes" category="object"
+    condition_expr="" url_expr="string:${object_url}/cpsskins_themes_manager"
+    visible="False">
+  <permission value="Manage Themes"/>
+ </action>
+</object>

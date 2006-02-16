@@ -36,10 +36,7 @@ class CPSSiteConfigurator(object):
     """
 
     prechecked_extensions = ()
-    mandatory_extensions = (
-        'CPSSkins:cps3',       # first, it defines the default skin
-        'CPSPortlets:default',
-        )
+    mandatory_extensions = ()
 
     available_languages = (
         {'id': 'nl', 'title': 'Dutch'},

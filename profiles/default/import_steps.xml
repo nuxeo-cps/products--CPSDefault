@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <import-steps>
+ <import-step id="action-icons" version="20051015-01"
+              handler="Products.CMFActionIcons.exportimport.importActionIconsTool"
+              title="Action Icons">
+  <dependency step="toolset"/>
+  Import action icon definitions
+ </import-step>
  <import-step id="actions" version="20040630-01"
               handler="Products.CMFCore.exportimport.actions.importActionProviders"
               title="Action Providers">
@@ -63,6 +69,15 @@
   <dependency step="toolset"/>
   Import mailhost settings.
  </import-step>
+ <import-step id="portlets" version="20051230-01"
+              handler="Products.CPSPortlets.exportimport.importPortletTool"
+              title="Portlet Tool">
+  <dependency step="toolset"/>
+  <dependency step="typeinfo"/>
+  <dependency step="schemas"/>
+  <dependency step="skins"/> <!-- calls to getCPSPortletJavaScript -->
+  Import portlet tool and portlets.
+ </import-step>
  <import-step id="properties" version="20041215-01"
               handler="Products.CMFCore.exportimport.properties.importSiteProperties"
               title="Site Properties">
@@ -85,11 +100,11 @@
   <dependency step="toolset"/>
   Import skins tool's filesystem directory views and skin path definitions.
  </import-step>
- <import-step id="action-icons" version="20051015-01"
-              handler="Products.CMFActionIcons.exportimport.importActionIconsTool"
-              title="Action Icons">
+ <import-step id="themes" version="20051130-01"
+              handler="Products.CPSSkins.exportimport.importThemeTool"
+              title="Theme tool">
   <dependency step="toolset"/>
-  Import action icon definitions
+  Import theme tool and themes.
  </import-step>
  <import-step id="toolset" version="20040630-01"
               handler="Products.GenericSetup.tool.importToolset"

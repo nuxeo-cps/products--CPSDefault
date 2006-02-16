@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<object name="document_portlet" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_portlet_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="cluster_id" meta_type="String Widget">
+  <property name="fields">
+   <element value="cluster_id"/>
+  </property>
+  <property name="label_edit">cpsportlets_document_cluster_id_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="display_width">36</property>
+ </widget>
+ <widget name="cluster_no_fallback" meta_type="CheckBox Widget">
+  <property name="fields">
+   <element value="cluster_no_fallback"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_document_render_cluster_no_fallback_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_if_expr">not:context/cluster_id</property>
+ </widget>
+ <widget name="context_rpath" meta_type="String Widget">
+  <property name="fields">
+   <element value="context_rpath"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_document_context_rpath_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="hidden_if_expr">context/render_container</property>
+  <property name="display_width">30</property>
+ </widget>
+ <widget name="portlet" meta_type="Generic Portlet Widget">
+  <property name="fields">
+   <element value="portlet"/>
+  </property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="edit"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="render_method">widget_portlet_document</property>
+ </widget>
+ <widget name="render_container" meta_type="CheckBox Widget">
+  <property name="fields">
+   <element value="render_container"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_document_render_container_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+ </widget>
+ <table>
+  <row>
+   <cell name="portlet"/>
+   <cell name="context_rpath"/>
+   <cell name="render_container"/>
+  </row>
+  <row>
+   <cell name="cluster_id"/>
+   <cell name="cluster_no_fallback" ncols="2"/>
+  </row>
+ </table>
+</object>

@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<object name="navigation_portlet" meta_type="CPS Layout">
+ <property name="layout_create_method"></property>
+ <property name="layout_edit_method"></property>
+ <property name="layout_view_method"></property>
+ <property name="style_prefix">layout_portlet_</property>
+ <property name="flexible_widgets"/>
+ <property name="validate_values_expr"></property>
+ <widget name="authorized_only" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="authorized_only"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_authorized_only_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property
+     name="hidden_if_expr">python: context.display != 'extended_site_map'</property>
+ </widget>
+ <widget name="context_is_portlet" meta_type="CheckBox Widget">
+  <property name="fields">
+   <element value="context_is_portlet"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_nav_context_is_portlet_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ['folder_contents', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="context_rpath" meta_type="String Widget">
+  <property name="fields">
+   <element value="context_rpath"/>
+  </property>
+  <property name="label_edit">cpsportlets_nav_context_rpath_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ['folder_contents', 'folder_contents_dropdown_list'] or context.context_is_portlet</property>
+  <property name="display_width">30</property>
+ </widget>
+ <widget name="contextual" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="contextual"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_contextual_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display in ['vertical_breadcrumbs_menu', 'folder_contents', 'folder_contents_detailed', 'subfolder_contents', 'site_map', 'collapsible_menu', 'up_to_parent', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="display" meta_type="Select Widget">
+  <property name="fields">
+   <element value="display"/>
+  </property>
+  <property name="label_edit">cpsportlets_display_mode_label</property>
+  <property name="help">cpsportlets_display_mode_help</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="vocabulary">cpsportlets_navigation_display_voc</property>
+  <property name="translated">True</property>
+ </widget>
+ <widget name="display_description" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="display_description"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_display_description_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ['extended_site_map', 'site_map', 'folder_contents', 'subfolder_contents', 'navigation_tree', 'collapsible_menu']</property>
+ </widget>
+ <widget name="display_hidden_folders" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="display_hidden_folders"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_display_hidden_folders_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display in ['up_to_parent' , 'folder_contents_detailed']</property>
+ </widget>
+ <widget name="display_managers" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="display_managers"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_display_managers_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property
+     name="hidden_if_expr">python: context.display != 'extended_site_map'</property>
+ </widget>
+ <widget name="end_depth" meta_type="Int Widget">
+  <property name="fields">
+   <element value="end_depth"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_end_depth_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display in ['folder_contents', 'subfolder_contents', 'folder_contents_detailed', 'collapsible_menu', 'up_to_parent', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="folder_prefixes" meta_type="Lines Widget">
+  <property name="fields">
+   <element value="folder_prefixes"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_folder_prefixes_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display != 'site_map'</property>
+ </widget>
+ <widget name="portlet" meta_type="Generic Portlet Widget">
+  <property name="fields">
+   <element value="portlet"/>
+  </property>
+  <property name="hidden_layout_modes">
+   <element value="edit"/>
+  </property>
+  <property name="render_method">widget_portlet_navigation</property>
+ </widget>
+ <widget name="rel_depth" meta_type="Int Widget">
+  <property name="fields">
+   <element value="rel_depth"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_rel_depth_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display in ['folder_contents', 'subfolder_contents', 'navigation_tree', 'site_map', 'up_to_parent', 'folder_contents_detailed', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="root_uids" meta_type="Lines Widget">
+  <property name="fields">
+   <element value="root_uids"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_root_uids_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display in ['vertical_breadcrumbs_menu', 'folder_contents', 'folder_contents_detailed', 'up_to_parent', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="short_syndication_formats" meta_type="CheckBox Widget">
+  <property name="fields">
+   <element value="short_syndication_formats"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_common_short_syndication_formats_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+ </widget>
+ <widget name="show_docs" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="show_docs"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_show_docs_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ['folder_contents', 'collapsible_menu', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="show_icons" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="show_icons"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_show_icons_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display in ['vertical_breadcrumbs_menu', 'folder_contents', 'folder_contents_detailed', 'subfolder_contents', 'up_to_parent', 'folder_contents_dropdown_list']</property>
+ </widget>
+ <widget name="sort_by" meta_type="Select Widget">
+  <property name="fields">
+   <element value="sort_by"/>
+  </property>
+  <property name="label_edit">cpsportlets_navigation_sort_by_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ('folder_contents', 'collapsible_menu', 'folder_contents_dropdown_list')</property>
+  <property name="vocabulary">cpsportlets_folder_sorting_criteria</property>
+  <property name="translated">True</property>
+ </widget>
+ <widget name="sort_direction" meta_type="Select Widget">
+  <property name="fields">
+   <element value="sort_direction"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_sort_direction_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ('folder_contents', 'collapsible_menu', 'folder_contents_dropdown_list')  or not getattr(context, 'sort_by', '')</property>
+  <property name="vocabulary">cpsportlets_folder_sorting_direction</property>
+  <property name="translated">True</property>
+ </widget>
+ <widget name="syndication_formats" meta_type="MultiSelect Widget">
+  <property name="fields">
+   <element value="syndication_formats"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_common_syndication_formats_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="hidden_if_expr">python: context.display not in ['folder_contents', 'folder_contents_detailed']</property>
+  <property name="vocabulary">cpsportlets_syndication_formats_voc</property>
+  <property name="translated">True</property>
+ </widget>
+ <table>
+  <row>
+   <cell name="portlet" ncols="6"/>
+  </row>
+  <row>
+   <cell name="display" ncols="6"/>
+  </row>
+  <row>
+   <cell name="root_uids"/>
+   <cell name="rel_depth"/>
+   <cell name="end_depth"/>
+   <cell name="contextual"/>
+   <cell name="context_is_portlet"/>
+   <cell name="context_rpath"/>
+  </row>
+  <row>
+   <cell name="folder_prefixes" ncols="6"/>
+  </row>
+  <row>
+   <cell name="show_docs"/>
+   <cell name="show_icons"/>
+   <cell name="display_hidden_folders" ncols="4"/>
+  </row>
+  <row>
+   <cell name="display_managers"/>
+   <cell name="display_description"/>
+   <cell name="authorized_only" ncols="4"/>
+  </row>
+  <row>
+   <cell name="syndication_formats" ncols="5"/>
+   <cell name="short_syndication_formats"/>
+  </row>
+  <row>
+   <cell name="sort_by" ncols="1"/>
+   <cell name="sort_direction" ncoles="5"/>
+  </row>
+ </table>
+</object>

@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <object name="portal_skins" meta_type="CMF Skins Tool" allow_any="False"
    cookie_persistence="False"
-   request_varname="portal_skin">
+   request_varname="portal_skin"
+   default_skin="CPSSkins">
  <object name="Images" meta_type="Filesystem Directory View"
     directory="CMFDefault/skins/Images"/>
  <object name="cmf_calendar" meta_type="Filesystem Directory View"
@@ -32,6 +33,18 @@
     directory="CPSSchemas/skins/cps_jscalendar"/>
  <object name="cps_nuxeo_style" meta_type="Filesystem Directory View"
     directory="CPSDefault/skins/cps_styles/nuxeo"/>
+ <object name="cpsportlets_default" meta_type="Filesystem Directory View"
+    directory="CPSPortlets/skins/cpsportlets_default"/>
+ <object name="cpsportlets_layouts" meta_type="Filesystem Directory View"
+    directory="CPSPortlets/skins/cpsportlets_layouts"/>
+ <object name="cpsportlets_schemas" meta_type="Filesystem Directory View"
+    directory="CPSPortlets/skins/cpsportlets_schemas"/>
+ <object name="cpsportlets_types" meta_type="Filesystem Directory View"
+    directory="CPSPortlets/skins/cpsportlets_vocabularies"/>
+ <object name="cpsportlets_vocabularies" meta_type="Filesystem Directory View"
+    directory="CPSPortlets/skins/cpsportlets_types"/>
+ <object name="cpsportlets_widgets" meta_type="Filesystem Directory View"
+    directory="CPSPortlets/skins/cpsportlets_widgets"/>
  <object name="cps_schemas" meta_type="Filesystem Directory View"
     directory="CPSSchemas/skins/cps_schemas"/>
  <object name="cps_styles" meta_type="Filesystem Directory View"
@@ -42,6 +55,16 @@
     directory="CPSNavigation/skins/cpsnavigation_devel"/>
  <object name="cpsnavigation_images" meta_type="Filesystem Directory View"
     directory="CPSNavigation/skins/cpsnavigation_images"/>
+ <object name="CPSSkins" meta_type="Filesystem Directory View"
+    directory="CPSSkins/skins/CPSSkins"/>
+ <object name="cpsskins_cmf" meta_type="Filesystem Directory View"
+    directory="CPSSkins/skins/cpsskins_cmf"/>
+ <object name="cpsskins_cps3" meta_type="Filesystem Directory View"
+    directory="CPSSkins/skins/cpsskins_cps3"/>
+ <object name="cpsskins_cps3_macroless" meta_type="Filesystem Directory View"
+    directory="CPSSkins/skins/cpsskins_cps3_macroless"/>
+ <object name="cpsskins_icons" meta_type="Filesystem Directory View"
+    directory="CPSSkins/icons"/>
  <object name="custom" meta_type="Folder"/>
  <object name="fckeditor" meta_type="Filesystem Directory View"
     directory="FCKeditor/skins/fckeditor"/>
@@ -65,4 +88,79 @@
     directory="CMFDefault/skins/zpt_generic"/>
  <object name="zpt_topic" meta_type="Filesystem Directory View"
     directory="CMFTopic/skins/zpt_topic"/>
+ <skin-path name="CPSSkins">
+  <layer name="custom"/>
+  <layer name="CPSSkins"/>
+  <layer name="cpsskins_icons"/>
+  <layer name="cpsskins_cps3"/>
+  <layer name="cpsskins_cmf"/>
+  <layer name="cpsportlets_default" insert-after="custom"/>
+  <layer name="cpsportlets_widgets" insert-after="custom"/>
+  <layer name="cpsnavigation_images"/>
+  <layer name="cpsnavigation_default"/>
+  <layer name="cpsnavigation_devel"/>
+  <layer name="cps_directory"/>
+  <layer name="mimetypes_icons"/>
+  <layer name="cps_jscalendar"/>
+  <layer name="cps_schemas"/>
+  <layer name="cps_document"/>
+  <layer name="cps_document_js"/>
+  <layer name="cps_document_images"/>
+  <layer name="fckeditor"/>
+  <layer name="scriptaculous"/>
+  <layer name="cps_javascript"/>
+  <layer name="cps_default"/>
+  <layer name="cps_images"/>
+  <layer name="cmf_calendar"/>
+  <layer name="cps_styles"/>
+  <layer name="cps_nuxeo_style"/>
+  <layer name="cmf_zpt_calendar"/>
+  <layer name="cps_devel"/>
+  <layer name="zpt_topic"/>
+  <layer name="zpt_calendar"/>
+  <layer name="zpt_content"/>
+  <layer name="zpt_generic"/>
+  <layer name="zpt_control"/>
+  <layer name="Images"/>
+ </skin-path>
+ <skin-path name="CPSSkins-macroless">
+  <layer name="custom"/>
+  <layer name="CPSSkins"/>
+  <layer name="cpsskins_icons"/>
+  <layer name="cpsskins_cps3_macroless"/>
+  <layer name="cpsskins_cps3"/>
+  <layer name="cpsskins_cmf"/>
+  <layer name="cpsportlets_schemas" insert-after="custom"/>
+  <layer name="cpsportlets_vocabularies" insert-after="custom"/>
+  <layer name="cpsportlets_layouts" insert-after="custom"/>
+  <layer name="cpsportlets_widgets" insert-after="custom"/>
+  <layer name="cpsportlets_default" insert-after="custom"/>
+  <layer name="cpsportlets_types" insert-after="custom"/>
+  <layer name="cpsnavigation_images"/>
+  <layer name="cpsnavigation_default"/>
+  <layer name="cpsnavigation_devel"/>
+  <layer name="cps_directory"/>
+  <layer name="mimetypes_icons"/>
+  <layer name="cps_jscalendar"/>
+  <layer name="cps_schemas"/>
+  <layer name="cps_document"/>
+  <layer name="cps_document_js"/>
+  <layer name="cps_document_images"/>
+  <layer name="fckeditor"/>
+  <layer name="scriptaculous"/>
+  <layer name="cps_javascript"/>
+  <layer name="cps_default"/>
+  <layer name="cps_images"/>
+  <layer name="cmf_calendar"/>
+  <layer name="cps_styles"/>
+  <layer name="cps_nuxeo_style"/>
+  <layer name="cmf_zpt_calendar"/>
+  <layer name="cps_devel"/>
+  <layer name="zpt_topic"/>
+  <layer name="zpt_calendar"/>
+  <layer name="zpt_content"/>
+  <layer name="zpt_generic"/>
+  <layer name="zpt_control"/>
+  <layer name="Images"/>
+ </skin-path>
 </object>

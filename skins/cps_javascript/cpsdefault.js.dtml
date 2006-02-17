@@ -244,6 +244,10 @@ CPSContainerEditor.prototype = {
             object.style.left = 0;
             object.style.transparency = 0;
         }
+
+        if (container_events) {
+          container_events.triggerEvent('element_dropped');
+        }
         break;
 
       case 'icon':
@@ -351,6 +355,8 @@ CPSContainerEvents.prototype = {
   },
 
   triggerEvent: function(event_id) {
+    if (!this.observers)
+      return;
     for (var i = 0; i < this.observers.length; i++) {
       if (this.observers[i][0] == event_id) {
         this.observers[i][2](event_id);

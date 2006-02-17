@@ -39,8 +39,8 @@
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
 
-  function eventTriggered(event_id) {
-    $('observer').innerHtml = 'triggered';
+  function eventTriggered(event_id, trigger_id) {
+    $('observer').innerHtml = trigger_id;
   }
 
   new Test.Unit.Runner({
@@ -63,12 +63,12 @@
       editor1.triggerEvent('my_special_event');
 
       // verify the trigger has succeeded
-      assertEqual($('observer').innerHtml, 'triggered');
+      assertEqual($('observer').innerHtml, 'my_trigger_id');
 
       // calling once more
-      $('observer').innerHtml = 'not';
+      $('observer').innerHtml = 'not';0
       editor1.triggerEvent('my_special_event');
-      assertEqual($('observer').innerHtml, 'triggered');
+      assertEqual($('observer').innerHtml, 'my_trigger_id');
 
       // remove trigger
       editor1.stopObservingEvent('my_special_event', 'my_trigger_id');

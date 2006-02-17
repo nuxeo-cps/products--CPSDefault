@@ -1,4 +1,49 @@
 *******************************************
+** CPSDefault V3.39.0 [R1 build 2006/02/17-20:16 by fermigier]
+** SVN URL: https://svn.nuxeo.org/pub/CPSDefault/trunk Revision: 32986
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- #1337: Refactoring of the roots import to allow better configuration.
+- Fixed skin issue after upgrading CPS3.3.8 instance and importing all
+  steps from CPSDefault profile: 'Upgrades' tab in portal_setup was
+  producing  (AttributeError: 'search'), somehow 'search' skin was not
+  found. In any case using tool methods is better way than skin scripts.
+- To allow successful import of all steps from CPSDefault profile when
+  upgrading CPS3.3.8 instance, code(upgrade step) was added to delete instance
+  _properties and CMFDefault "dynamic" properties attributes from portal
+  object.
+- #1368: .py script in profile had wrong EOL -> errors on windows
+- get rid of double slashes in urls (content_lib_info*)
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- members root folder is now a Members Workspace (CPS Proxy BTree Folder)
+- added Flash Animation widget to the Web Document
+- move byline in folder_contents according to #1290
+- updated isInWorkspace script to take into account also the new Members
+  Workspace portal type
+- Favorites actions are disabled by default (#1248)
+- removed "translate" action from document's workflow (#1347)
+- adding Entry Local Role for allowing users to view the groups they belong to
+- adding zpt for accessibility portlet
+- #1375: Member role is checked by default when creating a new user
+- Getting an icon with "path('here/'+ info['icon'])" does not work with Five
+  products, so it was changes to the more generic method of using getImgTag.
+- #1405: if there is only one content type allowed in folder_factories, skip 
+  directly to the creation of that document
+- rollback for [32481] as this is taken care now by folder_factories
+- #1403: Byline macro will show only the creator/date in workspaces
+- Extension profile test layer class bugfix: was not logged in as manager to
+  run import steps.
+- Start CPS is now a custom portlet, in order to dinamically show the links 
+  inside
+
+*******************************************
 ** CPSDefault V3.38.0 [R1 build 2006/01/23-17:09 by fermigier]
 ** SVN URL: https://svn.nuxeo.org/pub/CPSDefault/trunk Revision: 31955
 Requires:

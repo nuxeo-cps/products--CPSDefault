@@ -359,7 +359,7 @@ CPSContainerEvents.prototype = {
       return;
     for (var i = 0; i < this.observers.length; i++) {
       if (this.observers[i][0] == event_id) {
-        this.observers[i][2](event_id);
+        this.observers[i][2](event_id, this.observers[i][1]);
       }
     }
   }

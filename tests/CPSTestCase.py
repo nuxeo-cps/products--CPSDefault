@@ -177,14 +177,24 @@ class ExtensionProfileLayerClass(object):
         self.__name__ = name
 
     def setUp(self):
-        app = ZopeTestCase.app()
-        self.portal = getattr(app, PORTAL_ID)
+        self.app = ZopeTestCase.app()
+        self.login()
+        self.portal = getattr(self.app, PORTAL_ID)
         tool = self.portal.portal_setup
         for extension_id in self.extension_ids:
             tool.setImportContext('profile-%s' % extension_id)
             tool.runAllImportSteps()
         tool.setImportContext('profile-%s' % PROFILE_ID)
         transaction.commit()
+        self.logout()
+
+    def login(self):
+        aclu = self.app.acl_users
+        user = aclu.getUserById('CPSTestCase').__of__(aclu)
+        newSecurityManager(None, user)
+
+    def logout(self):
+        noSecurityManager()
 
     def tearDown(self):
         pass

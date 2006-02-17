@@ -2,10 +2,19 @@
   <h1>Start CPS</h1>
   <img src="cpsskins_images/pict2.png" alt="" style="float:left;padding:0px 5px 0px 0px;"/>
   <p style="vertical-align:middle;">
-    <a href="login_form">Log in</a>
+    <a href="." 
+        tal:attributes="href python:test(here.portal_membership.isAnonymousUser(), 'login_form', 'logout');"
+        tal:content="python:test(here.portal_membership.isAnonymousUser(), 'Login', 'Logout')">Log in/out</a>
     <br />
-    <a href="register">Join</a>
-    <br />
-    <a href="email">Contact</a>
+    <tal:block condition="python: here.portal_properties.enable_portal_joining and here.portal_membership.isAnonymousUser()">
+      <a href="register">Join</a>
+      <br />
+    </tal:block>
+    <a i18n:translate="action_contact" tal:attributes="href
+        string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+        Contact</a>
+    <tal:block condition="python: not here.portal_membership.isAnonymousUser()">
+      <br /><br />
+    </tal:block>
   </p>
 </div>

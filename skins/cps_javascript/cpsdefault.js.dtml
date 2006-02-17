@@ -149,6 +149,11 @@ CPSContainerEditor.prototype = {
     return -1;
   },
 
+  reload: function() {
+    this.unHookElements();
+    this.hookElements();
+  },
+
   rowCompare: function(a, b) {
     var aVal = a.value;
     var bVal = b.value;
@@ -258,8 +263,7 @@ CPSContainerEditor.prototype = {
         break;
     }
 
-    this.unHookElements();
-    this.hookElements();
+    this.reload();
     this.onComplete();
   },
 
@@ -332,9 +336,8 @@ var CPSContainerEvents = Class.create();
 
 CPSContainerEvents.prototype = {
   initialize: function() {
+    this.observers = false;
   },
-
-  observers: false,
 
   observeEvent: function(event_id, observer_id, observer_listener) {
     if (!this.observers) this.observers = [];
@@ -357,14 +360,16 @@ CPSContainerEvents.prototype = {
   triggerEvent: function(event_id) {
     if (!this.observers)
       return;
+
     for (var i = 0; i < this.observers.length; i++) {
       if (this.observers[i][0] == event_id) {
         this.observers[i][2](event_id, this.observers[i][1]);
       }
     }
   }
-
 }
 
 /* global instance */
 var container_events = new CPSContainerEvents();
+
+

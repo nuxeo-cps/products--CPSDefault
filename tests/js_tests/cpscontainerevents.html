@@ -22,7 +22,9 @@
   Test of CPSContainerEvents
 </p>
 
+<div id="observer">Observer</div>
 
+<div id="here">My div</div>
 
 <!-- Log output -->
 <div id="testlog"> </div>
@@ -31,9 +33,15 @@
 <div class="scrolldown"/>
 
 
+
+
 <!-- Tests follow -->
 <script type="text/javascript" charset="utf-8">
 // <![CDATA[
+
+  function eventTriggered(event_id) {
+    $('observer').innerHtml = 'triggered';
+  }
 
   new Test.Unit.Runner({
 
@@ -45,6 +53,40 @@
       var editor1 = new CPSContainerEvents();
       assertInstanceOf(CPSContainerEvents, editor1);
     }},
+
+    testEventTrigger: function() { with(this) {
+      var editor1 = new CPSContainerEvents();
+
+      editor1.observeEvent('my_special_event', 'my_trigger_id', eventTriggered);
+
+      // now trigger the event to see if it's catched
+      editor1.triggerEvent('my_special_event');
+
+      // verify the trigger has succeeded
+      assertEqual($('observer').innerHtml, 'triggered');
+
+      // calling once more
+      $('observer').innerHtml = 'not';
+      editor1.triggerEvent('my_special_event');
+      assertEqual($('observer').innerHtml, 'triggered');
+
+      // remove trigger
+      editor1.stopObservingEvent('my_special_event', 'my_trigger_id');
+
+      // making sure it is not triggered anymore
+      $('observer').innerHtml = 'not';
+      editor1.triggerEvent('my_special_event');
+      assertEqual($('observer').innerHtml, 'not');
+
+    }},
+
+    testPurge: function() { with(this) {
+      var editor1 = new CPSContainerEvents();
+      editor1.observeEvent('my_special_event', 'my_trigger_id', eventTriggered);
+      editor1.observeEvent('my_special_event', 'my_trigger_id2', eventTriggered);
+      editor1.purgeObservers();
+      assertEqual(editor1.observers, false);
+    }}
 
 
   }, "testlog");

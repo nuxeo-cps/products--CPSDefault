@@ -328,6 +328,35 @@ var CPSContainerEvents = Class.create();
 
 CPSContainerEvents.prototype = {
   initialize: function() {
+  },
+
+  observers: false,
+
+  observeEvent: function(event_id, observer_id, observer_listener) {
+    if (!this.observers) this.observers = [];
+    this.observers.push([event_id, observer_id, observer_listener]);
+  },
+
+  stopObservingEvent: function(event_id, observer_id) {
+    for (var i = 0; i < this.observers.length; i++) {
+      if (this.observers[i][0] == event_id &&
+          this.observers[i][1] == observer_id ) {
+        this.observers[i][0] = null;
+      }
+    }
+  },
+
+  purgeObservers: function() {
+    this.observers = false;
+  },
+
+  triggerEvent: function(event_id) {
+    for (var i = 0; i < this.observers.length; i++) {
+      if (this.observers[i][0] == event_id) {
+        this.observers[i][2](event_id);
+      }
+    }
   }
+
 }
 

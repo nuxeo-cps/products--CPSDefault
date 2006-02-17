@@ -86,12 +86,44 @@
                            ajax_failing_msg python:cpsmcat('ajax_failing');
                            ajax_failing_msg python:ajax_failing_msg.replace('\'', '\\\'')">
 
+        <tal:block tal:replace="nothing">
+         XXX
+         Since we don't have a simple way yet in portlets mechanism to
+         reach the javascript event register wich is instanciated here,
+         we define the observers here in hard for section and worskpace tree
+         navigators.
+        </tal:block>
         <script type="text/javascript" tal:content="structure string:
                 var editor = new CPSContainerEditor('draggable', 'droppable',
                                                     'droppable-in', '${format}',
                                                     '${ajax_working_msg}',
                                                     'folder_content', 'ajax_psm',
-                                                    '${ajax_failing_msg}');">
+                                                    '${ajax_failing_msg}');
+               // hooking observers
+               if (treeview_editor) {
+                 loadScript('portletrefresher', '++resource++portletrefresher.js');
+
+                 function refresh(event_id, trigger_id) {
+
+                   portlet_refresher.refreshPortlet(trigger_id);
+                   editor.reload();
+                 }
+
+                if ($$('portlet_navigation_sections'))
+                    container_events.observeEvent('element_dropped', 'portlet_navigation_sections',
+                                                refresh);
+
+                if ($$('portlet_navigation_workspaces'))
+                    container_events.observeEvent('element_dropped', 'portlet_navigation_workspaces',
+                                                refresh);
+
+               }
+
+               ">
         </script>
+
+
+
+
   </tal:block>
 </metal:block>

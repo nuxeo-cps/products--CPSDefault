@@ -49,6 +49,7 @@ Macro needs
 <form method="post" action="folder_localrole_form"
       tal:attributes="action string:${here_url}/folder_localrole_form"
       tal:condition="python:len(cps_roles)>1">
+  <div>
   <label for="filtered_role"
          i18n:translate="legend_local_roles_filter_roles">
     Filter local roles:
@@ -70,6 +71,7 @@ Macro needs
   <input type="submit" value="button_apply"
     name="filter_local_roles"
     i18n:attributes="value" class="context" />
+  </div>
 </form>
 
 <p i18n:translate="legend_local_roles_no_roles_assigned"

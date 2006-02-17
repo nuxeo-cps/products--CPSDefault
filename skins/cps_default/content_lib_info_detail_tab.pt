@@ -60,7 +60,7 @@
 <tr tal:define="action python:test(info['type'] in ('Section', 'Workspace'),
                 '/folder_contents', '')"
     tal:attributes="class python:test(repeat['item'].even(), 'even ajaxtd', 'odd ajaxtd')">
-  <td align="left" valign="middle" width="5">
+  <td align="left" valign="middle" style="width: 5px;">
     <input type="checkbox" name="ids:list" value="" id="" class="noborder"
            tal:condition="not:no_form"
            tal:define="id item/getId"

@@ -74,7 +74,7 @@
                   draggableid python:'draggable'+str(item.getId());
                   draggablemouseover
                     python:test(not no_form  and sort_by is None, 'setCursor(this, \'move\')', '')">
-    <div tal:attributes="class draggableclass; id draggableid; mouseover draggablemouseover">
+    <div tal:attributes="class draggableclass; id draggableid; onmouseover draggablemouseover">
       <img tal:replace="structure python:here.getImgTag(info['icon'],
                         base_url=base_url, title=info['type'])" />
     </div>

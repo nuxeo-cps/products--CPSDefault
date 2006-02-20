@@ -277,7 +277,7 @@ class MembershipTool(CPSMembershipTool):
             return member.get(self.email_field)
         return None
 
-    security.declarePublic('getFullNameFromId')
+    security.declarePublic('getFullnameFromId')
     def getFullnameFromId(self, user_id, REQUEST=None):
         """Return the member full name from id
         """

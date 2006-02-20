@@ -1,19 +1,21 @@
-<div style="padding:0px 10px 10px 10px">
+<div style="padding:0px 10px 10px 10px"
+     tal:define="joining here/portal_properties/enable_portal_joining;
+                 isAnonymous here/portal_membership/isAnonymousUser">
   <h1 i18n:translate="heading_start_cps">Start CPS</h1>
   <img src="cpsskins_images/pict2.png" alt="" style="float:left;padding:0px 5px 0px 0px;"/>
   <p style="vertical-align:middle;">
     <a href="." i18n:translate=""
-        tal:attributes="href python:test(here.portal_membership.isAnonymousUser(), 'login_form', 'logout');"
-        tal:content="python:test(here.portal_membership.isAnonymousUser(), 'Login', 'Log out')">Log in/out</a>
+        tal:attributes="href python:test(isAnonymous, 'login_form', 'logout');"
+        tal:content="python:test(isAnonymous, 'Login', 'Log out')">Log in/out</a>
     <br />
-    <tal:block condition="python: here.portal_properties.enable_portal_joining and here.portal_membership.isAnonymousUser()">
+    <tal:block condition="python: joining and isAnonymous">
       <a href="register" i18n:translate="Join">Join</a>
       <br />
     </tal:block>
     <a i18n:translate="action_contact" tal:attributes="href
         string:mailto:${here/portal_properties/email_from_address}?subject=Info">
         Contact</a>
-    <tal:block condition="python: not here.portal_membership.isAnonymousUser()">
+    <tal:block condition="python:not joining or (joining and not isAnonymous)">
       <br /><br />
     </tal:block>
   </p>

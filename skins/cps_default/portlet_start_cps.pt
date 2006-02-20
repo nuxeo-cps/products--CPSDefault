@@ -2,7 +2,9 @@
      tal:define="joining here/portal_properties/enable_portal_joining;
                  isAnonymous here/portal_membership/isAnonymousUser">
   <h1 i18n:translate="heading_start_cps">Start CPS</h1>
-  <img src="cpsskins_images/pict2.png" alt="" style="float:left;padding:0px 5px 0px 0px;"/>
+  <img src="cpsskins_images/pict2.png" 
+       tal:attributes="src string:${here/portal_url}/cpsskins_images/pict2.png" 
+       alt="" style="float:left;padding:0px 5px 0px 0px;"/>
   <p style="vertical-align:middle;">
     <a href="." i18n:translate=""
         tal:attributes="href python:test(isAnonymous, 'login_form', 'logout');"

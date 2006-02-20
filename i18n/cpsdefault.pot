@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2006-01-30 13:08default\n"
+"POT-Creation-Date: 2006-02-20 13:10default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -25,10 +25,15 @@ msgstr ""
 #.       Created by
 #.       ${item_creator (tal omit-tag="not:email" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" content="cname")}.
 #.       Last modified
-#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'short')")}.
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
+msgstr ""
+
+#.   <a href="register">Join</a>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "Join"
 msgstr ""
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
@@ -46,11 +51,22 @@ msgstr ""
 msgid "Language..."
 msgstr ""
 
+#.   <a href="." content="python:test(here.portal_membership.isAnonymousUser(), 'Login', 'Log out')" attributes="href python:test(here.portal_membership.isAnonymousUser(), 'login_form', 'logout');">Log in/out</a>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "Log in/out"
+msgstr ""
+
 #.   <span>
-#.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
+#.             Objects: 
+#.             <strong>
+#.               ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")}
+#.             </strong>
+#.             of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
+msgid ""
+"Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
+"${batch_length}"
 msgstr ""
 
 #.   <dd content="item/Description">
@@ -219,14 +235,28 @@ msgid "accesskey explanation"
 msgstr ""
 
 #.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
-#: from ../skins/cps_default/portlet_contact_info.pt
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+#: ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr ""
 
 #.   <a attributes="href
+#.       string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+#.       Contact</a>
+#.   <a attributes="href
 #.         string:mailto:${here/portal_properties/email_from_address}?subject=Info">action_contact</a>
-#: from ../skins/cps_default/portlet_contact_info.pt
+#.   <a attributes="href
+#.           string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+#.           Contact</a>
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+#: ../skins/cps_default/portlet_contact_info.pt
+#: ../skins/cps_default/portlet_start_cps.pt
 msgid "action_contact"
+msgstr ""
+
+#.   <a href="javascript:if (window.print) window.print();">Print</a>
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+msgid "action_print"
 msgstr ""
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
@@ -750,6 +780,11 @@ msgstr ""
 #.     </h1>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "heading_standard_resource_metadata"
+msgstr ""
+
+#.   <h1>Start CPS</h1>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "heading_start_cps"
 msgstr ""
 
 #.   <title fill-slot="title">
@@ -2127,9 +2162,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "Join"
-msgstr ""
-
 msgid "My stuff"
 msgstr ""
 
@@ -2365,9 +2397,6 @@ msgid "action_export_csv"
 msgstr ""
 
 msgid "action_erase_data"
-msgstr ""
-
-msgid "action_print"
 msgstr ""
 
 msgid "action_advanced_search"

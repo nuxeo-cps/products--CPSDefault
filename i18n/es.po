@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-30 13:08default\n"
+"POT-Creation-Date: 2006-02-20 13:10default\n"
 "PO-Revision-Date: 2005-05-28 13:44+0100\n"
 "Last-Translator: Jesús <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
@@ -29,12 +29,17 @@ msgstr ""
 #.       Created by
 #.       ${item_creator (tal omit-tag="not:email" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" content="cname")}.
 #.       Last modified
-#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'short')")}.
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr ""
 "Creado por ${item_creator}. Última modificación el ${item_modification}."
+
+#.   <a href="register">Join</a>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "Join"
+msgstr "Inscribirme"
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
@@ -51,12 +56,27 @@ msgstr "Idioma"
 msgid "Language..."
 msgstr "Idioma..."
 
+#.   <a href="." content="python:test(here.portal_membership.isAnonymousUser(), 'Login', 'Log out')" attributes="href python:test(here.portal_membership.isAnonymousUser(), 'login_form', 'logout');">Log in/out</a>
+#: from ../skins/cps_default/portlet_start_cps.pt
+#, fuzzy
+msgid "Log in/out"
+msgstr "Log out"
+
 #.   <span>
-#.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
+#.             Objects: 
+#.             <strong>
+#.               ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")}
+#.             </strong>
+#.             of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
-msgstr "Objetos ${batch_start} - ${batch_limit} de ${batch_length}"
+#, fuzzy
+msgid ""
+"Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
+"${batch_length}"
+msgstr ""
+"Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
+"${batch_length}"
 
 #.   <dd content="item/Description">
 #.                   Portal type's description
@@ -250,15 +270,29 @@ msgid "accesskey explanation"
 msgstr ""
 
 #.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
-#: from ../skins/cps_default/portlet_contact_info.pt
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+#: ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Accesibilidad"
 
 #.   <a attributes="href
+#.       string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+#.       Contact</a>
+#.   <a attributes="href
 #.         string:mailto:${here/portal_properties/email_from_address}?subject=Info">action_contact</a>
-#: from ../skins/cps_default/portlet_contact_info.pt
+#.   <a attributes="href
+#.           string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+#.           Contact</a>
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+#: ../skins/cps_default/portlet_contact_info.pt
+#: ../skins/cps_default/portlet_start_cps.pt
 msgid "action_contact"
 msgstr "Contactar"
+
+#.   <a href="javascript:if (window.print) window.print();">Print</a>
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+msgid "action_print"
+msgstr "Imprimir"
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
@@ -866,6 +900,12 @@ msgstr "Resultados de la búsqueda"
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "heading_standard_resource_metadata"
 msgstr "Metadatos estándar del recurso"
+
+#.   <h1>Start CPS</h1>
+#: from ../skins/cps_default/portlet_start_cps.pt
+#, fuzzy
+msgid "heading_start_cps"
+msgstr "Start CPS"
 
 #.   <title fill-slot="title">
 #.     heading_status_history_of
@@ -2409,9 +2449,6 @@ msgstr "Entrar"
 msgid "Log out"
 msgstr "Salir"
 
-msgid "Join"
-msgstr "Inscribirme"
-
 msgid "My stuff"
 msgstr "Mi espacio privado"
 
@@ -2702,9 +2739,6 @@ msgstr "Exportar datos recogidos (CSV)"
 msgid "action_erase_data"
 msgstr "Eliminar los datos recogidos"
 
-msgid "action_print"
-msgstr "Imprimir"
-
 msgid "action_advanced_search"
 msgstr "Búsqueda avanzada"
 
@@ -2820,11 +2854,11 @@ msgstr "Carpeta - Espacio de trabajo"
 
 #, fuzzy
 msgid "portal_type_Members_Workspace_description"
-msgstr "A folder to create content"
+msgstr "Members Workspace"
 
 #, fuzzy
 msgid "portal_type_Members_Workspace_title"
-msgstr "Workspace"
+msgstr "A folder to hold member workspaces"
 
 msgid "portal_type_Calendar_title"
 msgstr "Agenda compartida"

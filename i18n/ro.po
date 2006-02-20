@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-30 13:08default\n"
+"POT-Creation-Date: 2006-02-20 13:10default\n"
 "PO-Revision-Date: 2005-04-04 17:31+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -27,11 +27,16 @@ msgstr ""
 #.       Created by
 #.       ${item_creator (tal omit-tag="not:email" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" content="cname")}.
 #.       Last modified
-#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
+#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'short')")}.
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "Creat de ${item_creator}. Modificat ultima oara ${item_modification}."
+
+#.   <a href="register">Join</a>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "Join"
+msgstr "Inscriere"
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
@@ -48,12 +53,25 @@ msgstr "Limba"
 msgid "Language..."
 msgstr "Limba..."
 
+#.   <a href="." content="python:test(here.portal_membership.isAnonymousUser(), 'Login', 'Log out')" attributes="href python:test(here.portal_membership.isAnonymousUser(), 'login_form', 'logout');">Log in/out</a>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "Log in/out"
+msgstr "(Dez)autentificare"
+
 #.   <span>
-#.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
+#.             Objects: 
+#.             <strong>
+#.               ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")}
+#.             </strong>
+#.             of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
-msgstr "Obiecte: ${batch_start} - ${batch_limit} din ${batch_length}"
+msgid ""
+"Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
+"${batch_length}"
+msgstr ""
+"Obiecte: <strong> ${batch_start} - ${batch_limit} </strong> din "
+"${batch_length}"
 
 #.   <dd content="item/Description">
 #.                   Portal type's description
@@ -94,9 +112,8 @@ msgstr ""
 #.             </option>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "Role"
-msgstr "Rôle"
+msgstr "Rol"
 
 #.   <label content="member_info/title" attributes="for input_id">
 #.               User
@@ -148,18 +165,14 @@ msgstr "Cererea ta a intors ${nb_results} rezultate."
 #.   The following access keys are available:
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_description"
-msgstr ""
-"Les touches d'accès ou raccourcis clavier disponibles pour naviguer sur ce "
-"site sont les suivants&nbsp;:"
+msgstr "Urmatoarele taste scurtaturi sunt disponibile:"
 
 #.   <h2>Accesskeys
 #.   or keyboard shortcuts</h2>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_title"
-msgstr "Touches d'accès ou raccourcis clavier"
+msgstr "Taste de access sau scurtaturi"
 
 #.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
@@ -176,11 +189,8 @@ msgstr ""
 #.   Accesskeys usage is different from one web browser to another.
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_usage_description"
-msgstr ""
-"Voici comment utiliser les touches d'accès sur certains des navigateurs web "
-"les plus utilisés&nbsp;:"
+msgstr "Utilizarea tastelor scurtaturi in diverse browsere web"
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -233,15 +243,29 @@ msgid "accesskey explanation"
 msgstr ""
 
 #.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
-#: from ../skins/cps_default/portlet_contact_info.pt
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+#: ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Accesibilitate"
 
 #.   <a attributes="href
+#.       string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+#.       Contact</a>
+#.   <a attributes="href
 #.         string:mailto:${here/portal_properties/email_from_address}?subject=Info">action_contact</a>
-#: from ../skins/cps_default/portlet_contact_info.pt
+#.   <a attributes="href
+#.           string:mailto:${here/portal_properties/email_from_address}?subject=Info">
+#.           Contact</a>
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+#: ../skins/cps_default/portlet_contact_info.pt
+#: ../skins/cps_default/portlet_start_cps.pt
 msgid "action_contact"
 msgstr "Contact"
+
+#.   <a href="javascript:if (window.print) window.print();">Print</a>
+#: from ../skins/cps_default/portlet_contact_accessibility.pt
+msgid "action_print"
+msgstr "Tipareste"
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
@@ -672,9 +696,8 @@ msgstr "Inregistreaza-te ca membru"
 #.    Assign local roles: Search Members and groups
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "heading_local_roles_search_members_and_groups"
-msgstr "Déléguer des rôles locaux&nbsp;: recherche de membres et groupes"
+msgstr "Atribuirea rolurilor locale: cautare de membri si grupuri"
 
 #.   <h1 condition="searching">
 #.    Assign local roles: Search Results
@@ -773,6 +796,11 @@ msgstr "Rezultatele Cautarii"
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "heading_standard_resource_metadata"
 msgstr "Metadatele standard ale resursei"
+
+#.   <h1>Start CPS</h1>
+#: from ../skins/cps_default/portlet_start_cps.pt
+msgid "heading_start_cps"
+msgstr "Start CPS"
 
 #.   <title fill-slot="title">
 #.     heading_status_history_of
@@ -1258,9 +1286,8 @@ msgstr "Colaborator"
 
 #.   <h2>Current revisions</h2>
 #: from ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_current_revisions"
-msgstr "Versions courantes"
+msgstr "Versiuni curente"
 
 #.   <h2>Current status of the document</h2>
 #: from ../skins/cps_default/content_status_history.pt
@@ -1383,9 +1410,8 @@ msgstr "Afiseaza"
 
 #.   <span class="note">label_download</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
-#, fuzzy
 msgid "label_download"
-msgstr "[télécharger]"
+msgstr "Descarca"
 
 #.   <th class="header_roles">
 #.             Email address
@@ -1441,9 +1467,8 @@ msgstr "Numele grupului"
 #.           Groups local roles assignment
 #.         </h3>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_groups_local_roles_assignment"
-msgstr "Rôles locaux délégués aux groupes"
+msgstr "Atribuirea rolurilor locale pentru grupuri"
 
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
@@ -2118,9 +2143,8 @@ msgstr "delogare"
 #.                    more choices
 #.                 </a>
 #: from ../skins/cps_default/folder_factories.pt
-#, fuzzy
 msgid "more_choices_folder_factories"
-msgstr "+ de choix"
+msgstr "mai multe"
 
 #.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -2208,9 +2232,6 @@ msgstr "Autentificare"
 
 msgid "Log out"
 msgstr "Delogare"
-
-msgid "Join"
-msgstr "Inscriere"
 
 msgid "My stuff"
 msgstr "Spatiul privat"
@@ -2326,9 +2347,8 @@ msgstr "Modifica"
 msgid "translate"
 msgstr "Traducere"
 
-#, fuzzy
 msgid "delete_translation"
-msgstr "Suppression d'une traduction"
+msgstr "Sterge traducerea"
 
 msgid "checkin_draft"
 msgstr "Validarea versiunii"
@@ -2505,9 +2525,6 @@ msgstr "Exporta datele colectate"
 
 msgid "action_erase_data"
 msgstr "Sterge datele colectate"
-
-msgid "action_print"
-msgstr "Tipareste"
 
 msgid "action_advanced_search"
 msgstr "Cautare avansata"
@@ -2794,9 +2811,8 @@ msgstr "Resetarea parolei tale a esuat."
 msgid "psm_translation_added"
 msgstr "Versiunea pentru traducere a fost adaugata."
 
-#, fuzzy
 msgid "psm_translation_deleted"
-msgstr "Traduction effacée"
+msgstr "Traducere stearsa"
 
 # Languages
 # ##########
@@ -3017,9 +3033,7 @@ msgstr "Contact"
 
 #, fuzzy
 msgid "email_password_reset_confirmation_subject"
-msgstr ""
-"[${portal_url}] Confirmation de réinitialisation de mot de passe pour "
-"${email}"
+msgstr "[${portal_url}] Password reset confirmation for ${email}"
 
 #, fuzzy
 msgid "email_password_reset_confirmation_body"
@@ -3030,29 +3044,26 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Mime-Version: 1.0\n"
 "\n"
-"Cher utilisateur,\n"
+"Dear user,\n"
 "\n"
-"Vous (ou quelqu'un d'autre) avez demandé que le mot de passe pour le\n"
-"compte ayant pour adresse mél \"${email}\" soit réinitialisé.\n"
-"La raison de cette requête est presque certainement que le mot de\n"
-"passe pour ce compte a été perdu.\n"
+"You (or someone else) have requested to reset the password for the\n"
+"account having email address \"${email}\". Most probably the reason\n"
+"for this reset request is that the password for this account has been lost.\n"
 "\n"
-"La demande de réinitialisation du mot de passe a été émise depuis\n"
-"l'adresse IP ${client_address}\n"
+"The password reset request was sent from the IP address\n"
+"${client_address}\n"
 "\n"
-"Si vous n'avez pas demandé cette réinitialisation, vous pouvez\n"
-"ignorer ce message.\n"
+"If you have not requested this reset, please ignore this message.\n"
 "\n"
-"Vous pouvez maintenant réinitialiser votre mot de passe simplement en\n"
-"visitant la page suivante :\n"
+"You can now reset your password by simply visiting the following page:\n"
 "${visit_url}\n"
 "\n"
-"Nous espérons vous accueillir à nouveau bientôt sur ${portal_url}\n"
+"We look forward to seeing you back soon at ${portal_url}\n"
 "\n"
-"Cordialement,\n"
+"Sincerely,\n"
 "\n"
 "-- \n"
-"L'équipe d'administration du portail\n"
+"The portal administration team\n"
 
 #
 # Default portlets (or Boxes) titles

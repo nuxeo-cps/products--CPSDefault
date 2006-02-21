@@ -11,7 +11,9 @@
         tal:content="python:test(isAnonymous, 'Login', 'Log out')">Log in/out</a>
     <br />
     <tal:block condition="python: joining and isAnonymous">
-      <a href="register" i18n:translate="Join">Join</a>
+      <a href="join_form" 
+         tal:attributes="href string:${here/portal_url}/join_form" 
+         i18n:translate="Join">Join</a>
       <br />
     </tal:block>
     <a i18n:translate="action_contact" tal:attributes="href

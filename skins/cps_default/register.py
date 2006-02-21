@@ -76,7 +76,7 @@ except ValueError:
     return context.join_form(context, request)
 
 # asked for email sending
-if portal_properties.validate_email or request.get('mail_me'):
+if portal_properties.validate_email:
     portal_registration.registeredNotify(username)
 
 return context.registered(context, request)

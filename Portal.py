@@ -38,6 +38,10 @@ class CPSDefaultSite(CPSSite):
     security = ClassSecurityInfo()
 
     _properties = CPSSite._properties + (
+        {'id': 'email_from_address', 'type': 'string',
+         'label': "Portal email From address", 'mode': 'w'},
+        {'id': 'email_from_name', 'type': 'string',
+         'label': "Portal email From name", 'mode': 'w'},
         # XXX these should be in the portal_membership tool
         {'id': 'enable_password_reset', 'type': 'boolean',
          'label': 'Enable password resetting', 'mode': 'w'},
@@ -47,6 +51,8 @@ class CPSDefaultSite(CPSSite):
          'label': 'Enable portal joining', 'mode': 'w'},
         )
     # XXX
+    email_from_address = ''
+    email_from_name = ''
     enable_password_reset = True
     enable_password_reminder = False
     enable_portal_joining = False

@@ -420,30 +420,47 @@ def upgrade_338_340_portlets(self):
 
     return '\n'.join(logger)
 
+##########
 
-def reset_338_340_props(self):
-    """Reset portal properties."""
-    log = []
-    dolog = log.append
-    portal = self.portal_url.getPortalObject()
-    portal = aq_base(portal)
+def _upgrade_portal_props(portal):
+    """Upgrade portal properties."""
+    # Get old properties list
+    old_prop_ids = portal.propertyIds()
 
-    dolog('CPSDefault: Resetting portal properties.')
+    # Reset _properties to class default
     try:
         delattr(portal, '_properties')
     except AttributeError:
         pass
-    cmfdefault_props = ('email_from_address', 'email_from_name',
-                        'validate_email', 'default_charset',
-                        'enable_permalink')
-    for prop_id in cmfdefault_props:
-        try:
-            delattr(portal, prop_id)
-        except AttributeError:
-            pass
 
-    dolog('CPSDefault: Resetting portal properties finished.')
+    # Kill instance variables that may linger from old properties
+    # and would thus prevent them from being readded as instance properties
+    new_prop_ids = portal.propertyIds()
+    for key in set(old_prop_ids)-set(new_prop_ids):
+        if key in portal.__dict__:
+            delattr(portal, key)
+
+def upgrade_338_340_portal_props(portal):
+    """Upgrade portal properties."""
+    log = []
+    dolog = log.append
+
+    dolog('CPSDefault: Upgrading portal properties.')
+
+    _upgrade_portal_props(portal)
+
+    # Initialize available_languages from Localizer if not present
+    if 'available_languages' not in portal.__dict__:
+        available_languages = portal.Localizer.get_supported_languages()
+        portal.available_languages = tuple(available_languages)
+
+    # Fixup default charset if empty (use class default)
+    if 'default_charset' in portal.__dict__ and not portal.default_charset:
+        delattr(portal, 'default_charset')
+
+    dolog('CPSDefault: Upgrading portal properties finished.')
     return '\n'.join(log)
+
 
 def upgrade_338_340(self):
     """Upgrades for CPS 3.3.8 after cpsupdate"""
@@ -459,7 +476,7 @@ def upgrade_338_340(self):
     from Products.CPSPortlets.upgrade import upgrade_338_340_themes
     dolog(upgrade_338_340_themes(self))
     dolog(upgrade_338_340_portlets(self))
-    dolog(reset_338_340_props(self))
+    dolog(upgrade_338_340_portal_props(self))
     return '\n'.join(log)
 
 ################################################## Zope 2.8

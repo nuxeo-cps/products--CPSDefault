@@ -668,7 +668,23 @@ def migrate_338_340_users(portal):
 
        acl_users._doAddUser(name, password, roles, domains, groups, **entry)
 
+def check_upgrade_338_340_members_folder(portal, source):
+    ws_ids = portal.workspaces.objectIds()
+    portal_ids = portal.objectIds()
+    return ('members' in ws_ids) and ('members' in portal_ids)
 
+def upgrade_338_340_members_folder(portal):
+    """Move user folders from /workspaces/members to /members"""
+    old_members_folder = portal.workspaces.members
+    new_members_folder = portal.members
+    folder_ids = [oid for oid in old_members_folder.objectIds()
+                  if not oid.startswith('.')]
+
+    info = old_members_folder.manage_cutObjects(folder_ids)
+    new_members_folder.manage_pasteObjects(info)
+
+    # Remove old members folder
+    portal.workspaces.manage_delObjects('members')
 
 ##################
 

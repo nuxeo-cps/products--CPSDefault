@@ -57,6 +57,13 @@
       checker=".upgrade.check_migrate_338_340_users"
       />
 
+  <cps:upgradeStep
+      title="Migrate members folder content"
+      source="3.3.8" destination="3.4.0"
+      handler=".upgrade.upgrade_338_340_members_folder"
+      checker=".upgrade.check_upgrade_338_340_members_folder"
+      />
+
   <include file="browser/configure.zcml" />
 
 </configure>

@@ -85,10 +85,10 @@ def initialize(context):
     registerIcon(CPSDefaultSite, 'portal.png', globals())
 
     # old registration
-    context.registerClass(CPSDefaultSite,
-                          meta_type=CPSDefaultSite.meta_type+' (Old)',
-                          constructors=(Portal.manage_addCPSDefaultSiteForm,
-                                        Portal.manage_addCPSDefaultSite,))
+    #context.registerClass(CPSDefaultSite,
+    #                      meta_type=CPSDefaultSite.meta_type+' (Old)',
+    #                      constructors=(Portal.manage_addCPSDefaultSiteForm,
+    #                                    Portal.manage_addCPSDefaultSite,))
 
     profile_registry.registerProfile('default',
                                      'CPS Default Site',

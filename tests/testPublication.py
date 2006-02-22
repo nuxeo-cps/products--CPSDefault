@@ -365,47 +365,90 @@ class TestPublication(CPSTestCase):
 
     def testSeveralPublicationAndReindexation(self):
         # http://svn.nuxeo.org/trac/pub/ticket/1434
+
+        sc = self.portal.sections
+        ws = self.portal.workspaces
+
+        # Cleanup the floor.
+        sc.manage_delObjects([x.getId() for x in sc.objectValues() if
+                              not x.getId().startswith('.')])
+        self.assertEqual(len(sc.objectIds()), 1)
+
+        ws.manage_delObjects([x.getId() for x in ws.objectValues() if
+                              not x.getId().startswith('.')])
+        self.assertEqual(len(ws.objectIds()), 1)
+
         type_name = 'File'
         id_file = 'file'
-        ws = self.portal.workspaces
+
+        query = {'cps_filter_sets': {'operator': 'and',
+                                     'query': ['searchable']},
+                 }
         
         # Create a new File
-        self.wftool.invokeFactoryFor(ws, type_name, id_file, Title='foo')
-        proxy = getattr(ws, id_file)
-
+        self.wftool.invokeFactoryFor(ws, type_name, id_file, Title='rfoo')
+        self.assertEqual(len(ws.objectIds()), 2)
+        
         # Publish it
-        proxy.content_status_modify(
-            submit=['sections',],
-            workflow_action='copy_submit')
+        proxy = getattr(ws, id_file)
+        self.wftool.doActionFor(proxy, 'copy_submit',
+                                dest_container='sections',
+                                initial_transition='publish')
+
+        self.assertEqual(len(sc.objectIds()), 2)
 
         # Searching and get 2 results (ws and sections)
-        brains = self.portal.search({'SearchableText':'foo'})
+        query['SearchableText'] = 'rfoo'
+        brains = self.portal.search(query)
         self.assertEqual(len(brains), 2)
 
         # Change the title
-        proxy.getEditableContent().edit(Title='bar')
+        pxtool = getToolByName(self.portal, 'portal_proxies')
+        pxtool.freezeProxy(proxy)
+
+        proxy = getattr(ws, id_file)
+        doc = proxy.getEditableContent()
+        doc.edit(Title='rbar')
+        doc.reindexObject()
+
+        self.assertEqual(len(ws.objectIds()), 2)
 
         # Here only the one in sections now.
-        brains = self.portal.search({'SearchableText':'foo'})
+        query['SearchableText'] = 'rfoo'
+        brains = self.portal.search(query)
         self.assertEqual(len(brains), 1)
 
         # Here only the one in workspaces
-        brains = self.portal.search({'SearchableText':'bar'})
+        query['SearchableText'] = 'rbar'
+        brains = self.portal.search(query)
         self.assertEqual(len(brains), 1)
 
         # Republish.it.
+        proxy = getattr(ws, id_file)
+        self.wftool.doActionFor(proxy, 'copy_submit',
+                                dest_container='sections',
+                                initial_transition='publish')
 
-        proxy.content_status_modify(
-            submit=['sections',],
-            workflow_action='copy_submit')
+        self.assertEqual(len(sc.objectIds()), 2)
 
         # Here only the one in sections now.
-        brains = self.portal.search({'SearchableText':'foo'})
+        query['SearchableText'] = 'rfoo'
+        brains = self.portal.search(query)
         self.assertEqual(len(brains), 0)
 
         # Here only the one in workspaces
-        brains = self.portal.search({'SearchableText':'bar'})
+        query['SearchableText'] = 'rbar'
+        brains = self.portal.search(query)
         self.assertEqual(len(brains), 2)
+
+        # Cleanup the floor.
+        sc.manage_delObjects([x.getId() for x in sc.objectValues() if
+                              not x.getId().startswith('.')])
+        self.assertEqual(len(sc.objectIds()), 1)
+
+        ws.manage_delObjects([x.getId() for x in ws.objectValues() if
+                              not x.getId().startswith('.')])
+        self.assertEqual(len(ws.objectIds()), 1)
 
 def test_suite():
     suite = unittest.TestSuite()

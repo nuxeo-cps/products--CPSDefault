@@ -53,10 +53,8 @@ class TestSimple(CPSTestCase):
         self.assertValidXHTML(self.portal.join_form(), "join_form")
         self.assertValidXHTML(self.portal.accessibility(), "accessibility")
 
-        # FIXME: not valid XHTML yet.
         self.assertValidXHTML(self.portal.search_form(), "search_form")
 
-        # FIXME: not valid yet
         self.assertValidXHTML(self.portal.advanced_search_form(), "advanced_search_form")
         self.assert_(self.portal.advanced_search_form())
 

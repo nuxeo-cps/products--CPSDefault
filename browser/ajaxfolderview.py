@@ -21,6 +21,7 @@
     View that knows how to deal with ajax requests
     on folder
 """
+from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
 from OFS.CopySupport import CopyError
 from Products.Five import BrowserView
@@ -36,11 +37,18 @@ class AjaxFolderView(BrowserView):
     def _isUrl(self, id):
         return id.startswith('url:')
 
+    def _rootRestrictedTraverse(self, root, path):
+        utool = getToolByName(self.context, 'portal_url')
+        portal_path = utool.getPortalPath()
+        if not path.startswith(portal_path):
+            path = portal_path + path
+        return root.restrictedTraverse(path, default=None)
+
     def _checkElementMove(self, from_id, to_place):
         proxy_folder = self.context
         # 1/ the user has all rights
         try:
-            to_folder = proxy_folder.restrictedTraverse(to_place)
+            to_folder = self._rootRestrictedTraverse(proxy_folder, to_place)
         except Unauthorized:
             return False
 
@@ -86,7 +94,7 @@ class AjaxFolderView(BrowserView):
                 return ''
 
             # moving object to another container
-            to_folder = proxy_folder.restrictedTraverse(to_id)
+            to_folder = self._rootRestrictedTraverse(proxy_folder, to_id)
             try:
                 cb_data = proxy_folder.manage_CPScutObjects([from_id])
                 to_folder.manage_CPSpasteObjects(cb_data)

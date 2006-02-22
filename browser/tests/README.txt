@@ -13,9 +13,12 @@ Let's create a fake folder for our tests and plug the view::
     >>> class FakeFactory:
     ...     id = 'Link'
     ...
+    >>> class FakePortalUrl:
+    ...     def getPortalPath(self): return '/'
+    ...
     >>> class FakeFolder:
     ...     items = []
-    ...
+    ...     portal_url = FakePortalUrl()
     ...     def __init__(self, id=''):
     ...         self.id = id
     ...
@@ -42,8 +45,8 @@ Let's create a fake folder for our tests and plug the view::
     ...                 ids.append(element.id)
     ...         return ids
     ...
-    ...     def restrictedTraverse(self, url):
-    ...         if url == self.id:
+    ...     def restrictedTraverse(self, url, **kw):
+    ...         if url.endswith(self.id):
     ...             return self
     ...         return FakeFolder()
     ...

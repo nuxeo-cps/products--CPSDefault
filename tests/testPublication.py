@@ -363,6 +363,50 @@ class TestPublication(CPSTestCase):
         self.assert_(new_id in sc.objectIds())
         self.assert_(id_file not in sc.objectIds())
 
+    def testSeveralPublicationAndReindexation(self):
+        # http://svn.nuxeo.org/trac/pub/ticket/1434
+        type_name = 'File'
+        id_file = 'file'
+        ws = self.portal.workspaces
+        
+        # Create a new File
+        self.wftool.invokeFactoryFor(ws, type_name, id_file, Title='foo')
+        proxy = getattr(ws, id_file)
+
+        # Publish it
+        proxy.content_status_modify(
+            submit=['sections',],
+            workflow_action='copy_submit')
+
+        # Searching and get 2 results (ws and sections)
+        brains = self.portal.search({'SearchableText':'foo'})
+        self.assertEqual(len(brains), 2)
+
+        # Change the title
+        proxy.getEditableContent().edit(Title='bar')
+
+        # Here only the one in sections now.
+        brains = self.portal.search({'SearchableText':'foo'})
+        self.assertEqual(len(brains), 1)
+
+        # Here only the one in workspaces
+        brains = self.portal.search({'SearchableText':'bar'})
+        self.assertEqual(len(brains), 1)
+
+        # Republish.it.
+
+        proxy.content_status_modify(
+            submit=['sections',],
+            workflow_action='copy_submit')
+
+        # Here only the one in sections now.
+        brains = self.portal.search({'SearchableText':'foo'})
+        self.assertEqual(len(brains), 0)
+
+        # Here only the one in workspaces
+        brains = self.portal.search({'SearchableText':'bar'})
+        self.assertEqual(len(brains), 2)
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestPublication))

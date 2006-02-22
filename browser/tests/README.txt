@@ -16,6 +16,9 @@ Let's create a fake folder for our tests and plug the view::
     >>> class FakeFolder:
     ...     items = []
     ...
+    ...     def __init__(self, id=''):
+    ...         self.id = id
+    ...
     ...     def getObjectPosition(self, id):
     ...         for item in self.items:
     ...             if isinstance(item, str) and item == id:
@@ -40,6 +43,8 @@ Let's create a fake folder for our tests and plug the view::
     ...         return ids
     ...
     ...     def restrictedTraverse(self, url):
+    ...         if url == self.id:
+    ...             return self
     ...         return FakeFolder()
     ...
     ...     def manage_CPScutObjects(self, ids):
@@ -61,7 +66,7 @@ Let's create a fake folder for our tests and plug the view::
     ...
     ...     def allowedContentTypes(self):
     ...         return (FakeFactory(),)
-    >>> MyFolder = FakeFolder()
+    >>> MyFolder = FakeFolder('a')
 
 Now let's try to move elements, dropping `a` on `c` moves `a` after `c`::
 
@@ -107,3 +112,5 @@ We aslo provide various guards to avoid silly drags::
     >>> MyFolder.items = [FakeElement('a'), FakeElement('b')]
     >>> MyView._checkElementMove('a', 'anywhere')
     True
+    >>> MyView._checkElementMove('a', 'a')
+    False

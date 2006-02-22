@@ -45,15 +45,10 @@ class AjaxFolderView(BrowserView):
             return False
 
         # 2/ not reflective
-        if to_folder is proxy_folder:
+        if to_folder == proxy_folder:
             return False
 
-        # 3/ the target container is not the current one
-        # or doesn't have already an object with the same id
-        if from_id in to_folder.objectIds():
-            return False
-
-        # 4/ the target container can hold the object
+        # 3/ the target container can hold the object
         element_type = proxy_folder[from_id].getContent().portal_type
         allowed_types = [factory.id
                          for factory in to_folder.allowedContentTypes()]
@@ -116,6 +111,9 @@ class AjaxFolderView(BrowserView):
 
             # moving object's position
             proxy_folder.moveObjectToPosition(from_id, to_position)
+
+        if proxy_folder.objectIds() == []:
+            return ':'
 
         return ':'.join([id for id in proxy_folder.objectIds()
                          if not id.startswith('.')])

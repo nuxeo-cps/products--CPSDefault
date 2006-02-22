@@ -1,0 +1,42 @@
+<tal:block define="categories python:['user', 'global'];
+                   show_icons python:0;
+                   show_icons python: int(show_icons);
+                   show_user python:True;
+                   actionitems python: here.getActionsItems(here, categories);
+                   base_url python: request.get('cpsskins_base_url')"
+  condition="actionitems">
+  
+  <tal:block define="mtool here/portal_membership;
+                     user mtool/getAuthenticatedMember"
+             condition="show_user">
+    <ul class="cpsskinsMenu"
+        tal:condition="user"
+        tal:define="user user/getId;
+                    user_name python:mtool.getFullnameFromId(user);">
+      <li style="font-weight:bold;"
+          tal:content="user_name" />
+    </ul>
+  </tal:block>
+
+  <tal:block repeat="category python: actionitems.keys()">
+    <ul class="cpsskinsMenu"
+        tal:define="actions actionitems/?category"
+        tal:condition="actions">
+      <li class="hidden" tal:condition="not:repeat/category/start"
+      tal:content="structure string:&nbsp;" />
+      <li tal:repeat="action actions"><a
+       tal:define="icon_tag action/icon_tag"
+       tal:attributes="href action/url;
+                       class python:show_icons and icon_tag and 'noicon' or None">
+         <tal:block condition="python:show_icons and icon_tag"
+           content="structure icon_tag"/>
+         <tal:block condition="python:show_icons and not icon_tag">
+           <img tal:attributes="src
+             string:${base_url}cpsskins_images/noicon_16.png;
+             alt action/title" />
+         </tal:block>
+         <tal:block i18n:translate="" content="action/title" />
+       </a></li>
+    </ul>
+  </tal:block>
+</tal:block>

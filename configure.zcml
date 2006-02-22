@@ -50,6 +50,13 @@
       handler=".upgrade.reset_338_340_props"
       />
 
+  <cps:upgradeStep
+      title="Migrate users/roles/groups"
+      source="3.3.8" destination="3.4.0"
+      handler=".upgrade.migrate_338_340_users"
+      checker=".upgrade.check_migrate_338_340_users"
+      />
+
   <include file="browser/configure.zcml" />
 
 </configure>

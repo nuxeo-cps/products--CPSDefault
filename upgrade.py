@@ -21,6 +21,7 @@ from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
 from zLOG import LOG, DEBUG, INFO
 
+
 TYPES = ('Workspace', 'Section', 'CPSForum')
 CHECK_ROOTS = ('workspaces', 'sections')
 
@@ -507,6 +508,150 @@ def check_upgrade_catalog_Z28(portal, source):
     """Check if upgrade is needed.
     """
     return upgrade_catalog_Z28(portal, check=True)
+
+
+def check_migrate_338_340_users(portal, source):
+    return portal.acl_users.meta_type == 'User Folder With Groups'
+
+def migrate_338_340_users(portal):
+    """Migrate users/roles/groups"""
+    from Products.CPSUserFolder.CPSUserFolder import CPSUserFolder
+    from Products.CPSDirectory.ZODBDirectory import ZODBDirectory
+    from Products.CPSDirectory.interfaces import IContentishDirectory
+
+    roles = []
+    groups = []
+    members= []
+
+    mtool = portal.portal_membership
+    members_dir = portal.portal_directories.members
+    roles_dir = portal.portal_directories.roles
+    groups_dir = portal.portal_directories.groups
+
+    # Dump user/roles/groups
+    for member in mtool.listMembers():
+        entry = {
+            'id': member.getMemberId(),
+            'password': member.getPassword(),
+            'roles': [role for role in member.getRoles()
+                      if role != 'Authenticated'],
+            'domains': member.getDomains(),
+            'sn': member.sn,
+            'fullname': member.fullname,
+            'givenName': member.givenName,
+            'email': member.email,
+            'groups': member.getGroups(),
+            'homeless': member.homeless,
+            }
+        members.append(entry)
+
+    return_fields = ['group', 'members', 'subgroup']
+    for gid, entry in groups_dir.searchEntries(return_fields=return_fields):
+        entry['id'] = gid
+        groups.append(entry)
+
+    return_fields = ['role', 'members']
+    for rid, entry in roles_dir.searchEntries(return_fields=return_fields):
+        entry['id'] = rid
+        roles.append(entry)
+
+    # Remove directories and acl_users
+    portal.manage_delObjects(['acl_users'])
+
+    dmeta_types = ['CPS Groups Directory', 'CPS Roles Directory',
+                   'CPS Members Directory']
+    dirs = portal.portal_directories
+    for dir_id in dirs.objectIds():
+        dobj = dirs._getOb(dir_id)
+        if dobj.meta_type in dmeta_types:
+            dirs._delObject(dir_id)
+
+    # Create directories
+    dir_ids = dirs.objectIds()
+    for dir_id in 'groups', 'roles', 'members':
+        if dir_id not in dir_ids:
+            dirs._setObject(dir_id, ZODBDirectory(dir_id))
+
+    roles_dir = dirs._getOb('roles')
+    if IContentishDirectory.providedBy(roles_dir):
+        data = {
+            'title': 'label_roles',
+            'schema': 'roles',
+            'layout': 'roles',
+            'layout_search': 'roles_search',
+            'role_field': 'role',
+            'members_field': 'members',
+            'title_field': 'role',
+            'search_substring_fields': ['role'],
+            'acl_directory_view_roles': 'Manager',
+            'acl_entry_view_roles': 'Manager',
+            }
+        roles_dir.manage_changeProperties(**data)
+        for entry in roles:
+            roles_dir.createEntry(entry)
+
+    members_dir = dirs._getOb('members')
+    if IContentishDirectory.providedBy(members_dir):
+        data = {
+            'title': 'label_members',
+            'schema': 'members',
+            'layout': 'members',
+            'schema_search': 'members_search',
+            'layout_search': 'members_search',
+            'id_field': 'id',
+            'password_field': 'password',
+            'roles_field': 'roles',
+            'groups_field': 'groups',
+            'title_field': 'fullname',
+            'search_substring_fields': ['id', 'sn', 'givenName', 'email'],
+            'acl_directory_view_roles': 'Manager; Member',
+            }
+        members_dir.manage_changeProperties(**data)
+
+    groups_dir = dirs._getOb('groups')
+    if IContentishDirectory.providedBy(groups_dir):
+        data = {
+            'title': 'label_groups',
+            'schema': 'groups',
+            'layout': 'groups',
+            'layout_search': 'groups_search',
+            'group_field': 'group',
+            'members_field': 'members',
+            'title_field': 'group',
+            'search_substring_fields': ['group'],
+            'acl_directory_view_roles': 'Manager; Member',
+            }
+        groups_dir.manage_changeProperties(**data)
+        for entry in groups:
+            groups_dir.createEntry(entry)
+
+    # Recreating users
+    portal._setObject('acl_users', CPSUserFolder())
+    acl_users = portal._getOb('acl_users')
+    data = {
+        'users_dir': 'members',
+        'groups_dir': 'groups',
+        'groups_members_field': '',
+        'roles_dir': 'roles',
+        'roles_members_field': 'members',
+        'users_groups_field': 'groups',
+        'users_login_field': 'id',
+        'users_password_field': 'password',
+        'users_roles_field': 'roles',
+        'cache_timeout': '1',
+        }
+    acl_users.manage_changeProperties(**data)
+
+    for entry in members:
+       name = entry.pop('id')
+       password = entry.pop('password')
+       roles = entry.pop('roles')
+       domains = entry.pop('domains')
+       groups = entry.pop('groups')
+
+       acl_users._doAddUser(name, password, roles, domains, groups, **entry)
+
+
 
 ##################
 

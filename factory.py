@@ -73,6 +73,7 @@ class CPSSiteConfigurator(object):
                 extension_profiles.append(info)
             else: # BASE
                 base_profiles.append(info)
+        extension_profiles.sort(key=lambda info: info['title'])
 
         form = self.addForm.__of__(dispatcher)
         options = {
@@ -86,7 +87,7 @@ class CPSSiteConfigurator(object):
         options['languages'] = self.available_languages
 
     def addConfiguredSite(self, dispatcher, site_id, profile_id,
-                          extension_ids=(), snapshot=False,
+                          extension_ids=(), snapshot=True,
                           REQUEST=None, **kw):
         """Add a CPSSite according to profile and extensions.
         """

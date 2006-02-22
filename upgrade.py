@@ -631,7 +631,7 @@ def migrate_338_340_users(portal):
     data = {
         'users_dir': 'members',
         'groups_dir': 'groups',
-        'groups_members_field': '',
+        'groups_members_field': 'members',
         'roles_dir': 'roles',
         'roles_members_field': 'members',
         'users_groups_field': 'groups',

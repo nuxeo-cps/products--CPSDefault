@@ -722,7 +722,7 @@ def upgrade_338_340_old_skin_layers(portal, check=False):
         return False
     for id in res:
         portal.portal_skins._delObject(id)
-    msg = "%d old skin layers removed" % len(id)
+    msg = "%d old skin layers removed" % len(res)
     LOG('Upgrade', DEBUG, msg)
     return msg
 

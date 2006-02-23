@@ -686,6 +686,37 @@ def upgrade_338_340_members_folder(portal):
     # Remove old members folder
     portal.workspaces.manage_delObjects('members')
 
+##########
+
+def _old_skins_get(portal):
+    """Get old skins to purge.
+    """
+    from Products.CMFCore.DirectoryView import _dirreg
+    from Products.CMFCore.DirectoryView import DirectoryViewSurrogate
+    res = []
+    for id, surrogate in portal.portal_skins.objectItems():
+        if not isinstance(surrogate, DirectoryViewSurrogate):
+            continue
+        if surrogate._objects:
+            continue
+        dv = portal.portal_skins.__dict__[id] # avoid __of__ wrapping
+        if _dirreg.getDirectoryInfo(dv._dirpath) is None:
+            res.append(id)
+    return res
+
+def check_338_340_old_skin_layers(portal, source):
+    return bool(_old_skins_get(portal))
+
+def upgrade_338_340_old_skin_layers(portal):
+    """Remove broken skin layers.
+    """
+    ids = _old_skins_get(portal)
+    for id in ids:
+        portal.portal_skins._delObject(id)
+    msg = "%d old skin layers removed" % len(ids)
+    LOG('Upgrade', DEBUG, msg)
+    return msg
+
 ##################
 
 AUTOMATIC_UPGRADES = (

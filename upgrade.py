@@ -461,6 +461,20 @@ def upgrade_338_340_portal_props(portal):
     dolog('CPSDefault: Upgrading portal properties finished.')
     return '\n'.join(log)
 
+def check_338_340_portal_props(portal):
+    if 'available_languages' not in portal.__dict__:
+        return True
+    if '_properties' not in portal.__dict__:
+        return False
+    prop_ids = portal.propertyIds()
+    class_prop_ids = [p['id'] for p in portal.__class__._properties]
+    if len(set(class_prop_ids)-set(prop_ids)):
+        # some class prop ids aren't in the instance
+        return True
+    return False
+
+##########
+
 
 def upgrade_338_340(self):
     """Upgrades for CPS 3.3.8 after cpsupdate"""

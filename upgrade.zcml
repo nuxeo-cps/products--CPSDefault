@@ -1,0 +1,69 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cps="http://namespaces.nuxeo.org/cps">
+
+  <!-- Zope upgrades -->
+
+  <cps:upgradeStep
+      title="Upgrade catalog from Zope 2.7"
+      handler=".upgrade.upgrade_catalog_Z28"
+      checker=".upgrade.check_upgrade_catalog_Z28"
+      sortkey="-10"
+      />
+
+  <!-- CPS 3.3.4 upgrades -->
+
+  <cps:upgradeStep
+      title="Upgrade document types"
+      source="3.2.0" destination="3.3.4"
+      handler=".upgrade.upgrade_320_334_document_types"
+      checker=".upgrade.check_upgrade_320_334_document_types"
+      />
+
+  <!-- CPS 3.3.5 upgrades -->
+
+  <cps:upgradeStep
+      title="Clean catalog of broken objects"
+      source="3.3.4" destination="3.3.5"
+      handler=".upgrade.upgrade_334_335_clean_catalog"
+      />
+
+  <cps:upgradeStep
+      title="Upgrade URL tool to CPS version"
+      source="3.3.4" destination="3.3.5"
+      handler=".upgrade.upgradeURLTool"
+      checker=".upgrade.check_upgradeURLTool"
+      />
+
+  <cps:upgradeStep
+      title="Upgrade portlet cache parameters"
+      source="3.3.4" destination="3.3.5"
+      handler=".upgrade.upgrade_334_335_portlet_cache_parameters"
+      checker=".upgrade.check_upgrade_334_335_portlet_cache_parameters"
+      />
+
+  <!-- CPS 3.4.0 upgrades -->
+
+  <cps:upgradeStep
+      title="Upgrade portal properties"
+      source="3.3.8" destination="3.4.0"
+      handler=".upgrade.upgrade_338_340_portal_props"
+      />
+
+  <cps:upgradeStep
+      title="Migrate users/roles/groups"
+      source="3.3.8" destination="3.4.0"
+      handler=".upgrade.migrate_338_340_users"
+      checker=".upgrade.check_migrate_338_340_users"
+      />
+
+  <!--
+  <cps:upgradeStep
+      title="Migrate members folder content"
+      source="3.3.8" destination="3.4.0"
+      handler=".upgrade.upgrade_338_340_members_folder"
+      checker=".upgrade.check_upgrade_338_340_members_folder"
+      />
+  -->
+
+</configure>

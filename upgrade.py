@@ -688,8 +688,8 @@ def upgrade_338_340_members_folder(portal):
 
 ##########
 
-def _old_skins_get(portal):
-    """Get old skins to purge.
+def upgrade_338_340_old_skin_layers(portal, check=False):
+    """Remove broken skin layers.
     """
     from Products.CMFCore.DirectoryView import _dirreg
     from Products.CMFCore.DirectoryView import DirectoryViewSurrogate
@@ -701,21 +701,20 @@ def _old_skins_get(portal):
             continue
         dv = portal.portal_skins.__dict__[id] # avoid __of__ wrapping
         if _dirreg.getDirectoryInfo(dv._dirpath) is None:
+            if check:
+                return True
             res.append(id)
-    return res
-
-def check_338_340_old_skin_layers(portal):
-    return bool(_old_skins_get(portal))
-
-def upgrade_338_340_old_skin_layers(portal):
-    """Remove broken skin layers.
-    """
-    ids = _old_skins_get(portal)
-    for id in ids:
+    if check:
+        return False
+    for id in res:
         portal.portal_skins._delObject(id)
     msg = "%d old skin layers removed" % len(ids)
     LOG('Upgrade', DEBUG, msg)
     return msg
+
+def check_338_340_old_skin_layers(portal):
+    return upgrade_338_340_old_skin_layers(portal, check=True)
+
 
 ##################
 

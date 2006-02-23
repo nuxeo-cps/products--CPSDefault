@@ -125,7 +125,7 @@ def upgradeURLTool(self):
         log = "portal_url did not need to be upgraded"
     return log
 
-def check_upgradeURLTool(portal, source):
+def check_upgradeURLTool(portal):
     from Products.CPSCore.URLTool import URLTool
     return not isinstance(getToolByName(portal, 'portal_url'), URLTool)
 
@@ -165,7 +165,7 @@ def upgrade_334_335_portlet_cache_parameters(context, check=False):
         log("  '%s' added to '%s'." % (NEW_PARAMETER, PORTLET_ID))
     return "\n".join(logger)
 
-def check_upgrade_334_335_portlet_cache_parameters(portal, source):
+def check_upgrade_334_335_portlet_cache_parameters(portal):
     return upgrade_334_335_portlet_cache_parameters(portal, check=True)
 
 
@@ -234,7 +234,7 @@ def _modifyPortalType(portal, old, new, check=False):
         proxy.portal_type = new
         proxy.reindexObject()
 
-def check_upgrade_320_334_document_types(portal, source):
+def check_upgrade_320_334_document_types(portal):
     return upgrade_320_334_document_types(portal, check=True)
 
 def upgrade_320_334(self):
@@ -521,13 +521,13 @@ def upgrade_catalog_Z28(self, check=False):
         return False
     return '\n'.join(log)
 
-def check_upgrade_catalog_Z28(portal, source):
+def check_upgrade_catalog_Z28(portal):
     """Check if upgrade is needed.
     """
     return upgrade_catalog_Z28(portal, check=True)
 
 
-def check_migrate_338_340_users(portal, source):
+def check_migrate_338_340_users(portal):
     return portal.acl_users.meta_type == 'User Folder With Groups'
 
 def migrate_338_340_users(portal):
@@ -668,7 +668,7 @@ def migrate_338_340_users(portal):
 
        acl_users._doAddUser(name, password, roles, domains, groups, **entry)
 
-def check_upgrade_338_340_members_folder(portal, source):
+def check_upgrade_338_340_members_folder(portal):
     ws_ids = portal.workspaces.objectIds()
     portal_ids = portal.objectIds()
     return ('members' in ws_ids) and ('members' in portal_ids)
@@ -704,7 +704,7 @@ def _old_skins_get(portal):
             res.append(id)
     return res
 
-def check_338_340_old_skin_layers(portal, source):
+def check_338_340_old_skin_layers(portal):
     return bool(_old_skins_get(portal))
 
 def upgrade_338_340_old_skin_layers(portal):

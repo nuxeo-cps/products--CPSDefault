@@ -169,6 +169,7 @@ class CPSSiteConfigurator(object):
         manager_email = manager_email.strip()
         manager_firstname = manager_firstname.strip()
         manager_lastname = manager_lastname.strip()
+        manager_fullname = (manager_firstname+' '+manager_lastname).strip()
 
         if not manager_id:
             raise ValueError("You have to provide a Login "
@@ -187,6 +188,8 @@ class CPSSiteConfigurator(object):
 
         self.site.title = title
         self.site.description = description
+        self.site.email_from_address = manager_email
+        self.site.email_from_name = manager_fullname
         self.createAdministrator(manager_id, password, manager_email,
                                  manager_firstname, manager_lastname)
 

@@ -1,13 +1,10 @@
-# translation of es.po to Francais
-# Álvaro Tejero Cantero <alvaro@antalia.com>, 2004.
-# DARCHE <madarche@nuxeo.com>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-22 20:36default\n"
-"PO-Revision-Date: 2005-05-28 13:44+0100\n"
-"Last-Translator: Jesús <jesusmartin@lasalle.es>\n"
+"POT-Creation-Date: 2005-09-14 20:52default\n"
+"PO-Revision-Date: 2006-02-22 16:16+0100\n"
+"Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
@@ -23,28 +20,22 @@ msgstr ""
 #.   <span>${portal_title (tal content="ptool/title")}: Membership reminder</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "${portal_title}: Membership reminder"
-msgstr ""
+msgstr "${portal_title}: Membership reminder"
 
 #.   <span>
 #.       Created by
 #.       ${item_creator (tal omit-tag="not:email" attributes="href string:mailto:${email}?subject=[${doc/title}]; title email" content="cname")}.
 #.       Last modified
-#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'short')")}.
+#.       ${item_modification (tal content="python:here.getDateStr(doc.modification_date, 'medium')")}.
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr ""
-"Creado por ${item_creator}. Última modificación el ${item_modification}."
-
-#.   <a attributes="href string:${here/portal_url}/join_form" href="join_form">Join</a>
-#: from ../skins/cps_default/portlet_start_cps.pt
-msgid "Join"
-msgstr "Inscribirme"
+msgstr "Creado por ${item_creator}. Última modificación el ${item_modification}."
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
 #.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "Language"
 msgstr "Idioma"
 
@@ -56,46 +47,23 @@ msgstr "Idioma"
 msgid "Language..."
 msgstr "Idioma..."
 
-#.   <a content="python:test(isAnonymous, 'Login', 'Log out')" attributes="href python:test(isAnonymous, 'login_form', 'logout');" href=".">Log in/out</a>
-#: from ../skins/cps_default/portlet_start_cps.pt
-#, fuzzy
-msgid "Log in/out"
-msgstr "Log in/out"
-
 #.   <span>
-#.             Objects: 
-#.             <strong>
-#.               ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")}
-#.             </strong>
-#.             of ${batch_length (tal replace="batch_info/length")}
+#.             Objects: ${batch_start (tal replace="batch_info/start")} - ${batch_limit (tal replace="batch_info/limit")} of ${batch_length (tal replace="batch_info/length")}
 #.            </span>
 #: from ../skins/cps_default/content_lib_display_contents.pt
-#, fuzzy
-msgid ""
-"Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
-"${batch_length}"
-msgstr ""
-"Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
-"${batch_length}"
+msgid "Objects: ${batch_start} - ${batch_limit} of ${batch_length}"
+msgstr "Objetos ${batch_start} - ${batch_limit} de ${batch_length}"
 
-#.   <dd content="item/Description">
+#.   <label content="item/Description" attributes="for choice_id" for="">
 #.                   Portal type's description
-#.                 </dd>
-#.   <dd content="item/Description">
-#.                       Portal type's description
-#.                     </dd>
+#.                 </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's description"
 msgstr "Descripción del tipo de documento"
 
-#.   <a content="item/Title" attributes="
-#.                     href string:${here_url}/content_create?type_name=${item/getId}">
-#.                     Portal type's title
-#.                   </a>
-#.   <a content="item/Title" attributes="
-#.                         href string:${here_url}/content_create?type_name=${item/getId}">
-#.                         Portal type's title
-#.                       </a>
+#.   <label content="item/Title" attributes="for choice_id" for="">
+#.                   Portal type's title
+#.                 </label>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type's title"
 msgstr "Título del tipo de documento"
@@ -103,7 +71,7 @@ msgstr "Título del tipo de documento"
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "Request made by IP ${ip} at ${time}"
-msgstr ""
+msgstr "Petición realizada por la IP ${ip} a las ${time}"
 
 #.   <option content="role" attributes="value role;
 #.                         selected python:role == filtered_role" repeat="role cps_roles">
@@ -117,19 +85,16 @@ msgstr ""
 #.             </option>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "Role"
-msgstr "Role"
+msgstr "Rol"
 
 #.   <label content="member_info/title" attributes="for input_id">
 #.               User
 #.             </label>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
-#    <span attributes="class
-#          info/review_state" content="info/review_state">Work</span>
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib_byline.pt
@@ -147,12 +112,12 @@ msgstr "Ha iniciado sesión como ${member}"
 #.   <span>Your login:</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "Your login:"
-msgstr ""
+msgstr "Su nombre de usuario:"
 
 #.   <span>Your password:</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "Your password:"
-msgstr ""
+msgstr "Su contraseña:"
 
 #.   <p condition="python:res['items_count'] > 1">
 #.           Your query gave ${nb_results (tal content="res/items_count")} results.
@@ -173,57 +138,39 @@ msgstr "Su búsqueda ha devuelto ${nb_results} resultados."
 #.   The following access keys are available:
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_description"
-msgstr ""
-"The access keys or keyboard shortcuts available to browse this site are as "
-"follows:"
+msgstr "The access keys or keyboard shortcuts available to browse this site are as follows:"
 
 #.   <h2>Accesskeys
 #.   or keyboard shortcuts</h2>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_title"
 msgstr "Accesskeys or keyboard shortcuts"
 
-#    <p>bla</p>
 #.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
 #.   </div>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_accesskeys_usage"
-msgstr ""
-"<strong>Mozilla</strong>: Presione simultáneamente la tecla Alt, la tecla "
-"Mayúsc y una de las teclas del teclado (pero no el teclado numérico). Irá "
-"directamente al lugar deseado.Si utiliza letras, puede prescindir de "
-"presionar la tecla May.<br/><br>Con <strong>IE6</strong>: Presione "
-"simultáneamente la tecla Alt, la tecla Mays y una de las teclas del teclado "
-"(pero no el teclado numérico) y seguidamente presione la tecla \"Entrar\" "
-"para ir al lugar deseado.<br><br><strong>Opera</strong>: ¡no soporta las "
-"teclas de acceso!<br><br>"
+msgstr "<ul><li>IE Windows&nbsp;: <kbd>Alt</kbd> and [<kbd>accesskey</kbd>], then <kbd>Enter</kbd> (donnot use the numpad)&nbsp;;</li> <li>Mozilla, Netscape, K-Meleon, FireFox&nbsp;Windows: <kbd>Alt</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>Opera 7 Windows,&nbsp;Macintosh, Linux : <kbd>Esc</kbd> + <kbd>Shift</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>MSIE Macintosh&nbsp;: <kbd>Ctrl</kbd> and [<kbd>accesskey</kbd>], then <kbd>Enter</kbd>&nbsp;;</li> <li>Safari 1.2 Macintosh&nbsp;: <kbd>Ctrl</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>Mozilla, Netscape Macintosh&nbsp;: <kbd>Ctrl</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>Galeon/Mozilla/FireFox Linux&nbsp;: <kbd>Alt</kbd> and [<kbd>accesskey</kbd>]&nbsp;;</li> <li>Konqueror&nbsp;3.3+&nbsp;: <kbd>Ctrl</kbd>, then [<kbd>accesskey</kbd>] (successively)&nbsp;;</li> <li>Netscape 4, Camino, Galeon, Konqueror before version 3.3.0, Omniweb, Safari before version 1.2, Opera Windows/Linux before version 7, donnot support <code>accesskey</code>s.</li></ul>"
 
 #.   <p>
 #.   Accesskeys usage is different from one web browser to another.
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_usage_description"
 msgstr "Here is below how to use accesskeys on some common web browsers:"
 
 #.   <a attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address" accesskey="9">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_contact_link"
-msgstr "Información sobre accesibilidad"
+msgstr "Enlace de contacto"
 
-#    <a href="#content" accesskey="2">Go to the content</a>
 #.   <a accesskey="2" href="#content">Go to the content</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_content_link"
 msgstr "Ir al contenido"
 
-#    <p>
-#    this site try to use access-pour-tous
-#    </p>
 #.   <p>
 #.   This site has been designed to be accessible.
 #.   It respects the <a href="http://www.w3.org/">W3C</a> standards
@@ -232,17 +179,13 @@ msgstr "Ir al contenido"
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
-msgstr ""
-"Este sitio ha sido concebido para ser accesible, trabajando a partir de las "
-"reglas de navegación definidas en <a href=\"http://www.acces-pour-tous.net/"
-"\">accès pour tous</a>."
+msgstr "Este sitio ha sido concebido para ser accesible, trabajando a partir de las reglas de navegación definidas en <a href=\"http://www.acces-pour-tous.net/\">accès pour tous</a>."
 
 #.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Ir a la página de bienvenida"
 
-#    <a href="#menu" accesskey="3">Go to the menu</a>
 #.   <a accesskey="3" href="#menu">Go to the menu</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_menu_link"
@@ -253,7 +196,6 @@ msgstr "Ir al menú"
 msgid "accessibility_page_link"
 msgstr "Información de accesibilidad"
 
-#    <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
 #.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_search_link"
@@ -270,29 +212,15 @@ msgid "accesskey explanation"
 msgstr ""
 
 #.   <a attributes="href string:${here/portal_url}/accessibility">Accessibility</a>
-#: from ../skins/cps_default/portlet_contact_accessibility.pt
-#: ../skins/cps_default/portlet_contact_info.pt
+#: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
 msgstr "Accesibilidad"
 
 #.   <a attributes="href
-#.       string:mailto:${here/portal_properties/email_from_address}?subject=Info">
-#.       Contact</a>
-#.   <a attributes="href
 #.         string:mailto:${here/portal_properties/email_from_address}?subject=Info">action_contact</a>
-#.   <a attributes="href
-#.           string:mailto:${here/portal_properties/email_from_address}?subject=Info">
-#.           Contact</a>
-#: from ../skins/cps_default/portlet_contact_accessibility.pt
-#: ../skins/cps_default/portlet_contact_info.pt
-#: ../skins/cps_default/portlet_start_cps.pt
+#: from ../skins/cps_default/portlet_contact_info.pt
 msgid "action_contact"
-msgstr "Contactar"
-
-#.   <a href="javascript:if (window.print) window.print();">Print</a>
-#: from ../skins/cps_default/portlet_contact_accessibility.pt
-msgid "action_print"
-msgstr "Imprimir"
+msgstr "Contacto"
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
@@ -300,7 +228,6 @@ msgstr "Imprimir"
 msgid "batch_next"
 msgstr "Siguientes"
 
-# # Batch ========================================================
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                               mq(request.form, b_start=previous))" condition="python:previous is not None" define="previous batch_info/previous">Previous</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
@@ -310,10 +237,12 @@ msgstr "Anteriores"
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "button_abandon_draft"
-msgstr "Abandonar la versión"
+msgstr "Abandonar la revisión"
 
+#.   <input type="submit" class="standalone searchButton" value="button_add" />
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/folder_factories.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_add"
 msgstr "Añadir"
 
@@ -328,58 +257,30 @@ msgstr "Aplicar"
 #.   <input type="submit" class="standalone" value="button_assign_roles" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
-msgstr "Delegar rol"
+msgstr "Asignar roles"
 
-#.   <button type="button" onclick="history.back()">Cancel</button>
 #.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
-#: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/content_abandon_draft_form.pt
+#: from ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_checkin_draft_form.pt
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_delete_archive_form.pt
 #: ../skins/cps_default/content_publish_form.pt
-#: ../skins/cps_default/content_reject_form.pt 4 more references
+#: ../skins/cps_default/content_reject_form.pt
+#: ../skins/cps_default/content_revert_form.pt 4 more references
 msgid "button_cancel"
 msgstr "Cancelar"
 
-#    <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
-#          <input value="button_back" class="context" name="back" type="submit">
-#        </input></input>
-#    <input value="button_change" class="standalone" type="submit">
-#          </input>
-#    <input value="button_change" class="standalone" type="submit">
-#        </input>
-#    <input value="button_change" class="standalone" name="change" type="submit">
-#          <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#          <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#        </input></input></input>
-#    <input value="button_change" type="submit">
-#        <input onclick="history.back()" type="button" value="button_cancel">
-#      </input></input>
-#.   <button type="submit">Change</button>
 #.   <input type="submit" class="standalone" value="button_change" />
 #.   <input type="submit" name="change" value="button_change" class="standalone" />
-#: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/folder_rename_form.pt
+#.   <button type="submit">Change</button>
+#: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
+#: ../skins/cps_default/reconfig_form.pt
 msgid "button_change"
 msgstr "Guardar cambios"
 
-#    <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#          <input condition="python:checkPerm('Manage Boxes', box['box'])" value="button_change" class="standalone" name="change" type="submit">
-#          <input value="button_back" class="context" name="back" type="submit">
-#        </input></input></input>
-#    <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#            <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#          </input></input>
-#    <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#              <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#            </input></input>
-#    <input value="button_change_and_edit" class="standalone" name="change_and_edit" type="submit">
-#          <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#        </input></input>
 #.   <input type="submit" class="standalone" value="button_change_and_edit" name="change_and_edit" />
 #.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" />
 #: from ../skins/cps_default/dummy_edit_form.pt
@@ -388,12 +289,6 @@ msgstr "Guardar cambios"
 msgid "button_change_and_edit"
 msgstr "Guardar cambios"
 
-#    <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#          </input>
-#    <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#            </input>
-#    <input value="button_change_and_view" class="standalone" name="change_and_view" type="submit">
-#        </input>
 #.   <input type="submit" class="standalone" value="button_change_and_view" name="change_and_view" />
 #.   <input type="submit" name="change_and_view" value="button_change_and_view" class="standalone" />
 #: from ../skins/cps_default/dummy_edit_form.pt
@@ -405,7 +300,7 @@ msgstr "Guardar y ver"
 #.   <input type="submit" class="standalone" value="button_checkin_draft" />
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "button_checkin_draft"
-msgstr "Validar la versión"
+msgstr "Validar la revisión"
 
 #.   <input type="submit" class="standalone" value="button_checkout_draft" />
 #: from ../skins/cps_default/content_checkout_draft_form.pt
@@ -415,7 +310,7 @@ msgstr "Crear una versión"
 #.   <button onclick="window.close()">Fermer</button>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_close"
-msgstr "cerrar"
+msgstr "Cerrar"
 
 #.   <input type="submit" name="folder_copy:method" value="button_copy" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -427,25 +322,20 @@ msgstr "Copiar"
 msgid "button_cut"
 msgstr "Cortar"
 
-#    <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#                (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#            </input>
-#    <input value="button_delete" type="submit">
-#       </input>
-#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
 #.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="context" />
-#: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/folder_contents.pt
+#.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
+#: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "button_delete"
 msgstr "Borrar"
 
 #.   <input type="submit" class="standalone" value="button_delete_archive" />
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "button_delete_archive"
-msgstr "borrar este archivo"
+msgstr "Borrar este archivo"
 
 #.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
@@ -463,35 +353,21 @@ msgstr "Desbloquear"
 msgid "button_login"
 msgstr "Entrar"
 
-#    <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#          </input>
 #.   <input type="submit" class="context moveBottom" value="button_move_bottom" name="moveItemsBottom:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Mover al final"
 
-#    <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
-#              <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#              <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#          </input></input></input>
 #.   <input type="submit" class="context moveDown" value="button_move_down" name="moveItemsDown:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Bajar"
 
-#    <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#              <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#          </input></input>
 #.   <input type="submit" class="context moveTop" value="button_move_top" name="moveItemsTop:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Poner al inicio"
 
-#    <input value="button_move_up" class="context moveUp" type="submit" name="moveItemsUp:method">
-#              <input value="button_move_down" class="context moveDown" type="submit" name="moveItemsDown:method">
-#              <input value="button_move_top" class="context moveTop" type="submit" name="moveItemsTop:method">
-#              <input value="button_move_bottom" class="context moveBottom" type="submit" name="moveItemsBottom:method">
-#          </input></input></input></input>
 #.   <input type="submit" class="context moveUp" value="button_move_up" name="moveItemsUp:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
@@ -502,7 +378,7 @@ msgstr "Subir"
 #: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
-msgstr "Vale"
+msgstr "OK"
 
 #.   <input type="submit" name="folder_paste:method" value="button_paste" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
@@ -526,10 +402,6 @@ msgstr "Registrarme"
 msgid "button_reject_publication"
 msgstr "Rechazar la publicación"
 
-#    <input value="button_rename" class="context" name="folder_rename_form:method" type="submit">
-#              <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#                (cpsmcat('description_confirm_delete'), )" value="button_delete" class="destructive" name="folder_delete:method" type="submit">
-#            </input></input>
 #.   <input type="submit" name="folder_rename_form:method" value="button_rename" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
@@ -560,7 +432,7 @@ msgid "button_search"
 msgstr "Buscar"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Select</button>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "button_select"
 msgstr "Seleccionar"
 
@@ -578,7 +450,7 @@ msgstr "Enviar"
 #.   <input type="submit" class="standalone" value="button_send_password_reminder" />
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "button_send_password_reminder"
-msgstr "Enviar un recordatorio de mi contraseña"
+msgstr "Enviarme un recordatorio de la contraseña"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -594,30 +466,14 @@ msgstr "Crear una revisión para traducir"
 #.   <input type="submit" class="standalone" value="button_unpublish_document" />
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
-msgstr "Retirar el documento"
+msgstr "Despublicar el documento"
 
-#.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
+#.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();">
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Actualizar"
 
-#.   <block />
-#: from ../skins/cps_default/portlet_welcome.pt
-#, fuzzy
-msgid "description_cps"
-msgstr ""
-"<a href=\"http://www.nuxeo.com/cps/\">Collaborative Portal Server</a> (CPS) "
-"is the most complete Open Source solution available for building ECM "
-"applications.<a href=\"http://www.nuxeo.com/cps/\">CPS</a> comes also as a "
-"user-friendly application for entreprise-grade content management with many "
-"collaboration features.<a href=\"http://www.nuxeo.com/cps/\">CPS</a> is "
-"built on top of the powerful <a href=\"http://www.zope.com\">Zope</a> "
-"application server."
-
-#    <span>
-#            You are already a member. You may use the
-#          </span>
 #.   <span>
 #.           You are already a member. You may use the
 #.         </span>
@@ -632,26 +488,15 @@ msgstr "Usted ya es usuario. Puede utilizar el "
 msgid "description_join_form_already_member_2"
 msgstr "para modificar sus datos personales."
 
-#    <span>
-#            You are not currently logged in. Your username and or password may be
-#            incorrect. Your browser may also not be configured to accept HTTP
-#            cookies. If you need help please contact
-#          </span>
 #.   <span>
-#.   	You are not currently logged in. Your username and or password may be
-#.   	incorrect. Your browser may also not be configured to accept HTTP
-#.   	cookies. If you need help please contact
+#.           You are not currently logged in. Your username and or password may be
+#.           incorrect. Your browser may also not be configured to accept HTTP
+#.           cookies. If you need help please contact
 #.         </span>
-#: from ../skins/cps_default/user_logged_in_failed.pt
+#: from ../skins/cps_default/logged_in.pt
 msgid "description_login_failure"
-msgstr ""
-"Usted no está actualmente conectado al portal. Es posible que su nombre de "
-"usuario y/o contraseña sea incorrecto. También es posible que su navegador "
-"no esté configurado para aceptar las cookies. Si necesita ayuda contacte con "
+msgstr "Usted no está actualmente conectado al portal. Es posible que su nombre de usuario y/o contraseña sea incorrecto. También es posible que su navegador no esté configurado para aceptar las cookies. Si necesita ayuda contacte con "
 
-#    <p condition="isAnon">
-#        You have been logged out.
-#      </p>
 #.   <p condition="isAnon">
 #.       You have been logged out.
 #.     </p>
@@ -659,18 +504,15 @@ msgstr ""
 msgid "description_logout_success"
 msgstr "Usted está ahora desconectado"
 
-#    <span>
-#          You are logged in outside the portal.  You may need to
-#        </span>
 #.   <span>
 #.         You are logged in outside the portal.  You may need to
 #.       </span>
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_zmi_warning"
-msgstr "Usted se ha desconectado del portal. Puede "
+msgstr "Usted se ha desconectado del portal. Puede necesitar "
 
-#.   <p> 
-#.           You have been registered as a member. 
+#.   <p>
+#.           You have been registered as a member.
 #.         </p>
 #: from ../skins/cps_default/registered.pt
 msgid "description_registered"
@@ -712,10 +554,7 @@ msgstr "Discúlpenos por las molestias ocasionadas."
 #.     below.</p>
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "error_not_found"
-msgstr ""
-"No se ha podido encontrar el recurso que ha solicitado. Si el documento ha "
-"cambiado de sitio podrá encontrarlo mediante el siguiente formulario de "
-"búsqueda."
+msgstr "No se ha podido encontrar el recurso que ha solicitado. Si el documento ha cambiado de sitio podrá encontrarlo mediante el siguiente formulario de búsqueda."
 
 #.   <title fill-slot="title">
 #.           heading_abandon_draft_of
@@ -723,13 +562,7 @@ msgstr ""
 #.         </title>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "heading_abandon_draft_of ${item_id}"
-msgstr "Abandonar la versión ${item_id}"
-
-#.   <h1>About CPS</h1>
-#: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
-msgid "heading_about_cps"
-msgstr "About CPS"
+msgstr "Abandonar la revisión ${item_id}"
 
 #.   <title fill-slot="title">
 #.     heading_accept_publication_of
@@ -753,7 +586,7 @@ msgstr "Búsqueda avanzada"
 #.         </title>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "heading_checkin_draft_of ${item_id}"
-msgstr "Validar la versión ${item_id}"
+msgstr "Validar la revisión ${item_id}"
 
 #.   <title fill-slot="title">
 #.           heading_checkout_draft_of
@@ -761,7 +594,7 @@ msgstr "Validar la versión ${item_id}"
 #.         </title>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "heading_checkout_draft_of ${item_id}"
-msgstr "Crear una versión ${item_id}"
+msgstr "Crear una revisión ${item_id}"
 
 #.   <h2 condition="type_name">heading_create</h2>
 #: from ../skins/cps_default/folder_edit_form.pt
@@ -775,7 +608,7 @@ msgstr "Crear"
 #.   </title>
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "heading_delete_archive_n_of ${rev} ${item_id}"
-msgstr "Borrar archivo·${rev} de ${item_id}"
+msgstr "Borrar archivo ${rev} de ${item_id}"
 
 #.   <h1>
 #.       heading_edit
@@ -810,23 +643,13 @@ msgstr "Añadir contenido"
 msgid "heading_join_form"
 msgstr "Hacerse usuario"
 
-#.   <h1>Learn CPS</h1>
-#: from ../skins/cps_default/portlet_learn_cps.pt
-#, fuzzy
-msgid "heading_learn_cps"
-msgstr "Learn CPS"
-
 #.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members and groups
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "heading_local_roles_search_members_and_groups"
-msgstr "Assign local roles: Search members and groups"
+msgstr "Asignar roles locales: Buscar miembros y grupos."
 
-#    <h2>
-#        Assign local roles: Search Results
-#    </h2>
 #.   <h1 condition="searching">
 #.    Assign local roles: Search Results
 #.   </h1>
@@ -835,31 +658,29 @@ msgid "heading_local_roles_search_results"
 msgstr "Delegar roles locales: resultados de la búsqueda"
 
 #.   <h1>Login failure</h1>
-#: from ../skins/cps_default/user_logged_in_failed.pt
+#: from ../skins/cps_default/logged_in.pt
 msgid "heading_login_failure"
 msgstr "La autenticación ha fallado"
 
 #.   <h1>Log in</h1>
 #: from ../skins/cps_default/login_form.pt
 msgid "heading_login_form"
-msgstr "Autentificarme"
+msgstr "Entrar"
 
 #.   <h1>Lost password</h1>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "heading_lost_password"
 msgstr "Ha perdido su contraseña"
 
-#    <h1>Don't panic!</h1>
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "heading_mail_password_form"
 msgstr "¡Sin tema!"
 
-#    <h1>Password sent</h1>
 #.   <h1>Password sent</h1>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "heading_mail_password_response"
-msgstr "Contraseña enviada&nbsp;"
+msgstr "Contraseña enviada."
 
 #.   <h2>Password reminder</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
@@ -879,8 +700,10 @@ msgstr "Cambiar contraseña"
 msgid "heading_publish_of ${item_id}"
 msgstr "Publicar ${item_id}"
 
-#.   <h1>Configure Portal</h1>
-#: from ../skins/cps_default/config_form.pt
+#.   <h1>
+#.       Configure Portal
+#.     </h1>
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurar el portal"
 
@@ -895,9 +718,8 @@ msgstr "Se realizó correctamente"
 #.   </title>
 #: from ../skins/cps_default/content_reject_form.pt
 msgid "heading_reject_publication_of ${item_id}"
-msgstr "Rechazar la publicación de ${item_id}"
+msgstr "Rechazar la publicación de"
 
-#    <h1>Rename Items</h1>
 #.   <h1>Rename Items</h1>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "heading_rename_items"
@@ -914,7 +736,7 @@ msgstr "Metadatos del recurso"
 #.   </title>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
-msgstr "Volver a una versión archivada de ${item_id}"
+msgstr "Volver a una revisión archivada de ${item_id}"
 
 #.   <h1 condition="not:title_search">Search Results</h1>
 #: from ../skins/cps_default/search_form.pt
@@ -927,12 +749,6 @@ msgstr "Resultados de la búsqueda"
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "heading_standard_resource_metadata"
 msgstr "Metadatos estándar del recurso"
-
-#.   <h1>Start CPS</h1>
-#: from ../skins/cps_default/portlet_start_cps.pt
-#, fuzzy
-msgid "heading_start_cps"
-msgstr "Start CPS"
 
 #.   <title fill-slot="title">
 #.     heading_status_history_of
@@ -972,51 +788,32 @@ msgstr "Retirar ${item_id}"
 msgid "heading_validate_password_resetting"
 msgstr "Valide el cambio de su contraseña"
 
-#.   <h1>Welcome to your Collaborative Portal Server !</h1>
-#: from ../skins/cps_default/portlet_welcome.pt
-#, fuzzy
-msgid "heading_welcome"
-msgstr "Welcome to your Collaborative Portal Server!"
-
 #.   <block>
 #.             If you abandon this draft, the original document will be unlocked.
 #.           </block>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
-msgstr "Si abandona la versión, el documento original será desbloqueado."
+msgstr "Si abandona la revisión, el documento original será desbloqueado."
 
-#    <span>Accept publication of this item, this will make it available to section's readers</span>
 #.   <span>Accept publication of this
 #.       item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
-msgstr ""
-"La aceptación de la publicación de este documento hará que esté disponible "
-"para los lectores de la sección."
+msgstr "La aceptación de la publicación de este documento hará que esté disponible para los lectores de la sección."
 
-#    <span>
-#        If you commit this draft, it will replace the document currently locked.
-#      </span>
-# Mi traducciÃ³n anterior (comparar)
-# Esta versiÃ³n se convertirÃ¡ en el documento original.
 #.   <block>
 #.             If you commit this draft, it will replace the document currently locked.
 #.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "help_checkin_draft"
-msgstr ""
-"Si incorpora esta versión, sustituirá el documento que ahora está bloqueado."
+msgstr "Si incorpora esta revisión, sustituirá el documento que ahora está bloqueado."
 
-#    <span>
-#        If you create a draft, you will be the only one able to work on the document.
-#      </span>
 #.   <block>
 #.             If you create a draft, you will be the only one able to work on the document.
 #.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
-msgstr ""
-"Si crea una versión, será el único que podrá trabajar sobre el documento."
+msgstr "Si crea una revisión, será el único que podrá trabajar sobre el documento."
 
 #.   <span>
 #.       Delete archive
@@ -1040,24 +837,15 @@ msgstr "Su solicitud para cambiar de contraseña no es válida"
 #.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
-msgstr ""
-"Hacerse usuario le dará la posibilidad de personalizar el sitio y de "
-"participar en la comunidad."
+msgstr "Hacerse usuario le dará la posibilidad de personalizar el sitio y de participar en la comunidad."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
 #.         other personal information will remain private.</p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_2"
-msgstr ""
-"Hacerse usuario es totalmente gratuito; su correo electrónico y los otros "
-"datos personales seguirán siendo privados."
+msgstr "Es totalmente gratuito; tanto su correo electrónico como el resto de datos personales seguirán siendo privados."
 
-#    <span>
-#            You must submit a valid email address. This address will be used
-#            to send you a randomly-generated password.  Once you have logged
-#            in with this password, you may change it to anything you like.
-#          </span>
 #.   <p condition="python: ptool.validate_email">
 #.         You must submit a valid email address. This address will be used
 #.         to send you a randomly-generated password.  Once you have logged
@@ -1065,15 +853,8 @@ msgstr ""
 #.       </p>
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
-msgstr ""
-"Debe usted indicar una dirección válida de correo electrónico. Será "
-"utilizada para hacerle llegar su contraseña generada aleatoriamente. Una vez "
-"que usted se haya autenticado con esta contraseña, podrá cambiarla a su "
-"gusto."
+msgstr "Debe usted indicar una dirección válida de correo electrónico. Será utilizada para hacerle llegar su contraseña generada aleatoriamente. Una vez que usted se haya autenticado con esta contraseña, podrá cambiarla a su gusto."
 
-#    <p>
-#        Don't forget to logout or exit your browser when you're done.
-#      </p>
 #.   <p>
 #.       Don't forget to logout or exit your browser when you're done.
 #.     </p>
@@ -1087,9 +868,7 @@ msgstr "No olvide desconectarse o salir de su navegador cuando haya terminado."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
-msgstr ""
-"¿Tiene problemas para conectarse?. Asegúrese de haber activado las cookies "
-"en su navegador."
+msgstr "¿Tiene problemas para conectarse? Asegúrese de haber activado las cookies en su navegador."
 
 #.   <block>
 #.             You came to this page because you have lost your password.
@@ -1100,16 +879,8 @@ msgstr ""
 #.           </block>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_lost_password"
-msgstr ""
-"Ha llegado a esta página porque ha perdido su contraseña. No se preocupe, "
-"pronto le será posible conectarse al portal de nuevo. Si tiene problemas al "
-"usar este formulario o si no funciona en víe un e-mail a"
+msgstr "Ha llegado a esta página porque ha perdido su contraseña. No se preocupe, pronto le será posible conectarse al portal de nuevo. Si tiene problemas al usar este formulario o si no funciona en víe un e-mail a"
 
-#    <p>
-#        Just enter your username below, click <em>Send</em>, and your
-#        password will be mailed to you if you gave a valid email address
-#        when you signed on.
-#      </p>
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
 #.       password will be mailed to you if you gave a valid email address
@@ -1117,29 +888,16 @@ msgstr ""
 #.     </p>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
-msgstr ""
-"Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su "
-"contraseña le será enviada si facilitó una dirección de correo-e correcta al "
-"registrarse como miembro."
+msgstr "Introduzca su nombre de usuario abajo, pinche <em>Enviar</em> y su contraseña le será enviada si facilitó una dirección de correo-e correcta al registrarse como miembro."
 
-#    <span>
-#          If this will not work for you (for example, if you forget your member
-#          name or didn't enter your email address) send email to
-#        </span>
 #.   <span>
 #.         If this will not work for you (for example, if you forget your member
 #.         name or didn't enter your email address) send email to
 #.       </span>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
-msgstr ""
-"Si esto no funciona en su caso (por ejemplo, si ha olvidado su nombre de "
-"usuario o no introdujo una dirección de correo-e válida al inscribirse) "
-"envíe un correo a "
+msgstr "Si esto no funciona en su caso (por ejemplo, si ha olvidado su nombre de usuario o no introdujo una dirección de correo-e válida al inscribirse) envíe un correo a "
 
-#    <p>
-#        Your password has been mailed.
-#      </p>
 #.   <p>
 #.       Your password has been mailed.
 #.     </p>
@@ -1147,9 +905,6 @@ msgstr ""
 msgid "help_mail_password_response_1"
 msgstr "Su contraseña ha sido enviada"
 
-#    <p>
-#        It should arrive in your mailbox momentarily.
-#      </p>
 #.   <p>
 #.       It should arrive in your mailbox momentarily.
 #.     </p>
@@ -1172,17 +927,23 @@ msgid "help_no_items_to_rename"
 msgstr "Debe seleccionar uno o varios objetos para renombrarlos."
 
 #.   <p>
-#.       help_password_forgotten
-#.       ${link_password_forgotten (tal replace="string:${base_url}account_lost_password_form")}
-#.     </p>
-#.   <p>
 #.         help_password_forgotten
 #.         ${link_password_forgotten (tal replace="string:${base_url}account_lost_password_form")}
 #.       </p>
-#: from ../skins/cps_default/login_form.pt
-#: ../skins/cps_default/user_logged_in_failed.pt
+#.   <p>
+#.       help_password_forgotten
+#.       ${link_password_forgotten (tal replace="string:${base_url}account_lost_password_form")}
+#.     </p>
+#: from ../skins/cps_default/logged_in.pt ../skins/cps_default/login_form.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
 msgstr "<a href='${link_password_forgotten}'>¡He olvidado mi contraseña!</a>"
+
+#.   <em>
+#.             Check this box to have your password mailed to you.
+#.           </em>
+#: from ../skins/cps_default/join_form.pt
+msgid "help_password_message"
+msgstr "Marque esta casilla para recibir un correo con su contraseña."
 
 #.   <p>
 #.             With this functionality you can ask to receive a reminder of your
@@ -1190,9 +951,7 @@ msgstr "<a href='${link_password_forgotten}'>¡He olvidado mi contraseña!</a>"
 #.           </p>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_password_reminder"
-msgstr ""
-"Mediante esta función puede pedir que se le envíe un recordatorio de su "
-"contraseña a través del correo electrónico"
+msgstr "Mediante esta función puede pedir que se le envíe un recordatorio de su contraseña a través del correo electrónico"
 
 #.   <p>
 #.             With this functionality you can request your old password to be reset
@@ -1201,10 +960,7 @@ msgstr ""
 #.           </p>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "help_password_reset"
-msgstr ""
-"Mediante esta función puede solicitar que se elimine su antigua contraseña y "
-"se sustituya por una nueva generada automáticamente por el sistema. La nueva "
-"contraseña se le comunicará después."
+msgstr "Mediante esta función puede solicitar que se elimine su antigua contraseña y se sustituya por una nueva generada automáticamente por el sistema. La nueva contraseña se le comunicará después."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1224,11 +980,7 @@ msgstr ""
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "help_publish_publication"
-msgstr ""
-"Puede publicar directamente este documento, sin pasar por una etapa de "
-"moderación, en las secciones que seleccione.<br/>Se creará una copia del "
-"documento en cada una de estas secciones con estado <strong>publicado</"
-"strong>. Entonces los lectores de estas secciones opdrán leerlo."
+msgstr "Puede publicar directamente este documento, sin pasar por una etapa de moderación, en las secciones que seleccione.<br/>Se creará una copia del documento en cada una de estas secciones con estado <strong>publicado</strong>. Entonces los lectores de estas secciones opdrán leerlo."
 
 #.   <span>
 #.             You will receive an email shortly containing
@@ -1236,9 +988,7 @@ msgstr ""
 #.           </span>
 #: from ../skins/cps_default/registered.pt
 msgid "help_registered_mail"
-msgstr ""
-"Recibirá un e-mail en breve con su contraseña e instrucciones sobre cómo "
-"activar su registro."
+msgstr "Recibirá un e-mail en breve con su contraseña e instrucciones sobre cómo activar su registro."
 
 #.   <span>
 #.       Reject publication of this item
@@ -1247,11 +997,6 @@ msgstr ""
 msgid "help_reject_publication"
 msgstr "Rechazar la publicación de este documento."
 
-#    <p>
-#        Setting the 'Remember my name' option will set a cookie with your
-#        username, so that when you next log in, your user name will already
-#        be filled in for you.
-#      </p>
 #.   <p>
 #.       Setting the 'Remember my name' option will set a cookie with your
 #.       username, so that when you next log in, your user name will already
@@ -1259,24 +1004,14 @@ msgstr "Rechazar la publicación de este documento."
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
-msgstr ""
-"Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie con "
-"su nombre de usuario y así cuando se conecte la próxima vez, el campo que "
-"contiene el nombre de usuario aparecerá rellenado automáticamente con el "
-"suyo."
+msgstr "Si elige la opción 'Recordar mi nombre de usuario', se fijará una cookie con su nombre de usuario y así cuando se conecte la próxima vez, el campo que contiene el nombre de usuario aparecerá rellenado automáticamente con el suyo."
 
-#    <div class="description">Changing the id of an object does not
-#    affect its title but changes the URL to access it. Links that point to the
-#    current id won't find it anymore.</div>
 #.   <div class="description">Changing the id of an object does not
 #.   affect its title but changes the URL to access it. Links that point to the
 #.   current id won't find it anymore.</div>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
-msgstr ""
-"Cambiar la id de un objeto no afecta a su título, pero sí a la URL "
-"(dirección) necesaria acceder a él. Atención a los enlaces hacia este "
-"objeto: si no son actualizados, ya no lo encontrarán."
+msgstr "Cambiar la id de un objeto no afecta a su título, pero sí a la URL (dirección) necesaria acceder a él. Atención a los enlaces hacia este objeto: si no son actualizados, ya no lo encontrarán."
 
 #.   <span>
 #.       Revert to revision
@@ -1284,32 +1019,14 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "help_revert_revision"
-msgstr "Volver a una versión anterior de este documento."
+msgstr "Volver a una revisión anterior de este documento."
 
-#    <span>An item's status (also called its
-#      review state) determines who can see it.  An item with a <strong>work</strong> status
-#      can be viewed by workspace's readers and edit by workspace's members and
-#      managers.  Only <strong>published</strong> items in sections are available to the
-#      section readers.  To make an item published, it has to be reviewed by one of
-#      the section's Reviewers.  You can request that an item be reviewed by setting
-#      its status to <strong>pending</strong>, this is done by submitting your item to a
-#      section.</span>
 #.   <help fill-slot="help">
 #.     An item's status determines who can see it.
 #.   </help>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
-msgstr ""
-"El estado de un documento (también llamado su estado de validación) "
-"determina quién está autorizado a verlo. Un documento en estado "
-"<strong>trabajo</strong> puede ser consultado por los lectores del espacio "
-"de trabajo y editado por sus miembros y por los responsables. Sólo los "
-"objetos en estado <strong>publicado</strong> serán accesibles a los lectores "
-"de las secciones. Para publicar un objeto, debe estar validado por un "
-"revisor de la sección. Puede solicitar que un objeto sea validado "
-"simplemente cambiado su estado a <strong>en espera</strong>. Ello se "
-"consigue remitiendo el documento para su validación en el interior de una "
-"sección."
+msgstr "El estado de un documento (también llamado su estado de validación) determina quién está autorizado a verlo. Un documento en estado <strong>trabajo</strong> puede ser consultado por los lectores del espacio de trabajo y editado por sus miembros y por los responsables. Sólo los objetos en estado <strong>publicado</strong> serán accesibles a los lectores de las secciones. Para publicar un objeto, debe estar validado por un revisor de la sección. Puede solicitar que un objeto sea validado simplemente cambiado su estado a <strong>en espera</strong>. Ello se consigue remitiendo el documento para su validación en el interior de una sección."
 
 #.   <span>
 #.           Create a new translation for this document.
@@ -1345,7 +1062,7 @@ msgstr "No hay revisiones publicadas sobre este documento"
 msgid "into ${history_dest}"
 msgstr "en ${history_dest}"
 
-#.   <th>Action</th>
+#.   <td>Action</td>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_action"
 msgstr "Acción"
@@ -1355,24 +1072,21 @@ msgstr "Acción"
 msgid "label_actions_history"
 msgstr "Historial de acciones"
 
-#    <span>
-#                Administrator E-mail
-#              </span>
 #.   <label for="email_from_address">
 #.               Administrator Email
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_admin_email"
 msgstr "Dirección de correo-e del administrador"
 
 #.   <label for="email_from_name">
 #.               Administrator Name
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_admin_name"
 msgstr "Nombre del administrador"
 
-#.   <img attributes="src string:${here/portal_url}/cps-minibanner.png" src="cps-minibanner.png" alt="label_advertisement_use_cps" title="label_advertisement_use_cps" width="80" height="15" />
+#.   <img attributes="src string:${base_url}cps-minibanner.png" src="cps-minibanner.png" alt="label_advertisement_use_cps" title="label_advertisement_use_cps" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr "Utilizar CPS"
@@ -1387,9 +1101,9 @@ msgstr "Todos"
 #.   <h2>Archived revisions</h2>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
-msgstr "Versiones archivadas"
+msgstr "Revisiones archivadas"
 
-#.   <th>Author</th>
+#.   <td>Author</td>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_author"
 msgstr "Autor"
@@ -1430,14 +1144,11 @@ msgstr "Eventos para el"
 msgid "label_choose"
 msgstr "Escoger"
 
-#.   <th>Comments</th>
+#.   <td>Comments</td>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_comments"
 msgstr "Comentarios"
 
-#    <option attributes="selected python:format == 'compact'" value="compact">
-#                Compact
-#        </option>
 #.   <option attributes="selected python:format == 'compact'" value="compact">
 #.               Compact
 #.       </option>
@@ -1445,22 +1156,22 @@ msgstr "Comentarios"
 msgid "label_compact"
 msgstr "Compacta"
 
-#.   <img attributes="src string:${here/portal_url}/valid-css.png" src="valid-css.png" alt="Valid CSS" title="label_conformance_valid_css" width="80" height="15" />
+#.   <img attributes="src string:${base_url}valid-css.png" src="valid-css.png" alt="Valid CSS" title="label_conformance_valid_css" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
-msgstr "validación de etiqueta"
+msgstr "Adaptado para utilizar hojas de estilos CCS"
 
-#.   <img attributes="src string:${here/portal_url}/valid-xhtml10.png" src="valid-xhtml10.png" alt="Valid XHTML 1.0" title="label_conformance_valid_xhtml" width="80" height="15" />
+#.   <img attributes="src string:${base_url}valid-xhtml10.png" src="valid-xhtml10.png" alt="Valid XHTML 1.0" title="label_conformance_valid_xhtml" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
-msgstr "validación de etiqueta "
+msgstr "Adaptado para utilizar XHTML"
 
-#.   <img attributes="src string:${here/portal_url}/wcag1A.png" src="wcag1A.png" alt="W3C Web Content Accessibility Level A conformance" title="label_conformance_wai_1a" width="80" height="15" />
+#.   <img attributes="src string:${base_url}wcag1A.png" src="wcag1A.png" alt="W3C Web Content Accessibility Level A conformance" title="label_conformance_wai_1a" width="80" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
-msgstr "Accesibilidad al contenido de nivel A de la web W·C"
+msgstr "Accesibilidad al contenido de nivel A de la web W3C"
 
-#.   <th>Consultation</th>
+#.   <td>Consultation</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_consultation"
 msgstr "Consulta"
@@ -1472,16 +1183,15 @@ msgstr "Contribuyentes"
 
 #.   <h2>Current revisions</h2>
 #: from ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_current_revisions"
-msgstr "Current revisions"
+msgstr "Revisiones actuales"
 
 #.   <h2>Current status of the document</h2>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "label_current_status"
 msgstr "Estado actual del documento"
 
-#.   <th>Date</th>
+#.   <td>Date</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1544,7 +1254,7 @@ msgstr "Predefinido"
 msgid "label_description"
 msgstr "Descripción"
 
-#.   <th>Destruction</th>
+#.   <td>Destruction</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_destruction"
 msgstr "Destrucción"
@@ -1569,9 +1279,6 @@ msgstr "Tabla"
 msgid "label_discussion"
 msgstr "¿Activar la discusión?"
 
-#    <option attributes="selected python: val == None" value="None">
-#              Default
-#            </option>
 #.   <option attributes="selected python: val == None" value="None">
 #.             Default
 #.           </option>
@@ -1603,15 +1310,10 @@ msgstr "Mostrar"
 
 #.   <span class="note">label_download</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
-#, fuzzy
 msgid "label_download"
-msgstr "[download]"
+msgstr "[Descarga]"
 
-#    <th style="text-align:left;">
-#            Email address
-#        </th>
-#    <th> Email Address </th>
-#.   <th class="header_roles">
+#.   <th>
 #.             Email address
 #.         </th>
 #.   <label for="email">Email Address</label>
@@ -1620,7 +1322,6 @@ msgstr "[download]"
 msgid "label_email"
 msgstr "Correo-e"
 
-#    <div class="label">End Date (DD/MM/YYYY)</div>
 #.   <div class="label">End Date (DD/MM/YYYY)</div>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_end_date"
@@ -1647,7 +1348,6 @@ msgstr "Guardar"
 msgid "label_format"
 msgstr "Formato"
 
-#    <span omit-tag="">From</span>
 #.   <span omit-tag="">From</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
 msgid "label_from"
@@ -1667,9 +1367,8 @@ msgstr "Nombre del grupo"
 #.           Groups local roles assignment
 #.         </h3>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_groups_local_roles_assignment"
-msgstr "Groups local roles assignment"
+msgstr "Asignación de roles locales a grupos"
 
 #.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
@@ -1723,29 +1422,34 @@ msgstr "Tipo"
 msgid "label_info_tab_version"
 msgstr "Versión"
 
+#.   <span class="inheritedBlockedRole">
+#.       Inherited blocked role
+#.     </span>
+#: from ../skins/cps_default/folder_localrole_assigned.pt
+msgid "label_inherited_blocked_role"
+msgstr "Rol heredado y bloqueado"
+
 #.   <span class="inheritedRole">
 #.       Inherited role
 #.     </span>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_inherited_role"
-msgstr "Inherited role"
+msgstr "Rol heredado"
 
-#.   <th condition="python:not local_roles_blocked">
+#.   <th condition="python:not local_roles_blocked or show_blocked_roles">
 #.           Inherited roles
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_inherited_roles"
-msgstr "Inherited roles"
+msgstr "Roles heredados"
 
-#.   <label for="defaultLanguageChooser">Language</label>
-#.   <th>Langue</th>
+#.   <td>Langue</td>
 #.   <th align="right">Language</th>
-#: from ../skins/cps_default/config_form.pt
-#: ../skins/cps_default/content_lib_archived.pt
+#.   <label for="defaultLanguageChooser">Language</label>
+#: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
+#: ../skins/cps_default/language_manage_form.pt
 msgid "label_language"
 msgstr "Idioma"
 
@@ -1766,29 +1470,22 @@ msgstr "Idioma ${status_language}"
 msgid "label_last_modified"
 msgstr "Modificado por última vez:"
 
-#.   <th>Location</th>
+#.   <td>Location</td>
 #: from ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_location"
-msgstr "Location"
+msgstr "Localización"
 
 #.   <th>
 #.           User or Group name
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_name"
-msgstr "Name"
+msgstr "Nombre completo"
 
-#    <option attributes="selected not:sort_by" value="None">
-#                No sort
-#        </option>
 #.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
 #.       </option>
-#.   <input type="submit" class="standalone" value="label_none" />
 #: from ../skins/cps_default/content_lib_display_params_form.pt
-#: ../skins/cps_default/folder_contents.pt
 msgid "label_none"
 msgstr "Sin orden"
 
@@ -1803,38 +1500,44 @@ msgstr "Contraseña"
 msgid "label_password_confirm"
 msgstr "Contraseña (confirmar)"
 
+#.   <label for="mailme">Mail
+#.                      Password?</label>
+#: from ../skins/cps_default/join_form.pt
+msgid "label_password_mailed"
+msgstr "¿Enviar la contraseña?"
+
 #.   <label for="portal_description">
 #.               Portal description
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_description"
 msgstr "Descripción del portal"
 
 #.   <label for="enable_portal_joining">
 #.               Enable portal joining
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_enable_join"
 msgstr "Autorizar la inscripción"
 
 #.   <label for="enable_password_reminder">
 #.               Enable sending of password reminder
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_enable_password_reminder"
 msgstr "Permitir el envío del recordatorio de la contraseña"
 
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_enable_password_reset"
 msgstr "Permitir el cambio de contraseña"
 
 #.   <label for="portal_title">
 #.               Portal title
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_portal_title"
 msgstr "Título del portal"
 
@@ -1855,12 +1558,12 @@ msgstr " a "
 msgid "label_requires_approval"
 msgstr "La etiqueta necesita aprobación"
 
-#.   <th>Reversion</th>
+#.   <td>Reversion</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_reversion"
 msgstr "Reversión"
 
-#.   <th>Version</th>
+#.   <td>Version</td>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
@@ -1916,8 +1619,6 @@ msgstr "aquí"
 msgid "label_search_location"
 msgstr "Buscar"
 
-#    <span>Modified since</span>
-#    <div class="label" />
 #.   <label for="modified">
 #.           Modified since
 #.         </label>
@@ -1951,12 +1652,12 @@ msgstr "Título"
 #.       </block>
 #: from ../skins/cps_default/content_lib_status.pt
 msgid "label_since ${status_time}"
-msgstr "desde ${status_time}"
+msgstr "Desde ${status_time}"
 
 #.   <label for="smtp_server">
 #.               SMTP Server
 #.             </label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/reconfig_form.pt
 msgid "label_smtp_server"
 msgstr "Servidor SMTP"
 
@@ -1972,7 +1673,7 @@ msgid "label_start_date"
 msgstr "Fecha de comienzo (DD/MM/AAAA)"
 
 #.   <span>Label Status</span>
-#.   <th>Status</th>
+#.   <td>Status</td>
 #: from ../skins/cps_default/content_lib_byline.pt
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/content_lib_status.pt
@@ -2016,8 +1717,10 @@ msgstr "Texto para buscar"
 #.           Title
 #.         </div>
 #.   <th align="right">Title</th>
+#.   <strong>Title:</strong>
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
+#: ../skins/cps_default/folder_factories.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
@@ -2039,7 +1742,6 @@ msgstr "Título"
 msgid "label_title_desc"
 msgstr "Título inv."
 
-#    <span omit-tag="">To</span>
 #.   <span omit-tag="">To</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
 msgid "label_to"
@@ -2052,14 +1754,13 @@ msgstr "A"
 msgid "label_translation_select_language"
 msgstr "Elija el idioma al que quiere traducir"
 
-#.   <th width="30%" class="header_roles">
+#.   <th>
 #.             User
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user"
 msgstr "Usuario"
 
-#    <option value="email">Email Address</option>
 #.   <option attributes="selected python:search_param == 'email'" value="email">Email address</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
@@ -2067,25 +1768,26 @@ msgstr "Correo-e"
 
 #.   <option attributes="selected python:search_param == 'givenName'" value="givenName">User first name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "label_user_givenName"
-msgstr "User first name"
+msgstr "Nombre propio del usuario"
 
 #.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
+#.   <th>
+#.             User id (login)
+#.         </th>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
+#: ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user_id"
-msgstr "User id"
+msgstr "ID del usuario"
 
 #.   <label for="username">User name</label>
-#: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
+#: from ../skins/cps_default/account_lost_password_form.pt
+#: ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
-msgstr "Nombre de usuario"
+msgstr "Nombre (nick) del usuario"
 
-#.   <label for="username">
-#.                   User name or email address</label>
-#.   <label for="who">
+#.   <label for="username_or_email">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "label_user_name_or_email_address"
@@ -2093,21 +1795,16 @@ msgstr "Nombre de usuario o dirección de correo electrónico"
 
 #.   <option attributes="selected python:search_param == 'sn'" value="sn">User surname</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "label_user_surname"
-msgstr "User surname"
+msgstr "Apellido del usuario"
 
 #.   <h3>
 #.           Users local roles assignment
 #.         </h3>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_users_local_roles_assignment"
-msgstr "Users local roles assignment"
+msgstr "Asignación de roles locales a los usuarios. "
 
-#    <block>You are
-#      here:&nbsp;</block>
-# Estoy en... (para continuar con el estilo "desconectarme")
 #.   <block>
 #.       You are here:&nbsp;</block>
 #: from ../skins/cps_default/generic_lib_breadcrumbs.pt
@@ -2115,22 +1812,22 @@ msgid "label_you_are_here"
 msgstr "Estoy en:"
 
 #.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "language"
 msgstr "Idioma"
 
 #.   <h2>Add languages</h2>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "language_add"
 msgstr "Idiomas disponibles que no están activados"
 
 #.   <h2>Delete languages</h2>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "language_delete"
 msgstr "Idiomas activados"
 
 #.   <h2>Set default portal language</h2>
-#: from ../skins/cps_default/config_form.pt
+#: from ../skins/cps_default/language_manage_form.pt
 msgid "language_set_default"
 msgstr "Idioma por defecto del portal"
 
@@ -2146,60 +1843,50 @@ msgstr "Roles locales asignados"
 #.           You can block acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_block"
-msgstr ""
-"Los roles locales han sido adquiridos. Puede utilizar la opción \"bloquear\" "
-"para evitar cambios."
+msgstr "Los roles locales han sido asignados. Puede bloquearlos para mayor seguridad"
 
 #.   <label for="filtered_role">
 #.       Filter local roles:
 #.     </label>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_filter_roles"
-msgstr "Filter on role"
+msgstr "Filtrar según el rol"
 
 #.   <block>
 #.       this colour means that corresponding roles are set in parent
 #.       folders. Follow the links to manage the local roles in these folders.
 #.     </block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_inherited_role"
-msgstr ""
-"this colour means that corresponding roles are set in parent folders. Follow "
-"the links to manage the local roles in these folders."
+msgstr "este color significa que los roles corresondientes están configurados en las carpetas superiores. Siga los enlaces para administrar los roles locales en dichas carpetas. "
 
 #.   <p>
 #.         Sorry, no group matched your search
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_groups_search_results.pt
-#, fuzzy
 msgid "legend_local_roles_no_results_groups"
-msgstr "Sorry, no group matched your search."
+msgstr "Ningún grupo coincide con su búsqueda."
 
 #.   <p>
 #.         Sorry, no user matched your search
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
-#, fuzzy
 msgid "legend_local_roles_no_results_users"
-msgstr "Sorry, no user matched your search."
+msgstr "Ningún usuario coincide con su búsqueda."
 
 #.   <p condition="python:not users and not groups">
 #.      There are no roles assigned in this folder
 #.   </p>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_no_roles_assigned"
-msgstr "There are no roles assigned in this folder"
+msgstr "No hay roles asignados en esta carpeta"
 
 #.   <option attributes="selected not:filtered_role" value="">
 #.         No filter
 #.       </option>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_not_filtered_role"
-msgstr "No filter"
+msgstr "Ningún filtro"
 
 #.   <label for="member_role">
 #.             Role to assign:
@@ -2212,47 +1899,39 @@ msgstr "Rol a delegar:"
 #.         Sorry, your query gave too many results, please refine your search criteria
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "legend_local_roles_search_limit_exceeded"
-msgstr ""
-"Sorry, your query gave too many results, please refine your search criteria"
+msgstr "Su consulta ha generado demasiados resultados. Defina mejor sus criterios de búsqueda."
 
 #.   <p condition="search_groups">
 #.          Select groups(s) and a role to assign:
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "legend_local_roles_select_groups_and_role"
-msgstr "Select group(s) and a role to assign:"
+msgstr "Seleccione el grupo(s) y el rol a asignarle:"
 
 #.   <p condition="search_members">
 #.          Select member(s) and a role to assign:
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "legend_local_roles_select_members_and_role"
-msgstr "Select member(s) and a role to assign:"
+msgstr "Seleccione el usuario(s) y el rol a asignarle:"
 
 #.   <block>
 #.           Local roles acquisition is <strong>blocked</strong>.
 #.           You can unblock acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_unblock"
-msgstr ""
-"la adquisición de roles locales está <strong>bloqueada</strong>. Puede "
-"desbloquearla"
+msgstr "la adquisición de roles locales está <strong>bloqueada</strong>. Puede desbloquearla"
 
-#    <span>
-#              gave no result.</span>
 #.   <p condition="not:res/items_count">
 #.           Your query gave no result.
 #.         </p>
 #.   <p condition="not:items_length">
 #.           Your query gave no result.
 #.         </p>
-#.   <block>
-#.           Your query gave no result.
-#.         </block>
+#.   <p condition="python:items_length == 0">
+#.         Your query gave no result.
+#.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
@@ -2278,9 +1957,8 @@ msgstr "Su búsqueda ha devuelto un documento"
 #.           You searched for
 #.         </block>
 #: from ../skins/cps_default/search_form.pt
-#, fuzzy
 msgid "legend_search_for"
-msgstr "You searched for"
+msgstr "Usted buscó"
 
 #.   <span>
 #.                Advanced search
@@ -2289,7 +1967,6 @@ msgstr "You searched for"
 msgid "link_advanced_search"
 msgstr "Búsqueda avanzada"
 
-#    <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
 #.   <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
@@ -2311,12 +1988,6 @@ msgstr "Contactar con el administrador"
 msgid "link_delete_this_revision"
 msgstr "Borrar esta revisión"
 
-#.   <a href="http://cps-project.org/sections/documentation">Documentation</a>
-#: from ../skins/cps_default/portlet_learn_cps.pt
-#, fuzzy
-msgid "link_documentation"
-msgstr "Documentation"
-
 #.   <span>
 #.             personalization form
 #.           </span>
@@ -2329,27 +2000,12 @@ msgstr "Formulario de personalización"
 msgid "link_go_back"
 msgstr "Vuelta"
 
-#    <a href="/manage_zmi_logout">
-#          log out of the Zope management interface
-#        </a>
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
 #.       </a>
 #: from ../skins/cps_default/logged_out.pt
 msgid "link_logout_zmi"
-msgstr ""
-"necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
-
-#.   <a href="http://lists.nuxeo.com/mailman/listinfo/">Mailing-lists</a>
-#: from ../skins/cps_default/portlet_learn_cps.pt
-msgid "link_mailing_lists"
-msgstr ""
-
-#.   <a href="http://www.nuxeo.com/clients/">References</a>
-#: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
-msgid "link_references"
-msgstr "References"
+msgstr "necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
 
 #.   <span>
 #.               You can now log into the site:
@@ -2370,12 +2026,6 @@ msgstr "Vuelta a la página principal"
 msgid "link_revert_to_this_revision"
 msgstr "Volver a esta versión"
 
-#.   <a href="http://www.nuxeo.com/solutions/">Solutions</a>
-#: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
-msgid "link_solutions"
-msgstr "Solutions"
-
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
@@ -2384,7 +2034,6 @@ msgstr "Solutions"
 msgid "listingheader_existing_revision"
 msgstr "Versión existente de este mismo documento"
 
-#    <th width="30%">Section</th>
 #.   <th width="30%">Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
@@ -2401,9 +2050,8 @@ msgstr "salir"
 #.                    more choices
 #.                 </a>
 #: from ../skins/cps_default/folder_factories.pt
-#, fuzzy
 msgid "more_choices_folder_factories"
-msgstr "more choices"
+msgstr "más selecciones"
 
 #.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
@@ -2415,7 +2063,6 @@ msgstr "forma correcta"
 msgid "psm_invalid_form"
 msgstr "No válido desde"
 
-#    <span content="item/action">publish</span>
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">publish</span>
 #: from ../skins/cps_default/content_lib_status.pt
@@ -2473,7 +2120,7 @@ msgstr "La última semana"
 msgid "time_yesterday"
 msgstr "Ayer"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="required" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentario"
@@ -2491,6 +2138,9 @@ msgstr "Entrar"
 msgid "Log out"
 msgstr "Salir"
 
+msgid "Join"
+msgstr "Inscribirme"
+
 msgid "My stuff"
 msgstr "Mi espacio privado"
 
@@ -2498,7 +2148,7 @@ msgid "My calendar"
 msgstr "Mi agenda"
 
 msgid "Create my home calendar"
-msgstr "Crear mi calendar"
+msgstr "Crear agenda personal"
 
 msgid "Add to favorites"
 msgstr "Añadir a los favoritos"
@@ -2507,7 +2157,7 @@ msgid "Undo"
 msgstr "Deshacer"
 
 msgid "Contents"
-msgstr "Contenido"
+msgstr "Contenidos"
 
 msgid "Directories"
 msgstr "Directorios"
@@ -2516,83 +2166,25 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 msgid "Reconfigure Portal"
-msgstr "Reconfigurar"
+msgstr "Reconfigurar el Portal"
 
 msgid "words_meaningless"
 msgstr "palabras sin significado"
 
 msgid "welcome_body"
-msgstr ""
-"<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
-"introduction to <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
-"(Nuxeo Collaborative Portal Server) and to what you can now do with it. (<a "
-"href=\"portlet_manage_form\">Edit this text</a>.) </p> <h2>About CPS</h2>   "
-"<p> <acronym title=\"Collaborative Portal Server\">CPS</acronym> is an "
-"extensive collaborative Web content management system     (CMS) implemented "
-"on top of <a href=\"http://www.zope.org/\">Zope</a> and  the <a href="
-"\"http://www.zope.org/Products/CMF/\">CMF</a>, that  enables organizations "
-"to easily, quickly and efficiently implement     collaborative portals "
-"(intranet, extranet or internet) and    workflow- oriented business "
-"applications. </p> <p> CPS Provides, among other features: </p> <ul> <li> <a "
-"href=\"workspaces\">Collaborative work</a> and  <a href=\"sections"
-"\">publication</a> spaces (you may need to be authenticated with the right "
-"access level to access these URLs) </li> <li>Document versionning, that "
-"allows a document to be published in one version and still worked on in "
-"another one </li> <li>Group-based, directory-backed <a href="
-"\"cpsdirectory_view\">user and roles management</a> </li> <li> A <a href="
-"\"box_manage_form\">configurable</a> Portal interface, with  a web- and "
-"accessibility-standards compliant default look and feel  (you will need to "
-"be authenticated with the right access level to  access this URL) </li> <li> "
-"Notifications on many kinds of events happening on the system </li> <li> An "
-"(optional) WYSIWYG editor for portal look and feel (just install "
-"<em>CPSSkins</em> in your CPS instance using the <a href=\"manage\">ZMI</a>) "
-"</li> <li> Many user-level services, like a Webmail, Forums, shared "
-"Calendars, Newsletters and Mailing Lists, etc. </li> <li> Many powerful "
-"developers- and webmaster-level services, including support for creating "
-"your own document types, your own workflows, etc. </li> </ul> <p> CPS has "
-"already been adopted by major accounts in the Administration (French "
-"Ministries of Interior, of Culture, of Finances, of Defense, of Justice; "
-"French Atomic Energy Commission; Chalmers University...), in the private "
-"sector (Suez, STMicroelectronics...) and by the leading european IT "
-"consultancies  (Capgemini, Unilog, Steria...). </p> <p> For more information "
-"about Zope and CPS, we suggest you go to the following web sites: </p> "
-"<ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</a>: "
-"the  community portal for CPS users and developers </li> <li> <a href="
-"\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 at Zope.org</a> (to "
-"download latest stable or development releases) </li> <li> <a href=\"http://"
-"lists.nuxeo.com/\">CPS mailing lists</a> </li> <li> <a href=\"http://zope."
-"org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Slides for the CPS "
-"talks at EuroPython 2004</a> and for the  <a href=\"http://zope.org/Members/"
-"nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 sprint in Paris (2004)"
-"</a> </li> <li> <a href=\"http://www.zope.org/\">Zope.org</a>: the community "
-"portal for Zope </li> <li> <a href=\"http://zope.org/Documentation/Books/"
-"ZopeBook/2_6Edition/\">The Zope Book</a> </li> </ul> <h2>Credits</h2>   <p> "
-"Thank you for trying or using CPS. CPS is developped by  <a href=\"http://"
-"www.nuxeo.com/en/\">Nuxeo</a> and a <a href=\"http://www.cps-project.org/"
-"\">community of contributors</a>. </p> <p> CPS contains code licensed under "
-"the GPL, the ZPL and other, GPL-compatible,  open source/free software "
-"licenses. Parts of CPS are copyright Nuxeo SARL,  Zope Corporation and "
-"Contributors, Chalmers University, Capgemini,  Unilog, Ministère de "
-"l'Intérieur, de la Sécurité Intérieure et des  Libertés Locales, Préfecture "
-"du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun "
-"Microsystems, Timothy O'Malley, Morten W.  Petersen, and other contributors. "
-"</p> "
+msgstr "<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an introduction to <acronym title=\"Collaborative Portal Server\">CPS</acronym> (Nuxeo Collaborative Portal Server) and to what you can now do with it. (<a href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Edit this text</a>.) </p> <h2>About CPS</h2>   <p> <acronym title=\"Collaborative Portal Server\">CPS</acronym> is an extensive collaborative Web content management system     (CMS) implemented on top of <a href=\"http://www.zope.org/\">Zope</a> and  the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, that  enables organizations to easily, quickly and efficiently implement     collaborative portals (intranet, extranet or internet) and    workflow- oriented business applications. </p> <p> CPS Provides, among other features: </p> <ul> <li> <a href=\"workspaces\">Collaborative work</a> and  <a href=\"sections\">publication</a> spaces (you may need to be authenticated with the right access level to access these URLs) </li> <li>Document versionning, that allows a document to be published in one version and still worked on in another one </li> <li>Group-based, directory-backed <a href=\"cpsdirectory_view\">user and roles management</a> </li> <li> A <a href=\"box_manage_form\">configurable</a> Portal interface, with  a web- and accessibility-standards compliant default look and feel  (you will need to be authenticated with the right access level to  access this URL) </li> <li> Notifications on many kinds of events happening on the system </li> <li> An (optional) WYSIWYG editor for portal look and feel (just install <em>CPSSkins</em> in your CPS instance using the <a href=\"manage\">ZMI</a>) </li> <li> Many user-level services, like a Webmail, Forums, shared Calendars, Newsletters and Mailing Lists, etc. </li> <li> Many powerful developers- and webmaster-level services, including support for creating your own document types, your own workflows, etc. </li> </ul> <p> CPS has already been adopted by major accounts in the Administration (French Ministries of Interior, of Culture, of Finances, of Defense, of Justice; French Atomic Energy Commission; Chalmers University...), in the private sector (Suez, STMicroelectronics...) and by the leading european IT consultancies  (Capgemini, Unilog, Steria...). </p> <p> For more information about Zope and CPS, we suggest you go to the following web sites: </p> <ul>     <li> <a href=\"http://www.cps-project.org/\">CPS-project.org</a>: the  community portal for CPS users and developers </li> <li> <a href=\"http://zope.org/Members/nuxeo/Products/CPS3\">CPS3 at Zope.org</a> (to download latest stable or development releases) </li> <li> <a href=\"http://lists.nuxeo.com/\">CPS mailing lists</a> </li> <li> <a href=\"http://zope.org/Members/nuxeo/news/ep2004-slides/newsitem_view\">Slides for the CPS talks at EuroPython 2004</a> and for the  <a href=\"http://zope.org/Members/nuxeo/news/cps-erp5-sprint-slides-pictures/\">CPS/ERP5 sprint in Paris (2004)</a> </li> <li> <a href=\"http://www.zope.org/\">Zope.org</a>: the community portal for Zope </li> <li> <a href=\"http://zope.org/Documentation/Books/ZopeBook/2_6Edition/\">The Zope Book</a> </li> </ul> <h2>Credits</h2>   <p> Thank you for trying or using CPS. CPS is developped by  <a href=\"http://www.nuxeo.com/en/\">Nuxeo</a> and a <a href=\"http://www.cps-project.org/\">community of contributors</a>. </p> <p> CPS contains code licensed under the GPL, the ZPL and other, GPL-compatible,  open source/free software licenses. Parts of CPS are copyright Nuxeo SARL,  Zope Corporation and Contributors, Chalmers University, Capgemini,  Unilog, Ministère de l'Intérieur, de la Sécurité Intérieure et des  Libertés Locales, Préfecture du Bas-Rhin, CEA, Logilab SA, Fredrik Lundh,  Norman Walsh, Gareth Rees, Sun Microsystems, Timothy O'Malley, Morten W.  Petersen, and other contributors. </p> "
 
 msgid "Session"
 msgstr "sesión"
 
-# Default roots titles
-# #####################
 msgid "workspaces_root_title"
-msgstr ""
+msgstr "Espacios de trabajo"
 
-#, fuzzy
 msgid "members_root_title"
-msgstr "Member Areas"
+msgstr "Áreas de los usuarios"
 
-#, fuzzy
 msgid "sections_root_title"
-msgstr "Sections"
+msgstr "Secciones"
 
 msgid "create"
 msgstr "Crear"
@@ -2602,10 +2194,6 @@ msgstr "Modificación"
 
 msgid "translate"
 msgstr "traducir"
-
-#, fuzzy
-msgid "delete_translation"
-msgstr "Translation deleted"
 
 msgid "checkin_draft"
 msgstr "Validación de la versión"
@@ -2657,6 +2245,12 @@ msgstr "Añadir a favoritos"
 
 msgid "action_view_favorites"
 msgstr "Mis favoritos"
+
+msgid "action_boxes"
+msgstr "Gestionar cajas"
+
+msgid "action_boxes_root"
+msgstr "Gestionar cajas de la raíz"
 
 msgid "action_checkout_draft"
 msgstr "Crear una versión"
@@ -2781,6 +2375,9 @@ msgstr "Exportar datos recogidos (CSV)"
 msgid "action_erase_data"
 msgstr "Eliminar los datos recogidos"
 
+msgid "action_print"
+msgstr "Imprimir"
+
 msgid "action_advanced_search"
 msgstr "Búsqueda avanzada"
 
@@ -2798,10 +2395,6 @@ msgstr "administrar idiomas"
 
 msgid "action_translate"
 msgstr "Traducir"
-
-#, fuzzy
-msgid "action_delete_translation"
-msgstr "Delete this translation"
 
 msgid "button_create"
 msgstr "Crear"
@@ -2848,9 +2441,6 @@ msgstr "Vestidura predefinida para carpetas"
 msgid "label_left"
 msgstr "Izquierda"
 
-msgid "label_page"
-msgstr "Páginas"
-
 msgid "label_right"
 msgstr "Derecha"
 
@@ -2873,34 +2463,31 @@ msgid "portal_type_Dummy2_description"
 msgstr "&nbsp;"
 
 msgid "portal_type_Dummy2_title"
-msgstr "Documento Tonto2"
+msgstr "Documento de prueba (\"dummy\")"
 
 msgid "portal_type_Dummy_description"
 msgstr "Un documento de prueba"
 
 msgid "portal_type_Dummy_title"
-msgstr "Documento Tonto"
+msgstr "Documento de prueba"
 
 msgid "portal_type_Section_description"
-msgstr "Las secciones contienen las versiones publicadas de los documentos"
+msgstr "Las secciones contienen las revisiones publicadas de los documentos"
 
 msgid "portal_type_Section_title"
 msgstr "Sección"
 
 msgid "portal_type_Workspace_description"
-msgstr ""
-"Una carpeta o espacio de trabajo para crear contenidos (archivos, enlaces...)"
+msgstr "Una carpeta o espacio de trabajo para crear contenidos (archivos, enlaces...)"
 
 msgid "portal_type_Workspace_title"
 msgstr "Carpeta - Espacio de trabajo"
 
-#, fuzzy
 msgid "portal_type_Members_Workspace_description"
-msgstr "Members Workspace"
+msgstr "Espacios de trabajo de los usuarios"
 
-#, fuzzy
 msgid "portal_type_Members_Workspace_title"
-msgstr "A folder to hold member workspaces"
+msgstr "Una carpeta para mantener espacios personales de los usuarios"
 
 msgid "portal_type_Calendar_title"
 msgstr "Agenda compartida"
@@ -2909,24 +2496,22 @@ msgid "portal_type_Calendar_description"
 msgstr "Calendario que puede compartirse con otros usuarios"
 
 msgid "portal_type_Calendar_Event_title"
-msgstr "Acontecimiento orden del día compartido"
+msgstr "Evento de la agenda"
 
 msgid "portal_type_Calendar_Event_description"
-msgstr "Eso puede ser un acontecimiento, una reunión o una cita"
+msgstr "Un acontecimiento, una reunión, una cita..."
 
 msgid "portal_type_CollectorDocument_title"
 msgstr "Formulario de información"
 
 msgid "portal_type_CollectorDocument_description"
-msgstr "Un formulario de entrada"
+msgstr "Un formulario de entrada de datos"
 
 msgid "portal_type_QuizDocument_title"
 msgstr "Quiz"
 
 msgid "portal_type_QuizDocument_description"
-msgstr ""
-"Se trata de un formulario para la recogida de información útil. Por ejemplo, "
-"para efectuar encuestas, sondeos, etc."
+msgstr "Es un tipo especial de forumlario especialmente diseñado para hacer preguntas. Útil, por ejemplo, para encuestas, sondeos, etc."
 
 msgid "portal_type_CPSChat_title"
 msgstr "Chat"
@@ -2935,13 +2520,13 @@ msgid "portal_type_CPSChat_description"
 msgstr "Sesión de conversación o 'chat'"
 
 msgid "portal_type_EventCalendarBox_title"
-msgstr "Caja calendario de eventos"
+msgstr "Almanaque"
 
 msgid "portal_type_EventCalendarBox_description"
 msgstr "Muestra un calendario que contiene enlaces a eventos"
 
 msgid "portal_type_NuxMailBoxer_title"
-msgstr "MailBoxer"
+msgstr "Listas de correo"
 
 msgid "portal_type_NuxMailBoxer_description"
 msgstr "Gestión de una lista de difusión"
@@ -2949,13 +2534,17 @@ msgstr "Gestión de una lista de difusión"
 msgid "psm_added_to_favorites"
 msgstr "Añadido a los favoritos."
 
-#, fuzzy
 msgid "psm_already_in_favorites"
-msgstr "Link is already in favorites"
+msgstr "El enlace ya está en favoritos."
 
-#, fuzzy
 msgid "psm_cannot_create_favorites"
-msgstr "Cannot add content to favorites"
+msgstr "No puede añadir contenido a favoritos."
+
+msgid "psm_box_created"
+msgstr "Caja creada."
+
+msgid "psm_box_modified"
+msgstr "Caja modificada."
 
 msgid "psm_content_created"
 msgstr "Objeto creado."
@@ -2965,6 +2554,9 @@ msgstr "Modificaciones efectuadas."
 
 msgid "psm_content_error"
 msgstr "Entrada no válida, corrija por favor los errores."
+
+msgid "psm_box_deleted"
+msgstr "Caja borrada."
 
 msgid "psm_copy_or_cut_at_least_one_document"
 msgstr "Copie o pegue al menos un documento."
@@ -2990,21 +2582,17 @@ msgstr "Objeto(s) borrado(s)."
 msgid "psm_item(s)_renamed"
 msgstr "Objeto(s) renombrado(s)."
 
-#, fuzzy
 msgid "psm_item(s)_moved_up"
-msgstr "Item(s) moved up."
+msgstr "Item(s) movido arriba."
 
-#, fuzzy
 msgid "psm_item(s)_moved_down"
-msgstr "Item(s) moved down."
+msgstr "Item(s) movido abajo"
 
-#, fuzzy
 msgid "psm_item(s)_moved_to_top"
-msgstr "Item(s) moved top."
+msgstr "Item(s) moviido al principio"
 
-#, fuzzy
 msgid "psm_item(s)_moved_to_bottom"
-msgstr "Item(s) moved bottom."
+msgstr "Item(s) movido al final"
 
 msgid "psm_operation_not_allowed"
 msgstr "Operación no permitida."
@@ -3027,21 +2615,17 @@ msgstr "Estado modificado (en el flujo de trabajo)."
 msgid "psm_local_roles_changed"
 msgstr "Roles locales modificados."
 
-#, fuzzy
 msgid "psm_local_roles_blocked"
-msgstr "Local roles acquisition blocked"
+msgstr "Adquisición de roles locales bloquedada"
 
-#, fuzzy
 msgid "psm_local_roles_unblocked"
-msgstr "Local roles acquisition unblocked"
+msgstr "Adquisición de roles locales desbloquedada"
 
-#, fuzzy
 msgid "psm_local_roles_select_members"
-msgstr "Please select members first"
+msgstr "Por favor, seleccione primero a los miembros."
 
-#, fuzzy
 msgid "psm_local_roles_no_editable_ids"
-msgstr "No editable local roles"
+msgstr "Roles locales no editables"
 
 msgid "psm_join_password_too_short"
 msgstr "Su contraseña debe tener al menos 5 caracteres."
@@ -3062,9 +2646,7 @@ msgid "psm_reset_password_request_received"
 msgstr "recibida contraseña"
 
 msgid "psm_reset_password_success_and_new_password_is"
-msgstr ""
-"Su contraseña se ha restaurado con éxito. Su nueva contraseña es: "
-"${new_password}"
+msgstr "Su contraseña se ha restaurado con éxito. Su nueva contraseña es: ${new_password}"
 
 msgid "psm_reset_password_problem"
 msgstr "problema con la contraseña"
@@ -3072,11 +2654,6 @@ msgstr "problema con la contraseña"
 msgid "psm_translation_added"
 msgstr "versión para traducción añadida"
 
-#, fuzzy
-msgid "psm_translation_deleted"
-msgstr "Translation deleted"
-
-# # Languages  ========================================================
 msgid "psm_default_language_set"
 msgstr "lista de idiomas por defecto para el portal"
 
@@ -3089,18 +2666,14 @@ msgstr "Idioma(s) no disponibles"
 msgid "psm_language_error_select_at_least_one_item"
 msgstr "Seleccione al menos un idioma"
 
-#, fuzzy
 msgid "psm_language_error_let_at_least_one_language_to_portal"
-msgstr "Let at least one language to CPS."
+msgstr "Configure al menos un idioma para CPS"
 
 msgid "psm_language_error_unknown_command"
-msgstr ""
+msgstr "Comando desconocido"
 
 msgid "psm_you_must_select_sections_for_publishing"
-msgstr ""
-
-msgid "psm_logged_in"
-msgstr ""
+msgstr "Debe seleccionar al menos una sección para poder publicarlo. Proceso abortado."
 
 msgid "collector_psm_erase_data_cancel"
 msgstr "Los datos recogidos no han sido eliminados."
@@ -3108,7 +2681,6 @@ msgstr "Los datos recogidos no han sido eliminados."
 msgid "collector_psm_erased_data"
 msgstr "Los datos recogidos han sido eliminados."
 
-# dates ===================================================
 msgid "date_short"
 msgstr "%d/%m/%Y"
 
@@ -3118,7 +2690,144 @@ msgstr "%d/%m/%Y %H:%M"
 msgid "date_long"
 msgstr "%d/%m/%Y %H:%M:%S"
 
-# # Dates
+msgid "link_search"
+msgstr "Buscar"
+
+msgid "role:Anonymous"
+msgstr "anónimo"
+
+msgid "role:Authenticated"
+msgstr "autenticado"
+
+msgid "WorkspaceManager"
+msgstr "Responsable del espacio de trabajo"
+
+msgid "WorkspaceMember"
+msgstr "Usuario del espacio de trabajo"
+
+msgid "WorkspaceReader"
+msgstr "Lector del espacio de trabajo"
+
+msgid "SectionManager"
+msgstr "Responsable de la sección"
+
+msgid "SectionReviewer"
+msgstr "Revisor de la sección"
+
+msgid "SectionReader"
+msgstr "Lector de la sección"
+
+msgid "Contributor"
+msgstr "Colaborador"
+
+msgid "Reader"
+msgstr "Lector"
+
+msgid "ForumPoster"
+msgstr "Usuario del foro"
+
+msgid "ForumModerator"
+msgstr "Moderador del foro"
+
+msgid "ChatModerator"
+msgstr "Moderador del chat"
+
+msgid "ChatPoster"
+msgstr "Usuario de la sala chat"
+
+msgid "ChatGuest"
+msgstr "Invitado al chat"
+
+msgid "label_searchadv_full_text"
+msgstr "Mostrar resultados con"
+
+msgid "label_searchadv_updated"
+msgstr "Actualizado"
+
+msgid "label_searchadv_sort_by"
+msgstr "Ordenado por"
+
+msgid "label_language_en"
+msgstr "Inglés"
+
+msgid "label_language_fr"
+msgstr "Francés"
+
+msgid "label_language_nl"
+msgstr "Holandés"
+
+msgid "label_language_it"
+msgstr "Italiano"
+
+msgid "label_language_de"
+msgstr "Alemán"
+
+msgid "label_language_es"
+msgstr "Español"
+
+msgid "label_language_pt_BR"
+msgstr "Portugués de Brasil"
+
+msgid "label_language_mg"
+msgstr "Malgache"
+
+msgid "label_language_ro"
+msgstr "Rumano"
+
+msgid "label_language_eu"
+msgstr "Vasco"
+
+msgid "label_accesskey_accessibility_information"
+msgstr "Información de accesibilidad"
+
+msgid "label_accesskey_homepage"
+msgstr "Página principal"
+
+msgid "label_accesskey_content"
+msgstr "Ir al contenido"
+
+msgid "label_accesskey_sitemap"
+msgstr "Mapa del sitio"
+
+msgid "label_accesskey_search"
+msgstr "Motor de búsqueda"
+
+msgid "label_accesskey_contact"
+msgstr "Contactar"
+
+msgid "email_password_reset_confirmation_subject"
+msgstr "[${portal_url}] Confirmación de cambio de contraseña para ${email}"
+
+msgid "email_password_reset_confirmation_body"
+msgstr ""
+"From: ${mail_from_address}\n"
+"To: ${email}\n"
+"Subject: ${subject}\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Mime-Version: 1.0\n"
+"\n"
+"\n"
+"Dear user,\n"
+"\n"
+"You (or someone else) have requested to reset the password for the\n"
+"account having email address \"${email}\". Most probably the reason\n"
+"for this reset request is that the password for this account has been lost.\n"
+"\n"
+"The password reset request was sent from the IP address\n"
+"${client_address}\n"
+"\n"
+"If you have not requested this reset, please ignore this message.\n"
+"\n"
+"You can now reset your password by simply visiting the following page:\n"
+"${visit_url}\n"
+"\n"
+"We look forward to seeing you back soon at ${portal_url}\n"
+"\n"
+"Sincerely,\n"
+"\n"
+"-- \n"
+"The portal administration team"
+
 msgid "calendar_month_1"
 msgstr "Enero"
 
@@ -3179,154 +2888,8 @@ msgstr "Do"
 msgid "_blank"
 msgstr ""
 
-msgid "link_search"
-msgstr "Buscar"
-
-msgid "role:Anonymous"
-msgstr "anónimo"
-
-msgid "role:Authenticated"
-msgstr "autenticado"
-
-# # Roles ==================================================
-msgid "WorkspaceManager"
-msgstr "Responsable del espacio de trabajo"
-
-msgid "WorkspaceMember"
-msgstr "Usuario del espacio de trabajo"
-
-msgid "WorkspaceReader"
-msgstr "Lector del espacio de trabajo"
-
-msgid "SectionManager"
-msgstr "Responsable de la sección"
-
-msgid "SectionReviewer"
-msgstr "Revisor de sección"
-
-msgid "SectionReader"
-msgstr "Lector de la sección"
-
-msgid "Contributor"
-msgstr "Contribuidor"
-
-msgid "Reader"
-msgstr "lector"
-
-msgid "ForumPoster"
-msgstr "Remitente al foro"
-
-msgid "ForumModerator"
-msgstr "Moderador de foro"
-
-msgid "ChatModerator"
-msgstr "Moderador del chat"
-
-msgid "ChatPoster"
-msgstr "enviar mensajes al chat"
-
-msgid "ChatGuest"
-msgstr "invitado al chat"
-
-msgid "label_searchadv_full_text"
-msgstr "Mostrar resultados con"
-
-msgid "label_searchadv_updated"
-msgstr "Actualizado"
-
-msgid "label_searchadv_sort_by"
-msgstr "Ordenado por"
-
-# # Languages  ========================================================
-msgid "label_language_en"
-msgstr "Inglés"
-
-msgid "label_language_fr"
-msgstr "Francés"
-
-msgid "label_language_nl"
-msgstr "Holandés"
-
-msgid "label_language_it"
-msgstr "Italiano"
-
-msgid "label_language_de"
-msgstr "Alemán"
-
-msgid "label_language_es"
-msgstr "Castellano"
-
-msgid "label_language_pt_BR"
-msgstr "Brasileño"
-
-msgid "label_language_mg"
-msgstr "Malgache"
-
-msgid "label_language_ro"
-msgstr "Rumano"
-
-msgid "label_language_eu"
-msgstr "Vasco"
-
-msgid "label_accesskey_accessibility_information"
-msgstr "Información de accesibilidad"
-
-msgid "label_accesskey_homepage"
-msgstr "Ir a la página de bienvenida"
-
-#    <span>Go to the
-#      content</span>
-msgid "label_accesskey_content"
-msgstr "Ir al contenido"
-
-msgid "label_accesskey_sitemap"
-msgstr "Ir al menú"
-
-msgid "label_accesskey_search"
-msgstr "Ir al motor de búsqueda interno"
-
-msgid "label_accesskey_contact"
-msgstr "Enviar un correo-e"
-
-#, fuzzy
-msgid "email_password_reset_confirmation_subject"
-msgstr "[${portal_url}] Password reset confirmation for ${email}"
-
-#, fuzzy
-msgid "email_password_reset_confirmation_body"
-msgstr ""
-"From: ${mail_from_address}\n"
-"To: ${email}\n"
-"Subject: ${subject}\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
-"Mime-Version: 1.0\n"
-"\n"
-"Dear user,\n"
-"\n"
-"You (or someone else) have requested to reset the password for the\n"
-"account having email address \"${email}\". Most probably the reason\n"
-"for this reset request is that the password for this account has been lost.\n"
-"\n"
-"The password reset request was sent from the IP address\n"
-"${client_address}\n"
-"\n"
-"If you have not requested this reset, please ignore this message.\n"
-"\n"
-"You can now reset your password by simply visiting the following page:\n"
-"${visit_url}\n"
-"\n"
-"We look forward to seeing you back soon at ${portal_url}\n"
-"\n"
-"Sincerely,\n"
-"\n"
-"-- \n"
-"The portal administration team\n"
-
-#
-# Default portlets (or Boxes) titles
-#
 msgid "Navigation"
-msgstr "Explorador"
+msgstr "Navegación"
 
 msgid "User actions"
 msgstr "Acciones del usuario"
@@ -3335,50 +2898,23 @@ msgid "Language selector"
 msgstr "Selección de idioma"
 
 msgid "Folder actions"
-msgstr "Opciones de carpeta"
+msgstr "Acciones de carpeta"
 
 msgid "Object actions"
-msgstr "Acciones con objetos"
+msgstr "Acciones del objeto"
 
 msgid "Portal actions"
 msgstr "Acciones del portal"
 
 msgid "Translated status message."
-msgstr "Mensaje de estado traducido"
+msgstr "Mensaje del estado de la traducción"
 
 msgid "Title"
 msgstr "Título"
 
 msgid "ajax_working"
-msgstr ""
+msgstr "Trabajando..."
 
 msgid "ajax_failing"
-msgstr ""
+msgstr "Este cambio no está permitido"
 
-msgid "help_password_message"
-msgstr "Marque esta casilla para recibir un correo con su contraseña."
-
-#    <th> Mail Password?  </th>
-msgid "label_password_mailed"
-msgstr "¿Enviar la contraseña?"
-
-#~ msgid "label_local_roles_search_by"
-#~ msgstr "Buscar por"
-
-#~ msgid "label_local_roles_search_term"
-#~ msgstr "Palabras clave de la búsqueda"
-
-#~ msgid "description_languages_form"
-#~ msgstr ""
-#~ "Esta página le ofrece la oportunidad de administrar los idiomas "
-#~ "disponibles en el portal"
-
-#    <div class="description">
-#        This form is used to set the portal configuration options.
-#      </div>
-#~ msgid "description_reconfig_form"
-#~ msgstr ""
-#~ "Este formulario sirve para fijar las opciones de configuración del portal."
-
-#~ msgid "heading_language_manage_form"
-#~ msgstr "Administrar idiomas"

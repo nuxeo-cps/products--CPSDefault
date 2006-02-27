@@ -170,7 +170,7 @@ class TestMembershipTool(CPSTestCase):
         self.assertEquals(len(sent_emails), 0)
 
         # let's enable it
-        self.portal.enable_password_reminder = True
+        pmtool.enable_password_reminder = True
 
         # requesting a non existing email sends nothing and raises ValueError
         self.assertRaises(ValueError, pmtool.mailPassword,

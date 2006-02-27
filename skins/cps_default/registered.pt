@@ -4,8 +4,8 @@
   <body>
     <metal:main fill-slot="main"
       tal:define="purl here/portal_url;
-      pprops here/portal_properties;
-      ve pprops/validate_email">
+      rtool here/portal_registration;
+      validate_email rtool/validate_email">
 
       <h1 i18n:translate="heading_registered_title">Success!</h1>
 
@@ -13,7 +13,7 @@
         You have been registered as a member. 
       </p>
 
-      <p tal:condition="ve"> 
+      <p tal:condition="validate_email"> 
         <span i18n:translate="help_registered_mail">
           You will receive an email shortly containing
           your password and instructions on how to activate your membership.
@@ -21,7 +21,7 @@
       </p>
 
       <form action="logged_in" method="post"
-        tal:condition="not:ve"
+        tal:condition="not:validate_email"
         tal:attributes="action string:${base_url}logged_in">
         <p> 
           <span i18n:translate="link_registered_login">

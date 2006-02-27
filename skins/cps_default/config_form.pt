@@ -27,7 +27,9 @@
 <metal:main fill-slot="main">
   <form action="" method="post"
         tal:attributes="action string:${base_url}reconfig"
-        tal:define="pprops here/portal_properties">
+        tal:define="pprops nocall:here/portal_properties;
+                    mtool nocall:here/portal_membership;
+                    rtool nocall:here/portal_registration">
     <table id="portalConfiguration" summary="Portal properties form">
       <tr>
         <th>
@@ -101,7 +103,7 @@
         <td>
           <input type="checkbox" name="enable_password_reset:boolean"
                  id="enable_password_reset"
-                 tal:attributes="checked pprops/enable_password_reset" />
+                 tal:attributes="checked mtool/enable_password_reset" />
         </td>
       </tr>
       <tr>
@@ -114,7 +116,7 @@
         <td>
           <input type="checkbox" name="enable_password_reminder:boolean"
                  id="enable_password_reminder"
-                 tal:attributes="checked pprops/enable_password_reminder" />
+                 tal:attributes="checked mtool/enable_password_reminder" />
         </td>
       </tr>
       <tr>
@@ -127,7 +129,7 @@
         <td>
           <input type="checkbox" name="enable_portal_joining:boolean"
                  id="enable_portal_joining"
-                 tal:attributes="checked pprops/enable_portal_joining" />
+                 tal:attributes="checked rtool/enable_portal_joining" />
         </td>
       </tr>
     </table>

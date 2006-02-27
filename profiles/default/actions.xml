@@ -80,7 +80,7 @@
  </action-provider>
  <action-provider name="portal_registration">
   <action title="Join" action_id="join" category="user"
-     condition_expr="python:portal.portal_properties.enable_portal_joining and not member"
+     condition_expr="python:portal.portal_registration.enable_portal_joining and not member"
      url_expr="string:${portal_url}/join_form" visible="True">
    <permission>Add portal member</permission>
   </action>

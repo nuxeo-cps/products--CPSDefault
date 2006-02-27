@@ -8,15 +8,14 @@ FIXME: docstring?
 # - REQUEST must be clearly set as script parameter, required or not
 # - ever heard of layouts and widgets to control data validity?
 
-
 from re import match
 from AccessControl import Unauthorized
+from Products.CMFCore.utils import getToolByName
 
 request = context.REQUEST
-portal_properties = context.portal_properties
-portal_registration = context.portal_registration
+portal_registration = getToolByName(context, 'portal_registration')
 
-if not portal_properties.enable_portal_joining:
+if not portal_registration.enable_portal_joining:
     raise Unauthorized("Joining has been disabled at the portal level")
 
 
@@ -45,7 +44,7 @@ if not portal_registration.isMemberIdAllowed(request.form.get('username', '')):
         return context.join_form(context, request)
 
 # password checking
-if not portal_properties.validate_email:
+if not portal_registration.validate_email:
     failMessage = portal_registration.testPasswordValidity(password, confirm)
     if failMessage and request is not None:
         request.set('portal_status_message',
@@ -76,7 +75,7 @@ except ValueError:
     return context.join_form(context, request)
 
 # asked for email sending
-if portal_properties.validate_email:
+if portal_registration.validate_email:
     portal_registration.registeredNotify(username)
 
 return context.registered(context, request)

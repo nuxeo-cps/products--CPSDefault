@@ -422,6 +422,8 @@ def upgrade_338_340_portlets(self):
 
 ##########
 
+from Products.CPSCore.CPSRegistrationTool import CPSRegistrationTool
+
 def _upgrade_portal_props(portal):
     """Upgrade portal properties."""
     # Get old properties list
@@ -447,6 +449,28 @@ def upgrade_338_340_portal_props(portal):
 
     dolog('CPSDefault: Upgrading portal properties.')
 
+    # Move some properties from the portal to portal_membership
+    mtool = getToolByName(portal, 'portal_membership')
+    for key in ('enable_password_reset',
+                'enable_password_reminder'):
+        value = portal.__dict__.get(key)
+        if value is not None:
+            setattr(mtool, key, value)
+
+    # Make sure portal_registration is ours
+    rtool = getToolByName(portal, 'portal_registration')
+    if rtool.meta_type != CPSRegistrationTool.meta_type:
+        portal._delObject('portal_registration')
+        portal._setObject('portal_registration', CPSRegistrationTool())
+        rtool = getToolByName(portal, 'portal_registration')
+
+    # Move some properties from the portal to portal_registration
+    for key in ('enable_portal_joining',
+                'validate_email'):
+        value = portal.__dict__.get(key)
+        if value is not None:
+            setattr(rtool, key, value)
+
     _upgrade_portal_props(portal)
 
     # Initialize available_languages from Localizer if not present
@@ -463,6 +487,9 @@ def upgrade_338_340_portal_props(portal):
 
 def check_338_340_portal_props(portal):
     if 'available_languages' not in portal.__dict__:
+        return True
+    rtool = getToolByName(portal, 'portal_registration')
+    if rtool.meta_type != CPSRegistrationTool.meta_type:
         return True
     if '_properties' not in portal.__dict__:
         return False

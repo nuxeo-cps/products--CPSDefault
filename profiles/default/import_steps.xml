@@ -69,6 +69,12 @@
   <dependency step="toolset"/>
   Import mailhost settings.
  </import-step>
+ <import-step id="membership" version="20060227-01"
+              handler="Products.CPSCore.exportimport.importMembershipTool"
+              title="Membership Tool">
+  <dependency step="toolset"/>
+  Import membership tool.
+ </import-step>
  <import-step id="portlets" version="20051230-01"
               handler="Products.CPSPortlets.exportimport.importPortletTool"
               title="Portlet Tool">
@@ -82,6 +88,12 @@
               handler="Products.CMFCore.exportimport.properties.importSiteProperties"
               title="Site Properties">
   Import site properties.
+ </import-step>
+ <import-step id="registration" version="20060227-01"
+              handler="Products.CPSCore.exportimport.importRegistrationTool"
+              title="Registration Tool">
+  <dependency step="toolset"/>
+  Import registration tool.
  </import-step>
  <import-step id="rolemap" version="20040523-01"
               handler="Products.GenericSetup.rolemap.importRolemap"

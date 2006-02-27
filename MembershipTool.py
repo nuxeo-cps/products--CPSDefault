@@ -36,24 +36,13 @@ from AccessControl import Unauthorized
 
 from Products.MailHost.MailHost import MailHostError
 from Products.CMFCore.utils import getToolByName
-from Products.CMFDefault.RegistrationTool import RegistrationTool
 
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
 
-#
-# Patching Products.CMFDefault.RegistrationTool.RegistrationTool.mailPassword to
-# redirect to this MembershipTool.mailPassword in order to get additional
-# features while preserving API compatibility
-#
-
-def mailPassword(self, forgotten_userid, REQUEST=None):
-    mtool = getToolByName(self, 'portal_membership')
-    return mtool.mailPassword(forgotten_userid, REQUEST)
-
-RegistrationTool.mailPassword = mailPassword
 
 log_key = 'CPSDefault.MembershipTool'
+
 
 class MembershipTool(CPSMembershipTool):
     """A MembershipTool with additional functionnalities over
@@ -62,14 +51,25 @@ class MembershipTool(CPSMembershipTool):
     meta_type = 'CPS Membership Tool'
 
     _properties = CPSMembershipTool._properties + (
-        {'id': 'reset_password_request_validity', 'type': 'int', 'mode': 'w',
-         'label': 'Validity of password reset request (seconds)'},
         {'id': 'email_field', 'type': 'string', 'mode': 'w',
-         'label': 'Field for email address'},
+         'label': 'Members directory email field'},
+        {'id': 'enable_password_reset', 'type': 'boolean',
+         'label': 'Password reset enabled', 'mode': 'w'},
+        {'id': 'reset_password_request_validity', 'type': 'int', 'mode': 'w',
+         'label': 'Password reset request validity (seconds)'},
+        {'id': 'enable_password_reminder', 'type': 'boolean',
+         'label': 'Enable sending password reminder', 'mode': 'w'},
         )
 
-    reset_password_request_validity = 30*60 # 30 min
     email_field = 'email'
+    enable_password_reset = True
+    reset_password_request_validity = 30*60 # 30 min
+    enable_password_reminder = False
+
+    # defaults overloaded from base class
+    membersfolder_id = 'members'
+    memberfolder_portal_type = 'Workspace'
+    memberfolder_roles = ('Owner', 'WorkspaceManager')
 
     security = ClassSecurityInfo()
 
@@ -83,9 +83,7 @@ class MembershipTool(CPSMembershipTool):
 
         o Raise an exception if user ID is not found.
         """
-        utool = getToolByName(self, 'portal_url')
-        portal = utool.getPortalObject()
-        if not getattr(portal, 'enable_password_reminder', False):
+        if not self.enable_password_reminder:
             raise Unauthorized('Password reminder disabled')
 
         usernames, email = self._getUsernamesAndEmailFor(who)
@@ -304,6 +302,8 @@ class MembershipTool(CPSMembershipTool):
         """
         if REQUEST is not None:
             raise Unauthorized("Not callable TTW")
+        if not self.enable_password_reset:
+            raise Unauthorized("Password reset disabled")
         if not usernames:
             return None
         ok_usernames, email = self.getUsernamesAndEmailFor(who, time, token)

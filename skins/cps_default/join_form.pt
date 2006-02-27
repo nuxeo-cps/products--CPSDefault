@@ -12,7 +12,7 @@
             tal:define="mtool here/portal_membership;
                         member mtool/getAuthenticatedMember;
                         registered python:member.has_role('Member');
-                        ptool here/portal_properties">
+                        rtool nocall:here/portal_registration">
 
   <tal:block condition="registered">
     <p>
@@ -40,7 +40,7 @@
       It does not cost any money to become a member and your email and
       other personal information will remain private.</p>
 
-    <p tal:condition="python: ptool.validate_email"
+    <p tal:condition="rtool/validate_email"
        i18n:translate="help_join_form_3">
       You must submit a valid email address. This address will be used
       to send you a randomly-generated password.  Once you have logged
@@ -60,7 +60,7 @@
                  i18n:translate="label_email">Email Address</label></dt>
       <dd>&#160;<input type="text" id="email" name="email" size="30" value=""
                  tal:attributes="value request/email|nothing" /></dd>
-      <tal:block condition="not:ptool/validate_email">
+      <tal:block condition="not:rtool/validate_email">
       <dt><label for="password"
                  i18n:translate="label_password">Password</label></dt>
       <dd>&#160;<input type="password" id="password" name="password" size="30"

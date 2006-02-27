@@ -1,8 +1,9 @@
 <tal:block define="categories python:['user', 'global'];
+                   actions_order python:['preferences', 'configPortal', 'configThemes', 'manage_vocabularies', 'directories', 'logout']; 
                    show_icons python:0;
                    show_icons python: int(show_icons);
                    show_user python:True;
-                   actionitems python: here.getActionsItems(here, categories);
+                   actionitems python: here.getActionsItems(here, categories, actions_order);
                    base_url python: request.get('cpsskins_base_url')"
   condition="actionitems">
   
@@ -18,13 +19,9 @@
     </ul>
   </tal:block>
 
-  <tal:block repeat="category python: actionitems.keys()">
-    <ul class="cpsskinsMenu"
-        tal:define="actions actionitems/?category"
-        tal:condition="actions">
-      <li class="hidden" tal:condition="not:repeat/category/start"
-      tal:content="structure string:&nbsp;" />
-      <li tal:repeat="action actions"><a
+  <ul class="cpsskinsMenu"
+        tal:condition="actionitems">
+      <li tal:repeat="action actionitems"><a
        tal:define="icon_tag action/icon_tag"
        tal:attributes="href action/url;
                        class python:show_icons and icon_tag and 'noicon' or None">
@@ -37,6 +34,6 @@
          </tal:block>
          <tal:block i18n:translate="" content="action/title" />
        </a></li>
-    </ul>
-  </tal:block>
+  </ul>
+
 </tal:block>

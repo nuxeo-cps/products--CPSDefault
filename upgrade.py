@@ -150,7 +150,16 @@ def upgrade_334_335_portlet_cache_parameters(context, check=False):
 
     log("Updating portlet cache parameters...")
     # get the current parameters
-    params = ptltool.getCacheParametersFor(PORTLET_ID)
+    try:
+        params = ptltool.getCacheParametersFor(PORTLET_ID)
+    except AttributeError:
+        # ptltool.cache_parameters is missing
+        if check:
+            return True
+        else:
+            ptltool.initializeCacheParameters()
+            ptltool.resetCacheParameters()
+            return "CPSPortlets: Cache parameters initialized"
 
     # update the parameters
     if NEW_PARAMETER in params:

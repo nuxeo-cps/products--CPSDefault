@@ -274,10 +274,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not valid HTML:\n\n%s"
+                raise AssertionError("%s is not valid HTML:\n%s"
                     % (page_id, result))
             else:
-                raise AssertionError("not is not valid HTML:\n\n%s" % result)
+                raise AssertionError("Invalid HTML:\n%s" % result)
         os.unlink(filename)
 
     def assertValidXHTML(self, html, page_id=None):
@@ -291,10 +291,10 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         result = stderr.read()
         if not result.strip() == '':
             if page_id:
-                raise AssertionError("%s is not valid XHTML:\n\n%s"
+                raise AssertionError("%s is not valid XHTML:\n%s"
                     % (page_id, result))
             else:
-                raise AssertionError("not is not valid XHTML:\n\n%s" % result)
+                raise AssertionError("Invalid XHTML:\n%s" % result)
         os.unlink(filename)
 
     # XXX: unfortunately, the W3C checker sometime fails for no apparent

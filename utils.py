@@ -1,4 +1,3 @@
-
 # -*- coding: iso-8859-15 -*-
 # (C) Copyright 2003-2005 Nuxeo SARL <http://nuxeo.com>
 # Authors:
@@ -249,7 +248,7 @@ def filterContents(context, items, sort_on=None, sort_order=None,
 
     if sort_on is None:
         # no sorting
-        t.log()
+        #t.log()
         return result
 
     # sorting
@@ -277,7 +276,7 @@ def filterContents(context, items, sort_on=None, sort_order=None,
     result = [x[1] for x in result]
     if sort_order in ('desc', 'reverse'):
         result.reverse()
-    t.log('sorting %s %s' % (sort_on, sort_order or 'asc'))
+    #t.log('sorting %s %s' % (sort_on, sort_order or 'asc'))
     return result
 
 
@@ -288,7 +287,7 @@ def getFolderContents(container, sort_on=None, sort_order=None,
     t = Timer('getFolderContents', level=DEBUG)
     ret = filterContents(container, container.objectValues(),
                          sort_on, sort_order, filter_ptypes, hide_folder)
-    t.log('end')
+    #t.log('end')
     return ret
 
 
@@ -347,7 +346,7 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
 
     t.mark('build query: %s' % str(query))
     brains = ZCatalog.searchResults(ctool, None, **query)
-    t.log('search result: %s docs' % len(brains))
+    #t.log('search result: %s docs' % len(brains))
     return brains
 
 
@@ -390,4 +389,4 @@ def reindexFolderContentPositions(container):
             else:
                 LOG('reindexPositions', WARNING,
                     'invalid catalog entry: %s' % brain.getPath())
-    t.log('reindex %i objects' % reindex_count)
+    #t.log('reindex %i objects' % reindex_count)

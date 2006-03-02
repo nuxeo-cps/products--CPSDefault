@@ -65,6 +65,7 @@ ZopeTestCase.installProduct('CPSRSS', quiet=1)
 ZopeTestCase.installProduct('CPSForum', quiet=1)
 ZopeTestCase.installProduct('CPSOOo', quiet=1)
 ZopeTestCase.installProduct('ExternalEditor', quiet=1)
+ZopeTestCase.installProduct('CPSRemoteController', quiet=1)
 
 import PatchLocalizer
 

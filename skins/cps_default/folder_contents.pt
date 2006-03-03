@@ -44,6 +44,8 @@
 </metal:header>
 
 <metal:main fill-slot="javascript_head_slot">
+  <tal:block tal:replace="nothing">
+    XXX Deactivated for CPS 3.4.0, will be re-enabled for 3.4.1
     <script type="text/javascript" src="prototype.js"
       tal:attributes="src string:${base_url}prototype.js"></script>
     <script type="text/javascript" src="effects.js"
@@ -52,6 +54,7 @@
       tal:attributes="src string:${base_url}dragdrop.js"></script>
     <script type="text/javascript" src="cpsdefault.js"
       tal:attributes="src string:${base_url}cpsdefault.js"></script>
+  </tal:block>
 </metal:main>
 
 <metal:main fill-slot="main"

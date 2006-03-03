@@ -80,19 +80,15 @@
   <br />
   </tal:block>
   </tal:block>
+  <tal:block tal:replace="nothing">
+  XXX Deactivated for CPS 3.4.0, will be re-enabled for 3.4.1
+
   <tal:block tal:condition="python:not no_form and sort_by is None"
                tal:define="ajax_working_msg python:cpsmcat('ajax_working');
                            ajax_working_msg python:ajax_working_msg.replace('\'', '\\\'');
                            ajax_failing_msg python:cpsmcat('ajax_failing');
                            ajax_failing_msg python:ajax_failing_msg.replace('\'', '\\\'')">
 
-        <tal:block tal:replace="nothing">
-         XXX
-         Since we don't have a simple way yet in portlets mechanism to
-         reach the javascript event register wich is instanciated here,
-         we define the observers here in hard for section and worskpace tree
-         navigators.
-        </tal:block>
         <script type="text/javascript" tal:content="structure string:
                 var editor = new CPSContainerEditor('draggable', 'droppable',
                                                     'droppable-in', '${format}',
@@ -122,8 +118,6 @@
                ">
         </script>
 
-
-
-
+  </tal:block>
   </tal:block>
 </metal:block>

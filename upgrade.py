@@ -116,10 +116,23 @@ def upgradeURLTool(self):
         add_it = 1
     else:
         if utool.meta_type != URLTool.meta_type:
+            # Before we delete the URL-tool, we must remove the Trees tool
+            # from the event subscriptions, or the deleting will fail (as the
+            # url tool will try to access the url tool when it handles the
+            # events.
+            subscriber = None
+            event_tool = getToolByName(portal, 'portal_eventservice', None)
+            if event_tool is not None:
+                subscriber = event_tool.getSubscriberByName('portal_trees')
+                if subscriber is not None and subscriber.activated:
+                    reactivate_subscriber = True
+                    subscriber.disable()
             add_it = 1
             portal.manage_delObjects([utool_id])
     if add_it:
         portal.manage_addProduct['CPSCore'].manage_addTool(URLTool.meta_type)
+        if subscriber is not None and reactivate_subscriber:
+            subscriber.enable()
         log = "portal_url upgraded"
     else:
         log = "portal_url did not need to be upgraded"

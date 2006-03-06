@@ -219,6 +219,28 @@ def upgrade_334_335_clean_catalog(self):
 def upgrade_320_334_document_types(portal, check=False):
     """Upgrade various documents to new portal_types or new schemas.
     """
+    ttool = getToolByName(portal, 'portal_types')
+    
+    # The document types Document and News Item was in 3.2 CMF types
+    # that existed only as rests of CMF Default. Delete them, unless
+    # there are documents of that type.
+    for portal_type in ('Document', 'News Item'):
+        res = _modifyPortalType(portal, portal_type, '', True)
+        if res:
+            # There are instances of the type, upgrade not possible.
+            if check:
+                return False
+            else:
+                raise "You have documents of the type %s " \
+                      "Automatic upgrade is not possible." % portal_type
+        if (portal_type in ttool.objectIds() and 
+            ttool[portal_type].meta_type != 'CPS Flexible Type Information'):
+            if check:
+                return True
+            else:
+                ttool.manage_delObjects(portal_type)
+          
+    
     res = _modifyPortalType(portal, 'News', 'News Item', check)
     if check and res:
         return True
@@ -226,7 +248,6 @@ def upgrade_320_334_document_types(portal, check=False):
     if check:
         return res
 
-    ttool = getToolByName(portal, 'portal_types')
     for portal_type in ('News', 'PressRelease'):
         if portal_type in ttool.objectIds():
             ttool.manage_delObjects(portal_type)

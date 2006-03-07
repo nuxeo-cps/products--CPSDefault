@@ -105,7 +105,7 @@
                                 selected python:request.get('modified',
                                   default) == default or nothing"
                 i18n:translate="label_choose">Choose</option>
-        <option tal:condition="not:isAnon"
+        <option tal:condition="python:not isAnon and lastLogin is not None"
                 tal:attributes="value lastLogin;
                                 selected python:modified == lastLogin or None"
                 i18n:translate="time_last_login">Last login</option>

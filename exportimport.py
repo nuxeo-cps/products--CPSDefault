@@ -68,7 +68,6 @@ class VariousImporter(object):
         """
         self.setupTranslationService()
         self.setupRoots()
-        self.setupMembershipTool()
         self.setupFCKeditorHttpCache()
         self.setupDefaultRoles()
         return "Various settings imported."
@@ -100,10 +99,6 @@ class VariousImporter(object):
             return
         importer.filename = filename
         importer.body = body
-
-    def setupMembershipTool(self):
-        mtool = getToolByName(self.site, 'portal_membership')
-        mtool.setMembersFolderById(self.members_folder)
 
     def setupFCKeditorHttpCache(self):
         if 'FckHTTPCache' in self.site.objectIds():

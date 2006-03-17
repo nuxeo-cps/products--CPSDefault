@@ -1,7 +1,6 @@
 ##parameters=came_from=None
+# $Id$
 """Prepare user login
-
-$Id$
 """
 
 from urllib import unquote

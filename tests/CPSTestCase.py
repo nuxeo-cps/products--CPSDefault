@@ -360,7 +360,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
             java_binary_path = self.getBinaryPath('java')
         except Exception, exception:
             print "isValidCSS: %s" % str(exception)
-            return is_valid
+            return is_valid, errors
         import os, popen2, tempfile
         # It is required that the file passed to the validator has the ".css"
         # suffix since the command line interface of the validator uses this
@@ -373,7 +373,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         if not os.access(css_validator_jar_path, os.R_OK):
             print ("isValidCSS: %s not present or not readable "
                    "=> no CSS validation occured" % css_validator_jar_path)
-            return is_valid
+            return is_valid, errors
         cmd = ('%s -jar %s -html -%s %s'
                % (java_binary_path, css_validator_jar_path,
                   css_profile, file_path))

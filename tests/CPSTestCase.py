@@ -324,12 +324,23 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                 raise AssertionError("Invalid XHTML:\n%s" % result)
         os.remove(file_path)
 
+    def assertValidCss(self, css, css_name='', css_profile='css21',
+                       fail_on_warnings=False):
+        """Check if <css> is valid CSS using the W3C CSS validator.
+        """
+        is_valid, errors = self.isValidCss(css, css_profile, fail_on_warnings)
+        if not is_valid:
+            raise AssertionError("%s is or contains invalid CSS:\n%s"
+                                 % (css_name, errors))
+
     def isValidCss(self, css, css_profile='css21', fail_on_warnings=False):
-        """Check if <css> is valid CSS2 using the W3C CSS validator.
+        """Check if <css> is valid CSS using the W3C CSS validator and return
+        the errors found if any.
 
         The test is done using a local css validator if one is present.
         """
         is_valid = True
+        errors = ""
         # Version using the online W3C CSS validator.
         # Using the online W3C CSS validator should be avoided since it may be
         # off-line for maintainance or refusing too close connexions to avoid
@@ -372,8 +383,8 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         match = CSS_VALIDATOR_ERRORS_REGEXP.search(result)
         is_valid = not match
         if not is_valid:
-            print match.group(1)
-        return is_valid
+            errors = match.group(1)
+        return is_valid, errors
 
     class MissingBinary(Exception): pass
 

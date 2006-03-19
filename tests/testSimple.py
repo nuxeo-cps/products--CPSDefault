@@ -65,8 +65,7 @@ class TestSimple(CPSTestCase):
                    'atom.css', 'rss.css']
         for css_name in ALL_CSS:
             css_body = self.portal[css_name](self.portal)
-            self.assert_(
-                self.isValidCss(css_body), "%s is not valid CSS" % css_name)
+            self.assertValidCss(css_body, css_name)
 
 
 class TestSimpleAsRoot(TestSimple):

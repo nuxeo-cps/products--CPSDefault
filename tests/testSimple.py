@@ -60,13 +60,13 @@ class TestSimple(CPSTestCase):
 
         # TODO: add more ?
 
-    # XXX: disabled for now because W3C CSS checker is bogus
-    def _testCSS(self):
-        ALL_CSS = ['default.css', 'default_print.css']
+    def testCss(self):
+        ALL_CSS = ['default.css', 'default_print.css', 'msie.css',
+                   'atom.css', 'rss.css']
         for css_name in ALL_CSS:
             css_body = self.portal[css_name](self.portal)
             self.assert_(
-                self.isValidCSS(css_body), "%s is not valid CSS" % css_name)
+                self.isValidCss(css_body), "%s is not valid CSS" % css_name)
 
 
 class TestSimpleAsRoot(TestSimple):

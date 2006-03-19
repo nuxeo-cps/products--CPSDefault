@@ -1,6 +1,7 @@
 # (C) Copyright 2006 Nuxeo SAS <http://nuxeo.com>
 # Authors:
 # Stefane Fermigier <sf@nuxeo.com>
+# M.-A. Darche
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -19,6 +20,7 @@
 # $Id$
 
 import os
+import re
 import time
 import transaction
 from Testing import ZopeTestCase
@@ -89,6 +91,29 @@ config_file = 'cpsdefaultlayer.zcml'
 config_file = os.path.join(os.path.dirname(__file__), config_file)
 
 CPSZCMLLayer = ZCMLLayer(config_file, __name__, 'CPSZCMLLayer')
+
+# DOTALL: Make the "." special character match any character at all,
+# including a newline; without this flag, "." will match anything except a
+# newline.
+#
+# For example:
+#
+# <div id="errors">
+# rrrrrrrRRRRRR
+# </div>
+# <div id="warnings">
+# Hummmmmmmmmmm
+# </div>
+# <div id="css">
+# </div>
+#
+# makes it possible to retrieve both
+# "rrrrrrrRRRRRR" and "Hummmmmmmmmmm"
+#
+CSS_VALIDATOR_ERRORS_REGEXP = re.compile(
+    u'<div id="errors">(.*)</div>.*?<div id="warnings">(.*)</div>.*?<div id="css">',
+    re.DOTALL)
+
 
 class CPSDefaultLayerClass(object):
     """Layer to test CPS.
@@ -240,11 +265,11 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
     #
     def assertWellFormedXML(self, xml, page_id=None):
         import os, popen2, tempfile
-        filename = tempfile.mktemp()
-        fd = open(filename, "wc")
-        fd.write(xml)
-        fd.close()
-        cmd = "xmllint --noout %s" % filename
+        fd, file_path = tempfile.mkstemp()
+        f = os.fdopen(fd, 'wc')
+        f.write(xml)
+        f.close()
+        cmd = "xmllint --noout %s" % file_path
         stdout, stdin, stderr = popen2.popen3(cmd)
         result = stderr.read()
         if not result.strip() == '':
@@ -253,25 +278,25 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                     % (page_id, result))
             else:
                 raise AssertionError("not well-formed XML:\n\n%s" % result)
-        os.unlink(filename)
+        os.remove(file_path)
 
     def isWellFormedXML(self, xml):
         import os, tempfile
-        filename = tempfile.mktemp()
-        fd = open(filename, "wc")
-        fd.write(xml)
-        fd.close()
-        status = os.system("xmllint --noout %s" % filename)
-        os.unlink(filename)
+        fd, file_path = tempfile.mkstemp()
+        f = os.fdopen(fd, 'wc')
+        f.write(xml)
+        f.close()
+        status = os.system("xmllint --noout %s" % file_path)
+        os.remove(file_path)
         return status == 0
 
     def assertValidHTML(self, html, page_id=None):
         import os, popen2, tempfile
-        filename = tempfile.mktemp()
-        fd = open(filename, "wc")
-        fd.write(html)
-        fd.close()
-        cmd = "xmllint --valid --html --noout %s" % filename
+        fd, file_path = tempfile.mkstemp()
+        f = os.fdopen(fd, 'wc')
+        f.write(html)
+        f.close()
+        cmd = "xmllint --valid --html --noout %s" % file_path
         stdout, stdin, stderr = popen2.popen3(cmd)
         result = stderr.read()
         if not result.strip() == '':
@@ -280,15 +305,15 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                     % (page_id, result))
             else:
                 raise AssertionError("Invalid HTML:\n%s" % result)
-        os.unlink(filename)
+        os.remove(file_path)
 
     def assertValidXHTML(self, html, page_id=None):
         import os, popen2, tempfile
-        filename = tempfile.mktemp()
-        fd = open(filename, "wc")
-        fd.write(html)
-        fd.close()
-        cmd = "xmllint --valid --noout %s" % filename
+        fd, file_path = tempfile.mkstemp()
+        f = os.fdopen(fd, 'wc')
+        f.write(html)
+        f.close()
+        cmd = "xmllint --valid --noout %s" % file_path
         stdout, stdin, stderr = popen2.popen3(cmd)
         result = stderr.read()
         if not result.strip() == '':
@@ -297,30 +322,80 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                     % (page_id, result))
             else:
                 raise AssertionError("Invalid XHTML:\n%s" % result)
-        os.unlink(filename)
+        os.remove(file_path)
 
-    # XXX: unfortunately, the W3C checker sometime fails for no apparent
-    # reason.
-    def isValidCSS(self, css):
-        """Check if <css> is valid CSS2 using W3C css-checker"""
+    def isValidCss(self, css, css_profile='css21', fail_on_warnings=False):
+        """Check if <css> is valid CSS2 using the W3C CSS validator.
 
-        import urllib2, urllib, re
-        CHECKER_URL = 'http://jigsaw.w3.org/css-validator/validator'
-        data = urllib.urlencode({
-            'text': css,
-            'warning': '1',
-            'profile': 'css2',
-            'usermedium': 'all',
-        })
-        url = urllib2.urlopen(CHECKER_URL + '?' + data)
-        result = url.read()
+        The test is done using a local css validator if one is present.
+        """
+        is_valid = True
+        # Version using the online W3C CSS validator.
+        # Using the online W3C CSS validator should be avoided since it may be
+        # off-line for maintainance or refusing too close connexions to avoid
+        # DOS situations.
+        #import urllib2, urllib, re
+        #CHECKER_URL = 'http://jigsaw.w3.org/css-validator/validator'
+        #data = urllib.urlencode({
+        #    'text': css,
+        #    'warning': '1',
+        #    'profile': css_profile,
+        #    'usermedium': 'all',
+        #})
+        #url = urllib2.urlopen(CHECKER_URL + '?' + data)
+        #result = url.read()
 
-        is_valid = not re.search('<div id="errors">', result)
-        # debug
+        try:
+            java_binary_path = self.getBinaryPath('java')
+        except Exception, exception:
+            print "isValidCSS: %s" % str(exception)
+            return is_valid
+        import os, popen2, tempfile
+        # It is required that the file passed to the validator has the ".css"
+        # suffix since the command line interface of the validator uses this
+        # to decide how to process the file.
+        fd, file_path = tempfile.mkstemp('.css')
+        f = os.fdopen(fd, 'wc')
+        f.write(css)
+        f.close()
+        css_validator_jar_path = '/usr/local/share/java/css-validator.jar'
+        if not os.access(css_validator_jar_path, os.R_OK):
+            print ("isValidCSS: %s not present or not readable "
+                   "=> no CSS validation occured" % css_validator_jar_path)
+            return is_valid
+        cmd = ('%s -jar %s -html -%s %s'
+               % (java_binary_path, css_validator_jar_path,
+                  css_profile, file_path))
+        stdout, stdin, stderr = popen2.popen3(cmd)
+        result = stdout.read()
+        os.remove(file_path)
+        match = CSS_VALIDATOR_ERRORS_REGEXP.search(result)
+        is_valid = not match
         if not is_valid:
-            print result
+            print match.group(1)
         return is_valid
 
+    class MissingBinary(Exception): pass
+
+    def getBinaryPath(self, binary_name):
+        """Return the path for the given binary if it can be found and if it is
+        executable.
+        """
+        binary_search_path = [
+            '/usr/local/bin',
+            '/bin',
+            '/usr/bin',
+        ]
+        binary_path = None
+        mode   = os.R_OK | os.X_OK
+        for p in binary_search_path:
+            path = os.path.join(p, binary_name)
+            if os.access(path, mode):
+                binary_path = path
+                break
+        else:
+            raise MissingBinary('Unable to find binary "%s"' % binary_name)
+        return binary_path
 
 ##################################################
 

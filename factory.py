@@ -201,8 +201,8 @@ class CPSSiteConfigurator(object):
             'password': password,
             'roles': ('Manager', 'Member'),
             'email': manager_email,
-            'givenName': manager_lastname,
-            'sn': manager_firstname,
+            'givenName': manager_firstname,
+            'sn': manager_lastname,
         }
         mdir.createEntry(entry)
 

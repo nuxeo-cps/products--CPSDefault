@@ -1179,7 +1179,7 @@ return state_change.object.content_unlock_locked_before_abandon(state_change)
                 'clone_allowed_transitions': None,
                 'actbox_category': 'workflow',
                 'props': {'guard_permissions': '',
-                          'guard_roles': 'Manager; SectionManager;',
+                          'guard_roles': 'Manager; SectionManager',
                           'guard_expr': ''},
             },
             # XXX: TODO warning guard for publishing and creating

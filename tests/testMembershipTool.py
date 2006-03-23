@@ -362,13 +362,19 @@ class TestMembershipTool(CPSTestCase):
         # what are the local roles in sections ?
         roles = self.pmtool.getCPSCandidateLocalRoles(self.portal.sections)
         roles.sort()
-        wanted = ['SectionManager', 'SectionReader', 'SectionReviewer']
+        wanted = ['Contributor', 'SectionManager', 'SectionReader', 'SectionReviewer']
         self.assertEquals(roles, wanted)
 
         # what are the local roles in workspaces ?
         roles = self.pmtool.getCPSCandidateLocalRoles(self.portal.workspaces)
         roles.sort()
-        wanted = ['WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader']
+        wanted = ['Contributor', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader']
+        self.assertEquals(roles, wanted)
+
+        # what are the local roles in members workspaces?
+        roles = self.pmtool.getCPSCandidateLocalRoles(self.portal.members)
+        roles.sort()
+        wanted = ['Contributor', 'WorkspaceManager', 'WorkspaceMember', 'WorkspaceReader']
         self.assertEquals(roles, wanted)
 
     def test_getCPSLocalRolesRender(self):

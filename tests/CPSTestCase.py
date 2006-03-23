@@ -324,18 +324,24 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                 raise AssertionError("Invalid XHTML:\n%s" % result)
         os.remove(file_path)
 
-    def assertValidCss(self, css, css_name='', css_profile='css21',
+    def assertValidCss(self, css, ressource_name='', css_profile='css21',
+                       input_format='css',
                        fail_on_warnings=False):
         """Check if <css> is valid CSS using the W3C CSS validator.
         """
-        is_valid, errors = self.isValidCss(css, css_profile, fail_on_warnings)
+        is_valid, errors = self.isValidCss(css, css_profile, input_format,
+                                           fail_on_warnings)
         if not is_valid:
             raise AssertionError("%s is or contains invalid CSS:\n%s"
-                                 % (css_name, errors))
+                                 % (ressource_name, errors))
 
-    def isValidCss(self, css, css_profile='css21', fail_on_warnings=False):
+    def isValidCss(self, css, css_profile='css21',
+                   input_format='css',
+                   fail_on_warnings=False):
         """Check if <css> is valid CSS using the W3C CSS validator and return
         the errors found if any.
+
+        input_format can be either "css", "html" or "xml".
 
         The test is done using a local css validator if one is present.
         """
@@ -362,10 +368,12 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
             print "isValidCSS: %s" % str(exception)
             return is_valid, errors
         import os, popen2, tempfile
-        # It is required that the file passed to the validator has the ".css"
-        # suffix since the command line interface of the validator uses this
-        # to decide how to process the file.
-        fd, file_path = tempfile.mkstemp('.css')
+        # It is required that the file passed to the validator has a file
+        # suffix corresponding to its content type since the command line
+        # interface of the validator uses this to decide how to process the
+        # file.
+        suffix = '.' + input_format
+        fd, file_path = tempfile.mkstemp(suffix)
         f = os.fdopen(fd, 'wc')
         f.write(css)
         f.close()

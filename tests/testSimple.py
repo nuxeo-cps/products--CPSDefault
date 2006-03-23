@@ -47,25 +47,27 @@ class TestSimple(CPSTestCase):
         self.assert_(self.portal.sections)
         self.assert_(self.portal.workspaces)
 
-    def testAnonymousSkins(self):
-        self.assertValidXHTML(self.portal.index_html(), "index_html")
-        self.assertValidXHTML(self.portal.login_form(), "login_form")
-        self.assertValidXHTML(self.portal.join_form(), "join_form")
-        self.assertValidXHTML(self.portal.accessibility(), "accessibility")
-
-        self.assertValidXHTML(self.portal.search_form(), "search_form")
-
-        self.assertValidXHTML(self.portal.advanced_search_form(), "advanced_search_form")
-        self.assert_(self.portal.advanced_search_form())
-
-        # TODO: add more ?
 
     def testCss(self):
         ALL_CSS = ['default.css', 'default_print.css', 'msie.css',
                    'atom.css', 'rss.css']
         for css_name in ALL_CSS:
-            css_body = self.portal[css_name](self.portal)
-            self.assertValidCss(css_body, css_name)
+            css_content = self.portal[css_name](self.portal)
+            self.assertValidCss(css_content, css_name)
+
+
+    def testAnonymousSkins(self):
+        view_ids = ('index_html', 'login_form', 'join_form', 'accessibility',
+                    'search_form',
+                    'advanced_search_form',
+                    )
+        for view_id in view_ids:
+            method = getattr(self.portal, view_id)
+            render = method()
+            self.assertValidXHTML(render, view_id)
+            # Testing the CSS pages referenced from a web page along with
+            # the inlined CSS property contained in the web page itself.
+            self.assertValidCss(render, view_id, input_format='html')
 
 
 class TestSimpleAsRoot(TestSimple):
@@ -93,7 +95,12 @@ class TestSimpleAsRoot(TestSimple):
             folder = getattr(self.portal, folder_id)
             for view_id in view_ids:
                 method = getattr(folder, view_id)
-                self.assertValidXHTML(method(), "%s/%s" % (folder_id, view_id))
+                render = method()
+                ressource_name = "%s/%s" % (folder_id, view_id)
+                self.assertValidXHTML(render, ressource_name)
+                # Testing the CSS pages referenced from a web page along with
+                # the inlined CSS property contained in the web page itself.
+                self.assertValidCss(render, ressource_name)
 
     def testLocalRoles(self):
         # Change local roles using the skin scripts

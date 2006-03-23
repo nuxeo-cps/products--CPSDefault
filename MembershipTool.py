@@ -423,8 +423,9 @@ class MembershipTool(CPSMembershipTool):
                                                        'Authenticated')]
         # filter roles by portal type using prefix
         # XXX TODO relevant roles should be store in the portal_types tool
-        ptype_role_prefix = {'Section': ('Section',),
-                             'Workspace': ('Workspace'),
+        ptype_role_prefix = {'Section': ('Section', 'Contributor'),
+                             'Workspace': ('Workspace', 'Contributor'),
+                             'Members Workspace': ('Workspace', 'Contributor'),
                              'Wiki': ('Contributor', 'Reader'),
                              'Calendar': ('Workspace',),
                              'CPSForum': ('Forum',),

@@ -1,6 +1,7 @@
 ##parameters=came_from=None
-# $Id$
 """Prepare user login
+
+$Id$
 """
 
 from urllib import unquote
@@ -17,7 +18,6 @@ def checkRedirect(portal, mtool):
 
 utool = context.portal_url
 mtool = context.portal_membership
-dtool = context.portal_directories
 portal = utool.getPortalObject()
 portal_absolute_url = portal.absolute_url()
 
@@ -69,7 +69,7 @@ if is_anon:
 login_time = member.getProperty('login_time', '2000/01/01')
 first_time = (str(login_time) == '2000/01/01')
 
-if first_time and dtool.members.hasEntry(member.getId()):
+if first_time and member.has_role('Member'):
     mtool.createMemberArea()
     now = context.ZopeTime()
     member.setProperties(last_login_time=now, login_time=now)

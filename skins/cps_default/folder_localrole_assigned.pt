@@ -207,8 +207,9 @@ Assignment table needs:
                 <tal:block replace="string:, "
                     condition="not:repeat/url/start" />
                   <a href=""
-                    tal:define="role_url python:utool.getUrlFromRpath(url)"
-                    tal:attributes="href string:${role_url}/folder_localrole_form">
+                    tal:define="role_url python:utool.getUrlFromRpath(url);
+				name localrole_form|string:folder_localrole_form"
+                    tal:attributes="href string:${role_url}/${name}">
                     <tal:block replace="url"/>
                   </a>
                 </tal:block>

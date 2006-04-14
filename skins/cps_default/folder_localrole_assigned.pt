@@ -24,7 +24,7 @@ Macro needs
 
 <div class="group" tal:condition="has_local_roles_blocking">
   <form method="post" action="folder_localrole_block"
-        tal:attributes="action string:${here_url}/folder_localrole_block">
+        tal:attributes="action localrole_block_url|string:${here_url}/folder_localrole_block">
     <div tal:condition="local_roles_blocked">
       <tal:block i18n:translate="legend_local_roles_unblock">
         Local roles acquisition is <strong>blocked</strong>.
@@ -47,7 +47,7 @@ Macro needs
 </div>
 
 <form method="post" action="folder_localrole_form"
-      tal:attributes="action string:${here_url}/folder_localrole_form"
+      tal:attributes="action localrole_form_url|string:${here_url}/folder_localrole_form"
       tal:condition="python:len(cps_roles)>1">
   <div>
   <label for="filtered_role"
@@ -81,7 +81,7 @@ Macro needs
 
 <tal:block condition="python:users or groups">
   <form method="post" action="folder_localrole_edit"
-        tal:attributes="action string:${here_url}/folder_localrole_edit">
+        tal:attributes="action localrole_edit_url|string:${here_url}/folder_localrole_edit">
     <tal:block condition="users">
       <h3 i18n:translate="label_users_local_roles_assignment">
         Users local roles assignment

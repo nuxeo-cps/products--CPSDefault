@@ -296,7 +296,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         f = os.fdopen(fd, 'wc')
         f.write(html)
         f.close()
-        cmd = "xmllint --valid --html --noout %s" % file_path
+        cmd = "xmllint --valid --html --nonet --noout %s" % file_path
         stdout, stdin, stderr = popen2.popen3(cmd)
         result = stderr.read()
         if not result.strip() == '':
@@ -313,7 +313,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         f = os.fdopen(fd, 'wc')
         f.write(html)
         f.close()
-        cmd = "xmllint --valid --noout %s" % file_path
+        cmd = "xmllint --valid --nonet --noout %s" % file_path
         stdout, stdin, stderr = popen2.popen3(cmd)
         result = stderr.read()
         if not result.strip() == '':

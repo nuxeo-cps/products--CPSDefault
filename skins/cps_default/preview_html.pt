@@ -1,6 +1,7 @@
 <tal:block define="
   file_name python:request['file'];
   file_html_name python:request['file_html'];
+  file_html_subfiles_name python:request['file_html_subfiles'];
   breadcrumb_additional_info python:'> preview';
   ">
 
@@ -14,7 +15,7 @@
     </metal:block>
 
     <metal:block fill-slot="style_slot">
-          <link rel="Stylesheet" type="text/css" media="all" href="preview_html.css" />
+      <tal:block tal:replace="structure python:here.getPreviewStyleName(file_html_subfiles_name)" />
     </metal:block>
 
     <metal:block fill-slot="main"

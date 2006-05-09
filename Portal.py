@@ -52,7 +52,7 @@ class CPSDefaultSite(CPSSite):
     def _reindexObjectSecurity(self, skip_self=None):
         pass
     
-    security.declareProtected(View, 'thisProxyFolder')
+    security.declareProtected('View', 'thisProxyFolder')
     def thisProxyFolder(self):
         """Get the closest proxy folder from a context.
         

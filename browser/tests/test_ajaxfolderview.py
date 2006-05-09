@@ -13,7 +13,7 @@
 ##############################################################################
 """tests for ajaxfolderview
 
-$Id:$
+$Id$
 """
 import os
 import unittest

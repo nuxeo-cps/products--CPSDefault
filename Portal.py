@@ -46,6 +46,21 @@ class CPSDefaultSite(CPSSite):
     email_from_address = ''
     email_from_name = ''
 
+    def _reindexObject(self, idxs=None):
+        pass
+
+    def _reindexObjectSecurity(self, skip_self=None):
+        pass
+    
+    security.declareProtected(View, 'thisProxyFolder')
+    def thisProxyFolder(self):
+        """Get the closest proxy folder from a context.
+        
+        Used by acquisition.
+        """
+        return self
+
+
 InitializeClass(CPSDefaultSite)
 
 class CPSPortalGenerator(PortalGenerator):

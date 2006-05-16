@@ -31,7 +31,10 @@ from Products.CPSDefault.Portal import CPSDefaultSite
 
 
 import MembershipTool
-import CMFCalendarToolPatch
+try:
+    import CMFCalendarToolPatch
+except ImportError:
+    pass
 
 # Making sure that the ModuleSecurityInfo info statements of the utils
 # module is taken into account.

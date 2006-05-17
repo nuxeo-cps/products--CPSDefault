@@ -1,26 +1,46 @@
-##parameters=img_name, title=None, base_url=None, zoom=1, height=None, width=None, alt='', keep_ratio=0
+##parameters=img_name, title=None, base_url=None, zoom=1, height=None, width=None, alt='', keep_ratio=0, img=None
 # $Id$
 """
 Return an HTML img tag
 
-FIXME: need more explanation. What are the parameters?
+   img is the image object. If missing, traversal based on img_name is attempted
+   img_name is a path to build the image URL.
+   base_url is used to build the image full URL.
+         if missing, the portal base_url is used instead.
+         use '' to indicate that img_name is an absolute path (starts with '/')
 """
 
-from zLOG import LOG, DEBUG
+import logging
 from Products.CMFCore.utils import getToolByName
+
+logger = logging.getLogger('getImgTag')
 
 if not img_name:
     return ''
-if base_url is None:
+
+# URL for the src attribute
+if not base_url:
     utool = getToolByName(context, 'portal_url')
-    base_url = utool.getBaseUrl()
-elif base_url == '':
-    pass # image name is a full path
+    if base_url != '': # img_name is not an absolute path
+        base_url = utool.getBaseUrl()
 img_url = base_url + img_name
-try:
-    img = context.restrictedTraverse(img_name, default=None)
-except (KeyError, AttributeError, 'NotFound'):
-    img = None
+
+# retrieving the image object is necessary for resizing
+# we use img_name to guess the path
+if img is None:
+   if img_name[0] == '/':
+       # leading '/' would refer to app object, not what we want
+       trav_base = utool.getPortalObject()
+       trav_path = img_name[1:]
+   else:
+       trav_base = context
+       trav_path = img_name
+   logger.debug('traversal to img object: %s (from %s)...' % (trav_path,
+                                                              trav_base))
+   try:
+        img = trav_base.restrictedTraverse(trav_path, default=None)
+   except (KeyError, AttributeError, 'NotFound'):
+        logger.debug('...not found')
 
 if img is None:
     tag = '<img src="%s" alt="%s" />' % (img_url, alt)

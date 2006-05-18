@@ -2,6 +2,8 @@
 CPS and i18n
 ============
 
+:Author: Stefane Fermigier
+
 :Revision: $Id$
 
 :abstract: This documents gives rules and hints for translating
@@ -15,11 +17,11 @@ Tools Used
 ==========
 
 We use a combination of
-"Localizer":http://www.j-david.net/software/localizer and
-"TranslationService":http://www.zope.org/Members/efge/TranslationService.
+"TranslationService":http://www.zope.org/Members/efge/TranslationService
+and "Localizer":http://www.j-david.net/software/localizer.
 These products are shipped with CPS.
 
-nuxeo_env package provides you with two tools : ``make_pot`` and
+The CPSI18n product provides you with two tools : ``make_pot`` and
 ``update_pos`` to help with managing the pot/po files. (See the
 related section below.)
 
@@ -27,7 +29,7 @@ Messages are stored in a MessageCatalog object inside the
 Localizer instance.  Hence, the translation_service object holds
 paths to MessageCatalog objects like "Localizer/default".
 
-We use only the "Default" domain for CPSDefault and all the
+We use only the `Default` domain for CPSDefault and all the
 required products, this means that we will have only one
 MessageCatalog.
 
@@ -36,7 +38,7 @@ least the "default".
 
 For the python script file we have to use this syntax::
 
-    cpsmcat = context.Localizer.default
+    cpsmcat = context.translation_service
 
 You have to use kbabel with the following configuration:
 
@@ -125,7 +127,7 @@ How to Translate
       <span tal:replace="here/title_or_id" i18n:name="item_id">Item</span>
     </h2>
 
-  Here the msgid to translate is 
+  Here the msgid to translate is
   ``heading_accept_publication_of ${item_id}``.
 
   For dynamic keywork like::
@@ -195,34 +197,22 @@ How to Translate
 Rules to Generate pot/pos Files and Updating Them
 =================================================
 
-Included in the ``nuxeo_env`` package you'll find 2 tools
-preventing the use of Localizer for performing the translations.
-We'll still use the import feature of Localizer when the
-translation will be done.
-
-The tools:
+Included in the CPSI18n product you'll find 2 tools automatizing the msgids
+gathering and updating:
 
 1. ``make_pot``: Initialization (see the scenario below).
 
-2. ``update_pos``: If your ZPT's change or you wanna add some
+2. ``update_pos``: If your ZPT's change or you want to add some
    msgids.
 
-Check the file ``howto-install_cps3.txt`` for the package that
-must be installed in order to make these tools work.
+Check the doc of CPSI18n in order to make these tools work.
 
 The idea is to parse the ZPTs directly, extracting the content of
 the i18n tags and generating the pot/po files for a product.
 
 This process basically uses: GNU Gettext, OpenTAL, pax (XML
-parser) and OpenPTi18n. For this last use the one within dev2
-because I made some changes to the original one for convenience.
-The package is called OpenPTi18n-nuxeo. You'll find this one
-within dev2 ``/home/download/_packages`` directory.
-
-In addition to the products mentioned in the
-``howto-install_cps3.txt`` guide you'll need GNU Gettext version
->= 0.11.4-7 installed on the computer where you will launch the
-scripts included in the nuxeo_env. (``make_pot`` & ``update_pos``)
+parser). You'll need GNU Gettext version >= 0.11.4-7 installed on the computer
+where you will launch the scripts ``make_pot`` and ``update_pos``.
 
 Set ISO 8859-15 encoding in your po editor (Whatever the tool) !!
 The characters with accents will not be accepted at diplay page
@@ -251,16 +241,19 @@ directory.
 Main Branch (init)
 -------------------
 
-a1
-    $cd ./i18n
+a1 ::
+
+     $ cd ./i18n
 
 b1
     Use ``make_pot`` the first time when you wanna start the
     internationalization of your product. You'll get all the necessarily
-    files. Simply: ``$ make_pot``
+    files. Simply::
+
+      $ make_pot
 
 c1
-    Translate the local files using ``Kbabel``
+    Translate the local files using Kbabel
 
 d1
     Localizer feeds the po files
@@ -272,8 +265,9 @@ Branch 1
 b2
     You change your ZPTs
 
-c2
-    $update_pos
+c2 ::
+
+     $ update_pos
 
 d2
     Translate the local files using Kbabel
@@ -347,3 +341,10 @@ Within CPS3
 
 - Waiting for some feedbacks about domains in our case ??? Don't
   see really the usefulness.
+
+
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

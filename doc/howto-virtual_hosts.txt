@@ -92,8 +92,9 @@ What you need:
 
 4. Authorize proxy requests in ``/etc/apache2/mods-enabled/proxy.conf``
    otherwise you could end up with an unreachable CPS web site and
-   messages like "client denied by server configuration:
-   proxy:http://localhost" in your log files::
+   messages like
+   ``client denied by server configuration: proxy:http://localhost``
+   in your log files::
 
      <Proxy *>
        Order deny,allow
@@ -233,13 +234,14 @@ Example::
   RewriteCond %{HTTP:Authorization}  ^(.*)
   RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
 
-  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  CustomLog /var/log/apache2/www.mysite.net.log combined
+  ErrorLog /var/log/apache2/www.mysite.net-error.log
   </VirtualHost>
 
   <VirtualHost 192.168.2.20:443>
   ServerName www.mysite.net
 
+  SSLEngine on
   SSLCertificateFile /etc/apache2/ssl/apache.pem
   # Alternatively use those lines for private key and certificate configurations
   #SSLCertificateFile /etc/apache2/ssl/www.mysite.net.cert
@@ -250,8 +252,8 @@ Example::
   RewriteCond %{HTTP:Authorization}  ^(.*)
   RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
 
-  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  CustomLog /var/log/apache2/www.mysite.net.log combined
+  ErrorLog /var/log/apache2/www.mysite.net-error.log
   </VirtualHost>
 
 
@@ -287,14 +289,15 @@ Example::
   RewriteCond %{HTTP:Authorization}  ^(.*)
   RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
 
-  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  CustomLog /var/log/apache2/www.mysite.net.log combined
+  ErrorLog /var/log/apache2/www.mysite.net-error.log
   </VirtualHost>
 
   # Main HTTPS access to https://www.mysite.net/ for authenticated users
   <VirtualHost 192.168.2.20:443>
   ServerName www.mysite.net
 
+  SSLEngine on
   SSLCertificateFile /etc/apache2/ssl/apache.pem
   # Alternatively use those lines for private key and certificate configurations
   #SSLCertificateFile /etc/apache2/ssl/www.mysite.net.cert
@@ -305,8 +308,8 @@ Example::
   RewriteCond %{HTTP:Authorization}  ^(.*)
   RewriteRule ^/(.*)  http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:443/cps/VirtualHostRoot/$1 [P,L]
 
-  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  CustomLog /var/log/apache2/www.mysite.net.log combined
+  ErrorLog /var/log/apache2/www.mysite.net-error.log
   </VirtualHost>
 
 
@@ -315,6 +318,7 @@ Example::
   <VirtualHost 192.168.2.20:453>
   ServerName www.mysite.net
 
+  SSLEngine on
   SSLCertificateFile /etc/apache2/ssl/apache.pem
   # Alternatively use those lines for private key and certificate configurations
   #SSLCertificateFile /etc/apache2/ssl/www.mysite.net.cert
@@ -328,8 +332,8 @@ Example::
   # rule above has been crafted through the reading of the Z2.log file.
   #RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/https/%{HTTP_HOST}:453/VirtualHostRoot/$1 [P,L]
 
-  CustomLog /var/log/apache-ssl/www.mysite.net.log combined
-  ErrorLog /var/log/apache-ssl/www.mysite.net-error.log
+  CustomLog /var/log/apache2/www.mysite.net.log combined
+  ErrorLog /var/log/apache2/www.mysite.net-error.log
   </VirtualHost>
 
 

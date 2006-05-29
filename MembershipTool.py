@@ -325,8 +325,10 @@ class MembershipTool(CPSMembershipTool):
                 continue
             user = member.getUser()
             aclu = getToolByName(self, 'acl_users')
+            roles = [r for r in user.getRoles()
+                     if r not in ['Anonymous', 'Authenticated']]
             aclu._doChangeUser(username, password,
-                               user.getRoles(), user.getDomains())
+                               roles, user.getDomains())
         return password
 
     #

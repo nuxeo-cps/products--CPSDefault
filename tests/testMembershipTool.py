@@ -212,6 +212,30 @@ class TestMembershipTool(CPSTestCase):
         self.assert_('toto' in sent_emails[4])
         self.assert_('to.to@example.com' in sent_emails[4])
 
+    def test_resetPassword(self):
+        # Test the password reset feature
+        pmtool = self.pmtool
+        mdir = self.portal.portal_directories.members
+
+        mdir._createEntry({'id': 'toto',
+                           'email': 'to.to@example.com',
+                           'password': 'wontlast'})
+
+        # patch because not what's tested here
+        old_method = pmtool.getUsernamesAndEmailFor
+        def getUsernamesAndEmailFor(who, time, token):
+            return ['toto'], 'to.to@example.com'
+        pmtool.getUsernamesAndEmailFor = getUsernamesAndEmailFor
+
+        pmtool.resetPassword(['toto'], None, None, None)
+
+        entry = mdir._getEntry('toto')
+        self.failIfEqual(entry['password'], 'wontlast')
+        self.failIf('Anonymous' in entry['roles'])
+        self.failIf('Authenticated' in entry['roles'])
+
+        # to be sure
+        pmtool.getUsernamesAndEmailFor = old_method
 
     def test_ManagerCanMemberChangeLocalRoles(self):
 

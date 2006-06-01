@@ -12,7 +12,8 @@ if REQUEST is not None:
     kw.update(REQUEST.form)
     # Use creation without empty object.
     # XXX should find better
-    ti = getattr(context.portal_types, type_name)
+    from Products.CMFCore.utils import getToolByName
+    ti = getToolByName(context, 'portal_types').getTypeInfo(type_name)
     # For cpsdocument
     if ti.meta_type == 'CPS Flexible Type Information':
         args = {'type_name': type_name}

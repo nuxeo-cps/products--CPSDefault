@@ -7,9 +7,10 @@ if allowed is set return allowed content type for the context, else
 return all searchable content type.
 """
 if allowed:
-    items = context.allowedContentTypes()
     allowed_by_wf = context.portal_workflow.getAllowedContentTypes(context)
-    items = [x for x in items if x in allowed_by_wf]
+    allowed_by_wf = [x.getId() for x in allowed_by_wf]
+    items = context.allowedContentTypes()
+    items = [x for x in items if x.getId() in allowed_by_wf]
 else:
     items = context.getSearchablePortalTypes()
 

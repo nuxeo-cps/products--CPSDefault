@@ -15,7 +15,8 @@ if REQUEST is not None:
     from Products.CMFCore.utils import getToolByName
     ti = getToolByName(context, 'portal_types').getTypeInfo(type_name)
     # For cpsdocument
-    if ti.meta_type == 'CPS Flexible Type Information':
+    if ti.meta_type in ('CPS Flexible Type Information',
+                        'Capsule Type Information'):
         args = {'type_name': type_name}
         # XXX pass prefilled title, a bit of a hack...
         args['widget__Title'] = kw.get('title', '')

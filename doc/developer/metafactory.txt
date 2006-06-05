@@ -1,0 +1,440 @@
+=================================
+Factory for multi profiles setups
+=================================
+
+:Revision: $Id$
+
+.. contents:: :depth: 1
+.. sectnum::
+
+Introduction
+------------
+
+Fully customized site configuration can get quite complicated, despite
+the great improvements that were brought by GenericSetup.
+
+Indeed, some profiles have to be run in a precise order, it may happen
+that a few configuration steps have to be handled in ZMI. Finally some
+parameters may change from an instance to the other (SMTP host, LDAP
+bind password) and have nothing to do in a shared version controlled
+XML file. We call these in this text *external parameters*
+
+This factory is an automated solution for the three use cases above.
+Profiles to be imported are grouped in *meta profiles*. Each meta
+profile has pre and post hooks. Registered parameters appear on the site
+creation form. A method to replay profiles for upgrades is also
+provided. It takes care not to override external parameters.
+
+Everything is done by the following class::
+
+    >>> from Products.CPSDefault.metafactory import CPSSiteMetaConfigurator
+    >>> conf = CPSSiteMetaConfigurator()
+
+It will be convenient for examples to have a pretty printer::
+
+    >>> from pprint import PrettyPrinter
+    >>> pretty_print=PrettyPrinter(width=50).pprint
+
+We'll use a fake setup tool, too::
+
+    >>> from Products.CPSDefault.metafactory import FakeSetupTool
+    >>> from Products.CPSDefault import factory as default_factory
+    >>> true_setup_tool = default_factory.CPSSetupTool
+    >>> default_factory.CPSSetupTool = FakeSetupTool
+
+Meta profiles
+-------------
+
+A meta profile is made of a tuple of profiles to load, together with
+parameters that are exposed to the user at creation form stages and
+some additional helpers. They are kept in the ``meta_profiles``
+attribute. The list of meta profiles to load is kept in
+``meta_orders``. Let's put a simple configuration there::
+
+   >>> conf.meta_profiles = {
+   ...      'LDAP': {'title' : 'LDAP Members directory',
+   ...               'extensions' : ('CPSLDAPSetup:default',),
+   ...               'parameters' : {'properties' : ('ldap_bind_dn'),
+   ...                             'class': 'Products.CPSDirectory.'
+   ...                                      'LDAPBackingDirectory',
+   ...                             'rpath': 'dtool/the_backing',
+   ...                             },
+   ...               'optional' : False,
+   ...               'predelete_tool' : 'some_tool'
+   ...              },
+   ...      'Base': { 'extensions': ('SomeExt', 'SomeOther'), 'optional': True,
+   ...                'title': "Base title"},
+   ...     }
+
+   >>> conf.metas_order = ('Base', 'LDAP',)
+
+In real life, subclassing is recommended, so that it's easy to ensure
+that re-runs are made with the same configuration as for a fresh site.
+
+Form generation
+---------------
+
+The method responsible for the form rendering receives a bunch of
+keyword args. The underlying dict is altered by the overloaded
+``prepareOptions()`` right before being passed. We'll demonstrate
+here what this method does.
+
+It adds a new ``meta_profiles`` to the dict and doesnt touch other entries::
+
+     >>> options = {'otherinfo': 'hungry'}
+     >>> conf.prepareOptions(options)
+     >>> options['otherinfo']
+     'hungry'
+     >>> 'meta_profiles' in options
+     True
+
+The passed value is a list of dicts, one for each meta profile
+specified in ``self.metas_order``, in the correct order, if the user
+has input to provide. Let's see what we get at a minimum::
+
+     >>> base_info = options['meta_profiles'][0]
+     >>> pretty_print(base_info)
+     {'id': 'Base',
+      'optional': True,
+      'title': 'Base title'}
+
+Some metas get additional parameters as well. They can be used in a
+form and have to correspond to properties of the provided class. This
+way, we can reuse labels, typing and so on:
+
+     >>> ldap_info = options['meta_profiles'][1]
+     >>> ldap_info['id']
+     'LDAP'
+     >>> pretty_print(ldap_info['parameters'])
+     [{'id': 'LDAPBackingDirectory-ldap_bind_dn',
+       'label': 'LDAP bind dn',
+       'mode': 'w',
+       'type': 'string'}]
+
+A non-existing property is simply dropped::
+
+     >>> params = conf.meta_profiles['LDAP']['parameters']
+     >>> save = params['properties']
+     >>> params['properties'] = ('  non ex',)
+     >>> conf.prepareOptions(options)
+     >>> len(options['meta_profiles'][1]['parameters'])
+     0
+
+You can specify additional attributes that aren't managed as Zope 2
+properties. In that case, the attribute id will also play the role of
+the label. There will be not type checking. In use cases, the
+attribute is handled via a Zope 3 schema, but this isn't leveraged yet
+
+    >>> params['attributes'] = ['an_attr']
+    >>> conf.prepareOptions(options)
+    >>> pretty_print(options['meta_profiles'][1]['parameters'])
+    [{'id': 'LDAPBackingDirectory-an_attr',
+      'label': 'an_attr'}]
+    >>> params['properties'] = save
+
+A required meta profile that has no parameters won't be mentionned on
+the form::
+
+     >>> conf.meta_profiles['Base']['optional'] = False
+     >>> conf.prepareOptions(options)
+     >>> len(options['meta_profiles'])
+     1
+     >>> options['meta_profiles'][0]['id']
+     'LDAP'
+
+This does not happen if there are parameters, as we have actually
+already seen with ``LDAP``
+
+Meta Profile import internals
+-----------------------------
+
+Preparations
+~~~~~~~~~~~~
+
+   Let's give the configurator a folder to work in::
+
+   >>> from Products.CMFCore.PortalFolder import PortalFolder
+   >>> conf.dispatcher = PortalFolder('app')
+
+   Now we build a bare site with a setup tool::
+
+   >>> conf.addSite('the_site')
+   >>> conf.site
+   <CPSDefaultSite at app/the_site>
+   >>> conf.addSetupTool()
+   >>> conf.site.portal_setup
+   <FakeSetupTool at app/the_site/portal_setup>
+
+Class Lookup
+~~~~~~~~~~~~
+
+The classes referred to in ``meta_profiles`` are looked up like this::
+
+   >>> from Products.CPSDefault.metafactory import _resolveDottedName
+   >>> _resolveDottedName('Products.CPSDefault.metafactory.CPSSiteConfigurator')
+   <class 'Products.CPSDefault.factory.CPSSiteConfigurator'>
+
+   Note that if a class is directly accessible from a module placed
+   higher in the hierarchy, you must use this latter module to access
+   it. This comes from usage of ``__import__``
+
+   >>> _resolveDottedName('Products.CPSDirectory.LDAPBackingDirectory')
+   <class 'Products.CPSDirectory.LDAPBackingDirectory.LDAPBackingDirectory'>
+   >>> _resolveDottedName(
+   ... 'Products.CPSDirectory.LDAPBackingDirectory.LDAPBackingDirectory')
+   Traceback (most recent call last):
+   ...
+   AttributeError: ... no attribute 'LDAPBackingDirectory'
+
+   But this doesn't fail::
+
+   >>> from Products.CPSDirectory.LDAPBackingDirectory import LDAPBackingDirectory
+
+Importation
+~~~~~~~~~~~
+
+``_importMetaProfile`` just launches profiles in correct order::
+
+   >>> conf._importMetaProfile(conf.meta_profiles['Base'])
+   Pointing at SomeExt
+   Imported
+   Pointing at SomeOther
+   Imported
+
+``importMetaProfiles()`` is the main entry point in this factory's
+specifics. It reads requested
+metas from its kwargs, which eventually come from the form,
+launches pre and post import hooks and takes care of parameters::
+
+   >>> conf.metas_order = ('Base', 'Opt')
+   >>> conf.meta_profiles['Base']['extensions'] = ('SomeExt',)
+   >>> conf.meta_profiles['Base']['optional'] = False
+   >>> conf.meta_profiles['LDAP']['optional'] = True
+   >>> conf.meta_profiles['Opt'] = {'extensions' : ('OptExt1', 'OptExt2',),
+   ...                              'optional' : True,}
+   >>> conf.importMetaProfiles()
+   Pointing at SomeExt
+   Imported
+   >>> conf.importMetaProfiles(requested_metas=['Opt'])
+   Pointing at SomeExt
+   Imported
+   Pointing at OptExt1
+   Imported
+   Pointing at OptExt2
+   Imported
+
+The list of *all imported* meta_profiles is stored as a property of the
+portal_object (to be used by meta profiles aware updaters)::
+
+   >>> conf.site.getProperty('meta_profiles')
+   ('Base', 'Opt')
+
+``conf.metas_order`` prevails over ordering in the request::
+
+   >>> conf.meta_profiles['Base']['extensions'] = ('SomeExt',)
+   >>> conf.importMetaProfiles(requested_metas=['Opt', 'Base'])
+   Pointing at SomeExt
+   Imported
+   Pointing at OptExt1
+   Imported
+   Pointing at OptExt2
+   Imported
+
+Non registered metas are safely ignored::
+
+   >>> conf.importMetaProfiles(requested_metas=['Base', 'Dream'])
+   Pointing at SomeExt
+   Imported
+
+Let's see the hooks in action::
+
+   >>> def before(site, **kw):
+   ...    print "Before: site %s\n  keys %s" % (site, kw.keys())
+   >>> def after(site, **kw):
+   ...    print "After: site %s\n  keys %s" % (site, kw.keys())
+   >>> conf.meta_profiles['hooks'] = {'extensions': ('HookedExt',),
+   ...                               'before_import': before,
+   ...                               'parameters': {},
+   ...	                             'after_import': after,}
+   >>> conf.metas_order = ('hooks'),
+   >>> conf.importMetaProfiles(requested_metas=['hooks'])
+   Before: site <CPSDefaultSite at the_site>
+     keys ['requested_metas']
+   Pointing at HookedExt
+   Imported
+   After: site <CPSDefaultSite at the_site>
+     keys ['requested_metas']
+
+
+Parameters
+~~~~~~~~~~
+
+Since we dont' actually import extension profiles in this examples,
+we'll have to build an object to set properties on::
+
+   >>> conf.site._setObject('dtool', PortalFolder('dtool'))
+   'dtool'
+   >>> dtool = conf.site.dtool
+   >>> dtool._setObject('the_backing', LDAPBackingDirectory('the_backing'))
+   'the_backing'
+   >>> dtool.the_backing
+   <LDAPBackingDirectory at app/the_site/dtool/the_backing>
+
+Now let's put back some parameters in the LDAP meta_profile::
+
+   >>> params = {'LDAPBackingDirectory:ldap_bind_dn': 'a_valid_dn'}
+   >>> conf.metas_order = ['LDAP']
+   >>> conf.importMetaProfiles(requested_metas=['LDAP'], **params)
+   Pointing at CPSLDAPSetup:default
+   Imported
+   >>> dtool.the_backing.ldap_bind_dn
+   'a_valid_dn'
+
+An empty valued parameter is left unchanged. Therefore the
+corresponding property will have the same value as was set by
+profile, or at class level::
+
+   >>> params = {'LDAPBackingDirectory:ldap_bind_dn': ''}
+   >>> conf.importMetaProfiles(requested_metas=['LDAP'], **params)
+   Pointing at CPSLDAPSetup:default
+   Imported
+   >>> dtool.the_backing.ldap_bind_dn
+   'a_valid_dn'
+
+Finally, let's try the support of non-property attribute. Let's first
+instanciate an object that doesn't support properties and write a
+meta_profile that sets an attribute on it.
+
+   >>> from OFS.SimpleItem import SimpleItem
+   >>> conf.site._setObject('simple_item', SimpleItem())
+   'simple_item'
+   >>> conf.meta_profiles['NonProp'] = {'title' : 'LDAP Members directory',
+   ...            'extensions' : ('Dumb:default',),
+   ...            'parameters' : {'attributes' : ('an_attr',),
+   ...                             'class': 'OFS.SimpleItem.SimpleItem',
+   ...                             'rpath' : 'simple_item',},
+   ...            'optional' : False,
+   ...            }
+   >>> conf.metas_order = ['NonProp']
+
+Applying the meta profile, we get::
+
+   >>> conf.meta_profiles['NonProp']['parameters']['attributes'] = ['an_attr']
+   >>> params = {'SimpleItem-an_attr': 'some_value'}
+   >>> conf.importMetaProfiles(requested_metas=['NonProp'], **params)
+   Pointing at Dumb:default
+   Imported
+   >>> conf.site.simple_item.an_attr
+   'some_value'
+
+Upgrades
+--------
+
+After the initial site creation, the list of imported meta_profiles
+is kept as a property on the portal object. The configurator's
+``replayMetaProfiles`` replays the importations, but keep the
+associated external parameters as the user set them (be it directly in
+ZMI or through the configurator's form), whatever value is set in the profiles.
+
+In order to demonstrate this, we had our fake setup tool reset one of
+its attributes at each import.
+
+   >>> site = conf.site
+   >>> site.portal_setup.witness = 1
+   >>> site.portal_setup.runAllImportSteps()
+   Imported
+   >>> site.portal_setup.witness
+   0
+
+Now let's make a fresh configurator. Since we'll need a second
+instance later with the same configuration, it's simpler to subclasss::
+
+   >>> class ReplayableConfigurator(CPSSiteMetaConfigurator):
+   ...     meta_profiles = {
+   ...      'ReplayedMeta': {'title' : 'Replayable & sets attr on portal_setup',
+   ...                       'extensions' : ('SomeExt:default',),
+   ...                       'parameters' : {
+   ...                             'properties' : ('witness',),
+   ...                             'class': 'Products.CPSDefault.metafactory.'
+   ...                                      'FakeSetupTool',
+   ...                             'rpath': 'portal_setup',
+   ...                             },
+   ...               'optional' : True,
+   ...              },
+   ...      'Other': { 'extensions': ('SomeOther'), 'optional': True,
+   ...                'title': "Other title"},
+   ...                'parameters' : {'properties' : ('prop',),
+   ...                                'class': 'Products.NoSuch.tool',
+   ...                                'rpath': 'shadow_tool',
+   ...                                },
+   ...      'NoParam': {'extensions': ('Nopar'), 'optional': False,
+   ...                  'title' : ''},
+   ...
+   ...               }
+   ...
+   ...     metas_order = ('Other', 'ReplayedMeta',)
+   >>> conf = ReplayableConfigurator()
+   >>> conf.dispatcher = PortalFolder('app')
+   >>> conf.addSite('new_site')
+   >>> site = conf.site
+   >>> conf.addSetupTool()
+
+   Now, let's launch the first import::
+
+   >>> conf.importMetaProfiles(requested_metas=['ReplayedMeta'],
+   ...                         **{'FakeSetupTool-witness': 3})
+   Pointing at SomeExt:default
+   Imported
+   >>> site.portal_setup.witness
+   3
+
+   and let's do the replay as an external method would::
+
+   >>> rconf =  ReplayableConfigurator(site=site)
+   >>> rconf.replayMetaProfiles()
+   Pointing at SomeExt:default
+   Imported
+   >>> site.portal_setup.witness
+   3
+
+Internals
+~~~~~~~~~
+
+   The list of played metas has been kept on the site object::
+   >>> site.meta_profiles
+   ('ReplayedMeta',)
+
+   A snapshot of existing parameters is made::
+
+   >>> pretty_print(rconf.paramsSnapshot(['ReplayedMeta']))
+   {'FakeSetupTool-witness': 3}
+
+   Robustness tests::
+
+   >>> rconf.paramsSnapshot(['NoParam'])
+   {}
+   >>> pretty_print(rconf.paramsSnapshot(['ReplayedMeta', 'NoParam']))
+   {'FakeSetupTool-witness': 3}
+
+
+Cleaning
+--------
+
+We need to restore the default Setup Tool, otherwise layer tests
+won't run::
+
+      >>> default_factory.CPSSetupTool = true_setup_tool
+
+
+.. Emacs
+.. Local Variables:
+.. mode: rst
+.. End:
+.. Vim
+.. vim: set filetype=rst:
+
+
+
+
+
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
+<h1 tal:replace="structure context/manage_page_header">PAGE HEADER</h1>
+<h2 tal:define="form_title string:Add DGME Site"
+    tal:replace="structure context/manage_form_title">FORM TITLE</h2>
+
+<p class="form-help">
+  Please select ID and configuration for the new CPS site.
+</p>
+
+<form action="addConfiguredDGMESite" method="post"
+      tal:define="meta_profiles options/meta_profiles;">
+
+<table cellspacing="0" cellpadding="2" border="0">
+<tr valign="top">
+  <td>
+    <label class="form-label" for="site_id">Site ID
+    <span class="required" style="color: #ff0000;">*</span>
+    </label>
+  </td>
+  <td>
+    <input type="text" size="30" name="site_id" id="site_id" value="cps" />
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label" for="title">Site Title</label>
+  </td>
+  <td>
+    <input type="text" size="50" name="title" id="title" value="CPS Site"/>
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label" for="manager_email">Site's sending email address
+    <span class="required" style="color: #ff0000;">*</span>
+    </label>
+  </td>
+  <td>
+    <input type="text" size="50" name="manager_email" id="manager_email" />
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label" for="manager_lastname">Site's name in sent emails</label>
+  </td>
+  <td>
+    <input type="text" size="50" name="manager_lastname" id="manager_lastname"
+           value="CPS Manager" />
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label" for="description">Site Description</label>
+  </td>
+  <td>
+    <textarea name="description" id="description"
+              cols="40" rows="4"></textarea>
+  </td>
+</tr>
+<tr valign="top">
+  <td>
+    <label class="form-label">Site Languages</label>
+  </td>
+  <td>
+    <ul style="margin: 0; padding: 0; list-style-type: none">
+      <li tal:repeat="info options/languages">
+        <input type="checkbox" name="languages:list" id="LANG" value="LANG"
+               tal:attributes="id info/id;
+                               value info/id;
+                               checked info/checked|nothing" />
+        <label for="LANG" tal:attributes="for info/id"
+               tal:content="info/title">LANGUAGE</label>
+      </li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td>
+    <input style="margin-top: 1em" class="form-element"
+           type="submit" name="submit" value="Add Site" />
+  </td>
+</tr>
+</table>
+<tal:block condition="meta_profiles">
+  <h3>Options</h3>
+  <table>
+  <tr>
+    <th/>
+    <th> Title </th>
+    <th> Complements </th>
+  </tr>
+  <tr tal:repeat="m_profile meta_profiles">
+    <tal:block condition="not:m_profile/disabled|nothing">
+      <td>
+	<input type="checkbox" name="requested_metas:list"
+	       tal:condition="m_profile/optional"
+	       tal:attributes="value m_profile/id"/>
+      </td>
+      <td tal:content="m_profile/title"/>
+      <td tal:condition="m_profile/parameters"
+	  tal:define="params m_profile/parameters">
+	<div  style="margin-left: 1.5em" tal:repeat="param params">
+	  <span tal:content="param/label"/>
+	  <input type="text" size="50" name=""
+		 tal:attributes="name param/id"/>
+	</div>
+      </td>
+    </tal:block>
+
+    <tal:block condition="m_profile/disabled|nothing">
+      <td/>
+      <td tal:content="m_profile/title"/>
+      <td>
+	<div style="margin-left: 1.5em">
+	  Disabled: <span tal:content="m_profile/disabled"/>
+	</div>
+      </td>
+    </tal:block>
+  </tr>
+  <tr>
+    <td>
+      <input style="margin-top: 1em" class="form-element"
+           type="submit" name="submit" value="Add Site" />
+    </td>
+  </tr>
+</table>
+</tal:block>
+</form>
+
+<h1 tal:replace="structure context/manage_page_footer">PAGE FOOTER</h1>
+</html>

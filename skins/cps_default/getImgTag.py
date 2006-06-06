@@ -28,18 +28,18 @@ img_url = base_url + img_name
 # retrieving the image object is necessary for resizing
 # we use img_name to guess the path
 if img is None:
-   if img_name[0] == '/':
-       # leading '/' would refer to app object, not what we want
-       trav_base = utool.getPortalObject()
-       trav_path = img_name[1:]
-   else:
-       trav_base = context
-       trav_path = img_name
-   logger.debug('traversal to img object: %s (from %s)...' % (trav_path,
-                                                              trav_base))
-   try:
+    if img_name[0] == '/':
+        # leading '/' would refer to app object, not what we want
+        trav_base = utool.getPortalObject()
+        trav_path = img_name[1:]
+    else:
+        trav_base = context
+        trav_path = img_name
+    #logger.debug('traversal to img object: %s (from %s)...' % (trav_path,
+    #                                                           trav_base))
+    try:
         img = trav_base.restrictedTraverse(trav_path, default=None)
-   except (KeyError, AttributeError, 'NotFound'):
+    except (KeyError, AttributeError, 'NotFound'):
         logger.debug('...not found')
 
 if img is None:

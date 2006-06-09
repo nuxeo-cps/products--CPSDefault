@@ -36,6 +36,9 @@ try:
 except ImportError:
     pass
 
+# ZMI XML export tab
+import PatchCPSSkinsThemesTool
+
 # Making sure that the ModuleSecurityInfo info statements of the utils
 # module is taken into account.
 import utils

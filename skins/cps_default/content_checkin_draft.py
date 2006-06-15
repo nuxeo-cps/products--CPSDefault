@@ -3,12 +3,11 @@
 """
 FIXME: add docstring.
 """
-
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
 wftool = context.portal_workflow
-folder = context.aq_parent
+folder = context.aq_inner.aq_parent
 
 locked_ob = context.getLockedObjectFromDraft()
 

@@ -10,7 +10,7 @@ wftool = context.portal_workflow
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
-folder = context.aq_parent
+folder = context.aq_inner.aq_parent
 
 newid = wftool.findNewId(folder, context.getId())
 wftool.doActionFor(context, 'checkout_draft',

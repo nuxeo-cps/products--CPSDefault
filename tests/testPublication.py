@@ -16,10 +16,6 @@
 #
 # $Id$
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 import unittest
 
 import traceback
@@ -38,7 +34,6 @@ from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
 ANOTHER_SECTION_ID = 'another-section'
-
 
 class TestPublication(CPSTestCase):
     # Test object creation and publication workflow
@@ -65,17 +60,14 @@ class TestPublication(CPSTestCase):
         pmtool.setLocalRoles(obj=self.portal.sections,
             member_ids=['reviewer'], member_role='SectionReviewer')
 
-
     def beforeTearDown(self):
         self.logout()
-
 
     def testAccessForManager(self):
         self.login('manager')
         self.assert_(self.member_ws.folder_contents())
         self.assert_(self.member_ws.folder_view())
         self.assert_(self.portal.portal_repository.folder_view())
-
 
     def testAccessForMember(self):
         self.login('member')
@@ -84,14 +76,12 @@ class TestPublication(CPSTestCase):
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
 
-
     def testAccessForReviewer(self):
         self.login('reviewer')
         self.assert_(self.portal.sections.folder_contents())
         self.assert_(self.portal.sections.folder_view())
         self.assertRaises(
             Unauthorized, self.portal.portal_repository.folder_view, ())
-
 
     def _checkGetContentInfo(self, info, level):
         self.assertEquals(info['icon'], 'newsitem_icon.png')
@@ -148,7 +138,6 @@ class TestPublication(CPSTestCase):
         if level >= 4:
             self.assertEquals(info['archived'], [])
 
-
     def testGetContentInfo(self):
         # Test the getContentInfo script
 
@@ -160,7 +149,6 @@ class TestPublication(CPSTestCase):
         for level in range(0, 5):
             info = proxy.getContentInfo(level=level)
             self._checkGetContentInfo(info, level)
-
 
     def _testSubmit(self, document_type):
         self.login('member')
@@ -237,7 +225,6 @@ class TestPublication(CPSTestCase):
         proxy2.wl_delLock(lock_token)
         self.member_ws.manage_delObjects(['doc2'])
 
-
     def _testSubmitWithModifiedWorkflow(self, document_type):
         self.login('member')
 
@@ -286,14 +273,12 @@ class TestPublication(CPSTestCase):
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])
 
-
     def testSubmitAllDocumentTypes(self):
         all_document_types = self.portal.getDocumentTypes()
         del all_document_types['Workspace']
         del all_document_types['Section']
         for document_type in all_document_types.keys():
             self._testSubmit(document_type)
-
 
     def testSubmitWithModifiedWorkflow(self):
         # Now test publication with a modified workflow
@@ -331,7 +316,6 @@ class TestPublication(CPSTestCase):
         trans = wf_workspace_content.transitions.get(trans_id)
         trans.new_state_id = 'submitted'
         self._testSubmitWithModifiedWorkflow('File')
-
 
     # Same as test as above, but here we know what document type causes
     # trouble
@@ -450,11 +434,9 @@ class TestPublication(CPSTestCase):
                               not x.getId().startswith('.')])
         self.assertEqual(len(ws.objectIds()), 1)
 
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestPublication))
     return suite
-
-if __name__ == '__main__':
-    framework(descriptions=1, verbosity=2)
 

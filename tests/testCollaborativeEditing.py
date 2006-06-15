@@ -22,13 +22,9 @@ import traceback
 from zExceptions.ExceptionFormatter import format_exception
 traceback.format_exception = format_exception
 
-from DateTime import DateTime
-
-from webdav.LockItem import LockItem
 from AccessControl import Unauthorized
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase

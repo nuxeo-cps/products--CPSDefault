@@ -7,27 +7,23 @@ If reverse==1, find the draft from the locked object.
 Returns an object or None.
 """
 
-utool = context.portal_url
-folder = context.aq_inner.aq_parent
+pxtool = context.portal_proxies
 docid = context.getDocid()
 flr = context.getFromLanguageRevisions()
+
+candidates = pxtool.getProxyInfosFromDocid(docid, workflow_vars=['review_state'])
 
 if not reverse:
     want_review_state = 'locked'
 else:
     want_review_state = 'draft'
 
-# use a catalog query to avoid scanning the whole folder content
-query = {
-    'portal_type': context.portal_type,
-    'review_state': want_review_state,
-    'folder_prefix': utool.getRpath(folder),
-}
-
-for brain in context.search(query):
-    ob = brain.getObject()
-    if ob.getDocid() != docid:
+for info in candidates:
+    if not info['visible']:
         continue
+    if info['review_state'] != want_review_state:
+        continue
+    ob = info['object']
     if ob.getLanguageRevisions() != flr:
         continue
     return ob

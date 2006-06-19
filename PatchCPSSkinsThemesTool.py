@@ -20,10 +20,7 @@
 
 Done by patch to avoid creating a depency of CPSSkins upon CPSUtil
 """
-
 from Products.CPSSkins.PortalThemesTool import PortalThemesTool
-old_options = PortalThemesTool.manage_options
-PortalThemesTool.manage_options = old_options + (
-    {'label': 'Export', 'action': 'manage_genericSetupExport.html'},
-    )
+from Products.CPSUtil import export_option
 
+PortalThemesTool.manage_options += export_option

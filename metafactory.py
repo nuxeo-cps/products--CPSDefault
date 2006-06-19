@@ -48,6 +48,8 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
      metas_order = ()
 
      base_profile = 'CPSDefault:default'
+     form_heading = ''
+     post_action = ''
 
      def __init__(self, site=None):
          if site is not None:
@@ -98,6 +100,8 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                           'label': attr})
 
          options['meta_profiles'] = opt_metas
+         options['form_heading'] = getattr(self, 'form_heading')
+         options['post_action'] = getattr(self, 'post_action')
 
      def createAdministrator(self, *args):
           """ Do nothing. """
@@ -255,8 +259,7 @@ def addConfiguredMetaSite(dispatcher, REQUEST=None, **kw):
     """
     if REQUEST is not None:
         kw.update(REQUEST.form)
-    return _cpsconfigurator.addConfiguredSite(dispatcher,
-                                              REQUEST=REQUEST, **kw)
+    return _cpsconfigurator.addConfiguredSite(dispatcher, REQUEST=REQUEST, **kw)
 
 class FakeSetupTool(CPSSetupTool):
      """For tests and examples.

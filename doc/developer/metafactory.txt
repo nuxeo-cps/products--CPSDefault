@@ -67,6 +67,8 @@ attribute. The list of meta profiles to load is kept in
    ...     }
 
    >>> conf.metas_order = ('Base', 'LDAP',)
+   >>> conf.form_heading = 'Add a Sample Site'
+   >>> conf.post_action = 'addConfiguredSampleSite'
 
 In real life, subclassing is recommended, so that it's easy to ensure
 that re-runs are made with the same configuration as for a fresh site.
@@ -79,10 +81,20 @@ keyword args. The underlying dict is altered by the overloaded
 ``prepareOptions()`` right before being passed. We'll demonstrate
 here what this method does.
 
-It adds a new ``meta_profiles`` to the dict and doesnt touch other entries::
+Let's start with the basics: the method adds forwards two attributes
+of the configurator in the options dict, to be used as heading and
+'action' attribute in the form element::
 
      >>> options = {'otherinfo': 'hungry'}
      >>> conf.prepareOptions(options)
+     >>> options['form_heading']
+     'Add a Sample Site'
+     >>> options['post_action']
+     'addConfiguredSampleSite'
+
+The main addition is s a new ``meta_profiles`` key to the dict (other
+entries are kept untouched)::
+
      >>> options['otherinfo']
      'hungry'
      >>> 'meta_profiles' in options

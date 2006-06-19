@@ -94,7 +94,7 @@
   </tr>
   <tr tal:repeat="m_profile meta_profiles">
     <tal:block condition="not:m_profile/disabled|nothing"
-	       define="params m_profiles/parameters|nothing">
+	       define="params m_profile/parameters|nothing">
       <td>
 	<input type="checkbox" name="requested_metas:list"
 	       tal:condition="m_profile/optional"

@@ -92,15 +92,15 @@
     <th> Complements </th>
   </tr>
   <tr tal:repeat="m_profile meta_profiles">
-    <tal:block condition="not:m_profile/disabled|nothing">
+    <tal:block condition="not:m_profile/disabled|nothing"
+	       define="params m_profiles/parameters|nothing">
       <td>
 	<input type="checkbox" name="requested_metas:list"
 	       tal:condition="m_profile/optional"
 	       tal:attributes="value m_profile/id"/>
       </td>
       <td tal:content="m_profile/title"/>
-      <td tal:condition="m_profile/parameters"
-	  tal:define="params m_profile/parameters">
+      <td tal:condition="params">
 	<div  style="margin-left: 1.5em" tal:repeat="param params">
 	  <span tal:content="param/label"/>
 	  <input type="text" size="50" name=""

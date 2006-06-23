@@ -370,15 +370,18 @@ instance later with the same configuration, it's simpler to subclasss::
    ...                             'class': 'Products.CPSDefault.metafactory.'
    ...                                      'FakeSetupTool',
    ...                             'rpath': 'portal_setup',
+   ...                             'undisclosed' : ('witness',),
    ...                             },
    ...               'optional' : True,
    ...              },
    ...      'Other': { 'extensions': ('SomeOther'), 'optional': True,
-   ...                'title': "Other title"},
+   ...                'title': "Other title",
    ...                'parameters' : {'properties' : ('prop',),
    ...                                'class': 'Products.NoSuch.tool',
    ...                                'rpath': 'shadow_tool',
+   ...                                'undisclosed' : ('password',),
    ...                                },
+   ...                },
    ...      'NoParam': {'extensions': ('Nopar'), 'optional': False,
    ...                  'title' : ''},
    ...
@@ -408,6 +411,29 @@ instance later with the same configuration, it's simpler to subclasss::
    Imported
    >>> site.portal_setup.witness
    3
+
+   The configurator can tell which parameters shouldn't be disclosed
+   by the external method. For this, it uses the 'undisclosed' key in
+   the 'params' dict and doesn't check anything::
+
+   >>> undis = rconf.getUndisclosedParams()
+   >>> undis.sort()
+   >>> undis
+   ['password', 'witness']
+
+
+External method
+~~~~~~~~~~~~~~~
+
+   The site creation ends with the setting of an external method whose
+   definition is controlled by the ``replay_external_method ``
+   attribute::
+
+   >>> rconf.replay_external_method['module']
+   'CPSDefault.replay_meta_profiles'
+
+   You can override all the parameters in your configurator. If the
+   attribute doesn't evaluate to True, no External Method will be made
 
 Internals
 ~~~~~~~~~

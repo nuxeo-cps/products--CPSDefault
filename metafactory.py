@@ -22,6 +22,7 @@ import logging
 from Acquisition import aq_base
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
 from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.setuptool import CPSSetupTool
@@ -51,9 +52,26 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
      form_heading = ''
      post_action = ''
 
+     replay_external_method = {'id': 'replay_profiles',
+                               'description': "Upgrade the configuration"
+                               "that was specified in site creation form",
+                               'module': 'CPSDefault.replay_meta_profiles',
+                               'function': 'replay'}
+
      def __init__(self, site=None):
          if site is not None:
              self.site = site
+
+     def getUndisclosedParams(self):
+          """Give the list of sensitive property values not to be displayed.
+
+          Used by replay external method."""
+
+          res = []
+          for m_profile in self.meta_profiles.values():
+               params = m_profile.get('parameters', {})
+               res.extend(params.get('undisclosed', ()))
+          return res
 
      def prepareOptions(self, options):
          """Add metaprofiles. """
@@ -121,6 +139,14 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
 
           CPSSiteConfigurator.afterImport(self, **kw)
           self.importMetaProfiles(**kw)
+
+          d = self.replay_external_method
+          if not d:
+               return
+
+          meth = ExternalMethod(d['id'], d['description'],
+                                d['module'], d['function'])
+          self.site._setObject(d['id'], meth)
 
      def _importMetaProfile(self, m_profile):
           """ Import a single meta profile. """

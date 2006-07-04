@@ -9,24 +9,26 @@
       Add Content
     </h1>
 
-    <div class="group"
-          metal:fill-slot="main"
-          tal:define="creatableItems python:here.getSortedContentTypes(custom_order=True);
-            showFirst python:5">
+    <div metal:fill-slot="main" class="group"
+      tal:define="types python:here.getSortedContentTypes(custom_order=True);
+                  show_size python:5;
+                 ">
 
-      <div tal:condition="python: len(creatableItems) == 1">
+      <div tal:condition="python:len(types) == 1">
         <span id="dummy_for_redirect"
               tal:define="response request/RESPONSE;
-                          item python:creatableItems[0];
+                          item python:types[0];
                           rurl string:${here_url}/content_create?type_name=${item/getId};
                           redirect python:response.redirect(rurl)"/>
       </div>
-      <tal:block tal:condition="python:creatableItems and len(creatableItems)>1">
-        <tal:block tal:define="creatableItems1 python:creatableItems[:showFirst];
-          creatableItems2 python:creatableItems[showFirst:]">
+      <tal:block tal:condition="python:len(types) > 1">
+        <tal:block tal:define="
+          first_types python:types[:show_size];
+          other_types python:types[show_size:];
+          ">
           <dl>
-          <tal:block repeat="item creatableItems1">
-            <tal:block define="choice_id string:choice_${repeat/item/number}">
+          <tal:block repeat="item first_types">
+            <metal:block define-macro="create_link">
               <dt>
                 <img tal:replace="structure python:here.getImgTag(item.getIcon(),
                   base_url=base_url)" />
@@ -34,16 +36,16 @@
                   href string:${here_url}/content_create?type_name=${item/getId}"
                   tal:content="item/Title"
                   i18n:translate="">
-                  Portal type's title
+                  Portal type title
                 </a>
               </dt>
               <dd tal:content="item/Description" i18n:translate="">
-                Portal type's description
+                Portal type description
               </dd>
-            </tal:block>
+            </metal:block>
           </tal:block>
           </dl>
-          <tal:block condition="creatableItems2">
+          <tal:block condition="other_types">
             <div id="more_block" class="more_block"
               style="display:block">
               <a tal:attributes="
@@ -54,23 +56,8 @@
             </div>
             <div style="display:none" id="more_items">
               <dl>
-              <tal:block repeat="item creatableItems2"
-                define="value python:'ceva'">
-                <tal:block define="choice_id string:choice_${repeat/item/number}">
-                  <dt>
-                    <img tal:replace="structure python:here.getImgTag(item.getIcon(),
-                        base_url=base_url)" />
-                    <a tal:attributes="
-                      href string:${here_url}/content_create?type_name=${item/getId}"
-                      tal:content="item/Title"
-                      i18n:translate="">
-                      Portal type's title
-                    </a>
-                  </dt>
-                  <dd tal:content="item/Description" i18n:translate="">
-                    Portal type's description
-                  </dd>
-                </tal:block>
+              <tal:block repeat="item other_types">
+                <metal:block use-macro="here/folder_factories/macros/create_link" />
               </tal:block>
               </dl>
             </div>
@@ -78,7 +65,7 @@
         </tal:block>
       </tal:block>
 
-      <p tal:condition="not:creatableItems">
+      <p tal:condition="not:types">
         <span i18n:translate="help_no_content_type_can_be_created">
           No content type can be created.
         </span>

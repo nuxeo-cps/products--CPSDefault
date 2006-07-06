@@ -218,6 +218,8 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           requested_metas = kw.get('requested_metas', ())
           imported_metas = []
 
+          setup_tool = self.site.portal_setup
+
           if getattr(self.site, 'meta_profiles', None) is None:
               self.site.manage_addProperty('meta_profiles', [], 'tokens')
 
@@ -237,6 +239,10 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                                               **kw)
                     if after is not None:
                          after(self.site, **kw)
+
+                    cat = m_profile.get('upgrade_category')
+                    if cat is not None:
+                         setup_tool._setCurrentVersion(cat, None)
 
           self.site.manage_changeProperties(meta_profiles=imported_metas)
 

@@ -23,7 +23,7 @@ from AccessControl import Unauthorized
 
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.permissions import ManagePortal
-from Products.DgmeRel.factory import DGMESiteConfigurator
+from Products.GenericSetup.utils import _resolveDottedName
 
 logger = logging.getLogger('CPSDefault.Extensions.replay_meta_profiles')
 
@@ -32,7 +32,8 @@ def replay(self, REQUEST=None):
     if not _checkPermission(ManagePortal, portal):
         raise Unauthorized
 
-    conf = DGMESiteConfigurator(site=portal)
+    SiteConfigurator = _resolveDottedName(portal.configurator)
+    conf = SiteConfigurator(site=portal)
     conf.replayMetaProfiles()
 
     # user feedback

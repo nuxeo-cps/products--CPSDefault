@@ -223,6 +223,9 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           if getattr(self.site, 'meta_profiles', None) is None:
               self.site.manage_addProperty('meta_profiles', [], 'tokens')
 
+          if getattr(self.site, 'configurator', None) is None:
+              self.site.manage_addProperty('configurator', [], 'string')
+
           for m_id in self.metas_order:
                m_profile = self.meta_profiles[m_id]
                if m_id in requested_metas or not m_profile.get('optional',
@@ -244,7 +247,10 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                     if cat is not None:
                          setup_tool._setCurrentVersion(cat, None)
 
-          self.site.manage_changeProperties(meta_profiles=imported_metas)
+          self_dotted_name = '.'.join((self.__module__,
+                                       self.__class__.__name__))
+          self.site.manage_changeProperties(meta_profiles=imported_metas,
+                                            configurator=self_dotted_name)
 
      def replayMetaProfiles(self, with_hooks=False):
          """ Replay meta profiles but saves parameters."""

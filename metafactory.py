@@ -53,7 +53,7 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
      post_action = ''
 
      replay_external_method = {'id': 'replay_profiles',
-                               'description': "Upgrade the configuration"
+                               'description': "Upgrade the configuration "
                                "that was specified in site creation form",
                                'module': 'CPSDefault.replay_meta_profiles',
                                'function': 'replay'}

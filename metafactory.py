@@ -224,7 +224,7 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
               self.site.manage_addProperty('meta_profiles', [], 'tokens')
 
           if getattr(self.site, 'configurator', None) is None:
-              self.site.manage_addProperty('configurator', [], 'string')
+              self.site.manage_addProperty('configurator', '', 'string')
 
           for m_id in self.metas_order:
                m_profile = self.meta_profiles[m_id]

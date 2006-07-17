@@ -18,7 +18,6 @@ if breadcrumbs_set is not None, the real path is faked by setting a variable
 (Cf. Directories Templates)
 """
 
-from zLOG import LOG, DEBUG
 from Products.CMFCore.utils import getToolByName
 
 ml = 20

@@ -34,6 +34,7 @@ from Products.CPSWorkflow.configuration import (
 from Products.CPSWorkflow.exportimport import (
     LocalWorkflowConfigurationXMLAdapter)
 
+from Products.Localizer.exportimport import importLocalizer
 from Products.CPSDocument.exportimport import importCPSObjects
 
 
@@ -117,6 +118,17 @@ class VariousImporter(object):
 def importVarious(context):
     importer = VariousImporter(context)
     importer.importVarious()
+
+
+def importLocalizerAndClearCaches(context):
+    """Call the Localizer importer and then clear the portlets tool caches.
+
+    That way all the portlets take advantage of the new translations.
+    """
+    site = context.getSite()
+    importLocalizer(context)
+    portlets_tool = getToolByName(site, 'portal_cpsportlets')
+    portlets_tool.clearCache()
 
 
 class RootsXMLAdapter(XMLAdapterBase):
@@ -221,7 +233,7 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
                                             target_language=lang,
                                             default=title_msgid)
                 title = title.encode('iso-8859-15', 'ignore')
-                doc = proxy.getEditableContent(lang)
+                doc = proxy.getEditableContent(lang=lang)
                 doc.edit(Title=title, proxy=proxy)
 
 def importObjectLocalWorkflow(ob, filename, context):

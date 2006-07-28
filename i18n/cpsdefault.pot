@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2006-03-01 19:35default\n"
+"POT-Creation-Date: 2006-07-28 01:45default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -70,25 +70,18 @@ msgid ""
 msgstr ""
 
 #.   <dd content="item/Description">
-#.                   Portal type's description
+#.                   Portal type description
 #.                 </dd>
-#.   <dd content="item/Description">
-#.                       Portal type's description
-#.                     </dd>
 #: from ../skins/cps_default/folder_factories.pt
-msgid "Portal type's description"
+msgid "Portal type description"
 msgstr ""
 
 #.   <a content="item/Title" attributes="
 #.                     href string:${here_url}/content_create?type_name=${item/getId}">
-#.                     Portal type's title
+#.                     Portal type title
 #.                   </a>
-#.   <a content="item/Title" attributes="
-#.                         href string:${here_url}/content_create?type_name=${item/getId}">
-#.                         Portal type's title
-#.                       </a>
 #: from ../skins/cps_default/folder_factories.pt
-msgid "Portal type's title"
+msgid "Portal type title"
 msgstr ""
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
@@ -407,7 +400,7 @@ msgstr ""
 msgid "button_move_up"
 msgstr ""
 
-#.   <input type="button" value="button_ok" onclick="history.back()" />
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
 #: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
@@ -1137,7 +1130,7 @@ msgstr ""
 msgid "label_admin_name"
 msgstr ""
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
+#.   <img src="image.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="85" height="15" attributes="src string:${here/portal_url}/cps_powered.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr ""
@@ -1207,17 +1200,17 @@ msgstr ""
 msgid "label_compact"
 msgstr ""
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
+#.   <img src="image.png" title="label_conformance_valid_css" alt="Valid CSS" width="85" height="15" attributes="src string:${here/portal_url}/valid_css-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr ""
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
+#.   <img src="image.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="85" height="15" attributes="src string:${here/portal_url}/valid_xhtml-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr ""
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
+#.   <img src="image.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="85" height="15" attributes="src string:${here/portal_url}/valid_wai1A-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr ""
@@ -2141,7 +2134,7 @@ msgid "time_expiration_date"
 msgstr ""
 
 #.   <option attributes="value lastLogin;
-#.                                   selected python:modified == lastLogin or None" condition="not:isAnon">Last login</option>
+#.                                   selected python:modified == lastLogin or None" condition="python:not isAnon and lastLogin is not None">Last login</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_login"
 msgstr ""
@@ -2907,6 +2900,9 @@ msgid "label_language_ro"
 msgstr ""
 
 msgid "label_language_eu"
+msgstr ""
+
+msgid "label_language_ca"
 msgstr ""
 
 # Accesskeys

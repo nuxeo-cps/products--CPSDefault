@@ -49,6 +49,7 @@ class CPSSiteConfigurator(object):
         {'id': 'mg', 'title': 'Malagasy'},
         {'id': 'ro', 'title': 'Romanian'},
         {'id': 'eu', 'title': 'Euskara'},
+        {'id': 'ca', 'title': 'Catalan'},
         )
 
     addForm = PageTemplateFile('zmi/siteAddForm', globals())

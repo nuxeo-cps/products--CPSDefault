@@ -1,25 +1,25 @@
-# translation of CPSDefault_en.po to Euskara
-# Aitzol Naberan Burgaña <anaberan@codesyntax.com>, 2004.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: CPSDefault-eu\n"
+"Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-28 01:45default\n"
-"PO-Revision-Date: 2004-10-04 17:20+0100\n"
-"Last-Translator:  <>\n"
-"Language-Team: Euskara <eu@li.org>\n"
+"POT-Creation-Date: 2006-07-28 01:44default\n"
+"PO-Revision-Date: 2006-07-19 18:45+0100\n"
+"Last-Translator: Santi Camps <scamps@earcon.com>\n"
+"Language-Team: català <darcalis@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Code: eu\n"
-"Language-Name: Basque\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Catalan\n"
+"X-Poedit-Country: SPAIN\n"
 "Domain: default\n"
+"Language-Code: ca\n"
+"Language-Name: Catalan\n"
 
 #.   <span>${portal_title (tal content="ptool/title")}: Membership reminder</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "${portal_title}: Membership reminder"
-msgstr ""
+msgstr "${portal_title}: Recordar la contrasenya"
 
 #.   <span>
 #.       Created by
@@ -29,19 +29,20 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_lib_byline.pt
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
-msgstr "Sortzailea: ${item_creator}. Azken eguneraketa: ${item_modification}."
+msgstr ""
+"Creat per ${item_creator}. Darrera modificació el ${item_modification}."
 
 #.   <a href="join_form" attributes="href string:${here/portal_url}/join_form">Join</a>
 #: from ../skins/cps_default/portlet_start_cps.pt
 msgid "Join"
-msgstr "Izena eman"
+msgstr "Inscriure'm"
 
 #.   <option content="python:language_voc.getMsgid(language)" attributes="value language;
 #.                                   label language;
 #.                                   selected python:test(language==default_language,'selected', nothing);" condition="python:language in languages">Language</option>
 #: from ../skins/cps_default/config_form.pt
 msgid "Language"
-msgstr "Hizkuntza"
+msgstr "Idioma"
 
 #.   <option content="python: language_voc.getMsgid(lang)" attributes="value lang;
 #.                                   selected python:lang == default_lang" repeat="lang languages">
@@ -49,13 +50,12 @@ msgstr "Hizkuntza"
 #.           </option>
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "Language..."
-msgstr ""
+msgstr "Idioma..."
 
 #.   <a href="." content="python:test(isAnonymous, 'Login', 'Log out')" attributes="href python:test(isAnonymous, 'login_form', 'logout');">Log in/out</a>
 #: from ../skins/cps_default/portlet_start_cps.pt
-#, fuzzy
 msgid "Log in/out"
-msgstr "Entrar / Salir"
+msgstr "Entrar / Sortir"
 
 #.   <span>
 #.             Objects: 
@@ -69,6 +69,8 @@ msgid ""
 "Objects: <strong> ${batch_start} - ${batch_limit} </strong> of "
 "${batch_length}"
 msgstr ""
+"Objectes: <strong> ${batch_start} - ${batch_limit} </strong> de "
+"${batch_length}"
 
 #.   <dd content="item/Description">
 #.                   Portal type description
@@ -90,7 +92,7 @@ msgstr "Portal type's title"
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "Request made by IP ${ip} at ${time}"
-msgstr ""
+msgstr "Petició realitzada per la IP ${ip} a les ${time}"
 
 #.   <option content="role" attributes="value role;
 #.                         selected python:role == filtered_role" repeat="role cps_roles">
@@ -105,38 +107,38 @@ msgstr ""
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #: ../skins/cps_default/folder_localrole_form.pt
 msgid "Role"
-msgstr ""
+msgstr "Rol"
 
 #.   <label content="member_info/title" attributes="for input_id">
 #.               User
 #.             </label>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "User"
-msgstr ""
+msgstr "Usuari"
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">Work</span>
 #: from ../skins/cps_default/content_lib_byline.pt
 #: ../skins/cps_default/content_lib_status.pt
 msgid "Work"
-msgstr "FAKE"
+msgstr "Treball"
 
 #.   <span>You are currently logged in as
 #.         ${member (tal content="mtool/getAuthenticatedMember")}
 #.       </span>
 #: from ../skins/cps_default/portlet_session_info.pt
 msgid "You are currently logged in as ${member}"
-msgstr ""
+msgstr "Ha iniciat sessió com a ${member}"
 
 #.   <span>Your login:</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "Your login:"
-msgstr ""
+msgstr "Nom d'usuari:"
 
 #.   <span>Your password:</span>
 #: from ../skins/cps_default/mail_password_template.pt
 msgid "Your password:"
-msgstr ""
+msgstr "Contrasenya:"
 
 #.   <p condition="python:res['items_count'] > 1">
 #.           Your query gave ${nb_results (tal content="res/items_count")} results.
@@ -151,66 +153,61 @@ msgstr ""
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
-msgstr "Emaitzak guztira:  ${nb_results}"
+msgstr "La recerca ha proporcionat ${nb_results} resultats."
 
 #.   <p>
 #.   The following access keys are available:
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_description"
 msgstr ""
-"Las teclas de acceso o atajos del teclado disponibles para navegar por el "
-"portal son los siguientes:"
+"Les tecles d'accés o dreceres del teclat per a navegar pel portal són les "
+"següents:"
 
 #.   <h2>Accesskeys
 #.   or keyboard shortcuts</h2>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_title"
-msgstr "Teclas de acceso y/o atajos del teclado"
+msgstr "Tecles d'accés i/o dreceres del teclat"
 
 #.   <div class="accesskeysUsage">
 #.   Explanations on how to use the accesskeys on the different web browsers.
 #.   </div>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_usage"
 msgstr ""
-"<ul><li>IE Windows&nbsp;: <kbd>Alt</kbd> + [<kbd>tecla de acceso</kbd>], "
-"luego <kbd>Intro</kbd> (no utilice el teclado numérico)&nbsp;;</li> "
+"<ul><li>IE Windows&nbsp;: <kbd>Alt</kbd> + [<kbd>tecla d'accés</kbd>], "
+"després <kbd>Intro</kbd> (no empri el teclat numèric)&nbsp;;</li> "
 "<li>Mozilla, Netscape, K-Meleon, FireFox&nbsp;Windows: <kbd>Alt</kbd> + "
-"[<kbd>tecla de acceso</kbd>]&nbsp;;</li> <li>Opera 7 Windows,&nbsp;"
-"Macintosh, Linux : <kbd>Esc</kbd> + <kbd>Mayúsculas</kbd> + [<kbd>tecla de "
-"acceso</kbd>]&nbsp;;</li> <li>MSIE Macintosh&nbsp;: <kbd>Ctrl</kbd> + "
-"[<kbd>tecla de acceso</kbd>], luego <kbd>Intro</kbd>&nbsp;;</li> <li>Safari "
-"1.2 Macintosh&nbsp;: <kbd>Ctrl</kbd> + [<kbd>tecla de acceso</kbd>]&nbsp;;</"
-"li> <li>Mozilla, Netscape Macintosh&nbsp;: <kbd>Ctrl</kbd> + [<kbd>tecla de "
-"acceso</kbd>]&nbsp;;</li> <li>Galeon/Mozilla/FireFox Linux&nbsp;: <kbd>Alt</"
-"kbd> + [<kbd>tecla de acceso</kbd>]&nbsp;;</li> <li>Konqueror&nbsp;3.3"
-"+&nbsp;: <kbd>Ctrl</kbd>, luego [<kbd>tecla de acceso</kbd>] (sucesivamente)"
-"&nbsp;;</li> <li>Netscape 4, Camino, Galeon, Konqueror anteriores a la "
-"versión 3.3.0, Omniweb, Safari anteriores a la versión 1.2, Opera Windows/"
-"Linux anteriores a la versión 7, no soportan  <code>las teclas de acceso.</"
-"code></li></ul>"
+"[<kbd>tecla d'accés</kbd>]&nbsp;;</li> <li>Opera 7 Windows,&nbsp;Macintosh, "
+"Linux : <kbd>Esc</kbd> + <kbd>Majúscules</kbd> + [<kbd>tecla d'accés</kbd>]"
+"&nbsp;;</li> <li>MSIE Macintosh&nbsp;: <kbd>Ctrl</kbd> + [<kbd>tecla "
+"d'accés</kbd>], després <kbd>Intro</kbd>&nbsp;;</li> <li>Safari 1.2 "
+"Macintosh&nbsp;: <kbd>Ctrl</kbd> + [<kbd>tecla d'accés</kbd>]&nbsp;;</li> "
+"<li>Mozilla, Netscape Macintosh&nbsp;: <kbd>Ctrl</kbd> + [<kbd>tecla "
+"d'accés</kbd>]&nbsp;;</li> <li>Galeon/Mozilla/FireFox Linux&nbsp;: <kbd>Alt</"
+"kbd> + [<kbd>tecla d'accés</kbd>]&nbsp;;</li> <li>Konqueror&nbsp;3.3+&nbsp;: "
+"<kbd>Ctrl</kbd>, després [<kbd>tecla d'accés</kbd>] (successivament)&nbsp;;</"
+"li> <li>Netscape 4, Camino, Galeon, Konqueror anteriors a la versió 3.3.0, "
+"Omniweb, Safari anteriors a la versió 1.2, Opera Windows/Linux anteriors a "
+"la versión7, no suporten  <code>les tecles d'accés.</code></li></ul>"
 
 #.   <p>
 #.   Accesskeys usage is different from one web browser to another.
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_accesskeys_usage_description"
-msgstr "Observe cómo usar los atajos del teclado en algunos navegadores web:"
+msgstr "Observi com emprar les dreceres del teclat en alguns navegadors web:"
 
 #.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_contact_link"
-msgstr "Harremanetarako"
+msgstr "Enllaç de contacte"
 
 #.   <a accesskey="2" href="#content">Go to the content</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_content_link"
-msgstr "Edukira joan"
+msgstr "Anar al contingut"
 
 #.   <p>
 #.   This site has been designed to be accessible.
@@ -219,38 +216,37 @@ msgstr "Edukira joan"
 #.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
 #: from ../skins/cps_default/accessibility.pt
-#, fuzzy
 msgid "accessibility_description"
 msgstr ""
-"Este sitio ha sido diseñado cuidando las normas de accesibilidad. Respeta "
-"los estándares <a href=\"http://www.w3.org/\">W3C</a>. Dicha accesibilidad "
-"ha sido refrendada con la <a href=\"http://www.wave.webaim.org/"
-"\">Herramienta de accesibilidad WAVE Web</a>."
+"Aquest lloc web s'ha dissenyat respectant les normes d'accessibilitat "
+"determinades pels estàndards <a href=\"http://www.w3.org/\">W3C</a>. Això ha "
+"estat refrendat amb <a href=\"http://www.wave.webaim.org/\">l'eina "
+"d'accessibilitat web WAVE</a>."
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
-msgstr "Sarrera-orrira joan"
+msgstr "Anar a la pàgina d'entrada"
 
 #.   <a accesskey="3" href="#menu">Go to the menu</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_menu_link"
-msgstr "Menura joan"
+msgstr "Anar al menú"
 
 #.   <a accesskey="0" attributes="href string:${base_url}accessibility">Accessibility</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_page_link"
-msgstr "Irisgarritasuna"
+msgstr "Informació d'accessibilitat"
 
 #.   <a accesskey="4" attributes="href string:${base_url}advanced_search_form">Go to search engine</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_search_link"
-msgstr "Bilaketara joan"
+msgstr "Anar al motor de recerca intern"
 
 #.   <h1>Accessibility</h1>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_title"
-msgstr "Irisgarritasunaz"
+msgstr "Informacions d'accessibilitat"
 
 #.   <span content="python:accesskeys_voc.getMsgid(accesskey)">accesskey explanation</span>
 #: from ../skins/cps_default/accessibility.pt
@@ -261,7 +257,7 @@ msgstr ""
 #: from ../skins/cps_default/portlet_contact_accessibility.pt
 #: ../skins/cps_default/portlet_contact_info.pt
 msgid "action_accessibility"
-msgstr "Irisgarritasuna"
+msgstr "Accessibilitat"
 
 #.   <a attributes="href
 #.       string:mailto:${here/portal_properties/email_from_address}?subject=Info">
@@ -275,35 +271,34 @@ msgstr "Irisgarritasuna"
 #: ../skins/cps_default/portlet_contact_info.pt
 #: ../skins/cps_default/portlet_start_cps.pt
 msgid "action_contact"
-msgstr "Harremanetarako"
+msgstr "Contacte"
 
 #.   <a href="javascript:if (window.print) window.print();">Print</a>
 #: from ../skins/cps_default/portlet_contact_accessibility.pt
 msgid "action_print"
-msgstr "Inprimatu"
+msgstr "Imprimir"
 
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                                   mq(request.form, b_start=next))" condition="python:next is not None" define="next batch_info/next">Next</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_next"
-msgstr "Hurrengoa"
+msgstr "Següents"
 
-# # Batch ========================================================
 #.   <a attributes="href python:'%s?%s'%(request['URL'],
 #.                                               mq(request.form, b_start=previous))" condition="python:previous is not None" define="previous batch_info/previous">Previous</a>
 #: from ../skins/cps_default/content_lib_display_contents.pt
 msgid "batch_previous"
-msgstr "Aurrekoa"
+msgstr "Anteriors"
 
 #.   <input type="submit" class="standalone" value="button_abandon_draft" />
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "button_abandon_draft"
-msgstr "Bertsioa askatu"
+msgstr "Abandonar la revisió"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Add</button>
 #: from ../skins/cps_default/config_form.pt
 msgid "button_add"
-msgstr "Gehitu"
+msgstr "Afegir"
 
 #.   <input type="submit" class="standalone" value="button_apply" />
 #.   <input name="filter_local_roles" type="submit" class="context" value="button_apply" />
@@ -311,12 +306,12 @@ msgstr "Gehitu"
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_apply"
-msgstr "Ekin"
+msgstr "Aplicar"
 
 #.   <input type="submit" class="standalone" value="button_assign_roles" />
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "button_assign_roles"
-msgstr "Rolak esleitu"
+msgstr "Assignar rols"
 
 #.   <button type="button" onclick="history.back()">Cancel</button>
 #.   <input onclick="history.back()" type="button" class="context" value="button_cancel" />
@@ -329,7 +324,7 @@ msgstr "Rolak esleitu"
 #: ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_reject_form.pt 4 more references
 msgid "button_cancel"
-msgstr "Utzi"
+msgstr "Cancel·lar"
 
 #.   <button type="submit">Change</button>
 #.   <input type="submit" class="standalone" value="button_change" />
@@ -339,47 +334,46 @@ msgstr "Utzi"
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change"
-msgstr "Aldaketak Gorde"
+msgstr "Guardar canvis"
 
 #.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_edit"
-msgstr "Aldaketak Gorde eta Irten"
+msgstr "Guardar canvis i editar"
 
 #.   <input name="change_and_view" type="submit" class="standalone" value="button_change_and_view" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_view"
-msgstr "Aldaketak Gorde eta Ikusi"
+msgstr "Guardar i veure"
 
 #.   <input type="submit" class="standalone" value="button_checkin_draft" />
 #: from ../skins/cps_default/content_checkin_draft_form.pt
 msgid "button_checkin_draft"
-msgstr "Checkin bertsioa"
+msgstr "Validar la revisió"
 
 #.   <input type="submit" class="standalone" value="button_checkout_draft" />
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "button_checkout_draft"
-msgstr "Bertsio berria"
+msgstr "Crear una versió"
 
 #.   <button onclick="window.close()">Fermer</button>
 #: from ../skins/cps_default/popup-singleselect.pt
-#, fuzzy
 msgid "button_close"
-msgstr "Cerrar"
+msgstr "Tancar"
 
 #.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
-msgstr "Kopiatu"
+msgstr "Copiar"
 
 #.   <input name="folder_cut:method" type="submit" class="context" value="button_cut" condition="can_del" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
-msgstr "Ebaki"
+msgstr "Tallar"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
 #.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
@@ -389,100 +383,97 @@ msgstr "Ebaki"
 #: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_delete"
-msgstr "Ezabatu"
+msgstr "Esborrar"
 
 #.   <input type="submit" class="standalone" value="button_delete_archive" />
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "button_delete_archive"
-msgstr "Fitxategi hau ezabatu"
+msgstr "Esborrar aquest fitxer"
 
 #.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "button_local_roles_block"
-msgstr "Bloquear"
+msgstr "Bloquejar"
 
 #.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_unblock"
-msgstr "Askatu"
+msgstr "Desbloquejar"
 
 #.   <input name="submit" type="submit" class="standalone" value="button_login" />
 #.   <input type="submit" value="button_login" />
 #: from ../skins/cps_default/login_form.pt ../skins/cps_default/registered.pt
 msgid "button_login"
-msgstr "Sartu"
+msgstr "Entrar"
 
 #.   <input name="moveItemsBottom:method" type="submit" class="context moveBottom" value="button_move_bottom" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
-msgstr "Azkenengora"
+msgstr "Anar al final"
 
 #.   <input name="moveItemsDown:method" type="submit" class="context moveDown" value="button_move_down" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
-msgstr "Beheraka"
+msgstr "Baixar"
 
 #.   <input name="moveItemsTop:method" type="submit" class="context moveTop" value="button_move_top" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
-msgstr "Lehenengora"
+msgstr "Anar a l'inici"
 
 #.   <input name="moveItemsUp:method" type="submit" class="context moveUp" value="button_move_up" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
-msgstr "Goraka"
+msgstr "Pujar"
 
 #.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
 #: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
-msgstr "OK"
+msgstr "D'acord"
 
 #.   <input name="folder_paste:method" type="submit" class="context" value="button_paste" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
-msgstr "Itsatsi"
+msgstr "Enganxar"
 
 #.   <input type="submit" class="standalone" value="button_publish" />
 #.   <input type="submit" value="button_publish" />
 #: from ../skins/cps_default/content_accept_form.pt
 #: ../skins/cps_default/content_lib_transition_form.pt
 msgid "button_publish"
-msgstr "Publikatu"
+msgstr "Publicar"
 
 #.   <input name="submit" type="submit" class="standalone" value="button_register" />
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
-msgstr "Eman izena"
+msgstr "Registrar-me"
 
 #.   <input type="submit" class="standalone" value="button_reject_publication" />
 #: from ../skins/cps_default/content_reject_form.pt
 msgid "button_reject_publication"
-msgstr "Publikazioari ezetz"
+msgstr "Rebutjar la publicació"
 
 #.   <input name="folder_rename_form:method" type="submit" class="context" value="button_rename" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
-msgstr "Objektuaren Id-a aldatu"
+msgstr "Canviar la id de l'objecte"
 
 #.   <input type="submit" class="standalone" value="button_request_reset_password" />
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "button_request_reset_password"
-msgstr "Solicitar contraseña"
+msgstr "Sol·licitar contrasenya"
 
 #.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
 #: from ../skins/cps_default/account_reset_password_form.pt
-#, fuzzy
 msgid "button_reset_password"
-msgstr "Borrar contraseña"
+msgstr "Esborrar contrasenya"
 
 #.   <input type="submit" class="standalone" value="button_revert_revision" />
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
-msgstr "Artxibatutako bertsiora joan"
+msgstr "Tornar a la versió arxivada"
 
 #.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
 #.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
@@ -491,80 +482,76 @@ msgstr "Artxibatutako bertsiora joan"
 #: ../skins/cps_default/folder_localrole_form.pt
 #: ../skins/cps_default/generic_lib_search_form.pt
 msgid "button_search"
-msgstr "Bilatu"
+msgstr "Buscar"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Select</button>
 #: from ../skins/cps_default/config_form.pt
 msgid "button_select"
-msgstr "Aukeratu"
+msgstr "Seleccionar"
 
 #.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
 #.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
-msgstr "Denak aukeratu"
+msgstr "Seleccionar-ho tot"
 
 #.   <input type="submit" class="standalone" value="button_send" />
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "button_send"
-msgstr "Bidali"
+msgstr "Enviar"
 
 #.   <input type="submit" class="standalone" value="button_send_password_reminder" />
 #: from ../skins/cps_default/account_lost_password_form.pt
 msgid "button_send_password_reminder"
-msgstr ""
+msgstr "Enviar-me un recordatori de la contrasenya"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "button_submit_document"
-msgstr "Dokumentua bidali"
+msgstr "Enviar a publicar"
 
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
-#, fuzzy
 msgid "button_translate_document"
-msgstr "Crear una revisión para traducir"
+msgstr "Crear una revisió per a traduir"
 
 #.   <input type="submit" class="standalone" value="button_unpublish_document" />
 #: from ../skins/cps_default/content_unpublish_form.pt
-#, fuzzy
 msgid "button_unpublish_document"
-msgstr "Despublicar el documento"
+msgstr "Des-publicar el document"
 
 #.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
-msgstr "Eguneratu"
+msgstr "Actualitzar"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
-#, fuzzy
 msgid "description_cps"
 msgstr ""
 "<a href=\"http://www.nuxeo.com/cps/\">Collaborative Portal Server</a> (CPS) "
-"es la solución de software abierto (Open Source) más completa para construir "
-"aplicaciones ECM. <a href=\"http://www.nuxeo.com/cps/\">CPS</a> integra una "
-"aplicación de fácil uso para la gestión de contenido en el ámbito "
-"empresarial dotado de multíples herramientas colaborativas. <a href=\"http://"
-"www.nuxeo.com/cps/\">CPS</a> está programada para aprovechar toda la "
-"potencia del servidor de aplicaciones <a href=\"http://www.zope.com\">Zope.</"
-"a>"
+"és la solució de programari obert (Open Source) més completa per a construir "
+"aplicacions ECM. <a href=\"http://www.nuxeo.com/cps/\">CPS</a> integra una "
+"aplicació fàcil d'emprar per a la gestió de contingut en l'àmbit "
+"empresarial, amb múltiples eines de col·laboració. <a href=\"http://www."
+"nuxeo.com/cps/\">CPS</a> està programat per a aprofitar tota la potència del "
+"servidor d'aplicacions <a href=\"http://www.zope.com\">Zope.</a>"
 
 #.   <span>
 #.           You are already a member. You may use the
 #.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_1"
-msgstr "Dagoeneko erregistratuta zaude. Zure datuak aldatzeko"
+msgstr "Vostè ja és usuari. Pot utilitzar el "
 
 #.   <span>
 #.           to change your membership information.
 #.         </span>
 #: from ../skins/cps_default/join_form.pt
 msgid "description_join_form_already_member_2"
-msgstr "erabili dezakezu."
+msgstr "per a modificar les seves dades personals."
 
 #.   <span>
 #.   	You are not currently logged in. Your username and or password may be
@@ -574,46 +561,45 @@ msgstr "erabili dezakezu."
 #: from ../skins/cps_default/user_logged_in_failed.pt
 msgid "description_login_failure"
 msgstr ""
-"Ez zara oraindik sartu. Zure izena edo/eta pasahitza ez dira zuzenak. "
-"Beharbada zure nabigatzaileak ez ditu Cookieak onartzen. Laguntza behar "
-"baduzu, jarri harremanetan"
+"Vostè ara no està connectat al portal. És possible que el seu nom d'usuari i/"
+"o la contrasenya siguin incorrectes. També és possible que el seu navegador "
+"no estigui configurat per a acceptar les cookies. Si necessita ajuda, "
+"contacti amb "
 
 #.   <p condition="isAnon">
 #.       You have been logged out.
 #.     </p>
 #: from ../skins/cps_default/logged_out.pt
 msgid "description_logout_success"
-msgstr "Saioa amaitu duzu."
+msgstr "Vostè està ara desconnectat"
 
 #.   <span>
 #.         You are logged in outside the portal.  You may need to
 #.       </span>
 #: from ../skins/cps_default/logged_out.pt
-#, fuzzy
 msgid "description_logout_zmi_warning"
-msgstr "Usted se ha desconectado del portal. Puede necesitar "
+msgstr "Vostè s'ha desconnectat del portal. Pot necessitar "
 
 #.   <p> 
 #.           You have been registered as a member. 
 #.         </p>
 #: from ../skins/cps_default/registered.pt
-#, fuzzy
 msgid "description_registered"
-msgstr "Está registrado como usuario"
+msgstr "Ha estat registrat com a usuari"
 
 #.   <p>
 #.                 The account below is the one on which the password reset on will be done.
 #.               </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
-msgstr ""
+msgstr "La contrasenya es reiniciarà per a aquest compte"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
 #.               </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_which_accounts_will_you_reset_password"
-msgstr ""
+msgstr "Per a quins comptes vol reiniciar la contrasenya?"
 
 #.   <td content="string:label_language_${item/lang}">en</td>
 #.   <block content="string:label_language_${info/lang}">en</block>
@@ -624,13 +610,13 @@ msgstr ""
 #: ../skins/cps_default/content_lib_info_detail_tab.pt
 #: ../skins/cps_default/content_lib_status.pt
 msgid "en"
-msgstr ""
+msgstr "en"
 
 #.   <p>We apologize for the
 #.     incovenience.</p>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "error_default_message"
-msgstr "Barkatu eragozpenak."
+msgstr "Disculpi por les molèsties ocasionades."
 
 #.   <p>The resource you asked was not
 #.     found. If the document has moved you may find it using the search form
@@ -638,8 +624,8 @@ msgstr "Barkatu eragozpenak."
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "error_not_found"
 msgstr ""
-"Eskatu duzun baliabidea ez dugu aurkitu Dokumentua lekuz aldatu bada, beheko "
-"bilaketa-orria erabiliz aurki dezakezu."
+"No se ha trobat el recurs que ha sol·licitat. Si el document ha canviat de "
+"lloc podrà trobar-lo amb el formulari de recerca."
 
 #.   <title fill-slot="title">
 #.           heading_abandon_draft_of
@@ -647,22 +633,20 @@ msgstr ""
 #.         </title>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "heading_abandon_draft_of ${item_id}"
-msgstr "Bertsio hau askatu: ${item_id}"
+msgstr "Abandonar la revisió ${item_id}"
 
 #.   <h1>About CPS</h1>
 #: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
 msgid "heading_about_cps"
-msgstr "Acerca de CPS"
+msgstr "Sobre el CPS"
 
 #.   <title fill-slot="title">
 #.     heading_accept_publication_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_accept_form.pt
-#, fuzzy
 msgid "heading_accept_publication_of ${item_id}"
-msgstr "Aceptar la publicación de ${item_id}"
+msgstr "Acceptar la publicació de ${item_id}"
 
 #.   <h1>
 #.         Advanced search
@@ -670,30 +654,28 @@ msgstr "Aceptar la publicación de ${item_id}"
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
-msgstr "Bilaketa aurreratua"
+msgstr "Recerca avançada"
 
 #.   <title fill-slot="title">
 #.           heading_checkin_draft_of
 #.           ${item_id (tal replace="here/title_or_id")}
 #.         </title>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
-#, fuzzy
 msgid "heading_checkin_draft_of ${item_id}"
-msgstr "Validar la revisión ${item_id}"
+msgstr "Validar la revisió ${item_id}"
 
 #.   <title fill-slot="title">
 #.           heading_checkout_draft_of
 #.           ${item_id (tal replace="here/title_or_id")}
 #.         </title>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
-#, fuzzy
 msgid "heading_checkout_draft_of ${item_id}"
-msgstr "Crear una revisión ${item_id}"
+msgstr "Crear una revisió ${item_id}"
 
 #.   <h2 condition="type_name">heading_create</h2>
 #: from ../skins/cps_default/folder_edit_form.pt
 msgid "heading_create"
-msgstr "Sortu"
+msgstr "Crear"
 
 #.   <title fill-slot="title">
 #.     heading_delete_archive_n_of
@@ -701,9 +683,8 @@ msgstr "Sortu"
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_delete_archive_form.pt
-#, fuzzy
 msgid "heading_delete_archive_n_of ${rev} ${item_id}"
-msgstr "Borrar archivo ${rev} de ${item_id}"
+msgstr "Esborrar arxiu ${rev} de ${item_id}"
 
 #.   <h1>
 #.       heading_edit
@@ -714,153 +695,142 @@ msgstr "Borrar archivo ${rev} de ${item_id}"
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 msgid "heading_edit ${item_id}"
-msgstr "Editatu"
+msgstr "Modificar ${item_id}"
 
 #.   <h1>Not Found</h1>
 #: from ../skins/cps_default/error_lib_not_found.pt
 msgid "heading_error_not_found"
-msgstr "Ez dugu aurkitu"
+msgstr "Recurs no trobat"
 
 #.   <h1>CPS encountered an error</h1>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "heading_error_other"
-msgstr "KPS-ek errore bat aurkitu du"
+msgstr "CPS ha trobat un error"
 
 #.   <h1 fill-slot="header">
 #.         Add Content
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
-msgstr "Edukia gehitu"
+msgstr "Afegir contingut"
 
 #.   <h1>Become a member</h1>
 #: from ../skins/cps_default/join_form.pt
 msgid "heading_join_form"
-msgstr "Izena eman"
+msgstr "Fer-se usuari"
 
 #.   <h1>Learn CPS</h1>
 #: from ../skins/cps_default/portlet_learn_cps.pt
-#, fuzzy
 msgid "heading_learn_cps"
-msgstr "Aprender CPS"
+msgstr "Aprendre CPS"
 
 #.   <h1 condition="not:searching">
 #.    Assign local roles: Search Members and groups
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "heading_local_roles_search_members_and_groups"
-msgstr "Asignar roles locales: Buscar miembros y grupos."
+msgstr "Assignar rols locals: Buscar membres i grups."
 
 #.   <h1 condition="searching">
 #.    Assign local roles: Search Results
 #.   </h1>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "heading_local_roles_search_results"
-msgstr "Rol lokalak esleitu: Emaitzak Bilatu"
+msgstr "Delegar rols locals: resultats de la recerca"
 
 #.   <h1>Login failure</h1>
 #: from ../skins/cps_default/user_logged_in_failed.pt
 msgid "heading_login_failure"
-msgstr "Izen-emateak huts egin du."
+msgstr "L'autenticació ha fallat"
 
 #.   <h1>Log in</h1>
 #: from ../skins/cps_default/login_form.pt
 msgid "heading_login_form"
-msgstr "Sartu"
+msgstr "Entrar"
 
 #.   <h1>Lost password</h1>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "heading_lost_password"
-msgstr "Ha perdido su contraseña"
+msgstr "He perdut la contrasenya"
 
 #.   <h1>Don't panic!</h1>
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "heading_mail_password_form"
-msgstr "Ez larritu!"
+msgstr "Sense tema!"
 
 #.   <h1>Password sent</h1>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "heading_mail_password_response"
-msgstr "Ez larritu!"
+msgstr "Contrasenya enviada."
 
 #.   <h2>Password reminder</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "heading_password_reminder"
-msgstr "Recordatorio de contraseña"
+msgstr "Recordatori de contrasenya"
 
 #.   <h2>Password reset</h2>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "heading_password_reset"
-msgstr "Cambiar contraseña"
+msgstr "Canviar contrasenya"
 
 #.   <title fill-slot="title">
 #.     heading_publish_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_publish_form.pt
-#, fuzzy
 msgid "heading_publish_of ${item_id}"
 msgstr "Publicar ${item_id}"
 
 #.   <h1>Configure Portal</h1>
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
-msgstr "Ataria konfiguratu"
+msgstr "Configurar el portal"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
-#, fuzzy
 msgid "heading_registered_title"
-msgstr "Se realizó correctamente"
+msgstr "Realitzat correctament!"
 
 #.   <title fill-slot="title">
 #.     heading_reject_publication_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_reject_form.pt
-#, fuzzy
 msgid "heading_reject_publication_of ${item_id}"
-msgstr "Rechazar la publicación de"
+msgstr "Rebutjar la publicació de"
 
 #.   <h1>Rename Items</h1>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "heading_rename_items"
-msgstr "Objektuen Id-ak aldatu"
+msgstr "Renomenar els objectes"
 
 #.   <h1>Resource Metadata</h1>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "heading_resource_metadata"
-msgstr "Iturrien metadatuak"
+msgstr "Meta-dades del recurs"
 
 #.   <title fill-slot="title">
 #.     heading_revert_to_old_revision_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_revert_form.pt
-#, fuzzy
 msgid "heading_revert_to_old_revision_of ${item_id}"
-msgstr "Volver a una revisión archivada de ${item_id}"
+msgstr "Tornar a una revisió arxivada de ${item_id}"
 
 #.   <h1 condition="not:title_search">Search Results</h1>
 #: from ../skins/cps_default/search_form.pt
 msgid "heading_search_results"
-msgstr "Bilaketa-Emaitzak"
+msgstr "Resultats de la recerca"
 
 #.   <h1>
 #.     Standard Resource Metadata
 #.     </h1>
 #: from ../skins/cps_default/metadata_edit_form.pt
-#, fuzzy
 msgid "heading_standard_resource_metadata"
-msgstr "Metadatos estándar del recurso"
+msgstr "Meta-dades estàndard del recurs"
 
 #.   <h1>Start CPS</h1>
 #: from ../skins/cps_default/portlet_start_cps.pt
-#, fuzzy
 msgid "heading_start_cps"
 msgstr "Iniciar CPS"
 
@@ -870,70 +840,65 @@ msgstr "Iniciar CPS"
 #.   </title>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "heading_status_history_of ${item_id}"
-msgstr "${item_id} dokumentuaren egoeren laburpena"
+msgstr "Històric de l'estat de ${item_id}"
 
 #.   <title fill-slot="title">
 #.     heading_submit_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_submit_form.pt
-#, fuzzy
 msgid "heading_submit_of ${item_id}"
-msgstr "Remitir ${item_id}"
+msgstr "Enviar ${item_id}"
 
 #.   <block fill-slot="title">
 #.         heading_translation_of
 #.         ${item_id (tal replace="here/title_or_id")}
 #.       </block>
 #: from ../skins/cps_default/content_translate_form.pt
-#, fuzzy
 msgid "heading_translation_of ${item_id}"
-msgstr "Traducción de \"${item_id}\""
+msgstr "Traducció de \"${item_id}\""
 
 #.   <title fill-slot="title">
 #.     heading_unpublish_of
 #.     ${item_id (tal replace="here/title_or_id")}
 #.   </title>
 #: from ../skins/cps_default/content_unpublish_form.pt
-#, fuzzy
 msgid "heading_unpublish_of ${item_id}"
-msgstr "Retirar ${item_id}"
+msgstr "Retirar de la publicació ${item_id}"
 
 #.   <h1>
 #.           Validate the resetting of your password</h1>
 #: from ../skins/cps_default/account_reset_password_form.pt
-#, fuzzy
 msgid "heading_validate_password_resetting"
-msgstr "Valide el cambio de su contraseña"
+msgstr "Validi el canvi de contrasenya"
 
 #.   <h1>Welcome to your Collaborative Portal Server !</h1>
 #: from ../skins/cps_default/portlet_welcome.pt
-#, fuzzy
 msgid "heading_welcome"
-msgstr "Bienvenidos a CPS (Collaborative Portal Server)"
+msgstr "Benvingut/da al CPS (Collaborative Portal Server)"
 
 #.   <block>
 #.             If you abandon this draft, the original document will be unlocked.
 #.           </block>
 #: from ../skins/cps_default/content_abandon_draft_form.pt
 msgid "help_abandon_draft"
-msgstr "Bertsio hau uzten baduzu, jatorrizko dokumentua desblokeatu egingo da."
+msgstr "Si abandona la revisió, es desbloquejarà el document original."
 
 #.   <span>Accept publication of this
 #.       item, this will make it available to section's readers</span>
 #: from ../skins/cps_default/content_accept_form.pt
 msgid "help_accept_publication"
 msgstr ""
-"Objektu hau publikatu; atal honetako irakurtzaileek erabili ahal izango dute"
+"Acceptar la publicació d'aquest document. Això el farà accessible als "
+"lectors de la secció."
 
 #.   <block>
 #.             If you commit this draft, it will replace the document currently locked.
 #.           </block>
 #: from ../skins/cps_default/content_checkin_draft_form.pt
-#, fuzzy
 msgid "help_checkin_draft"
 msgstr ""
-"Si incorpora esta revisión, sustituirá el documento que ahora está bloqueado."
+"Si incorpora aquesta revisió, substituirà el document que ara està bloquejat."
 
 #.   <block>
 #.             If you create a draft, you will be the only one able to work on the document.
@@ -941,7 +906,7 @@ msgstr ""
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
 msgstr ""
-"Bertsio berri bat sortzen baduzu, zuk bakarrik aldatu ahal izango duzu."
+"Si crea una revisió, serà l'únic usuari que podrà treballar amb el document."
 
 #.   <span>
 #.       Delete archive
@@ -949,16 +914,15 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "help_delete_archive"
-msgstr "${rev} Dokumentua Ezabatu"
+msgstr "Esborrar arxiu"
 
 #.   <p>
 #.             Your password reset request is invalid.
 #.             May be you would like to try again.
 #.           </p>
 #: from ../skins/cps_default/account_reset_password_form.pt
-#, fuzzy
 msgid "help_invalid_reset_password_request"
-msgstr "Su solicitud para cambiar de contraseña no es válida"
+msgstr "La seva sol·licitud de canviar de contrasenya no és vàlida."
 
 #.   <p>
 #.         Becoming a member gives you the ability to personalize the site
@@ -967,8 +931,8 @@ msgstr "Su solicitud para cambiar de contraseña no es válida"
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_1"
 msgstr ""
-"Kide eginez gero, gunea antolatzeko eta komunitatean parte hartzeko aukera "
-"izango duzu."
+"Fer-se usuari li dóna la possibilitat de personalitzar el lloc web i de "
+"participar en la comunitat."
 
 #.   <p>
 #.         It does not cost any money to become a member and your email and
@@ -976,8 +940,8 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_2"
 msgstr ""
-"Partaide izatea doakoa da eta zure e-posta eta datu pertsonalak ez ditugu "
-"inon erakutsiko."
+"És de franc, i tant el seu correu electrònic com les dades personals "
+"seguiran sent privades."
 
 #.   <p condition="rtool/validate_email">
 #.         You must submit a valid email address. This address will be used
@@ -987,16 +951,16 @@ msgstr ""
 #: from ../skins/cps_default/join_form.pt
 msgid "help_join_form_3"
 msgstr ""
-"Hasieran benetako e-posta bidali beharko duzu. Helbide elektroniko hori "
-"derrigorrezkoa da pasahitza jaso dezazun. Behin pasahitza erabili eta "
-"sisteman sartu ondoren, aldatu egin ahal izango duzu."
+"Ha d'indicar una adreça vàlida de correu electrònic. Es farà servir per a "
+"enviar-li la seva contrasenya, generada aleatòriament. Un cop s'hagi "
+"identificat amb aquesta contrasenya, podrà canviar-la al seu gust."
 
 #.   <p>
 #.       Don't forget to logout or exit your browser when you're done.
 #.     </p>
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_aware_logout"
-msgstr "Amaitu ondoren, sistematik irten."
+msgstr "No oblidi desconnectar-se o sortir del seu navegador quan hagi acabat."
 
 #.   <p>
 #.       Having trouble logging in? Make sure to enable cookies in
@@ -1005,8 +969,8 @@ msgstr "Amaitu ondoren, sistematik irten."
 #: from ../skins/cps_default/login_form.pt
 msgid "help_login_troubles_cookies"
 msgstr ""
-"Ezin zara sartu? Arazoren bat? Kontuan izan, sistemara sartzeko Cookieak "
-"gaitu beharko dituzula zure nabigatzailean."
+"Si té problemes per a connectar-se, comprovi que té activada l'opció "
+"relacionada amb les \"cookies\" al seu navegador."
 
 #.   <block>
 #.             You came to this page because you have lost your password.
@@ -1016,12 +980,11 @@ msgstr ""
 #.             for any reason send an email to
 #.           </block>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "help_lost_password"
 msgstr ""
-"Ha llegado a esta página porque ha perdido su contraseña. No se preocupe, "
-"pronto podrá conectarse de nuevo al portal. Si tiene problemas al usar este "
-"formulario o si no funciona envíe un correo electrónico a"
+"Ha arribat a aquesta pàgina perquè ha perdut la contrasenya. No se preocupi, "
+"aviat podrà connectar-se de nou al portal. Si té problemes amb aquest "
+"formulari o si no funciona enviï un correu electrònic a"
 
 #.   <p>
 #.       Just enter your username below, click <em>Send</em>, and your
@@ -1031,8 +994,9 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_1"
 msgstr ""
-"Erabiltzaile izena behean sartu, <em>Bidali</em> sakatu, eta hortik "
-"lasterrrera jasoko duzu pasahitza zure helbide elektronikoan."
+"Entri el seu nom d'usuari a baix, premi <em>Enviar</em> i li enviarem la "
+"seva contrasenya a l'adreça de correu que va donar en registrar-se com a "
+"usuari."
 
 #.   <span>
 #.         If this will not work for you (for example, if you forget your member
@@ -1041,37 +1005,37 @@ msgstr ""
 #: from ../skins/cps_default/mail_password_form.pt
 msgid "help_mail_password_2"
 msgstr ""
-"Ezin bazara sartu (adibidez, erabiltzaile izena ahaztu baduzu, edo ez baduzu "
-"e-posta sartu) bidali mezu bat hona:"
+"Si això no funciona en el seu cas (per exemple, si ha oblidat el seu nom "
+"d'usuari o no va donar la seva adreça de correu en inscriure's) enviï un e-"
+"mail a "
 
 #.   <p>
 #.       Your password has been mailed.
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_1"
-msgstr "Zure pasahitza e-postaz bidali dugu."
+msgstr "S'ha enviat la seva contrasenya"
 
 #.   <p>
 #.       It should arrive in your mailbox momentarily.
 #.     </p>
 #: from ../skins/cps_default/mail_password_response.pt
 msgid "help_mail_password_response_2"
-msgstr "Une batean jasoko duzu zure postontzian."
+msgstr "Hauria d'arribar a la seva bústia electrònica en un moment."
 
 #.   <span>
 #.             No content type can be created.
 #.           </span>
 #: from ../skins/cps_default/folder_factories.pt
-#, fuzzy
 msgid "help_no_content_type_can_be_created"
-msgstr "No se puede crear ningún tipo de contenido"
+msgstr "No es pot crear cap mena de contingut"
 
 #.   <p>
 #.       You must select one or more items to rename.
 #.     </p>
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_no_items_to_rename"
-msgstr "Izena aldatu ahal izateko, gutxienez objektu bat aukeratu behar duzu."
+msgstr "Ha de seleccionar un o més objectes per a renombrar-los."
 
 #.   <p>
 #.       help_password_forgotten
@@ -1084,18 +1048,17 @@ msgstr "Izena aldatu ahal izateko, gutxienez objektu bat aukeratu behar duzu."
 #: from ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/user_logged_in_failed.pt
 msgid "help_password_forgotten ${link_password_forgotten}"
-msgstr "<a href='${link_password_forgotten}'>Pasahitza ahaztu dut!</a>"
+msgstr "<a href='${link_password_forgotten}'>He oblidat la contrasenya!</a>"
 
 #.   <p>
 #.             With this functionality you can ask to receive a reminder of your
 #.             password through an email message.
 #.           </p>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "help_password_reminder"
 msgstr ""
-"Mediante esta función puede pedir que se le envíe un recordatorio de su "
-"contraseña a través del correo electrónico"
+"Amb aquesta funció pot demanar que se li enviï la seva contrasenya per "
+"correu electrònic"
 
 #.   <p>
 #.             With this functionality you can request your old password to be reset
@@ -1103,12 +1066,11 @@ msgstr ""
 #.             The new password will then be communicated to you.
 #.           </p>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "help_password_reset"
 msgstr ""
-"Mediante esta función puede solicitar que se elimine su antigua contraseña y "
-"se sustituya por una nueva generada automáticamente por el sistema. La nueva "
-"contraseña se le comunicará después."
+"Amb aquesta funció pot sol·licitar que s'elimini la seva contrasenya i es "
+"substitueixi per una de nova,  generada automàticament pel sistema. La nova "
+"contrasenya li serà comunicada."
 
 #.   <block>You can publish this item
 #.     directly, without requiring any reviewing, in the sections you select.<br />A
@@ -1127,32 +1089,30 @@ msgstr ""
 #.     reviewed and finally <strong>published</strong> by a section's reviewer.</block>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
-#, fuzzy
 msgid "help_publish_publication"
 msgstr ""
-"Puede publicar directamente este documento, sin pasar por una etapa de "
-"moderación, en las secciones que seleccione.<br/>Se creará una copia del "
-"documento en cada una de estas secciones con estado <strong>\"publicado\"</"
-"strong>. A partir de ese momento, los lectores de las secciones "
-"correspondientes podrán leerlo."
+"Pot publicar directament aquest document, a les seccions on tingui accés. Si "
+"hi té els permisos suficients, es publicaran directament. Si no, quedaran a "
+"l'espera de ser revisats i acceptats. <br/>Es crearà una còpia del document "
+"a cada una d'aquestes seccions amb l'estatus de \"publicat\" o \"pendent\". "
+"Un cop publicat,  els lectors de les seccions corresponents podran llegir-lo."
 
 #.   <span>
 #.             You will receive an email shortly containing
 #.             your password and instructions on how to activate your membership.
 #.           </span>
 #: from ../skins/cps_default/registered.pt
-#, fuzzy
 msgid "help_registered_mail"
 msgstr ""
-"Recibirá un e-mail en breve con su contraseña e instrucciones sobre cómo "
-"activar su registro."
+"Aviat rebrà un e-mail amb la seva contrasenya i instruccions sobre com "
+"activar el seu registre."
 
 #.   <span>
 #.       Reject publication of this item
 #.     </span>
 #: from ../skins/cps_default/content_reject_form.pt
 msgid "help_reject_publication"
-msgstr "Ez onartu objektu honen publikazioa"
+msgstr "Rebutjar la publicació d'aquest document."
 
 #.   <p>
 #.       Setting the 'Remember my name' option will set a cookie with your
@@ -1162,8 +1122,9 @@ msgstr "Ez onartu objektu honen publikazioa"
 #: from ../skins/cps_default/login_form.pt
 msgid "help_remember_user_name"
 msgstr ""
-"'Nire izena gogoan izan' aukera erabiliz, cookie bat gaituko duzu, eta "
-"sistemara berriro sartzen zarenean zure izena kutxan agertuko zaizu."
+"Si tria l'opció \"Recordar el meu nom d'usuari\", es guardarà al seu "
+"ordinador una \"cookie\", que permetrà que la propera vegada que es vulgui "
+"connectar, la casella de nom d'usuari ja estarà emplenada amb el seu nom."
 
 #.   <div class="description">Changing the id of an object does not
 #.   affect its title but changes the URL to access it. Links that point to the
@@ -1171,10 +1132,9 @@ msgstr ""
 #: from ../skins/cps_default/folder_rename_form.pt
 msgid "help_rename_items"
 msgstr ""
-"Objektu baten ID-a aldatzeak ez du eraginik izenburuan, baina bai bere URL "
-"helbidean. Kontuan izan, dagoeneko helbide horretara bideratuta izan "
-"ditzakezun loturak eguneratu egin beharko dituzulako. Bestela errorea emango "
-"dute."
+"Canviar la id d'un objecte no afecta el seu títol, però fa canviar  la seva "
+"URL (adreça). Si hi ha enllaços que apunten a aquest objecte, deixaran de "
+"funcionar."
 
 #.   <span>
 #.       Revert to revision
@@ -1182,109 +1142,97 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "help_revert_revision"
-msgstr "Objektu honen bertsio zaharrago batera joan."
+msgstr "Tornar a la revisió "
 
 #.   <help fill-slot="help">
 #.     An item's status determines who can see it.
 #.   </help>
 #: from ../skins/cps_default/content_status_history.pt
-#, fuzzy
 msgid "help_status_history"
 msgstr ""
-"El estado de un documento (también llamado su estado de validación) "
-"determina quién está autorizado a verlo. Un documento en estado "
-"<strong>trabajo</strong> puede ser consultado por los lectores del espacio "
-"de trabajo y editado por sus miembros y por los responsables. Sólo los "
-"objetos en estado <strong>publicado</strong> serán accesibles a los lectores "
-"de las secciones. Para publicar un objeto, debe estar validado por un "
-"revisor de la sección. Puede solicitar que un objeto sea validado "
-"simplemente cambiado su estado a <strong>en espera</strong>. Ello se "
-"consigue remitiendo el documento para su validación en el interior de una "
-"sección."
+"L'estat d'un document (status o estat de validació) determina qui pot "
+"veure'l. Un document en estat <strong>treball</strong> pot ser consultat "
+"pels lectors de l'espai de treball i editat pels seus membres i pels "
+"responsables. Només els objectes en estat <strong>publicat</strong> seran "
+"accessibles als lectors de les seccions. "
 
 #.   <span>
 #.           Create a new translation for this document.
 #.         </span>
 #: from ../skins/cps_default/content_translate_form.pt
-#, fuzzy
 msgid "help_translate_revision"
-msgstr "Traducir el documento"
+msgstr "Crear una nova traducció d'aquest document."
 
 #.   <block>
 #.     Unpublish published item</block>
 #: from ../skins/cps_default/content_unpublish_form.pt
-#, fuzzy
 msgid "help_unpublish_publication"
-msgstr "Retirar este objeto publicado."
+msgstr "Retirar objecte publicat"
 
 #.   <p condition="not:info/archived">
 #.           There aren't any archived revisions of this document.
 #.         </p>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "info_no_archived_revisions_of_this_document"
-msgstr ""
+msgstr "No hi ha revisions arxivades d'aquest document."
 
 #.   <p condition="not:items">
 #.           There aren't any published revisions of this document.
 #.         </p>
 #: from ../skins/cps_default/content_lib_states.pt
 msgid "info_no_published_revisions_of_this_document"
-msgstr ""
+msgstr "No hi ha revisions publicades d'aquest document."
 
 #.   <block condition="item/has_dest|nothing">
 #.                   into ${history_dest}
 #.                 </block>
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "into ${history_dest}"
-msgstr ""
+msgstr "en ${history_dest}"
 
 #.   <th>Action</th>
 #: from ../skins/cps_default/content_lib_history.pt
-#, fuzzy
 msgid "label_action"
-msgstr "Acción"
+msgstr "Acció"
 
 #.   <h2>Actions history</h2>
 #: from ../skins/cps_default/content_lib_history.pt
-#, fuzzy
 msgid "label_actions_history"
-msgstr "Historial de acciones"
+msgstr "Historial d'accions"
 
 #.   <label for="email_from_address">
 #.               Administrator Email
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
 msgid "label_admin_email"
-msgstr "Kudeatzailearen e-posta"
+msgstr "Adreça d'e-mail de l'administrador"
 
 #.   <label for="email_from_name">
 #.               Administrator Name
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
 msgid "label_admin_name"
-msgstr "Kudeatzailearen Izena"
+msgstr "Nom de l'administrador"
 
 #.   <img src="image.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="85" height="15" attributes="src string:${here/portal_url}/cps_powered.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
-#, fuzzy
 msgid "label_advertisement_use_cps"
-msgstr "Utilizar CPS"
+msgstr "Utilitzar CPS"
 
 #.   <option attributes="selected not:review_state" value="">All</option>
 #.   <option attributes="selected not:portal_type" value="">All</option>
 #.   <option value="" attributes="selected not:Subject">All</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_all"
-msgstr "Dena"
+msgstr "Tots"
 
 #.   <h2>Archived revisions</h2>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "label_archived_revisions"
-msgstr "Berrikuspena"
+msgstr "Revisions arxivades"
 
 #.   <th>Author</th>
 #: from ../skins/cps_default/content_lib_history.pt
-#, fuzzy
 msgid "label_author"
 msgstr "Autor"
 
@@ -1294,7 +1242,7 @@ msgstr "Autor"
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_author_asc"
-msgstr "Egilea"
+msgstr "Autor alfab."
 
 #.   <option value="author_desc" attributes="selected
 #.                                python:sort_by == 'author' and direction =='desc'">
@@ -1302,131 +1250,123 @@ msgstr "Egilea"
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_author_desc"
-msgstr "Egilearen azalpena"
+msgstr "Autor inv."
 
 #.   <div class="label">
 #.           Body
 #.         </div>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_body"
-msgstr "Gorputza"
+msgstr "Cos del document"
 
 #.   <span omit-tag="">
 #.               Events for</span>
 #: from ../skins/cps_default/calendar_cpsday_view.pt
 msgid "label_calendar_event_list"
-msgstr "Data honetako ebentuak: "
+msgstr "Esdeveniments per a"
 
 #.   <option attributes="value default;
 #.                                   selected python:request.get('modified',
 #.                                     default) == default or nothing">Choose</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_choose"
-msgstr "Aukeratu"
+msgstr "Triar"
 
 #.   <th>Comments</th>
 #: from ../skins/cps_default/content_lib_history.pt
-#, fuzzy
 msgid "label_comments"
-msgstr "Comentarios"
+msgstr "Comentaris"
 
 #.   <option value="compact" attributes="selected python:format == 'compact'">
 #.               Compact
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_compact"
-msgstr "Trinkoa"
+msgstr "Compacta"
 
 #.   <img src="image.png" title="label_conformance_valid_css" alt="Valid CSS" width="85" height="15" attributes="src string:${here/portal_url}/valid_css-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
-msgstr "Site conceived using valid CSS style sheets"
+msgstr "Adaptat per a fulls d'estils CCS"
 
 #.   <img src="image.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="85" height="15" attributes="src string:${here/portal_url}/valid_xhtml-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
-msgstr "Site conceived in valid XHTML"
+msgstr "Adaptat per a XHTML"
 
 #.   <img src="image.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="85" height="15" attributes="src string:${here/portal_url}/valid_wai1A-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
-#, fuzzy
 msgid "label_conformance_wai_1a"
-msgstr "Accesibilidad al contenido de nivel A de la web W3C"
+msgstr "Nivell A d'accessibilitat al contingut segons W3C"
 
 #.   <th>Consultation</th>
 #: from ../skins/cps_default/content_lib_archived.pt
-#, fuzzy
 msgid "label_consultation"
 msgstr "Consulta"
 
 #.   <th align="right">Contributors</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
-#, fuzzy
 msgid "label_contributors"
-msgstr "Contribuyentes"
+msgstr "Han contribuït"
 
 #.   <h2>Current revisions</h2>
 #: from ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_current_revisions"
-msgstr "Revisiones actuales"
+msgstr "Revisions actuals"
 
 #.   <h2>Current status of the document</h2>
 #: from ../skins/cps_default/content_status_history.pt
-#, fuzzy
 msgid "label_current_status"
-msgstr "Estado actual del documento"
+msgstr "Estat actual del document"
 
 #.   <th>Date</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_date"
-msgstr "Fecha"
+msgstr "Data"
 
 #.   <option value="effective_asc" attributes="selected
 #.                                 python:sort_by == 'effective' and direction == 'asc'">
 #.               Effective date ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
-#, fuzzy
 msgid "label_date_effective_asc"
-msgstr "Fecha en que se efectuará (ascendente)"
+msgstr "Data d'efectivitat (ascendent)"
 
 #.   <option value="effective_desc" attributes="selected
 #.                                python:sort_by == 'effective' and direction == 'desc'">
 #.               Effective date descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
-#, fuzzy
 msgid "label_date_effective_desc"
-msgstr "Fecha en que se efectuará (descendente)"
+msgstr "Data d'efectivitat (descendent)"
 
 #.   <option value="date_asc" attributes="selected
 #.                                 python:sort_by == 'date' and direction == 'asc'">
 #.               Modification date ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
-#, fuzzy
 msgid "label_date_modification_asc"
-msgstr "Fecha de modificación"
+msgstr "Data de modificació"
 
 #.   <option value="date_desc" attributes="selected
 #.                                python:sort_by == 'date' and direction == 'desc'">
 #.               Modification date descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
-#, fuzzy
 msgid "label_date_modification_desc"
-msgstr "Fecha de modificación (descendente)"
+msgstr "Data de modificació (descendent)"
 
+#    <option attributes="selected not:format" value="None">
+#                Default
+#        </option>
 #.   <option value="None" attributes="selected not:format">
 #.               Default
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_default"
-msgstr "Lehenetsitakoa"
+msgstr "Predefinit"
 
 #.   <div class="label">
 #.           Description
@@ -1440,20 +1380,19 @@ msgstr "Lehenetsitakoa"
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_description"
-msgstr "Azalpena"
+msgstr "Descripció"
 
 #.   <th>Destruction</th>
 #: from ../skins/cps_default/content_lib_archived.pt
-#, fuzzy
 msgid "label_destruction"
-msgstr "Destrucción"
+msgstr "Destrucció"
 
 #.   <option value="detail" attributes="selected python:format == 'detail'">
 #.               Detail
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_detailed"
-msgstr "Xehetasunak"
+msgstr "Detall"
 
 #.   <option value="detail_tab" attributes="selected python:format == 'detail_tab'">
 #.               Detail Tab
@@ -1466,7 +1405,7 @@ msgstr "Taula"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion"
-msgstr "Eztabaida"
+msgstr "Activar la discussió?"
 
 #.   <option value="None" attributes="selected python: val == None">
 #.             Default
@@ -1474,7 +1413,7 @@ msgstr "Eztabaida"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion_default"
-msgstr "Lehenetsitakoa"
+msgstr "Predefinit"
 
 #.   <option value="0" attributes="selected python: val == 0">
 #.             Off
@@ -1482,7 +1421,7 @@ msgstr "Lehenetsitakoa"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion_off"
-msgstr "Off"
+msgstr "Desactivat"
 
 #.   <option value="1" attributes="selected python: val == 1">
 #.             On
@@ -1490,18 +1429,17 @@ msgstr "Off"
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_discussion_on"
-msgstr "On"
+msgstr "Activat"
 
 #.   <label for="display_style">Display with</label>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_display"
-msgstr "Erakutsi"
+msgstr "Mostrar"
 
 #.   <span class="note">label_download</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
-#, fuzzy
 msgid "label_download"
-msgstr "[Descarga]"
+msgstr "descarregar"
 
 #.   <th class="header_roles">
 #.             Email address
@@ -1510,80 +1448,77 @@ msgstr "[Descarga]"
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
 #: ../skins/cps_default/join_form.pt
 msgid "label_email"
-msgstr "Helbide elektronikoa"
+msgstr "Correu electrònic"
 
 #.   <div class="label">End Date (DD/MM/YYYY)</div>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_end_date"
-msgstr "Amaiera eguna (DD/MM/YYYY)"
+msgstr "Data final (DD/MM/AAAA)"
 
 #.   <label>label_file_change</label>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_file_change"
-msgstr "Igo"
+msgstr "Canviar"
 
 #.   <label>label_file_delete</label>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_file_delete"
-msgstr "Kendu"
+msgstr "Esborrar"
 
 #.   <label>label_file_keep</label>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_file_keep"
-msgstr "Gorde"
+msgstr "Guardar"
 
 #.   <th align="right">Format</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_format"
-msgstr "Formatua"
+msgstr "Format"
 
 #.   <span omit-tag="">From</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
-#, fuzzy
 msgid "label_from"
-msgstr "Del"
+msgstr "De"
 
 #.   <block>Group</block>
 #: from ../skins/cps_default/folder_localrole_groups_search_results.pt
 msgid "label_group"
-msgstr "Taldea"
+msgstr "Grup"
 
 #.   <option attributes="selected python:search_param == 'groupname'" value="groupname">Group name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_group_name"
-msgstr "Taldearen izena"
+msgstr "Nom del grup"
 
 #.   <h3>
 #.           Groups local roles assignment
 #.         </h3>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_groups_local_roles_assignment"
-msgstr "Asignación de roles locales a grupos"
+msgstr "Assignació de rols locals a grups"
 
 #.   <option value="icon" attributes="selected python:format == 'icon'">
 #.               Icon
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_icons"
-msgstr "Ikonoak"
+msgstr "Icona"
 
 #.   <div class="label" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_image"
-msgstr "Irudia"
+msgstr "Imatge"
 
 #.   <block>in</block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_in"
 msgstr "en"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_author"
-msgstr "Egilea"
+msgstr "Autor"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
@@ -1593,43 +1528,41 @@ msgstr "Data"
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_size"
-msgstr "Tamaina"
+msgstr "Mida"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_status"
-msgstr "Egoera"
+msgstr "Estat"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_title"
-msgstr "Izenburua"
+msgstr "Títol"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_type"
-msgstr "Mota"
+msgstr "Tipus"
 
 #.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_version"
-msgstr "Bertsioa"
+msgstr "Versió"
 
 #.   <span class="inheritedRole">
 #.       Inherited role
 #.     </span>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_inherited_role"
-msgstr "Rol heredado"
+msgstr "Rol heredat"
 
 #.   <th condition="python:not local_roles_blocked">
 #.           Inherited roles
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_inherited_roles"
-msgstr "Roles heredados"
+msgstr "Rols heredats"
 
 #.   <label for="defaultLanguageChooser">Language</label>
 #.   <th>Langue</th>
@@ -1639,7 +1572,7 @@ msgstr "Roles heredados"
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_language"
-msgstr "Hizkuntza"
+msgstr "Idioma"
 
 #.   <block>label_language
 #.         ${status_language}
@@ -1651,27 +1584,24 @@ msgstr "Hizkuntza"
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_status.pt
 msgid "label_language ${status_language}"
-msgstr "Hizkuntza ${status_language}"
+msgstr "Idioma ${status_language}"
 
 #.   <span>Last modified:</span>
 #: from ../skins/cps_default/content_lib_byline.pt
-#, fuzzy
 msgid "label_last_modified"
-msgstr "Modificado por última vez:"
+msgstr "Modificat per darrera vegada:"
 
 #.   <th>Location</th>
 #: from ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_location"
-msgstr "Localización"
+msgstr "Localització"
 
 #.   <th>
 #.           User or Group name
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_name"
-msgstr "Nombre completo"
+msgstr "Nom complet"
 
 #.   <option value="None" attributes="selected not:sort_by">
 #.               No sort
@@ -1680,87 +1610,82 @@ msgstr "Nombre completo"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 #: ../skins/cps_default/folder_contents.pt
 msgid "label_none"
-msgstr "Ordenatu gabe"
+msgstr "Sense ordenar"
 
 #.   <label for="password">Password</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 msgid "label_password"
-msgstr "Pasahitza"
+msgstr "Contrasenya"
 
 #.   <label for="confirm">Password
 #.                      (confirm)</label>
 #: from ../skins/cps_default/join_form.pt
 msgid "label_password_confirm"
-msgstr "Pasahitza konfirmatu"
+msgstr "Contrasenya (confirmar)"
 
 #.   <label for="portal_description">
 #.               Portal description
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
 msgid "label_portal_description"
-msgstr "Atariaren deskribapena"
+msgstr "Descripció del portal"
 
 #.   <label for="enable_portal_joining">
 #.               Enable portal joining
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
 msgid "label_portal_enable_join"
-msgstr "Atarira sartzen utzi"
+msgstr "Autoritzar la inscripció"
 
 #.   <label for="enable_password_reminder">
 #.               Enable sending of password reminder
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
-#, fuzzy
 msgid "label_portal_enable_password_reminder"
-msgstr "Permitir el envío del recordatorio de la contraseña"
+msgstr "Permetre l'enviament del recordatori de la contrasenya"
 
 #.   <label for="enable_password_reset">
 #.               Enable password resetting
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
-#, fuzzy
 msgid "label_portal_enable_password_reset"
-msgstr "Permitir el cambio de contraseña"
+msgstr "Permetre el canvi de contrasenya"
 
 #.   <label for="portal_title">
 #.               Portal title
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
 msgid "label_portal_title"
-msgstr "Atariaren izena"
+msgstr "Títol del portal"
 
 #.   <label for="remember">Remember my
 #.                  name</label>
 #: from ../skins/cps_default/login_form.pt
 msgid "label_remember_user_name"
-msgstr "Nire izena gogoan izan."
+msgstr "Recordar el meu nom d'usuari"
 
 #    <strong>to</strong>
 #.   <strong>to</strong>
 #: from ../skins/cps_default/folder_rename_form.pt
-#, fuzzy
 msgid "label_rename_to"
-msgstr " a "
+msgstr "a "
 
 #.   <em condition="not:can_publish">(requires approval)</em>
 #: from ../skins/cps_default/content_submit_form.pt
 msgid "label_requires_approval"
-msgstr "Onarpena behar du"
+msgstr "Necessita aprovació"
 
 #.   <th>Reversion</th>
 #: from ../skins/cps_default/content_lib_archived.pt
-#, fuzzy
 msgid "label_reversion"
-msgstr "Reversión"
+msgstr "Reversió"
 
 #.   <th>Version</th>
 #: from ../skins/cps_default/content_lib_archived.pt
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_states.pt
-#, fuzzy
 msgid "label_revision"
-msgstr "Revisión"
+msgstr "Versió"
 
 #.   <block>label_revision
 #.         ${status_revision (tal content="info/rev")}
@@ -1772,96 +1697,97 @@ msgstr "Revisión"
 #: ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_status.pt
 msgid "label_revision ${status_revision}"
-msgstr "${status_revision} Berrikuspena"
+msgstr "Versió ${status_revision}"
 
 #.   <th align="right">Rights</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "label_rights"
-msgstr "Eskubideak"
+msgstr "Drets"
 
 #.   <label attributes="for id2">all</label>
 #: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
 msgid "label_search_all_site"
-msgstr "webgune osoan"
+msgstr "tot el lloc web"
 
 #.   <label for="description">
 #.           Description
 #.         </label>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_description"
-msgstr "Deskrbbapena"
+msgstr "Descripció"
 
 #.   <label for="advancedSearchFullText">
 #.           Full text
 #.         </label>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_full_text"
-msgstr "Testu osoa"
+msgstr "Text complet"
 
+#    <label attributes="for id1">here</label>
 #.   <label attributes="for id1">here</label>
 #: from ../skins/cps_default/generic_lib_search_folder_prefix_option.pt
 msgid "label_search_here"
-msgstr "hemen"
+msgstr "aquí"
 
 #.   <block>
 #.           Search location
 #.         </block>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_location"
-msgstr "Bilatu"
+msgstr "Buscar"
 
 #.   <label for="modified">
 #.           Modified since
 #.         </label>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_modified_since"
-msgstr "Azken eguneraketa"
+msgstr "Modificat des de"
 
 #.   <label for="portalType">
 #.           Document type
 #.         </label>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_portal_type"
-msgstr "Dokumentu mota"
+msgstr "Tipus de document"
 
 #.   <label for="state">
 #.           Status
 #.         </label>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_status"
-msgstr "Egoera"
+msgstr "Estat"
 
 #.   <label for="field_focus">
 #.           Title
 #.         </label>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_search_title"
-msgstr "Izenburua"
+msgstr "Títol"
 
 #.   <block condition="status_time|nothing">label_since
 #.         ${status_time (tal content="info/time_str")}
 #.       </block>
 #: from ../skins/cps_default/content_lib_status.pt
-#, fuzzy
 msgid "label_since ${status_time}"
-msgstr "Desde ${status_time}"
+msgstr "Des de ${status_time}"
 
 #.   <label for="smtp_server">
 #.               SMTP Server
 #.             </label>
 #: from ../skins/cps_default/config_form.pt
 msgid "label_smtp_server"
-msgstr "SMTP Zerbitzaria"
+msgstr "Servidor SMTP"
 
+#    <span>sort by</span>
 #.   <label for="display_order">Sort by</label>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_sort_by"
-msgstr "Horrela antolatuta:"
+msgstr "Ordenat per"
 
 #.   <div class="label">Start Date (DD/MM/YYYY)</div>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_start_date"
-msgstr "Hasiera eguna (DD/MM/YYYY)"
+msgstr "Data inicial (DD/MM/AAAA)"
 
 #.   <span>Label Status</span>
 #.   <th>Status</th>
@@ -1869,7 +1795,7 @@ msgstr "Hasiera eguna (DD/MM/YYYY)"
 #: ../skins/cps_default/content_lib_states.pt
 #: ../skins/cps_default/content_lib_status.pt
 msgid "label_status"
-msgstr "Egoera"
+msgstr "Estat"
 
 #.   <option value="status_asc" attributes="selected
 #.                                python:sort_by == 'status' and direction == 'asc'">
@@ -1877,7 +1803,7 @@ msgstr "Egoera"
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_status_asc"
-msgstr "Egoera"
+msgstr "Estat alfab."
 
 #.   <option value="status_desc" attributes="selected
 #.                                python:sort_by == 'status' and direction =='desc'">
@@ -1885,7 +1811,7 @@ msgstr "Egoera"
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_status_desc"
-msgstr "Egoeraren azalpena"
+msgstr "Estat inv."
 
 #.   <th align="right">Subject</th>
 #.   <label for="subject">
@@ -1895,15 +1821,14 @@ msgstr "Egoeraren azalpena"
 #: ../skins/cps_default/generic_lib_search_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_subject"
-msgstr "Gaia"
+msgstr "Tema"
 
 #.   <label for="resultSearchText">
 #.               Text to search
 #.             </label>
 #: from ../skins/cps_default/search_form.pt
-#, fuzzy
 msgid "label_text_to_search"
-msgstr "Texto para buscar"
+msgstr "Text a buscar"
 
 #.   <div class="label">
 #.           Title
@@ -1914,7 +1839,7 @@ msgstr "Texto para buscar"
 #: ../skins/cps_default/full_metadata_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
-msgstr "Izenburua"
+msgstr "Títol"
 
 #.   <option value="title_asc" attributes="selected
 #.                                 python:sort_by == 'title' and direction == 'asc'">
@@ -1922,7 +1847,7 @@ msgstr "Izenburua"
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_title_asc"
-msgstr "Izenburua"
+msgstr "Títol alfab."
 
 #.   <option value="title_desc" attributes="selected
 #.                                python:sort_by == 'title' and direction == 'desc'">
@@ -1930,212 +1855,192 @@ msgstr "Izenburua"
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_title_desc"
-msgstr "Izenburuaren azalpena"
+msgstr "Títol inv."
 
 #.   <span omit-tag="">To</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
 msgid "label_to"
-msgstr "Nori"
+msgstr "A"
 
 #.   <label>
 #.           Choose the language you want to translate to:
 #.         </label>
 #: from ../skins/cps_default/content_translate_form.pt
-#, fuzzy
 msgid "label_translation_select_language"
-msgstr "Elija el idioma al que quiere traducir"
+msgstr "Triï l'idioma al que vol traduir:"
 
 #.   <th width="30%" class="header_roles">
 #.             User
 #.         </th>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
 msgid "label_user"
-msgstr "Erabiltzailea"
+msgstr "Usuari"
 
 #.   <option attributes="selected python:search_param == 'email'" value="email">Email address</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "label_user_email"
-msgstr "E-posta"
+msgstr "Correu electrònic"
 
 #.   <option attributes="selected python:search_param == 'givenName'" value="givenName">User first name</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "label_user_givenName"
-msgstr "Nombre propio del usuario"
+msgstr "Nom propi de l'usuari"
 
 #.   <option attributes="selected python:search_param == 'id'" value="id">User id</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "label_user_id"
-msgstr "ID del usuario"
+msgstr "ID de l'usuari"
 
 #.   <label for="username">User name</label>
 #: from ../skins/cps_default/join_form.pt ../skins/cps_default/login_form.pt
 #: ../skins/cps_default/mail_password_form.pt
 msgid "label_user_name"
-msgstr "Erabiltzaile-izena"
+msgstr "Usuari"
 
 #.   <label for="username">
 #.                   User name or email address</label>
 #.   <label for="who">
 #.                   User name or email address</label>
 #: from ../skins/cps_default/account_lost_password_form.pt
-#, fuzzy
 msgid "label_user_name_or_email_address"
-msgstr "Nombre de usuario o dirección de correo electrónico"
+msgstr "Nom d'usuari o adreça de correu electrònic"
 
 #.   <option attributes="selected python:search_param == 'sn'" value="sn">User surname</option>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "label_user_surname"
-msgstr "Apellidos del usuario"
+msgstr "Cognoms de l'usuari"
 
 #.   <h3>
 #.           Users local roles assignment
 #.         </h3>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "label_users_local_roles_assignment"
-msgstr "Asignación de roles locales a los usuarios. "
+msgstr "Assignació de rols locals a l'usuari"
 
 #.   <block>
 #.       You are here:&nbsp;</block>
 #: from ../skins/cps_default/generic_lib_breadcrumbs.pt
 msgid "label_you_are_here"
-msgstr "Hemen zaude:&nbsp;"
+msgstr "Vostè està aquí:"
 
 #.   <label content="python:language_voc.getMsgid(language)" attributes="for language;">language</label>
 #: from ../skins/cps_default/config_form.pt
-#, fuzzy
 msgid "language"
 msgstr "Idioma"
 
 #.   <h2>Add languages</h2>
 #: from ../skins/cps_default/config_form.pt
-#, fuzzy
 msgid "language_add"
-msgstr "Idiomas disponibles que no están activados"
+msgstr "Idiomes disponibles que no estan activats"
 
 #.   <h2>Delete languages</h2>
 #: from ../skins/cps_default/config_form.pt
-#, fuzzy
 msgid "language_delete"
-msgstr "Idiomas activados"
+msgstr "Esborrar idiomes"
 
 #.   <h2>Set default portal language</h2>
 #: from ../skins/cps_default/config_form.pt
-#, fuzzy
 msgid "language_set_default"
-msgstr "Idioma por defecto del portal"
+msgstr "Idioma per defecte del portal"
 
 #.   <h2>
 #.       Assigned local roles
 #.   </h2>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_assigned"
-msgstr "Roles locales asignados"
+msgstr "Rols locals assignats"
 
 #.   <block>
 #.           Local roles are acquired.
 #.           You can block acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_block"
-msgstr ""
-"Los roles locales han sido asignados. Puede bloquearlos para mayor seguridad"
+msgstr "Els rols locals han estat adquirits. Pot bloquejar l'adquisició:"
 
 #.   <label for="filtered_role">
 #.       Filter local roles:
 #.     </label>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_filter_roles"
-msgstr "Filtrar según el rol"
+msgstr "Filtrar segons el rol"
 
 #.   <block>
 #.       this colour means that corresponding roles are set in parent
 #.       folders. Follow the links to manage the local roles in these folders.
 #.     </block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_inherited_role"
 msgstr ""
-"este color significa que los roles correspondientes están configurados en "
-"las carpetas superiores. Siga los enlaces para administrar los roles locales "
-"en dichas carpetas. "
+"aquest color significa que els rols corresponents estan configurats a las "
+"carpetes superiors (adquirits). Segueixi els enllaços per a administrar els "
+"rols locals en aquestes carpetes. "
 
 #.   <p>
 #.         Sorry, no group matched your search
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_groups_search_results.pt
-#, fuzzy
 msgid "legend_local_roles_no_results_groups"
-msgstr "Ningún grupo coincide con su búsqueda."
+msgstr "No s'ha trobat cap grup que coincideixi."
 
 #.   <p>
 #.         Sorry, no user matched your search
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_members_search_results.pt
-#, fuzzy
 msgid "legend_local_roles_no_results_users"
-msgstr "Ningún usuario coincide con su búsqueda."
+msgstr "No s'ha trobat cap usuari que coincideixi."
 
 #.   <p condition="python:not users and not groups">
 #.      There are no roles assigned in this folder
 #.   </p>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_no_roles_assigned"
-msgstr "No hay roles asignados en esta carpeta"
+msgstr "No hi ha rols assignats en aquesta carpeta"
 
 #.   <option value="" attributes="selected not:filtered_role">
 #.         No filter
 #.       </option>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
-#, fuzzy
 msgid "legend_local_roles_not_filtered_role"
-msgstr "Ningún filtro"
+msgstr "Cap filtre"
 
 #.   <label for="member_role">
 #.             Role to assign:
 #.           </label>
 #: from ../skins/cps_default/folder_localrole_form.pt
 msgid "legend_local_roles_role_to_assign"
-msgstr "Esleitu beharreko rola:"
+msgstr "Rol a assignar:"
 
 #.   <p>
 #.         Sorry, your query gave too many results, please refine your search criteria
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "legend_local_roles_search_limit_exceeded"
 msgstr ""
-"Su consulta ha generado demasiados resultados. Defina mejor sus criterios de "
-"búsqueda."
+"La seva consulta ha generat massa resultats. Cal que defineixi més els "
+"criteris de recerca."
 
 #.   <p condition="search_groups">
 #.          Select groups(s) and a role to assign:
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "legend_local_roles_select_groups_and_role"
-msgstr "Seleccione el grupo(s) y el rol a asignarle:"
+msgstr "Seleccioni el(s) grup(s) i un rol a assignar:"
 
 #.   <p condition="search_members">
 #.          Select member(s) and a role to assign:
 #.       </p>
 #: from ../skins/cps_default/folder_localrole_form.pt
-#, fuzzy
 msgid "legend_local_roles_select_members_and_role"
-msgstr "Seleccione el usuario(s) y el rol a asignarle:"
+msgstr "Seleccioni el(s) usuari(s) i el rol a assignar:"
 
 #.   <block>
 #.           Local roles acquisition is <strong>blocked</strong>.
 #.           You can unblock acquisition:</block>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "legend_local_roles_unblock"
-msgstr "Une honetan ezin da rolik esleitu. Egin ahal izateko, sakatu hemen:"
+msgstr ""
+"l'adquisició de rols locals està <strong>bloquejada</strong>. Pot "
+"desbloquejar-la"
 
 #.   <p condition="not:res/items_count">
 #.           Your query gave no result.
@@ -2150,7 +2055,7 @@ msgstr "Une honetan ezin da rolik esleitu. Egin ahal izateko, sakatu hemen:"
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
-msgstr "Emaitzarik ez."
+msgstr "La recerca no ha trobat cap document"
 
 #.   <p condition="python:res['items_count'] == 1">
 #.           Your query gave 1 result.
@@ -2165,274 +2070,257 @@ msgstr "Emaitzarik ez."
 #: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
-msgstr "Emaitzarik ez."
+msgstr "La recerca ha trobat un document"
 
 #.   <block>
 #.           You searched for
 #.         </block>
 #: from ../skins/cps_default/search_form.pt
-#, fuzzy
 msgid "legend_search_for"
-msgstr "Usted buscó"
+msgstr "Ha cercat"
 
 #.   <span>
 #.                Advanced search
 #.              </span>
 #: from ../skins/cps_default/search_form.pt
 msgid "link_advanced_search"
-msgstr "Bilaketa aurreratua"
+msgstr "Recerca avançada"
 
 #.   <a href="full_metadata_edit_form" attributes="href string:${here_url}/full_metadata_edit_form">Edit all metadata</a>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
-msgstr "Metadatu guztiak editatu"
+msgstr "Modificar meta-dades"
 
 #.   <a href="." attributes="href string:${context_url}archivedRevision/${item/rev}/view">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
-msgstr "Bertsio hau ikusi"
+msgstr "Consultar aquesta versió"
 
 #.   <a href="mailto:admin@here.com" attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
 #.                            title p_props/email_from_address">Contact the administrator</a>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "link_contact_admin"
-msgstr "Kudeatzailearekin kontaktatu"
+msgstr "Contactar amb l'administrador"
 
 #.   <a href="." attributes="href string:${context_url}content_delete_archive_form?rev:int=${item/rev}">Purge this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_delete_this_revision"
-msgstr "Fitxategi hau ezabatu"
+msgstr "Esborrar aquesta revisió"
 
 #.   <a href="http://cps-project.org/sections/documentation">Documentation</a>
 #: from ../skins/cps_default/portlet_learn_cps.pt
-#, fuzzy
 msgid "link_documentation"
-msgstr "Documentación"
+msgstr "Documentació"
 
 #.   <span>
 #.             personalization form
 #.           </span>
 #: from ../skins/cps_default/join_form.pt
-#, fuzzy
 msgid "link_form_already_member"
-msgstr "Formulario de personalización"
+msgstr "Formulari de personalització"
 
 #.   <a href="javascript:history.back()">Go back</a>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "link_go_back"
-msgstr "Atzera"
+msgstr "Tornar"
 
 #.   <a href="/manage_zmi_logout">
 #.         log out of the Zope management interface
 #.       </a>
 #: from ../skins/cps_default/logged_out.pt
-#, fuzzy
 msgid "link_logout_zmi"
-msgstr ""
-"necesitar desconectarse también de la interfaz de gestión de Zope (ZMI)"
+msgstr "desconnectar de la interfície de gestió del Zope (ZMI)"
 
 #.   <a href="http://lists.nuxeo.com/mailman/listinfo/">Mailing-lists</a>
 #: from ../skins/cps_default/portlet_learn_cps.pt
 msgid "link_mailing_lists"
-msgstr ""
+msgstr "Llistes de correu"
 
 #.   <a href="http://www.nuxeo.com/clients/">References</a>
 #: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
 msgid "link_references"
-msgstr "Referencias"
+msgstr "Referències"
 
 #.   <span>
 #.               You can now log into the site:
 #.             </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registered_login"
-msgstr ""
+msgstr "Ara pot iniciar sessió:"
 
 #.   <span>
 #.               Return to homepage
 #.             </span>
 #: from ../skins/cps_default/registered.pt
 msgid "link_registered_return_home_page"
-msgstr ""
+msgstr "Tornar a la pàgina principal"
 
 #.   <a href="." attributes="href string:${context_url}content_revert_form?rev:int=${item/rev}">Revert to this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_revert_to_this_revision"
-msgstr "Bertsio honetara itzuli"
+msgstr "Tornar a aquesta versió"
 
 #.   <a href="http://www.nuxeo.com/solutions/">Solutions</a>
 #: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
 msgid "link_solutions"
-msgstr "Soluciones"
+msgstr "Solucions"
 
 #.   <th>
 #.               Existing revision of the same document
 #.             </th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
-#, fuzzy
 msgid "listingheader_existing_revision"
-msgstr "Versión existente de este mismo documento"
+msgstr "Versió existent del mateix document"
 
 #.   <th width="30%">Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
-msgstr "Atala"
+msgstr "Secció"
 
 #.   <a href="" attributes="href string:${here/portal_url}/logout">log out</a>
 #: from ../skins/cps_default/portlet_session_info.pt
-#, fuzzy
 msgid "log out"
-msgstr "salir"
+msgstr "sortir"
 
 #.   <a attributes="
 #.                    href string:javascript:toggleLayers('more_block', 'more_items')">
 #.                    more choices
 #.                 </a>
 #: from ../skins/cps_default/folder_factories.pt
-#, fuzzy
 msgid "more_choices_folder_factories"
-msgstr "-- más opciones --"
+msgstr "més opcions"
 
 #.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
 msgid "psm_form_ok"
-msgstr ""
+msgstr "Formulari resultant"
 
 #.   <div class="message" condition="python: res['status'] == 'invalid'">Invalid form, plz correct error</div>
 #: from ../skins/cps_devel/test_layout_form.pt
-#, fuzzy
 msgid "psm_invalid_form"
-msgstr "No válido desde"
+msgstr "No vàlid, cal corregir"
 
 #.   <span content="info/review_state" attributes="class
 #.         info/review_state">publish</span>
 #: from ../skins/cps_default/content_lib_status.pt
 msgid "publish"
-msgstr "Publikatu"
+msgstr "publicar"
 
 #.   <span content="item/action" class="action">published</span>
 #.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
 #: from ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "published"
-msgstr "publikatuta"
+msgstr "publicat"
 
 #.   <th align="right">Creation Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
-msgstr "Noiz sortua"
+msgstr "Data de creació"
 
 #.   <th align="right">Effective Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
-#, fuzzy
 msgid "time_effective_date"
-msgstr "Fecha efectiva"
+msgstr "Data efectiva"
 
 #.   <th align="right">Expiration Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_expiration_date"
-msgstr "Azken eguna"
+msgstr "Data de caducitat"
 
 #.   <option attributes="value lastLogin;
 #.                                   selected python:modified == lastLogin or None" condition="python:not isAnon and lastLogin is not None">Last login</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
-#, fuzzy
 msgid "time_last_login"
-msgstr "La última conexión"
+msgstr "Darrera connexió"
 
 #.   <th align="right">Last Modified Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
-#, fuzzy
 msgid "time_last_modified"
-msgstr "Fecha de última modificación"
+msgstr "Data de la darrera modificació"
 
 #.   <option attributes="value lastMonth;
 #.                                   selected python:modified == lastMonth or None">Last month</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_month"
-msgstr "Azken hilean"
+msgstr "El darrer mes"
 
 #.   <option attributes="value lastWeek;
 #.                                   selected python:modified == lastWeek or None">Last week</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_week"
-msgstr "Azken astean"
+msgstr "La darrera setmana"
 
 #.   <option attributes="value yesterday;
 #.                                   selected python:modified == yesterday or None">Yesterday</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_yesterday"
-msgstr "Atzo"
+msgstr "Ahir"
 
 #.   <label for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
-msgstr "Komentarioak"
+msgstr "Comentaris"
 
 #.   <span>
 #.         v${status_revision (tal replace="info/rev")}- ${status_language}
 #.       </span>
 #: from ../skins/cps_default/content_lib_status.pt
-#, fuzzy
 msgid "v${status_revision}- ${status_language}"
 msgstr "Versión ${status_revision} Idioma ${status_language} Estado"
 
 msgid "Login"
-msgstr "Sartu"
+msgstr "Entrar"
 
 msgid "Log out"
-msgstr "Irten"
+msgstr "Sortir"
 
 msgid "My stuff"
-msgstr "Nire Gauzak"
+msgstr "El meu espai personal"
 
-#, fuzzy
 msgid "label_private_spaces"
-msgstr "Espacio personal"
+msgstr "Espai personal"
 
 msgid "My calendar"
-msgstr "Nire Egutegia"
+msgstr "La meva agenda"
 
 msgid "Create my home calendar"
-msgstr "Nire egutegia sortu"
+msgstr "Crear agenda personal"
 
 msgid "Add to favorites"
-msgstr "Gogogoetara gehitu"
+msgstr "Afegir als enllaços d'interès"
 
 msgid "Undo"
-msgstr "Desegin"
+msgstr "Desfer"
 
 msgid "Contents"
-msgstr "Edukiak"
+msgstr "Continguts"
 
 msgid "Directories"
-msgstr "Direktorioak"
+msgstr "Directoris"
 
 msgid "Preferences"
-msgstr "Hobespenak"
+msgstr "Preferències"
 
 msgid "Reconfigure Portal"
-msgstr "Ataria berrantolatu"
+msgstr "Reconfigurar el portal"
 
 msgid "words_meaningless"
-msgstr ""
+msgstr "paraules sense sentit"
 
-#, fuzzy
 msgid "welcome_body"
 msgstr ""
-"<h1>Welcome to Nuxeo CPS</h1> <p> This page intends to give you an "
-"introduction to <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
-"(Nuxeo Collaborative Portal Server) and to what you can now do with it. (<a "
-"href=\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Edit this text</"
-"a>.) </p> <h2>About CPS</h2>   <p> <acronym title=\"Collaborative Portal "
-"Server\">CPS</acronym> is an extensive collaborative Web content management "
-"system     (CMS) implemented on top of <a href=\"http://www.zope.org/"
-"\">Zope</a> and  the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, "
-"that  enables organizations to easily, quickly and efficiently implement     "
+"<h1>Benvingut/da al Nuxeo CPS</h1> <p> Aquesta pàgina ofereix una "
+"introducció al <acronym title=\"Collaborative Portal Server\">CPS</acronym> "
+"(Servidor Nuxeo de Portal Cooperatiu) i el que pot fer amb ell. (<a href="
+"\"textbox_edit_form?box_url=.cps_boxes_root/welcome\">Editar aquest text</"
+"a>.) </p> <h2>Sobre el CPS</h2>   <p> <acronym title=\"Collaborative Portal "
+"Server\">CPS</acronym> és un sistema extensiu de gestió de contingut web "
+"col·laboratiu, implementat sobre <a href=\"http://www.zope.org/\">Zope</a> "
+"and  the <a href=\"http://www.zope.org/Products/CMF/\">CMF</a>, that  "
+"enables organizations to easily, quickly and efficiently implement     "
 "collaborative portals (intranet, extranet or internet) and    workflow- "
 "oriented business applications. </p> <p> CPS Provides, among other features: "
 "</p> <ul> <li> <a href=\"workspaces\">Collaborative work</a> and  <a href="
@@ -2480,940 +2368,756 @@ msgstr ""
 "</p> "
 
 msgid "Session"
-msgstr ""
+msgstr "Sessió"
 
-# Default roots titles
-# #####################
 msgid "workspaces_root_title"
-msgstr ""
+msgstr "Espais de treball"
 
-#, fuzzy
 msgid "members_root_title"
-msgstr "Áreas de los usuarios"
+msgstr "Àrees dels usuaris"
 
-#, fuzzy
 msgid "sections_root_title"
-msgstr "Secciones"
+msgstr "Seccions"
 
 msgid "create"
-msgstr "sortuta"
+msgstr "Crear"
 
-#, fuzzy
 msgid "modify"
-msgstr "Modificación"
+msgstr "modificar"
 
 msgid "translate"
-msgstr ""
+msgstr "traduir"
 
-#, fuzzy
 msgid "delete_translation"
-msgstr "Traducción borrada"
+msgstr "esborrar traducció"
 
-#, fuzzy
 msgid "checkin_draft"
-msgstr "Validación de la versión"
+msgstr "Validar versió"
 
 msgid "checkout_draft"
-msgstr "Bertsioa sortu"
+msgstr "Crear una versió"
 
 msgid "abandon_draft"
-msgstr "Bertsioa utzi"
+msgstr "Abandonar la versió"
 
 msgid "submit"
-msgstr "bidali"
+msgstr "Enviar"
 
 msgid "accept"
-msgstr "onartu"
+msgstr "acceptar"
 
-#, fuzzy
 msgid "reject"
-msgstr "rechazado"
+msgstr "rebutjar"
 
-#, fuzzy
 msgid "unpublish"
-msgstr "retirar"
+msgstr "retirar de la publicació"
 
-#, fuzzy
 msgid "work"
-msgstr "trabajo"
+msgstr "treball"
 
 msgid "draft"
-msgstr ""
+msgstr "esborrany"
 
 msgid "locked"
-msgstr ""
+msgstr "tancat"
 
 msgid "pending"
-msgstr "egiteke"
+msgstr "pendent"
 
 msgid "deferred"
-msgstr ""
+msgstr "ajornat"
 
 msgid "expired"
-msgstr ""
+msgstr "caducat"
 
 msgid "action_accept"
-msgstr "Onartu"
+msgstr "Acceptar"
 
-#, fuzzy
 msgid "action_access_chat_room"
-msgstr "Acceder al chat"
+msgstr "Accedir al chat"
 
 msgid "action_add_favorites"
-msgstr "Gogokoetara gehitu"
+msgstr "Afegir a les adreces d'interès"
 
 msgid "action_view_favorites"
-msgstr "Gogokoak"
+msgstr "Adreces d'interès"
 
 msgid "action_checkout_draft"
-msgstr "Bertsio berria"
+msgstr "Crear una versió"
 
 msgid "action_abandon_draft"
-msgstr "Bertsioa askatu"
+msgstr "Abandonar la versió"
 
-#, fuzzy
 msgid "action_checkin_draft"
-msgstr "Validar la versión"
+msgstr "Validar la versió"
 
 msgid "action_edit"
-msgstr "Editatu"
+msgstr "Modificar"
 
 msgid "action_folder_contents"
-msgstr "Karpetetako Edukiak"
+msgstr "Gestionar contingut"
 
 msgid "action_local_roles"
-msgstr "Rol lokalak"
+msgstr "Gestionar rols locals"
 
 msgid "action_metadata"
-msgstr "Metadatuak"
+msgstr "Meta-dades"
 
 msgid "action_manage_members"
-msgstr "Erabiltzaileak"
+msgstr "Gestionar usuaris"
 
 msgid "action_moderate_chat"
-msgstr "Txata Moderatu"
+msgstr "Moderar el chat"
 
 msgid "action_modify"
-msgstr "Eraldatu"
+msgstr "Modificar"
 
 msgid "action_my_preferences"
-msgstr "Nire hobespenak"
+msgstr "Perfil personal"
 
 msgid "action_new_content"
-msgstr "Berria"
+msgstr "Nou"
 
 msgid "action_import_documents"
-msgstr ""
+msgstr "importar documents"
 
 msgid "action_reply_question"
-msgstr "Egiteke daudenei erantzun"
+msgstr "Respondre preguntes pendents"
 
 msgid "action_post_question"
-msgstr "Galdera bidali"
+msgstr "Plantejar una pregunta"
 
 msgid "action_submit"
-msgstr "Bidali"
+msgstr "Enviar"
 
 msgid "action_reject"
-msgstr "Ez onartu"
+msgstr "Rebutjar"
 
 msgid "action_status_history"
-msgstr "Egoeren historia"
+msgstr "Històric"
 
 msgid "action_subscribe"
-msgstr "Izena eman"
+msgstr "Subscriure"
 
 msgid "action_unsubscribe"
-msgstr "Utzi"
+msgstr "Donar de baixa la subscripció"
 
-#, fuzzy
 msgid "action_un_publish"
-msgstr "Retirar"
+msgstr "Retirar de la publicació"
 
 msgid "action_view"
-msgstr "Ikusi"
+msgstr "Veure"
 
 msgid "action_comment"
-msgstr "Dokumentu honi iruzkina"
+msgstr "Comentar aquest documento"
 
 msgid "action_month_view"
-msgstr "Hileka ikusi"
+msgstr "Vista mensual"
 
 msgid "action_week_view"
-msgstr "Asteka ikusi"
+msgstr "Vista setmanal"
 
 msgid "action_day_view"
-msgstr "Egunka ikusi"
+msgstr "Vista diària"
 
 msgid "action_calendar_event_viewer"
-msgstr "Hitzorduak ikusi"
+msgstr "Visor d'esdeveniments"
 
 msgid "action_addevent"
-msgstr "Hitzordu bat gehitu"
+msgstr "Afegir un esdeveniment"
 
 msgid "action_addmeeting"
-msgstr "Bilera gehitu"
+msgstr "Afegir una reunió"
 
 msgid "action_display"
-msgstr "Erakutsi"
+msgstr "Mostrar"
 
 msgid "action_export"
-msgstr "Exportatu"
+msgstr "Exportar"
 
-#, fuzzy
 msgid "action_attendees"
-msgstr "Gestionar participantes"
+msgstr "Gestionar persones relacionades"
 
 msgid "action_delete"
-msgstr "Ezabatu"
+msgstr "Esborrar"
 
 msgid "action_calendar"
-msgstr "Egutegira itzuli"
+msgstr "Tornar a la agenda"
 
-#, fuzzy
 msgid "action_calendar_overview"
-msgstr "Vista general del calendario"
+msgstr "Vista general del calendari"
 
 msgid "action_view_stat"
-msgstr "Estatistikak ikusi"
+msgstr "Veure estadístiques"
 
 msgid "action_view_results"
-msgstr "Emaitzak ikusi"
+msgstr "Veure resultats"
 
 msgid "action_modify_prop"
-msgstr "Ezaugarriak editatu"
+msgstr "Modificar les propietats"
 
-#, fuzzy
 msgid "action_modify_form"
-msgstr "Modificar el formulario"
+msgstr "Modificar el formulari"
 
-#, fuzzy
 msgid "action_export_csv"
-msgstr "Exportar datos recogidos (CSV)"
+msgstr "Exportar dades recollides (CSV)"
 
-#, fuzzy
 msgid "action_erase_data"
-msgstr "Eliminar los datos recogidos"
+msgstr "Eliminar los dades recollides"
 
 msgid "action_advanced_search"
-msgstr "Bilaketa aurreratua"
+msgstr "Recerca avançada"
 
-#, fuzzy
 msgid "action_mail_center"
-msgstr "Centro de correo"
+msgstr "Centre de correu"
 
 msgid "action_archives_mail_center"
-msgstr "Mezuen fitxategiak"
+msgstr "arxius de correu"
 
 msgid "action_manage_vocabularies"
-msgstr "Hiztegiak kudeatu"
+msgstr "Administrar vocabularis"
 
-#, fuzzy
 msgid "action_manage_languages"
-msgstr "administrar idiomas"
+msgstr "Administrar idiomes"
 
-#, fuzzy
 msgid "action_translate"
-msgstr "Traducir"
+msgstr "Traduir"
 
-#, fuzzy
 msgid "action_delete_translation"
-msgstr "Borrar esta traducción"
+msgstr "Esborrar aquesta traducció"
 
 msgid "button_create"
-msgstr "Sortu"
+msgstr "Crear"
 
 msgid "button_deselect_all"
-msgstr "Desautatu"
+msgstr "Des-seleccionar tot"
 
 msgid "button_back"
-msgstr "Atzera"
+msgstr "Enrere"
 
 msgid "label_action_workflow"
-msgstr "workflowa"
+msgstr "flux de treball"
 
 msgid "label_action_user"
-msgstr "erabiltzailea"
+msgstr "usuari"
 
 msgid "label_action_object"
-msgstr "objektua"
+msgstr "objecte actual"
 
 msgid "label_action_folder"
-msgstr "karpeta"
+msgstr "carpeta"
 
-#, fuzzy
 msgid "label_action_global"
 msgstr "global"
 
-#, fuzzy
 msgid "label_action_global_header"
-msgstr "encabezamiento global"
+msgstr "encapçalament global"
 
 msgid "label_bottom"
-msgstr "Behean"
+msgstr "Peu de pàgina"
 
 msgid "label_center_bottom"
-msgstr "Behean erdian"
+msgstr "Peu del documento"
 
-#, fuzzy
 msgid "label_center"
-msgstr "Vestidura de la carpeta actual"
+msgstr "Aspecte de la carpeta actual"
 
 msgid "label_center_top"
-msgstr "Goian erdian"
+msgstr "encapçalament del document"
 
-#, fuzzy
 msgid "label_folder_view"
-msgstr "Vestidura predefinida para carpetas"
+msgstr "Aspecte predefinit per a carpetes"
 
 msgid "label_left"
-msgstr "Ezkerrean"
+msgstr "Esquerra"
 
 msgid "label_page"
-msgstr "Orrialdeak"
+msgstr "Pàgines"
 
 msgid "label_right"
-msgstr "Eskuinean"
+msgstr "Dreta"
 
 msgid "label_top"
-msgstr "Goian"
+msgstr "Encapçalament de la pàgina"
 
 msgid "label_guest"
-msgstr "Bisitaria"
+msgstr "Anònim"
 
 msgid "label_creator"
-msgstr "Sortzailearen logina"
+msgstr "Creador"
 
 msgid "description_confirm_delete"
-msgstr "Ziur zaude?"
+msgstr "Confirma l''acció?"
 
-#, fuzzy
 msgid "description_field_required"
-msgstr "está vacío mientras se requiere este campo"
+msgstr "cal emplenar la descripció"
 
 msgid "portal_type_Dummy2_description"
 msgstr "&nbsp;"
 
-#, fuzzy
 msgid "portal_type_Dummy2_title"
-msgstr "Documento de prueba (\"dummy\")"
+msgstr "Document de prova (\"dummy\")"
 
 msgid "portal_type_Dummy_description"
-msgstr "Testu dokumentua"
+msgstr "Un document de prova"
 
-#, fuzzy
 msgid "portal_type_Dummy_title"
-msgstr "Documento de prueba"
+msgstr "Document de prova"
 
 msgid "portal_type_Section_description"
-msgstr "&nbsp;"
+msgstr "Les secciones contenen les revisions publicades dels documents"
 
 msgid "portal_type_Section_title"
-msgstr "Saila"
+msgstr "Secció"
 
-#, fuzzy
 msgid "portal_type_Workspace_description"
 msgstr ""
-"Una carpeta o espacio de trabajo para crear contenidos (archivos, enlaces...)"
+"Una carpeta o espai de treball per a crear continguts (arxius, enllaços...)"
 
 msgid "portal_type_Workspace_title"
-msgstr "Lan-eremua"
+msgstr "Carpeta - Espai de treball"
 
-#, fuzzy
 msgid "portal_type_Members_Workspace_description"
-msgstr "Espacios de trabajo de los usuarios"
+msgstr "Espais de treball dels usuaris"
 
-#, fuzzy
 msgid "portal_type_Members_Workspace_title"
-msgstr "Una carpeta para mantener espacios personales de los usuarios"
+msgstr "Una carpeta per a mantenir espais personals dels usuaris"
 
 msgid "portal_type_Calendar_title"
-msgstr "Partekatutako egutegia"
+msgstr "Agenda compartida"
 
 msgid "portal_type_Calendar_description"
-msgstr "Beste erabiltzaile batzuekin partekatu daitekeen egutegia"
+msgstr "Calendari que pot compartir-se amb altres usuaris"
 
 msgid "portal_type_Calendar_Event_title"
-msgstr "Egutegia"
+msgstr "Esdeveniment de l'agenda"
 
 msgid "portal_type_Calendar_Event_description"
-msgstr "Hitzordua edo bilera"
+msgstr "Un esdeveniment, una reunió, una cita..."
 
-#, fuzzy
 msgid "portal_type_CollectorDocument_title"
-msgstr "Formulario de información"
+msgstr "Formulari de recollida d'informació"
 
-#, fuzzy
 msgid "portal_type_CollectorDocument_description"
-msgstr "Un formulario de entrada de datos"
+msgstr "Un formulari d'entrada de dades"
 
-#, fuzzy
 msgid "portal_type_QuizDocument_title"
-msgstr "Quiz"
+msgstr "Enquesta - concurs"
 
-#, fuzzy
 msgid "portal_type_QuizDocument_description"
 msgstr ""
-"Es un tipo de formulario especialmente diseñado para hacer preguntas. Útil, "
-"por ejemplo, para encuestas, sondeos, etc."
+"És una mena de formulari dissenyat per a fer preguntes. Útil, per exemple, "
+"per a enquestes, sondeigs, etc."
 
 msgid "portal_type_CPSChat_title"
-msgstr "Txata"
+msgstr "Chat"
 
 msgid "portal_type_CPSChat_description"
-msgstr "Txata"
+msgstr "Sessió de conversa o 'chat'"
 
 msgid "portal_type_EventCalendarBox_title"
-msgstr "Egutegi Kutxa"
+msgstr "Calendari"
 
 msgid "portal_type_EventCalendarBox_description"
-msgstr "Egutegi bat eta ebentoak erakusteko"
+msgstr "Mostra un calendari que conté enllaços a esdeveniments"
 
-#, fuzzy
 msgid "portal_type_NuxMailBoxer_title"
-msgstr "Listas de correo"
+msgstr "Llistes de correu"
 
-#, fuzzy
 msgid "portal_type_NuxMailBoxer_description"
-msgstr "Gestión de una lista de difusión"
+msgstr "Gestió d'una llista de correu"
 
 msgid "psm_added_to_favorites"
-msgstr "Gogokoetara gehituta"
+msgstr "Afegit a les adreces d'interès."
 
-#, fuzzy
 msgid "psm_already_in_favorites"
-msgstr "El enlace ya está en favoritos."
+msgstr "L'enllaç ja existeix."
 
-#, fuzzy
 msgid "psm_cannot_create_favorites"
-msgstr "No puede añadir contenido a favoritos."
+msgstr "No es pot afegir contingut a les adreces d'interès."
 
 msgid "psm_content_created"
-msgstr "Edukia sortuta."
+msgstr "Objecte creat."
 
 msgid "psm_content_changed"
-msgstr "Edukia aldatuta."
+msgstr "Modificat."
 
 msgid "psm_content_error"
-msgstr "Sarrera okerra. Zuzendu errorea(k), mesedez."
+msgstr "Entrada no vàlida, cal corregir els errors."
 
 msgid "psm_copy_or_cut_at_least_one_document"
-msgstr "Kopiatu edo ebaki, gutxienez, dokumentu bat."
+msgstr "Copiï o enganxi al menys un document."
 
 msgid "psm_entry_deleted"
-msgstr "Sarrera ezabatuta."
+msgstr "Entrada esborrada."
 
 msgid "psm_entry_modified"
-msgstr "Sarrera aldatuta."
+msgstr "Entrada modificada."
 
 msgid "psm_item(s)_copied"
-msgstr "Kopiatuta!"
+msgstr "Objecte(s) copiat(s)."
 
 msgid "psm_item(s)_cut"
-msgstr "Ebakita!"
+msgstr "Objecte(s) tallat(s)."
 
 msgid "psm_item(s)_pasted"
-msgstr "Itsatsita!"
+msgstr "Objecte(s) enganxat(s)."
 
 msgid "psm_item(s)_deleted"
-msgstr "Ezabatuta!"
+msgstr "Objecte(s) esborrat(s)."
 
 msgid "psm_item(s)_renamed"
-msgstr "Izena aldatuta!"
+msgstr "Objecte(s) renombrat(s)."
 
-#, fuzzy
 msgid "psm_item(s)_moved_up"
-msgstr "Item(s) movido arriba."
+msgstr "Objecte(s) mogut amunt."
 
-#, fuzzy
 msgid "psm_item(s)_moved_down"
-msgstr "Item(s) movido abajo"
+msgstr "Objecte(s) mogut(s) avall"
 
-#, fuzzy
 msgid "psm_item(s)_moved_to_top"
-msgstr "Item(s) moviido al principio"
+msgstr "Objecte(s) mogut(s) al principi"
 
-#, fuzzy
 msgid "psm_item(s)_moved_to_bottom"
-msgstr "Item(s) movido al final"
+msgstr "Objecte(s) mogut(s) al final"
 
 msgid "psm_operation_not_allowed"
-msgstr "Zuk eskatutakoa ezin da egin."
+msgstr "Operació no permesa."
 
 msgid "psm_revision_reverted"
-msgstr "Aurreko bertsiora itzuli da."
+msgstr "Versió antiga recuperada."
 
 msgid "psm_archive_deleted"
-msgstr "Fitxategia ezabatuta."
+msgstr "Arxiu esborrat"
 
 msgid "psm_select_at_least_one_document"
-msgstr "Gutxienez dokumentu bat aukeratu."
+msgstr "Seleccioni al menys un document."
 
 msgid "psm_portal_reconfigured"
-msgstr "Ataria berrantolatuta."
+msgstr "Portal reconfigurat."
 
-#, fuzzy
 msgid "psm_status_changed"
-msgstr "Estado modificado (en el flujo de trabajo)."
+msgstr "Estat de treball modificat."
 
 msgid "psm_local_roles_changed"
-msgstr "Lokal rolak aldatu egin dira."
+msgstr "Rols locals modificats."
 
-#, fuzzy
 msgid "psm_local_roles_blocked"
-msgstr "Adquisición de roles locales bloquedada"
+msgstr "Adquisició de rols locals bloquejada"
 
-#, fuzzy
 msgid "psm_local_roles_unblocked"
-msgstr "Adquisición de roles locales desbloquedada"
+msgstr "Adquisició de rols locals desbloquejada"
 
 msgid "psm_local_roles_select_members"
-msgstr "Please select members first"
+msgstr "Per favor, seleccioni primer els membres."
 
-#, fuzzy
 msgid "psm_local_roles_no_editable_ids"
-msgstr "Roles locales no editables"
+msgstr "Rols locals no modificables"
 
 msgid "psm_join_password_too_short"
-msgstr "Pasahitzak gutxienez 5 karaktere behar ditu."
+msgstr "La seva contrasenya ha de tenir al menys 5 caràcters."
 
 msgid "psm_join_password_mismatch"
-msgstr "Pasahitza eta konfirmazioa ez datoz bat."
+msgstr "La contrasenya no es correspon amb la confirmació."
 
 msgid "psm_join_invalid_name"
-msgstr "Aukeratu duzun izena ez da egokia. Aldatu, mesedez."
+msgstr "El seu nom d'usuari no és vàlid. Per favor, triï'n un altre."
 
 msgid "psm_join_login_already_used"
-msgstr ""
-"Zuk aukeratutako izena beste erabiltzaile batek darabil. Aukeratu beste bat, "
-"mesedez."
+msgstr "Aquest nom d'usuari ja està agafat. Per favor, triï'n un altre."
 
 msgid "psm_join_invalid_email"
-msgstr "E-posta ez da zuzena. Zuzendu, mesedez."
+msgstr ""
+"La seva adreça de correu electrònic no és vàlida. Per favor, verifiqui-la."
 
 msgid "psm_reset_password_request_received"
-msgstr ""
+msgstr "Contrasenya rebuda"
 
-#, fuzzy
 msgid "psm_reset_password_success_and_new_password_is"
 msgstr ""
-"Su contraseña se ha restaurado con éxito. Su nueva contraseña es: "
-"${new_password}"
+"La contrasenya s'ha restaurat. La seva nova contrasenya és: ${new_password}"
 
 msgid "psm_reset_password_problem"
-msgstr ""
+msgstr "problema amb la contrasenya"
 
-#, fuzzy
 msgid "psm_translation_added"
-msgstr "versión para traducción añadida"
+msgstr "versió per a traducció afegida"
 
-#, fuzzy
 msgid "psm_translation_deleted"
-msgstr "Traducción borrada"
+msgstr "Traducció esborrada"
 
-#, fuzzy
 msgid "psm_default_language_set"
-msgstr "lista de idiomas por defecto para el portal"
+msgstr "llista d'idiomes per defecte per al portal"
 
-#, fuzzy
 msgid "psm_language_added"
-msgstr "Nuevo(s) idioma(s) disponibles"
+msgstr "Afegit(s) nou(s) idioma(s)"
 
-#, fuzzy
 msgid "psm_language_deleted"
 msgstr "Idioma(s) no disponibles"
 
-#, fuzzy
 msgid "psm_language_error_select_at_least_one_item"
-msgstr "Seleccione al menos un idioma"
+msgstr "Seleccioni al menys un idioma"
 
-#, fuzzy
 msgid "psm_language_error_let_at_least_one_language_to_portal"
-msgstr "Configure al menos un idioma para CPS"
+msgstr "Configuri al menys un idioma per al CPS"
 
 msgid "psm_language_error_unknown_command"
-msgstr ""
+msgstr "Comanda desconeguda"
 
 msgid "psm_you_must_select_sections_for_publishing"
-msgstr ""
+msgstr "Ha de seleccionar al menys una secció on publicar el document."
 
 msgid "psm_logged_in"
-msgstr ""
+msgstr "Us heu autentificat correctament"
 
 msgid "collector_psm_erase_data_cancel"
-msgstr "Jasotako datuak ez dira ezabatu."
+msgstr "Les dades recollides no s'han eliminat."
 
 msgid "collector_psm_erased_data"
-msgstr "Jasotako datu guztiak ezabatu egin dira."
+msgstr "Les dades recollides s'han eliminat."
 
-#, fuzzy
 msgid "date_short"
 msgstr "%d/%m/%Y"
 
 msgid "date_medium"
-msgstr ""
+msgstr "%d/%m/%Y %H:%M"
 
 msgid "date_long"
-msgstr ""
+msgstr "%d/%m/%Y %H:%M:%S"
 
-# # Dates
 msgid "calendar_month_1"
-msgstr "Urtarrila"
+msgstr "Gener"
 
 msgid "calendar_month_2"
-msgstr "Otsaila"
+msgstr "Febrer"
 
 msgid "calendar_month_3"
-msgstr "Martxoa"
+msgstr "Març"
 
 msgid "calendar_month_4"
-msgstr "Apirila"
+msgstr "Abril"
 
 msgid "calendar_month_5"
-msgstr "Maiatza"
+msgstr "Maig"
 
 msgid "calendar_month_6"
-msgstr "Ekaina"
+msgstr "Juny"
 
 msgid "calendar_month_7"
-msgstr "Uztaila"
+msgstr "Juliol"
 
 msgid "calendar_month_8"
-msgstr "Abuztua"
+msgstr "Agost"
 
 msgid "calendar_month_9"
-msgstr "Iraila"
+msgstr "Setembre"
 
 msgid "calendar_month_10"
-msgstr "Urria"
+msgstr "Octubre"
 
 msgid "calendar_month_11"
-msgstr "Azaroa"
+msgstr "Novembre"
 
 msgid "calendar_month_12"
-msgstr "Abendua"
+msgstr "Desembre"
 
 msgid "calendar_day_0"
-msgstr "As"
+msgstr "DL"
 
 msgid "calendar_day_1"
-msgstr "At"
+msgstr "DM"
 
 msgid "calendar_day_2"
-msgstr "Ak"
+msgstr "DX"
 
 msgid "calendar_day_3"
-msgstr "Os"
+msgstr "DJ"
 
 msgid "calendar_day_4"
-msgstr "Or"
+msgstr "DV"
 
 msgid "calendar_day_5"
-msgstr "La"
+msgstr "DS"
 
 msgid "calendar_day_6"
-msgstr "Ig"
+msgstr "DU"
 
 msgid "_blank"
 msgstr " "
 
 msgid "link_search"
-msgstr "Bilatu"
+msgstr "Buscar"
 
 msgid "role:Anonymous"
-msgstr "rola:Anonimoa"
+msgstr "anònim"
 
 msgid "role:Authenticated"
-msgstr ""
+msgstr "autenticat"
 
-# # Roles ==================================================
 msgid "WorkspaceManager"
-msgstr "Lan-eremuaren kudeatzailea"
+msgstr "Administrador de l'espai de treball"
 
 msgid "WorkspaceMember"
-msgstr "Lan-eremuko partaidea"
+msgstr "Usuari de l'espai de treball"
 
 msgid "WorkspaceReader"
-msgstr "Lan-eremuko irakurlea"
+msgstr "Lector de l'espai de treball"
 
 msgid "SectionManager"
-msgstr "Atalaren kudeatzailea"
+msgstr "Administrador de la secció"
 
 msgid "SectionReviewer"
-msgstr "Atalaren gainbegiralea"
+msgstr "Revisor de la secció"
 
 msgid "SectionReader"
-msgstr "Atalaren irakurlea"
+msgstr "Lector de la secció"
 
 msgid "Contributor"
-msgstr ""
+msgstr "Col·laborador"
 
-#, fuzzy
 msgid "Reader"
 msgstr "Lector"
 
 msgid "ForumPoster"
-msgstr "Foroetako Partaidea"
+msgstr "Participant al fòrum"
 
 msgid "ForumModerator"
-msgstr "Foroen Moderatzailea"
+msgstr "Moderador del fòrum"
 
 msgid "ChatModerator"
-msgstr "Txataren Moderatzailea"
+msgstr "Moderador del chat"
 
 msgid "ChatPoster"
-msgstr "Txatetako Partaidea"
+msgstr "Participant al chat"
 
 msgid "ChatGuest"
-msgstr "Txatetako Bisitaria"
+msgstr "Convidat al chat"
 
-#, fuzzy
 msgid "label_searchadv_full_text"
-msgstr "Mostrar resultados con"
+msgstr "Mostrar resultats amb"
 
-#, fuzzy
 msgid "label_searchadv_updated"
-msgstr "Actualizado"
+msgstr "Actualitzat"
 
-#, fuzzy
 msgid "label_searchadv_sort_by"
-msgstr "Ordenado por"
+msgstr "Ordenat per"
 
-# # Languages  ========================================================
 msgid "label_language_en"
-msgstr "Ingelesa"
+msgstr "Anglès"
 
 msgid "label_language_fr"
-msgstr "Frantsesa"
+msgstr "Francès"
 
 msgid "label_language_nl"
-msgstr "Nederlandera"
+msgstr "Holandès"
 
 msgid "label_language_it"
-msgstr "Italiera"
+msgstr "Italià"
 
 msgid "label_language_de"
-msgstr "Alemaniera"
+msgstr "Alemany"
 
 msgid "label_language_es"
-msgstr "Española"
+msgstr "Castellà"
 
 msgid "label_language_pt_BR"
-msgstr "Portugesa"
+msgstr "Portuguès del Brasil"
 
-#, fuzzy
 msgid "label_language_mg"
-msgstr "Malgache"
+msgstr "Malgaix"
 
-#, fuzzy
 msgid "label_language_ro"
-msgstr "Rumano"
+msgstr "Romanès"
 
 msgid "label_language_eu"
-msgstr "Euskara"
+msgstr "Basc"
 
 msgid "label_language_ca"
 msgstr "Catalan"
 
 msgid "label_accesskey_accessibility_information"
-msgstr "Irisgarritasunaz"
+msgstr "Informació d'accessibilitat"
 
 msgid "label_accesskey_homepage"
-msgstr "Sarrera-orrira joan"
+msgstr "Pàgina principal"
 
 msgid "label_accesskey_content"
-msgstr "Edukira joan"
+msgstr "Anar al contingut"
 
 msgid "label_accesskey_sitemap"
-msgstr "Menura joan"
+msgstr "Mapa del lloc web"
 
 msgid "label_accesskey_search"
-msgstr "Webgune honetan bilatu"
+msgstr "Motor de recerca"
 
 msgid "label_accesskey_contact"
-msgstr "E-posta bidali"
+msgstr "Contactar"
 
-#, fuzzy
 msgid "email_password_reset_confirmation_subject"
-msgstr "[${portal_url}] Confirmación de cambio de contraseña para ${email}"
+msgstr "[${portal_url}] Confirmació del canvi de contrasenya per a ${email}"
 
-#, fuzzy
 msgid "email_password_reset_confirmation_body"
 msgstr ""
-"From: ${mail_from_address}\n"
-"To: ${email}\n"
-"Subject: ${subject}\n"
+"De: ${mail_from_address}\n"
+"A: ${email}\n"
+"Assumpte: ${subject}\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Mime-Version: 1.0\n"
 "\n"
 "\n"
-"Dear user,\n"
+"Benvolgut usuari,\n"
 "\n"
-"You (or someone else) have requested to reset the password for the\n"
-"account having email address \"${email}\". Most probably the reason\n"
-"for this reset request is that the password for this account has been lost.\n"
+"Vostè (o qualcú altre) ha demanat reiniciar la contrasenya per a l'usuari "
+"que té d'adreça electrònica\n"
+" \"${email}\". La causa més probable és perquè hagi perdut l'antiga\n"
 "\n"
-"The password reset request was sent from the IP address\n"
+"La petició de reinicar la contrasenya va venir de la IP \n"
 "${client_address}\n"
 "\n"
-"If you have not requested this reset, please ignore this message.\n"
+"Si vostè no ho va demanar, pot ignorar aquest missatge.\n"
 "\n"
-"You can now reset your password by simply visiting the following page:\n"
+"Vostè pot reiniciar la seva contrasenya visitant la següent pàgina:\n"
 "${visit_url}\n"
 "\n"
-"We look forward to seeing you back soon at ${portal_url}\n"
+"Esperem veure'l aviat a ${portal_url}\n"
 "\n"
-"Sincerely,\n"
+"Atentament,\n"
 "\n"
 "-- \n"
-"The portal administration team"
+"L'equip d'administració del portal"
 
-#
-# Default portlets (or Boxes) titles
-#
 msgid "Navigation"
-msgstr ""
+msgstr "Navegació"
 
-#, fuzzy
 msgid "User actions"
-msgstr "Acciones del usuario"
+msgstr "Acciones de l'usuari"
 
-#, fuzzy
 msgid "Language selector"
-msgstr "Selección de idioma"
+msgstr "Selecció d'idioma"
 
 msgid "Folder actions"
-msgstr "Karpetako ekintzak"
+msgstr "Accions de carpeta"
 
 msgid "Object actions"
-msgstr "Objektuen Ekintzak"
+msgstr "Acciones de l'objecte"
 
 msgid "Portal actions"
-msgstr "Atariaren Antolaketa"
+msgstr "Accions del portal"
 
 msgid "Translated status message."
-msgstr "Mensaje de estado traducido"
+msgstr "Missatge de l'estat de la traducció"
 
 msgid "Title"
-msgstr "Izenburua"
+msgstr "Títol"
 
 msgid "ajax_working"
-msgstr ""
+msgstr "Treballant..."
 
 msgid "ajax_failing"
-msgstr ""
+msgstr "Canvi no permès"
 
 msgid "help_password_message"
-msgstr "Sartu hemen, eta zure pasahitza bidaliko dizugu e-postaz."
+msgstr "Check this box to have your password mailed to you."
 
-#, fuzzy
 msgid "label_password_mailed"
-msgstr "¿Enviar la contraseña?"
-
-msgid "label_inherited_blocked_role"
-msgstr "Rol heredado y bloqueado"
-
-msgid "action_boxes"
-msgstr "Kutxen Kudeaketa"
-
-msgid "action_boxes_root"
-msgstr "Kutxa Nagusien Kudeaketa"
-
-msgid "psm_box_created"
-msgstr "Kutxa sortuta."
-
-msgid "psm_box_modified"
-msgstr "Kutxa aldatuta."
-
-msgid "psm_box_deleted"
-msgstr "Kutxa ezabatuta."
-
-#~ msgid "label_local_roles_search_by"
-#~ msgstr "Honen arabera bilatu"
-
-#~ msgid "label_local_roles_search_term"
-#~ msgstr "Bilatutakoa"
-
-#~ msgid "portal_type_ActionBox_title"
-#~ msgstr "Ekintzen Kutxa"
-
-#~ msgid "portal_type_ActionBox_description"
-#~ msgstr "Ekintzak sailkatuta erakusteko."
-
-#~ msgid "portal_type_BaseBox_title"
-#~ msgstr "Oinarrizko Kutxa"
-
-#~ msgid "portal_type_BaseBox_description"
-#~ msgstr "Oinarrizko kutxak: logoa, bilaketa-leihoa, menuak..."
-
-#~ msgid "portal_type_TextBox_title"
-#~ msgstr "Testu Kutxa"
-
-#~ msgid "portal_type_TextBox_description"
-#~ msgstr "Testua edo HTMLa sartzeko kutxa."
-
-#~ msgid "portal_type_TreeBox_title"
-#~ msgstr "Zuhaitzen Kutxa"
-
-#~ msgid "portal_type_TreeBox_description"
-#~ msgstr "Karpetak zuhaitz itxuran antolatuta erakusteko"
-
-#~ msgid "portal_type_ContentBox_title"
-#~ msgstr "Eduki Kutxa"
-
-#~ msgid "portal_type_ContentBox_description"
-#~ msgstr "Karpeta baten edukiak, edo bilaketa baten emaitzak."
-
-#~ msgid "portal_type_ImageBox_title"
-#~ msgstr "Irudi Kutxa"
-
-#~ msgid "portal_type_ImageBox_description"
-#~ msgstr "Irudiak, argazkiak, logoak..."
-
-#~ msgid "portal_type_RSSBox_title"
-#~ msgstr "RSS kutxa"
-
-#~ msgid "portal_type_RSSBox_description"
-#~ msgstr "RSS jarioa erakutsi"
-
-#~ msgid "portal_type_FlashBox_title"
-#~ msgstr "Flash Kutxa"
-
-#~ msgid "portal_type_FlashBox_description"
-#~ msgstr "Macromedia&#153; Flash&#153; irudiak erakusteko kutxa."
-
-#~ msgid "portal_type_InternalLinksBox_title"
-#~ msgstr "Barne-loturen Kutxa"
-
-#~ msgid "description_nuxeo_basebox_default"
-#~ msgstr "Kutxa hutsa."
-
-#~ msgid "description_nuxeo_basebox_logo"
-#~ msgstr "Nuxeo-ren logoa"
-
-#~ msgid "description_nuxeo_basebox_l10n_select"
-#~ msgstr "Hizkuntza aukeraketarako kutxa."
-
-#~ msgid "description_nuxeo_basebox_footer"
-#~ msgstr "Nuxeo oina."
-
-#~ msgid "description_nuxeo_basebox_welcome"
-#~ msgstr "KPS-ren ongietorri barra."
-
-#~ msgid "description_nuxeo_basebox_calendar"
-#~ msgstr "Egutegia"
-
-#~ msgid "description_nuxeo_contentbox_default"
-#~ msgstr "Lehenetsitako eduki kutxa."
-
-#~ msgid "description_nuxeo_contentbox_last_modified"
-#~ msgstr "Azken publikatutako dokumentuak erakusten dituen kutxa."
-
-#~ msgid "description_nuxeo_contentbox_simple"
-#~ msgstr "Eduki kutxa soil bat, objektu zerrenda labur bat erakutsiz"
-
-#~ msgid "description_nuxeo_treebox_default"
-#~ msgstr "Lehenetsitako nabigazio-kutxa"
-
-#~ msgid "description_nuxeo_treebox_sitemap"
-#~ msgstr "Web mapa"
+msgstr "Mail Password?"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault Italian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-01 19:35default\n"
+"POT-Creation-Date: 2006-07-28 01:45default\n"
 "PO-Revision-Date: 2005-11-10 09:08+0100\n"
 "Last-Translator: Stefano Schintu <schintu@gmail.com>\n"
 "Language-Team: CPS Italian <schintu@gmail.com>\n"
@@ -73,26 +73,21 @@ msgstr ""
 "Objets <strong> ${batch_start} - ${batch_limit} </strong> sur ${batch_length}"
 
 #.   <dd content="item/Description">
-#.                   Portal type's description
+#.                   Portal type description
 #.                 </dd>
-#.   <dd content="item/Description">
-#.                       Portal type's description
-#.                     </dd>
 #: from ../skins/cps_default/folder_factories.pt
-msgid "Portal type's description"
-msgstr "Descrizione del tipo di oggetto"
+#, fuzzy
+msgid "Portal type description"
+msgstr "Description du type de document"
 
 #.   <a content="item/Title" attributes="
 #.                     href string:${here_url}/content_create?type_name=${item/getId}">
-#.                     Portal type's title
+#.                     Portal type title
 #.                   </a>
-#.   <a content="item/Title" attributes="
-#.                         href string:${here_url}/content_create?type_name=${item/getId}">
-#.                         Portal type's title
-#.                       </a>
 #: from ../skins/cps_default/folder_factories.pt
-msgid "Portal type's title"
-msgstr "Titolo del tipo di oggetto"
+#, fuzzy
+msgid "Portal type title"
+msgstr "Titre du type de document"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -436,7 +431,7 @@ msgstr "Sposta all'inizio"
 msgid "button_move_up"
 msgstr "Sposta in alto"
 
-#.   <input type="button" value="button_ok" onclick="history.back()" />
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
 #: from ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
@@ -548,8 +543,8 @@ msgstr ""
 "applications.<a href=\"http://www.nuxeo.com/cps/\">CPS</a> comes also as a "
 "user-friendly application for entreprise-grade content management with many "
 "collaboration features.<a href=\"http://www.nuxeo.com/cps/\">CPS</a> is "
-"built on top of the powerful <a href=\"http://www.zope.com\">Zope</a> "
-"application server."
+"built on top of the powerful <a href=\"http://www.nuxeo.com/techno/zope"
+"\">Zope</a> application server."
 
 #.   <span>
 #.           You are already a member. You may use the
@@ -1256,7 +1251,7 @@ msgstr "Indirizzo e-mail dell'amministratore:"
 msgid "label_admin_name"
 msgstr "Nome dell'amministratore:"
 
-#.   <img src="cps-minibanner.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="80" height="15" attributes="src string:${here/portal_url}/cps-minibanner.png" />
+#.   <img src="image.png" title="label_advertisement_use_cps" alt="label_advertisement_use_cps" width="85" height="15" attributes="src string:${here/portal_url}/cps_powered.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_use_cps"
 msgstr "Usa CPS"
@@ -1326,17 +1321,17 @@ msgstr "Commenti"
 msgid "label_compact"
 msgstr "Compatta"
 
-#.   <img src="valid-css.png" title="label_conformance_valid_css" alt="Valid CSS" width="80" height="15" attributes="src string:${here/portal_url}/valid-css.png" />
+#.   <img src="image.png" title="label_conformance_valid_css" alt="Valid CSS" width="85" height="15" attributes="src string:${here/portal_url}/valid_css-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "Sito concepito utilizzando fogli di stile CSS conformi agli standards"
 
-#.   <img src="valid-xhtml10.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="80" height="15" attributes="src string:${here/portal_url}/valid-xhtml10.png" />
+#.   <img src="image.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="85" height="15" attributes="src string:${here/portal_url}/valid_xhtml-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "Sito aderente agli standards XHTML"
 
-#.   <img src="wcag1A.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="80" height="15" attributes="src string:${here/portal_url}/wcag1A.png" />
+#.   <img src="image.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="85" height="15" attributes="src string:${here/portal_url}/valid_wai1A-orange.png" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr "Conformità di livello A, secondo le regole di accessibilità del W3C"
@@ -2276,7 +2271,7 @@ msgid "time_expiration_date"
 msgstr "Data di scadenza:"
 
 #.   <option attributes="value lastLogin;
-#.                                   selected python:modified == lastLogin or None" condition="not:isAnon">Last login</option>
+#.                                   selected python:modified == lastLogin or None" condition="python:not isAnon and lastLogin is not None">Last login</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "time_last_login"
 msgstr "Ultimo accesso"
@@ -2327,7 +2322,7 @@ msgstr "Ambiente personale"
 
 #, fuzzy
 msgid "label_private_spaces"
-msgstr "Espace privés"
+msgstr "Espaces privés"
 
 msgid "My calendar"
 msgstr "Agenda personale"
@@ -3132,6 +3127,9 @@ msgstr "Rumeno"
 
 msgid "label_language_eu"
 msgstr "Basco"
+
+msgid "label_language_ca"
+msgstr "Catalan"
 
 # Accesskeys
 # ###########

@@ -26,6 +26,7 @@ import unittest
 from copy import deepcopy
 from OFS.Folder import Folder
 
+from zope.testing import doctest
 from Testing.ZopeTestCase import ZopeTestCase
 
 from Products.CPSDefault.MembershipTool import MembershipTool
@@ -658,9 +659,174 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # blocking
         self.assertEquals(res[4], 0)
 
+    def test_getCPSLocalRolesRender_with_blocking_showed(self):
+        mtool = self.mtool
+        root = self.root
+        fold = root.fold
+        ob = fold.ob
+
+        # block local roles
+        mtool.blockLocalRoles(fold)
+
+        # on folder
+        res = mtool.getCPSLocalRolesRender(fold, self.roles,
+                                           show_blocked_roles=True)
+        self.assertEquals(res[0], ['user:someuser'])
+        # members
+        members = {
+            'user:someuser': {
+                'title': 'Some User',
+                'role_input_name': 'role_user_someuser',
+                'inherited_roles': {},
+                'has_local_roles': 1,
+                'here_roles': {'WorkspaceManager': {'here': 0,
+                                                    'inherited': 0,
+                                                    'blocked': 1},
+                               'WorkspaceMember': {'here': 1,
+                                                   'inherited': 0},
+                               'WorkspaceReader': {'here': 0,
+                                                   'inherited': 0},
+                               },
+                },
+            }
+        self.assertEquals(res[1], members)
+        # groups
+        sorted_groups = ['group:somegroup']
+        self.assertEquals(res[2], sorted_groups)
+        groups = {
+            'group:somegroup': {
+                'title': 'Some Group',
+                'role_input_name': 'role_group_somegroup',
+                'inherited_roles': {},
+                'has_local_roles': 0,
+                'here_roles': {'WorkspaceManager': {'here': 0,
+                                                    'inherited': 0},
+                               'WorkspaceMember': {'here': 0,
+                                                   'inherited': 0},
+                               'WorkspaceReader': {'here': 0,
+                                                   'inherited': 0,
+                                                   'blocked': 1},
+                               },
+                },
+            }
+        self.assertEquals(res[3], groups)
+        # blocking
+        self.assertEquals(res[4], 1)
+
+        # Now give back on folder the Manager role to user
+        # on folder
+        mtool.setLocalRoles(fold, ['someuser'], 'WorkspaceManager')
+        res = mtool.getCPSLocalRolesRender(fold, self.roles,
+                                           show_blocked_roles=True)
+        # cleanup and its checking
+        mtool. _deleteLocalRoles(fold, ['someuser'],
+                                 member_role='WorkspaceManager')
+        self.assertEquals(mtool.getMergedLocalRoles(fold)['user:someuser'],
+                          ['WorkspaceMember'])
+
+        # assertions
+        self.assertEquals(res[0], ['user:someuser'])
+        # members
+        members = {
+            'user:someuser': {
+                'title': 'Some User',
+                'role_input_name': 'role_user_someuser',
+                'inherited_roles': {},
+                'has_local_roles': 1,
+                'here_roles': {'WorkspaceManager': {'here': 1,
+                                                    'inherited': 0,
+                                                    'blocked': 1},
+                               'WorkspaceMember': {'here': 1,
+                                                   'inherited': 0},
+                               'WorkspaceReader': {'here': 0,
+                                                   'inherited': 0},
+                               },
+                },
+            }
+        self.assertEquals(res[1], members)
+
+
+        # on object
+        res = mtool.getCPSLocalRolesRender(ob, self.roles)
+        sorted_members = ['user:someuser']
+        self.assertEquals(res[0], sorted_members)
+        # members
+        members = {
+            'user:someuser': {
+                'title': 'Some User',
+                'role_input_name': 'role_user_someuser',
+                'inherited_roles': {
+                    'WorkspaceMember': ['root/fold'],
+                    },
+                'has_local_roles': 0,
+                'here_roles': {'WorkspaceManager': {'here': 0,
+                                                    'inherited': 0},
+                               'WorkspaceMember': {'here': 0,
+                                                   'inherited': 1},
+                               'WorkspaceReader': {'here': 0,
+                                                   'inherited': 0},
+                               },
+                },
+            }
+        self.assertEquals(res[1], members)
+        # groups
+        self.assertEquals(res[2], sorted_groups)
+        groups = {
+            'group:somegroup': {
+                'title': 'Some Group',
+                'role_input_name': 'role_group_somegroup',
+                'inherited_roles': {},
+                'has_local_roles': 1,
+                'here_roles': {'WorkspaceManager': {'here': 1,
+                                                    'inherited': 0},
+                               'WorkspaceMember': {'here': 0,
+                                                   'inherited': 0},
+                               'WorkspaceReader': {'here': 0,
+                                                   'inherited': 0},
+                               },
+                },
+            }
+        self.assertEquals(res[3], groups)
+        # blocking
+        self.assertEquals(res[4], 0)
+
+        # test on ob with filtered role WorkspaceMember
+        res = mtool.getCPSLocalRolesRender(ob, self.roles,
+                                           'WorkspaceMember')
+        self.assertEquals(res[0], sorted_members)
+        self.assertEquals(res[1], members)
+        # groups
+        self.assertEquals(res[2], [])
+        self.assertEquals(res[3], {})
+        # blocking
+        self.assertEquals(res[4], 0)
+
+        # test on ob with filtered role WorkspaceManager
+        res = mtool.getCPSLocalRolesRender(ob, self.roles,
+                                           'WorkspaceManager')
+        self.assertEquals(res[0], [])
+        self.assertEquals(res[1], {})
+        # groups
+        self.assertEquals(res[2], sorted_groups)
+        self.assertEquals(res[3], groups)
+        # blocking
+        self.assertEquals(res[4], 0)
+
+        # test on ob with filtered role WorkspaceReader
+        res = mtool.getCPSLocalRolesRender(ob, self.roles,
+                                           'WorkspaceReader')
+        self.assertEquals(res[0], [])
+        self.assertEquals(res[1], {})
+        # groups
+        self.assertEquals(res[2], [])
+        self.assertEquals(res[3], {})
+        # blocking
+        self.assertEquals(res[4], 0)
+
 
 def test_suite():
     return unittest.TestSuite((
+        doctest.DocTestSuite('Products.CPSDefault.MembershipTool'),
         unittest.makeSuite(TestMembershipToolLocalRoles),
         ))
 

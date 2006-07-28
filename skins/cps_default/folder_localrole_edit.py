@@ -1,4 +1,4 @@
-##parameters=delete_ids=[], edit_ids=[], filtered_role=None, REQUEST=None, **kw
+##parameters=delete_ids=[], edit_ids=[], filtered_role=None, show_blocked_roles=0, REQUEST=None, **kw
 # $Id$
 """Edit local roles (delete/edit)
 
@@ -17,7 +17,8 @@ keywords or in the request form. For instance, if user 'toto' has to have roles
 'WorkspaceReader']. The group 'tata' will have the associated key
 'role_group_tata'.
 
-filtered_role parameter is only passed to be kept while editing.
+filtered_role and shopw_blocked_roles parameters are only passed to be kept
+while editing.
 """
 
 # XXX AT: if user changes its own rights and loses the "change permissions",
@@ -120,5 +121,6 @@ if reindex:
 
 if REQUEST is not None:
     kwargs['filtered_role'] = filtered_role
+    kwargs['show_blocked_roles'] = show_blocked_roles
     REQUEST.RESPONSE.redirect('%s/folder_localrole_form?%s'%(
         context.absolute_url(), urlencode(kwargs)))

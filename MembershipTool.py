@@ -33,6 +33,7 @@ from smtplib import SMTPException
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
+from Acquisition import aq_inner, aq_parent
 
 from Products.MailHost.MailHost import MailHostError
 from Products.CMFCore.utils import getToolByName
@@ -500,8 +501,38 @@ class MembershipTool(CPSMembershipTool):
         return dict_roles, local_roles_blocked
 
 
+    def _addBlockedRolesForRender(self, here_roles, blocked_roles):
+        """Add info about blocked_roles in here_roles dict.
+
+        here_roles is as output by getCPSLocalRoles()
+        blocked_roles is as getMergedLocalRoles on the parent folder.
+
+        This is useful because getCPSLocalRolesRender will iterate on
+        here_roles.items().
+
+        >>> mtool = MembershipTool()
+        >>> from pprint import PrettyPrinter
+        >>> pretty_print=PrettyPrinter(width=72).pprint
+
+        >>> here_roles = {'agent1': [{'url': 'some_url', 'roles': ['Owner']}]}
+        >>> blocked_roles = {'agent1': ['Other'],
+        ...                  'agent2': ['Owner']}
+        >>>
+        >>> mtool._addBlockedRolesForRender(here_roles, blocked_roles)
+        >>> pretty_print(here_roles)
+        {'agent1': [{'url': 'some_url', 'roles': ['Owner']},
+                    {'roles': ['Other'], 'blocked': True}],
+         'agent2': [{'roles': ['Owner'], 'blocked': True}]}
+        """
+
+        for agent, roles in blocked_roles.items():
+            if agent not in here_roles:
+                here_roles[agent] = []
+            here_roles[agent].append({'blocked': True, 'roles': roles})
+
     security.declarePublic('getCPSLocalRolesRender')
-    def getCPSLocalRolesRender(self, obj, cps_roles, filtered_role=None):
+    def getCPSLocalRolesRender(self, obj, cps_roles, filtered_role=None,
+                               show_blocked_roles=False):
         """Get dictionnaries that will be used by the template presenting local
         roles.
 
@@ -524,6 +555,14 @@ class MembershipTool(CPSMembershipTool):
         gdir = dirtool.groups
         gdir_title_field = gdir.title_field
         dict_roles, local_roles_blocked = self.getCPSLocalRoles(obj, cps_roles)
+
+        # Adding blocked roles to dict_roles.
+        if local_roles_blocked and show_blocked_roles:
+            parent = aq_parent(aq_inner(obj))
+            # GR: getCPSLocalRoles goes from bottom-most folder up
+            # calling it upstairs should not amount to computing things twice
+            blocked_roles = self.getMergedLocalRoles(parent)
+            self._addBlockedRolesForRender(dict_roles, blocked_roles)
         utool = getToolByName(self, 'portal_url')
         rpath = utool.getRpath(obj)
 
@@ -543,6 +582,13 @@ class MembershipTool(CPSMembershipTool):
                     'inherited': 0,
                     }
             for role_info in role_infos:
+                if role_info.get('blocked'):
+                    blocked_roles = role_info['roles']
+                    for role in blocked_roles:
+                        if role in cps_roles:
+                            here_roles[role]['blocked'] = 1
+                            has_roles = True # force display
+                    continue
                 role_url = role_info['url']
                 if role_url == rpath:
                     here = 1

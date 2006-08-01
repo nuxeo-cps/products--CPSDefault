@@ -12,7 +12,7 @@ REQUEST=context.REQUEST
 # Didn't see any case since now.
 #
 try:
-    if context.cb_dataValid:
+    if context.cb_dataValid():
         result = context.manage_CPSpasteObjects(REQUEST['__cp'])
         for id in [ob['new_id'] for ob in result]:
             ob = getattr(context, id)

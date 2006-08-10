@@ -99,6 +99,7 @@ class VariousImporter(object):
         if body is None:
             return
         importer.filename = filename
+        importer.path = importer.name
         importer.body = body
 
     def setupFCKeditorHttpCache(self):
@@ -162,7 +163,7 @@ class RootsXMLAdapter(XMLAdapterBase):
             proxy = site._getOb(id)
 
             # Placeful configuration for one root (and creates subobjects)
-            path = self.name+'/'+id
+            path = self.path+'/'+id
             filename = path+'.xml'
             body = self.environ.readDataFile(filename)
             if body is not None:
@@ -175,6 +176,15 @@ class RootsXMLAdapter(XMLAdapterBase):
             for subid, subob in proxy.objectItems():
                 if subid.startswith('.'):
                     importCPSObjects(subob, path+'/', self.environ)
+
+            # Recursively load sub proxy folders
+            filename = path + '/' + self.name +  '.xml'
+            body = self.environ.readDataFile(filename)
+            if body is not None:
+                importer = RootsXMLAdapter(proxy, self.environ)
+                importer.path = path + '/' + self.name
+                importer.filename = filename # for error reporting
+                importer.body = body
 
 
 class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):

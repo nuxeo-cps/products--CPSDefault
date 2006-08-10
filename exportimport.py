@@ -192,6 +192,7 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
     """
     _LOGGER_ID = 'roots'
     name = 'roots'
+    i18n_attributes = ('title', 'description')
 
     def _importNode(self, node):
         """Import the object from the DOM node.
@@ -229,22 +230,26 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
         site = self.environ.getSite()
         avail_langs = site.getProperty('available_languages')
         translation_service = getToolByName(site, 'translation_service')
+        wanted_attributes = ['%s_msgid' % id for id in self.i18n_attributes]
         for child in node.childNodes:
             if child.nodeName != 'property':
                 continue
-            if child.getAttribute('name') != 'title_msgid':
+            attribute_name = str(child.getAttribute('name'))
+            if attribute_name not in wanted_attributes:
                 continue
-            title_msgid = self._getNodeText(child)
+            field_id = attribute_name.split('_', 1)[0].capitalize()
+            msgid = self._getNodeText(child)
             existing_langs = proxy.getLanguageRevisions().keys()
             for lang in avail_langs:
                 if lang not in existing_langs:
                     proxy.addLanguageToProxy(lang)
-                title = translation_service(msgid=title_msgid,
+                value = translation_service(msgid=msgid,
                                             target_language=lang,
-                                            default=title_msgid)
-                title = title.encode('iso-8859-15', 'ignore')
+                                            default=msgid)
+                value = value.encode('iso-8859-15', 'ignore')
                 doc = proxy.getEditableContent(lang=lang)
-                doc.edit(Title=title, proxy=proxy)
+                doc_def = {field_id: value, 'proxy': proxy}
+                doc.edit(**doc_def)
 
 def importObjectLocalWorkflow(ob, filename, context):
     """Import local workflow chains from an XML file.

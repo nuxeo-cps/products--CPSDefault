@@ -61,7 +61,7 @@
   tal:define="list_here python:checkPerm('List folder contents', here);">
 
   <div tal:condition="not: list_here"
-    tal:define="response request/RESPONSE;url here_url;">
+    tal:define="response request/RESPONSE;url string:${here_url}/folder_view;">
     <span tal:define="redirect python: response.redirect(url)"></span>
   </div>
 

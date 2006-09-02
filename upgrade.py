@@ -16,17 +16,20 @@
 #
 # $Id$
 
+import logging
+
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
-from zLOG import LOG, DEBUG, INFO
 
 
 TYPES = ('Workspace', 'Section', 'CPSForum')
 CHECK_ROOTS = ('workspaces', 'sections')
 
+
 def checkUpgradeWorkflows(context):
     """Check if workflows need to be upgraded."""
+    loggger = logging.getLogger('CPSDefault.upgrade.checkUpgradeWorkflows')
     upgrade = 0
     portal = getToolByName(context, 'portal_url').getPortalObject()
     for rpath in CHECK_ROOTS:
@@ -42,8 +45,8 @@ def checkUpgradeWorkflows(context):
             status = wfh[-1]
             if status.has_key('review_state'):
                 continue
-            LOG('checkUpgradeWorkflows', INFO,
-                "Workflow status for '%s' needs to be upgraded." % rpath)
+            logger.info("Workflow status for '%s' needs to be upgraded.",
+                        rpath)
             upgrade = 1
             break
     return upgrade
@@ -70,8 +73,7 @@ def upgradeWorkflows(self):
     - then click on the test tab of this external method
     """
 
-    log_key = 'upgradeWorkflows'
-    LOG(log_key, DEBUG, "")
+    loggger = logging.getLogger('CPSDefault.upgrade.upgradeWorkflows')
 
     nchanged = 0
     brains = self.portal_catalog.searchResults(portal_type=TYPES)
@@ -95,10 +97,10 @@ def upgradeWorkflows(self):
             changed = 1
         if changed:
             path = '/'.join(ob.getPhysicalPath())
-            LOG(log_key, DEBUG, "upgrading %s" % path)
+            logger.debug("upgrading %s", path)
             ob.reindexObject(idxs=['review_state'])
             nchanged += 1
-    LOG(log_key, DEBUG, "%s objects upgraded" % nchanged)
+    logger.debug("%s objects upgraded", nchanged)
     return '%s objects upgraded' % nchanged
 
 def upgradeURLTool(self):
@@ -197,6 +199,9 @@ def upgrade_334_335_clean_catalog(self):
     On some instances between 3.3.4 and 3.3.5, None objects appeared in the
     catalog causing the search result page to crash
     """
+    loggger = logging.getLogger(
+        'CPSDefault.upgrade.upgrade_334_335_clean_catalog')
+    
     log = "Checking and cleaning cataloged None objects...\n"
     catalog = getToolByName(self, 'portal_catalog')
     docs2unindex = []
@@ -209,7 +214,7 @@ def upgrade_334_335_clean_catalog(self):
             id = brain.getPath()
             docs2unindex.append(id)
     for id in docs2unindex:
-        LOG('CPSDefault.Extensions.upgrade', INFO, 'Uncataloging: %s' % id)
+        logger.info('Uncataloging: %s', id)
         catalog.uncatalog_object(id)
     log += "Uncataloged %d None objects" % len(docs2unindex)
     return log
@@ -255,7 +260,7 @@ def upgrade_320_334_document_types(portal, check=False):
     return "Upgraded document types News and PressRelease"
 
 def _modifyPortalType(portal, old, new, check=False):
-    log_key = 'modifyPortalType'
+    logger = logging.getLogger('CPSDefault.upgrade._modifyPortalType')
     catalog = getToolByName(portal, 'portal_catalog')
     brains = catalog.searchResults(portal_type=old)
 
@@ -263,14 +268,14 @@ def _modifyPortalType(portal, old, new, check=False):
         return bool(len(brains))
     for brain in brains:
         proxy = brain.getObject()
-        LOG(log_key, DEBUG, "checking %s..." % proxy.title_or_id)
+        logger.debug("checking %s...",  proxy.title_or_id)
         for lang in proxy.getProxyLanguages():
             doc = proxy.getContent(lang=lang)
             if doc.portal_type == 'News':
                 # Change the newsdate field into EffectiveDate
                 newsdate = doc.__dict__.get('newsdate')
                 if newsdate is not None:
-                    LOG(log_key, DEBUG, "updating %s" % proxy.title_or_id)
+                    logger.debug("updating %s", proxy.title_or_id)
                     doc.setEffectiveDate(newsdate)
                     delattr(doc, 'newsdate')
             doc.portal_type = new
@@ -775,6 +780,8 @@ def upgrade_338_340_members_folder(portal):
 def upgrade_338_340_old_skin_layers(portal, check=False):
     """Remove broken skin layers.
     """
+    logger = logging.getLogger(
+        'CPSDefault.upgrade.upgrade_338_340_old_skin_layers')
     from Products.CMFCore.DirectoryView import _dirreg
     from Products.CMFCore.DirectoryView import DirectoryViewSurrogate
     res = []
@@ -793,7 +800,7 @@ def upgrade_338_340_old_skin_layers(portal, check=False):
     for id in res:
         portal.portal_skins._delObject(id)
     msg = "%d old skin layers removed" % len(res)
-    LOG('Upgrade', DEBUG, msg)
+    logger.debug(msg)
     return msg
 
 def check_338_340_old_skin_layers(portal):

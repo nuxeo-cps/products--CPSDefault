@@ -29,7 +29,7 @@ CHECK_ROOTS = ('workspaces', 'sections')
 
 def checkUpgradeWorkflows(context):
     """Check if workflows need to be upgraded."""
-    loggger = logging.getLogger('CPSDefault.upgrade.checkUpgradeWorkflows')
+    logger = logging.getLogger('CPSDefault.upgrade.checkUpgradeWorkflows')
     upgrade = 0
     portal = getToolByName(context, 'portal_url').getPortalObject()
     for rpath in CHECK_ROOTS:
@@ -73,7 +73,7 @@ def upgradeWorkflows(self):
     - then click on the test tab of this external method
     """
 
-    loggger = logging.getLogger('CPSDefault.upgrade.upgradeWorkflows')
+    logger = logging.getLogger('CPSDefault.upgrade.upgradeWorkflows')
 
     nchanged = 0
     brains = self.portal_catalog.searchResults(portal_type=TYPES)
@@ -199,7 +199,7 @@ def upgrade_334_335_clean_catalog(self):
     On some instances between 3.3.4 and 3.3.5, None objects appeared in the
     catalog causing the search result page to crash
     """
-    loggger = logging.getLogger(
+    logger = logging.getLogger(
         'CPSDefault.upgrade.upgrade_334_335_clean_catalog')
     
     log = "Checking and cleaning cataloged None objects...\n"

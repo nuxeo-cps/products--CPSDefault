@@ -1,3 +1,4 @@
+
 ##parameters=proxy=None, doc=None, level=0, cpsmcat=None
 # $Id$
 """
@@ -16,7 +17,8 @@ level: 4 (cost ???)
   level 3 + archived
 """
 
-from zLOG import LOG, DEBUG
+import logging
+logger = logging.getLogger('Script (Python) getContentInfo:')
 from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
 
@@ -191,10 +193,7 @@ info['type'] = proxy.getPortalTypeName()
 if proxy.getTypeInfo() is not None:
     info['type_l10n'] = cpsmcat(proxy.getTypeInfo().Title())
 else:
-    LOG("getContentInfo() pb getting Type Information",
-        DEBUG,
-        'Proxy :',
-        proxy)
+    logger.debug("problem getting Type Information for proxy %s", proxy)
     info['type_l10n'] = ''
 info['review_state'] = wtool.getInfoFor(proxy, 'review_state', '')
 try:

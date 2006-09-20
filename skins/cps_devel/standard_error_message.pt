@@ -16,33 +16,34 @@
     <metal:block use-macro="here/error_lib_not_found/macros/not_found" />
   </tal:NotFound>
 
-  <tal:default condition="python:error_type != 'NotFound'">
+  <tal:block condition="python:error_type != 'NotFound'">
     <metal:block use-macro="here/error_lib_other/macros/other" />
-  </tal:default>
 
-  <tal:debugging condition="python:1 or checkPerm('Manage portal', here)">
-    <table width="100%" cellpadding="2" cellspacing="2">
-      <tr>
-        <th width="10%">Error Type:</th>
-        <td tal:content="error_type"></td>
-      </tr>
-      <tr>
-        <th>Error Value:</th>
-        <td><pre tal:content="structure error_value" /></td>
-      </tr>
-      <tr>
-        <th>Traceback:</th>
-        <td><pre tal:content="structure error_traceback" /></td>
-      </tr>
-    </table>
-    <hr />
-    <pre tal:content="structure request" />
-    <hr />
-    <a href="" tal:condition="python:error_log_url"
-               tal:attributes="href error_log_url">
-      Show Error Log Entry
-    </a>
-  </tal:debugging>
+    <tal:debugging condition="python:checkPerm('Manage portal', here)">
+      <table width="100%" cellpadding="2" cellspacing="2">
+        <tr>
+          <th width="10%">Error Type:</th>
+          <td tal:content="error_type"></td>
+        </tr>
+        <tr>
+          <th>Error Value:</th>
+          <td><pre tal:content="structure error_value" /></td>
+        </tr>
+        <tr>
+          <th>Traceback:</th>
+          <td><pre tal:content="structure error_traceback" /></td>
+        </tr>
+      </table>
+      <hr />
+      <pre tal:content="structure request" />
+      <hr />
+      <a href="" tal:condition="python:error_log_url"
+                 tal:attributes="href error_log_url">
+        Show Error Log Entry
+      </a>
+    </tal:debugging>
+  </tal:block>
+
 </tal:haserror>
 
 <tal:hasnoerror tal:condition="not:error_type">

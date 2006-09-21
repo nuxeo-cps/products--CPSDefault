@@ -27,7 +27,7 @@
     <tal:block tal:repeat="item batch_items">
       <tal:block define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);
                          review_state python:info['review_state'];
-                         item_id item/getId|string:noid,
+                         item_id item/getId|string:noid;
                          proxy_creator item/Creator|info/creator"
                  condition="python:review_state != 'draft'
                                    or (review_state == 'draft' and proxy_creator == member_id)

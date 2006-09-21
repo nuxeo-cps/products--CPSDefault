@@ -501,6 +501,38 @@ Example::
 
 
 
+Hiding "sections" in the URL
+============================
+
+CPS has its contents both in `workspaces` and `sections` folders.
+
+While being aware of those two locations is fine for users collaborating on a
+CPS portal (and actually producing contents under the `workspaces` folder), it
+is disturbing and useless to have ``sections`` in the URL of contents publicly
+available and accessed by anonymous users.
+
+A possible solution is to hide the ``sections`` part by adding yet another
+`RewriteRule` for each public rubric::
+
+  RewriteCond %{REQUEST_URI} ^/rubric-1
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/sections/VirtualHostRoot/$1 [P,L]
+
+  RewriteCond %{REQUEST_URI} ^/rubric-2
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/sections/VirtualHostRoot/$1 [P,L]
+
+  etc.
+
+Note that those rules should appear before the generic proxying rule defined
+earlier::
+
+  RewriteRule ^/(.*) http://machine.localdomain:9673/VirtualHostBase/http/%{HTTP_HOST}:80/cps/VirtualHostRoot/$1 [P,L]
+
+Note that those rules will not hide the true locations of contents as returned
+by the search pages or the navigation portlets. To this end one usually needs
+to define custom navigation portlets.
+
+
+
 Developer information
 =====================
 

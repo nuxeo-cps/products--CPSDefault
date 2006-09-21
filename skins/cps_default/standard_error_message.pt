@@ -11,14 +11,19 @@
 
 <metal:main fill-slot="main">
 
-<tal:haserror condition="error_type">
-  <tal:NotFound condition="python:error_type == 'NotFound'">
+<tal:haserrortype condition="error_type">
+  <tal:notfound condition="python:error_type == 'NotFound'">
     <metal:block use-macro="here/error_lib_not_found/macros/not_found" />
-  </tal:NotFound>
+  </tal:notfound>
 
   <tal:block condition="python:error_type != 'NotFound'">
     <metal:block use-macro="here/error_lib_other/macros/other" />
 
+    <tal:comment condition="nothing">
+    <!-- The checkPerm cannot be used when error_type is NotFound        -->
+    <!-- because Zope authentication is only performed when a successful -->
+    <!-- traversal happens.                                              -->
+    </tal:comment>
     <tal:debugging condition="python:checkPerm('Manage portal', here)">
       <table width="100%" cellpadding="2" cellspacing="2">
         <tr>
@@ -44,11 +49,11 @@
     </tal:debugging>
   </tal:block>
 
-</tal:haserror>
+</tal:haserrortype>
 
-<tal:hasnoerror tal:condition="not:error_type">
-  In Heaven, everything's fine...
-</tal:hasnoerror>
+<tal:hasnoerrortype tal:condition="not:error_type">
+  <metal:block use-macro="here/error_lib_other/macros/other" />
+</tal:hasnoerrortype>
 
 </metal:main>
 </metal:body>

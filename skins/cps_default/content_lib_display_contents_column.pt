@@ -69,7 +69,7 @@
     <tal:block repeat="item batch_items">
     <tal:block define="info python:here.getContentInfo(item, level=1, cpsmcat=cpsmcat);
                         review_state python:info['review_state'];
-                        proxy_creator python:item.Creator();
+                        proxy_creator item/Creator;
                         start repeat/item/start|nothing;
                         end repeat/item/end|nothing">
       <tal:block tal:condition="python:review_state!='draft' or (review_state=='draft' and proxy_creator == member_id) or is_local_manager">

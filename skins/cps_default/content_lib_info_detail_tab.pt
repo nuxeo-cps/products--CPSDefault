@@ -71,7 +71,7 @@
   </td>
   <td align="center" tal:condition="type_in_tabs"
       tal:define="draggableclass python:test(not no_form  and sort_by is None, 'draggable droppable', '');
-                  draggableid python:'draggable'+str(item.getId());
+                  draggableid string:draggable${item/getId};
                   draggablemouseover
                     python:test(not no_form  and sort_by is None, 'setCursor(this, \'move\')', '')">
     <div tal:attributes="class draggableclass; id draggableid; onmouseover draggablemouseover">

@@ -47,14 +47,16 @@
           <tr tal:define="publishing_transitions section/publishing_transitions;
                           can_publish python:publish_wf_action in publishing_transitions;
                           can_submit  python:submit_wf_action in publishing_transitions;
-                          clone_wf_action python:test(can_publish, publish_wf_action, submit_wf_action)"
+                          clone_wf_action python:test(can_publish, publish_wf_action, submit_wf_action);
+                          states_for_section python:[state for state in info['states'] if state['rpath'] == section['rpath']]"
               tal:condition="python:can_publish or can_submit"
               tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
             <td nowrap="nowrap">
               <input type="checkbox" id="" name="" value="" class="noborder"
                      tal:attributes="value section/rpath;
                                      id section/rpath;
-                                     name clone_wf_action;" />
+                                     name clone_wf_action;
+                                     checked python:states_for_section and 'checked' or None" />
               <span tal:replace="structure python:'&nbsp;'*4*section['depth']">&nbsp;</span>
               <label tal:content="structure section/short_title"
                      tal:attributes="for section/rpath">Section id</label>
@@ -62,13 +64,10 @@
                   tal:condition="not:can_publish">(requires approval)</em>
             </td>
             <td>
-              <tal:block repeat="item info/states">
-                <tal:block condition="python:item['rpath'] == section['rpath']"
-                           define="info item;
-                                   status_short_fmt not:nothing;">
-                  <metal:block use-macro="here/content_lib_status/macros/status" /><br />
-
-                </tal:block>
+              <tal:block repeat="info states_for_section"
+                         define="status_short_fmt not:nothing">
+                <metal:block
+                  use-macro="here/content_lib_status/macros/status" /><br />
               </tal:block>
             </td>
           </tr>

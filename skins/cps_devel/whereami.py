@@ -36,7 +36,8 @@ doc = proxy.getContent()
 
 doc_path = '/'.join(doc.getPhysicalPath())
 proxy_path = '/'.join(proxy.getPhysicalPath())
-if 'portal_repository' in doc_path:
+
+if hasattr(proxy.aq_inner.aq_explicit, 'getDocid'):
     is_proxy = 1
 else:
     is_proxy = 0

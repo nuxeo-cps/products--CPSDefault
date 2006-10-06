@@ -4,10 +4,10 @@ $Id$
 </dtml-comment>
 
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/javascript' )">
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
+<dtml-call "REQUEST.RESPONSE.setHeader('Content-Type', 'text/javascript')">
+<dtml-call "REQUEST.RESPONSE.setHeader('Last-Modified', last_modified.toZone('GMT').rfc822())">
+<dtml-call "REQUEST.RESPONSE.setHeader('Cache-Control', 'max-age=36000, must-revalidate')">
+<dtml-call "REQUEST.RESPONSE.setHeader('Expires', expires.toZone('GMT').rfc822())" >
 </dtml-let>
 
 var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
@@ -61,6 +61,9 @@ function toggleElementVisibility(id) {
   }
 }
 
+/**
+ * Makes visible or hide an element given its ID.
+ */
 function showElement(show, id) {
   element = document.getElementById(id);
   if (element) {
@@ -80,6 +83,9 @@ function showElement(show, id) {
 }
 
 //************************************************************
+/**
+ * Removes empty spaces at the beginning and end of the given string.
+ */
 function trim(s) {
   if (s) {
     return s.replace(/^\s*|\s*$/g, "");
@@ -88,6 +94,29 @@ function trim(s) {
 }
 
 //************************************************************
+/**
+ * Opens a link in a new window.
+ * Returns false to prevent the browser from following the actual href.
+ *
+ * cf. http://openweb.eu.org/articles/popup/
+ */
+function openLinkInPopup(url, windowName) {
+    // Call to prototype lib
+    var dimension = Element.getDimensions(document.body);
+    var height = dimension.height;
+    var width = dimension.width;
+    newWindow = window.open(url, 'cps_popup',
+                            'height=' + height + ',width=' + width + ',resizable=yes,menubar=yes');
+    if (window.focus) {
+        newWindow.focus();
+    }
+    return false;
+}
+
+//************************************************************
+/**
+ * XXX ?
+ */
 function checkEmptySearch(formElem) {
   var query = trim(formElem.SearchableText.value);
   if (query != '') {
@@ -149,6 +178,9 @@ function validateRequiredFields(fieldIds, fieldLabels, informationText) {
 }
 
 //************************************************************
+/**
+ * XXX ?
+ */
 function getSelectedRadio(buttonGroup) {
   if (buttonGroup[0]) {
     for (var i=0; i<buttonGroup.length; i++) {
@@ -162,6 +194,9 @@ function getSelectedRadio(buttonGroup) {
   return -1;
 }
 
+/**
+ * XXX ?
+ */
 function getSelectedRadioValue(buttonGroup) {
   var i = getSelectedRadio(buttonGroup);
   if (i == -1) {
@@ -175,6 +210,9 @@ function getSelectedRadioValue(buttonGroup) {
   }
 }
 
+/**
+ * XXX ?
+ */
 function getSelectedRadioId(buttonGroup) {
   var i = getSelectedRadio(buttonGroup);
   if (i == -1) {
@@ -207,10 +245,10 @@ function getSelectedRadioLabel(buttonGroup) {
 
 
 //************************************************************
-/*
-    Used to highlight search terms
-    from Geir Bækholt, adapted for CPS
-
+/**
+ * Highlights the searched terms.
+ *
+ * From Geir Bækholt, adapted for CPS
  */
 function highlightSearchTerm() {
   var query_elem = document.getElementById('searchGadget')

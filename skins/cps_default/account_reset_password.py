@@ -29,6 +29,7 @@ if password is not None:
      'portal_status_message': 'psm_reset_password_success_and_new_password_is',
      'portal_status_message_mappings': {
         'new_password': password,
+        'username': u[0],
         },
      'username': u[0],
      })

@@ -3,7 +3,7 @@
     <h1 i18n:translate="heading_login_failure">Login failure</h1>
   </metal:block>
   <metal:block fill-slot="main"
-	       tal:define="p_props here/portal_properties">
+    tal:define="p_props here/portal_properties">
     <p>
       <span i18n:translate="description_login_failure">
 	You are not currently logged in. Your username and or password may be
@@ -11,15 +11,14 @@
 	cookies. If you need help please contact
       </span>
       <a href="mailto:admin@here.com" title="Email Admin"
-	 tal:attributes="href string:mailto:${p_props/email_from_address}"
-	 tal:content="p_props/email_from_address">Email Admin</a>.
+        tal:attributes="href string:mailto:${p_props/email_from_address}"
+        tal:content="p_props/email_from_address">Email Admin</a>.
     </p>
     <p i18n:translate="">
-      help_password_forgotten
-      <tal:block i18n:name="link_password_forgotten"
-		 replace="string:${base_url}account_lost_password_form"/>
+      help_user_name_password_unknown_lost
+      <tal:block i18n:name="link_help_lost_password"
+        replace="string:${base_url}account_lost_password_form"/>
     </p>
-    <br/>
     <p>
       <input type="button" class="context" onClick="history.back()"
         value="button_back" i18n:attributes="value" />

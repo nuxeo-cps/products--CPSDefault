@@ -66,13 +66,13 @@ if is_anon:
     RESPONSE.expireCookie('__ac', path='/')
     return context.user_logged_in_failed()
 
-login_time = member.getProperty('login_time', '2000/01/01')
+login_time = member.getProperty('last_login_time', '2000/01/01')
 first_time = (str(login_time) == '2000/01/01')
 
 if first_time and member.has_role('Member'):
     mtool.createMemberArea()
     now = context.ZopeTime()
-    member.setProperties(last_login_time=now, login_time=now)
+    member.setProperties(last_login_time=now)
 
 if to_member_home or to_workspaces:
     redirect_url = '%s/?%s' % (redirect_url, 'portal_status_message=psm_logged_in')

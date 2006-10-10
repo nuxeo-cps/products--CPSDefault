@@ -25,6 +25,7 @@ for root_uid in sections_roots:
 
 wftool = context.portal_workflow
 getInitialTransitions = wftool.getInitialTransitions
+isBehaviorAllowedFor = wftool.isBehaviorAllowedFor
 TRANSITION_INITIAL_PUBLISHING = wftool.TRANSITION_INITIAL_PUBLISHING
 allowed_transitions = wftool.getAllowedPublishingTransitions(context)
 
@@ -36,6 +37,8 @@ res = []
 for section in sections:
     if allowed_container_types is not None and not (
             section['portal_type'] in allowed_container_types):
+        continue
+    if not isBehaviorAllowedFor(section['rpath'], 'publishing'):
         continue
     transitions = getInitialTransitions(section['rpath'], type_name,
                                         TRANSITION_INITIAL_PUBLISHING)

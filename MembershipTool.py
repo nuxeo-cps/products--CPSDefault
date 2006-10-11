@@ -283,9 +283,8 @@ class MembershipTool(CPSMembershipTool):
         if REQUEST is not None:
             raise Unauthorized("Not callable TTW")
         try:
-            utool = getToolByName(self, 'portal_url')
-            portal = utool.getPortalObject()
-            dir = portal.portal_directories.members
+            aclu = getToolByName(self, 'acl_users')
+            dir = aclu._getUsersDirectory()
             fullname = dir._getEntry(user_id)[dir.title_field]
         except (AttributeError, KeyError):
             fullname = user_id

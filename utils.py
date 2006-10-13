@@ -294,13 +294,14 @@ def getFolderContents(container, sort_on=None, sort_order=None,
 module_security.declarePublic('getCatalogFolderContents')
 def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
                              sort_on=None, sort_order=None,
-                             sort_limit=None):
+                             sort_limit=None, request=None):
     """Get a filtered and sorted container's contents using the catalog.
 
     Return catalog brains.
     """
     t = Timer('getCatalogFolderContents', level=INFO)
     ctool = getToolByName(container, 'portal_catalog')
+    lucene = 'Lucene' in ctool.meta_type
     container_path = '/'.join(container.getPhysicalPath())
     translation_service = getToolByName(container, 'translation_service', None)
     match_languages = 'en'
@@ -312,9 +313,11 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
     t.mark('init')
 
     # build query
-    query = {'container_path': container_path,
-             'cps_filter_sets': 'searchable',
-             'match_languages': match_languages}
+    query = {
+        'container_path': container_path,
+        'cps_filter_sets': 'searchable', # GR: currently missing in Lucene
+        'Language': match_languages,
+        } 
     if filter_ptypes is not None:
         query['portal_type'] = filter_ptypes
 
@@ -328,12 +331,15 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
         del query['allowedRolesAndUsers']
     if not _checkPermission(AccessInactivePortalContent, container):
         now = DateTime()
-        query['effective_range'] = now
+        query['effective'] = {'query': now,
+                              'range': 'min'}
 
     if sort_on is not None:
         # compatibility
         if sort_on in ('title', 'date'):
             sort_on = sort_on.capitalize()
+            if lucene:
+                sort_on += '_sort'
         elif sort_on == 'status':
             sort_on = 'review_state'
         elif sort_on == 'author':
@@ -341,11 +347,27 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
         query['sort-on'] = sort_on
         if sort_order in ('desc', 'reverse'):
             query['sort-order'] = 'reverse'
-        if sort_limit is not None:
+        if not lucene and sort_limit is not None:
+            # lucene uses is batching capability anyway
             query['sort-limit'] = sort_limit
+        elif request is not None:
+            b_start = query['b_start'] = int(request.get('b_start', 0))
+            b_size = query['b_size'] = 12 # GR arbitrary, I now
+        else:
+            b_start = query['b_start'] = 0
+            b_size = query['b_size'] = 12
 
     t.mark('build query: %s' % str(query))
-    brains = ZCatalog.searchResults(ctool, None, **query)
+    if lucene:
+        # XXX obviously one should use the server-side batching, but that means rewriting lots of things
+        brains = ctool._search(**query)
+
+        # caching in request so that getBatchItems or the like can decide not to do anything
+        if request is not None:
+            nb_res = brains and brains[0].out_of or 0
+            request['cpslucenecatalog_folder_contents'] = (b_start, b_size, nb_res)
+    else:
+        brains = ZCatalog.searchResults(ctool, None, **query)
     #t.log('search result: %s docs' % len(brains))
     return brains
 

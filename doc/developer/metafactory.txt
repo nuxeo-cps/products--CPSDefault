@@ -118,7 +118,7 @@ way, we can reuse labels, typing and so on:
      >>> ldap_info['id']
      'LDAP'
      >>> pretty_print(ldap_info['parameters'])
-     [{'id': 'LDAPBackingDirectory-ldap_bind_dn',
+     [{'id': 'LDAP-ldap_bind_dn',
        'label': 'LDAP bind dn',
        'mode': 'w',
        'type': 'string'}]
@@ -135,13 +135,12 @@ A non-existing property is simply dropped::
 You can specify additional attributes that aren't managed as Zope 2
 properties. In that case, the attribute id will also play the role of
 the label. There will be not type checking. In use cases, the
-attribute is handled via a Zope 3 schema, but this isn't leveraged yet
+attribute is handled via a Zope 3 schema, but this isn't leveraged yet::
 
     >>> params['attributes'] = ['an_attr']
     >>> conf.prepareOptions(options)
     >>> pretty_print(options['meta_profiles'][1]['parameters'])
-    [{'id': 'LDAPBackingDirectory-an_attr',
-      'label': 'an_attr'}]
+    [{'id': 'LDAP-an_attr', 'label': 'an_attr'}]
     >>> params['properties'] = save
 
 A required meta profile that has no parameters won't be mentionned on
@@ -292,9 +291,11 @@ we'll have to build an object to set properties on::
    >>> dtool.the_backing
    <LDAPBackingDirectory at app/the_site/dtool/the_backing>
 
-Now let's put back some parameters in the LDAP meta_profile::
+Now let's put back some parameters in the LDAP meta_profile. The
+meta_profile's id is used to prefix them so that to instances of the
+same class can be configured from the same form::
 
-   >>> params = {'LDAPBackingDirectory:ldap_bind_dn': 'a_valid_dn'}
+   >>> params = {'LDAP:ldap_bind_dn': 'a_valid_dn'}
    >>> conf.metas_order = ['LDAP']
    >>> conf.importMetaProfiles(requested_metas=['LDAP'], **params)
    Pointing at CPSLDAPSetup:default
@@ -306,7 +307,7 @@ An empty valued parameter is left unchanged. Therefore the
 corresponding property will have the same value as was set by
 profile, or at class level::
 
-   >>> params = {'LDAPBackingDirectory:ldap_bind_dn': ''}
+   >>> params = {'LDAP:ldap_bind_dn': ''}
    >>> conf.importMetaProfiles(requested_metas=['LDAP'], **params)
    Pointing at CPSLDAPSetup:default
    Imported
@@ -332,7 +333,7 @@ meta_profile that sets an attribute on it.
 Applying the meta profile, we get::
 
    >>> conf.meta_profiles['NonProp']['parameters']['attributes'] = ['an_attr']
-   >>> params = {'SimpleItem-an_attr': 'some_value'}
+   >>> params = {'NonProp-an_attr': 'some_value'}
    >>> conf.importMetaProfiles(requested_metas=['NonProp'], **params)
    Pointing at Dumb:default
    Imported
@@ -397,7 +398,7 @@ instance later with the same configuration, it's simpler to subclasss::
    Now, let's launch the first import::
 
    >>> conf.importMetaProfiles(requested_metas=['ReplayedMeta'],
-   ...                         **{'FakeSetupTool-witness': 3})
+   ...                         **{'ReplayedMeta-witness': 3})
    Pointing at SomeExt:default
    Imported
    >>> site.portal_setup.witness
@@ -448,14 +449,14 @@ Internals
    A snapshot of existing parameters is made::
 
    >>> pretty_print(rconf.paramsSnapshot(['ReplayedMeta']))
-   {'FakeSetupTool-witness': 3}
+   {'ReplayedMeta-witness': 3}
 
    Robustness tests::
 
    >>> rconf.paramsSnapshot(['NoParam'])
    {}
    >>> pretty_print(rconf.paramsSnapshot(['ReplayedMeta', 'NoParam']))
-   {'FakeSetupTool-witness': 3}
+   {'ReplayedMeta-witness': 3}
 
 
 Cleaning

@@ -97,8 +97,6 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                       info['disabled'] = 'Error: %s' % err
                       continue
 
-                 classname = klass.__name__
-
                  # properties
                  wanted_props = params.get('properties')
                  if wanted_props is not None:
@@ -107,14 +105,14 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                          if prop['id'] in wanted_props]
                      # prefixing to avoid collision
                      for prop in info['parameters']:
-                         prop['id'] = '%s-%s' % (classname, prop['id'])
+                         prop['id'] = '%s-%s' % (m_id, prop['id'])
                  else:
                      info['parameters'] = []
 
                  # other attributes; TODO: use possibly existing Z3 schema
                  for attr in params.get('attributes', []):
                      info['parameters'].append(
-                         {'id': "%s-%s" % (classname, attr),
+                         {'id': "%s-%s" % (m_id, attr),
                           'label': attr})
 
          options['meta_profiles'] = opt_metas
@@ -158,10 +156,12 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
             setup_tool.setImportContext('profile-%s' % extension_id)
             setup_tool.runAllImportSteps()
 
-     def _applyParameters(self, params, **kw):
+     def _applyParameters(self, prefix, params, **kw):
           """Apply user input parameters to site.
 
-          At this time, these are properties on a single object. """
+          At this time, these are properties on a single object.
+          Keys in params and kw must be prefixed with prefix and a dash.
+          """
 
           if not 'class' in params:
               return
@@ -169,19 +169,18 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
 
           props = params.get('properties', ())
 
-          classname = klass.__name__
-          cl_len = len(classname) + 1
+          pref_len = len(prefix) + 1
           obj = self.site.unrestrictedTraverse(params['rpath'])
           if props:
-              prop_dict = dict((key[cl_len:], value)
+              prop_dict = dict((key[pref_len:], value)
                                for key, value in kw.items()
-                               if key.startswith(classname) and \
-                               key[cl_len:] in props and value)
+                               if key.startswith(prefix) and \
+                               key[pref_len:] in props and value)
               obj.manage_changeProperties(**prop_dict)
 
           attrs = params.get('attributes', ())
           for attr in attrs:
-              value = kw.get('%s-%s' % (classname, attr), '')
+              value = kw.get('%s-%s' % (prefix, attr), '')
               if value:
                   setattr(obj, attr, value)
 
@@ -198,15 +197,12 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
              if not params:
                  continue
 
-             klass = _resolveDottedName(params.get('class'))
-             classname = klass.__name__
-
              obj = self.site.unrestrictedTraverse(params['rpath'])
 
              attrs = params.get('properties', ()) + params.get('attributes',
                                                                ())
              for attr in attrs:
-                 snapshot['%s-%s' % (classname, attr)] = getattr(aq_base(obj),
+                 snapshot['%s-%s' % (m_id, attr)] = getattr(aq_base(obj),
                                                                  attr)
 
          return snapshot
@@ -238,7 +234,7 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                     self._importMetaProfile(m_profile)
                     imported_metas.append(m_id)
 
-                    self._applyParameters(m_profile.get('parameters',{}),
+                    self._applyParameters(m_id, m_profile.get('parameters',{}),
                                               **kw)
                     if after is not None:
                          after(self.site, **kw)
@@ -265,7 +261,8 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                  before(self.site, **snapshot)
 
              self._importMetaProfile(m_profile)
-             self._applyParameters(m_profile.get('parameters', ()), **snapshot)
+             self._applyParameters(m_id, m_profile.get('parameters', ()),
+                                   **snapshot)
 
              after = m_profile.get('after_import')
              if with_hooks and after is not None:

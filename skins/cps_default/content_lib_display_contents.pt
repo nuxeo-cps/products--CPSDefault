@@ -2,11 +2,15 @@
 <!-- $Id$ -->
 
 <!-- List contents in 'items' in the specified number of columns
-  with the given format -->
+  with the given format
+
+     AJAX leftovers causing errors are disabled by first line of tal:define
+-->
 
 <metal:block define-macro="display_contents">
 <tal:block
-  define="tmp_format format|nothing;
+  define="no_ajax not:nothing;
+          tmp_format format|nothing;
           tmp_sort_by sort_by|nothing;
           tmp_direction direction|nothing;
           tmp_columns columns|nothing;
@@ -43,7 +47,7 @@
  <tal:block tal:condition="python: batch_info and batch_info['nb_pages'] > 1">
     <div class="batchLayout">
         <span i18n:translate="">
-          Objects: 
+          Objects:
           <strong>
             <tal:block replace="batch_info/start"
             i18n:name="batch_start" /> - <tal:block replace="batch_info/limit"

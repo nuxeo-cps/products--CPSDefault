@@ -5,6 +5,7 @@
 
 <metal:block define-macro="display_contents_column">
   <tal:block define="no_form no_form|nothing;
+                     no_ajax no_ajax|nothing;
                      site_wide site_wide|nothing;
                      format python:format or 'detail';
                      choosen_ids python:request.SESSION.get('choosen_ids', []);
@@ -18,7 +19,7 @@
                      is_local_manager python:member.has_role(
                                      ('Manager', 'WorkspaceManager'), here);
 ">
-  <div id="ajax_psm" style="display:none" tal:condition="python:not no_form">
+  <div id="ajax_psm" style="display:none" tal:condition="python:not no_form and not no_ajax">
       ajax feedback
   </div>
   <table tal:condition="python: not no_table and batch_items" width="100%" cellspacing="0"
@@ -36,7 +37,7 @@
         <td align="left" valign="top">
           <div tal:attributes="id python:'draggable'+str(item_id);
                                class python:test(not no_form and sort_by is None, 'draggable droppable', '');
-                               onmouseover python:test(not no_form and sort_by is None,
+                               onmouseover python:test(not no_ajax and not no_form and sort_by is None,
                                                   'setCursor(this, \'move\')', '')">
             <table summary="content">
               <tr>

@@ -1,4 +1,4 @@
-##parameters=query={}, sort_by=None, direction=None, hide_folder=0, folder_prefix=None, start_date=None, end_date=None, default_languages=0, allow_empty_search=0, sort_limit=100, REQUEST=None
+##parameters=query={}, sort_by=None, direction=None, hide_folder=False, folder_prefix=None, start_date=None, end_date=None, default_languages=False, allow_empty_search=False, sort_limit=100, REQUEST=None
 # $Id$
 """
 Return a list of brains matching the query.
@@ -30,7 +30,7 @@ brains = portal.search(query={'SearchableText': 'mycompany.com',
 brains = portal.search(query={'path': '/cps/workspaces/folder1'})
 # if you know only the relative path:
 brains = portal.search(folder_prefix='workspaces/folder1',
-                       allow_empty_search=1,
+                       allow_empty_search=True,
                       )
 
 # the 2 previous searches will return all the documents that are pointed by
@@ -40,8 +40,45 @@ brains = portal.search(folder_prefix='workspaces/folder1',
 # If you want only a list of proxies in their default languages without
 # the available translation:
 brains = portal.search(query={'path': '/cps/workspaces/folder1'},
-                       default_languages=1)
+                       default_languages=True)
 
+Relative path, absolute path and parent (or container) path
+-----------------------------------------------------------
+
+To put location constraints in your query you can use any of those parameters in
+the query :
+
+- path (absolute, PathIndex)
+
+  This will return all the objects located at the given path or all the way
+  below. This is due to the fact that this field is a special PathIndex field.
+
+  The given value must be an absolute path.
+
+- relative_path (relative, FieldIndex)
+
+  This will return all the objects located precisely at the given path.
+
+  The given value must be a relative path.
+
+- container_path (absolute, FieldIndex)
+
+  This will return all the objects located precisely below the given path.
+
+  The given value must be an absolute path.
+
+Note that you can pass the folder_prefix parameter to the search script, but not
+in the query. folder_prefix is equivalent to path, but expressed as a relative
+path.
+
+More generally, you can put in the query any of the available indexes registered
+in the catalog. You can find all the available indexes in the ZMI :
+http://localhost:8080/cps/portal_catalog/manage_catalogIndexes
+
+More docs about the use of the ZCatalog can be found here :
+
+- http://www.zope.org/Documentation/How-To/ZCatalogTutorial
+- http://www.zope.org/Members/Zen/howto/AdvZCatalogSearching
 """
 
 from zLOG import LOG, DEBUG, INFO

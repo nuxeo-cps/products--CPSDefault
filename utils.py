@@ -313,10 +313,24 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
     t.mark('init')
 
     # build query
+
+    # - there is curently no cps_filter_sets in Lucene
+    # - match_languages is not part of the standard indexes
+    #   its purpose is to make the default language match if
+    #   users' doesn't exist in proxy.
+    #
+    #   it must be registered to the tool like this:
+    # CMF Catalog Tool:
+    #   <index name="match_languages" meta_type="KeywordIndex">
+    #    <indexed_attr value="match_languages"/>
+    #   </index>
+    # CPS Lucene Catalog Tool:
+    #   <field name="match_languages" attr="match_languages"
+    #                analyzer="Standard" type="MultiKeyword"/>
     query = {
         'container_path': container_path,
-        'cps_filter_sets': 'searchable', # GR: currently missing in Lucene
-        'Language': match_languages,
+        'cps_filter_sets': 'searchable',
+        'match_languages': match_languages,
         } 
     if filter_ptypes is not None:
         query['portal_type'] = filter_ptypes

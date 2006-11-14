@@ -1,0 +1,111 @@
+====================
+Upgrading to CPS 3.4
+====================
+
+:Author: Lennart Regebro
+
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+CPS 3.4.0 supports upgrading from CPS 3.3.8. 
+
+CPS 3.4.2 supports upgrades from CPS 3.2.4 and 3.3.* (and of course from CPS 3.4.0).
+
+**DO NOT UPGRADE A PRODUCTION SITE. Make backups first, or run the procedure on a copy.**
+
+The best way to upgrade is to first do a new install of CPS 3.4 in a new
+directory, and make sure it runs. Remember to make sure that you have all 
+products that you have on your old site installed in the new site, or the upgrade will not work. Some products that exists in CPS 3.2 and 3.3 have been deprecated in 3.4. These exist in the 3.4 legacy package:
+
+  http://www.cps-project.org/static/src/CPS-legacy-3.4.2-1.tar.gz
+
+If you have any custom products, you will need to install them as well, and make any necessary changes to the for compatibility with CPS 3.4. See  http://svn.nuxeo.org/trac/pub/file/CPS3/trunk/doc/whats-new-cps-3.4/whats-new-cps-3.4.txt
+for more information about things that have changed on the technical level.
+
+After you have CPS 3.4 running, you stop the new server and delete the
+database in the new installation, and copy in the database from the production site. (You don't have to stop the production site, but of course, any changes made to the production site after you copied that database will be lost from the upgrade).
+
+In Unix::
+
+  <newsite>/bin/zopectl stop                # Stopping the new installation
+  rm <newsite>/var/*                        # Removing the new database
+  cp <oldsite>/var/Data.fs <newsite>/var/   # Copying the production database
+  <newsite>/bin/zopectl start               # Restarting the new server
+
+
+The procedure from here on varies sligthly depending on what version of CPS you are upgrading from.
+
+
+Upgrading from earlier versions of CPS 3.4.
+===========================================
+
+  Go to portal_setup at the root of your CPS (from the ZMI) and see,
+  from the "Upgrades" tab, if some upgrades need to be run. Any
+  upgrades that are to be run should be listed, and the ones that are
+  runnable should be selected. Simply press the upgrade button. If no
+  errors occurred, the upgrade went well.
+
+  In unusual circumstances, you may note that an upgrade that was not
+  selected before the upgrade is selected after the upgrade. In that
+  case, press upgrade again. After all upgrades are done, there should
+  be no upgrades listed.
+
+Upgrading from CPS 3.3.8 or 3.2.4
+=================================
+
+1. Go to the CPS site and add a "CPS Setup Tool" (not a "Generic Setup
+   Tool") from the "CPS Tools" ZMI menu item. Then go to the newly
+   created portal_setup too and run the upgrades. Before the upgrade
+   the version number displayed will be "unknown". After the upgrade
+   it should be "3.4.0".
+
+2. Go to the "Profiles" tab, make sure "CPS Default" is selected and
+   press import. Importing this profile takes some time, and results
+   in a working CPS site. 
+
+   As with all previous CPS upgrades, installing the default profile
+   will reset the standard configuration objects, like portal types,
+   workflows, schemas, layouts, etc, but custom objects are kept
+   untouched. If you press "Reinstall" instead of "Install" the
+   installation will also remove any custom objects.
+
+3. CPS 3.4 has it's member folder in <portal>/members, where CPS 3.2
+   and 3.3 had it in <portal>/workspaces/members. You need to change
+   the configuration back to the old path. Open the portal_membership
+   tool, and change the path from 'members' to 'workspaces/members'.
+   Note that in the CPS 3.4.0 release there is a bug here, where this
+   path will be changed back every time you import a profile.
+
+4. Go to the Profiles tab of the portal_setup tool. Select and install
+   the profile for any of the products you used. If you had
+   notifications set up in your old site, you will want to install the
+   CPS Subscriptions profile, if you used the forums, you will want to
+   install the CPS Forum profile and so on.
+
+   The products in the CPSLegacy package is no longer supported and has
+   no profiles. If you want to install them you have to refer to their
+   respective documentation. For the CPSCalendar and CPSWebMail there
+   are now the new replacement products CPSSharedCalendar and
+   CPSMailAccess, which you probably would want to use instead. See
+   their respective documentation on how to install and migrate from 
+   old versions.
+
+5. In some cases installing profiles may enable upgrades that were not
+   previously enabled. Go to the "Upgrades" tab and run any upgrades
+   that now are enabled.
+
+6. Lastly, and this is a good idea to do after any configuration 
+   change, you should go to portal_setup and create a new snapshot. 
+   This way you can back out of any configuration changes. For example,
+   if you make a snapshot before you install a product, you can
+   uninstall the product by reinstalling the snapshot.
+
+
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

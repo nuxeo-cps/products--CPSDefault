@@ -118,6 +118,14 @@ dd {
   padding: 0.3em 0 0 2em;
 }
 
+<dtml-comment>
+Display the language of a link if specified
+</dtml-comment>
+
+a[hreflang]:after {
+  content: "\0000a0[" attr(hreflang) "]";
+}
+
 legend {
   background: <dtml-var mainBackground>;
   padding: 0.5em 0em 0.5em 0em;

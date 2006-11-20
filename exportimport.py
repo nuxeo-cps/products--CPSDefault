@@ -149,6 +149,7 @@ class RootsXMLAdapter(XMLAdapterBase):
 
     def _initRoots(self, node):
         site = self.context
+        avail_langs = site.getProperty('available_languages')
         for child in node.childNodes:
             if child.nodeName != 'object':
                 continue
@@ -158,8 +159,12 @@ class RootsXMLAdapter(XMLAdapterBase):
             # Create object if needed
             if getattr(aq_base(site), id, None) is None:
                 portal_type = str(child.getAttribute('portal_type'))
+                language = str(child.getAttribute('language'))
+                if language not in avail_langs:
+                    language = None
                 wftool = getToolByName(site, 'portal_workflow')
-                wftool.invokeFactoryFor(site, portal_type, id)
+                wftool.invokeFactoryFor(site, portal_type, id,
+                                        language=language)
             proxy = site._getOb(id)
 
             # Placeful configuration for one root (and creates subobjects)
@@ -192,6 +197,7 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
     """
     _LOGGER_ID = 'roots'
     name = 'roots'
+    # following attributes must be CMF dublin core attributes
     i18n_attributes = ('title', 'description')
 
     def _importNode(self, node):

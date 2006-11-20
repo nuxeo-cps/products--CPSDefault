@@ -28,6 +28,7 @@ from Products.GenericSetup.utils import ObjectManagerHelpers
 from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 
+from Products.CPSCore.utils import ALL_LOCALES
 from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
 from Products.CPSWorkflow.configuration import (
     addConfiguration as addLocalWorkflowConfiguration)
@@ -149,7 +150,7 @@ class RootsXMLAdapter(XMLAdapterBase):
 
     def _initRoots(self, node):
         site = self.context
-        avail_langs = site.getProperty('available_languages')
+        avail_langs = site.getProperty('available_languages', ALL_LOCALES)
         for child in node.childNodes:
             if child.nodeName != 'object':
                 continue

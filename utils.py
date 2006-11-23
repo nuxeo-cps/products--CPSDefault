@@ -345,10 +345,11 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
         del query['allowedRolesAndUsers']
     if not _checkPermission(AccessInactivePortalContent, container):
         now = DateTime()
-        query['effective'] = {'query': now,
-                              'range': 'max'}
-        query['expires'] = {'query': now,
-                            'range': 'min'}
+        if getattr(container, 'portal_type', None) == 'Section':
+            query['effective'] = {'query': now,
+                                  'range': 'max'}
+            query['expires'] = {'query': now,
+                                'range': 'min'}
 
     if sort_on is not None:
         # compatibility

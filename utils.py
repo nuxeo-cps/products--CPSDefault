@@ -331,7 +331,7 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
         'container_path': container_path,
         'cps_filter_sets': 'searchable',
         'match_languages': match_languages,
-        } 
+        }
     if filter_ptypes is not None:
         query['portal_type'] = filter_ptypes
 
@@ -346,7 +346,9 @@ def getCatalogFolderContents(container, filter_ptypes=None, hide_folder=False,
     if not _checkPermission(AccessInactivePortalContent, container):
         now = DateTime()
         query['effective'] = {'query': now,
-                              'range': 'min'}
+                              'range': 'max'}
+        query['expires'] = {'query': now,
+                            'range': 'min'}
 
     if sort_on is not None:
         # compatibility

@@ -34,11 +34,19 @@
                   tal:content="item/review_state" i18n:translate=""/>
               </td>
               <td>
-                <a href="."
-                  tal:define="utool nocall:here/portal_url;
-                              ob_url python:utool.getUrlFromRpath(item['rpath'])"
-                  tal:attributes="href ob_url"
-                  tal:content="item/title">Section 1</a>
+                <tal:block define="breadcrumbs
+                           python:utool.getBreadCrumbsInfo(item['proxy'],
+                                                           show_root=False)">
+                  <tal:block repeat="bc breadcrumbs">
+                    <a tal:omit-tag="not:bc/url"
+                      tal:attributes="href bc/url;
+                      title bc/longtitle|nothing;"
+                      tal:content="bc/title">
+                      Title
+                    </a><strong tal:condition="
+                                    not:repeat/bc/end">&nbsp;&gt;&nbsp;</strong>
+                  </tal:block>
+                </tal:block>
               </td>
             </tr>
           </tbody>

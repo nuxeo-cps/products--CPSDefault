@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2005 Nuxeo SARL <http://nuxeo.com>
+# Copyright (c) 2003-2006 Nuxeo SAS <http://nuxeo.com>
 # Authors:
 # M.-A. Darche <madarche@nuxeo.com>
 #
@@ -42,20 +42,23 @@ class CPSDefaultSite(CPSSite):
          'label': "Portal email From address", 'mode': 'w'},
         {'id': 'email_from_name', 'type': 'string',
          'label': "Portal email From name", 'mode': 'w'},
+        {'id': 'use_catalog_for_folder_contents', 'type': 'boolean',
+         'label': "Use catalog for folder navigation", 'mode': 'w'},
         )
     email_from_address = ''
     email_from_name = ''
+    use_catalog_for_folder_contents = False
 
     def _reindexObject(self, idxs=None):
         pass
 
     def _reindexObjectSecurity(self, skip_self=None):
         pass
-    
+
     security.declareProtected('View', 'thisProxyFolder')
     def thisProxyFolder(self):
         """Get the closest proxy folder from a context.
-        
+
         Used by acquisition.
         """
         return self

@@ -1,4 +1,4 @@
-# (C) Copyright 2005 Nuxeo SAS <http://nuxeo.com>
+# (C) Copyright 2005-2006 Nuxeo SAS <http://nuxeo.com>
 # Author: Florent Guillaume <fg@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -39,17 +39,17 @@ class CPSSiteConfigurator(object):
     mandatory_extensions = ()
 
     available_languages = (
+        {'id': 'ca', 'title': 'Catalan'},
         {'id': 'nl', 'title': 'Dutch'},
         {'id': 'en', 'title': 'English', 'checked': True},
+        {'id': 'eu', 'title': 'Euskara', 'checked': True},
         {'id': 'fr', 'title': 'French', 'checked': True},
         {'id': 'de', 'title': 'German'},
         {'id': 'it', 'title': 'Italian'},
-        {'id': 'pt_BR', 'title': 'Portugese (Brazilian)'},
-        {'id': 'es', 'title': 'Spanish'},
         {'id': 'mg', 'title': 'Malagasy'},
+        {'id': 'pt_BR', 'title': 'Portugese (Brazilian)'},
         {'id': 'ro', 'title': 'Romanian'},
-        {'id': 'eu', 'title': 'Euskara'},
-        {'id': 'ca', 'title': 'Catalan'},
+        {'id': 'es', 'title': 'Spanish', 'checked': True},
         )
 
     addForm = PageTemplateFile('zmi/siteAddForm', globals())

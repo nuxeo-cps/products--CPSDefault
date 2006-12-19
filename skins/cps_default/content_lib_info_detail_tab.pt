@@ -64,7 +64,7 @@
     <input type="checkbox" name="ids:list" value="" id="" class="noborder"
            tal:condition="not:no_form"
            tal:define="id item/getId"
-           tal:attributes="value python:site_wide and item.getContextUrl(utool=utool) or id;
+           tal:attributes="value python:site_wide and utool.getPortalObject().getContextUrl(obj=item, utool=utool) or id;
                            id python:'cb_' + id;
                            checked python:id in choosen_ids;
                           " />

@@ -51,7 +51,7 @@
 
     <div style="text-align:right;" class="group">
       <form id="searchFormBottom" method="get" action="search_form"
-        onsubmit="return checkEmptySearch(this)">
+            accept-charset="utf-8" onsubmit="return checkEmptySearch(this)">
         <div>
         <a href="advanced_search_form"
            tal:attributes="href python:atool.getActionInfo('global_header/advanced_search')['url']">
@@ -65,7 +65,8 @@
                  i18n:translate="label_text_to_search">
             Text to search
           </label>
-        <input type="text" name="SearchableText" id="resultSearchText"
+        <input type="text" name="SearchableText:utf8:ustring"
+               id="resultSearchText"
                value="" class="focus" size="40"
                tal:attributes="value SearchableText" />
         <input class="standalone searchButton" type="submit" value="button_ok"

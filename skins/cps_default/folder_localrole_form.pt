@@ -28,6 +28,7 @@
 
 <div class="user_roles">
 <form method="post" action="folder_localrole_form"
+      accept-charset="utf-8"
       tal:attributes="action string:${here_url}/folder_localrole_form">
 
  <table summary="search layout">
@@ -118,7 +119,7 @@
         </select>
         <input type="hidden" name="search_param"
           tal:attributes="value search_param" />
-        <input type="hidden" name="search_term"
+        <input type="hidden" name="search_term:utf8:ustring"
           tal:attributes="value search_term" />
         <input i18n:attributes="value" class="standalone"
           type="submit" value="button_assign_roles" />

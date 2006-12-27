@@ -253,7 +253,6 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
                 value = translation_service(msgid=msgid,
                                             target_language=lang,
                                             default=msgid)
-                value = value.encode('iso-8859-15', 'ignore')
                 doc = proxy.getEditableContent(lang=lang)
                 doc_def = {field_id: value, 'proxy': proxy}
                 doc.edit(**doc_def)

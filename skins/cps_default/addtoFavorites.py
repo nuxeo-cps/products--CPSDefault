@@ -32,7 +32,6 @@ else:
         # still better than just an english id
         cpsmcat = context.translation_service
         title = cpsmcat('action_view_favorites')
-        title = title.encode('iso-8859-15', 'ignore')
         home_folder.invokeFactory('Workspace', favorites_id, Title=title)
         fav_folder = getattr(home_folder, favorites_id)
 

@@ -3,16 +3,16 @@
  <property name="title"></property>
  <object name="cps_default_lexicon" meta_type="ZCTextIndex Unicode Lexicon">
   <element name="Whitespace splitter" group="Word Splitter"/>
-  <element name="Case Normalizer" group="Case Normalizer"/>
+  <element name="Case normalizer" group="Case Normalizer"/>
  </object>
  <object name="unicode_htmltext_lexicon" meta_type="ZCTextIndex Unicode Lexicon">
   <element name="HTML aware splitter" group="Word Splitter"/>
-  <element name="Case Normalizer" group="Case Normalizer"/>
+  <element name="Case normalizer" group="Case Normalizer"/>
   <!-- element name="Remove listed stop words only" group="Stop Words"/ -->
  </object>
  <object name="unicode_plaintext_lexicon" meta_type="ZCTextIndex Unicode Lexicon">
   <element name="Whitespace splitter" group="Word Splitter"/>
-  <element name="Case Normalizer" group="Case Normalizer"/>
+  <element name="Case normalizer" group="Case Normalizer"/>
   <!-- element name="Remove listed stop words only" group="Stop Words"/ -->
  </object>
  <index name="Creator" meta_type="FieldIndex">
@@ -44,6 +44,7 @@
   <indexed_attr value="Type"/>
  </index>
  <index name="ZCTitle" meta_type="ZCTextIndex">
+  <!-- XXX this will work only with CMF > 1.6.0 see #1803 -->
   <indexed_attr value="Title"/>
   <extra name="index_type" value="Okapi BM25 Rank"/>
   <extra name="lexicon_id" value="cps_default_lexicon"/>

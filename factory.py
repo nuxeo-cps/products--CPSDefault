@@ -42,14 +42,16 @@ class CPSSiteConfigurator(object):
         {'id': 'ca', 'title': 'Catalan'},
         {'id': 'nl', 'title': 'Dutch'},
         {'id': 'en', 'title': 'English', 'checked': True},
-        {'id': 'eu', 'title': 'Euskara', 'checked': True},
+        {'id': 'eu', 'title': 'Euskara'},
         {'id': 'fr', 'title': 'French', 'checked': True},
         {'id': 'de', 'title': 'German'},
         {'id': 'it', 'title': 'Italian'},
         {'id': 'mg', 'title': 'Malagasy'},
-        {'id': 'pt_BR', 'title': 'Portugese (Brazilian)'},
+        {'id': 'pt_BR', 'title': 'Portuguese (Brazilian)'},
         {'id': 'ro', 'title': 'Romanian'},
         {'id': 'es', 'title': 'Spanish', 'checked': True},
+        {'id': 'pt', 'title': 'Portuguese'},
+        {'id': 'ar', 'title': 'Arabic (requires utf-8 cps branch)'},
         )
 
     addForm = PageTemplateFile('zmi/siteAddForm', globals())

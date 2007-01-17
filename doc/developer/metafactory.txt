@@ -55,8 +55,8 @@ attribute. The list of meta profiles to load is kept in
    ...      'LDAP': {'title' : 'LDAP Members directory',
    ...               'extensions' : ('CPSLDAPSetup:default',),
    ...               'parameters' : {'properties' : ('ldap_bind_dn'),
-   ...                             'class': 'Products.CPSDirectory.'
-   ...                                      'LDAPBackingDirectory',
+   ...                             'class': 'Products.CPSDefault.metafactory.'
+   ...                                      'SampleTool',
    ...                             'rpath': 'dtool/the_backing',
    ...                             },
    ...               'optional' : False,
@@ -119,7 +119,7 @@ way, we can reuse labels, typing and so on:
      'LDAP'
      >>> pretty_print(ldap_info['parameters'])
      [{'id': 'LDAP-ldap_bind_dn',
-       'label': 'LDAP bind dn',
+       'label': 'Sample tool bind',
        'mode': 'w',
        'type': 'string'}]
 
@@ -187,11 +187,12 @@ The classes referred to in ``meta_profiles`` are looked up like this::
 
    Note that if a class is directly accessible from a module placed
    higher in the hierarchy, you must use this latter module to access
-   it. This comes from usage of ``__import__``
+   it. This comes from usage of ``__import__`` (the following example would 
+   need python-ldap to be executed, that's why it isn't)::
 
-   >>> _resolveDottedName('Products.CPSDirectory.LDAPBackingDirectory')
-   <class 'Products.CPSDirectory.LDAPBackingDirectory.LDAPBackingDirectory'>
-   >>> _resolveDottedName(
+   >> _resolveDottedName('Products.CPSDirectory.LDAPBackingDirectory)
+   <class 'Products.CPSDirectory.CPSDirectory.LDAPBackingDirectory'>
+   >> _resolveDottedName(
    ... 'Products.CPSDirectory.LDAPBackingDirectory.LDAPBackingDirectory')
    Traceback (most recent call last):
    ...
@@ -199,7 +200,7 @@ The classes referred to in ``meta_profiles`` are looked up like this::
 
    But this doesn't fail::
 
-   >>> from Products.CPSDirectory.LDAPBackingDirectory import LDAPBackingDirectory
+   >> from Products.CPSDirectory.LDAPBackingDirectory import LDAPBackingDirectory
 
 Importation
 ~~~~~~~~~~~
@@ -286,10 +287,11 @@ we'll have to build an object to set properties on::
    >>> conf.site._setObject('dtool', PortalFolder('dtool'))
    'dtool'
    >>> dtool = conf.site.dtool
-   >>> dtool._setObject('the_backing', LDAPBackingDirectory('the_backing'))
+   >>> from Products.CPSDefault.metafactory import SampleTool
+   >>> dtool._setObject('the_backing', SampleTool('the_backing'))
    'the_backing'
    >>> dtool.the_backing
-   <LDAPBackingDirectory at app/the_site/dtool/the_backing>
+   <SampleTool at app/the_site/dtool/the_backing>
 
 Now let's put back some parameters in the LDAP meta_profile. The
 meta_profile's id is used to prefix them so that to instances of the

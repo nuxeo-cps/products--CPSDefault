@@ -23,7 +23,9 @@
 import os.path
 
 from zLOG import LOG, DEBUG
+from AccessControl import ModuleSecurityInfo
 
+from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import getToolByName
 
 LOG_KEY = 'recursivepublish'
@@ -34,38 +36,40 @@ SECTION_PORTAL_TYPE = 'Section'
 FOLDERISH_PROXY_TYPES = ['folder', 'folderishdocument',
                          'btreefolder', 'btreefolderishdocument']
 
-def recursivePublish(self, workspace=None, workspace_rpath=None, REQUEST=None):
+# XXX : Why couldn't this be protected like this ?
+# If so, this gives the following error :
+# import of "recursivePublish" from "Products.CPSDefault.recursivepublish" is unauthorized. You are not allowed to access 'recursivePublish' in this context
+#security = ModuleSecurityInfo('Products.CPSDefault.recursivepublish')
+#security.declareProtected(ManagePortal, 'recursivePublish')
+ModuleSecurityInfo('Products.CPSDefault.recursivepublish').declarePublic('recursivePublish')
+def recursivePublish(workspace, context):
     """Recursively publish all the content below the given workspace container.
-
-    Example :
-    http://mysite.net/workspaces/recursivePublish?rpath=workspaces/folder1
     """
     log_key = LOG_KEY + '.recursivePublish'
     LOG(log_key, DEBUG, "...")
-
-    ttool = getToolByName(self, 'portal_types')
-    wtool = getToolByName(self, 'portal_workflow')
-    utool = getToolByName(self, 'portal_url')
+    ttool = getToolByName(context, 'portal_types')
+    wtool = getToolByName(context, 'portal_workflow')
+    utool = getToolByName(context, 'portal_url')
     portal = utool.getPortalObject()
-    if REQUEST is not None:
-        workspace_rpath = REQUEST.form.get('rpath')
-    if workspace is not None:
-        workspace_rpath = utool.getRpath(workspace)
-    else:
-        workspace = portal.restrictedTraverse(workspace_rpath)
+    workspace_rpath = utool.getRpath(workspace)
     LOG(log_key, DEBUG, "workspace_rpath = %s" % workspace_rpath)
 
     # This is the rpath independant from either workspace or section
     independant_rpath = '/'.join(workspace_rpath.split('/')[1:])
     LOG(log_key, DEBUG, "independant_rpath = %s" % independant_rpath)
 
-    target_section_rpath = os.path.join('sections', independant_rpath)
+    target_section_rpath = 'sections'
+    if independant_rpath:
+        target_section_rpath = os.path.join(target_section_rpath, independant_rpath)
     LOG(log_key, DEBUG, "target_section_rpath = %s" % target_section_rpath)
-    target_section_parent_rpath, section_id = os.path.split(target_section_rpath)
+    section_id = '/'.join(target_section_rpath.split('/')[-1:])
+
+    target_section_parent_rpath = '/'.join(target_section_rpath.split('/')[:-1])
     LOG(log_key, DEBUG, "target_section_parent_rpath = %s"
         % target_section_parent_rpath)
     target_section_parent = portal.restrictedTraverse(
         target_section_parent_rpath)
+    LOG(log_key, DEBUG, "target_section_parent = %s" % target_section_parent)
 
     # Creating the target section if it doesn't exist yet
     if not portal.restrictedTraverse(target_section_rpath, None):
@@ -78,15 +82,21 @@ def recursivePublish(self, workspace=None, workspace_rpath=None, REQUEST=None):
     # created sections.
     target_section = getattr(target_section_parent, section_id)
     target_section_doc = target_section.getEditableContent()
-    workspace_doc = workspace.getContent()
-    target_section_doc.edit(Title=workspace_doc.Title(),
-                            Description=workspace_doc.Description(),
-                            )
+    # We don't want to change the title and description of the root section,
+    # which is the case when independant_rpath is empty.
+    if independant_rpath != '':
+        workspace_doc = workspace.getContent()
+        target_section_doc.edit(Title=workspace_doc.Title(),
+                                Description=workspace_doc.Description(),
+                                )
 
     for item_id, item in workspace.objectItems():
+        #LOG(log_key, DEBUG, "item_id = %s ..." % item_id)
+        if item_id.startswith('.'):
+            continue
         fti = ttool[item.portal_type]
         if fti.cps_proxy_type in FOLDERISH_PROXY_TYPES:
-            self.recursivePublish(workspace=item)
+            recursivePublish(workspace=item, context=context)
         else:
             LOG(log_key, DEBUG,
                 "Publishing the document %s in the right section ..." % item_id)
@@ -99,5 +109,3 @@ def recursivePublish(self, workspace=None, workspace_rpath=None, REQUEST=None):
                               comment=comments)
             LOG(log_key, DEBUG,
                 "Publishing the document %s in the right section DONE" % item_id)
-
-    return True

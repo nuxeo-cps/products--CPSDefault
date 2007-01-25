@@ -210,7 +210,6 @@ info['time'] = proxy.modified()
 if level > 0:
     if doc is None:
         doc = proxy.getContent()
-    info['time'] = doc.modified()
     info['doc'] = doc
     description = doc.Description() or ''
     if len(description) > DESCRIPTION_MAX_LENGTH:

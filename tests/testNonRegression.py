@@ -116,6 +116,26 @@ class TestNonRegression(CPSTestCase):
         self.portal.logged_in()
 
 
+    def testMagicDates(self):
+        # To ensure that finer granularity in write process
+        # doesn't break CreationDate et al
+        self.login("manager")
+        ws = self.portal.workspaces
+        self.portal.portal_workflow.invokeFactoryFor(ws,
+                                                     'File', 'afile',
+                                                     Title="CreationDate test")
+        proxy = ws.afile
+        doc=proxy.getContent()
+        # don't need to test the actual time
+        self.failIf(doc.created() is None)
+
+        from DateTime import DateTime
+        old = DateTime('2007/01/29')
+        doc.modification_date = old
+        doc.edit(Title="ModifDate", proxy=proxy) # new title to catch in pdb
+        self.failIfEqual(doc.modified(), old)
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestNonRegression))

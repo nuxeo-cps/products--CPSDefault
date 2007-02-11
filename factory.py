@@ -42,7 +42,7 @@ class CPSSiteConfigurator(object):
         {'id': 'ca', 'title': 'Catalan'},
         {'id': 'nl', 'title': 'Dutch'},
         {'id': 'en', 'title': 'English', 'checked': True},
-        {'id': 'eu', 'title': 'Euskara', 'checked': True},
+        {'id': 'eu', 'title': 'Euskara'},
         {'id': 'fr', 'title': 'French', 'checked': True},
         {'id': 'de', 'title': 'German'},
         {'id': 'it', 'title': 'Italian'},

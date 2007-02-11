@@ -38,7 +38,7 @@
       <table width="100%" cellspacing="0" cellpadding="2"
         summary="sections listing">
         <tr>
-          <th width="30%" i18n:translate="listingheader_sections">Section</th>
+          <th i18n:translate="listingheader_sections">Section</th>
           <th i18n:translate="listingheader_existing_revision">
             Existing revision of the same document
           </th>
@@ -51,7 +51,7 @@
                           states_for_section python:[state for state in info['states'] if state['rpath'] == section['rpath']]"
               tal:condition="python:can_publish or can_submit"
               tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
-            <td nowrap="nowrap">
+            <td>
               <input type="checkbox" id="" name="" value="" class="noborder"
                      tal:attributes="value section/rpath;
                                      id section/rpath;

@@ -33,7 +33,7 @@
       <table width="100%" cellspacing="0" cellpadding="2"
         summary="sections listing">
         <tr>
-          <th width="30%" i18n:translate="listingheader_sections">Section</th>
+          <th i18n:translate="listingheader_sections">Section</th>
           <th i18n:translate="listingheader_existing_revision">
             Existing revision of the same document
           </th>
@@ -41,7 +41,7 @@
         <tal:block repeat="section stree">
           <tr tal:condition="python:clone_wf_action in section['publishing_transitions']"
               tal:attributes="class python:test(repeat['section'].even(), 'even', 'odd')">
-            <td nowrap="nowrap">
+            <td>
               <input type="checkbox" name="" value="" class="noborder"
                      tal:attributes="value section/rpath;
                                      name clone_wf_action;" />

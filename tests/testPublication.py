@@ -349,6 +349,7 @@ class TestPublication(CPSTestCase):
 
     def testSeveralPublicationAndReindexation(self):
         # http://svn.nuxeo.org/trac/pub/ticket/1434
+        # http://svn.nuxeo.org/trac/pub/ticket/1705
 
         sc = self.portal.sections
         ws = self.portal.workspaces
@@ -409,11 +410,17 @@ class TestPublication(CPSTestCase):
 
         # Republish.it.
         proxy = getattr(ws, id_file)
+        evt_recorder = self.portal.event_recorder
+        evt_recorder.clear()
         self.wftool.doActionFor(proxy, 'copy_submit',
                                 dest_container='sections',
                                 initial_transition='publish')
 
         self.assertEqual(len(sc.objectIds()), 2)
+        events = evt_recorder.getRecords()
+        for evt in events:
+            if evt[0] == 'workflow_publish':
+                self.assertEqual(evt[2]['rpath'], 'sections/%s' % id_file)
 
         # Here only the one in sections now.
         query['SearchableText'] = 'rfoo'

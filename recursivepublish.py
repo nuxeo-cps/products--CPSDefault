@@ -27,6 +27,7 @@ from AccessControl import ModuleSecurityInfo
 
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import _checkPermission
 
 LOG_KEY = 'recursivepublish'
 
@@ -51,6 +52,8 @@ def recursivePublish(workspace, context):
     wtool = getToolByName(context, 'portal_workflow')
     utool = getToolByName(context, 'portal_url')
     portal = utool.getPortalObject()
+    if not _checkPermission(ManagePortal, portal):
+        raise Unauthorized("You need the ManagePortal permission.")
     workspace_rpath = utool.getRpath(workspace)
     LOG(log_key, DEBUG, "workspace_rpath = %s" % workspace_rpath)
 

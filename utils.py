@@ -395,7 +395,7 @@ def reindexFolderContentPositions(container):
     t = Timer('reindexFolderContentPositions', level=INFO)
     if not _checkPermission(ModifyPortalContent, container):
         LOG('reindexPositions', WARNING,
-            'Unauthorized call on %s' % container.getPhysicalPath())
+            'Unauthorized call on %s' % '/'.join(container.getPhysicalPath()))
         return
     if not hasattr(aq_base(container), 'getObjectPosition'):
         # no positioning

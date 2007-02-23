@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-22 15:12default\n"
+"POT-Creation-Date: 2007-02-23 18:46default\n"
 "PO-Revision-Date: 2006-02-20 14:44+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -86,6 +86,12 @@ msgstr "Description du type de document"
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type title"
 msgstr "Titre du type de document"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "Recursive publish"
+msgstr "Publier récursivement"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -209,19 +215,43 @@ msgstr "Contacter l'administrateur du site"
 msgid "accessibility_content_link"
 msgstr "Aller au contenu"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
+msgstr "<p>Ce site a été conçu pour être accessible.</p>"
+
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommandations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_description"
 msgstr ""
-" Ce site a été conçu pour être accessible. Il respecte les standards du <a "
-"href=\"http://www.w3.org/\">W3C</a> et son accessibilité a été travaillée à "
-"partir des règles de navigation définies sur le site <a href=\"http://www."
-"acces-pour-tous.net/\">accès pour tous</a>."
+"<p>Ce site a été conçu pour être accessible. Il respecte les standards et "
+"recommandations d'accessibilité de la <a href=\"http://www.w3.org/WAI\" "
+"hreflang=\"en\">Web Accessibility Initiative (WAI)</a> du W3C. "
+"L'accessibilité de ce site a été travaillée avec les outils de validation et "
+"d'évaluation suivants :</p><ul><li><a href=\"http://www.acces-pour-tous.net/"
+"\" hreflang=\"fr\">Accès pour tous</a></li><li><a href=\"http://www.wave."
+"webaim.org/\" hreflang=\"en\">WAVE Web Accessibility Tool</a></li><li>ainsi "
+"qu'avec avec <a href=\"http://www.openweb.eu.org/\" hreflang=\"fr\">OpenWeb</"
+"a>, première ressource francophone sur les standards Web</li></ul>"
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_title"
+msgstr "Précisions sur l'accessibilité"
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -2228,7 +2258,7 @@ msgstr "Solutions"
 msgid "listingheader_existing_revision"
 msgstr "Version existante de ce même document"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2314,7 +2344,7 @@ msgstr "La semaine dernière"
 msgid "time_yesterday"
 msgstr "Hier"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Commentaires"
@@ -2363,7 +2393,8 @@ msgid "Reconfigure Portal"
 msgstr "Paramètres du portail"
 
 msgid "words_meaningless"
-msgstr "a et ou un une le la les l de des du d ce ces est sont ont je voici avec or"
+msgstr ""
+"a et ou un une le la les l de des du d ce ces est sont ont je voici avec or"
 
 msgid "welcome_body"
 msgstr ""
@@ -3201,6 +3232,14 @@ msgstr "Transfert..."
 
 msgid "ajax_failing"
 msgstr "Ce changement n'est pas autorisé !"
+
+#, fuzzy
+#~ msgid "accessibility_details_description"
+#~ msgstr "<p>Ce site a été conçu pour être accessible.</p>"
+
+#, fuzzy
+#~ msgid "accessibility_details_title"
+#~ msgstr "Informations d'accessibilité"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "

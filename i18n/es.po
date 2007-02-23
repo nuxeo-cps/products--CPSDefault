@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-22 15:12default\n"
+"POT-Creation-Date: 2007-02-23 18:46default\n"
 "PO-Revision-Date: 2006-11-03 17:57+0100\n"
 "Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
@@ -88,6 +88,12 @@ msgstr "Descripción del tipo de documento"
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type title"
 msgstr "Título del tipo de documento"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "Recursive publish"
+msgstr "Retirar"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -210,12 +216,11 @@ msgstr "Enlace de contacto"
 msgid "accessibility_content_link"
 msgstr "Ir al contenido"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr ""
@@ -223,6 +228,32 @@ msgstr ""
 "los estándares <a href=\"http://www.w3.org/\">W3C</a>. Dicha accesibilidad "
 "ha sido refrendada con la <a href=\"http://www.wave.webaim.org/"
 "\">Herramienta de accesibilidad WAVE Web</a>."
+
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommandations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr ""
+"Este sitio ha sido diseñado cuidando las normas de accesibilidad. Respeta "
+"los estándares <a href=\"http://www.w3.org/\">W3C</a>. Dicha accesibilidad "
+"ha sido refrendada con la <a href=\"http://www.wave.webaim.org/"
+"\">Herramienta de accesibilidad WAVE Web</a>."
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_title"
+msgstr "Informaciones de accesibilidad"
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -2215,7 +2246,7 @@ msgstr "Soluciones"
 msgid "listingheader_existing_revision"
 msgstr "Versión existente de este mismo documento"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2301,7 +2332,7 @@ msgstr "La última semana"
 msgid "time_yesterday"
 msgstr "Ayer"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentario"

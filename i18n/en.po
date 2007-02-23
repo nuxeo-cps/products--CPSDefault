@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-22 15:12default\n"
+"POT-Creation-Date: 2007-02-23 18:46default\n"
 "PO-Revision-Date: 2006-02-20 14:36+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -90,6 +90,12 @@ msgstr "Portal type's description"
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type title"
 msgstr "Portal type's title"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "Recursive publish"
+msgstr "Publish recursively"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -211,19 +217,39 @@ msgstr "Contact"
 msgid "accessibility_content_link"
 msgstr "Go to the content"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
+msgstr "<p>This site has been designed to be accessible.</p>"
+
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommandations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_description"
 msgstr ""
-"This site has been designed to be accessible. It respects the <a href="
-"\"http://www.w3.org/\">W3C</a> standards and its accessibility has been "
-"worked on with the <a href=\"http://www.wave.webaim.org/\">WAVE Web "
-"Accessibility Tool</a>."
+"<p>This site has been designed to be accessible. It respects the W3C <a href="
+"\"http://www.w3.org/WAI\">Web Accessibility Initiative (WAI)</a> "
+"accessibility standards and recommandations. The accessibility of this site "
+"has been worked on with the following validation and evaluation tool : <a "
+"href=\"http://www.wave.webaim.org/\">WAVE Web Accessibility Tool</a>.</p>"
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_title"
+msgstr "Accessibility explanations"
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -2207,7 +2233,7 @@ msgstr "Solutions"
 msgid "listingheader_existing_revision"
 msgstr "Existing revision of the same document"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2293,7 +2319,7 @@ msgstr "Last week"
 msgid "time_yesterday"
 msgstr "Yesterday"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comments"
@@ -3167,6 +3193,14 @@ msgstr "Working..."
 
 msgid "ajax_failing"
 msgstr "This change is not allowed !"
+
+#, fuzzy
+#~ msgid "accessibility_details_description"
+#~ msgstr "<p>This site has been designed to be accessible.</p>"
+
+#, fuzzy
+#~ msgid "accessibility_details_title"
+#~ msgstr "Accessibility information"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "You are logged in outside the portal.  You may need to"

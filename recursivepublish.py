@@ -23,6 +23,7 @@
 import os.path
 
 from zLOG import LOG, DEBUG
+from AccessControl import Unauthorized
 from AccessControl import ModuleSecurityInfo
 
 from Products.CMFCore.permissions import ManagePortal

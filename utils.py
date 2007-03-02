@@ -140,13 +140,13 @@ def computeContributors(portal, contributors):
     charset = portal.default_charset
     if charset == "unicode":
         contributors = []
-	for contributor in contributors:
-    	if not isinstance(contributor, unicode):
-    	        contributors.append(contributor.decode('iso-8859-15'))
+        for contributor in contributors:
+            if not isinstance(contributor, unicode):
+                contributors.append(contributor.decode('iso-8859-15'))
             else:
-	        contributors.append(contributor)
+                contributors.append(contributor)
     else:
-	contributors = list(contributors or ())
+        contributors = list(contributors or ())
     user = getSecurityManager().getUser()
     user_id = user.getId()
 

@@ -137,8 +137,16 @@ def computeContributors(portal, contributors):
     Used by a write expression for the Contributors field of the
     metadata schema.
     """
-    contributors = list(contributors or ())
-
+    charset = portal.default_charset
+    if charset == "unicode":
+        contributors = []
+	for contributor in contributors:
+    	if not isinstance(contributor, unicode):
+    	        contributors.append(contributor.decode('iso-8859-15'))
+            else:
+	        contributors.append(contributor)
+    else:
+	contributors = list(contributors or ())
     user = getSecurityManager().getUser()
     user_id = user.getId()
 
@@ -158,6 +166,9 @@ def computeContributors(portal, contributors):
 
     if not fullname:
         fullname = user_id
+
+    if not isinstance(fullname, unicode):
+        fullname.decode('iso-8859-15')
 
     if fullname is not None and fullname not in contributors:
         contributors.append(fullname)

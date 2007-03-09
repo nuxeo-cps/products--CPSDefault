@@ -1,5 +1,7 @@
-# (C) Copyright 2005-2006 Nuxeo SAS <http://nuxeo.com>
-# Author: Florent Guillaume <fg@nuxeo.com>
+# (C) Copyright 2005-2007 Nuxeo SAS <http://nuxeo.com>
+# Authors:
+# Florent Guillaume <fg@nuxeo.com>
+# M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -20,13 +22,18 @@
 """
 
 from Acquisition import aq_base
+
+import Products
+
 from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
      import AcceleratedHTTPCacheManager
 from Products.CMFCore.utils import getToolByName
+
+from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ObjectManagerHelpers
 from Products.GenericSetup.utils import ImportConfiguratorBase
-from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
+from Products.GenericSetup.utils import importObjects
 
 from Products.CPSCore.utils import ALL_LOCALES
 from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
@@ -70,7 +77,6 @@ class VariousImporter(object):
         """
         self.setupTranslationService()
         self.setupRoots()
-        self.setupFCKeditorHttpCache()
         self.setupDefaultRoles()
         return "Various settings imported."
 
@@ -102,18 +108,6 @@ class VariousImporter(object):
         importer.filename = filename
         importer.path = importer.name
         importer.body = body
-
-    def setupFCKeditorHttpCache(self):
-        if 'FckHTTPCache' in self.site.objectIds():
-            return
-        self.site._setObject('FckHTTPCache',
-                             AcceleratedHTTPCacheManager('FckHTTPCache'))
-        cache_settings = {'anonymous_only' : 0,
-                          'notify_urls' : (),
-                          'interval' :1728000
-                          }
-        self.site.FckHTTPCache.manage_editProps('FCK Http Cache',
-                                                settings=cache_settings)
 
 
 # Called according to import_steps.xml
@@ -156,38 +150,62 @@ class RootsXMLAdapter(XMLAdapterBase):
                 continue
 
             id = str(child.getAttribute('name'))
+            portal_type = str(child.getAttribute('portal_type'))
+            meta_type = str(child.getAttribute('meta_type'))
 
             # Create object if needed
             if getattr(aq_base(site), id, None) is None:
-                portal_type = str(child.getAttribute('portal_type'))
-                language = str(child.getAttribute('language'))
-                if language not in avail_langs:
-                    language = None
-                wftool = getToolByName(site, 'portal_workflow')
-                wftool.invokeFactoryFor(site, portal_type, id,
-                                        language=language)
-            proxy = site._getOb(id)
+                # If this is a CPS document such as a Workspace or a Section
+                if portal_type:
+                    language = str(child.getAttribute('language'))
+                    if language not in avail_langs:
+                        language = None
+                    wftool = getToolByName(site, 'portal_workflow')
+                    wftool.invokeFactoryFor(site, portal_type, id,
+                                            language=language)
+                else:
+                    # This is not a CPS document such as a Workspace or a
+                    # Section and thus it can be dealt with in a generic manner.
+                    for mt_info in Products.meta_types:
+                        if mt_info['name'] == meta_type:
+                            site._setObject(id, mt_info['instance'](id))
+                            break
+                    else:
+                        raise ValueError("unknown meta_type '%s'" % meta_type)
 
-            # Placeful configuration for one root (and creates subobjects)
-            path = self.path+'/'+id
-            filename = path+'.xml'
+            obj = site._getOb(id)
+
+            if not portal_type:
+                #self._logger.debug(
+                #    "_initRoots importObjects on %s with parent_path = %s"
+                #    % (str(obj), self.path))
+                # Import subobjects recursively
+                importObjects(obj, self.path + '/', self.environ)
+                # Move on to the next root object
+                continue
+
+            # Placeful configuration for one root object
+            # (and subobjects creation).
+            path = self.path + '/' + id
+            filename = path + '.xml'
+
             body = self.environ.readDataFile(filename)
             if body is not None:
-                importer = RootXMLAdapter(proxy, self.environ)
+                importer = RootXMLAdapter(obj, self.environ)
                 importer.path = path # to load rolemap contextually
                 importer.filename = filename # for error reporting
                 importer.body = body
 
             # Recurse into configuration objects
-            for subid, subob in proxy.objectItems():
+            for subid, subob in obj.objectItems():
                 if subid.startswith('.'):
-                    importCPSObjects(subob, path+'/', self.environ)
+                    importCPSObjects(subob, path + '/', self.environ)
 
-            # Recursively load sub proxy folders
+            # Recursively load sub obj folders
             filename = path + '/' + self.name +  '.xml'
             body = self.environ.readDataFile(filename)
             if body is not None:
-                importer = RootsXMLAdapter(proxy, self.environ)
+                importer = RootsXMLAdapter(obj, self.environ)
                 importer.path = path + '/' + self.name
                 importer.filename = filename # for error reporting
                 importer.body = body

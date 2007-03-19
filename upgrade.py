@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2006 Nuxeo SAS <http://nuxeo.com>
+# Copyright (c) 2004-2007 Nuxeo SAS <http://nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -201,7 +201,7 @@ def upgrade_334_335_clean_catalog(self):
     """
     logger = logging.getLogger(
         'CPSDefault.upgrade.upgrade_334_335_clean_catalog')
-    
+
     log = "Checking and cleaning cataloged None objects...\n"
     catalog = getToolByName(self, 'portal_catalog')
     docs2unindex = []
@@ -225,7 +225,7 @@ def upgrade_320_334_document_types(portal, check=False):
     """Upgrade various documents to new portal_types or new schemas.
     """
     ttool = getToolByName(portal, 'portal_types')
-    
+
     # The document types Document and News Item was in 3.2 CMF types
     # that existed only as rests of CMF Default. Delete them, unless
     # there are documents of that type.
@@ -238,14 +238,14 @@ def upgrade_320_334_document_types(portal, check=False):
             else:
                 raise "You have documents of the type %s " \
                       "Automatic upgrade is not possible." % portal_type
-        if (portal_type in ttool.objectIds() and 
+        if (portal_type in ttool.objectIds() and
             ttool[portal_type].meta_type != 'CPS Flexible Type Information'):
             if check:
                 return True
             else:
                 ttool.manage_delObjects(portal_type)
-          
-    
+
+
     res = _modifyPortalType(portal, 'News', 'News Item', check)
     if check and res:
         return True

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault Italian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-23 18:46default\n"
+"POT-Creation-Date: 2007-03-20 17:35default\n"
 "PO-Revision-Date: 2005-11-10 09:08+0100\n"
 "Last-Translator: Stefano Schintu <schintu@gmail.com>\n"
 "Language-Team: CPS Italian <schintu@gmail.com>\n"
@@ -88,12 +88,6 @@ msgstr "Description du type de document"
 #, fuzzy
 msgid "Portal type title"
 msgstr "Titre du type de document"
-
-#.   <h1>Recursive publish</h1>
-#: from ../skins/cps_default/folder_recursive_publish_form.pt
-#, fuzzy
-msgid "Recursive publish"
-msgstr "Ritira dalla pubblicazione"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -584,9 +578,15 @@ msgid "button_update"
 msgstr "Aggiorna"
 
 # ## description_confirm ====================================
-#.   <p class="message">
-#.         Confirm your recursive publication request.
-#.       </p>
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #, fuzzy
 msgid "description_confirm_recursive_publish"
@@ -843,6 +843,12 @@ msgstr "Pubblica: ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Riconfigura il portale"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Ritira dalla pubblicazione"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -3304,6 +3310,10 @@ msgstr ""
 
 msgid "ajax_failing"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Ritira dalla pubblicazione"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Sei collegato esternamente al portale. Forse dovresti"

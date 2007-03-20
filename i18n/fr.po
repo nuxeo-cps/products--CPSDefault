@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-23 18:46default\n"
+"POT-Creation-Date: 2007-03-20 17:35default\n"
 "PO-Revision-Date: 2006-02-20 14:44+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -86,12 +86,6 @@ msgstr "Description du type de document"
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type title"
 msgstr "Titre du type de document"
-
-#.   <h1>Recursive publish</h1>
-#: from ../skins/cps_default/folder_recursive_publish_form.pt
-#, fuzzy
-msgid "Recursive publish"
-msgstr "Publier récursivement"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -575,12 +569,21 @@ msgstr "Dépublier le document"
 msgid "button_update"
 msgstr "Mettre à jour"
 
-#.   <p class="message">
-#.         Confirm your recursive publication request.
-#.       </p>
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 msgid "description_confirm_recursive_publish"
-msgstr "Confirmez votre demande de publication récursive."
+msgstr ""
+"<p>Attention : Cette action est très puissante, elle peut prendre longtemps "
+"et publier de très nombreux documents. Utilisez-là avec prudence.</"
+"p><p>Sélectionner la section cible pour votre publication récursive.</p>"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -836,6 +839,11 @@ msgstr "Publier ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurer le portail"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+msgid "heading_recursive_publish"
+msgstr "Publication récursive"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt

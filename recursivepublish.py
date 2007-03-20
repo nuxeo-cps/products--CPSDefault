@@ -44,8 +44,9 @@ FOLDERISH_PROXY_TYPES = ['folder', 'folderishdocument',
 #security = ModuleSecurityInfo('Products.CPSDefault.recursivepublish')
 #security.declareProtected(ManagePortal, 'recursivePublish')
 ModuleSecurityInfo('Products.CPSDefault.recursivepublish').declarePublic('recursivePublish')
-def recursivePublish(workspace, context):
-    """Recursively publish all the content below the given workspace container.
+def recursivePublish(workspace, target_section_rpath, context):
+    """Recursively publish all the content below the given workspace container
+    into the given target section.
     """
     log_key = LOG_KEY + '.recursivePublish'
     LOG(log_key, DEBUG, "...")
@@ -62,7 +63,7 @@ def recursivePublish(workspace, context):
     independant_rpath = '/'.join(workspace_rpath.split('/')[1:])
     LOG(log_key, DEBUG, "independant_rpath = %s" % independant_rpath)
 
-    target_section_rpath = 'sections'
+    LOG(log_key, DEBUG, "target_section_rpath = %s" % target_section_rpath)
     if independant_rpath:
         target_section_rpath = os.path.join(target_section_rpath, independant_rpath)
     LOG(log_key, DEBUG, "target_section_rpath = %s" % target_section_rpath)
@@ -100,7 +101,7 @@ def recursivePublish(workspace, context):
             continue
         fti = ttool[item.portal_type]
         if fti.cps_proxy_type in FOLDERISH_PROXY_TYPES:
-            recursivePublish(workspace=item, context=context)
+            recursivePublish(item, target_section_rpath, context)
         else:
             LOG(log_key, DEBUG,
                 "Publishing the document %s in the right section ..." % item_id)

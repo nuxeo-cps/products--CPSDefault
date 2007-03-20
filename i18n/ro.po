@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-23 18:46default\n"
+"POT-Creation-Date: 2007-03-20 17:35default\n"
 "PO-Revision-Date: 2006-03-02 17:28+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -90,12 +90,6 @@ msgstr "Portal type's description"
 #, fuzzy
 msgid "Portal type title"
 msgstr "Portal type's title"
-
-#.   <h1>Recursive publish</h1>
-#: from ../skins/cps_default/folder_recursive_publish_form.pt
-#, fuzzy
-msgid "Recursive publish"
-msgstr "Scoate din starea 'publicat'"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -562,9 +556,15 @@ msgstr "Actualizare"
 
 # Descriptions
 # #############
-#.   <p class="message">
-#.         Confirm your recursive publication request.
-#.       </p>
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #, fuzzy
 msgid "description_confirm_recursive_publish"
@@ -814,6 +814,12 @@ msgstr "Publicare a ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configureaza portalul"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Scoate din starea 'publicat'"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -3212,6 +3218,10 @@ msgstr "Se modifica..."
 
 msgid "ajax_failing"
 msgstr "Aceasta modificare nu este permisa!"
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Scoate din starea 'publicat'"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Esti autentificat din afara portalului. S-ar putea sa fie nevoie sa"

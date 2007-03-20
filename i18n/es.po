@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-23 18:46default\n"
+"POT-Creation-Date: 2007-03-20 17:35default\n"
 "PO-Revision-Date: 2006-11-03 17:57+0100\n"
 "Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
@@ -88,12 +88,6 @@ msgstr "Descripción del tipo de documento"
 #: from ../skins/cps_default/folder_factories.pt
 msgid "Portal type title"
 msgstr "Título del tipo de documento"
-
-#.   <h1>Recursive publish</h1>
-#: from ../skins/cps_default/folder_recursive_publish_form.pt
-#, fuzzy
-msgid "Recursive publish"
-msgstr "Retirar"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -576,9 +570,15 @@ msgstr "Despublicar el documento"
 msgid "button_update"
 msgstr "Actualizar"
 
-#.   <p class="message">
-#.         Confirm your recursive publication request.
-#.       </p>
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #, fuzzy
 msgid "description_confirm_recursive_publish"
@@ -831,6 +831,12 @@ msgstr "Publicar ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurar el portal"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Retirar"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -3200,6 +3206,10 @@ msgstr "Trabajando..."
 
 msgid "ajax_failing"
 msgstr "Este cambio no está permitido"
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Retirar"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Usted se ha desconectado del portal. Puede necesitar "

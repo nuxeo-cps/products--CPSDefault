@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-23 18:46default\n"
+"POT-Creation-Date: 2007-03-20 17:35default\n"
 "PO-Revision-Date: 2006-07-19 18:45+0100\n"
 "Last-Translator: Santi Camps <scamps@earcon.com>\n"
 "Language-Team: català <darcalis@gmail.com>\n"
@@ -88,12 +88,6 @@ msgstr "Portal type's description"
 #, fuzzy
 msgid "Portal type title"
 msgstr "Portal type's title"
-
-#.   <h1>Recursive publish</h1>
-#: from ../skins/cps_default/folder_recursive_publish_form.pt
-#, fuzzy
-msgid "Recursive publish"
-msgstr "Retirar de la publicació"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -577,9 +571,15 @@ msgstr "Des-publicar el document"
 msgid "button_update"
 msgstr "Actualitzar"
 
-#.   <p class="message">
-#.         Confirm your recursive publication request.
-#.       </p>
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #, fuzzy
 msgid "description_confirm_recursive_publish"
@@ -830,6 +830,12 @@ msgstr "Publicar ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurar el portal"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Retirar de la publicació"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -3199,6 +3205,10 @@ msgstr "Treballant..."
 
 msgid "ajax_failing"
 msgstr "Canvi no permès"
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Retirar de la publicació"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Vostè s'ha desconnectat del portal. Pot necessitar "

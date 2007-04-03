@@ -1,5 +1,7 @@
-# (C) Copyright 2005-2006 Nuxeo SAS <http://nuxeo.com>
-# Author: Florent Guillaume <fg@nuxeo.com>
+# (C) Copyright 2005-2007 Nuxeo SAS <http://nuxeo.com>
+# Authors:
+# Florent Guillaume <fg@nuxeo.com>
+# M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -18,18 +20,18 @@
 # $Id$
 """CPS Default Site Factory.
 """
+from logging import getLogger
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-
 from Products.GenericSetup import EXTENSION
 from Products.GenericSetup import profile_registry
 from Products.CMFCore.utils import getToolByName
 
+from Products.CPSCore.interfaces import ICPSSite
 from Products.CPSCore.setuptool import CPSSetupTool
 from Products.CPSDefault.Portal import CPSDefaultSite
 
-from Products.CPSCore.interfaces import ICPSSite
-
+LOG_KEY = 'CPSSiteConfigurator'
 
 class CPSSiteConfigurator(object):
     """Configurator for a CPS Site.
@@ -196,6 +198,8 @@ class CPSSiteConfigurator(object):
 
     def createAdministrator(self, manager_id, password, manager_email,
                             manager_firstname, manager_lastname):
+        log_key = LOG_KEY + '.createAdministrator'
+        logger = getLogger(log_key)
         mdir = getToolByName(self.site, 'portal_directories').members
         entry = {
             'id': manager_id,
@@ -205,8 +209,19 @@ class CPSSiteConfigurator(object):
             'givenName': manager_firstname,
             'sn': manager_lastname,
         }
-        mdir.createEntry(entry)
-
+        try:
+            mdir.createEntry(entry)
+        except Exception, exc:
+            # Catching all exceptions since we want that the creation of the
+            # site happens when using LDAP backing directories.
+            # And when using LDAP backing directories it's often impossible
+            # to create the administrator user account because LDAP directories
+            # are either read-only and the CPS directory schemas are not yet
+            # functional at the time of creation.
+            logger.info("The site administrator user account creation failed "
+                        "because of the following error. "
+                        "There is no problem if you are installing "
+                        "a CPS LDAP Setup extension :\n%s" % exc)
 
 
 _cpsconfigurator = CPSSiteConfigurator()

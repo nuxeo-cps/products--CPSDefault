@@ -218,10 +218,11 @@ class CPSSiteConfigurator(object):
             # to create the administrator user account because LDAP directories
             # are either read-only and the CPS directory schemas are not yet
             # functional at the time of creation.
-            logger.info("The site administrator user account creation failed "
-                        "because of the following error. "
-                        "There is no problem if you are installing "
-                        "a CPS LDAP Setup extension :\n%s" % exc)
+            logger.warning("The site administrator user account creation "
+                           "failed because of the following error. "
+                           "There is no problem if you are installing "
+                           "a CPS LDAP Setup extension :\n%s : %s"
+                           % (exc.__class__.__name__, exc))
 
 
 _cpsconfigurator = CPSSiteConfigurator()

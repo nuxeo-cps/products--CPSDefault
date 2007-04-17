@@ -31,7 +31,9 @@
 
                 <tal:block define="
                   proxy python:utool.restrictedTraverse(section['rpath']);
-                  breadcrumbs python:utool.getBreadCrumbsInfo(proxy, show_root=False);
+                  breadcrumbs python:utool.getBreadCrumbsInfo(proxy,
+                                                              show_root=False,
+                                                              title_size=30);
                   ">
                   <tal:block repeat="bc breadcrumbs">
                     <a tal:omit-tag="not:bc/url"

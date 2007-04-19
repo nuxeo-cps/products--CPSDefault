@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-10 11:37default\n"
+"POT-Creation-Date: 2007-04-19 23:54default\n"
 "PO-Revision-Date: 2006-07-19 18:45+0100\n"
 "Last-Translator: Santi Camps <scamps@earcon.com>\n"
 "Language-Team: català <darcalis@gmail.com>\n"
@@ -78,7 +78,7 @@ msgstr ""
 #: from ../skins/cps_default/folder_factories.pt
 #, fuzzy
 msgid "Portal type description"
-msgstr "Portal type's description"
+msgstr "Descripción del tipo de documento"
 
 #.   <a content="item/Title" attributes="
 #.                     href string:${here_url}/content_create?type_name=${item/getId}">
@@ -87,7 +87,7 @@ msgstr "Portal type's description"
 #: from ../skins/cps_default/folder_factories.pt
 #, fuzzy
 msgid "Portal type title"
-msgstr "Portal type's title"
+msgstr "Título del tipo de documento"
 
 #.   <span>Request made by IP ${ip (tal content="ip" define="ip python:request.HTTP_X_FORWARDED_FOR or request.REMOTE_ADDR")} at ${time (tal content="context/ZopeTime")}</span>
 #: from ../skins/cps_default/mail_password_template.pt
@@ -237,16 +237,17 @@ msgstr ""
 #, fuzzy
 msgid "accessibility_explanations_description"
 msgstr ""
-"Aquest lloc web s'ha dissenyat respectant les normes d'accessibilitat "
-"determinades pels estàndards <a href=\"http://www.w3.org/\">W3C</a>. Això ha "
-"estat refrendat amb <a href=\"http://www.wave.webaim.org/\">l'eina "
-"d'accessibilitat web WAVE</a>."
+"<p>This site has been designed to be accessible. It respects the W3C <a href="
+"\"http://www.w3.org/WAI\">Web Accessibility Initiative (WAI)</a> "
+"accessibility standards and recommendations. The accessibility of this site "
+"has been worked on with the following validation and evaluation tool : <a "
+"href=\"http://www.wave.webaim.org/\">WAVE Web Accessibility Tool</a>.</p>"
 
 #.   <h2>Accessibility details</h2>
 #: from ../skins/cps_default/accessibility.pt
 #, fuzzy
 msgid "accessibility_explanations_title"
-msgstr "Informacions d'accessibilitat"
+msgstr "Precisiones sobre la accesibilidad"
 
 #.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
@@ -338,8 +339,10 @@ msgstr "Aplicar"
 msgid "button_assign_roles"
 msgstr "Assignar rols"
 
+#.   <button type="button" onclick="javascript:history.back()">Back</button>
 #.   <input onclick="history.back()" type="button" class="context" value="button_back" />
-#: from ../skins/cps_default/user_logged_in_failed.pt
+#: from ../skins/cps_default/content_revert_form.pt
+#: ../skins/cps_default/user_logged_in_failed.pt
 msgid "button_back"
 msgstr "Enrere"
 
@@ -352,7 +355,7 @@ msgstr "Enrere"
 #: ../skins/cps_default/content_checkout_draft_form.pt
 #: ../skins/cps_default/content_delete_archive_form.pt
 #: ../skins/cps_default/content_publish_form.pt
-#: ../skins/cps_default/content_reject_form.pt 4 more references
+#: ../skins/cps_default/content_reject_form.pt 3 more references
 msgid "button_cancel"
 msgstr "Cancel·lar"
 
@@ -424,7 +427,7 @@ msgstr "Esborrar aquest fitxer"
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "button_hide_blocked_roles"
-msgstr "Hide"
+msgstr "Bloquear"
 
 #.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
@@ -508,7 +511,7 @@ msgstr "Sol·licitar contrasenya"
 msgid "button_reset_password"
 msgstr "Esborrar contrasenya"
 
-#.   <input type="submit" class="standalone" value="button_revert_revision" />
+#.   <button type="submit" class="destructive">Revert to the archived revision</button>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "button_revert_revision"
 msgstr "Tornar a la versió arxivada"
@@ -547,7 +550,7 @@ msgstr "Enviar-me un recordatori de la contrasenya"
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "button_show_blocked_roles"
-msgstr "Show"
+msgstr "Bloquear"
 
 #.   <input type="submit" class="standalone" value="button_submit_document" />
 #: from ../skins/cps_default/content_publish_form.pt
@@ -583,7 +586,10 @@ msgstr "Actualitzar"
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #, fuzzy
 msgid "description_confirm_recursive_publish"
-msgstr "Confirma l''acció?"
+msgstr ""
+"<p>Aviso importante: Esta acción es muy compleja y potente, puede llevar "
+"bastante tiempo y publicar muchos documentos. Utilícela con cautela.</"
+"p><p>Seleccione una sección como destino de su publicación recursiva.</p>"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -835,7 +841,7 @@ msgstr "Configurar el portal"
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #, fuzzy
 msgid "heading_recursive_publish"
-msgstr "Retirar de la publicació"
+msgstr "Publicación recursiva"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -1218,9 +1224,7 @@ msgstr "Retirar objecte publicat"
 #: ../skins/cps_default/user_logged_in_failed.pt
 #, fuzzy
 msgid "help_user_name_password_unknown_lost ${link_help_lost_password}"
-msgstr ""
-"<a href='${link_help_lost_password}'>You don't know your user name and/or "
-"password, or you have lost them.</a>"
+msgstr "<a href='${link_help_lost_password}'>¡He olvidado mi contraseña!</a>"
 
 #.   <p condition="not:info/archived">
 #.           There aren't any archived revisions of this document.
@@ -1271,7 +1275,7 @@ msgstr "Nom de l'administrador"
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 #, fuzzy
 msgid "label_advertisement_powered_by_cps"
-msgstr "Content Management by CPS"
+msgstr "Contenido gestionado por CPS"
 
 #.   <option attributes="selected not:review_state" value="">All</option>
 #.   <option attributes="selected not:portal_type" value="">All</option>
@@ -1618,7 +1622,7 @@ msgstr "Versió"
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "label_inherited_blocked_role"
-msgstr "Role whose acquisition has been blocked."
+msgstr "Rol heredado y bloqueado"
 
 #.   <span class="inheritedRole">
 #.       Inherited role
@@ -2032,7 +2036,7 @@ msgstr "Filtrar segons el rol"
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "legend_local_roles_hide_blocked_roles"
-msgstr "Filter on role"
+msgstr "Puede ocultar los roles bloqueados"
 
 #.   <block>
 #.       this colour means that corresponding roles apply in the parent folder and
@@ -2042,8 +2046,9 @@ msgstr "Filter on role"
 #, fuzzy
 msgid "legend_local_roles_inherited_blocked_role"
 msgstr ""
-"this colour means that corresponding role would be acquired weren't role "
-"acquisition blocked."
+"este color indica que los roles correspondientes están en las carpetas "
+"superiores. Siga el enlace para gestionar los roles locales en estas "
+"carpetas."
 
 #.   <block>
 #.       this colour means that corresponding roles are set in parent
@@ -2120,7 +2125,7 @@ msgstr "Seleccioni el(s) usuari(s) i el rol a assignar:"
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 #, fuzzy
 msgid "legend_local_roles_show_blocked_roles"
-msgstr "Show"
+msgstr "Puede mostrar los roles bloqueados"
 
 #.   <block>
 #.           Local roles acquisition is <strong>blocked</strong>.
@@ -2673,7 +2678,7 @@ msgstr "Esborrar aquesta traducció"
 
 #, fuzzy
 msgid "action_recursive_publish"
-msgstr "Retirar de la publicació"
+msgstr "Publicar recursivamente"
 
 msgid "button_create"
 msgstr "Crear"
@@ -2958,7 +2963,7 @@ msgstr "Us heu autentificat correctament"
 
 #, fuzzy
 msgid "psm_recursive_publish_done"
-msgstr "Retirar de la publicació"
+msgstr "Publicación recursiva realizada con éxito"
 
 msgid "collector_psm_erase_data_cancel"
 msgstr "Les dades recollides no s'han eliminat."
@@ -3213,17 +3218,25 @@ msgid "portlet_title_breaking_news"
 msgstr ""
 
 #, fuzzy
-#~ msgid "Recursive publish"
-#~ msgstr "Retirar de la publicació"
+msgid "Recursive publish"
+msgstr "Publish recursively"
 
-#~ msgid "description_logout_zmi_warning"
-#~ msgstr "Vostè s'ha desconnectat del portal. Pot necessitar "
+#, fuzzy
+msgid "accessibility_details_description"
+msgstr "<p>This site has been designed to be accessible.</p>"
 
-#~ msgid "link_logout_zmi"
-#~ msgstr "desconnectar de la interfície de gestió del Zope (ZMI)"
+#, fuzzy
+msgid "accessibility_details_title"
+msgstr "Accessibility information"
 
-#~ msgid "help_password_message"
-#~ msgstr "Check this box to have your password mailed to you."
+msgid "description_logout_zmi_warning"
+msgstr "Vostè s'ha desconnectat del portal. Pot necessitar "
 
-#~ msgid "label_password_mailed"
-#~ msgstr "Mail Password?"
+msgid "link_logout_zmi"
+msgstr "desconnectar de la interfície de gestió del Zope (ZMI)"
+
+msgid "help_password_message"
+msgstr "Check this box to have your password mailed to you."
+
+msgid "label_password_mailed"
+msgstr "Mail Password?"

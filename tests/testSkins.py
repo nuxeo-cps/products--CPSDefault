@@ -32,7 +32,6 @@ class TestSkins(CPSTestCase):
     def testJavaScripts(self):
         request = self.portal.REQUEST
         self.assert_(getattr(self.portal, 'functions.js')(REQUEST=request))
-        self.assert_(getattr(self.portal, 'rss.js')(REQUEST=request))
 
     def testCSSProperties(self):
         self.assert_(self.portal.stylesheet_properties)

@@ -25,6 +25,7 @@ import os.path
 from zLOG import LOG, DEBUG
 from AccessControl import Unauthorized
 from AccessControl import ModuleSecurityInfo
+from AccessControl.requestmethod import postonly
 
 from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import getToolByName
@@ -44,7 +45,8 @@ FOLDERISH_PROXY_TYPES = ['folder', 'folderishdocument',
 #security = ModuleSecurityInfo('Products.CPSDefault.recursivepublish')
 #security.declareProtected(ManagePortal, 'recursivePublish')
 ModuleSecurityInfo('Products.CPSDefault.recursivepublish').declarePublic('recursivePublish')
-def recursivePublish(workspace, target_section_rpath, context):
+@postonly
+def recursivePublish(workspace, target_section_rpath, context, REQUEST=None):
     """Recursively publish all the content below the given workspace container
     into the given target section.
     """

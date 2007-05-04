@@ -426,6 +426,19 @@ class TestMembershipTool(CPSTestCase):
 
         self.assertEquals(roles, wanted)
 
+
+    def testPurgeLocalRoles(self):
+        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
+        # This is a basic test for now, it is mainly to test that the method is
+        # not broken.
+        self.assertEquals(ids, [])
+
+        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=False)
+        # This is a basic test for now, it is mainly to test that the method is
+        # not broken.
+        self.assertEquals(ids, [])
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestMembershipTool))

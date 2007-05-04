@@ -1,7 +1,7 @@
-# -*- encoding: iso-8859-15 -*-
-# (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
+# (C) Copyright 2005-2007 Nuxeo SAS <http://nuxeo.com>
 # Authors:
 # Anahide Tchertchian <at@nuxeo.com>
+# M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -41,8 +41,11 @@ class TestMembershipTool(CPSTestCase):
         self.pmtool = self.portal.portal_membership
 
         members = self.portal.portal_directories.members
-        members.createEntry({'id': 'member', 'givenName' : 'Foo',
-                             'sn': 'Bar', 'roles': ['Member']})
+        members.createEntry({'id': 'member', 'roles': ['Member'],
+                             'givenName' : 'Foo', 'sn': 'Bar',
+                             })
+        members.createEntry({'id': 'fool', 'roles': ['Member'],
+                             })
         members.createEntry({'id': 'wsmanager', 'roles': ['Member']})
         members.createEntry({'id': 'semanager', 'roles': ['Member']})
 
@@ -238,7 +241,6 @@ class TestMembershipTool(CPSTestCase):
         pmtool.getUsernamesAndEmailFor = old_method
 
     def test_ManagerCanMemberChangeLocalRoles(self):
-
         # Manager can change them everywhere
 
         self.login(MANAGER_ID)
@@ -255,7 +257,6 @@ class TestMembershipTool(CPSTestCase):
         self.logout()
 
     def test_MemberCanMemberChangeLocalRoles(self):
-
         # member can change them only in its hom folder
 
         self.login('member')
@@ -268,7 +269,6 @@ class TestMembershipTool(CPSTestCase):
         self.logout()
 
     def test_WSManagerCanMemberChangeLocalRoles(self):
-
         # ws manager can change them in the workspace areas and in
         # its home folder
 
@@ -284,7 +284,6 @@ class TestMembershipTool(CPSTestCase):
         self.logout()
 
     def test_SEManagerCanMemberChangeLocalRoles(self):
-
         # se manager can change them in the section areas and in
         # its home folder
 
@@ -301,14 +300,12 @@ class TestMembershipTool(CPSTestCase):
         self.logout()
 
     def test_getFullnameFromIdRestricted(self):
-
         # Should fail because called from restricted code.
         self.assertRaises(Unauthorized, self.pmtool.getFullnameFromId,
                           'manager', REQUEST={})
 
 
     def test_getFullnameFromId(self):
-
         # test env
 
         members = self.portal.portal_directories.members
@@ -325,8 +322,9 @@ class TestMembershipTool(CPSTestCase):
         # Use doesn't exsist -> return the id given as parameter
         self.assertEqual(self.pmtool.getFullnameFromId('fakeone'), 'fakeone')
 
-    # non regression test for #492
     def test_anonymousGroupRoles(self):
+        # non regression test for #492 : "Removing local roles to
+        # role:Anonymous unblocks roles acquisition"
         mtool = self.pmtool
         ws = self.portal.members.member
         uf = self.portal.acl_users
@@ -382,7 +380,6 @@ class TestMembershipTool(CPSTestCase):
         self.assertEquals(roles, wanted)
 
     def test_getCPSCandidateLocalRoles(self):
-
         # what are the local roles in sections ?
         roles = self.pmtool.getCPSCandidateLocalRoles(self.portal.sections)
         roles.sort()
@@ -402,7 +399,6 @@ class TestMembershipTool(CPSTestCase):
         self.assertEquals(roles, wanted)
 
     def test_getCPSLocalRolesRender(self):
-
         # what are the local roles in sections ?
         roles = self.pmtool.getCPSLocalRolesRender(self.portal.sections,
                                                    ['SectionManager'])
@@ -428,14 +424,30 @@ class TestMembershipTool(CPSTestCase):
 
 
     def testPurgeLocalRoles(self):
+        # Testing if the local roles of deleted members are purged
+        mdir = self.portal.portal_directories.members
+
+        # Setting local roles
+        self.pmtool.setLocalRoles(
+            self.portal.sections, ['fool'], 'SectionReader')
+
+        # There is nothing to purge
         ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
-        # This is a basic test for now, it is mainly to test that the method is
-        # not broken.
+        self.assertEquals(ids, [])
+        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=False)
         self.assertEquals(ids, [])
 
+        # Deleting the member
+        member = mdir.getEntry('fool', default=None)
+        self.assertNotEqual(member, None)
+        mdir._deleteEntry('fool')
+        member = mdir.getEntry('fool', default=None)
+        self.assertEquals(member, None)
+
+        # XXX : The member "fool" should be purged
+        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
+        self.assertEquals(ids, [])
         ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=False)
-        # This is a basic test for now, it is mainly to test that the method is
-        # not broken.
         self.assertEquals(ids, [])
 
 

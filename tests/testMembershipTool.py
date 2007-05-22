@@ -20,12 +20,14 @@
 # $Id$
 
 import os, sys
-
 from time import time
 import sha
 import unittest
 
+import transaction
 from AccessControl import Unauthorized
+
+from Products.CMFCore.utils import getToolByName
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 from Products.CPSDefault.tests.CPSTestCase import MANAGER_ID, MANAGER_EMAIL
@@ -425,17 +427,19 @@ class TestMembershipTool(CPSTestCase):
 
     def testPurgeLocalRoles(self):
         # Testing if the local roles of deleted members are purged
+
         mdir = self.portal.portal_directories.members
+        uf = self.portal.acl_users
+        folder = self.portal.sections
 
         # Setting local roles
-        self.pmtool.setLocalRoles(
-            self.portal.sections, ['fool'], 'SectionReader')
+        self.pmtool.setLocalRoles(folder , ['fool'], 'SectionReader')
 
         # There is nothing to purge
-        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
-        self.assertEquals(ids, [])
-        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=False)
-        self.assertEquals(ids, [])
+##         ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
+##         self.assertEquals(ids, [])
+##         ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=False)
+##         self.assertEquals(ids, [])
 
         # Deleting the member
         member = mdir.getEntry('fool', default=None)
@@ -444,11 +448,39 @@ class TestMembershipTool(CPSTestCase):
         member = mdir.getEntry('fool', default=None)
         self.assertEquals(member, None)
 
+        self.assertEquals(uf.mergedLocalRoles(folder, withgroups=1), {
+            'user:member': ['SectionReader'],
+            'user:fool': ['SectionReader'],
+            'user:semanager': ['SectionManager'],
+            'user:CPSTestCase': ['Owner'],
+            })
+
+        transaction.commit()
+
         # XXX : The member "fool" should be purged
-        ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
-        self.assertEquals(ids, [])
+##         ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=True)
+##         self.assertEquals(ids, [])
         ids = self.pmtool.purgeDeletedMembersLocalRoles(lazy=False)
         self.assertEquals(ids, [])
+
+        transaction.commit()
+
+        path = '/'.join(self.portal.getPhysicalPath())
+        portal_catalog = getToolByName(self.portal, 'portal_catalog')
+        results = portal_catalog(cps_filter_sets='searchable', path=path,
+                                 )
+        print "len results = %s" % len(results)
+        for brain in results:
+            obj = brain.getObject()
+            print "obj = %s" % str(obj)
+
+        self.assertEquals(uf.mergedLocalRoles(folder, withgroups=1), {
+            'user:member': ['SectionReader'],
+            'user:semanager': ['SectionManager'],
+            'user:CPSTestCase': ['Owner'],
+            })
+
+
 
 
 def test_suite():

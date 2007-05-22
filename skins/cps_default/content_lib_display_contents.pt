@@ -38,8 +38,9 @@
           mq nocall:modules/ZTUtils/make_query;
           form request/form;
           zoom zoom|python:0;
+          max_items max_items|python:100;
           batches_all python:here.getBatchList(items, columns, items_per_page,
-                                               zoom);
+                                               zoom, max_items);
           batches python:batches_all[0];
           batch_info python:batches_all[1];
           zoomed python:batches_all[2];

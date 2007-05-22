@@ -182,6 +182,10 @@ Classes ------------------------------
   padding: <dtml-var logoPadding>;
 }
 
+.comments {
+  font-weight: bold;
+}
+
 .note {
   font-size: smaller;
 }
@@ -276,6 +280,7 @@ div.pageNavigationLayout {
 
 div.message {
   background: <dtml-var messageBackground>;
+  border: <dtml-var messageBorder>;
   color: <dtml-var mainFontColor>;
   font: <dtml-var messageFont>;
   margin: 1em 0;
@@ -545,7 +550,8 @@ ol, ul {
   padding: 0em 0em 0.4em 0em;
 }
 
-ul.fileChoice {
+ul.fileChoice,
+ul.itemInputList {
   padding-left: 0;
   list-style-type: None;
 }
@@ -599,6 +605,7 @@ input.destructive {
   text-transform: <dtml-var textTransform>;
 }
 
+button.destructive:hover,
 input.destructive:hover {
   background: <dtml-var destructiveButtonBackgroundHover>;
   border: <dtml-var destructiveButtonBorderHover>;
@@ -785,10 +792,6 @@ div.document {
   background: <dtml-var contentBackground>;
 }
 
-div.message {
-  border: <dtml-var messageBorder>;
-}
-
 div.pathBar {
   border-bottom-color: <dtml-var mainTabBorderColorSelected>;
   border-bottom-style: solid;
@@ -817,10 +820,15 @@ div.label {
   margin: 0em;
 }
 
+p.errorMessage {
+  background: inherit;
+  color: #ff0000;
+}
+
 span.legend {
   font-size: <dtml-var legendFontSize>;
   padding: 0.5em 0em 0.5em 0em;
-  position : relative;
+  position: relative;
   top: -0.8em;
   left: 0;
 }
@@ -830,7 +838,7 @@ The "group" class is used to group together the HTML fields of a form.
 </dtml-comment>
 .group {
   margin: 0em;
-  padding:10px 0 20px 0;
+  padding: 10px 0 20px 0;
 }
 
 .comment_box {

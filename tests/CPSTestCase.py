@@ -28,6 +28,8 @@ from zope.app.testing.functional import ZCMLLayer
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
+from Products.CPSCore.EventServiceTool import SubscriberDef
+
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
 ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
@@ -116,6 +118,20 @@ CSS_VALIDATOR_ERRORS_REGEXP = re.compile(
     u'<div id="errors">(.*)</div>.*?<div id="warnings">(.*)</div>.*?<div id="css">',
     re.DOTALL)
 
+from Products.CMFCore.utils import SimpleItemWithProperties
+class EventRecorder(SimpleItemWithProperties):
+    def __init__(self, id):
+        self._setId(id)
+        self._events = []
+
+    def notify_event(self, *args):
+        self._events.append(args)
+
+    def clear(self):
+        self._events = []
+
+    def getRecords(self):
+        return self._events
 
 class CPSDefaultLayerClass(object):
     """Layer to test CPS.
@@ -159,12 +175,25 @@ class CPSDefaultLayerClass(object):
         # XXX: setupCPSSkins is not needed here, right ?
         #self.setupCPSSkins(portal_id)
         assert self.portal.portal_themes
+        self.addEventRecorder()
         self.logout()
         transaction.commit()
 
     def addRootUser(self):
         aclu = self.app.acl_users
         aclu._doAddUser('CPSTestCase', '', ['Manager'], [])
+
+    def addEventRecorder(self):
+        sid = 'event_recorder'
+        self.portal._setObject(sid, EventRecorder(sid))
+        sdef = SubscriberDef(sid)
+        sdef.manage_changeProperties(subscriber=sid,
+                                       action='event',
+                                       meta_type='*',
+                                       notification_type='synchronous',
+                                       compressed=False,
+                                       activated=True)
+        self.portal.portal_eventservice._setObject(sid, sdef)
 
     def login(self):
         aclu = self.app.acl_users

@@ -17,6 +17,7 @@
 """Replays site factory's meta profiles"""
 
 import logging
+from DateTime import DateTime
 from pprint import pformat
 
 from AccessControl import Unauthorized
@@ -38,7 +39,7 @@ def replay(self, REQUEST=None):
 
     # user feedback
     m_ids = portal.meta_profiles # always what has just been done
-    log = ['Replayed meta profiles: ', '']
+    log = ['Replayed meta profiles at %s ' % DateTime().ISO(), '']
     for m_id in m_ids:
         log.append(conf.meta_profiles[m_id].get('title', m_id))
 

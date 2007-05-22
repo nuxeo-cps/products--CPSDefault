@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
-"PO-Revision-Date: 2007-01-08 14:36+0100\n"
-"Last-Translator: ben\n"
-"Language-Team:  <fr@li.org>\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
+"PO-Revision-Date: 2006-02-20 14:44+0200\n"
+"Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,9 +55,8 @@ msgstr "Langue"
 
 #.   <a content="python:test(isAnonymous, 'Login', 'Log out')" attributes="href python:test(isAnonymous, 'login_form', 'logout');" href=".">Log in/out</a>
 #: from ../skins/cps_default/portlet_start_cps.pt
-#, fuzzy
 msgid "Log in/out"
-msgstr "DÃ©connexion"
+msgstr "Connexion/Déconnexion"
 
 #.   <span>
 #.             Objects:
@@ -77,7 +76,6 @@ msgstr ""
 #.                   Portal type description
 #.                 </dd>
 #: from ../skins/cps_default/folder_factories.pt
-#, fuzzy
 msgid "Portal type description"
 msgstr "Description du type de document"
 
@@ -86,7 +84,6 @@ msgstr "Description du type de document"
 #.                     Portal type title
 #.                   </a>
 #: from ../skins/cps_default/folder_factories.pt
-#, fuzzy
 msgid "Portal type title"
 msgstr "Titre du type de document"
 
@@ -212,21 +209,45 @@ msgstr "Contacter l'administrateur du site"
 msgid "accessibility_content_link"
 msgstr "Aller au contenu"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
-msgstr ""
-" Ce site a Ã©tÃ© conÃ§u pour Ãªtre accessible. Il respecte les standards du <a "
-"href=\"http://www.w3.org/\">W3C</a> et son accessibilitÃ© a Ã©tÃ© travaillÃ©e Ã  "
-"partir des rÃ¨gles de navigation dÃ©finies sur le site <a href=\"http://www."
-"acces-pour-tous.net/\">accÃ¨s pour tous</a>."
+msgstr "<p>Ce site a été conçu pour être accessible.</p>"
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_description"
+msgstr ""
+"<p>Ce site a été conçu pour être accessible. Il respecte les standards et "
+"recommandations d'accessibilité de la <a href=\"http://www.w3.org/WAI\" "
+"hreflang=\"en\">Web Accessibility Initiative (WAI)</a> du W3C. "
+"L'accessibilité de ce site a été travaillée avec les outils de validation et "
+"d'évaluation suivants :</p><ul><li><a href=\"http://www.acces-pour-tous.net/"
+"\" hreflang=\"fr\">Accès pour tous</a></li><li><a href=\"http://www.wave."
+"webaim.org/\" hreflang=\"en\">WAVE Web Accessibility Tool</a></li><li>ainsi "
+"qu'avec avec <a href=\"http://www.openweb.eu.org/\" hreflang=\"fr\">OpenWeb</"
+"a>, première ressource francophone sur les standards Web</li></ul>"
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_title"
+msgstr "Précisions sur l'accessibilité"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Aller Ã  la page d'accueil"
@@ -442,9 +463,11 @@ msgstr "DÃ©placer au dÃ©but"
 msgid "button_move_up"
 msgstr "DÃ©placer au dessus"
 
-#.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
+#.   <button type="submit">OK</button>
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "OK"
@@ -547,6 +570,22 @@ msgstr "DÃ©publier le document"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Mettre Ã  jour"
+
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+msgid "description_confirm_recursive_publish"
+msgstr ""
+"<p>Attention : Cette action est très puissante, elle peut prendre longtemps "
+"et publier de très nombreux documents. Utilisez-là avec prudence.</"
+"p><p>Sélectionner la section cible pour votre publication récursive.</p>"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -802,6 +841,11 @@ msgstr "Publier ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurer le portail"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+msgid "heading_recursive_publish"
+msgstr "Publication récursive"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2167,7 +2211,6 @@ msgstr "Supprimer cette version"
 
 #.   <a href="http://cps-project.org/sections/documentation">Documentation</a>
 #: from ../skins/cps_default/portlet_learn_cps.pt
-#, fuzzy
 msgid "link_documentation"
 msgstr "Documentation"
 
@@ -2185,15 +2228,13 @@ msgstr "Retour"
 
 #.   <a href="http://lists.nuxeo.com/mailman/listinfo/">Mailing-lists</a>
 #: from ../skins/cps_default/portlet_learn_cps.pt
-#, fuzzy
 msgid "link_mailing_lists"
 msgstr "Mailing-lists"
 
 #.   <a href="http://www.nuxeo.com/clients/">References</a>
 #: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
 msgid "link_references"
-msgstr "References"
+msgstr "Références"
 
 #.   <span>
 #.               You can now log into the site:
@@ -2216,7 +2257,6 @@ msgstr "Revenir Ã  cette version"
 
 #.   <a href="http://www.nuxeo.com/solutions/">Solutions</a>
 #: from ../skins/cps_default/portlet_about_cps.pt
-#, fuzzy
 msgid "link_solutions"
 msgstr "Solutions"
 
@@ -2228,7 +2268,7 @@ msgstr "Solutions"
 msgid "listingheader_existing_revision"
 msgstr "Version existante de ce mÃªme document"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2314,7 +2354,7 @@ msgstr "La semaine derniÃ¨re"
 msgid "time_yesterday"
 msgstr "Hier"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Commentaires"
@@ -2363,7 +2403,8 @@ msgid "Reconfigure Portal"
 msgstr "ParamÃ¨tres du portail"
 
 msgid "words_meaningless"
-msgstr "a et ou un une le la les l de des du ce ces est sont ont je voici"
+msgstr ""
+"a et ou un une le la les l de des du d ce ces est sont ont je voici avec or"
 
 msgid "welcome_body"
 msgstr ""
@@ -2652,6 +2693,9 @@ msgstr "Nouvelle traduction"
 msgid "action_delete_translation"
 msgstr "Supprimer la traduction"
 
+msgid "action_recursive_publish"
+msgstr "Publier récursivement"
+
 msgid "button_create"
 msgstr "CrÃ©er"
 
@@ -2939,6 +2983,9 @@ msgstr ""
 msgid "psm_logged_in"
 msgstr "Vous vous Ãªtes connectÃ© avec succÃ¨s"
 
+msgid "psm_recursive_publish_done"
+msgstr "Publication récursive terminée avec succès"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Les donnÃ©es collectÃ©es n'ont pas Ã©tÃ© dÃ©truites"
 
@@ -3200,4 +3247,31 @@ msgid "ajax_working"
 msgstr "Transfert..."
 
 msgid "ajax_failing"
-msgstr "Ce changement n'est pas autorisÃ© !"
+msgstr "Ce changement n'est pas autorisé !"
+
+msgid "portlet_title_latest_published"
+msgstr "Dernières publications"
+
+msgid "portlet_title_breaking_news"
+msgstr "Nouvelles récentes"
+
+#, fuzzy
+#~ msgid "accessibility_details_description"
+#~ msgstr "<p>Ce site a été conçu pour être accessible.</p>"
+
+#, fuzzy
+#~ msgid "accessibility_details_title"
+#~ msgstr "Informations d'accessibilité"
+
+#~ msgid "description_logout_zmi_warning"
+#~ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
+
+#~ msgid "link_logout_zmi"
+#~ msgstr "déconnectez vous de l'interface de gestion de Zope (ZMI)"
+
+#~ msgid "help_password_message"
+#~ msgstr ""
+#~ "Cochez cette case pour recevoir un courriel contenant votre mot de passe."
+
+#~ msgid "label_password_mailed"
+#~ msgstr "Envoyer le mot de passe&nbsp;?"

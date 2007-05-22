@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
 "PO-Revision-Date: 2006-03-02 17:28+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -198,17 +198,38 @@ msgstr "Contact"
 msgid "accessibility_content_link"
 msgstr "Mergi la continut"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr "Acest site a fost conceput pentru a fi accesibil tuturor."
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr "Acest site a fost conceput pentru a fi accesibil tuturor."
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_title"
+msgstr "Informatii despre accesibilitate"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Mergi la prima pagina"
@@ -424,9 +445,11 @@ msgstr "Muta sus"
 msgid "button_move_up"
 msgstr "Muta mai sus"
 
-#.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
+#.   <button type="submit">OK</button>
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "OK"
@@ -532,6 +555,22 @@ msgstr "Retrage document publicat"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Actualizare"
+
+# Descriptions
+# #############
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "description_confirm_recursive_publish"
+msgstr "Esti sigur?"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -777,6 +816,12 @@ msgstr "Publicare a ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configureaza portalul"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Scoate din starea 'publicat'"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2192,7 +2237,7 @@ msgstr "Solutii"
 msgid "listingheader_existing_revision"
 msgstr "Versiune existenta a aceluiasi document"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2278,7 +2323,7 @@ msgstr "Ultima saptamana"
 msgid "time_yesterday"
 msgstr "Ieri"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentarii"
@@ -2618,6 +2663,10 @@ msgstr "Traducere noua"
 msgid "action_delete_translation"
 msgstr "Stergere a traducerii"
 
+#, fuzzy
+msgid "action_recursive_publish"
+msgstr "Scoate din starea 'publicat'"
+
 msgid "button_create"
 msgstr "Creeaza"
 
@@ -2909,6 +2958,10 @@ msgstr ""
 msgid "psm_logged_in"
 msgstr "Te-ai autentificat cu succes"
 
+#, fuzzy
+msgid "psm_recursive_publish_done"
+msgstr "Scoate din starea 'publicat'"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "O noua limba(i) este(sunt) disponibila(e)"
 
@@ -3175,6 +3228,16 @@ msgstr "Se modifica..."
 
 msgid "ajax_failing"
 msgstr "Aceasta modificare nu este permisa!"
+
+msgid "portlet_title_latest_published"
+msgstr ""
+
+msgid "portlet_title_breaking_news"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Scoate din starea 'publicat'"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Esti autentificat din afara portalului. S-ar putea sa fie nevoie sa"

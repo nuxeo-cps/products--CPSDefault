@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
 "PO-Revision-Date: 2006-07-19 18:45+0100\n"
 "Last-Translator: Santi Camps <scamps@earcon.com>\n"
 "Language-Team: català <darcalis@gmail.com>\n"
@@ -209,12 +209,11 @@ msgstr "Enllaç de contacte"
 msgid "accessibility_content_link"
 msgstr "Anar al contingut"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr ""
@@ -223,7 +222,33 @@ msgstr ""
 "estat refrendat amb <a href=\"http://www.wave.webaim.org/\">l'eina "
 "d'accessibilitat web WAVE</a>."
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr ""
+"Aquest lloc web s'ha dissenyat respectant les normes d'accessibilitat "
+"determinades pels estàndards <a href=\"http://www.w3.org/\">W3C</a>. Això ha "
+"estat refrendat amb <a href=\"http://www.wave.webaim.org/\">l'eina "
+"d'accessibilitat web WAVE</a>."
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_title"
+msgstr "Informacions d'accessibilitat"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Anar a la pàgina d'entrada"
@@ -441,7 +466,8 @@ msgstr "Pujar"
 
 #.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "D'acord"
@@ -545,6 +571,20 @@ msgstr "Des-publicar el document"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Actualitzar"
+
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "description_confirm_recursive_publish"
+msgstr "Confirma l''acció?"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -791,6 +831,12 @@ msgstr "Publicar ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurar el portal"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Retirar de la publicació"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2210,7 +2256,7 @@ msgstr "Solucions"
 msgid "listingheader_existing_revision"
 msgstr "Versió existent del mateix document"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2296,7 +2342,7 @@ msgstr "La darrera setmana"
 msgid "time_yesterday"
 msgstr "Ahir"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentaris"
@@ -2626,6 +2672,10 @@ msgstr "Traduir"
 msgid "action_delete_translation"
 msgstr "Esborrar aquesta traducció"
 
+#, fuzzy
+msgid "action_recursive_publish"
+msgstr "Retirar de la publicació"
+
 msgid "button_create"
 msgstr "Crear"
 
@@ -2907,6 +2957,10 @@ msgstr "Ha de seleccionar al menys una secció on publicar el document."
 msgid "psm_logged_in"
 msgstr "Us heu autentificat correctament"
 
+#, fuzzy
+msgid "psm_recursive_publish_done"
+msgstr "Retirar de la publicació"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Les dades recollides no s'han eliminat."
 
@@ -3160,6 +3214,16 @@ msgstr "Treballant..."
 
 msgid "ajax_failing"
 msgstr "Canvi no permès"
+
+msgid "portlet_title_latest_published"
+msgstr ""
+
+msgid "portlet_title_breaking_news"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Retirar de la publicació"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Vostè s'ha desconnectat del portal. Pot necessitar "

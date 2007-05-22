@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
 "PO-Revision-Date: 2006-11-16 15:38+0100\n"
 "Last-Translator: Jesus Martin <jesusmartin@lasalle.es>\n"
 "Language-Team: euskera <perikoalkain@lasalle.es>\n"
@@ -210,12 +210,11 @@ msgstr "Harremanetarako pertsona"
 msgid "accessibility_content_link"
 msgstr "Edukietara jo"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr ""
@@ -224,7 +223,33 @@ msgstr ""
 "\"http://www.wave.webaim.org/\"> bidez landu izan da.Sarbide-tresna: WAVE "
 "Web</a>."
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr ""
+"Toki hau sarbide-arauak zainduz diseinaturik dago. <a href=\"http://www.w3."
+"org/\">W3C</a> estandarrak errespetatu . Erabilerraztasun hau <a href="
+"\"http://www.wave.webaim.org/\"> bidez landu izan da.Sarbide-tresna: WAVE "
+"Web</a>."
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_title"
+msgstr "Erabilerraztasun-informazioak"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Ongi etorri orrialdera jo"
@@ -439,9 +464,11 @@ msgstr "Hasierara eraman"
 msgid "button_move_up"
 msgstr "Gora eraman"
 
-#.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
+#.   <button type="submit">OK</button>
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "OK"
@@ -544,6 +571,20 @@ msgstr "Dokumentua argitaratzetik kendu"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Gaurkotu"
+
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "description_confirm_recursive_publish"
+msgstr "Ekintza baieztatzen duzu?"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -790,6 +831,12 @@ msgstr " ${item_id} argitaratu"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Ataria konfiguratu"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Erretiratu"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2210,7 +2257,7 @@ msgstr "Soluzioak"
 msgid "listingheader_existing_revision"
 msgstr "Dokumentu honen beraren dagoen bertsioa"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2296,7 +2343,7 @@ msgstr "Azken astea"
 msgid "time_yesterday"
 msgstr "Atzo"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Iruzkina"
@@ -2625,6 +2672,10 @@ msgstr "Itzuli"
 msgid "action_delete_translation"
 msgstr "Itzulpen hau ezabatu"
 
+#, fuzzy
+msgid "action_recursive_publish"
+msgstr "Erretiratu"
+
 msgid "button_create"
 msgstr "Sortu"
 
@@ -2909,6 +2960,10 @@ msgstr ""
 msgid "psm_logged_in"
 msgstr "Arrakastaz konektatu da"
 
+#, fuzzy
+msgid "psm_recursive_publish_done"
+msgstr "Erretiratu"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Bildutako datuak ez dira ezabatu."
 
@@ -3163,6 +3218,16 @@ msgstr "Lanean..."
 
 msgid "ajax_failing"
 msgstr "Aldaketa hau ez dago baimenduta"
+
+msgid "portlet_title_latest_published"
+msgstr ""
+
+msgid "portlet_title_breaking_news"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Erretiratu"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Ataritik deskonektaturik zaude. Laguntzaren beharrean zaude"

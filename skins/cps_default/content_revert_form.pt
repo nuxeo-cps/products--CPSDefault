@@ -23,10 +23,10 @@
     <p>
       <input type="hidden" name="rev:int" value="."
         tal:attributes="value request/rev" />
-      <input type="submit" class="standalone" value="button_revert_revision"
-        i18n:attributes="value" />
-      <input type="button" class="context" onclick="history.back()"
-        value="button_cancel" i18n:attributes="value" />
+      <button type="button" onclick="javascript:history.back()"
+          i18n:translate="button_back">Back</button>
+      <button type="submit" class="destructive"
+          i18n:translate="button_revert_revision">Revert to the archived revision</button>
     </p>
   </form>
 </metal:main>

@@ -1,0 +1,59 @@
+<html metal:use-macro="here/content_lib_master/macros/master">
+
+  <metal:title fill-slot="header">
+    <h1 i18n:translate="heading_recursive_publish">Recursive publish</h1>
+  </metal:title>
+
+  <metal:block fill-slot="main">
+    <tal:block i18n:translate="description_confirm_recursive_publish">
+      <p>
+        Warning : This action is very powerful, can take long and publish
+        many documents. Use with caution.
+      </p>
+      <p>
+        Select a target section for your recursive publication request.
+      </p>
+    </tal:block>
+    <form action="folder_recursive_publish" method="post">
+      <ul class="itemInputList"
+        tal:define="stree python: here.getSectionsTree()">
+        <tal:block repeat="section stree">
+          <li>
+            <p>
+              <input type="radio" name="target_section_rpath"
+                tal:attributes="
+                value section/rpath;
+                id section/rpath;
+                checked python:section['rpath'] == 'sections' and 'checked' or None;
+                " />
+              <label
+                tal:attributes="for section/rpath">
+
+                <tal:block define="
+                  proxy python:utool.restrictedTraverse(section['rpath']);
+                  breadcrumbs python:utool.getBreadCrumbsInfo(proxy,
+                                                              show_root=False,
+                                                              title_size=30);
+                  ">
+                  <tal:block repeat="bc breadcrumbs">
+                    <a tal:omit-tag="not:bc/url"
+                      tal:attributes="href bc/url;
+                      title bc/longtitle|nothing;"
+                      tal:content="bc/title">
+                      Title
+                    </a><tal:block condition="not:repeat/bc/end"
+                            >&nbsp;&gt;&nbsp;</tal:block>
+                  </tal:block>
+                </tal:block>
+
+              </label>
+            </p>
+            </li>
+        </tal:block>
+      </ul>
+      <p>
+        <button type="submit" i18n:translate="button_ok">OK</button>
+      </p>
+    </form>
+  </metal:block>
+</html>

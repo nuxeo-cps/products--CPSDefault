@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
-"PO-Revision-Date: 2006-11-03 17:57+0100\n"
-"Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
+"PO-Revision-Date: 2007-03-22 23:02+0100\n"
+"Last-Translator: Jesus Martin <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
@@ -210,12 +210,11 @@ msgstr "Enlace de contacto"
 msgid "accessibility_content_link"
 msgstr "Ir al contenido"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr ""
@@ -224,7 +223,32 @@ msgstr ""
 "ha sido refrendada con la <a href=\"http://www.wave.webaim.org/"
 "\">Herramienta de accesibilidad WAVE Web</a>."
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr ""
+"Este sitio ha sido diseñado cuidando las normas de accesibilidad. Respeta "
+"los estándares <a href=\"http://www.w3.org/\">W3C</a>. Dicha accesibilidad "
+"ha sido refrendada con la <a href=\"http://www.wave.webaim.org/"
+"\">Herramienta de accesibilidad WAVE Web</a>."
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+msgid "accessibility_explanations_title"
+msgstr "Precisiones sobre la accesibilidad"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Ir a la página de bienvenida"
@@ -439,9 +463,11 @@ msgstr "Poner al inicio"
 msgid "button_move_up"
 msgstr "Subir"
 
-#.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
+#.   <button type="submit">OK</button>
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "OK"
@@ -544,6 +570,22 @@ msgstr "Despublicar el documento"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Actualizar"
+
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+msgid "description_confirm_recursive_publish"
+msgstr ""
+"<p>Aviso importante: Esta acción es muy compleja y potente, puede llevar "
+"bastante tiempo y publicar muchos documentos. Utilícela con cautela.</"
+"p><p>Seleccione una sección como destino de su publicación recursiva.</p>"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -792,6 +834,11 @@ msgstr "Publicar ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Configurar el portal"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+msgid "heading_recursive_publish"
+msgstr "Publicación recursiva"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2207,7 +2254,7 @@ msgstr "Soluciones"
 msgid "listingheader_existing_revision"
 msgstr "Versión existente de este mismo documento"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2293,7 +2340,7 @@ msgstr "La última semana"
 msgid "time_yesterday"
 msgstr "Ayer"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Comentario"
@@ -2623,6 +2670,9 @@ msgstr "Traducir"
 msgid "action_delete_translation"
 msgstr "Borrar esta traducción"
 
+msgid "action_recursive_publish"
+msgstr "Publicar recursivamente"
+
 msgid "button_create"
 msgstr "Crear"
 
@@ -2906,6 +2956,9 @@ msgstr ""
 msgid "psm_logged_in"
 msgstr "Se ha conectado con éxito"
 
+msgid "psm_recursive_publish_done"
+msgstr "Publicación recursiva realizada con éxito"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Los datos recogidos no han sido eliminados."
 
@@ -3161,6 +3214,16 @@ msgstr "Trabajando..."
 
 msgid "ajax_failing"
 msgstr "Este cambio no está permitido"
+
+msgid "portlet_title_latest_published"
+msgstr "Últimos envíos publicados"
+
+msgid "portlet_title_breaking_news"
+msgstr "Noticias de última hora"
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Retirar"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Usted se ha desconectado del portal. Puede necesitar "

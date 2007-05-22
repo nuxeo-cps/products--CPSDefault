@@ -24,6 +24,12 @@
 """
 
 from Products.CMFCore.permissions import setDefaultRoles
+from Products.CPSUtil.integration import isProductPresent
 
 ModifyFolderProperties = 'Modify Folder Properties'
 setDefaultRoles(ModifyFolderProperties, ('Manager',))
+
+if not isProductPresent('Products.ExternalEditor'):
+    # we need to define it so that the rolemap import step can work
+    setDefaultRoles('Use external editor', ('Manager',))
+

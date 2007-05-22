@@ -25,6 +25,8 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
 from Products.GenericSetup.utils import _resolveDottedName
+
+from Products.CMFCore.utils import SimpleItemWithProperties
 from Products.CPSCore.setuptool import CPSSetupTool
 from Products.CPSDefault.factory import CPSSiteConfigurator
 
@@ -217,10 +219,7 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           setup_tool = self.site.portal_setup
 
           if getattr(self.site, 'meta_profiles', None) is None:
-              self.site.manage_addProperty('meta_profiles', [], 'tokens')
-
-          if getattr(self.site, 'configurator', None) is None:
-              self.site.manage_addProperty('configurator', '', 'string')
+              self.site.manage_addProperty('meta_profiles', [], 'lines')
 
           for m_id in self.metas_order:
                m_profile = self.meta_profiles[m_id]
@@ -245,14 +244,17 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
 
           self_dotted_name = '.'.join((self.__module__,
                                        self.__class__.__name__))
-          self.site.manage_changeProperties(meta_profiles=imported_metas,
-                                            configurator=self_dotted_name)
+          self.site.manage_changeProperties(meta_profiles=imported_metas)
+          # no need for this one to be user managed ever -> simple attr
+          self.site.configurator=self_dotted_name
 
      def replayMetaProfiles(self, with_hooks=False):
          """ Replay meta profiles but saves parameters."""
 
          m_ids = self.site.meta_profiles
          snapshot = self.paramsSnapshot(m_ids)
+         self.site.portal_setup.reinstallProfile(
+              'profile-%s' % self.base_profile)
          for m_id in m_ids:
              m_profile = self.meta_profiles[m_id]
 
@@ -267,6 +269,13 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
              after = m_profile.get('after_import')
              if with_hooks and after is not None:
                  after(self.site, **snapshot)
+
+         if getattr(self.site, 'meta_profiles', None) is None:
+              self.site.manage_addProperty('meta_profiles', [], 'lines')
+         self.site.manage_changeProperties(meta_profiles=m_ids)
+         self_dotted_name = '.'.join((self.__module__,
+                                      self.__class__.__name__))
+         self.site.configurator=self_dotted_name
 
 
      def addConfiguredSite(self, dispatcher, site_id, **kw):
@@ -302,7 +311,9 @@ class FakeSetupTool(CPSSetupTool):
      >>> tool = FakeSetupTool()
      >>> tool.setImportContext('profile-Spam:egg')
      Pointing at Spam:egg
-     >>> tool.runAllImportSteps()
+     >>> tool.runAllImportSteps(purge_old=True)
+     Purged and imported
+     >>> tool.runAllImportSteps(purge_old=False)
      Imported
      """
 
@@ -312,6 +323,23 @@ class FakeSetupTool(CPSSetupTool):
      def setImportContext(self, context_str):
           print "Pointing at %s" % context_str[len("profile-"):]
 
-     def runAllImportSteps(self):
+     def runAllImportSteps(self, purge_old=False):
          self.witness = 0
-         print "Imported"
+         print purge_old and "Purged and imported" or "Imported"
+
+     def reinstallProfile(self, context_id, **kw):
+         pass
+          
+
+class SampleTool(SimpleItemWithProperties):
+     """A sample object for the doctest."""
+
+     def __init__(self, id, **kw):
+          self._setId(id)
+
+     _properties = SimpleItemWithProperties._properties + (
+          {'id': 'ldap_bind_dn', 'mode': 'w',
+           'type': 'string', 'label': 'Sample tool bind'},
+          {'id': 'pass', 'type': 'string', 'label': 'PASS'},
+          )
+     

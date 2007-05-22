@@ -4,10 +4,12 @@
   <property name="acl_write_roles">Manager</property>
   <property name="write_ignore_storage">True</property>
   <property
-       name="write_process_expr">python:util.dirCrossSetList('members', 'roles', data.get('role'), data[field.getFieldId()])</property>
+       name="write_process_expr">python:util.dirCrossSetList('members', 'roles', role, value)</property>
+  <property name="write_process_dependent_fields">role</property>
   <property name="read_ignore_storage">True</property>
   <property
-       name="read_process_expr">python:util.dirCrossGetList('members', 'roles', data.get('role'))</property>
+       name="read_process_expr">python:util.dirCrossGetList('members', 'roles', role)</property>
+  <property name="read_process_dependent_fields">role</property>
  </field>
  <field name="role" meta_type="CPS String Field"/>
 </object>

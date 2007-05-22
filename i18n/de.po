@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-de CPS-3.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
 "PO-Revision-Date: 2005-10-12 23:43+0200\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: de <rheinland@dzug.org>\n"
@@ -214,19 +214,42 @@ msgstr "Kontakt"
 msgid "accessibility_content_link"
 msgstr "Gehe zum Inhalt"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr ""
 "Der Zugang und die Navigation innerhalb des Portals ist beschrieben unter <a "
 "href=\"http://www.acces-pour-tous.net/\">acces pour tous</a>"
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr ""
+"Der Zugang und die Navigation innerhalb des Portals ist beschrieben unter <a "
+"href=\"http://www.acces-pour-tous.net/\">acces pour tous</a>"
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_title"
+msgstr "Zugangs Informationen"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Gehe zur Startseite"
@@ -442,9 +465,10 @@ msgstr "Anfang"
 msgid "button_move_up"
 msgstr "hoch"
 
-#.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
-#.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#.   <button type="submit">OK</button>
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "OK"
@@ -548,6 +572,20 @@ msgstr "Publikation zurücknehmen"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Aktualisieren"
+
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "description_confirm_recursive_publish"
+msgstr "Sind sie sicher?"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -798,6 +836,12 @@ msgstr "Publikation von  ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Portal Konfiguration"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "Zurückziehen"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2222,7 +2266,7 @@ msgstr "Solutions"
 msgid "listingheader_existing_revision"
 msgstr "Es existiert eine Version vom selben Dokument"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2311,7 +2355,7 @@ msgstr "Letzte Woche"
 msgid "time_yesterday"
 msgstr "Gestern"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Kommentar"
@@ -2648,6 +2692,10 @@ msgstr "Übersetzen"
 msgid "action_delete_translation"
 msgstr "Delete this translation"
 
+#, fuzzy
+msgid "action_recursive_publish"
+msgstr "Zurückziehen"
+
 msgid "button_create"
 msgstr "Erstellen"
 
@@ -2933,6 +2981,10 @@ msgstr ""
 msgid "psm_logged_in"
 msgstr ""
 
+#, fuzzy
+msgid "psm_recursive_publish_done"
+msgstr "Zurückziehen"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Daten wurden nicht gelöscht."
 
@@ -3197,6 +3249,16 @@ msgstr ""
 
 msgid "ajax_failing"
 msgstr ""
+
+msgid "portlet_title_latest_published"
+msgstr ""
+
+msgid "portlet_title_breaking_news"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "Zurückziehen"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr ""

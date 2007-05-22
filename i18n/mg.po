@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:36default\n"
+"POT-Creation-Date: 2007-04-10 11:37default\n"
 "PO-Revision-Date: 2004-11-25 14:28+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
@@ -211,12 +211,11 @@ msgstr "Tatitra fahazahoan-dalana"
 msgid "accessibility_content_link"
 msgstr "Mankany amin'ny votoatiny"
 
+#.   <block>
 #.   <p>
 #.   This site has been designed to be accessible.
-#.   It respects the <a href="http://www.w3.org/">W3C</a> standards
-#.   and its accessibility has been worked on with the
-#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
 #.   </p>
+#.   </block>
 #: from ../skins/cps_default/accessibility.pt
 msgid "accessibility_description"
 msgstr ""
@@ -224,7 +223,32 @@ msgstr ""
 "ny fitsipika mifehy ny serasera an-tranonkala hita ao amin'ny: <a href="
 "\"http://www.acces-pour-tous.net/\">accès pour tous</a>."
 
-#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
+#.   <block>
+#.   <p>
+#.   This site has been designed to be accessible.
+#.   It respects the W3C
+#.   <a href="http://www.w3.org/WAI">Web Accessibility Initiative (WAI)</a>
+#.   accessibility standards and recommendations.
+#.   The accessibility of this site has been worked on with the following
+#.   validation and evaluation tool :
+#.   <a href="http://www.wave.webaim.org/">WAVE Web Accessibility Tool</a>.
+#.   </p>
+#.   </block>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_description"
+msgstr ""
+"Ity tranonkala ity dia natokana ho an'ny daholobe .Ny fidirana ao dia araky "
+"ny fitsipika mifehy ny serasera an-tranonkala hita ao amin'ny: <a href="
+"\"http://www.acces-pour-tous.net/\">accès pour tous</a>."
+
+#.   <h2>Accessibility details</h2>
+#: from ../skins/cps_default/accessibility.pt
+#, fuzzy
+msgid "accessibility_explanations_title"
+msgstr "Tatitra fahazahoan-dalana"
+
+#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Mankany amin'ny pejy fandraisana"
@@ -441,9 +465,11 @@ msgstr "Mifindra ho any amin'ny fiatombohany"
 msgid "button_move_up"
 msgstr "Mifindra ho eny ambony"
 
-#.   <input type="button" class="standalone" value="button_ok" onclick="history.back()" />
+#.   <button type="submit">OK</button>
+#.   <input onclick="history.back()" type="button" class="standalone" value="button_ok" />
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
-#: from ../skins/cps_default/folder_rename_form.pt
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr "Ekena"
@@ -551,6 +577,20 @@ msgstr "Esorina tsy haely intsony"
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
 msgstr "Alefaso"
+
+#.   <block>
+#.         <p>
+#.           Warning : This action is very powerful, can take long and publish
+#.           many documents. Use with caution.
+#.         </p>
+#.         <p>
+#.           Select a target section for your recursive publication request.
+#.         </p>
+#.       </block>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "description_confirm_recursive_publish"
+msgstr "Tena tapa-kevitra ve ianao ?"
 
 #.   <block />
 #: from ../skins/cps_default/portlet_welcome.pt
@@ -810,6 +850,12 @@ msgstr "Aely ${item_id}"
 #: from ../skins/cps_default/config_form.pt
 msgid "heading_reconfig_portal"
 msgstr "Amboarina ny tranonkala"
+
+#.   <h1>Recursive publish</h1>
+#: from ../skins/cps_default/folder_recursive_publish_form.pt
+#, fuzzy
+msgid "heading_recursive_publish"
+msgstr "tsy aely"
 
 #.   <h1>Success!</h1>
 #: from ../skins/cps_default/registered.pt
@@ -2299,7 +2345,7 @@ msgstr "Solutions"
 msgid "listingheader_existing_revision"
 msgstr "Laharana misy amin'io antotan-dahatsoratra io ihany"
 
-#.   <th width="30%">Section</th>
+#.   <th>Section</th>
 #: from ../skins/cps_default/content_publish_form.pt
 #: ../skins/cps_default/content_submit_form.pt
 msgid "listingheader_sections"
@@ -2387,7 +2433,7 @@ msgstr "Ny herinandro lasa teo"
 msgid "time_yesterday"
 msgstr "Omaly"
 
-#.   <label for="comments">Comments</label>
+#.   <label class="comments" for="comments">Comments</label>
 #: from ../skins/cps_default/content_lib_transition_form.pt
 msgid "transition_comments"
 msgstr "Fanazavana (commentaires)"
@@ -2735,6 +2781,10 @@ msgstr "Avadika fiteny"
 msgid "action_delete_translation"
 msgstr "Supprimer la traduction"
 
+#, fuzzy
+msgid "action_recursive_publish"
+msgstr "tsy aely"
+
 msgid "button_create"
 msgstr "Foronina"
 
@@ -3038,6 +3088,10 @@ msgstr ""
 msgid "psm_logged_in"
 msgstr ""
 
+#, fuzzy
+msgid "psm_recursive_publish_done"
+msgstr "tsy aely"
+
 msgid "collector_psm_erase_data_cancel"
 msgstr "Ny zavatra voaangona dia tsy voafafa"
 
@@ -3309,6 +3363,16 @@ msgstr ""
 
 msgid "ajax_failing"
 msgstr ""
+
+msgid "portlet_title_latest_published"
+msgstr ""
+
+msgid "portlet_title_breaking_news"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Recursive publish"
+#~ msgstr "tsy aely"
 
 #~ msgid "description_logout_zmi_warning"
 #~ msgstr "Tafiditra aty ivelan'ny tranonkala ianao. Afaka "

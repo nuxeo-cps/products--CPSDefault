@@ -66,8 +66,9 @@ if is_anon:
     RESPONSE.expireCookie('__ac', path='/')
     return context.user_logged_in_failed()
 
-login_time = member.getProperty('last_login_time', '2000/01/01')
-first_time = (str(login_time) == '2000/01/01')
+login_time = member.getProperty('last_login_time', None)
+# The '2000/01/01' case is kept for compatibility with CMF
+first_time = login_time is None or (str(login_time) == '2000/01/01')
 
 if first_time and member.has_role('Member'):
     mtool.createMemberArea()

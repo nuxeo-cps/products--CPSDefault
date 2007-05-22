@@ -45,6 +45,7 @@ import utils
 import permissions
 import Portal
 import Folder
+import recursivepublish
 import Dummy
 
 contentClasses = (

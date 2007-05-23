@@ -1,3 +1,24 @@
+# (C) Copyright 2006-2007 Nuxeo SAS <http://nuxeo.com>
+# Authors:
+# Stefane Fermigier <sf@nuxeo.com>
+# M.-A. Darche
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+#
+# $Id$
+
 import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
@@ -114,6 +135,21 @@ class TestNonRegression(CPSTestCase):
         self.logout()
         self.login('manager2')
         self.portal.logged_in()
+
+    def testMemberLogin(self):
+        self.login("manager")
+        members_directory = self.portal.portal_directories.members
+        members_directory.createEntry(
+            {'id': 'joeuser', 'roles': ('Member',)})
+        self.logout()
+        # Testing that the user can log in multiple times to test the setting
+        # of login_time and last_login_time.
+        self.login('joeuser')
+        self.portal.logged_in()
+        self.logout()
+        self.login('joeuser')
+        self.portal.logged_in()
+        self.logout()
 
 
     def testMagicDates(self):

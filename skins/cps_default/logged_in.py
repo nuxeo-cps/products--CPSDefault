@@ -70,10 +70,13 @@ login_time = member.getProperty('last_login_time', None)
 # The '2000/01/01' case is kept for compatibility with CMF
 first_time = login_time is None or (str(login_time) == '2000/01/01')
 
-if first_time and member.has_role('Member'):
-    mtool.createMemberArea()
+# We don't want to create a member area for the Zope admin,
+# nor can we setProperties on it.
+if member.has_role('Member'):
+    if first_time:
+        mtool.createMemberArea()
     now = context.ZopeTime()
-    member.setProperties(last_login_time=now)
+    member.setProperties(login_time=now, last_login_time=login_time)
 
 if to_member_home or to_workspaces:
     redirect_url = '%s/?%s' % (redirect_url, 'portal_status_message=psm_logged_in')

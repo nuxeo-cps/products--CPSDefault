@@ -40,18 +40,20 @@ class CPSSiteConfigurator(object):
     prechecked_extensions = ()
     mandatory_extensions = ()
 
-    available_languages = (
-        {'id': 'ca', 'title': 'Catalan'},
+    available_languages = (        
         {'id': 'nl', 'title': 'Dutch'},
         {'id': 'en', 'title': 'English', 'checked': True},
         {'id': 'eu', 'title': 'Euskara'},
         {'id': 'fr', 'title': 'French', 'checked': True},
         {'id': 'de', 'title': 'German'},
+        {'id': 'gl', 'title': 'Galician'},
         {'id': 'it', 'title': 'Italian'},
         {'id': 'mg', 'title': 'Malagasy'},
+        {'id': 'pt', 'title': 'Portuguese'},
         {'id': 'pt_BR', 'title': 'Portugese (Brazilian)'},
         {'id': 'ro', 'title': 'Romanian'},
         {'id': 'es', 'title': 'Spanish', 'checked': True},
+        {'id': 'ca', 'title': 'Valencian/Catalan'},
         )
 
     addForm = PageTemplateFile('zmi/siteAddForm', globals())

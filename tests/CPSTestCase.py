@@ -120,16 +120,18 @@ from Products.CMFCore.utils import SimpleItemWithProperties
 class EventRecorder(SimpleItemWithProperties):
     def __init__(self, id):
         self._setId(id)
-        self._events = []
+        self._v_events = []
 
     def notify_event(self, *args):
-        self._events.append(args)
+        if getattr(self, '_v_events', None) is None:
+            self._v_events = []
+        self._v_events.append(args)
 
     def clear(self):
-        self._events = []
+        self._v_events = []
 
     def getRecords(self):
-        return self._events
+        return self._v_events
 
 class CPSDefaultLayerClass(object):
     """Layer to test CPS.

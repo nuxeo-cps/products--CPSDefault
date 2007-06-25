@@ -19,6 +19,13 @@ Bug fixes
 - Fixed #1847: "Add and use a "server_url" portlet cache parameter for the
   search, contact and conformance statement portlets".
 - Updated the accessibility accesskeys information.
+- Fixed the functional tests relying on the CPSTestCase.CPSDefaultLayer when
+  used with fast machines by using a volatile variable for the event_recorder,
+  otherwise we were getting the following error::
+
+    return self._dump(meta, obj.__getstate__())
+    TypeError: Can't pickle objects in acquisition wrappers.
+
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - update import step dependency to work with CMF 1.6.3

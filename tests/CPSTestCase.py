@@ -120,6 +120,8 @@ from Products.CMFCore.utils import SimpleItemWithProperties
 class EventRecorder(SimpleItemWithProperties):
     def __init__(self, id):
         self._setId(id)
+        # Using a volatile variable for not having commit hoops
+        # in functional tests, see #1848.
         self._v_events = []
 
     def notify_event(self, *args):

@@ -1,7 +1,8 @@
 # -*- coding: iso-8859-15 -*-
-# (C) Copyright 2003-2005 Nuxeo SARL <http://nuxeo.com>
+# (C) Copyright 2003-2007 Nuxeo SAS <http://nuxeo.com>
 # Authors:
 # M.-A. Darche <madarche@nuxeo.com>
+# Benoit Delbosc <bdelbosc@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -429,3 +430,22 @@ def reindexFolderContentPositions(container):
                 LOG('reindexPositions', WARNING,
                     'invalid catalog entry: %s' % brain.getPath())
     #t.log('reindex %i objects' % reindex_count)
+
+
+module_security.declarePublic('reorderContainterContents')
+def reorderContainterContents(container, key='id', ascending=False):
+    """Physically reorder the contents of a container.
+
+    container : an object such as a workspace or a section proxy.
+
+    key : to specify on what criteria to do the reordering, usually one uses
+    key='id' or key='effective_date'.
+
+    ascending : to specify if the content should be ordered in ascending
+    order or descending order.
+    """
+    order_method = getattr(container, 'orderObjects', None)
+    if order_method is not None and callable(order_method):
+        container.orderObjects(key=key, reverse=not ascending)
+
+

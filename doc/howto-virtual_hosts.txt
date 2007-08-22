@@ -18,14 +18,16 @@ Apache httpd different flavors
 
 .. _CPS: http://www.cps-project.org/
 .. _Zope: http://www.zope.org/
+.. _Apache httpd: http://httpd.apache.org/
 .. _reverse proxy: http://en.wikipedia.org/wiki/Reverse_proxy
 
-This document explains how to setup CPS_ behind the Apache httpd server through
+This document explains how to setup CPS_ behind
+the `Apache httpd`_ server through
 the `reverse proxy`_ technique.
 
 This kind of configuration is the preferred way to deploy CPS web sites because:
 
-- Apache httpd is very fast and can handle cache.
+- Apache httpd is very fast and can handle a web cache.
 
 - Apache httpd supports the ability to have parts of CPS web sites
   protected through HTTPS.
@@ -530,6 +532,104 @@ earlier::
 Note that those rules will not hide the true locations of contents as returned
 by the search pages or the navigation portlets. To this end one usually needs
 to define custom navigation portlets.
+
+
+
+Using a web cache
+=================
+
+.. _Varnish: http://varnish.projects.linpro.no/
+
+If a CPS site is heavily loaded by frequent visits it's a good idea to put it
+behind a web cache.
+
+The preferred solutions are to use either `Apache httpd`_ or Varnish_.
+
+
+With Apache httpd
+-----------------
+
+From version 2.0 Apache httpd comes with a web cache.
+But only with Apache httpd version >= 2.2 is this web cache
+really efficient.
+
+Add this fragment to your Apache httpd virtual host configuration file::
+
+  <IfModule mod_disk_cache.c>
+    # Enable caching of specified URLs using a specified storage manager
+    CacheEnable disk /
+    # This directory must exist
+    CacheRoot /var/cache/apache2/www.mysite.net
+    # 500Mb of space used on the filesystem
+    CacheSize 512000
+    # Number of characters for each subdirectory name in the cache hierarchy.
+    # This is to try to reduce the number of subdirectories.
+    CacheDirLength 5
+    # Ignore the fact that the client requested the content not be cached
+    CacheIgnoreCacheControl On
+  </IfModule>
+
+
+With Varnish
+------------
+
+For Varnish_, use version 1.1.1 or up.
+
+Use the following VCL configuration file::
+
+  backend default {
+          set backend.host = "127.0.0.1";
+          set backend.port = "8080";
+  }
+
+  acl purge {
+          "localhost";
+          "192.0.2.0"/24;
+  }
+
+  sub vcl_recv {
+          if (req.request != "GET" && req.request != "HEAD") {
+                  # PURGE request if zope asks nicely
+                  if (req.request == "PURGE") {
+                          if (!client.ip ~ purge) {
+                                  error 405 "Not allowed.";
+                          }
+                          lookup;
+                  }
+                  pipe;
+          }
+          if (req.http.Expect) {
+                  pipe;
+          }
+          if (req.http.Authenticate || req.http.Authorization) {
+                  pass;
+          }
+          # We only care about the "__ac.*" cookies, used for authentication
+          if (req.http.Cookie && req.http.Cookie ~ "__ac(|_(name|password|persistent))=") {
+                  pass;
+          }
+          lookup;
+  }
+
+  # Do the PURGE thing
+  sub vcl_hit {
+          if (req.request == "PURGE") {
+                  set obj.ttl = 0s;
+                  error 200 "Purged";
+          }
+  }
+  sub vcl_miss {
+          if (req.request == "PURGE") {
+                  error 404 "Not in cache";
+          }
+  }
+
+  # Enforce a minimum TTL, since we PURGE changed objects actively from Zope.
+  sub vcl_fetch {
+          if (obj.ttl < 3600s) {
+                  set obj.ttl = 3600s;
+          }
+  }
 
 
 

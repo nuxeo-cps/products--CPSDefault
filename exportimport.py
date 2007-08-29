@@ -168,8 +168,15 @@ class RootsXMLAdapter(XMLAdapterBase):
                     # Section and thus it can be dealt with in a generic manner.
                     for mt_info in Products.meta_types:
                         if mt_info['name'] == meta_type:
-                            site._setObject(id, mt_info['instance'](id))
-                            break
+                            # Test if instance is not None to be able to deal
+                            # with multiple meta_type definitions defining the
+                            # same meta_type and only considering the definition
+                            # holding a class definition. This is for example
+                            # to take advantage of the five:registerClass
+                            # directive.
+                            if mt_info['instance'] is not None:
+                                site._setObject(id, mt_info['instance'](id))
+                                break
                     else:
                         raise ValueError("unknown meta_type '%s'" % meta_type)
 
@@ -177,8 +184,8 @@ class RootsXMLAdapter(XMLAdapterBase):
 
             if meta_type:
                 #self._logger.debug(
-                #    "_initRoots importObjects on %s with parent_path = %s"
-                #    % (str(obj), self.path))
+                #   "_initRoots importObjects on %s with parent_path = %s"
+                #   % (str(obj), self.path))
                 # Import subobjects recursively
                 importObjects(obj, self.path + '/', self.environ)
                 # Move on to the next root object

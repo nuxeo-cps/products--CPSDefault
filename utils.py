@@ -449,3 +449,10 @@ def reorderContainterContents(container, key='id', ascending=False):
         container.orderObjects(key=key, reverse=not ascending)
 
 
+module_security.declarePublic('isIOrderedContainer')
+def isIOrderedContainer(container):
+    """Return whether the given container implements the IOrderedContainer
+    interface or not.
+    """
+    from OFS.IOrderSupport import IOrderedContainer
+    return IOrderedContainer.isImplementedBy(container)

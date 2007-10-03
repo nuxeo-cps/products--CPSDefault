@@ -278,22 +278,6 @@ div.pageNavigationLayout {
   padding: 1px 0 1px 0;
 }
 
-div.message {
-  background: <dtml-var messageBackground>;
-  border: <dtml-var messageBorder>;
-  color: <dtml-var mainFontColor>;
-  font: <dtml-var messageFont>;
-  margin: 1em 0;
-  padding: 0.5em 1em;
-  vertical-align: middle;
-}
-
-div.message a {
-  background: <dtml-var messageBackground>;
-  color: <dtml-var mainFontColor>;
-  text-decoration: underline;
-}
-
 div.description {
   font: <dtml-var descriptionFont>;
   display: block;
@@ -835,16 +819,84 @@ div.label {
   background: <dtml-var requiredField>;
 }
 
-.error {
+div.message {
   background: <dtml-var messageBackground>;
+  border: <dtml-var messageBorder>;
+  color: <dtml-var mainFontColor>;
+  font: <dtml-var messageFont>;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  vertical-align: middle;
+  <dtml-if "isUserAgentGecko(REQUEST)">
+  -moz-border-radius: 4px;
+  </dtml-if>
+}
+
+div.message a {
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
+  text-decoration: underline;
+}
+
+div.message {
+  background: <dtml-var messageBackground>;
+  border: <dtml-var messageBorder>;
+  color: <dtml-var mainFontColor>;
+  font: <dtml-var messageFont>;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  vertical-align: middle;
+  <dtml-if "isUserAgentGecko(REQUEST)">
+  -moz-border-radius: 4px;
+  </dtml-if>
+}
+
+div.message a {
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
+  text-decoration: underline;
+}
+
+div.messageError {
+  background: <dtml-var messageErrorBackground>;
+  border: <dtml-var messageBorder>;
+  color: <dtml-var mainFontColor>;
+  font: <dtml-var messageFont>;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  vertical-align: middle;
+  <dtml-if "isUserAgentGecko(REQUEST)">
+  -moz-border-radius: 4px;
+  </dtml-if>
+}
+
+div.messageError a {
+  background: <dtml-var messageBackground>;
+  color: <dtml-var mainFontColor>;
+  text-decoration: underline;
+}
+
+<dtml-comment>
+.fieldError (which applies on div) and p.errorMessage are used to display errors
+in document or directory forms.
+</dtml-comment>
+
+.fieldError {
+  background: <dtml-var messageErrorBackground>;
   border: <dtml-var messageBorder>;
   padding: 1em;
   margin: 0em;
+  <dtml-if "isUserAgentGecko(REQUEST)">
+  -moz-border-radius: 4px;
+  </dtml-if>
 }
 
 p.errorMessage {
   background: inherit;
   color: #ff0000;
+  <dtml-if "isUserAgentGecko(REQUEST)">
+  -moz-border-radius: 4px;
+  </dtml-if>
 }
 
 span.legend {

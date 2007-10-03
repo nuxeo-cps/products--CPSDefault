@@ -10,6 +10,7 @@
      translated_psm python:psm and cpsmcat(psm, psm_mappings) or nothing;
      "
      tal:condition="psm"
+     tal:attributes="class python:'error' in psm and 'messageError' or 'message'"
      tal:content="structure python:translated_psm or psm"
      >
   Translated status message.

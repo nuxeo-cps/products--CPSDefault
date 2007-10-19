@@ -1,4 +1,54 @@
 ===========================================================
+Package: CPSDefault 3.61.0
+===========================================================
+First release built by: madarche at: 2007-10-19T12:19:14
+SVN Tag: https://svn.nuxeo.org/pub/CPS3/products/CPSDefault/tags/3.61.0
+Build from: https://svn.nuxeo.org/pub/CPS3/products/CPSDefault/trunk@52013
+
+Requires
+~~~~~~~~
+- CMF 1.6.3
+- Zope 2.9.7 (will not work anymore with older version)
+- CPSPortlets > 1.0.0
+- CPSI18n >= 1.0.0
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- Fixed #1569: Catalog: the ZCTitle index is blank.
+- Fixed #1667: Content portlet : title search does not work.
+- Fixed #1790: Support the newer Zope 2.9.x versions (2.9.5 and upper).
+- Fixed #1835: folder_contents / content_lib_display_contents is limited to
+  100 objects.
+- Fixed #1530: "Members doesn't have a 'last_login_time' or 'last_login'
+  property anymore".
+- Fixed #1847: "Add and use a "server_url" portlet cache parameter for the
+  search, contact and conformance statement portlets".
+- Updated the accessibility accesskeys information.
+- Fixed #1848 by using a volatile variable in the EventRecorder class so that
+  the functional tests relying on the CPSTestCase.CPSDefaultLayer when used with
+  fast machines don't die with the the following error::
+
+    return self._dump(meta, obj.__getstate__())
+    TypeError: Can't pickle objects in acquisition wrappers.
+
+- Updated the howto-virtual_hosts.txt to include doc about using a web cache.
+- Updated the ZODB members directory profile so that is uses substring search
+  for fullname too. This makes it possible to use CPSNavigation search in this
+  context.
+- In the RootsXMLAdapter added the possibility to be able to deal with multiple
+  meta_type definitions defining the same meta_type and only considering the
+  definition holding a class definition. This is for example to take advantage
+  of the five:registerClass directive.
+- Improved the account_lost_password_form with more legible and shorter text.
+- Fixed #725 : "Change the message background when it's an error or a warning".
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- Updated import step dependency to work with CMF 1.6.3
+- Added a module method and an external method reorderContainterContents.
+
+===========================================================
 Package: CPSDefault 3.60.6
 ===========================================================
 First release built by: div at: 2007-04-20T11:57:26

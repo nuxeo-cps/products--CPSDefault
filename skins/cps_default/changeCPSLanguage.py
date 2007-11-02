@@ -4,9 +4,6 @@
 Switch UI locale to lang, reset documents language selection done by
 switchLanguage.
 """
-# XXX AT: resetSessionLanguageSelection and translation_service.changeLanguage
-# both manipulate the session. Is it possible to let only the translation
-# service do it?
 
 from Products.CPSCore.utils import resetSessionLanguageSelection
 

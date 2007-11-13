@@ -1,0 +1,155 @@
+=================================
+CPS Developer Documentation Tools
+=================================
+
+:Authors: - Dave Kuhlman <dkuhlman@rexx.com> <http://www.rexx.com/~dkuhlman>
+          - Marc-Aurèle Darche
+
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+CPS Docutils and reStructuredText Conventions
+=============================================
+
+In order to maintain consistency across documentation for the
+various CPS products, as much as possible, you should follow the
+following conventions when creating and editing documentation in a CPS
+product.
+
+
+Formatting
+----------
+
+Titles:
+
+- Document title: "=" over and under.  Should be in first three
+  (3) lines of file
+
+- Level 1: "=" under
+
+- Level 2: "-" (dash) under
+
+- Level 3: "." (dot/period) under
+
+Bullet lists:
+
+- Level 1: "-" (dash)
+
+- Level 2: "+" (plus)
+
+- Level 3: "*" (star)
+
+Enumerated lists: 1., 2., ...
+
+Code samples: "::" (double colon), followed by a blank line and
+indent the code.
+
+Interpreted text, domain- or application-dependent text, for example program
+identifiers or explicit descriptive markup, "`" (simple back-ticks).
+Examples: `portal_setup`, `i18n Updater`, `body`.
+
+In-line literals and in-line code: "``" (double back-ticks) --
+Example: ``print "Hello, %s" %s name``.
+
+Emphasis: ``*...*`` for italic and ``**...**`` for bold.
+Examples: ``*this is italic*`` and ``**this is bold**``.
+
+
+Standard headers
+----------------
+
+Add the following near the top of the document (after the document
+title).  It will generate a numbered table of contents near the top
+of the document::
+
+    :Revision: $Id$
+
+    .. sectnum::    :depth: 4
+    .. contents::   :depth: 4
+
+An optional Author or Authors header can be used::
+
+    :Author: - Stefane Fermigier
+
+    :Authors: - Dave Kuhlman <dkuhlman@rexx.com> <http://www.rexx.com/~dkuhlman>
+              - Marc-Aurèle Darche
+
+
+Editing modes in Emacs and VIM
+------------------------------
+
+You should use the `rst-mode` under Emacs (which comes with the debian
+python-docutils package). VIM ships by default with the `rst` filetype support.
+
+Add the following at the bottom of the document.  These enable
+Emacs and VIM users to automatically select the appropriate reST mode::
+
+    .. Emacs
+    .. Local Variables:
+    .. mode: rst
+    .. End:
+    .. Vim
+    .. vim: set filetype=rst:
+
+
+Standard filename extension
+---------------------------
+
+What's the standard filename extension for a reStructuredText file?
+
+It's ".txt". Some people would like to use ".rest" or ".rst" or ".restx", but
+why bother? ReStructuredText source files are meant to be readable as plaintext,
+and most operating systems already associate ".txt" with text files. Using a
+specialized filename extension would require that users alter their OS settings,
+which is something that many users will not be willing or able to do.
+
+cf. http://docutils.sourceforge.net/FAQ.html#what-s-the-standard-filename-extension-for-a-restructuredtext-file
+
+
+SVN properties
+--------------
+
+If this is a new document, set the
+``svn:keywords`` and ``svn:eol-style`` properties on the file.
+Example::
+
+    $ svn propset svn:eol-style native xxxx.txt
+    $ svn propset svn:keywords Id xxxx.txt
+
+Optionally one could use more keywords::
+
+    $ svn propset svn:keywords "Author Date Id Revision" xxxx.txt
+
+But your SVN configuration, as described in dev_tools.txt_ should do all this
+for you automatically.
+
+.. _dev_tools.txt: dev_tools.html
+
+
+Docutils: the set of programs to use
+------------------------------------
+
+In order to generate HTML docs out of the .txt reST files, one needs to install
+the Docutils text processing system http://docutils.sourceforge.net/.
+
+For example on a Debian system::
+
+  $ apt-get install python-docutils
+
+But we recommend that you use the latest snapshot,
+http://docutils.sourceforge.net/docutils-snapshot.tgz. The
+snapshots usually contain more features and fewer bugs than the "official"
+releases and have better HTML rendering (for example the rendering of the
+bibliographic fields such as author and authors).
+
+
+.. Emacs
+.. Local Variables:
+.. mode: rst
+.. End:
+.. Vim
+.. vim: set filetype=rst:
+

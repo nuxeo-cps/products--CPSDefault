@@ -5,8 +5,9 @@ SRC_DOCS := $(shell ls *.txt)
 # Uncomment this line to produce HTML docs from all the available text files in
 # this directory.
 #HTML_DOCS := $(subst .txt,.html,${SRC_DOCS})
-HTML_DOCS := howto-virtual_hosts.html guidelines-user_interface.html \
-howto-search.html howto-accesskeys.html howto-upgrading_to_cps3.4.html
+HTML_DOCS := doc_formatting_conventions.html guidelines-user_interface.html \
+howto-virtual_hosts.html howto-search.html howto-accesskeys.html \
+howto-upgrading_to_cps3.4.html
 
 # In order to generate HTML docs, you will need to install
 # Docutils (http://docutils.sourceforge.net/).

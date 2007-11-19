@@ -100,6 +100,15 @@ What you need:
      $ a2enmod rewrite
      $ a2enmod ssl
 
+   On a Debian system with Apache 2.2 (typically Debian Etch) you might get the
+   following error message::
+
+     proxy: No protocol handler was valid for the URL /. If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+
+   In this case the following module should also be enabled::
+
+     $ a2enmod proxy_http
+
 3. Open the needed ports in ``/etc/apache2/ports.conf``::
 
      Listen 80

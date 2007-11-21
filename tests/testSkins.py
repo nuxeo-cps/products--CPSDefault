@@ -67,9 +67,14 @@ class TestSkins(CPSTestCase):
         id = "Voilà l'été"
         self.assertEquals(self.portal.computeId(id, lang='fr'), "voila-ete")
         self.assertNotEquals(self.portal.computeId(id, lang='en'), "voila-ete")
+
         id = "L'association"
         self.assertEquals(self.portal.computeId(id, lang='fr'), "association")
         self.assertNotEquals(self.portal.computeId(id, lang='en'), "association")
+
+        id = "Droit d'auteur"
+        self.assertEquals(self.portal.computeId(id, lang='fr'), "droit-auteur")
+
         id = "This is a message from the president"
         self.assertEquals(self.portal.computeId(id, lang='en'),
                           "message-from-president")

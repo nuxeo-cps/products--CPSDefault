@@ -8,17 +8,17 @@
   <tal:block condition="found">
     <table width="100%" summary="group listing">
      <tr>
-      <th width="16"><br /></th>
+      <th><br /></th>
       <th style="text-align:left;" class="header_roles">
           <tal:block i18n:translate="label_group">Group</tal:block>
       </th>
      </tr>
 
-     <tal:block define="checked python:len(found) is 1 and '1' or None" 
+     <tal:block define="checked python:len(found) is 1 and '1' or None"
 		repeat="group found">
      <tr tal:define="input_id python:group.replace('@', '_at_')"
          tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
-       <td width="16">
+       <td>
          <input type="checkbox" name="member_ids:list" value="" class="noborder"
                 tal:attributes="value string:group:${group};
                                 id input_id;

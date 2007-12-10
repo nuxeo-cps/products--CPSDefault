@@ -226,7 +226,7 @@ Assignment table needs:
           </label>
         </td>
         <tal:block repeat="role cps_roles"
-                   condition="python:len(cps_roles)>1">
+                   condition="python:len(cps_roles) > 1">
           <td tal:define="role_info python:here_roles[role];
 			  here role_info/here;
 			  inherited role_info/inherited;
@@ -235,7 +235,7 @@ Assignment table needs:
             <input type="checkbox" name="member_id_roles:list"
               tal:attributes="value role;
                               name string:${member_info/role_input_name}:list;
-                              checked here;
+                              checked python:here and 'checked';
                              " />
           </td>
         </tal:block>

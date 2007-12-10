@@ -8,7 +8,7 @@
   <tal:block condition="found">
     <table summary="result list" width="100%">
      <tr>
-      <th width="16"><br /></th>
+      <th><br /></th>
       <th i18n:translate="label_user" width="30%"
         class="header_roles">
           User
@@ -25,7 +25,7 @@
        <tal:block define="id python:member[0];
                           entry python:member[1];
                           input_id python:id.replace('@', '_at_')">
-         <td width="16">
+         <td>
            <input type="checkbox" name="member_ids:list" value=""
              class="noborder" tal:attributes="value string:user:${id};
                                               id input_id;

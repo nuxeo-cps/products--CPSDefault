@@ -251,6 +251,9 @@ function getSelectedRadioLabel(buttonGroup) {
  * From Geir Bækholt, adapted for CPS
  */
 function highlightSearchTerm() {
+  // TODO: The way the strings to search are retrieved by the JavaScript
+  // used for the highlighting is not strong enough and can break very easily.
+  // This should be improved.
   var query_elem = document.getElementById('resultSearchText')
   if (! query_elem) {
     return false

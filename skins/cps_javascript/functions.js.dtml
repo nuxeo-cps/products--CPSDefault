@@ -251,19 +251,19 @@ function getSelectedRadioLabel(buttonGroup) {
  * From Geir Bækholt, adapted for CPS
  */
 function highlightSearchTerm() {
-  var query_elem = document.getElementById('searchGadget')
-  if (! query_elem){
+  var query_elem = document.getElementById('resultSearchText')
+  if (! query_elem) {
     return false
   }
   var query = query_elem.value
   // _robert_ ie 5 does not have decodeURI
-  if (typeof decodeURI != 'undefined'){
+  if (typeof decodeURI != 'undefined') {
     query = unescape(decodeURI(query)) // thanks, Casper
   }
   else {
     return false
   }
-  if (query){
+  if (query) {
     queries = query.replace(/\+/g,' ').split(/\s+/)
     // make sure we start the right place and not higlight menuitems or breadcrumb
     searchresultnode = document.getElementById('searchResults')

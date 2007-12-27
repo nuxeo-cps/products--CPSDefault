@@ -43,7 +43,7 @@ def reorderContainerContents(self, REQUEST):
     order or descending order.
 
     Use it for example like this:
-    http://localhost/cps/reorderContainerContents?container=sections&key=effective_date?ascending=True
+    http://localhost/cps/reorderContainerContents?container=sections&key=effective_date&ascending=True
     """
     utool = getToolByName(self, 'portal_url')
     portal = utool.getPortalObject()
@@ -54,9 +54,12 @@ def reorderContainerContents(self, REQUEST):
     container_rpath = REQUEST.form.get('container')
     key = REQUEST.form.get('key')
     ascending = REQUEST.form.get('ascending')
+    ascending = ascending == 'True' or False
 
     container = self.restrictedTraverse(container_rpath)
     reorderContainterContents(container, key, ascending)
 
-    res.append("Container \"%s\" reordering done." % container_rpath)
+    res.append("Container \"%s\", ascending = %s, reordering done."
+               % (container_rpath, ascending))
     return '\n'.join(res)
+

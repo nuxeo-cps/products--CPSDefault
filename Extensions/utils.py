@@ -54,7 +54,7 @@ def reorderContainerContents(self, REQUEST):
     container_rpath = REQUEST.form.get('container')
     key = REQUEST.form.get('key')
     ascending = REQUEST.form.get('ascending')
-    ascending = ascending == 'True' or False
+    ascending = ascending == 'True'
 
     container = self.restrictedTraverse(container_rpath)
     reorderContainterContents(container, key, ascending)

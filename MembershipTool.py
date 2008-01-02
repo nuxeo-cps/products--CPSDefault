@@ -390,11 +390,12 @@ class MembershipTool(CPSMembershipTool):
         """The nonce is a random string different for each instance of
         CPSMembershipTool that is used to generate unique hash values.
 
-        If ZEO is used, each ZEO client will share the same value.
+        This is a ZEO-safe method. If ZEO is used, all the ZEO clients
+        will share the same value.
         """
         try:
-            # Here we use a variable instance so that each ZEO instance
-            # will have the same nonce.
+            # Here we use a instance variable so that each ZEO instance
+            # will have the same value.
             nonce = self._nonce
         except AttributeError:
             self._nonce = ''.join(random.sample('.:;_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',

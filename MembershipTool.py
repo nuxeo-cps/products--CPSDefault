@@ -390,7 +390,7 @@ class MembershipTool(CPSMembershipTool):
         """The nonce is a random string different for each instance of
         CPSMembershipTool that is used to generate unique hash values.
 
-        If ZEO is used, each server will have the same nonce.
+        If ZEO is used, each ZEO client will share the same value.
         """
         try:
             # Here we use a variable instance so that each ZEO server will have

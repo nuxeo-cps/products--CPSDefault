@@ -393,8 +393,8 @@ class MembershipTool(CPSMembershipTool):
         If ZEO is used, each ZEO client will share the same value.
         """
         try:
-            # Here we use a variable instance so that each ZEO server will have
-            # the same nonce.
+            # Here we use a variable instance so that each ZEO instance
+            # will have the same nonce.
             nonce = self._nonce
         except AttributeError:
             self._nonce = ''.join(random.sample('.:;_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',

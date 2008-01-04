@@ -156,6 +156,9 @@ class MembershipTool(CPSMembershipTool):
         if email is None:
             return False
 
+        # For getClientAddr() to return a meaningful value when CPS is behind
+        # a reverse proxy such as Apache, one must set "trusted-proxy"
+        # configuration directives in etc/zope.conf.
         client_address = self.REQUEST.getClientAddr()
         var_mappings = {'portal_url': portal_url,
                         'email': email,

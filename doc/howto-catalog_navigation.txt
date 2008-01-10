@@ -9,13 +9,28 @@ Catalog navigation
 Introduction
 ============
 
-By default CPS uses a classical folder introspection to provide navigation among
-folders. This is fine most of the time. But when a portal has folders heavily
-populated and/or populated with very large objects (> 10Mb) the time for
-returning the folder contents increases.
+By default, CPS uses a classical folder introspection to provide navigation
+among folders. This is fine for most portals. But when a portal has folders
+heavily populated and/or populated with large objects (*for example* for some
+configurations > 10M) the time for returning the folder contents increases.
 
-CPS can be configured by the option in the Properties tab
-`Use catalog for folder navigation` to use its catalog navigation or not.
+This is why CPS also ships a catalog navigation.
+
+To switch the catalog navigation on or off, CPS has an option in the
+`Properties` tab of the portal: `Use catalog for folder navigation`.
+There is no risk to switch it on to test if it's worthy or not for a given
+portal.
+
+
+Code
+====
+
+The code providing the catalog navigation is in the methods
+``getCatalogFolderContents`` and ``reindexFolderContentPositions`` located in
+the following files ::
+
+  CPSDefault/utils.py
+  CPSDefault/skins/cps_default/moveItems.py
 
 
 Advantages and disadvantages
@@ -33,26 +48,28 @@ Advantages
 Disadvantages
 -------------
 
-- Catalog navigation takes a minimal time to perform a catalog query and thus
-  catalog navigation will never return a folder contents before around 1 second.
-  When the catalog used is CPSLuceneCatalog, the minimal time might raise to
-  something around 2 seconds. So this is overkill for little populated folders.
+- Catalog navigation takes a minimal time to perform a catalog query
+  (*for example* for some configurations around 1 second).
+  When the catalog used is CPSLuceneCatalog, the minimal time raises a bit
+  (*for example* for some configurations around 2 seconds).
+  So catalog navigation is overkill for little populated folders.
 
-- Catalog navigation is costly when, in a directory, one puts, for example, the
-  last document at the top of the others.
-  This reindex (but which attribute?) all the documents at the top of the one
-  that is being moved.
-  And when the catalog used is CPSLuceneCatalog, the reindexing is always done
-  on all the attributes of the concerned documents because
-  CPSLuceneCatalog/NXLucene doesn't know how to reindex only the impacted
-  attribute in this case/the current state of the code.
+- Catalog navigation is costly when in a directory, one puts for example the
+  last document at the top of the others. Reordering some folder contents in
+  such a way reindex the attribute ``position_in_container`` of all the
+  documents at the top of the one  that is being moved. And when the catalog
+  used is CPSLuceneCatalog, the reindexing is always done on all the attributes
+  of the concerned documents because CPSLuceneCatalog/NXLucene doesn't know how
+  to reindex only the impacted attribute in this case/the current state of the
+  code.
 
-- Catalog navigation doesn't work with multilingual sites
+- Due to the performance impact of reindexing the folder content positions,
+  only the 100 hundred first documents are reindexed.
+
+- Catalog navigation is not fully tested and validated with multilingual sites
 
   Ticket #866: CatalogNavigation does not work with i18n
   http://svn.nuxeo.org/trac/pub/ticket/866
-
-
 
 
 

@@ -136,12 +136,24 @@ textarea {
   color: <dtml-var mainFontColor>;
   background-color: white;
   font: <dtml-var inputFont>;
+  border: <dtml-var inputBorder>;
+  padding: 0.1em;
 }
+span.resizeHandle {
+  background: transparent url(resize_handle.png) no-repeat;
+  cursor: se-resize;
+  padding-bottom: 16px;
+  padding-right: 16px;
+}
+
 input {
   font: <dtml-var inputFont>;
   color: <dtml-var mainFontColor>;
   background-color: white;
   vertical-align: middle;
+  border: <dtml-var inputBorder>;
+  margin-bottom: 1px; /* IE bug fix */
+  padding: 0.1em;
 }
 select {
   font: <dtml-var inputFont>;
@@ -483,10 +495,6 @@ span.searchFor {
 * html div.document {height: 1%}
 /* End hide from IE-mac */
 
-.netscape4 {
-  display: none;
-}
-
 table {
   font-size: 100%;
 }
@@ -501,15 +509,6 @@ h1, h2 {
   border-bottom: 1px solid <dtml-var mainTabBorderColor>;
 }
 
-textarea {
-  border: <dtml-var inputBorder>;
-  padding: 0.1em;
-}
-input {
-  border: <dtml-var inputBorder>;
-  margin-bottom: 1px; /* IE bug fix */
-  padding: 0.1em;
-}
 select {
   font: <dtml-var inputFont>;
   border: <dtml-var inputBorder>;

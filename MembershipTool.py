@@ -422,13 +422,13 @@ class MembershipTool(CPSMembershipTool):
         cps_roles = CPSMembershipTool.getCPSCandidateLocalRoles(self, obj)
         cps_roles.reverse()
 
-        # XXX a better way of doing is that is necessarly
         # Filter them for CPS
+        # TODO: Find a a better way of doing the filtering
         cps_roles = [x for x in cps_roles if x not in ('Owner', 'Member',
                                                        'Reviewer', 'Manager',
                                                        'Authenticated')]
-        # filter roles by portal type using prefix
-        # XXX TODO relevant roles should be store in the portal_types tool
+        # Filter roles by portal type using prefix
+        # TODO: relevant roles should be store in the portal_types tool
         ptype_role_prefix = {'Section': ('Section', 'Contributor'),
                              'Workspace': ('Workspace', 'Contributor'),
                              'Members Workspace': ('Workspace', 'Contributor'),

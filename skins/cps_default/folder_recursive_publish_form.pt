@@ -14,7 +14,17 @@
         Select a target section for your recursive publication request.
       </p>
     </tal:block>
-    <form action="folder_recursive_publish" method="post">
+    <form action="folder_recursive_publish" method="post"
+          tal:define="
+          rpath python:utool.getRpath(proxy);
+          rpath_in_sections python:rpath.replace('workspaces', 'sections');
+          parent python:proxy.aq_inner.aq_parent;
+          p_rpath python:utool.getRpath(parent);
+          p_rpath_in_sections python:p_rpath.replace('workspaces', 'sections');
+          p_in_sections python:utool.restrictedTraverse(p_rpath_in_sections);
+          proxy_in_sections python:getattr(p_in_sections.aq_inner.aq_explicit,
+                                           proxy.getId(), None);
+          ">
       <ul class="itemInputList"
         tal:define="stree python: here.getSectionsTree()">
         <tal:block repeat="section stree">
@@ -24,7 +34,8 @@
                 tal:attributes="
                 value section/rpath;
                 id section/rpath;
-                checked python:section['rpath'] == 'sections' and 'checked' or None;
+                checked python:(section['rpath'] == p_rpath_in_sections
+                                and proxy_in_sections) and 'checked' or None;
                 " />
               <label
                 tal:attributes="for section/rpath">

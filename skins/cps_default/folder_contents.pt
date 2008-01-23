@@ -110,9 +110,8 @@
           </span>
         </td>
       </tr>
-      <tr tal:define="isWsManager python:checkPerm('Change subobjects order',
-                                                   here);"
-          tal:condition="python:isWsManager and sort_by is None">
+      <tr tal:condition="python:checkPerm('Change subobjects order', here)
+                                and sort_by is None">
         <td>
           <input type="submit" value="button_move_up" class="context moveUp"
                  i18n:attributes="value" name="moveItemsUp:method" />

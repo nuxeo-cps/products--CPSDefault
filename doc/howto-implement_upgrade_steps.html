@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+
+  <title></title>
+  <style type="text/css">
+/*<![CDATA[*/
+  span.c2 {color: rgb(0, 153, 0);}
+  span.c1 {font-style: italic;}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <div class='post-header-line-1'></div>
+
+  <div class='post-body entry-content'>
+    <p>From CPS 3.4.0 there's a new tool called <a href=
+    "http://localhost:8080/cps/portal_setup/manage_workspace">portal_setup</a>
+    which utility is doubtless: a very easy way to install new products by
+    importing profiles, creation of snapshots, export of the configuration
+    state of the site, upgrades, etc. This is the product <span class=
+    "c1">GenericSetup</span>.<br />
+    <br />
+    This post will show how to use GenericSetup to write upgrades. Upgrades can
+    be manage (mainly installed) from <a href=
+    "http://localhost:8080/cps/portal_setup/manage_upgrades">the tab
+    <span class="c1">Upgrades</span> of the tool <span class=
+    "c1">portal_setup</span></a>.<br />
+    <br />
+    The upgrade in this how-to will show how fill the place of an old tool with
+    a new one. However, the steps and main concepts will be usefull for almost
+    any kind of upgrade you need to create.<br />
+    <br /></p>
+
+    <ol>
+      <li>Add a new line to the file <span class=
+      "c1">CPSMessages/configure.zcml</span>.<br />
+        <br />
+
+        <div class="code">
+          <br />
+          <code><br />
+          &lt;configure xmlns="http://namespaces.zope.org/zope"&gt;<br />
+          <br />
+          <span class="c2">&lt;include file="upgrade.zcml" /&gt;</span><br />
+          <br />
+          &lt;/configure&gt;<br /></code><br />
+        </div><br />
+        <br />
+        <br />
+      </li>
+
+      <li>Create a file called upgrade.zcml and add the definition of the new
+      upgrade.<br />
+        <br />
+
+        <div class="code">
+          <br />
+          <code><br />
+          &lt;configure<br />
+          xmlns=&rdquo;http://namespaces.zope.org/zope&rdquo;<br />
+          xmlns:cps=&rdquo;http://namespaces.nuxeo.org/cps&rdquo;&gt;<br />
+          &lt;cps:upgradeStep<br />
+          title=&rdquo;Replace old CPSMessages tool for the new
+          one&rdquo;<br />
+          source=&rdquo;1.0&rdquo; destination=&rdquo;1.1&rdquo;<br />
+          handler=&rdquo;.upgrade.upgrade_10_11_upgrade_imessages_tool&rdquo;<br />
+
+          checker=&rdquo;.upgrade.upgrade_10_11_upgrade_imessages_tool_checker&rdquo;<br />
+
+          sortkey=&rdquo;-10&rdquo;<br />
+          /&gt;<br />
+          &lt;/configure&gt;<br /></code><br />
+        </div><br />
+        <br />
+        <br />
+        The parameters used in the latter expression are:<br />
+
+        <ul>
+          <li><span class="c1">title</span>: The title that will appear in the
+          list of available upgrades in portal_setup-&gt;Upgrades.</li>
+
+          <li><span class="c1">source</span>: Version before upgrade.</li>
+
+          <li><span class="c1">destination</span>: Version after upgrade.</li>
+
+          <li><span class="c1">handler</span>: The module and name of the
+          function that performs the upgrade.</li>
+
+          <li><span class="c1">checker</span>: The module and name of the
+          function that says if the upgrade needs to be run or not. The checker
+          is optional; if it would be too costly to check for the conversion,
+          it can be omitted. This is the case typically for an upgrade step
+          that would recurse in the content object to do some fixups to check
+          if they've already been done it would have to recurse in the content
+          objects too and that's too much work for a simple check. The setup
+          tool won't list a step without a checker if the portal has already
+          been upgraded to a later version than the step's destination
+          version.</li>
+
+          <li><span class="c1">sortkey</span>: The sortkey is optional.</li>
+        </ul><br />
+      </li>
+
+      <li>Create the module <span class="c1">CPSMessages/upgrade.py</span>.
+      This file will contain the functions to check and run all the upgrades of
+      the product.<br />
+      <br /></li>
+
+      <li>Create the function to upgrade. This function will apply the
+      corresponding upgrade.<br />
+        <br />
+
+        <div class="code">
+          <br />
+          <code><br />
+          def upgrade_10_11_upgrade_who_online_tool(self):<br />
+          <code class="codetab"><br />
+          """<br />
+          Removes the old MessagesTool which is replaced by<br />
+          the CPSMessages's.<br />
+          """<br />
+          upgraded = 0<br />
+          imtoolId = MessagesTool.id<br />
+          portal = self.portal_url.getPortalObject()<br />
+          imtool = getToolByName(portal, imtoolId, None)<br />
+          <br />
+          if wtool:<br />
+          <code class="codetab"><br />
+          performUpgrade = imtool.meta_type != MessagesTool.meta_type<br />
+          if performUpgrade:<br />
+          <br />
+          # Import new profile<br />
+          setupTool = getToolByName(portal, 'portal_setup', None)<br />
+          setupTool.importProfile('profile-CPSMessages:default')<br />
+          upgraded = 1<br /></code><br />
+          return upgraded<br /></code><br /></code><br />
+        </div><br />
+        <br />
+        <br />
+      </li>
+
+      <li>Create the check function. If it returns <span class=
+      "c1">true</span>, the upgrade will be available to be applied; if it
+      returns <span class="c1">false</span>, the upgrade can be applied but it
+      will not appear in the list of available upgrades. The functions called
+      by the upgrade method always receives at least one parameter, the object
+      portal.<br />
+        <br />
+
+        <div class="code">
+          <br />
+          <code><br />
+          def upgrade_10_11_upgrade_who_online_tool_checker(self):<br />
+          <code class="codetab"><br />
+          """<br />
+          Returns True if the tool portal_imessages is not instance of<br />
+          CPSMessages.MessagesTool.<br />
+          """<br />
+          performUpgrade = False<br />
+          imtoolId = MessagesTool.id<br />
+          portal = self.portal_url.getPortalObject()<br />
+          imtool = getToolByName(portal, imtoolId, None)<br />
+          <br />
+          if wtool:<br />
+          <code class="codetab"><br />
+          performUpgrade = imtool.meta_type !=
+          MessagesTool.meta_type<br /></code><br />
+          return performUpgrade<br /></code><br /></code><br />
+        </div><br />
+        <br />
+      </li>
+
+      <li>Restart Zope's instance.<br />
+      <br /></li>
+
+      <li>Go to <a href=
+      "http://localhost:8080/cps/portal_setup/manage_upgrades">the tab
+      <span class="c1">Upgrades</span> of the tool <span class=
+      "c1">portal_setup</span></a> and check the new upgrade is
+      there.<br /></li>
+    </ol>
+  </div>
+</body>
+</html>

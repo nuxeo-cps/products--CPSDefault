@@ -825,18 +825,20 @@ def upgrade_document_types_edit_action(portal, check=False):
     action_id = 'edit'
     ttool = getToolByName(portal, 'portal_types')
     for portal_type in ACTION_EDIT_PORTAL_TYPES:
-        logger.debug("portal_type = %s" % portal_type)
         type_information = getattr(ttool, portal_type, None)
         if type_information is None:
             continue
-        action_index = -1
+        action_index = 0
+        action_found = False
         for action in type_information.listActions():
-            action_index += 1
             if action.id == action_id:
+                action_found = True
                 break
-        if action_index >= 0:
-            logger.debug("For portal_type %s : removing action at position %s"
-                         % (portal_type, action_index))
+            action_index += 1
+        if action_found:
+            logger.debug("For portal_type %s : "
+                         "removing action \"%s\" at position %s"
+                         % (portal_type, action_id, action_index))
             type_information.deleteActions((action_index,))
 
     return "Upgraded document types edit action"

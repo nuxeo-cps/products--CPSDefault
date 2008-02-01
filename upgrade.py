@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2007 Nuxeo SAS <http://nuxeo.com>
+# Copyright (c) 2004-2008 Nuxeo SAS <http://nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -22,6 +22,7 @@ from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
 
+LOG_KEY = 'CPSDefault.upgrade'
 
 TYPES = ('Workspace', 'Section', 'CPSForum')
 CHECK_ROOTS = ('workspaces', 'sections')
@@ -29,7 +30,7 @@ CHECK_ROOTS = ('workspaces', 'sections')
 
 def checkUpgradeWorkflows(context):
     """Check if workflows need to be upgraded."""
-    logger = logging.getLogger('CPSDefault.upgrade.checkUpgradeWorkflows')
+    logger = logging.getLogger(LOG_KEY + '.checkUpgradeWorkflows')
     upgrade = 0
     portal = getToolByName(context, 'portal_url').getPortalObject()
     for rpath in CHECK_ROOTS:
@@ -73,7 +74,7 @@ def upgradeWorkflows(self):
     - then click on the test tab of this external method
     """
 
-    logger = logging.getLogger('CPSDefault.upgrade.upgradeWorkflows')
+    logger = logging.getLogger(LOG_KEY + '.upgradeWorkflows')
 
     nchanged = 0
     brains = self.portal_catalog.searchResults(portal_type=TYPES)
@@ -200,7 +201,7 @@ def upgrade_334_335_clean_catalog(self):
     catalog causing the search result page to crash
     """
     logger = logging.getLogger(
-        'CPSDefault.upgrade.upgrade_334_335_clean_catalog')
+        LOG_KEY + '.upgrade_334_335_clean_catalog')
 
     log = "Checking and cleaning cataloged None objects...\n"
     catalog = getToolByName(self, 'portal_catalog')
@@ -260,7 +261,7 @@ def upgrade_320_334_document_types(portal, check=False):
     return "Upgraded document types News and PressRelease"
 
 def _modifyPortalType(portal, old, new, check=False):
-    logger = logging.getLogger('CPSDefault.upgrade._modifyPortalType')
+    logger = logging.getLogger(LOG_KEY + '._modifyPortalType')
     catalog = getToolByName(portal, 'portal_catalog')
     brains = catalog.searchResults(portal_type=old)
 
@@ -781,7 +782,7 @@ def upgrade_338_340_old_skin_layers(portal, check=False):
     """Remove broken skin layers.
     """
     logger = logging.getLogger(
-        'CPSDefault.upgrade.upgrade_338_340_old_skin_layers')
+        LOG_KEY + '.upgrade_338_340_old_skin_layers')
     from Products.CMFCore.DirectoryView import _dirreg
     from Products.CMFCore.DirectoryView import DirectoryViewSurrogate
     res = []
@@ -806,6 +807,59 @@ def upgrade_338_340_old_skin_layers(portal, check=False):
 def check_338_340_old_skin_layers(portal):
     return upgrade_338_340_old_skin_layers(portal, check=True)
 
+
+##################
+
+ACTION_EDIT_PORTAL_TYPES = ('Document', 'News Item', 'File',
+                            'EventDoc', 'ZippedHtml', 'Flash Animation',
+                            'FAQitem', 'GlossaryItem', 'Page',
+                            # Obsolete types
+                            'Press Release', 'Flexible', 'zef',
+                            )
+def upgrade_document_types_edit_action(portal, check=False):
+    """Upgrade some document types to remove the edit action.
+
+    This action is now provided by the workflow.
+    """
+    logger = logging.getLogger(LOG_KEY + '.upgrade_document_types_edit_action')
+    action_id = 'edit'
+    ttool = getToolByName(portal, 'portal_types')
+    for portal_type in ACTION_EDIT_PORTAL_TYPES:
+        logger.debug("portal_type = %s" % portal_type)
+        type_information = getattr(ttool, portal_type, None)
+        if type_information is None:
+            continue
+        action_index = -1
+        for action in type_information.listActions():
+            action_index += 1
+            if action.id == action_id:
+                break
+        if action_index >= 0:
+            logger.debug("For portal_type %s : removing action at position %s"
+                         % (portal_type, action_index))
+            type_information.deleteActions((action_index,))
+
+    return "Upgraded document types edit action"
+
+def check_document_types_edit_action(portal, check=False):
+    """Check if some document types need to have their edit action removed.
+    """
+    logger = logging.getLogger(LOG_KEY + '.check_document_types_edit_action')
+    action_id = 'edit'
+    ttool = getToolByName(portal, 'portal_types')
+    for portal_type in ACTION_EDIT_PORTAL_TYPES:
+        type_information = getattr(ttool, portal_type, None)
+        if type_information is None:
+            continue
+        action_index = 0
+        for action in type_information.listActions():
+            if action.id == action_id:
+                logger.debug("At least the %s portal_type needs to be upgraded."
+                             % portal_type)
+                return True
+            action_index += 1
+        type_information.deleteActions((action_index,))
+    return False
 
 ##################
 

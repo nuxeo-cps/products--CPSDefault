@@ -186,18 +186,18 @@
    <guard-expression>python:not state_change.object.isDefaultLanguage()</guard-expression>
   </guard>
  </transition>
- <transition transition_id="modify" title="Edit content"
+
+ <transition transition_id="modify" title="Modify content"
              new_state="" trigger="USER" before_script=""
              after_script="">
-  <description>This transition provides a specific entry in status history</description>
-
+  <description>This transition controls whether a user can modify a content and also provides a specific entry in status history</description>
   <guard>
-   <guard-role>Manager</guard-role>
-   <guard-role>Owner</guard-role>
-   <guard-role>WorkspaceManager</guard-role>
-   <guard-role>WorkspaceMember</guard-role>
+   <guard-permission>Modify portal content</guard-permission>
   </guard>
+  <action url="%(content_url)s/cpsdocument_edit_form"
+          category="object">action_edit</action>
  </transition>
+
  <transition transition_id="translate"
              title="Add translation" new_state=""
              trigger="USER"

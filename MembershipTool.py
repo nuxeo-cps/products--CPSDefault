@@ -429,16 +429,17 @@ class MembershipTool(CPSMembershipTool):
                                                        'Authenticated')]
         # Filter roles by portal type using prefix
         # TODO: relevant roles should be store in the portal_types tool
-        ptype_role_prefix = {'Section': ('Section', 'Contributor'),
-                             'Workspace': ('Workspace', 'Contributor'),
-                             'Members Workspace': ('Workspace', 'Contributor'),
-                             'Wiki': ('Contributor', 'Reader'),
-                             'Calendar': ('Workspace',),
-                             'CPSForum': ('Forum',),
-                             'Chat': ('Chat',),
-                             'CPS Calendar': ('Attendee',),
-                             'Blog': ('BlogManager', 'BlogPoster'),
-                             }
+        ptype_role_prefix = {
+            'Section': ('Section', 'Contributor'),
+            'Workspace': ('Workspace', 'Contributor'),
+            'Members Workspace': ('Workspace', 'Contributor'),
+            'Wiki': ('Contributor', 'Reader'),
+            'Calendar': ('Workspace',),
+            'CPSForum': ('Forum',),
+            'Chat': ('Chat',),
+            'CPS Calendar': ('Attendee',),
+            'Blog': ('BlogManager', 'BlogPoster', 'Contributor', 'Reader'),
+            }
         ptype = obj.portal_type
         if ptype in ptype_role_prefix.keys():
             contextual_roles = []

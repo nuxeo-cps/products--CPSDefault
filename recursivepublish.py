@@ -99,7 +99,13 @@ def recursivePublish(workspace, target_section_rpath, context, REQUEST=None):
 
     for item_id, item in workspace.objectItems():
         #LOG(log_key, DEBUG, "item_id = %s ..." % item_id)
+        # Don't publish special items such as configuration files
         if item_id.startswith('.'):
+            continue
+        # Don't publish documents which are locked or being worked on,
+        # since they can't be published.
+        proxy_info = context.getContentInfo(item)
+        if proxy_info['review_state'] in ('locked', 'draft'):
             continue
         fti = ttool[item.portal_type]
         if fti.cps_proxy_type in FOLDERISH_PROXY_TYPES:

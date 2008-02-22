@@ -42,8 +42,11 @@ def reorderContainerContents(self, REQUEST):
     ascending : to specify if the content should be ordered in ascending
     order or descending order.
 
-    Use it for example like this:
-    http://localhost/cps/reorderContainerContents?container=sections&key=effective_date&ascending=True
+    Example of usage:
+
+    http://localhost/cps/reorderContainerContents?rpath=sections&key=effective_date
+
+    http://localhost/cps/reorderContainerContents?rpath=sections&key=effective_date&ascending=True
     """
     utool = getToolByName(self, 'portal_url')
     portal = utool.getPortalObject()
@@ -51,7 +54,7 @@ def reorderContainerContents(self, REQUEST):
         raise Unauthorized("You need the ManagePortal permission.")
 
     res = []
-    container_rpath = REQUEST.form.get('container')
+    container_rpath = REQUEST.form.get('rpath')
     key = REQUEST.form.get('key')
     ascending = REQUEST.form.get('ascending')
     ascending = ascending == 'True'

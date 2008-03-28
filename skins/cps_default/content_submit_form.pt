@@ -30,7 +30,9 @@
                         submit_wf_action string:submit;
                         start_wf_action string:copy_submit;">
 
+  <p>
   <metal:block use-macro="here/content_lib_status/macros/status" />
+  </p>
 
   <metal:block use-macro="here/content_lib_transition_form/macros/transition_form">
     <metal:block fill-slot="fields"
@@ -38,9 +40,9 @@
       <table width="100%" cellspacing="0" cellpadding="2"
         summary="sections listing">
         <tr>
-          <th i18n:translate="listingheader_sections">Section</th>
-          <th i18n:translate="listingheader_existing_revision">
-            Existing revision of the same document
+          <th i18n:translate="listingheader_sections">Sections</th>
+          <th i18n:translate="listingheader_existing_revisions">
+            Existing revisions of the same document
           </th>
         </tr>
         <tal:block repeat="section stree">

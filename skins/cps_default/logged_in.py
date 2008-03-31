@@ -67,14 +67,12 @@ if is_anon:
     return context.user_logged_in_failed()
 
 login_time = member.getProperty('last_login_time', None)
-# The '2000/01/01' case is kept for compatibility with CMF
-first_time = login_time is None or (str(login_time) == '2000/01/01')
 
 # We don't want to create a member area for the Zope admin,
 # nor can we setProperties on it.
 if member.has_role('Member'):
-    if first_time:
-        mtool.createMemberArea()
+    # This create the member area only if needed
+    mtool.createMemberArea()
     now = context.ZopeTime()
     member.setProperties(login_time=now, last_login_time=login_time)
 

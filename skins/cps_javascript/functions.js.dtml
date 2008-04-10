@@ -3,11 +3,11 @@ CPS JavaScript functions
 $Id$
 </dtml-comment>
 
-<dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
+<dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1">
 <dtml-call "REQUEST.RESPONSE.setHeader('Content-Type', 'text/javascript')">
 <dtml-call "REQUEST.RESPONSE.setHeader('Last-Modified', last_modified.toZone('GMT').rfc822())">
 <dtml-call "REQUEST.RESPONSE.setHeader('Cache-Control', 'max-age=36000, must-revalidate')">
-<dtml-call "REQUEST.RESPONSE.setHeader('Expires', expires.toZone('GMT').rfc822())" >
+<dtml-call "REQUEST.RESPONSE.setHeader('Expires', expires.toZone('GMT').rfc822())">
 </dtml-let>
 
 var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
@@ -349,4 +349,3 @@ function toggleLayers(more_block, more_items) {
   if(objMoreItems.display == "none")
     objMoreItems.display = "block";
 }
-

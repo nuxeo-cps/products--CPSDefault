@@ -4,7 +4,7 @@ HOWTO implement upgrades
 ========================
 
 :Authors: - Jose Luis de la Rosa
-          - Marc-Aurèle Darche
+          - M.-A. Darche
 
 :Revision: $Id$
 
@@ -24,15 +24,17 @@ It is also possible to use GenericSetup to write upgrades. Upgrades can be
 manage (mainly run) from the tab `Upgrades` of the tool `portal_setup`.
 
 The upgrade in this how-to will show how fill the place of an old tool with a
-new one. However, the steps and main concepts will be usefull for almost any
+new one. However, the steps and main concepts will be useful for almost any
 kind of upgrade you need to create.
+
+All the code dealing with the `upgrade steps` is defined in CPSCore/upgrade.py.
 
 
 Declarations in configure.zcml
 ==============================
 
 Add a new line to the `configure.zcml` file of your product,
-for exampe in CPSMessages/configure.zcml ::
+for example in CPSMessages/configure.zcml ::
 
   <configure xmlns="http://namespaces.zope.org/zope">
   <include file="upgrade.zcml" />
@@ -43,7 +45,7 @@ Declarations in upgrade.zcml
 ============================
 
 Create a file called `upgrade.zcml` and add the definition of the new upgrade
-for exampe in CPSMessages/upgrade.zcml ::
+for example in CPSMessages/upgrade.zcml ::
 
   <configure
     xmlns="http://namespaces.zope.org/zope"
@@ -51,8 +53,8 @@ for exampe in CPSMessages/upgrade.zcml ::
     <cps:upgradeStep
       title="Replace old CPSMessages tool for the new one"
       source="1.0" destination="1.1"
-      handler=".upgrade.upgrade_10_11_upgrade_imessages_tool"
-      checker=".upgrade.upgrade_10_11_upgrade_imessages_tool_checker"
+      handler=".upgrade.upgrade_10_11_imessages_tool"
+      checker=".upgrade.check_10_11_imessages_tool"
       sortkey="-10"
     />
   </configure>
@@ -60,19 +62,59 @@ for exampe in CPSMessages/upgrade.zcml ::
 The parameters used in the latter expression are:
 
 - title: The title that will appear in the list of available upgrades
-  in portal_setup->Upgrades.
-- source: Version before upgrade.
-- destination: Version after upgrade.
-- handler: The module and name of the function that performs the upgrade.
-- checker: The module and name of the function that says if the upgrade needs to
-  be run or not. The checker is optional; if it would be too costly to check for
-  the conversion, it can be omitted. This is the case typically for an upgrade
-  step that would recurse in the content object to do some fixups to check if
-  they've already been done it would have to recurse in the content objects too
-  and that's too much work for a simple check. The setup tool won't list a step
-  without a checker if the portal has already been upgraded to a later version
-  than the step's destination version.
-- sortkey: The sortkey is optional.
+  in `portal_setup -> Upgrades`.
+
+- handler: The fully qualified name (with the module) of the Python method that
+  will perform the upgrade.
+  This Python method will be passed a unique `portal` parameter.
+
+- source: Version before upgrade. Source is a CPS version number
+  (such as ``3.4.0``, ``3.4.3``, etc.) or ``*``.
+  This parameter is optional.
+
+- destination: The version to which the portal version number will be set to
+  after the upgrade. This parameter is optional.
+
+- checker: The fully qualified name (with the module) of a Python method that
+  will tell if the upgrade needs to be run or not. This parameter is optional.
+  This Python method will be passed a unique `portal` parameter.
+
+- sortkey: Makes it possible to order some upgrade steps so that some happen
+  before others. This parameter is optional.
+
+
+Logic
+-----
+
+The logic of whether an upgrade `handler` will be run is as follows.
+
+If a `checker` is specified, it will be the only condition that will be checked
+to determine if the handler should be run, not considering the condition on the
+source.
+
+Otherwise, that is if no checker is specified, the portal version number will be
+checked against the `source` parameter. If the source is ``*`` or not specified,
+it means that the `handler` should always be run. If the `source` is specified,
+it will be compared to the portal current CPS version number, and the `handler`
+will be run if the `source` is less or equal to the portal version number.
+
+Thus, the `portal_setup` tool won't list a step without a checker if the portal
+has already been upgraded to a later version than the step's destination
+version.
+
+
+Good practices
+--------------
+
+If it would be too costly to do a check, it may be better to omit the
+`checker`. This is the case typically for an `checker` that would recurse on all
+the objects to check if some changes have already been done. That may be too
+much work for a simple check that will be run each time the Zope instance
+starts, thus reducing the availability of the service. Such non automatically
+applied upgrade steps will always be available to be run in the tab `Upgrades`
+of the tool `portal_setup`. On this tab it is even possible to `Show old
+upgrades` and select which ones to run.
+
 
 
 Actual code in module upgrade.py
@@ -81,13 +123,14 @@ Actual code in module upgrade.py
 Create the module CPSMessages/upgrade.py. This file will contain the functions
 to check and run all the upgrades of the product.
 
+
 Methods in module upgrade.py
 ============================
 
 Create the method which will do the upgrade. This method will apply the
 corresponding upgrade::
 
-  def upgrade_10_11_upgrade_who_online_tool(self):
+  def upgrade_10_11_imessages_tool(self):
 
   """Removes the old MessagesTool which is replaced by the CPSMessages's."""
   upgraded = False
@@ -114,7 +157,7 @@ be applied; if it returns false, the upgrade can be applied but it will not
 appear in the list of available upgrades. The functions called by the upgrade
 method always receives at least one parameter, the object portal::
 
-  def upgrade_10_11_upgrade_who_online_tool_checker(self):
+  def check_10_11_imessages_tool(self):
 
   """Returns True if the tool portal_imessages is not instance of
   CPSMessages.MessagesTool."""

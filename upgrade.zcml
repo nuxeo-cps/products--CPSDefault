@@ -83,10 +83,15 @@
   <!-- CPS 3.4.6 upgrades -->
 
   <cps:upgradeStep
-      title="Upgrade the modify action to make it fully workflow handled"
+      title="Upgrade documents modify action to make it fully workflow handled"
       source="3.4.5" destination="3.4.6"
       handler=".upgrade.upgrade_document_types_edit_action"
-      checker=".upgrade.check_document_types_edit_action"
+      />
+
+  <cps:upgradeStep
+      title="Upgrade the RSS portlets to make them have multi-channels"
+      source="3.4.5" destination="3.4.6"
+      handler=".upgrade.upgrade_rss_portlets_multichannels"
       />
 
 </configure>

@@ -1,4 +1,8 @@
 # Copyright (c) 2004-2008 Nuxeo SAS <http://nuxeo.com>
+# Authors:
+# Florent Guillaume <fg@nuxeo.com>
+# Lennart Regebro <lr@nuxeo.com>
+# M.-A. Darche <madarche@nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -17,6 +21,7 @@
 # $Id$
 
 import logging
+import itertools
 
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
@@ -808,20 +813,43 @@ def check_338_340_old_skin_layers(portal):
     return upgrade_338_340_old_skin_layers(portal, check=True)
 
 
-##################
+################################################## 3.4.6
 
 ACTION_EDIT_PORTAL_TYPES = ('Document', 'News Item', 'File',
                             'EventDoc', 'ZippedHtml', 'Flash Animation',
                             'FAQitem', 'GlossaryItem', 'Page',
-                            # Obsolete types
-                            'Press Release', 'Flexible', 'zef',
                             )
-def upgrade_document_types_edit_action(portal, check=False):
+
+def check_document_types_edit_action(portal):
+    """Check if some document types need to have their edit action removed.
+
+    This method is NOT USED but kept as reference.
+    """
+    log_key = LOG_KEY + '.check_document_types_edit_action'
+    logger = logging.getLogger(log_key)
+    action_id = 'edit'
+    ttool = getToolByName(portal, 'portal_types')
+    for portal_type in ACTION_EDIT_PORTAL_TYPES:
+        type_information = getattr(ttool, portal_type, None)
+        if type_information is None:
+            continue
+        action_index = 0
+        for action in type_information.listActions():
+            if action.id == action_id:
+                logger.debug("At least the %s portal_type needs to be upgraded."
+                             % portal_type)
+                return True
+            action_index += 1
+    return False
+
+def upgrade_document_types_edit_action(portal):
     """Upgrade some document types to remove the edit action.
 
     This action is now provided by the workflow.
     """
-    logger = logging.getLogger(LOG_KEY + '.upgrade_document_types_edit_action')
+    log_key = LOG_KEY + '.upgrade_document_types_edit_action'
+    logger = logging.getLogger(log_key)
+    logger.debug("...")
     action_id = 'edit'
     ttool = getToolByName(portal, 'portal_types')
     for portal_type in ACTION_EDIT_PORTAL_TYPES:
@@ -841,42 +869,62 @@ def upgrade_document_types_edit_action(portal, check=False):
                          % (portal_type, action_id, action_index))
             type_information.deleteActions((action_index,))
 
-    return "Upgraded document types edit action"
+    logger.debug("DONE")
+    return log_key + " DONE"
 
-def check_document_types_edit_action(portal, check=False):
-    """Check if some document types need to have their edit action removed.
+
+def upgrade_rss_portlets_multichannels(portal):
+    """Upgrade RSS portlets schemas and layouts for multi-channels.
+
+    cf.
+    #1900: It should be possible to set multiple RSS channels in a RSS portlet
     """
-    logger = logging.getLogger(LOG_KEY + '.check_document_types_edit_action')
-    action_id = 'edit'
-    ttool = getToolByName(portal, 'portal_types')
-    for portal_type in ACTION_EDIT_PORTAL_TYPES:
-        type_information = getattr(ttool, portal_type, None)
-        if type_information is None:
-            continue
-        action_index = 0
-        for action in type_information.listActions():
-            if action.id == action_id:
-                logger.debug("At least the %s portal_type needs to be upgraded."
-                             % portal_type)
-                return True
-            action_index += 1
-        type_information.deleteActions((action_index,))
-    return False
+    log_key = LOG_KEY + '.upgrade_rss_portlets_schemas_and_layouts'
+    logger = logging.getLogger(log_key)
+    logger.debug("...")
+    import pdb;pdb.set_trace()
 
-##################
+    # First upgrading schemas and layouts (for future documents)
+    stool = getToolByName(portal, 'portal_schemas')
+    rss_portlet_schema_id = 'rss_portlet'
+    rss_portlet_schema = getattr(stool, rss_portlet_schema_id, None)
+    if rss_portlet_schema is None:
+        message = "Stopping, no schema '%s' found" % rss_portlet_schema_id
+        return log_key + ': ' + message
+    field_id_old = 'channel'
+    field_id = 'channels'
+    if not rss_portlet_schema.has_key(field_id):
+        rss_portlet_schema.addField(field_id, 'CPS String List Field')
 
-AUTOMATIC_UPGRADES = (
-    # format is the following:
-    # from, to, upgrade method, do it 'before' or 'after' cpsupdate
-    # if `from` is a star (*) the portal version is not changed
-    # the list from/to must be contiguous.
-    ('*',  'check zope 2.8', upgrade_catalog_Z28, 'before'),
-    ('*', 'prepare to 3.4.0', upgrade_before_340, 'before'),
-    ('3.2.0', '3.3.4', upgrade_320_334, 'after'),
-    ('3.3.4', '3.3.5', upgrade_334_335, 'after'),
-    ('3.3.5', '3.3.6', upgrade_335_336, 'after'),
-    ('3.3.6', '3.3.7', upgrade_336_337, 'after'),
-    ('3.3.7', '3.3.8', None           , 'after'),
-    ('3.3.8', '3.4.0', upgrade_338_340, 'after'),
-    ('3.3.8.1', '3.4.0', upgrade_338_340, 'after'),
-    )
+    ltool = getToolByName(portal, 'portal_layouts')
+    rss_portlet_layout_id = 'rss_portlet'
+    rss_portlet_layout = getattr(ltool, rss_portlet_layout_id, None)
+    widget_id_old = 'channel'
+    widget_id = 'channels'
+    if not rss_portlet_layout.has_key(widget_id):
+        kw = {'fields': ['channels'],
+              'label_edit': 'cpsportlets_rss_channel_label',
+              'is_i18n': True,
+              'vocabulary': 'cpsportlets_rss_channels_voc',
+              }
+        rss_portlet_layout.addWidget(widget_id, 'MultiSelect Widget', **kw)
+
+    # Then modifying already existing documents
+    repository = getToolByName(portal, 'portal_repository')
+    pfilter = lambda o: getattr(o, 'portal_type', '') == 'RSS Portlet'
+    docs = itertools.ifilter(pfilter, repository.values())
+    count = 0
+    for doc in docs:
+        bdoc = aq_base(doc)
+        channel = getattr(bdoc, 'channel', None)
+        if channel is not None and isinstance(channel, str):
+            bdoc.edit(channels=[channel])
+
+    # Then finally removing the now useless field and widget
+    if rss_portlet_schema.has_key(field_id_old):
+        rss_portlet_schema.delSubObject(field_id_old)
+    if rss_portlet_layout.has_key(widget_id_old):
+        rss_portlet_layout.delSubObject(widget_id_old)
+
+    logger.debug("DONE")
+    return log_key + ": DONE"

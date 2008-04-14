@@ -1,0 +1,144 @@
+
+========================
+HOWTO implement upgrades
+========================
+
+:Authors: - Jose Luis de la Rosa
+          - Marc-Aurèle Darche
+
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+GenericSetup
+============
+
+From CPS 3.4.0 there's a new tool called `portal_setup`: it is a very easy and
+powerful way to install new products by importing profiles, creation of
+snapshots, export of the configuration state of the site, upgrades, etc.
+This is the product GenericSetup.
+
+It is also possible to use GenericSetup to write upgrades. Upgrades can be
+manage (mainly run) from the tab `Upgrades` of the tool `portal_setup`.
+
+The upgrade in this how-to will show how fill the place of an old tool with a
+new one. However, the steps and main concepts will be usefull for almost any
+kind of upgrade you need to create.
+
+
+Declarations in configure.zcml
+==============================
+
+Add a new line to the `configure.zcml` file of your product,
+for exampe in CPSMessages/configure.zcml ::
+
+  <configure xmlns="http://namespaces.zope.org/zope">
+  <include file="upgrade.zcml" />
+  </configure>
+
+
+Declarations in upgrade.zcml
+============================
+
+Create a file called `upgrade.zcml` and add the definition of the new upgrade
+for exampe in CPSMessages/upgrade.zcml ::
+
+  <configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cps="http://namespaces.nuxeo.org/cps">
+    <cps:upgradeStep
+      title="Replace old CPSMessages tool for the new one"
+      source="1.0" destination="1.1"
+      handler=".upgrade.upgrade_10_11_upgrade_imessages_tool"
+      checker=".upgrade.upgrade_10_11_upgrade_imessages_tool_checker"
+      sortkey="-10"
+    />
+  </configure>
+
+The parameters used in the latter expression are:
+
+- title: The title that will appear in the list of available upgrades
+  in portal_setup->Upgrades.
+- source: Version before upgrade.
+- destination: Version after upgrade.
+- handler: The module and name of the function that performs the upgrade.
+- checker: The module and name of the function that says if the upgrade needs to
+  be run or not. The checker is optional; if it would be too costly to check for
+  the conversion, it can be omitted. This is the case typically for an upgrade
+  step that would recurse in the content object to do some fixups to check if
+  they've already been done it would have to recurse in the content objects too
+  and that's too much work for a simple check. The setup tool won't list a step
+  without a checker if the portal has already been upgraded to a later version
+  than the step's destination version.
+- sortkey: The sortkey is optional.
+
+
+Actual code in module upgrade.py
+================================
+
+Create the module CPSMessages/upgrade.py. This file will contain the functions
+to check and run all the upgrades of the product.
+
+Methods in module upgrade.py
+============================
+
+Create the method which will do the upgrade. This method will apply the
+corresponding upgrade::
+
+  def upgrade_10_11_upgrade_who_online_tool(self):
+
+  """Removes the old MessagesTool which is replaced by the CPSMessages's."""
+  upgraded = False
+  imtoolId = MessagesTool.id
+  portal = self.portal_url.getPortalObject()
+  imtool = getToolByName(portal, imtoolId, None)
+
+  if wtool:
+      performUpgrade = imtool.meta_type != MessagesTool.meta_type
+      if performUpgrade:
+          # Import new profile
+          setupTool = getToolByName(portal, 'portal_setup', None)
+          setupTool.importProfile('profile-CPSMessages:default')
+          upgraded = True
+
+  return upgraded
+
+
+The check function
+==================
+
+Create the check function. If it returns true, the upgrade will be available to
+be applied; if it returns false, the upgrade can be applied but it will not
+appear in the list of available upgrades. The functions called by the upgrade
+method always receives at least one parameter, the object portal::
+
+  def upgrade_10_11_upgrade_who_online_tool_checker(self):
+
+  """Returns True if the tool portal_imessages is not instance of
+  CPSMessages.MessagesTool."""
+  performUpgrade = False imtoolId = MessagesTool.id
+  portal = self.portal_url.getPortalObject()
+  imtool = getToolByName(portal, imtoolId, None)
+
+  if wtool:
+      performUpgrade = imtool.meta_type != MessagesTool.meta_type
+
+  return performUpgrade
+
+
+Loading all the modifications
+=============================
+
+Restart the Zope instance to be sure that all the modifications are loaded.
+
+And finally go to the tab `Upgrades` of the `portal_setup` tool and check the
+new upgrade is there.
+
+
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

@@ -89,6 +89,10 @@ The parameters used in the latter expression are:
 Logic
 -----
 
+There is no upgrade step that will start itself automatically. Upgrade steps
+are presented to the portal administrator who then decides which one(s) to
+launch. This is to prevent possible buggy upgrade steps blocking zope start.
+
 The logic of whether an upgrade `handler` will be run is as follows.
 
 If a `checker` is specified, it will be the only condition that will be checked
@@ -106,24 +110,24 @@ Thus, the `portal_setup` tool won't list a step without a checker if the portal
 has already been upgraded to a later version than the step's destination
 version.
 
+
+Good practices
+--------------
+
 Regarding the `source` and `destination` version numbers, the good practice is
 to have them successive, for example ``source="3.4.5"`` and
 ``destination="3.4.6"``. And don't put the same version number for `source` and
 `destination`, it is useless.
 
-
-Good practices
---------------
-
 If it would be too costly to do a check, it may be better to omit the
-`checker`. This is the case typically for an `checker` that would recurse on all
+`checker`. This is the case typically for a `checker` that would recurse on all
 the objects to check if some changes have already been done. That may be too
-much work for a simple check that will be run each time the Zope instance
-starts, thus reducing the availability of the service. Such non automatically
-applied upgrade steps will always be available to be run in the tab `Upgrades`
-of the tool `portal_setup`. On this tab it is even possible to `Show old
-upgrades` and select which ones to run.
+much work for a simple check that will be run each time the `Upgrades` tab of
+the tool `portal_setup` is accessed.
 
+On the `Upgrades` tab of the tool `portal_setup` it is possible to `Show old
+upgrades` and select some to run. This may be needed, for example, if a step
+couldn't do its job properly the first time it was run.
 
 
 Actual code in module upgrade.py

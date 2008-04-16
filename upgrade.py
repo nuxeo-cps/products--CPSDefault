@@ -904,6 +904,7 @@ def upgrade_rss_portlets_multichannels(portal):
               'label_edit': 'cpsportlets_rss_channel_label',
               'is_i18n': True,
               'vocabulary': 'cpsportlets_rss_channels_voc',
+              'hidden_layout_modes': ('view',),
               }
         rss_portlet_layout.addWidget(widget_id, 'MultiSelect Widget', **kw)
         layoutdef = rss_portlet_layout.getLayoutDefinition()

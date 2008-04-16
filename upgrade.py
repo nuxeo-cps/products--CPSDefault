@@ -21,7 +21,6 @@
 # $Id$
 
 import logging
-import itertools
 
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
@@ -908,17 +907,27 @@ def upgrade_rss_portlets_multichannels(portal):
               'vocabulary': 'cpsportlets_rss_channels_voc',
               }
         rss_portlet_layout.addWidget(widget_id, 'MultiSelect Widget', **kw)
+        layoutdef = rss_portlet_layout.getLayoutDefinition()
+        rows = layoutdef['rows']
+        rows_new = []
+        for row in rows:
+            row_new = []
+            for cell in row:
+                if cell['widget_id'] == 'channel':
+                    cell['widget_id'] = 'channels'
+                row_new.append(cell)
+            rows_new.append(row)
+        layoutdef['rows'] = rows
+        rss_portlet_layout.setLayoutDefinition(layoutdef)
 
     # Then modifying already existing documents
-    repository = getToolByName(portal, 'portal_repository')
-    pfilter = lambda o: getattr(o, 'portal_type', '') == 'RSS Portlet'
-    docs = itertools.ifilter(pfilter, repository.values())
+    brains = portal.portal_catalog.searchResults(portal_type=TYPES)
     count = 0
-    for doc in docs:
-        bdoc = aq_base(doc)
-        channel = getattr(bdoc, 'channel', None)
+    for brain in brains:
+        ob = brain.getObject()
+        channel = getattr(ob, 'channel', None)
         if channel is not None and isinstance(channel, str):
-            bdoc.edit(channels=[channel])
+            od.edit(channels=[channel])
 
     # Then finally removing the now useless field and widget
     if rss_portlet_schema.has_key(field_id_old):

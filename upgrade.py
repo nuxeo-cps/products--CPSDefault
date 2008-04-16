@@ -881,7 +881,6 @@ def upgrade_rss_portlets_multichannels(portal):
     log_key = LOG_KEY + '.upgrade_rss_portlets_schemas_and_layouts'
     logger = logging.getLogger(log_key)
     logger.debug("...")
-    import pdb;pdb.set_trace()
 
     # First upgrading schemas and layouts (for future documents)
     stool = getToolByName(portal, 'portal_schemas')
@@ -920,14 +919,16 @@ def upgrade_rss_portlets_multichannels(portal):
         layoutdef['rows'] = rows
         rss_portlet_layout.setLayoutDefinition(layoutdef)
 
-    # Then modifying already existing documents
-    brains = portal.portal_catalog.searchResults(portal_type=TYPES)
+    # Then modifying already existing documents.
+    # One has to query the portlets catalog.
+    brains = portal.portal_cpsportlets_catalog.searchResults(portal_type='RSS Portlet')
     count = 0
     for brain in brains:
         ob = brain.getObject()
         channel = getattr(ob, 'channel', None)
         if channel is not None and isinstance(channel, str):
-            od.edit(channels=[channel])
+            ob.edit(channels=[channel])
+            delattr(ob, 'channel')
 
     # Then finally removing the now useless field and widget
     if rss_portlet_schema.has_key(field_id_old):

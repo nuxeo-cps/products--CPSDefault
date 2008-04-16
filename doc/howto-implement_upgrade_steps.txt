@@ -99,11 +99,17 @@ Otherwise, that is if no checker is specified, the portal version number will be
 checked against the `source` parameter. If the source is ``*`` or not specified,
 it means that the `handler` should always be run. If the `source` is specified,
 it will be compared to the portal current CPS version number, and the `handler`
-will be run if the `source` is less or equal to the portal version number.
+will be run if the `source` of the step is greater than the portal version
+number.
 
 Thus, the `portal_setup` tool won't list a step without a checker if the portal
 has already been upgraded to a later version than the step's destination
 version.
+
+Regarding the `source` and `destination` version numbers, the good practice is
+to have them successive, for example ``source="3.4.5"`` and
+``destination="3.4.6"``. And don't put the same version number for `source` and
+`destination`, it is useless.
 
 
 Good practices

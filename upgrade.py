@@ -849,6 +849,10 @@ def upgrade_document_types_edit_action(portal):
     log_key = LOG_KEY + '.upgrade_document_types_edit_action'
     logger = logging.getLogger(log_key)
     logger.debug("...")
+
+    #
+    # First upgrade the document type definitions
+    #
     action_id = 'edit'
     ttool = getToolByName(portal, 'portal_types')
     for portal_type in ACTION_EDIT_PORTAL_TYPES:
@@ -867,6 +871,48 @@ def upgrade_document_types_edit_action(portal):
                          "removing action \"%s\" at position %s"
                          % (portal_type, action_id, action_index))
             type_information.deleteActions((action_index,))
+
+    #
+    # Then upgrade the concerned workflow
+    #
+    wtool = getToolByName(portal, 'portal_workflow')
+    wf = wtool.workspace_content_wf
+    # Adding (if needed) or modifying the existing "modify" transition
+    tr_modify_id = 'modify'
+    tr_modify = wf.transitions.get(tr_modify_id, None)
+    if tr_modify is None:
+        wf.transitions.addTransition(tr_modify_id)
+        tr_modify = wf.transitions.get(tr_modify_id)
+    tr_modify.setProperties("This transition controls whether a user "
+                            "can modify a content",
+                            '',
+                            props={'guard_permissions': 'Modify portal content'
+                                   },
+                            actbox_name='action_edit',
+                            actbox_category='object',
+                            actbox_url='%(content_url)s/cpsdocument_edit_form',
+        )
+    # Adding the "modify" transition to the concerned states
+    for state_id in ('work', 'state'):
+        state = wf.states.get(state_id, None)
+        if state is None:
+            continue
+        transitions_set = set(state.transitions)
+        transitions_set.add(tr_modify_id)
+        transitions = list(transitions_set)
+        state.setProperties(title=state.title, description=state.description,
+                            transitions=transitions,
+                            )
+
+    #
+    # Then add the action icon
+    #
+    aitool = getToolByName(portal, 'portal_actionicons')
+    action_id = 'modify'
+    category_id = 'object'
+    if aitool.queryActionInfo(category_id, action_id) is None:
+        aitool.addActionIcon(category_id, action_id, 'actionicon_modify.png',
+                             title="Edit", priority=100)
 
     logger.debug("DONE")
     return log_key + " DONE"

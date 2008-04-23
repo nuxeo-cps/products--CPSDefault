@@ -39,12 +39,10 @@ function toggleSelect(toggleSelectButton, selectAllText, deselectAllText) {
  * Toggles an element's visibility.
  * Function to show tooltips.
  * If your element is a span, you must use inline display instead of block
- * XXX recognize div and span then automaticly choose the best display rule
  */
 function toggleElementVisibility(id) {
   element = document.getElementById(id);
   if (element) {
-    //window.alert(element.tagName)
     if (element.style.visibility == 'hidden') {
       element.style.visibility = 'visible';
       if (element.tagName == 'DIV') {
@@ -67,7 +65,6 @@ function toggleElementVisibility(id) {
 function showElement(show, id) {
   element = document.getElementById(id);
   if (element) {
-    //window.alert(element.tagName)
     if (show) {
       element.style.visibility = 'visible';
       if (element.tagName in ['DIV', 'P']) {

@@ -5,9 +5,9 @@
 
 from Products.CPSDefault.recursivepublish import recursivePublish
 
-target_section_rpath = REQUEST.form.get('target_section_rpath')
+target_section_rpaths = REQUEST.form.get('target_section_rpaths')
 proxy = context
-recursivePublish(proxy, target_section_rpath, context)
+recursivePublish(proxy, target_section_rpaths, context)
 
 url = proxy.absolute_url()
 psm = 'psm_recursive_publish_done'

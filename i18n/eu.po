@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-28 15:21default\n"
+"POT-Creation-Date: 2008-05-02 11:41default\n"
 "PO-Revision-Date: 2006-11-16 15:38+0100\n"
 "Last-Translator: Jesus Martin <jesusmartin@lasalle.es>\n"
 "Language-Team: euskera <perikoalkain@lasalle.es>\n"
@@ -33,7 +33,7 @@ msgstr "${portal_title}: Pasahitza gogoratu"
 msgid "Created by ${item_creator}. Last modified ${item_modification}."
 msgstr "${item_creator}k sortua. Azken aldaketa: ${item_modification}."
 
-#.   <a href="join_form" attributes="href string:${here/portal_url}/join_form">Join</a>
+#.   <a attributes="href string:${here/portal_url}/join_form" href="join_form">Join</a>
 #: from ../skins/cps_default/portlet_start_cps.pt
 msgid "Join"
 msgstr "Izena eman"
@@ -53,7 +53,7 @@ msgstr "Hizkuntza"
 msgid "Language..."
 msgstr "Hizkuntza..."
 
-#.   <a href="." content="python:test(isAnonymous, 'Login', 'Log out')" attributes="href python:test(isAnonymous, 'login_form', 'logout');">Log in/out</a>
+#.   <a content="python:test(isAnonymous, 'Login', 'Log out')" attributes="href python:test(isAnonymous, 'login_form', 'logout');" href=".">Log in/out</a>
 #: from ../skins/cps_default/portlet_start_cps.pt
 msgid "Log in/out"
 msgstr "Sartu / Irten"
@@ -200,7 +200,7 @@ msgstr ""
 "Begiratu nola erabiltzen dituzten teklatu-lasterbideak zenbait web "
 "nabigatzaileak:"
 
-#.   <a accesskey="9" attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address">Contact</a>
+#.   <a attributes="href string:mailto:${contact_email}?subject=Info" define="contact_email here/portal_properties/email_from_address" accesskey="9">Contact</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_contact_link"
 msgstr "Harremanetarako pertsona"
@@ -250,7 +250,7 @@ msgstr ""
 msgid "accessibility_explanations_title"
 msgstr "Precisiones sobre la accesibilidad"
 
-#.   <a accesskey="1" attributes="href string:${base_url}">Go to the homepage</a>
+#.   <a attributes="href string:${base_url}" accesskey="1">Go to the homepage</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_home_link"
 msgstr "Ongi etorri orrialdera jo"
@@ -260,12 +260,12 @@ msgstr "Ongi etorri orrialdera jo"
 msgid "accessibility_menu_link"
 msgstr "Menura jo"
 
-#.   <a accesskey="0" attributes="href string:${base_url}accessibility">Accessibility</a>
+#.   <a attributes="href string:${base_url}accessibility" accesskey="0">Accessibility</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_page_link"
 msgstr "Erabilerraztasun-informazioak"
 
-#.   <a accesskey="4" attributes="href string:${base_url}advanced_search_form">Go to search engine</a>
+#.   <a attributes="href string:${base_url}advanced_search_form" accesskey="4">Go to search engine</a>
 #: from ../skins/cps_default/generic_lib_accessibility.pt
 msgid "accessibility_search_link"
 msgstr "Barneko bilaketa-motorrera jo"
@@ -328,8 +328,8 @@ msgid "button_add"
 msgstr "Gehitu"
 
 #.   <input type="submit" class="standalone" value="button_apply" />
-#.   <input name="filter_local_roles" type="submit" class="context" value="button_apply" />
-#.   <input name="edit_local_roles" type="submit" class="context" value="button_apply" />
+#.   <input type="submit" name="filter_local_roles" value="button_apply" class="context" />
+#.   <input type="submit" name="edit_local_roles" value="button_apply" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_apply"
@@ -341,14 +341,14 @@ msgid "button_assign_roles"
 msgstr "Rolak esleitu"
 
 #.   <button type="button" onclick="javascript:history.back()">Back</button>
-#.   <input onclick="history.back()" type="button" class="context" value="button_back" />
+#.   <input type="button" class="context" value="button_back" onclick="history.back()" />
 #: from ../skins/cps_default/content_revert_form.pt
 #: ../skins/cps_default/user_logged_in_failed.pt
 msgid "button_back"
 msgstr "Atzera"
 
 #.   <button type="button" onclick="history.back()">Cancel</button>
-#.   <input onclick="history.back()" type="button" class="context" value="button_cancel" />
+#.   <input type="button" class="context" value="button_cancel" onclick="history.back()" />
 #: from ../skins/cps_default/config_form.pt
 #: ../skins/cps_default/content_abandon_draft_form.pt
 #: ../skins/cps_default/content_accept_form.pt
@@ -362,7 +362,7 @@ msgstr "Ezeztatu"
 
 #.   <button type="submit">Change</button>
 #.   <input type="submit" class="standalone" value="button_change" />
-#.   <input name="change" type="submit" class="standalone" value="button_change" />
+#.   <input type="submit" name="change" value="button_change" class="standalone" />
 #: from ../skins/cps_default/config_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
 #: ../skins/cps_default/full_metadata_edit_form.pt
@@ -370,14 +370,16 @@ msgstr "Ezeztatu"
 msgid "button_change"
 msgstr "Aldaketak gorde"
 
-#.   <input name="change_and_edit" type="submit" class="standalone" value="button_change_and_edit" />
+#.   <input type="submit" class="standalone" value="button_change_and_edit" name="change_and_edit" />
+#.   <input type="submit" name="change_and_edit" value="button_change_and_edit" class="standalone" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "button_change_and_edit"
 msgstr "Aldaketak gorde eta editatu"
 
-#.   <input name="change_and_view" type="submit" class="standalone" value="button_change_and_view" />
+#.   <input type="submit" class="standalone" value="button_change_and_view" name="change_and_view" />
+#.   <input type="submit" name="change_and_view" value="button_change_and_view" class="standalone" />
 #: from ../skins/cps_default/dummy_edit_form.pt
 #: ../skins/cps_default/folder_edit_form.pt
 #: ../skins/cps_default/metadata_edit_form.pt
@@ -399,20 +401,20 @@ msgstr "Bertsioa sortu"
 msgid "button_close"
 msgstr "Itxi"
 
-#.   <input name="folder_copy:method" type="submit" class="context" value="button_copy" />
+#.   <input type="submit" name="folder_copy:method" value="button_copy" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_copy"
 msgstr "Kopiatu"
 
-#.   <input name="folder_cut:method" type="submit" class="context" value="button_cut" condition="can_del" />
+#.   <input condition="can_del" type="submit" name="folder_cut:method" value="button_cut" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_cut"
 msgstr "Ebaki"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#.   <input name="folder_delete:method" type="submit" class="destructive" value="button_delete" attributes="onclick python:'return window.confirm(\'%s\')' %
-#.                 (cpsmcat('description_confirm_delete'), )" />
-#.   <input name="delete_local_roles" type="submit" class="destructive" value="button_delete" />
+#.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
+#.   <input type="submit" name="delete_local_roles" value="button_delete" class="destructive" />
 #: from ../skins/cps_default/config_form.pt
 #: ../skins/cps_default/folder_contents.pt
 #: ../skins/cps_default/folder_localrole_assigned.pt
@@ -424,43 +426,43 @@ msgstr "Ezabatu"
 msgid "button_delete_archive"
 msgstr "Fitxategi hau ezabatu"
 
-#.   <input name="show_blocked_roles_submit" type="submit" class="standalone" value="button_hide_blocked_roles" />
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_hide_blocked_roles" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_hide_blocked_roles"
 msgstr "Blokeatu"
 
-#.   <input name="lr_block" type="submit" class="standalone" value="button_local_roles_block" />
+#.   <input type="submit" name="lr_block" value="button_local_roles_block" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_block"
 msgstr "Blokeatu"
 
-#.   <input name="lr_unblock" type="submit" class="standalone" value="button_local_roles_unblock" />
+#.   <input type="submit" name="lr_unblock" value="button_local_roles_unblock" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_local_roles_unblock"
 msgstr "Desblokeatu"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_login" />
+#.   <input type="submit" class="standalone" value="button_login" name="submit" />
 #.   <input type="submit" value="button_login" />
 #: from ../skins/cps_default/login_form.pt ../skins/cps_default/registered.pt
 msgid "button_login"
 msgstr "Sartu"
 
-#.   <input name="moveItemsBottom:method" type="submit" class="context moveBottom" value="button_move_bottom" />
+#.   <input type="submit" class="context moveBottom" value="button_move_bottom" name="moveItemsBottom:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_bottom"
 msgstr "Amaierara eraman"
 
-#.   <input name="moveItemsDown:method" type="submit" class="context moveDown" value="button_move_down" />
+#.   <input type="submit" class="context moveDown" value="button_move_down" name="moveItemsDown:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_down"
 msgstr "Behera eraman"
 
-#.   <input name="moveItemsTop:method" type="submit" class="context moveTop" value="button_move_top" />
+#.   <input type="submit" class="context moveTop" value="button_move_top" name="moveItemsTop:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_top"
 msgstr "Hasierara eraman"
 
-#.   <input name="moveItemsUp:method" type="submit" class="context moveUp" value="button_move_up" />
+#.   <input type="submit" class="context moveUp" value="button_move_up" name="moveItemsUp:method" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_move_up"
 msgstr "Gora eraman"
@@ -474,7 +476,7 @@ msgstr "Gora eraman"
 msgid "button_ok"
 msgstr "OK"
 
-#.   <input name="folder_paste:method" type="submit" class="context" value="button_paste" />
+#.   <input type="submit" name="folder_paste:method" value="button_paste" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_paste"
 msgstr "Itsatsi"
@@ -486,7 +488,7 @@ msgstr "Itsatsi"
 msgid "button_publish"
 msgstr "Argitaratu"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_register" />
+#.   <input type="submit" class="standalone" value="button_register" name="submit" />
 #: from ../skins/cps_default/join_form.pt
 msgid "button_register"
 msgstr "Izena eman"
@@ -496,7 +498,7 @@ msgstr "Izena eman"
 msgid "button_reject_publication"
 msgstr "Argitaratzea ukatu"
 
-#.   <input name="folder_rename_form:method" type="submit" class="context" value="button_rename" />
+#.   <input type="submit" name="folder_rename_form:method" value="button_rename" class="context" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_rename"
 msgstr "Izen berria eman"
@@ -506,7 +508,7 @@ msgstr "Izen berria eman"
 msgid "button_request_reset_password"
 msgstr "Pasahitza eskatu"
 
-#.   <input name="submit" type="submit" class="standalone" value="button_reset_password" />
+#.   <input type="submit" class="standalone" value="button_reset_password" name="submit" />
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "button_reset_password"
 msgstr "Pasahitza ezabatu"
@@ -516,8 +518,8 @@ msgstr "Pasahitza ezabatu"
 msgid "button_revert_revision"
 msgstr "Artxibatutako bertsiora itzuli"
 
-#.   <input name="search_submit" type="submit" class="standalone" value="button_search" />
-#.   <input name="role_submit" type="submit" class="standalone" value="button_search" />
+#.   <input type="submit" name="search_submit" value="button_search" class="standalone" />
+#.   <input type="submit" name="role_submit" value="button_search" class="standalone" />
 #.   <input type="submit" class="standalone" value="button_search" />
 #: from ../skins/cps_default/advanced_search_form.pt
 #: ../skins/cps_default/folder_localrole_form.pt
@@ -530,8 +532,8 @@ msgstr "Bilatu"
 msgid "button_select"
 msgstr "Hautatu"
 
-#.   <input onclick="someJavaScriptFunctionThatWillBeReplaced" type="button" class="context" value="button_select_all" attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
-#.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" />
+#.   <input attributes="onclick python:'toggleSelect(this, \'%s\', \'%s\')'
+#.                                      % (cpsmcat('button_select_all'), cpsmcat('button_deselect_all'))" type="button" class="context" value="button_select_all" onclick="someJavaScriptFunctionThatWillBeReplaced" />
 #: from ../skins/cps_default/folder_contents.pt
 msgid "button_select_all"
 msgstr "Hautatu dena"
@@ -546,7 +548,7 @@ msgstr "Bidali"
 msgid "button_send_password_reminder"
 msgstr "Pasahitzaren oroigarria eskuratu"
 
-#.   <input name="show_blocked_roles_submit" type="submit" class="standalone" value="button_show_blocked_roles" />
+#.   <input type="submit" name="show_blocked_roles_submit" value="button_show_blocked_roles" class="standalone" />
 #: from ../skins/cps_default/folder_localrole_assigned.pt
 msgid "button_show_blocked_roles"
 msgstr "Blokeatu"
@@ -567,7 +569,7 @@ msgstr "Itzultzeko berrikusketa sortu"
 msgid "button_unpublish_document"
 msgstr "Dokumentua argitaratzetik kendu"
 
-#.   <input onclick="updateParent();" type="submit" class="standalone" value="button_update"> 
+#.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
 #: from ../skins/cps_default/popup-singleselect.pt
 msgid "button_update"
@@ -1281,14 +1283,14 @@ msgstr "Administrailearen posta elektronikoaren helbidea"
 msgid "label_admin_name"
 msgstr "Administrailearen izena"
 
-#.   <img src="image.png" title="label_advertisement_powered_by_cps" alt="label_advertisement_powered_by_cps" width="85" height="15" attributes="src string:${here/portal_url}/cps_powered.png" />
+#.   <img attributes="src string:${here/portal_url}/cps_powered.png" src="image.png" alt="label_advertisement_powered_by_cps" title="label_advertisement_powered_by_cps" width="85" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_advertisement_powered_by_cps"
 msgstr "CPS-k kudeatutako edukia"
 
 #.   <option attributes="selected not:review_state" value="">All</option>
 #.   <option attributes="selected not:portal_type" value="">All</option>
-#.   <option value="" attributes="selected not:Subject">All</option>
+#.   <option attributes="selected not:Subject" value="">All</option>
 #: from ../skins/cps_default/generic_lib_search_form.pt
 msgid "label_all"
 msgstr "Guztiak"
@@ -1303,16 +1305,16 @@ msgstr "Artxibatutako berrikusketak"
 msgid "label_author"
 msgstr "Egilea"
 
-#.   <option value="author_asc" attributes="selected
-#.                                python:sort_by == 'author' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
 #.               Author ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_author_asc"
 msgstr "Egileak"
 
-#.   <option value="author_desc" attributes="selected
-#.                                python:sort_by == 'author' and direction =='desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'author' and direction =='desc'" value="author_desc">
 #.               Author descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1344,24 +1346,24 @@ msgstr "Aukeratu"
 msgid "label_comments"
 msgstr "Iruzkinak"
 
-#.   <option value="compact" attributes="selected python:format == 'compact'">
+#.   <option attributes="selected python:format == 'compact'" value="compact">
 #.               Compact
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_compact"
 msgstr "Trinkotua"
 
-#.   <img src="image.png" title="label_conformance_valid_css" alt="Valid CSS" width="85" height="15" attributes="src string:${here/portal_url}/valid_css-orange.png" />
+#.   <img attributes="src string:${here/portal_url}/valid_css-orange.png" src="image.png" alt="Valid CSS" title="label_conformance_valid_css" width="85" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_css"
 msgstr "CCS estilo-orriak erabiltzeko egokitua"
 
-#.   <img src="image.png" title="label_conformance_valid_xhtml" alt="Valid XHTML 1.0" width="85" height="15" attributes="src string:${here/portal_url}/valid_xhtml-orange.png" />
+#.   <img attributes="src string:${here/portal_url}/valid_xhtml-orange.png" src="image.png" alt="Valid XHTML 1.0" title="label_conformance_valid_xhtml" width="85" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_valid_xhtml"
 msgstr "XHTML erabiltzeko egokitua"
 
-#.   <img src="image.png" title="label_conformance_wai_1a" alt="W3C Web Content Accessibility Level A conformance" width="85" height="15" attributes="src string:${here/portal_url}/valid_wai1A-orange.png" />
+#.   <img attributes="src string:${here/portal_url}/valid_wai1A-orange.png" src="image.png" alt="W3C Web Content Accessibility Level A conformance" title="label_conformance_wai_1a" width="85" height="15" />
 #: from ../skins/cps_default/portlet_conformance_statement.pt
 msgid "label_conformance_wai_1a"
 msgstr "W3C webaren A mailako edukietarako irisgarritasuna"
@@ -1393,32 +1395,32 @@ msgstr "Dokumentuaren oraingo egoera"
 msgid "label_date"
 msgstr "Data"
 
-#.   <option value="effective_asc" attributes="selected
-#.                                 python:sort_by == 'effective' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                 python:sort_by == 'effective' and direction == 'asc'" value="effective_asc">
 #.               Effective date ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_effective_asc"
 msgstr "Egingo den data (goraka)"
 
-#.   <option value="effective_desc" attributes="selected
-#.                                python:sort_by == 'effective' and direction == 'desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'effective' and direction == 'desc'" value="effective_desc">
 #.               Effective date descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_effective_desc"
 msgstr "Egingo den data (beheraka)"
 
-#.   <option value="date_asc" attributes="selected
-#.                                 python:sort_by == 'date' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                 python:sort_by == 'date' and direction == 'asc'" value="date_asc">
 #.               Modification date ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_date_modification_asc"
 msgstr "Aldaketa-data (goraka)"
 
-#.   <option value="date_desc" attributes="selected
-#.                                python:sort_by == 'date' and direction == 'desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'date' and direction == 'desc'" value="date_desc">
 #.               Modification date descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1428,7 +1430,7 @@ msgstr "Aldaketa-data (beheraka)"
 #    <option attributes="selected not:format" value="None">
 #                Default
 #        </option>
-#.   <option value="None" attributes="selected not:format">
+#.   <option attributes="selected not:format" value="None">
 #.               Default
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1454,14 +1456,14 @@ msgstr "Deskribapena"
 msgid "label_destruction"
 msgstr "Deuseztapena"
 
-#.   <option value="detail" attributes="selected python:format == 'detail'">
+#.   <option attributes="selected python:format == 'detail'" value="detail">
 #.               Detail
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_detailed"
 msgstr "Xehetasunak"
 
-#.   <option value="detail_tab" attributes="selected python:format == 'detail_tab'">
+#.   <option attributes="selected python:format == 'detail_tab'" value="detail_tab">
 #.               Detail Tab
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1474,7 +1476,7 @@ msgstr "Taula"
 msgid "label_discussion"
 msgstr "Eztabaidari eragin?"
 
-#.   <option value="None" attributes="selected python: val == None">
+#.   <option attributes="selected python: val == None" value="None">
 #.             Default
 #.           </option>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1482,7 +1484,7 @@ msgstr "Eztabaidari eragin?"
 msgid "label_discussion_default"
 msgstr "Lehenetsia"
 
-#.   <option value="0" attributes="selected python: val == 0">
+#.   <option attributes="selected python: val == 0" value="0">
 #.             Off
 #.           </option>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1490,7 +1492,7 @@ msgstr "Lehenetsia"
 msgid "label_discussion_off"
 msgstr "Eztabaidarik ez"
 
-#.   <option value="1" attributes="selected python: val == 1">
+#.   <option attributes="selected python: val == 1" value="1">
 #.             On
 #.           </option>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
@@ -1574,7 +1576,7 @@ msgstr "Taldearen izena"
 msgid "label_groups_local_roles_assignment"
 msgstr "Taldeei bertako rolen esleipena"
 
-#.   <option value="icon" attributes="selected python:format == 'icon'">
+#.   <option attributes="selected python:format == 'icon'" value="icon">
 #.               Icon
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1591,37 +1593,37 @@ msgstr "Irudia"
 msgid "label_in"
 msgstr "Honakoan"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_author and direction=='asc','author_desc','author_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_author"
 msgstr "Egilea"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_date and direction=='asc','date_desc','date_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_date"
 msgstr "Data"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_size and direction=='asc','size_desc','size_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_size"
 msgstr "Tamaina"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_status and direction=='asc','status_desc','status_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_status"
 msgstr "Egoera"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_title and direction=='asc','title_desc','title_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_title"
 msgstr "Izenburua"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_type and direction=='asc','type_desc','type_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_type"
 msgstr "Mota"
 
-#.   <a href="" attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" />
+#.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_version"
 msgstr "Bertsioa"
@@ -1686,7 +1688,7 @@ msgstr "Kokalekua"
 msgid "label_name"
 msgstr "Izen osoa"
 
-#.   <option value="None" attributes="selected not:sort_by">
+#.   <option attributes="selected not:sort_by" value="None">
 #.               No sort
 #.       </option>
 #.   <input type="submit" class="standalone" value="label_none" />
@@ -1880,16 +1882,16 @@ msgstr "Hasierako data (DD/MM/YYYY)"
 msgid "label_status"
 msgstr "Egoera"
 
-#.   <option value="status_asc" attributes="selected
-#.                                python:sort_by == 'status' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'status' and direction == 'asc'" value="status_asc">
 #.               Status ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_status_asc"
 msgstr "Egoera"
 
-#.   <option value="status_desc" attributes="selected
-#.                                python:sort_by == 'status' and direction =='desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'status' and direction =='desc'" value="status_desc">
 #.               Status descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -1924,16 +1926,16 @@ msgstr "Bilatu beharreko testua"
 msgid "label_title"
 msgstr "Izenburua"
 
-#.   <option value="title_asc" attributes="selected
-#.                                 python:sort_by == 'title' and direction == 'asc'">
+#.   <option attributes="selected
+#.                                 python:sort_by == 'title' and direction == 'asc'" value="title_asc">
 #.               Title ascending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_title_asc"
 msgstr "Izenburua"
 
-#.   <option value="title_desc" attributes="selected
-#.                                python:sort_by == 'title' and direction == 'desc'">
+#.   <option attributes="selected
+#.                                python:sort_by == 'title' and direction == 'desc'" value="title_desc">
 #.               Title descending
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
@@ -2089,7 +2091,7 @@ msgstr "Ez dago erabiltzailerik zure bilaketarekin bat datorrenik"
 msgid "legend_local_roles_no_roles_assigned"
 msgstr "Ez dago esleitutako rolik karpeta honetan"
 
-#.   <option value="" attributes="selected not:filtered_role">
+#.   <option attributes="selected not:filtered_role" value="">
 #.         No filter
 #.       </option>
 #: from ../skins/cps_default/folder_localrole_assigned.pt
@@ -2185,23 +2187,23 @@ msgstr "Bilatu egin zenuen"
 msgid "link_advanced_search"
 msgstr "Bilaketa aurreratua"
 
-#.   <a href="full_metadata_edit_form" attributes="href string:${here_url}/full_metadata_edit_form">Edit all metadata</a>
+#.   <a attributes="href string:${here_url}/full_metadata_edit_form" href="full_metadata_edit_form">Edit all metadata</a>
 #: from ../skins/cps_default/metadata_edit_form.pt
 msgid "link_all_metadata"
 msgstr "Metadatuak aldatu"
 
-#.   <a href="." attributes="href string:${context_url}archivedRevision/${item/rev}/view">Consult this revision</a>
+#.   <a attributes="href string:${context_url}archivedRevision/${item/rev}/view" href=".">Consult this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_consult_this_revision"
 msgstr "Bertsio hau kontsultatu"
 
-#.   <a href="mailto:admin@here.com" attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
-#.                            title p_props/email_from_address">Contact the administrator</a>
+#.   <a attributes="href string:mailto:${p_props/email_from_address}?Subject=[CPS Error];
+#.                            title p_props/email_from_address" href="mailto:admin@here.com">Contact the administrator</a>
 #: from ../skins/cps_default/error_lib_other.pt
 msgid "link_contact_admin"
 msgstr "Administratzailearekin harremanetan jarri"
 
-#.   <a href="." attributes="href string:${context_url}content_delete_archive_form?rev:int=${item/rev}">Purge this revision</a>
+#.   <a attributes="href string:${context_url}content_delete_archive_form?rev:int=${item/rev}" href=".">Purge this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_delete_this_revision"
 msgstr "Berrikusketa hau ezabatu"
@@ -2247,7 +2249,7 @@ msgstr "Saioa hasteko erregistratutako esteka"
 msgid "link_registered_return_home_page"
 msgstr "Orrialde nagusira itzuli"
 
-#.   <a href="." attributes="href string:${context_url}content_revert_form?rev:int=${item/rev}">Revert to this revision</a>
+#.   <a attributes="href string:${context_url}content_revert_form?rev:int=${item/rev}" href=".">Revert to this revision</a>
 #: from ../skins/cps_default/content_lib_archived.pt
 msgid "link_revert_to_this_revision"
 msgstr "Bertsio honetara itzuli"
@@ -2279,7 +2281,7 @@ msgstr "Existing revisions of the same document"
 msgid "listingheader_sections"
 msgstr "Atala"
 
-#.   <a href="" attributes="href string:${here/portal_url}/logout">log out</a>
+#.   <a attributes="href string:${here/portal_url}/logout" href="">log out</a>
 #: from ../skins/cps_default/portlet_session_info.pt
 msgid "log out"
 msgstr "Irten"
@@ -2292,12 +2294,12 @@ msgstr "Irten"
 msgid "more_choices_folder_factories"
 msgstr "+ Aukera gehiago"
 
-#.   <div class="message" condition="python: res['status'] == 'valid'">Result form</div>
+#.   <div condition="python: res['status'] == 'valid'" class="message">Result form</div>
 #: from ../skins/cps_devel/test_layout_form.pt
 msgid "psm_form_ok"
 msgstr "forma zuzena"
 
-#.   <div class="message" condition="python: res['status'] == 'invalid'">Invalid form, plz correct error</div>
+#.   <div condition="python: res['status'] == 'invalid'" class="message">Invalid form, plz correct error</div>
 #: from ../skins/cps_devel/test_layout_form.pt
 msgid "psm_invalid_form"
 msgstr "Baliogabe honez geroztik"
@@ -2309,7 +2311,7 @@ msgid "publish"
 msgstr "Argitaratu"
 
 #.   <span content="item/action" class="action">published</span>
-#.   <td align="center" content="info/review_state" attributes="class info/review_state" condition="status_in_tabs">published</td>
+#.   <td content="info/review_state" attributes="class info/review_state" condition="status_in_tabs" align="center">published</td>
 #: from ../skins/cps_default/content_lib_history.pt
 #: ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "published"

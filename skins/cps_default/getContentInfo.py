@@ -1,4 +1,3 @@
-
 ##parameters=proxy=None, doc=None, level=0, cpsmcat=None
 # $Id$
 """
@@ -205,6 +204,7 @@ except AttributeError:
     info['rev'] = '0'
     info['lang'] = 'en'
 info['time'] = proxy.modified()
+info['effective'] = proxy.effective()
 
 # level 1
 if level > 0:
@@ -300,6 +300,10 @@ if info['time']:
     info['time_str'] = context.getDateStr(info['time'])
 else:
     info['time_str'] = ''
+if info['effective']:
+    info['effective_str'] = context.getDateStr(info['effective'])
+else:
+    info['effective_str'] = ''
 
 
 if bmt is not None:

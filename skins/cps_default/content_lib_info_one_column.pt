@@ -1,7 +1,12 @@
 <!-- a content_lib macro -->
 <!-- $Id$ -->
 
-<!-- One column doc information -->
+<!-- One column doc information
+
+Mandatory parameters to pass to this macro:
+
+- item : the proxy of the document
+-->
 
 <metal:block define-macro="info_one_column">
 <div
@@ -15,8 +20,10 @@
    <tal:block define="status_short_fmt not:nothing;
                       status_time not:nothing;
                       description python:info['doc'].description">
-    <span tal:content="python:here.getDateStr(info['time'],'short')" />.
-    <span tal:content="description" />
+     <tal:span define="time_attribute python:test(here.isInSection(item),
+                                                  'effective', 'time')"
+               content="python:here.getDateStr(info[time_attribute],'short')" />
+     <tal:span content="description" />
    </tal:block>
 </div>
 </metal:block>

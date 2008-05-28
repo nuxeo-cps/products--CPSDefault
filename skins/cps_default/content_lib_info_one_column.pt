@@ -20,9 +20,10 @@ Mandatory parameters to pass to this macro:
    <tal:block define="status_short_fmt not:nothing;
                       status_time not:nothing;
                       description python:info['doc'].description">
-     <tal:span define="time_attribute python:test(here.isInSection(item),
-                                                  'effective', 'time')"
-               content="python:here.getDateStr(info[time_attribute],'short')" />.
+     <tal:span define="time python:info['effective'];
+                       time python:test(here.isInSection(item) and time is not None,
+                                        time, info['time']);"
+               content="python:here.getDateStr(time, 'short')" />.
      <tal:span content="description" />
    </tal:block>
 </div>

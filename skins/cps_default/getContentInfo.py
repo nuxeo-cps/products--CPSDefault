@@ -204,7 +204,9 @@ except AttributeError:
     info['rev'] = '0'
     info['lang'] = 'en'
 info['time'] = proxy.modified()
-info['effective'] = proxy.effective()
+# Don't use "effective()" because it returns a floor date and it's thus
+# difficult to determine if the effective date as actually been set or not.
+info['effective'] = proxy.effective_date
 
 # level 1
 if level > 0:

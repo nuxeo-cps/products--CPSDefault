@@ -47,8 +47,8 @@ Macro needs
   </form>
 
   <form method="post" action="folder_localrole_form"
-	tal:condition="local_roles_blocked"
-	tal:attributes="action localrole_form_url|string:${here_url}/folder_localrole_form">
+        tal:condition="local_roles_blocked"
+        tal:attributes="action localrole_form_url|string:${here_url}/folder_localrole_form">
     <div tal:condition="show_blocked_roles">
       <tal:block i18n:translate="legend_local_roles_hide_blocked_roles">
         You can hide blocked roles:
@@ -112,25 +112,55 @@ Macro needs
 <tal:block condition="python:users or groups">
   <form method="post" action="folder_localrole_edit"
         tal:attributes="action localrole_edit_url|string:${here_url}/folder_localrole_edit">
+    <table class="localRolesAssignment">
+    <thead>
+    <tr>
+      <th id="localRolesAssignmentSelector"><br /></th>
+      <th i18n:translate="label_name">
+        User or Group name
+      </th>
+      <th tal:repeat="role cps_roles"
+        tal:condition="python:len(cps_roles)>1"
+        tal:content="role"
+        i18n:translate="">
+        Role
+      </th>
+      <th i18n:translate="label_inherited_roles"
+        tal:condition="python:not local_roles_blocked or show_blocked_roles">
+        Inherited roles
+      </th>
+    </tr>
+    </thead>
+    <tbody>
     <tal:block condition="users">
-      <h3 i18n:translate="label_users_local_roles_assignment">
+      <tr id="localRolesAssignmentUsers">
+      <th colspan="0"
+          i18n:translate="label_users_local_roles_assignment">
         Users local roles assignment
-      </h3>
+      </th>
+      </tr>
       <tal:block define="sorted_members sorted_users;
                          members users;">
-        <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table"/>
+        <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table_body"/>
       </tal:block>
     </tal:block>
-
+    </tbody>
+    <tbody>
     <tal:block condition="groups">
-      <h3 i18n:translate="label_groups_local_roles_assignment">
+      <tr id="localRolesAssignmentGroups">
+      <th colspan="0"
+          i18n:translate="label_groups_local_roles_assignment">
         Groups local roles assignment
-      </h3>
+      </th>
+      </tr>
       <tal:block define="sorted_members sorted_groups;
                          members groups;">
-        <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table"/>
+        <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table_body"/>
       </tal:block>
     </tal:block>
+    </tbody>
+    </table>
+
     <p>
       <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_parameters"/>
       <input type="submit" value="button_apply"
@@ -169,7 +199,7 @@ Macro needs
 <metal:block define-macro="hidden_parameters">
   <metal:block define-macro="hidden_show_blocked_roles">
     <input type="hidden" name="show_blocked_roles:int"
-	   tal:attributes="value show_blocked_roles" />
+           tal:attributes="value show_blocked_roles" />
   </metal:block>
   <metal:block define-macro="hidden_filtered_role">
     <input type="hidden" name="filtered_role"
@@ -184,25 +214,8 @@ Assignment table needs:
 - cps_roles
 - local_roles_blocked
 </tal:comment>
-<metal:block define-macro="assignment_table">
-  <table class="localRolesAssignment">
-    <tr>
-      <th width="16"><br /></th>
-      <th i18n:translate="label_name">
-        User or Group name
-      </th>
-      <th tal:repeat="role cps_roles"
-        tal:condition="python:len(cps_roles)>1"
-        tal:content="role"
-        i18n:translate="">
-        Role
-      </th>
-      <th i18n:translate="label_inherited_roles"
-        tal:condition="python:not local_roles_blocked or show_blocked_roles">
-        Inherited roles
-      </th>
-    </tr>
-    <tal:block repeat="member_id sorted_members">
+<metal:block define-macro="assignment_table_body">
+   <tal:block repeat="member_id sorted_members">
       <tal:block define="member_info python:members.get(member_id);
                          has_local_roles member_info/has_local_roles;
                         ">
@@ -228,9 +241,9 @@ Assignment table needs:
         <tal:block repeat="role cps_roles"
                    condition="python:len(cps_roles) > 1">
           <td tal:define="role_info python:here_roles[role];
-			  here role_info/here;
-			  inherited role_info/inherited;
-			  blocked role_info/blocked|nothing;"
+                          here role_info/here;
+                          inherited role_info/inherited;
+                          blocked role_info/blocked|nothing;"
               tal:attributes="class python:test(inherited and not local_roles_blocked, 'inheritedRole', test(blocked, 'inheritedBlockedRole', 'assignedRole'))">
             <input type="checkbox" name="member_id_roles:list"
               tal:attributes="value role;
@@ -252,7 +265,7 @@ Assignment table needs:
                     condition="not:repeat/url/start" />
                   <a href=""
                     tal:define="role_url python:utool.getUrlFromRpath(url);
-				name localrole_form|string:folder_localrole_form"
+                                name localrole_form|string:folder_localrole_form"
                     tal:attributes="href string:${role_url}/${name}">
                     <tal:block replace="url"/>
                   </a>
@@ -264,5 +277,5 @@ Assignment table needs:
       </tr>
       </tal:block>
     </tal:block>
-  </table>
+
 </metal:block>

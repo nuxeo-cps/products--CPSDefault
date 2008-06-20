@@ -17,14 +17,27 @@
                  cps_roles python:here.getCPSCandidateLocalRoles();
                  found python:searching and here.folder_localrole_search(search_param, search_term);
                 ">
-<h1 i18n:translate="heading_local_roles_search_members_and_groups"
+<h1 i18n:translate="heading_access_rights_management_search"
   tal:condition="not:searching">
- Assign local roles: Search Members and groups
+ Access rights management: Search Members and groups
 </h1>
-<h1 i18n:translate="heading_local_roles_search_results"
+<h1 i18n:translate="heading_access_rights_management_search_results"
   tal:condition="searching">
- Assign local roles: Search Results
+ Access rights management: Search results
 </h1>
+
+<tal:block i18n:translate="help_access_rights_management">
+<p>
+In this form you can search for users and groups and assign them local access rights,
+also referred to as <q>local roles</q>.
+</p>
+<p>
+To select groups, you have to select the <cite>Group name</cite> search.
+Note that there are special groups <cite>All users</cite> and <cite>Authenticated users</cite>
+that can be reached by doing an empty search.
+</p>
+</tal:block>
+
 
 <div class="user_roles">
 <form method="post" action="folder_localrole_form"

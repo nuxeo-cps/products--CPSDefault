@@ -4,7 +4,9 @@
     <h1 i18n:translate="heading_recursive_publish">Recursive publish</h1>
   </metal:title>
 
-  <metal:block fill-slot="main">
+  <metal:block fill-slot="main"
+               tal:define="stree python:here.getSectionsTree()">
+    <tal:block condition="stree">
     <tal:block i18n:translate="description_confirm_recursive_publish">
       <p>
         Select the target section(s) into which the content of the current folder
@@ -16,8 +18,7 @@
       </p>
     </tal:block>
     <form action="folder_recursive_publish" method="post">
-      <ul class="itemInputList"
-        tal:define="stree python: here.getSectionsTree()">
+      <ul class="itemInputList">
         <tal:block repeat="section stree">
           <li>
             <input type="checkbox" name="target_section_rpaths:list"
@@ -52,5 +53,16 @@
         <button type="submit" i18n:translate="button_ok">OK</button>
       </p>
     </form>
+    </tal:block>
+    <tal:block condition="not:stree">
+      <p i18n:translate="recursive_publish_no_section_to_publish_into">
+        Sorry, there isn't any section into which you could publish
+        recursively.
+      </p>
+      <p>
+        <button type="button" onclick="javascript:history.back()"
+                i18n:translate="button_back">Back</button>
+      </p>
+    </tal:block>
   </metal:block>
 </html>

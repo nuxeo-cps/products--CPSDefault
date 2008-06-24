@@ -27,7 +27,6 @@ from AccessControl import Unauthorized
 from AccessControl import ModuleSecurityInfo
 from AccessControl.requestmethod import postonly
 
-from Products.CMFCore.permissions import ManagePortal
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.utils import _checkPermission
 
@@ -41,10 +40,6 @@ FOLDERISH_PROXY_TYPES = ['folder', 'folderishdocument',
 
 security = ModuleSecurityInfo('Products.CPSDefault.recursivepublish')
 
-# XXX : Why couldn't this be protected like this ?
-# If so, this gives the following error :
-# import of "recursivePublish" from "Products.CPSDefault.recursivepublish" is unauthorized. You are not allowed to access 'recursivePublish' in this context
-#security.declareProtected(ManagePortal, 'recursivePublish')
 security.declarePublic('recursivePublish')
 @postonly
 def recursivePublish(workspace, target_section_rpaths, context, REQUEST=None):
@@ -55,8 +50,6 @@ def recursivePublish(workspace, target_section_rpaths, context, REQUEST=None):
     logger.debug("target_section_rpaths = %s" % target_section_rpaths)
     utool = getToolByName(context, 'portal_url')
     portal = utool.getPortalObject()
-    if not _checkPermission(ManagePortal, portal):
-        raise Unauthorized("You need the ManagePortal permission.")
     for rpath in target_section_rpaths:
         recursivePublishInFolder(workspace, rpath, context)
     logger.debug("DONE")

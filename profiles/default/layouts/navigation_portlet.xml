@@ -120,6 +120,20 @@
   <property
      name="hidden_if_expr">python: context.display != 'extended_site_map'</property>
  </widget>
+ <widget name="start_depth" meta_type="Int Widget">
+  <property name="fields">
+   <element value="start_depth"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_navigation_start_depth_label</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="hidden_if_expr">python:context.display not in ('navigation_tree',)</property>
+ </widget>
  <widget name="end_depth" meta_type="Int Widget">
   <property name="fields">
    <element value="end_depth"/>
@@ -289,8 +303,13 @@
   </row>
   <row>
    <cell name="root_uids"/>
-   <cell name="rel_depth"/>
+  </row>
+  <row>
+   <cell name="start_depth"/>
    <cell name="end_depth"/>
+   <cell name="rel_depth"/>
+  </row>
+  <row>
    <cell name="contextual"/>
    <cell name="context_is_portlet"/>
    <cell name="context_rpath"/>

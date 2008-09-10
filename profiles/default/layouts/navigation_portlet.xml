@@ -132,7 +132,8 @@
    <element value="view"/>
   </property>
   <property name="hidden_readonly_layout_modes"/>
-  <property name="hidden_if_expr">python:context.display not in ('navigation_tree',)</property>
+  <property name="hidden_if_expr">python:context.display not in
+      ('navigation_tree', 'collapsible_menu')</property>
  </widget>
  <widget name="end_depth" meta_type="Int Widget">
   <property name="fields">
@@ -147,7 +148,9 @@
   </property>
   <property name="hidden_readonly_layout_modes"/>
   <property
-     name="hidden_if_expr">python: context.display in ['folder_contents', 'subfolder_contents', 'folder_contents_detailed', 'collapsible_menu', 'up_to_parent', 'folder_contents_dropdown_list']</property>
+     name="hidden_if_expr">python: context.display in ('folder_contents',
+      'subfolder_contents', 'folder_contents_detailed', 'up_to_parent',
+      'folder_contents_dropdown_list', 'collapsible_menu')</property>
  </widget>
  <widget name="folder_prefixes" meta_type="Lines Widget">
   <property name="fields">
@@ -186,7 +189,7 @@
   </property>
   <property name="hidden_readonly_layout_modes"/>
   <property
-     name="hidden_if_expr">python: context.display in ['folder_contents', 'subfolder_contents', 'navigation_tree', 'site_map', 'site_map_3_tabs', 'up_to_parent', 'folder_contents_detailed', 'folder_contents_dropdown_list']</property>
+     name="hidden_if_expr">python: context.display in ['folder_contents', 'subfolder_contents', 'navigation_tree', 'site_map', 'site_map_3_tabs', 'up_to_parent', 'folder_contents_detailed', 'folder_contents_dropdown_list', 'collapsible_menu']</property>
  </widget>
  <widget name="root_uids" meta_type="Lines Widget">
   <property name="fields">

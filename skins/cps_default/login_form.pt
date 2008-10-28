@@ -14,28 +14,33 @@
          summary="Table for entering login information">
     <tbody>
     <tr>
-    <th>
+      <th>
         <label for="username"
-               i18n:translate="label_user_name">User name</label></th>
-    <td>
-        <input type="text" id="username" name="__ac_name"
-               class="focus" size="20" value=""
-               tal:attributes="value username" /></td>
+               i18n:translate="label_user_name">User name</label>
+      </th>
+      <td>
+        <input type="text" id="username" name="__ac_name" size="20" value=""
+               tal:attributes="value username;
+                               class python:not username and 'focus'
+                                            or nothing;"/>
+      </td>
     </tr>
     <tr>
-    <th>
+      <th>
         <label for="password"
                i18n:translate="label_password">Password</label></th>
-    <td>
-        <input type="password" id="password" name="__ac_password" size="20"
-               value="" /></td>
+      <td>
+        <input type="password" id="password" name="__ac_password"
+               size="20" value=""
+               tal:attributes="class python:username and 'focus' or nothing"/>
+      </td>
     </tr>
     <tr>
-    <th>
+      <th>
         <label for="remember"
                i18n:translate="label_remember_user_name">Remember my
                name</label></th>
-    <td>
+      <td>
         <input type="checkbox" name="__ac_persistent" checked="checked"
                id="remember" class="noborder" /></td>
     </tr>

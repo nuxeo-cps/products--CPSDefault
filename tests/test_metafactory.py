@@ -24,7 +24,7 @@ from zope.testing import doctest
 def test_suite():
     return unittest.TestSuite((
         doctest.DocTestSuite('Products.CPSDefault.metafactory'),
-        doctest.DocFileTest('doc/developer/metafactory.txt',
+        doctest.DocFileTest('doc/metafactory.txt',
                             package='Products.CPSDefault',
                             optionflags=doctest.ELLIPSIS),
         ))

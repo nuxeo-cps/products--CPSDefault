@@ -28,6 +28,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
+from Products.CPSDocument.tests.testDefaultDocuments import DOCUMENT_TYPES
 
 WORKSPACE_ID = "test-collaborative-workspace"
 
@@ -204,9 +205,11 @@ class TestCollaborativeEditionWorkflow(CPSTestCase):
                                       if not id.startswith('.')])
 
     def testCollaborativeEditWithAllDocumentTypes(self):
-        document_types = [k for k, v in self.portal.getDocumentTypes().items()
-                            if v['cps_proxy_type']=='document']
-        for document_type in document_types:
+        ttool = self.portal.portal_types
+        for document_type in DOCUMENT_TYPES:
+            fti = ttool._getOb(document_type)
+            if fti.cps_proxy_type != 'document':
+                continue
             self._testCollaborativeEdit(document_type)
 
 

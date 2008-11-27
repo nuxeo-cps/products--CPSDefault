@@ -32,6 +32,7 @@ from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
+from Products.CPSDocument.tests.testDefaultDocuments import DOCUMENT_TYPES
 
 ANOTHER_SECTION_ID = 'another-section'
 
@@ -274,10 +275,9 @@ class TestPublication(CPSTestCase):
         self.member_ws.manage_delObjects(['doc'])
 
     def testSubmitAllDocumentTypes(self):
-        all_document_types = self.portal.getDocumentTypes()
-        del all_document_types['Workspace']
-        del all_document_types['Section']
-        for document_type in all_document_types.keys():
+        ttool = self.portal.portal_types
+        for document_type in (tid for tid in DOCUMENT_TYPES
+                         if ttool._getOb(tid).cps_proxy_type != 'folder'):
             self._testSubmit(document_type)
 
     def testSubmitWithModifiedWorkflow(self):

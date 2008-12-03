@@ -1,10 +1,9 @@
 ##parameters
 # $Id$
-"""
-Make available a new language in a CPS portal with TranslationService
+"""Manage available languages and default language in the portal.
 """
 
-# FIXME: localizergeddon
+# TODO: localizergeddon
 
 from Products.CPSDefault.utils import manageCPSLanguage
 

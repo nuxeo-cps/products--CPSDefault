@@ -76,12 +76,17 @@ def getNonArchivedVersionContextUrl(content_url):
     return content_url
 
 
-# FIXME: LocalizerGeddon
+# TODO: LocalizerGeddon
 module_security.declarePublic('manageCPSLanguage')
 def manageCPSLanguage(context, action, default_language, languages=None):
-    """Manage available a languages in a CPS portal with Localizer"""
+    """Manage available languages and default language in the portal.
 
-    #XXX: Replace with TranslationService
+    Possible actions are "add", "delete" and "chooseDefault".
+    """
+    # The portal default language is stored in the Localizer tool
+    # instead of being stored in the portal itself.
+    # TODO: Replace the use of Localizer with TranslationService
+    # and store the default language in the poral.
     catalogs = context.Localizer.objectValues()
     catalogs.append(context.Localizer)
     portal = context.portal_url.getPortalObject()

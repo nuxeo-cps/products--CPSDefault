@@ -26,7 +26,9 @@ from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
+from Products.CMFCore.utils import getToolByName
 from Products.CMFDefault.Portal import PortalGenerator
+
 from Products.CPSCore.portal import CPSSite
 
 class CPSDefaultSite(CPSSite):
@@ -62,6 +64,14 @@ class CPSDefaultSite(CPSSite):
         Used by acquisition.
         """
         return self
+
+    security.declarePublic('getDefaultLanguage')
+    def getDefaultLanguage(self):
+        """Get the portal default language.
+        """
+        translation_service = getToolByName(self, 'translation_service')
+        default_language = translation_service.getDefaultLanguage()
+        return default_language
 
 
 InitializeClass(CPSDefaultSite)

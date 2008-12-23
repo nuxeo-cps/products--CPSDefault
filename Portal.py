@@ -65,6 +65,14 @@ class CPSDefaultSite(CPSSite):
         """
         return self
 
+    security.declarePublic('getSelectedLanguage')
+    def getSelectedLanguage(self):
+        """Get the selected language for the current user.
+        """
+        translation_service = getToolByName(self, 'translation_service')
+        selected_language = translation_service.getSelectedLanguage()
+        return selected_language
+
     security.declarePublic('getDefaultLanguage')
     def getDefaultLanguage(self):
         """Get the portal default language.

@@ -442,7 +442,8 @@ class MembershipTool(CPSMembershipTool):
             'CPSForum': ('Forum',),
             'Chat': ('Chat',),
             'CPS Calendar': ('Attendee',),
-            'Blog': ('BlogManager', 'BlogPoster', 'Contributor', 'Reader'),
+            'Blog': ('BlogManager', 'BlogPoster', 'Contributor', 'Reader',
+                     'Section', 'Workspace'),
             }
         ptype = obj.portal_type
         if ptype in ptype_role_prefix.keys():

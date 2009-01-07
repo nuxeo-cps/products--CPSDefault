@@ -1,4 +1,4 @@
-# (C) Copyright 2005-2008 Nuxeo SAS <http://nuxeo.com>
+# (C) Copyright 2005-2009 Nuxeo SAS <http://nuxeo.com>
 # Authors:
 # M.-A. Darche <madarche@nuxeo.com>
 # Florent Guillaume <fg@nuxeo.com>
@@ -42,7 +42,7 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
-
+from Products.CPSUtil.mail import send_mail
 
 LOG_KEY = 'CPSDefault.MembershipTool'
 
@@ -193,12 +193,9 @@ class MembershipTool(CPSMembershipTool):
             'email_password_reset_confirmation_body',
             mapping=var_mappings).encode(portal_encoding)
         try:
-            self.MailHost.send(body,
-                               mfrom=mail_from_address,
-                               mto=email,
-                               subject=subject,
-                               encode='8bit')
-        except (socket.error, SMTPException, MailHostError), e:
+            send_mail(self, mto=email, mfrom=mail_from_address, subject=subject,
+                      body=body)
+        except Exception, e:
             LOG(LOG_KEY, WARNING, "Error while sending reset email "
                 "for %s (%s %s)" % (who, e.__class__.__name__,
                                     str(e)))

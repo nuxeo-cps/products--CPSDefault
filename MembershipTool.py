@@ -66,9 +66,10 @@ class MembershipTool(CPSMembershipTool):
 
     email_field = 'email'
     enable_password_reset = True
-    # 30 min is a minimum and 2 hours is a safe choice because greylisting
-    # techniques may hold back emails for quite some time.
-    reset_password_request_validity = 120*60 # 120 min
+    # 30 min is the strict minimum that should be set because greylisting
+    # techniques on SMTP servers may hold back emails for a certain amount of
+    # time. 24 hours is a safe choice.
+    reset_password_request_validity = 24*60*60 # 24 hours
     enable_password_reminder = False
 
     # defaults overloaded from base class

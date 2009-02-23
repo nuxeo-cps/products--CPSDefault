@@ -159,7 +159,7 @@ def computeContributors(portal, contributors):
         try:
             dir = portal.portal_directories.members
             fullname = dir._getEntry(user_id)[dir.title_field]
-        except (AttributeError, KeyError):
+        except (AttributeError, KeyError, ValueError):
             fullname = None
 
     if not fullname:

@@ -15,6 +15,7 @@ mtool.requestPasswordReset(who)
 # We don't care about whether it works or not, we don't want
 # to give info to a potential attacker. So no result is checked.
 
-REQUEST.RESPONSE.redirect("%s/?portal_status_message=%s" %
-                          (portal.account_lost_password_form.absolute_url(),
-                           'psm_reset_password_request_received'))
+REQUEST.RESPONSE.redirect("%s?who=%s" %
+                          (portal.account_request_reset_password_info.absolute_url(),
+                           who))
+

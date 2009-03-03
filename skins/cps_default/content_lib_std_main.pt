@@ -3,9 +3,11 @@
 
 <!-- Standard formated main -->
 
-<metal:block define-macro="std_main">
+<metal:block define-macro="std_main"
+             tal:define="message_type message_type|nothing">
   <h1><metal:block define-slot="title">title</metal:block></h1>
-  <p class="help">
+  <p class="help"
+     tal:attributes="class python:message_type or 'help'">
     <metal:block define-slot="help">help</metal:block>
   </p>
   <metal:block define-slot="main">main bla</metal:block>

@@ -6,6 +6,7 @@
  <property name="style_prefix">layout_portlet_</property>
  <property name="flexible_widgets"/>
  <property name="validate_values_expr"></property>
+
  <widget name="cluster_id" meta_type="String Widget">
   <property name="fields">
    <element value="cluster_id"/>
@@ -17,6 +18,7 @@
   </property>
   <property name="hidden_if_expr">not:context/render_items</property>
  </widget>
+
  <widget name="contextual" meta_type="Boolean Widget">
   <property name="fields">
    <element value="contextual"/>
@@ -29,6 +31,7 @@
   </property>
   <property name="hidden_readonly_layout_modes"/>
  </widget>
+
  <widget name="display_description" meta_type="Boolean Widget">
   <property name="fields">
    <element value="display_description"/>
@@ -42,6 +45,7 @@
   <property
      name="hidden_if_expr">python: context.render_items or context.render_method</property>
  </widget>
+
  <widget name="folder_path" meta_type="String Widget">
   <property name="fields">
    <element value="folder_path"/>
@@ -54,6 +58,7 @@
   <property name="hidden_if_expr">context/contextual</property>
   <property name="display_width">36</property>
  </widget>
+
  <widget name="link_string" meta_type="String Widget">
   <property name="fields">
    <element value="link_string"/>
@@ -66,6 +71,7 @@
   <property name="hidden_if_expr">context/render_method</property>
   <property name="display_width">36</property>
  </widget>
+
  <widget name="max_items" meta_type="Int Widget">
   <property name="fields">
    <element value="max_items"/>
@@ -79,6 +85,7 @@
   <property name="min_value">1</property>
   <property name="max_value">20</property>
  </widget>
+
  <widget name="max_words" meta_type="Int Widget">
   <property name="fields">
    <element value="max_words"/>
@@ -91,6 +98,7 @@
   <property
      name="hidden_if_expr">python: context.render_items or context.render_method</property>
  </widget>
+
  <widget name="portlet" meta_type="Generic Portlet Widget">
   <property name="fields">
    <element value="portlet"/>
@@ -100,6 +108,7 @@
   </property>
   <property name="render_method">widget_portlet_content</property>
  </widget>
+
  <widget name="query_title" meta_type="String Widget">
   <property name="fields">
    <element value="query_title"/>
@@ -111,6 +120,7 @@
   </property>
   <property name="display_width">36</property>
  </widget>
+
  <widget name="render_items" meta_type="Boolean Widget">
   <property name="fields">
    <element value="render_items"/>
@@ -122,6 +132,7 @@
    <element value="view"/>
   </property>
  </widget>
+
  <widget name="render_method" meta_type="String Widget">
   <property name="fields">
    <element value="render_method"/>
@@ -135,6 +146,7 @@
   <property name="hidden_if_expr">context/render_items</property>
   <property name="display_width">30</property>
  </widget>
+
  <widget name="search_type" meta_type="Select Widget">
   <property name="fields">
    <element value="search_type"/>
@@ -147,6 +159,7 @@
   <property name="vocabulary">cpsportlets_content_search_voc</property>
   <property name="translated">True</property>
  </widget>
+
  <widget name="searchable_types" meta_type="MultiSelect Widget">
   <property name="fields">
    <element value="searchable_types"/>
@@ -161,6 +174,7 @@
   <property name="translated">False</property>
   <property name="size">7</property>
  </widget>
+
  <widget name="short_syndication_formats" meta_type="CheckBox Widget">
   <property name="fields">
    <element value="short_syndication_formats"/>
@@ -172,6 +186,7 @@
    <element value="view"/>
   </property>
  </widget>
+
  <widget name="show_icons" meta_type="Boolean Widget">
   <property name="fields">
    <element value="show_icons"/>
@@ -184,6 +199,7 @@
   </property>
   <property name="hidden_readonly_layout_modes"/>
  </widget>
+
  <widget name="sort_on" meta_type="Select Widget">
   <property name="fields">
    <element value="sort_on"/>
@@ -198,6 +214,7 @@
   <property name="vocabulary">cpsportlets_content_sort_on_voc</property>
   <property name="translated">True</property>
  </widget>
+
  <widget name="sort_reverse" meta_type="Boolean Widget">
   <property name="fields">
    <element value="sort_reverse"/>
@@ -209,6 +226,7 @@
    <element value="view"/>
   </property>
  </widget>
+
  <widget name="syndication_formats" meta_type="MultiSelect Widget">
   <property name="fields">
    <element value="syndication_formats"/>
@@ -222,6 +240,7 @@
   <property name="vocabulary">cpsportlets_syndication_formats_voc</property>
   <property name="translated">True</property>
  </widget>
+
  <table>
   <row>
    <cell name="portlet" ncols="3"/>

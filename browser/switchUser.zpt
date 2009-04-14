@@ -1,0 +1,13 @@
+<metal:html use-macro="here/content_lib_master/macros/master">
+  <metal:block fill-slot="header">
+  </metal:block>
+  <metal:block fill-slot="main">
+    <h1>Switch user</h1>
+    <form method="post" encoding="multipart/form-data"
+	  action="cps_do_switch_user">
+      <input type="string" tal:attributes="name view/getSuInputName"/>
+      <input type="submit" class="context" name="submit_su"
+	     value="ok"/>
+    </form>
+  </metal:block>
+</metal:html>

@@ -3,11 +3,20 @@
   </metal:block>
   <metal:block fill-slot="main">
     <h1>Switch user</h1>
-    <form method="post" encoding="multipart/form-data"
-	  action="cps_do_switch_user">
-      <input type="string" tal:attributes="name view/getSuInputName"/>
-      <input type="submit" class="context" name="submit_su"
-	     value="ok"/>
-    </form>
+
+    <tal:block define="current view/getActiveSwitchUserName">
+      <p tal:condition="current">
+        You have already switched to user <span tal:content="current"/>.
+        You can either switch to another user or be yourself again</p>
+        <form method="post" encoding="multipart/form-data"
+              action="cps_do_switch_user">
+        <input type="string" tal:attributes="name view/getSuInputName"/>
+        <input type="submit" class="context" value="Switch"
+	       tal:attributes="name view/getSuButtonName"/>
+        <input type="submit" class="context" value="Unswitch"
+	       tal:condition="current"
+	       tal:attributes="name view/getSuStopButtonName"/>
+      </form>
+    </tal:block>
   </metal:block>
 </metal:html>

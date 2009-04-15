@@ -25,21 +25,50 @@ from Products.Five import BrowserView
 from Products.CPSUserFolder.interfaces import ICPSUserFolder
 
 SU_INPUT_NAME = "su_name"
+SU_BUTTON_NAME = "su"
+SU_STOP_BUTTON_NAME = "su_stop"
 
 class SwitchUserView(BrowserView):
 
+    def getAclu(self):
+        aclu = getToolByName(self.context, 'acl_users')
+        if not ICPSUserFolder.providedBy(aclu):
+            raise RuntimeError("User folder isn't a CPSUserFolder")
+        return aclu
+
+
     def switchUser(self):
         form = self.request.form
+        su_stop = form.get(SU_STOP_BUTTON_NAME)
+        if su_stop:
+            return self.unSwitchUser()
+
+        su_go = form.get(SU_BUTTON_NAME)
+        if not su_go:
+            return
+
         su_name = form.get(SU_INPUT_NAME)
-        if su_name is None:
+        if su_name is not None:
             su_name = su_name.strip()
         resp = self.request.RESPONSE
         if su_name:
-            aclu = getToolByName(self, 'acl_users')
-            if not ICPSUserFolder.providedBy(aclu):
-                raise RuntimeError("User folder isn't a CPSUserFolder")
-            aclu.requestUserSwitch(su_name, resp=resp, portal=self.context)
+            self.getAclu().requestUserSwitch(su_name, resp=resp,
+                                           portal=self.context)
         resp.redirect(self.context.absolute_url())
 
     def getSuInputName(self):
         return SU_INPUT_NAME
+
+    def getSuButtonName(self):
+        return SU_BUTTON_NAME
+
+    def getSuStopButtonName(self):
+        return SU_STOP_BUTTON_NAME
+
+    def getActiveSwitchUserName(self):
+        return self.getAclu().getSwitchUserName(self.request)
+
+    def unSwitchUser(self):
+        self.getAclu().requestUserUnSwitch(resp=self.request.RESPONSE,
+                                           portal=self.context)
+        self.request.RESPONSE.redirect(self.context.absolute_url())

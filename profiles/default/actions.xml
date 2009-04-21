@@ -8,7 +8,8 @@
    <permission>View</permission>
   </action>
   <action title="Switch User" action_id="su"
-     category="global" condition_expr=""
+     category="global"
+     condition_expr="python:member and member.has_role('Member')"
      url_expr="string:${portal_url}/cps_switch_user.html" visible="True">
    <permission>Manage portal</permission>
   </action>

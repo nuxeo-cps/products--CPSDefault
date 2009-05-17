@@ -500,6 +500,17 @@ msgstr ""
 msgid "button_submit_document"
 msgstr ""
 
+#.   <input attributes="name view/getSuButtonName" type="submit" class="context" value="button_switch_user" />
+#: from ../browser/switchUser.zpt
+msgid "button_switch_user"
+msgstr ""
+
+#.   <input attributes="name view/getSuStopButtonName" condition="current" typ
+e="submit" class="context" value="button_unswitch_user" />
+#: from ../browser/switchUser.zpt
+msgid "button_unswitch_user"
+msgstr ""
+
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "button_translate_document"
@@ -813,6 +824,11 @@ msgstr ""
 msgid "heading_submit_of ${item_id}"
 msgstr ""
 
+#.   <h1>Switch user</h1>
+#: from ../browser/switchUser.zpt
+msgid "heading_switch_user"
+msgstr ""
+
 #.   <block fill-slot="title">
 #.         heading_translation_of
 #.         ${item_id (tal replace="here/title_or_id")}
@@ -1058,6 +1074,50 @@ msgstr ""
 #.   </help>
 #: from ../skins/cps_default/content_status_history.pt
 msgid "help_status_history"
+msgstr ""
+
+#.   <p>The switch user action allows the
+#.       administrator to take the full identity of an user. This is very useful
+#.       to double check security matters and for various testing purposes, including
+#.       bug reproduction in production environments where a specific combination
+#.       of roles can be hard to simulate.
+#.       </p>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user"
+msgstr ""
+
+#.   <li>
+#.           You can't switch to another administrator, or actually anyone who
+#.           may himself switch user. This is to avoid loops</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_admin"
+msgstr ""
+
+#.   <li>
+#.           If you reproduce some specific permissions related bug enter this
+#.           mode, you might find yourself trapped.
+#.           In any case, removing the "cps_su" cookie (or simply closing your
+#.           browser) will reset the switch user functionnality.
+#.         </li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_deadlock"
+msgstr ""
+
+#.   <li>This will be logged</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logging"
+msgstr ""
+
+#.   <li>
+#.           Once you have switched user, you can't directly log out anymore,
+#.           you'll have to unswitch first.</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logout"
+msgstr ""
+
+#.   <h2>Remarks</h2>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_remarks"
 msgstr ""
 
 #.   <span>
@@ -1425,6 +1485,11 @@ msgstr ""
 #.       </option>
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_icons"
+msgstr ""
+
+#.   <label for="su_name">label_id</label>
+#: from ../browser/switchUser.zpt
+msgid "label_id"
 msgstr ""
 
 #.   <div class="label" />
@@ -2141,6 +2206,13 @@ msgstr ""
 msgid "published"
 msgstr ""
 
+#.   <strong>
+#.   	  su_already_switched ${su_name (tal replace="current")}
+#.   	</strong>
+#: from ../browser/switchUser.zpt
+msgid "su_already_switched ${su_name}"
+msgstr ""
+
 #.   <th align="right">Creation Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
@@ -2203,6 +2275,12 @@ msgid "Login"
 msgstr ""
 
 msgid "Log out"
+msgstr ""
+
+msgid "Switch User"
+msgstr ""
+
+msgid "Re Switch User"
 msgstr ""
 
 msgid "My stuff"

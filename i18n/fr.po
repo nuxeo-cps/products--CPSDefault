@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-10 11:37default\n"
+"POT-Creation-Date: 2009-05-17 23:01default\n"
 "PO-Revision-Date: 2006-02-20 14:44+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -555,6 +555,11 @@ msgstr "Afficher"
 msgid "button_submit_document"
 msgstr "Soumettre à publication"
 
+#.   <input attributes="name view/getSuButtonName" type="submit" class="context" value="button_switch_user" />
+#: from ../browser/switchUser.zpt
+msgid "button_switch_user"
+msgstr "Changer"
+
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "button_translate_document"
@@ -564,6 +569,11 @@ msgstr "Créer une version pour la traduction"
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
 msgstr "Dépublier le document"
+
+#.   <input attributes="name view/getSuStopButtonName" condition="current" type="submit" class="context" value="button_unswitch_user" />
+#: from ../browser/switchUser.zpt
+msgid "button_unswitch_user"
+msgstr "Redevenir soi-même"
 
 #.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
@@ -911,6 +921,11 @@ msgstr "Historique du statut de ${item_id}"
 msgid "heading_submit_of ${item_id}"
 msgstr "Soumettre ${item_id}"
 
+#.   <h1>Switch user</h1>
+#: from ../browser/switchUser.zpt
+msgid "heading_switch_user"
+msgstr "Changer d'utilisateur"
+
 #.   <block fill-slot="title">
 #.         heading_translation_of
 #.         ${item_id (tal replace="here/title_or_id")}
@@ -1218,6 +1233,67 @@ msgstr ""
 "en changeant sont statut en <strong>en attente</strong>. Vous réaliserez "
 "ceci en soumettant à validation votre document à l'intérieur d'une rubrique."
 
+#.   <p>The switch user action allows the
+#.       administrator to take the full identity of an user. This is very useful
+#.       to double check security matters and for various testing purposes, including
+#.       bug reproduction in production environments where a specific combination
+#.       of roles can be hard to simulate.
+#.       </p>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user"
+msgstr ""
+"L'action &laquo;&thinsp;changer d'utilisateur&thinsp;&raquo; permet à "
+"l'administrateur de prendre complètement l'identité d'un utilsateur. Ceci "
+"est très utile pour bien vérifier les droits de chacun et pour diverses "
+"questions de tests, notamment en reproduction d'anomalie dans des "
+"environnements de production où les rôles locaux exacts de chacun sont "
+"souvent difficiles à simuler et les utilisateurs de test parfois "
+"indésirables."
+
+#.   <li>
+#.           You can't switch to another administrator, or actually anyone who
+#.           may himself switch user. This is to avoid loops</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_admin"
+msgstr ""
+"Vous ne pouvez prendre l'identité d'un autre administrateur, ou plus "
+"exactement de quelqu'un qui peut lui-même changer d'utilisateur. Ceci permet "
+"d'éviter les boucles."
+
+#.   <li>
+#.           If you reproduce some specific permissions related bug enter this
+#.           mode, you might find yourself trapped.
+#.           In any case, removing the "cps_su" cookie (or simply closing your
+#.           browser) will reset the switch user functionnality.
+#.         </li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_deadlock"
+msgstr ""
+"Dans certains cas rares de reproductions d'anomalies sous ce mode, il est "
+"possible que vous n'arriviez plus à redevenir vous-même. Quel que soit le "
+"contexte, vous pouvez annuler tout changement d'utilisateur en éliminant le "
+"cookie &laquo;&thinsp;cps_su&thinsp;&raquo; de votre navigateur (ou "
+"simplement en quittant celui-ci)."
+
+#.   <li>This will be logged</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logging"
+msgstr "Le système garde trace des changements d'utilisateur."
+
+#.   <li>
+#.           Once you have switched user, you can't directly log out anymore,
+#.           you'll have to unswitch first.</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logout"
+msgstr ""
+"Une fois que vous avez changé d'utilisateur, vous ne pouvez plus vous "
+"déconnecter directement. Il faut d'abord redevenir vous-même."
+
+#.   <h2>Remarks</h2>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_remarks"
+msgstr "Précisions utiles"
+
 #.   <span>
 #.           Create a new translation for this document.
 #.         </span>
@@ -1312,22 +1388,6 @@ msgstr "Versions archivées"
 #: from ../skins/cps_default/content_lib_history.pt
 msgid "label_author"
 msgstr "Auteur"
-
-#.   <option attributes="selected
-#.                                python:sort_by == 'author' and direction == 'asc'" value="author_asc">
-#.               Author ascending
-#.       </option>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_author_asc"
-msgstr "Auteur"
-
-#.   <option attributes="selected
-#.                                python:sort_by == 'author' and direction =='desc'" value="author_desc">
-#.               Author descending
-#.       </option>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_author_desc"
-msgstr "Auteur inv."
 
 #.   <div class="label">
 #.           Body
@@ -1865,11 +1925,6 @@ msgstr "depuis ${status_time}"
 msgid "label_smtp_server"
 msgstr "Serveur SMTP"
 
-#.   <label for="display_order">Sort by</label>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_sort_by"
-msgstr "Trié par"
-
 #.   <div class="label">Start Date (DD/MM/YYYY)</div>
 #: from ../skins/cps_default/dummy_edit_form.pt
 msgid "label_start_date"
@@ -1882,22 +1937,6 @@ msgstr "Date de début (JJ/MM/AAAA)"
 #: ../skins/cps_default/content_lib_status.pt
 msgid "label_status"
 msgstr "Statut"
-
-#.   <option attributes="selected
-#.                                python:sort_by == 'status' and direction == 'asc'" value="status_asc">
-#.               Status ascending
-#.       </option>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_status_asc"
-msgstr "Statut"
-
-#.   <option attributes="selected
-#.                                python:sort_by == 'status' and direction =='desc'" value="status_desc">
-#.               Status descending
-#.       </option>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_status_desc"
-msgstr "Statut inv."
 
 #.   <th align="right">Subject</th>
 #.   <label for="subject">
@@ -1926,22 +1965,6 @@ msgstr "Texte à rechercher"
 #: ../skins/cps_default/metadata_edit_form.pt
 msgid "label_title"
 msgstr "Titre"
-
-#.   <option attributes="selected
-#.                                 python:sort_by == 'title' and direction == 'asc'" value="title_asc">
-#.               Title ascending
-#.       </option>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_title_asc"
-msgstr "Titre"
-
-#.   <option attributes="selected
-#.                                python:sort_by == 'title' and direction == 'desc'" value="title_desc">
-#.               Title descending
-#.       </option>
-#: from ../skins/cps_default/content_lib_display_params_form.pt
-msgid "label_title_desc"
-msgstr "Titre inv."
 
 #.   <span omit-tag="">To</span>
 #: from ../skins/cps_default/content_lib_info_detail.pt
@@ -2310,6 +2333,16 @@ msgstr "Publication"
 msgid "published"
 msgstr "publié"
 
+#.   <strong>
+#.   	  su_already_switched ${su_name (tal replace="current")}
+#.   	</strong>
+#: from ../browser/switchUser.zpt
+msgid "su_already_switched ${su_name}"
+msgstr ""
+"Vous avez déjà pris l'identité &laquo;&thinsp;${su_name}&thinsp;&raquo;. "
+"Vous pouvez soit passer directement à un autre utilisateur, soit redevenir "
+"vous-même."
+
 #.   <th align="right">Creation Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
@@ -2371,6 +2404,12 @@ msgstr "Authentification"
 
 msgid "Log out"
 msgstr "Déconnexion"
+
+msgid "Switch User"
+msgstr "Changer d'utilisateur"
+
+msgid "Re Switch User"
+msgstr "Rechanger d'utilisateur"
 
 msgid "My stuff"
 msgstr "Espace privé"
@@ -3254,24 +3293,3 @@ msgstr "Dernières publications"
 
 msgid "portlet_title_breaking_news"
 msgstr "Nouvelles récentes"
-
-#, fuzzy
-#~ msgid "accessibility_details_description"
-#~ msgstr "<p>Ce site a été conçu pour être accessible.</p>"
-
-#, fuzzy
-#~ msgid "accessibility_details_title"
-#~ msgstr "Informations d'accessibilité"
-
-#~ msgid "description_logout_zmi_warning"
-#~ msgstr "Vous vous êtes connecté en dehors du portail. Vous pouvez "
-
-#~ msgid "link_logout_zmi"
-#~ msgstr "déconnectez vous de l'interface de gestion de Zope (ZMI)"
-
-#~ msgid "help_password_message"
-#~ msgstr ""
-#~ "Cochez cette case pour recevoir un courriel contenant votre mot de passe."
-
-#~ msgid "label_password_mailed"
-#~ msgstr "Envoyer le mot de passe&nbsp;?"

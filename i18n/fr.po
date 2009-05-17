@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-20 14:29default\n"
+"POT-Creation-Date: 2009-05-17 19:41default\n"
 "PO-Revision-Date: 2006-02-20 14:44+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -554,6 +554,11 @@ msgstr "Afficher"
 msgid "button_submit_document"
 msgstr "Soumettre à publication"
 
+#.   <input attributes="name view/getSuButtonName" type="submit" class="context" value="button_switch_user" />
+#: from ../browser/switchUser.zpt
+msgid "button_switch_user"
+msgstr "Changer"
+
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "button_translate_document"
@@ -563,6 +568,11 @@ msgstr "Créer une version pour la traduction"
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
 msgstr "Dépublier le document"
+
+#.   <input attributes="name view/getSuStopButtonName" condition="current" type="submit" class="context" value="button_unswitch_user" />
+#: from ../browser/switchUser.zpt
+msgid "button_unswitch_user"
+msgstr "Redevenir soi-même"
 
 #.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
@@ -943,6 +953,11 @@ msgstr "Historique du statut de ${item_id}"
 msgid "heading_submit_of ${item_id}"
 msgstr "Soumettre ${item_id}"
 
+#.   <h1>Switch user</h1>
+#: from ../browser/switchUser.zpt
+msgid "heading_switch_user"
+msgstr "Changer d'utilisateur"
+
 #.   <block fill-slot="title">
 #.         heading_translation_of
 #.         ${item_id (tal replace="here/title_or_id")}
@@ -1265,6 +1280,67 @@ msgstr ""
 "valideur de la rubrique. Vous pouvez demander à ce qu'un objet soit validé "
 "en changeant sont statut en <strong>en attente</strong>. Vous réaliserez "
 "ceci en soumettant à validation votre document à l'intérieur d'une rubrique."
+
+#.   <p>The switch user action allows the
+#.       administrator to take the full identity of an user. This is very useful
+#.       to double check security matters and for various testing purposes, including
+#.       bug reproduction in production environments where a specific combination
+#.       of roles can be hard to simulate.
+#.       </p>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user"
+msgstr ""
+"L'action &laquo;&thinsp;changer d'utilisateur&thinsp;&raquo; permet à "
+"l'administrateur de prendre complètement l'identité d'un utilsateur. Ceci "
+"est très utile pour bien vérifier les droits de chacun et pour diverses "
+"questions de tests, notamment en reproduction d'anomalie dans des "
+"environnements de production où les rôles locaux exacts de chacun sont "
+"souvent difficiles à simuler et les utilisateurs de test parfois "
+"indésirables."
+
+#.   <li>
+#.           You can't switch to another administrator, or actually anyone who
+#.           may himself switch user. This is to avoid loops</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_admin"
+msgstr ""
+"Vous ne pouvez prendre l'identité d'un autre administrateur, ou plus "
+"exactement de quelqu'un qui peut lui-même changer d'utilisateur. Ceci permet "
+"d'éviter les boucles."
+
+#.   <li>
+#.           If you reproduce some specific permissions related bug enter this
+#.           mode, you might find yourself trapped.
+#.           In any case, removing the "cps_su" cookie (or simply closing your
+#.           browser) will reset the switch user functionnality.
+#.         </li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_deadlock"
+msgstr ""
+"Dans certains cas rares de reproductions d'anomalies sous ce mode, il est "
+"possible que vous n'arriviez plus à redevenir vous-même. Quel que soit le "
+"contexte, vous pouvez annuler tout changement d'utilisateur en éliminant le "
+"cookie &laquo;&thinsp;cps_su&thinsp;&raquo; de votre navigateur (ou "
+"simplement en quittant celui-ci)."
+
+#.   <li>This will be logged</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logging"
+msgstr "Le système garde trace des changements d'utilisateur."
+
+#.   <li>
+#.           Once you have switched user, you can't directly log out anymore,
+#.           you'll have to unswitch first.</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logout"
+msgstr ""
+"Une fois que vous avez changé d'utilisateur, vous ne pouvez plus vous "
+"déconnecter directement. Il faut d'abord redevenir vous-même."
+
+#.   <h2>Remarks</h2>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_remarks"
+msgstr "Précisions utiles"
 
 #.   <span>
 #.           Create a new translation for this document.
@@ -1634,6 +1710,12 @@ msgstr "Rôles locaux délégués aux groupes"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_icons"
 msgstr "Icônes"
+
+#.   <label for="su_name">label_id</label>
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "label_id"
+msgstr "dans"
 
 #.   <div class="label" />
 #: from ../skins/cps_default/dummy_edit_form.pt
@@ -2375,6 +2457,16 @@ msgstr ""
 "Désolé, il n'y a aucune section dans laquelle vous pourriez publier "
 "récursivement."
 
+#.   <strong>
+#.   	  su_already_switched ${su_name (tal replace="current")}
+#.   	</strong>
+#: from ../browser/switchUser.zpt
+msgid "su_already_switched ${su_name}"
+msgstr ""
+"Vous avez déjà pris l'identité &laquo;&thinsp;${su_name}&thinsp;&raquo;. "
+"Vous pouvez soit passer directement à un autre utilisateur, soit redevenir "
+"vous-même."
+
 #.   <th align="right">Creation Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
@@ -2436,6 +2528,12 @@ msgstr "Authentification"
 
 msgid "Log out"
 msgstr "Déconnexion"
+
+msgid "Switch User"
+msgstr "Changer d'utilisateur"
+
+msgid "Re Switch User"
+msgstr "Rechanger d'utilisateur"
 
 msgid "My stuff"
 msgstr "Espace privé"

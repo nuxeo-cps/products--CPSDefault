@@ -1,22 +1,54 @@
 <metal:html use-macro="here/content_lib_master/macros/master">
   <metal:block fill-slot="header">
   </metal:block>
+
   <metal:block fill-slot="main">
-    <h1>Switch user</h1>
+    <h1 i18n:translate="heading_switch_user">Switch user</h1>
+    <p i18n:translate="help_switch_user">The switch user action allows the
+    administrator to take the full identity of an user. This is very useful
+    to double check security matters and for various testing purposes, including
+    bug reproduction in production environments where a specific combination
+    of roles can be hard to simulate.
+    </p>
 
     <tal:block define="current view/getActiveSwitchUserName">
       <p tal:condition="current">
-        You have already switched to user <span tal:content="current"/>.
-        You can either switch to another user or be yourself again</p>
-        <form method="post" encoding="multipart/form-data"
-              action="cps_do_switch_user">
-        <input type="string" tal:attributes="name view/getSuInputName"/>
-        <input type="submit" class="context" value="Switch"
-	       tal:attributes="name view/getSuButtonName"/>
-        <input type="submit" class="context" value="Unswitch"
+	<strong i18n:translate="">
+	  su_already_switched <tal:block replace="current"
+                                 i18n:name="su_name">Current</tal:block>
+	</strong>
+      </p>
+      <form method="post" encoding="multipart/form-data"
+	    action="cps_do_switch_user">
+	<label for="su_name" i18n:translate="">label_id</label>
+        <input type="string" id="su_name"
+	       tal:attributes="name view/getSuInputName">
+        <input type="submit" class="context"
+	       tal:attributes="name view/getSuButtonName"
+               value="button_switch_user" i18n:attributes="value"/>
+        <input type="submit" class="context"
 	       tal:condition="current"
-	       tal:attributes="name view/getSuStopButtonName"/>
+	       tal:attributes="name view/getSuStopButtonName"
+               value="button_unswitch_user" i18n:attributes="value"/>
       </form>
     </tal:block>
+
+    <h2 i18n:translate="help_switch_user_remarks">Remarks</h2>
+    <ul>
+      <li i18n:translate="help_switch_user_logout">
+        Once you have switched user, you can't directly log out anymore,
+        you'll have to unswitch first.</li>
+      <li i18n:translate="help_switch_user_admin">
+        You can't switch to another administrator, or actually anyone who
+        may himself switch user. This is to avoid loops</li>
+      <li i18n:translate="help_switch_user_deadlock">
+        If you reproduce some specific permissions related bug enter this
+        mode, you might find yourself trapped.
+        In any case, removing the "cps_su" cookie (or simply closing your
+        browser) will reset the switch user functionnality.
+      </li>
+      <li i18n:translate="help_switch_user_logging">This will be logged</li>
+    </ul>
+
   </metal:block>
 </metal:html>

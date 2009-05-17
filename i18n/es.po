@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-20 14:29default\n"
+"POT-Creation-Date: 2009-05-17 19:41default\n"
 "PO-Revision-Date: 2007-09-01 22:58+0100\n"
 "Last-Translator: Jesus Martin <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
@@ -553,6 +553,12 @@ msgstr "Bloquear"
 msgid "button_submit_document"
 msgstr "Remitir para publicación"
 
+#.   <input attributes="name view/getSuButtonName" type="submit" class="context" value="button_switch_user" />
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "button_switch_user"
+msgstr "Switch user"
+
 #.   <input type="submit" class="standalone" value="button_translate_document" />
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "button_translate_document"
@@ -562,6 +568,12 @@ msgstr "Crear una revisión para traducir"
 #: from ../skins/cps_default/content_unpublish_form.pt
 msgid "button_unpublish_document"
 msgstr "Despublicar el documento"
+
+#.   <input attributes="name view/getSuStopButtonName" condition="current" type="submit" class="context" value="button_unswitch_user" />
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "button_unswitch_user"
+msgstr "Unswitch user"
 
 #.   <input type="submit" class="standalone" value="button_update" onclick="updateParent();"> 
 #.       </input>
@@ -936,6 +948,12 @@ msgstr "Histórico del estado de ${item_id}"
 msgid "heading_submit_of ${item_id}"
 msgstr "Remitir ${item_id}"
 
+#.   <h1>Switch user</h1>
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "heading_switch_user"
+msgstr "Search Results"
+
 #.   <block fill-slot="title">
 #.         heading_translation_of
 #.         ${item_id (tal replace="here/title_or_id")}
@@ -1251,6 +1269,51 @@ msgstr ""
 "simplemente cambiado su estado a <strong>en espera</strong>. Ello se "
 "consigue remitiendo el documento para su validación en el interior de una "
 "sección."
+
+#.   <p>The switch user action allows the
+#.       administrator to take the full identity of an user. This is very useful
+#.       to double check security matters and for various testing purposes, including
+#.       bug reproduction in production environments where a specific combination
+#.       of roles can be hard to simulate.
+#.       </p>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user"
+msgstr ""
+
+#.   <li>
+#.           You can't switch to another administrator, or actually anyone who
+#.           may himself switch user. This is to avoid loops</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_admin"
+msgstr ""
+
+#.   <li>
+#.           If you reproduce some specific permissions related bug enter this
+#.           mode, you might find yourself trapped.
+#.           In any case, removing the "cps_su" cookie (or simply closing your
+#.           browser) will reset the switch user functionnality.
+#.         </li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_deadlock"
+msgstr ""
+
+#.   <li>This will be logged</li>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_logging"
+msgstr ""
+
+#.   <li>
+#.           Once you have switched user, you can't directly log out anymore,
+#.           you'll have to unswitch first.</li>
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "help_switch_user_logout"
+msgstr "Don't forget to logout or exit your browser when you're done."
+
+#.   <h2>Remarks</h2>
+#: from ../browser/switchUser.zpt
+msgid "help_switch_user_remarks"
+msgstr ""
 
 #.   <span>
 #.           Create a new translation for this document.
@@ -1618,6 +1681,12 @@ msgstr "Asignación de roles locales a grupos"
 #: from ../skins/cps_default/content_lib_display_params_form.pt
 msgid "label_icons"
 msgstr "Iconos"
+
+#.   <label for="su_name">label_id</label>
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "label_id"
+msgstr "in"
 
 #.   <div class="label" />
 #: from ../skins/cps_default/dummy_edit_form.pt
@@ -2362,6 +2431,16 @@ msgstr "publicado"
 msgid "recursive_publish_no_section_to_publish_into"
 msgstr ""
 
+#.   <strong>
+#.   	  su_already_switched ${su_name (tal replace="current")}
+#.   	</strong>
+#: from ../browser/switchUser.zpt
+#, fuzzy
+msgid "su_already_switched ${su_name}"
+msgstr ""
+"You have already switched to user '${su_name}'. You can either switch to "
+"another user or be yourself again."
+
 #.   <th align="right">Creation Date</th>
 #: from ../skins/cps_default/full_metadata_edit_form.pt
 msgid "time_creation_date"
@@ -2423,6 +2502,12 @@ msgstr "Entrar"
 
 msgid "Log out"
 msgstr "Salir"
+
+msgid "Switch User"
+msgstr ""
+
+msgid "Re Switch User"
+msgstr ""
 
 msgid "My stuff"
 msgstr "Mi espacio personal"

@@ -19,7 +19,8 @@
    <permission>View</permission>
   </action>
   <action title="Log out" action_id="logout" category="user"
-     condition_expr="member" url_expr="string:${portal_url}/logout"
+     condition_expr="python: member and not portal.acl_users.getSwitchUserName(request)"
+     url_expr="string:${portal_url}/logout"
      visible="True">
    <permission>View</permission>
   </action>

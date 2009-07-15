@@ -1,27 +1,34 @@
 ##parameters=type_name, REQUEST=None, **kw
 # $Id$
 """
-Create an object.
+Create an object with the given parameters.
 
-FIXME: what are the parameters?
+Parameters:
+type_name: the name of the portal_type of the content to create
+title: the title of the content to create
+
+It is possible to pass other parameters than the specific one listed above.
+
+All the parameters will be passed to modify the document once it is created.
 """
 
 from urllib import urlencode
 
 if REQUEST is not None:
     kw.update(REQUEST.form)
-    # Use creation without empty object.
-    # XXX should find better
+
+    # Specific handling for portal_types of the CPSDocument family
     from Products.CMFCore.utils import getToolByName
     ti = getToolByName(context, 'portal_types').getTypeInfo(type_name)
-    # For cpsdocument
     if ti.meta_type in ('CPS Flexible Type Information',
                         'Capsule Type Information'):
         args = {'type_name': type_name}
-        # XXX pass prefilled title, a bit of a hack...
+        # Passing a prefilled title (which is a bit of a hack) so
+        # the title widget will be set with the given title in the CPSDocument
+        # creation form.
         args['widget__Title'] = kw.get('title', '')
 
-        # Look for the create action on the ti
+        # Use the create action specified on the ti
         create_action_form = ti.getActionById('create', 'cpsdocument_create_form')
 
         return REQUEST.RESPONSE.redirect('%s/%s?%s'
@@ -29,16 +36,17 @@ if REQUEST is not None:
                                             create_action_form,
                                             urlencode(args)))
 
-if REQUEST and not kw.get('title'):
-    # Need a title before creating folders
-    if type_name in ('Section', 'Workspace'):
-        args = {'type_name': type_name}
-        return REQUEST.RESPONSE.redirect('%s/folder_edit_form?%s' %
-                                (context.absolute_url(), urlencode(args)))
-
-id = kw.get('title', 'my_' + type_name)
+# Specific handling for portal_types *not* of the CPSDocument family
+# (for example CPSWiki documents and CPS Calendar documents).
+#
+# TODO: Redirect to the equivalent of a creation form prefilled with the given
+# title so that the document is created with a corresponding title instead of a
+# default title.
+#
+# Using the type_name as id for the creation if no title is specified
+id = kw.get('title', type_name)
+# Normalization of the id
 id = context.computeId(compute_from=id)
-
 context.invokeFactory(type_name, id)
 ob = getattr(context, id)
 
@@ -62,7 +70,6 @@ from Products.CPSCore.EventServiceTool import getPublicEventService
 evtool = getPublicEventService(context)
 evtool.notifyEvent('modify_object', context, {})
 evtool.notifyEvent('modify_object', ob, {})
-
 
 if REQUEST is not None:
     psm = 'psm_content_created'

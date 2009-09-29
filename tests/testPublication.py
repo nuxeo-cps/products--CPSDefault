@@ -40,6 +40,9 @@ class TestPublication(CPSTestCase):
     # Test object creation and publication workflow
 
     def afterSetUp(self):
+        # avoid pollution from earlier tests
+        self.portal.acl_users._clearUserCache()
+
         self.login('manager')
 
         self.wftool = getToolByName(self.portal, 'portal_workflow')

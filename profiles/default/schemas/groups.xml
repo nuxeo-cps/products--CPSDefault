@@ -12,5 +12,18 @@
        name="read_process_expr">python:util.dirCrossGetList('members', 'groups', group)</property>
   <property name="read_process_dependent_fields">group</property>
  </field>
- <field name="subgroups" meta_type="CPS String List Field"/>
+
+ <field name="subgroups" meta_type="CPS String List Field">
+  <property name="acl_write_roles">Manager</property>
+  <property name="write_ignore_storage">True</property>
+  <property
+       name="write_process_expr">python:util.dirCrossSetList('groups', 'supergroups', group, value)</property>
+  <property name="write_process_dependent_fields">group</property>
+  <property name="read_ignore_storage">True</property>
+  <property
+       name="read_process_expr">python:util.dirCrossGetList('groups', 'supergroups', group)</property>
+  <property name="read_process_dependent_fields">group</property>
+ </field>
+
+ <field name="supergroups" meta_type="CPS String List Field"/>
 </object>

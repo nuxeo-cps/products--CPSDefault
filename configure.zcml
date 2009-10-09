@@ -5,7 +5,15 @@
 
   <include file="upgrade.zcml"/>
 
-  <!-- traversable objects: one can attach a view on them. 
+  <!-- void response handler -->
+  <adapter
+      provides=".interfaces.IVoidResponseHandler"
+      for="*
+	   zope.publisher.interfaces.http.IHTTPRequest"
+      factory=".voidresponses.DummyVoidResponseHandler"
+      />
+
+  <!-- traversable objects: one can attach a view on them.
   Done for Generic Setup ZMI Export tab -->
   <five:traversable
       class="Products.CPSSkins.PortalThemesTool.PortalThemesTool"

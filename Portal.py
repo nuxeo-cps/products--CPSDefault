@@ -21,6 +21,9 @@
 """
 
 from zLOG import LOG, INFO, DEBUG
+
+from zope.component import getMultiAdapter
+
 from Globals import HTMLFile
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
@@ -30,6 +33,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFDefault.Portal import PortalGenerator
 
 from Products.CPSCore.portal import CPSSite
+from interfaces import IVoidResponseHandler
 
 class CPSDefaultSite(CPSSite):
     """CPS variant of a CMF Portal."""
@@ -81,6 +85,14 @@ class CPSDefaultSite(CPSSite):
         default_language = translation_service.getDefaultLanguage()
         return default_language
 
+    security.declarePublic('handleVoidResponse')
+    def handleVoidResponses(self, context, request):
+        """Return True in case we SHOULD return a void response (304, 302...)
+        meant for main_template and pages derived from it.
+        flexibility provided by Component Architecture
+        """
+        handler = getMultiAdapter((context, request), IVoidResponseHandler)
+        return handler.respond(portal=self)
 
 InitializeClass(CPSDefaultSite)
 

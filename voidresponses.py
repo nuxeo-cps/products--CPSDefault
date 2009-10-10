@@ -24,6 +24,6 @@ class DummyVoidResponseHandler:
     def __init__(self, context, request):
         pass
 
-    def respond(self):
+    def respond(self, portal=None):
         pass
 

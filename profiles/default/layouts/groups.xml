@@ -29,23 +29,33 @@
   <property name="size">7</property>
  </widget>
 
- <widget name="subgroups" meta_type="MultiSelect Widget">
+ <widget name="subgroups" meta_type="Sub/Super Groups MultiSelect Widget">
   <property name="fields">
    <element value="subgroups"/>
   </property>
+  <property name="exclude_field">supergroups</property>
+  <property name="group_field">group</property>
+  <property name="render_format">checkbox</property>
+
   <property name="label">label_subgroups</property>
   <property name="label_edit">label_subgroups</property>
   <property name="is_i18n">True</property>
   <property name="vocabulary">groups</property>
+  <property name="hidden_empty">True</property>
   <property name="size">7</property>
  </widget>
 
- <widget name="supergroups" meta_type="MultiSelect Widget">
+ <widget name="supergroups" meta_type="Sub/Super Groups MultiSelect Widget">
   <property name="fields">
    <element value="supergroups"/>
   </property>
+  <property name="exclude_field">subgroups</property>
+  <property name="group_field">group</property>
+  <property name="render_format">checkbox</property>
+
   <property name="label">label_supergroups</property>
   <property name="label_edit">label_supergroups</property>
+  <property name="hidden_empty">True</property>
   <property name="is_i18n">True</property>
   <property name="vocabulary">groups</property>
   <property name="size">7</property>

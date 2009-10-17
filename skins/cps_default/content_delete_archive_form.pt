@@ -21,13 +21,14 @@
 <metal:main fill-slot="main">
   <form action="." method="post"
     tal:attributes="action string:${here_url}/content_delete_archive">
-
+    <p>
     <input type="hidden" name="rev:int" value="."
       tal:attributes="value request/rev" />
-    <input type="submit" class="standalone" value="button_delete_archive"
+    <input type="submit" class="destructive" value="button_delete_archive"
       i18n:attributes="value" />
     <input type="button" class="context" onclick="history.back()"
       value="button_cancel" i18n:attributes="value" />
+    </p>
   </form>
 </metal:main>
 

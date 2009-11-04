@@ -81,7 +81,8 @@
   </td>
   <td tal:condition="title_in_tabs">
     <a href="" tal:attributes="href string:${info/url}${action};
-                               title info/description;">
+                               title info/description;
+                               id item/getId;">
     <strong tal:content="info/title_or_id">ID</strong></a></td>
   <td align="right" tal:condition="size_in_tabs">
     <span tal:condition="info/size|nothing" tal:content="info/size"> </span></td>

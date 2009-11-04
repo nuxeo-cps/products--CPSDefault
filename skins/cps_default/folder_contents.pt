@@ -46,10 +46,6 @@
 <metal:main fill-slot="javascript_head_slot">
   <tal:block tal:replace="nothing">
     TODO: Deactivated as of CPS 3.4.0, might be re-enabled later
-    <script type="text/javascript" src="prototype.js"
-      tal:attributes="src string:${base_url}prototype.js"></script>
-    <script type="text/javascript" src="effects.js"
-      tal:attributes="src string:${base_url}effects.js"></script>
     <script type="text/javascript" src="dragdrop.js"
       tal:attributes="src string:${base_url}dragdrop.js"></script>
     <script type="text/javascript" src="cpsdefault.js"
@@ -105,8 +101,8 @@
               class="context" value="button_rename" i18n:attributes="value" />
             <input type="submit" name="folder_delete:method" value="button_delete"
               class="destructive" i18n:attributes="value"
-              tal:attributes="onclick python:'return window.confirm(\'%s\')' %
-              (cpsmcat('description_confirm_delete'), )" />
+              tal:attributes="onclick python:'return window.confirm(\'%s\' + \'\\n\\n\' +
+              getSelectedDocumentsTitles())' % (cpsmcat('description_confirm_delete'), )"/>
           </span>
         </td>
       </tr>

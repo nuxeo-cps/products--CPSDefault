@@ -348,6 +348,27 @@ function toggleLayers(more_block, more_items) {
     objMoreItems.display = "block";
 }
 
+//************************************************************
+
+// This method relies on the Prototype library
+function getSelectedDocumentsTitles() {
+  var titles = [];
+  var elems_selected = $$('table#folder_content input:checked');
+  for (var i = 0; i < elems_selected.length; i++) {
+    var elem_selected = elems_selected[i];
+    var document_id = elem_selected.id.substring(3);
+    var elem_link = $$('table#folder_content a[id="'+ document_id +'"]')[0];
+    // eleme_link IDs are made with "cb_" (3 chars long) then the document ID
+    // Prototype does not (yet?) provide a crossbrowser solution for getting
+    // inner text.
+    var text = elem_link.innerText || elem_link.textContent;
+    // The strip method is provided by Prototype
+    var text_stripped = text.strip();
+    titles.push(text_stripped);
+  }
+  return titles.join("\n");
+}
+
 
 // Local Variables:
 // mode: js2

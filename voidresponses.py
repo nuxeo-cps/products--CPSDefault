@@ -27,3 +27,8 @@ class DummyVoidResponseHandler:
     def respond(self, portal=None):
         pass
 
+class BaseResponseHandler:
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+

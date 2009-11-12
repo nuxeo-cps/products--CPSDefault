@@ -92,7 +92,9 @@ class CPSDefaultSite(CPSSite):
         flexibility provided by Component Architecture
         """
         handler = getMultiAdapter((context, request), IVoidResponseHandler)
-        return handler.respond(portal=self)
+        void = handler.respond(portal=self)
+        request._cps_void_response = void
+        return void
 
 InitializeClass(CPSDefaultSite)
 

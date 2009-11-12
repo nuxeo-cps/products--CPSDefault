@@ -25,8 +25,12 @@
   <h1 tal:content="here/title_or_id">
     Page Title
   </h1>
-  <div class="description" tal:content="doc/Description"
-    tal:condition="doc/Description">
+  <div class="description"
+          tal:define="text doc/Description;
+          newline_to_br nocall:modules/Products.PythonScripts.standard/newline_to_br;"
+          tal:condition="doc/Description"
+          tal:content="structure python:newline_to_br(text)"
+          >
     Document Description goes here.
    </div>
 </metal:block>

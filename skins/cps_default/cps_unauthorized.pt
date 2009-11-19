@@ -1,15 +1,33 @@
 <metal:html>
 
+<tal:block define="expanded_title string:Unauthorized access">
 <metal:body use-macro="here/main_template/macros/master">
 
-<metal:main fill-slot="main">
-  <h1>Unauthorized</h1>
-  You are currently logged in with user name "<span tal:content="uname" />",
-  but aren't allowed to access the resource you just requested.
+<tal:comment condition="nothing">
+<!--
+This part is now useless. Check this out.
+-->
+<metal:title fill-slot="title">
+  Unauthorized access
+</metal:title>
+</tal:comment>
 
-  If you were simply following a link from some email, you
-  you should check with the person that sent it to you and possibly have your
-  rights expanded.
+<metal:main fill-slot="main">
+  <h1>Unauthorized access</h1>
+  <p>
+  Your are not allowed to access the resource you have requested.
+  </p>
+  <p>
+  You are currently logged in with user name <q><tal:block tal:content="uname"/></q>.
+  </p>
+  <p>
+  For example if you were following a link from an email, you should check with
+  the person that sent it to you or with the webmasters of the portal,
+  by providing them the address of this page.
+  Possibly you could ask them to give your more access.
+  </p>
 </metal:main>
 </metal:body>
+</tal:block>
+
 </metal:html>

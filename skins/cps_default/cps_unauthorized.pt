@@ -1,6 +1,7 @@
 <metal:html>
 
-<tal:block define="expanded_title string:Unauthorized access">
+<tal:block define="cpsmcat nocall:here/translation_service;
+                   expanded_title python:cpsmcat('heading_unauthorized_access')">
 <metal:body use-macro="here/main_template/macros/master">
 
 <tal:comment condition="nothing">
@@ -13,12 +14,14 @@ This part is now useless. Check this out.
 </tal:comment>
 
 <metal:main fill-slot="main">
-  <h1>Unauthorized access</h1>
+  <h1 i18n:translate="heading_unauthorized_access">Unauthorized access</h1>
+  <tal:block i18n:translate="description_unauthorized_access">
+    <tal:block i18n:name="user_name" replace="uname">user_name</tal:block>
   <p>
   Your are not allowed to access the resource you have requested.
   </p>
   <p>
-  You are currently logged in with user name <q><tal:block tal:content="uname"/></q>.
+  You are currently logged in with user name <q>user_name</q>.
   </p>
   <p>
   For example if you were following a link from an email, you should check with
@@ -26,6 +29,7 @@ This part is now useless. Check this out.
   by providing them the address of this page.
   Possibly you could ask them to give your more access.
   </p>
+  </tal:block>
 </metal:main>
 </metal:body>
 </tal:block>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-04 13:49default\n"
+"POT-Creation-Date: 2009-11-20 16:22default\n"
 "PO-Revision-Date: 2007-05-15 19:51+0100\n"
 "Last-Translator: xosé francisco martínez reboiras <xosereboiras@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
@@ -410,8 +410,8 @@ msgid "button_cut"
 msgstr "Cortar"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#.   <input attributes="onclick python:'return window.confirm(\'%s\' +
-#.                 getSelectedDocumentsTitles())' % (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
+#.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
+#.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="destructive" />
 #: from ../skins/cps_default/config_form.pt
 #: ../skins/cps_default/folder_contents.pt
@@ -419,7 +419,7 @@ msgstr "Cortar"
 msgid "button_delete"
 msgstr "Borrar"
 
-#.   <input type="submit" class="standalone" value="button_delete_archive" />
+#.   <input type="submit" class="destructive" value="button_delete_archive" />
 #: from ../skins/cps_default/content_delete_archive_form.pt
 msgid "button_delete_archive"
 msgstr "Borrar este arquivo"
@@ -674,6 +674,32 @@ msgstr ""
 #: from ../skins/cps_default/account_reset_password_form.pt
 msgid "description_the_account_you_will_reset_password_is"
 msgstr "O contrasinal para esta conta é"
+
+#.   <block>
+#.       ${user_name (tal replace="uname")}
+#.     <p>
+#.     Your are not allowed to access the resource you have requested.
+#.     </p>
+#.     <p>
+#.     You are currently logged in with user name <q>user_name</q>.
+#.     </p>
+#.     <p>
+#.     For example if you were following a link from an email, you should check with
+#.     the person that sent it to you or with the webmasters of the portal,
+#.     by providing them the address of this page.
+#.     Possibly you could ask them to give your more access.
+#.     </p>
+#.     </block>
+#: from ../skins/cps_default/cps_unauthorized.pt
+#, fuzzy
+msgid "description_unauthorized_access"
+msgstr ""
+"<p>Your are not allowed to access the resource you have requested.</p><p>You "
+"are currently logged in with user name <q>${user_name}</q>.</p><p>For "
+"example if you were following a link from an email you should check with the "
+"person that sent it to you or with the webmasters of the portal by providing "
+"them the address of this page. Possibly you could ask them to give your more "
+"access.</p>"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
@@ -963,6 +989,12 @@ msgstr "Search Results"
 #: from ../skins/cps_default/content_translate_form.pt
 msgid "heading_translation_of ${item_id}"
 msgstr "Tradución de \"${item_id}\""
+
+#.   <h1>Unauthorized access</h1>
+#: from ../skins/cps_default/cps_unauthorized.pt
+#, fuzzy
+msgid "heading_unauthorized_access"
+msgstr "Unauthorized access"
 
 #.   <title fill-slot="title">
 #.     heading_unpublish_of

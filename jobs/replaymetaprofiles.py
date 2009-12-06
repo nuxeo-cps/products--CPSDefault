@@ -47,8 +47,9 @@ def replay(portal):
 
     log.extend(['\n\n', 'User input parameters where kept as:', ''])
     params = conf.paramsSnapshot(m_ids)
+    undisclosed = conf.getUndisclosedParams()
     for pid, pvalue in params.items():
-        if pid in conf.getUndisclosedParams():
+        if pid in undisclosed:
             params[pid] = '**********'
     log.append(pformat(params))
 

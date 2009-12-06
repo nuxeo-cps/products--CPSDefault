@@ -70,9 +70,10 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           Used by replay external method."""
 
           res = []
-          for m_profile in self.meta_profiles.values():
+          for m_id, m_profile in self.meta_profiles.items():
                params = m_profile.get('parameters', {})
-               res.extend(params.get('undisclosed', ()))
+               res.extend((m_id + '-' + pid
+                           for pid in params.get('undisclosed', ())))
           return res
 
      def prepareOptions(self, options):

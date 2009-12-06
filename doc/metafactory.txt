@@ -13,7 +13,7 @@ Introduction
 Fully customized site configuration can get quite complicated, despite
 the great improvements that were brought by GenericSetup.
 
-Indeed, some profiles have to be run in a precise order, it may happen
+Indeed, some profiles have to be ran in a precise order, it may happen
 that a few configuration steps have to be handled in ZMI. Finally some
 parameters may change from an instance to the other (SMTP host, LDAP
 bind password) and have nothing to do in a shared version controlled
@@ -379,7 +379,7 @@ instance later with the same configuration, it's simpler to subclasss::
    ...              },
    ...      'Other': { 'extensions': ('SomeOther'), 'optional': True,
    ...                'title': "Other title",
-   ...                'parameters' : {'properties' : ('prop',),
+   ...                'parameters' : {'properties' : ('prop', 'password',),
    ...                                'class': 'Products.NoSuch.tool',
    ...                                'rpath': 'shadow_tool',
    ...                                'undisclosed' : ('password',),
@@ -396,6 +396,10 @@ instance later with the same configuration, it's simpler to subclasss::
    >>> conf.addSite('new_site')
    >>> site = conf.site
    >>> conf.addSetupTool()
+   >>> class FakeTool:
+   ...    prop = ''
+   ...	  password = ''
+   >>> site.shadow_tool = FakeTool()
 
    Now, let's launch the first import::
 
@@ -422,7 +426,12 @@ instance later with the same configuration, it's simpler to subclasss::
    >>> undis = rconf.getUndisclosedParams()
    >>> undis.sort()
    >>> undis
-   ['password', 'witness']
+   ['Other-password', 'ReplayedMeta-witness']
+
+   Let's check consistency of undisclosed ids with the general list::
+
+   >>> set(undis).issubset(set(rconf.paramsSnapshot(['Other', 'ReplayedMeta'])))
+   True
 
 
 External method

@@ -33,7 +33,7 @@ from Products.CMFCore.permissions import ManagePortal
 from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
 
-logger = logging.getLogger('CPSDefault.jobs.replaymetaprofiles')
+logger = logging.getLogger('CPSDefault.jobs.resync')
 optparser = optparse.OptionParser(
     usage="usage: Products.CPSDefault.jobs.resync [options]")
 

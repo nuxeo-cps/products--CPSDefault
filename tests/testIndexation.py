@@ -197,6 +197,30 @@ class TestAsynchronousIndexation(CPSTestCase):
         self.assert_(has_path(self.catalog,
                               "/portal/workspaces/%s/%s"%(ws_id, id)))
 
+    def test_renameObject(self):
+        # See #2004
+
+        catalog = self.portal.portal_catalog
+        wftool = self.portal.portal_workflow
+
+        idx_man = get_indexation_manager()
+        idx_man.setSynchronous(True)
+
+        container = self.portal.workspaces
+        wftool.invokeFactoryFor(container, 'News Item', 'foo')
+        self.assert_(has_path(catalog, '/portal/workspaces/foo'))
+
+        idx_man.setSynchronous(False)
+        def yes():
+            return True
+        container.foo.cb_isMoveable = yes
+        container.manage_renameObjects(['foo'], ['bar'], self.portal.REQUEST)
+        idx_man() # this is what happens just before txn commit
+
+        self.assert_(has_path(catalog, '/portal/workspaces/bar'))
+        self.assertFalse(has_path(catalog, '/portal/workspaces/foo'))
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestSynchronousIndexation))

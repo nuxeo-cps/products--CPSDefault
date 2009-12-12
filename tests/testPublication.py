@@ -277,6 +277,105 @@ class TestPublication(CPSTestCase):
         # Cleanup
         self.member_ws.manage_delObjects(['doc'])
 
+    def _testSubmitFolderish(self, document_type, subdocument_type):
+        self.login('member')
+
+        # Create some documents with the second document having lock on it. This
+        # kind of lock is used for example for WebDAV.
+        self.member_ws.invokeFactory(document_type, 'doc')
+        proxy = self.member_ws.doc
+        proxy.invokeFactory(subdocument_type, 'doc2')
+        proxy2 = proxy.doc2
+        member = self.portal_membership.getAuthenticatedMember()
+
+        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
+        self.assertEquals(review_state, 'work')
+        review_state2 = self.wftool.getInfoFor(proxy2, 'review_state', None)
+        self.assertEquals(review_state2, 'work')
+
+        # Then submit it (using skin script)
+        proxy.content_status_modify(
+            submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
+            workflow_action='copy_submit')
+
+        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
+        self.assertEquals(review_state, 'work')
+        review_state2 = self.wftool.getInfoFor(proxy2, 'review_state', None)
+        self.assertEquals(review_state2, 'work')
+
+        self.login('reviewer')
+
+        published_proxy = self.portal.sections.doc
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'pending')
+        published_proxy2 = published_proxy.doc2
+        review_state2 = self.wftool.getInfoFor(published_proxy2,
+                                               'review_state', None)
+        self.assertEquals(review_state2, 'pending')
+
+        # Now accept it
+        published_proxy.content_status_modify(workflow_action='accept')
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'published')
+        review_state = self.wftool.getInfoFor(published_proxy2,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'published')
+
+        self.login('member')
+
+        # Non-reviewer can't unpublish his own stuff
+        self.assertRaises(WorkflowException,
+            published_proxy.content_status_modify, workflow_action='unpublish')
+
+        # Member modifies the subdoc and resubmits
+        proxy2.getEditableContent().edit(Title='New title')
+        proxy.content_status_modify(
+            submit=['sections', 'sections/' + ANOTHER_SECTION_ID],
+            workflow_action='copy_submit')
+
+        # Reviewer checks the resubmission
+        # GR: resubmission in the case where the folderish itself is untouched
+        # may change in the future.
+        self.login('reviewer')
+        sections = self.portal.sections
+        ids = sections.objectIds([proxy.meta_type])
+        self.assertEquals(len(ids), 2)
+        submitted_proxy = sections[[i for i in ids if 'doc' != i][0]]
+        review_state = self.wftool.getInfoFor(submitted_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'pending')
+        submitted_proxy2 = submitted_proxy.doc2
+        review_state2 = self.wftool.getInfoFor(submitted_proxy2,
+                                               'review_state', None)
+        self.assertEquals(review_state2, 'pending')
+        self.assertEquals(submitted_proxy2.Title(), 'New title')
+
+        # Now accept it
+        submitted_proxy.content_status_modify(workflow_action='accept')
+        published_proxy = sections.doc
+        published_proxy2 = published_proxy.doc2
+        review_state = self.wftool.getInfoFor(published_proxy,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'published')
+        review_state = self.wftool.getInfoFor(published_proxy2,
+                                              'review_state', None)
+        self.assertEquals(review_state, 'published')
+        self.assertEquals(published_proxy2.Title(), 'New title')
+
+        # Now unpublishing
+        self.login('reviewer')
+
+        published_proxy.content_status_modify(workflow_action='unpublish')
+
+        self.login('manager')
+
+        self.assert_(not 'doc' in self.portal.sections.objectIds())
+
+        # Cleanup
+        self.member_ws.manage_delObjects(['doc'])
+
     def testSubmitAllDocumentTypes(self):
         ttool = self.portal.portal_types
         for document_type in (tid for tid in DOCUMENT_TYPES
@@ -324,6 +423,9 @@ class TestPublication(CPSTestCase):
     # trouble
     def testSubmitImageGallery(self):
         self._testSubmit("ImageGallery")
+
+    def testSubmitImageGallerySubdocs(self):
+        self._testSubmitFolderish("ImageGallery", 'Image')
 
     # Test the renamming of a published object
     # Trac(#793)

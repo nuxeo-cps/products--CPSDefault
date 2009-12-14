@@ -54,6 +54,7 @@ ZopeTestCase.installProduct('CPSUserFolder', quiet=1)
 ZopeTestCase.installProduct('Localizer', quiet=1)
 ZopeTestCase.installProduct('TranslationService', quiet=1)
 ZopeTestCase.installProduct('CPSSkins', quiet=1)
+ZopeTestCase.installProduct('CPSDesignerThemes', quiet=1)
 ZopeTestCase.installProduct('CPSPortlets', quiet=1)
 
 # XXX AT: these products should be optional (dependencies remain to be checked)

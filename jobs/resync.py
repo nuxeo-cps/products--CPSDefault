@@ -115,3 +115,9 @@ def run(portal, arguments):
     if args:
         optparser.error("Args: %s; this job accepts options only."
                         "Try --help" % args)
+
+# invocation through zopectl run
+if __name__ == '__main__':
+    from Products.CPSUtil.cpsjob import bootstrap
+    portal, options, arguments = bootstrap(app)
+    run(portal, arguments)

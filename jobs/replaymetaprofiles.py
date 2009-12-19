@@ -63,3 +63,9 @@ def run(portal, arguments):
     log = replay(portal)
     transaction.commit()
     sys.stderr.writelines(log)
+
+# invocation through zopectl run
+if __name__ == '__main__':
+    from Products.CPSUtil.cpsjob import bootstrap
+    portal, options, arguments = bootstrap(app)
+    run(portal, arguments)

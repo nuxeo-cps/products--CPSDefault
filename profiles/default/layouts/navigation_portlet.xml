@@ -167,15 +167,15 @@
   <property
      name="hidden_if_expr">python: context.display not in ['site_map', 'site_map_3_tabs']</property>
  </widget>
- <widget name="portlet" meta_type="Generic Portlet Widget">
-  <property name="fields">
-   <element value="portlet"/>
-  </property>
+
+ <widget name="portlet" meta_type="Dispatcher Portlet Widget">
   <property name="hidden_layout_modes">
    <element value="edit"/>
   </property>
-  <property name="render_method">widget_portlet_navigation</property>
+  <property name="render_method_prefix">widget_portlet_navigation_</property>
+  <property name="selector_widget">display</property>
  </widget>
+
  <widget name="rel_depth" meta_type="Int Widget">
   <property name="fields">
    <element value="rel_depth"/>

@@ -22,7 +22,7 @@ from Products.CMFCore.utils import ContentInit, ToolInit
 from Products.CMFCore.utils import registerIcon
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore.permissions import AddPortalContent
-from Products.GenericSetup import BASE
+from Products.GenericSetup import BASE, EXTENSION
 from Products.GenericSetup import profile_registry
 
 from Products.CPSCore.interfaces import ICPSSite
@@ -104,3 +104,14 @@ def initialize(context):
                                      'CPSDefault',
                                      BASE,
                                      for_=ICPSSite)
+
+    profile_registry.registerProfile(
+        'folder_advanced_display',
+        'CPS Default Folder Advanced Display',
+        "Advanced display capabilities on folders : front pages "
+        "(akin to index.html), enhanced listings...",
+        'profiles/folder_advanced_display',
+        'CPSDefault',
+        EXTENSION,
+        for_=ICPSSite)
+

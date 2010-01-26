@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- A layout to control what visitors see by default of the folder -->
+<object name="folder_display_options" meta_type="CPS Layout">
+ <property name="label_edit">label_folder_display_options</property>
+ <property name="is_i18n">True</property>
+
+ <widget name="frontpage" meta_type="Generic Select Widget">
+  <property name="fields">
+    <element value="frontpage"/>
+  </property>
+  <property name="label_edit">label_folder_frontpage</property>
+  <property name="help">help_folder_frontpage</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+    <element value="view"/>
+    <element value="create"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="add_empty_key">True</property>
+  <property name="vocabulary">folder_frontpage_candidates</property>
+ </widget>
+
+ <widget name="display_listing" meta_type="Boolean Widget">
+  <property name="fields">
+    <element value="display_listing"/>
+  </property>
+  <property name="label_edit">label_folder_display_listing</property>
+  <property name="help">help_folder_display_listing</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+    <element value="view"/>
+    <element value="create"/>
+  </property>
+  <property name="render_format">checkbox</property>
+ </widget>
+
+  <table>
+   <row>
+    <cell name="frontpage"/>
+    <cell name="display_listing"/>
+   </row>
+  </table>
+
+</object>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<object name="Section">
+
+ <property name="schemas" purge="False">
+  <element value="folder_display_options"/>
+ </property>
+
+ <property name="layouts" purge="False">
+  <element value="folder_display_options"/>
+ </property>
+
+ <!-- Displaying only if user has more than view permission.
+ Often the only action available to anonymous users (absurd to display it) -->
+ <action title="action_view" action_id="view" category="object"
+     condition_expr="" url_expr="string:${object_url}/folder_view"
+     visible="True">
+   <permission value="Modify portal content"/>
+  </action>
+
+
+</object>

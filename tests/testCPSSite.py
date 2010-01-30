@@ -48,6 +48,10 @@ class TestCPSDefault(CPSTestCase):
     def beforeTearDown(self):
         self.logout()
 
+    def test_head_requests(self):
+        self.portal.HEAD()
+        self.portal.workspaces.HEAD()
+
     def test_01_workflow(self):
         self.assertNotEqual(self.wftool, None)
 

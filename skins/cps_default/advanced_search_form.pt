@@ -7,12 +7,16 @@
     filter python:0;
     title_search request/title_search|nothing;
     portal_status_message res/psm;
-    swr request/search_within_results|nothing;">
+    swr request/search_within_results|nothing;
+    cpsmcat nocall:here/translation_service;
+    expanded_title python:cpsmcat('advanced_search_in ${title}',
+                                  mapping={'title': context.Title()});
+    ">
 <metal:block use-macro="here/main_template/macros/master">
 
   <metal:block fill-slot="header">
-    <h1 i18n:translate="heading_advanced_search">
-      Advanced search
+    <h1 tal:content="expanded_title">
+      Advanced search in Folder
     </h1>
   </metal:block>
 

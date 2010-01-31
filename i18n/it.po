@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault Italian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 16:22default\n"
+"POT-Creation-Date: 2010-01-31 22:38default\n"
 "PO-Revision-Date: 2005-11-10 09:08+0100\n"
 "Last-Translator: Stefano Schintu <schintu@gmail.com>\n"
 "Language-Team: CPS Italian <schintu@gmail.com>\n"
@@ -421,8 +421,8 @@ msgid "button_cut"
 msgstr "Taglia"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
+#.   <input attributes="onclick python:'return window.confirm(\'%s\' + \'\\n\\n\' +
+#.                 getSelectedDocumentsTitles())' % (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="destructive" />
 #: from ../skins/cps_default/config_form.pt
 #: ../skins/cps_default/folder_contents.pt
@@ -719,7 +719,7 @@ msgstr ""
 "</p><p>Par exemple si vous avez suivi un lien depuis un courriel vous "
 "devriez vérifier avec la personne qui vous l'a envoyé ou avec les webmestres "
 "du portail en leur donnant l'adresse de cette page. Vous pourriez "
-"possiblement leur demander de vous donner un accès moins restreint.</p>"
+"éventuellement leur demander de vous donner plus de droits d'accès.</p>"
 
 #.   <p>
 #.                 Specify which accounts you want to do a password reset on.
@@ -756,6 +756,14 @@ msgid "error_not_found"
 msgstr ""
 "La risorsa che stai cercando non è stata trovata.<br /> Se l'oggetto è stato "
 "spostato, puoi ricercarlo usando questo modulo di ricerca."
+
+#.   <h1>
+#.         Advanced search
+#.       </h1>
+#: from ../skins/cps_default/advanced_search_form.pt
+#, fuzzy
+msgid "expanded_title"
+msgstr "Titre"
 
 #.   <title fill-slot="title">
 #.           heading_abandon_draft_of
@@ -796,8 +804,7 @@ msgstr "Assegna i ruoli locali: risultati della ricerca"
 #.   <h1>
 #.         Advanced search
 #.       </h1>
-#: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
+#: from ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Ricerca avanzata"
 
@@ -3498,6 +3505,10 @@ msgstr ""
 
 msgid "portlet_title_breaking_news"
 msgstr ""
+
+#, fuzzy
+msgid "advanced_search_in ${title}"
+msgstr "Recherche avancée dans « ${title} »"
 
 #, fuzzy
 msgid "label_id"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CPSDefault-nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-20 16:22default\n"
+"POT-Creation-Date: 2010-01-31 22:38default\n"
 "PO-Revision-Date: 2004-05-21 18:33+0200\n"
 "Last-Translator: DARCHE <madarche@nuxeo.com>\n"
 "Language-Team: Francais <fr@li.org>\n"
@@ -425,8 +425,8 @@ msgid "button_cut"
 msgstr "Knippen"
 
 #.   <button type="submit" name="manageCPSLanguage:method">Delete</button>
-#.   <input attributes="onclick python:'return window.confirm(\'%s\')' %
-#.                 (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
+#.   <input attributes="onclick python:'return window.confirm(\'%s\' + \'\\n\\n\' +
+#.                 getSelectedDocumentsTitles())' % (cpsmcat('description_confirm_delete'), )" type="submit" name="folder_delete:method" value="button_delete" class="destructive" />
 #.   <input type="submit" name="delete_local_roles" value="button_delete" class="destructive" />
 #: from ../skins/cps_default/config_form.pt
 #: ../skins/cps_default/folder_contents.pt
@@ -762,6 +762,14 @@ msgstr ""
 "werd verplaatst, kunt u het waarschijnlijk terugvinden met behulp van de "
 "zoekfunctie."
 
+#.   <h1>
+#.         Advanced search
+#.       </h1>
+#: from ../skins/cps_default/advanced_search_form.pt
+#, fuzzy
+msgid "expanded_title"
+msgstr "Title"
+
 #.   <title fill-slot="title">
 #.           heading_abandon_draft_of
 #.           ${item_id (tal replace="here/title_or_id")}
@@ -802,8 +810,7 @@ msgstr "Lokale rollen toekennen&nbsp;:&nbsp;zoekresultaten"
 #.   <h1>
 #.         Advanced search
 #.       </h1>
-#: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
+#: from ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Geavanceerd zoeken"
 
@@ -3543,6 +3550,10 @@ msgstr ""
 
 msgid "portlet_title_breaking_news"
 msgstr ""
+
+#, fuzzy
+msgid "advanced_search_in ${title}"
+msgstr "Advanced search in \"${title}\""
 
 #, fuzzy
 msgid "label_author_asc"

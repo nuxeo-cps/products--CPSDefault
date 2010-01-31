@@ -11,6 +11,7 @@
   <property name="compressed">False</property>
   <property name="activated">True</property>
  </object>
+
  <object name="subscriber_proxies" meta_type="CPS Subscriber Definition">
   <property name="subscriber">portal_proxies</property>
   <property name="action">proxy</property>
@@ -22,6 +23,20 @@
   <property name="compressed">False</property>
   <property name="activated">True</property>
  </object>
+
+ <object name="subscriber_subsite_caching"
+      meta_type="CPS Subscriber Definition">
+  <property name="subscriber">portal_subsite_caching</property>
+  <property name="action">event</property>
+  <property name="meta_type_">*</property>
+  <property name="event_type">
+   <element value="*"/>
+  </property>
+  <property name="notification_type">synchronous</property>
+  <property name="compressed">False</property>
+  <property name="activated">True</property>
+ </object>
+
  <object name="subscriber_trees" meta_type="CPS Subscriber Definition">
   <property name="subscriber">portal_trees</property>
   <property name="action">tree</property>

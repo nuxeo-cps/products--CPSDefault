@@ -13,9 +13,14 @@ If concat=1 there is no trailing '/' ex: '', /cps/foo
 if obj is None:
     obj = context
 
-if hasattr(obj.aq_explicit, 'getRID'):
-    # obj is a brain
-    obj = obj.getObject()
+from AccessControl import Unauthorized
+
+try:
+    if hasattr(obj.aq_explicit, 'getRID'):
+        # obj is a brain
+        obj = obj.getObject()
+except Unauthorized: # happens in error rendering context
+    pass
 
 context_url = obj.absolute_url_path()
 if not concat:

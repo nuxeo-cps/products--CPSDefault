@@ -1,0 +1,154 @@
+==============================================
+HOWTO switch an existing site to meta profiles
+==============================================
+
+:Author: Georges Racinet
+
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+What are meta profiles
+======================
+
+Profiles
+--------
+
+With the introduction of GenericSetup based configuration in CPS 3.4,
+most of what can be done in ZMI is saved in so-called
+"profiles". These are hierarchies of XML files describing all the configuration
+objects that make up a CPS instance. They are organised in "steps",
+corresponding more or less to the various tools (e.g.,
+```portal_layouts```) found in the instance.
+
+There are powerful import/export capabilities that effectively allow
+to reproduce a configuration from one instance to the other.
+
+Profiles can be replayed (reimported) and each step can also be
+exported, so that one may create new profiles or entire site snapshots.
+
+Base and extension
+------------------
+There are two types of profiles: a 'base' profile is thought as an
+initial configuration, while an 'extension' profile is thought as an
+add-on.
+
+CPSDefault comes with a base profile, that's loaded during of the
+site creation procedure. Most high level CPS products (e.g,
+CPSSubscriptions) come with an extension profile that's meant to be
+imported on top of CPSDefault's base profile. Real life sites have
+typically known the import or repeated import of a bunch of extension profiles.
+
+Importing a base profile reinitializes all the tools and wipes their
+existing content, while importing an extension profile actually merges
+the configuration. This allows for instance to change just one
+property of a widget. In CPSCourrier, for instance, applying the
+```lucene``` profile switches the widgets for all mailbox views to
+those special widgets that request a Lucene Catalog instead of the
+standard ZCatalog. In theory, that profile should change only that.
+
+The potential for decorrelation brought by GenericSetup is great, but
+not infinite. It is easy to be in the situation where the order of
+import does matter. In the example above, you better import the
+```CPSCourrier:lucene``` profile *after* ```CPSCourrier:default```. In
+other words, profile imports are noncommutative operations.
+
+Meta profiles
+-------------
+
+Although the flexibility of the profiles system is great, once you
+push it a bit, you come to a human limit if each update means
+reimporting a dozen profiles, in the right order, and if you want to
+be sure of the result, you better start again from the base profile,
+because in a noncommutative world, abab can be different from ab even
+though aa = a and bb = b.
+
+Meta profiles are precisely meant to overcome that difficulty. A meta
+profile is nothing but an ordered set of profiles.
+
+CPSDefault's metafactory is a factory for a CPS instance based on the
+meta profile concept. One declares several meta profiles, and the
+order between them. One can then automatically have a ZMI site
+creation page with each meta profile being an option for the
+administrator. The most interesting feature is that meta profiles are
+replayable in a single shot, and replaying them guarantees to
+reproduce the configuration exactly. Therefore you can work
+incrementally on your development instance, do the final testing
+after replaying the profiles and be pretty sure of the result on the
+production instance.
+
+Declaring meta profiles
+=======================
+
+Creating a factory
+------------------
+
+TODO There is a rather complete example in CPSCourrier/factory.py
+
+The site creation page
+----------------------
+
+TODO check CPSCourrier/__init__.py to get the declarations
+
+Replaying profiles
+------------------
+
+register an External method with module
+```CPSDefault.replay_meta_profiles``` and function: ```replay````
+
+or use a cpsjob::
+
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py  <portal_id>
+
+Warning: for the latter, either use the ```-u``` option so that the
+replaying is done with the normal ZMI administrator user, or enable
+the ```skip-ownership-checking``` in your zope.conf.
+
+Switching an existing instance to meta profiles
+===============================================
+
+If starting from scratch, the normal process would be to declare the
+meta profiles, use them to create the site, and let the system handle
+the upgrades automatically.
+
+Now, some older production instances would benefit from the system,
+but it's of course unacceptable to recreate them. Here we explain how
+to alter an existing instance so that meta profile replaying
+works. You can think of the process as tricking the portal into
+believe it has been created by the meta profile based creation page.
+
+Create the factory
+------------------
+This is exactly the same as for a new site.
+
+You should create the factory class as above and check that it works,
+i.e., that you can use it to make a new, fresh portal with it.
+
+Mark the portal with the factory class
+--------------------------------------
+
+Go to a fresh portal created with the new factory class. Look, in the
+introspection tab to the ```configurator``` attribute. Create a new
+property on the portal you want to switch to meta_profiles with the
+same value (without the quotes of course).
+
+Store the list of loaded meta profiles
+--------------------------------------
+
+Similar, but easier: look for the ```meta_profiles``` property on the
+fresh portal, and reproduce it in the one to upgrade.
+
+Check the outcome and correct
+-----------------------------
+
+Now you can replay the meta profiles ! Check that your configuration
+hasn't changed by performing snaphots before and after, and using the
+diff facility of ```portal_setup```. Most probably, you'll have to
+alter your most custom profile to achieve the wished result.
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

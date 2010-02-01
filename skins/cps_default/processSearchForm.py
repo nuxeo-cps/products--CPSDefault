@@ -10,6 +10,7 @@ res = {'rendered_form': '',
        'valid_form': 0,
        }
 
+from_context = context
 # manage form action
 if REQUEST is not None:
     form = REQUEST.form
@@ -17,6 +18,9 @@ if REQUEST is not None:
         mapping = form
     else:
         mapping = None
+    from_rpath = REQUEST.get('from', None)
+    if from_context is not None:
+        from_context = context.restrictedTraverse(from_rpath)
 else:
     mapping = None
 
@@ -25,7 +29,7 @@ query = {}
 ltool = context.portal_layouts
 (res['rendered_form'], res['status'], ds) = ltool.renderLayout(
     layout_id='cpsdefault_search', schema_id='cpsdefault_search',
-    context=context, mapping=mapping, ob=query)
+    context=from_context, mapping=mapping, ob=query)
 
 if mapping is not None:
     # search

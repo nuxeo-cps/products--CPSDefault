@@ -56,6 +56,7 @@ class SubSiteCachingTool(UniqueObject, SimpleItemWithProperties):
         """Catch publication events for the caching headers."""
 
         if event_type in ['workflow_publish', 'workflow_accept',
+                          'workflow_unpublish',
                           'sys_modify_security'] \
            or isinstance(object, CPSPortlet):
             self.updateLastModified(obj)

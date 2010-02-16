@@ -1,0 +1,94 @@
+===================
+HTTP Caching in CPS
+===================
+
+:Author: Georges Racinet
+:Revision: $Id$
+
+
+Scope
+=====
+
+Here will be discussed the HTTP caching facilities for whole html pages or
+sub sites.
+
+The caching of images, stylesheets, etc follows the standard system
+provided by CMF (see the CachingPolicyManager tool).
+
+The wet blanket style of caching, for instance a reverse proxy keeping
+the content in cache for a fixed amount of time no matter what is
+efficient but can be frustrating for contributors. Here we discuss how
+to handle the gentler conditional requests described in RFC 2616. Note
+that both approaches can be complementary.
+
+Problem and goal
+================
+
+The caching of whole pages in a CMS such as CPS is in itself a bit
+problematic, because what is displayed on the typical page is much
+more that a document: it usually also sports a lot of information
+coming from other documents, which themselves may be anywhere in the
+portal. Because of that, an automatic system has a hard time to
+compute the actual last modification date of all that's on the page.
+It's actually better to let the administrator indicate that to the system.
+
+We describe here a way to handle If-Modified-Since requests in sub
+parts of the document tree (called thereafter *subsites*) where the
+administrator knows that all the displayed content comes from the same
+subsite. This is a typical need if CPS is used as a site farm.
+
+Howto
+=====
+
+Preparing a subsite
+-------------------
+
+Say you have a subsite ```sections/mysite``` that is a section in
+which the rendering of all pages present and future is made from
+documents from that section and deeper in the hierarchy.
+
+Go visit ```section/mysite``` in ZMI. Add an "IncreasingDateTime"
+object there, with id '.cps_subsite_last_modified_date'. The mere
+existence of that object is enough to tell CPS that you assume that
+this is indeed a subsite.
+
+GR TODO: not possible in ZMI for now.
+One must use ```zopectl debug``` for that or use the ExternalMethod::
+
+    module: CPSDefault.make_subsite_last_modified
+    function: make
+
+on the targetted section
+
+Global activation of the capability
+-----------------------------------
+Edit your custom project's ```overrides.zcml``` to add this::
+
+  <!-- void response handler -->
+  <adapter
+      provides="Products.CPSDefault.interfaces.IVoidResponseHandler"
+      for="*
+	   zope.publisher.interfaces.http.IHTTPRequest"
+      factory="Products.CPSDefault.voidresponses.ImsResponseHandler"
+      />
+
+GR TODO: this should become the default, or part of the default "void
+response" of CPS.
+
+What's the logic
+----------------
+
+Each time some new content within the subsite is added or changed, the
+last modified date of the subsite is updated and the If-Modified-Since
+response is treated accordingly for all requests within the subsite.
+
+You can and maybe need to nest subsites. Namely, if you have a
+```.cps_subsite_last_modified_date``` both in ```sections``` and
+```sections/mysite```, changes within mysite will update both.
+This is useful for site farms doubling as communities, in which
+toplevel pages typically aggregate what's happening in the subsites.
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

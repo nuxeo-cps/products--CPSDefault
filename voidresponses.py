@@ -58,7 +58,8 @@ class ImsResponseHandler(BaseResponseHandler):
                                'max-age:36000; must-revalidate')
             else:
                 sct.setCacheControlHeader(resp)
-            resp.setHeader('Last-Modified', lmd.rfc822())
+            if lmd is not None:
+                resp.setHeader('Last-Modified', lmd.rfc822())
 
     def imsRespond(self, portal=None):
         """Respond to If-Modified-Since request. Return True in case of 304"""

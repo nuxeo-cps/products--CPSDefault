@@ -361,6 +361,8 @@ function getSelectedDocumentsTitles() {
     // eleme_link IDs are made with "cb_" (3 chars long) then the document ID
     // Prototype does not (yet?) provide a crossbrowser solution for getting
     // inner text.
+    // textContent is standard DOM3
+    // innerText   is proprietary Microsoft
     var text = elem_link.innerText || elem_link.textContent;
     // The strip method is provided by Prototype
     var text_stripped = text.strip();

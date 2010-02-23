@@ -4,13 +4,16 @@
  <property name="layout_edit_method"></property>
  <property name="layout_view_method"></property>
  <property name="style_prefix">layout_default_</property>
+
  <property name="flexible_widgets">
   <element value="textimage:4"/>
+  <element value="photo_single:4"/>
   <element value="link"/>
   <element value="attachedFile:10"/>
   <element value="flash"/>
  </property>
  <property name="validate_values_expr"></property>
+
  <widget name="attachedFile" meta_type="AttachedFile Widget">
   <property name="title">cpsdoc_flex_attachedFile_title</property>
   <property name="fields">
@@ -22,6 +25,7 @@
   <property name="hidden_empty">True</property>
   <property name="css_class">ddefault</property>
  </widget>
+
  <widget name="content" meta_type="Text Widget">
   <property name="fields">
    <element value="?"/>
@@ -35,6 +39,7 @@
   <property name="render_format">html</property>
   <property name="configurable">format</property>
  </widget>
+
  <widget name="content_right" meta_type="Text Widget">
   <property name="fields">
    <element value="?"/>
@@ -48,6 +53,7 @@
   <property name="render_format">html</property>
   <property name="configurable">format</property>
  </widget>
+
  <widget name="link" meta_type="Link Widget">
   <property name="title">cpsdoc_flex_link_title</property>
   <property name="fields">
@@ -62,6 +68,7 @@
   <property name="is_i18n">True</property>
   <property name="css_class">ddefault</property>
  </widget>
+
  <widget name="link_description" meta_type="TextArea Widget">
   <property name="fields">
    <element value="?"/>
@@ -71,6 +78,7 @@
   <property name="width">60</property>
   <property name="height">3</property>
  </widget>
+
  <widget name="link_href" meta_type="URL Widget">
   <property name="fields">
    <element value="?"/>
@@ -79,6 +87,7 @@
   <property name="is_i18n">True</property>
   <property name="display_width">60</property>
  </widget>
+
  <widget name="link_title" meta_type="String Widget">
   <property name="fields">
    <element value="?"/>
@@ -88,6 +97,7 @@
   <property name="display_width">60</property>
   <property name="size_max">100</property>
  </widget>
+
  <widget name="photo" meta_type="Photo Widget">
   <property name="title">cpsdoc_flex_photo_title</property>
   <property name="fields">
@@ -100,6 +110,22 @@
   <property name="display_height">200</property>
   <property name="configurable">position</property>
  </widget>
+
+ <widget name="photo_single" meta_type="Photo Widget">
+  <property name="title">cpsdoc_flex_photo_title</property>
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsdoc_flex_photo_label_edit</property>
+  <property name="fieldset">true</property>
+  <property name="is_i18n">True</property>
+  <property name="size_max">2097152</property>
+  <property name="display_width">640</property>
+  <property name="display_height">480</property>
+  <property name="configurable">nothing</property>
+  <property name="render_position">center</property>
+ </widget>
+
  <widget name="textimage" meta_type="Text Image Widget">
   <property name="title">cpsdoc_flex_textimage_title</property>
   <property name="fields">
@@ -108,11 +134,11 @@
   <property name="widget_ids">
    <element value="photo"/>
    <element value="content"/>
-   <element value="content_right"/>
   </property>
   <property name="label_edit">cpsdoc_flex_textimage_label_edit</property>
   <property name="is_i18n">True</property>
  </widget>
+
  <widget name="flash" meta_type="Flash Widget">
   <property name="title">cpsdoc_flex_flash_title</property>
   <property name="fields">
@@ -124,4 +150,5 @@
   <property name="size_max">0</property>
  </widget>
  <table/>
+
 </object>

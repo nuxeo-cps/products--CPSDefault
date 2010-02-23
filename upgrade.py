@@ -985,3 +985,36 @@ def upgrade_rss_portlets_multichannels(portal):
 
     logger.debug("DONE")
     return log_key + ": DONE"
+
+def flexible_remove_empty_rightcol(portal):
+    logger = logging.getLogger(LOG_KEY + 'flexible_remove_empty_rightcol')
+    repotool = portal.portal_repository
+    for doc in repotool.objectValues():
+        try:
+            layout = doc['.cps_layouts']['flexible_content']
+        except KeyError:
+            continue
+
+        dm = doc.getDataModel()
+        count = 0
+        for wid, widget in layout.items(): # .values() does not work
+            if widget.meta_type != 'Text Image Widget':
+                continue
+            subwids = widget.widget_ids
+            if len(subwids) < 3:
+                continue
+            subwid = subwids[2]
+            sub = layout[subwid]
+            if dm.get(sub.fields[0]):
+                continue
+
+            # now removing
+            widget.widget_ids = subwids[:2]
+            layout.delSubObject(subwid)
+            count += 1
+
+        if count:
+            logger.info("Removed %d empty right columns on document %s "
+                        "(Title=%s)", count, doc.getId(), doc.Title())
+
+    logger.info("Cleanup done")

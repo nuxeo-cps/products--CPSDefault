@@ -5,6 +5,7 @@
 <div class="message"
      tal:define="psm portal_status_message |
                      request/portal_status_message |
+		     request/form/portal_status_message |
                      nothing;
      psm_mappings python:request.get('portal_status_message_mappings', {});
      cpsmcat nocall:cpsmcat|nocall:here/translation_service;

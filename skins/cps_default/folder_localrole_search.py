@@ -21,6 +21,7 @@ if search_param == 'fullname':
     search_param = 'sn'
 
 results = []
+search_term = search_term.strip()
 
 if search_param in ('id', 'givenName', 'sn', 'email'):
     mdir = context.portal_directories.members
@@ -37,13 +38,15 @@ if search_param in ('id', 'givenName', 'sn', 'email'):
 
 elif search_param == 'groupname':
     gdir  = context.portal_directories.groups
+    results = gdir.searchEntries(**{gdir.id_field: search_term})
     # XXX hardcoded but not GroupsDirectory's job
     pseudo_groups = ['role:Anonymous', 'role:Authenticated']
-    groups = []
-    for pseudo_group in pseudo_groups:
-        if pseudo_group.lower().find(search_term) != -1:
-            groups.append(pseudo_group)
-    results = gdir.searchEntries(**{gdir.id_field: search_term})
-    results.extend(groups)
+    if search_term == '*':
+        results.extend(groups)
+    else:
+        search_term = search_term.lower()
+        for pseudo_group in pseudo_groups:
+            if pseudo_group.lower().find(search_term) != -1:
+                results.append(pseudo_group)
 
 return results

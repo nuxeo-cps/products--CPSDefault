@@ -21,7 +21,6 @@ import logging
 import sys
 import re
 from pprint import pformat
-import optparse
 
 import transaction
 from DateTime import DateTime
@@ -34,9 +33,7 @@ from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
 
 logger = logging.getLogger('CPSDefault.jobs.resync')
-optparser = optparse.OptionParser(
-    usage="usage: Products.CPSDefault.jobs.resync [options]")
-
+from Products.CPSUtil import cpsjob
 
 LANG_PATH_REGEXP = re.compile(KEYWORD_VIEW_LANGUAGE + r'/\a+$')
 
@@ -77,7 +74,7 @@ def refreshCatalog(zcatalog, clear=0, pghandler=None):
 
     if pghandler: pghandler.finish()
 
-def resync_catalog(option, opt, value, parser, portal):
+def resync_catalog(portal):
     """Reindexes the catalog
     Four first args are general for optparse callbacks."""
 
@@ -91,7 +88,7 @@ def resync_catalog(option, opt, value, parser, portal):
 
     transaction.commit()
 
-def resync_trees(option, opt, value, parser, portal):
+def resync_trees(portal):
     """Rebuild all tree caches.
     Four first args are standard optparse stuff."""
 
@@ -101,23 +98,29 @@ def resync_trees(option, opt, value, parser, portal):
         tree.rebuild()
         transaction.commit()
 
-def run(portal, arguments):
+def main():
     """CPS job bootstrap"""
 
-    optparser.add_option('-c', '--catalog', action='callback',
-                         help="Catalog full reindexation",
-                         callback=resync_catalog, callback_args=(portal,))
-    optparser.add_option('-t', '--trees', action='callback',
-                         help="Rebuild of tree caches",
-                         callback=resync_trees, callback_args=(portal,))
+    optparser = cpsjob.optparser
+    optparser.add_option('-c', '--catalog', dest='catalog',
+                         action='store_true',
+                         help="Catalog full reindexation")
+    optparser.add_option('-t', '--trees', dest='trees', action='store_true',
+                         help="Rebuild of tree caches")
 
-    options, args = optparser.parse_args(arguments)
+    portal, options, args = cpsjob.bootstrap(app)
+
     if args:
         optparser.error("Args: %s; this job accepts options only."
                         "Try --help" % args)
+    if options.catalog:
+	resync_catalog(portal)
+    if options.trees:
+	resync_trees(portal)
+ 
+	
 
 # invocation through zopectl run
 if __name__ == '__main__':
-    from Products.CPSUtil.cpsjob import bootstrap
-    portal, options, arguments = bootstrap(app)
-    run(portal, arguments)
+    main()
+

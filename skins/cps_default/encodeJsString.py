@@ -11,7 +11,6 @@ This is very usefull to set js variable like
       var value = "${js_value}";
   //--> />
 """
-
 if not pystr:
     return ''
 
@@ -24,5 +23,9 @@ quotes = (("\\", "\\\\"),
 jsstr = pystr
 for item in quotes:
     jsstr = jsstr.replace(item[0], item[1])
+
+if not isinstance(jsstr, unicode):
+    # fckeditor return utf-8 encoded str
+    jsstr = unicode(jsstr, 'utf-8')
 
 return jsstr

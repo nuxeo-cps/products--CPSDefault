@@ -36,6 +36,7 @@ ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
 ZopeTestCase.installProduct('Five', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
+ZopeTestCase.installProduct('UnicodeLexicon', quiet=1)
 # CMF
 ZopeTestCase.installProduct('CMFCalendar', quiet=1)
 ZopeTestCase.installProduct('CMFCore', quiet=1)
@@ -43,6 +44,7 @@ ZopeTestCase.installProduct('CMFDefault', quiet=1)
 ZopeTestCase.installProduct('CMFTopic', quiet=1)
 ZopeTestCase.installProduct('CMFSetup', quiet=1)
 ZopeTestCase.installProduct('DCWorkflow', quiet=1)
+
 # CPS
 ZopeTestCase.installProduct('CPSDefault', quiet=1)
 ZopeTestCase.installProduct('CPSCore', quiet=1)
@@ -180,6 +182,7 @@ class CPSDefaultLayerClass(object):
         assert self.portal.portal_themes
         # the crash shield doesn't help understanding what's wrong in a test
         self.portal.portal_themes.debug_mode = True
+
         self.addEventRecorder()
         self.logout()
         transaction.commit()

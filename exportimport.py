@@ -186,6 +186,7 @@ class RootsXMLAdapter(XMLAdapterBase):
                 #self._logger.debug(
                 #   "_initRoots importObjects on %s with parent_path = %s"
                 #   % (str(obj), self.path))
+
                 # Import subobjects recursively
                 importObjects(obj, self.path + '/', self.environ)
                 # Move on to the next root object
@@ -278,7 +279,6 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
                 value = translation_service(msgid=msgid,
                                             target_language=lang,
                                             default=msgid)
-                value = value.encode('iso-8859-15', 'ignore')
                 doc = proxy.getEditableContent(lang=lang)
                 doc_def = {field_id: value, 'proxy': proxy}
                 doc.edit(**doc_def)

@@ -10,12 +10,9 @@
 # TODO: Depending on what CMF does, maybe remove this customized script when the
 # switch to UTF8 is done.
 
-from Products.CPSUtil.text import toLatin9
-
 site_title = context.portal_url.getPortalObject().Title()
 site_description = context.portal_url.getPortalObject().Description()
 page_title = context.Title()
-page_title = toLatin9(page_title)
 
 if page_title == site_title:
     # This is portal root (homepage) or a page not corresponding to a document

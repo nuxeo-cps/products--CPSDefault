@@ -174,7 +174,7 @@ def computeContributors(portal, contributors):
         fullname = user_id
 
     if not isinstance(fullname, unicode):
-        fullname.decode('iso-8859-15')
+        fullname = fullname.decode('iso-8859-15')
 
     if fullname is not None and fullname not in contributors:
         contributors.append(fullname)

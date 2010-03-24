@@ -67,7 +67,8 @@ class SubSiteCachingTool(UniqueObject, SimpleItemWithProperties):
             lmd = getattr(obj, SUBSITE_LAST_MODIFIED_DATE, None)
             if lmd is None:
                 return
-            lmd.set(DateTime())
+            # back 1s to avoid rounding problems
+            lmd.set(DateTime() - 1.0/86400)
 
             # start again from above the one we've found
             container = aq_parent(aq_inner(lmd))

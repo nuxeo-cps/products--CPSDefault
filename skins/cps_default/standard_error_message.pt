@@ -8,6 +8,7 @@
                         error_log_url options/error_log_url|nothing;
                         p_props here/portal_properties;
                        ">
+<tal:block condition="python: error_type and error_type != 'Unauthorized'">
 <metal:body use-macro="here/main_template/macros/master">
 
 <metal:main fill-slot="main">
@@ -58,4 +59,5 @@
 
 </metal:main>
 </metal:body>
+</tal:block>
 </metal:html>

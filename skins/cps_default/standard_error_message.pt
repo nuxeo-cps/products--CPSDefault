@@ -1,5 +1,5 @@
 <metal:html tal:define="showthirdcol nothing;
-			dummy here/portal_themes/markAsErrorRendering;
+                        dummy here/portal_themes/markAsErrorRendering;
                         error_type options/error_type|nothing;
                         error_value options/error_value|nothing;
                         error_message options/error_message|nothing;
@@ -8,56 +8,56 @@
                         error_log_url options/error_log_url|nothing;
                         p_props here/portal_properties;
                        ">
-<tal:block condition="python: error_type and error_type != 'Unauthorized'">
-<metal:body use-macro="here/main_template/macros/master">
+  <tal:block condition="python: error_type and error_type != 'Unauthorized'">
+    <metal:body use-macro="here/main_template/macros/master">
 
-<metal:main fill-slot="main">
+      <metal:main fill-slot="main">
 
-<tal:haserrortype condition="error_type">
-  <tal:notfound condition="python:error_type == 'NotFound'">
-    <metal:block use-macro="here/error_lib_not_found/macros/not_found" />
-  </tal:notfound>
+        <tal:haserrortype condition="error_type">
+          <tal:notfound condition="python:error_type == 'NotFound'">
+            <metal:block use-macro="here/error_lib_not_found/macros/not_found" />
+          </tal:notfound>
 
-  <tal:block condition="python:error_type != 'NotFound'">
-    <metal:block use-macro="here/error_lib_other/macros/other" />
+          <tal:block condition="python:error_type != 'NotFound'">
+            <metal:block use-macro="here/error_lib_other/macros/other" />
 
-    <tal:comment condition="nothing">
-    <!-- The checkPerm cannot be used when error_type is NotFound        -->
-    <!-- because Zope authentication is only performed when a successful -->
-    <!-- traversal happens.                                              -->
-    </tal:comment>
-    <tal:debugging condition="python:checkPerm('Manage portal', here)">
-      <table width="100%" cellpadding="2" cellspacing="2">
-        <tr>
-          <th width="10%">Error Type:</th>
-          <td tal:content="error_type"></td>
-        </tr>
-        <tr>
-          <th>Error Value:</th>
-          <td><pre tal:content="structure error_value" /></td>
-        </tr>
-        <tr>
-          <th>Traceback:</th>
-          <td><pre tal:content="structure error_traceback" /></td>
-        </tr>
-      </table>
-      <hr />
-      <pre tal:content="structure request" />
-      <hr />
-      <a href="" tal:condition="python:error_log_url"
+            <tal:comment condition="nothing">
+              <!-- The checkPerm cannot be used when error_type is NotFound
+              because Zope authentication is only performed when a successful
+              traversal happens. -->
+            </tal:comment>
+            <tal:debugging condition="python:checkPerm('Manage portal', here)">
+              <table width="100%" cellpadding="2" cellspacing="2">
+                <tr>
+                  <th width="10%">Error Type:</th>
+                  <td tal:content="error_type"></td>
+                </tr>
+                <tr>
+                  <th>Error Value:</th>
+                  <td><pre tal:content="structure error_value" /></td>
+                </tr>
+                <tr>
+                  <th>Traceback:</th>
+                  <td><pre tal:content="structure error_traceback" /></td>
+                </tr>
+              </table>
+              <hr />
+              <pre tal:content="structure request" />
+              <hr />
+              <a href="" tal:condition="python:error_log_url"
                  tal:attributes="href error_log_url">
-        Show Error Log Entry
-      </a>
-    </tal:debugging>
+                Show Error Log Entry
+              </a>
+            </tal:debugging>
+          </tal:block>
+
+        </tal:haserrortype>
+
+        <tal:hasnoerrortype tal:condition="not:error_type">
+        <metal:block use-macro="here/error_lib_other/macros/other" />
+        </tal:hasnoerrortype>
+
+      </metal:main>
+    </metal:body>
   </tal:block>
-
-</tal:haserrortype>
-
-<tal:hasnoerrortype tal:condition="not:error_type">
-  <metal:block use-macro="here/error_lib_other/macros/other" />
-</tal:hasnoerrortype>
-
-</metal:main>
-</metal:body>
-</tal:block>
 </metal:html>

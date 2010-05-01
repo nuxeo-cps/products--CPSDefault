@@ -135,6 +135,11 @@ if query.has_key('folder_prefix'):
 if query.has_key('search_relative_path'):
     del query['search_relative_path']
 
+if not 'path' in query: # limit to current virtual host
+    vroot = '/'.join(context.portal_url.getVirtualRootPhysicalPath())
+    if vroot:
+        query['path'] = vroot
+
 # use filter set to remove objects inside 'portal_*' or named '.foo'
 query['cps_filter_sets'] = {'query': ['searchable'],
                             'operator': 'and'}

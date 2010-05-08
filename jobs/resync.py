@@ -25,6 +25,7 @@ from pprint import pformat
 import transaction
 from DateTime import DateTime
 from AccessControl import Unauthorized
+from ZODB.POSException import ConflictError
 
 from Products.ZCatalog.ProgressHandler import ZLogHandler
 from Products.CMFCore.utils import _checkPermission

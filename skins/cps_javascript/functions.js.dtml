@@ -10,6 +10,26 @@ CPS JavaScript functions
 <dtml-call "REQUEST.RESPONSE.setHeader('Expires', expires.toZone('GMT').rfc822())">
 </dtml-let>
 */
+// (C) Copyright 2003-2009 Nuxeo SAS <http://nuxeo.com>
+// (C) Copyright 2010 AFUL <http://aful.org/>
+// Authors:
+// M.-A. Darche
+// Tarek Ziade
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as published
+// by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+// 02111-1307, USA.
+
 var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
 
 //************************************************************
@@ -349,7 +369,7 @@ function toggleLayers(more_block, more_items) {
 
 //************************************************************
 
-// This method relies on the Prototype library
+// This code relies on the Prototype library
 function getSelectedDocumentsTitles() {
   var titles = [];
   var elems_selected = $$('table#folder_content input:checked');
@@ -369,6 +389,42 @@ function getSelectedDocumentsTitles() {
   }
   return titles.join("\n");
 }
+
+/**
+ * Namespace
+ */
+var org = (typeof org == 'undefined') ? {}: org;
+org.cps_cms = {};
+org.cps_cms.InformationMessageFetcher = {
+
+  portal_url: null,
+
+  get method_url() {
+    return this.portal_url + '/portal_information_message/fetch';
+  },
+
+  continuousFetch: function() {
+    //alert("continuousFetch ...");
+    var that = this;
+    // Every 5 minutes: 5 * 60 * 1000 = 300000
+    window.setInterval(function() { that.fetch(); }, 300000);
+  },
+
+  // This code relies on the Prototype library
+  fetch: function() {
+    //alert("fetch using method_url = " + this.method_url);
+    new Ajax.Request(this.method_url, {
+                       method: 'get',
+                       onSuccess: function(transport) {
+                         var response = transport.responseText || "no response text";
+                         //alert("Success! \n\n" + response);
+                       },
+                       onFailure: function() {
+                         //alert("Something went wrong");
+                       }
+                     });
+  }
+};
 
 
 // Local Variables:

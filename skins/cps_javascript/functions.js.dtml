@@ -1,7 +1,6 @@
 /*
 <dtml-comment>
 CPS JavaScript functions
-$Id$
 </dtml-comment>
 
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1">
@@ -183,7 +182,7 @@ function getSelectedRadio(buttonGroup) {
   if (buttonGroup[0]) {
     for (var i=0; i<buttonGroup.length; i++) {
       if (buttonGroup[i].checked) {
-        return i
+        return i;
       }
     }
   } else {
@@ -252,22 +251,22 @@ function highlightSearchTerm() {
   // TODO: The way the strings to search are retrieved by the JavaScript
   // used for the highlighting is not strong enough and can break very easily.
   // This should be improved.
-  var query_elem = document.getElementById('resultSearchText')
-  if (! query_elem) {
-    return false
+  var query_elem = document.getElementById('resultSearchText');
+  if (!query_elem) {
+    return false;
   }
-  var query = query_elem.value
+  var query = query_elem.value;
   // _robert_ ie 5 does not have decodeURI
   if (typeof decodeURI != 'undefined') {
-    query = unescape(decodeURI(query)) // thanks, Casper
+    query = unescape(decodeURI(query)); // thanks, Casper
   }
   else {
-    return false
+    return false;
   }
   if (query) {
-    queries = query.replace(/\+/g,' ').split(/\s+/)
+    queries = query.replace(/\+/g,' ').split(/\s+/);
     // make sure we start the right place and not higlight menuitems or breadcrumb
-    searchresultnode = document.getElementById('searchResults')
+    searchresultnode = document.getElementById('searchResults');
     if (searchresultnode) {
       for (q=0;q<queries.length;q++) {
         // don't highlight reserved catalog search terms
@@ -284,7 +283,7 @@ function highlightSearchTerm() {
 function climb(node, word){
   // traverse childnodes
   if (! node){
-    return false
+    return false;
   }
   if (node.hasChildNodes) {
     var i;
@@ -299,7 +298,7 @@ function climb(node, word){
 }
 
 function checkforhighlight(node,word) {
-  ind = node.nodeValue.toLowerCase().indexOf(word.toLowerCase())
+  ind = node.nodeValue.toLowerCase().indexOf(word.toLowerCase());
   if (ind != -1) {
     if (node.parentNode.className != "highlightedSearchTerm"){
       par = node.parentNode;
@@ -334,7 +333,7 @@ function searchLanguageCheckSelected(languages, no_language, language) {
 }
 
 function searchLanguageClearSelected(languages) {
-  for (i=0; i<languages.length; i++) {
+  for (var i = 0; i<languages.length; i++) {
     languages[i].checked = 0;
   }
 }

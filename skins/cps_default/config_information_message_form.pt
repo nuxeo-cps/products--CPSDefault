@@ -1,0 +1,30 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns="http://www.w3.org/1999/xhtml"
+      metal:use-macro="here/main_template/macros/master">
+<body>
+
+<metal:block fill-slot="head_slot">
+ <tal:block define="dummy python:request.set('breadcrumb_set',
+    [{
+      'id': 'config_form',
+      'url': '%sconfig_form' % base_url,
+      'title': cpsmcat('heading_reconfig_portal'),
+    },
+   ]);" />
+</metal:block>
+
+<metal:header fill-slot="header"
+              tal:define="mtool here/portal_membership;
+                          checkPerm nocall:mtool/checkPermission;">
+  <h1 i18n:translate="heading_config_information_message">Configure information message</h1>
+  <tal:block condition="python:not checkPerm('Manage portal', here)">
+    <tal:block define="dummy request/RESPONSE/unauthorized" />
+  </tal:block>
+</metal:header>
+
+<metal:main fill-slot="main">
+TODO
+</metal:main>
+</body>
+</html>

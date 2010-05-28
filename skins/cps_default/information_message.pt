@@ -1,4 +1,3 @@
-
       <!--
       This div is the semi-opaque background that will be positioned by JavaScript
       -->
@@ -26,9 +25,10 @@
         <p tal:content="here/portal_information_message/details">
           Details
         </p>
-        <p id="informationMessageBoxButton">
-          <button onclick="$('informationMessageBox').hide();
-            $('informationMessageBackground').hide(); return false;">
+        <p class="alignCenter">
+          <button id="informationMessageButton"
+                 onclick="$('informationMessageBox').hide();
+                          $('informationMessageBackground').hide(); return false;">
             Ok
           </button>
         </p>
@@ -41,5 +41,6 @@
 
         $('informationMessageBackground').setStyle({height: height + 'px', width: width + 'px'});
         $('informationMessageBackground').setOpacity(0.7);
-      </script>
 
+        $('informationMessageButton').focus()
+      </script>

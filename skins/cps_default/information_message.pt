@@ -9,6 +9,11 @@
       actual information message.
       -->
       <div id="informationMessageBox">
+        <a id="informationMessageBoxCloser" href="#"
+                 onclick="$('informationMessageBox').hide();
+                          $('informationMessageBackground').hide(); return false;">
+          X
+        </a>
         <h1>Information window</h1>
 
         <h2>Subject</h2>
@@ -28,7 +33,7 @@
           Details
         </p>
         <p class="alignCenter">
-          <button id="informationMessageButton"
+          <button id="informationMessageOkButton"
                  onclick="$('informationMessageBox').hide();
                           $('informationMessageBackground').hide(); return false;">
             Ok
@@ -44,5 +49,5 @@
         $('informationMessageBackground').setStyle({height: height + 'px', width: width + 'px'});
         $('informationMessageBackground').setOpacity(0.7);
 
-        $('informationMessageButton').focus()
+        $('informationMessageOkButton').focus()
       </script>

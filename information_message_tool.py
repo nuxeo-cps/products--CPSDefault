@@ -23,15 +23,28 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import View, ManagePortal
 from Products.CMFCore.utils import UniqueObject, SimpleItemWithProperties
 
+from DateTime.DateTime import DateTime
+
 class InformationMessageTool(UniqueObject, SimpleItemWithProperties):
     id = 'portal_information_message'
-    meta_type = 'InformationMessage Tool'
+    _properties = (
+    {'id': 'activated', 'type': 'boolean', 'mode': 'w',
+     'label': 'Activated'},
+    {'id': 'subject', 'type': 'string', 'mode': 'w',
+     'label': 'Subject'},
+    {'id': 'date', 'type': 'date', 'mode': 'w',
+     'label': 'Date'},
+    {'id': 'duration', 'type': 'string', 'mode': 'w',
+     'label': 'Duration'},
+    {'id': 'details', 'type': 'string', 'mode': 'w',
+     'label': 'Details'},
+    )
 
     security = ClassSecurityInfo()
 
     activated = False
     subject = "Undefined subject for now"
-    date = "Undefined date for now"
+    date = DateTime()
     duration = "Undefined duration for now"
     details = "Undefined details for now"
 

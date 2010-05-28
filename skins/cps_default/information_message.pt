@@ -1,0 +1,45 @@
+
+      <!--
+      This div is the semi-opaque background that will be positioned by JavaScript
+      -->
+      <div id="informationMessageBackground">
+      </div>
+
+      <!--
+      This div will be placed in the center of the page and will contain the
+      actual information message.
+      -->
+      <div id="informationMessageBox">
+        <h2>Subject</h2>
+        <p tal:content="here/portal_information_message/subject">
+          Subject
+        </p>
+        <h2>Date</h2>
+        <p tal:content="here/portal_information_message/date">
+          Date
+        </p>
+        <h2>Duration</h2>
+        <p tal:content="here/portal_information_message/duration">
+          Duration
+        </p>
+        <h2>Detais</h2>
+        <p tal:content="here/portal_information_message/details">
+          Details
+        </p>
+        <p id="informationMessageBoxButton">
+          <button onclick="$('informationMessageBox').hide();
+            $('informationMessageBackground').hide(); return false;">
+            Ok
+          </button>
+        </p>
+      </div>
+
+      <script type="text/javascript">
+        var dimension = Element.getDimensions(document.body);
+        var height = dimension.height;
+        var width = dimension.width;
+
+        $('informationMessageBackground').setStyle({height: height + 'px', width: width + 'px'});
+        $('informationMessageBackground').setOpacity(0.7);
+      </script>
+

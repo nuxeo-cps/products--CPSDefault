@@ -30,9 +30,15 @@ class InformationMessageTool(UniqueObject, Folder):
 
     security = ClassSecurityInfo()
 
-    security.declareProtected(View, 'fetch')
-    def fetch(self, REQUEST=None):
-        """Fecthes an information message if there is one."""
-        return "This is the message!"
+    activated = False
+    subject = "Undefined subject for now"
+    date = "Undefined date for now"
+    duration = "Undefined duration for now"
+    details = "Undefined details for now"
+
+    security.declareProtected(View, 'check')
+    def check(self, REQUEST=None):
+        """Returns True if there is an activated information message, nothing otherwise."""
+        return self.activated
 
 InitializeClass(InformationMessageTool)

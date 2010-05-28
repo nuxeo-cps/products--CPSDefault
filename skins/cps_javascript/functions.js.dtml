@@ -399,28 +399,59 @@ org.cps_cms.InformationMessageFetcher = {
 
   portal_url: null,
 
-  get method_url() {
-    return this.portal_url + '/portal_information_message/fetch';
+  get check_method_url() {
+    return this.portal_url + '/portal_information_message/check';
   },
 
-  continuousFetch: function() {
-    //alert("continuousFetch ...");
+  get display_html_url() {
+    return this.portal_url + '/information_message';
+  },
+
+  continuousCheckForInformationMessage: function() {
+    alert("continuousCheckForInformationMessage ...");
     var that = this;
     // Every 5 minutes: 5 * 60 * 1000 = 300000
-    window.setInterval(function() { that.fetch(); }, 300000);
+    //window.setInterval(function() { that.checkForInformationMessage(); }, 300000);
+    that.checkForInformationMessage();
   },
 
   // This code relies on the Prototype library
-  fetch: function() {
-    //alert("fetch using method_url = " + this.method_url);
-    new Ajax.Request(this.method_url, {
+  checkForInformationMessage: function() {
+    //alert("checkForInformationMessage check_method_url = " + this.check_method_url);
+    var that = this;
+    new Ajax.Request(that.check_method_url, {
                        method: 'get',
                        onSuccess: function(transport) {
-                         var response = transport.responseText || "no response text";
-                         //alert("Success! \n\n" + response);
+                         var response = transport.responseText;
+                         //alert("Response: \n\n" + response);
+                         if (response) {
+                           //alert("There is an information message");
+                           that.displayInformationMessage();
+                         } else {
+                           //alert("There isn't any information message");
+                         }
                        },
                        onFailure: function() {
-                         //alert("Something went wrong");
+                         //alert("Something went wrong with checkForInformationMessage");
+                       }
+                     });
+  },
+
+  displayInformationMessage: function() {
+    //alert("displayInformationMessage using display_html_url = " + this.display_html_url);
+    new Ajax.Request(this.display_html_url, {
+                       method: 'get',
+                       onSuccess: function(transport) {
+                         // Injecting the retrieved HTML into the current HTML page
+                         var html = transport.responseText || "No HTML found";
+                         var info_message_elem = document.createElement('div');
+                         info_message_elem.innerHTML = html;
+                         document.body.insertBefore(info_message_elem,
+                                                    document.body.firstChild);
+                         // document.body.appendChild(info_message_elem);
+                       },
+                       onFailure: function() {
+                         alert("Something went wrong with displayInformationMessage");
                        }
                      });
   }

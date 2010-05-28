@@ -7,7 +7,7 @@ portal = context.portal_url.getPortalObject()
 
 javascript = """
 org.cps_cms.InformationMessageFetcher.portal_url = '%s';
-org.cps_cms.InformationMessageFetcher.continuousFetch();
+org.cps_cms.InformationMessageFetcher.continuousCheckForInformationMessage();
 setFocus();
 """ % portal.absolute_url()
 

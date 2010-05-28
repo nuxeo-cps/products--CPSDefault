@@ -25,16 +25,24 @@
 
 <metal:main fill-slot="main">
 
+  <form method="post" action="information_message_config_form">
+
   <tal:block define="ltool here/portal_layouts;
+                     infotool here/portal_information_message;
                      config python:{};
                      res python:ltool.renderLayout(layout_id='information_message',
                                                    schema_id='information_message',
                                                    context=here, ob=config);
                     rendered python:res[0];
+                    dummy python:infotool.config(config);
                     "
             content="structure rendered" />
 
-  <button type="submit" i18n:translate="button_ok">OK</button>
+    <p>
+      <button type="submit" i18n:translate="button_ok">OK</button>
+    </p>
+  </form>
+
 </metal:main>
 
 </body>

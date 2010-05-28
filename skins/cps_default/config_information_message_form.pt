@@ -24,7 +24,17 @@
 </metal:header>
 
 <metal:main fill-slot="main">
-TODO
+
+  <tal:block define="ltool here/portal_layouts;
+                     config python:{};
+                     res python:ltool.renderLayout(layout_id='information_message',
+                                                   schema_id='information_message',
+                                                   context=here, obj=config);
+                    rendered python:res[0];
+                    "
+            content="structure rendered" />
+
 </metal:main>
+
 </body>
 </html>

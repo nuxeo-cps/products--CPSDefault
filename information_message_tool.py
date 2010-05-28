@@ -19,12 +19,11 @@ from logging import getLogger
 
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-from OFS.Folder import Folder
 
 from Products.CMFCore.permissions import View, ManagePortal
-from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import UniqueObject, SimpleItemWithProperties
 
-class InformationMessageTool(UniqueObject, Folder):
+class InformationMessageTool(UniqueObject, SimpleItemWithProperties):
     id = 'portal_information_message'
     meta_type = 'InformationMessage Tool'
 

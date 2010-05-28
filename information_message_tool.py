@@ -22,11 +22,16 @@ from AccessControl import ClassSecurityInfo
 
 from Products.CMFCore.permissions import View, ManagePortal
 from Products.CMFCore.utils import UniqueObject, SimpleItemWithProperties
+from Products.CMFCore.ActionProviderBase import ActionProviderBase
 
 from DateTime.DateTime import DateTime
 
-class InformationMessageTool(UniqueObject, SimpleItemWithProperties):
+class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
+                             ActionProviderBase):
     id = 'portal_information_message'
+
+    security = ClassSecurityInfo()
+
     _properties = (
     {'id': 'activated', 'type': 'boolean', 'mode': 'w',
      'label': 'Activated'},
@@ -40,13 +45,14 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties):
      'label': 'Details'},
     )
 
-    security = ClassSecurityInfo()
-
     activated = False
     subject = "Undefined subject for now"
     date = DateTime()
     duration = "Undefined duration for now"
     details = "Undefined details for now"
+
+    manage_options = (SimpleItemWithProperties.manage_options +
+                      ActionProviderBase.manage_options)
 
     security.declareProtected(View, 'check')
     def check(self, REQUEST=None):

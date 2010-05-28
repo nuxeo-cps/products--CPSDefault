@@ -54,9 +54,16 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
     manage_options = (SimpleItemWithProperties.manage_options +
                       ActionProviderBase.manage_options)
 
+    logger = getLogger(id)
+
     security.declareProtected(View, 'check')
     def check(self, REQUEST=None):
         """Returns True if there is an activated information message, nothing otherwise."""
         return self.activated
+
+    security.declareProtected(ManagePortal, 'config')
+    def config(self, config, REQUEST=None):
+        """."""
+        self.logger.debug("config: %s" % config)
 
 InitializeClass(InformationMessageTool)

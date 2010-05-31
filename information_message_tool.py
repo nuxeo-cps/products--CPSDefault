@@ -68,6 +68,6 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
     security.declareProtected(ManagePortal, 'config')
     def config(self, properties, REQUEST=None):
         """."""
-        self.manage_changeProperties(properties)
+        self.manage_changeProperties(REQUEST=REQUEST, **properties)
 
 InitializeClass(InformationMessageTool)

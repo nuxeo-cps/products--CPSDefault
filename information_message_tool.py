@@ -58,9 +58,8 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
 
     security.declareProtected(View, 'check')
     def check(self, REQUEST=None):
-        """Returns the date (as a the the number of milliseconds
-        since the Epoch) of the information message if it is activated,
-        None otherwise."""
+        """Returns the date (as the number of milliseconds since the Epoch)
+        of the information message if it is activated, None otherwise."""
         if self.activated:
             return self.date.millis()
         else:

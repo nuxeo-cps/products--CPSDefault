@@ -1,7 +1,7 @@
+/*
 <dtml-comment>
 CSS directives conforming to the CSS 2.1 spec.
 Those CSS directives are suppported by user agents such as Mozilla/Firefox, MSIE6, MSIE5.x, etc.
-$Id$
 </dtml-comment>
 
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1" >
@@ -12,6 +12,43 @@ $Id$
 </dtml-let>
 
 <dtml-with stylesheet_properties>
+*/
+
+/* ************************************************************************** */
+/* Positioning
+ */
+
+img.inline {
+  vertical-align: middle;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+.floatLeftFlush {
+  clear: left;
+}
+
+.floatRightFlush {
+  clear: right;
+}
+
+.floatFlush {
+  clear: both;
+}
 
 <dtml-comment>
 BASIC ELEMENTS ------------------------------
@@ -379,7 +416,7 @@ div.popupImg {
 }
 
 <dtml-comment>
- It'd better to have CPSSkins manage this one
+ It would be better to have CPSSkins manage this one
 </dtml-comment>
 div.nodeselected {
   background-color: #ffc02a;
@@ -1193,4 +1230,65 @@ table.folderButtons {
   padding-top: 1.2em;
 }
 
+/* ************************************************************************** */
+/* Information message
+ */
+
+#informationMessageBackground {
+  background: #000000;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 500;
+
+  heigth: 50em;
+  width: 70em;
+}
+
+#informationMessageBox {
+  background: #e1e1e1;
+  color: #000000;
+
+  border: 0.1em solid #a0a0a0;
+
+  padding: 2em 2em 0 2em;
+  margin: 15%;
+  width: 70%;
+
+  position: absolute;
+  z-index: 1000;
+
+  heigth: 10em;
+}
+
+#informationMessageBoxCloser {
+  float: right;
+  background: #bbbbbb;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+#informationMessageBoxOkButton {
+  padding-top: 2em;
+  text-align: center;
+}
+
+#informationMessageBox h1 {
+  border: none;
+  text-align: center;
+}
+
+#informationMessageBox h2 {
+  border: none;
+}
+
+/*
 </dtml-with>
+*/
+
+/*
+Local Variables:
+mode: css
+End:
+vim: set filetype=css:
+*/

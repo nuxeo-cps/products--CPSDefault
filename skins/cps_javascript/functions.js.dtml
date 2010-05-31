@@ -1,7 +1,6 @@
 /*
 <dtml-comment>
 CPS JavaScript functions
-$Id$
 </dtml-comment>
 
 <dtml-let last_modified="_.DateTime()-14" expires="_.DateTime()+1">
@@ -11,6 +10,26 @@ $Id$
 <dtml-call "REQUEST.RESPONSE.setHeader('Expires', expires.toZone('GMT').rfc822())">
 </dtml-let>
 */
+// (C) Copyright 2003-2009 Nuxeo SAS <http://nuxeo.com>
+// (C) Copyright 2010 AFUL <http://aful.org/>
+// Authors:
+// M.-A. Darche
+// Tarek Ziade
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as published
+// by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+// 02111-1307, USA.
+
 var msie5 = (navigator.userAgent.indexOf('MSIE 5') != -1);
 
 //************************************************************
@@ -183,7 +202,7 @@ function getSelectedRadio(buttonGroup) {
   if (buttonGroup[0]) {
     for (var i=0; i<buttonGroup.length; i++) {
       if (buttonGroup[i].checked) {
-        return i
+        return i;
       }
     }
   } else {
@@ -252,22 +271,22 @@ function highlightSearchTerm() {
   // TODO: The way the strings to search are retrieved by the JavaScript
   // used for the highlighting is not strong enough and can break very easily.
   // This should be improved.
-  var query_elem = document.getElementById('resultSearchText')
-  if (! query_elem) {
-    return false
+  var query_elem = document.getElementById('resultSearchText');
+  if (!query_elem) {
+    return false;
   }
-  var query = query_elem.value
+  var query = query_elem.value;
   // _robert_ ie 5 does not have decodeURI
   if (typeof decodeURI != 'undefined') {
-    query = unescape(decodeURI(query)) // thanks, Casper
+    query = unescape(decodeURI(query)); // thanks, Casper
   }
   else {
-    return false
+    return false;
   }
   if (query) {
-    queries = query.replace(/\+/g,' ').split(/\s+/)
+    queries = query.replace(/\+/g,' ').split(/\s+/);
     // make sure we start the right place and not higlight menuitems or breadcrumb
-    searchresultnode = document.getElementById('searchResults')
+    searchresultnode = document.getElementById('searchResults');
     if (searchresultnode) {
       for (q=0;q<queries.length;q++) {
         // don't highlight reserved catalog search terms
@@ -284,7 +303,7 @@ function highlightSearchTerm() {
 function climb(node, word){
   // traverse childnodes
   if (! node){
-    return false
+    return false;
   }
   if (node.hasChildNodes) {
     var i;
@@ -299,7 +318,7 @@ function climb(node, word){
 }
 
 function checkforhighlight(node,word) {
-  ind = node.nodeValue.toLowerCase().indexOf(word.toLowerCase())
+  ind = node.nodeValue.toLowerCase().indexOf(word.toLowerCase());
   if (ind != -1) {
     if (node.parentNode.className != "highlightedSearchTerm"){
       par = node.parentNode;
@@ -334,7 +353,7 @@ function searchLanguageCheckSelected(languages, no_language, language) {
 }
 
 function searchLanguageClearSelected(languages) {
-  for (i=0; i<languages.length; i++) {
+  for (var i = 0; i<languages.length; i++) {
     languages[i].checked = 0;
   }
 }
@@ -350,7 +369,7 @@ function toggleLayers(more_block, more_items) {
 
 //************************************************************
 
-// This method relies on the Prototype library
+// This code relies on the Prototype library
 function getSelectedDocumentsTitles() {
   var titles = [];
   var elems_selected = $$('table#folder_content input:checked');
@@ -370,6 +389,100 @@ function getSelectedDocumentsTitles() {
   }
   return titles.join("\n");
 }
+
+/**
+ * Namespace
+ */
+var org = (typeof org == 'undefined') ? {}: org;
+org.cps_cms = {};
+
+org.cps_cms.InformationMessageFetcher = {
+
+  cookie_name: 'cps_information_message_last_acknowledged_time',
+
+  portal_url: null,
+
+  markInformationMessageAsRead: function() {
+    // the number of milliseconds since the Epoch
+    Cookie.set(this.cookie_name, new Date().getTime(), 365, '/');
+    //alert("Cookie set");
+  },
+
+  check_method_url: function() {
+    return this.portal_url + '/portal_information_message/check';
+  },
+
+  display_html_url: function() {
+    return this.portal_url + '/information_message';
+  },
+
+  continuousCheckForInformationMessage: function() {
+    //alert("continuousCheckForInformationMessage ...");
+    var that = this;
+    // Every 5 minutes: 5 * 60 * 1000 = 300000
+    //window.setInterval(function() { that.checkForInformationMessage(); }, 300000);
+    that.checkForInformationMessage();
+  },
+
+  // This code relies on the Prototype library
+  checkForInformationMessage: function() {
+    //alert("checkForInformationMessage check_method_url() = " + this.check_method_url());
+    var that = this;
+    new Ajax.Request(that.check_method_url(), {
+                       method: 'get',
+                       onSuccess: function(transport) {
+                         var response = transport.responseText;
+                         //alert("Response: [" + response + "]");
+                         if (response) {
+                           //alert("There is a response");
+                           var display = false;
+                           var last_acknowledged_time = Cookie.get(that.cookie_name);
+                           //alert("last_acknowledged_time: " + last_acknowledged_time);
+                           if (!last_acknowledged_time ||
+                               isNaN(Number(last_acknowledged_time))) {
+                             display = true;
+                           }
+                           else {
+                             if (Number(response) > Number(last_acknowledged_time))
+                               display = true;
+                           }
+                           if (display)
+                             that.displayInformationMessage();
+                         } else {
+                           //alert("There isn't any information message");
+                         }
+                       },
+                       onFailure: function() {
+                         //alert("Something went wrong with checkForInformationMessage");
+                       }
+                     });
+  },
+
+  displayInformationMessage: function() {
+    //alert("displayInformationMessage using display_html_url() = " + this.display_html_url());
+    new Ajax.Request(this.display_html_url(), {
+                       method: 'get',
+                       onSuccess: function(transport) {
+                         // Injecting the retrieved HTML into the current HTML page
+                         var html = transport.responseText || "No HTML found";
+                         var info_message_elem = document.createElement('div');
+                         info_message_elem.innerHTML = html;
+                         document.body.insertBefore(info_message_elem,
+                                                    document.body.firstChild);
+                         // document.body.appendChild(info_message_elem);
+                         var dimension = Element.getDimensions(document.body);
+                         var height = dimension.height;
+                         var width = dimension.width;
+                         $('informationMessageBackground').setStyle({height: height + 'px', width: width + 'px'});
+                         $('informationMessageBackground').setOpacity(0.7);
+                         $('informationMessageOkButton').focus();
+                       },
+                       onFailure: function() {
+                         alert("Something went wrong with displayInformationMessage");
+                       }
+                     });
+  }
+};
 
 
 // Local Variables:

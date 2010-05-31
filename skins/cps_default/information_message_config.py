@@ -1,43 +1,45 @@
 ##parameters=REQUEST=None
 """Returns the rendered form and does the config setting on submit."""
 
+from logging import getLogger
+logger = getLogger('information_message_config')
+
+portal = context.portal_url.getPortalObject()
+
 res = {'rendered_form': '',
        'status': '',
-       'items': [],
-       'items_count': 0,
        'psm': '',
        'valid_form': 0,
        }
 
-from_context = context
-# manage form action
 if REQUEST is not None:
     form = REQUEST.form
-    if form.has_key('search_submit'):
+    if form.has_key('information_message_config_submit'):
         mapping = form
     else:
         mapping = None
-    from_rpath = REQUEST.get('from', None)
-    if from_context is not None:
-        from_context = context.restrictedTraverse(from_rpath)
 else:
     mapping = None
 
-query = {}
+ltool = portal.portal_layouts
+infotool = portal.portal_information_message
+config = {}
+config_items = infotool.propertyItems()
+for k, v in config_items:
+    config[k] = v
+logger.debug("config: %s\n" % config)
 
-ltool = context.portal_layouts
 (res['rendered_form'], res['status'], ds) = ltool.renderLayout(
-    layout_id='cpsdefault_search', schema_id='cpsdefault_search',
-    context=from_context, mapping=mapping, ob=query)
+    layout_id='information_message', schema_id='information_message',
+    context=context, mapping=mapping, ob=config)
+
+infotool.config(config)
 
 if mapping is not None:
     # search
     if res['status'] == 'valid':
-        res['items'] = context.search(query=query)
-        res['valid_form'] = 1
+        res['valid_form'] = True
     else:
         res['psm'] = 'psm_content_error'
-        #raise '%s invalid ' % res['status'] + str(ds.getErrors())
-    res['items_count'] = len(res['items'])
 
 return res

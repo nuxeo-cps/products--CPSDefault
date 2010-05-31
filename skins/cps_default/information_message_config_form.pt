@@ -23,27 +23,24 @@
   </tal:block>
 </metal:header>
 
-<metal:main fill-slot="main">
+    <metal:main fill-slot="main">
 
-  <form method="post" action="information_message_config_form">
+      <tal:block define="res python:here.information_message_config(REQUEST=request)">
 
-  <tal:block define="ltool here/portal_layouts;
-                     infotool here/portal_information_message;
-                     config python:{};
-                     res python:ltool.renderLayout(layout_id='information_message',
-                                                   schema_id='information_message',
-                                                   context=here, ob=config);
-                    rendered python:res[0];
-                    dummy python:infotool.config(config);
-                    "
-            content="structure rendered" />
+        <form method="post" action="information_message_config_form">
 
-    <p>
-      <button type="submit" i18n:translate="button_ok">OK</button>
-    </p>
-  </form>
+          <tal:block
+            content="structure res/rendered_form" />
 
-</metal:main>
+          <p>
+            <button type="submit" name="information_message_config_submit"
+              i18n:translate="button_ok">OK</button>
+          </p>
+        </form>
+
+      </tal:block>
+
+    </metal:main>
 
 </body>
 </html>

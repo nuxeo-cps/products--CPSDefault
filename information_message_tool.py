@@ -66,8 +66,8 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
             return None
 
     security.declareProtected(ManagePortal, 'config')
-    def config(self, config, REQUEST=None):
+    def config(self, properties, REQUEST=None):
         """."""
-        self.logger.debug("config: %s" % config)
+        self.manage_changeProperties(properties)
 
 InitializeClass(InformationMessageTool)

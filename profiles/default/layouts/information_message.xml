@@ -51,6 +51,18 @@
   <property name="hidden_layout_modes"/>
   <property name="hidden_readonly_layout_modes"/>
  </widget>
+ <widget name="instant_display" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="instant_display"/>
+  </property>
+  <property
+     name="label_edit">label_information_message_instant_display</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes"/>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="render_format">radio</property>
+ </widget>
  <widget name="subject" meta_type="String Widget">
   <property name="fields">
    <element value="subject"/>
@@ -62,21 +74,50 @@
   <property name="hidden_layout_modes"/>
   <property name="hidden_readonly_layout_modes"/>
  </widget>
+ <widget name="timed_display_start" meta_type="DateTime Widget">
+  <property name="fields">
+   <element value="timed_display_start"/>
+  </property>
+  <property
+     name="label_edit">label_information_message_timed_display_start</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes"/>
+  <property name="hidden_readonly_layout_modes"/>
+ </widget>
+ <widget name="timed_display_stop" meta_type="DateTime Widget">
+  <property name="fields">
+   <element value="timed_display_stop"/>
+  </property>
+  <property
+     name="label_edit">label_information_message_timed_display_stop</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes"/>
+  <property name="hidden_readonly_layout_modes"/>
+ </widget>
  <table>
   <row>
-   <cell name="subject"/>
+   <cell name="subject" ncols="2"/>
   </row>
   <row>
-   <cell name="date"/>
+   <cell name="date" ncols="2"/>
   </row>
   <row>
-   <cell name="duration"/>
+   <cell name="duration" ncols="2"/>
   </row>
   <row>
-   <cell name="details"/>
+   <cell name="details" ncols="2"/>
   </row>
   <row>
-   <cell name="activated"/>
+   <cell name="instant_display" ncols="2"/>
+  </row>
+  <row>
+   <cell name="timed_display_start"/>
+   <cell name="timed_display_stop"/>
+  </row>
+  <row>
+   <cell name="activated" ncols="2"/>
   </row>
  </table>
 </object>

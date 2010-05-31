@@ -17,6 +17,17 @@ TODO: this should referenced and documented in CPSDefault/doc/
   <meta name="generator" content="Nuxeo CPS http://www.cps-project.org/"/>
   <title tal:content="expanded_title|here/expanded_title">CPS Default</title>
   <metal:block define-slot="base"></metal:block>
+
+  <style type="text/css"
+    tal:content="string:@import url(${base_url}calendar-win2k-1.css);"></style>
+  <script type="text/javascript" src="calendar.js"
+    tal:attributes="src string:${base_url}calendar.js"></script>
+  <script type="text/javascript" src="lang/calendar-en.js"
+    tal:define="local cpsmcat/getSelectedLanguage"
+    tal:attributes="src string:${base_url}calendar-lang/calendar-${local}.js"></script>
+  <script type="text/javascript" src="calendar-setup.js"
+    tal:attributes="src string:${base_url}calendar-setup.js"></script>
+
   <script type="text/javascript" src="prototype.js"
     tal:attributes="src string:${base_url}prototype.js"></script>
   <script type="text/javascript" src="cookie.js"

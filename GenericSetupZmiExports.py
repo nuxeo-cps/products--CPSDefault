@@ -23,8 +23,12 @@ Done by monkey patching to avoid creating dependencies upon CPSUtil
 from Products.CPSUtil import export_option
 
 # Theme Tool
-from Products.CPSSkins.PortalThemesTool import PortalThemesTool
-PortalThemesTool.manage_options += export_option
+try:
+    from Products.CPSSkins.PortalThemesTool import PortalThemesTool
+except ImportError:
+    pass
+else:
+    PortalThemesTool.manage_options += export_option
 
 # Action Icons Tool
 # Uncomment when this tool's export is done the adapter way

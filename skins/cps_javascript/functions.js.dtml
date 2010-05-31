@@ -398,7 +398,15 @@ org.cps_cms = {};
 
 org.cps_cms.InformationMessageFetcher = {
 
+  cookie_name: 'cps_information_message_last_acknowledged_time',
+
   portal_url: null,
+
+  markInformationMessageAsRead: function() {
+    // the number of milliseconds since the Epoch
+    Cookie.set(this.cookie_name, new Date().getTime(), 365, '/');
+    //alert("Cookie set");
+  },
 
   check_method_url: function() {
     return this.portal_url + '/portal_information_message/check';
@@ -424,16 +432,28 @@ org.cps_cms.InformationMessageFetcher = {
                        method: 'get',
                        onSuccess: function(transport) {
                          var response = transport.responseText;
-                         //alert("Response: \n\n" + response);
+                         //alert("Response: [" + response + "]");
                          if (response) {
-                           //alert("There is an information message");
-                           that.displayInformationMessage();
+                           //alert("There is a response");
+                           var display = false;
+                           var last_acknowledged_time = Cookie.get(that.cookie_name);
+                           //alert("last_acknowledged_time: " + last_acknowledged_time);
+                           if (!last_acknowledged_time ||
+                               isNaN(Number(last_acknowledged_time))) {
+                             display = true;
+                           }
+                           else {
+                             if (Number(response) > Number(last_acknowledged_time))
+                               display = true;
+                           }
+                           if (display)
+                             that.displayInformationMessage();
                          } else {
                            //alert("There isn't any information message");
                          }
                        },
                        onFailure: function() {
-                         alert("Something went wrong with checkForInformationMessage");
+                         //alert("Something went wrong with checkForInformationMessage");
                        }
                      });
   },

@@ -58,8 +58,13 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
 
     security.declareProtected(View, 'check')
     def check(self, REQUEST=None):
-        """Returns True if there is an activated information message, nothing otherwise."""
-        return self.activated
+        """Returns the date (as a the the number of milliseconds
+        since the Epoch) of the information message if it is activated,
+        None otherwise."""
+        if self.activated:
+            return self.date.millis()
+        else:
+            return None
 
     security.declareProtected(ManagePortal, 'config')
     def config(self, config, REQUEST=None):

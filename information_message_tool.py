@@ -45,6 +45,7 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
      'label': 'Details'},
     )
 
+    last_modified = None
     activated = False
     subject = "Undefined subject for now"
     date = DateTime()
@@ -60,8 +61,8 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
     def check(self, REQUEST=None):
         """Returns the date (as the number of milliseconds since the Epoch)
         of the information message if it is activated, None otherwise."""
-        if self.activated:
-            return self.date.millis()
+        if self.last_modified and self.activated:
+            return self.last_modified.millis()
         else:
             return None
 
@@ -69,5 +70,6 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
     def config(self, properties, REQUEST=None):
         """."""
         self.manage_changeProperties(REQUEST=REQUEST, **properties)
+        self.last_modified = DateTime()
 
 InitializeClass(InformationMessageTool)

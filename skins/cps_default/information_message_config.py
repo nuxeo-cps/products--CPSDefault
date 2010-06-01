@@ -14,6 +14,7 @@ res = {'rendered_form': '',
 
 if REQUEST is not None:
     form = REQUEST.form
+    # This is a form submission
     if form.has_key('information_message_config_submit'):
         mapping = form
     else:
@@ -27,17 +28,15 @@ config = {}
 config_items = infotool.propertyItems()
 for k, v in config_items:
     config[k] = v
-logger.debug("config: %s\n" % config)
+//logger.debug("Read config: %s" % config)
 
 (res['rendered_form'], res['status'], ds) = ltool.renderLayout(
     layout_id='information_message', schema_id='information_message',
     context=context, mapping=mapping, ob=config)
 
-infotool.config(config)
-
 if mapping is not None:
-    # search
     if res['status'] == 'valid':
+        infotool.config(config)
         res['valid_form'] = True
     else:
         res['psm'] = 'psm_content_error'

@@ -28,7 +28,7 @@ config = {}
 config_items = infotool.propertyItems()
 for k, v in config_items:
     config[k] = v
-//logger.debug("Read config: %s" % config)
+#logger.debug("Read config: %s" % config)
 
 (res['rendered_form'], res['status'], ds) = ltool.renderLayout(
     layout_id='information_message', schema_id='information_message',

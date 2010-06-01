@@ -74,13 +74,15 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
     security.declareProtected(View, 'check')
     def check(self, REQUEST=None):
         """Returns the date (as the number of milliseconds since the Epoch)
-        of the information message if it is activated, None otherwise."""
+        of the last modification of the information message if it is activated,
+        None otherwise.
+        """
         if not self.activated or not self.last_modified:
             return None
 
         now = DateTime()
         if not self.instant_display and (
-            self.timed_display_start < now or self.timed_display_stop > now):
+            self.timed_display_start > now or self.timed_display_stop < now):
             return None
 
         return self.last_modified.millis()

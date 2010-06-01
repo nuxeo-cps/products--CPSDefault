@@ -419,9 +419,13 @@ org.cps_cms.InformationMessageFetcher = {
   continuousCheckForInformationMessage: function() {
     //alert("continuousCheckForInformationMessage ...");
     var that = this;
-    // Every 5 minutes: 5 * 60 * 1000 = 300000
-    //window.setInterval(function() { that.checkForInformationMessage(); }, 300000);
-    that.checkForInformationMessage();
+    // First check after 10 seconds (10 * 1000 = 10000), which is a fast check
+    // so that users starting to work on a page are warned early, but not too
+    // fast so that users browsing fast through the portal pages don't generate
+    // too much check calls to the server.
+    window.setTimeout(function() { that.checkForInformationMessage(); }, 10000);
+    // Then continuous check every 5 minutes (5 * 60 * 1000 = 300000)
+    window.setInterval(function() { that.checkForInformationMessage(); }, 300000);
   },
 
   // This code relies on the Prototype library

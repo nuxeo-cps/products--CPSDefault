@@ -43,33 +43,46 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
      'label': 'Duration'},
     {'id': 'details', 'type': 'string', 'mode': 'w',
      'label': 'Details'},
+    {'id': 'instant_display', 'type': 'boolean', 'mode': 'w',
+     'label': 'Instant display'},
+    {'id': 'timed_display_start', 'type': 'date', 'mode': 'w',
+     'label': 'Display message start date'},
+    {'id': 'timed_display_stop', 'type': 'date', 'mode': 'w',
+     'label': 'Display message stop date'},
     )
-
     last_modified = None
     activated = False
     subject = "Undefined subject for now"
     date = DateTime()
     duration = "Undefined duration for now"
     details = "Undefined details for now"
+    instant_display = True
+    timed_display_start = DateTime()
+    timed_display_stop = DateTime()
 
     manage_options = (SimpleItemWithProperties.manage_options +
                       ActionProviderBase.manage_options)
 
     logger = getLogger(id)
 
-    security.declareProtected(View, 'check')
-    def check(self, REQUEST=None):
-        """Returns the date (as the number of milliseconds since the Epoch)
-        of the information message if it is activated, None otherwise."""
-        if self.last_modified and self.activated:
-            return self.last_modified.millis()
-        else:
-            return None
-
     security.declareProtected(ManagePortal, 'config')
     def config(self, properties, REQUEST=None):
         """."""
         self.manage_changeProperties(REQUEST=REQUEST, **properties)
         self.last_modified = DateTime()
+
+    security.declareProtected(View, 'check')
+    def check(self, REQUEST=None):
+        """Returns the date (as the number of milliseconds since the Epoch)
+        of the information message if it is activated, None otherwise."""
+        if not self.activated or not self.last_modified:
+            return None
+
+        now = DateTime()
+        if not self.instant_display and (
+            self.timed_display_start < now or self.timed_display_stop > now):
+            return None
+
+        return self.last_modified.millis()
 
 InitializeClass(InformationMessageTool)

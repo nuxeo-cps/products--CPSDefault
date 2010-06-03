@@ -37,8 +37,8 @@ class TestRoleAudit(CPSTestCase):
 
     def testView(self):
         view_id = 'cps_role_audit.html'
-        method = getattr(self.portal, view_id)
-        rendering = method()
+        meth = getattr(self.portal, view_id)
+        rendering = meth()
         self.assert_(rendering)
         #assertValidXhtml(rendering, view_id)
 

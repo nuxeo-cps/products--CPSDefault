@@ -89,8 +89,8 @@ class TestInformationMessageTool(CPSTestCase):
 
     def test_view(self):
         view_id = 'information_message_config_form'
-        method = getattr(self.portal, view_id)
-        rendering = method()
+        meth = getattr(self.portal, view_id)
+        rendering = meth()
         self.assert_(rendering)
         assertValidXhtml(rendering, view_id)
 

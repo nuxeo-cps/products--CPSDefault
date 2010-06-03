@@ -34,6 +34,7 @@ from Products.CPSCore.URLTool import URLTool
 from Products.CPSUserFolder.CPSUserFolder import CPSUserFolder
 from Products.CPSUserFolder.TimeoutCache import resetAllCaches
 
+from Products.CPSDefault.browser.roles import RoleView
 
 _marker = object()
 class FakeDirectory(Folder):
@@ -183,6 +184,20 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         return default_roles
 
     # tests
+
+    def testViewClass(self):
+        request = None
+        role_view = RoleView(self.root, request)
+        synthesis = role_view.synthesis()
+        self.assert_(synthesis)
+
+        # TODO: Try to find how to make it work
+        #view_id = 'cps_role_audit.html'
+        #meth = getattr(self.portal, view_id)
+        #rendering = meth()
+        #self.assert_(rendering)
+        #assertValidXhtml(rendering, view_id)
+
 
     def test_getCPSCandidateLocalRoles(self):
         mtool = self.mtool

@@ -18,16 +18,68 @@
 """Contains the view for role listing/synthesis audit page.
 """
 
+from logging import getLogger
+
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 
 from Products.CPSCore.interfaces import ICPSSite
 from Products.CPSCore.interfaces import ICPSProxy
 
+LOG_KEY = 'RoleView'
+
 class RoleView(BrowserView):
 
+    # TODO: Get those appropriately
+    roles = [
+        'WorkspaceManager',
+        'WorkspaceMember',
+        'WorkspaceReader',
+        'SectionManager',
+        'SectionMember',
+        'SectionReader',
+        ]
+
     def synthesis(self):
+        print("context: %s" % self.context)
         utool = getToolByName(self.context, 'portal_url')
         portal = utool.getPortalObject()
-        obj = self.context
-        return "Nothing for now"
+        mtool = portal.portal_membership
+        context_rpath = utool.getRpath(self.context)
+        print("context rpath: %s" % context_rpath)
+
+        if not context_rpath:
+            containers = [portal.workspaces, portal.sections]
+        else:
+            containers = [self.context]
+
+        for container in containers:
+            containers += self.findContainers(container)
+        print("containers: %s" % containers)
+
+        roles_struct_list = []
+        for container in containers:
+            roles_struct_list.append(self.getContainerRoles(container))
+        return roles_struct_list
+
+    def findContainers(self, container):
+        containers = []
+        for id, obj in container.objectItems():
+            if id.startswith('.'):
+                continue
+            containers.append(obj)
+            containers += self.findContainers(obj)
+        return containers
+
+    def getContainerRoles(self, container):
+        logger = getLogger(LOG_KEY + '.synthesis')
+        print("Working on %s\n\n" % container)
+        utool = getToolByName(self.context, 'portal_url')
+        portal = utool.getPortalObject()
+        mtool = portal.portal_membership
+        folder_roles = {'rpath': utool.getRpath(container),
+                        'roles': mtool.getCPSLocalRolesRender(container, self.roles,
+                                                              None),
+                        }
+        print("folder_roles: %s\n\n" % folder_roles)
+        return folder_roles

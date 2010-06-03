@@ -7,7 +7,20 @@
     <p i18n:translate="help_role_audit">Role audit explained.
     </p>
 
-    <tal:block content="view/synthesis"/>
+    <tal:block define="synthesis view/synthesis">
+    <table>
+        <tal:block repeat="folder synthesis">
+          <tr>
+            <td style="padding: 1em">
+              <tal:block content="python:folder['rpath']"/>
+            </td>
+            <td style="padding: 1em">
+              <tal:block content="python:folder['roles']"/>
+            </td>
+          </tr>
+        </tal:block>
+    </table>
+    </tal:block>
 
   </metal:block>
 </metal:html>

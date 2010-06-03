@@ -1,0 +1,16 @@
+  <tal:comment condition="nothing">
+    Role assignment table needs:
+    - sorted_members (list of ids sorted)
+    - members (dict of members)
+    - cps_roles
+    - local_roles_blocked
+  </tal:comment>
+  <metal:block define-macro="role_assignment">
+    <tal:block repeat="member_id sorted_members">
+      <tal:block define="member_info python:members.get(member_id);
+        has_local_roles member_info/has_local_roles;
+        ">
+        <tal:block content="member/title"/>
+      </tal:block>
+    </tal:block>
+  </metal:block>

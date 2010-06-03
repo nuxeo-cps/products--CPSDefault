@@ -57,6 +57,10 @@ class FakeDirectory(Folder):
     def listEntryIds(self):
         return self.entries.keys()
 
+CANDIDATE_ROLES = [ 'WorkspaceManager',
+                    'WorkspaceMember',
+                    'WorkspaceReader',
+                    ]
 class FakeFolder(Folder):
     # give it a portal type so that relevant local roles are found
     def __init__(self, id):
@@ -65,6 +69,8 @@ class FakeFolder(Folder):
     # avoid reindexation
     def reindexObjectSecurity(self):
         pass
+    def getCPSCandidateLocalRoles(self):
+        return CANDIDATE_ROLES
 
 
 class TestMembershipToolLocalRoles(ZopeTestCase):
@@ -76,11 +82,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.app._setObject('folder', Folder('folder'))
         portal = self.portal = getattr(self.app, 'folder')
         # roles
-        self.roles = [
-            'WorkspaceManager',
-            'WorkspaceMember',
-            'WorkspaceReader',
-            ]
+        self.roles = CANDIDATE_ROLES
         self.roles.sort()
         for role in ['Manager'] + self.roles:
             portal._addRole(role)

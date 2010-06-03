@@ -40,7 +40,7 @@
     for="Products.CPSDefault.ICPSSite"
     class=".roles.RoleView"
     template="role_audit.zpt"
-    name="cps_role_audit.html"
+    name="role_audit"
     permission="cmf.ManagePortal"
     />
 
@@ -48,8 +48,15 @@
     for="Products.CPSCore.interfaces.ICPSProxy"
     class=".roles.RoleView"
     template="role_audit.zpt"
-    name="cps_role_audit.html"
+    name="role_audit"
     permission="cmf.ManagePortal"
     />
+
+  <browser:page
+    for="OFS.interfaces.IObjectManager"
+    template="role_audit_macros.zpt"
+    name="role_audit_macros"
+    permission="zope.Public"
+    /> <!-- Those macros should be available for everyone -->
 
 </configure>

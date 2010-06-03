@@ -30,16 +30,6 @@ LOG_KEY = 'RoleView'
 
 class RoleView(BrowserView):
 
-    # TODO: Get those appropriately
-    roles = [
-        'WorkspaceManager',
-        'WorkspaceMember',
-        'WorkspaceReader',
-        'SectionManager',
-        'SectionMember',
-        'SectionReader',
-        ]
-
     def synthesis(self):
         print("context: %s" % self.context)
         utool = getToolByName(self.context, 'portal_url')
@@ -54,6 +44,7 @@ class RoleView(BrowserView):
             containers = [self.context]
 
         for container in containers:
+            print("container: %s" % container)
             containers += self.findContainers(container)
         print("containers: %s" % containers)
 
@@ -77,8 +68,11 @@ class RoleView(BrowserView):
         utool = getToolByName(self.context, 'portal_url')
         portal = utool.getPortalObject()
         mtool = portal.portal_membership
+        candidate_roles = container.getCPSCandidateLocalRoles()
         folder_roles = {'rpath': utool.getRpath(container),
-                        'roles': mtool.getCPSLocalRolesRender(container, self.roles,
+                        'candidate_roles': candidate_roles,
+                        'cpslr': mtool.getCPSLocalRolesRender(container,
+                                                              candidate_roles,
                                                               None),
                         }
         print("folder_roles: %s\n\n" % folder_roles)

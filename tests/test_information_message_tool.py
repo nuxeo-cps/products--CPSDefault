@@ -17,6 +17,8 @@
 # 02111-1307, USA.
 
 import unittest
+from time import sleep
+
 from DateTime.DateTime import DateTime
 
 from AccessControl import Unauthorized
@@ -26,7 +28,10 @@ from Products.CMFCore.utils import getToolByName
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 from Products.CPSDefault.tests.CPSTestCase import MANAGER_ID
 
+from Products.CPSUtil.tests.web_conformance import assertValidXhtml
+
 class TestInformationMessageTool(CPSTestCase):
+
     login_id = MANAGER_ID
 
     def afterSetUp(self):
@@ -41,6 +46,7 @@ class TestInformationMessageTool(CPSTestCase):
         subject = "New subject"
         self.assertEqual(None, self.infotool.last_modified)
         self.assertNotEqual(subject, self.infotool.subject)
+        sleep(1)
         self.infotool.config({ 'subject': subject })
         self.assertEqual(subject, self.infotool.subject)
         self.assertNotEqual(self.before, self.infotool.last_modified)
@@ -81,6 +87,12 @@ class TestInformationMessageTool(CPSTestCase):
         date = self.infotool.check()
         self.assertEqual(None, date)
 
+    def test_view(self):
+        view_id = 'information_message_config_form'
+        method = getattr(self.portal, view_id)
+        rendering = method()
+        self.assert_(rendering)
+        assertValidXhtml(rendering, view_id)
 
 def test_suite():
     suite = unittest.TestSuite()

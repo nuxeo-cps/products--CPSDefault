@@ -12,17 +12,20 @@
     name="ajaxMoveElement"
     class=".ajaxfolderview.AjaxFolderView"
     attribute="moveElement"
-    permission="zope.Public"/> <!-- TODO: secure the method -->
+    permission="zope.Public"
+    /> <!-- TODO: secure the method with a better permission -->
 
-  <!-- switch user facility: security is evaluated at the actual switch.
-  These pages are only requesting a switch -->
+  <!--
+  Switch user facility: security is evaluated at the actual switch.
+  These pages are only requesting a switch.
+  -->
   <browser:page
     for="Products.CPSDefault.ICPSSite"
     class=".switchuserview.SwitchUserView"
     template="switchUser.zpt"
     name="cps_switch_user.html"
     permission="zope.Public"
-    />
+    /> <!-- TODO: secure the method with a better permission -->
 
   <browser:page
     for="Products.CPSDefault.ICPSSite"
@@ -30,6 +33,17 @@
     attribute="switchUser"
     name="cps_do_switch_user"
     permission="zope.Public"
-    />
+    /> <!-- TODO: secure the method with a better permission -->
+
+
+  <!-- Page for role listing/synthesis audit page -->
+
+  <browser:page
+    for="Products.CPSDefault.ICPSSite"
+    class=".roles.RoleView"
+    template="role_audit.zpt"
+    name="cps_role_audit.html"
+    permission="zope.Public"
+    /> <!-- TODO: secure the method with a better permission -->
 
 </configure>

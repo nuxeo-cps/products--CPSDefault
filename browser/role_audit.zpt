@@ -11,10 +11,7 @@
       <span class="inheritedBlockedRole">Inherited block role</span>
     </div>
 
-    <tal:block define="utool nocall:here/portal_url;
-      portal utool/getPortalObject;
-      synthesis view/synthesis;
-      ">
+    <tal:block define="synthesis view/synthesis">
       <table id="roleAudit">
         <tal:block repeat="folder synthesis">
           <tal:block define="
@@ -29,7 +26,7 @@
             <tr>
               <td style="padding: 1em">
                 <tal:block define="rpath python:folder['rpath'];
-                  obj python:portal.unrestrictedTraverse(rpath);
+                  obj python:view.portal.unrestrictedTraverse(rpath);
                   ">
                   <a tal:content="obj/Title" tal:attributes="href obj/absolute_url"/>
                 </tal:block>

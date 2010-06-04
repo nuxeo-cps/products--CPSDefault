@@ -30,16 +30,19 @@ LOG_KEY = 'RoleView'
 
 class RoleView(BrowserView):
 
+    def __init__(self, *args, **kwargs):
+        BrowserView.__init__(self, *args, **kwargs)
+        self.utool = getToolByName(self.context, 'portal_url')
+        self.portal = self.utool.getPortalObject()
+        self.mtool = self.portal.portal_membership
+
     def synthesis(self):
         #print("context: %s" % self.context)
-        utool = getToolByName(self.context, 'portal_url')
-        portal = utool.getPortalObject()
-        mtool = portal.portal_membership
-        context_rpath = utool.getRpath(self.context)
+        context_rpath = self.utool.getRpath(self.context)
         #print("context rpath: %s" % context_rpath)
 
         if not context_rpath:
-            roots = [portal.workspaces, portal.sections]
+            roots = [self.portal.workspaces, self.portal.sections]
         else:
             roots = [self.context]
 
@@ -67,13 +70,10 @@ class RoleView(BrowserView):
     def getContainerRoles(self, container):
         logger = getLogger(LOG_KEY + '.synthesis')
         #print("Working on %s\n\n" % container)
-        utool = getToolByName(self.context, 'portal_url')
-        portal = utool.getPortalObject()
-        mtool = portal.portal_membership
         candidate_roles = container.getCPSCandidateLocalRoles()
-        folder_roles = {'rpath': utool.getRpath(container),
+        folder_roles = {'rpath': self.utool.getRpath(container),
                         'candidate_roles': candidate_roles,
-                        'cpslr': mtool.getCPSLocalRolesRender(container,
+                        'cpslr': self.mtool.getCPSLocalRolesRender(container,
                                                               candidate_roles,
                                                               None),
                         }

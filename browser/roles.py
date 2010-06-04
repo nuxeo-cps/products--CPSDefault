@@ -31,22 +31,24 @@ LOG_KEY = 'RoleView'
 class RoleView(BrowserView):
 
     def synthesis(self):
-        print("context: %s" % self.context)
+        #print("context: %s" % self.context)
         utool = getToolByName(self.context, 'portal_url')
         portal = utool.getPortalObject()
         mtool = portal.portal_membership
         context_rpath = utool.getRpath(self.context)
-        print("context rpath: %s" % context_rpath)
+        #print("context rpath: %s" % context_rpath)
 
         if not context_rpath:
-            containers = [portal.workspaces, portal.sections]
+            roots = [portal.workspaces, portal.sections]
         else:
-            containers = [self.context]
+            roots = [self.context]
 
-        for container in containers:
-            print("container: %s" % container)
+        containers = []
+        for container in roots:
+            containers.append(container)
+            #print("container: %s" % container)
             containers += self.findContainers(container)
-        print("containers: %s" % containers)
+        #print("containers: %s" % containers)
 
         roles_struct_list = []
         for container in containers:
@@ -64,7 +66,7 @@ class RoleView(BrowserView):
 
     def getContainerRoles(self, container):
         logger = getLogger(LOG_KEY + '.synthesis')
-        print("Working on %s\n\n" % container)
+        #print("Working on %s\n\n" % container)
         utool = getToolByName(self.context, 'portal_url')
         portal = utool.getPortalObject()
         mtool = portal.portal_membership
@@ -75,5 +77,5 @@ class RoleView(BrowserView):
                                                               candidate_roles,
                                                               None),
                         }
-        print("folder_roles: %s\n\n" % folder_roles)
+        #print("folder_roles: %s\n\n" % folder_roles)
         return folder_roles

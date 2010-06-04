@@ -571,6 +571,7 @@ class MembershipTool(CPSMembershipTool):
             blocked_roles = self.getMergedLocalRoles(parent)
             self._addBlockedRolesForRender(dict_roles, blocked_roles)
         utool = getToolByName(self, 'portal_url')
+        portal = utool.getPortalObject()
         rpath = utool.getRpath(obj)
 
         # fill members and groups dictionnaries
@@ -629,7 +630,10 @@ class MembershipTool(CPSMembershipTool):
                 if entry is not None:
                     member_title = entry.get(mdir_title_field)
                 members[item] = {
+                    'id': member_id,
                     'title': member_title or member_id,
+                    'url': portal.absolute_url() + \
+                    '/cpsdirectory_entry_view?dirname=members&id=' + member_id,
                     'role_input_name': 'role_user_' + member_id,
                     'here_roles': here_roles,
                     'inherited_roles': inherited_roles,
@@ -641,8 +645,15 @@ class MembershipTool(CPSMembershipTool):
                 entry = gdir.getEntry(group_id, None)
                 if entry is not None:
                     group_title = entry.get(gdir_title_field)
+                if group_id.startswith('role:'):
+                    url = None
+                else:
+                    url = portal.absolute_url() + \
+                          '/cpsdirectory_entry_view?dirname=groups&id=' + group_id
                 groups[item] = {
+                    'id': group_id,
                     'title': group_title or group_id,
+                    'url': url,
                     # XXX AT: no ':' accepted, change it for role:Anonymous and
                     # role:Authenticated groups
                     'role_input_name': 'role_group_' + group_id.replace(':', '_'),

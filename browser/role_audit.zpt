@@ -6,6 +6,10 @@
     <h1 i18n:translate="heading_role_audit">Role audit</h1>
     <p i18n:translate="help_role_audit">Role audit explained.
     </p>
+    <div>
+      <span class="inheritedRole">Inherited role</span><br/>
+      <span class="inheritedBlockedRole">Inherited block role</span>
+    </div>
 
     <tal:block define="utool nocall:here/portal_url;
       portal utool/getPortalObject;
@@ -31,7 +35,7 @@
                 </tal:block>
               </td>
               <td style="padding: 1em">
-                <table>
+                <table class="roleAuditRoles">
                   <tal:block repeat="candidate_role candidate_roles">
                     <tr>
                       <td>
@@ -41,17 +45,18 @@
 
                         <div>
                           <tal:block define="
-                            sorted_members sorted_users;
-                            members users;
+                            sorted_members sorted_groups;
+                            members groups;
                             ">
                             <metal:block
                               use-macro="context/role_audit_macros/macros/role_assignment"/>
                           </tal:block>
                         </div>
+
                         <div>
                           <tal:block define="
-                            sorted_members sorted_groups;
-                            members groups;
+                            sorted_members sorted_users;
+                            members users;
                             ">
                             <metal:block
                               use-macro="context/role_audit_macros/macros/role_assignment"/>

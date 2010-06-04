@@ -14,7 +14,7 @@ Macro needs
   groups python:cpslr[3];
   utool nocall:here/portal_url;
   portal python:utool.getPortalObject();
-  has_local_roles_blocking portal/acl_users/hasLocalRolesBlocking|nothing;
+  has_local_roles_blocking_support portal/acl_users/hasLocalRolesBlocking|nothing;
   local_roles_blocked python:cpslr[4];
   ">
 
@@ -24,7 +24,7 @@ Macro needs
     Assigned local roles
 </h2>
 
-<div class="group" tal:condition="has_local_roles_blocking">
+<div class="group" tal:condition="has_local_roles_blocking_support">
   <form method="post" action="folder_localrole_block"
         tal:attributes="action localrole_block_url|string:${here_url}/folder_localrole_block">
     <div tal:condition="local_roles_blocked">

@@ -1,0 +1,46 @@
+==========================
+TinyMCE integration in CPS
+==========================
+
+:Author: Marc-Aurèle Darche
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+Introduction
+============
+
+.. _TinyMCE: http://tinymce.moxiecode.com/
+
+TinyMCE_ is distributed under the GNU Lesser General Public License (LGPL).
+
+This file explain briefly how this integration was done, so that everyone is
+able to do the integration of a new version of TinyMCE_ in CPS when it is
+available and/or when the need arises.
+
+
+Building receipt
+================
+
+Steps to build:
+
+1. Install the needed files in the `skins` directory::
+
+  $ cd Products/CPSDefault/skins
+  $ unzip tinymce_3_2_1_1.zip
+  $ mv tinymce/jscripts/tiny_mce .
+  $ rm -rf tinymce
+
+2. Rename all ``.htm`` files into ``.htm.pt``
+
+  For example::
+
+    $ rename 's/\.htm$/.htm.pt/' *.htm
+
+
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

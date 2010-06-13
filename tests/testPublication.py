@@ -31,21 +31,21 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
-from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
+from Products.CPSDefault.tests.CPSTestCase import CPSPermWorkflowTestCase
 from Products.CPSDocument.tests.testDefaultDocuments import DOCUMENT_TYPES
 
 ANOTHER_SECTION_ID = 'another-section'
 
-class TestPublication(CPSTestCase):
+class TestPublication(CPSPermWorkflowTestCase):
     # Test object creation and publication workflow
 
     def afterSetUp(self):
         # avoid pollution from earlier tests
         self.portal.acl_users._clearUserCache()
 
+        CPSPermWorkflowTestCase.afterSetUp(self)
         self.login('manager')
 
-        self.wftool = getToolByName(self.portal, 'portal_workflow')
         # Creating an extra section to be used for publishing
         self.wftool.invokeFactoryFor(
             self.portal.sections, 'Section', ANOTHER_SECTION_ID)
@@ -82,6 +82,9 @@ class TestPublication(CPSTestCase):
 
     def testAccessForReviewer(self):
         self.login('reviewer')
+        self.assertPerm(View, self.portal.sections)
+        # GR: just introduced assertPerm, but keeping these below since
+        # testing the method themselves is more than testing the permission
         self.assert_(self.portal.sections.folder_contents())
         self.assert_(self.portal.sections.folder_view())
         self.assertRaises(
@@ -169,8 +172,7 @@ class TestPublication(CPSTestCase):
         lock_token = lock.getLockToken()
         proxy2.wl_setLock(lock_token, lock)
 
-        review_state = self.wftool.getInfoFor(proxy, 'review_state', None)
-        self.assertEquals(review_state, 'work')
+        self.assertReviewState(proxy, 'work')
         review_state2 = self.wftool.getInfoFor(proxy2, 'review_state', None)
         self.assertEquals(review_state2, 'work')
 

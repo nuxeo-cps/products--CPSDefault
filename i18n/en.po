@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-31 12:11default\n"
+"POT-Creation-Date: 2010-06-13 11:17default\n"
 "PO-Revision-Date: 2006-02-20 14:36+0200\n"
 "Last-Translator: Dragos Ivan <div@nuxeo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -147,13 +147,9 @@ msgstr "Your password:"
 #.           Your query gave ${nb_results (tal content="res/items_count")} results.
 #.         </p>
 #.   <p condition="python:items_length > 1">
-#.           Your query gave ${nb_results (tal content="items_length")} results.
-#.         </p>
-#.   <p condition="python:items_length > 1">
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr "Your query gave ${nb_results} results"
@@ -768,7 +764,6 @@ msgstr "Access rights management: Search results"
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr "Advanced search"
 
@@ -788,7 +783,9 @@ msgstr "Checkin revision ${item_id}"
 msgid "heading_checkout_draft_of ${item_id}"
 msgstr "Checkout revision ${item_id}"
 
-#.   <h1>Configure information message</h1>
+#.   <h1>
+#.           Configure information message
+#.         </h1>
 #: from ../skins/cps_default/information_message_config_form.pt
 msgid "heading_config_information_message"
 msgstr "Configure information message"
@@ -834,6 +831,11 @@ msgstr "CPS encountered an error"
 #: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
 msgstr "Add content"
+
+#.   <h1>Information window</h1>
+#: from ../skins/cps_default/information_message.pt
+msgid "heading_information_message"
+msgstr "Information window"
 
 #.   <h1>Become a member</h1>
 #: from ../skins/cps_default/join_form.pt
@@ -940,6 +942,12 @@ msgstr "Resource metadata"
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
 msgstr "Revert to an archived revision of ${item_id}"
+
+#.   <h1>Role audit</h1>
+#: from ../browser/role_audit.zpt
+#, fuzzy
+msgid "heading_role_audit"
+msgstr "Create"
 
 #.   <h1 condition="not:title_search">Search Results</h1>
 #: from ../skins/cps_default/search_form.pt
@@ -1064,6 +1072,22 @@ msgid "help_checkout_draft"
 msgstr ""
 "By creating a revision, you will be the only one able to work on the "
 "document."
+
+#.   <block>Attention,
+#.           this form lets you enter an information message, with additional details
+#.           (dates, etc.), that will be displayed once to each member of the portal
+#.           when he/she will be visiting a web page of the portal as an authenticated user.
+#.           It is possible to configure this information message to display starting
+#.           from now or to specify a period in the future.
+#.         </block>
+#: from ../skins/cps_default/information_message_config_form.pt
+msgid "help_config_information_message"
+msgstr ""
+"Attention, this form lets you enter an information message, with additional "
+"details (dates, etc.), that will be displayed once to each member of the "
+"portal when he/she will be visiting a web page of the portal as an "
+"authenticated user. It is possible to configure this information message to "
+"display starting from now or to specify a period in the future."
 
 #.   <span>
 #.       Delete archive
@@ -1282,6 +1306,16 @@ msgstr ""
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "help_revert_revision"
 msgstr "Revert to an older revision of this object."
+
+#.   <p>Role audit explained.
+#.       </p>
+#: from ../browser/role_audit.zpt
+#, fuzzy
+msgid "help_role_audit"
+msgstr ""
+"Changing the id of an object does not affect its title but changes the "
+"address (URL) to access it. Beware that links pointing to this object won't "
+"find it if not updated."
 
 #.   <help fill-slot="help">
 #.     An item's status determines who can see it.
@@ -1738,6 +1772,26 @@ msgstr "Type"
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_version"
 msgstr "Version"
+
+#.   <h2>Date</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_date"
+msgstr "Date of the event"
+
+#.   <h2>Details</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_details"
+msgstr "Details"
+
+#.   <h2>Duration</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_duration"
+msgstr "Duration"
+
+#.   <h2>Subject</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_subject"
+msgstr "Subject"
 
 #.   <span class="inheritedBlockedRole">
 #.       Inherited blocked role
@@ -2215,14 +2269,10 @@ msgstr ""
 #.   <p condition="not:res/items_count">
 #.           Your query gave no result.
 #.         </p>
-#.   <p condition="not:items_length">
-#.           Your query gave no result.
-#.         </p>
 #.   <block>
 #.           Your query gave no result.
 #.         </block>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr "Your query gave no result."
@@ -2231,13 +2281,9 @@ msgstr "Your query gave no result."
 #.           Your query gave 1 result.
 #.         </p>
 #.   <p condition="python:items_length == 1">
-#.           Your query gave 1 result.
-#.         </p>
-#.   <p condition="python:items_length == 1">
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr "Your query gave one result."
@@ -3368,17 +3414,11 @@ msgstr "Latest published"
 msgid "portlet_title_breaking_news"
 msgstr "Breaking News"
 
-msgid "label_information_message_subject"
-msgstr "Subject"
+msgid "label_information_message_duration_edit"
+msgstr "Duration (free text)"
 
-msgid "label_information_message_date"
-msgstr "Date of the event"
-
-msgid "label_information_message_duration"
-msgstr "Duration"
-
-msgid "label_information_message_details"
-msgstr "Details"
+msgid "label_information_message_instant_display"
+msgstr "Instant display"
 
 msgid "label_information_message_timed_display_start"
 msgstr "Display message start date"
@@ -3391,15 +3431,6 @@ msgstr "Activated"
 
 msgid "action_configure_information_message"
 msgstr "Configure information message"
-
-msgid "label_information_message_duration_edit"
-msgstr "Duration (free text)"
-
-msgid "heading_information_message"
-msgstr "Information window"
-
-msgid "label_information_message_instant_display"
-msgstr "Instant display"
 
 #~ msgid "label_author_asc"
 #~ msgstr "Author"

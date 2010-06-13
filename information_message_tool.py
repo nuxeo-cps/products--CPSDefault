@@ -49,6 +49,10 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
      'label': 'Display message start date'},
     {'id': 'timed_display_stop', 'type': 'date', 'mode': 'w',
      'label': 'Display message stop date'},
+    {'id': 'check_delay_initial', 'type': 'int', 'mode': 'w',
+     'label': "Initial delay before the first check through AJAX (seconds)"},
+    {'id': 'check_delay', 'type': 'int', 'mode': 'w',
+     'label': "Delay between each check through AJAX (seconds)"},
     )
     last_modified = None
     activated = False
@@ -59,6 +63,8 @@ class InformationMessageTool(UniqueObject, SimpleItemWithProperties,
     instant_display = True
     timed_display_start = DateTime()
     timed_display_stop = DateTime()
+    check_delay_initial = 10
+    check_delay = 300
 
     manage_options = (SimpleItemWithProperties.manage_options +
                       ActionProviderBase.manage_options)

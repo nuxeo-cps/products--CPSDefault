@@ -81,6 +81,17 @@
   <property name="hidden_readonly_layout_modes"/>
  </widget>
 
+ <widget name="timed_display" meta_type="DateTime Range Widget">
+   <property name="widget_ids">
+     <element value="timed_display_start" />
+     <element value="timed_display_stop" />
+   </property>
+   <!-- this relies on the fact that 'instant_display' is validated *first* -->
+   <property name="skip_validate_if_expr">
+     python: datamodel['instant_display']
+   </property>
+ </widget>
+
  <widget name="timed_display_start" meta_type="DateTime Widget">
   <property name="fields">
    <element value="timed_display_start"/>
@@ -88,6 +99,7 @@
   <property
      name="label_edit">label_information_message_timed_display_start</property>
   <property name="is_i18n">True</property>
+  <property name="must_future">True</property>
   <property name="readonly_layout_modes"/>
   <property name="hidden_layout_modes"/>
   <property name="hidden_readonly_layout_modes"/>
@@ -100,6 +112,7 @@
   <property
      name="label_edit">label_information_message_timed_display_stop</property>
   <property name="is_i18n">True</property>
+  <property name="must_future">True</property>
   <property name="readonly_layout_modes"/>
   <property name="hidden_layout_modes"/>
   <property name="hidden_readonly_layout_modes"/>
@@ -122,8 +135,7 @@
    <cell name="instant_display" ncols="2"/>
   </row>
   <row>
-   <cell name="timed_display_start"/>
-   <cell name="timed_display_stop"/>
+   <cell name="timed_display"/>
   </row>
   <row>
    <cell name="activated" ncols="2"/>

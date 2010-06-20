@@ -52,7 +52,8 @@ def refreshCatalog(zcatalog, clear=0, pghandler=None):
 
     num_objects = len(paths)
     if pghandler:
-        pghandler.init('Refreshing catalog: %s' % self.absolute_url(1), num_objects)
+        pghandler.init('Refreshing catalog: %s' % zcatalog.absolute_url(1),
+                       num_objects)
 
     for i in xrange(num_objects):
         if pghandler: pghandler.report(i)

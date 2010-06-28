@@ -40,8 +40,13 @@
  </action-provider>
  <action-provider name="portal_actions">
   <action title="action_portlets" action_id="portlets" category="folder"
-     condition_expr="member"
+     condition_expr="python: folder_url != portal_url"
      url_expr="string:${folder_url}/portlet_manage_form" visible="True">
+   <permission>Manage Portlets</permission>
+  </action>
+  <action title="action_portlets" action_id="root_portlets" category="global"
+     condition_expr="python: here.absolute_url() == portal_url"
+     url_expr="string:${portal_url}/portlet_manage_form" visible="True">
    <permission>Manage Portlets</permission>
   </action>
   <action title="action_accessibility" action_id="accessibility"

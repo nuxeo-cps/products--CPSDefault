@@ -404,10 +404,15 @@ class TestMembershipTool(CPSTestCase):
         roles = self.pmtool.getCPSLocalRolesRender(self.portal.sections,
                                                    ['SectionManager'])
         wanted = (['user:semanager'],
-                  {'user:semanager': {'role_input_name':
-                  'role_user_semanager', 'inherited_roles': {},
-                  'has_local_roles': 1, 'here_roles': {'SectionManager':
-                  {'here': 1, 'inherited': 0}}, 'title': 'semanager'}},
+                  {'user:semanager': {'role_input_name': 'role_user_semanager',
+                                      'url': 'http://nohost/portal/cpsdirectory_entry_view?dirname=members&id=semanager',
+                                      'inherited_roles': {},
+                                      'has_local_roles': 1,
+                                      'here_roles': {'SectionManager':
+                                                     {'here': 1,
+                                                      'inherited': 0}},
+                                      'id': 'semanager',
+                                      'title': 'semanager'}},
                   [], {}, 0)
 
         self.assertEquals(roles, wanted)
@@ -415,10 +420,15 @@ class TestMembershipTool(CPSTestCase):
         # what are the local roles in workspaces ?
         roles = self.pmtool.getCPSLocalRolesRender(self.portal.workspaces,
                                                    ['WorkspaceReader'])
-        wanted = (['user:member'], {'user:member': {'role_input_name':
-                  'role_user_member', 'inherited_roles': {},
-                  'has_local_roles': 1, 'here_roles': {'WorkspaceReader':
-                  {'here': 1, 'inherited': 0}}, 'title': 'Foo Bar'}}, [],
+        wanted = (['user:member'],
+                  {'user:member': {'role_input_name': 'role_user_member',
+                                   'inherited_roles': {},
+                                   'url': 'http://nohost/portal/cpsdirectory_entry_view?dirname=members&id=member',
+                                   'id': 'member',
+                                   'has_local_roles': 1,
+                                   'here_roles': {
+            'WorkspaceReader': {'here': 1, 'inherited': 0}},
+                                   'title': 'Foo Bar'}}, [],
                   {}, 0)
 
         self.assertEquals(roles, wanted)

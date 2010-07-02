@@ -28,6 +28,7 @@ from zope.app.testing.functional import ZCMLLayer
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
+from Products.CMFCore.utils import _checkPermission
 from Products.CPSCore.EventServiceTool import SubscriberDef
 
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
@@ -298,6 +299,48 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                 print "%s(%s): %s %s" % (subsystem, severity, summary, detail)
         zLOG.old_log_write = zLOG.log_write
         zLOG.log_write = log_write
+
+class CPSPermWorkflowTestCase(CPSTestCase):
+    """A subclass providing workflow and permissons related assertions."""
+
+    def afterSetUp(self):
+        CPSTestCase.afterSetUp(self)
+        self.wftool = self.portal.portal_workflow
+
+    def assertPerm(self, perm, ob, user_id=None):
+        if user_id is not None:
+            old_user = getSecurityManager().getUser().getId()
+            self.login(user_id)
+        if not _checkPermission(perm, ob):
+            self.fail("Don't have %s permission on %s" % (perm, ob))
+        if user_id is not None:
+            self.login(old_user)
+
+    def assertNotPerm(self, perm, ob, user_id=None):
+        if user_id is not None:
+            old_user = getSecurityManager().getUser().getId()
+            self.login(user_id)
+        if _checkPermission(perm, ob):
+            self.fail("Should not have %s permission on %s" % (perm, ob))
+        if user_id is not None:
+            self.login(old_user)
+
+    failIfPerm = assertNotPerm
+    failIfNotPerm = assertPerm
+
+    def assertReviewState(self, ob, state):
+        self.assertEquals(self.wftool.getInfoFor(ob, 'review_state'),
+                          state)
+
+    def assertCreationUIProposed(self, container, ptype):
+        ftis = [fti.getId() for fti in container.getSortedContentTypes()]
+        if ptype in ftis:
+            return
+        self.fail("portal_type '%s' not in %s" % (ptype, ftis))
+
+    def currentUser(self):
+        return getSecurityManager().getUser()
+
 
 ##################################################
 

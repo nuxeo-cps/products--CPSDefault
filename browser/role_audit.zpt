@@ -1,0 +1,76 @@
+<metal:html use-macro="here/content_lib_master/macros/master">
+  <metal:block fill-slot="header">
+  </metal:block>
+
+  <metal:block fill-slot="main">
+    <h1 i18n:translate="heading_role_audit">Role audit</h1>
+    <p i18n:translate="help_role_audit">Role audit explained.
+    </p>
+    <div>
+      <span class="inheritedRole">Inherited role</span><br/>
+      <span class="inheritedBlockedRole">Inherited block role</span>
+    </div>
+
+    <tal:block define="synthesis view/synthesis">
+      <table id="roleAudit">
+        <tal:block repeat="folder synthesis">
+          <tal:block define="
+            candidate_roles python:folder['candidate_roles'];
+            cpslr python:folder['cpslr'];
+            sorted_users python:cpslr[0];
+            users python:cpslr[1];
+            sorted_groups python:cpslr[2];
+            groups python:cpslr[3];
+            local_roles_blocked python:cpslr[4];
+            ">
+            <tr>
+              <td style="padding: 1em">
+                <tal:block define="rpath python:folder['rpath'];
+                  obj python:view.portal.unrestrictedTraverse(rpath);
+                  ">
+                  <a tal:content="obj/Title" tal:attributes="href obj/absolute_url"/>
+                </tal:block>
+              </td>
+              <td style="padding: 1em">
+                <table class="roleAuditRoles">
+                  <tal:block repeat="candidate_role candidate_roles">
+                    <tr>
+                      <td>
+                        <tal:block content="candidate_role"/>
+                      </td>
+                      <td style="padding: 1em">
+
+                        <div>
+                          <tal:block define="
+                            sorted_members sorted_groups;
+                            members groups;
+                            ">
+                            <metal:block
+                              use-macro="context/role_audit_macros/macros/role_assignment"/>
+                          </tal:block>
+                        </div>
+
+                        <div>
+                          <tal:block define="
+                            sorted_members sorted_users;
+                            members users;
+                            ">
+                            <metal:block
+                              use-macro="context/role_audit_macros/macros/role_assignment"/>
+                          </tal:block>
+                        </div>
+
+                      </td>
+                    </tr>
+                  </tal:block>
+                </table>
+              </td>
+            </tr>
+          </tal:block>
+        </tal:block>
+      </table>
+    </tal:block>
+
+  </metal:block>
+
+</metal:html>

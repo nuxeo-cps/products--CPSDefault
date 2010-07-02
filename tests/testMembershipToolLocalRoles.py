@@ -34,6 +34,7 @@ from Products.CPSCore.URLTool import URLTool
 from Products.CPSUserFolder.CPSUserFolder import CPSUserFolder
 from Products.CPSUserFolder.TimeoutCache import resetAllCaches
 
+from Products.CPSDefault.browser.roles import RoleView
 
 _marker = object()
 class FakeDirectory(Folder):
@@ -56,6 +57,10 @@ class FakeDirectory(Folder):
     def listEntryIds(self):
         return self.entries.keys()
 
+CANDIDATE_ROLES = [ 'WorkspaceManager',
+                    'WorkspaceMember',
+                    'WorkspaceReader',
+                    ]
 class FakeFolder(Folder):
     # give it a portal type so that relevant local roles are found
     def __init__(self, id):
@@ -64,6 +69,8 @@ class FakeFolder(Folder):
     # avoid reindexation
     def reindexObjectSecurity(self):
         pass
+    def getCPSCandidateLocalRoles(self):
+        return CANDIDATE_ROLES
 
 
 class TestMembershipToolLocalRoles(ZopeTestCase):
@@ -75,11 +82,7 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.app._setObject('folder', Folder('folder'))
         portal = self.portal = getattr(self.app, 'folder')
         # roles
-        self.roles = [
-            'WorkspaceManager',
-            'WorkspaceMember',
-            'WorkspaceReader',
-            ]
+        self.roles = CANDIDATE_ROLES
         self.roles.sort()
         for role in ['Manager'] + self.roles:
             portal._addRole(role)
@@ -183,6 +186,20 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         return default_roles
 
     # tests
+
+    def testViewClass(self):
+        request = None
+        role_view = RoleView(self.root, request)
+        synthesis = role_view.synthesis()
+        self.assert_(synthesis)
+
+        # TODO: Try to find how to make it work
+        #view_id = 'cps_role_audit.html'
+        #meth = getattr(self.portal, view_id)
+        #rendering = meth()
+        #self.assert_(rendering)
+        #assertValidXhtml(rendering, view_id)
+
 
     def test_getCPSCandidateLocalRoles(self):
         mtool = self.mtool
@@ -369,7 +386,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -388,7 +407,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -411,7 +432,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {'WorkspaceManager': ['root']},
                 'has_local_roles': 1,
@@ -429,7 +452,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {'WorkspaceReader': ['root']},
                 'has_local_roles': 0,
@@ -452,7 +477,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {
                     'WorkspaceManager': ['root'],
@@ -473,7 +500,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {'WorkspaceReader': ['root']},
                 'has_local_roles': 1,
@@ -520,7 +549,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -539,7 +570,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -562,7 +595,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -588,7 +623,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {
                     'WorkspaceMember': ['root/fold'],
@@ -608,7 +645,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -674,7 +713,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -694,7 +735,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 0,
@@ -728,7 +771,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {},
                 'has_local_roles': 1,
@@ -752,7 +797,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         # members
         members = {
             'user:someuser': {
+                'id': 'someuser',
                 'title': 'Some User',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=members&id=someuser',
                 'role_input_name': 'role_user_someuser',
                 'inherited_roles': {
                     'WorkspaceMember': ['root/fold'],
@@ -772,7 +819,9 @@ class TestMembershipToolLocalRoles(ZopeTestCase):
         self.assertEquals(res[2], sorted_groups)
         groups = {
             'group:somegroup': {
+                'id': 'somegroup',
                 'title': 'Some Group',
+                'url': 'http://nohost/folder/cpsdirectory_entry_view?dirname=groups&id=somegroup',
                 'role_input_name': 'role_group_somegroup',
                 'inherited_roles': {},
                 'has_local_roles': 1,

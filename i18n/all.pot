@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: default\n"
-"POT-Creation-Date: 2010-02-02 10:55default\n"
+"POT-Creation-Date: 2010-06-13 11:17default\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Your Name <your@email>\n"
 "Language-Team: Name <email>\n"
@@ -139,13 +139,9 @@ msgstr ""
 #.           Your query gave ${nb_results (tal content="res/items_count")} results.
 #.         </p>
 #.   <p condition="python:items_length > 1">
-#.           Your query gave ${nb_results (tal content="items_length")} results.
-#.         </p>
-#.   <p condition="python:items_length > 1">
 #.         Your query gave ${nb_results (tal content="items_length")} results.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "Your query gave ${nb_results} results."
 msgstr ""
@@ -436,9 +432,11 @@ msgstr ""
 
 #.   <button type="submit">OK</button>
 #.   <button type="submit" onclick="history.back()">OK</button>
+#.   <button type="submit" name="information_message_config_submit">OK</button>
 #.   <input type="submit" class="standalone searchButton" value="button_ok" />
 #: from ../skins/cps_default/folder_recursive_publish_form.pt
 #: ../skins/cps_default/folder_rename_form.pt
+#: ../skins/cps_default/information_message_config_form.pt
 #: ../skins/cps_default/search_form.pt
 msgid "button_ok"
 msgstr ""
@@ -707,7 +705,6 @@ msgstr ""
 #.         Advanced search
 #.       </h1>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 msgid "heading_advanced_search"
 msgstr ""
 
@@ -725,6 +722,13 @@ msgstr ""
 #.         </title>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "heading_checkout_draft_of ${item_id}"
+msgstr ""
+
+#.   <h1>
+#.           Configure information message
+#.         </h1>
+#: from ../skins/cps_default/information_message_config_form.pt
+msgid "heading_config_information_message"
 msgstr ""
 
 #.   <h2 condition="type_name">heading_create</h2>
@@ -767,6 +771,11 @@ msgstr ""
 #.       </h1>
 #: from ../skins/cps_default/folder_factories.pt
 msgid "heading_folder_factories"
+msgstr ""
+
+#.   <h1>Information window</h1>
+#: from ../skins/cps_default/information_message.pt
+msgid "heading_information_message"
 msgstr ""
 
 #.   <h1>Become a member</h1>
@@ -873,6 +882,11 @@ msgstr ""
 #.   </title>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "heading_revert_to_old_revision_of ${item_id}"
+msgstr ""
+
+#.   <h1>Role audit</h1>
+#: from ../browser/role_audit.zpt
+msgid "heading_role_audit"
 msgstr ""
 
 #.   <h1 condition="not:title_search">Search Results</h1>
@@ -985,6 +999,17 @@ msgstr ""
 #.           </block>
 #: from ../skins/cps_default/content_checkout_draft_form.pt
 msgid "help_checkout_draft"
+msgstr ""
+
+#.   <block>Attention,
+#.           this form lets you enter an information message, with additional details
+#.           (dates, etc.), that will be displayed once to each member of the portal
+#.           when he/she will be visiting a web page of the portal as an authenticated user.
+#.           It is possible to configure this information message to display starting
+#.           from now or to specify a period in the future.
+#.         </block>
+#: from ../skins/cps_default/information_message_config_form.pt
+msgid "help_config_information_message"
 msgstr ""
 
 #.   <span>
@@ -1169,6 +1194,12 @@ msgstr ""
 #.     </span>
 #: from ../skins/cps_default/content_revert_form.pt
 msgid "help_revert_revision"
+msgstr ""
+
+#.   <p>Role audit explained.
+#.       </p>
+#: from ../browser/role_audit.zpt
+msgid "help_role_audit"
 msgstr ""
 
 #.   <help fill-slot="help">
@@ -1616,6 +1647,26 @@ msgstr ""
 #.   <a attributes="href python:'%s/changeDisplayParams?display_order=%s' % (context_url, test(sort_version and direction=='asc','version_desc','version_asc'))" href="" />
 #: from ../skins/cps_default/content_lib_info_detail_tab.pt
 msgid "label_info_tab_version"
+msgstr ""
+
+#.   <h2>Date</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_date"
+msgstr ""
+
+#.   <h2>Details</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_details"
+msgstr ""
+
+#.   <h2>Duration</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_duration"
+msgstr ""
+
+#.   <h2>Subject</h2>
+#: from ../skins/cps_default/information_message.pt
+msgid "label_information_message_subject"
 msgstr ""
 
 #.   <span class="inheritedBlockedRole">
@@ -2087,14 +2138,10 @@ msgstr ""
 #.   <p condition="not:res/items_count">
 #.           Your query gave no result.
 #.         </p>
-#.   <p condition="not:items_length">
-#.           Your query gave no result.
-#.         </p>
 #.   <block>
 #.           Your query gave no result.
 #.         </block>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_no_search_result"
 msgstr ""
@@ -2103,13 +2150,9 @@ msgstr ""
 #.           Your query gave 1 result.
 #.         </p>
 #.   <p condition="python:items_length == 1">
-#.           Your query gave 1 result.
-#.         </p>
-#.   <p condition="python:items_length == 1">
 #.         Your query gave 1 result.
 #.       </p>
 #: from ../skins/cps_default/advanced_search_form.pt
-#: ../skins/cps_default/advanced_search_form_old.pt
 #: ../skins/cps_default/search_form.pt
 msgid "legend_one_search_result"
 msgstr ""
@@ -3174,4 +3217,22 @@ msgid "portlet_title_latest_published"
 msgstr ""
 
 msgid "portlet_title_breaking_news"
+msgstr ""
+
+msgid "label_information_message_duration_edit"
+msgstr ""
+
+msgid "label_information_message_instant_display"
+msgstr ""
+
+msgid "label_information_message_timed_display_start"
+msgstr ""
+
+msgid "label_information_message_timed_display_stop"
+msgstr ""
+
+msgid "label_information_message_activated"
+msgstr ""
+
+msgid "action_configure_information_message"
 msgstr ""

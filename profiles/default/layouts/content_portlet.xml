@@ -133,6 +133,19 @@
   </property>
  </widget>
 
+ <widget name="render_links" meta_type="Boolean Widget">
+  <property name="fields">
+   <element value="render_links"/>
+  </property>
+  <property
+     name="label_edit">cpsportlets_content_render_links_label</property>
+  <property name="is_i18n">True</property>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_if_expr">not:context/render_items</property>
+ </widget>
+
  <widget name="render_method" meta_type="String Widget">
   <property name="fields">
    <element value="render_method"/>
@@ -262,6 +275,9 @@
    <cell name="render_items"/>
    <cell name="cluster_id"/>
    <cell name="render_method"/>
+  </row>
+  <row>
+   <cell name="render_links"/>
   </row>
   <row>
    <cell name="max_items" ncols="3"/>

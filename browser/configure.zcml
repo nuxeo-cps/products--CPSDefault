@@ -12,17 +12,19 @@
     name="ajaxMoveElement"
     class=".ajaxfolderview.AjaxFolderView"
     attribute="moveElement"
-    permission="zope.Public"/> <!-- TODO: secure the method -->
+    permission="zope2.View"
     />
 
-  <!-- switch user facility: security is evaluated at the actual switch.
-  These pages are only requesting a switch -->
+  <!--
+  Switch user facility: security is evaluated at the actual switch.
+  These pages are only requesting a switch.
+  -->
   <browser:page
     for="Products.CPSDefault.ICPSSite"
     class=".switchuserview.SwitchUserView"
     template="switchUser.zpt"
     name="cps_switch_user.html"
-    permission="zope.Public"
+    permission="zope2.View"
     />
 
   <browser:page
@@ -30,7 +32,31 @@
     class=".switchuserview.SwitchUserView"
     attribute="switchUser"
     name="cps_do_switch_user"
-    permission="zope.Public"
+    permission="zope2.View"
     />
+
+  <!-- Pages for role listing/synthesis audit page -->
+  <browser:page
+    for="Products.CPSDefault.ICPSSite"
+    class=".roles.RoleView"
+    template="role_audit.zpt"
+    name="role_audit"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="Products.CPSCore.interfaces.ICPSProxy"
+    class=".roles.RoleView"
+    template="role_audit.zpt"
+    name="role_audit"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="OFS.interfaces.IObjectManager"
+    template="role_audit_macros.zpt"
+    name="role_audit_macros"
+    permission="zope.Public"
+    /> <!-- Those macros should be available for everyone -->
 
 </configure>

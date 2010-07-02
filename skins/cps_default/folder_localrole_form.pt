@@ -10,7 +10,9 @@
 </metal:header>
 
 <metal:main fill-slot="main"
-     tal:define="search_param python:request.get('search_param', '');
+     tal:define="utool nocall:here/portal_url;
+                 portal utool/getPortalObject;
+                 search_param python:request.get('search_param', '');
                  search_term python:request.get('search_term', '');
                  search_limit python:int(request.get('search_limit', 100));
                  searching search_param;
@@ -145,6 +147,10 @@ that can be reached by doing an empty search.
 <!-- End assignment -->
 
 <metal:block use-macro="here/folder_localrole_assigned/macros/assigned" />
+
+<p>Check <a tal:attributes="href string:role_audit">this folder role audit</a>
+or <a tal:attributes="href python:portal.absolute_url() + '/role_audit'">the whole site role audit</a>.
+</p>
 
 </metal:main>
 

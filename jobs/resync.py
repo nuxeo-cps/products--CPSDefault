@@ -32,6 +32,7 @@ from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.permissions import ManagePortal
 from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
+from Products.CPSPortlets.PortletsCatalogTool import reindex_portlets_catalog
 
 logger = logging.getLogger('CPSDefault.jobs.resync')
 from Products.CPSUtil import cpsjob
@@ -89,6 +90,7 @@ def resync_catalog(portal):
     refreshCatalog(cat, clear=1, pghandler=handler) # does some txn stuff
 
     transaction.commit()
+    logger.info("Catalog reindex done")
 
 def resync_trees(portal):
     """Rebuild all tree caches.
@@ -107,6 +109,9 @@ def main():
     optparser.add_option('-c', '--catalog', dest='catalog',
                          action='store_true',
                          help="Catalog full reindexation")
+    optparser.add_option('-p', '--portlets-catalog', dest='ptl_catalog',
+                         action='store_true',
+                         help="Portlets Catalog reindexation")
     optparser.add_option('-t', '--trees', dest='trees', action='store_true',
                          help="Rebuild of tree caches")
 
@@ -119,8 +124,11 @@ def main():
 	resync_catalog(portal)
     if options.trees:
 	resync_trees(portal)
- 
-	
+    if options.ptl_catalog:
+        logger.info("Starting portlets catalog reindex")
+        reindex_portlets_catalog(portal)
+        logger.info("Portlet catalog reindex done")
+
 
 # invocation through zopectl run
 if __name__ == '__main__':

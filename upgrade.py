@@ -1018,3 +1018,9 @@ def flexible_remove_empty_rightcol(portal):
                         "(Title=%s)", count, doc.getId(), doc.Title())
 
     logger.info("Cleanup done")
+
+def upgrade_unicode(portal):
+    logger = logging.getLogger(LOG_KEY + 'unicode')
+    logger.info("Starting portal upgrade")
+    portal.default_charset = 'unicode'
+    logger.info("Finished portal upgrade")

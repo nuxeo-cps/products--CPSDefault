@@ -20,16 +20,4 @@ def LocalizerStringIO_write(self, s):
     FasterStringIO.write(self, s)
 LocalizerStringIO.write = LocalizerStringIO_write
 
-# Hack around Unicode problem
-def LocalizerStringIO_getvalue(self):
-    if self.buflist:
-        for buf in self.buflist:
-            if isinstance(buf, unicode):
-                self.buf += buf.encode('latin-1')
-            else:
-                self.buf += buf
-        self.buflist = []
-    return self.buf
-
-LocalizerStringIO.getvalue = LocalizerStringIO_getvalue
 

@@ -119,6 +119,16 @@ if folder_prefix:
         current_depth = len(folder_prefix.split('/')) + 1
         query['relative_path_depth'] = current_depth
 
+if query.has_key('path'):
+    # path must me ascii str not unicode
+    try:
+        query['path'] = str(query['path'])
+    except UnicodeEncodeError:
+        LOG('CPSDefault.search', INFO,
+            'Invalid path input %s.' % query['path'])
+        return []
+
+
 if query.has_key('folder_prefix'):
     del query['folder_prefix']
 

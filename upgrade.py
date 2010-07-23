@@ -1004,7 +1004,9 @@ def flexible_remove_empty_rightcol(portal):
             if len(subwids) < 3:
                 continue
             subwid = subwids[2]
-            sub = layout[subwid]
+            sub = layout.get(subwid)
+            if sub is None: # seen for real (on a test doc though)
+                continue
             if dm.get(sub.fields[0]):
                 continue
 

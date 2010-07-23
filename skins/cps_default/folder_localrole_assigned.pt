@@ -231,10 +231,18 @@ Assignment table needs:
           <input type="hidden" name="edit_ids:list"
                  tal:attributes="value member_id" />
         </td>
-        <td>
-          <label tal:content="member_info/title"
-            i18n:translate=""
-            tal:attributes="for input_id">
+        <td tal:define="title_i18n python:member_id.startswith('group:role:')">
+          <label
+	      tal:condition="title_i18n"
+	      tal:content="member_info/title"
+	      i18n:translate=""
+	      tal:attributes="for input_id">
+            User
+          </label>
+          <label
+	      tal:condition="not:title_i18n"
+	      tal:content="member_info/title"
+	      tal:attributes="for input_id">
             User
           </label>
         </td>

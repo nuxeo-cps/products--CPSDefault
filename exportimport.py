@@ -21,6 +21,7 @@
 """CPS Default GenericSetup I/O.
 """
 
+import logging
 from Acquisition import aq_base
 
 import Products
@@ -44,7 +45,7 @@ from Products.CPSWorkflow.exportimport import (
 
 from Products.Localizer.exportimport import importLocalizer
 from Products.CPSDocument.exportimport import importCPSObjects
-
+from Products.CPSDocument.upgrade import upgrade_doc_unicode
 
 class VariousImporter(object):
     """Class to import various steps.
@@ -273,6 +274,15 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
             field_id = attribute_name.split('_', 1)[0].capitalize()
             msgid = self._getNodeText(child)
             existing_langs = proxy.getLanguageRevisions().keys()
+
+            # #2181: upgrade to unicode is necessary if this is the
+            # profile import right before the big upgrade
+            # furthermore we need to do it on all languages, because
+            # of the reindexing (see below)
+            for lang in existing_langs:
+                doc = proxy.getContent(lang=lang)
+                upgrade_doc_unicode(doc)
+
             for lang in avail_langs:
                 if lang not in existing_langs:
                     proxy.addLanguageToProxy(lang)
@@ -281,7 +291,17 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
                                             default=msgid)
                 doc = proxy.getEditableContent(lang=lang)
                 doc_def = {field_id: value, 'proxy': proxy}
+                logging.warn("DOC DEF %r", doc_def)
                 doc.edit(**doc_def)
+
+            catalog = getToolByName(self.context, 'portal_catalog')
+            # #2181: we need to unindex it right now, because at the
+            # edge of unicode, reindexing can cause UnicodeErrors in
+            # Products.ZCatalog.Catalog#updateMetaData
+            # the before commit hook will index it properly at the end
+            # this cannot work before the Catalog import step has been done
+            # and is necessary if it's imported in the same transaction
+            catalog.unindexObject(proxy)
 
 def importObjectLocalWorkflow(ob, filename, context):
     """Import local workflow chains from an XML file.

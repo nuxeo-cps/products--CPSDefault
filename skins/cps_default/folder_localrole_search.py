@@ -42,7 +42,7 @@ elif search_param == 'groupname':
     # XXX hardcoded but not GroupsDirectory's job
     pseudo_groups = ['role:Anonymous', 'role:Authenticated']
     if search_term == '*':
-        results.extend(groups)
+        results.extend(pseudo_groups)
     else:
         search_term = search_term.lower()
         for pseudo_group in pseudo_groups:

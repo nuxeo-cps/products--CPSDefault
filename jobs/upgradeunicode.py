@@ -18,9 +18,11 @@
 """Resync various persistent stuff: tree caches, catalog..."""
 
 import logging
+import sys
 import transaction
 from Products.CPSUtil import cpsjob
 from Products.CPSDefault.jobs import resync
+from Products.CPSCore.ProxyBase import walk_cps_folders
 
 from Products.CPSDefault.upgrade import upgrade_unicode as upgrade_portal
 from Products.CPSSchemas.upgrade import upgrade_voctool_unicode \
@@ -30,9 +32,25 @@ from Products.CPSDocument.upgrade import upgrade_unicode as upgrade_documents
 
 logger = logging.getLogger('CPSDefault.jobs.upgradeunicode')
 
+# imports outside CPS-3-base
+def have_product(name):
+    return 'Products.' + name in sys.modules
 
-def base_upgrade(portal):
-    """Upgrade the CPS-base set of products."""
+if have_product('CPSSharedCalendar'):
+    from Products.CPSSharedCalendar.upgrade import upgrade_unicode_in \
+         as upgrade_calendars_in
+if have_product('CPSWiki'):
+    from Products.CPSWiki.upgrade import upgrade_unicode_in \
+         as upgrade_wikis_in
+if have_product('CPSSubscriptions'):
+    from Products.CPSSubscriptions.upgrade import upgrade_msg_unicode \
+         as upgrade_subscriptions
+if have_product('CPSComment'):
+    from Products.CPSComment.upgrade import upgrade_comments_unicode \
+         as upgrade_comments
+
+def base_upgrade_glob(portal):
+    """Play global upgrades for the CPS-base set of products."""
 
     # The order can matter
     upgrade_portal(portal)
@@ -40,14 +58,33 @@ def base_upgrade(portal):
     upgrade_portlets(portal)
     upgrade_documents(portal)
 
-def extensions_upgrade(portal):
-    """Upgrade the products that are in CPS-3-full \ CPS-3-base."""
-    # TODOs
-    # CPSCollector
-    # CPSSubscriptions
-    # CPSSharedCalendar
-    # CPSWiki
-    # CPSComment
+def default_done():
+    return dict(total=0, done=0)
+
+def base_upgrade_in(folder, counters_mapping):
+    """Upgrades related to CPS-base in given folder."""
+
+def extensions_upgrade_glob(portal):
+    """Play global upgrades of products that are in CPS-3-full \ CPS-3-base."""
+    if have_product('CPSCollector'):
+        upgrade_collector(portal)
+    if have_product('CPSSubscriptions'):
+        upgrade_subscriptions(portal)
+    if have_product('CPSComments'):
+        upgrade_comments(portal)
+
+def extensions_upgrade_in(folder, counters_mapping):
+    """Same as extensions_upgrades but in a given folder."""
+
+    def get_counters(key):
+        return counters_mapping.setdefault(key, default_done())
+
+    if have_product('CPSSharedCalendar'):
+        upgrade_calendars_in(folder, counters=get_counters('calendars'))
+
+    if have_product('CPSWiki'):
+        upgrade_wikis_in(folder,
+                         get_counters('wikis'), get_counters('wiki-pages'))
 
 def main():
     """CPS job bootstrap"""
@@ -58,6 +95,15 @@ def main():
         optparser.error("Args: %s; this job accepts options only."
                         "Try --help" % args)
     base_upgrade(portal)
+    counters_mapping = {}
+
+    logger.info("Starting upgrades based on a walk")
+    for folder in walk_cps_folders(portal):
+        logger.info("Descending into %s", folder.absolute_url_path())
+
+        base_upgrade_in(folder, counters_mapping)
+        extensions_upgrade_in(folder, counters_mapping)
+
     after_sync(portal)
 
 def after_sync(portal):

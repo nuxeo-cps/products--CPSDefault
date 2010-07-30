@@ -48,6 +48,9 @@ if have_product('CPSSubscriptions'):
 if have_product('CPSComment'):
     from Products.CPSComment.upgrade import upgrade_comments_unicode \
          as upgrade_comments
+if have_product('CPSCollector'):
+    from Products.CPSCollector.upgrade import upgrade_data_unicode \
+         as upgrade_collector_data
 
 def base_upgrade_glob(portal):
     """Play global upgrades for the CPS-base set of products."""
@@ -56,7 +59,7 @@ def base_upgrade_glob(portal):
     upgrade_portal(portal)
     upgrade_voctool(portal)
     upgrade_portlets(portal)
-    upgrade_documents(portal)
+    upgrade_documents(portal, resync_trees=False)
 
 def default_done():
     return dict(total=0, done=0)
@@ -67,7 +70,7 @@ def base_upgrade_in(folder, counters_mapping):
 def extensions_upgrade_glob(portal):
     """Play global upgrades of products that are in CPS-3-full \ CPS-3-base."""
     if have_product('CPSCollector'):
-        upgrade_collector(portal)
+        upgrade_collector_data(portal)
     if have_product('CPSSubscriptions'):
         upgrade_subscriptions(portal)
     if have_product('CPSComments'):
@@ -89,22 +92,44 @@ def extensions_upgrade_in(folder, counters_mapping):
 def main():
     """CPS job bootstrap"""
 
+    optparser = cpsjob.optparser
+    optparser.add_option('-g', '--global', dest='glob',
+                         action='store_true',
+                         help="Run global upgrades (those that need no walk)")
+    optparser.add_option('-w', '--walk', dest='walk',
+                         action='store_true',
+                         help="Run upgrades that need to walk folders")
+    optparser.add_option('-r', '--resync', dest='resync',
+                         action='store_true',
+                         help="Apply resynchronizations")
+    optparser.add_option('-a', '--all', dest='all', action='store_true',
+                         help="Run everything")
     portal, options, args = cpsjob.bootstrap(app)
 
     if args:
         optparser.error("Args: %s; this job accepts options only."
                         "Try --help" % args)
-    base_upgrade(portal)
-    counters_mapping = {}
 
-    logger.info("Starting upgrades based on a walk")
-    for folder in walk_cps_folders(portal):
-        logger.info("Descending into %s", folder.absolute_url_path())
+    if options.all:
+        options.glob = options.walk = options.resync = True
 
-        base_upgrade_in(folder, counters_mapping)
-        extensions_upgrade_in(folder, counters_mapping)
+    if options.glob:
+        logger.info("Starting global upgrades")
+        base_upgrade_glob(portal)
+        extensions_upgrade_glob(portal)
 
-    after_sync(portal)
+    if options.walk:
+        logger.info("Starting the big walk")
+        counters_mapping = {}
+        for folder in walk_cps_folders(portal):
+            logger.info("Descending into %s", folder.absolute_url_path())
+
+            base_upgrade_in(folder, counters_mapping)
+            extensions_upgrade_in(folder, counters_mapping)
+
+    if options.resync:
+        logger.info("Starting to resync everything.")
+        after_sync(portal)
 
 def after_sync(portal):
     """Reindexations and the like after playing the steps."""
@@ -113,7 +138,9 @@ def after_sync(portal):
     resync.resync_catalog(portal)
     logger.info("Catalog reindex done")
 
-    # not resyncing trees, because that's done by documents upgrade
+    logger.info("Starting rebuilding trees")
+    resync.resync_trees(portal)
+    logger.info("Starting rebuilding trees")
 
     logger.info("Starting portlets catalog reindex")
     resync.reindex_portlets_catalog(portal)

@@ -76,10 +76,15 @@ class VariousImporter(object):
 
         Will go away when specific handlers are coded for these.
         """
+        self.setupProperties()
         self.setupTranslationService()
         self.setupRoots()
         self.setupDefaultRoles()
         return "Various settings imported."
+
+    def setupProperties(self):
+        # this cannot be changed easily and should not stay void
+        self.site.default_charset = 'unicode'
 
     def setupDefaultRoles(self):
         """Add the default roles to the roles directory

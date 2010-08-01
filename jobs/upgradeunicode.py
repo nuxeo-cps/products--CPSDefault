@@ -42,6 +42,9 @@ if have_product('CPSSharedCalendar'):
 if have_product('CPSWiki'):
     from Products.CPSWiki.upgrade import upgrade_unicode_in \
          as upgrade_wikis_in
+if have_product('CPSBlog'):
+    from Products.CPSBlog.upgrade import upgrade_unicode \
+         as upgrade_blogs
 if have_product('CPSSubscriptions'):
     from Products.CPSSubscriptions.upgrade import upgrade_msg_unicode \
          as upgrade_subscriptions
@@ -75,6 +78,8 @@ def extensions_upgrade_glob(portal):
         upgrade_subscriptions(portal)
     if have_product('CPSComments'):
         upgrade_comments(portal)
+    if have_product('CPSBlog'):
+        upgrade_blogs(portal)
 
 def extensions_upgrade_in(folder, counters_mapping):
     """Same as extensions_upgrades but in a given folder."""

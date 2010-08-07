@@ -1,21 +1,18 @@
 <tal:block define="
   file_name python:request['file'];
   file_html_name python:request['file_html'];
-  file_html_subfiles_name python:request['file_html_subfiles'];
+  file_html_subfiles_name request/file_html_subfiles|nothing;
   breadcrumb_additional_info python:'> preview';
   ">
 
   <metal:block use-macro="here/content_lib_master/macros/master">
 
-    <metal:block fill-slot="base">
-      <base href="" tal:attributes="href python:'%s/preview_html?file=%s&amp;file_html=%s' % (here_url, file_name, file_html_name)" />
-    </metal:block>
-
     <metal:block fill-slot="header">
     </metal:block>
 
     <metal:block fill-slot="style_slot">
-      <tal:block tal:replace="structure python:here.getPreviewStyleName(file_html_subfiles_name)" />
+      <tal:block condition="file_html_subfiles_name"
+		 replace="structure python:here.getPreviewStyleName(file_html_subfiles_name)" />
     </metal:block>
 
     <metal:block fill-slot="main"

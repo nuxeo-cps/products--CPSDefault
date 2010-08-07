@@ -54,6 +54,10 @@ def login(app, user_id):
 
 def main(app):
     optparser = cpsjob.optparser
+    optparser.add_option('-t', '--root-themes-container',
+                         dest='themes', default='cps-themes',
+                         help="Path from the instance home to the root "
+                              "themes container.")
     optparser.add_option('-m', '--manager-id', dest='manager_id', default='',
                          help="Create a manager, with this id")
     optparser.add_option('-p', '--manager-password', dest='password',
@@ -73,6 +77,11 @@ def main(app):
     configurator = JobCPSSiteConfigurator()
     configurator.addConfiguredSite(app, portal_id, 'CPSDefault:default',
                                    **options.__dict__)
+    # XXX lame, should be in the configurator, and in metafactory, too
+    # no time to check all that
+    container = app[portal_id]['.cps_themes']
+    container.manage_changeProperties(relative_path=options.themes)
+
     transaction.commit()
 
 

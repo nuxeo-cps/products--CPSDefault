@@ -296,7 +296,6 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
                                             default=msgid)
                 doc = proxy.getEditableContent(lang=lang)
                 doc_def = {field_id: value, 'proxy': proxy}
-                logging.warn("DOC DEF %r", doc_def)
                 doc.edit(**doc_def)
 
             catalog = getToolByName(self.context, 'portal_catalog')

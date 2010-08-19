@@ -81,7 +81,9 @@ More docs about the use of the ZCatalog can be found here :
 - http://www.zope.org/Members/Zen/howto/AdvZCatalogSearching
 """
 
-from zLOG import LOG, DEBUG, INFO
+import logging
+logger = logging.getLogger('Products.CPSDefault.search')
+
 from Products.ZCTextIndex.ParseTree import ParseError
 ParseErrors = (ParseError,)
 try:
@@ -106,7 +108,7 @@ if str(query.get('modified')) == '1970/01/01':
         del query['modified_usage']
 
 if not allow_empty_search and not query:
-    LOG('CPSDefault.search', DEBUG, 'No query provided => no answers')
+    logger.debug('No query provided => no answers')
     return []
 
 # scope of search
@@ -124,8 +126,7 @@ if query.has_key('path'):
     try:
         query['path'] = str(query['path'])
     except UnicodeEncodeError:
-        LOG('CPSDefault.search', INFO,
-            'Invalid path input %s.' % query['path'])
+        logger.info('Invalid path input %r', query['path'])
         return []
 
 
@@ -180,18 +181,18 @@ if sort_by and not query.has_key('sort-on'):
 bmt = getattr(context.portal_url.getPortalObject(), 'Benchmarktimer', None)
 if bmt is not None:
     bmt = bmt('search chrono')
-    LOG('CPSDefault.search', DEBUG, 'start catalog search for %s' % query)
+    logger.info('start catalog search for %r', query)
     bmt.setMarker('start')
 try:
     brains = catalog(**query)
-except ParseErrors:
-    LOG('CPSDefault.search', INFO, 'got an exception during search %s' % query)
+except (ParseErrors, UnicodeError):
+    logger.exception('Exception during search. query=%r', query)
     return []
 
 if bmt is not None:
     bmt.setMarker('stop')
-    LOG('CPSDefault.search', DEBUG, 'found %s items in %7.3fs' % (
-        len(brains), bmt.timeElapsed('start', 'stop')))
+    logger.info('found %s items in %7.3fs', len(brains),
+                 bmt.timeElapsed('start', 'stop'))
 
 # no more need to use filterContents
 

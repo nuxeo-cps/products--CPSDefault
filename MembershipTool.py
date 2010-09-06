@@ -220,12 +220,15 @@ class MembershipTool(CPSMembershipTool):
         if REQUEST is not None:
             raise Unauthorized("Not callable TTW")
         result = self._makeToken(who, time_)
-        ok = (token == result
-              and int(time_)
-                  + self.getProperty('reset_password_request_validity')
-              >= int(time()))
+        ok = token == result
         if not ok:
             LOG(LOG_KEY, WARNING, "Invalid password reset request for %r"
+                % who)
+            return False
+        ok = (int(time_) + self.getProperty('reset_password_request_validity')
+              >= int(time()))
+        if not ok:
+            LOG(LOG_KEY, WARNING, "Timed-out password reset request for %r"
                 % who)
         return ok
 

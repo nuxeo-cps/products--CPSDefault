@@ -139,8 +139,6 @@ class MembershipTool(CPSMembershipTool):
                 "translation_service tool not found, could not proceed.")
 
         portal = getToolByName(self, 'portal_url').getPortalObject()
-
-        portal_encoding = 'ISO-8859-15'
         mail_from_address = portal.getProperty('email_from_address')
         if mail_from_address is None:
             LOG(LOG_KEY, WARNING,
@@ -172,7 +170,7 @@ class MembershipTool(CPSMembershipTool):
         # user on the portal.
         subject = translation_service.translateDefault(
             'email_password_reset_confirmation_subject',
-            mapping=var_mappings).encode(portal_encoding)
+            mapping=var_mappings)
         now = str(int(time()))
         args = {
             'w': who,
@@ -192,7 +190,7 @@ class MembershipTool(CPSMembershipTool):
         # user on the portal.
         body = translation_service.translateDefault(
             'email_password_reset_confirmation_body',
-            mapping=var_mappings).encode(portal_encoding)
+            mapping=var_mappings)
         try:
             send_mail(self, mto=email, mfrom=mail_from_address, subject=subject,
                       body=body)

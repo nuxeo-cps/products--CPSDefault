@@ -32,6 +32,7 @@ if password is not None:
         'username': u[0],
         },
      'username': u[0],
+     'password': password,
      })
     return context.login_form()
 else:

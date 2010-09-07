@@ -3,7 +3,9 @@
 <metal:body use-macro="here/main_template/macros/master">
 
 <metal:main fill-slot="main"
-      tal:define="username request/username | request/__ac_name | nothing">
+      tal:define="username request/username | request/__ac_name | nothing;
+                  password request/password | nothing"
+      >
 
   <h1 i18n:translate="heading_login_form">Log in</h1>
 
@@ -32,7 +34,8 @@
       <td>
         <input type="password" id="password" name="__ac_password"
                size="20" value=""
-               tal:attributes="class python:username and 'focus' or nothing"/>
+               tal:attributes="value password;
+                               class python:username and 'focus' or nothing"/>
       </td>
     </tr>
     <tr>

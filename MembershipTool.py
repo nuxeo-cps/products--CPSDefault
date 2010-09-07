@@ -177,7 +177,7 @@ class MembershipTool(CPSMembershipTool):
             'd': now,
             't': self._makeToken(who, now),
             }
-        visit_url = ('%s/account_reset_password_form?%s'
+        visit_url = ('<%s/account_reset_password_form?%s>'
                      % (portal_url, urlencode(args)))
         var_mappings = {'mail_from_address': mail_from_address,
                         'email': email,

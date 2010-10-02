@@ -29,6 +29,8 @@ from Products.CPSSchemas.upgrade import upgrade_voctool_unicode \
      as upgrade_voctool
 from Products.CPSPortlets.upgrade import upgrade_unicode as upgrade_portlets
 from Products.CPSDocument.upgrade import upgrade_unicode as upgrade_documents
+from Products.CPSWorkflow.upgrade import upgrade_unicode_in as \
+    upgrade_workflows_in
 
 logger = logging.getLogger('CPSDefault.jobs.upgradeunicode')
 
@@ -69,6 +71,10 @@ def default_done():
 
 def base_upgrade_in(folder, counters_mapping):
     """Upgrades related to CPS-base in given folder."""
+    def get_counters(key):
+        return counters_mapping.setdefault(key, default_done())
+
+    upgrade_workflows_in(folder, counters=get_counters('workflows'))
 
 def extensions_upgrade_glob(portal):
     """Play global upgrades of products that are in CPS-3-full \ CPS-3-base."""
@@ -131,6 +137,9 @@ def main():
 
             base_upgrade_in(folder, counters_mapping)
             extensions_upgrade_in(folder, counters_mapping)
+        logger.info("Big walk finished")
+        for k, v in counters_mapping.items():
+            logger.info("Upgraded %d/%d for %s", v['done'], v['total'], k)
 
     if options.resync:
         logger.info("Starting to resync everything.")

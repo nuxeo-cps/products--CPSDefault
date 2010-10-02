@@ -31,6 +31,9 @@ from Products.CPSPortlets.upgrade import upgrade_unicode as upgrade_portlets
 from Products.CPSDocument.upgrade import upgrade_unicode as upgrade_documents
 from Products.CPSWorkflow.upgrade import upgrade_unicode_in as \
     upgrade_workflows_in
+from Products.CPSWorkflow.upgrade import upgrade_aggregated_histories
+from Products.CPSDirectory.upgrade import upgrade_zodb_dirs_unicode \
+    as upgrade_zodb_dirs
 
 logger = logging.getLogger('CPSDefault.jobs.upgradeunicode')
 
@@ -65,6 +68,8 @@ def base_upgrade_glob(portal):
     upgrade_voctool(portal)
     upgrade_portlets(portal)
     upgrade_documents(portal, resync_trees=False)
+    upgrade_aggregated_histories(portal)
+    upgrade_zodb_dirs(portal)
 
 def default_done():
     return dict(total=0, done=0)

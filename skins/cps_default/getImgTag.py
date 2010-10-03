@@ -1,13 +1,16 @@
-##parameters=img_name, title=None, base_url=None, zoom=1, height=None, width=None, alt='', keep_ratio=0, img=None
+##parameters=img_name, title=None, base_url=None, zoom=1, height=None, width=None, alt='', keep_ratio=0, img=None, proxy_doc=None
 # $Id$
 """
 Return an HTML img tag
+
+   if proxy_doc is specified, img_name is the field name otherwise:
 
    img is the image object. If missing, traversal based on img_name is attempted
    img_name is a path to build the image URL.
    base_url is used to build the image full URL.
          if missing, the portal base_url is used instead.
          use '' to indicate that img_name is an absolute path (starts with '/')
+
 """
 
 import logging
@@ -23,7 +26,11 @@ if not base_url:
     utool = getToolByName(context, 'portal_url')
     if base_url != '': # img_name is not an absolute path
         base_url = utool.getBaseUrl()
-img_url = base_url + img_name
+
+if proxy_doc is None:
+    img_url = base_url + img_name
+else:
+    img = proxy_doc.getContent()[img_name]
 
 # retrieving the image object is necessary for resizing
 # we use img_name to guess the path
@@ -82,9 +89,17 @@ else:
             height = int(zoom * h)
 
     if width is not None and height is not None:
+        if proxy_doc is not None:
+            img_url = '%s/sizedImg/%s/%dx%d/%s' % (
+                proxy_doc.absolute_url(), img_name,
+                width, height,img.title)
+
         tag = '<img src="%s" width="%s" height="%s" alt="%s"' % (
-            img_url, str(width), str(height), alt)
+                img_url, str(width), str(height), alt)
     else:
+        if proxy_doc is not None:
+            img_url = '%s/%s/sizedImg/full/%s' % (
+                proxy_doc.absolute_url(), img_name, img.title)
         tag = '<img src="%s" alt="%s"' % (img_url, alt)
 
     if not title:

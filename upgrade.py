@@ -23,8 +23,12 @@
 import logging
 
 from Acquisition import aq_base
-from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized
+from zExceptions import BadRequest
+
+from Products.CMFCore.utils import getToolByName
+from Products.CPSUtil.id import generateId
+from Products.CPSCore.ProxyBase import walk_cps_proxies, walk_cps_folders
 
 LOG_KEY = 'CPSDefault.upgrade'
 
@@ -624,8 +628,51 @@ def check_upgrade_catalog_Z28(portal):
 def check_migrate_338_340_users(portal):
     return portal.acl_users.meta_type == 'User Folder With Groups'
 
+ROLES_ON_FOLDERS_ONLY = False
+
+def update_local_roles(folder, groups_mapping=None, users_mapping=None,
+                       logger=None):
+    """Update local roles settings according to a mapping.
+
+    called by migrate_338_340_users. Iterates on all proxies, because
+    some installations may have local role settings on ProxyDocuments too
+
+    If the upgrade becomes really too long for an installation with local roles
+    on folders only, one can monkey patch the ROLES_ON_FOLDERS_ONLY constant.
+    """
+
+    if not groups_mapping and not users_mapping:
+        return
+
+    if logger is None:
+        logger = logging.getLogger(LOG_KEY + '.update_local_roles')
+
+    local_roles_attrs = dict(user='__ac_local_roles__',
+                             group='__ac_local_group_roles__')
+    mappings = dict(user=users_mapping, group=groups_mapping)
+
+    walk = ROLES_ON_FOLDERS_ONLY and walk_cps_folders or walk_cps_proxies
+    for proxy in walk(folder):
+        for t, mapping in mappings.items():
+
+            if not mapping:
+                continue
+            attr = local_roles_attrs[t]
+            roles = getattr(aq_base(proxy), attr, None)
+            if roles is None:
+                continue
+
+            new_roles = dict((mapping.get(k, k), v) for k, v in roles.items())
+            if new_roles != roles:
+                # avoiding unnecessary ZODB writes
+                logger.debug("Changing %s on %r from %r to %r", attr, proxy,
+                             roles, new_roles)
+                setattr(proxy, attr, new_roles)
+                proxy._p_changed = True
+
 def migrate_338_340_users(portal):
     """Migrate users/roles/groups"""
+    from OFS.ObjectManager import checkValidId
     from Products.CPSUserFolder.CPSUserFolder import CPSUserFolder
     from Products.CPSDirectory.ZODBDirectory import ZODBDirectory
     from Products.CPSDirectory.interfaces import IContentishDirectory
@@ -638,6 +685,8 @@ def migrate_338_340_users(portal):
     members_dir = portal.portal_directories.members
     roles_dir = portal.portal_directories.roles
     groups_dir = portal.portal_directories.groups
+
+    logger = logging.getLogger(LOG_KEY + '.migrate_338_340_users')
 
     # Dump user/roles/groups
     for member in mtool.listMembers():
@@ -720,6 +769,7 @@ def migrate_338_340_users(portal):
         members_dir.manage_changeProperties(**data)
 
     groups_dir = dirs._getOb('groups')
+    translated_groups = {}
     if IContentishDirectory.providedBy(groups_dir):
         data = {
             'title': 'label_groups',
@@ -734,6 +784,14 @@ def migrate_338_340_users(portal):
             }
         groups_dir.manage_changeProperties(**data)
         for entry in groups:
+            eid = entry['id']
+            try:
+                # actual container is not used in the check if allow_dup
+                checkValidId(portal, eid, allow_dup=True)
+            except BadRequest:
+                neid = generateId(eid, max_chars=0, container=groups_dir)
+                translated_groups[eid] = entry['id'] = neid
+                logger.info("Rewrote group id: %r -> %r", eid, neid)
             groups_dir.createEntry(entry)
 
     # Recreating users
@@ -761,6 +819,8 @@ def migrate_338_340_users(portal):
        groups = entry.pop('groups')
 
        acl_users._doAddUser(name, password, roles, domains, groups, **entry)
+
+    update_local_roles(portal, groups_mapping=translated_groups, logger=logger)
 
 def check_upgrade_338_340_members_folder(portal):
     ws_ids = portal.workspaces.objectIds()

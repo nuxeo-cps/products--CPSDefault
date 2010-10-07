@@ -105,27 +105,7 @@ def extensions_upgrade_in(folder, counters_mapping):
         upgrade_wikis_in(folder,
                          get_counters('wikis'), get_counters('wiki-pages'))
 
-def main():
-    """CPS job bootstrap"""
-
-    optparser = cpsjob.optparser
-    optparser.add_option('-g', '--global', dest='glob',
-                         action='store_true',
-                         help="Run global upgrades (those that need no walk)")
-    optparser.add_option('-w', '--walk', dest='walk',
-                         action='store_true',
-                         help="Run upgrades that need to walk folders")
-    optparser.add_option('-r', '--resync', dest='resync',
-                         action='store_true',
-                         help="Apply resynchronizations")
-    optparser.add_option('-a', '--all', dest='all', action='store_true',
-                         help="Run everything")
-    portal, options, args = cpsjob.bootstrap(app)
-
-    if args:
-        optparser.error("Args: %s; this job accepts options only."
-                        "Try --help" % args)
-
+def run(portal, options):
     if options.all:
         options.glob = options.walk = options.resync = True
 
@@ -166,6 +146,28 @@ def after_sync(portal):
     logger.info("Portlet catalog reindex done")
 
     transaction.commit() # Ensuring the thing
+
+def main():
+    """cpsjob bootstrap."""
+    optparser = cpsjob.optparser
+    optparser.add_option('-g', '--global', dest='glob',
+                         action='store_true',
+                         help="Run global upgrades (those that need no walk)")
+    optparser.add_option('-w', '--walk', dest='walk',
+                         action='store_true',
+                         help="Run upgrades that need to walk folders")
+    optparser.add_option('-r', '--resync', dest='resync',
+                         action='store_true',
+                         help="Apply resynchronizations")
+    optparser.add_option('-a', '--all', dest='all', action='store_true',
+                         help="Run everything")
+    portal, options, args = cpsjob.bootstrap(app)
+
+    if args:
+        optparser.error("Args: %s; this job accepts options only."
+                        "Try --help" % args)
+
+    run(portal, options)
 
 # invocation through zopectl run
 if __name__ == '__main__':

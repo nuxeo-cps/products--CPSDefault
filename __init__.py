@@ -47,6 +47,7 @@ import Portal
 import Folder
 import recursivepublish
 import Dummy
+import frontdocportletwidget
 
 contentClasses = (
     Folder.Folder,

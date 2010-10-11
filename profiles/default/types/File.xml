@@ -56,12 +56,6 @@
     url_expr="string:${object_url}/folder_localrole_form" visible="True">
   <permission value="Change permissions"/>
  </action>
- <action title="action_edit_online" action_id="edit_online" category="object"
-    condition_expr="python:object is not None and object.getContent().file is not None and modules[&quot;Products.CPSUtil.integration&quot;].isProductPresent(&quot;Products.ExternalEditor&quot;)"
-    url_expr="python:portal.getExternalEditorPath(object, &quot;file&quot;, &quot;file&quot;)"
-    visible="True">
-  <permission value="Modify portal content"/>
- </action>
  <action title="action_status_history" action_id="status_history"
     category="workflow"
     condition_expr=""

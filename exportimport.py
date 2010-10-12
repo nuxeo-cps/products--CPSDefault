@@ -189,9 +189,9 @@ class RootsXMLAdapter(XMLAdapterBase):
             obj = site._getOb(id)
 
             if meta_type:
-                #self._logger.debug(
-                #   "_initRoots importObjects on %s with parent_path = %s"
-                #   % (str(obj), self.path))
+                self._logger.debug(
+                   "_initRoots importObjects on %s with parent_path = %s"
+                   % (str(obj), self.path))
 
                 # Import subobjects recursively
                 importObjects(obj, self.path + '/', self.environ)

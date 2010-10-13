@@ -387,10 +387,20 @@ instance later with the same configuration, it's simpler to subclasss::
    ...                },
    ...      'NoParam': {'extensions': ('Nopar'), 'optional': False,
    ...                  'title' : ''},
+   ...      'MissingTool': { 'extensions': ('SomeMissing',), 'optional': True,
+   ...                'title': "Other title",
+   ...                'parameters' : {'properties' : ('bind_dn',
+   ...                                                'bind_password',),
+   ...                                'class':  'Products.CPSDirectory.'
+   ...                                          'LDAPServerAccess.'
+   ...                                          'LDAPServerAccess',
+   ...                                'rpath': 'ldap_sa',
+   ...                                },
+   ...                },
    ...
    ...               }
    ...
-   ...     metas_order = ('Other', 'ReplayedMeta',)
+   ...     metas_order = ('Other', 'ReplayedMeta', 'MissingTool')
    >>> conf = ReplayableConfigurator()
    >>> conf.dispatcher = PortalFolder('app')
    >>> conf.addSite('new_site')
@@ -401,7 +411,7 @@ instance later with the same configuration, it's simpler to subclasss::
    ...	  password = ''
    >>> site.shadow_tool = FakeTool()
 
-   Now, let's launch the first import::
+Now, let's launch the first import::
 
    >>> conf.importMetaProfiles(requested_metas=['ReplayedMeta'],
    ...                         **{'ReplayedMeta-witness': 3})
@@ -410,7 +420,7 @@ instance later with the same configuration, it's simpler to subclasss::
    >>> site.portal_setup.witness
    3
 
-   and let's do the replay as an external method would::
+and let's do the replay as an external method would::
 
    >>> rconf =  ReplayableConfigurator(site=site)
    >>> rconf.replayMetaProfiles()
@@ -419,20 +429,19 @@ instance later with the same configuration, it's simpler to subclasss::
    >>> site.portal_setup.witness
    3
 
-   The configurator can tell which parameters shouldn't be disclosed
-   by the external method. For this, it uses the 'undisclosed' key in
-   the 'params' dict and doesn't check anything::
+The configurator can tell which parameters shouldn't be disclosed
+by the external method. For this, it uses the 'undisclosed' key in
+the 'params' dict and doesn't check anything::
 
    >>> undis = rconf.getUndisclosedParams()
    >>> undis.sort()
    >>> undis
    ['Other-password', 'ReplayedMeta-witness']
 
-   Let's check consistency of undisclosed ids with the general list::
+Let's check consistency of undisclosed ids with the general list::
 
    >>> set(undis).issubset(set(rconf.paramsSnapshot(['Other', 'ReplayedMeta'])))
    True
-
 
 External method
 ~~~~~~~~~~~~~~~
@@ -468,6 +477,18 @@ Internals
    {}
    >>> pretty_print(rconf.paramsSnapshot(['ReplayedMeta', 'NoParam']))
    {'ReplayedMeta-witness': 3}
+
+The replay does not break if the object bearing parameters is
+absent, as the list of meta profiles could have just been updated with
+a profile that creates precisely this object (ticket #2263):
+
+   >>> site.meta_profiles = ('ReplayedMeta', 'MissingTool')
+   >>> rconf.replayMetaProfiles()
+   Pointing at SomeExt:default
+   Imported
+   Pointing at SomeMissing
+   Imported
+   >>> site.meta_profiles = ('ReplayedMeta', ) # back to normal
 
 
 Cleaning

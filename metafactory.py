@@ -173,7 +173,14 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           props = params.get('properties', ())
 
           pref_len = len(prefix) + 1
-          obj = self.site.unrestrictedTraverse(params['rpath'])
+          try:
+               obj = self.site.unrestrictedTraverse(params['rpath'])
+          except (KeyError, AttributeError):
+               # see #2263
+               logger.error("Could not lookup object %r "
+                            "even after profiles loading.", params['rpath'])
+               return
+
           if props:
               prop_dict = dict((key[pref_len:], value)
                                for key, value in kw.items()
@@ -200,7 +207,13 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
              if not params:
                  continue
 
-             obj = self.site.unrestrictedTraverse(params['rpath'])
+             try:
+                  obj = self.site.unrestrictedTraverse(params['rpath'])
+             except (KeyError, AttributeError):
+                  logger.info(
+                       "Could not lookup object at %s for parameter "
+                       "snapshot. This may be normal.")
+                  continue
 
              attrs = params.get('properties', ()) + params.get('attributes',
                                                                ())

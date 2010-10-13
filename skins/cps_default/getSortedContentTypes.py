@@ -16,22 +16,25 @@ else:
 
 cpsmcat = context.translation_service
 
-def l10n(msgid):
-    """return l10n msgid or msgid."""
-    ret = cpsmcat(msgid)
-    if same_type(ret, u''):
-        # FIXME: unicodegeddon
-        ret = ret.encode('iso-8859-15', 'ignore')
-    elif ret is None:
-        ret = msgid
-    return ret
+infos = []
+for item in items:
+    info = dict(id=item.getId(), icon=item.getIcon())
+    title = item.Title()
+    descr = item.Description()
+    if item.is_i18n:
+        title = cpsmcat(title)
+        descr = cpsmcat(descr)
+    info['Title'] = title
+    info['Description'] = descr
+    infos.append(info)
 
-def make_sort_key(ctype, title, custom_order):
+def make_sort_key(info, custom_order):
     """Create a sort key for a content type.
 
     Keeping workspace/section types at the begining of the list.
     If custom_order is True, move the specific types to
     the top of the list, just behind workspace/section"""
+    ctype = info['id']
     if ctype == 'Section':
         return 1
     elif ctype == 'Workspace':
@@ -45,10 +48,8 @@ def make_sort_key(ctype, title, custom_order):
             return 5
         elif ctype == 'Link':
             return 6
-    return l10n(title).lower()
+    return info['Title'].lower()
 
-items = [(make_sort_key(x.getId(), x.Title(), custom_order), x) for x in items]
-items.sort()
-items = [x[1] for x in items]
-
-return items
+infos = [(make_sort_key(i, custom_order), i) for i in infos]
+infos.sort()
+return [x[1] for x in infos]

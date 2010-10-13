@@ -30,16 +30,15 @@
           <tal:block repeat="item first_types">
             <metal:block define-macro="create_link">
               <dt>
-                <img tal:replace="structure python:here.getImgTag(item.getIcon(),
+                <img tal:replace="structure python:here.getImgTag(item['icon'],
                   base_url=base_url)" />
                 <a tal:attributes="
-                  href string:${here_url}/content_create?type_name=${item/getId}"
-                  tal:content="item/Title"
-                  i18n:translate="">
+                  href string:${here_url}/content_create?type_name=${item/id}"
+                  tal:content="item/Title">
                   Portal type title
                 </a>
               </dt>
-              <dd tal:content="item/Description" i18n:translate="">
+              <dd tal:content="item/Description">
                 Portal type description
               </dd>
             </metal:block>

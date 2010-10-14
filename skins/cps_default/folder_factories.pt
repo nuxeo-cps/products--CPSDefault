@@ -18,7 +18,7 @@
         <span id="dummy_for_redirect"
               tal:define="response request/RESPONSE;
                           item python:types[0];
-                          rurl string:${here_url}/content_create?type_name=${item/getId};
+                          rurl string:${here_url}/content_create?type_name=${item/id};
                           redirect python:response.redirect(rurl)"/>
       </div>
       <tal:block tal:condition="python:len(types) > 1">

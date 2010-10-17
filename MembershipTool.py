@@ -32,6 +32,7 @@ from time import time
 from smtplib import SMTPException
 
 from Globals import InitializeClass
+from AccessControl import ModuleSecurityInfo
 from AccessControl import ClassSecurityInfo
 from AccessControl import Unauthorized
 from AccessControl.Permissions import manage_users as ManageUsers
@@ -46,6 +47,10 @@ from Products.CPSUtil.mail import send_mail
 
 LOG_KEY = 'CPSDefault.MembershipTool'
 
+ModuleSecurityInfo('Products.CPSDefault.MembershipTool').declarePublic('INVALID_TOKEN')
+INVALID_TOKEN = 10
+ModuleSecurityInfo('Products.CPSDefault.MembershipTool').declarePublic('REQUEST_TIMEOUT')
+REQUEST_TIMEOUT = 20
 
 class MembershipTool(CPSMembershipTool):
     """A MembershipTool with additional functionnalities over
@@ -83,7 +88,7 @@ class MembershipTool(CPSMembershipTool):
     # Members password handling
     #
 
-    security.declarePublic( 'mailPassword' )
+    security.declarePublic('mailPassword')
     def mailPassword(self, who, REQUEST=None):
         """Email a forgotten password to a member.
 
@@ -213,9 +218,11 @@ class MembershipTool(CPSMembershipTool):
         hash.update(time)
         return hash.hexdigest()
 
-    security.declarePublic('isPasswordResetRequestValid')
-    def isPasswordResetRequestValid(self, who, time_, token, REQUEST=None):
-        """Return whether a request for a password reset is valid or not.
+    security.declarePublic('getPasswordResetRequestValidity')
+    def getPasswordResetRequestValidity(self, who, time_, token, REQUEST=None):
+        """Returns whether a request for a password reset is valid or not.
+
+        The error code is sent along.
         """
         if REQUEST is not None:
             raise Unauthorized("Not callable TTW")
@@ -224,13 +231,18 @@ class MembershipTool(CPSMembershipTool):
         if not ok:
             LOG(LOG_KEY, WARNING, "Invalid password reset request for %r"
                 % who)
-            return False
+            return False, INVALID_TOKEN
         ok = (int(time_) + self.getProperty('reset_password_request_validity')
               >= int(time()))
         if not ok:
             LOG(LOG_KEY, WARNING, "Timed-out password reset request for %r"
                 % who)
-        return ok
+            return False, REQUEST_TIMEOUT
+        return True, None
+
+    security.declarePublic('isPasswordResetRequestValid')
+    def isPasswordResetRequestValid(self, who, time_, token, REQUEST=None):
+        return self.getPasswordResetRequestValidity(who, time, token, REQUEST)[0]
 
     security.declarePublic('getUsernamesAndEmailFor')
     def getUsernamesAndEmailFor(self, who, time, token, REQUEST=None):
@@ -242,7 +254,7 @@ class MembershipTool(CPSMembershipTool):
         """
         if REQUEST is not None:
             raise Unauthorized("Not callable TTW")
-        if not self.isPasswordResetRequestValid(who, time, token):
+        if not self.getPasswordResetRequestValidity(who, time, token)[0]:
             return ([], None)
         usernames, email = self._getUsernamesAndEmailFor(who)
         if not usernames:

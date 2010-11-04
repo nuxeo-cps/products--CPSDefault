@@ -5,7 +5,7 @@ CPS Funkload perf tests
 These tests require the use of FunkLoad_.
 And thus FunkLoad_ must be installed.
 
-.. _FunkLoad: http://pypi.python.org/pypi/funkload
+.. _FunkLoad: http://funkload.nuxeo.org/
 
 
 Testing an existing Zope server

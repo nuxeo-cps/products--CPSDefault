@@ -15,7 +15,7 @@ howto-implement_upgrade_steps.html
 # For example on a Debian system:
 # $ sudo apt-get install python-docutils
 RST2HTML := rst2html \
--t --stylesheet-path=nuxeo_doc.css \
+-t --stylesheet-path=cps_doc.css \
 --input-encoding=iso-8859-15 \
 --output-encoding=iso-8859-15
 

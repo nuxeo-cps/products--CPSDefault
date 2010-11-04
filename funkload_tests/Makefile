@@ -1,5 +1,5 @@
 # See README.txt for usage
-.PHONY: clean prepare all build test test-with-report doc log RAZ pack start stop
+.PHONY: clean prepare all build test doc log RAZ pack start stop
 .PHONY:	start_zope stop_zope restart_zope
 .PHONY:	start_monitor stop_monitor restart_monitor
 .PHONY:	start_credential stop_credential restart_credential
@@ -96,12 +96,6 @@ restart_credential:
 test: prepare
 	$(START_BENCH)
 	-fl-run-test -v test_Cps.py Cps $(FLOPS)
-
-test-with-report: prepare
-	$(START_BENCH)
-	-fl-run-bench $(FLOPS) test_Cps.py Cps.test_00_availability
-	-fl-build-report log/cps-bench.xml --html -o ./report/test
-
 
 # produce ~150 documents in all personal workspaces in 3 minutes
 volumize: volumize_create_docs pack

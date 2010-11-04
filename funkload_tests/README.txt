@@ -8,8 +8,8 @@ And thus FunkLoad_ must be installed.
 .. _FunkLoad: http://funkload.nuxeo.org/
 
 
-Testing an existing Zope server
-===============================
+Testing an existing Zope server setup
+=====================================
 
 WARNING this test will create a new cps site (if not present) with
 new accounts defined in the passwords.txt file
@@ -18,9 +18,23 @@ DO NOT run this against a production site !!!
 you need to set up the Zope admin password in the passwords.txt then::
 
   make test URL=http://localhost:8080/cps_test
-  make report
 
 Note that ``cps_test`` is the cps id that will be created if not present.
+
+
+Benching
+========
+
+Run a reproducible bench testing for readers and writers scenarii,
+this takes about 25 minutes::
+
+  make RAZ && make && make bench
+
+Reports are saved into report folder.
+
+Benching an existing Zope server setup is also possible::
+
+  make bench URL=http://localhost:8080/cps_test
 
 
 Testing the latest CPS nightly build
@@ -33,7 +47,7 @@ Testing the latest CPS nightly build
 If a functional test fails look at the log/cps-test.xml file and search for
 Failure or Error.
 
-See FunkLoad documentation to re-launch a single test.
+See FunkLoad_ documentation to re-launch a single test.
 
 
 Testing a TARGZ archive
@@ -44,16 +58,6 @@ Testing a TARGZ archive
   # edit create_zope_server.conf comment the targz entry, then
   make RAZ && make
 
-
-Benching
-========
-
-Run a reproducible bench testing for readers and writers scenarii, take
-about 25 minutes::
-
-  make RAZ && make && make bench
-
-Reports are saved into report folder.
 
 Other targets
 =============

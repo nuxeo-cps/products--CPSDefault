@@ -1,5 +1,5 @@
 # See README.txt for usage
-.PHONY: clean prepare all build test doc log RAZ pack start stop
+.PHONY: clean prepare all build test report doc log RAZ pack start stop
 .PHONY:	start_zope stop_zope restart_zope
 .PHONY:	start_monitor stop_monitor restart_monitor
 .PHONY:	start_credential stop_credential restart_credential
@@ -95,8 +95,11 @@ restart_credential:
 # initialize the cps test server
 test: prepare
 	$(START_BENCH)
-	fl-run-test -v test_Cps.py Cps $(FLOPS)
+	-fl-run-test -v test_Cps.py Cps $(FLOPS)
 
+report:
+	@echo "Run \"make test\" to have XML data if you haven't any."
+	-fl-build-report log/cps-test.xml --html -o ./report/test
 
 
 # produce ~150 documents in all personal workspaces in 3 minutes

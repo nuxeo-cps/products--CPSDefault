@@ -8,6 +8,21 @@ And thus FunkLoad_ must be installed.
 .. _FunkLoad: http://pypi.python.org/pypi/funkload
 
 
+Testing an existing Zope server
+===============================
+
+WARNING this test will create a new cps site (if not present) with
+new accounts defined in the passwords.txt file
+DO NOT run this against a production site !!!
+
+you need to set up the Zope admin password in the passwords.txt then::
+
+  make test URL=http://localhost:8080/cps_test
+  make report
+
+Note that ``cps_test`` is the cps id that will be created if not present.
+
+
 Testing the latest CPS nightly build
 ===================================
 
@@ -19,6 +34,7 @@ If a functional test fails look at the log/cps-test.xml file and search for
 Failure or Error.
 
 See FunkLoad documentation to re-launch a single test.
+
 
 Testing a TARGZ archive
 =======================
@@ -72,20 +88,6 @@ View the Zope event log::
 
 
 See the Makefile for more targets
-
-
-Testing an existing Zope server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-WARNING this test will create a new cps site (if not present) with
-new accounts defined in the passwords.txt file
-DO NOT run this against a production site !!!
-
-you need to set up the Zope admin password in the passwords.txt then::
-
-   make test URL=http://localhost:8080/cps_test
-
-Note that ``cps_test`` is the cps id that will be created if not present.
 
 
 default configuration

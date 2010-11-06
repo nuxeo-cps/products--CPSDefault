@@ -1,6 +1,6 @@
-=======================
-CPS Funkload perf tests
-=======================
+=================================
+CPS Funkload tests and benchmarks
+=================================
 
 These tests require the use of FunkLoad_.
 And thus FunkLoad_ must be installed.
@@ -36,6 +36,19 @@ Benching an existing Zope server setup is also possible::
 
   make bench URL=http://localhost:8080/cps_test
 
+Benchmark platform and benchmarking constraints
+-----------------------------------------------
+
+- Benchmarks should be done on the same platform.
+
+- The system should not have a running desktop environment (such as KDE or
+  Gnome) running.
+
+- There should be no other task running on the system, such as an open working
+  Mercurial repository, Trac, Apache web server, etc.
+
+- The filesystem should be in order of preference: ext4, XFS, ext3
+
 
 Testing the latest CPS nightly build
 ===================================
@@ -62,7 +75,7 @@ Testing a TARGZ archive
 Other targets
 =============
 
-To volumize the zodb a bit during 3 minutes (~150 docs) then pack the zodb::
+To volumize the ZODB a bit during 3 minutes (~150 docs) then pack the zodb::
 
   make volumize
 

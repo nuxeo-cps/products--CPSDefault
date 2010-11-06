@@ -4,8 +4,8 @@
 .PHONY:	start_monitor stop_monitor restart_monitor
 .PHONY:	start_credential stop_credential restart_credential
 
-INSTANCE_HOME := ./var/fl_zope
-ZOPE_HOME := /opt/Zope-2.9
+INSTANCE_HOME := ~/opt/zope/funkload_instance 
+ZOPE_HOME := ~/opt/zope/zope-server
 SOFTWARE_HOME := $(ZOPE_HOME)/lib/python
 FSDUMP := PYTHONPATH=$(SOFTWARE_HOME) python $(ZOPE_HOME)/bin/fsdump.py
 
@@ -48,7 +48,7 @@ all: build test
 prepare:
 	-mkdir --parent report log
 
-# zope management
+# Zope management
 build: prepare
 	-$(ZOPECTL) stop
 	python create_zope_server.py

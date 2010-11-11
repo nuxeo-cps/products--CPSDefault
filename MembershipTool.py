@@ -182,7 +182,7 @@ class MembershipTool(CPSMembershipTool):
             'd': now,
             't': self._makeToken(who, now),
             }
-        visit_url = ('<%s/account_reset_password_form?%s>'
+        visit_url = ('%s/account_reset_password_form?%s'
                      % (portal_url, urlencode(args)))
         var_mappings = {'mail_from_address': mail_from_address,
                         'email': email,
@@ -210,12 +210,13 @@ class MembershipTool(CPSMembershipTool):
 
     security.declarePrivate('_makeToken')
     def _makeToken(self, who, time):
-        """Make a cryptographic token.
+        """Makes a cryptographic token (of length 40).
         """
         hash = sha.new()
         hash.update(self.getNonce())
         hash.update(who)
         hash.update(time)
+        # hexdigest returns a string of length 40
         return hash.hexdigest()
 
     security.declarePublic('getPasswordResetRequestValidity')

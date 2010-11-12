@@ -8,6 +8,10 @@
   <include package="Products.Five"/>
   <meta:redefinePermission from="zope2.Public" to="zope.Public" />
 
+  <!-- Load the meta -->
+  <include files="package-includes/*-meta.zcml" />
+  <five:loadProducts file="meta.zcml"/>
+
   <five:loadProducts/>
   <five:loadProductsOverrides/>
 

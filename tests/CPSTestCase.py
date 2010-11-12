@@ -34,7 +34,7 @@ from Products.CPSCore.EventServiceTool import SubscriberDef
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
 ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
-ZopeTestCase.installProduct('Five', quiet=1)
+#ZopeTestCase.installProduct('Five', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
 ZopeTestCase.installProduct('UnicodeLexicon', quiet=1)

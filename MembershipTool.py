@@ -16,11 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA.
-#
-# $Id$
 
-from logging import getLogger
-from zLOG import LOG, INFO, DEBUG, WARNING, ERROR
+import logging
 
 import sys
 import socket
@@ -45,7 +42,7 @@ from Products.CPSCore.CPSMembershipTool import CPSMembershipTool
 from Products.CPSUtil.id import generatePassword
 from Products.CPSUtil.mail import send_mail
 
-LOG_KEY = 'CPSDefault.MembershipTool'
+logger = logging.getLogger(__name__)
 
 ModuleSecurityInfo('Products.CPSDefault.MembershipTool').declarePublic('INVALID_TOKEN')
 INVALID_TOKEN = 10
@@ -98,7 +95,7 @@ class MembershipTool(CPSMembershipTool):
             raise Unauthorized('Password reminder disabled')
 
         usernames, email = self._getUsernamesAndEmailFor(who)
-        LOG(LOG_KEY, DEBUG, "usernames=%r, email=%r" % (usernames, email))
+        logger.debug("usernames=%r, email=%r", usernames, email)
 
         if email is None or not usernames:
             raise ValueError('The username you entered could not be found.')
@@ -136,17 +133,17 @@ class MembershipTool(CPSMembershipTool):
         """
         if REQUEST is not None:
             raise Unauthorized("Not callable TTW")
-        LOG(LOG_KEY, DEBUG, "Request reset for %r" % who)
+        logger.debug("Request reset for %r", who)
 
         translation_service = getToolByName(self, 'translation_service', None)
         if translation_service is None:
-            LOG(LOG_KEY, ERROR,
+            logger.error(
                 "translation_service tool not found, could not proceed.")
 
         portal = getToolByName(self, 'portal_url').getPortalObject()
         mail_from_address = portal.getProperty('email_from_address')
         if mail_from_address is None:
-            LOG(LOG_KEY, WARNING,
+            logger.warning(
                 "The portal has no 'email_from_address' defined. "
                 "Password reset will not be performed because the users "
                 "have to trust who sends them the reset email.")
@@ -160,7 +157,7 @@ class MembershipTool(CPSMembershipTool):
         # confirmation messages a day.
 
         usernames, email = self._getUsernamesAndEmailFor(who)
-        LOG(LOG_KEY, DEBUG, "usernames=%r, email=%r" % (usernames, email))
+        logger.debug("usernames=%r, email=%r", usernames, email)
         if email is None:
             return False
 
@@ -200,12 +197,11 @@ class MembershipTool(CPSMembershipTool):
             send_mail(self, mto=email, mfrom=mail_from_address, subject=subject,
                       body=body)
         except Exception, e:
-            LOG(LOG_KEY, WARNING, "Error while sending reset email "
-                "for %s (%s %s)" % (who, e.__class__.__name__,
-                                    str(e)))
+            logger.warning("Error while sending reset email "
+                "for %s (%s %s)", who, e.__class__.__name__, str(e))
             return False
-        LOG(LOG_KEY, INFO, "Reset confirmation email sent to %s, "
-            "requesting IP was %s" % (email, client_address))
+        logger.info("Reset confirmation email sent to %s, requesting IP was %s",
+                    email, client_address)
         return True
 
     security.declarePrivate('_makeToken')
@@ -230,14 +226,12 @@ class MembershipTool(CPSMembershipTool):
         result = self._makeToken(who, time_)
         ok = token == result
         if not ok:
-            LOG(LOG_KEY, WARNING, "Invalid password reset request for %r"
-                % who)
+            logger.warning("Invalid password reset request for %r", who)
             return False, INVALID_TOKEN
         ok = (int(time_) + self.getProperty('reset_password_request_validity')
               >= int(time()))
         if not ok:
-            LOG(LOG_KEY, WARNING, "Timed-out password reset request for %r"
-                % who)
+            logger.warning("Timed-out password reset request for %r", who)
             return False, REQUEST_TIMEOUT
         return True, None
 
@@ -259,7 +253,7 @@ class MembershipTool(CPSMembershipTool):
             return ([], None)
         usernames, email = self._getUsernamesAndEmailFor(who)
         if not usernames:
-            LOG(LOG_KEY, INFO, "No usernames for %r" % who)
+            logger.info("No usernames for %r", who)
         return (usernames, email)
 
     def _getUsernamesAndEmailFor(self, who):
@@ -329,18 +323,17 @@ class MembershipTool(CPSMembershipTool):
         for username in usernames:
             if username not in ok_usernames:
                 # Attempt to hack the usernames field
-                LOG(LOG_KEY, WARNING, "resetPassword: attempted to use %r "
-                    "for %r" % (usernames, who))
+                logger.warning("resetPassword: attempted to use %r "
+                    "for %r", usernames, who)
                 return None
 
-        LOG(LOG_KEY, INFO, "Resetting password for %r" % (usernames,))
+        logger.info("Resetting password for %r", usernames)
         random.seed()
         password = generatePassword()
         for username in usernames:
             member = self.getMemberById(username)
             if member is None:
-                LOG(LOG_KEY, ERROR, "resetPassword: user %r not found"
-                    % username)
+                logger.error("resetPassword: user %r not found", username)
                 continue
             user = member.getUser()
             aclu = getToolByName(self, 'acl_users')

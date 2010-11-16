@@ -2,36 +2,12 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cps="http://cps-cms.org/ns/theme"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
       lang="en"
       xml:lang="en">
-  <head>
-    <!-- Shortcut icon -->
-    <link rel="icon"
-          href="/cps/portal_themes/default/icons/cps_favicon_4.png"
-          type="image/png" />
-    <link rel="shortcut icon"
-          href="/cps/portal_themes/default/icons/cps_favicon_4.png"
-          type="image/png" />
-    <!-- CSS1 -->
-    <link rel="Stylesheet"
-          type="text/css"
-          href="/cps/cpsskins_common.css" />
-    <link rel="Stylesheet"
-          type="text/css"
-          href="/cps/portal_themes/default/renderCSS.css" />
-    <link rel="Stylesheet"
-          type="text/css"
-          href="/style/designer_default.css" />
-    <!-- CSS2 -->
-    <style type="text/css"
-           media="all">@import url(/cps/cpsskins_common-css2.css);</style>
-    <!-- JavaScript -->
-    <script type="text/javascript"
-            src="cps://portal_themes/default/renderJS?page=Default"></script>
-    <script type="text/javascript"
-            src="cps://cpsskins_renderJS?theme=default&amp;page=Default">
-            </script>
-  </head>
+
+  <xi:include href="fragments/head.html"/>
+
   <body style="margin:0px"
         class="colorgraye7">
     <div>
@@ -48,81 +24,7 @@
       <a href="cps://"
          accesskey="7"></a>
     </div>
-    <table cellpadding="0"
-           cellspacing="0"
-           summary="Header"
-           style="margin-left:auto;margin-right:auto;width:100%;"
-           class="colorHeadercandybarbackground">
-      <tr>
-        <td valign="top"
-            style="width:5%"
-            class="shapeNoBorder colorHeadersideleft"></td>
-        <td valign="top"
-            style="width:90%">
-          <div style=""
-               class="shape color">
-            <table summary="header_container"
-                   width="100%"
-                   cellpadding="0"
-                   cellspacing="0"
-                   class="shape color">
-              <tr>
-                <td valign="top">
-                  <div style="text-align:left;padding:0px">
-                    <div style="text-align: left;">
-                      <a href="cps://"
-                         title="Logo">
-                        <img src="/cps/portal_themes/default/Default/header/cell_header_container/portal_box_logo/image"
-                             width="180"
-                             height="90"
-                             alt="CPS logo" />
-                      </a>
-                    </div>
-                  </div>
-                </td>
-                <td valign="top">
-                  <div style="text-align:right;padding:8px 10px 0px 0px">
-                    <div class="fontColordefaultnovisitedlinks fontShapemini"
-                         style="text-align: right;">
-                      <div cps:slot="search">
-                        <div style="padding:0px 5px 0px 0px;"
-                             cps:portlet="frame">
-                          <div cps:remove="True"
-                               cps:portlet="body">Here is the portlet
-                               body</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div style="text-align:right;padding:3px 5px 0px 0px">
-                    <div class="fontColordefaultnovisitedlinks fontShapemini"
-                         style="text-align: right;">
-                      <div cps:slot="user_actions">
-                        <div style="padding:5px 0px 0px 0px;"
-                             cps:portlet="frame">
-                          <div class="portalTabPortalTabStyleuseractions">
-                            <div class="cpsskinsHBox body">
-                              <div cps:remove="True"
-                                   cps:portlet="body">
-				Ceci est le coprs du portlet, pour tester.
-			      </div>
-                            </div>
-                            <div style="clear:both"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </td>
-        <td valign="top"
-            style="width:5%"
-            class="shapeNoBorder colorHeadersideright"></td>
-      </tr>
-    </table>
+    <xi:include href="fragments/banner.html"/>
     <table cellpadding="0"
            cellspacing="0"
            summary="Main"
@@ -302,52 +204,6 @@
             class="shapeNoBorder colorMainsideright"></td>
       </tr>
     </table>
-    <table cellpadding="0"
-           cellspacing="0"
-           summary="Footer"
-           style="margin-left:auto;margin-right:auto;height:50px;width:100%;"
-           class="shapeNoBorder colorFootergradient">
-      <tr>
-        <td valign="top"
-            style="width:5%"
-            class="shapeNoBorder colorMainsideleft"></td>
-        <td valign="top"
-            style="width:90%">
-          <div style="padding: 10px 0px 0px 0px">
-            <div style="text-align: center;"
-                 class="colorfontcolorgray fontColormini fontShapemini">
-              <div cps:isolated-portlet="portlet_text_powered_by"
-                   cps:remove="t">
-                <div class=""
-                     cps:portlet="frame">
-                  <div cps:remove="True"
-                       cps:portlet="body">Here is the portlet body</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div style="text-align: center;"
-               class="fontColordefaultfontcolors fontShapeaverage">
-            <div style="text-align:center; padding:0">
-              <div cps:slot="conformance_statement">
-                <div style="padding:0px 0px 15px 0px;"
-                     cps:portlet="frame">
-                  <div class="cpsskinsBox">
-                    <div class="body"
-                         style="border: none">
-                      <div cps:remove="True"
-                           cps:portlet="body">Here is the portlet body</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td valign="top"
-            style="width:5%"
-            class="shapeNoBorder colorMainsideright"></td>
-      </tr>
-    </table>
+    <xi:include href="fragments/footer.html" />
   </body>
 </html>

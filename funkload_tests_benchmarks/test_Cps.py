@@ -22,6 +22,8 @@ from funkload.CPSTestCase import CPSTestCase
 from funkload.utils import xmlrpc_get_credential, xmlrpc_list_credentials
 from types import DictType
 
+CPSTestCase._default_extensions = ['CPSSubscriptions:default']
+
 class Cps(CPSTestCase):
     """The funktional test case.
 
@@ -62,7 +64,6 @@ class Cps(CPSTestCase):
 
     def test_00_availability(self):
         # test to wait until the zope server is up and running
-        server_url = self.server_url
         zope_url, site_id = self.cpsGuessZopeUrl()
         self.waitUntilAvailable(zope_url, 30, 2)
 

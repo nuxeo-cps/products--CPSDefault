@@ -95,7 +95,7 @@ restart_credential:
 # initialize the cps test server
 test: prepare
 	$(START_BENCH)
-	-fl-run-test -v test_Cps.py Cps $(FLOPS)
+	-fl-run-test -v test_Cps.py $(FLOPS)
 
 # produce ~150 documents in all personal workspaces in 3 minutes
 volumize: volumize_create_docs pack

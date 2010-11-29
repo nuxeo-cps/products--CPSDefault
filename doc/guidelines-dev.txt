@@ -1,0 +1,30 @@
+======================
+Development guidelines
+======================
+
+:Author: Marc-Aurèle DARCHE
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+About tests
+===========
+
+The public API of the products must be unit-tested and tests added in the
+``tests`` directory of each product.
+
+Public API unit tests should never be broken and should be maintained working
+all the time.
+
+Unit tests are useful during development time, but tests of private, inner,
+lower-level parts should not go into ``tests`` and don't deserve all the pain
+devoted to public API tests. So the solution for those tests in to do them as
+doctests, and they can be wiped-out with no remorse once they become irrelevant
+or more of a burden than helpful.
+
+
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

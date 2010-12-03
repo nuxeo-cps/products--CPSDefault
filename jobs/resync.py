@@ -33,7 +33,7 @@ from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
 from Products.CPSPortlets.PortletsCatalogTool import reindex_portlets_catalog
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('CPSDefault.jobs.resync')
 from Products.CPSUtil import cpsjob
 
 LANG_PATH_REGEXP = re.compile(KEYWORD_VIEW_LANGUAGE + r'/\a+$')

@@ -14,7 +14,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA.
 #
-# $Id$
 """Resync various persistent stuff: tree caches, catalog..."""
 
 import logging
@@ -34,7 +33,7 @@ from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
 from Products.CPSPortlets.PortletsCatalogTool import reindex_portlets_catalog
 
-logger = logging.getLogger('CPSDefault.jobs.resync')
+logger = logging.getLogger(__name__)
 from Products.CPSUtil import cpsjob
 
 LANG_PATH_REGEXP = re.compile(KEYWORD_VIEW_LANGUAGE + r'/\a+$')
@@ -102,10 +101,18 @@ def resync_trees(portal):
         tree.rebuild()
         transaction.commit()
 
+def resync_portlets_catalog(portal):
+    logger.info("Starting portlets catalog reindex")
+    reindex_portlets_catalog(portal)
+    logger.info("Portlet catalog reindex done")
+
 def main():
     """CPS job bootstrap"""
 
     optparser = cpsjob.optparser
+    optparser.add_option('-a', '--all', dest='all',
+                         action='store_true',
+                         help="Reindex everything")
     optparser.add_option('-c', '--catalog', dest='catalog',
                          action='store_true',
                          help="Catalog full reindexation")
@@ -120,14 +127,17 @@ def main():
     if args:
         optparser.error("Args: %s; this job accepts options only."
                         "Try --help" % args)
-    if options.catalog:
+    if options.all:
 	resync_catalog(portal)
-    if options.trees:
-	resync_trees(portal)
-    if options.ptl_catalog:
-        logger.info("Starting portlets catalog reindex")
-        reindex_portlets_catalog(portal)
-        logger.info("Portlet catalog reindex done")
+        resync_trees(portal)
+        resync_portlets_catalog(portal)
+    else:
+        if options.catalog:
+            resync_catalog(portal)
+        if options.trees:
+            resync_trees(portal)
+        if options.ptl_catalog:
+            resync_portlets_catalog(portal)
 
 
 # invocation through zopectl run

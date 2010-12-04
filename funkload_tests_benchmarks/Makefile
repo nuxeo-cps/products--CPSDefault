@@ -9,8 +9,8 @@ ZOPE_HOME := ~/opt/zope/zope-server
 SOFTWARE_HOME := $(ZOPE_HOME)/lib/python
 FSDUMP := PYTHONPATH=$(SOFTWARE_HOME) python $(ZOPE_HOME)/bin/fsdump.py
 
-CREDCTL := fl-credential-ctl credential.conf
-MONCTL := fl-monitor-ctl monitor.conf
+CRED_CTL := fl-credential-ctl credential.conf
+MON_CTL := fl-monitor-ctl monitor.conf
 SRC_DOCS := README.txt
 HTML_DOCS := $(subst .txt,.html,${SRC_DOCS})
 RST2HTML := rst2html -t --stylesheet-path=../doc/cps_doc.css --embed-stylesheet
@@ -18,28 +18,28 @@ RST2HTML := rst2html -t --stylesheet-path=../doc/cps_doc.css --embed-stylesheet
 
 ifdef URL
 	FLOPS = -u $(URL)
-	ZOPECTL := @true
+	ZOPE_CTL := @true
 else
 	FLOPS =
-	ZOPECTL := $(INSTANCE_HOME)/bin/zopectl
+	ZOPE_CTL := $(INSTANCE_HOME)/bin/zopectl
 endif
 
 define START_ZOPE
-	$(ZOPECTL) start
+	$(ZOPE_CTL) start
 	fl-run-test -v test_Cps.py Cps.test_00_availability $(FLOPS)
 endef
 
 define START_BENCH
-	$(CREDCTL) restart
-	$(MONCTL) restart
-	$(ZOPECTL) restart
+	$(CRED_CTL) restart
+	$(MON_CTL) restart
+	$(ZOPE_CTL) restart
 	fl-run-test -v test_Cps.py Cps.test_00_availability $(FLOPS)
 endef
 
 define PACK_ZODB
-	-$(ZOPECTL) stop
+	-$(ZOPE_CTL) stop
 	-ls -l $(INSTANCE_HOME)/var/Data.fs
-	-cat pack_zodb.py | $(ZOPECTL) debug
+	-cat pack_zodb.py | $(ZOPE_CTL) debug
 	-ls -l $(INSTANCE_HOME)/var/Data.fs
 endef
 
@@ -50,23 +50,23 @@ prepare:
 
 # Zope management
 build: prepare
-	-$(ZOPECTL) stop
+	-$(ZOPE_CTL) stop
 	python create_zope_server.py
 
 start_zope:
-	$(ZOPECTL) start
+	$(ZOPE_CTL) start
 
 stop_zope:
-	-$(ZOPECTL) stop
+	-$(ZOPE_CTL) stop
 
 restart_zope:
-	$(ZOPECTL) restart
+	$(ZOPE_CTL) restart
 
 log:
 	tail -f $(INSTANCE_HOME)/log/event.log
 
 RAZ:
-	-$(ZOPECTL) stop
+	-$(ZOPE_CTL) stop
 	-rm -rf $(INSTANCE_HOME)
 
 pack:
@@ -74,23 +74,23 @@ pack:
 
 # monitor ctl
 start_monitor:
-	$(MONCTL) start
+	$(MON_CTL) start
 
 stop_monitor:
-	-$(MONCTL) stop
+	-$(MON_CTL) stop
 
 restart_monitor:
-	-$(MONCTL) restart
+	-$(MON_CTL) restart
 
 # credential ctl
 start_credential:
-	$(CREDCTL) start
+	$(CRED_CTL) start
 
 stop_credential:
-	-$(CREDCTL) stop
+	-$(CRED_CTL) stop
 
 restart_credential:
-	-$(CREDCTL) restart
+	-$(CRED_CTL) restart
 
 # initialize the cps test server
 test: prepare
@@ -147,10 +147,10 @@ CRC_write_docs:
 
 # misc
 status:
-	-$(MONCTL) status;
-	-$(CREDCTL) status;
+	-$(MON_CTL) status;
+	-$(CRED_CTL) status;
 	@echo "### Zope status:"
-	$(ZOPECTL) status
+	$(ZOPE_CTL) status
 
 stop: stop_monitor stop_credential stop_zope
 

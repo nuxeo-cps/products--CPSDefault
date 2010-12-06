@@ -21,14 +21,11 @@ for item in items:
     info = dict(id=item.getId(), icon=item.getIcon())
     title = item.Title()
     descr = item.Description()
-    try:
-        i18n = item.is_i18n
-    except AttributeError:
-        # Only CPS Flexible Type Information portal_types have
-        # the is_i18n attribute which is not the case for at least the Wiki
-        # and Wiki Page which are Factory-based Type Information portal_types.
-        i18n = True
-    if i18n:
+    # Only CPS Flexible Type Information portal_types have
+    # the is_i18n attribute which is not the case for at least the Wiki
+    # and Wiki Page which are Factory-based Type Information portal_types.
+    is_i18n = getattr(item, 'i18n', True)
+    if is_i18n:
         title = cpsmcat(title)
         descr = cpsmcat(descr)
     info['Title'] = title

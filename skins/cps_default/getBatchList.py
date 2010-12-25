@@ -1,4 +1,4 @@
-##parameters=items=[], columns=1, items_per_page=10, zoom=0, max_items=100
+##parameters=items=[], columns=1, items_per_page=10, zoom=0, max_items=0
 # $Id$
 """
 Given the desired number of colums, constructs a list of batches to render

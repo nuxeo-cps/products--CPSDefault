@@ -68,11 +68,12 @@
   <property name="min_value">100</property>
   <property name="max_value">1024</property>
  </widget>
- <widget name="preview_height" meta_type="Int Widget">
+
+ <widget name="thumbnail_size" meta_type="Int Widget">
   <property name="fields">
-   <element value="preview_height"/>
+   <element value="thumbnail_size"/>
   </property>
-  <property name="label_edit">cpsdoc_imgallery_height_label_edit</property>
+  <property name="label_edit">cpsdoc_imgallery_thumbnail_size_label_edit</property>
   <property name="is_i18n">True</property>
   <property name="hidden_layout_modes">
    <element value="view"/>
@@ -80,18 +81,7 @@
   <property name="is_limited">True</property>
   <property name="max_value">65536</property>
  </widget>
- <widget name="preview_width" meta_type="Int Widget">
-  <property name="fields">
-   <element value="preview_width"/>
-  </property>
-  <property name="label_edit">cpsdoc_imgallery_width_label_edit</property>
-  <property name="is_i18n">True</property>
-  <property name="hidden_layout_modes">
-   <element value="view"/>
-  </property>
-  <property name="is_limited">True</property>
-  <property name="max_value">65536</property>
- </widget>
+
  <widget name="ziparchiveuploader" meta_type="File Widget">
   <property name="fields">
    <element value="ziparchiveuploader"/>
@@ -112,12 +102,9 @@
  </widget>
  <table>
   <row>
-   <cell name="preview_width"/>
-   <cell name="preview_height" ncols="2"/>
-  </row>
-  <row>
+   <cell name="thumbnail_size"/>
    <cell name="nb_items"/>
-   <cell name="nb_cols" ncols="2"/>
+   <cell name="nb_cols"/>
   </row>
   <row>
    <cell name="popup_mode"/>

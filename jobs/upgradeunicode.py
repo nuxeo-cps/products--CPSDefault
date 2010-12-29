@@ -131,6 +131,10 @@ def run(portal, options):
     if options.all:
         options.glob = options.walk = options.resync = True
 
+    if options.all_no_resync:
+        options.glob = options.walk = True
+        options.resync = False
+
     if options.glob:
         logger.info("Starting global upgrades")
         base_upgrade_glob(portal)
@@ -197,6 +201,9 @@ def main():
                          help="Apply resynchronizations")
     optparser.add_option('-a', '--all', dest='all', action='store_true',
                          help="Run everything")
+    optparser.add_option('--all-no-resync', dest='all_no_resync',
+                         action='store_true',
+                         help="Run everything but reindexings")
     portal, options, args = cpsjob.bootstrap(app)
 
     if args:

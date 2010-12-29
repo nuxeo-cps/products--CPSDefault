@@ -1079,11 +1079,11 @@ def do_on_fields(meth, portal, fields_spec):
                 logger.debug("Field %r not found in schema %r", fid, schid)
                 continue
             field = schema[fid]
-            meth(schid, fid, field)
+            meth(schid, fid, schema, field)
 
 def upgrade_string_fields_validate_none(portal):
     logger = logging.getLogger(LOG_KEY + 'upgrade_string_fields_validate_none')
-    def upgrade_one(schid, fid, field):
+    def upgrade_one(schid, fid, schema, field):
         field.validate_none = True
         logger.info("Field %r from schema %r now accepts None", fid, schid)
     do_on_fields(upgrade_one, portal, STRING_FIELDS_VALIDATE_NONE)
@@ -1092,7 +1092,7 @@ def upgrade_string_fields_validate_none(portal):
 def upgrade_ascii_string_fields(portal):
     logger = logging.getLogger(LOG_KEY + 'upgrade_ascii_string_fields')
 
-    def upgrade_one(schid, fid, field):
+    def upgrade_one(schid, fid, schema, field):
         mt = field.meta_type
         new_mt = ASCII_STRING_TYPES.get(mt)
         if new_mt is None:

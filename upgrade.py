@@ -1061,6 +1061,7 @@ ASCII_STRING_TYPES = {'CPS String Field': 'CPS Ascii String Field',
                       }
 
 STRING_FIELDS_VALIDATE_NONE = dict( # same principle as ASCII_STRING_FIELDS
+    file=['file_text'],
     forumpost=['parent_id'],
     )
 

@@ -27,6 +27,8 @@ from Products.CPSCore.ProxyBase import walk_cps_folders
 from Products.CPSCore.upgrade import listUpgradesByHandler
 
 from Products.CPSDefault.upgrade import upgrade_unicode as upgrade_portal
+from Products.CPSDefault.upgrade import upgrade_ascii_string_fields
+from Products.CPSDefault.upgrade import upgrade_string_fields_validate_none
 from Products.CPSSchemas.upgrade import upgrade_voctool_unicode \
      as upgrade_voctool
 from Products.CPSPortlets.upgrade import upgrade_unicode as upgrade_portlets
@@ -69,26 +71,24 @@ def mark_handler_done(context, handler):
         stool._markStepDone(step)
     transaction.commit()
 
+def do_step(handler, portal, **kwargs):
+    handler(portal, **kwargs)
+    mark_handler_done(portal, handler)
+
+
 def base_upgrade_glob(portal):
     """Play global upgrades for the CPS-base set of products."""
 
-    # The order can matter
-    upgrade_portal(portal)
-    mark_handler_done(portal, upgrade_portal)
-
-    upgrade_voctool(portal)
-    mark_handler_done(portal, upgrade_voctool)
-
-    upgrade_portlets(portal)
-    mark_handler_done(portal, upgrade_portlets)
-
-    upgrade_documents(portal, resync_trees=False)
-    mark_handler_done(portal, upgrade_documents)
-
-    upgrade_aggregated_histories(portal)
-
-    upgrade_zodb_dirs(portal)
-    mark_handler_done(portal, upgrade_zodb_dirs)
+    # Applying upgrades in proper order is important
+    for up in (upgrade_portal, upgrade_string_fields_validate_none,
+               upgrade_ascii_string_fields, upgrade_voctool,
+               upgrade_portlets,
+               (upgrade_documents, dict(resync_trees=False)),
+               upgrade_aggregated_histories, upgrade_zodb_dirs):
+        if isinstance(up, tuple):
+            do_step(up[0], portal, **up[1])
+        else:
+            do_step(up, portal)
 
 def default_done():
     return dict(total=0, done=0)

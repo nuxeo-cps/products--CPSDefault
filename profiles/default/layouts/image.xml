@@ -30,18 +30,30 @@
   <property name="display_width">30</property>
   <property name="size_max">80</property>
  </widget>
+
  <widget name="preview" meta_type="Image Widget">
   <property name="fields">
    <element value="preview"/>
   </property>
+  <property name="widget_ids">
+   <element value="display_size"/>
+  </property>
+  <property name="size_spec">l640</property>
   <property name="is_required">True</property>
   <property name="label_edit">cpsdoc_Image_label_edit</property>
   <property name="is_i18n">True</property>
   <property name="size_max">3145728</property>
-  <property name="display_width">640</property>
-  <property name="display_height">600</property>
-  <property name="allow_resize">True</property>
  </widget>
+
+ <widget name="display_size" meta_type="Int Widget">
+  <property name="fields">
+   <element value="display_size"/>
+  </property>
+  <property name="label_edit">cpsdoc_image_display_size_largest_label_edit</property>
+  <property name="help">cpsdoc_image_display_size_help</property>
+  <property name="is_i18n">True</property>
+ </widget>
+
  <table>
   <row>
    <cell name="Source"/>

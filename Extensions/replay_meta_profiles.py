@@ -20,7 +20,8 @@ from Products.CPSDefault.jobs.replaymetaprofiles import replay as module_replay
 
 def replay(self, REQUEST=None):
 
-    log = module_replay(self)
+    steps = REQUEST.form.get('steps', ())
+    log = module_replay(self, steps=steps)
 
     if REQUEST is not None:
         REQUEST.RESPONSE.setHeader('Content-Type', 'text/plain')

@@ -62,6 +62,17 @@ class Cps(CPSTestCase):
         else:
             self.members_home = 'workspaces/members'
 
+    def setUpBench(self):
+        """Add useful metadata to the bench report.
+
+        This is called by funkload >= 1.14.0.
+        TODO: extend with volumetry info (ZODB size, number of docs...)
+        """
+        server_url = self.conf_get('main', 'url')
+        home = self.get(server_url)
+        md = {'Server version': home.headers.getheader('Server')}
+        self.addMetadata(**md)
+
     def test_00_availability(self):
         # test to wait until the zope server is up and running
         zope_url, site_id = self.cpsGuessZopeUrl()

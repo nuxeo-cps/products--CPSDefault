@@ -149,15 +149,20 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                                 d['module'], d['function'])
           self.site._setObject(d['id'], meth)
 
-     def _importMetaProfile(self, m_profile):
+     def _importMetaProfile(self, m_profile, steps=()):
           """ Import a single meta profile. """
 
           setup_tool = getattr(self, 'setup_tool', None)
           if setup_tool is None:
               setup_tool = self.site.portal_setup
           for extension_id in m_profile['extensions']:
+            logger.info("Pointing to profile %r", extension_id)
             setup_tool.setImportContext('profile-%s' % extension_id)
-            setup_tool.runAllImportSteps()
+            if not steps:
+                 setup_tool.runAllImportSteps()
+            else:
+                 for step in steps:
+                      setup_tool.runImportStep(step)
 
      def _applyParameters(self, prefix, params, **kw):
           """Apply user input parameters to site.
@@ -262,13 +267,30 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           # no need for this one to be user managed ever -> simple attr
           self.site.configurator=self_dotted_name
 
-     def replayMetaProfiles(self, with_hooks=False):
-         """ Replay meta profiles but saves parameters."""
+     def replayMetaProfiles(self, steps=(), with_hooks=False):
+         """ Replay meta profiles but saves parameters.
+
+         If limited to some import steps, no hooks will be applied
+         """
+
+         tool = self.site.portal_setup
+         if steps:
+              with_hooks = False
+              full = False
+         else:
+              full = True
 
          m_ids = self.site.meta_profiles
          snapshot = self.paramsSnapshot(m_ids)
-         self.site.portal_setup.reinstallProfile(
-              'profile-%s' % self.base_profile)
+
+         logger.info("Pointing to base profile %r", self.base_profile)
+         if full:
+              tool.reinstallProfile('profile-%s' % self.base_profile)
+         else:
+              tool.setImportContext('profile-%s' % self.base_profile)
+              for step in steps:
+                   tool.runImportStep(step, purge_old=True)
+
          for m_id in m_ids:
              m_profile = self.meta_profiles[m_id]
 
@@ -276,7 +298,7 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
              if with_hooks and before is not None:
                  before(self.site, **snapshot)
 
-             self._importMetaProfile(m_profile)
+             self._importMetaProfile(m_profile, steps=steps)
              self._applyParameters(m_id, m_profile.get('parameters', ()),
                                    **snapshot)
 
@@ -329,6 +351,10 @@ class FakeSetupTool(CPSSetupTool):
      Purged and imported
      >>> tool.runAllImportSteps(purge_old=False)
      Imported
+     >>> tool.runImportStep('layouts', purge_old=False)
+     Import step 'layouts'
+     >>> tool.runImportStep('layouts', purge_old=True)
+     Purge and import step 'layouts'
      """
 
      _properties = CPSSetupTool._properties + (
@@ -343,7 +369,11 @@ class FakeSetupTool(CPSSetupTool):
 
      def reinstallProfile(self, context_id, **kw):
          pass
-          
+
+     def runImportStep(self, step_id, purge_old=None):
+          msg = purge_old and "Purge and import step " or "Import step "
+          print msg + '%r' % step_id
+
 
 class SampleTool(SimpleItemWithProperties):
      """A sample object for the doctest."""

@@ -104,6 +104,18 @@
       />
 
   <cps:upgradeStep
+      title="Convert necessary String fields to Ascii String"
+      source="3.5.0" destination="3.5.1"
+      handler=".upgrade.upgrade_ascii_string_fields"
+      />
+
+  <cps:upgradeStep
+      title="Make necessary String fields accept None"
+      source="3.5.0" destination="3.5.1"
+      handler=".upgrade.upgrade_string_fields_validate_none"
+      />
+
+  <cps:upgradeStep
       title="Upgrade portal object to unicode"
       source="3.5.0" destination="3.5.1"
       handler=".upgrade.upgrade_unicode"

@@ -790,7 +790,7 @@ def migrate_338_340_users(portal):
                 checkValidId(portal, eid, allow_dup=True)
             except BadRequest:
                 neid = generateId(eid, max_chars=0, container=groups_dir)
-                translated_groups[eid] = entry['id'] = neid
+                translated_groups[eid] = entry['group'] = entry['id'] = neid
                 logger.info("Rewrote group id: %r -> %r", eid, neid)
             groups_dir.createEntry(entry)
 
@@ -817,6 +817,7 @@ def migrate_338_340_users(portal):
        roles = entry.pop('roles')
        domains = entry.pop('domains')
        groups = entry.pop('groups')
+       groups = [translated_groups.get(g, g) for g in groups]
 
        acl_users._doAddUser(name, password, roles, domains, groups, **entry)
 
@@ -1045,6 +1046,70 @@ def upgrade_rss_portlets_multichannels(portal):
 
     logger.debug("DONE")
     return log_key + ": DONE"
+
+ASCII_STRING_FIELDS = dict( # schema -> fields, downstream code welcome to add
+    actions_portlet=['categories', 'actions_order'],
+    content_portlet=['folder_path'],
+    cpsdefault_search=['review_state'],
+    custom_portlet=['js_render_method'],
+    document_portlet=['context_rpath'],
+    portlet_common=['cache_params', 'identifier', 'javascript', 'slot'],
+    roles=['role'])
+
+ASCII_STRING_TYPES = {'CPS String Field': 'CPS Ascii String Field',
+                      'CPS String List Field': 'CPS Ascii String List Field',
+                      }
+
+STRING_FIELDS_VALIDATE_NONE = dict( # same principle as ASCII_STRING_FIELDS
+    file=['file_text'],
+    forumpost=['parent_id'],
+    )
+
+def do_on_fields(meth, portal, fields_spec):
+    logger = logging.getLogger(LOG_KEY + 'do_on_fields')
+    stool = portal.portal_schemas
+
+    for schid, fids in fields_spec.items():
+        if not stool.hasObject(schid):
+            logger.debug("Schema %r not found", schid)
+            continue
+        schema = stool[schid]
+        for fid in fids:
+            if not fid in schema.keys():
+                logger.debug("Field %r not found in schema %r", fid, schid)
+                continue
+            field = schema[fid]
+            meth(schid, fid, schema, field)
+
+def upgrade_string_fields_validate_none(portal):
+    logger = logging.getLogger(LOG_KEY + 'upgrade_string_fields_validate_none')
+    def upgrade_one(schid, fid, schema, field):
+        field.validate_none = True
+        logger.info("Field %r from schema %r now accepts None", fid, schid)
+    do_on_fields(upgrade_one, portal, STRING_FIELDS_VALIDATE_NONE)
+
+
+def upgrade_ascii_string_fields(portal):
+    logger = logging.getLogger(LOG_KEY + 'upgrade_ascii_string_fields')
+
+    def upgrade_one(schid, fid, schema, field):
+        mt = field.meta_type
+        new_mt = ASCII_STRING_TYPES.get(mt)
+        if new_mt is None:
+            logger.debug("Field %r of schema %r has meta_type %r. "
+                         "Untouched", fid, schid, mt)
+            return
+
+        # transtyping as in Products.CPSSchemas.exportimport.schema
+        old_state = field.__dict__.copy()
+        schema.delSubObject(fid)
+        schema.addField(fid, new_mt)
+        field = schema[fid]
+        field.__dict__.update(old_state)
+        logger.info("Transtyped field %r of schema %r from %r to %r",
+                    fid, schid, mt, new_mt)
+
+    do_on_fields(upgrade_one, portal, ASCII_STRING_FIELDS)
 
 def flexible_remove_empty_rightcol(portal):
     logger = logging.getLogger(LOG_KEY + 'flexible_remove_empty_rightcol')

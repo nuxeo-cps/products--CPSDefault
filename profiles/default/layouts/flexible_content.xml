@@ -57,7 +57,7 @@
   <property name="configurable">format</property>
  </widget>
 
- <widget name="text_twocols" meta_type="Text Image Widget">
+ <widget name="text_twocols" meta_type="Text Columns Widget">
   <property name="title">Texte deux colonnes</property>
   <property name="fields">
    <element value="?"/>
@@ -119,12 +119,24 @@
   <property name="fields">
    <element value="?"/>
   </property>
+  <property name="widget_ids">
+   <element value="display_size"/>
+  </property>
+  <property name="size_spec">l320</property>
+  <property name="zoom_size_spec">l640</property>
   <property name="label_edit">cpsdoc_flex_photo_label_edit</property>
   <property name="is_i18n">True</property>
   <property name="size_max">2097152</property>
-  <property name="display_width">320</property>
-  <property name="display_height">200</property>
   <property name="configurable">position</property>
+ </widget>
+
+ <widget name="display_size" meta_type="Int Widget">
+  <property name="fields">
+   <element value="?"/>
+  </property>
+  <property name="label_edit">cpsdoc_image_display_size_largest_label_edit</property>
+  <property name="help">cpsdoc_image_display_size_help</property>
+  <property name="is_i18n">True</property>
  </widget>
 
  <widget name="photo_single" meta_type="Photo Widget">
@@ -132,12 +144,15 @@
   <property name="fields">
    <element value="?"/>
   </property>
+  <property name="widget_ids">
+   <element value="display_size"/>
+  </property>
+  <property name="size_spec">l320</property>
+  <property name="zoom_size_spec">l640</property>
   <property name="label_edit">cpsdoc_flex_photo_label_edit</property>
   <property name="fieldset">true</property>
   <property name="is_i18n">True</property>
   <property name="size_max">2097152</property>
-  <property name="display_width">640</property>
-  <property name="display_height">480</property>
   <property name="configurable">nothing</property>
   <property name="render_position">center</property>
  </widget>

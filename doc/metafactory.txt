@@ -347,7 +347,7 @@ Upgrades
 
 After the initial site creation, the list of imported meta_profiles
 is kept as a property on the portal object. The configurator's
-``replayMetaProfiles`` replays the importations, but keep the
+``replayMetaProfiles`` replays the importations, but keeps the
 associated external parameters as the user set them (be it directly in
 ZMI or through the configurator's form), whatever value is set in the profiles.
 
@@ -442,6 +442,19 @@ Let's check consistency of undisclosed ids with the general list::
 
    >>> set(undis).issubset(set(rconf.paramsSnapshot(['Other', 'ReplayedMeta'])))
    True
+
+It's also possible to replay only a few import steps. This is
+especially useful to avoid steps that require lengthy operations, like
+update of the catalog.
+
+   >>> rconf.replayMetaProfiles(steps=('layouts', 'schemas'))
+   Pointing at CPSDefault:default
+   Purge and import step 'layouts'
+   Purge and import step 'schemas'
+   Pointing at SomeExt:default
+   Import step 'layouts'
+   Import step 'schemas'
+
 
 External method
 ~~~~~~~~~~~~~~~

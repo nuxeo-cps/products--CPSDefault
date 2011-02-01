@@ -31,20 +31,21 @@ from Products.GenericSetup.utils import _resolveDottedName
 
 logger = logging.getLogger('CPSDefault.jobs.replaymetaprofiles')
 
-def replay(portal):
+def replay(portal, steps=()):
     if not _checkPermission(ManagePortal, portal):
         raise Unauthorized
 
     SiteConfigurator = _resolveDottedName(portal.configurator)
     conf = SiteConfigurator(site=portal)
-    conf.replayMetaProfiles()
+    conf.replayMetaProfiles(steps=steps)
 
     # user feedback
     m_ids = portal.meta_profiles # always what has just been done
     log = ['Replayed meta profiles at %s ' % DateTime().ISO(), '']
     for m_id in m_ids:
         log.append(conf.meta_profiles[m_id].get('title', m_id))
-
+    if steps:
+        log.append('   run limited to these import steps: ' + ', '.join(steps))
     log.extend(['\n\n', 'User input parameters where kept as:', ''])
     params = conf.paramsSnapshot(m_ids)
     undisclosed = conf.getUndisclosedParams()
@@ -56,16 +57,25 @@ def replay(portal):
     logger.info('\n'.join(log))
     return log
 
-def run(portal, arguments):
+def run(portal, arguments, options):
     """CPS job bootstrap"""
     if arguments:
         raise ValueError("This CPS job accepts no arguments")
-    log = replay(portal)
+    steps = options.steps
+    if steps:
+        steps = tuple(x.strip() for x in steps.split(','))
+
+    log = replay(portal, steps=steps)
     transaction.commit()
     sys.stderr.writelines(log)
 
 # invocation through zopectl run
 if __name__ == '__main__':
     from Products.CPSUtil.cpsjob import bootstrap
+    from Products.CPSUtil.cpsjob import optparser
+    optparser.add_option('-s', '--steps',
+                         help="Comma-separated list of import steps to apply. "
+                         "(default to all)")
+
     portal, options, arguments = bootstrap(app)
-    run(portal, arguments)
+    run(portal, arguments, options)

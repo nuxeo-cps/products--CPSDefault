@@ -1,0 +1,460 @@
+/* CSS for CPS-CMS 3.5 by tsoulcie */
+
+
+/* CSS Reset starts */
+
+html, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+/*  font-size: 100%; 
+  font: inherit; */
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* CSS Reset ends */
+
+a:link {
+  text-decoration: none;
+}
+
+h1 {
+  margin:0.5em 0 0 0;
+}
+
+/* Liquid 2 columns layout */
+
+body {
+  margin:0;
+  padding:0;
+  border:0; /* This removes the border around the viewport in old versions of IE */
+  width:100%;
+  background-color:#cccccc;
+  min-width:600px; /* Minimum width of layout - remove line if not required - The min-width property does not work in old versions of Internet Explorer */
+  font:normal 11px 'Lucida Grande', 'Verdana', Arial, sans-serif;
+}
+
+/* Header styles */
+
+#header {
+  clear: both;
+  float: left;
+  width: 100%;
+  position:relative;
+  background-color: #ff9933;
+/*  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(255,102,0)),
+    color-stop(0.9, rgb(255,153,51)));
+  background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(255,102,0) 0%,
+    rgb(255,153,51) 90%);
+  background-color: #ff6600;*/
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.45, rgb(0,0,0)),
+    color-stop(0.51, rgb(34,34,34)),
+    color-stop(0.76, rgb(15,13,15))
+);
+background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(0,0,0) 45%,
+    rgb(34,34,34) 51%,
+    rgb(15,13,15) 76%
+);
+  color:white;
+  min-height: 40px;
+}
+
+#cps-logo {
+  padding-top:0.1em;
+  font-size:260%;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px 0 rgba(0, 0, 0, 0.5), 0 0px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.5), -1px -1px rgba(0, 0, 0, 0.3);
+  width: 25%;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+}
+
+#cps-logo:hover {
+  border-bottom: 3px solid #fdcc3d;
+}
+
+#cps-logo a {
+  color:white;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+#cps-logo a:hover {
+ /*  text-decoration: underline; */
+  opacity: 1;
+}
+
+#cps-logo span {
+  opacity: 0.5;
+}
+
+#main-tabs {
+ position:absolute;
+ left:25%;
+ bottom:0; 
+ margin-left: 0.5em;
+ width: 50%;
+}
+
+#main-tabs ul {
+}
+
+#main-tabs ul li {
+  display: inline;
+  list-style-type: none;
+}
+
+#main-tabs ul li a {
+  display:inline-block;
+  padding: 5px 10px;
+  margin-left:5px;  
+  border:1px solid transparent;
+  border-bottom-color: black;
+  background-color:#514e42;
+  text-decoration: none;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  color:#ccc;
+}
+
+#main-tabs ul li a:hover {
+ color:black;
+ background-color: #fdcc3d;
+ /*border-top-color: #808080;
+ background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.05, rgb(245,246,247)),
+    color-stop(1, rgb(128,128,128)));
+background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(245,246,247) 5%,
+    rgb(128,128,128) 100%); */
+}
+
+#main-tabs ul li.selected a {
+  background-color: #fff;
+  border-bottom-color: #fff;
+  color:#333;
+}
+
+#main-tabs ul li.selected a:hover {
+  cursor: default;
+  background-image: none;
+  border-top-color: transparent;
+  color:#333;
+}
+
+#search-box {
+  text-align: right;
+  position: absolute;
+  width:25%;
+  top:7px;
+  right: 1em;
+}
+
+#search-box input[type=submit] {
+  margin-left:10px;
+}
+
+/* column container */
+.colmask {
+  position:relative;  /* This fixes the IE7 overflow hidden bug */
+  clear:both;
+  width:100%;      /* width of whole page */
+  overflow:hidden;    /* This chops off any overhanging divs */
+    float: left;
+}
+/* common column settings */
+.colright,
+.colmid,
+.colleft {
+  float:left;
+  width:100%;
+  position:relative;
+}
+
+.main-column,
+.side-column,
+.col3 {
+  float:left;
+  position:relative;
+  padding:1em 0 1em 0;
+  overflow:hidden;
+}
+
+/* 2 Column (left menu) settings */
+.leftmenu {
+  background:#fff;    /* right column background colour */
+}
+
+.leftmenu .colleft {
+  right:75%;      /* right column width */
+  background:#f5f6f7;  /* left column background colour */
+    background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.2, rgb(245,246,247)),
+    color-stop(0.8, rgb(217,218,222)));
+  background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(245,246,247) 20%,
+    rgb(217,218,222) 80%);
+}
+
+.leftmenu .main-column {
+  width:71%;      /* right column content width */
+  left:102%;      /* 100% plus left column left padding */
+}
+
+.leftmenu .side-column {
+  width:21%;      /* left column content width (column width minus left and right padding) */
+  left:6%;      /* (right column left and right padding) plus (left column left padding) */
+}
+
+.side-column .box {
+  margin-bottom:1em;
+  margin-top:0.5em;
+}
+
+.box .title {
+  background-color: #514e42;
+  color: #fff;
+  padding: 0.5em 1em;  
+  /*background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.45, rgb(0,0,0)),
+    color-stop(0.51, rgb(34,34,34)),
+    color-stop(0.76, rgb(15,13,15)));
+  background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(0,0,0) 45%,
+    rgb(34,34,34) 51%,
+    rgb(15,13,15) 76%);*/
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius:  5px 5px 0 0;
+  border-radius:  5px 5px 0 0;  
+}
+
+.box h3 {
+  font-weight: normal;
+  font-size: 100%;
+}
+
+.box .content {
+  background-color:#fff;
+  border:1px solid #666;
+  border-top:none;
+  padding:0.5em;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+}
+
+/* Footer styles */
+#footer {
+	clear:both;
+	float:left;
+	width:100%;
+	text-align: center;
+	font-size: 9px;
+	position:relative;
+}
+
+#footer p {
+  position: absolute;
+  width: 75%;
+  right: 1em;
+  padding: 1em;
+  padding-right: 0em;
+}
+
+/* liquid 2 columns layout ends */
+
+/* Content */
+/* Breadcrumb starts */
+
+#breadcrumb { 
+  list-style: none; 
+  overflow: hidden; 
+  font-size:9px;
+  margin:0.5em 0 1em 0;
+}
+
+#breadcrumb li { 
+  float: left; 
+}
+
+#breadcrumb li a {
+  color: white;
+  text-decoration: none; 
+  padding: 5px 0 5px 35px;
+  background-color: #fd991c; 
+  position: relative; 
+  display: block;
+  float: left;
+}
+
+#breadcrumb li a:after { 
+  content: " "; 
+  display: block; 
+  width: 0; 
+  height: 0;
+  border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid #fd991c;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px; 
+  left: 100%;
+  z-index: 2; 
+}	
+
+#breadcrumb li a:before { 
+  content: " "; 
+  display: block; 
+  width: 0; 
+  height: 0;
+  border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid white;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px; 
+  margin-left: 1px;
+  left: 100%;
+  z-index: 1; 
+}	
+#breadcrumb li:first-child a {
+  padding-left: 2em;
+  border-radius: 5px 0 0 5px;
+  -moz-border-radius: 5px 0 0 5px ;
+  -webkit-border-radius: 5px 0 0 5px ;
+}
+#breadcrumb li:nth-child(2) a       { background-color:#fdad49; }
+#breadcrumb li:nth-child(2) a:after { border-left-color: #fdad49; }
+#breadcrumb li:nth-child(3) a       { background-color: #fdbd6d; }
+#breadcrumb li:nth-child(3) a:after { border-left-color: #fdbd6d; }
+#breadcrumb li:nth-child(4) a       { background:#fdca8a; }
+#breadcrumb li:nth-child(4) a:after { border-left-color:#fdca8a; }
+#breadcrumb li:nth-child(5) a       { background-color:#fde4c3; }
+#breadcrumb li:nth-child(5) a:after { border-left-color: #fde4c3; }
+#breadcrumb li:last-child a {
+  background: white !important;
+  color: black;
+  pointer-events: none;
+   cursor: default;
+}
+#breadcrumb li:last-child a:after { border: 0; }
+#breadcrumb li a:hover { background-color: #fdcc3d; color:black;}
+#breadcrumb li a:hover:after { border-left-color: #fdcc3d !important; }
+
+/* Breadcrumb ends */
+
+/* ----------------------------------------------------------------------------------------------------------------------------
+== FOLDED CORNERS
+** ---------------------------------------------------------------------------------------------------------------------------- */
+
+#actionslot {
+    position:relative;
+    width:auto;
+    padding:0.5em 1em;
+    padding-right: 2em;
+    margin:1em auto;
+    color:#000;
+    background-color:#fdde83;
+    overflow:hidden;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    font-size: 9px;
+}
+
+#actionslot:before {
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    border-style:solid;
+    border-width:8px; /* Triggers a 1px 'step' along the diagonal in Safari 5 (and Chrome 10) */
+    border-color:#fff #fff transparent transparent; /* Avoids the 1px 'step' in webkit. Background colour shows through */
+    -webkit-border-bottom-left-radius:5px;
+    -moz-border-radius:0 0 0 5px;
+    border-radius:0 0 0 5px;
+    background:#fee69e; /* For Opera when also applying a border-radius */
+    display:block; width:0; /* Only for Firefox 3.0 damage limitation */
+    /* Optional: shadow */
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+       -moz-box-shadow:0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+            box-shadow:0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+}
+
+#actionslot ul li {
+  display: inline;
+  list-style-type: none;
+  margin-right:1em;
+  }
+
+/* Byline */
+#widget__Byline_widget {
+  margin-bottom: 1em;
+}

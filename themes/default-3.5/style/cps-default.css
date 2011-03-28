@@ -55,9 +55,14 @@ table {
 
 /* CSS Reset ends */
 
-a:link {
+body a, body a:link {
   text-decoration: none;
+  color:#3975b3;
 }
+
+body a:hover {
+  text-decoration: underline;
+  }
 
 h1 {
   margin:0.5em 0 0 0;
@@ -94,7 +99,7 @@ body {
     rgb(255,102,0) 0%,
     rgb(255,153,51) 90%);
   background-color: #ff6600;*/
-  background-image: -webkit-gradient(
+  /* background-image: -webkit-gradient(
     linear,
     left bottom,
     left top,
@@ -107,7 +112,20 @@ background-image: -moz-linear-gradient(
     rgb(0,0,0) 45%,
     rgb(34,34,34) 51%,
     rgb(15,13,15) 76%
+);*/
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(0,0,0)),
+    color-stop(0.25, rgb(51,51,51))
 );
+background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(0,0,0) 0%,
+    rgb(51,51,51) 25%
+);
+
   color:white;
   min-height: 40px;
 }
@@ -160,16 +178,17 @@ background-image: -moz-linear-gradient(
 
 #main-tabs ul li a {
   display:inline-block;
-  padding: 5px 10px;
-  margin-left:5px;  
+  padding: 0.35em 0.5em;
+  margin-left: 0.35em;  
   border:1px solid transparent;
   border-bottom-color: black;
   background-color:#514e42;
   text-decoration: none;
-  border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  -webkit-border-radius: 5px 5px 0 0;
+  border-radius: 0.5em 0.5em 0 0;
+  -moz-border-radius: 0.5em 0.5em 0 0;
+  -webkit-border-radius: 0.5em 0.5em 0 0;
   color:#ccc;
+  text-shadow: 1px 1px 1px #333333;
 }
 
 #main-tabs ul li a:hover {
@@ -186,12 +205,14 @@ background-image: -moz-linear-gradient(
     center bottom,
     rgb(245,246,247) 5%,
     rgb(128,128,128) 100%); */
+    text-shadow : none;
 }
 
 #main-tabs ul li.selected a {
   background-color: #fff;
   border-bottom-color: #fff;
   color:#333;
+  text-shadow: none;
 }
 
 #main-tabs ul li.selected a:hover {
@@ -205,12 +226,8 @@ background-image: -moz-linear-gradient(
   text-align: right;
   position: absolute;
   width:25%;
-  top:7px;
+  top:0.35em;
   right: 1em;
-}
-
-#search-box input[type=submit] {
-  margin-left:10px;
 }
 
 /* column container */
@@ -275,27 +292,17 @@ background-image: -moz-linear-gradient(
 }
 
 .box .title {
-  background-color: #514e42;
+  background-color: #333;
   color: #fff;
   padding: 0.5em 1em;  
-  /*background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.45, rgb(0,0,0)),
-    color-stop(0.51, rgb(34,34,34)),
-    color-stop(0.76, rgb(15,13,15)));
-  background-image: -moz-linear-gradient(
-    center bottom,
-    rgb(0,0,0) 45%,
-    rgb(34,34,34) 51%,
-    rgb(15,13,15) 76%);*/
-  -moz-border-radius: 5px 5px 0 0;
-  -webkit-border-radius:  5px 5px 0 0;
-  border-radius:  5px 5px 0 0;  
+  -moz-border-radius: 0.5em 0.5em 0 0;
+  -webkit-border-radius:  0.5em 0.5em 0 0;
+  border-radius:  0.5em 0.5em 0 0;  
 }
 
 .box h3 {
+  color: #fff; 
+  text-shadow:1px 1px 1px #333333;
   font-weight: normal;
   font-size: 100%;
 }
@@ -305,9 +312,9 @@ background-image: -moz-linear-gradient(
   border:1px solid #666;
   border-top:none;
   padding:0.5em;
-  -moz-border-radius: 0 0 5px 5px;
-  -webkit-border-radius: 0 0 5px 5px;
-  border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 0.5em 0.5em;
+  -webkit-border-radius: 0 0 0.5em 0.5em;
+  border-radius: 0 0 0.5em 0.5em;
 }
 
 /* Footer styles */
@@ -331,7 +338,26 @@ background-image: -moz-linear-gradient(
 /* liquid 2 columns layout ends */
 
 /* Content */
+
+/* Search gadget */
+
+#searchGadget {
+  border: 1px solid #ccc;
+}
+
+body #search-box a:link, body #search-box a {
+  color: #ffffff;
+  font-size: 80%;
+}
+
+body #search-box input.searchButton {
+  padding: 0 0.35em;
+  margin-left: 0.35em;
+}
+
+
 /* Breadcrumb starts */
+
 
 #breadcrumb { 
   list-style: none; 
@@ -352,6 +378,12 @@ background-image: -moz-linear-gradient(
   position: relative; 
   display: block;
   float: left;
+}
+
+#breadcrumb ul.breadcrumbs li.first {
+/* Remove former styles */
+  padding: 0;
+  background: none;
 }
 
 #breadcrumb li a:after { 
@@ -453,8 +485,70 @@ background-image: -moz-linear-gradient(
   list-style-type: none;
   margin-right:1em;
   }
+  
+#actionslot ul li a {
+  display: inline-block;
+  padding: 0.35em;
+}  
 
 /* Byline */
 #widget__Byline_widget {
   margin-bottom: 1em;
+}
+
+/* Buttons */
+
+body input.context, body input.destructive {
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border:1px solid transparent;
+  padding: 0.2em 0.5em;
+  background-color: #f1f2f3;
+  background-image: none;
+ }
+ 
+body input.context:hover,  body input.destructive:hover {
+  background-image: none;
+  background-color: #ddeeff;
+}
+
+/* Buttons for content actions */
+
+table.folderButtons td {
+  padding-bottom: 0.35em;
+}
+
+/* Content table */
+
+#folder_content {
+  border-collapse: collapse;
+}
+
+#folder_content td, #folder_content thead th {
+  padding: 0.5em;
+}
+
+#folder_content thead a, #folder_content thead a:link, #folder_content thead a:visited, #folder_content thead a:hover {
+ color: #f1f2f3;
+}
+
+#folder_content thead tr {
+  background-color: #514E42;
+}
+
+#folder_content_tbody td {
+  border-bottom: 1px solid #999;
+}
+
+tr.even {
+  background-color: #f2f9ff;
+}
+
+/* Message */
+
+body div.message {
+  background-color: #f2f8ff;
+  border-color: #3975b3;
+  display:inline-block;
 }

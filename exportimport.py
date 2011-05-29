@@ -22,6 +22,8 @@
 """
 
 import logging
+import transaction
+from zope.component import queryMultiAdapter
 from Acquisition import aq_base
 
 import Products
@@ -35,8 +37,10 @@ from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ObjectManagerHelpers
 from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import importObjects
+from Products.GenericSetup.utils import exportObjects
 
 from Products.CPSCore.utils import ALL_LOCALES
+from Products.CPSCore.ProxyBase import walk_cps_folders
 from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
 from Products.CPSWorkflow.configuration import (
     addConfiguration as addLocalWorkflowConfiguration)
@@ -46,6 +50,8 @@ from Products.CPSWorkflow.exportimport import (
 from Products.Localizer.exportimport import importLocalizer
 from Products.CPSDocument.exportimport import importCPSObjects
 from Products.CPSDocument.upgrade import upgrade_doc_unicode
+
+from Products.GenericSetup.interfaces import IBody
 
 class VariousImporter(object):
     """Class to import various steps.
@@ -121,6 +127,59 @@ def importVarious(context):
     importer = VariousImporter(context)
     importer.importVarious()
 
+class LocalPortletsExporter(object):
+
+    name = 'local_portlets'
+
+    def __init__(self, context):
+        site = self.site = context.getSite()
+        self.ptltool = getToolByName(site, 'portal_cpsportlets')
+        self.context = context
+
+    def exportPortlets(self, parent_path, folder):
+        cont = self.ptltool.getPortletContainer(context=folder, local=True)
+        if cont is None:
+            return False
+        exportObjects(cont, parent_path + '/', self.context)
+        return True
+
+    def exportObjects(self):
+        """Inspired from recursion in GenericSetup.utils but uses cps walkers
+        """
+
+        context = self.context
+        logger = context.getLogger(self.name)
+        parents = [self.name]
+        portal_depth = len(self.site.getPhysicalPath())
+
+        for count, obj in enumerate(walk_cps_folders(self.site)):
+            logger.debug('parents: %r, obj: %r', parents, obj)
+            if count % 100:
+                transaction.commit() # RAM flush, mostly
+
+            depth = len(obj.getPhysicalPath()) - portal_depth
+            parents = parents[:depth]
+
+            exporter = RootXMLAdapter(obj, context)
+
+            lpath = obj.getId().replace(' ', '_')
+            parents.append(lpath)
+            path = '/'.join(parents)
+            if exporter:
+                filename = '%s%s' % (path, exporter.suffix)
+                body = exporter.body
+                if body is not None:
+                    context.writeDataFile(filename, body, exporter.mime_type)
+
+            self.exportPortlets(path, obj)
+
+
+
+# Called according to export_steps.xml
+def exportLocalPortlets(context):
+    exporter = LocalPortletsExporter(context)
+    exporter.exportObjects()
+
 
 def importLocalizerAndClearCaches(context):
     """Call the Localizer importer and then clear the portlets tool caches.
@@ -187,7 +246,6 @@ class RootsXMLAdapter(XMLAdapterBase):
                         raise ValueError("unknown meta_type '%s'" % meta_type)
 
             obj = site._getOb(id)
-
             if meta_type:
                 self._logger.debug(
                    "_initRoots importObjects on %s with parent_path = %s"
@@ -245,7 +303,9 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
         self._logger.info("%s imported." % self.context.getId())
 
     def _exportNode(self):
-        raise NotImplementedError
+        node = self._getObjectNode('object')
+        node.appendChild(self._extractObjects())
+        return node
 
     def _purgeConfigurationObjects(self):
         for id in self.context.objectIds():

@@ -24,7 +24,7 @@
 import logging
 import transaction
 from zope.component import queryMultiAdapter
-from Acquisition import aq_base
+from Acquisition import aq_base, aq_inner, aq_parent
 
 import Products
 
@@ -134,14 +134,25 @@ class LocalPortletsExporter(object):
     def __init__(self, context):
         site = self.site = context.getSite()
         self.ptltool = getToolByName(site, 'portal_cpsportlets')
+        self.ptlcat = getToolByName(site, 'portal_cpsportlets_catalog')
+        self.utool = getToolByName(site, 'portal_url')
         self.context = context
 
-    def exportPortlets(self, parent_path, folder):
+    def exportPortletsIn(self, parent_path, folder):
         cont = self.ptltool.getPortletContainer(context=folder, local=True)
         if cont is None:
             return False
         exportObjects(cont, parent_path + '/', self.context)
         return True
+
+    def foldersWithPortlets(self):
+        """Return a set of rpaths of all folders having local portlets."""
+        brains = self.ptlcat()
+        site_path = self.site.getPhysicalPath()
+        spl = len('/'.join(site_path)) + 1
+        rpaths =  set( b.getPath().rsplit('/', 2)[0][spl:] for b in brains)
+        rpaths.discard('') # we are about local portlets, not those at top
+        return rpaths
 
     def exportObjects(self):
         """Inspired from recursion in GenericSetup.utils but uses cps walkers
@@ -152,26 +163,35 @@ class LocalPortletsExporter(object):
         parents = [self.name]
         portal_depth = len(self.site.getPhysicalPath())
 
-        for count, obj in enumerate(walk_cps_folders(self.site)):
-            logger.debug('parents: %r, obj: %r', parents, obj)
-            if count % 100:
-                transaction.commit() # RAM flush, mostly
+        # We loop on detected folders and climb up the hierarchy from
+        # each of them. Algorithmically, this is not so bad, and we keep
+        # traversals and ZODB fetchs to something reasonible.
+        folder_rpaths = self.foldersWithPortlets()
+        done_folders = set()
+        zodb_count = 0
+        for folder_rpath in folder_rpaths:
+            folder = ancestor = self.site.unrestrictedTraverse(folder_rpath)
+            ancestor_rpath = folder_rpath
+            zodb_count += 5 # rough estimate for portlets
+            if zodb_count % 100 == 0:
+                transaction.savepoint() # free some RAM
 
-            depth = len(obj.getPhysicalPath()) - portal_depth
-            parents = parents[:depth]
+            while ancestor_rpath not in done_folders:
+                exporter = RootXMLAdapter(ancestor, context)
+                fpath = ancestor_rpath.replace(' ', '_')
+                if exporter:
+                    filename = '%s%s' % (fpath, exporter.suffix)
+                    body = exporter.body
+                    if body is not None:
+                        context.writeDataFile(filename, body,
+                                              exporter.mime_type)
 
-            exporter = RootXMLAdapter(obj, context)
+                done_folders.add(ancestor_rpath)
+                ancestor = aq_parent(aq_inner(folder))
+                ancestor_rpath = ancestor_rpath.rsplit('/', 1)[0]
+                zodb_count += 1
 
-            lpath = obj.getId().replace(' ', '_')
-            parents.append(lpath)
-            path = '/'.join(parents)
-            if exporter:
-                filename = '%s%s' % (path, exporter.suffix)
-                body = exporter.body
-                if body is not None:
-                    context.writeDataFile(filename, body, exporter.mime_type)
-
-            self.exportPortlets(path, obj)
+            self.exportPortletsIn(folder_rpath, folder)
 
 
 

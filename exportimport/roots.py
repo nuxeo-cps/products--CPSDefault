@@ -1,11 +1,14 @@
 # (C) Copyright 2005-2007 Nuxeo SAS <http://nuxeo.com>
+# (C) Copyright 2010 CPS-CMS Community <http://cps-cms.org/>
 # Authors:
 # Florent Guillaume <fg@nuxeo.com>
 # M.-A. Darche <madarche@nuxeo.com>
+# G. Racinet <georges@racinet.fr>
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 2 as published
-# by the Free Software Foundation.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,204 +16,24 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
-#
-# $Id$
-"""CPS Default GenericSetup I/O.
-"""
-
-import logging
-import transaction
-from zope.component import queryMultiAdapter
-from Acquisition import aq_base, aq_inner, aq_parent
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import Products
 
-from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
-     import AcceleratedHTTPCacheManager
+from Acquisition import aq_base
+
 from Products.CMFCore.utils import getToolByName
 
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ObjectManagerHelpers
-from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import importObjects
-from Products.GenericSetup.utils import exportObjects
+from Products.GenericSetup.utils import ImportConfiguratorBase
 
 from Products.CPSCore.utils import ALL_LOCALES
-from Products.CPSCore.ProxyBase import walk_cps_folders
-from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
-from Products.CPSWorkflow.configuration import (
-    addConfiguration as addLocalWorkflowConfiguration)
-from Products.CPSWorkflow.exportimport import (
-    LocalWorkflowConfigurationXMLAdapter)
 
-from Products.Localizer.exportimport import importLocalizer
 from Products.CPSDocument.exportimport import importCPSObjects
 from Products.CPSDocument.upgrade import upgrade_doc_unicode
-
-from Products.GenericSetup.interfaces import IBody
-
-class VariousImporter(object):
-    """Class to import various steps.
-
-    For steps that have not yet been separated into their own
-    component. Note that this should be able to run as an extension
-    profile, without purge and with potentially missing files.
-    """
-
-    catalogs = (
-        # domain, localizer catalog
-        ('default', 'default'),
-        ('cpsskins', 'cpsskins'),
-        #('cpscollector', 'cpscollector'),
-        #('RSSBox', 'cpsrss'),
-        )
-
-    default_roles = ('Manager', 'Member')
-
-    members_folder = 'members'
-
-    def __init__(self, context):
-        self.context = context
-        self.site = context.getSite()
-
-    def importVarious(self):
-        """Import various non-exportable settings.
-
-        Will go away when specific handlers are coded for these.
-        """
-        self.setupProperties()
-        self.setupTranslationService()
-        self.setupRoots()
-        self.setupDefaultRoles()
-        return "Various settings imported."
-
-    def setupProperties(self):
-        # this cannot be changed easily and should not stay void
-        self.site.default_charset = 'unicode'
-
-    def setupDefaultRoles(self):
-        """Add the default roles to the roles directory
-        """
-        dtool = getToolByName(self.site, 'portal_directories')
-        for role in self.default_roles:
-            if not dtool['roles']._hasEntry(role):
-                dtool['roles']._createEntry({'role': role, 'members': []})
-
-    def setupTranslationService(self):
-        ts = getToolByName(self.site, 'translation_service')
-        ts._p_changed = 1
-        ts._domain_dict[None] = 'Localizer/default'
-        present = [i[0] for i in ts.getDomainInfo()]
-        for domain, catalog in self.catalogs:
-            if domain in present:
-                continue
-            ts.manage_addDomainInfo(domain, 'Localizer/%s' % catalog)
-        ts._resetCache()
-
-    def setupRoots(self):
-        importer = RootsXMLAdapter(self.site, self.context)
-        filename = importer.name + importer.suffix
-        body = self.context.readDataFile(filename)
-        if body is None:
-            return
-        importer.filename = filename
-        importer.path = importer.name
-        importer.body = body
-
-
-# Called according to import_steps.xml
-def importVarious(context):
-    importer = VariousImporter(context)
-    importer.importVarious()
-
-class LocalPortletsExporter(object):
-
-    name = 'local_portlets'
-
-    def __init__(self, context):
-        site = self.site = context.getSite()
-        self.ptltool = getToolByName(site, 'portal_cpsportlets')
-        self.ptlcat = getToolByName(site, 'portal_cpsportlets_catalog')
-        self.utool = getToolByName(site, 'portal_url')
-        self.context = context
-
-    def exportPortletsIn(self, parent_path, folder):
-        cont = self.ptltool.getPortletContainer(context=folder, local=True)
-        if cont is None:
-            return False
-        exportObjects(cont, parent_path + '/', self.context)
-        return True
-
-    def foldersWithPortlets(self):
-        """Return a set of rpaths of all folders having local portlets."""
-        brains = self.ptlcat()
-        site_path = self.site.getPhysicalPath()
-        spl = len('/'.join(site_path)) + 1
-        rpaths =  set( b.getPath().rsplit('/', 2)[0][spl:] for b in brains)
-        rpaths.discard('') # we are about local portlets, not those at top
-        return rpaths
-
-    def exportObjects(self):
-        """Inspired from recursion in GenericSetup.utils but uses cps walkers
-        """
-
-        context = self.context
-        logger = context.getLogger(self.name)
-        parents = [self.name]
-        portal_depth = len(self.site.getPhysicalPath())
-
-        # We loop on detected folders and climb up the hierarchy from
-        # each of them. Algorithmically, this is not so bad, and we keep
-        # traversals and ZODB fetchs to something reasonible.
-        folder_rpaths = self.foldersWithPortlets()
-        done_folders = set()
-        zodb_count = 0
-        for folder_rpath in folder_rpaths:
-            folder = ancestor = self.site.unrestrictedTraverse(folder_rpath)
-            ancestor_rpath = folder_rpath
-            zodb_count += 5 # rough estimate for portlets
-            if zodb_count % 100 == 0:
-                transaction.savepoint() # free some RAM
-
-            while ancestor_rpath not in done_folders:
-                exporter = RootXMLAdapter(ancestor, context)
-                fpath = ancestor_rpath.replace(' ', '_')
-                if exporter:
-                    filename = '%s%s' % (fpath, exporter.suffix)
-                    body = exporter.body
-                    if body is not None:
-                        context.writeDataFile(filename, body,
-                                              exporter.mime_type)
-
-                done_folders.add(ancestor_rpath)
-                ancestor = aq_parent(aq_inner(folder))
-                ancestor_rpath = ancestor_rpath.rsplit('/', 1)[0]
-                zodb_count += 1
-
-            self.exportPortletsIn(folder_rpath, folder)
-
-
-
-# Called according to export_steps.xml
-def exportLocalPortlets(context):
-    exporter = LocalPortletsExporter(context)
-    exporter.exportObjects()
-
-
-def importLocalizerAndClearCaches(context):
-    """Call the Localizer importer and then clear the portlets tool caches.
-
-    That way all the portlets take advantage of the new translations.
-    """
-    site = context.getSite()
-    importLocalizer(context)
-    portlets_tool = getToolByName(site, 'portal_cpsportlets')
-    portlets_tool.clearCache()
-
 
 class RootsXMLAdapter(XMLAdapterBase):
     _LOGGER_ID = 'roots'
@@ -237,7 +60,6 @@ class RootsXMLAdapter(XMLAdapterBase):
             id = str(child.getAttribute('name'))
             portal_type = str(child.getAttribute('portal_type'))
             meta_type = str(child.getAttribute('meta_type'))
-
             # Create object if needed
             if getattr(aq_base(site), id, None) is None:
                 # If this is a CPS document such as a Workspace or a Section
@@ -263,7 +85,8 @@ class RootsXMLAdapter(XMLAdapterBase):
                                 site._setObject(id, mt_info['instance'](id))
                                 break
                     else:
-                        raise ValueError("unknown meta_type '%s'" % meta_type)
+                        self._logger.warning("unknown meta_type '%s' for fragment \n%s", meta_type, child.toprettyxml)
+                        continue
 
             obj = site._getOb(id)
             if meta_type:
@@ -292,7 +115,6 @@ class RootsXMLAdapter(XMLAdapterBase):
             for subid, subob in obj.objectItems():
                 if subid.startswith('.'):
                     importCPSObjects(subob, path + '/', self.environ)
-
             # Recursively load sub obj folders
             filename = path + '/' + self.name +  '.xml'
             body = self.environ.readDataFile(filename)
@@ -386,28 +208,6 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
             # this cannot work before the Catalog import step has been done
             # and is necessary if it's imported in the same transaction
             catalog.unindexObject(proxy)
-
-def importObjectLocalWorkflow(ob, filename, context):
-    """Import local workflow chains from an XML file.
-    """
-    logger = context.getLogger('cpsworkflow')
-    path = '/'.join(ob.getPhysicalPath())
-
-    body = context.readDataFile(filename)
-    if body is None:
-        logger.info("No local workflow map for %s" % path)
-        return
-
-    if getattr(aq_base(ob), LOCAL_WORKFLOW_CONFIG_ID, None) is not None:
-        confob = ob._getOb(LOCAL_WORKFLOW_CONFIG_ID)
-    else:
-        confob = addLocalWorkflowConfiguration(ob)
-    importer = LocalWorkflowConfigurationXMLAdapter(confob, context)
-    if importer is not None:
-        importer.body = body
-
-    logger.info("Local workflow map for %s imported." % path)
-
 
 # Old-style importer for rolemap, using explicit object/filename
 

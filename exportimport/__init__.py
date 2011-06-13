@@ -25,7 +25,6 @@ from Acquisition import aq_base
 
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import importObjects
-from Products.GenericSetup.utils import exportObjects
 
 from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
 from Products.CPSWorkflow.configuration import (

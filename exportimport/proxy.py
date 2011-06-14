@@ -20,8 +20,10 @@ from zope.component import queryMultiAdapter
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import PropertyManagerHelpers
+from Products.CPSCore.utils import bhasattr
 from roots import RootXMLAdapter
 
+from OFS.interfaces import IOrderedContainer
 from Products.GenericSetup.interfaces import IBody
 from Products.GenericSetup.interfaces import INode
 from Products.GenericSetup.interfaces import ISetupEnviron
@@ -56,11 +58,14 @@ class ProxyXMLAdapter(RootXMLAdapter, PropertyManagerHelpers):
         self._initProxies(node)
         self._initObjects(node)
 
-    def _exportNode(self, node):
+    def _exportNode(self):
         node = self._getObjectNode('object')
         node.appendChild(self._extractProperties())
         node.appendChild(self._extractProxies())
         node.appendChild(self._extractObjects())
+        return node
+
+    node = property(_exportNode, _importNode)
 
     def _initProxies(self, node):
         container = self.context
@@ -90,12 +95,26 @@ class ProxyXMLAdapter(RootXMLAdapter, PropertyManagerHelpers):
         # GR conversion to str are necessary, otherwise it'll be unicode
         self.wftool.invokeFactoryFor(self.context, str(portal_type), str(pid))
 
+    def _extractProxies(self):
+        fragment = self._doc.createDocumentFragment()
+        for proxy in self.context.objectValues('CPS Proxy Folder'):
+            node = self._doc.createElement('proxy')
+            node.setAttribute('portal_type', proxy.portal_type)
+            node.setAttribute('name', proxy.getId())
+            fragment.appendChild(node)
+        return fragment
+
     def _extractObjects(self):
         """Identical to ObjectManagerHelpers, but skips proxies."""
         fragment = self._doc.createDocumentFragment()
         # GR: this can become problematic for large BTrees, but the sorting
         # has its benefits in terms of diff between subsequent exports
-        objects = [obj for obj in self.context.iterValues()
+        if bhasattr(self.context, 'iterValues'):
+            values = self.context.iterValues
+        else:
+            values = self.context.objectValues
+
+        objects = [obj for obj in values()
                    if not ICPSProxy.providedBy(obj)]
 
         if not IOrderedContainer.providedBy(self.context):

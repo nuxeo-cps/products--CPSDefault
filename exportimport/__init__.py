@@ -21,6 +21,7 @@
 """CPS Default GenericSetup I/O.
 """
 
+import transaction
 from zope.component import queryMultiAdapter
 from Acquisition import aq_base
 

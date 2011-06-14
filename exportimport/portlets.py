@@ -16,12 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import transaction
+from zope.component import queryMultiAdapter
 from Acquisition import aq_parent, aq_inner
 
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import exportObjects
 
-from roots import RootXMLAdapter
+from Products.GenericSetup.interfaces import IBody
 
 class LocalPortletsExporter(object):
 
@@ -73,7 +74,7 @@ class LocalPortletsExporter(object):
                 transaction.savepoint() # free some RAM
 
             while ancestor_rpath not in done_folders:
-                exporter = RootXMLAdapter(ancestor, context)
+                exporter = queryMultiAdapter((ancestor, context), IBody)
                 fpath = ancestor_rpath.replace(' ', '_')
                 if exporter:
                     filename = '%s%s' % (fpath, exporter.suffix)

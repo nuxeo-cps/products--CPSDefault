@@ -21,6 +21,7 @@
 """CPS Default GenericSetup I/O.
 """
 
+from zope.component import queryMultiAdapter
 from Acquisition import aq_base
 
 from Products.CMFCore.utils import getToolByName
@@ -81,3 +82,47 @@ def importObjectLocalWorkflow(ob, filename, context):
         importer.body = body
 
     logger.info("Local workflow map for %s imported." % path)
+
+
+def importStructure(context, obj=None, path='structure', count=None):
+    """Import a hierarchy of documents and folders starting from obj
+
+    Similar logic as importObjects, except that we crawl the XML files rather
+    than the site (crucial to apply to loaded sites)."""
+
+    logger = context.getLogger('structure')
+    # hack using a list as argument. XXX refactor with a class
+    if count is None:
+        count = 0
+    else:
+        count = count[0]
+
+    if count and not count % 100:
+        logger.info("Imported %d objects, committing", count)
+        transaction.commit()
+
+    if obj is None:
+        obj = context.getSite()
+
+    importer = queryMultiAdapter((obj, context), IBody)
+    filename = path + importer.suffix
+    body = context.readDataFile(filename)
+    if body is not None:
+        importer.filename = filename # for error reporting
+        importer.body = body
+        count += 1
+
+    # now recurse
+    # using / in there no more inconsistent than in GenericSetup.utils
+    dirs = [f for f in context.listDirectory(path)
+            if context.isDirectory('%s/%s' % (path, f))]
+
+    for d in dirs:
+        sub_path = '%s/%s' % (path, d)
+        if not obj.hasObject(d):
+            d = '.' + d
+            if not obj.hasObject(d):
+                logger.warn('Directory %s corresponds to no object', sub_path)
+                continue
+        sub_obj = getattr(obj, d)
+        importStructure(context, obj=sub_obj, path=sub_path, count=[count])

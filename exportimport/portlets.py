@@ -44,10 +44,11 @@ class LocalPortletsExporter(object):
 
     def foldersWithPortlets(self):
         """Return a set of rpaths of all folders having local portlets."""
-        brains = self.ptlcat()
+        brains = self.ptlcat.unrestrictedSearchResults()
         site_path = self.site.getPhysicalPath()
         spl = len('/'.join(site_path)) + 1
         rpaths =  set( b.getPath().rsplit('/', 2)[0][spl:] for b in brains)
+
         rpaths.discard('') # we are about local portlets, not those at top
         return rpaths
 
@@ -84,7 +85,7 @@ class LocalPortletsExporter(object):
                                               exporter.mime_type)
 
                 done_folders.add(ancestor_rpath)
-                ancestor = aq_parent(aq_inner(folder))
+                ancestor = aq_parent(aq_inner(ancestor))
                 ancestor_rpath = ancestor_rpath.rsplit('/', 1)[0]
                 zodb_count += 1
 

@@ -115,8 +115,10 @@ def importStructure(context, obj=None, path='structure', count=None):
 
     # now recurse
     # using / in there no more inconsistent than in GenericSetup.utils
-    dirs = [f for f in context.listDirectory(path)
-            if context.isDirectory('%s/%s' % (path, f))]
+    dirs = context.listDirectory(path)
+    if dirs is None:
+        return
+    dirs = [f for f in dirs if context.isDirectory('%s/%s' % (path, f))]
 
     for d in dirs:
         sub_path = '%s/%s' % (path, d)

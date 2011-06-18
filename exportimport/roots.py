@@ -90,6 +90,27 @@ class RootsXMLAdapter(XMLAdapterBase):
 
             obj = site._getOb(id)
             if meta_type:
+                # GR probably intended to recurse only in non proxy objects
+                # but can do it as well (unwanted in most cases).
+                # Hard to tell, since profiles have been using this for
+                # deeper recursion, and that's side effect programming.
+                # In any case, since the changes made for #2252, this leads
+                # to obscure errors. Better to break now.
+                if portal_type:
+                    env = self.environ
+                    if hasattr(env, '_profile_path'):
+                        env_info = 'directory %s' % env._profile_path
+                    else:
+                        env_info = str(env)
+
+                    raise ValueError(
+                        "Using meta_type attribute to force recursion in a "
+                        "proxy folder (%s) is now forbidden. "
+                        "If this is the intent, use the new structure import "
+                        "step, see issue #2252. If not, simply remove the "
+                        "meta_type attribute from %s in %s" % (
+                            id, self.filename, env_info))
+
                 self._logger.debug(
                    "_initRoots importObjects on %s with parent_path = %s"
                    % (str(obj), self.path))

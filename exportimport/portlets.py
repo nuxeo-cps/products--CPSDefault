@@ -28,6 +28,8 @@ class LocalPortletsExporter(object):
 
     name = 'local_portlets'
 
+    export_base_path = 'structure'
+
     def __init__(self, context):
         site = self.site = context.getSite()
         self.ptltool = getToolByName(site, 'portal_cpsportlets')
@@ -76,9 +78,10 @@ class LocalPortletsExporter(object):
 
             while ancestor_rpath not in done_folders:
                 exporter = queryMultiAdapter((ancestor, context), IBody)
-                fpath = ancestor_rpath.replace(' ', '_')
+                export_path = '/'.join((self.export_base_path,
+                                        ancestor_rpath.replace(' ', '_')))
                 if exporter:
-                    filename = '%s%s' % (fpath, exporter.suffix)
+                    filename = '%s%s' % (export_path, exporter.suffix)
                     body = exporter.body
                     if body is not None:
                         context.writeDataFile(filename, body,
@@ -89,4 +92,4 @@ class LocalPortletsExporter(object):
                 ancestor_rpath = ancestor_rpath.rsplit('/', 1)[0]
                 zodb_count += 1
 
-            self.exportPortletsIn(folder_rpath, folder)
+            self.exportPortletsIn(export_path, folder)

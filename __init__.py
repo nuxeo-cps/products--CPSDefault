@@ -116,13 +116,3 @@ def initialize(context):
         EXTENSION,
         for_=ICPSSite)
 
-    profile_registry.registerProfile(
-        'test_loc',
-        'CPS Default TESTLOC',
-        "Advanced display capabilities on folders : front pages "
-        "(akin to index.html), enhanced listings...",
-        'profiles/test_loc',
-        'CPSDefault',
-        EXTENSION,
-        for_=ICPSSite)
-

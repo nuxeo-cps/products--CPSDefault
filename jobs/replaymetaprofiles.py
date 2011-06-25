@@ -58,7 +58,7 @@ def replay(portal, steps=()):
     return log
 
 def run(portal, arguments, options):
-    """CPS job bootstrap"""
+    """Callable for cpsjob."""
     if arguments:
         raise ValueError("This CPS job accepts no arguments")
     steps = options.steps
@@ -66,16 +66,15 @@ def run(portal, arguments, options):
         steps = tuple(x.strip() for x in steps.split(','))
 
     log = replay(portal, steps=steps)
-    transaction.commit()
     sys.stderr.writelines(log)
 
 # invocation through zopectl run
 if __name__ == '__main__':
-    from Products.CPSUtil.cpsjob import bootstrap
-    from Products.CPSUtil.cpsjob import optparser
-    optparser.add_option('-s', '--steps',
-                         help="Comma-separated list of import steps to apply. "
-                         "(default to all)")
+    from Products.CPSUtil import cpsjob
+    cpsjob.optparser.add_option(
+        '-s', '--steps',
+        help="Comma-separated list of import steps to apply. "
+        "(default to all)")
 
-    portal, options, arguments = bootstrap(app)
-    run(portal, arguments, options)
+    cpsjob.run(app, run)
+

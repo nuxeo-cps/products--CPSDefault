@@ -1,10 +1,11 @@
 <tal:block define="
-  file_name python:request['file'];
-  file_html_name python:request['file_html'];
+  file_name request/file|nothing;
+  file_html_name request/file_html|nothing;
   file_html_subfiles_name request/file_html_subfiles|nothing;
   breadcrumb_additional_info python:'> preview';
   ">
 
+ <tal:block condition="file_name">
   <metal:block use-macro="here/content_lib_master/macros/master">
 
     <metal:block fill-slot="header">
@@ -25,5 +26,16 @@
     </metal:block>
 
   </metal:block>
+ </tal:block>
+
+ <tal:block condition="not:file_name"
+            define="dummy python:request.RESPONSE.setStatus(404)">
+  <metal:block use-macro="here/content_lib_master/macros/master">
+
+   <metal:block fill-slot="main">
+    <p>Sorry, there's no preview available for this content.</p>
+   </metal:block>
+  </metal:block>
+ </tal:block>
 
 </tal:block>

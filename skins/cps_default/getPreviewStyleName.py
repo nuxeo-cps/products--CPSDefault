@@ -7,13 +7,15 @@ returns empty string if none available
 
 <link rel="Stylesheet" type="text/css" media="all" href="preview_html.css" />
 """
-from zLOG import LOG, DEBUG
-
 link_tag=''
 
 if subfiles_name != '':
     content = context.getContent()
-    subfiles = content[subfiles_name]
+    try:
+        subfiles = content[subfiles_name]
+    except KeyError:
+        return ''
+
     for afile in subfiles:
         if afile.endswith('.css'):
             link_tag += '<link rel="Stylesheet" type="text/css" media="all" href="%s" />' %(str(afile))

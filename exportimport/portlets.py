@@ -54,6 +54,11 @@ class LocalPortletsExporter(object):
         rpaths.discard('') # we are about local portlets, not those at top
         return rpaths
 
+    def pathInExport(self, rpath):
+        """Return path within the export context for the given CPS rpath
+        """
+        return '/'.join((self.export_base_path, rpath.replace(' ', '_')))
+
     def exportObjects(self):
         """Inspired from recursion in GenericSetup.utils but uses cps walkers
         """
@@ -78,18 +83,17 @@ class LocalPortletsExporter(object):
 
             while ancestor_rpath not in done_folders:
                 exporter = queryMultiAdapter((ancestor, context), IBody)
-                export_path = '/'.join((self.export_base_path,
-                                        ancestor_rpath.replace(' ', '_')))
                 if exporter:
-                    filename = '%s%s' % (export_path, exporter.suffix)
                     body = exporter.body
                     if body is not None:
+                        filename = '%s%s' % (
+                            self.pathInExport(ancestor_rpath), exporter.suffix)
                         context.writeDataFile(filename, body,
-                                              exporter.mime_type)
+                            exporter.mime_type)
 
                 done_folders.add(ancestor_rpath)
                 ancestor = aq_parent(aq_inner(ancestor))
                 ancestor_rpath = ancestor_rpath.rsplit('/', 1)[0]
                 zodb_count += 1
 
-            self.exportPortletsIn(export_path, folder)
+            self.exportPortletsIn(self.pathInExport(folder_rpath), folder)

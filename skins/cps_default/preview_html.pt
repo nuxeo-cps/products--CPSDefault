@@ -5,7 +5,7 @@
   breadcrumb_additional_info python:'> preview';
   ">
 
- <tal:block condition="file_name">
+ <tal:block condition="python: file_name and file_html_name">
   <metal:block use-macro="here/content_lib_master/macros/master">
 
     <metal:block fill-slot="header">
@@ -28,7 +28,7 @@
   </metal:block>
  </tal:block>
 
- <tal:block condition="not:file_name"
+ <tal:block condition="python: not file_name or not file_html_name"
             define="dummy python:request.RESPONSE.setStatus(404)">
   <metal:block use-macro="here/content_lib_master/macros/master">
 

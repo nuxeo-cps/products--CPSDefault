@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:meta="http://namespaces.zope.org/meta"
+    xmlns:five="http://namespaces.zope.org/five">
+
+  <!-- this comes from Five/skel/site.zcml -->
+
+  <include package="Products.Five"/>
+  <meta:redefinePermission from="zope2.Public" to="zope.Public" />
+
+  <!-- Load the meta -->
+  <include files="package-includes/*-meta.zcml" />
+  <five:loadProducts file="meta.zcml"/>
+
+  <five:loadProducts/>
+  <five:loadProductsOverrides/>
+
+</configure>

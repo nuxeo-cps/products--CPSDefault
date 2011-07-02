@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cps="http://cps-cms.org/ns/theme"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      lang="en"
+      xml:lang="en">
+
+<head>
+ <title>CPS 3.5 Structure</title>
+ <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+ <link rel="stylesheet" type="text/css" href="style/cps-default.css" media="screen" />
+</head>
+<body>
+
+ <div id="header">
+
+  <p id="cps-logo"><a href="/">CPS</a> <span>3.5</span></p>
+
+
+  <div id="main-tabs" cps:slot="portal_tabs">
+   <div cps:portlet="frame" cps:remove="true">
+    <div cps:portlet="body" cps:remove="true">
+     <ul>
+      <li class="selected"><a href="/">Espaces de publication</a></li>
+      <li><a href="/">Espaces de travail</a></li>
+      <li><a href="/">Espaces privés</a></li>
+     </ul>
+    </div>
+   </div>
+  </div>
+
+  <div id="search-box" cps:slot="search">
+    <div cps:portlet="frame" cps:remove="true">
+     <div cps:portlet="body" cps:remove="true">
+      <input type="text" /><input type="submit" value="Search"/>
+     </div>
+    </div>
+  </div>
+
+ </div>
+
+
+ <div class="colmask leftmenu">
+  <div class="colleft">
+
+   <div class="main-column">
+    <!-- Column 1 start -->
+
+    <div id="breadcrumb" cps:slot="breadcrumb">
+     <div cps:portlet="frame" cps:remove="true">
+      <div cps:portlet="body" cps:remove="true">
+       <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/1">Private spaces</a></li>
+        <li><a href="/2">Folder</a></li>
+        <li><a href="/4">Folder 2</a></li>
+        <li><a href="/3">Document</a></li>
+       </ul>
+      </div>
+     </div>
+    </div>
+
+    <div id="actionslot" cps:slot="doc_actions">
+     <div cps:portlet="frame" cps:remove="true">
+      <div cps:portlet="body" cps:remove="true">
+      </div>
+     </div>
+    </div>
+
+    <div cps:slot="content_well">
+     <div cps:portlet="frame">
+      <div cps:portlet="body" cps:remove="true">
+      </div>
+     </div>
+    </div>
+
+   </div>
+   <div class="side-column">
+
+    <!-- Column 2 start -->
+
+    <div class="box" cps:slot="treeview">
+     <div cps:portlet="frame" cps:remove="true">
+      <div class="title">
+       <h3 cps:portlet="title">Navigation</h3>
+      </div>
+      <div class="content" cps:portlet="body">
+       <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+
+    <div class="box" cps:slot="user_actions">
+     <div cps:portlet="frame" cps:remove="true">
+      <div class="title">
+       <h3 cps:portlet="title">Navigation</h3>
+      </div>
+      <div class="content" cps:portlet="body">
+       <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+
+   <!-- Column 2 end -->
+   </div>
+
+  </div>
+
+  <div id="footer" cps:slot="conformance_statement">
+   <div cps:portlet="frame" cps:remove="true">
+     <div cps:portlet="body" cps:remove="true">
+      </div>
+    </div>
+  </div>
+ </div>
+</body>
+</html>

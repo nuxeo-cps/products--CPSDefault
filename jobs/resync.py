@@ -106,27 +106,12 @@ def resync_portlets_catalog(portal):
     reindex_portlets_catalog(portal)
     logger.info("Portlet catalog reindex done")
 
-def main():
+def job(portal, args, options):
     """CPS job bootstrap"""
 
-    optparser = cpsjob.optparser
-    optparser.add_option('-a', '--all', dest='all',
-                         action='store_true',
-                         help="Reindex everything")
-    optparser.add_option('-c', '--catalog', dest='catalog',
-                         action='store_true',
-                         help="Catalog full reindexation")
-    optparser.add_option('-p', '--portlets-catalog', dest='ptl_catalog',
-                         action='store_true',
-                         help="Portlets Catalog reindexation")
-    optparser.add_option('-t', '--trees', dest='trees', action='store_true',
-                         help="Rebuild of tree caches")
-
-    portal, options, args = cpsjob.bootstrap(app)
-
     if args:
-        optparser.error("Args: %s; this job accepts options only."
-                        "Try --help" % args)
+        cpsjob.optparser.error("Args: %s; this job accepts options only."
+                               "Try --help" % args)
     if options.all:
 	resync_catalog(portal)
         resync_trees(portal)
@@ -142,5 +127,18 @@ def main():
 
 # invocation through zopectl run
 if __name__ == '__main__':
-    main()
+    optparser = cpsjob.optparser
+    optparser.add_option('-a', '--all', dest='all',
+                         action='store_true',
+                         help="Reindex everything")
+    optparser.add_option('-c', '--catalog', dest='catalog',
+                         action='store_true',
+                         help="Catalog full reindexation")
+    optparser.add_option('-p', '--portlets-catalog', dest='ptl_catalog',
+                         action='store_true',
+                         help="Portlets Catalog reindexation")
+    optparser.add_option('-t', '--trees', dest='trees', action='store_true',
+                         help="Rebuild of tree caches")
+
+    cpsjob.run(app, job)
 

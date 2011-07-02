@@ -1,11 +1,14 @@
 # (C) Copyright 2005-2007 Nuxeo SAS <http://nuxeo.com>
+# (C) Copyright 2010 CPS-CMS Community <http://cps-cms.org/>
 # Authors:
 # Florent Guillaume <fg@nuxeo.com>
 # M.-A. Darche <madarche@nuxeo.com>
+# G. Racinet <georges@racinet.fr>
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 2 as published
-# by the Free Software Foundation.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,125 +16,24 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
-#
-# $Id$
-"""CPS Default GenericSetup I/O.
-"""
-
-import logging
-from Acquisition import aq_base
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import Products
 
-from Products.StandardCacheManagers.AcceleratedHTTPCacheManager \
-     import AcceleratedHTTPCacheManager
+from Acquisition import aq_base
+
 from Products.CMFCore.utils import getToolByName
 
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ObjectManagerHelpers
-from Products.GenericSetup.utils import ImportConfiguratorBase
 from Products.GenericSetup.utils import importObjects
+from Products.GenericSetup.utils import ImportConfiguratorBase
 
 from Products.CPSCore.utils import ALL_LOCALES
-from Products.CPSWorkflow.workflowtool import LOCAL_WORKFLOW_CONFIG_ID
-from Products.CPSWorkflow.configuration import (
-    addConfiguration as addLocalWorkflowConfiguration)
-from Products.CPSWorkflow.exportimport import (
-    LocalWorkflowConfigurationXMLAdapter)
 
-from Products.Localizer.exportimport import importLocalizer
 from Products.CPSDocument.exportimport import importCPSObjects
 from Products.CPSDocument.upgrade import upgrade_doc_unicode
-
-class VariousImporter(object):
-    """Class to import various steps.
-
-    For steps that have not yet been separated into their own
-    component. Note that this should be able to run as an extension
-    profile, without purge and with potentially missing files.
-    """
-
-    catalogs = (
-        # domain, localizer catalog
-        ('default', 'default'),
-        ('cpsskins', 'cpsskins'),
-        #('cpscollector', 'cpscollector'),
-        #('RSSBox', 'cpsrss'),
-        )
-
-    default_roles = ('Manager', 'Member')
-
-    members_folder = 'members'
-
-    def __init__(self, context):
-        self.context = context
-        self.site = context.getSite()
-
-    def importVarious(self):
-        """Import various non-exportable settings.
-
-        Will go away when specific handlers are coded for these.
-        """
-        self.setupProperties()
-        self.setupTranslationService()
-        self.setupRoots()
-        self.setupDefaultRoles()
-        return "Various settings imported."
-
-    def setupProperties(self):
-        # this cannot be changed easily and should not stay void
-        self.site.default_charset = 'unicode'
-
-    def setupDefaultRoles(self):
-        """Add the default roles to the roles directory
-        """
-        dtool = getToolByName(self.site, 'portal_directories')
-        for role in self.default_roles:
-            if not dtool['roles']._hasEntry(role):
-                dtool['roles']._createEntry({'role': role, 'members': []})
-
-    def setupTranslationService(self):
-        ts = getToolByName(self.site, 'translation_service')
-        ts._p_changed = 1
-        ts._domain_dict[None] = 'Localizer/default'
-        present = [i[0] for i in ts.getDomainInfo()]
-        for domain, catalog in self.catalogs:
-            if domain in present:
-                continue
-            ts.manage_addDomainInfo(domain, 'Localizer/%s' % catalog)
-        ts._resetCache()
-
-    def setupRoots(self):
-        importer = RootsXMLAdapter(self.site, self.context)
-        filename = importer.name + importer.suffix
-        body = self.context.readDataFile(filename)
-        if body is None:
-            return
-        importer.filename = filename
-        importer.path = importer.name
-        importer.body = body
-
-
-# Called according to import_steps.xml
-def importVarious(context):
-    importer = VariousImporter(context)
-    importer.importVarious()
-
-
-def importLocalizerAndClearCaches(context):
-    """Call the Localizer importer and then clear the portlets tool caches.
-
-    That way all the portlets take advantage of the new translations.
-    """
-    site = context.getSite()
-    importLocalizer(context)
-    portlets_tool = getToolByName(site, 'portal_cpsportlets')
-    portlets_tool.clearCache()
-
 
 class RootsXMLAdapter(XMLAdapterBase):
     _LOGGER_ID = 'roots'
@@ -158,7 +60,6 @@ class RootsXMLAdapter(XMLAdapterBase):
             id = str(child.getAttribute('name'))
             portal_type = str(child.getAttribute('portal_type'))
             meta_type = str(child.getAttribute('meta_type'))
-
             # Create object if needed
             if getattr(aq_base(site), id, None) is None:
                 # If this is a CPS document such as a Workspace or a Section
@@ -184,11 +85,32 @@ class RootsXMLAdapter(XMLAdapterBase):
                                 site._setObject(id, mt_info['instance'](id))
                                 break
                     else:
-                        raise ValueError("unknown meta_type '%s'" % meta_type)
+                        self._logger.warning("unknown meta_type '%s' for fragment \n%s", meta_type, child.toprettyxml)
+                        continue
 
             obj = site._getOb(id)
-
             if meta_type:
+                # GR probably intended to recurse only in non proxy objects
+                # but can do it as well (unwanted in most cases).
+                # Hard to tell, since profiles have been using this for
+                # deeper recursion, and that's side effect programming.
+                # In any case, since the changes made for #2252, this leads
+                # to obscure errors. Better to break now.
+                if portal_type:
+                    env = self.environ
+                    if hasattr(env, '_profile_path'):
+                        env_info = 'directory %s' % env._profile_path
+                    else:
+                        env_info = str(env)
+
+                    raise ValueError(
+                        "Using meta_type attribute to force recursion in a "
+                        "proxy folder (%s) is now forbidden. "
+                        "If this is the intent, use the new structure import "
+                        "step, see issue #2252. If not, simply remove the "
+                        "meta_type attribute from %s in %s" % (
+                            id, self.filename, env_info))
+
                 self._logger.debug(
                    "_initRoots importObjects on %s with parent_path = %s"
                    % (str(obj), self.path))
@@ -214,7 +136,6 @@ class RootsXMLAdapter(XMLAdapterBase):
             for subid, subob in obj.objectItems():
                 if subid.startswith('.'):
                     importCPSObjects(subob, path + '/', self.environ)
-
             # Recursively load sub obj folders
             filename = path + '/' + self.name +  '.xml'
             body = self.environ.readDataFile(filename)
@@ -245,7 +166,9 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
         self._logger.info("%s imported." % self.context.getId())
 
     def _exportNode(self):
-        raise NotImplementedError
+        node = self._getObjectNode('object')
+        node.appendChild(self._extractObjects())
+        return node
 
     def _purgeConfigurationObjects(self):
         for id in self.context.objectIds():
@@ -306,28 +229,6 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
             # this cannot work before the Catalog import step has been done
             # and is necessary if it's imported in the same transaction
             catalog.unindexObject(proxy)
-
-def importObjectLocalWorkflow(ob, filename, context):
-    """Import local workflow chains from an XML file.
-    """
-    logger = context.getLogger('cpsworkflow')
-    path = '/'.join(ob.getPhysicalPath())
-
-    body = context.readDataFile(filename)
-    if body is None:
-        logger.info("No local workflow map for %s" % path)
-        return
-
-    if getattr(aq_base(ob), LOCAL_WORKFLOW_CONFIG_ID, None) is not None:
-        confob = ob._getOb(LOCAL_WORKFLOW_CONFIG_ID)
-    else:
-        confob = addLocalWorkflowConfiguration(ob)
-    importer = LocalWorkflowConfigurationXMLAdapter(confob, context)
-    if importer is not None:
-        importer.body = body
-
-    logger.info("Local workflow map for %s imported." % path)
-
 
 # Old-style importer for rolemap, using explicit object/filename
 

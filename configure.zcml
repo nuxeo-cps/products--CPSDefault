@@ -5,6 +5,27 @@
 
   <include file="upgrade.zcml"/>
 
+  <adapter
+      factory=".exportimport.proxy.ProxyXMLAdapter"
+      provides="Products.GenericSetup.interfaces.INode"
+      for="Products.CPSCore.interfaces.ICPSProxy
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
+
+  <adapter
+      factory=".exportimport.proxy.ProxyXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for="Products.CPSCore.interfaces.ICPSProxy
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      />
+
+  <!--adapter
+      factory=".exportimport.proxy.ProxyXMLAdapter"
+      provides="Products.GenericSetup.interfaces.IBody"
+      for="Products.CPSCore.interfaces.ICPSSite
+           Products.GenericSetup.interfaces.ISetupEnviron"
+      /-->
+
   <!-- void response handler -->
   <adapter
       provides=".interfaces.IVoidResponseHandler"

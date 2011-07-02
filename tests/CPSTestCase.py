@@ -29,12 +29,14 @@ from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
 from Products.CMFCore.utils import _checkPermission
+from Products.CPSUtil.testing.introspect import ZOPE_VERSION
 from Products.CPSCore.EventServiceTool import SubscriberDef
 
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
 ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
-#ZopeTestCase.installProduct('Five', quiet=1)
+if ZOPE_VERSION > (2, 10):
+    ZopeTestCase.installProduct('Five', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
 ZopeTestCase.installProduct('UnicodeLexicon', quiet=1)
@@ -93,7 +95,7 @@ MANAGER_PASSWORD = 'passwd'
 ##################################################
 # Layers
 
-config_file = 'cpsdefaultlayer.zcml'
+config_file = 'cpsdefaultlayer-zope-%d.%d.zcml' % ZOPE_VERSION[:2]
 config_file = os.path.join(os.path.dirname(__file__), config_file)
 
 CPSZCMLLayer = ZCMLLayer(config_file, __name__, 'CPSZCMLLayer')

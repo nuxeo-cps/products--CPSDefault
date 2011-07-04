@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import transaction
+from xml.dom.minidom import parseString
 from zope.component import queryMultiAdapter
-
 from Products.GenericSetup.interfaces import IBody
 
 class StructureImporter(object):
@@ -43,6 +43,13 @@ class StructureImporter(object):
             importer.filename = path # for error reporting
             importer.body = body
             self.count += 1
+
+    def readObjectId(self, path):
+        body = self.context.readDataFile(path)
+
+        dom = parseString(body)
+        root = dom.documentElement
+        return root.getAttribute('name')
 
     def importDirectory(self, container, path):
         """Import recursively a directory in given container.
@@ -73,10 +80,11 @@ class StructureImporter(object):
             oid = f.rsplit('.', 1)[0]
             sub_path = '%s/%s' % (path, f)
             if not container.hasObject(oid):
-                oid = '.' + oid
+                oid = self.readObjectId(sub_path)
                 if not container.hasObject(oid):
-                    self.logger.warning('File %s corresponds to no Zope object',
-                                        sub_path)
+                    self.logger.warning(
+                        'File %s corresponds directly to no Zope object, and '
+                        'name attribute read as %r in it', sub_path, oid)
                     continue
             self.importFile(getattr(container, oid), sub_path)
 

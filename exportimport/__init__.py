@@ -37,6 +37,7 @@ from Products.CPSWorkflow.exportimport import (
 from Products.Localizer.exportimport import importLocalizer
 from various import VariousImporter
 from portlets import LocalPortletsExporter
+from structure import StructureImporter
 
 from Products.GenericSetup.interfaces import IBody
 
@@ -85,73 +86,15 @@ def importObjectLocalWorkflow(ob, filename, context):
     logger.info("Local workflow map for %s imported." % path)
 
 
-def importStructure(context, obj=None, path='structure', count=None):
-    """Import a hierarchy of documents and folders starting from obj
+def importStructure(context):
+    """Import a hierarchy of folders and their technical objects in portal.
 
-    Similar logic as importObjects, except that we crawl the XML files rather
-    than the site (crucial to apply to loaded sites)."""
+    See the docstring for StructureImporter for more details on the process.
+    """
 
-    logger = context.getLogger('structure')
-    # hack using a list as argument. XXX refactor with a class
-    if count is None:
-        count = 0
-    else:
-        count = count[0]
+    importer = StructureImporter(context)
 
-    if count and not count % 100:
-        logger.info("Imported %d objects, committing", count)
-        transaction.commit()
-
-    if obj is None:
-        obj = context.getSite()
-
-    logger.info("Called for %s", path)
-    if context.isDirectory(path):
-        # recurse by importing the files in dir then going through subdirs
-        # using / in there no more inconsistent than in GenericSetup.utils
-        entries = context.listDirectory(path)
-        if entries is None:
-            return
-
-        files = []
-        dirs = []
-        for e in entries:
-            p = '%s/%s' % (path, e)
-            if context.isDirectory(p):
-                dirs.append(e)
-            else:
-                files.append(e)
-
-        for f in files:
-            oid = f.rsplit('.', 1)[0]
-            sub_path = '%s/%s' % (path, f)
-            if not obj.hasObject(oid):
-                oid = '.' + oid
-                if not obj.hasObject(oid):
-                    logger.warning('File %s corresponds to no Zope object',
-                                   sub_path)
-                    continue
-            sub_obj = getattr(obj, oid)
-            importStructure(context, obj=sub_obj, path=sub_path, count=[count])
-
-        for d in dirs:
-            oid = d
-            sub_path = '%s/%s' % (path, d)
-            if not obj.hasObject(oid):
-                oid = '.' + oid
-                if not obj.hasObject(oid):
-                    logger.warn('File %s corresponds to no object', sub_path)
-                    continue
-            sub_obj = getattr(obj, oid)
-            importStructure(context, obj=sub_obj, path=sub_path, count=[count])
-
-    else:
-        importer = queryMultiAdapter((obj, context), IBody)
-
-        body = context.readDataFile(path)
-        if body is not None:
-            importer.filename = path # for error reporting
-            importer.body = body
-            count += 1
-
+    if not context.isDirectory('structure'):
+        return
+    importer.importDirectory(context.getSite(), 'structure')
 

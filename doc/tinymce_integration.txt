@@ -25,23 +25,26 @@ Building receipt
 
 Steps to build:
 
-1. Install the needed files in the `skins` directory::
+1. Download the lattest version of TinyMCE, let's name it tinymce_XXX.zip
+
+2. Install the needed files in the `skins` directory::
 
   $ cd Products/CPSDefault/skins
-  $ unzip tinymce_3_2_1_1.zip
+  $ unzip tinymce_XXX.zip
+  $ rm -rf tiny_mce
   $ mv tinymce/jscripts/tiny_mce .
   $ rm -rf tinymce
 
-2. Rename all ``.htm`` files into ``.htm.pt``
+3. Rename all ``.htm`` files into ``.htm.pt``
 
   For example::
 
     $ find -name '*.htm' -exec mv {} {}.pt \;
 
-3. Then download and install some language packs (at least en, es, fr).
+4. Then download and install some language packs (at least en, es, fr).
    If a language pack, for your currently selected language on the portal, is
-   missing then the TinuMCE editor won't appear. So if you have any problem with
-   the TinuMCE not appearing, the first thing to do is to try to access your CPS
+   missing then the TinyMCE editor won't appear. So if you have any problem with
+   the TinyMCE not appearing, the first thing to do is to try to access your CPS
    portal in English.
 
 

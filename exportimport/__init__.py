@@ -105,27 +105,53 @@ def importStructure(context, obj=None, path='structure', count=None):
     if obj is None:
         obj = context.getSite()
 
-    importer = queryMultiAdapter((obj, context), IBody)
-    filename = path + importer.suffix
-    body = context.readDataFile(filename)
-    if body is not None:
-        importer.filename = filename # for error reporting
-        importer.body = body
-        count += 1
+    logger.info("Called for %s", path)
+    if context.isDirectory(path):
+        # recurse by importing the files in dir then going through subdirs
+        # using / in there no more inconsistent than in GenericSetup.utils
+        entries = context.listDirectory(path)
+        if entries is None:
+            return
 
-    # now recurse
-    # using / in there no more inconsistent than in GenericSetup.utils
-    dirs = context.listDirectory(path)
-    if dirs is None:
-        return
-    dirs = [f for f in dirs if context.isDirectory('%s/%s' % (path, f))]
+        files = []
+        dirs = []
+        for e in entries:
+            p = '%s/%s' % (path, e)
+            if context.isDirectory(p):
+                dirs.append(e)
+            else:
+                files.append(e)
 
-    for d in dirs:
-        sub_path = '%s/%s' % (path, d)
-        if not obj.hasObject(d):
-            d = '.' + d
-            if not obj.hasObject(d):
-                logger.warn('Directory %s corresponds to no object', sub_path)
-                continue
-        sub_obj = getattr(obj, d)
-        importStructure(context, obj=sub_obj, path=sub_path, count=[count])
+        for f in files:
+            oid = f.rsplit('.', 1)[0]
+            sub_path = '%s/%s' % (path, f)
+            if not obj.hasObject(oid):
+                oid = '.' + oid
+                if not obj.hasObject(oid):
+                    logger.warning('File %s corresponds to no Zope object',
+                                   sub_path)
+                    continue
+            sub_obj = getattr(obj, oid)
+            importStructure(context, obj=sub_obj, path=sub_path, count=[count])
+
+        for d in dirs:
+            oid = d
+            sub_path = '%s/%s' % (path, d)
+            if not obj.hasObject(oid):
+                oid = '.' + oid
+                if not obj.hasObject(oid):
+                    logger.warn('File %s corresponds to no object', sub_path)
+                    continue
+            sub_obj = getattr(obj, oid)
+            importStructure(context, obj=sub_obj, path=sub_path, count=[count])
+
+    else:
+        importer = queryMultiAdapter((obj, context), IBody)
+
+        body = context.readDataFile(path)
+        if body is not None:
+            importer.filename = path # for error reporting
+            importer.body = body
+            count += 1
+
+

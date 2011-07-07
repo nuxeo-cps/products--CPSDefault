@@ -28,6 +28,7 @@ from ZODB.POSException import ConflictError
 
 from Products.ZCatalog.ProgressHandler import ZLogHandler
 from Products.CMFCore.utils import _checkPermission
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import ManagePortal
 from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSCore.utils import KEYWORD_VIEW_LANGUAGE
@@ -106,6 +107,17 @@ def resync_portlets_catalog(portal):
     reindex_portlets_catalog(portal)
     logger.info("Portlet catalog reindex done")
 
+def resync_portlets_catalog_force(portal, rpath):
+
+    if rpath:
+        logger.info("Starting portlets catalog force reindex from %s", rpath)
+    else:
+        logger.info("Starting portlets catalog force reindex for the "
+                    "whole portal")
+    ptltool = getToolByName(portal, 'portal_cpsportlets_catalog')
+    ptltool.forceRecatalog(folder=portal.unrestrictedTraverse(rpath))
+    logger.info("Portlet catalog reindex done")
+
 def job(portal, args, options):
     """CPS job bootstrap"""
 
@@ -123,20 +135,27 @@ def job(portal, args, options):
             resync_trees(portal)
         if options.ptl_catalog:
             resync_portlets_catalog(portal)
-
+        force_rpath = options.portlets_catalog_force_from
+        if force_rpath is not None:
+            resync_portlets_catalog_force(portal, force_rpath)
 
 # invocation through zopectl run
 if __name__ == '__main__':
     optparser = cpsjob.optparser
     optparser.add_option('-a', '--all', dest='all',
                          action='store_true',
-                         help="Reindex everything")
+                         help="Do all reindexings that don't qualify as 'force'")
     optparser.add_option('-c', '--catalog', dest='catalog',
                          action='store_true',
                          help="Catalog full reindexation")
     optparser.add_option('-p', '--portlets-catalog', dest='ptl_catalog',
                          action='store_true',
                          help="Portlets Catalog reindexation")
+    optparser.add_option('--portlets-catalog-force-from',
+                         metavar="RPATH",
+                         help="Force portlets reindexing from folder at given "
+                         "relative path (may be reallylong). Use an empty "
+                         "value to mean the whole portal ")
     optparser.add_option('-t', '--trees', dest='trees', action='store_true',
                          help="Rebuild of tree caches")
 

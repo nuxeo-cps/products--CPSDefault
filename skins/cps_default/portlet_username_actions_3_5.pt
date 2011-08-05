@@ -1,0 +1,39 @@
+<tal:block define="categories python:['user', 'global'];
+                   actions_order python:['preferences', 'configPortal', 'configThemes', 'manage_vocabularies', 'directories', 'logout']; 
+                   show_icons python:1;
+                   show_icons python: int(show_icons);
+                   show_user python:True;
+                   actionitems python: here.getActionsItems(here, categories, actions_order);
+                   mtool here/portal_membership;
+                   anon mtool/isAnonymousUser;
+                   base_url python: request.get('cpsskins_base_url')"
+  condition="actionitems">
+  
+    <ul class="userMenuList">
+      <li>
+        <a tal:condition="anon" href="login_form" class="userButton">Connexion</a>
+        <tal:block condition="not: anon">
+          <a
+            tal:define="user python: mtool.getAuthenticatedMember().getId();
+                    user_name python:mtool.getFullnameFromId(user);"
+             href="#" class="userButton" tal:content="user_name"/>
+  
+   <ul id="userServicesForm:userMenuActionsTable"
+        tal:condition="actionitems">
+      <li tal:repeat="action actionitems"><a
+       tal:define="icon_tag action/icon_tag"
+       tal:attributes="href action/url;
+                       class python:show_icons and icon_tag and 'noicon' or None">
+         <tal:block condition="python:show_icons and icon_tag"
+           content="structure icon_tag"/>
+         <tal:block condition="python:show_icons and not icon_tag">
+           <img tal:attributes="src
+             string:${base_url}cpsskins_images/noicon_16.png;
+             alt action/title" />
+         </tal:block>
+         <tal:block i18n:translate="" content="action/title" />
+       </a></li>
+  </ul>
+ </tal:block>
+</li></ul>
+</tal:block>

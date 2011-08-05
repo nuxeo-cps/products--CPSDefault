@@ -24,6 +24,10 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+img {
+  vertical-align: middle;
+  }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -35,7 +39,6 @@ body {
 }
 
 ol, ul {
-  list-style: none;
 }
 
 blockquote, q {
@@ -65,7 +68,49 @@ body a:hover {
   }
 
 h1 {
-  margin:0.5em 0 0 0;
+  font-size: 166%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+h2 {
+  font-size: 133%;
+  margin-bottom: 1em;
+}
+h3 {
+  font-size: 122%;
+}
+h4 {
+  font-size: 115%;
+}
+h5 {
+  font-size: 107%;
+}
+h6 {
+  font-size: 100%;
+}
+
+input {
+  font-size: 100%;
+  background-color: white;
+  vertical-align: middle;
+  border: 1px inset #757575;
+  margin-bottom: 1px; /* IE bug fix */
+  padding: 0.1em;
+}
+
+select {
+  font-size: 100%;
+  vertical-align: top;
+}
+
+textarea {
+  background-color: white;
+  border: 1px inset #757575;
+  padding: 0.1em;
+}
+
+textarea.resizable, textarea.mceEditor {
+  width: 99% !important;
 }
 
 /* Liquid 2 columns layout */
@@ -75,9 +120,9 @@ body {
   padding:0;
   border:0; /* This removes the border around the viewport in old versions of IE */
   width:100%;
-  background-color:#cccccc;
+  background-color:#f5f6f7;
   min-width:600px; /* Minimum width of layout - remove line if not required - The min-width property does not work in old versions of Internet Explorer */
-  font:normal 11px 'Lucida Grande', 'Verdana', Arial, sans-serif;
+  font:normal 12px 'Lucida Grande', 'Verdana', Arial, sans-serif;
 }
 
 /* Header styles */
@@ -179,7 +224,7 @@ background-image: -moz-linear-gradient(
 #main-tabs ul li a {
   display:inline-block;
   padding: 0.35em 0.5em;
-  margin-left: 0.35em;  
+  margin-left: 0.15em;  
   border:1px solid transparent;
   border-bottom-color: black;
   background-color:#514e42;
@@ -317,14 +362,28 @@ background-image: -moz-linear-gradient(
   border-radius: 0 0 0.5em 0.5em;
 }
 
+.box .content ul {
+  padding-left: 1em;
+  margin-left:1em;
+  margin-bottom: 0.35em;
+}
+
+.box .content #portlet_actions_user2 ul {
+  list-style-type: none;
+  margin-left:0;
+  padding-left:0.35em;
+}
+
 /* Footer styles */
 #footer {
+  background-color: #f5f6f7;
 	clear:both;
 	float:left;
 	width:100%;
-	text-align: center;
 	font-size: 9px;
 	position:relative;
+	padding-top:1em;
+	padding-left:27%;
 }
 
 #footer p {
@@ -334,6 +393,16 @@ background-image: -moz-linear-gradient(
   padding: 1em;
   padding-right: 0em;
 }
+
+.conformanceStatement li {
+  display: inline;
+}
+
+.conformanceStatement img {
+  margin: 1em;
+  margin-left: 0;
+}
+
 
 /* liquid 2 columns layout ends */
 
@@ -378,12 +447,6 @@ body #search-box input.searchButton {
   position: relative; 
   display: block;
   float: left;
-}
-
-#breadcrumb ul.breadcrumbs li.first {
-/* Remove former styles */
-  padding: 0;
-  background: none;
 }
 
 #breadcrumb li a:after { 
@@ -488,7 +551,7 @@ body #search-box input.searchButton {
   
 #actionslot ul li a {
   display: inline-block;
-  padding: 0.35em;
+  padding: 0.15em;
 }  
 
 /* Byline */
@@ -498,19 +561,33 @@ body #search-box input.searchButton {
 
 /* Buttons */
 
-body input.context, body input.destructive {
+
+input.context, input.destructive, input.standalone, button.standalone {
   -moz-border-radius: 0.5em;
   border-radius: 0.5em;
   -webkit-border-radius: 0.5em;
   border:1px solid transparent;
   padding: 0.2em 0.5em;
   background-color: #f1f2f3;
-  background-image: none;
  }
- 
-body input.context:hover,  body input.destructive:hover {
-  background-image: none;
+
+input.standalone, button.standalone {
   background-color: #ddeeff;
+  font-size: 112%;
+}
+ 
+input.context:hover, input.destructive:hover, input.standalone:hover, button.standalone:hover {
+  background-color: #ddeeff;
+  cursor:pointer;
+}
+
+input.standalone:hover, button.standalone:hover {
+  background-color: #1cbffd;
+  color:white;
+ }
+
+input.destructive:hover {
+  background-color: #ffc9d6;
 }
 
 /* Buttons for content actions */
@@ -522,11 +599,12 @@ table.folderButtons td {
 /* Content table */
 
 #folder_content {
+  margin:0.5em 0;
   border-collapse: collapse;
 }
 
 #folder_content td, #folder_content thead th {
-  padding: 0.5em;
+  padding: 0.25em;
 }
 
 #folder_content thead a, #folder_content thead a:link, #folder_content thead a:visited, #folder_content thead a:hover {
@@ -552,3 +630,51 @@ body div.message {
   border-color: #3975b3;
   display:inline-block;
 }
+
+/* Add content */
+
+.group {
+  margin:0.5em 0;
+}
+
+dt {
+  font-weight: bold;
+  padding-left: 1em;
+}
+
+dd {
+  margin: 0;
+  padding: 0.3em 0 0 2em;
+}
+
+.group dd {
+  padding-top:0;
+  padding-left: 2.75em;
+  margin-bottom: 0.5em;
+}
+
+#more_block {
+  font-weight: bold;
+  margin: 1em 1em 1em 1.25em;
+}
+
+div.field {
+  padding: 0;
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+ul.cpsDirectories {
+  margin-top: 1em;
+  padding-left: 0;
+}
+
+ul.cpsDirectories li {
+  font-weight: bold;
+  margin-top: 0.5em;
+  list-style-type: none;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+}
+

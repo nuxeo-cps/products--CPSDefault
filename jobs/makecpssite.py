@@ -26,8 +26,10 @@ import sys
 
 import transaction
 from AccessControl.SecurityManagement import newSecurityManager
+from Products.GenericSetup.utils import _resolveDottedName
 from Products.CPSUtil import cpsjob
 from Products.CPSDefault.factory import CPSSiteConfigurator
+from Products.CPSDefault.metafactory import CPSSiteMetaConfigurator
 
 class JobCPSSiteConfigurator(CPSSiteConfigurator):
     """Subclassing to make a few things optional."""
@@ -66,6 +68,14 @@ def main(app):
     optparser.add_option('-e', '--manager-email', dest='manager_email',
                          default='',
                          help="Email of the manager to create")
+    optparser.add_option('-c', '--configurator',
+                         help="Site configurator to use. Examples : "
+                         "Products.CpsDemoPortal.factory.SiteConfigurator"
+                         "Products.CPSDefault.factory.CPSSiteConfigurator"
+                         "Products.CPSCourrier.factory.CPSSiteConfigurator")
+    optparser.add_option('--meta-profiles',
+                         help="Meta profiles to apply in case of "
+                         "meta profiles based configurator (comma separated)")
 
     options, args = optparser.parse_args()
     portal_id = args[0]
@@ -74,9 +84,34 @@ def main(app):
     login(app, kw.pop('user_id'))
     app = cpsjob.makerequest(app)
 
-    configurator = JobCPSSiteConfigurator()
-    configurator.addConfiguredSite(app, portal_id, 'CPSDefault:default',
-                                   **options.__dict__)
+    if options.configurator:
+        configurator = _resolveDottedName(options.configurator)()
+    else:
+        configurator = JobCPSSiteConfigurator()
+
+    if isinstance(configurator, CPSSiteMetaConfigurator):
+        if not options.meta_profiles:
+            options.requested_metas = [configurator.metas_order[0]]
+        else:
+            options.requested_metas = [
+                m.strip() for m in options.meta_profiles.split(',')]
+        kw = options.__dict__.copy()
+        for k in ('configurator',):
+            kw.pop(k, None)
+
+        configurator.addConfiguredSite(app, portal_id, **kw)
+        if options.manager_id:
+            configurator.createAdministrator(options.manager_id,
+                                             options.password,
+                                             options.manager_email, '', '')
+
+
+    elif isinstance(configurator, CPSSiteConfigurator):
+        configurator.addConfiguredSite(app, portal_id, 'CPSDefault:default',
+                                       **options.__dict__)
+    else:
+        raise ValueError("Unknown configurator type")
+
     # XXX lame, should be in the configurator, and in metafactory, too
     # no time to check all that
     container = app[portal_id]['.cps_themes']

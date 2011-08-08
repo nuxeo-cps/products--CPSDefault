@@ -46,6 +46,9 @@ def replay(portal, steps=(), excluded_steps=()):
         log.append(conf.meta_profiles[m_id].get('title', m_id))
     if steps:
         log.append('   run limited to these import steps: ' + ', '.join(steps))
+    if excluded_steps:
+        log.append('   run excluding these import steps: ' + \
+                       ', '.join(excluded_steps))
     log.extend(['\n\n', 'User input parameters where kept as:', ''])
     params = conf.paramsSnapshot(m_ids)
     undisclosed = conf.getUndisclosedParams()
@@ -65,8 +68,13 @@ def run(portal, arguments, options):
     excluded_steps = options.excluded_steps
     if steps:
         steps = tuple(x.strip() for x in steps.split(','))
+    else:
+        steps = ()
+
     if excluded_steps:
         excluded_steps = tuple(x.strip() for x in excluded_steps.split(','))
+    else:
+        excluded_steps = ()
 
     log = replay(portal, steps=steps, excluded_steps=excluded_steps)
     sys.stderr.writelines(log)

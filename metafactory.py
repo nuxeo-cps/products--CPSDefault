@@ -149,7 +149,7 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
                                 d['module'], d['function'])
           self.site._setObject(d['id'], meth)
 
-     def _importMetaProfile(self, m_profile, steps=()):
+     def _importMetaProfile(self, m_profile, steps=(), excluded_steps=()):
           """ Import a single meta profile. """
 
           setup_tool = getattr(self, 'setup_tool', None)
@@ -159,10 +159,11 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
             logger.info("Pointing to profile %r", extension_id)
             setup_tool.setImportContext('profile-%s' % extension_id)
             if not steps:
-                 setup_tool.runAllImportSteps()
+                 setup_tool.runAllImportSteps(excluded_steps=excluded_steps)
             else:
                  for step in steps:
-                      setup_tool.runImportStep(step)
+                      if step not in excluded_steps:
+                           setup_tool.runImportStep(step)
 
      def _applyParameters(self, prefix, params, **kw):
           """Apply user input parameters to site.
@@ -267,7 +268,8 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           # no need for this one to be user managed ever -> simple attr
           self.site.configurator=self_dotted_name
 
-     def replayMetaProfiles(self, steps=(), with_hooks=False):
+     def replayMetaProfiles(self, steps=(), excluded_steps=(),
+                            with_hooks=False):
          """ Replay meta profiles but saves parameters.
 
          If limited to some import steps, no hooks will be applied
@@ -285,11 +287,13 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
 
          logger.info("Pointing to base profile %r", self.base_profile)
          if full:
-              tool.reinstallProfile('profile-%s' % self.base_profile)
+              tool.reinstallProfile('profile-%s' % self.base_profile,
+                                    excluded_steps=excluded_steps)
          else:
               tool.setImportContext('profile-%s' % self.base_profile)
               for step in steps:
-                   tool.runImportStep(step, purge_old=True)
+                   if step not in excluded_steps:
+                        tool.runImportStep(step, purge_old=True)
 
          for m_id in m_ids:
              m_profile = self.meta_profiles[m_id]
@@ -298,7 +302,8 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
              if with_hooks and before is not None:
                  before(self.site, **snapshot)
 
-             self._importMetaProfile(m_profile, steps=steps)
+             self._importMetaProfile(m_profile, steps=steps,
+                                     excluded_steps=excluded_steps)
              self._applyParameters(m_id, m_profile.get('parameters', ()),
                                    **snapshot)
 

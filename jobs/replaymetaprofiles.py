@@ -31,13 +31,13 @@ from Products.GenericSetup.utils import _resolveDottedName
 
 logger = logging.getLogger('CPSDefault.jobs.replaymetaprofiles')
 
-def replay(portal, steps=()):
+def replay(portal, steps=(), excluded_steps=()):
     if not _checkPermission(ManagePortal, portal):
         raise Unauthorized
 
     SiteConfigurator = _resolveDottedName(portal.configurator)
     conf = SiteConfigurator(site=portal)
-    conf.replayMetaProfiles(steps=steps)
+    conf.replayMetaProfiles(steps=steps, excluded_steps=excluded_steps)
 
     # user feedback
     m_ids = portal.meta_profiles # always what has just been done
@@ -62,10 +62,13 @@ def run(portal, arguments, options):
     if arguments:
         raise ValueError("This CPS job accepts no arguments")
     steps = options.steps
+    excluded_steps = options.excluded_steps
     if steps:
         steps = tuple(x.strip() for x in steps.split(','))
+    if excluded_steps:
+        excluded_steps = tuple(x.strip() for x in excluded_steps.split(','))
 
-    log = replay(portal, steps=steps)
+    log = replay(portal, steps=steps, excluded_steps=excluded_steps)
     sys.stderr.writelines(log)
 
 # invocation through zopectl run
@@ -75,6 +78,10 @@ if __name__ == '__main__':
         '-s', '--steps',
         help="Comma-separated list of import steps to apply. "
         "(default to all)")
+    cpsjob.optparser.add_option(
+        '-e', '--excluded-steps',
+        help="Comma-separated list of import steps to exclude. "
+        "(default to none at all)")
 
     cpsjob.run(app, run)
 

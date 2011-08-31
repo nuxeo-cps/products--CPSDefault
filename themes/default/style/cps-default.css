@@ -829,14 +829,55 @@ div.user_roles {
 
 form table.localRolesAssignment {
   width:99%;
+  border-width: 0px;
+  margin:0.5em 0;
 }
 
-tr#localRolesAssignmentUsers th, tr#localRolesAssignmentGroups th {
-    border: none;
+.localRolesAssignment tr#localRolesAssignmentUsers th, .localRolesAssignment tr#localRolesAssignmentGroups th {
+    border-width: 0 1px;
+    border-color: #ccc;
+    border-style: solid;
     text-align: left;
 }
 
-form table.localRolesAssignment td {
+form table.localRolesAssignment th, form table.localRolesAssignment td {
   padding:0.5em;
   border:1px solid #ccc;
+  border-color:#999 #ccc;
 }
+
+table.localRolesAssignment thead th {
+  background-color:#514e42;
+  border-color: #514e42;
+  color:white;
+}
+
+table.localRolesAssignment tbody th {
+  background-color: rgba(232,227,233,1);
+}
+
+form table.localRolesAssignment td.inheritedRole, span.inheritedRole {
+ background-color: rgba(253,204,61,0.8);
+}
+
+form table.localRolesAssignment td.inheritedBlockedRole, span.inheritedBlockedRole {
+  background-color: #ff6969;
+}
+
+.user_roles span.inheritedBlockedRole, .user_roles span.inheritedRole {
+  padding:0.2em 0.5em;
+}
+
+.localroles_filter {
+  margin:0.5em 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.localroles_legend {
+  margin:1.5em 0;
+  padding-left:1em;
+  border-left: 0.4em solid #f1f2f3;
+  font-size: 80%;
+}
+

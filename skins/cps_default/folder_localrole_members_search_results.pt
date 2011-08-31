@@ -6,26 +6,26 @@
   </tal:block>
 
   <tal:block condition="found">
-    <table summary="result list" width="100%">
+    <table summary="result list" width="100%" id="folder_content" class="contentListing">
+     <thead>
      <tr>
-      <th><br /></th>
-      <th i18n:translate="label_user" width="30%"
-        class="header_roles">
+      <th></th>
+      <th i18n:translate="label_user" width="30%">
           User
       </th>
-      <th i18n:translate="label_email"
-        class="header_roles">
+      <th i18n:translate="label_email">
           Email address
       </th>
      </tr>
-
+     </thead>
+     <tbody id="folder_content_tbody">
      <tal:block define="checked python:len(found) is 1 and '1' or None"
 		repeat="member found">
      <tr tal:attributes="class python:test(repeat['member'].even(),'even','odd')">
        <tal:block define="id python:member[0];
                           entry python:member[1];
                           input_id python:id.replace('@', '_at_')">
-         <td>
+         <td class="icon_column">
            <input type="checkbox" name="member_ids:list" value=""
              class="noborder" tal:attributes="value string:user:${id};
                                               id input_id;
@@ -43,6 +43,7 @@
        </tal:block>
      </tr>
      </tal:block>
+    </tbody>
     </table>
   </tal:block>
 </metal:block>

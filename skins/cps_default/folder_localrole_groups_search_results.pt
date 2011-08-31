@@ -6,16 +6,18 @@
   </tal:block>
 
   <tal:block condition="found">
-    <table width="100%" summary="group listing">
+    <table width="100%" summary="group listing" id="folder_content">
+     <thead>
      <tr>
       <th><br /></th>
       <th style="text-align:left;" class="header_roles">
           <tal:block i18n:translate="label_group">Group</tal:block>
       </th>
      </tr>
-
+     </thead>
+     <tbody id="folder_content_tbody">
      <tal:block define="checked python:len(found) is 1 and '1' or None"
-		repeat="group found">
+	 repeat="group found">
      <tr tal:define="input_id python:group.replace('@', '_at_')"
          tal:attributes="class python:test(repeat['group'].even(),'even','odd')">
        <td>
@@ -31,6 +33,7 @@
        </td>
      </tr>
      </tal:block>
+     </tbody>
     </table>
   </tal:block>
 </metal:block>

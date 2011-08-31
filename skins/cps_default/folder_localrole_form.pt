@@ -29,19 +29,16 @@
 </h1>
 
 <tal:block i18n:translate="help_access_rights_management">
-<p>
+<p class="localroles_legend">
 In this form you can search for users and groups and assign them local access rights,
-also referred to as <q>local roles</q>.
-</p>
-<p>
-To select groups, you have to select the <cite>Group name</cite> search.
+also referred to as <q>local roles</q>. To select groups, you have to select the <cite>Group name</cite> search.
 Note that there are special groups <cite>All users</cite> and <cite>Authenticated users</cite>
 that can be reached by doing an empty search.
 </p>
 </tal:block>
 
 
-<div class="user_roles">
+<div class="localroles_search">
 <form method="post" action="folder_localrole_form"
       accept-charset="utf-8"
       tal:attributes="action string:${here_url}/folder_localrole_form">
@@ -100,7 +97,7 @@ that can be reached by doing an empty search.
       Sorry, your query gave too many results, please refine your search criteria
     </p>
   </div>
-  <div tal:condition="python:found and not search_limit_exceeded" class="user_roles">
+  <div tal:condition="python:found and not search_limit_exceeded">
     <p i18n:translate="legend_local_roles_select_members_and_role"
        tal:condition="search_members">
        Select member(s) and a role to assign:
@@ -118,8 +115,7 @@ that can be reached by doing an empty search.
         <metal:block use-macro="here/folder_localrole_groups_search_results/macros/search_results" />
       </tal:block>
 
-      <div tal:condition="cps_roles"
-        class="assign_roles">
+      <div tal:condition="cps_roles" class="localroles_search">
         <label for="member_role"
                i18n:translate="legend_local_roles_role_to_assign">
           Role to assign:

@@ -24,7 +24,7 @@ Macro needs
     Assigned local roles
 </h2>
 
-<div class="group" tal:condition="has_local_roles_blocking_support">
+<div class="localroles_search" tal:condition="has_local_roles_blocking_support">
   <form method="post" action="folder_localrole_block"
         tal:attributes="action localrole_block_url|string:${here_url}/folder_localrole_block">
     <div tal:condition="local_roles_blocked">
@@ -77,7 +77,7 @@ Macro needs
 <form method="post" action="folder_localrole_form"
       tal:attributes="action localrole_form_url|string:${here_url}/folder_localrole_form"
       tal:condition="python:len(cps_roles)>1">
-  <div>
+  <div class="localroles_filter">
   <label for="filtered_role"
          i18n:translate="legend_local_roles_filter_roles">
     Filter local roles:
@@ -161,7 +161,7 @@ Macro needs
     </tbody>
     </table>
 
-    <p>
+    <p class="buttons">
       <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_parameters"/>
       <input type="submit" value="button_apply"
         name="edit_local_roles"
@@ -173,7 +173,7 @@ Macro needs
   </form>
 </tal:block>
 
-<p tal:condition="not:local_roles_blocked">
+<p tal:condition="not:local_roles_blocked" class="localroles_legend">
   <span class="inheritedRole"
     i18n:translate="label_inherited_role">
     Inherited role
@@ -183,7 +183,8 @@ Macro needs
     folders. Follow the links to manage the local roles in these folders.
   </tal:block>
 </p>
-<p tal:condition="python:local_roles_blocked and show_blocked_roles">
+<p tal:condition="python:local_roles_blocked and show_blocked_roles"
+   class="localroles_legend">
   <span class="inheritedBlockedRole"
     i18n:translate="label_inherited_blocked_role">
     Inherited blocked role

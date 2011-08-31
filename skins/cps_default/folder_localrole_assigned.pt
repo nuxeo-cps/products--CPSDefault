@@ -161,14 +161,11 @@ Macro needs
     </tbody>
     </table>
 
-    <p>
+    <p class="buttons">
       <metal:block use-macro="here/folder_localrole_assigned/macros/hidden_parameters"/>
       <input type="submit" value="button_apply"
         name="edit_local_roles"
         i18n:attributes="value" class="context" />
-      <input type="submit" value="button_delete"
-        name="delete_local_roles"
-        i18n:attributes="value" class="destructive" />
     </p>
   </form>
 </tal:block>
@@ -222,16 +219,9 @@ Assignment table needs:
       <tr tal:attributes="class python:test(repeat['member_id'].even(), 'even', 'odd')"
         tal:define="input_id python:member_id.replace('@', '_at_');
                     here_roles member_info/here_roles;">
-        <td>
-          <input type="checkbox" name="delete_ids:list"
-                 tal:condition="has_local_roles"
-                 tal:attributes="value member_id;
-                                 id input_id;
-                                " />
-          <input type="hidden" name="edit_ids:list"
-                 tal:attributes="value member_id" />
-        </td>
         <td tal:define="title_i18n python:member_id.startswith('group:role:')">
+         <input type="hidden" name="edit_ids:list"
+                 tal:attributes="value member_id" />
           <label
 	      tal:condition="title_i18n"
 	      tal:content="member_info/title"

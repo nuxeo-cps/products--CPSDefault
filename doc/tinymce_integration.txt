@@ -30,8 +30,8 @@ Steps to build:
 2. Install the needed files in the `skins` directory::
 
   $ cd Products/CPSDefault/skins
-  $ unzip tinymce_XXX.zip
   $ rm -rf tiny_mce
+  $ unzip tinymce_XXX.zip
   $ mv tinymce/jscripts/tiny_mce .
   $ rm -rf tinymce
 
@@ -39,13 +39,28 @@ Steps to build:
 
   For example::
 
-    $ find -name '*.htm' -exec mv {} {}.pt \;
+    $ cd tiny_mce
+    $ find -name '*.htm*' -exec mv {} {}.pt \;
 
 4. Then download and install some language packs (at least en, es, fr).
-   If a language pack, for your currently selected language on the portal, is
-   missing then the TinyMCE editor won't appear. So if you have any problem with
-   the TinyMCE not appearing, the first thing to do is to try to access your CPS
-   portal in English.
+
+   The language pack files can be tedious to install if they are shipped in a
+   tinymce_language_pack directory inside the tinymce_language_pack.zip archive.
+   An easy solution to not have to do the merge of directories manually is to
+   to another ZIP archive with no root container and then the `unzip` command
+   will to do the merge job alone. Here is how to procede::
+
+    $ cd /tmp
+    $ unzip tinymce_language_pack.zip
+    $ cd tinymce_language_pack
+    $ zip -r tinymce_language_pack_ready_for_merge.zip *
+    $ cd Products/CPSDefault/skins/tiny_mce
+    $ unzip /tmp/tinymce_language_pack_ready_for_merge.zip
+
+   Note : If a language pack, for your currently selected language on the
+   portal, is missing then the TinyMCE editor won't appear. So if you have any
+   problem with the TinyMCE not appearing, the first thing to do is to try to
+   access your CPS portal in English.
 
 
 

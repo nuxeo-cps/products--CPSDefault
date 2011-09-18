@@ -6,6 +6,42 @@
  <property name="style_prefix">layout_default_</property>
  <property name="flexible_widgets"/>
  <property name="validate_values_expr"></property>
+
+ <widget name="Title" meta_type="Heading Widget">
+  <property name="fields">
+   <element value="Title"/>
+  </property>
+  <property name="is_required">True</property>
+  <property name="label_edit">cpsdoc_title_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes"/>
+  <property name="hidden_readonly_layout_modes"/>
+  <property name="size_max">200</property>
+ </widget>
+ <widget name="Description" meta_type="Text Widget">
+  <property name="fields">
+   <element value="Description"/>
+  </property>
+  <property name="label_edit">cpsdoc_description_label_edit</property>
+  <property name="is_i18n">True</property>
+  <property name="css_class">ddescription</property>
+  <property name="width">72</property>
+ </widget>
+ <widget name="Byline" meta_type="Byline Widget">
+  <property name="fields"/>
+  <property name="is_required">False</property>
+  <property name="is_i18n">False</property>
+  <property name="css_class">byline</property>
+  <property name="display_effective_date">True</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="edit"/>
+   <element value="create"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+ </widget>
+
  <widget name="content" meta_type="Text Widget">
   <property name="fields">
    <element value="content"/>
@@ -43,15 +79,26 @@
  <widget name="textimage" meta_type="Text Image Widget">
   <property name="title">cpsdoc_flex_textimage_title</property>
   <property name="widget_ids">
-   <element value="photo"/>
    <element value="content"/>
+   <element value="photo"/>
   </property>
   <property name="label_edit">cpsdoc_flex_textimage_label_edit</property>
   <property name="is_i18n">True</property>
  </widget>
+
  <table>
+  <row>
+   <cell name="Title"/>
+  </row>
+  <row>
+   <cell name="Byline"/>
+  </row>
+  <row>
+   <cell name="Description"/>
+  </row>
   <row>
    <cell name="textimage"/>
   </row>
  </table>
+
 </object>

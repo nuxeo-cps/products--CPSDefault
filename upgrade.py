@@ -1151,3 +1151,7 @@ def upgrade_unicode(portal):
     logger.info("Starting portal upgrade")
     portal.default_charset = 'unicode'
     logger.info("Finished portal upgrade")
+
+def upgrade_portal_properties(portal):
+    from Products.CPSUtil.property import sync_prop_defs
+    sync_prop_defs(portal)

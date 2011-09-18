@@ -46,7 +46,7 @@ class CPSDefaultSite(CPSSite):
     _properties = CPSSite._properties + (
         {'id': 'email_from_address', 'type': 'string',
          'label': "Portal email From address", 'mode': 'w'},
-        {'id': 'email_from_name', 'type': 'string',
+        {'id': 'email_from_name', 'type': 'ustring',
          'label': "Portal email From name", 'mode': 'w'},
         {'id': 'use_catalog_for_folder_contents', 'type': 'boolean',
          'label': "Use catalog for folder navigation", 'mode': 'w'},

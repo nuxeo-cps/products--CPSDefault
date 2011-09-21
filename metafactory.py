@@ -368,8 +368,10 @@ class FakeSetupTool(CPSSetupTool):
      def setImportContext(self, context_str):
           print "Pointing at %s" % context_str[len("profile-"):]
 
-     def runAllImportSteps(self, purge_old=False):
+     def runAllImportSteps(self, purge_old=False, excluded_steps=()):
          self.witness = 0
+         if excluded_steps:
+              print 'Excluded steps: %r' % excluded_steps
          print purge_old and "Purged and imported" or "Imported"
 
      def reinstallProfile(self, context_id, **kw):

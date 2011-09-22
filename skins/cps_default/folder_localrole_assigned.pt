@@ -130,8 +130,7 @@ Macro needs
       </th>
     </tr>
     </thead>
-    <tbody>
-    <tal:block condition="users">
+    <tbody tal:condition="users">
       <tr id="localRolesAssignmentUsers">
       <th colspan="0"
           i18n:translate="label_users_local_roles_assignment">
@@ -142,10 +141,8 @@ Macro needs
                          members users;">
         <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table_body"/>
       </tal:block>
-    </tal:block>
     </tbody>
-    <tbody>
-    <tal:block condition="groups">
+    <tbody tal:condition="groups">
       <tr id="localRolesAssignmentGroups">
       <th colspan="0"
           i18n:translate="label_groups_local_roles_assignment">
@@ -156,7 +153,6 @@ Macro needs
                          members groups;">
         <metal:block use-macro="here/folder_localrole_assigned/macros/assignment_table_body"/>
       </tal:block>
-    </tal:block>
     </tbody>
     </table>
 

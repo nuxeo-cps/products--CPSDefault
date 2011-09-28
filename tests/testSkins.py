@@ -1,11 +1,10 @@
-# -*- coding: iso-8859-15 -*-
-
 import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 import unittest
 from Products.CMFCore.utils import getToolByName
+from Products.CPSUtil.text import get_final_encoding
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 
 # Testing some skins methods and templates anonymously.
@@ -64,7 +63,8 @@ class TestSkins(CPSTestCase):
 
         # URLs are computed differently and intelligently depending on the
         # specified locale, because meaningless words are removed.
-        id = "Voilà l'été"
+        enc = get_final_encoding(self.portal)
+        id = u"Voil\xe0 l'\xe9t\xe9".encode(enc)
         self.assertEquals(self.portal.computeId(id, lang='fr'), "voila-ete")
         self.assertNotEquals(self.portal.computeId(id, lang='en'), "voila-ete")
 

@@ -30,7 +30,7 @@ from AccessControl import ClassSecurityInfo
 from Products.ExternalMethod.ExternalMethod import ExternalMethod
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFDefault.Portal import PortalGenerator
+#from Products.CMFDefault.Portal import PortalGenerator
 
 from Products.CPSCore.portal import CPSSite
 from interfaces import IVoidResponseHandler
@@ -98,9 +98,9 @@ class CPSDefaultSite(CPSSite):
 
 InitializeClass(CPSDefaultSite)
 
-class CPSPortalGenerator(PortalGenerator):
-    """Set up a CPS Portal."""
-    klass = CPSDefaultSite
+#class CPSPortalGenerator(PortalGenerator):
+#    """Set up a CPS Portal."""
+#    klass = CPSDefaultSite
 
 manage_addCPSDefaultSiteForm = HTMLFile('zmi/manage_addCPSSiteForm', globals())
 

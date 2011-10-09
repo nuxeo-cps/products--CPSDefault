@@ -28,12 +28,10 @@ if REQUEST is not None:
         # creation form.
         args['widget__Title'] = kw.get('title', '')
 
-        # Use the create action specified on the ti
-        create_action_form = ti.getActionById('create', 'cpsdocument_create_form')
-
+        create_form = ti.getActionUrl('create', 'cpsdocument_create_form')
         return REQUEST.RESPONSE.redirect('%s/%s?%s'
-                                         % (context.absolute_url(),
-                                            create_action_form,
+                                         % (context.absolute_url_path(),
+                                            create_form,
                                             urlencode(args)))
 
 # Specific handling for portal_types *not* of the CPSDocument family

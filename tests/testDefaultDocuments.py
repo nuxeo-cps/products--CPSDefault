@@ -27,15 +27,12 @@ from DateTime import DateTime
 from OFS.Image import File
 from AccessControl import Unauthorized
 
-from Products.CMFCore.utils import _getViewFor
 from Products.CMFCore.utils import getToolByName
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 from Products.CPSSchemas.Widget import widgetname
 from Products.CPSUtil.tests.web_conformance import assertWellFormedXml
 from Products.CPSUtil.text import get_final_encoding
-
-from document_definitions import getDocumentSchemas
 
 DOCUMENT_TYPES = ['Chapter', 'News Item', 'File', 'Flash Animation',
                   'Glossary', 'Image', 'Section', 'FAQ', 'Page', 'ZippedHtml', 'Book',
@@ -73,17 +70,21 @@ class TestDocuments(CPSTestCase):
         mtool.setLocalRoles(self.ws, ['wsreader'], 'WorkspaceReader')
 
         self.login('manager')
-        self.document_schemas = getDocumentSchemas()
         # GR This is lame, intended for compat with the sequel
         # that expects the good ol' dict from CPS 3.3's getDocumentTypes
         # which is now otherwise unused
         self.document_types = dict((k,None) for k in DOCUMENT_TYPES)
+        self.document_schemas = self.getDocumentSchemas()
         # getFolderContents check SESSION to get user display choice
         self.portal.REQUEST.SESSION = {}
         self.portal.REQUEST.form = {}
 
     def beforeTearDown(self):
         self.logout()
+
+
+    def getDocumentSchemas(self):
+        raise NotImplementedError
 
     attr_values_1 = {'1 Subject': ['1 New Subject',],
                      '1 Title': '1 New Title',
@@ -141,8 +142,12 @@ class TestDocuments(CPSTestCase):
         self._testMetadataRendering(doc, proxy=proxy)
         self._testEditRendering(doc, proxy=proxy)
         # Normal View
-        view = _getViewFor(proxy)
-        self.assert_(view())
+        # (GR: __call__ should be enough, but still adapting in same style
+        methid = proxy.getTypeInfo().queryMethodId('(Default)', context=proxy)
+        if methid == '(Default)':
+            methid = '__call__'
+
+        self.assert_(getattr(proxy, methid)())
         assertWellFormedXml(doc.exportAsXML(proxy=proxy), "exportAsXML")
 
     # Standard conversion to attributes for special metadata schema.

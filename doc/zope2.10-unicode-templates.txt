@@ -1,0 +1,122 @@
+==========================================
+Unicode and Page Templates under Zope 2.10
+==========================================
+
+The goal of these notes is to understand how to come to a sane system,
+that does encoding/decoding only at the edges, and performs all internal
+treatment on unicode strings.
+
+Zope3 style
+===========
+In case it'd be different. These tests have been made with a
+view/template pair.
+
+Unicode templates
+-----------------
+In these notes, a template that is internally represented as unicode
+is called a "unicode template". For a Zope 3 view template, this boils
+down to having proper namespace declarations (so that parsing as XML
+does not fail). Example::
+
+ <html xmlns:tal="http://xml.zope.org/namespaces/tal"
+
+Such namespaced template are always served by the publisher as
+text/xml, even with a full DTD.
+The browser happens to be able to recognize xhtml namespace and/or DTD. This is
+to be avoided for master templates, if possible.
+
+Adding or removing a namespace to a template requires a Zope restart,
+even with ``debug-mode on``.
+
+Of course what really matters is whether the template is xml valid or
+not. It seems that templates read for the view system are always
+treated as xml if possible, i.e., if valid.
+
+Broken cases
+------------
+
+1. A non unicode template contains non ascii chars and is fed some unicode.
+
+2. A non unicode template is being fed both non ascii chars and unicode.
+
+3. An unicode template is being fed a non ascii char
+
+In all cases the traceback is the same::
+
+  Module zope.pagetemplate.pagetemplate, line 118, in pt_render
+   - Warning: Macro expansion failed
+   - Warning: exceptions.UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 56: ordinal not in range(128)
+
+
+Conclusions
+-----------
+
+All templates must have proper namespaces except those that are meant to be
+directly served with an automatic MIME type other than ``text/xml``.
+
+A non namespaced template must entirely be written in ASCII.
+
+
+Details for non unicode templates
+------------------------------------
+
+The template includes some content like this::
+
+  <p tal:content="python: u'\xe9'" />
+
+If the content is unicode or encoded *with the right codec*, it'll
+work. But it won't if encoded with the wrong codec and there's a bit
+of unicode in the system::
+
+  <p tal:content="python: '\xe9'" />
+  <p tal:content="python: u'\xe9'" />
+
+At the final rendering stage, all we have is a StringIO holding
+fragments. Those from the template are simple strings, even fragments
+that are utf8-encoded in the template source::
+
+  <h1>Cassé</h1>
+
+The presence of a unicode string will force upgrade to unicode of all
+the others. And that will trigger unicode errors.
+
+
+Classic Zope2/CMF style
+=======================
+
+This section is subject to change with the CMF version.
+
+This currently applies to most of CPS intermediate renderings
+(layouts, widgets). It works the same except for the internal storing
+as unicode.
+
+Namespaced templates
+--------------------
+
+The difference with Zope3 views is that the namespace isn't enough to
+trigger internal representation of the template as unicode. One must
+also add the xml header::
+
+ <?xml version="1.0"?>
+
+Which incidentally also allows to specify the encoding for the
+template himself.
+A DTD is usually inappropriate and does not trigger internal
+representation as unicode.
+
+The problem is that the XML header goes through in the final rendering.
+
+Returned value
+--------------
+It is always unicode, even if the template isn't namespaced and has
+only ASCII chars
+
+Conclusion
+----------
+Intermediate page templates relying on the skins system must be
+entirely written in ascii. They can be fed unicode and return unicode.
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

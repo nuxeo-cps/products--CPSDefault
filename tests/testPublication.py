@@ -32,7 +32,7 @@ from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
 from Products.CPSDefault.tests.CPSTestCase import CPSPermWorkflowTestCase
-from Products.CPSDocument.tests.testDefaultDocuments import DOCUMENT_TYPES
+from Products.CPSDefault.tests.testDefaultDocuments import DOCUMENT_TYPES
 
 ANOTHER_SECTION_ID = 'another-section'
 

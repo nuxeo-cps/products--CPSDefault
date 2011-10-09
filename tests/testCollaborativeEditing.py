@@ -28,7 +28,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import View, ModifyPortalContent
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
-from Products.CPSDocument.tests.testDefaultDocuments import DOCUMENT_TYPES
+from Products.CPSDefault.tests.testDefaultDocuments import DOCUMENT_TYPES
 
 WORKSPACE_ID = "test-collaborative-workspace"
 

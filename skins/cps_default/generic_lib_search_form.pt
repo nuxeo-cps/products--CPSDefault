@@ -62,8 +62,8 @@
         <option tal:attributes="selected not:portal_type"
                 value="" i18n:translate="label_all">All</option>
         <option tal:repeat="ret python:here.getSortedContentTypes(allowed=0)"
-                tal:attributes="value ret/getId;
-                                selected python:ret.getId() in portal_type
+                tal:attributes="value ret/id;
+                                selected python:ret['id'] in portal_type
                                   or None"
                 tal:content="ret/Title"
                 i18n:translate=""></option>

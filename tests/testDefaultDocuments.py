@@ -84,7 +84,9 @@ class TestDocuments(CPSTestCase):
 
 
     def getDocumentSchemas(self):
-        raise NotImplementedError
+        stool = getToolByName(self.portal, 'portal_schemas')
+        return dict( (sid, schema)
+                     for sid, schema in stool.objectItems('CPS Schema'))
 
     attr_values_1 = {'1 Subject': ['1 New Subject',],
                      '1 Title': '1 New Title',
@@ -143,7 +145,11 @@ class TestDocuments(CPSTestCase):
         self._testEditRendering(doc, proxy=proxy)
         # Normal View
         # (GR: __call__ should be enough, but still adapting in same style
-        methid = proxy.getTypeInfo().queryMethodId('(Default)', context=proxy)
+        methid = proxy.getTypeInfo().queryMethodID('(Default)', context=proxy)
+        if methid is None:
+            self.fail(
+                "Missing (Default) alias on doc type %r" % doc.portal_type)
+
         if methid == '(Default)':
             methid = '__call__'
 

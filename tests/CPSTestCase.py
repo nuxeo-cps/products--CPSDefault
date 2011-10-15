@@ -282,6 +282,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         SESSION = {}
         self.app.REQUEST['SESSION'] = SESSION
         self.app.REQUEST.SESSION = SESSION
+        self.portal.changeSkin('CPSSkins', self.app.REQUEST)
 
     def printLogErrors(self, min_severity=0):
         """Print out the log output on the console.

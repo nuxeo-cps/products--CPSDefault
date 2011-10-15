@@ -13,6 +13,12 @@ class TestDefaultProfile(CPSTestCase):
 
     def afterSetUp(self):
         self.login('manager')
+
+        # GR getToolByName now does local utilisty lookups,
+        # and localsitemanager does the wrapping. I this test, the setup tool
+        # seems to be wrapped in a different portal,
+        # which makes all security checks fail
+        # this should be really investigated
         self.setup_tool = getToolByName(self.portal, CPSSetupTool.id)
 
     def beforeTearDown(self):

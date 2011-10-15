@@ -3,7 +3,7 @@
  <import-step id="action-icons" version="20051015-01"
               handler="Products.CMFActionIcons.exportimport.importActionIconsTool"
               title="Action Icons">
-  <dependency step="toolset"/>
+  <dependency step="componentregistry"/>
   Import action icon definitions
  </import-step>
  <import-step id="actions" version="20040630-01"
@@ -30,6 +30,12 @@
               title="Content Type Registry">
   <dependency step="toolset"/>
   Import content type registry's predicates and bindings.
+ </import-step>
+ <import-step id="componentregistry" version="20061025-01"
+              handler="Products.GenericSetup.components.importComponentRegistry"
+              title="Local Component Registry">
+  <dependency step="toolset"/>
+  Import local component registry configuration.
  </import-step>
  <import-step id="cookie_authentication"
               version="20050903-01"

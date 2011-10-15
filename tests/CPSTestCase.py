@@ -180,12 +180,6 @@ class CPSDefaultLayerClass(object):
         self.login()
         self.addPortal()
 
-        # XXX: setupCPSSkins is not needed here, right ?
-        #self.setupCPSSkins(portal_id)
-        assert self.portal.portal_themes
-        # the crash shield doesn't help understanding what's wrong in a test
-        self.portal.portal_themes.debug_mode = True
-
         self.addEventRecorder()
         self.logout()
         transaction.commit()

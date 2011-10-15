@@ -23,12 +23,12 @@ from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from Products.CPSSchemas.Widget import widgetRegistry
 from Products.CPSSchemas.Widget import CPSWidget
-from Products.CPSPortlets.CPSPortletWidget import CPSPortletWidget
+from Products.CPSPortlets.widgets.generic import CPSPortletWidget
 
 from Products.CPSCore.interfaces import ICPSProxy
 from Products.CPSDocument.interfaces import ICPSDocument
 
-logger = logging.getLogger('Products.CPSDefault.frontdocportletwidget')
+logger = logging.getLogger(__name__)
 
 class CPSFrontDocumentPortletWidget(CPSPortletWidget):
     """Widget dedicated to rendering of front page documents.

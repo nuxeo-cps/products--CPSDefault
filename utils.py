@@ -1,4 +1,3 @@
-# -*- coding: iso-8859-15 -*-
 # (C) Copyright 2003-2007 Nuxeo SAS <http://nuxeo.com>
 # Authors:
 # M.-A. Darche <madarche@nuxeo.com>
@@ -23,7 +22,8 @@
 """
 
 import re
-from zLOG import LOG, INFO, DEBUG, WARNING
+import logging
+from logging import DEBUG, INFO
 
 from Acquisition import aq_base
 from AccessControl import getSecurityManager
@@ -36,6 +36,7 @@ from Products.CMFCore.permissions import AccessInactivePortalContent
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CPSUtil.timer import Timer
 
+logger = logging.getLogger(__name__)
 
 # BBB (remove this in CPS-3.6)
 from Products.CPSUtil.html import getHtmlBody
@@ -107,13 +108,11 @@ def manageCPSLanguage(context, action, default_language, languages=None):
         psm = 'psm_language_added'
 
     elif action == 'delete':
-        LOG("CPSDefault.utils languages to delete", DEBUG,
-            repr(languages))
-        LOG("CPSDefault.utils languages available", DEBUG,
-            repr(context.Localizer.get_languages_map()))
-        LOG("CPSDefault.utils do we delete all available languages ?", DEBUG,
-            repr(len(languages) == len(context.Localizer.get_languages_map())))
-        if len(languages) == len(context.Localizer.get_languages_map()):
+        current_langs = context.Localizer.get_languages_map()
+        logger.debug("Preparting languages deletion. Current available: %r "
+                     "To delete: %r", languages, current_langs)
+
+        if frozenset(languages).issuperset(frozenset(current_langs)):
             psm = 'psm_language_error_let_at_least_one_language_to_portal'
         else:
             # Make unavailable languages in Localizer
@@ -219,7 +218,7 @@ def filterContents(context, items, sort_on=None, sort_order=None,
     Remove unauthorize or invalid contents, can filter on portal types and
     folderish content.
     """
-    t = Timer('filterContents', level=DEBUG)
+    t = Timer('filterContents', DEBUG)
     wtool = getToolByName(context, 'portal_workflow')
     ttool = getToolByName(context, 'portal_types')
     now = DateTime()
@@ -411,8 +410,8 @@ def reindexFolderContentPositions(container):
     """Reindex when content order is changed."""
     t = Timer('reindexFolderContentPositions', level=INFO)
     if not _checkPermission(ModifyPortalContent, container):
-        LOG('reindexPositions', WARNING,
-            'Unauthorized call on %s' % '/'.join(container.getPhysicalPath()))
+        logger.warn('reindexPositions: Unauthorized call on %s',
+                    '/'.join(container.getPhysicalPath()))
         return
     if not hasattr(aq_base(container), 'getObjectPosition'):
         # no positioning
@@ -443,8 +442,7 @@ def reindexFolderContentPositions(container):
                                     update_metadata=1)
                 reindex_count += 1
             else:
-                LOG('reindexPositions', WARNING,
-                    'invalid catalog entry: %s' % brain.getPath())
+                logger.warn('invalid catalog entry: %r', brain.getPath())
     #t.log('reindex %i objects' % reindex_count)
 
 

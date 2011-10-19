@@ -88,9 +88,13 @@ def manageCPSLanguage(context, action, default_language, languages=None):
     # instead of being stored in the portal itself.
     # TODO: Replace the use of Localizer with TranslationService
     # and store the default language in the poral.
-    catalogs = context.Localizer.objectValues()
-    catalogs.append(context.Localizer)
+    localizer = getToolByName(context, 'Localizer')
+    catalogs = localizer.objectValues()
+    catalogs.append(localizer)
     portal = context.portal_url.getPortalObject()
+
+    def loc_languages():
+        return [l['id'] for l in localizer.get_languages_map()]
 
     if languages is None:
         languages = []
@@ -106,9 +110,10 @@ def manageCPSLanguage(context, action, default_language, languages=None):
             for catalog in catalogs:
                 catalog.manage_addLanguage(lang)
         psm = 'psm_language_added'
+        portal.available_languages = loc_languages()
 
     elif action == 'delete':
-        current_langs = context.Localizer.get_languages_map()
+        current_langs = localizer.get_languages_map()
         logger.debug("Preparting languages deletion. Current available: %r "
                      "To delete: %r", languages, current_langs)
 
@@ -119,6 +124,7 @@ def manageCPSLanguage(context, action, default_language, languages=None):
             for catalog in catalogs:
                 catalog.manage_delLanguages(languages)
             psm = 'psm_language_deleted'
+        portal.available_languages = loc_languages()
 
     elif action == 'chooseDefault':
         for catalog in catalogs:

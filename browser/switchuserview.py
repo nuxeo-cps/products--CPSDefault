@@ -60,14 +60,14 @@ class SwitchUserView(BrowserView):
                 self.getAclu().requestUserSwitch(su_name, resp=resp,
                                                  portal=self.context)
             except KeyError:
-                psm = 'notfound'
+                psm = 'user_not_found_error'
             except ValueError, e:
                 if str(e) == 'Switcher':
-                    psm = 'switcher'
+                    psm = 'switch_user_error'
                 else:
                     raise
             else:
-                psm = 'switched'
+                psm = 'switch_user_worked'
                 url = context_path # move from switch page
         args = make_query(portal_status_message=psm)
         resp.redirect('?'.join((url, args)))

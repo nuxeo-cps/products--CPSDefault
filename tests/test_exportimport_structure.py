@@ -50,8 +50,8 @@ class TestImportStructure(CPSTestCase):
 
     def test_import_structure(self):
         stool = self.portal.portal_setup
-        stool.setImportContext('profile-CPSDefault:tests_exportimport')
-        stool.runImportStep('structure')
+        stool.runImportStepFromProfile('profile-CPSDefault:tests_exportimport',
+                                       'structure')
 
         # first level
         sections = self.portal.sections

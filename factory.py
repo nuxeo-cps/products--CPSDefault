@@ -143,15 +143,15 @@ class CPSSiteConfigurator(object):
 
     def importProfiles(self, profile_id, extension_ids=()):
         setup_tool = self.setup_tool
-        setup_tool.setImportContext('profile-%s' % profile_id)
-        setup_tool.runAllImportSteps()
-        # Import mandatory extensions first
+        baseline_context = 'profile-%s' % profile_id
+        setup_tool.setBaselineContext(baseline_context)
+        setup_tool.runAllImportStepsFromProfile(baseline_context)
+
+        # Extensions; add and import mandatory ones first
         extension_ids = tuple([id for id in extension_ids
                                if id not in self.mandatory_extensions])
         for extension_id in self.mandatory_extensions + extension_ids:
-            setup_tool.setImportContext('profile-%s' % extension_id)
-            setup_tool.runAllImportSteps()
-        setup_tool.setImportContext('profile-%s' % profile_id)
+            setup_tool.runAllImportStepsFromProfile('profile-%s' % extension_id)
 
     def afterImport(self, **kw):
         self.setDefaultUpgradedVersion()

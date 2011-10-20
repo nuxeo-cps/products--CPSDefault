@@ -155,15 +155,17 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
           setup_tool = getattr(self, 'setup_tool', None)
           if setup_tool is None:
               setup_tool = self.site.portal_setup
+
           for extension_id in m_profile['extensions']:
-            logger.info("Pointing to profile %r", extension_id)
-            setup_tool.setImportContext('profile-%s' % extension_id)
+            logger.info("Pointing to extension profile %r", extension_id)
+            context = 'profile-%s' % extension_id
             if not steps:
-                 setup_tool.runAllImportSteps(excluded_steps=excluded_steps)
+                 setup_tool.runAllImportStepsFromProfile(
+                      context, excluded_steps=excluded_steps)
             else:
                  for step in steps:
                       if step not in excluded_steps:
-                           setup_tool.runImportStep(step)
+                           setup_tool.runImportStepFromProfile(context, step)
 
      def _applyParameters(self, prefix, params, **kw):
           """Apply user input parameters to site.
@@ -290,10 +292,11 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
               tool.reinstallProfile('profile-%s' % self.base_profile,
                                     excluded_steps=excluded_steps)
          else:
-              tool.setImportContext('profile-%s' % self.base_profile)
+              context = 'profile-%s' % self.base_profile
               for step in steps:
                    if step not in excluded_steps:
-                        tool.runImportStep(step, purge_old=True)
+                        tool.runImportStepFromProfile(context, step,
+                                                      purge_old=True)
 
          for m_id in m_ids:
              m_profile = self.meta_profiles[m_id]
@@ -350,36 +353,51 @@ class FakeSetupTool(CPSSetupTool):
      """For tests and examples.
 
      >>> tool = FakeSetupTool()
-     >>> tool.setImportContext('profile-Spam:egg')
-     Pointing at Spam:egg
-     >>> tool.runAllImportSteps(purge_old=True)
-     Purged and imported
-     >>> tool.runAllImportSteps(purge_old=False)
-     Imported
-     >>> tool.runImportStep('layouts', purge_old=False)
-     Import step 'layouts'
-     >>> tool.runImportStep('layouts', purge_old=True)
-     Purge and import step 'layouts'
+
+     The Fake Setup Tool strongly enforces the deprecation of the
+     setImportContext method
+     >>> try: tool.setImportContext('profile-Spam:egg')
+     ... except NotImplementedError: print 'ok, it raised'
+     ok, it raised
+     >>> tool.runAllImportStepsFromProfile('profile-Spam:egg', purge_old=True)
+     Purged and imported 'profile-Spam:egg'
+     >>> tool.runAllImportStepsFromProfile('profile-Spam:ham', purge_old=False)
+     Imported 'profile-Spam:ham'
+     >>> tool.runImportStepFromProfile('profile-Foo:bar', 'layouts',
+     ...                               purge_old=False)
+     Import step profile 'profile-Foo:bar', step 'layouts'
+     >>> tool.runImportStepFromProfile('profile-Foo:bar', 'layouts',
+     ...                               purge_old=True)
+     Purge and import step profile 'profile-Foo:bar', step 'layouts'
      """
 
      _properties = CPSSetupTool._properties + (
          {'id': 'witness', 'type': int},)
 
-     def setImportContext(self, context_str):
-          print "Pointing at %s" % context_str[len("profile-"):]
+     def setImportContext(self, *a, **kw):
+          """This is deprecated in current setup tool API."""
+          raise NotImplementedError
 
-     def runAllImportSteps(self, purge_old=False, excluded_steps=()):
+     def runAllImportStepsFromProfile(self, profile_id,
+                                      purge_old=False, excluded_steps=()):
          self.witness = 0
          if excluded_steps:
               print 'Excluded steps: %r' % excluded_steps
-         print purge_old and "Purged and imported" or "Imported"
+         msg = purge_old and "Purged and imported " or "Imported "
+         print msg + '%r' % profile_id
+
+     def runImportStepFromProfile(self, profile_id, step_id, purge_old=False):
+          """This uses the mock of the older setImportContext API.
+
+          Not a problem for a mock object, and we don't have to update the
+          tests that depend on it.
+          """
+          msg = purge_old and "Purge and import step " or "Import step "
+          print msg + 'profile %r, step %r' % (profile_id, step_id)
 
      def reinstallProfile(self, context_id, **kw):
          pass
 
-     def runImportStep(self, step_id, purge_old=None):
-          msg = purge_old and "Purge and import step " or "Import step "
-          print msg + '%r' % step_id
 
 
 class SampleTool(SimpleItemWithProperties):

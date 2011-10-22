@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <object name="portlet_common" meta_type="CPS Schema">
- <field name="cache_cleanup_date" meta_type="CPS Float Field"/>
+ <field name="cache_cleanup_date" meta_type="CPS Float Field">
+  <!-- GR this should never have been a field (stores a float, whereas we
+  now have a conflict resolver object. Simply disabling actual storage for
+  3.5 branch -->
+  <property name="write_ignore_storage">True</property>
+ </field>
  <field name="cache_params" meta_type="CPS Ascii String List Field"/>
  <field name="cache_timeout" meta_type="CPS Int Field"/>
  <field name="disable_override" meta_type="CPS Int Field"/>

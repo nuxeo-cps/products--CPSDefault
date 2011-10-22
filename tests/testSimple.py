@@ -19,10 +19,6 @@
 #
 # $Id$
 
-import os, sys
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 import unittest
 
 from Products.CMFCore.tests.base.utils import has_path
@@ -177,7 +173,4 @@ def test_suite():
     suite.addTest(unittest.makeSuite(TestSimpleAsAnonymous))
     suite.addTest(unittest.makeSuite(TestSimpleAsRoot))
     return suite
-
-if __name__ == '__main__':
-    framework(descriptions=1, verbosity=2)
 

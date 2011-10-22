@@ -21,8 +21,12 @@
 
 import unittest
 
+from zope.component import getSiteManager
+from zope.component import queryUtility
+
 from Products.CMFCore.tests.base.utils import has_path
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.utils import getToolInterface
 
 from Products.CPSDefault.tests.CPSTestCase import CPSTestCase
 from Products.CPSUtil.tests.web_conformance import assertValidXhtml
@@ -37,6 +41,17 @@ class TestSimple(CPSTestCase):
 
     def beforeTearDown(self):
         self.logout()
+
+    def test_SiteManager(self):
+        sm = getSiteManager()
+        self.assertEquals(str(sm), '<PersistentComponents /portal>')
+
+    def test_siteUtilities(self):
+        for tool in ('MailHost',):
+            iface = getToolInterface(tool)
+            self.failIf(iface is None)
+            self.failIf(queryUtility(iface) is None)
+            self.failIf(getToolByName(self, tool, None) is None)
 
     def testBasicFeatures(self):
         # Check default id, title...

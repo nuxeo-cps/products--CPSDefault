@@ -24,6 +24,8 @@ import re
 import time
 import transaction
 from Testing import ZopeTestCase
+from zope.app.publication.interfaces import BeforeTraverseEvent
+from zope.app.component.site import threadSiteSubscriber
 from zope.app.testing.functional import ZCMLLayer
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
@@ -283,6 +285,19 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         self.app.REQUEST['SESSION'] = SESSION
         self.app.REQUEST.SESSION = SESSION
         self.portal.changeSkin('CPSSkins', self.app.REQUEST)
+
+        self.ensureSiteManager()
+
+    def ensureSiteManager(self):
+        """Simulate a Z3 traversal so that portal is the local site manager.
+
+        This is done by the layer, but the ZopeTestCase tearDown wipes it
+        out. Taken from zope.app.component's site.txt
+        There may be a better way of doing, but this is good enough for now.
+        """
+        request = object()
+        ev = BeforeTraverseEvent(self.portal, request)
+        threadSiteSubscriber(self.portal, ev)
 
     def printLogErrors(self, min_severity=0):
         """Print out the log output on the console.

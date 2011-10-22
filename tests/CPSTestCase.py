@@ -31,6 +31,7 @@ from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
 from Products.CMFCore.utils import _checkPermission
+from Products.CMFCore.utils import getToolByName
 from Products.CPSUtil.testing.introspect import ZOPE_VERSION
 from Products.CPSCore.EventServiceTool import SubscriberDef
 
@@ -245,11 +246,9 @@ class ExtensionProfileLayerClass(object):
         self.app = ZopeTestCase.app()
         self.login()
         self.portal = getattr(self.app, PORTAL_ID)
-        tool = self.portal.portal_setup
+        tool = getToolByName(self.portal, 'portal_setup')
         for extension_id in self.extension_ids:
-            tool.setImportContext('profile-%s' % extension_id)
-            tool.runAllImportSteps()
-        tool.setImportContext('profile-%s' % PROFILE_ID)
+            tool.runAllImportStepsFromProfile('profile-%s' % extension_id)
         transaction.commit()
         self.logout()
 

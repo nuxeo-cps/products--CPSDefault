@@ -19,6 +19,7 @@
 """
     View that knows how to perform switch user operations against CPSUserFolder
 """
+from ZTUtils import make_query
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 
@@ -51,10 +52,25 @@ class SwitchUserView(BrowserView):
         if su_name is not None:
             su_name = su_name.strip()
         resp = self.request.RESPONSE
+
+        context_path = self.context.absolute_url_path()
+        url = context_path + '/cps_switch_user.html'
         if su_name:
-            self.getAclu().requestUserSwitch(su_name, resp=resp,
-                                           portal=self.context)
-        resp.redirect(self.context.absolute_url())
+            try:
+                self.getAclu().requestUserSwitch(su_name, resp=resp,
+                                                 portal=self.context)
+            except KeyError:
+                psm = 'user_not_found_error'
+            except ValueError, e:
+                if str(e) == 'Switcher':
+                    psm = 'switch_user_error'
+                else:
+                    raise
+            else:
+                psm = 'switch_user_worked'
+                url = context_path # move from switch page
+        args = make_query(portal_status_message=psm)
+        resp.redirect('?'.join((url, args)))
 
     def getSuInputName(self):
         return SU_INPUT_NAME

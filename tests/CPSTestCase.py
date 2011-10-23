@@ -76,6 +76,8 @@ ZopeTestCase.installProduct('ExternalEditor', quiet=1)
 ZopeTestCase.installProduct('CPSRemoteController', quiet=1)
 ZopeTestCase.installProduct('CPSCollector', quiet=1)
 
+from Products.CPSUtil import crashshield
+
 import PatchLocalizer
 
 # Better tracebacks
@@ -157,9 +159,11 @@ class CPSDefaultLayerClass(object):
     def setUp(self):
         self.setSynchronous()
         self.app = ZopeTestCase.app()
+        crashshield.DISABLED = True
         self.install()
 
     def tearDown(self):
+        crashshield.DISABLED = False
         self.unSetSynchronous()
 
     def setSynchronous(self):

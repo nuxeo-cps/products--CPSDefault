@@ -144,6 +144,16 @@ class EventRecorder(SimpleItemWithProperties):
     def getRecords(self):
         return self._v_events
 
+def ensure_site_manager(obj):
+        """If obj should have a local site manager, enables it.
+
+        This is done by simulating a Z3 traversal, since zope changes the
+        current thread-local site manager this way.
+        """
+        request = object()
+        ev = BeforeTraverseEvent(obj, request)
+        threadSiteSubscriber(obj, ev)
+
 class CPSDefaultLayerClass(object):
     """Layer to test CPS.
 
@@ -244,8 +254,9 @@ class ExtensionProfileLayerClass(object):
 
     def setUp(self):
         self.app = ZopeTestCase.app()
-        self.login()
         self.portal = getattr(self.app, PORTAL_ID)
+        ensure_site_manager(self.portal)
+        self.login()
         tool = getToolByName(self.portal, 'portal_setup')
         for extension_id in self.extension_ids:
             tool.runAllImportStepsFromProfile('profile-%s' % extension_id)
@@ -285,18 +296,7 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
         self.app.REQUEST.SESSION = SESSION
         self.portal.changeSkin('CPSSkins', self.app.REQUEST)
 
-        self.ensureSiteManager()
-
-    def ensureSiteManager(self):
-        """Simulate a Z3 traversal so that portal is the local site manager.
-
-        This is done by the layer, but the ZopeTestCase tearDown wipes it
-        out. Taken from zope.app.component's site.txt
-        There may be a better way of doing, but this is good enough for now.
-        """
-        request = object()
-        ev = BeforeTraverseEvent(self.portal, request)
-        threadSiteSubscriber(self.portal, ev)
+        ensure_site_manager(self.portal) # wiped during tear down
 
     def printLogErrors(self, min_severity=0):
         """Print out the log output on the console.

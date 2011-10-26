@@ -98,7 +98,7 @@ def manageCPSLanguage(context, action, default_language, languages=None):
 
     if languages is None:
         languages = []
-    elif not isinstance(languages, list):
+    elif isinstance(languages, basestring):
         languages = [languages]
 
     if not languages and action in ('add', 'delete'):
@@ -113,18 +113,20 @@ def manageCPSLanguage(context, action, default_language, languages=None):
         portal.available_languages = loc_languages()
 
     elif action == 'delete':
-        current_langs = localizer.get_languages_map()
+        current_langs = set(loc_languages())
         logger.debug("Preparting languages deletion. Current available: %r "
-                     "To delete: %r", languages, current_langs)
+                     "To delete: %r", current_langs, languages)
 
-        if frozenset(languages).issuperset(frozenset(current_langs)):
+        if frozenset(languages).issuperset(current_langs):
             psm = 'psm_language_error_let_at_least_one_language_to_portal'
         else:
             # Make unavailable languages in Localizer
             for catalog in catalogs:
                 catalog.manage_delLanguages(languages)
             psm = 'psm_language_deleted'
-        portal.available_languages = loc_languages()
+            for lang in languages:
+                current_langs.discard(lang)
+        portal.available_languages = tuple(current_langs)
 
     elif action == 'chooseDefault':
         for catalog in catalogs:

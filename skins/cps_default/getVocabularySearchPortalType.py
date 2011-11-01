@@ -1,4 +1,4 @@
-##parameters=key=None
+##parameters=key=None, is_i18n=False
 #$Id$
 """Return a portal type vocabulary, used as MethodVocabulary."""
 

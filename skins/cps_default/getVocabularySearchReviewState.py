@@ -1,4 +1,4 @@
-##parameters=key=None
+##parameters=key=None, is_i18n=False
 #$Id$
 """Return a list of review state, used as MethodVocabulary."""
 

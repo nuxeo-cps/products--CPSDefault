@@ -1155,3 +1155,44 @@ def upgrade_unicode(portal):
 def upgrade_portal_properties(portal):
     from Products.CPSUtil.property import sync_prop_defs
     sync_prop_defs(portal)
+
+BROKEN_3_6_TOOLS = ('portal_themes', 'portal_webmail')
+
+def upgrade_3_6_remove_broken_tools(portal):
+    logger = logging.getLogger(LOG_KEY + 'upgrade_3_6_remove_broken_tools')
+    stool = getToolByName(portal, 'portal_setup')
+    toolset = stool.getToolsetRegistry()
+    removed = set()
+
+    for tool_id in BROKEN_3_6_TOOLS:
+        if not portal.hasObject(tool_id): # idempotency
+            continue
+
+        # check that the tool is actually broken
+        # may change if some products are resurrected in the future and we
+        # don't want to lose content in upgrades
+        # TODO: find a high level way of doing. For now we check that the
+        # tool class cannot be imported. this is better than checking id
+        # 'broken' for broken objects
+        tool = getattr(portal, tool_id)
+        tmodule = tool.__class__.__module__
+        try:
+            __import__(tmodule)
+        except ImportError:
+            pass
+        else: # not actually broken.
+            continue
+
+        toolset._required.pop(tool_id, None)
+        # going low level because methods of the object are used by
+        # ObjectManager._delObject
+        delattr(portal, tool_id)
+        removed.add(tool_id)
+        logger.info('Removed %r', tool_id)
+
+    portal._objects = tuple(o for o in portal._objects
+                            if o['id'] not in removed)
+
+    # forcing the change in registry, _p_changed does not work !
+    delattr(stool, '_toolset_registry')
+    stool._toolset_registry = toolset

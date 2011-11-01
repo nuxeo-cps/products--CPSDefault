@@ -22,6 +22,8 @@ import sys
 
 import transaction
 
+from zope.app.component.hooks import setSite
+from Products.Five.site.localsite import FiveSiteManager
 from Products.CMFCore.utils import getToolByName
 
 from Products.CPSDefault.jobs.replaymetaprofiles import replay as play_profiles
@@ -59,6 +61,18 @@ class Upgrader(object):
                 previous_steps[cat] = ups
                 transaction.commit()
 
+    def fix_site_manager(self):
+        comp_attr = '_components'
+        comp = getattr(self.portal, comp_attr, None)
+        if isinstance(comp, FiveSiteManager):
+            # in all cps 3.5 to 3.6 upgrades, this site manager leads to
+            # infinite lookup recursions, and we don't need to upgrade
+            # any actual component from there
+            delattr(self.portal, comp_attr)
+        setSite(self.portal)
+        # will be read by further cpsjob executions
+        self.portal.last_upgraded_version = '3.6.-1'
+
     def replay_profiles(self):
         play_profiles(self.portal)
 
@@ -69,6 +83,7 @@ def job(portal, arguments, options):
         categories = None
 
     upgrader = Upgrader(portal, categories)
+    upgrader.fix_site_manager()
     upgrader.apply_all_steps()
     if options.meta_profiles:
         upgrader.replay_profiles()

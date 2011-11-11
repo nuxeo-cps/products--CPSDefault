@@ -20,10 +20,12 @@
 # $Id$
 
 import os
+import sys
 import re
 import time
 import transaction
 from Testing import ZopeTestCase
+from Testing.ZopeTestCase.functional import ResponseWrapper
 from zope.app.publication.interfaces import BeforeTraverseEvent
 from zope.app.component.site import threadSiteSubscriber
 from zope.app.testing.functional import ZCMLLayer
@@ -310,6 +312,67 @@ class CPSTestCase(ZopeTestCase.PortalTestCase):
                 print "%s(%s): %s %s" % (subsystem, severity, summary, detail)
         zLOG.old_log_write = zLOG.log_write
         zLOG.log_write = log_write
+
+    def zopePublish(self, path, basic=None, env=None, extra=None,
+                request_method='GET', stdin=None, handle_errors=True):
+        """Derived from FunctionalTestCase but doesn't commit any transaction.
+
+        FunctionalTestCase subclasses sandbox.sandboxed and its publish()
+        method starts by committing the transaction.
+        At the time of this writing, the impact of all of this is not really
+        clear, but it's possible that the sandbox defeates the layer
+        factorization, and/or that the commit is unwanted.
+        We prefer to reimplement. Readapting just this once for later Zope
+        versions is no high cost
+
+        we don't use the savestate decorator either (restores site and
+        security managers). Apart from that, this is a simle copy-paste.
+        """
+
+        from StringIO import StringIO
+        from ZPublisher.Response import Response
+        from ZPublisher.Test import publish_module
+
+        # here was the transaction commit
+
+        if env is None:
+            env = {}
+        if extra is None:
+            extra = {}
+
+        request = self.app.REQUEST
+
+        env['SERVER_NAME'] = request['SERVER_NAME']
+        env['SERVER_PORT'] = request['SERVER_PORT']
+        env['REQUEST_METHOD'] = request_method
+
+        p = path.split('?')
+        if len(p) == 1:
+            env['PATH_INFO'] = p[0]
+        elif len(p) == 2:
+            [env['PATH_INFO'], env['QUERY_STRING']] = p
+        else:
+            raise TypeError, ''
+
+        if basic:
+            env['HTTP_AUTHORIZATION'] = "Basic %s" % base64.encodestring(basic)
+
+        if stdin is None:
+            stdin = StringIO()
+
+        outstream = StringIO()
+        response = Response(stdout=outstream, stderr=sys.stderr)
+
+        publish_module('Zope2',
+                       response=response,
+                       stdin=stdin,
+                       environ=env,
+                       extra=extra,
+                       debug=not handle_errors,
+                      )
+
+        return ResponseWrapper(response, outstream, path)
+
 
 class CPSPermWorkflowTestCase(CPSTestCase):
     """A subclass providing workflow and permissons related assertions."""

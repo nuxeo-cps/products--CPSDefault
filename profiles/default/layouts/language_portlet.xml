@@ -6,6 +6,9 @@
  <property name="style_prefix">layout_portlet_</property>
  <property name="flexible_widgets"/>
  <property name="validate_values_expr"></property>
+ <property name="label"></property>
+ <property name="label_edit"></property>
+ <property name="is_i18n">False</property>
  <widget name="action" meta_type="Select Widget">
   <property name="fields">
    <element value="action"/>
@@ -31,12 +34,29 @@
   <property name="hidden_readonly_layout_modes"/>
   <property name="render_method">widget_portlet_language</property>
  </widget>
+ <widget name="selector_display_type" meta_type="Select Widget">
+  <property name="title">in change mode</property>
+  <property name="fields">
+   <element value="display_type"/>
+  </property>
+  <property name="label_edit">Mode d'affichage choisi</property>
+  <property name="readonly_layout_modes"/>
+  <property name="hidden_layout_modes">
+   <element value="view"/>
+  </property>
+  <property name="hidden_readonly_layout_modes"/>
+  <property
+     name="vocabulary">cps_language_portlet_change_display_in_change_mode</property>
+ </widget>
  <table>
   <row>
    <cell name="language"/>
   </row>
   <row>
    <cell name="action"/>
+  </row>
+  <row>
+   <cell name="selector_display_type"/>
   </row>
  </table>
 </object>

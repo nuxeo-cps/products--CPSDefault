@@ -1,25 +1,17 @@
 <?xml version="1.0"?>
 <object name="breadcrumbs_portlet" meta_type="CPS Layout">
- <property name="layout_create_method"></property>
- <property name="layout_edit_method"></property>
- <property name="layout_view_method"></property>
  <property name="style_prefix">layout_portlet_</property>
- <property name="flexible_widgets"/>
- <property name="validate_values_expr"></property>
+
  <widget name="display" meta_type="Select Widget">
   <property name="fields">
-   <element value="display"/>
+   <element value="render_view_name"/>
   </property>
   <property name="label_edit">cpsportlets_display_mode_label</property>
   <property name="is_i18n">True</property>
-  <property name="readonly_layout_modes"/>
-  <property name="hidden_layout_modes">
-   <element value="view"/>
-  </property>
-  <property name="hidden_readonly_layout_modes"/>
   <property name="vocabulary">cpsportlets_bcs_display_voc</property>
   <property name="translated">True</property>
  </widget>
+
  <widget name="display_hidden_folders" meta_type="Boolean Widget">
   <property name="fields">
    <element value="display_hidden_folders"/>
@@ -27,12 +19,8 @@
   <property
      name="label_edit">cpsportlets_display_hidden_folders_label</property>
   <property name="is_i18n">True</property>
-  <property name="readonly_layout_modes"/>
-  <property name="hidden_layout_modes">
-   <element value="view"/>
-  </property>
-  <property name="hidden_readonly_layout_modes"/>
  </widget>
+
  <widget name="display_site_root" meta_type="Boolean Widget">
   <property name="fields">
    <element value="display_site_root"/>
@@ -40,11 +28,9 @@
   <property
      name="label_edit">cpsportlets_bcs_display_site_root_label</property>
   <property name="is_i18n">True</property>
-  <property name="hidden_layout_modes">
-   <element value="view"/>
-  </property>
-  <property name="hidden_if_expr">python: context.first_item &lt;= 0</property>
+  <property name="hidden_if_expr">python: datamodel['first_item'] &lt;= 0</property>
  </widget>
+
  <widget name="first_item" meta_type="Int Widget">
   <property name="fields">
    <element value="first_item"/>
@@ -57,6 +43,7 @@
   </property>
   <property name="hidden_readonly_layout_modes"/>
  </widget>
+
  <widget name="highlight_last_item" meta_type="Boolean Widget">
   <property name="fields">
    <element value="highlight_last_item"/>
@@ -64,27 +51,11 @@
   <property
      name="label_edit">cpsportlets_bcs_highlight_last_item_label</property>
   <property name="is_i18n">True</property>
-  <property name="hidden_layout_modes">
-   <element value="view"/>
-  </property>
   <property
-     name="hidden_if_expr">python: context.display in ['dropdown_list']</property>
+     name="hidden_if_expr">python: datamodel['render_view_name'] in ['dropdown_list']</property>
  </widget>
- <widget name="portlet" meta_type="Generic Portlet Widget">
-  <property name="fields">
-   <element value="portlet"/>
-  </property>
-  <property name="readonly_layout_modes"/>
-  <property name="hidden_layout_modes">
-   <element value="edit"/>
-  </property>
-  <property name="hidden_readonly_layout_modes"/>
-  <property name="render_method">widget_portlet_breadcrumbs</property>
- </widget>
+
  <table>
-  <row>
-   <cell name="portlet" ncols="3"/>
-  </row>
   <row>
    <cell name="display" ncols="3"/>
   </row>

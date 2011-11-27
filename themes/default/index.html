@@ -6,50 +6,43 @@
       lang="en"
       xml:lang="en">
 
-<head>
- <title>CPS 3.5 Structure</title>
- <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
- <link rel="stylesheet" type="text/css" href="style/page_layout.css" media="screen" />
- <link rel="stylesheet" type="text/css" href="style/components.css" media="screen" />
- <link rel="stylesheet" type="text/css" media="all" title="CPSDefault styles"
-       href="cps://default.css" />
- <!--[if IE]>
-  <link rel="stylesheet" type="text/css" href="cps://msie.css" />
- <![endif]-->
+ <head>
+  <title>CPS 3.5 Structure</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="style/page_layout.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="style/components.css" media="screen" />
+  <link rel="stylesheet" type="text/css" media="all" title="CPSDefault styles"
+        href="cps://default.css" />
+  <!--[if IE]>
+      <link rel="stylesheet" type="text/css" href="cps://msie.css" />
+      <![endif]-->
 
-</head>
-
-
-<body>
-
- <xi:include href="fragments/header.html"/>
+ </head>
 
 
- <div class="colmask leftmenu">
-  <div class="colleft">
+ <body>
 
-   <div class="main-column">
-    <!-- Main 1 start -->
+  <xi:include href="fragments/header.html"/>
 
-    <div id="actionslot" cps:slot="doc_actions">
-     <div cps:portlet="frame" cps:remove="true">
+
+  <div class="colmask leftmenu">
+   <div class="colleft">
+
+    <div class="main-column">
+     <!-- Main 1 start -->
+
+     <div id="actionslot" cps:slot="doc_actions">
       <div cps:portlet="body" cps:remove="true">
       </div>
      </div>
-    </div>
 
 
-    <div cps:slot="content_well">
-     <div cps:portlet="frame">
+     <div cps:slot="content_well">
       <div cps:portlet="body" cps:remove="true">
       </div>
      </div>
-    </div>
 
-    <div cps:main-content="here"/>
-
-    <div id="breadcrumb" cps:slot="breadcrumb">
-     <div cps:portlet="frame" cps:remove="true">
+     <div id="breadcrumb" cps:slot="breadcrumb">
       <div cps:portlet="body" cps:remove="true">
        <ul>
         <li><a href="/">Home</a></li>
@@ -60,42 +53,41 @@
        </ul>
       </div>
      </div>
+
     </div>
+    <div class="side-column">
 
-   </div>
-   <div class="side-column">
+     <!-- Column 2 start -->
+     <div cps:slot="Lang_selector" id="lang_selection">
+      <div class="content" cps:portlet="body" />
+     </div>
 
-    <!-- Column 2 start -->
-
-    <div cps:slot="treeview">
-     <div cps:portlet="frame" class="box">
-      <div class="title">
-       <h3 cps:portlet="title">Navigation</h3>
-      </div>
-      <div class="content" cps:portlet="body">
-       <ul>
-        <li>item 1</li>
-        <li>item 2</li>
-       </ul>
+     <div cps:slot="treeview">
+      <div cps:portlet="frame" class="box">
+       <div class="title">
+        <h3 cps:portlet="title">Navigation</h3>
+       </div>
+       <div class="content" cps:portlet="body">
+        <ul>
+         <li>item 1</li>
+         <li>item 2</li>
+        </ul>
+       </div>
       </div>
      </div>
+
+
+     <!-- Column 2 end -->
     </div>
 
-
-   <!-- Column 2 end -->
    </div>
 
+
   </div>
 
-
- </div>
-
- <div id="footer" cps:slot="conformance_statement">
-   <div cps:portlet="frame" cps:remove="true">
-     <div cps:portlet="body" cps:remove="true">
-      </div>
-    </div>
+  <div id="footer" cps:slot="conformance_statement">
+   <div cps:portlet="body" cps:remove="true"/>
   </div>
 
-</body>
+ </body>
 </html>

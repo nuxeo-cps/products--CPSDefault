@@ -8,11 +8,16 @@
 
 <head>
  <title>CPS 3.5 Structure</title>
- <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
- <link rel="stylesheet" type="text/css" href="style/page_layout.css" media="screen" />
- <link rel="stylesheet" type="text/css" href="style/components.css" media="screen" />
+ <meta http-equiv="Content-Type"
+ content="application/xhtml+xml; charset=utf-8" />
+ <link rel="stylesheet" type="text/css" href="style/page_layout.css"
+  media="screen" />
+ <link rel="stylesheet" type="text/css" href="style/components.css"
+    media="screen" />
+ <link rel="stylesheet" type="text/css" href="style/front.css" media="screen"/>
  <link rel="stylesheet" type="text/css" media="all" title="CPSDefault styles"
         href="cps://default.css" />
+
   <!--[if IE]><link rel="stylesheet" type="text/css"
                     href="cps://msie.css" />
   <![endif]-->
@@ -29,10 +34,8 @@
     <!-- Column 1 start -->
 
     <div id="actionslot" cps:slot="doc_actions">
-     <div cps:portlet="frame" cps:remove="true">
       <div cps:portlet="body" cps:remove="true">
       </div>
-     </div>
     </div>
 
     <div cps:slot="content_well">
@@ -49,6 +52,10 @@
    <div class="side-column">
 
     <!-- Column 2 start -->
+
+    <div cps:slot="Lang_selector" id="lang_selection">
+      <div class="content" cps:portlet="body" />
+    </div>
 
     <div cps:slot="treeview">
      <div cps:portlet="frame" class="box">
@@ -89,10 +96,7 @@
 
  </div>
  <div id="footer" cps:slot="conformance_statement">
-   <div cps:portlet="frame" cps:remove="true">
-     <div cps:portlet="body" cps:remove="true">
-      </div>
-    </div>
+     <div cps:portlet="body" cps:remove="true"/>
   </div>
 
 </body>

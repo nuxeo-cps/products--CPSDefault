@@ -20,7 +20,7 @@
 """ Default portal for CPS
 """
 
-from zLOG import LOG, INFO, DEBUG
+import logging
 
 from zope.component import getMultiAdapter
 
@@ -34,6 +34,8 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.CPSCore.portal import CPSSite
 from interfaces import IVoidResponseHandler
+
+logger = logging.getLogger(__name__)
 
 class CPSDefaultSite(CPSSite):
     """CPS variant of a CMF Portal."""
@@ -123,7 +125,7 @@ def manage_addCPSDefaultSite(dispatcher, id,
             return '<br/>\n'.join(_log)
         _log.append(bla)
         if (bla and zlog):
-            LOG('addCPSDefaultSite:', INFO, bla)
+            logger.info('addCPSDefaultSite: %s', bla)
 
     id = id.strip()
     title = title.strip()

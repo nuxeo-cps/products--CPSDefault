@@ -66,10 +66,10 @@ class ImsResponseHandler(BaseResponseHandler):
 
         # acquire last_modified
         lmd = getattr(self.context, SUBSITE_LAST_MODIFIED_DATE, None)
-        if lmd is None:
+        if lmd is None or lmd.value is None:
             return False
 
-        lmd = lmd.value # can be None
+        lmd = lmd.value
         request = self.request
         header = request.get_header('If-Modified-Since', None)
         if not self.isHttpCacheable():

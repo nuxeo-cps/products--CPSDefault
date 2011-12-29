@@ -40,8 +40,6 @@ from Products.CPSCore.EventServiceTool import SubscriberDef
 ZopeTestCase.installProduct('ZCTextIndex', quiet=1)
 ZopeTestCase.installProduct('BTreeFolder2', quiet=1)
 ZopeTestCase.installProduct('StandardCacheManagers', quiet=1)
-if ZOPE_VERSION > (2, 10):
-    ZopeTestCase.installProduct('Five', quiet=1)
 ZopeTestCase.installProduct('SiteAccess', quiet=1)
 ZopeTestCase.installProduct('MailHost', quiet=1)
 ZopeTestCase.installProduct('UnicodeLexicon', quiet=1)
@@ -82,6 +80,8 @@ ZopeTestCase.installProduct('CPSOOo', quiet=1)
 ZopeTestCase.installProduct('ExternalEditor', quiet=1)
 ZopeTestCase.installProduct('CPSRemoteController', quiet=1)
 ZopeTestCase.installProduct('CPSCollector', quiet=1)
+
+from Products.CPSUtil import crashshield
 
 import PatchLocalizer
 
@@ -174,9 +174,11 @@ class CPSDefaultLayerClass(object):
     def setUp(self):
         self.setSynchronous()
         self.app = ZopeTestCase.app()
+        crashshield.DISABLED = True
         self.install()
 
     def tearDown(self):
+        crashshield.DISABLED = False
         self.unSetSynchronous()
 
     def setSynchronous(self):

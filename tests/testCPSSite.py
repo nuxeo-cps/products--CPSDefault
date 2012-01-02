@@ -92,7 +92,8 @@ class TestCPSDefault(CPSTestCase):
     def testPortalTrees(self):
         # Test that portal_trees has the right default values
         ttool = self.portal.portal_trees
-        self.assertEquals(ttool.objectIds(), ['sections', 'workspaces'])
+        self.assertEquals(ttool.objectIds(),
+                          ['sections', 'workspaces', 'members'])
         for tree_id in ('sections', 'workspaces'):
             tree = ttool[tree_id]
             # FIXME why do I need to rebuild here with portlets ?

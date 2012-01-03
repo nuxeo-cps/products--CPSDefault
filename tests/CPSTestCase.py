@@ -29,6 +29,7 @@ from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
 from Products.CMFCore.utils import _checkPermission
+from Products.CMFCore.utils import getToolByName
 from Products.CPSUtil.testing.introspect import ZOPE_VERSION
 from Products.CPSCore.EventServiceTool import SubscriberDef
 
@@ -75,8 +76,6 @@ ZopeTestCase.installProduct('CPSOOo', quiet=1)
 ZopeTestCase.installProduct('ExternalEditor', quiet=1)
 ZopeTestCase.installProduct('CPSRemoteController', quiet=1)
 ZopeTestCase.installProduct('CPSCollector', quiet=1)
-
-from Products.CPSUtil import crashshield
 
 import PatchLocalizer
 
@@ -159,11 +158,9 @@ class CPSDefaultLayerClass(object):
     def setUp(self):
         self.setSynchronous()
         self.app = ZopeTestCase.app()
-        crashshield.DISABLED = True
         self.install()
 
     def tearDown(self):
-        crashshield.DISABLED = False
         self.unSetSynchronous()
 
     def setSynchronous(self):
@@ -186,7 +183,7 @@ class CPSDefaultLayerClass(object):
         #self.setupCPSSkins(portal_id)
         assert self.portal.portal_themes
         # the crash shield doesn't help understanding what's wrong in a test
-        self.portal.portal_themes.debug_mode = True
+        getToolByName(self.portal, 'portal_cpsportlets').shield_disabled = True
 
         self.addEventRecorder()
         self.logout()

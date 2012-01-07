@@ -166,6 +166,8 @@ def computeContributors(portal, contributors):
         # Special fast case for CPSUserFolder
         title_field = user._aclu._getUsersDirectory().title_field
         fullname = user.getProperty(title_field, None)
+    elif user_id is None: # happens with anonymous
+        fullname = str(user)
     else:
         # To get proper computed attributes, we need to ask the
         # entry directly from the directory

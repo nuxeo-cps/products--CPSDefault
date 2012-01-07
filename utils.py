@@ -35,6 +35,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import AccessInactivePortalContent
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CPSUtil.timer import Timer
+from Products.CPSUtil.text import OLD_CPS_ENCODING
 
 logger = logging.getLogger(__name__)
 
@@ -155,7 +156,8 @@ def computeContributors(portal, contributors):
         contributors = []
         for contributor in contributors:
             if not isinstance(contributor, unicode):
-                contributors.append(contributor.decode('iso-8859-15'))
+                # Use old encoding for unicode upgrade leftover
+                contributors.append(contributor.decode(OLD_CPS_ENCODING))
             else:
                 contributors.append(contributor)
     else:
@@ -168,6 +170,8 @@ def computeContributors(portal, contributors):
         # Special fast case for CPSUserFolder
         title_field = user._aclu._getUsersDirectory().title_field
         fullname = user.getProperty(title_field, None)
+    elif user_id is None: # happens with anonymous
+        fullname = unicode(user)
     else:
         # To get proper computed attributes, we need to ask the
         # entry directly from the directory
@@ -181,7 +185,7 @@ def computeContributors(portal, contributors):
         fullname = user_id
 
     if not isinstance(fullname, unicode):
-        fullname = fullname.decode('iso-8859-15')
+        fullname = fullname.decode(OLD_CPS_ENCODING)
 
     if fullname is not None and fullname not in contributors:
         contributors.append(fullname)

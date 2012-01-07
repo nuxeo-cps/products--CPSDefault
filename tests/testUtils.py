@@ -24,10 +24,20 @@ from CPSTestCase import CPSTestCase
 
 class TestUtils(ZopeTestCase):
 
+    def afterSetUp(self):
+        self.folder.default_charset = 'unicode'
+
     def test_getNonArchivedVersionContextUrl(self):
         url0 = 'http://toto.com/titi/archivedRevision/123'
         url1 = 'http://toto.com/titi'
         self.assertEquals(utils.getNonArchivedVersionContextUrl(url0), url1)
+
+    def test_computeContributors_anonymous(self):
+        folder = self.folder
+        self.logout()
+        self.assertEquals(utils.computeContributors(folder, []),
+                          [u'Anonymous User'])
+
 
 class IntegrationTestUtils(CPSTestCase):
 

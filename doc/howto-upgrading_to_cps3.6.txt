@@ -1,0 +1,115 @@
+====================
+Upgrading to CPS 3.6
+====================
+
+:Authors: - Georges Racinet
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+Introduction
+============
+
+This document covers the migration from the CPS 3.5 series to the 3.6
+series. At the point of this writing, the 3.5 series are stable and
+developments therein are tracked in branches within our version
+control system, while the default branches will become the 3.6
+series. No release has been done yet in the 3.6 series.
+
+The general commonsense provisions of "Upgrading to CPS 3.4" (make
+backups, use a testing instance…) of course still apply
+
+Please report the problems you may encounter on the cps-user mailing
+lists, or cps-devel if you feel that it should lead to changes in CPS
+instead of advice.
+
+
+Dependencies
+============
+
+Currently, CPS 3.6 depends on Zope 2.10 and CMF 2.1.1, while CPS 3.5 runs
+on Zope 2.9 or 2.10 and *includes* a slightly modified version of CMF
+1.6.3
+
+If you run a Debian derived GNU/Linux distribution, the simplest way
+of providing these new dependencies is to install the
+``opt-zope-cps-3.6-devsetup`` package. You can also install only Zope 2.10
+with ``opt-zope2.10`` and CMF 2.1.1 with ``opt-zope-cmf``.
+
+Upgrade of the Zope instance
+============================
+
+Making a fresh instance
+-----------------------
+IF you have installed the ``opt-zope-cps-3.6-devsetup`` package, the
+simplest is probably to use ``/opt/cps-3.6/bin/mkcpsdevinstance`` to
+construct a new instance. This script actually fetchs a bundle in the
+sense of ``hgbundler``, so that you may point it to your own bundle.
+Currently, this builds monolithic Zope instances only, though.
+
+Modifying an existing instance
+------------------------------
+
+1. If the 3.5 instance runs on Zope 2.9, then you'll have to change
+the startup scrips (``runzope``, ``zopectl``) in order to use Zope 2.10
+instead, as well as the reference to the Zope installation in ``zope.conf``.
+
+2. Remove all the products that are part of your CPS 3.5 distribution
+from the ``Products`` directory, without any exception. Usuallly this
+would mean all the products, except your custom ones.
+
+3. In ``zope.conf`` add a line in the ``products`` directive referring
+the CMF products. If you installed the ``opt-zope-cmf`` Debian
+package, the line would be ``products /opt/cmf/Products``. Note that
+you must either precompile the CMF products ``.pyc`` files (the Debian
+package does it) or grant write permissions to the POSIX user that
+runs the instance.
+
+4. Put the CPS products in the instance Products directory
+
+Upgrade of the CPS Site
+=======================
+
+The site object itself must be upgraded before the first actual run.
+This is done with the ``cpsugrade`` CPS job. e.g., assuming the ZOpe
+admin account is ``admin`` and the site id is ``cps``::
+
+  bin/zopectl run Products/CPSDefault/jobs/cpsupgrade.py -u admin cps
+
+Then you must play the usual dance with profiles. For a custom
+installation maintained with meta profiles, this example will do::
+
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u admin cps -e catalog,trees
+  bin/zopectl run Products/CPSDefault/jobs/resync.py -u admin cps -p
+
+Use the ``-h`` option of these jobs to know what this actually means.
+
+Upgrade of custom products
+==========================
+
+This are minimal instructions. If you went through this at the current
+stag of development of CPS 3.6 (pre alpha releases), you are assumed
+to be an experimented CPS developer and have some knowledge of the
+current developments. Of course you'll need to adapt
+your custom products to the new paradigms, but that's not something
+that can be explained in a few lines.
+
+A few traps though:
+
+1. CPSSkins has been totally removed from CPS. This means in
+particular for themes that have been exported from CPSSkins themes,
+that any live call to the ``portal_themes`` (via ``cps://`` URLs) must
+be removed. For example, there used to be a few of them for language
+switching, a remnant of the Language Templet, that must now be
+replaced by a call to  Language Portlet.
+
+2. Another consequence of the CPSSkins removal is that the portlet
+manage page does not work any more. You'll have to call
+``cpsportlet_edit_form`` on individual portlets for now (``slot`` and
+``order`` can be changed in properties).
+
+
+.. Local Variables:
+.. mode: rst
+.. End:
+.. vim: set filetype=rst:

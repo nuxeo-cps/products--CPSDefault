@@ -24,7 +24,7 @@ class IVoidResponseHandler(Interface):
     """
 
     def respond(portal=None):
-        """May set the response headers. Return True in that case.
+        """Return True if response body should be void (and set headers).
 
         portal can be used to avoid relying on aq. The idea is that a void
         response typically has to be fast (304 notably, but also 302)

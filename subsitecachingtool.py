@@ -53,7 +53,10 @@ class SubSiteCachingTool(UniqueObject, SimpleItemWithProperties):
         response.setHeader('Cache-Control', self.default_cache_control)
 
     def notify_event(self, event_type, obj, infos):
-        """Catch publication events for the caching headers."""
+        """Catch publication events for the caching headers.
+
+        TODO use ZTK events
+        """
 
         if event_type in ['workflow_publish', 'workflow_accept',
                           'workflow_unpublish',

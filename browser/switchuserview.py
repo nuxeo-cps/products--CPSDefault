@@ -54,7 +54,10 @@ class SwitchUserView(BrowserView):
         resp = self.request.RESPONSE
 
         context_path = self.context.absolute_url_path()
-        url = context_path + '/cps_switch_user.html'
+        if context_path == '/':
+            url = '/cps_switch_user.html'
+        else:
+            url = context_path + '/cps_switch_user.html'
         if su_name:
             try:
                 self.getAclu().requestUserSwitch(su_name, resp=resp,

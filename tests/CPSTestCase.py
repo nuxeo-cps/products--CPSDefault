@@ -26,6 +26,7 @@ import transaction
 from Testing import ZopeTestCase
 from zope.app.testing.functional import ZCMLLayer
 from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import getSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 
 from Products.CMFCore.utils import _checkPermission

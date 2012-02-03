@@ -276,6 +276,12 @@ class MetaProfilesLayerClass(CPSDefaultLayerClass):
         self.__name__ = name
         self.configurator = conf_cls()
         self.meta_profiles = meta_profiles
+        self.installProducts()
+
+    def installProducts()
+        for p in set(profile.split(':')[0]
+                     for profile in self.configurator.listProfiles())
+            ZopeTestCase.installProduct(p)
 
     def addPortal(self):
         self.configurator.addConfiguredSite(

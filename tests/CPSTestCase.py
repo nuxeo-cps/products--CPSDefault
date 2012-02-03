@@ -280,7 +280,7 @@ class MetaProfilesLayerClass(CPSDefaultLayerClass):
 
     def installProducts():
         for p in set(profile.split(':')[0]
-                     for profile in self.configurator.listProfiles())
+                     for profile in self.configurator.listProfiles()):
             ZopeTestCase.installProduct(p)
 
     def addPortal(self):

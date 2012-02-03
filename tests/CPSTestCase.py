@@ -278,7 +278,7 @@ class MetaProfilesLayerClass(CPSDefaultLayerClass):
         self.meta_profiles = meta_profiles
         self.installProducts()
 
-    def installProducts()
+    def installProducts():
         for p in set(profile.split(':')[0]
                      for profile in self.configurator.listProfiles())
             ZopeTestCase.installProduct(p)

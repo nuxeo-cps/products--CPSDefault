@@ -231,6 +231,13 @@ class CPSSiteMetaConfigurator(CPSSiteConfigurator):
 
          return snapshot
 
+     def listProfiles(self):
+          """List all profile identifiers in order, starting from base profile.
+          """
+          res = [self.base_profile]
+          for m_id in self.metas_order:
+               res.extend(self.meta_profiles[m_id]['extensions'])
+          return res
 
      def importMetaProfiles(self, **kw):
           """ Import meta profiles."""

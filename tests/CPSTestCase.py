@@ -278,6 +278,46 @@ class ExtensionProfileLayerClass(object):
     def tearDown(self):
         pass
 
+
+class MetaProfilesLayerClass(CPSDefaultLayerClass):
+
+    def __init__(self, module, name, conf_cls, meta_profiles):
+        self.__module__ = module
+        self.__name__ = name
+        self.configurator = conf_cls()
+        self.meta_profiles = meta_profiles
+        self.installProducts()
+
+    def installProducts(self):
+        for p in set(profile.split(':')[0]
+                     for profile in self.configurator.listProfiles()):
+            ZopeTestCase.installProduct(p)
+
+    def addPortal(self):
+        self.configurator.addConfiguredSite(
+            self.app,
+            requested_metas=self.meta_profiles,
+            snapshot=False,
+            site_id=PORTAL_ID,
+            title='CPS Portal',
+            languages=['en', 'fr', 'de'],
+            # the following are required by form validation
+            # logic but won't be actually used
+            manager_email=MANAGER_EMAIL,
+            password=MANAGER_PASSWORD,
+            password_confirm=MANAGER_PASSWORD,
+            manager_firstname="CPS",
+            manager_lastname="Manager",
+            )
+
+        self.portal = getattr(self.app, PORTAL_ID)
+
+        # this is the actual manager creation
+        getToolByName(self.portal, 'acl_users')._doAddUser(
+            MANAGER_ID, MANAGER_PASSWORD, ('Manager', 'Member'), ())
+
+
+
 ##################################################
 # TestCase
 

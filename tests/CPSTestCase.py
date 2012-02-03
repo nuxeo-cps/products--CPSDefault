@@ -271,27 +271,28 @@ class ExtensionProfileLayerClass(object):
 
 class MetaProfilesLayerClass(CPSDefaultLayerClass):
 
-    def __init__(self, module, name, factory, meta_profiles):
+    def __init__(self, module, name, conf_cls, meta_profiles):
         self.__module__ = module
         self.__name__ = name
-        self.site_factory = factory
+        self.configurator = conf_cls()
         self.meta_profiles = meta_profiles
 
     def addPortal(self):
-        self.site_factory(self.app,
-                          requested_metas=self.meta_profiles,
-                          snapshot=False,
-                          site_id=PORTAL_ID,
-                          title='CPS Portal',
-                          languages=['en', 'fr', 'de'],
-                          # the following are required by form validation
-                          # logic but won't be actually used
-                          manager_email=MANAGER_EMAIL,
-                          password=MANAGER_PASSWORD,
-                          password_confirm=MANAGER_PASSWORD,
-                          manager_firstname="CPS",
-                          manager_lastname="Manager",
-                          )
+        self.configurator.addConfiguredSite(
+            self.app,
+            requested_metas=self.meta_profiles,
+            snapshot=False,
+            site_id=PORTAL_ID,
+            title='CPS Portal',
+            languages=['en', 'fr', 'de'],
+            # the following are required by form validation
+            # logic but won't be actually used
+            manager_email=MANAGER_EMAIL,
+            password=MANAGER_PASSWORD,
+            password_confirm=MANAGER_PASSWORD,
+            manager_firstname="CPS",
+            manager_lastname="Manager",
+            )
 
         self.portal = getattr(self.app, PORTAL_ID)
 

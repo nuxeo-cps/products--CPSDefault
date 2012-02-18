@@ -17,34 +17,46 @@ from urllib import urlencode
 if REQUEST is not None:
     kw.update(REQUEST.form)
 
+# BBB: in ancient CPS (at least before 3.4), this script used to be called
+# with title argument. It still can happen although unprobable (especially
+# unprobable with CPS Document types)
+title = kw.get('title', '')
+args = {'type_name': type_name}
+
+from Products.CMFCore.utils import getToolByName
+ti = getToolByName(context, 'portal_types').getTypeInfo(type_name)
+create_form = ti.queryMethodID('create_form')
+
+def create_form_redirect():
+    return REQUEST.RESPONSE.redirect('%s/%s?%s'% (
+            context.absolute_url_path(), create_form, urlencode(args)))
+
+if REQUEST is not None:
     # Specific handling for portal_types of the CPSDocument family
-    from Products.CMFCore.utils import getToolByName
-    ti = getToolByName(context, 'portal_types').getTypeInfo(type_name)
     if ti.meta_type in ('CPS Flexible Type Information',
                         'Capsule Type Information'):
-        args = {'type_name': type_name}
         # Passing a prefilled title (which is a bit of a hack) so
         # the title widget will be set with the given title in the CPSDocument
         # creation form.
-        args['widget__Title'] = kw.get('title', '')
-
-        return REQUEST.RESPONSE.redirect('%s/content_create?%s'
-                                         % (context.absolute_url_path(),
-                                            urlencode(args)))
+        # GR: CPS Documents don't need this anymore, although prefilling
+        # can be useful in some cases.
+        if title:
+            args['widget__Title'] = title
+        if create_form is None:
+            create_form = 'cpsdocument_create_form'
+        return create_form_redirect()
+    elif create_form is not None:
+        # not a CPSDocument, but we'll redirect to appropriate form
+        if title is not None:
+            args['title'] = title
+        return create_form_redirect()
 
 # Specific handling for portal_types *not* of the CPSDocument family
-# (for example CPSWiki documents and CPS Calendar documents).
-#
-# TODO: Redirect to the equivalent of a creation form prefilled with the given
-# title so that the document is created with a corresponding title instead of a
-# default title.
-#
-# Using the type_name as id for the creation if no title is specified
-id = kw.get('title', type_name)
-# Normalization of the id
-id = context.computeId(compute_from=id)
-context.invokeFactory(type_name, id)
-ob = getattr(context, id)
+# (for example CPSWiki documents and CPS Calendar documents) and without
+# a "create_form" alias : the creation id on type_name if title not specified
+new_id = context.computeId(compute_from=title or type_name)
+context.invokeFactory(type_name, new_id)
+ob = getattr(context, new_id)
 
 try:
     doc = ob.getEditableContent()
@@ -69,9 +81,9 @@ evtool.notifyEvent('modify_object', ob, {})
 
 if REQUEST is not None:
     psm = 'psm_content_created'
-    action_path = doc.getTypeInfo().immediate_view # getActionById('metadata')
+    action_path = doc.getTypeInfo().immediate_view
     REQUEST.RESPONSE.redirect('%s/%s?portal_status_message=%s' %
                               (ob.absolute_url(), action_path,
                                psm))
 
-return id
+return new_id

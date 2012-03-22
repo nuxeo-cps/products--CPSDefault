@@ -1,10 +1,8 @@
-==============================================
-HOWTO switch an existing site to meta profiles
-==============================================
+===========================================================
+HOWTO use meta profiles and switch an existing site to them
+===========================================================
 
 :Author: Georges Racinet
-
-:Revision: $Id$
 
 .. sectnum::    :depth: 4
 .. contents::   :depth: 4
@@ -79,8 +77,8 @@ incrementally on your development instance, do the final testing
 after replaying the profiles and be pretty sure of the result on the
 production instance.
 
-Declaring meta profiles
-=======================
+Declaring and using meta profiles
+=================================
 
 Creating a factory
 ------------------
@@ -96,14 +94,55 @@ Replaying profiles
 ------------------
 
 register an External method with module
-```CPSDefault.replay_meta_profiles``` and function: ```replay````
+```CPSDefault.replay_meta_profiles``` and function: ```replay```
+Call it, and reindex the catalog, the portlets catalog and rebuild the
+tree caches.
 
-or use a cpsjob::
+A much better alternative is to use cpsjobs::
 
-  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u <user_id> <portal_id>
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u  <user_id> <portal_id>
+  bin/zopectl run Products/CPSDefault/jobs/resync.py -u <user_id> --all
 
 where ``user_id`` is the id of a user with Manager role on the
 portal. It can be either a toplevel Zope user or a CPS user.
+
+Using a cpsjob is better if you have console access to the server with
+enough rights, because you don't need any prior registration, you
+don't need any password which also means that it's easily included in
+deployment scripts, and it's better suited for long runs.
+
+cpsjobs must always be run on a shutdown ZEO client or monolithic instance.
+
+Why resync and how to do it faster
+----------------------------------
+
+Once the meta_profiles have been reloaded either by an external method
+or the first cpsjob above, it is really necessary to to reindex a few
+things, such as the catalog (used for all kind
+of searches, either user-driven or internal), the trees caches
+(used notably by navigation portlets) and the portlets catalog (used
+by the portlets lookup system).
+
+This is usually very long, and can become really impractical,
+especially the catalog part.
+
+In cases
+where you are sure there is no change in configuration of the catalog,
+you may use an exclude option on the replay job : excluding the
+catalog step allievates the need to resync the catalog::
+
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u <user_id> <portal_id> --exclude=catalog
+  bin/zopectl run Products/CPSDefault/jobs/resync.py -u <user_id>  --portlets-catalog --trees
+
+This is in most cases enough to make the length of the process
+acceptable.
+
+Similarly, you can exclude the ``trees`` step and get rid
+of the trees resynchronization (if no change in the *configuration* of
+trees cache is expected) and even the ``portlets`` to get rid of
+portlets catalog reindexing if no change in profiles managed portlets
+have been made. Run the ``resync`` job with ``--help`` to get the full
+list of options.
 
 
 Switching an existing instance to meta profiles

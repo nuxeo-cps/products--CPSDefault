@@ -100,11 +100,11 @@ register an External method with module
 
 or use a cpsjob::
 
-  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py  <portal_id>
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u <user_id> <portal_id>
 
-Warning: for the latter, either use the ```-u``` option so that the
-replaying is done with the normal ZMI administrator user, or enable
-the ```skip-ownership-checking``` in your zope.conf.
+where ``user_id`` is the id of a user with Manager role on the
+portal. It can be either a toplevel Zope user or a CPS user.
+
 
 Switching an existing instance to meta profiles
 ===============================================

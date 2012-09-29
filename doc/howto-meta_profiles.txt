@@ -1,10 +1,8 @@
-==============================================
-HOWTO switch an existing site to meta profiles
-==============================================
+===========================================================
+HOWTO use meta profiles and switch an existing site to them
+===========================================================
 
 :Author: Georges Racinet
-
-:Revision: $Id$
 
 .. sectnum::    :depth: 4
 .. contents::   :depth: 4
@@ -12,6 +10,13 @@ HOWTO switch an existing site to meta profiles
 
 What are meta profiles
 ======================
+
+Configuration of a CPS instance can get really complicated. Besides,
+in the typical instance, it is actually made of local changes or
+additions to the default configuration that ships with CPS standard
+products. This is a major source of complexity in long term
+maintainance, in which upgrading the default configuration is both
+required and desireable.
 
 Profiles
 --------
@@ -79,8 +84,8 @@ incrementally on your development instance, do the final testing
 after replaying the profiles and be pretty sure of the result on the
 production instance.
 
-Declaring meta profiles
-=======================
+Declaring and using meta profiles
+=================================
 
 Creating a factory
 ------------------
@@ -96,15 +101,56 @@ Replaying profiles
 ------------------
 
 register an External method with module
-```CPSDefault.replay_meta_profiles``` and function: ```replay````
+```CPSDefault.replay_meta_profiles``` and function: ```replay```
+Call it, and reindex the catalog, the portlets catalog and rebuild the
+tree caches.
 
-or use a cpsjob::
+A much better alternative is to use cpsjobs::
 
-  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py  <portal_id>
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u  <user_id> <portal_id>
+  bin/zopectl run Products/CPSDefault/jobs/resync.py -u <user_id> --all
 
-Warning: for the latter, either use the ```-u``` option so that the
-replaying is done with the normal ZMI administrator user, or enable
-the ```skip-ownership-checking``` in your zope.conf.
+where ``user_id`` is the id of a user with Manager role on the
+portal. It can be either a toplevel Zope user or a CPS user.
+
+Using a cpsjob is better if you have console access to the server with
+enough rights, because you don't need any prior registration, you
+don't need any password which also means that it's easily included in
+deployment scripts, and it's better suited for long runs.
+
+cpsjobs must always be run on a shutdown ZEO client or monolithic instance.
+
+Why resync and how to do it faster
+----------------------------------
+
+Once the meta_profiles have been reloaded either by an external method
+or the first cpsjob above, it is really necessary to to reindex a few
+things, such as the catalog (used for all kind
+of searches, either user-driven or internal), the trees caches
+(used notably by navigation portlets) and the portlets catalog (used
+by the portlets lookup system).
+
+This is usually very long, and can become really impractical,
+especially the catalog part.
+
+In cases
+where you are sure there is no change in configuration of the catalog,
+you may use an exclude option on the replay job : excluding the
+catalog step allievates the need to resync the catalog::
+
+  bin/zopectl run Products/CPSDefault/jobs/replaymetaprofiles.py -u <user_id> <portal_id> --exclude=catalog
+  bin/zopectl run Products/CPSDefault/jobs/resync.py -u <user_id>  --portlets-catalog --trees
+
+This is in most cases enough to make the length of the process
+acceptable.
+
+Similarly, you can exclude the ``trees`` step and get rid
+of the trees resynchronization (if no change in the *configuration* of
+trees cache is expected) and even the ``portlets`` to get rid of
+portlets catalog reindexing if no change in profiles managed portlets
+have been made. Run the ``resync`` job with ``--help`` to get the full
+list of options.
+
 
 Switching an existing instance to meta profiles
 ===============================================
@@ -147,6 +193,68 @@ Now you can replay the meta profiles ! Check that your configuration
 hasn't changed by performing snaphots before and after, and using the
 diff facility of ```portal_setup```. Most probably, you'll have to
 alter your most custom profile to achieve the wished result.
+Check the next section for big divergences.
+
+Fixing big configuration divergences
+====================================
+In this part we assume that your portal is managed through meta
+profiles, but that its configuration has diverged from what's in the
+meta profiles, and you want to resync. This is a cumbersome job, but
+it can be done.
+
+For the sake of example and clarity, we assume also that the meta
+profile is made of one profile in a custom product, on top of a bunch
+of CPS standard profiles.
+
+In case the goal is an upgrade
+of CPS generic products, we strongly advice to resynchronize before
+applying the upgrade (see the dedicated section of this document for
+the upgrade itself).
+
+In short, it's all about comparing what the meta profile does with the
+reality, in a wash/rinse/repeat sort of way.
+
+Preparations
+------------
+1. Work on a development instance. If you don't have one, it's about time to
+   make one.
+2. Make an export of the configuration, using the "export all steps"
+   button that's on the "Export steps" tab of ``portal_setup`` in
+   ZMI. You'll get a tarball.
+3. Unpack the tarball in a directory called ``saved_export`` and apply
+   the ``profiles_remove_irrelevant.sh``
+   script. (TODO provide this script). Indeed, the profiles export has a
+   few but repeated source of irrelevant changes, such as creation
+   dates for portlets.
+
+Incremental adjusting
+---------------------
+1. Replay the meta profiles on the development instance.
+2. Export all steps, unpack in a directory called ``current_export``,
+   and apply the cleaning script as above in there.
+3. Compare the two exports, by issuing
+   ``diff -ruw saved_export current_export``.
+4. Report the differences in you custom profile. You may decide to
+   discard some, just remember that it'll keep showing in diffs.
+   Sometimes you'll have to create the XML file in which the difference
+   sit in the custom profile. In that case, use the export as a
+   guideline (name/path of the file). Keep in mind that you should not
+   report all properties of XML elements, but rather the minimal path
+   in the XML tree to the value that is different or new. TODO give an
+   example with a widget property.
+5. Each time you have to interrupt, save your work (commit if you use
+   a VCS) and resume at step 1.
+
+In case there are several custom products/profiles, you of course have to
+decide how to dispatch the changes between them, according to the
+separation logic of these profiles.
+
+
+Upgrading generic products in meta profiles situation
+=====================================================
+
+
+
 
 .. Local Variables:
 .. mode: rst

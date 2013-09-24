@@ -38,7 +38,10 @@ if search_param in ('id', 'givenName', 'sn', 'email'):
 
 elif search_param == 'groupname':
     gdir  = context.portal_directories.groups
-    results = gdir.searchEntries(**{gdir.id_field: search_term})
+    try:
+        results = gdir.searchEntries(**{gdir.id_field: search_term})
+    except Unauthorized:
+        pass
     # XXX hardcoded but not GroupsDirectory's job
     pseudo_groups = ['role:Anonymous', 'role:Authenticated']
     if search_term == '*':

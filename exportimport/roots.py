@@ -27,6 +27,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import CONVERTER, DEFAULT, KEY
 from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import ObjectManagerHelpers
+from Products.GenericSetup.utils import PropertyManagerHelpers
 from Products.GenericSetup.utils import importObjects
 from Products.GenericSetup.utils import ImportConfiguratorBase
 
@@ -146,7 +147,8 @@ class RootsXMLAdapter(XMLAdapterBase):
                 importer.body = body
 
 
-class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
+class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers,
+                     PropertyManagerHelpers):
     """Import the subobjects of one root.
     """
     _LOGGER_ID = 'roots'
@@ -158,15 +160,18 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers):
         """Import the object from the DOM node.
         """
         if self.environ.shouldPurge():
+            self._purgeProperties()
             self._purgeRolemap()
             self._purgeConfigurationObjects()
         self._initRolemap(node)
         self._initI18nTitles(node)
+        self._initProperties(node)
         self._initObjects(node)
         self._logger.info("%s imported." % self.context.getId())
 
     def _exportNode(self):
         node = self._getObjectNode('object')
+        node.appendChild(self._extractProperties())
         node.appendChild(self._extractObjects())
         return node
 

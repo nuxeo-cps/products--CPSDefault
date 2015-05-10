@@ -204,6 +204,7 @@ class RootXMLAdapter(XMLAdapterBase, ObjectManagerHelpers,
             attribute_name = str(child.getAttribute('name'))
             if attribute_name not in wanted_attributes:
                 continue
+            node.removeChild(child)  # Don't interfere with normal props  
             field_id = attribute_name.split('_', 1)[0].capitalize()
             msgid = self._getNodeText(child)
             existing_langs = proxy.getLanguageRevisions().keys()
